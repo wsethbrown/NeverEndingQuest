@@ -700,31 +700,41 @@ def get_ai_response(conversation_history):
     return response.choices[0].message.content.strip()
 
 def ensure_main_system_prompt(conversation_history, main_system_prompt_text):
-    conversation_history = [msg for msg in conversation_history if not (msg["role"] == "system" and msg["content"] == main_system_prompt_text)]
-    return [{"role": "system", "content": main_system_prompt_text}] + conversation_history
+    # Remove all existing system prompts that appear to be the main system prompt
+    # We'll identify the main system prompt by checking if it starts with the first few words
+    # of the actual system prompt content
+    main_prompt_start = main_system_prompt_text[:50]  # First 50 characters as identifier
+    
+    # Filter out any system message that starts with our identifier
+    filtered_history = []
+    for msg in conversation_history:
+        if msg["role"] == "system" and msg["content"].startswith(main_prompt_start):
+            continue  # Skip this message as it's likely our main system prompt
+        filtered_history.append(msg)
+    
+    # Always place the main system prompt at the beginning
+    return [{"role": "system", "content": main_system_prompt_text}] + filtered_history
 
 def main_game_loop():
     global needs_conversation_history_update
 
-    validation_prompt_text = load_validation_prompt() # Renamed variable
+    validation_prompt_text = load_validation_prompt() 
 
     with open("system_prompt.txt", "r") as file:
-        main_system_prompt_text = file.read() # Renamed variable
+        main_system_prompt_text = file.read() 
 
     conversation_history = load_json_file(json_file) or []
     party_tracker_data = load_json_file("party_tracker.json")
     
-    # Initial location_data load
     current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
-    location_data = get_location_info(
+    location_data = get_location_info( 
         party_tracker_data["worldConditions"]["currentLocation"],
         party_tracker_data["worldConditions"]["currentArea"],
         current_area_id
     )
 
     plot_data = load_json_file(f"plot_{current_area_id}.json")
-    # map_data is loaded within update_conversation_history, no need to load here unless used directly before that
-
+    
     campaign_name = party_tracker_data.get("campaign", "").replace(" ", "_")
     campaign_data = load_json_file(f"{campaign_name}_campaign.json")
 
@@ -732,14 +742,32 @@ def main_game_loop():
     conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data)
     conversation_history = update_character_data(conversation_history, party_tracker_data)
 
-    system_prompts = [msg for msg in conversation_history if msg["role"] == "system"]
-    non_system_messages = [msg for msg in conversation_history if msg["role"] != "system"]
-    conversation_history = system_prompts + non_system_messages
+    # Ensure the main system prompt is first, followed by other system prompts
+    main_prompt = None
+    other_system_prompts = []
+    non_system_messages = []
+
+    for msg in conversation_history:
+        if msg["role"] == "system":
+            if msg["content"].startswith(main_system_prompt_text[:50]):
+                main_prompt = msg
+            else:
+                other_system_prompts.append(msg)
+        else:
+            non_system_messages.append(msg)
+
+    # Reconstruct with proper order: main system prompt, other system prompts, then conversation
+    conversation_history = []
+    if main_prompt:
+        conversation_history.append(main_prompt)
+    conversation_history.extend(other_system_prompts)
+    conversation_history.extend(non_system_messages)
 
     save_conversation_history(conversation_history)
 
     initial_ai_response = get_ai_response(conversation_history)
-    process_ai_response(initial_ai_response, party_tracker_data, location_data, conversation_history)
+    # Ensure location_data passed here is the one loaded for the initial state
+    process_ai_response(initial_ai_response, party_tracker_data, location_data, conversation_history) 
 
     while True:
         conversation_history = truncate_dm_notes(conversation_history)
@@ -768,7 +796,7 @@ def main_game_loop():
         else:
             user_input_text = input("User: ")
 
-        party_tracker_data = load_json_file("party_tracker.json") # Reload fresh party tracker
+        party_tracker_data = load_json_file("party_tracker.json") 
 
         party_members_stats = []
         for member_name_iter in party_tracker_data["partyMembers"]:
@@ -776,7 +804,7 @@ def main_game_loop():
             member_data_iter = load_json_file(member_file_path)
             if member_data_iter:
                 stats = {
-                    "name": member_name_iter.capitalize(), # Use original casing for display
+                    "name": member_name_iter.capitalize(), 
                     "level": member_data_iter.get("level", "N/A"),
                     "xp": member_data_iter.get("experience_points", "N/A"),
                     "hp": member_data_iter.get("hitPoints", "N/A"),
@@ -790,7 +818,7 @@ def main_game_loop():
             npc_data_iter = load_json_file(npc_data_file)
             if npc_data_iter:
                 stats = {
-                    "name": npc_info_iter["name"], # Use original casing for display
+                    "name": npc_info_iter["name"], 
                     "level": npc_data_iter.get("level", npc_info_iter.get("level", "N/A")),
                     "xp": npc_data_iter.get("experience_points", "N/A"),
                     "hp": npc_data_iter.get("hitPoints", "N/A"),
@@ -799,8 +827,9 @@ def main_game_loop():
                 party_members_stats.append(stats)
         
         # Reload current location_data for the DM note based on party_tracker
-        current_area_id = party_tracker_data["worldConditions"]["currentAreaId"] # Get updated area ID
-        location_data = get_location_info( # This is the variable that will be passed to process_ai_response
+        # This ensures location_data is fresh for each DM note construction
+        current_area_id = party_tracker_data["worldConditions"]["currentAreaId"] 
+        location_data = get_location_info( 
             party_tracker_data["worldConditions"]["currentLocation"],
             party_tracker_data["worldConditions"]["currentArea"],
             current_area_id
@@ -822,7 +851,47 @@ def main_game_loop():
             current_location_name_note = world_conditions["currentLocation"]
             current_location_id_note = world_conditions["currentLocationId"]
             
-            plot_data_for_note = load_json_file(f"plot_{current_area_id}.json") # Use current_area_id
+            # --- START OF NEW/MODIFIED SECTION FOR CONNECTIVITY ---
+            connected_locations_display_str = "None listed"
+            connected_areas_display_str = "" # Initialize as empty
+
+            if location_data: # Ensure location_data is not None
+                # Get connections within the current area
+                if "connectivity" in location_data and location_data["connectivity"]:
+                    connected_ids_current_area = location_data["connectivity"]
+                    connected_names_current_area = []
+                    # Load the current area's full data to get names from IDs
+                    current_area_full_data = load_json_file(f"{current_area_id}.json")
+                    if current_area_full_data and "locations" in current_area_full_data:
+                        for loc_id in connected_ids_current_area:
+                            found_loc = next((l["name"] for l in current_area_full_data["locations"] if l["locationId"] == loc_id), loc_id)
+                            connected_names_current_area.append(found_loc)
+                    if connected_names_current_area:
+                         connected_locations_display_str = ", ".join(connected_names_current_area)
+                
+                # Get connections to other areas
+                if "areaConnectivity" in location_data and location_data["areaConnectivity"]:
+                    area_names = location_data.get("areaConnectivity", [])
+                    area_ids = location_data.get("areaConnectivityId", [])
+                    area_connections_formatted = []
+                    for i, name in enumerate(area_names):
+                        conn_id = area_ids[i] if i < len(area_ids) else "Unknown ID"
+                        # To get the *target location name* in the new area, we'd need to load that area's map/location file.
+                        # For simplicity in the DM note, we can list the target area and its ID.
+                        # The actual target location name for transition is handled by AI/transition logic.
+                        # For now, let's just make it clear it's an area transition.
+                        # If the AI needs the *specific entry point name* of the new area, this could be complex here.
+                        # The AI's transitionLocation action should specify the newLocation name/ID based on map data.
+                        # Here, we list the *area* it connects to.
+                        # The `newLocation` parameter in `transitionLocation` will be the target room name/ID.
+                        # The `areaConnectivity` field in location data usually lists *target room names* in the new area.
+                        area_connections_formatted.append(f"{name} (via Area ID: {conn_id})")
+                    
+                    if area_connections_formatted:
+                        connected_areas_display_str = ". Connects to new areas: " + ", ".join(area_connections_formatted)
+            # --- END OF NEW/MODIFIED SECTION FOR CONNECTIVITY ---
+            
+            plot_data_for_note = load_json_file(f"plot_{current_area_id}.json") 
             current_plot_points = []
             if plot_data_for_note and "plotPoints" in plot_data_for_note:
                  current_plot_points = [
@@ -839,7 +908,7 @@ def main_game_loop():
             side_quests_str = "\n".join(side_quests)
 
             traps_str = "None listed"
-            if location_data and "traps" in location_data: # Use the reloaded location_data
+            if location_data and "traps" in location_data: 
                 traps = location_data.get("traps", [])
                 if traps:
                     traps_str = "\n".join([
@@ -848,8 +917,11 @@ def main_game_loop():
                     ])
 
             dm_note = (f"Dungeon Master Note: Current date and time: {date_time_str}. "
-                f"Party stats: {party_stats_str}. " # Simplified party stats string
+                f"Party stats: {party_stats_str}. "
                 f"Current location: {current_location_name_note} ({current_location_id_note}). "
+                # --- MODIFIED LINE TO INCLUDE CONNECTIVITY ---
+                f"Adjacent locations in this area: {connected_locations_display_str}{connected_areas_display_str}.\n"
+                # --- END OF MODIFIED LINE ---
                 f"Active plot points for this location:\n{plot_points_str}\n"
                 f"Active side quests for this location:\n{side_quests_str}\n"
                 f"Traps in this location:\n{traps_str}\n"
@@ -875,8 +947,8 @@ def main_game_loop():
         save_conversation_history(conversation_history)
 
         retry_count = 0
-        valid_response_received = False # Renamed for clarity
-        ai_response_content = None # To store the AI response content
+        valid_response_received = False 
+        ai_response_content = None 
 
         while retry_count < 5 and not valid_response_received:
             ai_response_content = get_ai_response(conversation_history)
@@ -884,7 +956,8 @@ def main_game_loop():
             if validation_result is True:
                 valid_response_received = True
                 print(f"DEBUG: Valid response generated on attempt {retry_count + 1}")
-                result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history) # Pass current location_data
+                # Pass the same location_data that was used for the DM note construction
+                result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history) 
                 if result == "exit":
                     return
             elif isinstance(validation_result, str):
@@ -895,31 +968,24 @@ def main_game_loop():
                     "content": f"Error Note: Your previous response failed validation. Reason: {validation_result}. Please adjust your response accordingly."
                 })
                 retry_count += 1
-            else: # Should not happen if validate_ai_response returns True or string
+            else: 
                 print(f"DEBUG: Unexpected validation result: {validation_result}. Assuming invalid and retrying.")
                 retry_count += 1
 
 
         if not valid_response_received:
             print("Failed to generate a valid response after 5 attempts. Proceeding with the last generated response.")
-            if ai_response_content: # Ensure ai_response_content is not None
-                result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history) # Pass current location_data
+            if ai_response_content: 
+                result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history) 
                 if result == "exit":
                     return
             else:
                 print("ERROR: No AI response was generated after retries.")
-                # Potentially add a default action or error handling here
-                # For now, we might just loop again or exit, depending on desired behavior.
-                # Let's add a simple continuation to allow the player to try again.
                 conversation_history.append({"role": "assistant", "content": "I seem to be having trouble formulating a response. Could you try rephrasing your action or query?"})
                 save_conversation_history(conversation_history)
 
 
-        # Reload data and update system prompts for next iteration
-        # party_tracker_data is reloaded at the start of player input section
-        # location_data is reloaded before DM note construction
-        # plot_data and campaign_data are reloaded here for system prompt updates
-        current_area_id = party_tracker_data["worldConditions"]["currentAreaId"] # Ensure using latest
+        current_area_id = party_tracker_data["worldConditions"]["currentAreaId"] 
         plot_data = load_json_file(f"plot_{current_area_id}.json")
         campaign_name_updated = party_tracker_data.get("campaign", "").replace(" ", "_")
         campaign_data = load_json_file(f"{campaign_name_updated}_campaign.json")
@@ -927,6 +993,28 @@ def main_game_loop():
         conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data)
         conversation_history = update_character_data(conversation_history, party_tracker_data)
         conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
+        
+        # Re-apply the ordering logic here too
+        main_prompt = None
+        other_system_prompts = []
+        non_system_messages = []
+
+        for msg in conversation_history:
+            if msg["role"] == "system":
+                if msg["content"].startswith(main_system_prompt_text[:50]):
+                    main_prompt = msg
+                else:
+                    other_system_prompts.append(msg)
+            else:
+                non_system_messages.append(msg)
+
+        # Reconstruct with proper order
+        conversation_history = []
+        if main_prompt:
+            conversation_history.append(main_prompt)
+        conversation_history.extend(other_system_prompts)
+        conversation_history.extend(non_system_messages)
+        
         save_conversation_history(conversation_history)
 
 if __name__ == "__main__":

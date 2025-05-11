@@ -8005,3 +8005,1308 @@ DEBUG:root:Saving encounter data: {
 INFO:root:Encounter successfully built and saved to encounter_R14-E1.json
 DEBUG:root:Successfully loaded JSON from party_tracker.json
 INFO:root:Party tracker updated with new combat encounter ID: R14-E1
+DEBUG:root:Starting combat encounter creation
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+DEBUG:root:Successfully loaded JSON from EM001.json
+DEBUG:root:Attempting to load player data from norn.json
+DEBUG:root:Backed up player file to norn.json.bak
+DEBUG:root:Successfully loaded JSON from norn.json
+DEBUG:root:Loaded player data: {
+  "character_type": "player",
+  "name": "Norn",
+  "type": "player",
+  "level": 4,
+  "race": "Human",
+  "class": "Fighter",
+  "alignment": "lawful good",
+  "background": "Soldier",
+  "status": "alive",
+  "condition": "none",
+  "condition_affected": [],
+  "hitPoints": 36,
+  "maxHitPoints": 36,
+  "armorClass": 16,
+  "initiative": 2,
+  "speed": 30,
+  "abilities": {
+    "strength": 17,
+    "dexterity": 14,
+    "constitution": 16,
+    "intelligence": 11,
+    "wisdom": 13,
+    "charisma": 9
+  },
+  "savingThrows": [
+    "Strength",
+    "Constitution"
+  ],
+  "skills": {
+    "Athletics": 5,
+    "Insight": 3,
+    "Intimidation": 1,
+    "Survival": 3
+  },
+  "proficiencyBonus": 2,
+  "senses": {
+    "passivePerception": 11
+  },
+  "languages": [
+    "Common"
+  ],
+  "proficiencies": {
+    "armor": [
+      "Light armor",
+      "Medium armor",
+      "Heavy armor",
+      "Shields"
+    ],
+    "weapons": [
+      "Simple weapons",
+      "Martial weapons"
+    ],
+    "tools": []
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "features": [
+    "Fighting Style: Defense",
+    "Second Wind",
+    "Action Surge",
+    "Improved Critical",
+    "Martial Archetype: Champion"
+  ],
+  "specialAbilities": [],
+  "classFeatures": [
+    {
+      "name": "Fighting Style: Defense",
+      "description": "+1 to AC when wearing armor"
+    },
+    {
+      "name": "Second Wind",
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action"
+    },
+    {
+      "name": "Action Surge",
+      "description": "Once per short rest, take one additional action on your turn"
+    },
+    {
+      "name": "Improved Critical",
+      "description": "Your weapon attacks score a critical hit on a roll of 19 or 20"
+    }
+  ],
+  "equipment": [
+    {
+      "item_name": "Worn Journal",
+      "item_type": "miscellaneous",
+      "description": "Contains important information regarding the Elemental Forge and potential clues for the lock's puzzle.",
+      "quantity": 1
+    }
+  ],
+  "ammunition": [
+    {
+      "name": "Arrows",
+      "quantity": 13,
+      "description": "Standard arrows for a bow"
+    }
+  ],
+  "attacksAndSpellcasting": [
+    {
+      "name": "Longsword",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "slashing",
+      "type": "melee",
+      "description": "Standard longsword"
+    },
+    {
+      "name": "Crude Dagger",
+      "attackBonus": 5,
+      "damageDice": "1d4",
+      "damageBonus": 3,
+      "damageType": "piercing",
+      "type": "melee",
+      "description": "A crude dagger"
+    },
+    {
+      "name": "Sturdy Bow",
+      "attackBonus": 4,
+      "damageDice": "1d6",
+      "damageBonus": 2,
+      "damageType": "piercing",
+      "type": "ranged",
+      "description": "A sturdy bow for ranged attacks"
+    },
+    {
+      "name": "Greatclub",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "bludgeoning",
+      "type": "melee",
+      "description": "A large, heavy club"
+    }
+  ],
+  "spellcasting": {
+    "ability": "",
+    "spellSaveDC": 0,
+    "spellAttackBonus": 0,
+    "spells": {
+      "cantrips": [],
+      "level1": [],
+      "level2": [],
+      "level3": [],
+      "level4": [],
+      "level5": [],
+      "level6": [],
+      "level7": [],
+      "level8": [],
+      "level9": []
+    }
+  },
+  "currency": {
+    "gold": 0,
+    "silver": 0,
+    "copper": 0
+  },
+  "experience_points": 4248,
+  "exp_required_for_next_level": 6500,
+  "challengeRating": 0,
+  "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
+  "ideals": "Responsibility. I do what I must and obey just authority.",
+  "bonds": "I fight for those who cannot fight for themselves.",
+  "flaws": "I have a hard time hiding my true feelings. My sharp tongue often gets me into trouble."
+}
+DEBUG:root:Successfully loaded JSON from stone_guardian.json
+DEBUG:root:Successfully loaded JSON from gilly.json
+DEBUG:root:Successfully loaded JSON from elara.json
+DEBUG:root:Successfully loaded JSON from thalor.json
+DEBUG:root:Saving encounter data: {
+  "encounterId": "R14-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 1,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 36,
+      "maxHitPoints": 36,
+      "armorClass": 16
+    },
+    {
+      "name": "Stone Guardian",
+      "type": "enemy",
+      "monsterType": "stone_guardian",
+      "initiative": 11,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 52,
+      "maxHitPoints": 52
+    },
+    {
+      "name": "Gilly",
+      "type": "npc",
+      "npcType": "gilly",
+      "initiative": 19,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 31,
+      "maxHitPoints": 31,
+      "armorClass": 15
+    },
+    {
+      "name": "Elara",
+      "type": "npc",
+      "npcType": "elara",
+      "initiative": 2,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 22,
+      "maxHitPoints": 22,
+      "armorClass": 15
+    },
+    {
+      "name": "Thalor",
+      "type": "npc",
+      "npcType": "thalor",
+      "initiative": 20,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 24,
+      "maxHitPoints": 24,
+      "armorClass": 16
+    }
+  ],
+  "encounterSummary": "The party has successfully solved the puzzle on the ancient door, summoning the Stone Guardian who demands the dwarven password."
+}
+INFO:root:Encounter successfully built and saved to encounter_R14-E1.json
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+INFO:root:Party tracker updated with new combat encounter ID: R14-E1
+DEBUG:root:Starting combat encounter creation
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+DEBUG:root:Successfully loaded JSON from EM001.json
+DEBUG:root:Attempting to load player data from norn.json
+DEBUG:root:Backed up player file to norn.json.bak
+DEBUG:root:Successfully loaded JSON from norn.json
+DEBUG:root:Loaded player data: {
+  "character_type": "player",
+  "name": "Norn",
+  "type": "player",
+  "level": 4,
+  "race": "Human",
+  "class": "Fighter",
+  "alignment": "lawful good",
+  "background": "Soldier",
+  "status": "alive",
+  "condition": "none",
+  "condition_affected": [],
+  "hitPoints": 36,
+  "maxHitPoints": 36,
+  "armorClass": 16,
+  "initiative": 2,
+  "speed": 30,
+  "abilities": {
+    "strength": 17,
+    "dexterity": 14,
+    "constitution": 16,
+    "intelligence": 11,
+    "wisdom": 13,
+    "charisma": 9
+  },
+  "savingThrows": [
+    "Strength",
+    "Constitution"
+  ],
+  "skills": {
+    "Athletics": 5,
+    "Insight": 3,
+    "Intimidation": 1,
+    "Survival": 3
+  },
+  "proficiencyBonus": 2,
+  "senses": {
+    "passivePerception": 11
+  },
+  "languages": [
+    "Common"
+  ],
+  "proficiencies": {
+    "armor": [
+      "Light armor",
+      "Medium armor",
+      "Heavy armor",
+      "Shields"
+    ],
+    "weapons": [
+      "Simple weapons",
+      "Martial weapons"
+    ],
+    "tools": []
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "features": [
+    "Fighting Style: Defense",
+    "Second Wind",
+    "Action Surge",
+    "Improved Critical",
+    "Martial Archetype: Champion"
+  ],
+  "specialAbilities": [],
+  "classFeatures": [
+    {
+      "name": "Fighting Style: Defense",
+      "description": "+1 to AC when wearing armor"
+    },
+    {
+      "name": "Second Wind",
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action"
+    },
+    {
+      "name": "Action Surge",
+      "description": "Once per short rest, take one additional action on your turn"
+    },
+    {
+      "name": "Improved Critical",
+      "description": "Your weapon attacks score a critical hit on a roll of 19 or 20"
+    }
+  ],
+  "equipment": [
+    {
+      "item_name": "Worn Journal",
+      "item_type": "miscellaneous",
+      "description": "Contains important information regarding the Elemental Forge and potential clues for the lock's puzzle.",
+      "quantity": 1
+    }
+  ],
+  "ammunition": [
+    {
+      "name": "Arrows",
+      "quantity": 13,
+      "description": "Standard arrows for a bow"
+    }
+  ],
+  "attacksAndSpellcasting": [
+    {
+      "name": "Longsword",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "slashing",
+      "type": "melee",
+      "description": "Standard longsword"
+    },
+    {
+      "name": "Crude Dagger",
+      "attackBonus": 5,
+      "damageDice": "1d4",
+      "damageBonus": 3,
+      "damageType": "piercing",
+      "type": "melee",
+      "description": "A crude dagger"
+    },
+    {
+      "name": "Sturdy Bow",
+      "attackBonus": 4,
+      "damageDice": "1d6",
+      "damageBonus": 2,
+      "damageType": "piercing",
+      "type": "ranged",
+      "description": "A sturdy bow for ranged attacks"
+    },
+    {
+      "name": "Greatclub",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "bludgeoning",
+      "type": "melee",
+      "description": "A large, heavy club"
+    }
+  ],
+  "spellcasting": {
+    "ability": "",
+    "spellSaveDC": 0,
+    "spellAttackBonus": 0,
+    "spells": {
+      "cantrips": [],
+      "level1": [],
+      "level2": [],
+      "level3": [],
+      "level4": [],
+      "level5": [],
+      "level6": [],
+      "level7": [],
+      "level8": [],
+      "level9": []
+    }
+  },
+  "currency": {
+    "gold": 0,
+    "silver": 0,
+    "copper": 0
+  },
+  "experience_points": 4248,
+  "exp_required_for_next_level": 6500,
+  "challengeRating": 0,
+  "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
+  "ideals": "Responsibility. I do what I must and obey just authority.",
+  "bonds": "I fight for those who cannot fight for themselves.",
+  "flaws": "I have a hard time hiding my true feelings. My sharp tongue often gets me into trouble."
+}
+DEBUG:root:Successfully loaded JSON from stone_guardian.json
+DEBUG:root:Successfully loaded JSON from gilly.json
+DEBUG:root:Successfully loaded JSON from elara.json
+DEBUG:root:Successfully loaded JSON from thalor.json
+DEBUG:root:Saving encounter data: {
+  "encounterId": "R14-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 19,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 36,
+      "maxHitPoints": 36,
+      "armorClass": 16
+    },
+    {
+      "name": "Stone Guardian",
+      "type": "enemy",
+      "monsterType": "stone_guardian",
+      "initiative": 20,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 52,
+      "maxHitPoints": 52
+    },
+    {
+      "name": "Gilly",
+      "type": "npc",
+      "npcType": "gilly",
+      "initiative": 10,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 31,
+      "maxHitPoints": 31,
+      "armorClass": 15
+    },
+    {
+      "name": "Elara",
+      "type": "npc",
+      "npcType": "elara",
+      "initiative": 3,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 22,
+      "maxHitPoints": 22,
+      "armorClass": 15
+    },
+    {
+      "name": "Thalor",
+      "type": "npc",
+      "npcType": "thalor",
+      "initiative": 9,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 24,
+      "maxHitPoints": 24,
+      "armorClass": 16
+    }
+  ],
+  "encounterSummary": "The party has solved the dwarven puzzle, summoning the Stone Guardian who demands the correct password to allow entry."
+}
+INFO:root:Encounter successfully built and saved to encounter_R14-E1.json
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+INFO:root:Party tracker updated with new combat encounter ID: R14-E1
+DEBUG:root:Starting combat encounter creation
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+DEBUG:root:Successfully loaded JSON from EM001.json
+DEBUG:root:Attempting to load player data from norn.json
+DEBUG:root:Backed up player file to norn.json.bak
+DEBUG:root:Successfully loaded JSON from norn.json
+DEBUG:root:Loaded player data: {
+  "character_type": "player",
+  "name": "Norn",
+  "type": "player",
+  "level": 4,
+  "race": "Human",
+  "class": "Fighter",
+  "alignment": "lawful good",
+  "background": "Soldier",
+  "status": "alive",
+  "condition": "none",
+  "condition_affected": [],
+  "hitPoints": 25,
+  "maxHitPoints": 36,
+  "armorClass": 16,
+  "initiative": 2,
+  "speed": 30,
+  "abilities": {
+    "strength": 17,
+    "dexterity": 14,
+    "constitution": 16,
+    "intelligence": 11,
+    "wisdom": 13,
+    "charisma": 9
+  },
+  "savingThrows": [
+    "Strength",
+    "Constitution"
+  ],
+  "skills": {
+    "Athletics": 5,
+    "Insight": 3,
+    "Intimidation": 1,
+    "Survival": 3
+  },
+  "proficiencyBonus": 2,
+  "senses": {
+    "passivePerception": 11
+  },
+  "languages": [
+    "Common"
+  ],
+  "proficiencies": {
+    "armor": [
+      "Light armor",
+      "Medium armor",
+      "Heavy armor",
+      "Shields"
+    ],
+    "weapons": [
+      "Simple weapons",
+      "Martial weapons"
+    ],
+    "tools": []
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "features": [
+    "Fighting Style: Defense",
+    "Second Wind",
+    "Action Surge",
+    "Improved Critical",
+    "Martial Archetype: Champion"
+  ],
+  "specialAbilities": [],
+  "classFeatures": [
+    {
+      "name": "Fighting Style: Defense",
+      "description": "+1 to AC when wearing armor"
+    },
+    {
+      "name": "Second Wind",
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action"
+    },
+    {
+      "name": "Action Surge",
+      "description": "Once per short rest, take one additional action on your turn"
+    },
+    {
+      "name": "Improved Critical",
+      "description": "Your weapon attacks score a critical hit on a roll of 19 or 20"
+    }
+  ],
+  "equipment": [
+    {
+      "item_name": "Worn Journal",
+      "item_type": "miscellaneous",
+      "description": "Contains important information regarding the Elemental Forge and potential clues for the lock's puzzle.",
+      "quantity": 1
+    }
+  ],
+  "ammunition": [
+    {
+      "name": "Arrows",
+      "quantity": 13,
+      "description": "Standard arrows for a bow"
+    }
+  ],
+  "attacksAndSpellcasting": [
+    {
+      "name": "Longsword",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "slashing",
+      "type": "melee",
+      "description": "Standard longsword"
+    },
+    {
+      "name": "Crude Dagger",
+      "attackBonus": 5,
+      "damageDice": "1d4",
+      "damageBonus": 3,
+      "damageType": "piercing",
+      "type": "melee",
+      "description": "A crude dagger"
+    },
+    {
+      "name": "Sturdy Bow",
+      "attackBonus": 4,
+      "damageDice": "1d6",
+      "damageBonus": 2,
+      "damageType": "piercing",
+      "type": "ranged",
+      "description": "A sturdy bow for ranged attacks"
+    },
+    {
+      "name": "Greatclub",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "bludgeoning",
+      "type": "melee",
+      "description": "A large, heavy club"
+    }
+  ],
+  "spellcasting": {
+    "ability": "",
+    "spellSaveDC": 0,
+    "spellAttackBonus": 0,
+    "spells": {
+      "cantrips": [],
+      "level1": [],
+      "level2": [],
+      "level3": [],
+      "level4": [],
+      "level5": [],
+      "level6": [],
+      "level7": [],
+      "level8": [],
+      "level9": []
+    }
+  },
+  "currency": {
+    "gold": 0,
+    "silver": 0,
+    "copper": 0
+  },
+  "experience_points": 4248,
+  "exp_required_for_next_level": 6500,
+  "challengeRating": 0,
+  "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
+  "ideals": "Responsibility. I do what I must and obey just authority.",
+  "bonds": "I fight for those who cannot fight for themselves.",
+  "flaws": "I have a hard time hiding my true feelings. My sharp tongue often gets me into trouble."
+}
+DEBUG:root:Successfully loaded JSON from stone_guardian.json
+DEBUG:root:Successfully loaded JSON from gilly.json
+DEBUG:root:Successfully loaded JSON from elara.json
+DEBUG:root:Successfully loaded JSON from thalor.json
+DEBUG:root:Saving encounter data: {
+  "encounterId": "R14-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 4,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 25,
+      "maxHitPoints": 36,
+      "armorClass": 16
+    },
+    {
+      "name": "Stone Guardian",
+      "type": "enemy",
+      "monsterType": "stone_guardian",
+      "initiative": 13,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 52,
+      "maxHitPoints": 52
+    },
+    {
+      "name": "Gilly",
+      "type": "npc",
+      "npcType": "gilly",
+      "initiative": 3,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 24,
+      "maxHitPoints": 24,
+      "armorClass": 15
+    },
+    {
+      "name": "Elara",
+      "type": "npc",
+      "npcType": "elara",
+      "initiative": 13,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 22,
+      "maxHitPoints": 22,
+      "armorClass": 15
+    },
+    {
+      "name": "Thalor",
+      "type": "npc",
+      "npcType": "thalor",
+      "initiative": 4,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 24,
+      "maxHitPoints": 24,
+      "armorClass": 16
+    }
+  ],
+  "encounterSummary": "The party has solved the dwarven puzzle and awakened the Stone Guardian, who demands the password to allow entry."
+}
+INFO:root:Encounter successfully built and saved to encounter_R14-E1.json
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+INFO:root:Party tracker updated with new combat encounter ID: R14-E1
+DEBUG:root:Starting combat encounter creation
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+DEBUG:root:Successfully loaded JSON from EM001.json
+DEBUG:root:Attempting to load player data from norn.json
+DEBUG:root:Backed up player file to norn.json.bak
+DEBUG:root:Successfully loaded JSON from norn.json
+DEBUG:root:Loaded player data: {
+  "character_type": "player",
+  "name": "Norn",
+  "type": "player",
+  "level": 4,
+  "race": "Human",
+  "class": "Fighter",
+  "alignment": "lawful good",
+  "background": "Soldier",
+  "status": "alive",
+  "condition": "none",
+  "condition_affected": [],
+  "hitPoints": 25,
+  "maxHitPoints": 36,
+  "armorClass": 16,
+  "initiative": 2,
+  "speed": 30,
+  "abilities": {
+    "strength": 17,
+    "dexterity": 14,
+    "constitution": 16,
+    "intelligence": 11,
+    "wisdom": 13,
+    "charisma": 9
+  },
+  "savingThrows": [
+    "Strength",
+    "Constitution"
+  ],
+  "skills": {
+    "Athletics": 5,
+    "Insight": 3,
+    "Intimidation": 1,
+    "Survival": 3
+  },
+  "proficiencyBonus": 2,
+  "senses": {
+    "passivePerception": 11
+  },
+  "languages": [
+    "Common"
+  ],
+  "proficiencies": {
+    "armor": [
+      "Light armor",
+      "Medium armor",
+      "Heavy armor",
+      "Shields"
+    ],
+    "weapons": [
+      "Simple weapons",
+      "Martial weapons"
+    ],
+    "tools": []
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "features": [
+    "Fighting Style: Defense",
+    "Second Wind",
+    "Action Surge",
+    "Improved Critical",
+    "Martial Archetype: Champion"
+  ],
+  "specialAbilities": [],
+  "classFeatures": [
+    {
+      "name": "Fighting Style: Defense",
+      "description": "+1 to AC when wearing armor"
+    },
+    {
+      "name": "Second Wind",
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action"
+    },
+    {
+      "name": "Action Surge",
+      "description": "Once per short rest, take one additional action on your turn"
+    },
+    {
+      "name": "Improved Critical",
+      "description": "Your weapon attacks score a critical hit on a roll of 19 or 20"
+    }
+  ],
+  "equipment": [
+    {
+      "item_name": "Worn Journal",
+      "item_type": "miscellaneous",
+      "description": "Contains important information regarding the Elemental Forge and potential clues for the lock's puzzle.",
+      "quantity": 1
+    }
+  ],
+  "ammunition": [
+    {
+      "name": "Arrows",
+      "quantity": 13,
+      "description": "Standard arrows for a bow"
+    }
+  ],
+  "attacksAndSpellcasting": [
+    {
+      "name": "Longsword",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "slashing",
+      "type": "melee",
+      "description": "Standard longsword"
+    },
+    {
+      "name": "Crude Dagger",
+      "attackBonus": 5,
+      "damageDice": "1d4",
+      "damageBonus": 3,
+      "damageType": "piercing",
+      "type": "melee",
+      "description": "A crude dagger"
+    },
+    {
+      "name": "Sturdy Bow",
+      "attackBonus": 4,
+      "damageDice": "1d6",
+      "damageBonus": 2,
+      "damageType": "piercing",
+      "type": "ranged",
+      "description": "A sturdy bow for ranged attacks"
+    },
+    {
+      "name": "Greatclub",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "bludgeoning",
+      "type": "melee",
+      "description": "A large, heavy club"
+    }
+  ],
+  "spellcasting": {
+    "ability": "",
+    "spellSaveDC": 0,
+    "spellAttackBonus": 0,
+    "spells": {
+      "cantrips": [],
+      "level1": [],
+      "level2": [],
+      "level3": [],
+      "level4": [],
+      "level5": [],
+      "level6": [],
+      "level7": [],
+      "level8": [],
+      "level9": []
+    }
+  },
+  "currency": {
+    "gold": 0,
+    "silver": 0,
+    "copper": 0
+  },
+  "experience_points": 4248,
+  "exp_required_for_next_level": 6500,
+  "challengeRating": 0,
+  "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
+  "ideals": "Responsibility. I do what I must and obey just authority.",
+  "bonds": "I fight for those who cannot fight for themselves.",
+  "flaws": "I have a hard time hiding my true feelings. My sharp tongue often gets me into trouble."
+}
+DEBUG:root:Successfully loaded JSON from stone_guardian.json
+DEBUG:root:Successfully loaded JSON from gilly.json
+DEBUG:root:Successfully loaded JSON from elara.json
+DEBUG:root:Successfully loaded JSON from thalor.json
+DEBUG:root:Saving encounter data: {
+  "encounterId": "R14-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 7,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 25,
+      "maxHitPoints": 36,
+      "armorClass": 16
+    },
+    {
+      "name": "Stone Guardian",
+      "type": "enemy",
+      "monsterType": "stone_guardian",
+      "initiative": 9,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 52,
+      "maxHitPoints": 52
+    },
+    {
+      "name": "Gilly",
+      "type": "npc",
+      "npcType": "gilly",
+      "initiative": 3,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 24,
+      "maxHitPoints": 24,
+      "armorClass": 15
+    },
+    {
+      "name": "Elara",
+      "type": "npc",
+      "npcType": "elara",
+      "initiative": 1,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 22,
+      "maxHitPoints": 22,
+      "armorClass": 15
+    },
+    {
+      "name": "Thalor",
+      "type": "npc",
+      "npcType": "thalor",
+      "initiative": 6,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 24,
+      "maxHitPoints": 24,
+      "armorClass": 16
+    }
+  ],
+  "encounterSummary": "The party has triggered the stone guardian after solving the dwarven puzzle, and it demands the password."
+}
+INFO:root:Encounter successfully built and saved to encounter_R14-E1.json
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+INFO:root:Party tracker updated with new combat encounter ID: R14-E1
+DEBUG:root:Starting combat encounter creation
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+DEBUG:root:Successfully loaded JSON from EM001.json
+DEBUG:root:Attempting to load player data from norn.json
+DEBUG:root:Backed up player file to norn.json.bak
+DEBUG:root:Successfully loaded JSON from norn.json
+DEBUG:root:Loaded player data: {
+  "character_type": "player",
+  "name": "Norn",
+  "type": "player",
+  "level": 4,
+  "race": "Human",
+  "class": "Fighter",
+  "alignment": "lawful good",
+  "background": "Soldier",
+  "status": "alive",
+  "condition": "none",
+  "condition_affected": [],
+  "hitPoints": 12,
+  "maxHitPoints": 36,
+  "armorClass": 16,
+  "initiative": 2,
+  "speed": 30,
+  "abilities": {
+    "strength": 17,
+    "dexterity": 14,
+    "constitution": 16,
+    "intelligence": 11,
+    "wisdom": 13,
+    "charisma": 9
+  },
+  "savingThrows": [
+    "Strength",
+    "Constitution"
+  ],
+  "skills": {
+    "Athletics": 5,
+    "Insight": 3,
+    "Intimidation": 1,
+    "Survival": 3
+  },
+  "proficiencyBonus": 2,
+  "senses": {
+    "passivePerception": 11
+  },
+  "languages": [
+    "Common"
+  ],
+  "proficiencies": {
+    "armor": [
+      "Light armor",
+      "Medium armor",
+      "Heavy armor",
+      "Shields"
+    ],
+    "weapons": [
+      "Simple weapons",
+      "Martial weapons"
+    ],
+    "tools": []
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "features": [
+    "Fighting Style: Defense",
+    "Second Wind",
+    "Action Surge",
+    "Improved Critical",
+    "Martial Archetype: Champion"
+  ],
+  "specialAbilities": [],
+  "classFeatures": [
+    {
+      "name": "Fighting Style: Defense",
+      "description": "+1 to AC when wearing armor"
+    },
+    {
+      "name": "Second Wind",
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action"
+    },
+    {
+      "name": "Action Surge",
+      "description": "Once per short rest, take one additional action on your turn"
+    },
+    {
+      "name": "Improved Critical",
+      "description": "Your weapon attacks score a critical hit on a roll of 19 or 20"
+    }
+  ],
+  "equipment": [
+    {
+      "item_name": "Worn Journal",
+      "item_type": "miscellaneous",
+      "description": "Contains important information regarding the Elemental Forge and potential clues for the lock's puzzle.",
+      "quantity": 1
+    }
+  ],
+  "ammunition": [
+    {
+      "name": "Arrows",
+      "quantity": 13,
+      "description": "Standard arrows for a bow"
+    }
+  ],
+  "attacksAndSpellcasting": [
+    {
+      "name": "Longsword",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "slashing",
+      "type": "melee",
+      "description": "Standard longsword"
+    },
+    {
+      "name": "Crude Dagger",
+      "attackBonus": 5,
+      "damageDice": "1d4",
+      "damageBonus": 3,
+      "damageType": "piercing",
+      "type": "melee",
+      "description": "A crude dagger"
+    },
+    {
+      "name": "Sturdy Bow",
+      "attackBonus": 4,
+      "damageDice": "1d6",
+      "damageBonus": 2,
+      "damageType": "piercing",
+      "type": "ranged",
+      "description": "A sturdy bow for ranged attacks"
+    },
+    {
+      "name": "Greatclub",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "bludgeoning",
+      "type": "melee",
+      "description": "A large, heavy club"
+    }
+  ],
+  "spellcasting": {
+    "ability": "",
+    "spellSaveDC": 0,
+    "spellAttackBonus": 0,
+    "spells": {
+      "cantrips": [],
+      "level1": [],
+      "level2": [],
+      "level3": [],
+      "level4": [],
+      "level5": [],
+      "level6": [],
+      "level7": [],
+      "level8": [],
+      "level9": []
+    }
+  },
+  "currency": {
+    "gold": 0,
+    "silver": 0,
+    "copper": 0
+  },
+  "experience_points": 4248,
+  "exp_required_for_next_level": 6500,
+  "challengeRating": 0,
+  "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
+  "ideals": "Responsibility. I do what I must and obey just authority.",
+  "bonds": "I fight for those who cannot fight for themselves.",
+  "flaws": "I have a hard time hiding my true feelings. My sharp tongue often gets me into trouble."
+}
+DEBUG:root:Successfully loaded JSON from stone_guardian.json
+DEBUG:root:Successfully loaded JSON from gilly.json
+DEBUG:root:Successfully loaded JSON from elara.json
+DEBUG:root:Successfully loaded JSON from thalor.json
+DEBUG:root:Saving encounter data: {
+  "encounterId": "R14-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 14,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 12,
+      "maxHitPoints": 36,
+      "armorClass": 16
+    },
+    {
+      "name": "Stone Guardian",
+      "type": "enemy",
+      "monsterType": "stone_guardian",
+      "initiative": 3,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 52,
+      "maxHitPoints": 52
+    },
+    {
+      "name": "Gilly",
+      "type": "npc",
+      "npcType": "gilly",
+      "initiative": 20,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 24,
+      "maxHitPoints": 24,
+      "armorClass": 15
+    },
+    {
+      "name": "Elara",
+      "type": "npc",
+      "npcType": "elara",
+      "initiative": 12,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 22,
+      "maxHitPoints": 22,
+      "armorClass": 15
+    },
+    {
+      "name": "Thalor",
+      "type": "npc",
+      "npcType": "thalor",
+      "initiative": 9,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 24,
+      "maxHitPoints": 24,
+      "armorClass": 16
+    }
+  ],
+  "encounterSummary": "The party has solved the ancient dwarven puzzle, awakening the Stone Guardian who demands the password before granting entry."
+}
+INFO:root:Encounter successfully built and saved to encounter_R14-E1.json
+DEBUG:root:Successfully loaded JSON from party_tracker.json
+INFO:root:Party tracker updated with new combat encounter ID: R14-E1

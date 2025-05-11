@@ -761,14 +761,12 @@
     {
       "name": "Hidden Entrance to Dwarven Complex",
       "type": "Secret Doorway",
-      "description": "A well-hidden doorway carved into the rock, adorned with ancient dwarven runes. Signs of a fierce battle are evident: scorch marks on the walls, broken weapons, and dried bloodstains. The entrance shows multiple attempts at forced entry, with deep gouges in the stone and shattered mining equipment scattered about. The figure of a larger than life dwarven soldier is carved intricately in the stone wall. A recently deceased corpse, no more than 2 weeks aged, lies near the door, its rotting fingers still clutching a worn journal.",
-      "dmInstructions": "The part would be unaware of the stone guardian unless they make a skill check to investigate the statue in the wall. If the party attempts to break down the door or perform a lock pick then a stone guardian is automatically triggered. If the party has a dwarf in its company, the party has one attempt to perform a skill check to convince the guardian to allow them to provide the password. If unsuccessful, the stone guardian automatically becomes hostile. Otherwise, if the party successfully solves the puzzle, the stone guardian appears from inside the wall and directs the party to provide the password or leave else they face certain death.",
+      "description": "A massive circular stone door intricately carved with five concentric rings, each bearing ancient dwarven runes that glow faintly in the dark. The area bears clear evidence of a recent violent battle, with scorch marks, broken weapons, and dried bloodstains scattered around. A grand dwarven soldier is carved into the stone wall beside the door, giving an intimidating presence. Near the doorway lies the rotting corpse of a figure clinging to a worn journal, believed to hold vital clues for solving the door’s complex locking puzzle.",
+      "dmInstructions": "The party is unaware of the stone guardian unless they make a skill check to investigate the statue in the wall. If the party attempts to break down the door or pick the lock, the stone guardian is automatically triggered. If the party has a dwarf, they have one attempt to perform a skill check to convince the guardian to allow them to provide the password. If unsuccessful, the guardian becomes hostile. If the party solves the puzzle, the guardian appears and directs them to provide the password or face death.",
       "locationId": "R14",
       "coordinates": "X1Y6",
       "lighting": "Dark",
-      "accessibility": "Accessible via the Hidden Passage; requires solving a puzzle to open.",
-      "encounterRate": "High",
-      "commonCreatures": [],
+      "accessibility": "Accessible via the Hidden Passage; requires solving a puzzle to open. The party has currently moved away from the entrance to explore adjacent waterlogged tunnels before attempting to unlock the door.",
       "npcs": [],
       "monsters": [
         {
@@ -779,12 +777,11 @@
           }
         }
       ],
-      "resourcesAvailable": [],
-      "weatherConditions": "N/A",
       "plotHooks": [
         "The dwarven runes hold clues about the complex beyond.",
-        "The corpse's journal contains vital information about the entrance puzzle. If the party knows of the password provided by the miner then the journal confirms as much but that the corpse must have gotten it wrong. If the party has discovered the three possible words from the library, then this journal either narrows the word down to two or one depending on how many other clues have been found.",
-        "Signs of failed forced entry indicate the importance of solving the puzzle correctly."
+        "The corpse's journal contains vital information about the entrance puzzle. If the party knows the password provided by the miner, the journal confirms it but suggests the corpse may have been incorrect. If the party has discovered three possible words from the library, this journal narrows the possible words to two or one depending on other clues.",
+        "Signs of failed forced entry indicate the importance of solving the puzzle correctly.",
+        "Beware forcing the door; it may awaken the stone guardian requiring the dwarven phrase 'Khazad-dûm' to deactivate."
       ],
       "lootTable": [
         "Worn journal with partial puzzle solution",
@@ -814,11 +811,11 @@
         },
         {
           "name": "Battle Aftermath",
-          "description": "Signs of a fierce battle, including scorch marks, broken weapons, and dried bloodstains."
+          "description": "Signs of a fierce battle including scorch marks, broken weapons, and dried bloodstains."
         },
         {
           "name": "Rotting Corpse",
-          "description": "Upon searching the body, the party will discover the deceased was a member of the Ember Enclave."
+          "description": "The corpse clings to a worn journal with clues for the door’s puzzle. The deceased was a member of the Ember Enclave."
         }
       ],
       "dcChecks": [
@@ -826,8 +823,20 @@
         "History DC 14: Recognize the significance of the dwarven runes and their role in the locking mechanism.",
         "Perception DC 16: Notice subtle clues in the carvings that hint at the correct sequence for solving the puzzle."
       ],
-      "encounters": [],
-      "adventureSummary": "",
+      "encounters": [
+        {
+          "encounterId": "R14-E1",
+          "summary": "The party arrives at the Hidden Entrance to the Dwarven Complex, discovering signs of a recent battle and a complex dwarven rune puzzle on a massive stone door. They find a rotting corpse clutching a journal with clues and understand the danger of forcing the door, which could awaken a stone guardian. Choosing caution, the party decides to explore nearby waterlogged tunnels before attempting to solve the puzzle.",
+          "impact": "The entrance remains closed and dangerous; the party gains critical information from the journal and understands the need to solve the rune puzzle correctly. The stone guardian threat is established, and the door remains locked awaiting the correct sequence and spoken password.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 21,
+            "time": "22:41:54"
+          }
+        }
+      ],
+      "adventureSummary": "The party arrived at the Hidden Entrance to the Dwarven Complex, finding a massive stone door carved with five concentric rings of dwarven runes glowing faintly. Evidence of a recent violent battle surrounds the entrance, including scorch marks and broken weapons. A rotting corpse clinging to a worn journal lies nearby, holding vital clues for the door's puzzle. The party learned that forcing the door risks awakening a stone guardian which requires the dwarven phrase 'Khazad-dûm' to deactivate. Opting for caution, the party chose to explore adjacent waterlogged tunnels before attempting to open the door.",
       "doors": [
         {
           "name": "Hidden Dwarven Door",

@@ -21,20 +21,27 @@
         "year": 1492,
         "month": "Ches",
         "day": 21,
-        "time": "14:30:54",
-        "weather": "N/A",
+        "time": "23:48:54",
+        "weather": "",
         "season": "Spring",
         "dayNightCycle": "Night",
         "moonPhase": "Waxing Gibbous",
-        "currentLocation": "Hidden Entrance to Dwarven Complex",
-        "currentLocationId": "R14",
-        "currentArea": "Old Mines of Ember Hollow",
+        "currentLocation": "Waterlogged Tunnels",
+        "currentLocationId": "R13",
+        "currentArea": "Unknown Area",
         "currentAreaId": "EM001",
         "majorEventsUnderway": [],
         "politicalClimate": "",
         "activeEncounter": "",
         "activeCombatEncounter": "",
-        "weatherConditions": "N/A"
+        "weatherConditions": ""
     },
-    "activeQuests": []
+    "activeQuests": [
+        {
+            "id": "PP014",
+            "title": "Reaching the Hidden Entrance",
+            "description": "The party reaches the Hidden Entrance to the Dwarven Complex (R14), completing their main objective in the mines. To gain entry, they must solve an ancient dwarven puzzle lock. The puzzle consists of a circular stone door with five concentric rings, each engraved with dwarven runes. The party must rotate these rings to align specific runes, creating a code based on clues found throughout their journey. Once the correct sequence is set, they will be confronted by a stone guradian and must speak the dwarven phrase 'Khazad-d\u00c3\u00bbm' to to deactivate the stone guardian and open the door.",
+            "status": "in progress"
+        }
+    ]
 }

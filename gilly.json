@@ -10,7 +10,7 @@
   "condition": "none",
   "condition_affected": [],
   "armorClass": 15,
-  "hitPoints": 31,
+  "hitPoints": 24,
   "maxHitPoints": 31,
   "speed": 25,
   "initiative": 3,
@@ -180,9 +180,9 @@
   "experience_points": 3180,
   "exp_required_for_next_level": 3700,
   "currency": {
-    "gold": 16,
-    "silver": 2,
-    "copper": 0
+    "gold": 28,
+    "silver": 50,
+    "copper": 4
   },
   "attacksAndSpellcasting": [
     {

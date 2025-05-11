@@ -1,23 +1,37 @@
 {
   "name": "Hidden Entrance to Dwarven Complex",
   "type": "Secret Doorway",
-  "description": "A well-hidden doorway carved into the rock, adorned with ancient dwarven runes. This is the party's access to the Ancient Dwarven Stronghold Areea and specifically the Dwarven Complex - First Floor",
+  "description": "A well-hidden doorway carved into the rock, adorned with ancient dwarven runes. Signs of a fierce battle are evident: scorch marks on the walls, broken weapons, and dried bloodstains. The entrance shows multiple attempts at forced entry, with deep gouges in the stone and shattered mining equipment scattered about. The figure of a larger than life dwarven soldier is carved intricately in the stone wall. A recently deceased corpse, no more than 2 weeks aged, lies near the door, its rotting fingers still clutching a worn journal.",
+  "dmInstructions": "The part would be unaware of the stone guardian unless they make a skill check to investigate the statue in the wall. If the party attempts to break down the door or perform a lock pick then a stone guardian is automatically triggered. If the party has a dwarf in its company, the party has one attempt to perform a skill check to convince the guardian to allow them to provide the password. If unsuccessful, the stone guardian automatically becomes hostile. Otherwise, if the party successfully solves the puzzle, the stone guardian appears from inside the wall and directs the party to provide the password or leave else they face certain death.",
   "locationId": "R14",
   "coordinates": "X1Y6",
-  "size": "Small",
   "lighting": "Dark",
   "accessibility": "Accessible via the Hidden Passage; requires solving a puzzle to open.",
-  "encounterRate": "Low",
+  "encounterRate": "High",
   "commonCreatures": [],
   "npcs": [],
-  "monsters": [],
+  "monsters": [
+    {
+      "name": "Stone Guardian",
+      "quantity": {
+        "min": 1,
+        "max": 1
+      }
+    }
+  ],
   "resourcesAvailable": [],
   "weatherConditions": "N/A",
   "plotHooks": [
-    "The dwarven runes might hold clues about the complex beyond."
+    "The dwarven runes hold clues about the complex beyond.",
+    "The corpse's journal contains vital information about the entrance puzzle. If the party knows of the password provided by the miner then the journal confirms as much but that the corpse must have gotten it wrong. If the party has discovered the three possible words from the library, then this journal either narrows the word down to two or one depending on how many other clues have been found.",
+    "Signs of failed forced entry indicate the importance of solving the puzzle correctly."
   ],
-  "lootTable": [],
-  "dangerLevel": "Medium",
+  "lootTable": [
+    "Worn journal with partial puzzle solution",
+    "Ancient dwarven coin",
+    "Broken lockpicking tools"
+  ],
+  "dangerLevel": "High",
   "connectivity": [
     "Hidden Passage",
     "Waterlogged Tunnels"
@@ -32,38 +46,39 @@
   "features": [
     {
       "name": "Dwarven Runes",
-      "description": "Ancient runes that glow faintly when approached."
+      "description": "Ancient runes that glow faintly when approached, forming part of the door's locking mechanism."
     },
     {
-      "name": "Stone Mechanism",
-      "description": "A complex stone mechanism that seems to control the door."
+      "name": "Circular Stone Door",
+      "description": "A massive stone door with five concentric rings, each engraved with dwarven runes. The rings can be rotated to form different combinations."
+    },
+    {
+      "name": "Battle Aftermath",
+      "description": "Signs of a fierce battle, including scorch marks, broken weapons, and dried bloodstains."
+    },
+    {
+      "name": "Rotting Corpse",
+      "description": "Upon searching the body, the party will discover the deceased was a member of the Ember Enclave."
     }
   ],
   "dcChecks": [
-    {
-      "type": "History",
-      "dc": 15,
-      "description": "Understand the significance of the runes."
-    },
-    {
-      "type": "Intelligence",
-      "dc": 14,
-      "description": "Solve the puzzle to open the hidden door."
-    }
+    "Investigation DC 15: Piece together the events of the battle from the surrounding evidence.",
+    "History DC 14: Recognize the significance of the dwarven runes and their role in the locking mechanism.",
+    "Perception DC 16: Notice subtle clues in the carvings that hint at the correct sequence for solving the puzzle."
   ],
   "encounters": [],
   "adventureSummary": "",
   "doors": [
     {
       "name": "Hidden Dwarven Door",
-      "description": "A stone door concealed within the rock face.",
+      "description": "A circular stone door concealed within the rock face, featuring five rotatable rings with dwarven runes.",
       "type": "Stone",
       "locked": true,
-      "lockDC": 18,
-      "breakDC": 25,
-      "keyname": "Solution to Dwarven Puzzle",
-      "trapped": false,
-      "trap": ""
+      "lockDC": 25,
+      "breakDC": 30,
+      "keyname": "Correct Rune Sequence and Spoken Word",
+      "trapped": true,
+      "trap": "Stone Guardian Summoning"
     }
   ]
 }

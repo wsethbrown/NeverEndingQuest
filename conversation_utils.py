@@ -17,8 +17,20 @@ def load_json_data(file_path):
         return None
 
 def update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data):
-    # First, find and remove the primary system prompt
-    primary_system_prompt = next((msg for msg in conversation_history if msg["role"] == "system" and "You are a world-class Dungeons & Dragons" in msg["content"]), None)
+    # Read the actual system prompt to get the proper identifier
+    with open("system_prompt.txt", "r") as file:
+        main_system_prompt_text = file.read().strip()
+    
+    # Use the first part of the actual system prompt as identifier
+    main_prompt_start = main_system_prompt_text[:50]  # First 50 characters as identifier
+    
+    # Find and remove the primary system prompt (the one that starts with our identifier)
+    primary_system_prompt = None
+    for msg in conversation_history:
+        if msg["role"] == "system" and msg["content"].startswith(main_prompt_start):
+            primary_system_prompt = msg
+            break
+    
     if primary_system_prompt:
         conversation_history.remove(primary_system_prompt)
 
@@ -38,12 +50,6 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
 
     # Create a new list starting with the primary system prompt
     new_history = [primary_system_prompt] if primary_system_prompt else []
-
-    # Insert campaign data
-    if campaign_data:
-        campaign_message = "Here's the campaign data:\n"
-        campaign_message += f"{compress_json_data(campaign_data)}\n"
-        new_history.append({"role": "system", "content": campaign_message})
 
     # Insert plot data
     if plot_data:

@@ -4,13 +4,22 @@ import os
 import re
 from openai import OpenAI
 from jsonschema import validate, ValidationError
+# Import model configuration from config.py
+from config import OPENAI_API_KEY # Assuming API key is in config.py
+# We need a model name for monster_builder, let's assume it will be MONSTER_BUILDER_MODEL
+# You'll need to add MONSTER_BUILDER_MODEL = "gpt-4.1-2025-04-14" (or your preferred model)
+# to your config.py file.
+from config import MONSTER_BUILDER_MODEL # This line will cause an error until you define it in config.py
 
 GREEN = "\033[32m"
 RED = "\033[31m"
 YELLOW = "\033[33m"
 RESET = "\033[0m"
 
-client = OpenAI(api_key="sk-proj-YHoOCk08nxYvZss63drnT3BlbkFJa6f5DH7hbOfwkwrAcnGc")
+# Use OPENAI_API_KEY from config
+client = OpenAI(api_key=OPENAI_API_KEY)
+# Note: The original monster_builder.py had a hardcoded API key here.
+# It's better practice to use the one from config.py.
 
 def load_schema(file_name):
     try:
@@ -41,7 +50,7 @@ def generate_monster(monster_name, schema):
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model=MONSTER_BUILDER_MODEL, # Use imported model name
             temperature=0.7,
             messages=prompt
         )
@@ -66,10 +75,10 @@ def generate_monster(monster_name, schema):
             print(f"{YELLOW}Processed AI response:{RESET}\n{ai_response}")
         except ValidationError as e:
             print(f"{RED}Error: Generated monster data does not match schema. {str(e)}{RESET}")
-            print(f"{YELLOW}Processed monster data:{RESET}\n{json.dumps(monster_data, indent=2)}")
+            print(f"{YELLOW}Processed monster data:{RESET}\n{json.dumps(monster_data, indent=2)}") # Added indent for readability
     except Exception as e:
         print(f"{RED}Error: Failed to generate monster data. {str(e)}{RESET}")
-    
+
     return None
 
 def remove_nested_values(data):
@@ -85,20 +94,21 @@ def main():
         print(f"{RED}Usage: python monster_builder.py <monster_name>{RESET}")
         return
 
-    monster_name = sys.argv[1]
-    schema = load_schema("mon_schema.json")
-    if not schema:
+    monster_name_arg = sys.argv[1] # Renamed variable
+    schema_data = load_schema("mon_schema.json") # Renamed variable
+    if not schema_data:
         return
 
-    monster_data = generate_monster(monster_name, schema)
-    if monster_data:
-        file_name = f"{monster_name.lower().replace(' ', '_')}.json"
+    generated_monster_data = generate_monster(monster_name_arg, schema_data) # Renamed variable
+    if generated_monster_data:
+        file_name_to_save = f"{monster_name_arg.lower().replace(' ', '_')}.json" # Renamed variable
         current_dir = os.getcwd()
-        full_path = os.path.join(current_dir, file_name)
-        if save_json(full_path, monster_data):
-            print(f"{GREEN}Monster '{monster_name}' created and saved to {full_path}{RESET}")
+        full_path = os.path.join(current_dir, file_name_to_save)
+        if save_json(full_path, generated_monster_data):
+            print(f"{GREEN}Monster '{monster_name_arg}' created and saved to {full_path}{RESET}")
         else:
             print(f"{RED}Failed to save monster data{RESET}")
+            sys.exit(1) # Ensure exit with error code
     else:
         print(f"{RED}Failed to generate monster data{RESET}")
         sys.exit(1)  # Exit with an error code

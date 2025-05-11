@@ -152,9 +152,9 @@
   "experience_points": 3180,
   "exp_required_for_next_level": 3900,
   "currency": {
-    "gold": 16,
-    "silver": 2,
-    "copper": 0
+    "gold": 28,
+    "silver": 50,
+    "copper": 9
   },
   "attacksAndSpellcasting": [
     {

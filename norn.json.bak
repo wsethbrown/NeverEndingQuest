@@ -10,7 +10,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 36,
+  "hitPoints": 12,
   "maxHitPoints": 36,
   "armorClass": 16,
   "initiative": 2,
@@ -154,9 +154,9 @@
     }
   },
   "currency": {
-    "gold": 13,
-    "silver": 48,
-    "copper": 10
+    "gold": 0,
+    "silver": 0,
+    "copper": 0
   },
   "experience_points": 4248,
   "exp_required_for_next_level": 6500,
