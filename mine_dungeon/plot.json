@@ -1,0 +1,145 @@
+{
+    "plotTitle": "Descent into the Old Mines",
+    "mainObjective": "Navigate the abandoned mines to find the hidden entrance to the Dwarven Complex",
+    "plotPoints": [
+      {
+        "id": "PP001",
+        "title": "Entering the Mines",
+        "description": "The party arrives at the Entrance Tunnel (R1) and begins their exploration of the old mines.",
+        "location": "R1",
+        "nextPoints": ["PP002", "PP003"],
+        "status": "not started"
+      },
+      {
+        "id": "PP002",
+        "title": "Exploring the Abandoned Office",
+        "description": "In the Abandoned Mining Office (R2), the party finds old maps and notes hinting at hidden passages.",
+        "location": "R2",
+        "nextPoints": ["PP003"],
+        "status": "not started"
+      },
+      {
+        "id": "PP003",
+        "title": "Facing the Collapsed Passage",
+        "description": "At the Collapsed Passage (R3), the party must navigate unstable terrain or find an alternative route.",
+        "location": "R3",
+        "nextPoints": ["PP004", "PP008"],
+        "status": "not started"
+      },
+      {
+        "id": "PP004",
+        "title": "Surviving the Gas Pocket Chamber",
+        "description": "The Gas Pocket Chamber (R4) poses environmental hazards that the party must overcome.",
+        "location": "R4",
+        "nextPoints": ["PP005"],
+        "status": "not started"
+      },
+      {
+        "id": "PP005",
+        "title": "Confronting the Fire Beetle Nest",
+        "description": "The party encounters a nest of Fire Beetles in R5 and must deal with them to proceed.",
+        "location": "R5",
+        "nextPoints": ["PP006"],
+        "status": "not started"
+      },
+      {
+        "id": "PP006",
+        "title": "Finding Useful Supplies",
+        "description": "In the Equipment Storage (R6), the party finds useful gear and clues about the Ember Enclave.",
+        "location": "R6",
+        "nextPoints": ["PP007"],
+        "status": "not started"
+      },
+      {
+        "id": "PP007",
+        "title": "Discovering the Hidden Passage",
+        "description": "The party uncovers a Hidden Passage (R7) leading closer to their goal.",
+        "location": "R7",
+        "nextPoints": ["PP014"],
+        "status": "not started"
+      },
+      {
+        "id": "PP008",
+        "title": "Crossing the Underground Stream",
+        "description": "At the Underground Stream (R8), the party must find a way across or follow it to new areas.",
+        "location": "R8",
+        "nextPoints": ["PP009"],
+        "status": "not started"
+      },
+      {
+        "id": "PP009",
+        "title": "Navigating the Ore Processing Room",
+        "description": "In the Ore Processing Room (R9), the party discovers signs of recent activity.",
+        "location": "R9",
+        "nextPoints": ["PP010"],
+        "status": "not started"
+      },
+      {
+        "id": "PP010",
+        "title": "Encounter with Ember Enclave Guards",
+        "description": "At the Guard Post (R10), the party confronts members of the Ember Enclave.",
+        "location": "R10",
+        "nextPoints": ["PP011"],
+        "status": "not started"
+      },
+      {
+        "id": "PP011",
+        "title": "Exploring the Crystal Cavern",
+        "description": "In the Crystal Cavern (R11), the party discovers valuable crystals and hidden messages.",
+        "location": "R11",
+        "nextPoints": ["PP012"],
+        "status": "not started"
+      },
+      {
+        "id": "PP012",
+        "title": "Traversing the Abandoned Shaft",
+        "description": "The Abandoned Shaft (R12) presents challenges in navigation and safety.",
+        "location": "R12",
+        "nextPoints": ["PP013"],
+        "status": "not started"
+      },
+      {
+        "id": "PP013",
+        "title": "Dealing with Waterlogged Tunnels",
+        "description": "In the Waterlogged Tunnels (R13), the party must manage flooding and aquatic creatures.",
+        "location": "R13",
+        "nextPoints": ["PP007"],
+        "status": "not started"
+      },
+      {
+        "id": "PP014",
+        "title": "Reaching the Hidden Entrance",
+        "description": "The party reaches the Hidden Entrance to the Dwarven Complex (R14), completing their main objective in the mines.",
+        "location": "R14",
+        "nextPoints": [],
+        "status": "not started"
+      }
+    ],
+    "sideQuests": [
+      {
+        "id": "SQ001",
+        "title": "Recover Lost Equipment",
+        "description": "A miner asks the party to find his lost tools in the Equipment Storage (R6).",
+        "startLocation": "R1",
+        "involvedLocations": ["R6"],
+        "status": "not started"
+      },
+      {
+        "id": "SQ002",
+        "title": "Collect Rare Crystals",
+        "description": "An alchemist is interested in crystals from the Crystal Cavern (R11) and asks the party to retrieve some.",
+        "startLocation": "R1",
+        "involvedLocations": ["R11"],
+        "status": "not started"
+      },
+      {
+        "id": "SQ003",
+        "title": "Investigate Strange Sounds",
+        "description": "The party hears eerie sounds from the Waterlogged Tunnels (R13) and can choose to investigate.",
+        "startLocation": "R12",
+        "involvedLocations": ["R13"],
+        "status": "not started"
+      }
+    ]
+  }
+  

@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "name": { "type": "string" },
+      "areaId": { "type": "string" },
+      "description": { "type": "string" },
+      "rooms": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "roomId": { "type": "string" },
+            "name": { "type": "string" },
+            "description": { "type": "string" },
+            "connections": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "targetId": { "type": "string" },
+                  "accessType": { "type": "string", "enum": ["normal", "hidden", "locked", "magical"] }
+                },
+                "required": ["targetId", "accessType"]
+              }
+            }
+          },
+          "required": ["roomId", "name", "description", "connections"]
+        }
+      }
+    },
+    "required": ["name", "areaId", "rooms"]
+  }

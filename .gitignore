@@ -1,0 +1,53 @@
+# Config file with API keys
+config.py
+
+# Backup folders
+backup/
+backup_2/
+back_up_3/
+old_files/
+
+# Temporary files
+debug_*.json
+*_BU*.json
+*copy*.json
+*copy*.py
+*_old*.json
+
+# Conversation logs
+conversation_history.json
+combat_conversation_history.json
+second_model_history.json
+third_model_history.json
+player_conversation_history.json
+prompt_validation.json
+summary_dump.json
+trimmed_summary_dump.json
+dialogue_summary.json
+
+# Python environment
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

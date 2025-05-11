@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "plotTitle": {
+      "type": "string",
+      "description": "The overall name of the adventure"
+    },
+    "mainObjective": {
+      "type": "string",
+      "description": "The primary goal of the plot"
+    },
+    "plotPoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the plot point"
+          },
+          "title": {
+            "type": "string",
+            "description": "Brief title for the plot point"
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of what happens at this plot point"
+          },
+          "location": {
+            "type": "string",
+            "description": "The locationId where this plot point takes place"
+          },
+          "nextPoints": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of plot point IDs that could follow this one"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the plot point",
+            "enum": ["not started", "in progress", "completed"]
+          },
+          "plotImpact": {
+            "type": "string",
+            "description": "A description of how the players' actions have affected the plot at this point. Initially empty, to be updated by the AI as the story progresses."
+          },
+          "sideQuests": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier for the side quest"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Name of the side quest"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Brief description of the side quest"
+                },
+                "involvedLocations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Array of locationIds involved in the side quest"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Current status of the side quest",
+                  "enum": ["not started", "in progress", "completed"]
+                },
+                "plotImpact": {
+                  "type": "string",
+                  "description": "A description of how the players' actions in this side quest have affected the overall plot. Initially empty, to be updated by the AI as the story progresses."
+                }
+              },
+              "required": ["id", "title", "description", "involvedLocations", "status", "plotImpact"]
+            },
+            "description": "Array of side quest objects that start in this location"
+          }
+        },
+        "required": ["id", "title", "description", "location", "nextPoints", "status", "plotImpact"]
+      },
+      "description": "Array of plot point objects that make up the main storyline"
+    }
+  },
+  "required": ["plotTitle", "mainObjective", "plotPoints"]
+}

@@ -1,0 +1,220 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "size": {
+        "type": "string",
+        "enum": ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"]
+      },
+      "type": {
+        "type": "string"
+      },
+      "alignment": {
+        "type": "string"
+      },
+      "armorClass": {
+        "type": "integer"
+      },
+      "hitPoints": {
+        "type": "integer"
+      },
+      "maxHitPoints": {
+        "type": "integer"
+      },
+      "speed": {
+        "type": "integer"
+      },
+      "abilities": {
+        "type": "object",
+        "properties": {
+          "strength": {
+            "type": "integer"
+          },
+          "dexterity": {
+            "type": "integer"
+          },
+          "constitution": {
+            "type": "integer"
+          },
+          "intelligence": {
+            "type": "integer"
+          },
+          "wisdom": {
+            "type": "integer"
+          },
+          "charisma": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "strength",
+          "dexterity",
+          "constitution",
+          "intelligence",
+          "wisdom",
+          "charisma"
+        ]
+      },
+      "savingThrows": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "skills": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "integer"
+        }
+      },
+      "damageVulnerabilities": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "damageResistances": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "damageImmunities": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "conditionImmunities": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "senses": {
+        "type": "object",
+        "properties": {
+          "darkvision": {
+            "type": "integer"
+          },
+          "passivePerception": {
+            "type": "integer"
+          }
+        }
+      },
+      "languages": {
+        "type": "string"
+      },
+      "challengeRating": {
+        "type": "number"
+      },
+      "specialAbilities": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "attackBonus": {
+              "type": "integer"
+            },
+            "damageDice": {
+              "type": "string"
+            },
+            "damageBonus": {
+              "type": "integer"
+            },
+            "damageType": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "attackBonus",
+            "damageDice",
+            "damageBonus",
+            "damageType"
+          ]
+        }
+      },
+      "actions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "attackBonus": {
+              "type": "integer"
+            },
+            "damageDice": {
+              "type": "string"
+            },
+            "damageBonus": {
+              "type": "integer"
+            },
+            "damageType": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "attackBonus",
+            "damageDice",
+            "damageBonus",
+            "damageType"
+          ]
+        }
+      },
+      "legendaryActions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "description"
+          ]
+        }
+      },
+      "condition": {
+        "type": "string",
+        "enum": ["Alive", "Dead"]
+      }
+    },
+    "required": [
+      "name",
+      "size",
+      "type",
+      "alignment",
+      "armorClass",
+      "hitPoints",
+      "speed",
+      "abilities",
+      "savingThrows",
+      "skills",
+      "damageVulnerabilities",
+      "damageResistances",
+      "damageImmunities",
+      "conditionImmunities",
+      "senses",
+      "languages",
+      "challengeRating",
+      "specialAbilities",
+      "actions",
+      "legendaryActions",
+      "condition"
+    ]
+  }

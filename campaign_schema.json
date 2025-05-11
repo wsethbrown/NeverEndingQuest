@@ -1,0 +1,212 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "campaignName": {
+      "type": "string"
+    },
+    "campaignDescription": {
+      "type": "string"
+    },
+    "worldSettings": {
+      "type": "object",
+      "properties": {
+        "worldName": {
+          "type": "string"
+        },
+        "era": {
+          "type": "string"
+        },
+        "cosmology": {
+          "type": "string",
+          "enum": ["Great Wheel", "World Tree", "World Axis", "Custom"]
+        },
+        "planarConnections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "majorDeities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "domain": {"type": "string"},
+              "alignment": {"type": "string"}
+            },
+            "required": ["name", "domain", "alignment"]
+          }
+        },
+        "majorPowers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "type": {"type": "string", "enum": ["kingdom", "empire", "city-state", "alliance", "other"]},
+              "influence": {"type": "string", "enum": ["local", "regional", "continental", "global"]}
+            },
+            "required": ["name", "type", "influence"]
+          }
+        },
+        "predominantRaces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "magicPrevalence": {
+          "type": "string",
+          "enum": ["rare", "uncommon", "common", "abundant"]
+        },
+        "currentConflicts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["worldName", "era", "cosmology", "planarConnections", "majorDeities", "majorPowers", "predominantRaces", "magicPrevalence", "currentConflicts"]
+    },
+    "mainPlot": {
+      "type": "object",
+      "properties": {
+        "mainObjective": {
+          "type": "string"
+        },
+        "antagonist": {
+          "type": "string"
+        },
+        "plotStages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stageName": {
+                "type": "string"
+              },
+              "stageDescription": {
+                "type": "string"
+              },
+              "requiredLevel": {
+                "type": "integer"
+              },
+              "keyNPCs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "majorEvents": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": ["stageName", "stageDescription", "requiredLevel", "keyNPCs", "majorEvents"]
+          }
+        }
+      },
+      "required": ["mainObjective", "antagonist", "plotStages"]
+    },
+    "factions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "factionName": {
+            "type": "string"
+          },
+          "factionDescription": {
+            "type": "string"
+          },
+          "alignment": {
+            "type": "string",
+            "enum": ["lawful good", "neutral good", "chaotic good", "lawful neutral", "neutral", "chaotic neutral", "lawful evil", "neutral evil", "chaotic evil"]
+          },
+          "goals": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "keyMembers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["factionName", "factionDescription", "alignment", "goals", "keyMembers"]
+      }
+    },
+    "worldMap": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "regionName": {
+            "type": "string"
+          },
+          "regionDescription": {
+            "type": "string"
+          },
+          "mapId": {
+            "type": "string"
+          },
+          "dangerLevel": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "extreme"]
+          },
+          "recommendedLevel": {
+            "type": "integer"
+          },
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              },
+              "required": ["name", "id", "description"]
+            }
+          }
+        },
+        "required": ["regionName", "regionDescription", "mapId", "dangerLevel", "recommendedLevel", "levels"]
+      }
+    },
+    "timelineEvents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "eventName": {
+            "type": "string"
+          },
+          "eventDescription": {
+            "type": "string"
+          },
+          "triggerCondition": {
+            "type": "string"
+          },
+          "impact": {
+            "type": "string"
+          }
+        },
+        "required": ["eventName", "eventDescription", "triggerCondition", "impact"]
+      }
+    }
+  },
+  "required": ["campaignName", "campaignDescription", "worldSettings", "mainPlot", "factions", "worldMap", "timelineEvents"]
+}

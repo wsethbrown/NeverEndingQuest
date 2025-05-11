@@ -1,0 +1,252 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "character_type": {
+      "type": "string",
+      "enum": ["player"]
+    },
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["player"]
+    },
+    "level": {
+      "type": "integer"
+    },
+    "race": {
+      "type": "string"
+    },
+    "class": {
+      "type": "string"
+    },
+    "alignment": {
+      "type": "string",
+      "enum": ["lawful good", "neutral good", "chaotic good", "lawful neutral", "neutral", "chaotic neutral", "lawful evil", "neutral evil", "chaotic evil"]
+    },
+    "background": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["alive", "dead", "unconscious"]
+    },
+    "condition": {
+      "type": "string",
+      "enum": ["none", "blinded", "charmed", "deafened", "frightened", "grappled", "incapacitated", "invisible", "paralyzed", "petrified", "poisoned", "prone", "restrained", "stunned", "exhaustion"]
+    },
+    "condition_affected": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hitPoints": {
+      "type": "integer"
+    },
+    "maxHitPoints": {
+      "type": "integer"
+    },
+    "armorClass": {
+      "type": "integer"
+    },
+    "initiative": {
+      "type": "integer"
+    },
+    "speed": {
+      "type": "integer"
+    },
+    "abilities": {
+      "type": "object",
+      "properties": {
+        "strength": {"type": "integer"},
+        "dexterity": {"type": "integer"},
+        "constitution": {"type": "integer"},
+        "intelligence": {"type": "integer"},
+        "wisdom": {"type": "integer"},
+        "charisma": {"type": "integer"}
+      },
+      "required": ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
+    },
+    "savingThrows": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "skills": {
+      "type": "object",
+      "additionalProperties": {"type": "integer"}
+    },
+    "proficiencyBonus": {
+      "type": "integer"
+    },
+    "senses": {
+      "type": "object",
+      "properties": {
+        "darkvision": {"type": "integer"},
+        "passivePerception": {"type": "integer"}
+      }
+    },
+    "languages": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "proficiencies": {
+      "type": "object",
+      "properties": {
+        "armor": {"type": "array", "items": {"type": "string"}},
+        "weapons": {"type": "array", "items": {"type": "string"}},
+        "tools": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "damageVulnerabilities": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "damageResistances": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "damageImmunities": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "conditionImmunities": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "specialAbilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"}
+        },
+        "required": ["name", "description"]
+      }
+    },
+    "classFeatures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"}
+        },
+        "required": ["name", "description"]
+      }
+    },
+    "equipment": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_name": {"type": "string"},
+          "item_type": {"type": "string", "enum": ["weapon", "armor", "miscellaneous"]},
+          "description": {"type": "string"},
+          "quantity": {"type": "integer"}
+        },
+        "required": ["item_name", "item_type", "description", "quantity"]
+      }
+    },
+    "ammunition": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "quantity": {"type": "integer"},
+          "description": {"type": "string"}
+        },
+        "required": ["name", "quantity", "description"]
+      }
+    },
+    "attacksAndSpellcasting": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "attackBonus": {"type": "integer"},
+          "damageDice": {"type": "string"},
+          "damageBonus": {"type": "integer"},
+          "damageType": {"type": "string"},
+          "type": {"type": "string", "enum": ["melee", "ranged", "spell"]},
+          "description": {"type": "string"}
+        },
+        "required": ["name", "attackBonus", "damageDice", "damageBonus", "damageType", "type", "description"]
+      }
+    },
+    "spellcasting": {
+      "type": "object",
+      "properties": {
+        "ability": {"type": "string"},
+        "spellSaveDC": {"type": "integer"},
+        "spellAttackBonus": {"type": "integer"},
+        "spells": {
+          "type": "object",
+          "properties": {
+            "cantrips": {"type": "array", "items": {"type": "string"}},
+            "level1": {"type": "array", "items": {"type": "string"}},
+            "level2": {"type": "array", "items": {"type": "string"}},
+            "level3": {"type": "array", "items": {"type": "string"}},
+            "level4": {"type": "array", "items": {"type": "string"}},
+            "level5": {"type": "array", "items": {"type": "string"}},
+            "level6": {"type": "array", "items": {"type": "string"}},
+            "level7": {"type": "array", "items": {"type": "string"}},
+            "level8": {"type": "array", "items": {"type": "string"}},
+            "level9": {"type": "array", "items": {"type": "string"}}
+          }
+        }
+      }
+    },
+    "currency": {
+      "type": "object",
+      "properties": {
+        "gold": {"type": "integer"},
+        "silver": {"type": "integer"},
+        "copper": {"type": "integer"}
+      },
+      "required": ["gold", "silver", "copper"]
+    },
+    "experience_points": {
+      "type": "integer"
+    },
+    "exp_required_for_next_level": {
+      "type": "integer"
+    },
+    "challengeRating": {
+      "type": "number"
+    },
+    "personality_traits": {
+      "type": "string"
+    },
+    "ideals": {
+      "type": "string"
+    },
+    "bonds": {
+      "type": "string"
+    },
+    "flaws": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "character_type", "name", "type", "level", "race", "class", "alignment", "background",
+    "status", "condition", "condition_affected", "hitPoints", "maxHitPoints", "armorClass", 
+    "initiative", "speed", "abilities", "savingThrows", "skills", "proficiencyBonus",
+    "senses", "languages", "proficiencies", "damageVulnerabilities", "damageResistances",
+    "damageImmunities", "conditionImmunities", "features", "specialAbilities", "classFeatures", 
+    "equipment", "attacksAndSpellcasting", "spellcasting", "currency", "experience_points", 
+    "exp_required_for_next_level", "challengeRating", "personality_traits", "ideals", "bonds", "flaws"
+  ],
+  "additionalProperties": false
+}

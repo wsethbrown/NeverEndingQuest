@@ -1,0 +1,46 @@
+import json
+from datetime import datetime, timedelta
+
+def get_player_stat(player_name, stat_name, time_estimate):
+    print(f"DEBUG: get_player_stat called for {player_name}, stat: {stat_name}")
+    player_file = f"{player_name}.json"
+    try:
+        with open(player_file, "r") as file:
+            player_stats = json.load(file)
+    except FileNotFoundError:
+        print(f"{player_file} not found. Stat retrieval failed.")
+        return "DM Note: Stat not found"
+    except json.JSONDecodeError:
+        print(f"{player_file} has an invalid JSON format. Stat retrieval failed.")
+        return "DM Note: Stat not found"
+
+    stat_value = None
+    modifier_value = None
+
+    if player_stats:
+        if stat_name.lower() in player_stats["ability_scores"]:
+            stat_value = player_stats["ability_scores"][stat_name.lower()]
+            modifier_value = (stat_value - 10) // 2
+
+    if stat_value is not None and modifier_value is not None:
+        # Update the world time based on the time estimate (in minutes)
+        with open('party_tracker.json', 'r') as file:
+            data = json.load(file)
+
+        time_str = data['worldConditions']['time']
+        current_time = datetime.strptime(time_str, '%H:%M:%S')
+
+        time_estimate_minutes = int(time_estimate)
+        new_time = current_time + timedelta(minutes=time_estimate_minutes)
+
+        data['worldConditions']['time'] = new_time.strftime('%H:%M:%S')
+
+        with open('party_tracker.json', 'w') as file:
+            json.dump(data, file, indent=4)
+
+        # Debug print line in orange color
+        print(f"\033[38;5;208mCurrent Time: {current_time.strftime('%H:%M:%S')}, Time Advanced: {time_estimate_minutes} minutes, New Time: {new_time.strftime('%H:%M:%S')}\033[0m")
+
+        return f"DM Note: Character's {stat_name.capitalize()}: {stat_value} (Modifier: {modifier_value}) | Time updated to {new_time.strftime('%H:%M:%S')}"
+    else:
+        return "DM Note: Stat not found"

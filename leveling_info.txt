@@ -1,0 +1,181 @@
+Use the following information for for guidance leveling up characters:
+
+Experience Points by Level:
+Level,XP
+1,0
+2,300
+3,900
+4,2700
+5,6500
+6,14000
+7,23000
+8,34000
+9,48000
+10,64000
+11,85000
+12,100000
+13,120000
+14,140000
+15,165000
+16,195000
+17,225000
+18,265000
+19,305000
+20,355000
+
+Spell Slots for Full Casters (Bard, Cleric, Druid, Sorcerer, Wizard):
+Level,1st,2nd,3rd,4th,5th,6th,7th,8th,9th
+1,2,-,-,-,-,-,-,-,-
+2,3,-,-,-,-,-,-,-,-
+3,4,2,-,-,-,-,-,-,-
+4,4,3,-,-,-,-,-,-,-
+5,4,3,2,-,-,-,-,-,-
+6,4,3,3,-,-,-,-,-,-
+7,4,3,3,1,-,-,-,-,-
+8,4,3,3,2,-,-,-,-,-
+9,4,3,3,3,1,-,-,-,-
+10,4,3,3,3,2,-,-,-,-
+11,4,3,3,3,2,1,-,-,-
+12,4,3,3,3,2,1,-,-,-
+13,4,3,3,3,2,1,1,-,-
+14,4,3,3,3,2,1,1,-,-
+15,4,3,3,3,2,1,1,1,-
+16,4,3,3,3,2,1,1,1,-
+17,4,3,3,3,2,1,1,1,1
+18,4,3,3,3,3,1,1,1,1
+19,4,3,3,3,3,2,1,1,1
+20,4,3,3,3,3,2,2,1,1
+
+Spell Slots for Half Casters (Paladin, Ranger):
+Level,1st,2nd,3rd,4th,5th
+1,-,-,-,-,-
+2,2,-,-,-,-
+3,3,-,-,-,-
+4,3,-,-,-,-
+5,4,2,-,-,-
+6,4,2,-,-,-
+7,4,3,-,-,-
+8,4,3,-,-,-
+9,4,3,2,-,-
+10,4,3,2,-,-
+11,4,3,3,-,-
+12,4,3,3,-,-
+13,4,3,3,1,-
+14,4,3,3,1,-
+15,4,3,3,2,-
+16,4,3,3,2,-
+17,4,3,3,3,1
+18,4,3,3,3,1
+19,4,3,3,3,2
+20,4,3,3,3,2
+
+Warlock Spell Slots:
+Level,Slots,SlotLevel
+1,1,1st
+2,2,1st
+3,2,2nd
+4,2,2nd
+5,2,3rd
+6,2,3rd
+7,2,4th
+8,2,4th
+9,2,5th
+10,2,5th
+11,3,5th
+12,3,5th
+13,3,5th
+14,3,5th
+15,3,5th
+16,3,5th
+17,4,5th
+18,4,5th
+19,4,5th
+20,4,5th
+
+Third Caster Spell Slots (Arcane Trickster, Eldritch Knight):
+Level,1st,2nd,3rd,4th
+3,2,-,-,-
+4,3,-,-,-
+7,4,2,-,-
+10,4,3,-,-
+13,4,3,2,-
+16,4,3,3,-
+19,4,3,3,1
+20,4,3,3,1
+
+Class Features:
+Barbarian:Rage,Unarmored Defense,Reckless Attack,Danger Sense,Primal Path,Extra Attack,Fast Movement,Feral Instinct,Brutal Critical,Relentless Rage,Persistent Rage,Indomitable Might,Primal Champion
+Bard:Spellcasting,Bardic Inspiration,Jack of All Trades,Song of Rest,Bard College,Expertise,Font of Inspiration,Countercharm,Magical Secrets,Superior Inspiration
+Cleric:Spellcasting,Divine Domain,Channel Divinity,Destroy Undead,Divine Intervention
+Druid:Spellcasting,Druidic,Wild Shape,Druid Circle,Timeless Body,Beast Spells,Archdruid
+Fighter:Fighting Style,Second Wind,Action Surge,Martial Archetype,Extra Attack,Indomitable
+Monk:Unarmored Defense,Martial Arts,Ki,Unarmored Movement,Monastic Tradition,Deflect Missiles,Slow Fall,Extra Attack,Stunning Strike,Ki-Empowered Strikes,Evasion,Stillness of Mind,Purity of Body,Tongue of the Sun and Moon,Diamond Soul,Empty Body,Perfect Self
+Paladin:Divine Sense,Lay on Hands,Fighting Style,Spellcasting,Divine Smite,Divine Health,Sacred Oath,Extra Attack,Aura of Protection,Aura of Courage,Improved Divine Smite,Cleansing Touch
+Ranger:Favored Enemy,Natural Explorer,Fighting Style,Spellcasting,Ranger Archetype,Primeval Awareness,Extra Attack,Land's Stride,Hide in Plain Sight,Vanish,Feral Senses,Foe Slayer
+Rogue:Expertise,Sneak Attack,Thieves' Cant,Cunning Action,Roguish Archetype,Uncanny Dodge,Evasion,Reliable Talent,Blindsense,Slippery Mind,Elusive,Stroke of Luck
+Sorcerer:Spellcasting,Sorcerous Origin,Font of Magic,Metamagic,Sorcerous Restoration
+Warlock:Otherworldly Patron,Pact Magic,Eldritch Invocations,Pact Boon,Mystic Arcanum,Eldritch Master
+Wizard:Spellcasting,Arcane Recovery,Arcane Tradition,Spell Mastery,Signature Spells
+
+Spell Lists:
+Bard Spells:
+Cantrips:Blade Ward,Dancing Lights,Friends,Light,Mage Hand,Mending,Message,Minor Illusion,Prestidigitation,True Strike,Vicious Mockery
+1st:Animal Friendship,Bane,Charm Person,Comprehend Languages,Cure Wounds,Detect Magic,Disguise Self,Faerie Fire,Feather Fall,Healing Word,Heroism,Identify,Illusory Script,Longstrider,Silent Image,Sleep,Speak with Animals,Tasha's Hideous Laughter,Thunderwave,Unseen Servant
+2nd:Animal Messenger,Blindness/Deafness,Calm Emotions,Cloud of Daggers,Crown of Madness,Detect Thoughts,Enhance Ability,Enthrall,Heat Metal,Hold Person,Invisibility,Knock,Lesser Restoration,Locate Animals or Plants,Locate Object,Magic Mouth,Phantasmal Force,See Invisibility,Shatter,Silence,Suggestion,Zone of Truth
+3rd:Bestow Curse,Clairvoyance,Dispel Magic,Fear,Feign Death,Glyph of Warding,Hypnotic Pattern,Leomund's Tiny Hut,Major Image,Nondetection,Plant Growth,Sending,Speak with Dead,Speak with Plants,Stinking Cloud,Tongues
+4th:Compulsion,Confusion,Dimension Door,Freedom of Movement,Greater Invisibility,Hallucinatory Terrain,Locate Creature,Polymorph
+5th:Animate Objects,Awaken,Dominate Person,Dream,Geas,Greater Restoration,Hold Monster,Legend Lore,Mass Cure Wounds,Mislead,Modify Memory,Planar Binding,Raise Dead,Scrying,Seeming,Teleportation Circle
+
+Cleric Spells:
+Cantrips:Guidance,Light,Mending,Resistance,Sacred Flame,Spare the Dying,Thaumaturgy
+1st:Bane,Bless,Command,Create or Destroy Water,Cure Wounds,Detect Evil and Good,Detect Magic,Detect Poison and Disease,Guiding Bolt,Healing Word,Inflict Wounds,Protection from Evil and Good,Purify Food and Drink,Sanctuary,Shield of Faith
+2nd:Aid,Augury,Blindness/Deafness,Calm Emotions,Continual Flame,Enhance Ability,Find Traps,Gentle Repose,Hold Person,Lesser Restoration,Locate Object,Prayer of Healing,Protection from Poison,Silence,Spiritual Weapon,Warding Bond,Zone of Truth
+3rd:Animate Dead,Beacon of Hope,Bestow Curse,Clairvoyance,Create Food and Water,Daylight,Dispel Magic,Feign Death,Glyph of Warding,Magic Circle,Mass Healing Word,Meld into Stone,Protection from Energy,Remove Curse,Revivify,Sending,Speak with Dead,Spirit Guardians,Tongues,Water Walk
+4th:Banishment,Control Water,Death Ward,Divination,Freedom of Movement,Guardian of Faith,Locate Creature,Stone Shape
+5th:Commune,Contagion,Dispel Evil and Good,Flame Strike,Geas,Greater Restoration,Hallow,Insect Plague,Legend Lore,Mass Cure Wounds,Planar Binding,Raise Dead,Scrying
+
+Druid Spells (continued):
+2nd:Animal Messenger,Barkskin,Beast Sense,Darkvision,Enhance Ability,Find Traps,Flame Blade,Flaming Sphere,Gust of Wind,Heat Metal,Hold Person,Lesser Restoration,Locate Animals or Plants,Locate Object,Moonbeam,Pass without Trace,Protection from Poison,Spike Growth
+3rd:Call Lightning,Conjure Animals,Daylight,Dispel Magic,Meld into Stone,Plant Growth,Protection from Energy,Sleet Storm,Speak with Plants,Water Breathing,Water Walk,Wind Wall
+4th:Blight,Confusion,Conjure Minor Elementals,Conjure Woodland Beings,Control Water,Dominate Beast,Freedom of Movement,Giant Insect,Hallucinatory Terrain,Ice Storm,Locate Creature,Polymorph,Stone Shape,Stoneskin,Wall of Fire
+5th:Antilife Shell,Awaken,Commune with Nature,Conjure Elemental,Contagion,Geas,Greater Restoration,Insect Plague,Mass Cure Wounds,Planar Binding,Reincarnate,Scrying,Tree Stride,Wall of Stone
+
+Paladin Spells:
+1st:Bless,Command,Cure Wounds,Detect Evil and Good,Detect Magic,Detect Poison and Disease,Divine Favor,Heroism,Protection from Evil and Good,Purify Food and Drink,Shield of Faith
+2nd:Aid,Branding Smite,Find Steed,Lesser Restoration,Locate Object,Magic Weapon,Protection from Poison,Zone of Truth
+3rd:Create Food and Water,Daylight,Dispel Magic,Magic Circle,Remove Curse,Revivify
+4th:Banishment,Death Ward,Locate Creature
+5th:Dispel Evil and Good,Geas,Raise Dead
+
+Ranger Spells:
+1st:Alarm,Animal Friendship,Cure Wounds,Detect Magic,Detect Poison and Disease,Fog Cloud,Goodberry,Hunter's Mark,Jump,Longstrider,Speak with Animals
+2nd:Animal Messenger,Barkskin,Darkvision,Find Traps,Lesser Restoration,Locate Animals or Plants,Locate Object,Pass without Trace,Protection from Poison,Silence,Spike Growth
+3rd:Conjure Animals,Daylight,Nondetection,Plant Growth,Protection from Energy,Speak with Plants,Water Breathing,Water Walk
+4th:Conjure Woodland Beings,Freedom of Movement,Locate Creature,Stoneskin
+5th:Commune with Nature,Tree Stride
+
+Sorcerer Spells:
+Cantrips:Acid Splash,Blade Ward,Chill Touch,Dancing Lights,Fire Bolt,Friends,Light,Mage Hand,Mending,Message,Minor Illusion,Prestidigitation,Ray of Frost,Shocking Grasp,True Strike
+1st:Burning Hands,Charm Person,Chromatic Orb,Color Spray,Comprehend Languages,Detect Magic,Disguise Self,Expeditious Retreat,False Life,Feather Fall,Fog Cloud,Jump,Mage Armor,Magic Missile,Shield,Silent Image,Sleep,Thunderwave,Witch Bolt
+2nd:Alter Self,Blindness/Deafness,Blur,Cloud of Daggers,Crown of Madness,Darkness,Darkvision,Detect Thoughts,Enhance Ability,Enlarge/Reduce,Gust of Wind,Hold Person,Invisibility,Knock,Levitate,Mirror Image,Misty Step,Phantasmal Force,Scorching Ray,See Invisibility,Shatter,Spider Climb,Suggestion,Web
+3rd:Blink,Clairvoyance,Counterspell,Daylight,Dispel Magic,Fear,Fireball,Fly,Gaseous Form,Haste,Hypnotic Pattern,Lightning Bolt,Major Image,Protection from Energy,Sleet Storm,Slow,Stinking Cloud,Tongues,Water Breathing,Water Walk
+4th:Banishment,Blight,Confusion,Dimension Door,Dominate Beast,Greater Invisibility,Ice Storm,Polymorph,Stoneskin,Wall of Fire
+5th:Animate Objects,Cloudkill,Cone of Cold,Creation,Dominate Person,Hold Monster,Insect Plague,Seeming,Telekinesis,Teleportation Circle,Wall of Stone
+
+Warlock Spells:
+Cantrips:Blade Ward,Chill Touch,Eldritch Blast,Friends,Mage Hand,Minor Illusion,Prestidigitation,True Strike
+1st:Armor of Agathys,Arms of Hadar,Charm Person,Comprehend Languages,Expeditious Retreat,Hellish Rebuke,Hex,Illusory Script,Protection from Evil and Good,Unseen Servant,Witch Bolt
+2nd:Cloud of Daggers,Crown of Madness,Darkness,Enthrall,Hold Person,Invisibility,Mirror Image,Misty Step,Ray of Enfeeblement,Shatter,Spider Climb,Suggestion
+3rd:Counterspell,Dispel Magic,Fear,Fly,Gaseous Form,Hunger of Hadar,Hypnotic Pattern,Magic Circle,Major Image,Remove Curse,Tongues,Vampiric Touch
+4th:Banishment,Blight,Dimension Door,Hallucinatory Terrain
+5th:Contact Other Plane,Dream,Hold Monster,Scrying
+
+Wizard Spells:
+Cantrips:Acid Splash,Blade Ward,Chill Touch,Dancing Lights,Fire Bolt,Friends,Light,Mage Hand,Mending,Message,Minor Illusion,Prestidigitation,Ray of Frost,Shocking Grasp,True Strike
+1st:Alarm,Burning Hands,Charm Person,Chromatic Orb,Color Spray,Comprehend Languages,Detect Magic,Disguise Self,Expeditious Retreat,False Life,Feather Fall,Find Familiar,Fog Cloud,Grease,Identify,Illusory Script,Jump,Longstrider,Mage Armor,Magic Missile,Protection from Evil and Good,Shield,Silent Image,Sleep,Tasha's Hideous Laughter,Tenser's Floating Disk,Thunderwave,Unseen Servant,Witch Bolt
+2nd:Alter Self,Arcane Lock,Blindness/Deafness,Blur,Cloud of Daggers,Continual Flame,Crown of Madness,Darkness,Darkvision,Detect Thoughts,Enlarge/Reduce,Flaming Sphere,Gentle Repose,Gust of Wind,Hold Person,Invisibility,Knock,Levitate,Locate Object,Magic Mouth,Magic Weapon,Melf's Acid Arrow,Mirror Image,Misty Step,Nystul's Magic Aura,Phantasmal Force,Ray of Enfeeblement,Rope Trick,Scorching Ray,See Invisibility,Shatter,Spider Climb,Suggestion,Web
+3rd:Animate Dead,Bestow Curse,Blink,Clairvoyance,Counterspell,Dispel Magic,Fear,Feign Death,Fireball,Fly,Gaseous Form,Glyph of Warding,Haste,Hypnotic Pattern,Leomund's Tiny Hut,Lightning Bolt,Magic Circle,Major Image,Nondetection,Phantom Steed,Protection from Energy,Remove Curse,Sending,Sleet Storm,Slow,Stinking Cloud,Tongues,Vampiric Touch,Water Breathing
+4th:Arcane Eye,Banishment,Blight,Confusion,Conjure Minor Elementals,Control Water,Dimension Door,Evard's Black Tentacles,Fabricate,Fire Shield,Greater Invisibility,Hallucinatory Terrain,Ice Storm,Leomund's Secret Chest,Locate Creature,Mordenkainen's Faithful Hound,Mordenkainen's Private Sanctum,Otiluke's Resilient Sphere,Phantasmal Killer,Polymorph,Stone Shape,Stoneskin,Wall of Fire
+5th:Animate Objects,Bigby's Hand,Cloudkill,Cone of Cold,Conjure Elemental,Contact Other Plane,Creation,Dominate Person,Dream,Geas,Hold Monster,Legend Lore,Mislead,Modify Memory,Passwall,Planar Binding,Rary's Telepathic Bond,Scrying,Seeming,Telekinesis,Teleportation Circle,Wall of Force,Wall of Stone
+
+When leveling up a character, use this information to determine the appropriate changes in experience points, spell slots, and available spells. Ensure that the 'experience_points' field in the character data matches the value from this table for the character's new level. For spellcasting classes, update the character's spell list according to their class and new level.

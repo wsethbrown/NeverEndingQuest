@@ -1,0 +1,183 @@
+{
+  "name": "Thalor",
+  "size": "Medium",
+  "type": "Humanoid",
+  "race": "Hill Dwarf",
+  "class": "Cleric",
+  "level": 3,
+  "alignment": "Lawful Good",
+  "status": "alive",
+  "condition": "none",
+  "condition_affected": [],
+  "armorClass": 16,
+  "hitPoints": 24,
+  "maxHitPoints": 24,
+  "speed": 25,
+  "initiative": 0,
+  "abilities": {
+    "strength": 14,
+    "dexterity": 10,
+    "constitution": 16,
+    "intelligence": 10,
+    "wisdom": 15,
+    "charisma": 11
+  },
+  "savingThrows": [
+    "wisdom",
+    "charisma"
+  ],
+  "skills": {
+    "history": 2,
+    "insight": 4,
+    "medicine": 4,
+    "religion": 2
+  },
+  "proficiencies": {
+    "armor": [
+      "light",
+      "medium",
+      "shields"
+    ],
+    "weapons": [
+      "simple"
+    ],
+    "tools": [
+      "brewer's supplies"
+    ],
+    "languages": [
+      "common",
+      "dwarvish"
+    ]
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [
+    "poison"
+  ],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 12
+  },
+  "languages": "Common, Dwarvish",
+  "challengeRating": 0.5,
+  "proficiencyBonus": 2,
+  "specialAbilities": [
+    {
+      "name": "Darkvision",
+      "description": "Thalor can see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light."
+    },
+    {
+      "name": "Dwarven Resilience",
+      "description": "Thalor has advantage on saving throws against poison, and resistance against poison damage."
+    },
+    {
+      "name": "Divine Domain: Life",
+      "description": "Thalor has chosen the Life domain."
+    }
+  ],
+  "actions": [
+    {
+      "name": "Warhammer",
+      "attackBonus": 4,
+      "damageDice": "1d8",
+      "damageBonus": 2,
+      "damageType": "bludgeoning",
+      "damageDealt": 7
+    }
+  ],
+  "equipment": [
+    {
+      "item_name": "Warhammer",
+      "item_type": "weapon",
+      "description": "A versatile melee weapon.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Chain Mail",
+      "item_type": "armor",
+      "description": "Heavy armor providing AC 16.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Holy Symbol",
+      "item_type": "miscellaneous",
+      "description": "A symbol representing Thalor's deity.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ancient Keys",
+      "item_type": "miscellaneous",
+      "description": "Keys of unknown origin.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Tarnished Silver Coins",
+      "item_type": "miscellaneous",
+      "description": "A few tarnished silver coins found in a lockbox.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Old Journal",
+      "item_type": "miscellaneous",
+      "description": "An old journal belonging to the mine's foreman.",
+      "quantity": 1
+    }
+  ],
+  "ammunition": [],
+  "background": "Acolyte",
+  "personality": "Thalor is stern and unwavering, with a sense of duty that borders on obsession. He's always quoting ancient scriptures or invoking the wisdom of his god at inappropriate times. However, beneath his strict exterior, he feels the pressure of the expectations placed on him and secretly wonders if he's worthy.",
+  "ideals": "Righteousness must be upheld, no matter the cost.",
+  "bonds": "I owe my life to my faith, and I must repay that debt by guiding others\u00e2\u20ac\u201deven if they don't want it.",
+  "flaws": "Thalor struggles to admit when he's wrong. He clings stubbornly to his beliefs and can become judgmental, often ignoring the gray areas in favor of strict black-and-white morality.",
+  "experience_points": 2006,
+  "exp_required_for_next_level": 2700,
+  "currency": {
+    "gold": 17,
+    "silver": 8,
+    "copper": 20
+  },
+  "attacksAndSpellcasting": [
+    {
+      "name": "Sacred Flame",
+      "type": "spell",
+      "damage": "1d8",
+      "description": "A sacred flame descends on a creature, dealing radiant damage."
+    },
+    {
+      "name": "Warhammer",
+      "type": "melee",
+      "damage": "1d8+2",
+      "description": "A versatile melee weapon."
+    }
+  ],
+  "spellcasting": {
+    "ability": "wisdom",
+    "spellSaveDC": 12,
+    "spellAttackBonus": 4,
+    "spells": {
+      "cantrips": [
+        "Guidance",
+        "Sacred Flame",
+        "Thaumaturgy"
+      ],
+      "level1": [
+        "Cure Wounds",
+        "Bless",
+        "Shield of Faith"
+      ],
+      "level2": [],
+      "level3": []
+    }
+  },
+  "classFeatures": [
+    {
+      "name": "Spellcasting",
+      "description": "Thalor can cast prepared cleric spells using Wisdom as the spellcasting ability."
+    },
+    {
+      "name": "Channel Divinity",
+      "description": "Thalor can channel divine energy to fuel magical effects."
+    }
+  ]
+}

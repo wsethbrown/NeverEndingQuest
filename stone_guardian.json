@@ -1,0 +1,59 @@
+{
+    "name": "Stone Guardian",
+    "size": "Large",
+    "type": "construct",
+    "alignment": "unaligned",
+    "armorClass": 14,
+    "hitPoints": 52,
+    "maxHitPoints": 52,
+    "speed": 20,
+    "abilities": {
+      "strength": 18,
+      "dexterity": 8,
+      "constitution": 16,
+      "intelligence": 6,
+      "wisdom": 10,
+      "charisma": 5
+    },
+    "savingThrows": ["Constitution"],
+    "skills": {
+      "Perception": 2
+    },
+    "damageVulnerabilities": [],
+    "damageResistances": ["bludgeoning", "piercing", "slashing from nonmagical attacks"],
+    "damageImmunities": ["poison"],
+    "conditionImmunities": ["exhaustion", "petrified", "poisoned"],
+    "senses": {
+      "darkvision": 60,
+      "passivePerception": 12
+    },
+    "languages": "Drwarven and common",
+    "challengeRating": 2,
+    "specialAbilities": [
+      {
+        "name": "False Appearance",
+        "attackBonus": 0,
+        "damageDice": "",
+        "damageBonus": 0,
+        "damageType": ""
+      },
+      {
+        "name": "Immutable Form",
+        "attackBonus": 0,
+        "damageDice": "",
+        "damageBonus": 0,
+        "damageType": ""
+      }
+    ],
+    "actions": [
+      {
+        "name": "Slam",
+        "attackBonus": 6,
+        "damageDice": "2d6",
+        "damageBonus": 4,
+        "damageType": "bludgeoning"
+      }
+    ],
+    "legendaryActions": [],
+    "condition": "Alive"
+  }

@@ -1,0 +1,89 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "adventureTitle": {
+        "type": "string",
+        "description": "The title of the adventure"
+      },
+      "mainObjective": {
+        "type": "string",
+        "description": "The overall goal of the adventure"
+      },
+      "keyPlotPoints": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier for the plot point"
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of the plot point"
+            },
+            "objective": {
+              "type": "string",
+              "description": "What needs to be accomplished in this plot point"
+            },
+            "location": {
+              "type": "string",
+              "description": "The location ID where this plot point takes place"
+            },
+            "action": {
+              "type": "string",
+              "description": "The action required to complete this plot point"
+            }
+          },
+          "required": ["id", "title", "objective", "location", "action"]
+        }
+      },
+      "sideQuests": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier for the side quest"
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of the side quest"
+            },
+            "objective": {
+              "type": "string",
+              "description": "What needs to be accomplished in this side quest"
+            },
+            "locations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Array of location IDs involved in this side quest"
+            }
+          },
+          "required": ["id", "title", "objective", "locations"]
+        }
+      },
+      "executionPlan": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "aspect": {
+              "type": "string",
+              "description": "The aspect of the execution plan"
+            },
+            "description": {
+              "type": "string",
+              "description": "Details of how to implement this aspect"
+            }
+          },
+          "required": ["aspect", "description"]
+        }
+      }
+    },
+    "required": ["adventureTitle", "mainObjective", "keyPlotPoints", "sideQuests", "executionPlan"]
+  }

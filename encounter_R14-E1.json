@@ -1,0 +1,79 @@
+{
+  "encounterId": "R14-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 10,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 36,
+      "maxHitPoints": 36,
+      "armorClass": 16
+    },
+    {
+      "name": "Stone Guardian",
+      "type": "enemy",
+      "monsterType": "stone_guardian",
+      "initiative": 8,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 37,
+      "maxHitPoints": 52
+    },
+    {
+      "name": "Gilly",
+      "type": "npc",
+      "npcType": "gilly",
+      "initiative": 16,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 31,
+      "maxHitPoints": 31,
+      "armorClass": 15
+    },
+    {
+      "name": "Elara",
+      "type": "npc",
+      "npcType": "elara",
+      "initiative": 19,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 22,
+      "maxHitPoints": 22,
+      "armorClass": 15
+    },
+    {
+      "name": "Thalor",
+      "type": "npc",
+      "npcType": "thalor",
+      "initiative": 20,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 24,
+      "maxHitPoints": 24,
+      "armorClass": 16
+    }
+  ],
+  "encounterSummary": "The party's attempt to break down the Hidden Entrance has triggered the stone guardian, confronting them as they stand before the circular stone door of the Dwarven Complex."
+}

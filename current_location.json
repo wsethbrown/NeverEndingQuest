@@ -1,0 +1,69 @@
+{
+  "name": "Hidden Entrance to Dwarven Complex",
+  "type": "Secret Doorway",
+  "description": "A well-hidden doorway carved into the rock, adorned with ancient dwarven runes. This is the party's access to the Ancient Dwarven Stronghold Areea and specifically the Dwarven Complex - First Floor",
+  "locationId": "R14",
+  "coordinates": "X1Y6",
+  "size": "Small",
+  "lighting": "Dark",
+  "accessibility": "Accessible via the Hidden Passage; requires solving a puzzle to open.",
+  "encounterRate": "Low",
+  "commonCreatures": [],
+  "npcs": [],
+  "monsters": [],
+  "resourcesAvailable": [],
+  "weatherConditions": "N/A",
+  "plotHooks": [
+    "The dwarven runes might hold clues about the complex beyond."
+  ],
+  "lootTable": [],
+  "dangerLevel": "Medium",
+  "connectivity": [
+    "Hidden Passage",
+    "Waterlogged Tunnels"
+  ],
+  "areaConnectivity": [
+    "Grand Entrance Hall"
+  ],
+  "areaConnectivityId": [
+    "DS001"
+  ],
+  "traps": [],
+  "features": [
+    {
+      "name": "Dwarven Runes",
+      "description": "Ancient runes that glow faintly when approached."
+    },
+    {
+      "name": "Stone Mechanism",
+      "description": "A complex stone mechanism that seems to control the door."
+    }
+  ],
+  "dcChecks": [
+    {
+      "type": "History",
+      "dc": 15,
+      "description": "Understand the significance of the runes."
+    },
+    {
+      "type": "Intelligence",
+      "dc": 14,
+      "description": "Solve the puzzle to open the hidden door."
+    }
+  ],
+  "encounters": [],
+  "adventureSummary": "",
+  "doors": [
+    {
+      "name": "Hidden Dwarven Door",
+      "description": "A stone door concealed within the rock face.",
+      "type": "Stone",
+      "locked": true,
+      "lockDC": 18,
+      "breakDC": 25,
+      "keyname": "Solution to Dwarven Puzzle",
+      "trapped": false,
+      "trap": ""
+    }
+  ]
+}

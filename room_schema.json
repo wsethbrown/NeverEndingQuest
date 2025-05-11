@@ -1,0 +1,192 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "roomId": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "size": {
+        "type": "string"
+      },
+      "lighting": {
+        "type": "string"
+      },
+      "features": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": ["name", "description"]
+        }
+      },
+      "potentialMonsters": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "monsterId": {
+              "type": "string"
+            },
+            "quantity": {
+              "type": "object",
+              "properties": {
+                "min": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "max": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": ["min", "max"]
+            }
+          },
+          "required": ["monsterId", "quantity"]
+        }
+      },
+      "potentialEncounters": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "npcs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "attitude": {
+              "type": "string"
+            }
+          },
+          "required": ["name", "description", "attitude"]
+        }
+      },
+      "traps": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "dc": {
+              "type": "integer"
+            },
+            "damage": {
+              "type": "string"
+            },
+            "detectDC": {
+              "type": "integer"
+            },
+            "disableDC": {
+              "type": "integer"
+            }
+          },
+          "required": ["name", "description", "dc", "damage", "detectDC", "disableDC"]
+        }
+      },
+      "treasures": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "value": {
+              "type": "integer"
+            },
+            "rarity": {
+              "type": "string"
+            },
+            "quantity": {
+              "type": ["string", "integer"]
+            }
+          },
+          "required": ["name", "description", "value"]
+        }
+      },
+      "connections": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "targetRoomId": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "accessType": {
+              "type": "string",
+              "enum": ["normal", "locked", "hidden", "magical"]
+            },
+            "lockDC": {
+              "type": "integer"
+            }
+          },
+          "required": ["targetRoomId", "description", "accessType"]
+        }
+      },
+      "dcChecks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "dc": {
+              "type": "integer"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": ["type", "dc", "description"]
+        }
+      },
+      "ambience": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "roomId",
+      "name",
+      "description",
+      "size",
+      "lighting",
+      "features",
+      "potentialMonsters",
+      "potentialEncounters",
+      "connections",
+      "ambience"
+    ]
+  }

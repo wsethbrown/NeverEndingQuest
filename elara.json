@@ -1,0 +1,194 @@
+{
+  "name": "Elara",
+  "size": "Medium",
+  "type": "Humanoid",
+  "race": "Elf",
+  "class": "Ranger",
+  "level": 4,
+  "alignment": "Chaotic Good",
+  "status": "alive",
+  "condition": "none",
+  "condition_affected": [],
+  "armorClass": 15,
+  "hitPoints": 22,
+  "maxHitPoints": 22,
+  "speed": 30,
+  "initiative": 3,
+  "abilities": {
+    "strength": 13,
+    "dexterity": 16,
+    "constitution": 14,
+    "intelligence": 12,
+    "wisdom": 15,
+    "charisma": 10
+  },
+  "savingThrows": [
+    "Strength",
+    "Dexterity"
+  ],
+  "skills": {
+    "Athletics": 3,
+    "Acrobatics": 5,
+    "Stealth": 5,
+    "Survival": 4,
+    "Perception": 4,
+    "Nature": 3
+  },
+  "proficiencies": {
+    "armor": [
+      "Light",
+      "Medium",
+      "Shields"
+    ],
+    "weapons": [
+      "Simple",
+      "Martial"
+    ],
+    "tools": [],
+    "languages": [
+      "Common",
+      "Elvish"
+    ]
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 14
+  },
+  "languages": "Common, Elvish",
+  "challengeRating": 0.5,
+  "proficiencyBonus": 2,
+  "specialAbilities": [
+    {
+      "name": "Favored Enemy",
+      "description": "Elara has advantage on Wisdom (Survival) checks to track her favored enemies, as well as on Intelligence checks to recall information about them."
+    },
+    {
+      "name": "Natural Explorer",
+      "description": "When Elara makes an Intelligence or Wisdom check related to her favored terrain, her proficiency bonus is doubled if she is using a skill that she is proficient in."
+    },
+    {
+      "name": "Fey Ancestry",
+      "description": "Elara has advantage on saving throws against being charmed, and magic can't put her to sleep."
+    },
+    {
+      "name": "Trance",
+      "description": "Elara doesn't need to sleep. Instead, she meditates deeply for 4 hours a day."
+    },
+    {
+      "name": "Primeval Awareness",
+      "description": "Elara can use her action and expend one ranger spell slot to focus her awareness on the region around her."
+    }
+  ],
+  "actions": [
+    {
+      "name": "Longbow",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "piercing"
+    },
+    {
+      "name": "Shortsword",
+      "attackBonus": 5,
+      "damageDice": "1d6",
+      "damageBonus": 3,
+      "damageType": "piercing"
+    }
+  ],
+  "equipment": [
+    {
+      "item_name": "Longbow",
+      "item_type": "weapon",
+      "description": "Range 150/600 ft.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Shortsword",
+      "item_type": "weapon",
+      "description": "Finesse, light",
+      "quantity": 1
+    },
+    {
+      "item_name": "Leather Armor",
+      "item_type": "armor",
+      "description": "Light armor",
+      "quantity": 1
+    },
+    {
+      "item_name": "Explorer's Pack",
+      "item_type": "miscellaneous",
+      "description": "Includes a backpack, a bedroll, a mess kit, a tinderbox, 10 torches, 10 days of rations, and a waterskin",
+      "quantity": 1
+    },
+    {
+      "item_name": "Rope, hempen (50 feet)",
+      "item_type": "miscellaneous",
+      "description": "Strong rope useful for climbing or binding",
+      "quantity": 1
+    },
+    {
+      "item_name": "Engraved Dagger",
+      "item_type": "weapon",
+      "description": "A finely crafted dagger with engravings",
+      "quantity": 1
+    }
+  ],
+  "ammunition": [
+    {
+      "name": "Arrows",
+      "quantity": 35,
+      "description": "Ammunition for longbow"
+    }
+  ],
+  "background": "Wanderer",
+  "personality": "Elara's sharp tongue hides a deep loneliness she can never admit. She craves connection but fears vulnerability. She's sarcastic and makes biting remarks when uncomfortable but will throw herself into danger to protect those she cares about, even if she won't admit it.",
+  "ideals": "Change is inevitable, but it's important to shape it rather than be swept away by it.",
+  "bonds": "I will do anything to protect the wilderness, even if it means isolating myself from those I care about.",
+  "flaws": "Elara has a deep fear of abandonment, which makes her emotionally distant, and she often pushes away those who get too close. She also tends to overthink, which causes her to hesitate at critical moments.",
+  "experience_points": 3180,
+  "exp_required_for_next_level": 3900,
+  "currency": {
+    "gold": 16,
+    "silver": 2,
+    "copper": 0
+  },
+  "attacksAndSpellcasting": [
+    {
+      "name": "Longbow",
+      "type": "ranged",
+      "damage": "1d8+3",
+      "description": "Range 150/600 ft."
+    },
+    {
+      "name": "Shortsword",
+      "type": "melee",
+      "damage": "1d6+3",
+      "description": "Finesse, light"
+    }
+  ],
+  "spellcasting": {
+    "ability": "Wisdom",
+    "spellSaveDC": 12,
+    "spellAttackBonus": 4,
+    "spells": {
+      "level1": [
+        "Cure Wounds",
+        "Hunter's Mark"
+      ]
+    }
+  },
+  "classFeatures": [
+    {
+      "name": "Favored Enemy",
+      "description": "Elara has chosen a type of favored enemy. She has advantage on Wisdom (Survival) checks to track her favored enemies, as well as on Intelligence checks to recall information about them."
+    },
+    {
+      "name": "Natural Explorer",
+      "description": "Elara is particularly familiar with one type of natural environment and is adept at traveling and surviving in such regions."
+    }
+  ]
+}

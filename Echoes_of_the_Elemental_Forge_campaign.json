@@ -1,0 +1,148 @@
+{
+  "campaignName": "Echoes of the Elemental Forge",
+  "campaignDescription": "A group of adventurers must uncover the secrets of an ancient dwarven artifact to prevent catastrophic elemental chaos.",
+  "worldSettings": {
+    "worldName": "Teloria",
+    "era": "Age of Resurgence",
+    "cosmology": "Great Wheel",
+    "planarConnections": ["Elemental Plane of Fire", "Elemental Plane of Earth"],
+    "majorDeities": [
+      {
+        "name": "Moradin",
+        "domain": "Forge",
+        "alignment": "Lawful Good"
+      },
+      {
+        "name": "Gruumsh",
+        "domain": "War",
+        "alignment": "Chaotic Evil"
+      }
+    ],
+    "majorPowers": [
+      {
+        "name": "Kingdom of Ironhold",
+        "type": "kingdom",
+        "influence": "regional"
+      },
+      {
+        "name": "Ember Enclave",
+        "type": "other",
+        "influence": "local"
+      }
+    ],
+    "predominantRaces": ["Human", "Dwarf", "Elf", "Halfling"],
+    "magicPrevalence": "uncommon",
+    "currentConflicts": [
+      "Tension between surface dwellers and dwarven clans",
+      "Elemental disturbances threatening settlements"
+    ]
+  },
+  "mainPlot": {
+    "mainObjective": "Prevent the Ember Enclave from misusing the Elemental Forge",
+    "antagonist": "Rurik Emberstone, leader of the Ember Enclave",
+    "plotStages": [
+      {
+        "stageName": "Investigating Ember Hollow",
+        "stageDescription": "Players arrive in Ember Hollow and learn about the recent disturbances.",
+        "requiredLevel": 1,
+        "keyNPCs": ["Maera Thistledown", "Garrick Ironbelly"],
+        "majorEvents": ["Meeting with village elder", "First elemental manifestation"]
+      },
+      {
+        "stageName": "Delving into the Old Mines",
+        "stageDescription": "Explore the abandoned mines and discover the Ember Enclave's presence.",
+        "requiredLevel": 2,
+        "keyNPCs": ["Old Miner Gregor", "Ember Enclave Scout"],
+        "majorEvents": ["Confrontation with Fire Beetles", "Discovery of Ember Enclave plans"]
+      },
+      {
+        "stageName": "Uncovering the Dwarven Complex",
+        "stageDescription": "Enter the ancient dwarven stronghold and learn about the Elemental Forge.",
+        "requiredLevel": 3,
+        "keyNPCs": ["Rurik Emberstone", "Ancient Dwarven Lorekeeper (projection)"],
+        "majorEvents": ["Solving the entrance puzzle", "Confrontation with Rurik Emberstone"]
+      }
+    ]
+  },
+  "factions": [
+    {
+      "factionName": "Ember Enclave",
+      "factionDescription": "A secretive group of dwarven smiths seeking to harness elemental powers.",
+      "alignment": "lawful neutral",
+      "goals": ["Reactivate the Elemental Forge", "Restore dwarven glory"],
+      "keyMembers": ["Rurik Emberstone", "Thora Flameheart", "Grimm Stonefist"]
+    },
+    {
+      "factionName": "Ironhold Clan",
+      "factionDescription": "The ruling dwarven clan of the region, concerned about the Enclave's activities.",
+      "alignment": "lawful good",
+      "goals": ["Maintain peace in the region", "Preserve ancient dwarven secrets"],
+      "keyMembers": ["King Thorin Ironhold", "Princess Dagna Ironhold", "Balin Stonehelm (royal advisor)"]
+    }
+  ],
+  "worldMap": [
+    {
+      "regionName": "Ember Hollow and Surroundings",
+      "regionDescription": "A small mining village nestled at the foot of the Ashen Peaks.",
+      "mapId": "EHS001",
+      "dangerLevel": "medium",
+      "recommendedLevel": 1,
+      "levels": [
+        {
+          "name": "Surface",
+          "id": "EHS001-S",
+          "description": "The surface level of Ember Hollow, including the village and surrounding areas."
+        },
+        {
+          "name": "Old Mines of Ember Hollow",
+          "id": "EM001",
+          "description": "Abandoned mines now being explored by the party."
+        }
+      ]
+    },
+    {
+      "regionName": "Ancient Dwarven Stronghold",
+      "regionDescription": "A long-abandoned dwarven complex hidden beneath the mountains.",
+      "mapId": "ADS001",
+      "dangerLevel": "high",
+      "recommendedLevel": 3,
+      "levels": [
+        {
+          "name": "Stronghold Entrance",
+          "id": "ADS001-L1",
+          "description": "The upper level of the stronghold, containing the main entrance and defensive structures."
+        },
+        {
+          "name": "Dwarven Complex - First Floor",
+          "id": "DS001",
+          "description": "The main level of the stronghold, containing various important chambers."
+        },
+        {
+          "name": "Forge Level",
+          "id": "ADS001-L3",
+          "description": "The lower level of the stronghold, housing the Elemental Forge and related chambers."
+        }
+      ]
+    }
+  ],
+  "timelineEvents": [
+    {
+      "eventName": "The First Tremor",
+      "eventDescription": "A strong earthquake shakes Ember Hollow, signaling the awakening of the Elemental Forge.",
+      "triggerCondition": "Players arrive in Ember Hollow",
+      "impact": "Increases urgency, damages some buildings in the village"
+    },
+    {
+      "eventName": "Enclave Reinforcements",
+      "eventDescription": "The Ember Enclave receives reinforcements, increasing their presence in the mines.",
+      "triggerCondition": "Players discover the Enclave's presence in the mines",
+      "impact": "Increases difficulty of encounters in the mines, adds time pressure"
+    },
+    {
+      "eventName": "Elemental Outbreak",
+      "eventDescription": "Elemental creatures begin appearing in the region due to the Forge's growing instability.",
+      "triggerCondition": "Players enter the Dwarven Complex",
+      "impact": "Adds elemental encounters in the overworld, increases the stakes of the mission"
+    }
+  ]
+}

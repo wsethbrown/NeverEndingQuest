@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "encounterId": {
+      "type": "string"
+    },
+    "encounterSummary": {
+      "type": "string"
+    },
+    "creatures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["player", "enemy", "npc"]
+          },
+          "monsterType": {
+            "type": "string"
+          },
+          "npcType": {
+            "type": "string"
+          },
+          "initiative": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["alive", "dead", "unconscious", "defeated"]
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "actions": {
+            "type": "object",
+            "properties": {
+              "actionType": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              }
+            },
+            "required": ["actionType", "target"]
+          },
+          "currentHitPoints": {
+            "type": "integer"
+          },
+          "maxHitPoints": {
+            "type": "integer"
+          }
+        },
+        "required": ["name", "type", "initiative", "status", "conditions", "actions", "currentHitPoints", "maxHitPoints"],
+        "allOf": [
+          {
+            "if": {
+              "properties": { "type": { "const": "enemy" } }
+            },
+            "then": {
+              "required": ["monsterType"]
+            }
+          },
+          {
+            "if": {
+              "properties": { "type": { "const": "npc" } }
+            },
+            "then": {
+              "required": ["npcType"]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": ["encounterId", "encounterSummary", "creatures"]
+}

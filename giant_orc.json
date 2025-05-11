@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "Giant Orc",
+  "size": "Large",
+  "type": "humanoid",
+  "alignment": "chaotic evil",
+  "armorClass": 14,
+  "hitPoints": 76,
+  "maxHitPoints": 76,
+  "speed": 30,
+  "abilities": {
+    "strength": 19,
+    "dexterity": 12,
+    "constitution": 16,
+    "intelligence": 7,
+    "wisdom": 11,
+    "charisma": 10
+  },
+  "savingThrows": [
+    "strength",
+    "constitution"
+  ],
+  "skills": {
+    "intimidation": 2
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 10
+  },
+  "languages": "Common, Orc",
+  "challengeRating": 4,
+  "specialAbilities": [
+    {
+      "name": "Aggressive",
+      "attackBonus": 0,
+      "damageDice": "",
+      "damageBonus": 0,
+      "damageType": ""
+    }
+  ],
+  "actions": [
+    {
+      "name": "Greatsword",
+      "attackBonus": 6,
+      "damageDice": "2d6",
+      "damageBonus": 4,
+      "damageType": "slashing"
+    },
+    {
+      "name": "Javelin",
+      "attackBonus": 6,
+      "damageDice": "1d6",
+      "damageBonus": 4,
+      "damageType": "piercing"
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive"
+}

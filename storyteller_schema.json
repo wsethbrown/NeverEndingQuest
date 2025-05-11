@@ -1,0 +1,40 @@
+{
+    "type": "object",
+    "properties": {
+      "systemPrompt": {
+        "type": "string",
+        "description": "The main system prompt for the Dungeon Master"
+      },
+      "actions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": ["combat", "skillCheck", "updateTime", "transitionLocation"]
+            },
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "stat": {
+                  "type": "string",
+                  "enum": ["wisdom", "strength", "dexterity", "charisma", "intelligence", "constitution"]
+                },
+                "timeEstimate": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "newLocation": {
+                  "type": "string"
+                }
+              },
+              "required": ["stat", "timeEstimate", "newLocation"]
+            }
+          },
+          "required": ["action", "parameters"]
+        }
+      }
+    },
+    "required": ["systemPrompt", "actions"]
+  }

@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "Large Spider",
+  "size": "Large",
+  "type": "Beast",
+  "alignment": "Unaligned",
+  "armorClass": 14,
+  "hitPoints": 26,
+  "speed": 30,
+  "abilities": {
+    "strength": 14,
+    "dexterity": 16,
+    "constitution": 12,
+    "intelligence": 2,
+    "wisdom": 11,
+    "charisma": 4
+  },
+  "savingThrows": [],
+  "skills": {
+    "stealth": 7
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 10
+  },
+  "languages": "",
+  "challengeRating": 1,
+  "specialAbilities": [],
+  "actions": [
+    {
+      "name": "Bite",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "piercing"
+    },
+    {
+      "name": "Web",
+      "attackBonus": 5,
+      "damageDice": "",
+      "damageBonus": 0,
+      "damageType": ""
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive"
+}

@@ -1,0 +1,40 @@
+{
+    "campaign": "Echoes_of_the_Elemental_Forge",
+    "partyMembers": [
+        "Norn"
+    ],
+    "partyNPCs": [
+        {
+            "name": "Gilly",
+            "role": "Companion"
+        },
+        {
+            "name": "Elara",
+            "role": "Scout"
+        },
+        {
+            "name": "Thalor",
+            "role": "Healer"
+        }
+    ],
+    "worldConditions": {
+        "year": 1492,
+        "month": "Ches",
+        "day": 21,
+        "time": "14:30:54",
+        "weather": "N/A",
+        "season": "Spring",
+        "dayNightCycle": "Night",
+        "moonPhase": "Waxing Gibbous",
+        "currentLocation": "Hidden Entrance to Dwarven Complex",
+        "currentLocationId": "R14",
+        "currentArea": "Old Mines of Ember Hollow",
+        "currentAreaId": "EM001",
+        "majorEventsUnderway": [],
+        "politicalClimate": "",
+        "activeEncounter": "",
+        "activeCombatEncounter": "",
+        "weatherConditions": "N/A"
+    },
+    "activeQuests": []
+}

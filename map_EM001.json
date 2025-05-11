@@ -1,0 +1,136 @@
+{
+  "mapName": "Old Mines of Ember Hollow",
+  "mapId": "EM001",
+  "totalRooms": 20,
+  "rooms": [
+    {
+      "id": "R1",
+      "name": "Entrance Tunnel",
+      "connections": ["R2", "R3", "R15"],
+      "coordinates": "X2Y1"
+    },
+    {
+      "id": "R2",
+      "name": "Abandoned Mining Office",
+      "connections": ["R1", "R16"],
+      "coordinates": "X1Y1"
+    },
+    {
+      "id": "R3",
+      "name": "Collapsed Passage",
+      "connections": ["R1", "R4", "R8"],
+      "coordinates": "X3Y1"
+    },
+    {
+      "id": "R4",
+      "name": "Gas Pocket Chamber",
+      "connections": ["R3", "R5"],
+      "coordinates": "X2Y2"
+    },
+    {
+      "id": "R5",
+      "name": "Fire Beetle Nest",
+      "connections": ["R4", "R6"],
+      "coordinates": "X1Y3"
+    },
+    {
+      "id": "R6",
+      "name": "Equipment Storage",
+      "connections": ["R5", "R7"],
+      "coordinates": "X1Y4"
+    },
+    {
+      "id": "R7",
+      "name": "Hidden Passage",
+      "connections": ["R6", "R14", "R17"],
+      "coordinates": "X1Y5"
+    },
+    {
+      "id": "R8",
+      "name": "Underground Stream",
+      "connections": ["R3", "R9", "R18"],
+      "coordinates": "X3Y2"
+    },
+    {
+      "id": "R9",
+      "name": "Ore Processing Room",
+      "connections": ["R8", "R10"],
+      "coordinates": "X3Y3"
+    },
+    {
+      "id": "R10",
+      "name": "Ember Enclave Guard Post",
+      "connections": ["R9", "R11", "R19"],
+      "coordinates": "X3Y4"
+    },
+    {
+      "id": "R11",
+      "name": "Crystal Cavern",
+      "connections": ["R10", "R12"],
+      "coordinates": "X4Y4"
+    },
+    {
+      "id": "R12",
+      "name": "Abandoned Shaft",
+      "connections": ["R11", "R13", "R20"],
+      "coordinates": "X5Y4"
+    },
+    {
+      "id": "R13",
+      "name": "Waterlogged Tunnels",
+      "connections": ["R12", "R14"],
+      "coordinates": "X5Y5"
+    },
+    {
+      "id": "R14",
+      "name": "Hidden Entrance to Dwarven Complex",
+      "connections": ["R7", "R13"],
+      "coordinates": "X1Y6"
+    },
+    {
+      "id": "R15",
+      "name": "Ancient Dwarven Shrine",
+      "connections": ["R1", "R16"],
+      "coordinates": "X1Y0"
+    },
+    {
+      "id": "R16",
+      "name": "Forgotten Library",
+      "connections": ["R2", "R15", "R17"],
+      "coordinates": "X2Y0"
+    },
+    {
+      "id": "R17",
+      "name": "Enchanted Forge",
+      "connections": ["R7", "R16"],
+      "coordinates": "X0Y5"
+    },
+    {
+      "id": "R18",
+      "name": "Subterranean Garden",
+      "connections": ["R8", "R19"],
+      "coordinates": "X4Y2"
+    },
+    {
+      "id": "R19",
+      "name": "Ember Enclave War Room",
+      "connections": ["R10", "R18"],
+      "coordinates": "X4Y3"
+    },
+    {
+      "id": "R20",
+      "name": "Time-Locked Vault",
+      "connections": ["R12"],
+      "coordinates": "X5Y6"
+    }
+  ],
+  "layout": [
+    ["", "R15", "R16", "", "", "", ""],
+    ["", "R2", "R1", "R3", "", "", ""],
+    ["", "", "R4", "R8", "R18", "", ""],
+    ["", "R5", "", "R9", "R19", "", ""],
+    ["", "R6", "", "R10", "R11", "R12", ""],
+    ["R17", "R7", "", "", "", "R13", ""],
+    ["", "R14", "", "", "", "R20", ""]
+  ]
+}

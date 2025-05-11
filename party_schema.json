@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "campaign": {
+      "type": "string",
+      "description": "The name of the current campaign"
+    },
+    "partyMembers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "An array of strings representing the names of the player characters"
+    },
+    "partyNPCs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the NPC"
+          },
+          "role": {
+            "type": "string",
+            "description": "The role or function of the NPC in the party"
+          }
+        },
+        "required": ["name", "role"]
+      },
+      "description": "An array of NPCs accompanying the party"
+    },
+    "worldConditions": {
+      "type": "object",
+      "properties": {
+        "year": {
+          "type": "integer",
+          "description": "The current year in the game world"
+        },
+        "month": {
+          "type": "string",
+          "description": "The current month in the game world"
+        },
+        "day": {
+          "type": "integer",
+          "description": "The current day of the month in the game world"
+        },
+        "time": {
+          "type": "string",
+          "description": "The current time of day in the game world"
+        },
+        "weather": {
+          "type": "string",
+          "description": "The current weather conditions"
+        },
+        "season": {
+          "type": "string",
+          "description": "The current season in the game world"
+        },
+        "dayNightCycle": {
+          "type": "string",
+          "description": "Whether it's currently day or night"
+        },
+        "moonPhase": {
+          "type": "string",
+          "description": "The current phase of the moon, if relevant"
+        },
+        "currentLocation": {
+          "type": "string",
+          "description": "The name of the party's current location"
+        },
+        "currentArea": {
+          "type": "string",
+          "description": "The name of the broader area or region the party is currently in"
+        },
+        "currentAreaId": {
+          "type": "string",
+          "description": "The unique identifier for the current area"
+        },
+        "majorEventsUnderway": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Any significant events currently happening in the world"
+        },
+        "politicalClimate": {
+          "type": "string",
+          "description": "The current political situation, if relevant"
+        },
+        "activeEncounter": {
+          "type": "string",
+          "description": "Any ongoing non-combat encounter"
+        },
+        "activeCombatEncounter": {
+          "type": "string",
+          "description": "Any ongoing combat encounter"
+        },
+        "weatherConditions": {
+          "type": "string",
+          "description": "Specific details about the current weather"
+        }
+      },
+      "required": ["year", "month", "day", "time", "weather", "season", "dayNightCycle", "moonPhase", "currentLocation", "currentArea", "currentAreaId", "majorEventsUnderway", "politicalClimate", "activeEncounter", "activeCombatEncounter", "weatherConditions"]
+    },
+    "activeQuests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the quest (e.g., 'PP001' for main plot points, 'SQ001' for side quests)"
+          },
+          "objective": {
+            "type": "string",
+            "description": "A clear, actionable description of the current goal for this quest. Should include: 1) The specific task to be completed, 2) The location where it needs to be done (if applicable), and 3) Any key items or NPCs involved. Avoid vague terms; use concrete, measurable goals. Update this as the quest progresses. Maximum 50 words."
+          }
+        },
+        "required": ["id", "objective"]
+      },
+      "description": "An array of currently active quests for the party"
+    }
+  },
+  "required": ["campaign", "partyMembers", "partyNPCs", "worldConditions", "activeQuests"]
+}

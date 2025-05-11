@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "Cave Troll",
+  "size": "Large",
+  "type": "Giant",
+  "alignment": "Chaotic Evil",
+  "armorClass": 16,
+  "hitPoints": 84,
+  "maxHitPoints": 84,
+  "speed": 30,
+  "abilities": {
+    "strength": 18,
+    "dexterity": 13,
+    "constitution": 20,
+    "intelligence": 7,
+    "wisdom": 9,
+    "charisma": 7
+  },
+  "savingThrows": [
+    "Strength +7",
+    "Constitution +9"
+  ],
+  "skills": {
+    "perception": 2
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 12
+  },
+  "languages": "Giant",
+  "challengeRating": 5,
+  "specialAbilities": [
+    {
+      "name": "Regeneration",
+      "attackBonus": 0,
+      "damageDice": "",
+      "damageBonus": 0,
+      "damageType": "",
+      "description": "The troll regains 10 hit points at the start of its turn. If the troll takes acid or fire damage, this trait doesn't function at the start of the troll's next turn. The troll dies only if it starts its turn with 0 hit points and doesn't regenerate."
+    }
+  ],
+  "actions": [
+    {
+      "name": "Multiattack",
+      "attackBonus": 0,
+      "damageDice": "",
+      "damageBonus": 0,
+      "damageType": "",
+      "description": "The troll makes three attacks: one with its bite and two with its claws."
+    },
+    {
+      "name": "Bite",
+      "attackBonus": 7,
+      "damageDice": "1d10",
+      "damageBonus": 4,
+      "damageType": "piercing"
+    },
+    {
+      "name": "Claw",
+      "attackBonus": 7,
+      "damageDice": "2d6",
+      "damageBonus": 4,
+      "damageType": "slashing"
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive"
+}

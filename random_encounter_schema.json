@@ -1,0 +1,97 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "encounterTables": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "tableName": {
+              "type": "string"
+            },
+            "environment": {
+              "type": "string",
+              "enum": ["forest", "mountain", "desert", "urban", "dungeon", "coastal", "swamp", "plains", "underdark"]
+            },
+            "levelRange": {
+              "type": "object",
+              "properties": {
+                "min": {"type": "integer", "minimum": 1},
+                "max": {"type": "integer", "maximum": 20}
+              },
+              "required": ["min", "max"]
+            },
+            "encounters": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {"type": "string"},
+                  "type": {
+                    "type": "string",
+                    "enum": ["combat", "social", "exploration", "trap", "mixed"]
+                  },
+                  "description": {"type": "string"},
+                  "difficulty": {
+                    "type": "string",
+                    "enum": ["easy", "medium", "hard", "deadly"]
+                  },
+                  "creatures": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {"type": "string"},
+                        "quantity": {"type": "integer", "minimum": 1},
+                        "cr": {"type": "number"}
+                      },
+                      "required": ["name", "quantity", "cr"]
+                    }
+                  },
+                  "npcs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {"type": "string"},
+                        "role": {"type": "string"}
+                      },
+                      "required": ["name", "role"]
+                    }
+                  },
+                  "treasure": {
+                    "type": "object",
+                    "properties": {
+                      "gold": {"type": "integer", "minimum": 0},
+                      "items": {
+                        "type": "array",
+                        "items": {"type": "string"}
+                      }
+                    },
+                    "required": ["gold", "items"]
+                  },
+                  "terrain": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "weather": {"type": "string"},
+                  "time": {
+                    "type": "string",
+                    "enum": ["day", "night", "dawn", "dusk"]
+                  },
+                  "hooks": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  }
+                },
+                "required": ["id", "type", "description", "difficulty"]
+              }
+            }
+          },
+          "required": ["tableName", "environment", "levelRange", "encounters"]
+        }
+      }
+    },
+    "required": ["encounterTables"]
+  }
