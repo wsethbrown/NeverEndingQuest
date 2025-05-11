@@ -68,7 +68,7 @@ The system uses GPT models which can be configured in the `config.py` file:
 
 ## License
 
-This project is for personal use and experimentation.
+This project is for personal use and experimentation. Based on WOTC Creative Commons content.
 
 ## Future Development
 
