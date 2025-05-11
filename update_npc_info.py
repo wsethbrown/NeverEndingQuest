@@ -4,12 +4,13 @@ from jsonschema import validate, ValidationError
 from openai import OpenAI
 import time
 import re
-from config import OPENAI_API_KEY
+# Import model configuration from config.py
+from config import OPENAI_API_KEY, NPC_INFO_UPDATE_MODEL
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Constants
-MODEL = "gpt-4o-mini"
+# MODEL = "gpt-4o-mini" # REMOVED
 TEMPERATURE = 0.7
 
 # ANSI escape codes
@@ -56,7 +57,7 @@ def update_npc(npc_name, changes, max_retries=3):
     # Load the current NPC info and schema
     with open(f"{npc_name.lower().replace(' ', '_')}.json", "r") as file:
         npc_info = json.load(file)
-    
+
     original_info = copy.deepcopy(npc_info)  # Keep a copy of the original info
     schema = load_schema()
 
@@ -67,7 +68,7 @@ def update_npc(npc_name, changes, max_retries=3):
         # Prepare the prompt for the AI
         prompt = [
             {"role": "system", "content": """You are an assistant that updates NPC information in the world's most popular 5th Edition roleplaying game. Given the current NPC information and a description of changes, you must return only the updated sections as a JSON object. Do not include unchanged fields. Your response should be a valid JSON object representing only the modified parts of the NPC sheet.
-            
+
             You must also do the math based on what is contextually presented. 
 
             For example, if the input states the party NPC used 3 arrows in combat then you will need to remove 3 arrows from their current total before passing the final amount. IF the party NPC started with 17 arrows and uses 3 in combat then you will update the ammunition total for the arrows to 14.
@@ -135,7 +136,7 @@ Examples of inputs requiring updates to the JSON:
        }
      ]
    }
-   
+
 6. Input: Patrick used 2 arrows in combat. Update the arrow count in their ammunition.
    Output: {
      "ammunition": [
@@ -179,63 +180,63 @@ Correct output: {
 
         # Get AI's response
         response = client.chat.completions.create(
-            model=MODEL,
+            model=NPC_INFO_UPDATE_MODEL, # Use imported model name
             temperature=TEMPERATURE,
             messages=prompt
         )
-        
+
         ai_response = response.choices[0].message.content.strip()
-        
+
         # Write the raw AI response to a debug file
         with open("debug_npc_update.json", "w") as debug_file:
             json.dump({"raw_ai_response": ai_response}, debug_file, indent=2)
-        
+
         print(f"{ORANGE}DEBUG: Raw AI response written to debug_npc_update.json{RESET}")
-        
+
         # Remove markdown code blocks if present
         ai_response = re.sub(r'```json\n|\n```', '', ai_response)
-        
+
         try:
             updates = json.loads(ai_response)
-            
+
             # Apply updates to the NPC info
             npc_info = update_nested_dict(npc_info, updates)
-            
+
             # Check for any new top-level keys
             new_keys = set(npc_info.keys()) - set(original_info.keys())
             if new_keys:
                 print(f"{RED}WARNING: New top-level keys detected: {new_keys}. These will be removed.{RESET}")
                 for key in new_keys:
                     del npc_info[key]
-            
+
             # Validate the updated info against the schema
             validate(instance=npc_info, schema=schema)
-            
+
             # If we reach here, validation was successful
             print(f"{GREEN}DEBUG: Successfully updated and validated NPC info on attempt {attempt + 1}{RESET}")
-            
+
             # Compare original and updated info
             diff = compare_json(original_info, npc_info)
             print(f"{ORANGE}DEBUG: Changes made:{RESET}")
             print(json.dumps(diff, indent=2))
-            
+
             # Save the updated NPC info
             with open(f"{npc_name.lower().replace(' ', '_')}.json", "w") as file:
                 json.dump(npc_info, file, indent=2)
-            
+
             print(f"{ORANGE}DEBUG: {npc_name}'s information updated{RESET}")
             return npc_info
-            
+
         except json.JSONDecodeError as e:
             print(f"{ORANGE}DEBUG: AI response is not valid JSON. Error: {e}. Retrying...{RESET}")
         except ValidationError as e:
             print(f"{RED}ERROR: Updated info does not match the schema. Error: {e}. Retrying...{RESET}")
-        
+
         # If we've reached the maximum number of retries, return the original NPC info
         if attempt == max_retries - 1:
             print(f"{RED}ERROR: Failed to update NPC info after {max_retries} attempts. Returning original NPC info.{RESET}")
             return original_info
-        
+
         # Wait for a short time before retrying
         time.sleep(1)
 

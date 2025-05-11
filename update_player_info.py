@@ -4,7 +4,8 @@ from openai import OpenAI
 import time
 import re
 import copy
-from config import OPENAI_API_KEY
+# Import model configuration from config.py
+from config import OPENAI_API_KEY, PLAYER_INFO_UPDATE_MODEL
 
 # ANSI escape codes
 ORANGE = "\033[38;2;255;165;0m"
@@ -13,7 +14,7 @@ GREEN = "\033[32m"
 RESET = "\033[0m"
 
 # Constants
-MODEL = "gpt-4o-mini"
+# MODEL = "gpt-4o-mini" # REMOVED
 TEMPERATURE = 0.7
 
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -39,7 +40,7 @@ def update_player(player_name, changes, max_retries=3):
     # Load the current player info and schema
     with open(f"{player_name}.json", "r") as file:
         player_info = json.load(file)
-    
+
     original_info = copy.deepcopy(player_info)  # Keep a copy of the original info
     schema = load_schema()
 
@@ -53,7 +54,7 @@ def update_player(player_name, changes, max_retries=3):
         # Prepare the prompt for the AI
         prompt = [
             {"role": "system", "content": """You are an assistant that updates player information in a 5th Edition roleplaying game. Given the current player information and a description of changes, you must return only the updated sections as a JSON object. Do not include unchanged fields. Your response should be a valid JSON object representing only the modified parts of the character sheet. 
-            
+
             You must also do the math based on what is contextually presented.
 
 Here are examples of proper JSON structures:
@@ -131,60 +132,64 @@ Remember to use the 'ammunition' array for any changes to arrow counts or other 
 
         # Get AI's response
         response = client.chat.completions.create(
-            model=MODEL,
+            model=PLAYER_INFO_UPDATE_MODEL, # Use imported model name
             temperature=TEMPERATURE,
             messages=prompt
         )
-        
+
         ai_response = response.choices[0].message.content.strip()
-        
+
         # Write the raw AI response to a debug file
         with open("debug_player_update.json", "w") as debug_file:
             json.dump({"raw_ai_response": ai_response}, debug_file, indent=2)
-        
+
         print(f"{ORANGE}DEBUG: Raw AI response written to debug_player_update.json{RESET}")
-        
+
         # Remove markdown code blocks if present
         ai_response = re.sub(r'```json\n|\n```', '', ai_response)
-        
+
         try:
             updates = json.loads(ai_response)
-            
+
             # Apply updates to the player_info
             player_info = update_nested_dict(player_info, updates)
-            
+
             # Validate the updated info against the schema
             validate(instance=player_info, schema=schema)
-            
+
             # If we reach here, validation was successful
             print(f"{GREEN}DEBUG: Successfully updated and validated player info on attempt {attempt + 1}{RESET}")
-            
+
             # Compare original and updated info
             diff = compare_json(original_info, player_info)
             print(f"{ORANGE}DEBUG: Changes made:{RESET}")
             print(json.dumps(diff, indent=2))
-            
+
             # Save the updated player info
             with open(f"{player_name}.json", "w") as file:
                 json.dump(player_info, file, indent=2)
-            
+
             # Save the processed conversation history
+            # Note: This saves the main conversation_history.json.
+            # If this function is called by combat_sim_v2.py, it might be overwriting
+            # the main history with a version that doesn't yet include combat summary.
+            # This is a pre-existing behavior.
             with open("conversation_history.json", "w") as file:
                 json.dump(processed_history, file, indent=2)
-            
+
             print(f"{ORANGE}DEBUG: {player_name}'s character information updated{RESET}")
             return player_info
-            
+
         except json.JSONDecodeError as e:
             print(f"{ORANGE}DEBUG: AI response is not valid JSON. Error: {e}. Retrying...{RESET}")
         except ValidationError as e:
             print(f"{RED}ERROR: Updated info does not match the schema. Error: {e}. Retrying...{RESET}")
-        
+
         # If we've reached the maximum number of retries, return the original player info
         if attempt == max_retries - 1:
             print(f"{RED}ERROR: Failed to update player info after {max_retries} attempts. Returning original player info.{RESET}")
             return original_info
-        
+
         # Wait for a short time before retrying
         time.sleep(1)
 

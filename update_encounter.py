@@ -4,7 +4,8 @@ from openai import OpenAI
 import time
 import re
 import copy
-from config import OPENAI_API_KEY
+# Import model configuration from config.py
+from config import OPENAI_API_KEY, ENCOUNTER_UPDATE_MODEL
 
 # ANSI escape codes
 ORANGE = "\033[38;2;255;165;0m"
@@ -13,7 +14,7 @@ GREEN = "\033[32m"
 RESET = "\033[0m"
 
 # Constants
-MODEL = "gpt-4o-mini"
+# MODEL = "gpt-4o-mini" # REMOVED
 TEMPERATURE = 0.7
 
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -26,7 +27,7 @@ def update_encounter(encounter_id, changes, max_retries=3):
     # Load the current encounter info and schema
     with open(f"encounter_{encounter_id}.json", "r") as file:
         encounter_info = json.load(file)
-    
+
     original_info = copy.deepcopy(encounter_info)  # Keep a copy of the original info
     schema = load_encounter_schema()
 
@@ -57,28 +58,28 @@ Remember to only update monster information and leave player and NPC data unchan
 
         # Get AI's response
         response = client.chat.completions.create(
-            model=MODEL,
+            model=ENCOUNTER_UPDATE_MODEL, # Use imported model name
             temperature=TEMPERATURE,
             messages=prompt
         )
-        
+
         ai_response = response.choices[0].message.content.strip()
-        
+
         # Write the raw AI response to a debug file
         with open("debug_encounter_update.json", "w") as debug_file:
             json.dump({"raw_ai_response": ai_response}, debug_file, indent=2)
-        
+
         print(f"{ORANGE}DEBUG: Raw AI response written to debug_encounter_update.json{RESET}")
-        
+
         # Remove markdown code blocks if present
         ai_response = re.sub(r'```json\n|\n```', '', ai_response)
-        
+
         try:
             updates = json.loads(ai_response)
-            
+
             # Apply updates to the encounter_info
             encounter_info = update_nested_dict(encounter_info, updates)
-            
+
             # Update player and NPC information from their respective files
             for creature in encounter_info["creatures"]:
                 if creature["type"] == "player":
@@ -101,35 +102,35 @@ Remember to only update monster information and leave player and NPC data unchan
                         "status": npc_data["status"],
                         "conditions": npc_data["condition_affected"]
                     })
-            
+
             # Validate the updated info against the schema
             validate(instance=encounter_info, schema=schema)
-            
+
             # If we reach here, validation was successful
             print(f"{GREEN}DEBUG: Successfully updated and validated encounter info on attempt {attempt + 1}{RESET}")
-            
+
             # Compare original and updated info
             diff = compare_json(original_info, encounter_info)
             print(f"{ORANGE}DEBUG: Changes made:{RESET}")
             print(json.dumps(diff, indent=2))
-            
+
             # Save the updated encounter info
             with open(f"encounter_{encounter_id}.json", "w") as file:
                 json.dump(encounter_info, file, indent=2)
-            
+
             print(f"{ORANGE}DEBUG: Encounter {encounter_id} information updated{RESET}")
             return encounter_info
-            
+
         except json.JSONDecodeError as e:
             print(f"{ORANGE}DEBUG: AI response is not valid JSON. Error: {e}. Retrying...{RESET}")
         except ValidationError as e:
             print(f"{RED}ERROR: Updated info does not match the schema. Error: {e}. Retrying...{RESET}")
-        
+
         # If we've reached the maximum number of retries, return the original encounter info
         if attempt == max_retries - 1:
             print(f"{RED}ERROR: Failed to update encounter info after {max_retries} attempts. Returning original encounter info.{RESET}")
             return original_info
-        
+
         # Wait for a short time before retrying
         time.sleep(1)
 
@@ -168,17 +169,19 @@ def compare_json(old, new):
                 if nested_diff:
                     diff[key] = nested_diff
             elif isinstance(new[key], list):
-                if key not in diff:
-                    diff[key] = []
-                for i, item in enumerate(new[key]):
-                    if i >= len(old[key]) or item != old[key][i]:
-                        if isinstance(item, dict):
-                            old_item = old[key][i] if i < len(old[key]) else {}
-                            item_diff = compare_json(old_item, item)
-                            if item_diff:
-                                diff[key].append(item_diff)
-                        else:
-                            diff[key].append(item)
+                # This is the original simpler list diffing.
+                if key not in diff: # This line was problematic as diff[key] might not be a list
+                    diff[key] = [] # Initialize diff[key] as a list if it's not already
+                # The original code for list diffing was complex and potentially buggy.
+                # A common simple approach if lists differ is just to show the new list.
+                # Or, if the AI is meant to return the whole new list if it's changed, then
+                # the update_nested_dict should just replace d[k] = v for lists.
+                # Given the prompt, AI should return *only modified sections*.
+                # If 'creatures' is returned, it's likely the new state of modified creatures.
+                # For simplicity and to revert to original intent, if lists are different,
+                # we can just indicate the new list.
+                if old[key] != new[key]: # A simple check if lists are different
+                    diff[key] = new[key] # Store the new list as the difference
             else:
                 diff[key] = new[key]
     return diff
