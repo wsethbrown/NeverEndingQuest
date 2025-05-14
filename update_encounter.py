@@ -14,7 +14,6 @@ GREEN = "\033[32m"
 RESET = "\033[0m"
 
 # Constants
-# MODEL = "gpt-4o-mini" # REMOVED
 TEMPERATURE = 0.7
 
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -58,7 +57,7 @@ Remember to only update monster information and leave player and NPC data unchan
 
         # Get AI's response
         response = client.chat.completions.create(
-            model=ENCOUNTER_UPDATE_MODEL, # Use imported model name
+            model=ENCOUNTER_UPDATE_MODEL,
             temperature=TEMPERATURE,
             messages=prompt
         )
@@ -80,28 +79,40 @@ Remember to only update monster information and leave player and NPC data unchan
             # Apply updates to the encounter_info
             encounter_info = update_nested_dict(encounter_info, updates)
 
-            # Update player and NPC information from their respective files
+            # Now sync player and NPC information from their respective files
             for creature in encounter_info["creatures"]:
                 if creature["type"] == "player":
                     player_file = f"{creature['name'].lower().replace(' ', '_')}.json"
-                    with open(player_file, "r") as file:
-                        player_data = json.load(file)
-                    creature.update({
-                        "currentHitPoints": player_data["hitPoints"],
-                        "maxHitPoints": player_data["maxHitPoints"],
-                        "status": player_data["status"],
-                        "conditions": player_data["condition_affected"]
-                    })
+                    try:
+                        with open(player_file, "r") as file:
+                            player_data = json.load(file)
+                            # Only sync combat-relevant state
+                            creature["currentHitPoints"] = player_data.get("hitPoints", creature.get("currentHitPoints", 0))
+                            creature["maxHitPoints"] = player_data.get("maxHitPoints", creature.get("maxHitPoints", 0))
+                            creature["status"] = player_data.get("status", creature.get("status", "alive"))
+                            creature["conditions"] = player_data.get("condition_affected", [])
+                            # Copy armorClass if it exists in player data
+                            if "armorClass" in player_data:
+                                creature["armorClass"] = player_data["armorClass"]
+                    except Exception as e:
+                        print(f"{RED}ERROR: Failed to sync player data from {player_file}: {str(e)}{RESET}")
+                        
                 elif creature["type"] == "npc":
-                    npc_file = f"{creature['name'].lower().replace(' ', '_')}.json"
-                    with open(npc_file, "r") as file:
-                        npc_data = json.load(file)
-                    creature.update({
-                        "currentHitPoints": npc_data["hitPoints"],
-                        "maxHitPoints": npc_data["maxHitPoints"],
-                        "status": npc_data["status"],
-                        "conditions": npc_data["condition_affected"]
-                    })
+                    npc_name = creature['name'].lower().replace(' ', '_').split('_')[0]
+                    npc_file = f"{npc_name}.json"
+                    try:
+                        with open(npc_file, "r") as file:
+                            npc_data = json.load(file)
+                            # Only sync combat-relevant state
+                            creature["currentHitPoints"] = npc_data.get("hitPoints", creature.get("currentHitPoints", 0))
+                            creature["maxHitPoints"] = npc_data.get("maxHitPoints", creature.get("maxHitPoints", 0))
+                            creature["status"] = npc_data.get("status", creature.get("status", "alive"))
+                            creature["conditions"] = npc_data.get("condition_affected", [])
+                            # Copy armorClass if it exists in NPC data
+                            if "armorClass" in npc_data:
+                                creature["armorClass"] = npc_data["armorClass"]
+                    except Exception as e:
+                        print(f"{RED}ERROR: Failed to sync NPC data from {npc_file}: {str(e)}{RESET}")
 
             # Validate the updated info against the schema
             validate(instance=encounter_info, schema=schema)

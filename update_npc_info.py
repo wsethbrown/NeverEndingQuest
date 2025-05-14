@@ -10,7 +10,6 @@ from config import OPENAI_API_KEY, NPC_INFO_UPDATE_MODEL
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Constants
-# MODEL = "gpt-4o-mini" # REMOVED
 TEMPERATURE = 0.7
 
 # ANSI escape codes
@@ -29,6 +28,99 @@ def load_conversation_history():
             return json.load(file)
     except FileNotFoundError:
         return []
+
+def format_schema_for_prompt(schema):
+    """Format schema information for inclusion in the prompt"""
+    schema_info = "NPC Schema - Valid fields and values:\n\n"
+    
+    properties = schema.get('properties', {})
+    
+    # Group fields by type for better readability
+    simple_fields = []
+    enum_fields = []
+    array_fields = []
+    object_fields = []
+    
+    for field, definition in properties.items():
+        field_type = definition.get('type', 'unknown')
+        
+        if 'enum' in definition:
+            enum_fields.append(f"- {field}: Must be one of {definition['enum']}")
+        elif field_type == 'array':
+            items_type = definition.get('items', {}).get('type', 'object')
+            if items_type == 'object':
+                # For arrays of objects, show the required structure
+                array_fields.append(f"- {field}: Array of objects with required fields")
+            else:
+                array_fields.append(f"- {field}: Array of {items_type}")
+        elif field_type == 'object':
+            object_fields.append(f"- {field}: Object with nested properties")
+        else:
+            simple_fields.append(f"- {field}: {field_type}")
+    
+    # Combine all field types
+    if enum_fields:
+        schema_info += "Enumerated fields (must use exact values):\n"
+        schema_info += "\n".join(enum_fields) + "\n\n"
+    
+    if simple_fields:
+        schema_info += "Simple fields:\n"
+        schema_info += "\n".join(simple_fields) + "\n\n"
+    
+    if array_fields:
+        schema_info += "Array fields:\n"
+        schema_info += "\n".join(array_fields) + "\n\n"
+    
+    if object_fields:
+        schema_info += "Complex object fields:\n"
+        schema_info += "\n".join(object_fields) + "\n\n"
+    
+    # Add specific examples for the problematic fields
+    schema_info += """IMPORTANT: Two different attack array formats:
+
+1. Actions array format (use for D&D standard attacks):
+{
+  "name": "string",
+  "attackBonus": integer,
+  "damageDice": "string",
+  "damageBonus": integer,
+  "damageType": "string"
+}
+
+2. AttacksAndSpellcasting array format (use for simplified tracking):
+{
+  "name": "string",
+  "type": "melee" | "ranged" | "spell",
+  "damage": "string",
+  "description": "string"
+}
+
+Equipment array items:
+{
+  "item_name": "string",
+  "item_type": "weapon" | "armor" | "miscellaneous",
+  "description": "string",
+  "quantity": integer
+}
+
+Currency object:
+{
+  "gold": integer,
+  "silver": integer,
+  "copper": integer
+}
+
+Abilities object:
+{
+  "strength": integer,
+  "dexterity": integer,
+  "constitution": integer,
+  "intelligence": integer,
+  "wisdom": integer,
+  "charisma": integer
+}"""
+    
+    return schema_info
 
 def update_nested_dict(d, u):
     for k, v in u.items():
@@ -65,115 +157,137 @@ def update_npc(npc_name, changes, max_retries=3):
     conversation_history = load_conversation_history()
 
     for attempt in range(max_retries):
+        # Format the schema for the prompt
+        schema_info = format_schema_for_prompt(schema)
+
         # Prepare the prompt for the AI
         prompt = [
-            {"role": "system", "content": """You are an assistant that updates NPC information in the world's most popular 5th Edition roleplaying game. Given the current NPC information and a description of changes, you must return only the updated sections as a JSON object. Do not include unchanged fields. Your response should be a valid JSON object representing only the modified parts of the NPC sheet.
+            {"role": "system", "content": f"""You are an assistant that updates NPC information in the world's most popular 5th Edition roleplaying game. Given the current NPC information and a description of changes, you must return only the updated sections as a JSON object. Do not include unchanged fields. Your response should be a valid JSON object representing only the modified parts of the NPC sheet.
 
-            You must also do the math based on what is contextually presented. 
+{schema_info}
 
-            For example, if the input states the party NPC used 3 arrows in combat then you will need to remove 3 arrows from their current total before passing the final amount. IF the party NPC started with 17 arrows and uses 3 in combat then you will update the ammunition total for the arrows to 14.
+You must also do the math based on what is contextually presented. 
 
-            Guidance on updating ammunition. If the item already exists, increase its quantity.
+For example, if the input states the party NPC used 3 arrows in combat then you will need to remove 3 arrows from their current total before passing the final amount. IF the party NPC started with 17 arrows and uses 3 in combat then you will update the ammunition total for the arrows to 14.
+
+Guidance on updating ammunition. If the item already exists, increase its quantity.
 
 Here are examples of proper JSON structures:
 
 Examples of inputs requiring updates to the JSON:
 1. Input: Update Grunk the Orc's hit points to 30 out of 45 maximum.
-   Output: {
+   Output: {{
      "hitPoints": 30,
      "maxHitPoints": 45
-   }
+   }}
 
 2. Input: Add a Potion of Healing to Grunk's equipment and update experience points to 2000.
-   Output: {
+   Output: {{
      "equipment": [
-       {
+       {{
          "item_name": "Potion of Healing",
          "item_type": "miscellaneous",
          "description": "Heals 2d4+2 hit points when consumed",
          "quantity": 1
-       }
+       }}
      ],
      "experience_points": 2000
-   }
+   }}
 
 3. Input: Level up Grunk to level 5, increasing strength to 18, adding Athletics skill, and gaining Extra Attack feature.
-   Output: {
+   Output: {{
      "level": 5,
-     "abilities": {
+     "abilities": {{
        "strength": 18
-     },
-     "skills": {
+     }},
+     "skills": {{
        "Athletics": 6
-     },
+     }},
      "specialAbilities": [
-       {
+       {{
          "name": "Extra Attack",
          "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
-       }
+       }}
      ],
      "proficiencyBonus": 3
-   }
+   }}
 
 4. Input: Update Grunk's currency to 15 gold, 5 silver, and 20 copper pieces.
-   Output: {
-     "currency": {
+   Output: {{
+     "currency": {{
        "gold": 15,
        "silver": 5,
        "copper": 20
-     }
-   }
+     }}
+   }}
 
-5. Input: Add a new Throwing Axe to Grunk's actions.
-   Output: {
+5. Input: Add a new Throwing Axe to Grunk's actions (D&D format).
+   Output: {{
      "actions": [
-       {
+       {{
          "name": "Throwing Axe",
          "attackBonus": 5,
          "damageDice": "1d6",
          "damageBonus": 3,
          "damageType": "slashing"
-       }
+       }}
      ]
-   }
+   }}
 
 6. Input: Patrick used 2 arrows in combat. Update the arrow count in their ammunition.
-   Output: {
+   Output: {{
      "ammunition": [
-       {
+       {{
          "name": "Arrows",
          "quantity": 18,
          "description": "Standard arrows for a bow"
-       }
+       }}
      ]
-   }
+   }}
 
 7. Input: Thomas found 5 more darts and added them to their ammunition.
-   Output: {
+   Output: {{
      "ammunition": [
-       {
+       {{
          "name": "Darts",
          "quantity": 25,
          "description": "Standard arrows for a bow"
-       }
+       }}
      ]
-   }
+   }}
+
+8. Input: Update Elara's status to alive after waking up from being knocked out.
+   Output: {{
+     "status": "alive"
+   }}
+
+9. Input: Elara is affected by multiple conditions: blinded and frightened.
+   Output: {{
+     "condition": "blinded",
+     "condition_affected": ["frightened"]
+   }}
 
 Important: Be aware of schema restrictions. For example, the 'status' field only accepts 'alive', 'dead', or 'unconscious'. Do not use values outside of these options.
 
 Example of an error scenario:
 Input: Update Elara's status to conscious after waking up from being knocked out.
-Incorrect output: {
+Incorrect output: {{
   "status": "conscious"
-}
-Correct output: {
+}}
+Correct output: {{
   "status": "alive"
-}
+}}
 
-   Examples of incorrect inputs that don't require any changes to the NPC's information:
-   1. Input: Harmus successfully dealt 6 damage to the orc.
-   Output: {}
-   """},
+Examples of incorrect inputs that don't require any changes to the NPC's information:
+1. Input: Harmus successfully dealt 6 damage to the orc.
+   Output: {{}}
+
+Remember to:
+- Only include fields that are being changed
+- Use the exact values specified in the schema for enumerated fields
+- Include all required properties for complex objects like equipment and actions
+- Use the 'ammunition' array for any changes to arrow counts or other ammunition types
+- Choose the correct format (actions vs attacksAndSpellcasting) based on what you're updating"""},
             *conversation_history,
             {"role": "user", "content": f"Current NPC info: {json.dumps(npc_info)}\n\nChanges to apply: {changes}\n\nRespond with ONLY the updated JSON object representing the changed sections of the NPC sheet, with no additional text or explanation."}
         ]

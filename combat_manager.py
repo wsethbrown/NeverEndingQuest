@@ -1,0 +1,783 @@
+"""
+Combat Manager Module for DungeonMasterAI
+
+Handles combat encounters between players, NPCs, and monsters.
+
+Features:
+- Manages turn-based combat with initiative order
+- Processes player actions and AI responses
+- Generates combat summaries and experience rewards
+- Maintains combat logs for debugging and analysis
+
+Combat Logging System:
+- Creates per-encounter logs in the combat_logs/{encounter_id}/ directory
+- Generates both timestamped and "latest" versions of each log
+- Maintains a combined log of all encounters in all_combat_latest.json
+- Filters out system messages for cleaner, more readable logs
+"""
+import json
+import os
+import time
+from xp import main as calculate_xp
+from openai import OpenAI
+# Import model configurations from config.py
+from config import (
+    OPENAI_API_KEY,
+    COMBAT_MAIN_MODEL,
+    # COMBAT_SCHEMA_UPDATER_MODEL is not directly used here for a client call,
+    # but if it were, it would be imported.
+    COMBAT_DIALOGUE_SUMMARY_MODEL
+)
+import update_player_info
+import update_npc_info
+import update_encounter
+import update_party_tracker
+
+# Updated color constants
+SOLID_GREEN = "\033[38;2;0;180;0m"
+LIGHT_OFF_GREEN = "\033[38;2;100;180;100m"
+SOFT_REDDISH_ORANGE = "\033[38;2;204;102;0m"
+RESET_COLOR = "\033[0m"
+
+# Temperature
+TEMPERATURE = 1
+
+# OpenAI client
+client = OpenAI(api_key=OPENAI_API_KEY)
+
+conversation_history_file = "combat_conversation_history.json"
+second_model_history_file = "second_model_history.json"
+third_model_history_file = "third_model_history.json"
+
+# Create a combat_logs directory if it doesn't exist
+os.makedirs("combat_logs", exist_ok=True)
+
+# Constants for chat history generation
+HISTORY_TIMESTAMP_FORMAT = "%Y%m%d_%H%M%S"
+
+def get_current_area_id():
+    with open("party_tracker.json", "r") as file:
+        party_tracker = json.load(file)
+    return party_tracker["worldConditions"]["currentAreaId"]
+
+def get_location_data(location_id):
+    current_area_id = get_current_area_id()
+    print(f"DEBUG: Current area ID: {current_area_id}")
+    area_file = f"{current_area_id}.json"
+    print(f"DEBUG: Attempting to load area file: {area_file}")
+
+    if not os.path.exists(area_file):
+        print(f"ERROR: Area file {area_file} does not exist")
+        return None
+
+    with open(area_file, "r") as file:
+        area_data = json.load(file)
+    print(f"DEBUG: Loaded area data: {json.dumps(area_data, indent=2)}")
+
+    for location in area_data["locations"]:
+        if location["locationId"] == location_id:
+            print(f"DEBUG: Found location data for ID {location_id}")
+            return location
+
+    print(f"ERROR: Location with ID {location_id} not found in area data")
+    return None
+
+def read_prompt_from_file(filename):
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(script_dir, filename)
+    with open(file_path, 'r') as file:
+        return file.read().strip()
+
+def load_monster_stats(monster_name):
+    # Formating the file name correctly for the monster file
+    monster_file = f"{monster_name.lower().replace(' ', '_')}.json"
+
+    try:
+        with open(monster_file, "r") as file:
+            monster_stats = json.load(file)
+        return monster_stats
+    except FileNotFoundError:
+        print(f"Monster file {monster_file} not found.")
+        return None
+
+def load_json_file(file_path):
+    try:
+        if os.path.exists(file_path):
+            with open(file_path, "r") as file:
+                return json.load(file)
+        else:
+            # If file doesn't exist yet, return an empty list
+            return []
+    except json.JSONDecodeError:
+        # If file contains invalid JSON, return an empty list
+        return []
+
+def save_json_file(file_path, data):
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=2)
+
+def is_valid_json(json_string):
+    try:
+        json_object = json.loads(json_string)
+        if not isinstance(json_object, dict):
+            return False
+        if "narration" not in json_object or not isinstance(json_object["narration"], str):
+            return False
+        if "actions" not in json_object or not isinstance(json_object["actions"], list):
+            return False
+        return True
+    except json.JSONDecodeError:
+        return False
+
+def write_debug_output(content, filename="debug_second_model.json"):
+    try:
+        with open(filename, "w") as debug_file:
+            json.dump(content, debug_file, indent=2)
+    except Exception as e:
+        print(f"DEBUG: Writing debug output: {str(e)}")
+
+def normalize_encounter_status(encounter_data):
+    """Normalizes status values in encounter data to lowercase"""
+    if not encounter_data or not isinstance(encounter_data, dict):
+        return encounter_data
+        
+    # Convert status values to lowercase
+    for creature in encounter_data.get('creatures', []):
+        if 'status' in creature:
+            creature['status'] = creature['status'].lower()
+    
+    return encounter_data
+
+def log_conversation_structure(conversation):
+    """Log the structure of the conversation history for debugging"""
+    print("\nDEBUG: Conversation Structure:")
+    print(f"Total messages: {len(conversation)}")
+    
+    roles = {}
+    for i, msg in enumerate(conversation):
+        role = msg.get("role", "unknown")
+        content_preview = msg.get("content", "")[:50].replace("\n", " ") + "..."
+        roles[role] = roles.get(role, 0) + 1
+        print(f"  [{i}] {role}: {content_preview}")
+    
+    print("Message count by role:")
+    for role, count in roles.items():
+        print(f"  {role}: {count}")
+    print()
+
+def summarize_dialogue(conversation_history_param, location_data, party_tracker_data):
+    print("DEBUG: Activating the third model...")
+
+    dialogue_summary_prompt = [
+        {"role": "system", "content": "Your task is to provide a concise summary of the combat encounter in the world's most popular 5th Edition roleplayign game dialogue between the dungeon master running the combat encounter and the player. Focus on capturing the key events, actions, and outcomes of the encounter. Be sure to include the experience points awarded, which will be provided in the conversation history. The summary should be written in a narrative style suitable for presenting to the main dungeon master. Include in your summary any defeated monsters or corpses left behind after combat."},
+        {"role": "user", "content": json.dumps(conversation_history_param)}
+    ]
+
+    # Generate dialogue summary
+    response = client.chat.completions.create(
+        model=COMBAT_DIALOGUE_SUMMARY_MODEL, # Use imported model
+        temperature=TEMPERATURE,
+        messages=dialogue_summary_prompt
+    )
+
+    dialogue_summary = response.choices[0].message.content.strip()
+
+    current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
+    print(f"DEBUG: Current location ID: {current_location_id}")
+
+    if location_data and location_data.get("locationId") == current_location_id:
+        encounter_id = party_tracker_data["worldConditions"]["activeCombatEncounter"]
+        new_encounter = {
+            "encounterId": encounter_id,
+            "summary": dialogue_summary,
+            "impact": "To be determined",
+            "worldConditions": {
+                "year": int(party_tracker_data["worldConditions"]["year"]),
+                "month": party_tracker_data["worldConditions"]["month"],
+                "day": int(party_tracker_data["worldConditions"]["day"]),
+                "time": party_tracker_data["worldConditions"]["time"]
+            }
+        }
+        if "encounters" not in location_data:
+            location_data["encounters"] = []
+        location_data["encounters"].append(new_encounter)
+        if not location_data.get("adventureSummary"):
+            location_data["adventureSummary"] = dialogue_summary
+        else:
+            location_data["adventureSummary"] += f"\n\n{dialogue_summary}"
+
+        current_area_id = get_current_area_id()
+        area_file = f"{current_area_id}.json"
+        with open(area_file, "r") as file:
+            area_data = json.load(file)
+        for i, loc in enumerate(area_data["locations"]):
+            if loc["locationId"] == current_location_id:
+                area_data["locations"][i] = location_data
+                break
+        with open(area_file, "w") as file:
+            json.dump(area_data, file, indent=2)
+        print(f"DEBUG: Encounter {encounter_id} added to {area_file}.")
+
+        conversation_history_param.append({"role": "assistant", "content": f"Combat Summary: {dialogue_summary}"})
+        conversation_history_param.append({"role": "user", "content": "The combat has concluded. What would you like to do next?"})
+
+        print(f"DEBUG: Attempting to write to file: {conversation_history_file}")
+        try:
+            with open(conversation_history_file, "w") as file:
+                json.dump(conversation_history_param, file, indent=2)
+            print("DEBUG: Conversation history saved successfully")
+        except Exception as e:
+            print(f"ERROR: Failed to save conversation history. Error: {str(e)}")
+        print("Conversation history updated with encounter summary.")
+    else:
+        print(f"ERROR: Location {current_location_id} not found in location data or location data is incorrect.")
+    return dialogue_summary
+
+def merge_updates(original_data, updated_data):
+    fields_to_update = ['hitPoints', 'equipment', 'attacksAndSpellcasting', 'experience_points']
+
+    for field in fields_to_update:
+        if field in updated_data:
+            if field in ['equipment', 'attacksAndSpellcasting']:
+                # For arrays, replace the entire array
+                original_data[field] = updated_data[field]
+            elif field == 'experience_points':
+                # For XP, only update if the new value is greater than the existing value
+                if updated_data[field] > original_data.get(field, 0):
+                    original_data[field] = updated_data[field]
+            else:
+                # For simple fields like hitpoints, just update the value
+                original_data[field] = updated_data[field]
+
+    return original_data
+
+def update_json_schema(ai_response, player_info, encounter_data, party_tracker_data):
+    # Extract XP information if present
+    xp_info = None
+    if "XP Awarded:" in ai_response:
+        xp_info = ai_response.split("XP Awarded:")[-1].strip()
+
+    # Update player information, including XP
+    player_name = player_info['name'].lower().replace(' ', '_')
+    player_changes = f"Update the character's experience points. XP Awarded: {xp_info}"
+    updated_player_info = update_player_info.update_player(player_name, player_changes)
+
+    # Update encounter information (monsters only, no XP)
+    encounter_id = encounter_data['encounterId']
+    encounter_changes = "Combat has ended. Update status of monster creatures as needed."
+    updated_encounter_data = update_encounter.update_encounter(encounter_id, encounter_changes)
+
+    # Update NPCs if needed (no XP for NPCs)
+    for creature in encounter_data['creatures']:
+        if creature['type'] == 'npc':
+            npc_name = creature['name'] # Assuming name is directly usable or formatted in update_npc
+            npc_changes = "Update NPC status after combat."
+            update_npc_info.update_npc(npc_name, npc_changes)
+
+    # Update party tracker: store last combat encounter before removing active one
+    if 'worldConditions' in party_tracker_data and 'activeCombatEncounter' in party_tracker_data['worldConditions']:
+        # Save the encounter ID before clearing it
+        last_encounter_id = party_tracker_data["worldConditions"]["activeCombatEncounter"]
+        if last_encounter_id:  # Only save if not empty
+            party_tracker_data["worldConditions"]["lastCompletedEncounter"] = last_encounter_id
+        # Clear the active encounter
+        party_tracker_data['worldConditions']['activeCombatEncounter'] = ""
+
+    # Save the updated party_tracker.json file
+    with open("party_tracker.json", "w") as file:
+        json.dump(party_tracker_data, file, indent=2)
+
+    return updated_player_info, updated_encounter_data, party_tracker_data
+
+def generate_chat_history(conversation_history, encounter_id):
+    """
+    Generate a lightweight combat chat history without system messages
+    for a specific encounter ID
+    """
+    # Create a formatted timestamp
+    from datetime import datetime
+    timestamp = datetime.now().strftime(HISTORY_TIMESTAMP_FORMAT)
+
+    # Create directory for this encounter if it doesn't exist
+    encounter_dir = f"combat_logs/{encounter_id}"
+    os.makedirs(encounter_dir, exist_ok=True)
+
+    # Create a unique filename based on encounter ID and timestamp
+    output_file = f"{encounter_dir}/combat_chat_{timestamp}.json"
+
+    try:
+        # Filter out system messages and keep only user and assistant messages
+        chat_history = [msg for msg in conversation_history if msg["role"] != "system"]
+
+        # Write the filtered chat history to the output file
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(chat_history, f, indent=2)
+
+        # Print statistics
+        system_count = len(conversation_history) - len(chat_history)
+        total_count = len(conversation_history)
+        user_count = sum(1 for msg in chat_history if msg["role"] == "user")
+        assistant_count = sum(1 for msg in chat_history if msg["role"] == "assistant")
+
+        print(f"\n{SOFT_REDDISH_ORANGE}Combat chat history updated!{RESET_COLOR}")
+        print(f"Encounter ID: {encounter_id}")
+        print(f"System messages removed: {system_count}")
+        print(f"User messages: {user_count}")
+        print(f"Assistant messages: {assistant_count}")
+        print(f"Total messages (including system): {total_count}")
+        print(f"Output saved to: {output_file}")
+
+        # Also create/update the latest version of this encounter for easy reference
+        latest_file = f"{encounter_dir}/combat_chat_latest.json"
+        with open(latest_file, "w", encoding="utf-8") as f:
+            json.dump(chat_history, f, indent=2)
+        print(f"Latest version also saved to: {latest_file}\n")
+
+        # Save a combined latest file for all encounters as well
+        all_latest_file = f"combat_logs/all_combat_latest.json"
+        try:
+            # Load existing all-combat history if it exists
+            if os.path.exists(all_latest_file):
+                with open(all_latest_file, "r", encoding="utf-8") as f:
+                    all_combat_data = json.load(f)
+            else:
+                all_combat_data = {}
+
+            # Add or update this encounter's data
+            all_combat_data[encounter_id] = {
+                "timestamp": timestamp,
+                "messageCount": len(chat_history),
+                "history": chat_history
+            }
+
+            # Write the combined file
+            with open(all_latest_file, "w", encoding="utf-8") as f:
+                json.dump(all_combat_data, f, indent=2)
+
+        except Exception as e:
+            print(f"Error updating combined combat log: {str(e)}")
+
+    except Exception as e:
+        print(f"Error generating combat chat history: {str(e)}")
+
+# Add this function to a common utility file or to combat_manager.py
+
+def sync_active_encounter():
+    """Sync player and NPC data to the active encounter file if one exists"""
+    
+    # Check if there's an active combat encounter
+    try:
+        with open("party_tracker.json", "r") as file:
+            party_tracker = json.load(file)
+        
+        active_encounter_id = party_tracker.get("worldConditions", {}).get("activeCombatEncounter", "")
+        if not active_encounter_id:
+            # No active encounter, nothing to sync
+            return
+            
+        # Load the encounter file
+        encounter_file = f"encounter_{active_encounter_id}.json"
+        with open(encounter_file, "r") as file:
+            encounter_data = json.load(file)
+            
+        # Track if any changes were made
+        changes_made = False
+            
+        # Update player and NPC data in the encounter
+        for creature in encounter_data.get("creatures", []):
+            if creature["type"] == "player":
+                player_file = f"{creature['name'].lower().replace(' ', '_')}.json"
+                try:
+                    with open(player_file, "r") as file:
+                        player_data = json.load(file)
+                        # Update combat-relevant fields
+                        if creature.get("currentHitPoints") != player_data.get("hitPoints"):
+                            creature["currentHitPoints"] = player_data.get("hitPoints")
+                            changes_made = True
+                        if creature.get("maxHitPoints") != player_data.get("maxHitPoints"):
+                            creature["maxHitPoints"] = player_data.get("maxHitPoints")
+                            changes_made = True
+                        if creature.get("status") != player_data.get("status"):
+                            creature["status"] = player_data.get("status")
+                            changes_made = True
+                        if creature.get("conditions") != player_data.get("condition_affected"):
+                            creature["conditions"] = player_data.get("condition_affected", [])
+                            changes_made = True
+                except Exception as e:
+                    print(f"ERROR: Failed to sync player data to encounter: {str(e)}")
+                    
+            elif creature["type"] == "npc":
+                npc_name = creature['name'].lower().replace(' ', '_').split('_')[0]
+                npc_file = f"{npc_name}.json"
+                try:
+                    with open(npc_file, "r") as file:
+                        npc_data = json.load(file)
+                        # Update combat-relevant fields
+                        if creature.get("currentHitPoints") != npc_data.get("hitPoints"):
+                            creature["currentHitPoints"] = npc_data.get("hitPoints")
+                            changes_made = True
+                        if creature.get("maxHitPoints") != npc_data.get("maxHitPoints"):
+                            creature["maxHitPoints"] = npc_data.get("maxHitPoints")
+                            changes_made = True
+                        if creature.get("status") != npc_data.get("status"):
+                            creature["status"] = npc_data.get("status")
+                            changes_made = True
+                        if creature.get("conditions") != npc_data.get("condition_affected"):
+                            creature["conditions"] = npc_data.get("condition_affected", [])
+                            changes_made = True
+                except Exception as e:
+                    print(f"ERROR: Failed to sync NPC data to encounter: {str(e)}")
+        
+        # Save the encounter file if changes were made
+        if changes_made:
+            with open(encounter_file, "w") as file:
+                json.dump(encounter_data, file, indent=2)
+            print(f"Active encounter {active_encounter_id} synced with latest character data")
+            
+    except Exception as e:
+        print(f"ERROR in sync_active_encounter: {str(e)}")
+
+def run_combat_simulation(encounter_id, party_tracker_data, location_info):
+   """Main function to run the combat simulation"""
+   print(f"DEBUG: Starting combat simulation for encounter {encounter_id}")
+
+   # Initialize conversation history with the original structure
+   conversation_history = [
+       {"role": "system", "content": read_prompt_from_file('combat_sim_prompt.txt')},
+       {"role": "system", "content": f"Current Combat Encounter: {encounter_id}"},
+       {"role": "system", "content": ""}, # Will hold player data
+       {"role": "system", "content": ""}, # Will hold monster templates
+       {"role": "system", "content": ""}, # Will hold location info
+   ]
+   
+   # Initialize secondary model histories
+   second_model_history = []
+   third_model_history = []
+   
+   # Save empty histories to files to reset them
+   save_json_file(conversation_history_file, conversation_history)
+   save_json_file(second_model_history_file, second_model_history)
+   save_json_file(third_model_history_file, third_model_history)
+   
+   # Load encounter data
+   json_file_path = f"encounter_{encounter_id}.json"
+   try:
+       with open(json_file_path, "r") as file:
+           encounter_data = json.load(file)
+   except Exception as e:
+       print(f"ERROR: Failed to load encounter file {json_file_path}: {str(e)}")
+       return None, None
+   
+   # Initialize data containers
+   player_info = None
+   monster_templates = {}
+   npc_templates = {}
+   
+   # Extract data for all creatures in the encounter
+   for creature in encounter_data["creatures"]:
+       if creature["type"] == "player":
+           player_name = creature["name"].lower().replace(" ", "_")
+           player_file = f"{player_name}.json"
+           try:
+               with open(player_file, "r") as file:
+                   player_info = json.load(file)
+           except Exception as e:
+               print(f"ERROR: Failed to load player file {player_file}: {str(e)}")
+               return None, None
+       
+       elif creature["type"] == "enemy":
+           monster_type = creature["monsterType"]
+           if monster_type not in monster_templates:
+               monster_file = f"{monster_type}.json"
+               try:
+                   with open(monster_file, "r") as file:
+                       monster_templates[monster_type] = json.load(file)
+               except Exception as e:
+                   print(f"ERROR: Failed to load monster file {monster_file}: {str(e)}")
+       
+       elif creature["type"] == "npc":
+           # Ensure npc_name is correctly formatted for file access
+           npc_file_name_part = creature["name"].lower().replace(" ", "_").split('_')[0] # Handle names like "NPC_1"
+           npc_file = f"{npc_file_name_part}.json"
+           if npc_file_name_part not in npc_templates: # Check against the base name
+               try:
+                   with open(npc_file, "r") as file:
+                       npc_templates[npc_file_name_part] = json.load(file)
+               except Exception as e:
+                   print(f"ERROR: Failed to load NPC file {npc_file}: {str(e)}")
+   
+   # Populate the system messages with JSON data
+   conversation_history[2]["content"] = f"Player Character:\n{json.dumps({k: v for k, v in player_info.items() if k not in ['hitpoints', 'maxhitpoints']}, indent=2)}"
+   conversation_history[3]["content"] = f"Monster Templates:\n{json.dumps(monster_templates, indent=2)}"
+   conversation_history[4]["content"] = f"Location:\n{json.dumps(location_info, indent=2)}"
+   conversation_history.append({"role": "system", "content": f"NPC Templates:\n{json.dumps(npc_templates, indent=2)}"})
+   conversation_history.append({"role": "system", "content": f"Encounter Details:\n{json.dumps(encounter_data, indent=2)}"})
+   
+   # Log the conversation structure for debugging
+   log_conversation_structure(conversation_history)
+   
+   # Save the updated conversation history
+   save_json_file(conversation_history_file, conversation_history)
+   
+   # Combat loop
+   while True:
+       # Ensure all character data is synced to the encounter
+       sync_active_encounter()
+       
+       # REFRESH CONVERSATION HISTORY WITH LATEST DATA
+       print("DEBUG: Refreshing conversation history with latest character data...")
+       
+       # Reload player info
+       player_name = player_info["name"].lower().replace(" ", "_")
+       player_file = f"{player_name}.json"
+       try:
+           with open(player_file, "r") as file:
+               player_info = json.load(file)
+               # Replace player data in conversation history
+               conversation_history[2]["content"] = f"Player Character:\n{json.dumps(player_info, indent=2)}"
+       except Exception as e:
+           print(f"ERROR: Failed to reload player file {player_file}: {str(e)}")
+       
+       # Reload encounter data
+       json_file_path = f"encounter_{encounter_id}.json"
+       try:
+           with open(json_file_path, "r") as file:
+               encounter_data = json.load(file)
+               # Find and update the encounter data in conversation history
+               for i, msg in enumerate(conversation_history):
+                   if msg["role"] == "system" and "Encounter Details:" in msg["content"]:
+                       conversation_history[i]["content"] = f"Encounter Details:\n{json.dumps(encounter_data, indent=2)}"
+                       break
+       except Exception as e:
+           print(f"ERROR: Failed to reload encounter file {json_file_path}: {str(e)}")
+       
+       # Reload NPC data
+       for creature in encounter_data["creatures"]:
+           if creature["type"] == "npc":
+               npc_name = creature["name"].lower().replace(" ", "_").split('_')[0]
+               npc_file = f"{npc_name}.json"
+               try:
+                   with open(npc_file, "r") as file:
+                       npc_data = json.load(file)
+                       # Update the NPC in the templates dictionary
+                       npc_templates[npc_name] = npc_data
+               except Exception as e:
+                   print(f"ERROR: Failed to reload NPC file {npc_file}: {str(e)}")
+       
+       # Replace NPC templates in conversation history
+       for i, msg in enumerate(conversation_history):
+           if msg["role"] == "system" and "NPC Templates:" in msg["content"]:
+               conversation_history[i]["content"] = f"NPC Templates:\n{json.dumps(npc_templates, indent=2)}"
+               break
+       
+       # Save updated conversation history
+       save_json_file(conversation_history_file, conversation_history)
+       
+       # Get AI response
+       try:
+           response = client.chat.completions.create(
+               model=COMBAT_MAIN_MODEL,
+               temperature=TEMPERATURE,
+               messages=conversation_history
+           )
+           ai_response = response.choices[0].message.content.strip()
+       except Exception as e:
+           print(f"ERROR: Failed to get AI response: {str(e)}")
+           return None, None
+       
+       # Write raw response to debug file
+       with open("debug_ai_response.json", "w") as debug_file:
+           json.dump({"raw_ai_response": ai_response}, debug_file, indent=2)
+       
+       # Validate the JSON response
+       if not is_valid_json(ai_response):
+           print("DEBUG: Invalid JSON response from AI. Requesting a new response.")
+           conversation_history.append({
+               "role": "user",
+               "content": "Your previous response was not a valid JSON object with 'narration' and 'actions' fields. Please provide a valid JSON response."
+           })
+           save_json_file(conversation_history_file, conversation_history)
+           continue
+       
+       # Process the response
+       try:
+           parsed_response = json.loads(ai_response)
+           narration = parsed_response["narration"]
+           actions = parsed_response["actions"]
+       except json.JSONDecodeError as e:
+           print(f"DEBUG: JSON parsing error: {str(e)}")
+           print("DEBUG: Raw AI response:")
+           print(ai_response)
+           continue
+       
+       # Add the AI response to conversation history
+       conversation_history.append({"role": "assistant", "content": ai_response})
+       save_json_file(conversation_history_file, conversation_history)
+       
+       # Display the narration
+       print(f"Dungeon Master: {SOFT_REDDISH_ORANGE}{narration}{RESET_COLOR}")
+       
+       # Process actions
+       for action in actions:
+           action_type = action.get("action", "").lower()
+           parameters = action.get("parameters", {})
+           
+           if action_type == "updateplayerinfo":
+               player_name_for_update = player_info["name"].lower().replace(" ", "_")
+               changes = parameters.get("changes", "")
+               try:
+                   updated_player_info = update_player_info.update_player(player_name_for_update, changes)
+                   if updated_player_info:
+                       player_info = updated_player_info
+                       print(f"DEBUG: Player info updated successfully")
+               except Exception as e:
+                   print(f"ERROR: Failed to update player info: {str(e)}")
+           
+           elif action_type == "updatenpcinfo":
+               npc_name_for_update = parameters.get("npcName", "")
+               changes = parameters.get("changes", "")
+               try:
+                   updated_npc_info = update_npc_info.update_npc(npc_name_for_update, changes)
+                   if updated_npc_info:
+                       print(f"DEBUG: NPC {npc_name_for_update} info updated successfully")
+               except Exception as e:
+                   print(f"ERROR: Failed to update NPC info: {str(e)}")
+           
+           elif action_type == "updateencounter":
+               encounter_id_for_update = parameters.get("encounterId", encounter_id)
+               changes = parameters.get("changes", "")
+               try:
+                   updated_encounter_data = update_encounter.update_encounter(encounter_id_for_update, changes)
+                   if updated_encounter_data:
+                       # Normalize status values to lowercase
+                       updated_encounter_data = normalize_encounter_status(updated_encounter_data)
+                       encounter_data = updated_encounter_data
+                       print(f"DEBUG: Encounter {encounter_id_for_update} updated successfully")
+               except Exception as e:
+                   print(f"ERROR: Failed to update encounter: {str(e)}")
+           
+           elif action_type == "exit":
+               print("The combat has ended.")
+               xp_narrative, xp_awarded = calculate_xp()
+               print(f"XP Awarded: {xp_narrative}")
+               conversation_history.append({"role": "system", "content": f"XP Awarded: {xp_narrative}"})
+               save_json_file(conversation_history_file, conversation_history)
+               
+               # Update XP for player
+               xp_update_response = f"Update the character's experience points. XP Awarded: {xp_awarded}"
+               updated_data_tuple = update_json_schema(xp_update_response, player_info, encounter_data, party_tracker_data)
+               if updated_data_tuple:
+                   player_info, _, _ = updated_data_tuple
+               
+               # Generate dialogue summary
+               dialogue_summary_result = summarize_dialogue(conversation_history, location_info, party_tracker_data)
+               
+               # Generate chat history for debugging
+               generate_chat_history(conversation_history, encounter_id)
+               
+               print("Combat encounter closed. Exiting combat simulation.")
+               return dialogue_summary_result, player_info
+       
+       # Display player stats and get input
+       player_name_display = player_info["name"]
+       current_hp = player_info.get("hitPoints", 0)
+       max_hp = player_info.get("maxHitPoints", 0)
+       current_xp = player_info.get("experience_points", 0)
+       next_level_xp = player_info.get("exp_required_for_next_level", 0)
+       current_time_str = party_tracker_data["worldConditions"].get("time", "Unknown")
+       
+       stats_display = f"{LIGHT_OFF_GREEN}[{current_time_str}][HP:{current_hp}/{max_hp}][XP:{current_xp}/{next_level_xp}]{RESET_COLOR}"
+       player_name_colored = f"{SOLID_GREEN}{player_name_display}{RESET_COLOR}"
+       
+       try:
+           user_input_text = input(f"{stats_display} {player_name_colored}: ")
+       except EOFError:
+           print("ERROR in run_combat_simulation: EOF when reading a line")
+           break
+       
+       # Prepare hitpoints info for all creatures
+       hitpoints_info_parts = []
+       hitpoints_info_parts.append(f"{player_name_display}'s current hitpoints: {current_hp}/{max_hp}")
+       
+       for creature in encounter_data["creatures"]:
+           if creature["type"] != "player":
+               creature_name = creature.get("name", "Unknown Creature")
+               creature_hp = creature.get("currentHitPoints", "Unknown")
+               
+               # FIX: Get the actual max HP from the correct source
+               if creature["type"] == "npc":
+                   # For NPCs, look up their true max HP from their character file
+                   npc_name = creature_name.lower().replace(" ", "_").split('_')[0]
+                   npc_file = f"{npc_name}.json"
+                   try:
+                       with open(npc_file, "r") as file:
+                           npc_data = json.load(file)
+                           creature_max_hp = npc_data["maxHitPoints"]
+                   except Exception as e:
+                       print(f"ERROR: Failed to get correct max HP for {creature_name}: {str(e)}")
+                       creature_max_hp = creature.get("maxHitPoints", "Unknown")
+               else:
+                   # For monsters, use the encounter data
+                   creature_max_hp = creature.get("maxHitPoints", "Unknown")
+                   
+               hitpoints_info_parts.append(f"{creature_name}'s current hitpoints: {creature_hp}/{creature_max_hp}")
+       all_hitpoints_info = "\n".join(hitpoints_info_parts)
+       
+       # Format user input with DM note and hitpoints info
+       user_input_with_note = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. Use 'updatePlayerInfo', 'updateNPCInfo', and 'updateEncounter' actions to record changes in hit points, status, or conditions for any creature in the encounter. Remember to use separate 'updateNPCInfo' actions whenever NPCs take damage or their status changes. Monster changes should be in 'updateEncounter', but NPC changes require their own 'updateNPCInfo' actions.
+
+Important: 
+1. The status field for creatures must be lowercase: 'alive', 'dead', 'unconscious', or 'defeated'.
+2. Include the 'exit' action when the encounter ends.
+3. NPC and monster status updates must match the expected schema values.
+
+Current hitpoints for all creatures:
+{all_hitpoints_info}
+
+Player: {user_input_text}"""
+       
+       # Add user input to conversation history
+       conversation_history.append({"role": "user", "content": user_input_with_note})
+       save_json_file(conversation_history_file, conversation_history)
+
+def main():
+    print("DEBUG: Starting main function in combat_manager")
+    
+    # Load party tracker
+    try:
+        with open("party_tracker.json", "r") as file:
+            party_tracker_data = json.load(file)
+        print(f"DEBUG: Loaded party_tracker: {party_tracker_data}")
+    except Exception as e:
+        print(f"ERROR: Failed to load party tracker: {str(e)}")
+        return
+    
+    # Get active combat encounter
+    active_combat_encounter = party_tracker_data["worldConditions"].get("activeCombatEncounter")
+    print(f"DEBUG: Active combat encounter: {active_combat_encounter}")
+    
+    if not active_combat_encounter:
+        print("No active combat encounter located.")
+        return
+    
+    # Get location data
+    current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
+    current_area_id = get_current_area_id()
+    
+    print(f"DEBUG: Current location ID: {current_location_id}")
+    print(f"DEBUG: Current area ID: {current_area_id}")
+    
+    location_data = get_location_data(current_location_id)
+    
+    if not location_data:
+        print(f"ERROR: Failed to find location {current_location_id}")
+        return
+    
+    # Run the combat simulation
+    dialogue_summary, updated_player_info = run_combat_simulation(active_combat_encounter, party_tracker_data, location_data)
+    
+    print("Combat simulation completed.")
+    print(f"Dialogue Summary: {dialogue_summary}")
+
+if __name__ == "__main__":
+    main()

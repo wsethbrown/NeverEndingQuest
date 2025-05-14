@@ -108,6 +108,9 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
     # Add the rest of the conversation history
     new_history.extend(updated_history)
 
+    # Generate lightweight chat history for debugging
+    generate_chat_history(new_history)
+
     return new_history
 
 def update_character_data(conversation_history, party_tracker_data):
@@ -251,3 +254,29 @@ CURRENCY: {npc_data['currency']['gold']}G, {npc_data['currency']['silver']}S, {n
             updated_history.extend(character_data)
 
     return updated_history
+
+def generate_chat_history(conversation_history):
+    """Generate a lightweight chat history without system messages"""
+    output_file = "chat_history.json"
+    
+    try:
+        # Filter out system messages and keep only user and assistant messages
+        chat_history = [msg for msg in conversation_history if msg["role"] != "system"]
+        
+        # Write the filtered chat history to the output file
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(chat_history, f, indent=2)
+        
+        # Print statistics
+        system_count = len(conversation_history) - len(chat_history)
+        total_count = len(conversation_history)
+        user_count = sum(1 for msg in chat_history if msg["role"] == "user")
+        assistant_count = sum(1 for msg in chat_history if msg["role"] == "assistant")
+        
+        print(f"Lightweight chat history updated!")
+        print(f"System messages removed: {system_count}")
+        print(f"User messages: {user_count}")
+        print(f"Assistant messages: {assistant_count}")
+        
+    except Exception as e:
+        print(f"Error generating chat history: {str(e)}")

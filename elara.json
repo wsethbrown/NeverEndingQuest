@@ -10,7 +10,7 @@
   "condition": "none",
   "condition_affected": [],
   "armorClass": 15,
-  "hitPoints": 22,
+  "hitPoints": 17,
   "maxHitPoints": 22,
   "speed": 30,
   "initiative": 3,
@@ -140,7 +140,7 @@
   "ammunition": [
     {
       "name": "Arrows",
-      "quantity": 35,
+      "quantity": 34,
       "description": "Ammunition for longbow"
     }
   ],
@@ -149,7 +149,7 @@
   "ideals": "Change is inevitable, but it's important to shape it rather than be swept away by it.",
   "bonds": "I will do anything to protect the wilderness, even if it means isolating myself from those I care about.",
   "flaws": "Elara has a deep fear of abandonment, which makes her emotionally distant, and she often pushes away those who get too close. She also tends to overthink, which causes her to hesitate at critical moments.",
-  "experience_points": 3180,
+  "experience_points": 3223,
   "exp_required_for_next_level": 3900,
   "currency": {
     "gold": 28,

@@ -7,13 +7,17 @@ from datetime import datetime, timedelta
 from termcolor import colored
 
 # Import other necessary modules
-from combat_sim_v2 import run_combat_simulation
+from combat_manager import run_combat_simulation
 from plot_update import update_plot
 from player_stats import get_player_stat
 from update_world_time import update_world_time
 from conversation_utils import update_conversation_history, update_character_data
 import update_player_info
 import update_npc_info
+
+# Import new manager modules
+import location_manager
+import action_handler
 
 # Import model configurations from config.py
 from config import (
@@ -262,63 +266,17 @@ def load_validation_prompt():
     with open("validation_prompt.txt", "r") as file:
         return file.read().strip()
 
-def update_party_npcs(party_tracker_data, operation, npc):
-    if operation == "add":
-        npc_file = f"{npc['name'].lower().replace(' ', '_')}.json"
-        if not os.path.exists(npc_file):
-            # NPC file doesn't exist, so we need to create it
-            try:
-                # Add this debug line right before the subprocess.run call
-                print(f"DEBUG: Calling npc_builder.py with arguments: {npc['name']} {npc.get('race', '')} {npc.get('class', '')} {str(npc.get('level', ''))} {npc.get('background', '')}")
-
-                subprocess.run([
-                    "python", "npc_builder.py",
-                    npc['name'],
-                    npc.get('race', ''),
-                    npc.get('class', ''),
-                    str(npc.get('level', '')),
-                    npc.get('background', '')
-                ], check=True)
-                print(f"DEBUG: NPC profile created for {npc['name']}")
-            except subprocess.CalledProcessError as e:
-                print(f"ERROR: Failed to create NPC profile for {npc['name']}: {e}")
-                return
-
-        # Now we can add the NPC to the party
-        party_tracker_data["partyNPCs"].append(npc)
-    elif operation == "remove":
-        party_tracker_data["partyNPCs"] = [x for x in party_tracker_data["partyNPCs"] if x["name"] != npc["name"]]
-
-    with open("party_tracker.json", "w") as file:
-        json.dump(party_tracker_data, file, indent=2)
-    print(f"DEBUG: Party NPCs updated - {operation} {npc['name']}")
-
 def load_json_file(file_path):
-    try:
-        if file_path.endswith('.txt'):
-            with open(file_path, "r", encoding="utf-8") as file:
-                return file.read()
-        else:
-            with open(file_path, "r", encoding="utf-8") as file:
-                return json.load(file)
-    except FileNotFoundError:
-        print(f"DEBUG: Welcome to the world! Creating {file_path} for the first time.")
-        return None
-    except json.JSONDecodeError:
-        print(f"DEBUG: Invalid JSON in {file_path}.")
-        return None
-    except UnicodeDecodeError:
-        print(f"DEBUG: Unable to decode {file_path} using UTF-8 encoding.")
-        return None
+    """Load a JSON file, with error handling"""
+    return location_manager.load_json_file(file_path)
 
-def get_location_info(location_name, current_area, current_area_id):
-    area_file = f"{current_area_id}.json" # Corrected file naming convention
-    area_data = load_json_file(area_file)
-    if area_data and "locations" in area_data:
-        for location in area_data["locations"]:
-            if location["name"] == location_name:
-                return location
-    return None
+def process_conversation_history(history):
+    print(f"DEBUG: Processing conversation history")
+    for message in history:
+        if message["role"] == "user" and message["content"].startswith("Leveling Dungeon Master Guidance"):
+            message["content"] = "DM Guidance: Proceed with leveling up the player character or the party NPC given the 5th Edition role playing game rules. Only level the player character or party NPC one level at a time to ensure no mistakes are made. If you are leveling up a party NPC then pass all changes at once using the 'updateNPCInfo' action. If you are leveling up a player character then you must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updatePlayerInfo' to pass all changes to the players character sheet and include the experience goal for the next level. Do not update the player's information in segements."
+    print(f"DEBUG: Conversation history processing complete")
+    return history
 
 def truncate_dm_notes(conversation_history):
     for message in conversation_history:
@@ -330,332 +288,15 @@ def truncate_dm_notes(conversation_history):
                     message["content"] = f"Dungeon Master Note: {date_time.group(0)}. Player:{parts[1]}"
     return conversation_history
 
-def update_world_conditions(current_conditions, new_location, current_area, current_area_id):
-    current_time = datetime.strptime(current_conditions["time"], "%H:%M:%S")
-    new_time = (current_time + timedelta(hours=1)).strftime("%H:%M:%S")
-
-    location_info = get_location_info(new_location, current_area, current_area_id)
-
-    if location_info:
-        return {
-            "year": current_conditions["year"],
-            "month": current_conditions["month"],
-            "day": current_conditions["day"],
-            "time": new_time,
-            "weather": location_info.get("weatherConditions", ""), # Ensure consistent naming
-            "season": current_conditions["season"],
-            "dayNightCycle": "Day" if 6 <= int(new_time[:2]) < 18 else "Night",
-            "moonPhase": current_conditions["moonPhase"],
-            "currentLocation": new_location,
-            "currentLocationId": location_info["locationId"],
-            "currentArea": current_area,
-            "currentAreaId": current_area_id,
-            "majorEventsUnderway": current_conditions["majorEventsUnderway"],
-            "politicalClimate": "",
-            "activeEncounter": "",
-            "activeCombatEncounter": current_conditions.get("activeCombatEncounter", "")
-        }
-    else:
-        return current_conditions
-
-def handle_location_transition(current_location, new_location, current_area, current_area_id, area_connectivity_id=None):
-    print(f"DEBUG: Handling location transition from '{current_location}' to '{new_location}'")
-    print(f"DEBUG: Current area: '{current_area}', Current area ID: '{current_area_id}'")
-    print(f"DEBUG: Area Connectivity ID provided: '{area_connectivity_id}'")
-
-    party_tracker = load_json_file("party_tracker.json")
-    if party_tracker:
-        print("DEBUG: Successfully loaded party_tracker.json")
-
-        current_area_file = f"{current_area_id}.json"
-        print(f"DEBUG: Searching for current location in file: {current_area_file}")
-        current_area_data = load_json_file(current_area_file)
-
-        if current_area_data and "locations" in current_area_data:
-            current_location_info = next((loc for loc in current_area_data["locations"] if loc["name"] == current_location), None)
-            print(f"DEBUG: Current location info: {current_location_info}")
-        else:
-            print(f"ERROR: Failed to load current area data or 'locations' not found in {current_area_file}")
-            return None
-
-        new_location_info = None # Initialize to handle cases where it might not be set
-        new_area_data = None # Initialize
-
-        if area_connectivity_id:
-            print(f"DEBUG: Transitioning to new area with ID: {area_connectivity_id}")
-            new_area_file = f"{area_connectivity_id}.json"
-            new_area_data = load_json_file(new_area_file)
-            if new_area_data and "locations" in new_area_data:
-                new_location_info = next((loc for loc in new_area_data["locations"] if loc["name"] == new_location), None)
-                if new_location_info:
-                    print(f"DEBUG: New location '{new_location}' found in new area {area_connectivity_id}")
-                else:
-                    print(f"DEBUG: New location '{new_location}' not found in new area {area_connectivity_id}")
-                    # Attempt to find the location by ID if name fails, assuming new_location could be an ID
-                    new_location_info = next((loc for loc in new_area_data["locations"] if loc["locationId"] == new_location), None)
-                    if new_location_info:
-                         print(f"DEBUG: New location with ID '{new_location}' found in new area {area_connectivity_id}")
-                    else:
-                        print(f"DEBUG: New location with ID '{new_location}' also not found in new area {area_connectivity_id}")
-                        return None # Location not found in new area
-            else:
-                print(f"DEBUG: Failed to load new area data or 'locations' not found in {new_area_file}")
-                return None
-        else: # Transition within the same area
-            new_location_info = next((loc for loc in current_area_data["locations"] if loc["name"] == new_location), None)
-            if not new_location_info:
-                # Attempt to find the location by ID if name fails
-                new_location_info = next((loc for loc in current_area_data["locations"] if loc["locationId"] == new_location), None)
-
-
-        print(f"DEBUG: New location info: {new_location_info}")
-
-    if current_location_info:
-        print(f"DEBUG: Attempting to update current_location.json")
-        try:
-            with open("current_location.json", "w") as file:
-                json.dump(current_location_info, file, indent=2)
-            print("DEBUG: Successfully updated current_location.json")
-        except Exception as e:
-            print(f"ERROR: Failed to update current_location.json. Error: {str(e)}")
-
-        try:
-            print("DEBUG: Running adv_summary.py to update area JSON")
-            result = subprocess.run(["python", "adv_summary.py", "conversation_history.json", "current_location.json", current_location, current_area_id],
-                        check=True, capture_output=True, text=True)
-            print("DEBUG: adv_summary.py output:", result.stdout)
-            print("DEBUG: adv_summary.py debug info:", result.stderr)
-            print("DEBUG: adv_summary.py completed successfully")
-        except subprocess.CalledProcessError as e:
-            print(f"ERROR: Error occurred while running adv_summary.py: {e}")
-            print("ERROR: Error output:", e.stderr)
-            print("ERROR: Standard output:", e.stdout)
-
-        if party_tracker and new_location_info:
-            print("DEBUG: Updating party_tracker with new location information")
-            # Determine which area data to use for world conditions update
-            area_for_conditions = new_area_data if area_connectivity_id and new_area_data else current_area_data
-            area_id_for_conditions = area_connectivity_id if area_connectivity_id else current_area_id
-            
-            party_tracker["worldConditions"] = update_world_conditions(
-                party_tracker["worldConditions"],
-                new_location_info["name"], # Use name from new_location_info
-                area_for_conditions.get("areaName", current_area if not area_connectivity_id else "Unknown Area"),
-                area_id_for_conditions
-            )
-            party_tracker["worldConditions"]["currentLocation"] = new_location_info["name"] # Ensure this uses the name
-
-            if area_connectivity_id and new_area_data:
-                party_tracker["worldConditions"]["currentArea"] = new_area_data.get("areaName", "Unknown Area")
-                party_tracker["worldConditions"]["currentAreaId"] = area_connectivity_id
-            # else, currentArea and currentAreaId remain as they were if no area transition
-
-            party_tracker["worldConditions"]["currentLocationId"] = new_location_info["locationId"]
-            party_tracker["worldConditions"]["weatherConditions"] = new_location_info.get("weatherConditions", "") # Ensure consistent naming
-
-            print(f"DEBUG: Attempting to update party_tracker.json")
-            try:
-                with open("party_tracker.json", "w") as file:
-                    json.dump(party_tracker, file, indent=2)
-                print("DEBUG: Successfully updated party_tracker.json")
-            except Exception as e:
-                print(f"ERROR: Failed to update party_tracker.json. Error: {str(e)}")
-
-        return f"Describe the immediate surroundings and any notable features or encounters in {new_location_info['name']}, based on its recent history and current state."
-    else:
-        print(f"ERROR: Could not find information for current location: {current_location} or new location: {new_location}")
-        return None
-
-def process_conversation_history(history):
-    print(f"DEBUG: Processing conversation history")
-    for message in history:
-        if message["role"] == "user" and message["content"].startswith("Leveling Dungeon Master Guidance"):
-            message["content"] = "DM Guidance: Proceed with leveling up the player character or the party NPC given the 5th Edition role playing game rules. Only level the player character or party NPC one level at a time to ensure no mistakes are made. If you are leveling up a party NPC then pass all changes at once using the 'updateNPCInfo' action. If you are leveling up a player character then you must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updatePlayerInfo' to pass all changes to the players character sheet and include the experience goal for the next level. Do not update the player's information in segements."
-    print(f"DEBUG: Conversation history processing complete")
-    return history
-
-def get_location_data(location_id, area_id):
-    area_file = f"{area_id}.json"
-    try:
-        with open(area_file, "r") as file:
-            area_data = json.load(file)
-        for location in area_data["locations"]:
-            if location["locationId"] == location_id:
-                return location
-        print(f"ERROR: Location {location_id} not found in {area_file}")
-    except FileNotFoundError:
-        print(f"ERROR: Area file {area_file} not found")
-    except json.JSONDecodeError:
-        print(f"ERROR: Invalid JSON in {area_file}")
-    return None
-
-def process_action(action, party_tracker_data, location_data_param, conversation_history): # Renamed location_data to avoid conflict
-    global needs_conversation_history_update
-    action_type = action.get("action")
-    parameters = action.get("parameters", {})
-    current_location_data = location_data_param # Use the passed in location_data
-
-    if action_type == "createEncounter":
-        print("DEBUG: Creating combat encounter")
-        try:
-            print(f"DEBUG: Sending to combat_builder.py: {json.dumps(action)}")
-            result = subprocess.run(
-                ["python", "combat_builder.py"],
-                input=json.dumps(action),
-                check=True, capture_output=True, text=True
-            )
-            print("DEBUG: combat_builder.py output:", result.stdout)
-            print("DEBUG: combat_builder.py status:", result.stderr)
-            print("DEBUG: Combat encounter created successfully")
-
-            if "Encounter successfully built and saved to encounter_" in result.stdout:
-                encounter_id = result.stdout.strip().split()[-1].replace(".json", "")
-
-                party_tracker_data["worldConditions"]["activeCombatEncounter"] = encounter_id
-                with open("party_tracker.json", "w") as file:
-                    json.dump(party_tracker_data, file, indent=2)
-                print(f"DEBUG: Updated party tracker with combat encounter ID: {encounter_id}")
-
-                # Reload location data here
-                current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
-                current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
-                # Use the reloaded location data for the combat simulation
-                reloaded_location_data = get_location_data(current_location_id, current_area_id)
-
-
-                if reloaded_location_data is None:
-                    print(f"ERROR: Failed to load location data for {current_location_id}")
-                    return # Or handle error appropriately
-
-                dialogue_summary, updated_player_info = run_combat_simulation(encounter_id, party_tracker_data, reloaded_location_data)
-
-
-                player_name = next((member.lower() for member in party_tracker_data["partyMembers"]), None)
-                if player_name and updated_player_info is not None:
-                    player_file = f"{player_name}.json"
-                    with open(player_file, "w") as file:
-                        json.dump(updated_player_info, file, indent=2)
-                    print(f"DEBUG: Updated player file for {player_name}")
-                else:
-                    print("WARNING: Combat simulation did not return valid player info. Player file not updated.")
-
-                # Copy combat summary to main conversation history
-                with open("combat_conversation_history.json", "r") as combat_file:
-                    combat_history = json.load(combat_file)
-                    combat_summary = next((entry for entry in reversed(combat_history) if entry["role"] == "assistant" and "Combat Summary:" in entry["content"]), None)
-
-                if combat_summary:
-                    modified_combat_summary = {
-                        "role": "user",
-                        "content": combat_summary["content"]
-                    }
-                    conversation_history.append(modified_combat_summary)
-                    save_conversation_history(conversation_history)
-                    new_response = get_ai_response(conversation_history)
-                    process_ai_response(new_response, party_tracker_data, reloaded_location_data, conversation_history)
-                else:
-                    print("ERROR: Combat summary not found in combat conversation history")
-
-        except subprocess.CalledProcessError as e:
-            print(f"Error occurred while running combat_builder.py: {e}")
-            print("Error output:", e.stderr)
-            print("Standard output:", e.stdout)
-        except Exception as e:
-            print(f"Unexpected error occurred: {e}")
-            import traceback
-            traceback.print_exc()
-
-    elif action_type == "updateTime":
-        time_estimate_str = str(parameters["timeEstimate"])
-        update_world_time(time_estimate_str)
-
-    elif action_type == "updatePlot":
-        plot_point_id = parameters["plotPointId"]
-        new_status = parameters["newStatus"]
-        plot_impact = parameters.get("plotImpact", "")
-        plot_filename = f"plot_{party_tracker_data['worldConditions']['currentAreaId']}.json"
-        updated_plot = update_plot(plot_point_id, new_status, plot_impact, plot_filename)
-
-    elif action_type == "exitGame":
-        conversation_history.append({"role": "user", "content": "Dungeon Master Note: Resume the game, the player has returned."})
-        save_conversation_history(conversation_history)
-        exit_game()
-
-    elif action_type == "transitionLocation":
-        new_location_name_or_id = parameters["newLocation"] # This could be a name or an ID
-        area_connectivity_id = parameters.get("areaConnectivityId")
-        current_location_name = party_tracker_data["worldConditions"]["currentLocation"]
-        current_area_name = party_tracker_data["worldConditions"]["currentArea"]
-        current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
-        print(f"DEBUG: Transitioning from {current_location_name} to {new_location_name_or_id}")
-        transition_prompt = handle_location_transition(current_location_name, new_location_name_or_id, current_area_name, current_area_id, area_connectivity_id)
-
-        if transition_prompt:
-            conversation_history.append({"role": "user", "content": f"Location transition: {current_location_name} to {new_location_name_or_id}"}) # Use the provided name/ID
-            print("DEBUG: Location transition complete")
-             # After transition, the current_location_data in the main loop might be stale.
-            # We need to ensure the AI response processing uses the *new* location data.
-            # This might require process_ai_response to reload location data or for main_game_loop to handle it.
-            # For now, let's assume the main loop will reload it before the next AI call.
-        else:
-            print("ERROR: Failed to handle location transition")
-
-    elif action_type == "levelUp":
-        entity_name = parameters.get("entityName")
-        new_level = parameters.get("newLevel")
-
-        with open("leveling_info.txt", "r") as file:
-            leveling_info = file.read()
-
-        dm_note = f"Leveling Dungeon Master Guidance: Proceed with leveling up the player character or the party NPC given the 5th Edition role playing game rules. Only level the player or the party NPC one level at a time to ensure no mistakes are made. If you are leveling up a party NPC then pass all changes at once using the 'updateNPCInfo' action and use the narration to narrate the party NPCs growth. If you are leveling up a player character then you must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updatePlayerInfo' to pass all changes to the players character sheet and include the experience goal for the next level. Do not update the player's information in segements. \n\n{leveling_info}"
-        conversation_history.append({"role": "user", "content": dm_note})
-        new_response = get_ai_response(conversation_history)
-        return process_ai_response(new_response, party_tracker_data, current_location_data, conversation_history) # Pass current_location_data
-
-    elif action_type == "updatePlayerInfo":
-        print(f"DEBUG: Processing updatePlayerInfo action")
-        changes = parameters["changes"]
-        player_name = next((member.lower() for member in party_tracker_data["partyMembers"]), None)
-
-        if player_name:
-            print(f"DEBUG: Updating player info for {player_name}")
-            try:
-                updated_player_info = update_player_info.update_player(player_name, changes)
-                print(f"DEBUG: Player info updated successfully")
-                needs_conversation_history_update = True
-            except Exception as e:
-                print(f"ERROR: Failed to update player info: {str(e)}")
-        else:
-            print("ERROR: No player found in the party tracker data.")
-
-    elif action_type == "updateNPCInfo":
-        print(f"DEBUG: Processing updateNPCInfo action")
-        changes = parameters["changes"]
-        npc_name = parameters["npcName"]
-
-        print(f"DEBUG: Updating NPC info for {npc_name}")
-        try:
-            updated_npc_info = update_npc_info.update_npc(npc_name, changes)
-            print(f"DEBUG: NPC info updated successfully")
-            needs_conversation_history_update = True
-        except Exception as e:
-            print(f"ERROR: Failed to update NPC info: {str(e)}")
-
-    elif action_type == "updatePartyNPCs":
-        operation = parameters["operation"]
-        npc = parameters["npc"]
-        update_party_npcs(party_tracker_data, operation, npc)
-
-    else:
-        print(f"WARNING: Unknown action type: {action_type}")
-
 def extract_json_from_codeblock(text):
     match = re.search(r'```json\n(.*?)```', text, re.DOTALL)
     if match:
         return match.group(1)
     return text
 
-def process_ai_response(response, party_tracker_data, location_data_param, conversation_history): # Renamed location_data
+def process_ai_response(response, party_tracker_data, location_data, conversation_history):
+    global needs_conversation_history_update
+    
     try:
         json_content = extract_json_from_codeblock(response)
         parsed_response = json.loads(json_content)
@@ -667,14 +308,17 @@ def process_ai_response(response, party_tracker_data, location_data_param, conve
 
         actions = parsed_response.get("actions", [])
         for action in actions:
-            result = process_action(action, party_tracker_data, location_data_param, conversation_history) # Pass location_data_param
+            # Call action_handler to process each action
+            result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
             if result == "exit":
                 return "exit"
-            if isinstance(result, tuple) and result[0] == "skillCheck": # This condition seems unlikely to be met now
+            if isinstance(result, bool) and result:
+                needs_conversation_history_update = True
+            if isinstance(result, tuple) and result[0] == "skillCheck":  # This condition seems unlikely to be met now
                 dm_note = result[1]
                 conversation_history.append({"role": "user", "content": dm_note})
                 new_response = get_ai_response(conversation_history)
-                process_ai_response(new_response, party_tracker_data, location_data_param, conversation_history) # Pass location_data_param
+                process_ai_response(new_response, party_tracker_data, location_data, conversation_history)
 
         save_conversation_history(conversation_history)
 
@@ -700,6 +344,10 @@ def get_ai_response(conversation_history):
     return response.choices[0].message.content.strip()
 
 def ensure_main_system_prompt(conversation_history, main_system_prompt_text):
+    """
+    Ensure the main system prompt is first in the conversation history.
+    This removes any existing instances of the main prompt and adds it at the beginning.
+    """
     # Remove all existing system prompts that appear to be the main system prompt
     # We'll identify the main system prompt by checking if it starts with the first few words
     # of the actual system prompt content
@@ -715,6 +363,30 @@ def ensure_main_system_prompt(conversation_history, main_system_prompt_text):
     # Always place the main system prompt at the beginning
     return [{"role": "system", "content": main_system_prompt_text}] + filtered_history
 
+def order_conversation_messages(conversation_history, main_system_prompt_text):
+    """Order conversation messages with main system prompt first, followed by other system prompts"""
+    main_prompt = None
+    other_system_prompts = []
+    non_system_messages = []
+
+    for msg in conversation_history:
+        if msg["role"] == "system":
+            if msg["content"].startswith(main_system_prompt_text[:50]):
+                main_prompt = msg
+            else:
+                other_system_prompts.append(msg)
+        else:
+            non_system_messages.append(msg)
+
+    # Reconstruct with proper order
+    ordered_history = []
+    if main_prompt:
+        ordered_history.append(main_prompt)
+    ordered_history.extend(other_system_prompts)
+    ordered_history.extend(non_system_messages)
+    
+    return ordered_history
+
 def main_game_loop():
     global needs_conversation_history_update
 
@@ -727,7 +399,7 @@ def main_game_loop():
     party_tracker_data = load_json_file("party_tracker.json")
     
     current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
-    location_data = get_location_info( 
+    location_data = location_manager.get_location_info( 
         party_tracker_data["worldConditions"]["currentLocation"],
         party_tracker_data["worldConditions"]["currentArea"],
         current_area_id
@@ -742,27 +414,9 @@ def main_game_loop():
     conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data)
     conversation_history = update_character_data(conversation_history, party_tracker_data)
 
-    # Ensure the main system prompt is first, followed by other system prompts
-    main_prompt = None
-    other_system_prompts = []
-    non_system_messages = []
-
-    for msg in conversation_history:
-        if msg["role"] == "system":
-            if msg["content"].startswith(main_system_prompt_text[:50]):
-                main_prompt = msg
-            else:
-                other_system_prompts.append(msg)
-        else:
-            non_system_messages.append(msg)
-
-    # Reconstruct with proper order: main system prompt, other system prompts, then conversation
-    conversation_history = []
-    if main_prompt:
-        conversation_history.append(main_prompt)
-    conversation_history.extend(other_system_prompts)
-    conversation_history.extend(non_system_messages)
-
+    # Use the new order_conversation_messages function
+    conversation_history = order_conversation_messages(conversation_history, main_system_prompt_text)
+    
     save_conversation_history(conversation_history)
 
     initial_ai_response = get_ai_response(conversation_history)
@@ -829,7 +483,7 @@ def main_game_loop():
         # Reload current location_data for the DM note based on party_tracker
         # This ensures location_data is fresh for each DM note construction
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"] 
-        location_data = get_location_info( 
+        location_data = location_manager.get_location_info( 
             party_tracker_data["worldConditions"]["currentLocation"],
             party_tracker_data["worldConditions"]["currentArea"],
             current_area_id
@@ -851,7 +505,7 @@ def main_game_loop():
             current_location_name_note = world_conditions["currentLocation"]
             current_location_id_note = world_conditions["currentLocationId"]
             
-            # --- START OF NEW/MODIFIED SECTION FOR CONNECTIVITY ---
+            # --- CONNECTIVITY SECTION ---
             connected_locations_display_str = "None listed"
             connected_areas_display_str = "" # Initialize as empty
 
@@ -876,20 +530,11 @@ def main_game_loop():
                     area_connections_formatted = []
                     for i, name in enumerate(area_names):
                         conn_id = area_ids[i] if i < len(area_ids) else "Unknown ID"
-                        # To get the *target location name* in the new area, we'd need to load that area's map/location file.
-                        # For simplicity in the DM note, we can list the target area and its ID.
-                        # The actual target location name for transition is handled by AI/transition logic.
-                        # For now, let's just make it clear it's an area transition.
-                        # If the AI needs the *specific entry point name* of the new area, this could be complex here.
-                        # The AI's transitionLocation action should specify the newLocation name/ID based on map data.
-                        # Here, we list the *area* it connects to.
-                        # The `newLocation` parameter in `transitionLocation` will be the target room name/ID.
-                        # The `areaConnectivity` field in location data usually lists *target room names* in the new area.
                         area_connections_formatted.append(f"{name} (via Area ID: {conn_id})")
                     
                     if area_connections_formatted:
                         connected_areas_display_str = ". Connects to new areas: " + ", ".join(area_connections_formatted)
-            # --- END OF NEW/MODIFIED SECTION FOR CONNECTIVITY ---
+            # --- END OF CONNECTIVITY SECTION ---
             
             plot_data_for_note = load_json_file(f"plot_{current_area_id}.json") 
             current_plot_points = []
@@ -994,26 +639,8 @@ def main_game_loop():
         conversation_history = update_character_data(conversation_history, party_tracker_data)
         conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
         
-        # Re-apply the ordering logic here too
-        main_prompt = None
-        other_system_prompts = []
-        non_system_messages = []
-
-        for msg in conversation_history:
-            if msg["role"] == "system":
-                if msg["content"].startswith(main_system_prompt_text[:50]):
-                    main_prompt = msg
-                else:
-                    other_system_prompts.append(msg)
-            else:
-                non_system_messages.append(msg)
-
-        # Reconstruct with proper order
-        conversation_history = []
-        if main_prompt:
-            conversation_history.append(main_prompt)
-        conversation_history.extend(other_system_prompts)
-        conversation_history.extend(non_system_messages)
+        # Use the new order_conversation_messages function
+        conversation_history = order_conversation_messages(conversation_history, main_system_prompt_text)
         
         save_conversation_history(conversation_history)
 
