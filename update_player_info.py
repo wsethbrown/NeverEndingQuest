@@ -6,6 +6,7 @@ import re
 import copy
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, PLAYER_INFO_UPDATE_MODEL
+from campaign_path_manager import CampaignPathManager
 
 # ANSI escape codes
 ORANGE = "\033[38;2;255;165;0m"
@@ -124,7 +125,9 @@ Abilities object:
 
 def update_player(player_name, changes, max_retries=3):
     # Load the current player info and schema
-    with open(f"{player_name}.json", "r") as file:
+    path_manager = CampaignPathManager()
+    player_file_path = path_manager.get_player_path(player_name)
+    with open(player_file_path, "r") as file:
         player_info = json.load(file)
 
     original_info = copy.deepcopy(player_info)  # Keep a copy of the original info
@@ -276,7 +279,7 @@ Remember to:
             print(json.dumps(diff, indent=2))
 
             # Save the updated player info
-            with open(f"{player_name}.json", "w") as file:
+            with open(player_file_path, "w") as file:
                 json.dump(player_info, file, indent=2)
 
             # Save the processed conversation history

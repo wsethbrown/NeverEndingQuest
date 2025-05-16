@@ -6,6 +6,7 @@ from openai import OpenAI
 from jsonschema import validate, ValidationError
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, NPC_BUILDER_MODEL # Assuming API key might also be in config eventually
+from campaign_path_manager import CampaignPathManager
 
 GREEN = "\033[32m"
 RED = "\033[31m"
@@ -150,9 +151,8 @@ def main():
 
     generated_npc_data = generate_npc(npc_name_arg, npc_schema_data, npc_race_arg, npc_class_arg, npc_level_arg, npc_background_arg) # Renamed variable
     if generated_npc_data:
-        file_name_to_save = f"{npc_name_arg.lower().replace(' ', '_')}.json" # Renamed variable
-        current_dir = os.getcwd()
-        full_path = os.path.join(current_dir, file_name_to_save)
+        path_manager = CampaignPathManager()
+        full_path = path_manager.get_npc_path(npc_name_arg)
         if save_json(full_path, generated_npc_data):
             print(f"{GREEN}NPC '{npc_name_arg}' created and saved to {full_path}{RESET}")
         else:

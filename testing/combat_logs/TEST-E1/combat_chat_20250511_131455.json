@@ -1,0 +1,22 @@
+[
+  {
+    "role": "assistant",
+    "content": "{\n  \"narration\": \"As you step cautiously into the dimly lit cavern, your eyes quickly adjust to the murk. Suddenly, three snarling goblins leap from behind jagged rocks, weapons drawn and eyes glinting with malice. They hiss in unison, eager to tear into you and your companions.\\n\\nThe order of initiative is set.\\n\\nFirst up is Grinn, the nimble goblin wielding a wicked shortsword. With a sneer, he darts towards your ally, Alina the cleric, and makes his attack. Rolling a d20... He scores a 9, adding his +4 attack bonus to hit, totaling 13. Alina's armor class is 15, so the attack misses by a hair.\\n\\nNext is Windle, the goblin archer, who takes aim at you, steadying his shortbow. He rolls a d20 and gets a 16. With his +5 attack bonus, that's 21 to hit. Your armor class is 17, so the arrow flies true. Rolling 1d6 for damage... He deals 4 points of piercing damage to you.\\n\\nFinally, Skrat, the largest goblin brandishing a crude club, moves to attack Alina as well. He rolls d20... 18 plus 5, hitting 23 total, easily striking her AC of 15. Rolling 1d8+3 for damage... He delivers 10 bludgeoning damage to Alina.\\n\\nAlina winces from the blow but readies her mace. Next comes Alina's turn. What would you like to do? Remember to roll a d20 for your attack and add your attack bonus of +5. You can choose to attack Grinn or Skrat, or take another action.\",\n  \"actions\": [\n    {\n      \"action\": \"updatePlayerInfo\",\n      \"parameters\": {\n        \"changes\": \"Player takes 4 points of piercing damage from Windle's arrow.\"\n      }\n    },\n    {\n      \"action\": \"updateNPCInfo\",\n      \"parameters\": {\n        \"npcName\": \"Alina\",\n        \"changes\": \"Alina takes 10 points of bludgeoning damage from Skrat's club attack.\"\n      }\n    }\n  ]\n}"
+  },
+  {
+    "role": "user",
+    "content": "I grit my teeth from the arrow wound and step forward to confront Windle. Raising my longsword, I swing a powerful strike at the goblin archer! I roll to hit."
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"narration\": \"You grit your teeth against the pain from Windle's arrow wound and charge forward, raising your longsword to strike the goblin archer. Remember to add your attack bonus of +6 to your d20 roll. Roll a d20 now for your attack.\",\n  \"actions\": []\n}"
+  },
+  {
+    "role": "user",
+    "content": "I charge forward, swinging my longsword in a wide arc aimed at the goblin archer's midsection! Rolling to hit with +6."
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"narration\": \"You swing your longsword in a wide arc aiming at Windle's midsection. Please provide your d20 roll result, then I will determine if your strike lands and move forward with the damage roll if it hits.\",\n  \"actions\": []\n}"
+  }
+]

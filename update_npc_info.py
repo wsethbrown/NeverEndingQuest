@@ -6,6 +6,7 @@ import time
 import re
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, NPC_INFO_UPDATE_MODEL
+from campaign_path_manager import CampaignPathManager
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -147,7 +148,9 @@ def compare_json(old, new):
 def update_npc(npc_name, changes, max_retries=3):
     print(f"{ORANGE}DEBUG: Starting NPC update for {npc_name}{RESET}")
     # Load the current NPC info and schema
-    with open(f"{npc_name.lower().replace(' ', '_')}.json", "r") as file:
+    path_manager = CampaignPathManager()
+    npc_file_path = path_manager.get_npc_path(npc_name)
+    with open(npc_file_path, "r") as file:
         npc_info = json.load(file)
 
     original_info = copy.deepcopy(npc_info)  # Keep a copy of the original info
@@ -335,7 +338,7 @@ Remember to:
             print(json.dumps(diff, indent=2))
 
             # Save the updated NPC info
-            with open(f"{npc_name.lower().replace(' ', '_')}.json", "w") as file:
+            with open(npc_file_path, "w") as file:
                 json.dump(npc_info, file, indent=2)
 
             print(f"{ORANGE}DEBUG: {npc_name}'s information updated{RESET}")

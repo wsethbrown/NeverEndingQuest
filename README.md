@@ -130,10 +130,12 @@ This project is for personal use and experimentation. Based on WOTC Creative Com
 
 ## Recent Updates
 
-- **Campaign Context System**: Added context validation for consistent generation
-- **Schema Compliance**: All generated files now fully comply with D&D 5e schemas
-- **Improved Generation**: Fixed location counts and removed file duplications
-- **Code Organization**: Cleaned up legacy folders and improved structure
+- **Campaign Path Management**: Implemented `CampaignPathManager` for centralized file path handling
+- **Combat System Fixes**: Fixed monster file loading in combat to use campaign directories
+- **Directory Structure**: All campaign-specific files now stored in organized campaign folders
+- **Legacy Cleanup**: Moved old files to legacy folder, cleaning up root directory
+- **Validation System**: Relaxed combat validation to focus on major errors only
+- **Equipment Syncing**: Verified arrow transfer sync between character files
 
 ## Future Development
 

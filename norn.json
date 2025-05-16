@@ -10,7 +10,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 30,
+  "hitPoints": 36,
   "maxHitPoints": 36,
   "armorClass": 16,
   "initiative": 2,
@@ -158,7 +158,7 @@
     "silver": 0,
     "copper": 5
   },
-  "experience_points": 4484,
+  "experience_points": 4521,
   "exp_required_for_next_level": 6500,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",

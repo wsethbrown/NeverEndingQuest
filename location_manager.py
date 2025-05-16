@@ -1,6 +1,7 @@
 import json
 import subprocess
 import os
+from campaign_path_manager import CampaignPathManager
 
 def load_json_file(file_path):
     """Load a JSON file, with error handling"""
@@ -23,7 +24,8 @@ def load_json_file(file_path):
 
 def get_location_info(location_name, current_area, current_area_id):
     """Get location information based on name and area"""
-    area_file = f"{current_area_id}.json" # Corrected file naming convention
+    path_manager = CampaignPathManager()
+    area_file = path_manager.get_area_path(current_area_id)
     area_data = load_json_file(area_file)
     if area_data and "locations" in area_data:
         for location in area_data["locations"]:
@@ -33,7 +35,8 @@ def get_location_info(location_name, current_area, current_area_id):
 
 def get_location_data(location_id, area_id):
     """Get location data based on location ID and area ID"""
-    area_file = f"{area_id}.json"
+    path_manager = CampaignPathManager()
+    area_file = path_manager.get_area_path(area_id)
     try:
         with open(area_file, "r") as file:
             area_data = json.load(file)
@@ -87,7 +90,8 @@ def handle_location_transition(current_location, new_location, current_area, cur
     if party_tracker:
         print("DEBUG: Successfully loaded party_tracker.json")
 
-        current_area_file = f"{current_area_id}.json"
+        path_manager = CampaignPathManager()
+        current_area_file = path_manager.get_area_path(current_area_id)
         print(f"DEBUG: Searching for current location in file: {current_area_file}")
         current_area_data = load_json_file(current_area_file)
 
@@ -103,7 +107,7 @@ def handle_location_transition(current_location, new_location, current_area, cur
 
         if area_connectivity_id:
             print(f"DEBUG: Transitioning to new area with ID: {area_connectivity_id}")
-            new_area_file = f"{area_connectivity_id}.json"
+            new_area_file = path_manager.get_area_path(area_connectivity_id)
             new_area_data = load_json_file(new_area_file)
             if new_area_data and "locations" in new_area_data:
                 new_location_info = next((loc for loc in new_area_data["locations"] if loc["name"] == new_location), None)

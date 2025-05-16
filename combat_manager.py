@@ -62,9 +62,12 @@ def get_current_area_id():
     return party_tracker["worldConditions"]["currentAreaId"]
 
 def get_location_data(location_id):
+    from campaign_path_manager import CampaignPathManager
+    path_manager = CampaignPathManager()
+    
     current_area_id = get_current_area_id()
     print(f"DEBUG: Current area ID: {current_area_id}")
-    area_file = f"{current_area_id}.json"
+    area_file = path_manager.get_area_path(current_area_id)
     print(f"DEBUG: Attempting to load area file: {area_file}")
 
     if not os.path.exists(area_file):
@@ -90,8 +93,12 @@ def read_prompt_from_file(filename):
         return file.read().strip()
 
 def load_monster_stats(monster_name):
-    # Formatting the file name correctly for the monster file
-    monster_file = f"{monster_name.lower().replace(' ', '_')}.json"
+    # Import the path manager
+    from campaign_path_manager import CampaignPathManager
+    path_manager = CampaignPathManager()
+    
+    # Get the correct path for the monster file
+    monster_file = path_manager.get_monster_path(monster_name)
 
     try:
         with open(monster_file, "r") as file:
@@ -173,14 +180,20 @@ def validate_combat_response(response, encounter_data, user_input):
     
     # Load validation prompt
     validation_prompt = """
-    You are validating a combat response from an AI Dungeon Master. Check for the following issues:
+    You are validating a combat response from an AI Dungeon Master. Only flag MAJOR issues:
     
-    1. HP Tracking: Ensure all damage calculations are correct and creature health is accurate.
-    2. Death Detection: Verify enemies die when their HP is reduced to 0 or below.
-    3. Combat Flow: Combat should end when all enemies are defeated.
-    4. Initiative Order: Actions should follow the established initiative order.
-    5. Action Consistency: Narration should match the actions being taken.
-    6. Exit Detection: The 'exit' action should be included when combat is over.
+    1. HP Tracking: Flag ONLY if damage calculations are mathematically wrong or if HP goes below 0 without death.
+    2. Death Detection: Flag ONLY if a creature with 0 or negative HP is described as alive.
+    3. Combat Flow: Flag ONLY if combat continues after all enemies are defeated (allow NPCs to finish their turns).
+    4. Game-Breaking Errors: Flag impossible actions or severe rule violations.
+    
+    DO NOT flag these minor issues:
+    - Scene-setting responses without actions (these are valid)
+    - Initiative order clarifications or minor wording differences
+    - Missing 'exit' action if enemies just died (NPCs may need to act)
+    - Stylistic choices in narration
+    
+    Be lenient with responses that are substantially correct. Only fail responses with serious mechanical errors.
     
     Respond with a JSON object like this:
     {
@@ -315,8 +328,10 @@ def summarize_dialogue(conversation_history_param, location_data, party_tracker_
         else:
             location_data["adventureSummary"] += f"\n\n{dialogue_summary}"
 
+        from campaign_path_manager import CampaignPathManager
+        path_manager = CampaignPathManager()
         current_area_id = get_current_area_id()
-        area_file = f"{current_area_id}.json"
+        area_file = path_manager.get_area_path(current_area_id)
         with open(area_file, "r") as file:
             area_data = json.load(file)
         for i, loc in enumerate(area_data["locations"]):
@@ -379,7 +394,7 @@ def update_json_schema(ai_response, player_info, encounter_data, party_tracker_d
     # Update NPCs if needed (no XP for NPCs)
     for creature in encounter_data['creatures']:
         if creature['type'] == 'npc':
-            npc_name = creature['name'] # Assuming name is directly usable or formatted in update_npc
+            npc_name = creature['name'].lower().replace(' ', '_').split('_')[0] # Format for file access
             npc_changes = "Update NPC status after combat."
             update_npc_info.update_npc(npc_name, npc_changes)
 
@@ -471,6 +486,8 @@ def generate_chat_history(conversation_history, encounter_id):
 
 def sync_active_encounter():
     """Sync player and NPC data to the active encounter file if one exists"""
+    from campaign_path_manager import CampaignPathManager
+    path_manager = CampaignPathManager()
     
     # Check if there's an active combat encounter
     try:
@@ -493,7 +510,7 @@ def sync_active_encounter():
         # Update player and NPC data in the encounter
         for creature in encounter_data.get("creatures", []):
             if creature["type"] == "player":
-                player_file = f"{creature['name'].lower().replace(' ', '_')}.json"
+                player_file = path_manager.get_player_path(creature['name'].lower().replace(' ', '_'))
                 try:
                     with open(player_file, "r") as file:
                         player_data = json.load(file)
@@ -515,7 +532,7 @@ def sync_active_encounter():
                     
             elif creature["type"] == "npc":
                 npc_name = creature['name'].lower().replace(' ', '_').split('_')[0]
-                npc_file = f"{npc_name}.json"
+                npc_file = path_manager.get_npc_path(npc_name)
                 try:
                     with open(npc_file, "r") as file:
                         npc_data = json.load(file)
@@ -547,6 +564,10 @@ def sync_active_encounter():
 def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    """Main function to run the combat simulation"""
    print(f"DEBUG: Starting combat simulation for encounter {encounter_id}")
+   
+   # Initialize path manager
+   from campaign_path_manager import CampaignPathManager
+   path_manager = CampaignPathManager()
 
    # Initialize conversation history with the original structure
    conversation_history = [
@@ -584,7 +605,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    for creature in encounter_data["creatures"]:
        if creature["type"] == "player":
            player_name = creature["name"].lower().replace(" ", "_")
-           player_file = f"{player_name}.json"
+           player_file = path_manager.get_player_path(player_name)
            try:
                with open(player_file, "r") as file:
                    player_info = json.load(file)
@@ -595,17 +616,36 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
        elif creature["type"] == "enemy":
            monster_type = creature["monsterType"]
            if monster_type not in monster_templates:
-               monster_file = f"{monster_type}.json"
+               monster_file = path_manager.get_monster_path(monster_type)
+               print(f"DEBUG: Attempting to load monster file: {monster_file}")
                try:
                    with open(monster_file, "r") as file:
                        monster_templates[monster_type] = json.load(file)
+                       print(f"DEBUG: Successfully loaded monster: {monster_type}")
+               except FileNotFoundError as e:
+                   print(f"ERROR: Monster file not found: {monster_file}")
+                   print(f"ERROR: {str(e)}")
+                   # Check available files for debugging
+                   monster_dir = f"{path_manager.campaign_dir}/monsters"
+                   if os.path.exists(monster_dir):
+                       print(f"DEBUG: Available monster files in {monster_dir}:")
+                       for f in os.listdir(monster_dir):
+                           print(f"  - {f}")
+                   return None, None
+               except json.JSONDecodeError as e:
+                   print(f"ERROR: Invalid JSON in monster file {monster_file}: {str(e)}")
+                   return None, None
                except Exception as e:
                    print(f"ERROR: Failed to load monster file {monster_file}: {str(e)}")
+                   print(f"ERROR: Exception type: {type(e).__name__}")
+                   import traceback
+                   traceback.print_exc()
+                   return None, None
        
        elif creature["type"] == "npc":
            # Ensure npc_name is correctly formatted for file access
            npc_file_name_part = creature["name"].lower().replace(" ", "_").split('_')[0] # Handle names like "NPC_1"
-           npc_file = f"{npc_file_name_part}.json"
+           npc_file = path_manager.get_npc_path(npc_file_name_part)
            if npc_file_name_part not in npc_templates: # Check against the base name
                try:
                    with open(npc_file, "r") as file:
@@ -616,6 +656,15 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    # Populate the system messages with JSON data
    conversation_history[2]["content"] = f"Player Character:\n{json.dumps({k: v for k, v in player_info.items() if k not in ['hitpoints', 'maxhitpoints']}, indent=2)}"
    conversation_history[3]["content"] = f"Monster Templates:\n{json.dumps(monster_templates, indent=2)}"
+   # Verify that we loaded all necessary data
+   if not monster_templates and any(c["type"] == "enemy" for c in encounter_data["creatures"]):
+       print("ERROR: No monster templates were loaded!")
+       return None, None
+   
+   print(f"DEBUG: Loaded {len(monster_templates)} monster template(s)")
+   for k, v in monster_templates.items():
+       print(f"  - {k}: {v.get('name', 'Unknown')}")
+   
    conversation_history[4]["content"] = f"Location:\n{json.dumps(location_info, indent=2)}"
    conversation_history.append({"role": "system", "content": f"NPC Templates:\n{json.dumps(npc_templates, indent=2)}"})
    conversation_history.append({"role": "system", "content": f"Encounter Details:\n{json.dumps(encounter_data, indent=2)}"})
@@ -625,6 +674,133 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    
    # Save the updated conversation history
    save_json_file(conversation_history_file, conversation_history)
+   
+   # Prepare initial hitpoints info for all creatures
+   hitpoints_info_parts = []
+   player_name_display = player_info["name"]
+   current_hp = player_info.get("hitPoints", 0)
+   max_hp = player_info.get("maxHitPoints", 0)
+   hitpoints_info_parts.append(f"{player_name_display}'s current hitpoints: {current_hp}/{max_hp}")
+   
+   for creature in encounter_data["creatures"]:
+       if creature["type"] != "player":
+           creature_name = creature.get("name", "Unknown Creature")
+           creature_hp = creature.get("currentHitPoints", "Unknown")
+           
+           # Get the actual max HP from the correct source
+           if creature["type"] == "npc":
+               # For NPCs, look up their true max HP from their character file
+               npc_name = creature_name.lower().replace(" ", "_").split('_')[0]
+               npc_file = path_manager.get_npc_path(npc_name)
+               try:
+                   with open(npc_file, "r") as file:
+                       npc_data = json.load(file)
+                       creature_max_hp = npc_data["maxHitPoints"]
+               except Exception as e:
+                   print(f"ERROR: Failed to get correct max HP for {creature_name}: {str(e)}")
+                   creature_max_hp = creature.get("maxHitPoints", "Unknown")
+           else:
+               # For monsters, use the encounter data
+               creature_max_hp = creature.get("maxHitPoints", "Unknown")
+               
+           hitpoints_info_parts.append(f"{creature_name}'s current hitpoints: {creature_hp}/{creature_max_hp}")
+   all_hitpoints_info = "\n".join(hitpoints_info_parts)
+   
+   # Get initial scene description before first user input
+   print("DEBUG: Getting initial scene description...")
+   initial_prompt = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. This is the start of combat, so please describe the scene and set initiative order, but don't take any actions yet.
+
+Current hitpoints for all creatures:
+{all_hitpoints_info}
+
+Player: The combat begins. Describe the scene and the enemies we face."""
+
+   conversation_history.append({"role": "user", "content": initial_prompt})
+   save_json_file(conversation_history_file, conversation_history)
+
+   # Get AI response for initial scene with validation and retries
+   max_retries = 3
+   valid_response = False
+   initial_response = None
+   
+   for attempt in range(max_retries):
+       try:
+           response = client.chat.completions.create(
+               model=COMBAT_MAIN_MODEL,
+               temperature=TEMPERATURE,
+               messages=conversation_history
+           )
+           initial_response = response.choices[0].message.content.strip()
+           
+           # Write raw response to debug file
+           with open("debug_initial_response.json", "w") as debug_file:
+               json.dump({"raw_initial_response": initial_response}, debug_file, indent=2)
+           
+           # Add the AI response to conversation history
+           conversation_history.append({"role": "assistant", "content": initial_response})
+           save_json_file(conversation_history_file, conversation_history)
+           
+           # Check if the response is valid JSON
+           if not is_valid_json(initial_response):
+               print(f"DEBUG: Invalid JSON response for initial scene (Attempt {attempt + 1}/{max_retries})")
+               if attempt < max_retries - 1:
+                   # Add error feedback to conversation history
+                   conversation_history.append({
+                       "role": "user",
+                       "content": "Your previous response was not a valid JSON object with 'narration' and 'actions' fields. Please provide a valid JSON response for the initial scene."
+                   })
+                   save_json_file(conversation_history_file, conversation_history)
+                   continue
+               else:
+                   print("DEBUG: Max retries exceeded for JSON validation. Using last response.")
+                   break
+           
+           # Parse the JSON response
+           parsed_response = json.loads(initial_response)
+           narration = parsed_response["narration"]
+           actions = parsed_response["actions"]
+           
+           # Validate the combat logic
+           print("DEBUG: Validating combat response...")
+           validation_result = validate_combat_response(initial_response, encounter_data, "The combat begins. Describe the scene and the enemies we face.")
+           
+           if validation_result is True:
+               valid_response = True
+               print("DEBUG: Combat response validation passed")
+               print(f"DEBUG: Response validated successfully on attempt {attempt + 1}")
+               break
+           else:
+               print(f"DEBUG: Response validation failed (Attempt {attempt + 1}/{max_retries})")
+               print(f"Reason: {validation_result}")
+               if attempt < max_retries - 1:
+                   # Add error feedback to conversation history
+                   conversation_history.append({
+                       "role": "user",
+                       "content": f"Your previous response had issues with the combat logic: {validation_result}. Please correct these issues and provide a valid initial scene description."
+                   })
+                   save_json_file(conversation_history_file, conversation_history)
+                   continue
+               else:
+                   print("DEBUG: Max retries exceeded for combat validation. Using last response.")
+                   break
+       except Exception as e:
+           print(f"ERROR: Failed to get or validate initial scene response (Attempt {attempt + 1}/{max_retries}): {str(e)}")
+           if attempt < max_retries - 1:
+               continue
+           else:
+               print("DEBUG: Max retries exceeded. Using last response if available.")
+               break
+   
+   # Display initial scene if we have a response
+   if initial_response:
+       try:
+           parsed_response = json.loads(initial_response)
+           narration = parsed_response["narration"]
+           print(f"Dungeon Master: {SOFT_REDDISH_ORANGE}{narration}{RESET_COLOR}")
+       except Exception as e:
+           print(f"ERROR: Failed to parse initial response: {str(e)}")
+   else:
+       print("ERROR: Failed to get an initial scene description after multiple attempts")
    
    # Combat loop
    while True:
@@ -636,7 +812,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
        
        # Reload player info
        player_name = player_info["name"].lower().replace(" ", "_")
-       player_file = f"{player_name}.json"
+       player_file = path_manager.get_player_path(player_name)
        try:
            with open(player_file, "r") as file:
                player_info = json.load(file)
@@ -662,7 +838,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
        for creature in encounter_data["creatures"]:
            if creature["type"] == "npc":
                npc_name = creature["name"].lower().replace(" ", "_").split('_')[0]
-               npc_file = f"{npc_name}.json"
+               npc_file = path_manager.get_npc_path(npc_name)
                try:
                    with open(npc_file, "r") as file:
                        npc_data = json.load(file)
@@ -710,7 +886,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
                if creature["type"] == "npc":
                    # For NPCs, look up their true max HP from their character file
                    npc_name = creature_name.lower().replace(" ", "_").split('_')[0]
-                   npc_file = f"{npc_name}.json"
+                   npc_file = path_manager.get_npc_path(npc_name)
                    try:
                        with open(npc_file, "r") as file:
                            npc_data = json.load(file)
@@ -857,7 +1033,7 @@ Player: {user_input_text}"""
                    print(f"ERROR: Failed to update player info: {str(e)}")
            
            elif action_type == "updatenpcinfo":
-               npc_name_for_update = parameters.get("npcName", "")
+               npc_name_for_update = parameters.get("npcName", "").lower().replace(' ', '_').split('_')[0] # Format for file access
                changes = parameters.get("changes", "")
                try:
                    updated_npc_info = update_npc_info.update_npc(npc_name_for_update, changes)
@@ -900,6 +1076,9 @@ Player: {user_input_text}"""
                
                print("Combat encounter closed. Exiting combat simulation.")
                return dialogue_summary_result, player_info
+
+       # Save updated conversation history after processing all actions
+       save_json_file(conversation_history_file, conversation_history)
 
 def main():
     print("DEBUG: Starting main function in combat_manager")

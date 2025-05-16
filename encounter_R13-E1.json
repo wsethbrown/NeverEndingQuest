@@ -1,0 +1,79 @@
+{
+  "encounterId": "R13-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 12,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 20,
+      "maxHitPoints": 36,
+      "armorClass": 16
+    },
+    {
+      "name": "Water Weird",
+      "type": "enemy",
+      "monsterType": "water_weird",
+      "initiative": 15,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -2,
+      "maxHitPoints": 58
+    },
+    {
+      "name": "Gilly",
+      "type": "npc",
+      "npcType": "gilly",
+      "initiative": 13,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 9,
+      "maxHitPoints": 31,
+      "armorClass": 15
+    },
+    {
+      "name": "Elara",
+      "type": "npc",
+      "npcType": "elara",
+      "initiative": 17,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 22,
+      "maxHitPoints": 22,
+      "armorClass": 15
+    },
+    {
+      "name": "Thalor",
+      "type": "npc",
+      "npcType": "thalor",
+      "initiative": 2,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 24,
+      "maxHitPoints": 24,
+      "armorClass": 16
+    }
+  ],
+  "encounterSummary": "The party is ambushed by a Water Weird in the flooded Waterlogged Tunnels, forcing them into a tense battle in waist-deep water filled with submerged debris."
+}

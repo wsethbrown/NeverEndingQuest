@@ -1,0 +1,57 @@
+{
+  "name": "Giant Centipede",
+  "size": "Small",
+  "type": "Beast",
+  "alignment": "Unaligned",
+  "armorClass": 13,
+  "hitPoints": 4,
+  "maxHitPoints": 4,
+  "speed": 30,
+  "abilities": {
+    "strength": 5,
+    "dexterity": 14,
+    "constitution": 12,
+    "intelligence": 1,
+    "wisdom": 7,
+    "charisma": 3
+  },
+  "savingThrows": [],
+  "skills": {},
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "senses": {
+    "darkvision": 30,
+    "passivePerception": 8
+  },
+  "languages": "",
+  "challengeRating": 0.25,
+  "specialAbilities": [
+    {
+      "name": "Spider Climb",
+      "attackBonus": 0,
+      "damageDice": "0",
+      "damageBonus": 0,
+      "damageType": "None"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Bite",
+      "attackBonus": 4,
+      "damageDice": "1d4",
+      "damageBonus": 0,
+      "damageType": "Piercing"
+    },
+    {
+      "name": "Bite (Poison)",
+      "attackBonus": 0,
+      "damageDice": "3d6",
+      "damageBonus": 0,
+      "damageType": "Poison"
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive"
+}

@@ -1,0 +1,26 @@
+{
+  "campaign": "Keep of Doom",
+  "partyMembers": [],
+  "partyNPCs": [],
+  "worldConditions": {
+    "year": 1492,
+    "month": "Hammer",
+    "day": 1,
+    "time": "08:00:00",
+    "weather": "Clear",
+    "season": "Winter",
+    "dayNightCycle": "Day",
+    "moonPhase": "New Moon",
+    "currentLocation": "Harrow's Hollow General Store",
+    "currentLocationId": "R01",
+    "currentArea": "Harrow's Hollow",
+    "currentAreaId": "HH001",
+    "majorEventsUnderway": [],
+    "politicalClimate": "",
+    "activeEncounter": "",
+    "activeCombatEncounter": "",
+    "weatherConditions": "",
+    "lastCompletedEncounter": ""
+  },
+  "activeQuests": []
+}

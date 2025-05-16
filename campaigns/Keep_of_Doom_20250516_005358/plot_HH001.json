@@ -1,0 +1,126 @@
+{
+  "plotTitle": "Whispers Beneath Harrow\u2019s Hollow",
+  "mainObjective": "Investigate the mysterious disappearances in Harrow\u2019s Hollow and discover the fate of Scout Elen.",
+  "plotPoints": [
+    {
+      "id": "PP001",
+      "title": "Shadows Over Harrow\u2019s Hollow",
+      "description": "The party arrives in Harrow\u2019s Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run high as rumors of curses, spirits, and the haunted Keep of Doom swirl among the villagers. Players must gather information, win trust, and follow leads to piece together the mystery.",
+      "location": "HH001",
+      "nextPoints": [
+        "PP002"
+      ],
+      "status": "not started",
+      "plotImpact": "Success earns the trust of the villagers, unlocks new leads, and reveals the path to the Keep. Failure to investigate thoroughly may result in missing clues, hindering progress.",
+      "sideQuests": [
+        {
+          "id": "SQ001",
+          "title": "Superstition and Shadows",
+          "description": "Old Tommen believes a wandering spirit haunts the village. If the party investigates, they may encounter the Wandering Shade\u2014a restless ghost whose cryptic words offer hints about the keep and the missing villagers.",
+          "involvedLocations": [
+            "HH001"
+          ],
+          "status": "not started",
+          "plotImpact": "Communicating with the spirit yields crucial information or warnings."
+        },
+        {
+          "id": "SQ002",
+          "title": "Trouble at the Hearth",
+          "description": "Cira the Innkeeper\u2019s cellar is plagued by minor poltergeist activity. Calming the spirit earns Cira\u2019s gratitude and a helpful clue about Scout Elen\u2019s last known movements.",
+          "involvedLocations": [
+            "HH001"
+          ],
+          "status": "not started",
+          "plotImpact": "Provides a clue to Elen's disappearance and a possible safe haven."
+        }
+      ]
+    },
+    {
+      "id": "PP002",
+      "title": "The Road to Doom",
+      "description": "Tracking clues and rumors, the party must brave the haunted forest and reach the Keep of Doom. Along the way, they navigate treacherous terrain, spectral ambushes, and lingering wards. The forest is alive with unnatural energies, and the party may encounter allies or enemies who help or hinder their journey.",
+      "location": "R_forest_path_toward_keep",
+      "nextPoints": [
+        "PP003"
+      ],
+      "status": "not started",
+      "plotImpact": "Surviving the journey and overcoming obstacles gives the party a tactical edge entering the keep. Failure or taking too long may worsen conditions in the village or endanger Scout Elen further.",
+      "sideQuests": [
+        {
+          "id": "SQ003",
+          "title": "Lost in the Dark",
+          "description": "The party finds evidence of a wounded villager (Scout Elen\u2019s trail) and can choose to follow it. This detour leads to an encounter with hostile forest spirits and potentially the rescue of Scout Elen.",
+          "involvedLocations": [
+            "R_forest_path_toward_keep"
+          ],
+          "status": "not started",
+          "plotImpact": "Rescuing Elen provides valuable information and closes a key investigation thread."
+        },
+        {
+          "id": "SQ004",
+          "title": "Circle of the Wild Heart",
+          "description": "The party may encounter Druidess Halwen or Feyfriend Lirael, who offer cryptic warnings or aid against the keep\u2019s curse\u2014if the party helps drive off a corrupted beast menacing the woods.",
+          "involvedLocations": [
+            "R_forest_path_toward_keep"
+          ],
+          "status": "not started",
+          "plotImpact": "Gaining the druids\u2019 favor offers magical assistance or knowledge about the Keep\u2019s defenses."
+        }
+      ]
+    },
+    {
+      "id": "PP003",
+      "title": "Secrets of the Keep",
+      "description": "The party explores the haunted Keep of Doom, contending with deadly traps, cursed guardians, and echoes of the past. Here they may meet Sir Garran Vael, a cursed knight bound to the relic\u2019s will, and the Spectral Scribe, who reveals the Keep\u2019s tragic history. The party must uncover the truth behind the Shadow Relic and decide how to handle its corrupting power.",
+      "location": "R_Keep_of_Doom",
+      "nextPoints": [
+        "PP004"
+      ],
+      "status": "not started",
+      "plotImpact": "Unraveling the Keep\u2019s secrets determines how the party can confront the Shadow Relic and whether they can free the cursed knight or fall under the Keep\u2019s shadow themselves.",
+      "sideQuests": [
+        {
+          "id": "SQ005",
+          "title": "The Knight\u2019s Redemption",
+          "description": "Sir Garran Vael begs for release from his curse. The party may try to free his spirit (through battle, persuasion, or a ritual), gaining a powerful ally or vital lore for the final confrontation.",
+          "involvedLocations": [
+            "R_Keep_of_Doom"
+          ],
+          "status": "not started",
+          "plotImpact": "Freeing Sir Garran can provide assistance or a safe passage; failure could make him an enemy."
+        },
+        {
+          "id": "SQ006",
+          "title": "The Scribe\u2019s Ledger",
+          "description": "The Spectral Scribe offers to share the Keep\u2019s history if the party can recover lost pages scattered in dangerous parts of the keep.",
+          "involvedLocations": [
+            "R_Keep_of_Doom"
+          ],
+          "status": "not started",
+          "plotImpact": "Assembling the ledger reveals the true nature of the Shadow Relic and hints at how to defeat or contain it."
+        }
+      ]
+    },
+    {
+      "id": "PP004",
+      "title": "Confrontation with the Shadow Relic",
+      "description": "In the heart of the keep, the party confronts the Shadow Relic\u2014a sentient, malevolent artifact whose whispers have corrupted the land. Players must make crucial choices: destroy it, attempt to contain its power, or risk bargaining with its intelligence. Their decisions will affect the fate of Harrow\u2019s Hollow and may draw the attention of the Black Banner, a sinister cult seeking the relic for their own ends.",
+      "location": "R_Keep_of_Doom_Inner_Sanctum",
+      "nextPoints": [],
+      "status": "not started",
+      "plotImpact": "The party\u2019s resolution determines the future of the region: peace and healing, new threats, or further corruption. May also set up future adventures if the Black Banner becomes involved.",
+      "sideQuests": [
+        {
+          "id": "SQ007",
+          "title": "Agents in the Shadows",
+          "description": "Optional: The party may discover members of the Black Banner already infiltrating the keep, setting up a future antagonist if not dealt with now.",
+          "involvedLocations": [
+            "R_Keep_of_Doom_Inner_Sanctum"
+          ],
+          "status": "not started",
+          "plotImpact": "Defeating or negotiating with the cultists may provide information about larger threats and shape future plot hooks."
+        }
+      ]
+    }
+  ]
+}

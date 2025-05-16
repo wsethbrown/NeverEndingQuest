@@ -36,6 +36,18 @@ Follow these general Combat Rules (Hits and Damage):
 - Ability modifier (Strength or Dexterity, usually).
 - Any magical bonuses from enchanted weapons.
 
+Important Notes about Action Formats:
+1. When updating NPCs, always use the exact field names and formats from their original data. 
+2. For NPC actions, always use this format:
+   {
+     "name": "Weapon Name",
+     "attackBonus": 5,
+     "damageDice": "1d8",
+     "damageBonus": 3,
+     "damageType": "piercing"
+   }
+3. The status field for creatures must be lowercase: 'alive', 'dead', 'unconscious', or 'defeated'.
+4. Never use actions like 'dealDamage' or 'createEncounter' within NPC or player updates.
 
 Response Format:
 Always structure your responses in the following JSON format:

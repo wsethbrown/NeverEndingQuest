@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "Ogre",
+  "size": "Large",
+  "type": "Giant",
+  "alignment": "Chaotic Evil",
+  "armorClass": 11,
+  "hitPoints": 59,
+  "maxHitPoints": 59,
+  "speed": 40,
+  "abilities": {
+    "strength": 19,
+    "dexterity": 8,
+    "constitution": 16,
+    "intelligence": 5,
+    "wisdom": 7,
+    "charisma": 7
+  },
+  "savingThrows": [],
+  "skills": {},
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 8
+  },
+  "languages": "Common, Giant",
+  "challengeRating": 2,
+  "specialAbilities": [],
+  "actions": [
+    {
+      "name": "Greatclub",
+      "attackBonus": 6,
+      "damageDice": "2d8",
+      "damageBonus": 4,
+      "damageType": "bludgeoning"
+    },
+    {
+      "name": "Javelin",
+      "attackBonus": 6,
+      "damageDice": "2d6",
+      "damageBonus": 4,
+      "damageType": "piercing"
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive"
+}

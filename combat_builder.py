@@ -6,6 +6,7 @@ import subprocess
 from termcolor import colored
 import logging
 import shutil
+from campaign_path_manager import CampaignPathManager
 
 logging.basicConfig(filename='combat_builder.log', level=logging.DEBUG)
 
@@ -81,7 +82,8 @@ def get_next_encounter_number(location):
         return 1
     
     current_area_id = get_current_area_id()
-    location_data = load_json(f"{current_area_id}.json")
+    path_manager = CampaignPathManager()
+    location_data = load_json(path_manager.get_area_path(current_area_id))
     if not location_data:
         print(colored(f"Error: Failed to load location data for {current_area_id}.", "red"))
         return 1
@@ -106,7 +108,8 @@ def update_party_tracker(encounter_id):
 
 def load_or_create_monster(monster_type):
     formatted_monster_type = format_type_name(monster_type)
-    monster_file = f"{formatted_monster_type}.json"
+    path_manager = CampaignPathManager()
+    monster_file = path_manager.get_monster_path(monster_type)
     monster_data = load_json(monster_file)
     if not monster_data:
         print(colored(f"Monster {monster_type} not found. Attempting to create it...", "yellow"))
@@ -130,7 +133,8 @@ def load_or_create_monster(monster_type):
 
 def load_or_create_npc(npc_name):
     formatted_npc_name = format_type_name(npc_name)
-    npc_file = f"{formatted_npc_name}.json"
+    path_manager = CampaignPathManager()
+    npc_file = path_manager.get_npc_path(npc_name)
     npc_data = load_json(npc_file)
     if not npc_data:
         print(colored(f"NPC {npc_name} not found. Attempting to create it...", "yellow"))
@@ -169,7 +173,8 @@ def generate_encounter(encounter_data):
         encounter["encounterSummary"] = encounter_data["encounterSummary"]
 
     # Add player
-    player_file = f"{encounter_data['player'].lower().replace(' ', '_')}.json"
+    path_manager = CampaignPathManager()
+    player_file = path_manager.get_player_path(encounter_data['player'])
     logging.debug(f"Attempting to load player data from {player_file}")
     
     backup_player_file(player_file)

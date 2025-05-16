@@ -1,0 +1,22 @@
+[
+  {
+    "role": "assistant",
+    "content": "Welcome to the combat encounter!"
+  },
+  {
+    "role": "user",
+    "content": "I attack the goblin with my sword."
+  },
+  {
+    "role": "assistant",
+    "content": "You swing your sword at the goblin, hitting it for 6 damage."
+  },
+  {
+    "role": "user",
+    "content": "I'll use my bonus action to move behind cover."
+  },
+  {
+    "role": "assistant",
+    "content": "You move swiftly behind a large rock, providing you with partial cover."
+  }
+]

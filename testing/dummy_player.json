@@ -1,0 +1,111 @@
+{
+  "name": "Aric",
+  "class": "Fighter",
+  "level": 3,
+  "experience_points": 900,
+  "exp_required_for_next_level": 2700,
+  "race": "Human",
+  "background": "Soldier",
+  "alignment": "Lawful Good",
+  "hitPoints": 27,
+  "maxHitPoints": 27,
+  "temporaryHitPoints": 0,
+  "armorClass": 16,
+  "initiative": 2,
+  "speed": 30,
+  "hitDice": "3d10",
+  "deathSaves": {
+    "successes": 0,
+    "failures": 0
+  },
+  "abilities": {
+    "strength": 16,
+    "dexterity": 14,
+    "constitution": 15,
+    "intelligence": 10,
+    "wisdom": 12,
+    "charisma": 8
+  },
+  "savingThrows": {
+    "strength": 5,
+    "dexterity": 2,
+    "constitution": 4,
+    "intelligence": 0,
+    "wisdom": 1,
+    "charisma": -1
+  },
+  "skills": {
+    "Athletics": 5,
+    "Intimidation": 1,
+    "Perception": 3,
+    "Survival": 3
+  },
+  "attacksAndSpellcasting": [
+    {
+      "name": "Longsword",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "slashing"
+    },
+    {
+      "name": "Longbow",
+      "attackBonus": 4,
+      "damageDice": "1d8",
+      "damageBonus": 2,
+      "damageType": "piercing"
+    },
+    {
+      "name": "Second Wind",
+      "type": "ability",
+      "description": "Recover 1d10+3 hit points once per short rest",
+      "limitedUse": {
+        "maxUses": 1,
+        "currentUses": 1,
+        "resetOn": "short rest"
+      }
+    },
+    {
+      "name": "Action Surge",
+      "type": "ability",
+      "description": "Take an additional action on your turn, once per short rest",
+      "limitedUse": {
+        "maxUses": 1,
+        "currentUses": 1,
+        "resetOn": "short rest"
+      }
+    }
+  ],
+  "equipment": [
+    "Chainmail armor",
+    "Longsword",
+    "Longbow with 20 arrows",
+    "Shield (+2 AC, included in AC calculation)",
+    "Explorer's pack",
+    "Potion of healing (2d4+2)",
+    "10 gold pieces"
+  ],
+  "features": [
+    "Fighting Style: Defense (+1 to AC while wearing armor, included in AC calculation)",
+    "Second Wind: As a bonus action, regain 1d10 + fighter level HP. Once per short or long rest.",
+    "Action Surge: On your turn, take one additional action. Once per short or long rest.",
+    "Improved Critical: Fighter weapons score a critical hit on a roll of 19 or 20."
+  ],
+  "proficiencies": [
+    "All simple and martial weapons",
+    "All armor and shields",
+    "Strength and Constitution saving throws",
+    "Dice games, playing cards"
+  ],
+  "languages": [
+    "Common",
+    "Dwarvish"
+  ],
+  "personality": {
+    "traits": "I'm always polite and respectful, but I have little patience for people who waste my time.",
+    "ideals": "Responsibility. I do what I must and obey just authority.",
+    "bonds": "Those who fight beside me are worth dying for.",
+    "flaws": "I made a terrible mistake in battle that cost many lives, and I would do anything to keep that mistake secret."
+  },
+  "backstory": "Aric served in the army of a noble lord, rising to become a respected sergeant. During a border skirmish, his decision to hold position rather than retreat led to heavy casualties. Though his commanders absolved him, he carries the guilt and has since left military service to seek redemption as an adventurer."
+}

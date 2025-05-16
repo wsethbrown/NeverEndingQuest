@@ -1,0 +1,60 @@
+{
+  "name": "Hobgoblin",
+  "size": "Medium",
+  "type": "humanoid",
+  "alignment": "lawful evil",
+  "armorClass": 18,
+  "hitPoints": 11,
+  "maxHitPoints": 11,
+  "speed": 30,
+  "abilities": {
+    "strength": 13,
+    "dexterity": 12,
+    "constitution": 12,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 9
+  },
+  "savingThrows": [],
+  "skills": {
+    "Intimidation": 2
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 10
+  },
+  "languages": "Common, Goblin",
+  "challengeRating": 0.5,
+  "specialAbilities": [
+    {
+      "name": "Martial Advantage",
+      "attackBonus": 0,
+      "damageDice": "0",
+      "damageBonus": 0,
+      "damageType": "",
+      "description": "Once per turn, the hobgoblin can deal an extra 7 (2d6) damage to a creature it hits with a weapon attack if that creature is within 5 feet of an ally of the hobgoblin that isn't incapacitated."
+    }
+  ],
+  "actions": [
+    {
+      "name": "Longsword",
+      "attackBonus": 3,
+      "damageDice": "1d8",
+      "damageBonus": 1,
+      "damageType": "slashing"
+    },
+    {
+      "name": "Longbow",
+      "attackBonus": 3,
+      "damageDice": "1d8",
+      "damageBonus": 1,
+      "damageType": "piercing"
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive"
+}

@@ -18,6 +18,7 @@ import update_npc_info
 # Import new manager modules
 import location_manager
 import action_handler
+from campaign_path_manager import CampaignPathManager
 
 # Import model configurations from config.py
 from config import (
@@ -133,7 +134,8 @@ def exit_game():
 
 def get_npc_stat(npc_name, stat_name, time_estimate):
     print(f"DEBUG: get_npc_stat called for {npc_name}, stat: {stat_name}")
-    npc_file = f"{npc_name.lower().replace(' ', '_')}.json"
+    path_manager = CampaignPathManager()
+    npc_file = path_manager.get_npc_path(npc_name)
     try:
         with open(npc_file, "r") as file:
             npc_stats = json.load(file)
@@ -198,7 +200,8 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
     current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
 
     # Load the area data
-    area_file = f"{current_area_id}.json"
+    path_manager = CampaignPathManager()
+    area_file = path_manager.get_area_path(current_area_id)
     try:
         with open(area_file, "r") as file:
             area_data = json.load(file)
@@ -398,6 +401,9 @@ def main_game_loop():
     conversation_history = load_json_file(json_file) or []
     party_tracker_data = load_json_file("party_tracker.json")
     
+    # Initialize path manager after loading party tracker
+    path_manager = CampaignPathManager()
+    
     current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
     location_data = location_manager.get_location_info( 
         party_tracker_data["worldConditions"]["currentLocation"],
@@ -405,10 +411,10 @@ def main_game_loop():
         current_area_id
     )
 
-    plot_data = load_json_file(f"plot_{current_area_id}.json")
+    plot_data = load_json_file(path_manager.get_plot_path(current_area_id))
     
     campaign_name = party_tracker_data.get("campaign", "").replace(" ", "_")
-    campaign_data = load_json_file(f"{campaign_name}_campaign.json")
+    campaign_data = load_json_file(path_manager.get_campaign_file_path())
 
     conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
     conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data)
@@ -435,7 +441,7 @@ def main_game_loop():
             conversation_history = summarize_conversation(conversation_history)
 
         player_name_actual = party_tracker_data["partyMembers"][0]
-        player_data_file = f"{player_name_actual.lower().replace(' ', '_')}.json"
+        player_data_file = path_manager.get_player_path(player_name_actual)
         player_data_current = load_json_file(player_data_file)
 
         if player_data_current:
@@ -454,7 +460,7 @@ def main_game_loop():
 
         party_members_stats = []
         for member_name_iter in party_tracker_data["partyMembers"]:
-            member_file_path = f"{member_name_iter.lower().replace(' ', '_')}.json"
+            member_file_path = path_manager.get_player_path(member_name_iter)
             member_data_iter = load_json_file(member_file_path)
             if member_data_iter:
                 stats = {
@@ -467,8 +473,8 @@ def main_game_loop():
                 party_members_stats.append(stats)
 
         for npc_info_iter in party_tracker_data["partyNPCs"]:
-            npc_name_iter = npc_info_iter["name"].lower().replace(' ', '_')
-            npc_data_file = f"{npc_name_iter}.json"
+            npc_name_iter = npc_info_iter["name"]
+            npc_data_file = path_manager.get_npc_path(npc_name_iter)
             npc_data_iter = load_json_file(npc_data_file)
             if npc_data_iter:
                 stats = {
@@ -494,7 +500,11 @@ def main_game_loop():
             date_time_str = f"{world_conditions['year']} {world_conditions['month']} {world_conditions['day']} {world_conditions['time']}"
             party_stats_formatted = []
             for stats_item in party_members_stats:
-                member_data_for_note = load_json_file(f"{stats_item['name'].lower().replace(' ', '_')}.json")
+                # Check if this is a player or an NPC
+                if stats_item['name'] in [p for p in party_tracker_data["partyMembers"]]:
+                    member_data_for_note = load_json_file(path_manager.get_player_path(stats_item['name']))
+                else:
+                    member_data_for_note = load_json_file(path_manager.get_npc_path(stats_item['name']))
                 if member_data_for_note:
                     abilities = member_data_for_note.get("abilities", {})
                     ability_str = f"STR:{abilities.get('strength', 'N/A')} DEX:{abilities.get('dexterity', 'N/A')} CON:{abilities.get('constitution', 'N/A')} INT:{abilities.get('intelligence', 'N/A')} WIS:{abilities.get('wisdom', 'N/A')} CHA:{abilities.get('charisma', 'N/A')}"
@@ -515,7 +525,7 @@ def main_game_loop():
                     connected_ids_current_area = location_data["connectivity"]
                     connected_names_current_area = []
                     # Load the current area's full data to get names from IDs
-                    current_area_full_data = load_json_file(f"{current_area_id}.json")
+                    current_area_full_data = load_json_file(path_manager.get_area_path(current_area_id))
                     if current_area_full_data and "locations" in current_area_full_data:
                         for loc_id in connected_ids_current_area:
                             found_loc = next((l["name"] for l in current_area_full_data["locations"] if l["locationId"] == loc_id), loc_id)
@@ -536,7 +546,7 @@ def main_game_loop():
                         connected_areas_display_str = ". Connects to new areas: " + ", ".join(area_connections_formatted)
             # --- END OF CONNECTIVITY SECTION ---
             
-            plot_data_for_note = load_json_file(f"plot_{current_area_id}.json") 
+            plot_data_for_note = load_json_file(path_manager.get_plot_path(current_area_id)) 
             current_plot_points = []
             if plot_data_for_note and "plotPoints" in plot_data_for_note:
                  current_plot_points = [
@@ -631,9 +641,9 @@ def main_game_loop():
 
 
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"] 
-        plot_data = load_json_file(f"plot_{current_area_id}.json")
+        plot_data = load_json_file(path_manager.get_plot_path(current_area_id))
         campaign_name_updated = party_tracker_data.get("campaign", "").replace(" ", "_")
-        campaign_data = load_json_file(f"{campaign_name_updated}_campaign.json")
+        campaign_data = load_json_file(path_manager.get_campaign_file_path())
 
         conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data)
         conversation_history = update_character_data(conversation_history, party_tracker_data)

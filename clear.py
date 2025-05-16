@@ -1,13 +1,19 @@
 import json
 import shutil
 import os
+from campaign_path_manager import CampaignPathManager
 
 # Define the file paths
-original_locations_file = "EM001.json"
-backup_locations_file = "EM001_BU.json"
-original_plot_file = "plot_EM001.json"
-backup_plot_file = "plot_EM001_BU.json"
 party_tracker_file = "party_tracker.json"
+
+# Initialize path manager
+path_manager = CampaignPathManager()
+
+# Campaign-specific files
+original_locations_file = path_manager.get_area_path("EM001")
+backup_locations_file = f"{path_manager.campaign_dir}/EM001_BU.json"
+original_plot_file = path_manager.get_plot_path("EM001")
+backup_plot_file = f"{path_manager.campaign_dir}/plot_EM001_BU.json"
 
 # Function to restore from backup
 def restore_from_backup(original_file, backup_file):
@@ -16,6 +22,15 @@ def restore_from_backup(original_file, backup_file):
         print(f"Restored {original_file} from {backup_file}")
     else:
         print(f"Backup file {backup_file} not found. No changes made to {original_file}.")
+
+# Create backup files if they don't exist
+if not os.path.exists(backup_locations_file) and os.path.exists(original_locations_file):
+    shutil.copy2(original_locations_file, backup_locations_file)
+    print(f"Created backup: {backup_locations_file}")
+
+if not os.path.exists(backup_plot_file) and os.path.exists(original_plot_file):
+    shutil.copy2(original_plot_file, backup_plot_file)
+    print(f"Created backup: {backup_plot_file}")
 
 # Restore locations file
 restore_from_backup(original_locations_file, backup_locations_file)

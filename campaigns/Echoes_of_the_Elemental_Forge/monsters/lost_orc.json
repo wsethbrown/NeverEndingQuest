@@ -1,0 +1,58 @@
+{
+  "name": "Lost Orc",
+  "size": "Medium",
+  "type": "Humanoid",
+  "alignment": "Chaotic Neutral",
+  "armorClass": 13,
+  "hitPoints": 30,
+  "speed": 30,
+  "abilities": {
+    "strength": 16,
+    "dexterity": 12,
+    "constitution": 14,
+    "intelligence": 8,
+    "wisdom": 10,
+    "charisma": 8
+  },
+  "savingThrows": [],
+  "skills": {
+    "perception": 2
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 12
+  },
+  "languages": "Common, Orc",
+  "challengeRating": 1,
+  "specialAbilities": [
+    {
+      "name": "Aggressive",
+      "attackBonus": 0,
+      "damageDice": "",
+      "damageBonus": 0,
+      "damageType": ""
+    }
+  ],
+  "actions": [
+    {
+      "name": "Greataxe",
+      "attackBonus": 5,
+      "damageDice": "1d12",
+      "damageBonus": 3,
+      "damageType": "slashing"
+    },
+    {
+      "name": "Javelin",
+      "attackBonus": 5,
+      "damageDice": "1d6",
+      "damageBonus": 3,
+      "damageType": "piercing"
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive"
+}

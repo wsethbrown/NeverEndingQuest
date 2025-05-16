@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "Orc",
+  "size": "Medium",
+  "type": "Humanoid",
+  "alignment": "Chaotic Evil",
+  "armorClass": 13,
+  "hitPoints": 15,
+  "maxHitPoints": 15,
+  "speed": 30,
+  "abilities": {
+    "strength": 16,
+    "dexterity": 12,
+    "constitution": 16,
+    "intelligence": 7,
+    "wisdom": 11,
+    "charisma": 10
+  },
+  "savingThrows": [],
+  "skills": {
+    "intimidation": 2
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 10
+  },
+  "languages": "Common, Orc",
+  "challengeRating": 0.5,
+  "specialAbilities": [
+    {
+      "name": "Aggressive",
+      "attackBonus": 0,
+      "damageDice": "",
+      "damageBonus": 0,
+      "damageType": "",
+      "description": "As a bonus action, the orc can move up to its speed toward a hostile creature that it can see."
+    }
+  ],
+  "actions": [
+    {
+      "name": "Greataxe",
+      "attackBonus": 5,
+      "damageDice": "1d12",
+      "damageBonus": 3,
+      "damageType": "slashing"
+    },
+    {
+      "name": "Javelin",
+      "attackBonus": 5,
+      "damageDice": "1d6",
+      "damageBonus": 3,
+      "damageType": "piercing"
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive"
+}

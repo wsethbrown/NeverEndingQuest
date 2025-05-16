@@ -6,6 +6,7 @@ import re
 import copy
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, ENCOUNTER_UPDATE_MODEL
+from campaign_path_manager import CampaignPathManager
 
 # ANSI escape codes
 ORANGE = "\033[38;2;255;165;0m"
@@ -24,6 +25,7 @@ def load_encounter_schema():
 
 def update_encounter(encounter_id, changes, max_retries=3):
     # Load the current encounter info and schema
+    path_manager = CampaignPathManager()
     with open(f"encounter_{encounter_id}.json", "r") as file:
         encounter_info = json.load(file)
 
@@ -82,7 +84,7 @@ Remember to only update monster information and leave player and NPC data unchan
             # Now sync player and NPC information from their respective files
             for creature in encounter_info["creatures"]:
                 if creature["type"] == "player":
-                    player_file = f"{creature['name'].lower().replace(' ', '_')}.json"
+                    player_file = path_manager.get_player_path(creature['name'].lower().replace(' ', '_'))
                     try:
                         with open(player_file, "r") as file:
                             player_data = json.load(file)
@@ -99,7 +101,7 @@ Remember to only update monster information and leave player and NPC data unchan
                         
                 elif creature["type"] == "npc":
                     npc_name = creature['name'].lower().replace(' ', '_').split('_')[0]
-                    npc_file = f"{npc_name}.json"
+                    npc_file = path_manager.get_npc_path(npc_name)
                     try:
                         with open(npc_file, "r") as file:
                             npc_data = json.load(file)

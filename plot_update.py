@@ -5,6 +5,7 @@ import time
 
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, PLOT_UPDATE_MODEL
+from campaign_path_manager import CampaignPathManager
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -81,7 +82,18 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
 
 def update_plot(plot_point_id_param, new_status_param, plot_impact_param, plot_filename_param, max_retries=3): # Renamed params
     try:
-        with open(plot_filename_param, "r") as file:
+        # Extract area ID from plot filename (e.g., "plot_EM001.json" -> "EM001")
+        path_manager = CampaignPathManager()
+        
+        # If plot_filename_param already includes the full path, use it. Otherwise, construct it.
+        if "/" in plot_filename_param:
+            plot_file_path = plot_filename_param
+        else:
+            # Extract area ID from filename
+            area_id = plot_filename_param.replace("plot_", "").replace(".json", "")
+            plot_file_path = path_manager.get_plot_path(area_id)
+            
+        with open(plot_file_path, "r") as file:
             plot_info_data = json.load(file) # Renamed variable
     except FileNotFoundError:
         print(f"{RED}ERROR: Plot file {plot_filename_param} not found.{RESET}")
@@ -150,7 +162,7 @@ Examples:
 
             print(f"{GREEN}DEBUG: Successfully updated and validated plot info on attempt {attempt + 1}{RESET}")
 
-            with open(plot_filename_param, "w") as file:
+            with open(plot_file_path, "w") as file:
                 json.dump(plot_info_data, file, indent=2)
 
             update_party_tracker(plot_point_id_param, new_status_param, plot_impact_param, plot_filename_param)

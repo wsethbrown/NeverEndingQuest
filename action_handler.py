@@ -2,6 +2,8 @@ import json
 import subprocess
 import os
 from location_manager import get_location_data
+from campaign_path_manager import CampaignPathManager
+from plot_update import update_plot
 
 # Action type constants
 ACTION_CREATE_ENCOUNTER = "createEncounter"
@@ -17,7 +19,8 @@ ACTION_UPDATE_PARTY_NPCS = "updatePartyNPCs"
 def update_party_npcs(party_tracker_data, operation, npc):
     """Update NPC party members (add or remove)"""
     if operation == "add":
-        npc_file = f"{npc['name'].lower().replace(' ', '_')}.json"
+        path_manager = CampaignPathManager()
+        npc_file = path_manager.get_npc_path(npc['name'])
         if not os.path.exists(npc_file):
             # NPC file doesn't exist, so we need to create it
             try:

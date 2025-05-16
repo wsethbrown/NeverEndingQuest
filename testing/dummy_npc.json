@@ -1,0 +1,72 @@
+{
+  "name": "Elara",
+  "race": "Half-Elf",
+  "class": "Ranger",
+  "level": 2,
+  "appearance": "Slender woman with copper skin, green eyes, and dark hair tied in a practical braid. She wears well-worn leather armor and carries a finely crafted bow.",
+  "personality": "Calm and observant, Elara speaks little but misses nothing. She's cautious with strangers but fiercely loyal once trust is established.",
+  "background": "Former scout for the local militia who now serves as a guide for travelers through the dangerous wilderness.",
+  "motivation": "To protect travelers from the increasing monster threats in the region and discover what's causing the unusual creature activity.",
+  "alignment": "Neutral Good",
+  "hitPoints": 18,
+  "maxHitPoints": 18,
+  "armorClass": 14,
+  "abilities": {
+    "strength": 12,
+    "dexterity": 16,
+    "constitution": 14,
+    "intelligence": 10,
+    "wisdom": 14,
+    "charisma": 12
+  },
+  "skills": {
+    "Survival": 4,
+    "Perception": 4,
+    "Stealth": 5,
+    "Animal Handling": 4
+  },
+  "actions": [
+    {
+      "name": "Longbow Attack",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "piercing",
+      "range": "150/600 ft."
+    },
+    {
+      "name": "Shortsword Attack",
+      "attackBonus": 5,
+      "damageDice": "1d6",
+      "damageBonus": 3,
+      "damageType": "piercing"
+    }
+  ],
+  "specialAbilities": [
+    {
+      "name": "Favored Enemy: Monstrosities",
+      "description": "Advantage on Survival checks to track monstrosities, and on Intelligence checks to recall information about them."
+    },
+    {
+      "name": "Natural Explorer: Forest",
+      "description": "When traveling in forests, difficult terrain doesn't slow her group's travel, and she can't become lost except by magical means."
+    }
+  ],
+  "equipment": [
+    "Longbow and quiver with 20 arrows",
+    "Shortsword",
+    "Leather armor",
+    "Explorer's pack",
+    "Small pouch with herbs and remedies"
+  ],
+  "relationships": {
+    "allies": ["Local militia", "Forest dwellers"],
+    "enemies": ["Bandit groups", "Corrupt officials"],
+    "other": ["Has a special bond with a hawk named Sky that helps her scout"]
+  },
+  "questHooks": [
+    "Seeks information about strange creature sightings deeper in the forest",
+    "Wants to find a rare medicinal herb that grows in monster-infested areas"
+  ],
+  "notes": "Elara knows the forest paths better than anyone and can guide the party safely. She's reluctant to enter the caves, having lost companions there before."
+}
