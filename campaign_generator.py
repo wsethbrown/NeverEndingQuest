@@ -302,7 +302,7 @@ Detailed Guidelines:
 {guide_text}
 
 Context from already generated fields:
-{json.dumps(context, indent=2)}
+{json.dumps(context.to_dict() if hasattr(context, 'to_dict') else context, indent=2)}
 
 Return ONLY the value for this field in the correct format (not wrapped in a JSON object).
 If the field expects a string, return just the string.
@@ -330,9 +330,13 @@ If the field expects an object, return just the object.
         
         return content
     
-    def generate_campaign(self, initial_concept: str, custom_values: Dict[str, Any] = None) -> Dict[str, Any]:
+    def generate_campaign(self, initial_concept: str, custom_values: Dict[str, Any] = None, context=None) -> Dict[str, Any]:
         """Generate a complete campaign from an initial concept"""
         campaign_data = custom_values or {}
+        
+        # Add context validation if provided
+        if context:
+            campaign_data["campaignName"] = context.campaign_name
         
         # Generate fields in order of dependencies
         field_order = [

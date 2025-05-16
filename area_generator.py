@@ -17,6 +17,7 @@ class AreaConfig:
     complexity: str = "moderate"  # simple, moderate, complex
     danger_level: str = "medium"  # low, medium, high, extreme
     recommended_level: int = 1
+    num_locations: int = None  # If specified, override size-based calculation
 
 class MapLayoutGenerator:
     """Generates map layouts for areas"""
@@ -150,13 +151,17 @@ class AreaGenerator:
                      config: AreaConfig) -> Dict[str, Any]:
         """Generate a complete area file"""
         
-        # Determine number of locations based on size
-        location_counts = {
-            "small": random.randint(8, 12),
-            "medium": random.randint(15, 20),
-            "large": random.randint(25, 35)
-        }
-        num_locations = location_counts.get(config.size, 15)
+        # Determine number of locations
+        if config.num_locations is not None:
+            num_locations = config.num_locations
+        else:
+            # Use size-based calculation if not specified
+            location_counts = {
+                "small": random.randint(8, 12),
+                "medium": random.randint(15, 20),
+                "large": random.randint(25, 35)
+            }
+            num_locations = location_counts.get(config.size, 15)
         
         # Generate map layout
         map_data = self.map_gen.generate_layout(num_locations, config.area_type)
@@ -172,7 +177,6 @@ class AreaGenerator:
             "climate": self.determine_climate(config.area_type),
             "terrain": self.determine_terrain(config.area_type),
             "map": map_data,
-            "locations": self.generate_location_stubs(map_data, config),
             "randomEncounters": self.generate_encounter_table(config),
             "areaFeatures": self.generate_area_features(config),
             "notes": self.generate_dm_notes(config)
@@ -211,24 +215,6 @@ class AreaGenerator:
         }
         return terrains.get(area_type, "varied")
     
-    def generate_location_stubs(self, map_data: Dict[str, Any], 
-                               config: AreaConfig) -> List[Dict[str, Any]]:
-        """Generate basic location entries that will be detailed later"""
-        locations = []
-        
-        for room in map_data["rooms"]:
-            location = {
-                "locationId": room["id"],
-                "name": room["name"],
-                "type": room["type"],
-                "description": f"A {room['type']} within the {config.area_type}.",
-                "connections": room["connections"],
-                "coordinates": room["coordinates"],
-                "visited": False
-            }
-            locations.append(location)
-        
-        return locations
     
     def generate_encounter_table(self, config: AreaConfig) -> List[Dict[str, Any]]:
         """Generate a random encounter table for the area"""

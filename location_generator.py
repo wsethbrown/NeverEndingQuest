@@ -364,9 +364,16 @@ class LocationPromptGuide:
     Area IDs corresponding to areaConnectivity names.
     Maintains technical references.
     
-    Example: ["EM002", "SURFACE"]
+    IMPORTANT RULES:
+    - Use empty array [] if location doesn't connect to other areas
+    - Only include IDs of OTHER areas, never the current area
+    - Must match entries in areaConnectivity array
     
-    Must match entries in areaConnectivity array.
+    Examples:
+    - Internal room: []
+    - Exit to another area: ["GW001"] (if connecting to Gloamwood)
+    - Multi-area connection: ["EM002", "SURFACE"]
+    
     Used by system for area transitions.
     """
 
@@ -401,7 +408,7 @@ Detailed Guidelines:
 {guide_text}
 
 Context:
-{json.dumps(context, indent=2)}
+{json.dumps(context.to_dict() if hasattr(context, 'to_dict') else context, indent=2)}
 
 Return ONLY the value for this field in the correct format.
 For strings, return just the string.
@@ -433,10 +440,11 @@ For objects, return just the object.
                                area_data: Dict[str, Any],
                                plot_data: Dict[str, Any],
                                campaign_data: Dict[str, Any],
-                               location_stubs: List[Dict[str, Any]]) -> Dict[str, Any]:
+                               location_stubs: List[Dict[str, Any]],
+                               context=None) -> Dict[str, Any]:
         """Generate all locations for an area in one go for better coherence"""
         
-        context = {
+        generation_context = {
             "campaign": {
                 "name": campaign_data.get("campaignName", ""),
                 "description": campaign_data.get("campaignDescription", ""),
@@ -458,11 +466,18 @@ For objects, return just the object.
             "locationStubs": location_stubs
         }
         
+        # Add validation requirements if context provided
+        validation_prompt = ""
+        if context:
+            validation_prompt = context.get_validation_prompt()
+        
         # Generate all locations with a single comprehensive prompt
         batch_prompt = f"""Generate detailed D&D 5e locations for {area_data.get('areaName', 'this area')}.
 
 Context:
-{json.dumps(context, indent=2)}
+{json.dumps(generation_context, indent=2)}
+
+{validation_prompt}
 
 For each location stub provided, generate complete location data following the schema.
 Ensure locations:
@@ -476,17 +491,37 @@ Return a JSON object with a 'locations' array containing all complete location o
 Each location must include ALL required fields from the location schema.
 
 CRITICAL: Field names must match the schema EXACTLY:
-- Use "npcs" NOT "notableNPCs" 
+- Use "npcs" NOT "notableNPCs" (must be array of objects with name, description, attitude)
 - Use "monsters" NOT "creatures"
-- Use "lootTable" NOT "items"
+- Use "lootTable" NOT "items" (must be array of strings, not objects)
 - Use "connectivity" for room connections
 - Use "areaConnectivity" for connections to other areas
-- Use "areaConnectivityId" for area connection IDs
+- Use "areaConnectivityId" for area connection IDs (empty array [] if no connections to other areas, NEVER include current area ID)
 - Use "plotHooks" NOT "clues"
 - Use "dmInstructions" for DM-specific notes
-- Use "doors" for door information
-- Use "traps" for trap details
+- Use "doors" for door information (ALL fields required: name, description, type, locked, lockDC, breakDC, keyname, trapped, trap)
+- Use "traps" for trap details (must include detectDC, disableDC, triggerDC, damage)
 - Use "dcChecks" in format "SkillName DC XX: Description"
+- Include "lighting" (must be "Bright", "Dim", or "Dark")
+- Include "accessibility" (describe how easily the location can be accessed)
+- Include "dangerLevel" (must be "Low", "Medium", "High", or "Very High")
+- Include "features" (array of objects with name and description)
+
+DOOR STRUCTURE: Every door must have ALL these fields:
+- name (string): e.g., "North Door", "Secret Panel"
+- description (string): physical appearance
+- type (string): e.g., "regular", "secret", "heavy"
+- locked (boolean): true or false
+- lockDC (integer): difficulty to pick (0 if not locked)
+- breakDC (integer): difficulty to force open
+- keyname (string): what opens it (empty string if none)
+- trapped (boolean): true or false
+- trap (string): trap description (empty string if not trapped)
+
+AREA CONNECTIVITY RULES:
+- areaConnectivityId should be [] for locations that don't connect to other areas
+- Only include other area IDs when location explicitly connects to different areas
+- NEVER include the location's own area ID in areaConnectivityId
 
 Check the location schema carefully for all required fields.
 """
@@ -506,34 +541,60 @@ Check the location schema carefully for all required fields.
     def generate_locations(self,
                           area_data: Dict[str, Any],
                           plot_data: Dict[str, Any],
-                          campaign_data: Dict[str, Any]) -> Dict[str, Any]:
+                          campaign_data: Dict[str, Any],
+                          context=None) -> Dict[str, Any]:
         """Generate all locations for an area"""
         
-        # Get location stubs from area data
+        # Get location stubs from area data or create from map
         location_stubs = area_data.get("locations", [])
         
+        if not location_stubs and "map" in area_data:
+            # Create location stubs from map rooms
+            location_stubs = []
+            for room in area_data.get("map", {}).get("rooms", []):
+                location_stub = {
+                    "locationId": room["id"],
+                    "name": room["name"],
+                    "type": room["type"],
+                    "connections": room["connections"],
+                    "coordinates": room["coordinates"]
+                }
+                location_stubs.append(location_stub)
+        
         if not location_stubs:
-            print("Warning: No location stubs found in area data")
+            print("Warning: No location stubs or map found in area data")
             return {"locations": []}
         
         print(f"Generating {len(location_stubs)} locations for {area_data.get('areaName', 'area')}...")
         
         # Generate all locations in batch
         location_data = self.generate_location_batch(
-            area_data, plot_data, campaign_data, location_stubs)
+            area_data, plot_data, campaign_data, location_stubs, context)
         
         # Ensure each location has required fields and connections
         locations = location_data.get("locations", [])
         
         # Post-process to ensure consistency
-        location_ids = {loc["locationId"] for loc in locations}
+        location_ids = set()
+        for loc in locations:
+            if isinstance(loc, dict) and "locationId" in loc:
+                location_ids.add(loc["locationId"])
         
         for location in locations:
             # Validate connections exist
-            location["connectivity"] = [
-                conn for conn in location.get("connectivity", [])
-                if conn in location_ids
-            ]
+            raw_connectivity = location.get("connectivity", [])
+            validated_connectivity = []
+            
+            for conn in raw_connectivity:
+                # Handle both string and dict formats
+                if isinstance(conn, str):
+                    if conn in location_ids:
+                        validated_connectivity.append(conn)
+                elif isinstance(conn, dict) and "locationId" in conn:
+                    if conn["locationId"] in location_ids:
+                        validated_connectivity.append(conn["locationId"])
+            
+            location["connectivity"] = validated_connectivity
             
             # Ensure plot-critical locations have appropriate content
             location_id = location["locationId"]

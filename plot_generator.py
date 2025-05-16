@@ -304,7 +304,7 @@ Detailed Guidelines:
 {guide_text}
 
 Context:
-{json.dumps(context, indent=2)}
+{json.dumps(context.to_dict() if hasattr(context, 'to_dict') else context, indent=2)}
 
 Return ONLY the value for this field in the correct format.
 For strings, return just the string.
@@ -340,7 +340,7 @@ For objects, return just the object.
         prompt = f"""Create a complete plot structure for a D&D 5e adventure with {num_plot_points} main plot points.
 
 Context:
-{json.dumps(context, indent=2)}
+{json.dumps(context.to_dict() if hasattr(context, 'to_dict') else context, indent=2)}
 
 The plot should:
 1. Connect logically to the campaign theme
@@ -393,11 +393,12 @@ IMPORTANT: Each plot point should have its sideQuests array (can be empty). Side
     def generate_plot(self, campaign_data: Dict[str, Any], 
                      area_data: Dict[str, Any],
                      location_data: Dict[str, Any],
-                     initial_concept: str = None) -> Dict[str, Any]:
+                     initial_concept: str = None,
+                     context=None) -> Dict[str, Any]:
         """Generate a complete plot file for an area"""
         
-        # Build context from existing data
-        context = {
+        # Build generation context from existing data
+        generation_context = {
             "campaign": {
                 "name": campaign_data.get("campaignName", ""),
                 "description": campaign_data.get("campaignDescription", ""),
@@ -422,16 +423,28 @@ IMPORTANT: Each plot point should have its sideQuests array (can be empty). Side
             "concept": initial_concept or f"Adventure in {area_data.get('regionName', 'unknown area')}"
         }
         
+        # Add validation requirements if context provided
+        validation_prompt = ""
+        if context and hasattr(context, 'get_validation_prompt'):
+            validation_prompt = context.get_validation_prompt()
+        
         plot_data = {}
+        
+        # Create local context dict for field generation
+        field_context = {}
+        if context and hasattr(context, 'to_dict'):
+            field_context = context.to_dict()
+        elif isinstance(context, dict):
+            field_context = context
         
         # Generate title and objective first
         plot_data["plotTitle"] = self.generate_field("plotTitle", 
-            self.schema["properties"]["plotTitle"], context)
-        context["plotTitle"] = plot_data["plotTitle"]
+            self.schema["properties"]["plotTitle"], field_context)
+        field_context["plotTitle"] = plot_data["plotTitle"]
         
         plot_data["mainObjective"] = self.generate_field("mainObjective",
-            self.schema["properties"]["mainObjective"], context)
-        context["mainObjective"] = plot_data["mainObjective"]
+            self.schema["properties"]["mainObjective"], field_context)
+        field_context["mainObjective"] = plot_data["mainObjective"]
         
         print(f"Generated plot title: {plot_data['plotTitle']}")
         print(f"Generated main objective: {plot_data['mainObjective']}")
@@ -439,7 +452,7 @@ IMPORTANT: Each plot point should have its sideQuests array (can be empty). Side
         # Generate complete plot structure
         num_plot_points = min(8, max(4, len(location_data.get("locations", [])) // 3))
         
-        plot_structure = self.generate_plot_structure(num_plot_points, context)
+        plot_structure = self.generate_plot_structure(num_plot_points, field_context)
         
         plot_data["plotPoints"] = plot_structure["plotPoints"]
         

@@ -15,6 +15,7 @@ from campaign_generator import CampaignGenerator
 from plot_generator import PlotGenerator
 from location_generator import LocationGenerator
 from area_generator import AreaGenerator, AreaConfig
+from campaign_context import CampaignContext
 
 @dataclass
 class BuilderConfig:
@@ -34,6 +35,7 @@ class CampaignBuilder:
         self.areas_data = {}
         self.locations_data = {}
         self.plots_data = {}
+        self.context = CampaignContext()
         
         # Initialize generators
         self.campaign_gen = CampaignGenerator()
@@ -62,10 +64,17 @@ class CampaignBuilder:
         self.log("Starting campaign build process...")
         self.log(f"Initial concept: {initial_concept}")
         
+        # Initialize context
+        self.context.campaign_name = self.config.campaign_name.replace("_", " ")
+        self.context.campaign_id = self.config.campaign_name
+        
         # Step 1: Generate campaign overview
         self.log("Step 1: Generating campaign overview...")
-        self.campaign_data = self.campaign_gen.generate_campaign(initial_concept)
+        self.campaign_data = self.campaign_gen.generate_campaign(initial_concept, context=self.context)
         self.save_json(self.campaign_data, f"{self.config.campaign_name}_campaign.json")
+        
+        # Extract NPCs and factions from campaign data
+        self._extract_campaign_entities()
         
         # Step 2: Generate areas from the world map
         self.log("Step 2: Generating areas...")
@@ -87,6 +96,10 @@ class CampaignBuilder:
         self.log("Step 6: Creating campaign summary...")
         self.create_campaign_summary()
         
+        # Step 7: Validate and save context
+        self.log("Step 7: Validating campaign consistency...")
+        self.validate_campaign()
+        
         self.log("Campaign generation complete!")
         self.log(f"Output saved to: {self.config.output_directory}")
     
@@ -105,8 +118,12 @@ class CampaignBuilder:
                 size="medium" if i == 0 else ["small", "medium", "large"][i % 3],
                 complexity="moderate",
                 danger_level=region["dangerLevel"],
-                recommended_level=region["recommendedLevel"]
+                recommended_level=region["recommendedLevel"],
+                num_locations=self.config.locations_per_area
             )
+            
+            # Add area to context
+            self.context.add_area(area_id, region["regionName"], area_type)
             
             # Generate area using AreaGenerator
             area_data = self.area_gen.generate_area(
@@ -122,6 +139,9 @@ class CampaignBuilder:
             # Save the map separately
             if "map" in area_data:
                 self.save_json(area_data["map"], f"map_{area_id}.json")
+            
+            # Context will be updated when locations are generated
+            self.context.add_area(area_id, region['regionName'], area_data["areaType"])
             
             self.log(f"Generated area: {region['regionName']} ({area_id})")
     
@@ -178,18 +198,19 @@ class CampaignBuilder:
             # Get the plot data for this area
             plot_data = self.plots_data.get(area_id, {})
             
-            # Generate locations using the LocationGenerator
+            # Generate locations using the LocationGenerator with context
             location_data = self.location_gen.generate_locations(
                 area_data,
                 plot_data,
-                self.campaign_data
+                self.campaign_data,
+                context=self.context
             )
             
-            # Update area data with full locations
-            area_data["locations"] = location_data["locations"]
+            # Store locations data
             self.locations_data[area_id] = location_data
             
-            # Save updated area file (this includes locations)
+            # Add locations to area data and save complete area file
+            area_data["locations"] = location_data["locations"]
             self.save_json(area_data, f"{area_id}.json")
             
             self.log(f"Generated {len(location_data['locations'])} locations for {area_id}")
@@ -206,19 +227,42 @@ class CampaignBuilder:
                 self.campaign_data,
                 area_data,
                 location_data,
-                f"Adventure in {area_data['areaName']}"
+                f"Adventure in {area_data['areaName']}",
+                context=self.context
             )
             
             self.plots_data[area_id] = plot_data
             self.save_json(plot_data, f"plot_{area_id}.json")
+            
+            # Update context with plot points
+            for plot_point in plot_data.get("plotPoints", []):
+                self.context.add_plot_point(
+                    plot_point["id"],
+                    area_id,
+                    plot_point.get("location")
+                )
+            
             self.log(f"Generated plot for {area_id}")
     
     
     def create_party_tracker(self):
         """Create the initial party tracker file"""
         # Use the first area as the starting location
-        first_area = list(self.areas_data.values())[0]
-        first_location = first_area["locations"][0]
+        first_area_id = list(self.areas_data.keys())[0]
+        first_area = self.areas_data[first_area_id]
+        
+        # Get the first location from the locations data
+        first_locations_data = self.locations_data.get(first_area_id, {})
+        locations_list = first_locations_data.get("locations", [])
+        
+        if not locations_list:
+            # Fallback to a default location
+            first_location = {
+                "name": "Starting Location",
+                "locationId": "R01"
+            }
+        else:
+            first_location = locations_list[0]
         
         party_tracker = {
             "campaign": self.config.campaign_name.replace("_", " "),
@@ -298,6 +342,48 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             f.write(summary)
         
         self.log("Created campaign summary")
+    
+    def _extract_campaign_entities(self):
+        """Extract NPCs and other entities from campaign data"""
+        # Extract NPCs from plot stages
+        for stage in self.campaign_data.get("mainPlot", {}).get("plotStages", []):
+            for npc_name in stage.get("keyNPCs", []):
+                self.context.add_npc(npc_name)
+                self.context.add_reference("npc", npc_name, "campaign:plotStages")
+        
+        # Extract NPCs from factions
+        for faction in self.campaign_data.get("factions", []):
+            for member_name in faction.get("keyMembers", []):
+                faction_name = faction.get("factionName", "")
+                self.context.add_npc(member_name, faction=faction_name)
+                self.context.add_reference("npc", member_name, f"campaign:faction:{faction_name}")
+    
+    def validate_campaign(self):
+        """Validate campaign consistency and save results"""
+        issues = self.context.validate_all()
+        
+        if issues:
+            self.log(f"Found {len(issues)} validation issues:")
+            for issue in issues:
+                self.log(f"  - {issue}")
+        else:
+            self.log("All validation checks passed!")
+        
+        # Save context and validation report
+        self.context.save(os.path.join(self.config.output_directory, "campaign_context.json"))
+        
+        # Create validation report
+        report = {
+            "validation_date": datetime.now().isoformat(),
+            "issues": issues,
+            "context_summary": {
+                "areas": len(self.context.areas),
+                "npcs": len(self.context.npcs),
+                "locations": len(self.context.locations),
+                "plot_points": len(self.context.plot_scopes)
+            }
+        }
+        self.save_json(report, "validation_report.json")
 
 def main():
     """Interactive campaign builder"""
