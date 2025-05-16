@@ -7,7 +7,7 @@ DM_MAIN_MODEL = "gpt-4.1-mini-2025-04-14"
 DM_SUMMARIZATION_MODEL = "gpt-4.1-2025-04-14"
 DM_VALIDATION_MODEL = "gpt-4.1-mini-2025-04-14"
 
-# --- Combat Simulation Models (used in combat_sim_v2.py) ---
+# --- Combat Simulation Models (used in combat_manager.py) ---
 COMBAT_MAIN_MODEL = "gpt-4.1-mini-2025-04-14"
 # COMBAT_SCHEMA_UPDATER_MODEL - This was defined but not directly used.
 # If needed for update_player_info, update_npc_info, update_encounter called from combat_sim,
