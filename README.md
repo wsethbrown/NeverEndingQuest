@@ -1,18 +1,24 @@
 # DungeonMasterAI
 
-An AI-powered Dungeon Master assistant for running D&D 5e campaigns, designed to interact with players, manage NPC characters, handle combat, track inventory, and progress the storyline.
+An AI-powered Dungeon Master assistant for running D&D 5e campaigns with full campaign generation, interactive gameplay, and comprehensive game management capabilities.
 
 ## Overview
 
-DungeonMasterAI uses OpenAI's GPT models to create an interactive and dynamic Dungeon Master experience. The system manages:
+DungeonMasterAI uses OpenAI's GPT models to create complete D&D campaigns and provide an interactive Dungeon Master experience. The system features:
 
-- Character statistics and inventory
-- NPC interactions and behavior
-- Combat encounters
-- Location exploration
-- Plot progression
-- Time tracking
-- Dynamic storytelling
+### Campaign Generation
+- **Complete Campaign Builder**: Generate entire campaigns with areas, locations, plots, and NPCs
+- **Context-Aware Generation**: Maintains consistency across all generated content
+- **Schema-Compliant Output**: All generated files follow strict D&D 5e schemas
+
+### Game Management
+- Character statistics and inventory tracking
+- NPC interactions with personality and goals
+- Turn-based combat system with validation
+- Location exploration with detailed descriptions
+- Plot progression and quest tracking
+- Time and world condition management
+- Dynamic storytelling based on player actions
 
 ## Setup
 
@@ -26,39 +32,74 @@ DungeonMasterAI uses OpenAI's GPT models to create an interactive and dynamic Du
    cp config_template.py config.py
    ```
 4. Edit `config.py` to include your actual API key
-5. Run the main script:
-   ```
-   python main.py
-   ```
 
-## Features
+## Quick Start
 
-- **Interactive Storytelling**: Dynamic and responsive narratives based on player actions
-- **Combat System**: Turn-based combat encounters with monsters and NPCs
+### Generate a New Campaign
+```
+python campaign_builder.py
+```
+Follow the prompts to create a complete campaign with areas, locations, and plots.
+
+### Play the Game
+```
+python main.py
+```
+Load your generated campaign and start playing!
+
+## Key Features
+
+### Campaign Generation
+- **Automated Campaign Builder**: Generate complete campaigns with one command
+- **Context Validation**: Ensures consistency across all generated content
+- **Customizable Settings**: Control number of areas, locations per area, and complexity
+- **Schema Compliance**: All files follow strict D&D 5e JSON schemas
+
+### Gameplay Features
+- **Interactive Storytelling**: Dynamic narratives respond to player actions
+- **Combat System**: Turn-based combat with validation and logging
 - **Character Management**: Track stats, inventory, and progression
-- **World Exploration**: Navigate locations with descriptive elements
-- **Plot Management**: Evolving storylines with side quests and main plot
-- **NPC Interaction**: Dynamic NPCs with personalities and goals
-- **Time Tracking**: In-game time management system
+- **World Exploration**: Navigate detailed locations with connections
+- **Plot Management**: Main quests, side quests, and dynamic plot evolution
+- **NPC System**: Persistent NPCs with personalities, goals, and attitudes
+- **Time Tracking**: Complete world time and condition management
 
 ## Project Structure
 
-- `main.py` - Main game loop
-- `combat_sim_v2.py` - Combat simulation system
-- `conversation_utils.py` - Conversation management utilities
-- `plot_update.py` - Plot progression tracking
-- `player_stats.py` - Player statistics handling
-- `update_*.py` - Various update modules for game state
-- `*.json` - Schema and data files
+### Core Systems
+- `main.py` - Main game loop and player interaction
+- `campaign_builder.py` - Automated campaign generation system
+- `campaign_context.py` - Context management for consistent generation
+- `combat_manager.py` - Combat system management
+- `dm.py` & `dm_wrapper.py` - AI Dungeon Master logic
+
+### Campaign Generation
+- `campaign_generator.py` - Campaign overview generation
+- `area_generator.py` - Area and map generation
+- `location_generator.py` - Detailed location generation
+- `plot_generator.py` - Plot and quest generation
+
+### Game Management
+- `conversation_utils.py` - Conversation tracking and summarization
+- `update_*.py` - Various state update modules
+- `player_stats.py` - Character statistics and progression
+- `npc_builder.py` - NPC generation system
+- `monster_builder.py` - Monster creation tools
+
+### Data Files
+- `*_schema.json` - JSON schemas for validation
+- `campaigns/` - Generated campaign data
+- `*.json` - Character, location, and game state files
 
 ## Configuration
 
-The system uses GPT models which can be configured in the `config.py` file:
+The system uses OpenAI GPT models configured in `config.py`:
 
-- `DM_MAIN_MODEL` - Primary model for game narration
-- `DM_SUMMARIZATION_MODEL` - Model for summarizing conversations
-- `DM_VALIDATION_MODEL` - Model for validating responses
-- And various other specialized models
+- `DM_MAIN_MODEL` - Primary model for narration and generation
+- `DM_SUMMARIZATION_MODEL` - Conversation and event summarization
+- `DM_VALIDATION_MODEL` - Combat and rule validation
+- `DM_COMBAT_NARRATOR_MODEL` - Combat narration and description
+- Various other specialized models for different tasks
 
 ## Requirements
 
@@ -66,17 +107,44 @@ The system uses GPT models which can be configured in the `config.py` file:
 - OpenAI API key
 - Required packages listed in `requirements.txt`
 
+## Usage Examples
+
+### Generate a Campaign
+```bash
+python campaign_builder.py
+# Enter campaign name: Keep of Doom
+# Number of areas: 3
+# Locations per area: 15
+# Describe your campaign concept: A dark fantasy adventure...
+```
+
+### Start Playing
+```bash
+python main.py
+# The system will load party_tracker.json and begin the adventure
+```
+
 ## License
 
 This project is for personal use and experimentation. Based on WOTC Creative Commons content.
 
+## Recent Updates
+
+- **Campaign Context System**: Added context validation for consistent generation
+- **Schema Compliance**: All generated files now fully comply with D&D 5e schemas
+- **Improved Generation**: Fixed location counts and removed file duplications
+- **Code Organization**: Cleaned up legacy folders and improved structure
+
 ## Future Development
 
-- Web interface
-- Voice integration
+- Web interface for easier interaction
+- Voice integration for immersive gameplay
 - Image generation for scenes and characters
-- Additional ruleset support
+- Additional ruleset support (Pathfinder, etc.)
+- Multi-player support
+- Campaign sharing and templates
 
 ---
 
 *Created by MoonlightByte*
+*Contributors: Claude AI Assistant*
