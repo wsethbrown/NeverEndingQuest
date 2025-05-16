@@ -254,9 +254,10 @@ def generate_encounter(encounter_data):
             "conditions": npc_data.get("condition_affected", []),
             "actions": {"actionType": "", "target": ""},
             "currentHitPoints": npc_data.get("hitPoints", 10),
-            "maxHitPoints": npc_data.get("hitPoints", 10),
+            "maxHitPoints": npc_data.get("maxHitPoints", 10),
             "armorClass": npc_data.get("armorClass", 10)
         }
+        # Add the NPC to the encounter's creatures array
         encounter["creatures"].append(npc)
 
     return encounter

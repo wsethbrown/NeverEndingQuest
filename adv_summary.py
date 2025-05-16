@@ -68,8 +68,22 @@ def compare_and_update(original, updates):
                 changes[key] = value
     return changes
 
-def update_location_json(adventure_summary, location_info, current_area_id_from_main): # Added current_area_id from main
+def update_location_json(adventure_summary, location_info, current_area_id_from_main):
     debug_print(f"Updating location JSON for {location_info['name']} with all changes")
+
+    # Get the last completed encounter ID from party_tracker
+    encounter_id = ""
+    try:
+        with open("party_tracker.json", "r") as file:
+            party_tracker = json.load(file)
+            last_completed_id = party_tracker.get("worldConditions", {}).get("lastCompletedEncounter", "")
+            if last_completed_id:
+                encounter_id = last_completed_id
+                debug_print(f"Found last completed encounter ID: {encounter_id}")
+            else:
+                debug_print("No last completed encounter ID found in party_tracker")
+    except Exception as e:
+        debug_print(f"Error getting last encounter ID: {str(e)}")
 
     loca_schema_full = load_json_file("loca_schema.json") # Load the full schema
     game_time = get_game_time()
@@ -86,6 +100,11 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
         debug_print(f"ERROR: Could not extract single item schema from loca_schema.json. Structure is not as expected ('properties.locations.items').")
         sys.exit("Fatal: loca_schema.json does not have the expected structure for a single location item.")
     # --- END OF CORRECTED SCHEMA ACCESS ---
+
+    # Update the prompt to include encounter ID if available
+    encounter_id_instruction = ""
+    if encounter_id:
+        encounter_id_instruction = f"IMPORTANT: Use encounterId '{encounter_id}' for the encounter entry you create."
 
     location_updater_prompt = [
         {"role": "system", "content": f"""Given an adventure summary and the current location information, update the JSON schema for the corresponding location.
@@ -112,7 +131,7 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
         Current Location JSON:
         {json.dumps(location_info, indent=2)}
 
-        IMPORTANT: Always create a new encounter entry for this update, using the provided adventure summary. The encounterId should follow the format: [locationId]-[next sequential number].
+        {encounter_id_instruction}
         """}
     ]
 
@@ -132,6 +151,16 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
             if updated_location.get("name") != location_info.get("name"): # Use .get for safety
                 debug_print(f"WARNING: Location name was changed by AI or missing. Reverting/setting to original name: {location_info.get('name')}")
                 updated_location["name"] = location_info.get("name") # Ensure name is present
+
+            # Check and fix encounter ID if needed
+            if updated_location.get("encounters") and isinstance(updated_location["encounters"], list) and updated_location["encounters"]:
+                latest_encounter = updated_location["encounters"][-1]
+                if not latest_encounter.get("encounterId") and encounter_id:
+                    latest_encounter["encounterId"] = encounter_id
+                    debug_print(f"Updated missing encounter ID to: {encounter_id}")
+                elif latest_encounter.get("encounterId") == "":
+                    latest_encounter["encounterId"] = encounter_id
+                    debug_print(f"Fixed empty encounter ID to: {encounter_id}")
 
             validate_location_json(updated_location, loca_single_item_schema)
 

@@ -35,7 +35,7 @@
     },
     "condition": {
       "type": "string",
-      "enum": ["none", "blinded", "charmed", "deafened", "frightened", "grappled", "incapacitated", "invisible", "paralyzed", "petrified", "poisoned", "prone", "restrained", "stunned", "exhaustion"]
+      "enum": ["none", "blinded", "charmed", "deafened", "frightened", "grappled", "incapacitated", "invisible", "paralyzed", "petrified", "poisoned", "prone", "restrained", "stunned", "exhaustion", "unconscious"]
     },
     "condition_affected": {
       "type": "array",
