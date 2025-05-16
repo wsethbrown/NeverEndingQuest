@@ -18,14 +18,15 @@ Combat Logging System:
 import json
 import os
 import time
+import re
 from xp import main as calculate_xp
 from openai import OpenAI
 # Import model configurations from config.py
 from config import (
     OPENAI_API_KEY,
     COMBAT_MAIN_MODEL,
-    # COMBAT_SCHEMA_UPDATER_MODEL is not directly used here for a client call,
-    # but if it were, it would be imported.
+    # Use the existing validation model instead of COMBAT_VALIDATION_MODEL
+    DM_VALIDATION_MODEL, 
     COMBAT_DIALOGUE_SUMMARY_MODEL
 )
 import update_player_info
@@ -89,7 +90,7 @@ def read_prompt_from_file(filename):
         return file.read().strip()
 
 def load_monster_stats(monster_name):
-    # Formating the file name correctly for the monster file
+    # Formatting the file name correctly for the monster file
     monster_file = f"{monster_name.lower().replace(' ', '_')}.json"
 
     try:
@@ -135,6 +136,114 @@ def write_debug_output(content, filename="debug_second_model.json"):
             json.dump(content, debug_file, indent=2)
     except Exception as e:
         print(f"DEBUG: Writing debug output: {str(e)}")
+
+def parse_json_safely(text):
+    """Extract and parse JSON from text, handling various formats"""
+    # First, try to parse as-is
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+
+    # Try to extract from code block
+    try:
+        match = re.search(r'```json\n(.*?)```', text, re.DOTALL)
+        if match:
+            return json.loads(match.group(1))
+    except json.JSONDecodeError:
+        pass
+
+    # If all else fails, try to find any JSON-like structure
+    try:
+        match = re.search(r'\{.*\}', text, re.DOTALL)
+        if match:
+            return json.loads(match.group(0))
+    except json.JSONDecodeError:
+        pass
+
+    # If we still can't parse it, raise an exception
+    raise json.JSONDecodeError("Unable to parse JSON from the given text", text, 0)
+
+def validate_combat_response(response, encounter_data, user_input):
+    """
+    Validate a combat response for accuracy in HP tracking, combat flow, etc.
+    Returns True if valid, or a string with the reason for failure if invalid.
+    """
+    print("DEBUG: Validating combat response...")
+    
+    # Load validation prompt
+    validation_prompt = """
+    You are validating a combat response from an AI Dungeon Master. Check for the following issues:
+    
+    1. HP Tracking: Ensure all damage calculations are correct and creature health is accurate.
+    2. Death Detection: Verify enemies die when their HP is reduced to 0 or below.
+    3. Combat Flow: Combat should end when all enemies are defeated.
+    4. Initiative Order: Actions should follow the established initiative order.
+    5. Action Consistency: Narration should match the actions being taken.
+    6. Exit Detection: The 'exit' action should be included when combat is over.
+    
+    Respond with a JSON object like this:
+    {
+      "valid": true/false,
+      "reason": "Explanation if invalid"
+    }
+    
+    Current encounter state:
+    """
+    
+    validation_conversation = [
+        {"role": "system", "content": validation_prompt},
+        {"role": "system", "content": f"Encounter Data:\n{json.dumps(encounter_data, indent=2)}"},
+        {"role": "user", "content": f"Player Input: {user_input}"},
+        {"role": "assistant", "content": response}
+    ]
+
+    max_validation_retries = 3
+    for attempt in range(max_validation_retries):
+        try:
+            validation_result = client.chat.completions.create(
+                model=DM_VALIDATION_MODEL,
+                temperature=0.3,  # Lower temperature for more consistent validation
+                messages=validation_conversation
+            )
+
+            validation_response = validation_result.choices[0].message.content.strip()
+            
+            try:
+                validation_json = parse_json_safely(validation_response)
+                is_valid = validation_json.get("valid", False)
+                reason = validation_json.get("reason", "No reason provided")
+
+                # Log validation results
+                with open("combat_validation_log.json", "a") as log_file:
+                    log_entry = {
+                        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+                        "valid": is_valid,
+                        "reason": reason,
+                        "response": response
+                    }
+                    json.dump(log_entry, log_file)
+                    log_file.write("\n")
+
+                if is_valid:
+                    print("DEBUG: Combat response validation passed")
+                    return True
+                else:
+                    print(f"DEBUG: Combat response validation failed. Reason: {reason}")
+                    return reason
+                    
+            except json.JSONDecodeError:
+                print(f"DEBUG: Invalid JSON from validation model (Attempt {attempt + 1}/{max_validation_retries})")
+                print(f"Problematic response: {validation_response}")
+                continue
+                
+        except Exception as e:
+            print(f"DEBUG: Validation error: {str(e)}")
+            continue
+    
+    # If we've exhausted all retries and still don't have a valid result
+    print("DEBUG: Validation failed after max retries, assuming response is valid")
+    return True
 
 def normalize_encounter_status(encounter_data):
     """Normalizes status values in encounter data to lowercase"""
@@ -360,8 +469,6 @@ def generate_chat_history(conversation_history, encounter_id):
     except Exception as e:
         print(f"Error generating combat chat history: {str(e)}")
 
-# Add this function to a common utility file or to combat_manager.py
-
 def sync_active_encounter():
     """Sync player and NPC data to the active encounter file if one exists"""
     
@@ -573,111 +680,6 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
        # Save updated conversation history
        save_json_file(conversation_history_file, conversation_history)
        
-       # Get AI response
-       try:
-           response = client.chat.completions.create(
-               model=COMBAT_MAIN_MODEL,
-               temperature=TEMPERATURE,
-               messages=conversation_history
-           )
-           ai_response = response.choices[0].message.content.strip()
-       except Exception as e:
-           print(f"ERROR: Failed to get AI response: {str(e)}")
-           return None, None
-       
-       # Write raw response to debug file
-       with open("debug_ai_response.json", "w") as debug_file:
-           json.dump({"raw_ai_response": ai_response}, debug_file, indent=2)
-       
-       # Validate the JSON response
-       if not is_valid_json(ai_response):
-           print("DEBUG: Invalid JSON response from AI. Requesting a new response.")
-           conversation_history.append({
-               "role": "user",
-               "content": "Your previous response was not a valid JSON object with 'narration' and 'actions' fields. Please provide a valid JSON response."
-           })
-           save_json_file(conversation_history_file, conversation_history)
-           continue
-       
-       # Process the response
-       try:
-           parsed_response = json.loads(ai_response)
-           narration = parsed_response["narration"]
-           actions = parsed_response["actions"]
-       except json.JSONDecodeError as e:
-           print(f"DEBUG: JSON parsing error: {str(e)}")
-           print("DEBUG: Raw AI response:")
-           print(ai_response)
-           continue
-       
-       # Add the AI response to conversation history
-       conversation_history.append({"role": "assistant", "content": ai_response})
-       save_json_file(conversation_history_file, conversation_history)
-       
-       # Display the narration
-       print(f"Dungeon Master: {SOFT_REDDISH_ORANGE}{narration}{RESET_COLOR}")
-       
-       # Process actions
-       for action in actions:
-           action_type = action.get("action", "").lower()
-           parameters = action.get("parameters", {})
-           
-           if action_type == "updateplayerinfo":
-               player_name_for_update = player_info["name"].lower().replace(" ", "_")
-               changes = parameters.get("changes", "")
-               try:
-                   updated_player_info = update_player_info.update_player(player_name_for_update, changes)
-                   if updated_player_info:
-                       player_info = updated_player_info
-                       print(f"DEBUG: Player info updated successfully")
-               except Exception as e:
-                   print(f"ERROR: Failed to update player info: {str(e)}")
-           
-           elif action_type == "updatenpcinfo":
-               npc_name_for_update = parameters.get("npcName", "")
-               changes = parameters.get("changes", "")
-               try:
-                   updated_npc_info = update_npc_info.update_npc(npc_name_for_update, changes)
-                   if updated_npc_info:
-                       print(f"DEBUG: NPC {npc_name_for_update} info updated successfully")
-               except Exception as e:
-                   print(f"ERROR: Failed to update NPC info: {str(e)}")
-           
-           elif action_type == "updateencounter":
-               encounter_id_for_update = parameters.get("encounterId", encounter_id)
-               changes = parameters.get("changes", "")
-               try:
-                   updated_encounter_data = update_encounter.update_encounter(encounter_id_for_update, changes)
-                   if updated_encounter_data:
-                       # Normalize status values to lowercase
-                       updated_encounter_data = normalize_encounter_status(updated_encounter_data)
-                       encounter_data = updated_encounter_data
-                       print(f"DEBUG: Encounter {encounter_id_for_update} updated successfully")
-               except Exception as e:
-                   print(f"ERROR: Failed to update encounter: {str(e)}")
-           
-           elif action_type == "exit":
-               print("The combat has ended.")
-               xp_narrative, xp_awarded = calculate_xp()
-               print(f"XP Awarded: {xp_narrative}")
-               conversation_history.append({"role": "system", "content": f"XP Awarded: {xp_narrative}"})
-               save_json_file(conversation_history_file, conversation_history)
-               
-               # Update XP for player
-               xp_update_response = f"Update the character's experience points. XP Awarded: {xp_awarded}"
-               updated_data_tuple = update_json_schema(xp_update_response, player_info, encounter_data, party_tracker_data)
-               if updated_data_tuple:
-                   player_info, _, _ = updated_data_tuple
-               
-               # Generate dialogue summary
-               dialogue_summary_result = summarize_dialogue(conversation_history, location_info, party_tracker_data)
-               
-               # Generate chat history for debugging
-               generate_chat_history(conversation_history, encounter_id)
-               
-               print("Combat encounter closed. Exiting combat simulation.")
-               return dialogue_summary_result, player_info
-       
        # Display player stats and get input
        player_name_display = player_info["name"]
        current_hp = player_info.get("hitPoints", 0)
@@ -739,6 +741,165 @@ Player: {user_input_text}"""
        # Add user input to conversation history
        conversation_history.append({"role": "user", "content": user_input_with_note})
        save_json_file(conversation_history_file, conversation_history)
+       
+       # Get AI response with validation and retries
+       max_retries = 3
+       valid_response = False
+       ai_response = None
+       
+       for attempt in range(max_retries):
+           try:
+               response = client.chat.completions.create(
+                   model=COMBAT_MAIN_MODEL,
+                   temperature=TEMPERATURE,
+                   messages=conversation_history
+               )
+               ai_response = response.choices[0].message.content.strip()
+               
+               # Write raw response to debug file
+               with open("debug_ai_response.json", "w") as debug_file:
+                   json.dump({"raw_ai_response": ai_response}, debug_file, indent=2)
+               
+               # IMPORTANT CHANGE: Always add the AI response to conversation history
+               # even if it fails validation - this ensures the model can learn from mistakes
+               conversation_history.append({"role": "assistant", "content": ai_response})
+               save_json_file(conversation_history_file, conversation_history)
+               
+               # Check if the response is valid JSON
+               if not is_valid_json(ai_response):
+                   print(f"DEBUG: Invalid JSON response from AI (Attempt {attempt + 1}/{max_retries})")
+                   if attempt < max_retries - 1:
+                       # Add error feedback to conversation history
+                       conversation_history.append({
+                           "role": "user",
+                           "content": "Your previous response was not a valid JSON object with 'narration' and 'actions' fields. Please provide a valid JSON response."
+                       })
+                       save_json_file(conversation_history_file, conversation_history)
+                       continue
+                   else:
+                       print("DEBUG: Max retries exceeded for JSON validation. Skipping this response.")
+                       break
+               
+               # Parse the JSON response
+               parsed_response = json.loads(ai_response)
+               narration = parsed_response["narration"]
+               actions = parsed_response["actions"]
+               
+               # Validate the combat logic
+               validation_result = validate_combat_response(ai_response, encounter_data, user_input_text)
+               
+               if validation_result is True:
+                   valid_response = True
+                   print(f"DEBUG: Response validated successfully on attempt {attempt + 1}")
+                   break
+               else:
+                   print(f"DEBUG: Response validation failed (Attempt {attempt + 1}/{max_retries})")
+                   print(f"Reason: {validation_result}")
+                   if attempt < max_retries - 1:
+                       # Add error feedback to conversation history
+                       conversation_history.append({
+                           "role": "user",
+                           "content": f"Your previous response had issues with the combat logic: {validation_result}. Please correct these issues and try again."
+                       })
+                       save_json_file(conversation_history_file, conversation_history)
+                       continue
+                   else:
+                       print("DEBUG: Max retries exceeded for combat validation. Using last response.")
+                       break
+           except Exception as e:
+               print(f"ERROR: Failed to get or validate AI response (Attempt {attempt + 1}/{max_retries}): {str(e)}")
+               if attempt < max_retries - 1:
+                   continue
+               else:
+                   print("DEBUG: Max retries exceeded. Skipping this response.")
+                   break
+       
+       if not ai_response:
+           print("ERROR: Failed to get a valid AI response after multiple attempts")
+           continue
+       
+       # Process the validated response
+       try:
+           parsed_response = json.loads(ai_response)
+           narration = parsed_response["narration"]
+           actions = parsed_response["actions"]
+       except json.JSONDecodeError as e:
+           print(f"DEBUG: JSON parsing error: {str(e)}")
+           print("DEBUG: Raw AI response:")
+           print(ai_response)
+           continue
+       
+       # Check if this response includes an exit action BEFORE displaying narration
+       has_exit_action = False
+       for action in actions:
+           if action.get("action", "").lower() == "exit":
+               has_exit_action = True
+               break
+       
+       # Only display narration if there's no exit action
+       if not has_exit_action:
+           print(f"Dungeon Master: {SOFT_REDDISH_ORANGE}{narration}{RESET_COLOR}")
+       
+       # Process actions
+       for action in actions:
+           action_type = action.get("action", "").lower()
+           parameters = action.get("parameters", {})
+           
+           if action_type == "updateplayerinfo":
+               player_name_for_update = player_info["name"].lower().replace(" ", "_")
+               changes = parameters.get("changes", "")
+               try:
+                   updated_player_info = update_player_info.update_player(player_name_for_update, changes)
+                   if updated_player_info:
+                       player_info = updated_player_info
+                       print(f"DEBUG: Player info updated successfully")
+               except Exception as e:
+                   print(f"ERROR: Failed to update player info: {str(e)}")
+           
+           elif action_type == "updatenpcinfo":
+               npc_name_for_update = parameters.get("npcName", "")
+               changes = parameters.get("changes", "")
+               try:
+                   updated_npc_info = update_npc_info.update_npc(npc_name_for_update, changes)
+                   if updated_npc_info:
+                       print(f"DEBUG: NPC {npc_name_for_update} info updated successfully")
+               except Exception as e:
+                   print(f"ERROR: Failed to update NPC info: {str(e)}")
+           
+           elif action_type == "updateencounter":
+               encounter_id_for_update = parameters.get("encounterId", encounter_id)
+               changes = parameters.get("changes", "")
+               try:
+                   updated_encounter_data = update_encounter.update_encounter(encounter_id_for_update, changes)
+                   if updated_encounter_data:
+                       # Normalize status values to lowercase
+                       updated_encounter_data = normalize_encounter_status(updated_encounter_data)
+                       encounter_data = updated_encounter_data
+                       print(f"DEBUG: Encounter {encounter_id_for_update} updated successfully")
+               except Exception as e:
+                   print(f"ERROR: Failed to update encounter: {str(e)}")
+           
+           elif action_type == "exit":
+               print("DEBUG: Combat has ended, preparing summary...")
+               xp_narrative, xp_awarded = calculate_xp()
+               # Still record this information in the conversation history, but don't print it to console
+               conversation_history.append({"role": "system", "content": f"XP Awarded: {xp_narrative}"})
+               save_json_file(conversation_history_file, conversation_history)
+               
+               # Update XP for player
+               xp_update_response = f"Update the character's experience points. XP Awarded: {xp_awarded}"
+               updated_data_tuple = update_json_schema(xp_update_response, player_info, encounter_data, party_tracker_data)
+               if updated_data_tuple:
+                   player_info, _, _ = updated_data_tuple
+               
+               # Generate dialogue summary
+               dialogue_summary_result = summarize_dialogue(conversation_history, location_info, party_tracker_data)
+               
+               # Generate chat history for debugging
+               generate_chat_history(conversation_history, encounter_id)
+               
+               print("Combat encounter closed. Exiting combat simulation.")
+               return dialogue_summary_result, player_info
 
 def main():
     print("DEBUG: Starting main function in combat_manager")
