@@ -33,6 +33,8 @@ import update_player_info
 import update_npc_info
 import update_encounter
 import update_party_tracker
+# Import the preroll generator
+from generate_prerolls import generate_prerolls
 
 # Updated color constants
 SOLID_GREEN = "\033[38;2;0;180;0m"
@@ -688,12 +690,17 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
            hitpoints_info_parts.append(f"{creature_name}'s current hitpoints: {creature_hp}/{creature_max_hp}")
    all_hitpoints_info = "\n".join(hitpoints_info_parts)
    
+   # Generate prerolls for the initial scene
+   preroll_text = generate_prerolls(encounter_data)
+   
    # Get initial scene description before first user input
    print("DEBUG: Getting initial scene description...")
    initial_prompt = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. This is the start of combat, so please describe the scene and set initiative order, but don't take any actions yet. Start off by hooking the player and engaging them for the start of combat the way any world class dungeon master would.
 
 Current hitpoints for all creatures:
 {all_hitpoints_info}
+
+{preroll_text}
 
 Player: The combat begins. Describe the scene and the enemies we face."""
 
@@ -895,7 +902,10 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                hitpoints_info_parts.append(f"{creature_name}'s current hitpoints: {creature_hp}/{creature_max_hp}")
        all_hitpoints_info = "\n".join(hitpoints_info_parts)
        
-       # Format user input with DM note and hitpoints info
+       # Generate fresh prerolls for this combat round
+       preroll_text = generate_prerolls(encounter_data)
+       
+       # Format user input with DM note, hitpoints info, and prerolls
        user_input_with_note = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. Use 'updatePlayerInfo', 'updateNPCInfo', and 'updateEncounter' actions to record changes in hit points, status, or conditions for any creature in the encounter. Remember to use separate 'updateNPCInfo' actions whenever NPCs take damage or their status changes. Monster changes should be in 'updateEncounter', but NPC changes require their own 'updateNPCInfo' actions.
 
 Important: 
@@ -905,6 +915,8 @@ Important:
 
 Current hitpoints for all creatures:
 {all_hitpoints_info}
+
+{preroll_text}
 
 Player: {user_input_text}"""
        
