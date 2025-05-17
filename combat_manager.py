@@ -178,31 +178,8 @@ def validate_combat_response(response, encounter_data, user_input):
     """
     print("DEBUG: Validating combat response...")
     
-    # Load validation prompt
-    validation_prompt = """
-    You are validating a combat response from an AI Dungeon Master. Only flag MAJOR issues:
-    
-    1. HP Tracking: Flag ONLY if damage calculations are mathematically wrong or if HP goes below 0 without death.
-    2. Death Detection: Flag ONLY if a creature with 0 or negative HP is described as alive.
-    3. Combat Flow: Flag ONLY if combat continues after all enemies are defeated (allow NPCs to finish their turns).
-    4. Game-Breaking Errors: Flag impossible actions or severe rule violations.
-    
-    DO NOT flag these minor issues:
-    - Scene-setting responses without actions (these are valid)
-    - Initiative order clarifications or minor wording differences
-    - Missing 'exit' action if enemies just died (NPCs may need to act)
-    - Stylistic choices in narration
-    
-    Be lenient with responses that are substantially correct. Only fail responses with serious mechanical errors.
-    
-    Respond with a JSON object like this:
-    {
-      "valid": true/false,
-      "reason": "Explanation if invalid"
-    }
-    
-    Current encounter state:
-    """
+    # Load validation prompt from file
+    validation_prompt = read_prompt_from_file('combat_validation_prompt.txt')
     
     validation_conversation = [
         {"role": "system", "content": validation_prompt},
@@ -226,6 +203,7 @@ def validate_combat_response(response, encounter_data, user_input):
                 validation_json = parse_json_safely(validation_response)
                 is_valid = validation_json.get("valid", False)
                 reason = validation_json.get("reason", "No reason provided")
+                recommendation = validation_json.get("recommendation", "")
 
                 # Log validation results
                 with open("combat_validation_log.json", "a") as log_file:
@@ -233,6 +211,7 @@ def validate_combat_response(response, encounter_data, user_input):
                         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
                         "valid": is_valid,
                         "reason": reason,
+                        "recommendation": recommendation,
                         "response": response
                     }
                     json.dump(log_entry, log_file)
@@ -243,7 +222,10 @@ def validate_combat_response(response, encounter_data, user_input):
                     return True
                 else:
                     print(f"DEBUG: Combat response validation failed. Reason: {reason}")
-                    return reason
+                    if recommendation:
+                        return {"reason": reason, "recommendation": recommendation}
+                    else:
+                        return reason
                     
             except json.JSONDecodeError:
                 print(f"DEBUG: Invalid JSON from validation model (Attempt {attempt + 1}/{max_validation_retries})")
@@ -708,7 +690,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    
    # Get initial scene description before first user input
    print("DEBUG: Getting initial scene description...")
-   initial_prompt = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. This is the start of combat, so please describe the scene and set initiative order, but don't take any actions yet.
+   initial_prompt = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. This is the start of combat, so please describe the scene and set initiative order, but don't take any actions yet. Start off by hooking the player and engaging them for the start of combat the way any world class dungeon master would.
 
 Current hitpoints for all creatures:
 {all_hitpoints_info}
@@ -771,12 +753,24 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                break
            else:
                print(f"DEBUG: Response validation failed (Attempt {attempt + 1}/{max_retries})")
-               print(f"Reason: {validation_result}")
+               
+               # Handle both string and dict validation results
+               if isinstance(validation_result, dict):
+                   reason = validation_result["reason"]
+                   recommendation = validation_result.get("recommendation", "")
+                   feedback = f"Your previous response had issues with the combat logic: {reason}"
+                   if recommendation:
+                       feedback += f"\n\n{recommendation}"
+               else:
+                   reason = validation_result
+                   feedback = f"Your previous response had issues with the combat logic: {reason}"
+               
+               print(f"Reason: {reason}")
                if attempt < max_retries - 1:
                    # Add error feedback to conversation history
                    conversation_history.append({
                        "role": "user",
-                       "content": f"Your previous response had issues with the combat logic: {validation_result}. Please correct these issues and provide a valid initial scene description."
+                       "content": f"{feedback}. Please correct these issues and provide a valid initial scene description."
                    })
                    save_json_file(conversation_history_file, conversation_history)
                    continue
@@ -970,12 +964,24 @@ Player: {user_input_text}"""
                    break
                else:
                    print(f"DEBUG: Response validation failed (Attempt {attempt + 1}/{max_retries})")
-                   print(f"Reason: {validation_result}")
+                   
+                   # Handle both string and dict validation results
+                   if isinstance(validation_result, dict):
+                       reason = validation_result["reason"]
+                       recommendation = validation_result.get("recommendation", "")
+                       feedback = f"Your previous response had issues with the combat logic: {reason}"
+                       if recommendation:
+                           feedback += f"\n\n{recommendation}"
+                   else:
+                       reason = validation_result
+                       feedback = f"Your previous response had issues with the combat logic: {reason}"
+                   
+                   print(f"Reason: {reason}")
                    if attempt < max_retries - 1:
                        # Add error feedback to conversation history
                        conversation_history.append({
                            "role": "user",
-                           "content": f"Your previous response had issues with the combat logic: {validation_result}. Please correct these issues and try again."
+                           "content": f"{feedback}. Please correct these issues and try again."
                        })
                        save_json_file(conversation_history_file, conversation_history)
                        continue
@@ -1035,12 +1041,43 @@ Player: {user_input_text}"""
            elif action_type == "updatenpcinfo":
                npc_name_for_update = parameters.get("npcName", "").lower().replace(' ', '_').split('_')[0] # Format for file access
                changes = parameters.get("changes", "")
+               
+               # Debug logging for updateNPCInfo transaction
+               debug_log = {
+                   "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+                   "action_type": action_type,
+                   "raw_action": action,
+                   "extracted_npc_name": npc_name_for_update,
+                   "extracted_changes": changes,
+                   "original_parameters": parameters
+               }
+               
                try:
+                   print(f"DEBUG: UpdateNPCInfo transaction starting...")
+                   print(f"DEBUG: NPC Name: {npc_name_for_update}")
+                   print(f"DEBUG: Changes requested: {changes}")
+                   print(f"DEBUG: Raw action object: {json.dumps(action, indent=2)}")
+                   
                    updated_npc_info = update_npc_info.update_npc(npc_name_for_update, changes)
+                   
+                   debug_log["update_result"] = "success" if updated_npc_info else "failed"
+                   debug_log["updated_info"] = updated_npc_info if updated_npc_info else None
+                   
                    if updated_npc_info:
                        print(f"DEBUG: NPC {npc_name_for_update} info updated successfully")
+                   else:
+                       print(f"DEBUG: Update failed for NPC {npc_name_for_update}")
                except Exception as e:
                    print(f"ERROR: Failed to update NPC info: {str(e)}")
+                   debug_log["error"] = str(e)
+               
+               # Write debug log to file
+               try:
+                   with open("npc_update_debug_log.json", "a") as debug_file:
+                       json.dump(debug_log, debug_file)
+                       debug_file.write("\n")
+               except Exception as log_error:
+                   print(f"ERROR: Failed to write debug log: {str(log_error)}")
            
            elif action_type == "updateencounter":
                encounter_id_for_update = parameters.get("encounterId", encounter_id)

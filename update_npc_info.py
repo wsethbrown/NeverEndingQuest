@@ -147,6 +147,14 @@ def compare_json(old, new):
 
 def update_npc(npc_name, changes, max_retries=3):
     print(f"{ORANGE}DEBUG: Starting NPC update for {npc_name}{RESET}")
+    
+    # Enhanced debug logging
+    debug_update_log = {
+        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "npc_name": npc_name,
+        "incoming_changes": changes,
+        "attempts": []
+    }
     # Load the current NPC info and schema
     path_manager = CampaignPathManager()
     npc_file_path = path_manager.get_npc_path(npc_name)
@@ -285,16 +293,45 @@ Examples of incorrect inputs that don't require any changes to the NPC's informa
 1. Input: Harmus successfully dealt 6 damage to the orc.
    Output: {{}}
 
+Combat damage examples that should NOT update actions:
+10. Input: Marcus hits the goblin with his mace, dealing 8 damage.
+    Output: {{}}
+    
+11. Input: Luna's firebolt spell hits the skeleton for 9 fire damage.
+    Output: {{}}
+    
+12. Input: Thorin attacks the orc with his battleaxe, scoring a critical hit for 15 damage.
+    Output: {{}}
+    
+13. Input: Lyra fires her crossbow at the bandit, dealing 6 piercing damage.
+    Output: {{}}
+
+IMPORTANT: When NPCs deal damage in combat (e.g., "hits for X damage", "deals X damage", "scores a hit"), DO NOT update the actions or attacksAndSpellcasting arrays. These arrays define the NPC's available attacks, not track damage dealt. Only update these arrays when:
+- Adding new weapons or spells
+- Changing weapon stats (attack bonus, damage dice)
+- Removing weapons or abilities
+
+Combat damage dealt is tracked elsewhere and should not modify the NPC's action definitions.
+
 Remember to:
 - Only include fields that are being changed
 - Use the exact values specified in the schema for enumerated fields
 - Include all required properties for complex objects like equipment and actions
 - Use the 'ammunition' array for any changes to arrow counts or other ammunition types
-- Choose the correct format (actions vs attacksAndSpellcasting) based on what you're updating"""},
+- Choose the correct format (actions vs attacksAndSpellcasting) based on what you're updating. If both exist, only update the one that contains the weapon/spell being modified. Never update weapon definitions when the NPC simply uses them in combat."""},
             *conversation_history,
             {"role": "user", "content": f"Current NPC info: {json.dumps(npc_info)}\n\nChanges to apply: {changes}\n\nRespond with ONLY the updated JSON object representing the changed sections of the NPC sheet, with no additional text or explanation."}
         ]
 
+        # Log the attempt details
+        attempt_log = {
+            "attempt_number": attempt + 1,
+            "prompt_sent": prompt[-1]["content"]  # Just log the user message
+        }
+        
+        print(f"{ORANGE}DEBUG: Sending changes to AI for interpretation (Attempt {attempt + 1}):{RESET}")
+        print(f"{ORANGE}Changes: {changes}{RESET}")
+        
         # Get AI's response
         response = client.chat.completions.create(
             model=NPC_INFO_UPDATE_MODEL, # Use imported model name
@@ -304,9 +341,19 @@ Remember to:
 
         ai_response = response.choices[0].message.content.strip()
 
+        # Enhanced debug logging  
+        attempt_log["ai_response"] = ai_response
+        print(f"{ORANGE}DEBUG: AI response received:{RESET}")
+        print(f"{ORANGE}{ai_response}{RESET}")
+
         # Write the raw AI response to a debug file
         with open("debug_npc_update.json", "w") as debug_file:
-            json.dump({"raw_ai_response": ai_response}, debug_file, indent=2)
+            json.dump({
+                "attempt": attempt + 1,
+                "npc_name": npc_name,
+                "changes": changes,
+                "raw_ai_response": ai_response
+            }, debug_file, indent=2)
 
         print(f"{ORANGE}DEBUG: Raw AI response written to debug_npc_update.json{RESET}")
 
@@ -331,27 +378,58 @@ Remember to:
 
             # If we reach here, validation was successful
             print(f"{GREEN}DEBUG: Successfully updated and validated NPC info on attempt {attempt + 1}{RESET}")
+            
+            # Add success to log
+            attempt_log["success"] = True
+            attempt_log["parsed_updates"] = updates
+            debug_update_log["attempts"].append(attempt_log)
 
             # Compare original and updated info
             diff = compare_json(original_info, npc_info)
             print(f"{ORANGE}DEBUG: Changes made:{RESET}")
             print(json.dumps(diff, indent=2))
+            
+            debug_update_log["final_diff"] = diff
+            debug_update_log["success"] = True
 
             # Save the updated NPC info
             with open(npc_file_path, "w") as file:
                 json.dump(npc_info, file, indent=2)
 
             print(f"{ORANGE}DEBUG: {npc_name}'s information updated{RESET}")
+            
+            # Write debug log
+            with open("npc_update_detailed_log.json", "a") as log_file:
+                json.dump(debug_update_log, log_file)
+                log_file.write("\n")
+            
             return npc_info
 
         except json.JSONDecodeError as e:
             print(f"{ORANGE}DEBUG: AI response is not valid JSON. Error: {e}. Retrying...{RESET}")
+            attempt_log["json_decode_error"] = str(e)
+            debug_update_log["attempts"].append(attempt_log)
         except ValidationError as e:
             print(f"{RED}ERROR: Updated info does not match the schema. Error: {e}. Retrying...{RESET}")
+            attempt_log["validation_error"] = {
+                "error_message": str(e),
+                "error_path": list(e.path),
+                "failing_instance": e.instance
+            }
+            debug_update_log["attempts"].append(attempt_log)
 
         # If we've reached the maximum number of retries, return the original NPC info
         if attempt == max_retries - 1:
             print(f"{RED}ERROR: Failed to update NPC info after {max_retries} attempts. Returning original NPC info.{RESET}")
+            
+            # Write final failure debug log
+            debug_update_log["success"] = False
+            debug_update_log["error"] = "Failed after all retries"
+            
+            with open("npc_update_detailed_log.json", "a") as log_file:
+                json.dump(debug_update_log, log_file)
+                log_file.write("\n")
+                
             return original_info
 
         # Wait for a short time before retrying
