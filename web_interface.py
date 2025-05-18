@@ -197,6 +197,68 @@ def handle_start_game():
     
     emit('game_started', {'message': 'Game started successfully'})
 
+@socketio.on('request_player_data')
+def handle_player_data_request(data):
+    """Handle requests for player data (inventory, stats, NPCs)"""
+    try:
+        dataType = data.get('dataType', 'stats')
+        response_data = None
+        
+        # Load party tracker to get player name and NPCs
+        party_tracker_path = 'party_tracker.json'
+        if os.path.exists(party_tracker_path):
+            with open(party_tracker_path, 'r') as f:
+                party_tracker = json.load(f)
+        else:
+            emit('player_data_response', {'dataType': dataType, 'data': None, 'error': 'Party tracker not found'})
+            return
+        
+        if dataType == 'stats' or dataType == 'inventory':
+            # Get player name from party tracker
+            if party_tracker.get('partyMembers') and len(party_tracker['partyMembers']) > 0:
+                player_name = party_tracker['partyMembers'][0].lower().replace(' ', '_')
+                
+                # Try campaign-specific path first
+                from campaign_path_manager import CampaignPathManager
+                path_manager = CampaignPathManager()
+                
+                try:
+                    player_file = path_manager.get_player_path(player_name)
+                    if os.path.exists(player_file):
+                        with open(player_file, 'r') as f:
+                            response_data = json.load(f)
+                except:
+                    # Fallback to root directory
+                    player_file = f'{player_name}.json'
+                    if os.path.exists(player_file):
+                        with open(player_file, 'r') as f:
+                            response_data = json.load(f)
+        
+        elif dataType == 'npcs':
+            # Get NPC data from party tracker
+            npcs = []
+            from campaign_path_manager import CampaignPathManager
+            path_manager = CampaignPathManager()
+            
+            for npc_info in party_tracker.get('partyNPCs', []):
+                npc_name = npc_info['name'].lower().replace(' ', '_').split('_')[0]
+                
+                try:
+                    npc_file = path_manager.get_npc_path(npc_name)
+                    if os.path.exists(npc_file):
+                        with open(npc_file, 'r') as f:
+                            npc_data = json.load(f)
+                            npcs.append(npc_data)
+                except:
+                    pass
+            
+            response_data = npcs
+        
+        emit('player_data_response', {'dataType': dataType, 'data': response_data})
+    
+    except Exception as e:
+        emit('player_data_response', {'dataType': dataType, 'data': None, 'error': str(e)})
+
 def run_game_loop():
     """Run the main game loop"""
     try:

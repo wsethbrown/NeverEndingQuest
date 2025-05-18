@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2025-01-17
 
+### Added
+- Interactive tabs in the web interface for viewing player data:
+  - Inventory tab showing equipment, weapons, and currency
+  - Character Stats tab displaying basic info, combat stats, and abilities
+  - NPCs tab listing party NPCs with their current status
+- Auto-refresh of tab data every 5 seconds
+- Socket.IO handlers for fetching character data from JSON files
+- Responsive styling for tabbed interface with dark theme
+
 ### Fixed
 - Web interface output routing to properly separate game narration and debug information
 - Only "Dungeon Master:" messages appear in the game output panel

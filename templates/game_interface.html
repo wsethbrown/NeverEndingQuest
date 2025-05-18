@@ -196,6 +196,139 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #666;
         }
+        
+        /* Tab styling */
+        .tabs {
+            display: flex;
+            background-color: #333;
+            border-bottom: 1px solid #444;
+        }
+        
+        .tab-button {
+            flex: 1;
+            padding: 10px;
+            background-color: #333;
+            color: #888;
+            border: none;
+            border-right: 1px solid #444;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .tab-button:last-child {
+            border-right: none;
+        }
+        
+        .tab-button:hover {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+        }
+        
+        .tab-button.active {
+            background-color: #2c2c2c;
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
+        }
+        
+        .tab-content {
+            height: calc(100% - 41px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-style: italic;
+        }
+        
+        /* Inventory styling */
+        .inventory-section {
+            margin-bottom: 20px;
+        }
+        
+        .inventory-section h3 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+        
+        .inventory-item {
+            padding: 8px;
+            margin: 5px 0;
+            background-color: #333;
+            border-radius: 3px;
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .inventory-item-name {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        
+        .inventory-item-desc {
+            color: #ccc;
+            font-size: 0.9em;
+            margin-top: 3px;
+        }
+        
+        .inventory-item-quantity {
+            color: #888;
+            float: right;
+        }
+        
+        /* Stats styling */
+        .stat-group {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #333;
+            border-radius: 3px;
+        }
+        
+        .stat-group h4 {
+            color: #4CAF50;
+            margin-bottom: 8px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+        }
+        
+        .stat-name {
+            color: #ccc;
+        }
+        
+        .stat-value {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        /* NPC styling */
+        .npc-card {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #333;
+            border-radius: 3px;
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .npc-name {
+            font-weight: bold;
+            color: #4CAF50;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .npc-info {
+            color: #ccc;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -226,8 +359,30 @@
         </div>
         
         <div class="panel debug-panel">
-            <div class="panel-header">Debug Output</div>
-            <div class="panel-content" id="debug-output"></div>
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('debug')">Debug Output</button>
+                <button class="tab-button" onclick="switchTab('inventory')">Inventory</button>
+                <button class="tab-button" onclick="switchTab('stats')">Character Stats</button>
+                <button class="tab-button" onclick="switchTab('npcs')">NPCs</button>
+            </div>
+            <div class="tab-content" id="debug-tab" style="display: block;">
+                <div class="panel-content" id="debug-output"></div>
+            </div>
+            <div class="tab-content" id="inventory-tab" style="display: none;">
+                <div class="panel-content" id="inventory-content">
+                    <div class="loading">Loading inventory...</div>
+                </div>
+            </div>
+            <div class="tab-content" id="stats-tab" style="display: none;">
+                <div class="panel-content" id="stats-content">
+                    <div class="loading">Loading character stats...</div>
+                </div>
+            </div>
+            <div class="tab-content" id="npcs-tab" style="display: none;">
+                <div class="panel-content" id="npcs-content">
+                    <div class="loading">Loading NPC information...</div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -341,6 +496,279 @@
                 sendInput();
             }
         }
+        
+        // Tab switching function
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => {
+                tab.style.display = 'none';
+            });
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(`${tabName}-tab`).style.display = 'block';
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Load data for the selected tab
+            if (tabName === 'inventory') {
+                loadInventory();
+            } else if (tabName === 'stats') {
+                loadCharacterStats();
+            } else if (tabName === 'npcs') {
+                loadNPCs();
+            }
+        }
+        
+        // Load player inventory
+        function loadInventory() {
+            socket.emit('request_player_data', { dataType: 'inventory' });
+        }
+        
+        // Load character stats
+        function loadCharacterStats() {
+            socket.emit('request_player_data', { dataType: 'stats' });
+        }
+        
+        // Load NPC information
+        function loadNPCs() {
+            socket.emit('request_player_data', { dataType: 'npcs' });
+        }
+        
+        // Display inventory data
+        function displayInventory(data) {
+            const container = document.getElementById('inventory-content');
+            if (!data || !data.equipment) {
+                container.innerHTML = '<div class="loading">No inventory data available</div>';
+                return;
+            }
+            
+            let html = '';
+            
+            // Equipment section
+            if (data.equipment && data.equipment.length > 0) {
+                html += '<div class="inventory-section"><h3>Equipment</h3>';
+                data.equipment.forEach(item => {
+                    html += `
+                        <div class="inventory-item">
+                            <span class="inventory-item-name">${item.item_name}</span>
+                            <span class="inventory-item-quantity">x${item.quantity || 1}</span>
+                            <div class="inventory-item-desc">${item.description}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // Weapons and attacks
+            if (data.attacksAndSpellcasting && data.attacksAndSpellcasting.length > 0) {
+                html += '<div class="inventory-section"><h3>Weapons & Attacks</h3>';
+                data.attacksAndSpellcasting.forEach(weapon => {
+                    html += `
+                        <div class="inventory-item">
+                            <span class="inventory-item-name">${weapon.name}</span>
+                            <span class="inventory-item-quantity">${weapon.damage || weapon.damageDice}+${weapon.damageBonus}</span>
+                            <div class="inventory-item-desc">
+                                Attack: +${weapon.attackBonus}, ${weapon.damageType} damage
+                                ${weapon.description ? `<br>${weapon.description}` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // Currency
+            if (data.currency) {
+                html += '<div class="inventory-section"><h3>Currency</h3>';
+                html += `
+                    <div class="stat-item">
+                        <span class="stat-name">Gold</span>
+                        <span class="stat-value">${data.currency.gold || 0}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-name">Silver</span>
+                        <span class="stat-value">${data.currency.silver || 0}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-name">Copper</span>
+                        <span class="stat-value">${data.currency.copper || 0}</span>
+                    </div>
+                `;
+                html += '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        // Display character stats
+        function displayCharacterStats(data) {
+            const container = document.getElementById('stats-content');
+            if (!data) {
+                container.innerHTML = '<div class="loading">No character data available</div>';
+                return;
+            }
+            
+            let html = '';
+            
+            // Basic info
+            html += `
+                <div class="stat-group">
+                    <h4>Basic Information</h4>
+                    <div class="stat-item">
+                        <span class="stat-name">Name</span>
+                        <span class="stat-value">${data.name}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-name">Race</span>
+                        <span class="stat-value">${data.race}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-name">Class</span>
+                        <span class="stat-value">${data.class}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-name">Level</span>
+                        <span class="stat-value">${data.level}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-name">XP</span>
+                        <span class="stat-value">${data.experience_points}/${data.exp_required_for_next_level}</span>
+                    </div>
+                </div>
+            `;
+            
+            // Combat stats
+            html += `
+                <div class="stat-group">
+                    <h4>Combat Stats</h4>
+                    <div class="stat-item">
+                        <span class="stat-name">Hit Points</span>
+                        <span class="stat-value">${data.hitPoints}/${data.maxHitPoints}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-name">Armor Class</span>
+                        <span class="stat-value">${data.armorClass}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-name">Initiative</span>
+                        <span class="stat-value">+${data.initiative}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-name">Speed</span>
+                        <span class="stat-value">${data.speed} ft</span>
+                    </div>
+                </div>
+            `;
+            
+            // Abilities
+            if (data.abilities) {
+                html += `
+                    <div class="stat-group">
+                        <h4>Abilities</h4>
+                        <div class="stat-item">
+                            <span class="stat-name">Strength</span>
+                            <span class="stat-value">${data.abilities.strength}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-name">Dexterity</span>
+                            <span class="stat-value">${data.abilities.dexterity}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-name">Constitution</span>
+                            <span class="stat-value">${data.abilities.constitution}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-name">Intelligence</span>
+                            <span class="stat-value">${data.abilities.intelligence}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-name">Wisdom</span>
+                            <span class="stat-value">${data.abilities.wisdom}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-name">Charisma</span>
+                            <span class="stat-value">${data.abilities.charisma}</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        // Display NPC information
+        function displayNPCs(data) {
+            const container = document.getElementById('npcs-content');
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="loading">No NPC data available</div>';
+                return;
+            }
+            
+            let html = '';
+            
+            data.forEach(npc => {
+                html += `
+                    <div class="npc-card">
+                        <div class="npc-name">${npc.name}</div>
+                        <div class="npc-info">
+                            <div class="stat-item">
+                                <span class="stat-name">Race/Class</span>
+                                <span class="stat-value">${npc.race} ${npc.class}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">Level</span>
+                                <span class="stat-value">${npc.level}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">HP</span>
+                                <span class="stat-value">${npc.hitPoints}/${npc.maxHitPoints}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">AC</span>
+                                <span class="stat-value">${npc.armorClass}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">Status</span>
+                                <span class="stat-value">${npc.status}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // Handle data responses from server
+        socket.on('player_data_response', (response) => {
+            if (response.dataType === 'inventory') {
+                displayInventory(response.data);
+            } else if (response.dataType === 'stats') {
+                displayCharacterStats(response.data);
+            } else if (response.dataType === 'npcs') {
+                displayNPCs(response.data);
+            }
+        });
+        
+        // Auto-refresh data every 5 seconds when tab is active
+        setInterval(() => {
+            const activeTab = document.querySelector('.tab-button.active').textContent.toLowerCase();
+            if (activeTab === 'inventory') {
+                loadInventory();
+            } else if (activeTab === 'character stats') {
+                loadCharacterStats();
+            } else if (activeTab === 'npcs') {
+                loadNPCs();
+            }
+        }, 5000);
         
         // Initial setup
         document.addEventListener('DOMContentLoaded', () => {
