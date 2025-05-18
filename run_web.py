@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+"""
+Launcher script for the DungeonMasterAI web interface.
+This script starts the Flask server and automatically opens the browser.
+"""
+import subprocess
+import sys
+import os
+
+def main():
+    print("Launching DungeonMasterAI Web Interface...")
+    print("The browser should open automatically. If not, navigate to http://localhost:5000")
+    
+    # Run the web interface
+    try:
+        subprocess.run([sys.executable, "web_interface.py"])
+    except KeyboardInterrupt:
+        print("\nShutting down DungeonMasterAI Web Interface...")
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()

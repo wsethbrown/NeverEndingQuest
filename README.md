@@ -42,10 +42,18 @@ python campaign_builder.py
 Follow the prompts to create a complete campaign with areas, locations, and plots.
 
 ### Play the Game
+
+**Option 1: Terminal Interface**
 ```
 python main.py
 ```
-Load your generated campaign and start playing!
+Load your generated campaign and start playing in the terminal!
+
+**Option 2: Web Interface (Recommended)**
+```
+python run_web.py
+```
+Launch the modern web interface with separate panels for game output and debug information. The browser will open automatically.
 
 ## Key Features
 

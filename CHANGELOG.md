@@ -17,6 +17,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Saving throw rolls
   - Ability check rolls
   - Clear labeling of creature types and relationships
+- Web-based interface for the game with Flask and SocketIO:
+  - Separate panels for game output and debug information
+  - Real-time updates using WebSockets
+  - Automatic browser launch when starting the game
+  - Professional dark theme UI
+  - Input handling through web interface
+- `web_interface.py` - Flask server with SocketIO for real-time communication
+- `templates/game_interface.html` - Modern web UI with split panel design
+- `run_web.py` - Simple launcher script that starts the web interface
 
 ### Changed
 - Combat AI no longer determines dice roll outcomes - all rolls are pre-generated
@@ -25,11 +34,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - NPC: Friendly non-player character allied with the player
   - ENEMY: Hostile monster fighting against the player
 - Updated combat prompts to include pre-generated rolls for each round
+- Updated `requirements.txt` to include Flask and SocketIO dependencies
 
 ### Improved
 - Fairness of combat by removing AI bias in dice rolling
 - Transparency of combat mechanics with explicit pre-rolled values
 - Clarity of character roles and allegiances in combat encounters
+- User experience with a modern web interface instead of terminal-only output
 
 ### Fixed
 - Previously fixed XP calculation path issue for monster files
