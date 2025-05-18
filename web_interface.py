@@ -164,7 +164,7 @@ def run_game_loop():
         output_thread.start()
         
         # Run the main game
-        dm_main.main()
+        dm_main.main_game_loop()
     except Exception as e:
         error_msg = f"Game error: {str(e)}"
         game_output_queue.put({
