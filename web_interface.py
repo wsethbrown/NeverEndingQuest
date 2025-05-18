@@ -40,6 +40,8 @@ class WebOutputCapture:
         self.original_stream = original_stream
         self.is_error = is_error
         self.buffer = ""
+        self.in_dm_section = False
+        self.dm_buffer = []
     
     def write(self, text):
         # Write to original stream for console visibility
@@ -51,20 +53,43 @@ class WebOutputCapture:
             lines = self.buffer.split('\n')
             # Process all complete lines
             for line in lines[:-1]:
-                if line.strip():
-                    # Clean the line of ANSI codes for checking content
-                    clean_line = self.strip_ansi_codes(line)
-                    
-                    # Check if this is Dungeon Master narration
-                    if "Dungeon Master:" in clean_line:
-                        # This is game narration - send to game output
-                        game_output_queue.put({
-                            'type': 'narration',
+                # Clean the line of ANSI codes for checking content
+                clean_line = self.strip_ansi_codes(line)
+                
+                # Check if this starts a Dungeon Master section
+                if "Dungeon Master:" in clean_line:
+                    # Start capturing DM content
+                    self.in_dm_section = True
+                    self.dm_buffer = [clean_line]
+                elif self.in_dm_section:
+                    # Check if we're still in DM section
+                    if line.strip() == "":
+                        # Empty line - still part of DM section, add to buffer
+                        self.dm_buffer.append("")
+                    elif any(marker in clean_line for marker in ['DEBUG:', 'ERROR:', 'WARNING:', '[', '>', 'HP:', 'XP:']) or clean_line.endswith(':'):
+                        # This ends the DM section - send accumulated DM content
+                        if self.dm_buffer:
+                            for dm_line in self.dm_buffer:
+                                game_output_queue.put({
+                                    'type': 'narration',
+                                    'content': dm_line,
+                                    'timestamp': datetime.now().isoformat()
+                                })
+                        self.in_dm_section = False
+                        self.dm_buffer = []
+                        # Send this line to debug
+                        debug_output_queue.put({
+                            'type': 'debug',
                             'content': clean_line,
-                            'timestamp': datetime.now().isoformat()
+                            'timestamp': datetime.now().isoformat(),
+                            'is_error': self.is_error or 'ERROR:' in clean_line
                         })
                     else:
-                        # Everything else goes to debug
+                        # Still in DM section - add to buffer
+                        self.dm_buffer.append(clean_line)
+                else:
+                    # Not in DM section - send to debug
+                    if line.strip():  # Only send non-empty lines
                         debug_output_queue.put({
                             'type': 'debug',
                             'content': clean_line,
@@ -81,6 +106,17 @@ class WebOutputCapture:
         return ansi_escape.sub('', text)
     
     def flush(self):
+        # If we're in a DM section, flush it
+        if self.in_dm_section and self.dm_buffer:
+            for dm_line in self.dm_buffer:
+                game_output_queue.put({
+                    'type': 'narration',
+                    'content': dm_line,
+                    'timestamp': datetime.now().isoformat()
+                })
+            self.in_dm_section = False
+            self.dm_buffer = []
+        
         if self.buffer:
             self.write('\n')
         self.original_stream.flush()
