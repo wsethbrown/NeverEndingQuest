@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2025-01-17
 
+### Fixed
+- Web interface output routing to properly separate game narration and debug information
+- Only "Dungeon Master:" messages appear in the game output panel
+- All other output (DEBUG, ERROR, system messages, etc.) now goes to the debug panel
+
+## [0.1.0] - 2025-01-17
+
 ### Added
 - New `generate_prerolls.py` module that pre-generates dice rolls for all combat actions, preventing the LLM from deciding roll outcomes
 - Explicit character type labeling in combat (PLAYER, NPC, ENEMY) for clearer differentiation

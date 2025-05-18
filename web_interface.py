@@ -52,30 +52,25 @@ class WebOutputCapture:
             # Process all complete lines
             for line in lines[:-1]:
                 if line.strip():
-                    # Route to appropriate queue based on content
-                    if any(keyword in line for keyword in ['DEBUG:', 'ERROR:', 'WARNING:']):
-                        self.queue.put({
-                            'type': 'debug',
-                            'content': line,
-                            'timestamp': datetime.now().isoformat(),
-                            'is_error': self.is_error or 'ERROR:' in line
+                    # Clean the line of ANSI codes for checking content
+                    clean_line = self.strip_ansi_codes(line)
+                    
+                    # Check if this is Dungeon Master narration
+                    if "Dungeon Master:" in clean_line:
+                        # This is game narration - send to game output
+                        game_output_queue.put({
+                            'type': 'narration',
+                            'content': clean_line,
+                            'timestamp': datetime.now().isoformat()
                         })
                     else:
-                        # Check for colored output (DM narration)
-                        if '\033[' in line:  # ANSI escape code
-                            # Strip ANSI codes for web display
-                            clean_line = self.strip_ansi_codes(line)
-                            game_output_queue.put({
-                                'type': 'narration',
-                                'content': clean_line,
-                                'timestamp': datetime.now().isoformat()
-                            })
-                        else:
-                            game_output_queue.put({
-                                'type': 'game',
-                                'content': line,
-                                'timestamp': datetime.now().isoformat()
-                            })
+                        # Everything else goes to debug
+                        debug_output_queue.put({
+                            'type': 'debug',
+                            'content': clean_line,
+                            'timestamp': datetime.now().isoformat(),
+                            'is_error': self.is_error or 'ERROR:' in clean_line
+                        })
             # Keep the incomplete line in buffer
             self.buffer = lines[-1]
     
@@ -145,8 +140,8 @@ def handle_start_game():
         emit('error', {'message': 'Game is already running'})
         return
     
-    # Set up output capture
-    sys.stdout = WebOutputCapture(game_output_queue, original_stdout)
+    # Set up output capture - both go to debug by default, filtering happens in write()
+    sys.stdout = WebOutputCapture(debug_output_queue, original_stdout)
     sys.stderr = WebOutputCapture(debug_output_queue, original_stderr, is_error=True)
     sys.stdin = WebInput(user_input_queue)
     
