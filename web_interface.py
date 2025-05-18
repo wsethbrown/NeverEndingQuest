@@ -56,8 +56,16 @@ class WebOutputCapture:
                 # Clean the line of ANSI codes for checking content
                 clean_line = self.strip_ansi_codes(line)
                 
+                # Check if this is a player status/prompt line
+                if clean_line.startswith('[') and ('HP:' in clean_line or 'XP:' in clean_line):
+                    # This is a player prompt - send to debug
+                    debug_output_queue.put({
+                        'type': 'debug',
+                        'content': clean_line,
+                        'timestamp': datetime.now().isoformat()
+                    })
                 # Check if this starts a Dungeon Master section
-                if "Dungeon Master:" in clean_line:
+                elif "Dungeon Master:" in clean_line:
                     # Start capturing DM content
                     self.in_dm_section = True
                     self.dm_buffer = [clean_line]
@@ -66,7 +74,9 @@ class WebOutputCapture:
                     if line.strip() == "":
                         # Empty line - still part of DM section, add to buffer
                         self.dm_buffer.append("")
-                    elif any(marker in clean_line for marker in ['DEBUG:', 'ERROR:', 'WARNING:', '[', '>', 'HP:', 'XP:']) or clean_line.endswith(':'):
+                    elif any(marker in clean_line for marker in ['DEBUG:', 'ERROR:', 'WARNING:']) or \
+                         clean_line.startswith('[') and ('HP:' in clean_line or 'XP:' in clean_line) or \
+                         clean_line.startswith('>'):
                         # This ends the DM section - send accumulated DM content
                         if self.dm_buffer:
                             for dm_line in self.dm_buffer:

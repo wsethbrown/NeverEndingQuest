@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Web interface output routing to properly separate game narration and debug information
 - Only "Dungeon Master:" messages appear in the game output panel
 - All other output (DEBUG, ERROR, system messages, etc.) now goes to the debug panel
+- Fixed issue where DM dialogue containing quotes or colons was incorrectly split between panels
+- Improved detection of player status lines vs. DM content to prevent incorrect panel routing
 
 ## [0.1.0] - 2025-01-17
 
