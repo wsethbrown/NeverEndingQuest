@@ -1,84 +1,70 @@
 {
-  "name": "Hidden Entrance to Dwarven Complex",
-  "type": "Secret Doorway",
-  "description": "A well-hidden doorway carved into the rock, adorned with ancient dwarven runes. Signs of a fierce battle are evident: scorch marks on the walls, broken weapons, and dried bloodstains. The entrance shows multiple attempts at forced entry, with deep gouges in the stone and shattered mining equipment scattered about. The figure of a larger than life dwarven soldier is carved intricately in the stone wall. A recently deceased corpse, no more than 2 weeks aged, lies near the door, its rotting fingers still clutching a worn journal.",
-  "dmInstructions": "The part would be unaware of the stone guardian unless they make a skill check to investigate the statue in the wall. If the party attempts to break down the door or perform a lock pick then a stone guardian is automatically triggered. If the party has a dwarf in its company, the party has one attempt to perform a skill check to convince the guardian to allow them to provide the password. If unsuccessful, the stone guardian automatically becomes hostile. Otherwise, if the party successfully solves the puzzle, the stone guardian appears from inside the wall and directs the party to provide the password or leave else they face certain death.",
-  "locationId": "R14",
-  "coordinates": "X1Y6",
-  "lighting": "Dark",
-  "accessibility": "Accessible via the Hidden Passage; requires solving a puzzle to open.",
-  "encounterRate": "High",
-  "commonCreatures": [],
+  "locationId": "R01",
+  "name": "Witchlight Trailhead",
+  "type": "trail",
+  "description": "The narrow path leading from Harrow's Hollow into the Gloamwood is marked by weathered stone pillars inscribed with faded warnings. Pale blue lights\u2014part natural phosphorescence, part otherworldly illumination\u2014drift along the trail. The air is thick with mist and the smell of damp earth and decay. Small offerings\u2014coins, trinkets, and dried flowers\u2014have been placed at the base of the markers by superstitious villagers seeking safe passage.",
+  "coordinates": "X2Y1",
+  "connectivity": [
+    "R02",
+    "R03"
+  ],
+  "areaConnectivity": [
+    "Harrow's Hollow East Gate"
+  ],
+  "areaConnectivityId": [
+    "HH001"
+  ],
   "npcs": [],
   "monsters": [
     {
-      "name": "Stone Guardian",
-      "quantity": {
-        "min": 1,
-        "max": 1
-      }
+      "name": "Shadow",
+      "number": 3,
+      "disposition": "hostile",
+      "strategy": "These shadows lurk near the trailhead, attacking anyone who lingers too long after sunset. They attempt to separate weaker party members, focusing attacks on one target at a time."
     }
-  ],
-  "resourcesAvailable": [],
-  "weatherConditions": "N/A",
-  "plotHooks": [
-    "The dwarven runes hold clues about the complex beyond.",
-    "The corpse's journal contains vital information about the entrance puzzle. If the party knows of the password provided by the miner then the journal confirms as much but that the corpse must have gotten it wrong. If the party has discovered the three possible words from the library, then this journal either narrows the word down to two or one depending on how many other clues have been found.",
-    "Signs of failed forced entry indicate the importance of solving the puzzle correctly."
   ],
   "lootTable": [
-    "Worn journal with partial puzzle solution",
-    "Ancient dwarven coin",
-    "Broken lockpicking tools"
+    "Silver pendant (protection charm, 5 gp value)",
+    "Broken lantern (once belonged to a lost traveler)",
+    "Small leather pouch with 3d6 sp scattered among the offerings",
+    "Half-burned map showing part of the forest trail"
   ],
-  "dangerLevel": "High",
-  "connectivity": [
-    "Hidden Passage",
-    "Waterlogged Tunnels"
+  "plotHooks": [
+    "An inscription on one of the markers reads: 'Walk with light, for shadows hunger in the wood.'",
+    "Fresh footprints indicate someone recently entered the forest, possibly Scout Elen.",
+    "A tattered journal page pinned to a tree describes hearing 'whispers that know your name' deeper in the woods."
   ],
-  "areaConnectivity": [
-    "Grand Entrance Hall"
-  ],
-  "areaConnectivityId": [
-    "DS001"
-  ],
+  "dmInstructions": "This location serves as the transition from Harrow's Hollow to the Gloamwood. As night falls, the shadows become active (if the party hasn't moved on). A DC 12 Perception check reveals fresh bootprints matching Scout Elen's description (small, with a distinctive star pattern on the heel). Players who make offerings at the markers gain advantage on their first saving throw in the forest.",
+  "doors": [],
   "traps": [],
+  "dcChecks": [
+    "Perception DC 12: Notice fresh bootprints and signs of recent passage, likely Scout Elen's.",
+    "Religion DC 14: Recognize the markers as ancient wards against spirits, now weakened.",
+    "Survival DC 13: Identify which path shows signs of Scout Elen's passage."
+  ],
+  "lighting": "Dim (day), Dark (night)",
+  "accessibility": "Narrow trail with occasional rough terrain; reasonable for most travelers.",
+  "dangerLevel": "Medium",
   "features": [
     {
-      "name": "Dwarven Runes",
-      "description": "Ancient runes that glow faintly when approached, forming part of the door's locking mechanism."
+      "name": "Warning Markers",
+      "description": "Stone pillars carved with protective runes and symbols, now weathered and cracked."
     },
     {
-      "name": "Circular Stone Door",
-      "description": "A massive stone door with five concentric rings, each engraved with dwarven runes. The rings can be rotated to form different combinations."
+      "name": "Witchlights",
+      "description": "Soft blue-green lights that hover just above the path, providing minimal illumination."
     },
     {
-      "name": "Battle Aftermath",
-      "description": "Signs of a fierce battle, including scorch marks, broken weapons, and dried bloodstains."
-    },
-    {
-      "name": "Rotting Corpse",
-      "description": "Upon searching the body, the party will discover the deceased was a member of the Ember Enclave."
+      "name": "Offering Shrine",
+      "description": "A small alcove in the central marker where travelers leave offerings for safe passage."
     }
   ],
-  "dcChecks": [
-    "Investigation DC 15: Piece together the events of the battle from the surrounding evidence.",
-    "History DC 14: Recognize the significance of the dwarven runes and their role in the locking mechanism.",
-    "Perception DC 16: Notice subtle clues in the carvings that hint at the correct sequence for solving the puzzle."
-  ],
-  "encounters": [],
-  "adventureSummary": "",
-  "doors": [
+  "encounters": [
     {
-      "name": "Hidden Dwarven Door",
-      "description": "A circular stone door concealed within the rock face, featuring five rotatable rings with dwarven runes.",
-      "type": "Stone",
-      "locked": true,
-      "lockDC": 25,
-      "breakDC": 30,
-      "keyname": "Correct Rune Sequence and Spoken Word",
-      "trapped": true,
-      "trap": "Stone Guardian Summoning"
+      "encounterId": "G001-R01-E1",
+      "summary": "As travelers enter the Gloamwood, the mist thickens and the ambient sounds of the forest\u2014birds, insects, rustling leaves\u2014gradually fade to an unnatural silence. Players who linger after dark encounter shadows that seem to peel away from the trees, attacking without warning.",
+      "impact": "Establishes the supernatural danger of the forest and creates urgency to reach shelter before nightfall. Success means understanding the forest's dangers; failure could result in injury or worse before the adventure properly begins."
     }
-  ]
+  ],
+  "adventureSummary": "The party approached the foreboding entrance to Gloamwood Forest, marked by ancient stone pillars covered with faded warnings and modest offerings from superstitious villagers. Pale blue witchlights drifted eerily along the path ahead, illuminating the thick mist that hung between twisted trees. A careful examination of the trail revealed fresh bootprints matching the description of Scout Elen's distinctive boots, confirming she had indeed ventured this way recently. As daylight began to wane, they noted the unnatural silence of the forest\u2014no birds called, no insects chirped\u2014creating an atmosphere of mounting dread. Deciding not to linger until nightfall when shadows were known to hunt, the party pressed onward, following the trail deeper into the misty woods toward either the Abandoned Ranger Outpost to the east or The Withered Shrine to the west."
 }

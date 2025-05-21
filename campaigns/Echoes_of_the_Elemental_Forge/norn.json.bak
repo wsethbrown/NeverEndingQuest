@@ -67,16 +67,16 @@
   "specialAbilities": [],
   "classFeatures": [
     {
-      "name": "Fighting Style: Defense",
-      "description": "+1 to AC when wearing armor"
-    },
-    {
       "name": "Second Wind",
-      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action"
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (restored)"
     },
     {
       "name": "Action Surge",
-      "description": "Once per short rest, take one additional action on your turn"
+      "description": "Once per short rest, take one additional action on your turn (restored)"
+    },
+    {
+      "name": "Fighting Style: Defense",
+      "description": "+1 to AC when wearing armor"
     },
     {
       "name": "Improved Critical",
@@ -88,6 +88,12 @@
       "item_name": "Worn Journal",
       "item_type": "miscellaneous",
       "description": "Contains important information regarding the Elemental Forge and potential clues for the lock's puzzle.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Worn Journal with partial puzzle solution",
+      "item_type": "miscellaneous",
+      "description": "Contains partial solution clues for the dwarven door puzzle at the hidden entrance.",
       "quantity": 1
     }
   ],
@@ -158,7 +164,7 @@
     "silver": 0,
     "copper": 5
   },
-  "experience_points": 4521,
+  "experience_points": 4546,
   "exp_required_for_next_level": 6500,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",

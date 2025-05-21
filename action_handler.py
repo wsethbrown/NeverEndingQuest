@@ -105,9 +105,10 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 dialogue_summary, updated_player_info = run_combat_simulation(encounter_id, party_tracker_data, reloaded_location_data)
 
 
-                player_name = next((member.lower() for member in party_tracker_data["partyMembers"]), None)
+                player_name = next((member for member in party_tracker_data["partyMembers"]), None)
                 if player_name and updated_player_info is not None:
-                    player_file = f"{player_name}.json"
+                    path_manager = CampaignPathManager()
+                    player_file = path_manager.get_player_path(player_name)
                     with open(player_file, "w") as file:
                         json.dump(updated_player_info, file, indent=2)
                     print(f"DEBUG: Updated player file for {player_name}")
@@ -165,8 +166,20 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         current_location_name = party_tracker_data["worldConditions"]["currentLocation"]
         current_area_name = party_tracker_data["worldConditions"]["currentArea"]
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
-        print(f"DEBUG: Transitioning from {current_location_name} to {new_location_name_or_id}")
-        transition_prompt = location_manager.handle_location_transition(current_location_name, new_location_name_or_id, current_area_name, current_area_id, area_connectivity_id)
+        
+        # Debug the exact string values for easier troubleshooting
+        print(f"DEBUG: Transitioning from '{current_location_name}' to '{new_location_name_or_id}'")
+        print(f"DEBUG: Current location string (hex): {current_location_name.encode('utf-8').hex()}")
+        print(f"DEBUG: New location string (hex): {new_location_name_or_id.encode('utf-8').hex()}")
+        
+        # Use enhanced location manager with robust string matching
+        transition_prompt = location_manager.handle_location_transition(
+            current_location_name, 
+            new_location_name_or_id, 
+            current_area_name, 
+            current_area_id, 
+            area_connectivity_id
+        )
 
         if transition_prompt:
             conversation_history.append({"role": "user", "content": f"Location transition: {current_location_name} to {new_location_name_or_id}"}) # Use the provided name/ID

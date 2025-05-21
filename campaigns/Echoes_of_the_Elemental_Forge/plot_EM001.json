@@ -7,11 +7,7 @@
       "title": "Entering the Mines",
       "description": "The party arrives at the Entrance Tunnel (R1) and begins their exploration of the old mines. They encounter Old Miner Gregor, who warns them about recent strange activities.",
       "location": "R1",
-      "nextPoints": [
-        "PP002",
-        "PP003",
-        "PP015"
-      ],
+      "nextPoints": ["PP002", "PP003", "PP015"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": [
@@ -19,9 +15,7 @@
           "id": "SQ001",
           "title": "Recover Lost Equipment",
           "description": "Old Miner Gregor asks the party to find his lost tools in the Equipment Storage (R6).",
-          "involvedLocations": [
-            "R6"
-          ],
+          "involvedLocations": ["R6"],
           "status": "not started",
           "plotImpact": ""
         }
@@ -32,10 +26,7 @@
       "title": "Exploring the Abandoned Office",
       "description": "In the Abandoned Mining Office (R2), the party finds old maps and notes hinting at hidden passages and the existence of a dwarven artifact.",
       "location": "R2",
-      "nextPoints": [
-        "PP003",
-        "PP016"
-      ],
+      "nextPoints": ["PP003", "PP016"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -45,10 +36,7 @@
       "title": "Facing the Collapsed Passage",
       "description": "At the Collapsed Passage (R3), the party must navigate unstable terrain or find an alternative route. They discover signs of recent excavation.",
       "location": "R3",
-      "nextPoints": [
-        "PP004",
-        "PP008"
-      ],
+      "nextPoints": ["PP004", "PP008"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -58,9 +46,7 @@
       "title": "Surviving the Gas Pocket Chamber",
       "description": "The Gas Pocket Chamber (R4) poses environmental hazards that the party must overcome. They find evidence of dwarven mining techniques.",
       "location": "R4",
-      "nextPoints": [
-        "PP005"
-      ],
+      "nextPoints": ["PP005"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -70,9 +56,7 @@
       "title": "Confronting the Fire Beetle Nest",
       "description": "The party encounters a nest of Fire Beetles in R5 and must deal with them to proceed. They discover that the beetles are drawn to a strange energy source.",
       "location": "R5",
-      "nextPoints": [
-        "PP006"
-      ],
+      "nextPoints": ["PP006"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -82,9 +66,7 @@
       "title": "Finding Useful Supplies",
       "description": "In the Equipment Storage (R6), the party finds useful gear and clues about the Ember Enclave's activities in the mine.",
       "location": "R6",
-      "nextPoints": [
-        "PP007"
-      ],
+      "nextPoints": ["PP007"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -94,10 +76,7 @@
       "title": "Discovering the Hidden Passage",
       "description": "The party uncovers a Hidden Passage (R7) leading closer to their goal. They find ancient dwarven runes that hint at the stronghold's defenses.",
       "location": "R7",
-      "nextPoints": [
-        "PP014",
-        "PP017"
-      ],
+      "nextPoints": ["PP014", "PP017"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -107,10 +86,7 @@
       "title": "Crossing the Underground Stream",
       "description": "At the Underground Stream (R8), the party must find a way across or follow it to new areas. They notice the water has unusual magical properties.",
       "location": "R8",
-      "nextPoints": [
-        "PP009",
-        "PP018"
-      ],
+      "nextPoints": ["PP009", "PP018"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -120,9 +96,7 @@
       "title": "Navigating the Ore Processing Room",
       "description": "In the Ore Processing Room (R9), the party discovers signs of recent activity and clues about the Ember Enclave's mining operations.",
       "location": "R9",
-      "nextPoints": [
-        "PP010"
-      ],
+      "nextPoints": ["PP010"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -132,10 +106,7 @@
       "title": "Encounter with Ember Enclave Guards",
       "description": "At the Guard Post (R10), the party confronts members of the Ember Enclave. They learn about the Enclave's search for an ancient dwarven artifact.",
       "location": "R10",
-      "nextPoints": [
-        "PP011",
-        "PP019"
-      ],
+      "nextPoints": ["PP011", "PP019"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -145,9 +116,7 @@
       "title": "Exploring the Crystal Cavern",
       "description": "In the Crystal Cavern (R11), the party discovers valuable crystals and hidden messages left by the dwarves. They learn about the true nature of the artifact.",
       "location": "R11",
-      "nextPoints": [
-        "PP012"
-      ],
+      "nextPoints": ["PP012"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": [
@@ -155,9 +124,7 @@
           "id": "SQ002",
           "title": "Collect Rare Crystals",
           "description": "An alchemist's note requests the retrieval of specific crystals from this cavern for a powerful potion.",
-          "involvedLocations": [
-            "R11"
-          ],
+          "involvedLocations": ["R11"],
           "status": "not started",
           "plotImpact": ""
         }
@@ -168,10 +135,7 @@
       "title": "Traversing the Abandoned Shaft",
       "description": "The Abandoned Shaft (R12) presents challenges in navigation and safety. The party finds evidence of a hasty evacuation by the dwarves.",
       "location": "R12",
-      "nextPoints": [
-        "PP013",
-        "PP020"
-      ],
+      "nextPoints": ["PP013", "PP020"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -181,9 +145,7 @@
       "title": "Dealing with Waterlogged Tunnels",
       "description": "In the Waterlogged Tunnels (R13), the party must manage flooding and aquatic creatures. They discover a partial map to the dwarven stronghold.",
       "location": "R13",
-      "nextPoints": [
-        "PP014"
-      ],
+      "nextPoints": ["PP014"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -191,11 +153,11 @@
     {
       "id": "PP014",
       "title": "Reaching the Hidden Entrance",
-      "description": "The party reaches the Hidden Entrance to the Dwarven Complex (R14), completing their main objective in the mines. To gain entry, they must solve an ancient dwarven puzzle lock. The puzzle consists of a circular stone door with five concentric rings, each engraved with dwarven runes. The party must rotate these rings to align specific runes, creating a code based on clues found throughout their journey. Once the correct sequence is set, they will be confronted by a stone guradian and must speak the dwarven phrase 'Khazad-d\u00c3\u00bbm' to to deactivate the stone guardian and open the door.",
+      "description": "The party reaches the Hidden Entrance to the Dwarven Complex (R14), completing their main objective in the mines. To gain entry, they must solve an ancient dwarven puzzle lock. The puzzle consists of a circular stone door with five concentric rings, each engraved with dwarven runes. The party must rotate these rings to align specific runes, creating a code based on clues found throughout their journey. Once the correct sequence is set, they will be confronted by a stone guradian and must speak the dwarven phrase 'Khazad-dûm' to to deactivate the stone guardian and open the door.",
       "location": "R14",
       "nextPoints": [],
-      "status": "in progress",
-      "plotImpact": "The party has reached the Hidden Entrance to the Dwarven Complex and now faces the ancient dwarven puzzle door, signs of failed forced entry, and a mysterious dwarven guardian. Clues and dangers are present at every turn.",
+      "status": "not started",
+      "plotImpact": "",
       "sideQuests": []
     },
     {
@@ -203,10 +165,7 @@
       "title": "Revelation at the Ancient Shrine",
       "description": "In the Ancient Dwarven Shrine (R15), the party experiences visions of the stronghold's history and learns about the artifact's significance.",
       "location": "R15",
-      "nextPoints": [
-        "PP002",
-        "PP016"
-      ],
+      "nextPoints": ["PP002", "PP016"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -216,10 +175,7 @@
       "title": "Secrets in the Forgotten Library",
       "description": "The Forgotten Library (R16) contains ancient texts that reveal the true purpose of the mines and the danger the artifact poses if misused.",
       "location": "R16",
-      "nextPoints": [
-        "PP002",
-        "PP017"
-      ],
+      "nextPoints": ["PP002", "PP017"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -229,9 +185,7 @@
       "title": "Trial of the Enchanted Forge",
       "description": "At the Enchanted Forge (R17), the party faces a dwarven trial, testing their worthiness to enter the stronghold.",
       "location": "R17",
-      "nextPoints": [
-        "PP007"
-      ],
+      "nextPoints": ["PP007"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -241,10 +195,7 @@
       "title": "Discovery in the Subterranean Garden",
       "description": "The Subterranean Garden (R18) houses rare plants and a hidden dwarven laboratory, providing insight into dwarven alchemy and the artifact's creation.",
       "location": "R18",
-      "nextPoints": [
-        "PP009",
-        "PP019"
-      ],
+      "nextPoints": ["PP009", "PP019"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -254,9 +205,7 @@
       "title": "Infiltrating the War Room",
       "description": "In the Ember Enclave War Room (R19), the party uncovers the full extent of the Enclave's plans and their misunderstanding of the artifact's power.",
       "location": "R19",
-      "nextPoints": [
-        "PP010"
-      ],
+      "nextPoints": ["PP010"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []
@@ -266,9 +215,7 @@
       "title": "Unlocking the Time-Locked Vault",
       "description": "The party must solve a complex puzzle to unlock the Time-Locked Vault (R20), which contains a crucial component of the artifact needed to safely enter the stronghold.",
       "location": "R20",
-      "nextPoints": [
-        "PP013"
-      ],
+      "nextPoints": ["PP013"],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []

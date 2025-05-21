@@ -1,4 +1,5 @@
 import json
+from campaign_path_manager import CampaignPathManager
 
 def compress_json_data(data):
     """Compress JSON data by removing unnecessary whitespace."""
@@ -64,7 +65,8 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
 
     # Insert map data
     if current_area_id:
-        map_file = f"map_{current_area_id}.json"
+        path_manager = CampaignPathManager()
+        map_file = path_manager.get_map_path(current_area_id)
         map_data = load_json_data(map_file)
         if map_data:
             map_message = "Here's the current map data:\n"
@@ -73,7 +75,8 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
 
     # Load the area-specific JSON file
     if current_area_id:
-        area_file = f"{current_area_id}.json"
+        path_manager = CampaignPathManager()
+        area_file = path_manager.get_area_path(current_area_id)
         try:
             with open(area_file, 'r') as file:
                 location_data = json.load(file)
@@ -129,11 +132,12 @@ def update_character_data(conversation_history, party_tracker_data):
 
     if party_tracker_data:
         character_data = []
+        path_manager = CampaignPathManager()
         
         # Process player characters
         for member in party_tracker_data["partyMembers"]:
             name = member.lower()
-            member_file = f"{name}.json"
+            member_file = path_manager.get_player_path(member)
             try:
                 with open(member_file, "r") as file:
                     member_data = json.load(file)
@@ -189,8 +193,8 @@ FLAWS: {member_data['flaws']}
         
         # Process NPCs
         for npc in party_tracker_data.get("partyNPCs", []):
-            npc_name = npc['name'].lower().replace(' ', '_')
-            npc_file = f"{npc_name}.json"
+            npc_name = npc['name']
+            npc_file = path_manager.get_npc_path(npc_name)
             try:
                 with open(npc_file, "r") as file:
                     npc_data = json.load(file)

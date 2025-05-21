@@ -101,46 +101,28 @@
   ],
   "equipment": [
     {
-      "item_name": "Longbow",
-      "item_type": "weapon",
-      "description": "Range 150/600 ft.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Shortsword",
-      "item_type": "weapon",
-      "description": "Finesse, light",
-      "quantity": 1
-    },
-    {
-      "item_name": "Leather Armor",
-      "item_type": "armor",
-      "description": "Light armor",
-      "quantity": 1
-    },
-    {
-      "item_name": "Explorer's Pack",
+      "item_name": "Worn Journal with partial puzzle solution",
       "item_type": "miscellaneous",
-      "description": "Includes a backpack, a bedroll, a mess kit, a tinderbox, 10 torches, 10 days of rations, and a waterskin",
+      "description": "A worn journal containing clues to the dwarven puzzle lock.",
       "quantity": 1
     },
     {
-      "item_name": "Rope, hempen (50 feet)",
+      "item_name": "Ancient Dwarven Coin",
       "item_type": "miscellaneous",
-      "description": "Strong rope useful for climbing or binding",
-      "quantity": 1
+      "description": "A coin from an ancient dwarven civilization.",
+      "quantity": 5
     },
     {
-      "item_name": "Engraved Dagger",
-      "item_type": "weapon",
-      "description": "A finely crafted dagger with engravings",
+      "item_name": "Broken Lockpicking Tools",
+      "item_type": "miscellaneous",
+      "description": "Damaged tools once used for lockpicking.",
       "quantity": 1
     }
   ],
   "ammunition": [
     {
       "name": "Arrows",
-      "quantity": 35,
+      "quantity": 34,
       "description": "Ammunition for longbow"
     }
   ],
@@ -149,7 +131,7 @@
   "ideals": "Change is inevitable, but it's important to shape it rather than be swept away by it.",
   "bonds": "I will do anything to protect the wilderness, even if it means isolating myself from those I care about.",
   "flaws": "Elara has a deep fear of abandonment, which makes her emotionally distant, and she often pushes away those who get too close. She also tends to overthink, which causes her to hesitate at critical moments.",
-  "experience_points": 3260,
+  "experience_points": 3310,
   "exp_required_for_next_level": 3900,
   "currency": {
     "gold": 28,
@@ -179,6 +161,9 @@
         "Cure Wounds",
         "Hunter's Mark"
       ]
+    },
+    "spellSlots": {
+      "level1": 3
     }
   },
   "classFeatures": [

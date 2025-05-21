@@ -27,15 +27,18 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
     with open("party_tracker.json", "r") as file:
         party_tracker = json.load(file)
 
-    # Ensure plot_filename is correctly constructed if it's just an ID
-    # Assuming plot_filename is already the full path like "plot_EM001.json"
-    # If it might just be an ID, you'd need logic like:
-    # area_id_from_filename = plot_filename.replace("plot_", "").replace(".json", "")
-    # actual_plot_file = f"plot_{area_id_from_filename}.json"
-    # For now, assume plot_filename is correct as passed.
+    # Use CampaignPathManager to get correct path
+    path_manager = CampaignPathManager()
+    if "/" in plot_filename:
+        # If it's already a full path, use it
+        plot_file_path = plot_filename
+    else:
+        # Extract area ID from filename and get proper path
+        area_id = plot_filename.replace("plot_", "").replace(".json", "")
+        plot_file_path = path_manager.get_plot_path(area_id)
 
     try:
-        with open(plot_filename, "r") as file: # Use the provided plot_filename
+        with open(plot_file_path, "r") as file:
             plot_info = json.load(file)
     except FileNotFoundError:
         print(f"{RED}ERROR: Plot file {plot_filename} not found in update_party_tracker.{RESET}")

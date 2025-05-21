@@ -1,8 +1,6 @@
 import json
 import subprocess
 import os
-import unicodedata
-import re
 from campaign_path_manager import CampaignPathManager
 
 def load_json_file(file_path):
@@ -25,26 +23,12 @@ def load_json_file(file_path):
         print(f"DEBUG: Unable to decode {file_path} using UTF-8 encoding.")
         return None
 
-def normalize_string(s):
-    """Simple string normalization for fallback comparison"""
-    if not s:
-        return ""
-    s = unicodedata.normalize('NFC', s)
-    s = s.lower().strip()
-    return s
-
 def get_location_info(location_name, current_area, current_area_id):
-    """Get location information based on ID first, then name"""
+    """Get location information based on name and area"""
     path_manager = CampaignPathManager()
     area_file = path_manager.get_area_path(current_area_id)
     area_data = load_json_file(area_file)
     if area_data and "locations" in area_data:
-        # First try to find by locationId (most reliable)
-        for location in area_data["locations"]:
-            if location["locationId"] == location_name:
-                return location
-                
-        # Then try exact name matching
         for location in area_data["locations"]:
             if location["name"] == location_name:
                 return location
@@ -81,7 +65,7 @@ def update_world_conditions(current_conditions, new_location, current_area, curr
             "month": current_conditions["month"],
             "day": current_conditions["day"],
             "time": new_time,
-            "weather": location_info.get("weatherConditions", ""), 
+            "weather": location_info.get("weatherConditions", ""), # Ensure consistent naming
             "season": current_conditions["season"],
             "dayNightCycle": "Day" if 6 <= int(new_time[:2]) < 18 else "Night",
             "moonPhase": current_conditions["moonPhase"],
@@ -98,146 +82,125 @@ def update_world_conditions(current_conditions, new_location, current_area, curr
         return current_conditions
 
 def handle_location_transition(current_location, new_location, current_area, current_area_id, area_connectivity_id=None):
-    """Handle transition between locations, prioritizing ID matching"""
+    """Handle transition between locations, potentially across areas"""
     print(f"DEBUG: Handling location transition from '{current_location}' to '{new_location}'")
     print(f"DEBUG: Current area: '{current_area}', Current area ID: '{current_area_id}'")
+    print(f"DEBUG: Area Connectivity ID provided: '{area_connectivity_id}'")
 
     party_tracker = load_json_file("party_tracker.json")
     if party_tracker:
+        print("DEBUG: Successfully loaded party_tracker.json")
+
         path_manager = CampaignPathManager()
         current_area_file = path_manager.get_area_path(current_area_id)
+        print(f"DEBUG: Searching for current location in file: {current_area_file}")
         current_area_data = load_json_file(current_area_file)
 
         if current_area_data and "locations" in current_area_data:
-            # Find current location info 
-            current_location_info = None
-            for loc in current_area_data["locations"]:
-                if loc["name"] == current_location or loc["locationId"] == current_location:
-                    current_location_info = loc
-                    break
-                    
-            if current_location_info:
-                print(f"DEBUG: Current location identified: {current_location_info['name']} (ID: {current_location_info['locationId']})")
-            else:
-                print(f"ERROR: Current location '{current_location}' not found in area data")
-                return None
+            current_location_info = next((loc for loc in current_area_data["locations"] if loc["name"] == current_location), None)
+            print(f"DEBUG: Current location info: {current_location_info}")
         else:
-            print(f"ERROR: Failed to load current area data from {current_area_file}")
+            print(f"ERROR: Failed to load current area data or 'locations' not found in {current_area_file}")
             return None
 
-        new_location_info = None
-        new_area_data = None
+        new_location_info = None # Initialize to handle cases where it might not be set
+        new_area_data = None # Initialize
 
         if area_connectivity_id:
-            # Handle transition to a new area
+            print(f"DEBUG: Transitioning to new area with ID: {area_connectivity_id}")
             new_area_file = path_manager.get_area_path(area_connectivity_id)
             new_area_data = load_json_file(new_area_file)
             if new_area_data and "locations" in new_area_data:
-                # Priority 1: Try to match by ID
-                new_location_info = next((loc for loc in new_area_data["locations"] if loc["locationId"] == new_location), None)
-                
-                # Priority 2: Try to match by exact name
-                if not new_location_info:
-                    new_location_info = next((loc for loc in new_area_data["locations"] if loc["name"] == new_location), None)
-                    
-                # Priority 3: Check if the new_location is a connecting location ID
-                if not new_location_info and "connectivity" in current_location_info:
-                    for loc_id in current_location_info["connectivity"]:
-                        if loc_id == new_location:
-                            new_location_info = next((loc for loc in new_area_data["locations"] if loc["locationId"] == loc_id), None)
-                            break
-                
+                new_location_info = next((loc for loc in new_area_data["locations"] if loc["name"] == new_location), None)
                 if new_location_info:
-                    print(f"DEBUG: Found new location in connected area: {new_location_info['name']} (ID: {new_location_info['locationId']})")
+                    print(f"DEBUG: New location '{new_location}' found in new area {area_connectivity_id}")
                 else:
-                    print(f"ERROR: New location '{new_location}' not found in connected area {area_connectivity_id}")
-                    return None
+                    print(f"DEBUG: New location '{new_location}' not found in new area {area_connectivity_id}")
+                    # Attempt to find the location by ID if name fails, assuming new_location could be an ID
+                    new_location_info = next((loc for loc in new_area_data["locations"] if loc["locationId"] == new_location), None)
+                    if new_location_info:
+                         print(f"DEBUG: New location with ID '{new_location}' found in new area {area_connectivity_id}")
+                    else:
+                        print(f"DEBUG: New location with ID '{new_location}' also not found in new area {area_connectivity_id}")
+                        return None # Location not found in new area
             else:
-                print(f"ERROR: Failed to load new area data from {new_area_file}")
+                print(f"DEBUG: Failed to load new area data or 'locations' not found in {new_area_file}")
                 return None
-        else:
-            # Transition within the same area
+        else: # Transition within the same area
+            print(f"DEBUG: Searching for location with name '{new_location}' in current area")
+            # Print exact match condition for debugging
+            for loc in current_area_data["locations"]:
+                exact_match = loc['name'] == new_location
+                # Add fuzzy matching capability - check if target is a substring or has similar name
+                contains_match = new_location in loc['name'] or loc['name'] in new_location
+                print(f"DEBUG: Comparing location name '{loc['name']}' with target '{new_location}' - Exact Match: {exact_match}, Contains Match: {contains_match}")
             
-            # Priority 1: Check if new_location is a location ID directly
-            new_location_info = next((loc for loc in current_area_data["locations"] if loc["locationId"] == new_location), None)
-            if new_location_info:
-                print(f"DEBUG: Found new location by ID: {new_location_info['name']} (ID: {new_location_info['locationId']})")
+            # Try exact match first
+            new_location_info = next((loc for loc in current_area_data["locations"] if loc["name"] == new_location), None)
             
-            # Priority 2: Look for exact name match
+            # If exact match fails, try substring matching
             if not new_location_info:
-                new_location_info = next((loc for loc in current_area_data["locations"] if loc["name"] == new_location), None)
+                print(f"DEBUG: Exact match failed, trying fuzzy/substring matching")
+                new_location_info = next((loc for loc in current_area_data["locations"] 
+                                        if new_location in loc["name"] or loc["name"] in new_location), None)
                 if new_location_info:
-                    print(f"DEBUG: Found new location by exact name: {new_location_info['name']} (ID: {new_location_info['locationId']})")
-            
-            # Priority 3: Check if new_location matches a connecting location ID
-            if not new_location_info and "connectivity" in current_location_info:
-                connecting_ids = current_location_info["connectivity"]
-                print(f"DEBUG: Checking against connecting location IDs: {connecting_ids}")
+                    print(f"DEBUG: Found substring match: '{new_location_info['name']}'")
+            if not new_location_info:
+                print(f"DEBUG: Name search failed, searching for location with ID '{new_location}' in current area")
+                # Attempt to find the location by ID if name fails
+                new_location_info = next((loc for loc in current_area_data["locations"] if loc["locationId"] == new_location), None)
                 
-                for loc_id in connecting_ids:
-                    connected_loc = next((loc for loc in current_area_data["locations"] if loc["locationId"] == loc_id), None)
-                    if connected_loc:
-                        # Check if the name of this connected location matches our target
-                        if normalize_string(connected_loc["name"]) == normalize_string(new_location):
-                            new_location_info = connected_loc
-                            print(f"DEBUG: Found connection to location by name match: {new_location_info['name']} (ID: {new_location_info['locationId']})")
-                            break
-                
-            # If still not found, check if the town square is in the list of connecting locations
-            if not new_location_info and "town square" in normalize_string(new_location):
-                print(f"DEBUG: Special case - looking for Town Square in connecting locations")
-                for loc_id in current_location_info.get("connectivity", []):
-                    connected_loc = next((loc for loc in current_area_data["locations"] if loc["locationId"] == loc_id), None)
-                    if connected_loc and "square" in normalize_string(connected_loc["name"]):
-                        new_location_info = connected_loc
-                        print(f"DEBUG: Found Town Square as connected location: {new_location_info['name']}")
-                        break
+                if not new_location_info:
+                    print(f"DEBUG: CRITICAL - Failed to find location with name or ID '{new_location}' in current area. Available locations:")
+                    for loc in current_area_data["locations"]:
+                        print(f"DEBUG: Available location: ID={loc['locationId']}, Name={loc['name']}")
 
-        if not new_location_info:
-            print(f"ERROR: Could not find new location '{new_location}' by any method")
-            return None
-
-        print(f"DEBUG: New location info: {new_location_info['name']} (ID: {new_location_info['locationId']})")
-    else:
-        print("ERROR: Failed to load party_tracker.json")
-        return None
+        print(f"DEBUG: New location info: {new_location_info}")
 
     if current_location_info:
-        # Update current_location.json with current location info
+        print(f"DEBUG: Attempting to update current_location.json")
         try:
             with open("current_location.json", "w") as file:
                 json.dump(current_location_info, file, indent=2)
+            print("DEBUG: Successfully updated current_location.json")
         except Exception as e:
             print(f"ERROR: Failed to update current_location.json. Error: {str(e)}")
 
-        # Run adventure summary update
         try:
+            print("DEBUG: Running adv_summary.py to update area JSON")
             result = subprocess.run(["python", "adv_summary.py", "conversation_history.json", "current_location.json", current_location, current_area_id],
                         check=True, capture_output=True, text=True)
-            print("DEBUG: Adventure summary updated successfully")
+            print("DEBUG: adv_summary.py output:", result.stdout)
+            print("DEBUG: adv_summary.py debug info:", result.stderr)
+            print("DEBUG: adv_summary.py completed successfully")
         except subprocess.CalledProcessError as e:
             print(f"ERROR: Error occurred while running adv_summary.py: {e}")
+            print("ERROR: Error output:", e.stderr)
+            print("ERROR: Standard output:", e.stdout)
 
-        # Update party tracker with new location information
         if party_tracker and new_location_info:
+            print("DEBUG: Updating party_tracker with new location information")
+            # Determine which area data to use for world conditions update
             area_for_conditions = new_area_data if area_connectivity_id and new_area_data else current_area_data
             area_id_for_conditions = area_connectivity_id if area_connectivity_id else current_area_id
             
             party_tracker["worldConditions"] = update_world_conditions(
                 party_tracker["worldConditions"],
-                new_location_info["name"],
+                new_location_info["name"], # Use name from new_location_info
                 area_for_conditions.get("areaName", current_area if not area_connectivity_id else "Unknown Area"),
                 area_id_for_conditions
             )
-            
-            # Explicitly set these values to ensure they're correct
-            party_tracker["worldConditions"]["currentLocation"] = new_location_info["name"]
-            party_tracker["worldConditions"]["currentLocationId"] = new_location_info["locationId"]
+            party_tracker["worldConditions"]["currentLocation"] = new_location_info["name"] # Ensure this uses the name
 
             if area_connectivity_id and new_area_data:
                 party_tracker["worldConditions"]["currentArea"] = new_area_data.get("areaName", "Unknown Area")
                 party_tracker["worldConditions"]["currentAreaId"] = area_connectivity_id
+            # else, currentArea and currentAreaId remain as they were if no area transition
 
+            party_tracker["worldConditions"]["currentLocationId"] = new_location_info["locationId"]
+            party_tracker["worldConditions"]["weatherConditions"] = new_location_info.get("weatherConditions", "") # Ensure consistent naming
+
+            print(f"DEBUG: Attempting to update party_tracker.json")
             try:
                 with open("party_tracker.json", "w") as file:
                     json.dump(party_tracker, file, indent=2)
@@ -247,5 +210,5 @@ def handle_location_transition(current_location, new_location, current_area, cur
 
         return f"Describe the immediate surroundings and any notable features or encounters in {new_location_info['name']}, based on its recent history and current state."
     else:
-        print(f"ERROR: Could not find information for current location: {current_location}")
+        print(f"ERROR: Could not find information for current location: {current_location} or new location: {new_location}")
         return None

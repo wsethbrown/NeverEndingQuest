@@ -1,0 +1,82 @@
+{
+  "name": "Gray Ooze",
+  "size": "Medium",
+  "type": "Ooze",
+  "alignment": "Unaligned",
+  "armorClass": 8,
+  "hitPoints": 22,
+  "maxHitPoints": 22,
+  "speed": 10,
+  "abilities": {
+    "strength": 12,
+    "dexterity": 6,
+    "constitution": 16,
+    "intelligence": 1,
+    "wisdom": 6,
+    "charisma": 2
+  },
+  "savingThrows": [],
+  "skills": {},
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [
+    "acid",
+    "cold",
+    "lightning"
+  ],
+  "conditionImmunities": [
+    "blinded",
+    "charmed",
+    "deafened",
+    "exhaustion",
+    "frightened",
+    "prone"
+  ],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 8
+  },
+  "languages": "",
+  "challengeRating": 0.5,
+  "specialAbilities": [
+    {
+      "name": "Amorphous",
+      "attackBonus": 0,
+      "damageDice": "0",
+      "damageBonus": 0,
+      "damageType": "None"
+    },
+    {
+      "name": "Corrode Metal",
+      "attackBonus": 0,
+      "damageDice": "0",
+      "damageBonus": 0,
+      "damageType": "Acid"
+    },
+    {
+      "name": "False Appearance",
+      "attackBonus": 0,
+      "damageDice": "0",
+      "damageBonus": 0,
+      "damageType": "None"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Pseudopod",
+      "attackBonus": 3,
+      "damageDice": "1d6",
+      "damageBonus": 1,
+      "damageType": "Bludgeoning"
+    },
+    {
+      "name": "Pseudopod (Acid)",
+      "attackBonus": 0,
+      "damageDice": "1d6",
+      "damageBonus": 2,
+      "damageType": "Acid"
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive"
+}

@@ -1,0 +1,94 @@
+{
+  "mapId": "MAP_SK001",
+  "mapName": "Shadowfall Keep Map",
+  "totalRooms": 7,
+  "rooms": [
+    {
+      "id": "R01",
+      "name": "Outer Courtyard",
+      "type": "courtyard",
+      "connections": [
+        "R02",
+        "R03"
+      ],
+      "coordinates": "X2Y1"
+    },
+    {
+      "id": "R02",
+      "name": "Gatehouse Ruins",
+      "type": "gatehouse",
+      "connections": [
+        "R01",
+        "R04"
+      ],
+      "coordinates": "X1Y1"
+    },
+    {
+      "id": "R03",
+      "name": "The Ruined Chapel",
+      "type": "chapel",
+      "connections": [
+        "R01",
+        "R05"
+      ],
+      "coordinates": "X3Y1"
+    },
+    {
+      "id": "R04",
+      "name": "Fallen Barracks",
+      "type": "barracks",
+      "connections": [
+        "R02",
+        "R06"
+      ],
+      "coordinates": "X1Y2"
+    },
+    {
+      "id": "R05",
+      "name": "Great Hall",
+      "type": "hall",
+      "connections": [
+        "R03",
+        "R06",
+        "R07"
+      ],
+      "coordinates": "X3Y2"
+    },
+    {
+      "id": "R06",
+      "name": "Broken Tower",
+      "type": "tower",
+      "connections": [
+        "R04",
+        "R05"
+      ],
+      "coordinates": "X2Y2"
+    },
+    {
+      "id": "R07",
+      "name": "Lord's Study",
+      "type": "study",
+      "connections": [
+        "R05"
+      ],
+      "coordinates": "X3Y3"
+    }
+  ],
+  "layout": [
+    [
+      "R02",
+      "R01",
+      "R03"
+    ],
+    [
+      "R04",
+      "R06",
+      "R05"
+    ],
+    [
+      "   ",
+      "   ",
+      "R07"
+    ]
+  ]
+}

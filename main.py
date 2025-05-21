@@ -585,7 +585,7 @@ def main_game_loop():
                 "updatePlot for story progression, discovers, and new information, "
                 "updateNPCInfo for party NPC changes, updatePartyNPCs for party composition changes to the party tracker, "
                 "levelUp for advancement, and exitGame for ending sessions. "
-                "transitionLocation should always be used when the player expresses a desire to movde to an adjacent location to their current location, "
+                "transitionLocation should always be used when the player expresses a desire to move to an adjacent location to their current location, "
                 "Always roleplay the NPC and NPC party rolls without asking the player. "
                 "Always ask the player character to roll for skill checks and other actions. "
                 "Proactively narrate location NPCs, start conversations, and weave plot elements into the adventure. "

@@ -9,11 +9,11 @@ party_tracker_file = "party_tracker.json"
 # Initialize path manager
 path_manager = CampaignPathManager()
 
-# Campaign-specific files
-original_locations_file = path_manager.get_area_path("EM001")
-backup_locations_file = f"{path_manager.campaign_dir}/EM001_BU.json"
-original_plot_file = path_manager.get_plot_path("EM001")
-backup_plot_file = f"{path_manager.campaign_dir}/plot_EM001_BU.json"
+# Campaign-specific files for Keep of Doom
+original_locations_file = path_manager.get_area_path("HH001")
+backup_locations_file = f"{path_manager.campaign_dir}/HH001_BU.json"
+original_plot_file = path_manager.get_plot_path("HH001")
+backup_plot_file = f"{path_manager.campaign_dir}/plot_HH001_BU.json"
 
 # Function to restore from backup
 def restore_from_backup(original_file, backup_file):
@@ -32,14 +32,19 @@ if not os.path.exists(backup_plot_file) and os.path.exists(original_plot_file):
     shutil.copy2(original_plot_file, backup_plot_file)
     print(f"Created backup: {backup_plot_file}")
 
-# Restore locations file
-restore_from_backup(original_locations_file, backup_locations_file)
+# Only restore from backup if backup files exist
+if os.path.exists(backup_locations_file):
+    restore_from_backup(original_locations_file, backup_locations_file)
+else:
+    print(f"No backup found for locations file. Using existing {original_locations_file}")
 
-# Restore plot file
-restore_from_backup(original_plot_file, backup_plot_file)
+if os.path.exists(backup_plot_file):
+    restore_from_backup(original_plot_file, backup_plot_file)
+else:
+    print(f"No backup found for plot file. Using existing {original_plot_file}")
 
 # Delete combat_conversation_history.json and conversation_history.json
-files_to_delete = ['combat_conversation_history.json', 'conversation_history.json']
+files_to_delete = ['combat_conversation_history.json', 'conversation_history.json', 'chat_history.json']
 for file in files_to_delete:
     if os.path.exists(file):
         os.remove(file)
@@ -54,20 +59,83 @@ if os.path.exists(party_tracker_file):
 
     # Remove encounter ID and update current location in party tracker
     party_tracker['worldConditions']['activeCombatEncounter'] = ""
-    party_tracker['worldConditions']['currentLocation'] = "Hidden Entrance to Dwarven Complex"
-    party_tracker['worldConditions']['currentLocationId'] = "R14"
-    party_tracker['worldConditions']['currentArea'] = "Old Mines of Ember Hollow"
-    party_tracker['worldConditions']['currentAreaId'] = "EM001"  # This is the correct area ID
+    party_tracker['worldConditions']['currentLocation'] = "Harrow's Hollow General Store"
+    party_tracker['worldConditions']['currentLocationId'] = "R01"
+    party_tracker['worldConditions']['currentArea'] = "Harrow's Hollow"
+    party_tracker['worldConditions']['currentAreaId'] = "HH001"
+    party_tracker['worldConditions']['activeEncounter'] = ""
+    
+    # Reset time to morning
+    party_tracker['worldConditions']['day'] = 1
+    party_tracker['worldConditions']['time'] = "08:00:00"
+    party_tracker['worldConditions']['dayNightCycle'] = "Morning"
+    party_tracker['worldConditions']['weather'] = "Overcast"
+    party_tracker['worldConditions']['weatherConditions'] = "Overcast with morning mist"
 
-    # Reset quests to blank
-    party_tracker['activeQuests'] = []
+    # Reset quests to initial Keep of Doom state
+    party_tracker['activeQuests'] = [
+        {
+            "id": "PP001",
+            "title": "Shadows Over Harrow's Hollow",
+            "description": "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run high as rumors of curses, spirits, and the haunted Keep of Doom swirl among the villagers. Players must gather information, win trust, and follow leads to piece together the mystery.",
+            "status": "in progress"
+        },
+        {
+            "id": "SQ001",
+            "title": "Superstition and Shadows",
+            "description": "Old Tommen believes a wandering spirit haunts the village. If the party investigates, they may encounter the Wandering Shade—a restless ghost whose cryptic words offer hints about the keep and the missing villagers.",
+            "status": "not started"
+        },
+        {
+            "id": "SQ002",
+            "title": "Trouble at the Hearth",
+            "description": "Cira the Innkeeper's cellar is plagued by minor poltergeist activity. Calming the spirit earns Cira's gratitude and a helpful clue about Scout Elen's last known movements.",
+            "status": "not started"
+        }
+    ]
+
+    # Ensure we're using the Keep of Doom campaign
+    party_tracker['campaign'] = "Keep_of_Doom"
+    party_tracker['partyMembers'] = ["norn"]
+    party_tracker['partyNPCs'] = []
 
     # Save the updated party tracker
     with open(party_tracker_file, 'w', encoding='utf-8') as f:
         json.dump(party_tracker, f, indent=2, ensure_ascii=False)
     
-    print("Party tracker updated with new location, removed encounter ID, and reset quests to blank.")
+    print("Party tracker updated for Keep of Doom campaign.")
 else:
     print(f"{party_tracker_file} not found. No changes made to party tracker.")
 
-print("Reset complete. Files restored from backups, conversation history files deleted, and party tracker updated.")
+# Reset any campaign-specific debug files
+debug_files = ['combat_validation_log.json', 'debug_ai_response.json', 'dialogue_summary.json']
+for file in debug_files:
+    if os.path.exists(file):
+        os.remove(file)
+        print(f"Deleted {file}")
+
+# Reset character file to starting state
+character_file = path_manager.get_player_path("norn")
+if os.path.exists(character_file):
+    with open(character_file, 'r', encoding='utf-8') as f:
+        norn_data = json.load(f)
+    
+    # Reset HP to max
+    norn_data['hitPoints'] = norn_data['maxHitPoints']
+    
+    # Reset any temporary conditions
+    if 'temporaryHitPoints' in norn_data:
+        norn_data['temporaryHitPoints'] = 0
+    
+    # Reset status and conditions
+    norn_data['status'] = 'alive'
+    norn_data['condition'] = 'none'
+    norn_data['condition_affected'] = []
+    
+    # Save the updated character
+    with open(character_file, 'w', encoding='utf-8') as f:
+        json.dump(norn_data, f, indent=2, ensure_ascii=False)
+    
+    print("Reset Norn's character to full health.")
+
+print("Reset complete. Keep of Doom campaign ready to start fresh!")

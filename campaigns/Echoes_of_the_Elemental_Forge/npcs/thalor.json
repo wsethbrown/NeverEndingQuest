@@ -130,7 +130,7 @@
   "ideals": "Righteousness must be upheld, no matter the cost.",
   "bonds": "I owe my life to my faith, and I must repay that debt by guiding others\u00e2\u20ac\u201deven if they don't want it.",
   "flaws": "Thalor struggles to admit when he's wrong. He clings stubbornly to his beliefs and can become judgmental, often ignoring the gray areas in favor of strict black-and-white morality.",
-  "experience_points": 2136,
+  "experience_points": 2186,
   "exp_required_for_next_level": 2700,
   "currency": {
     "gold": 29,
@@ -176,7 +176,7 @@
     },
     {
       "name": "Channel Divinity",
-      "description": "Thalor can channel divine energy to fuel magical effects."
+      "description": "Thalor can channel divine energy to fuel magical effects. Feature recharged after a short rest."
     }
   ]
 }

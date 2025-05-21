@@ -1,0 +1,539 @@
+{
+  "areaId": "HH001",
+  "areaName": "Harrow's Hollow",
+  "areaType": "town",
+  "areaDescription": "Harrow's Hollow is a medium settlement where civilization meets the frontier. Politics and intrigue mix with everyday commerce.",
+  "dangerLevel": "low",
+  "recommendedLevel": 1,
+  "climate": "temperate",
+  "terrain": "urban streets and buildings",
+  "map": {
+    "mapId": "MAP_5",
+    "mapName": "Town Map",
+    "totalRooms": 5,
+    "rooms": [
+      {
+        "id": "R01",
+        "name": "Shop R01",
+        "type": "shop",
+        "connections": [
+          "R02",
+          "R03",
+          "R04",
+          "R05"
+        ],
+        "coordinates": "X2Y2"
+      },
+      {
+        "id": "R02",
+        "name": "Square R02",
+        "type": "square",
+        "connections": [
+          "R01"
+        ],
+        "coordinates": "X3Y2"
+      },
+      {
+        "id": "R03",
+        "name": "Gate R03",
+        "type": "gate",
+        "connections": [
+          "R01"
+        ],
+        "coordinates": "X2Y3"
+      },
+      {
+        "id": "R04",
+        "name": "Barracks R04",
+        "type": "barracks",
+        "connections": [
+          "R01"
+        ],
+        "coordinates": "X2Y1"
+      },
+      {
+        "id": "R05",
+        "name": "Tavern R05",
+        "type": "tavern",
+        "connections": [
+          "R01"
+        ],
+        "coordinates": "X1Y2"
+      }
+    ],
+    "layout": [
+      [
+        "   ",
+        "R04",
+        "   "
+      ],
+      [
+        "R05",
+        "R01",
+        "R02"
+      ],
+      [
+        "   ",
+        "R03",
+        "   "
+      ]
+    ]
+  },
+  "randomEncounters": [
+    {
+      "roll": "1-10",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "11-20",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "21-30",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "31-40",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "41-50",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "51-60",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "61-70",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "71-80",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "81-90",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "91-100",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    }
+  ],
+  "areaFeatures": [
+    "guard posts",
+    "local tavern",
+    "merchant quarter"
+  ],
+  "notes": "NPCs should have daily routines. Political factions create roleplay opportunities.",
+  "locations": [
+    {
+      "locationId": "R01",
+      "name": "Harrow's Hollow General Store",
+      "type": "shop",
+      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. Morning light filters through broad windows, casting a warm glow on neat rows of supplies and a cluttered notice board near the counter. The air smells of wax, old parchment, and leather, embodying the store’s role as the village’s heart amid growing fears. Behind the counter stands Elder Mirna Harrow, her expression a mix of welcome and concern.",
+      "coordinates": "X2Y2",
+      "connectivity": [
+        "R02",
+        "R03",
+        "R04",
+        "R05"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Elder Mirna Harrow",
+          "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs, with a guarded demeanor and subtle glances suggesting hidden worries.",
+          "attitude": "Respectful but cautious toward outsiders; friendly and supportive to locals, especially those in need."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Adventurer's pack (1 gp)",
+        "Lantern, hooded (5 gp)",
+        "10 days' rations (5 sp per)",
+        "Cured leather pouch (8 sp)",
+        "Handwritten map of local trails (contains a clue about a haunted ruin)",
+        "Old bronze key marked with a faded raven sigil"
+      ],
+      "plotHooks": [
+        "A worried villager asks if the party has news of Scout Elen, who vanished checking the old east trail.",
+        "Elder Mirna discreetly seeks brave souls to investigate odd nighttime lights near the ruined keep.",
+        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.",
+        "The party is invited to inquire about the disappearances and strange events surrounding the old keep."
+      ],
+      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She offers supplies and information but is guarded, especially regarding the old bronze key which she quickly hides when noticed. A DC 12 Insight check reveals she is withholding deeper secrets. The party can ask about disappearances, the keep, or local troubles. The front door leads to the main square; the back storeroom door is locked and usually kept closed.",
+      "doors": [
+        {
+          "name": "Front Door",
+          "description": "A broad, reinforced oak door with brass fittings and a bell overhead.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 13,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "Back Storeroom Door",
+          "description": "A smaller, iron-banded door leading to a cramped storeroom, typically kept locked.",
+          "type": "regular",
+          "locked": true,
+          "lockDC": 13,
+          "breakDC": 15,
+          "keyname": "Old bronze key",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Insight DC 12: Discern Elder Mirna is withholding information about the key and certain historical events.",
+        "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the keep."
+      ],
+      "lighting": "Bright",
+      "accessibility": "Easily accessible from the main square, wide doorways and step-free entry.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Notice Board",
+          "description": "A cluttered board filled with handwritten notices, missing pet posters, and cryptic local warnings, including a worn parchment offering a reward for livestock theft information."
+        },
+        {
+          "name": "Counter and Ledger",
+          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. A battered bronze key marked with a faded raven sigil rests here, quickly concealed by Mirna when noticed."
+        },
+        {
+          "name": "Back Storeroom",
+          "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests, accessible through a locked iron-banded door."
+        }
+      ],
+      "encounters": [
+        {
+          "encounterId": "R01-E1",
+          "summary": "The party meets Elder Mirna Harrow, who shares concerns about recent disappearances including Scout Elen, and points out notices about livestock thefts and strange lights at the ruined keep. She offers supplies and hints at secrets regarding an old bronze key.",
+          "impact": "Introduces the mystery of disappearances and strange occurrences; sets up investigation quests and potential access to supplies. NPC Mirna establishes herself as a key contact.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "08:00:00"
+          }
+        }
+      ],
+      "adventureSummary": "Upon entering Harrow's Hollow General Store, the party was greeted by Elder Mirna Harrow, who expressed concern over numerous recent disappearances including Scout Elen. She highlighted notices about livestock thefts and strange lights near the old keep, and subtly concealed an old bronze key marked with a faded raven sigil. Mirna offered supplies and information, inviting questions about local troubles. The party then exited the store to continue their investigation in the town square."
+    },
+    {
+      "locationId": "R02",
+      "name": "Harrow’s Hollow Town Square",
+      "type": "square",
+      "description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. On market days, stalls crowd the space, but even now, locals gossip in small clusters, eyes wary of newcomers. At dusk, shadows pool and the wind carries the faint echo of old songs. Currently, the square is quiet and empty, with no immediate threats or notable activity.",
+      "coordinates": "X3Y2",
+      "connectivity": [
+        "R01"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [],
+      "lootTable": [
+        "Dropped pouch of 7 sp (hidden beneath a bench)",
+        "Wooden whistle carved in the shape of a raven",
+        "Small tin amulet of protection (nonmagical, but rumored to ward off evil)"
+      ],
+      "plotHooks": [],
+      "dmInstructions": "Use Tommen’s superstitious ramblings for early foreshadowing. A DC 11 Persuasion check gets him to share legends about the keep and the cursed knight. If players search the statue (DC 13 Investigation), they find a hidden compartment holding a rusty locket (worth 2 gp, sentimental value to some locals).",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 13: Discover a hidden compartment in the statue.",
+        "Persuasion DC 11: Convince Tommen to reveal a local legend about ghostly lights or the keep’s curse."
+      ],
+      "lighting": "Bright",
+      "accessibility": "Fully open and central, all major buildings and streets lead here; accessible to all.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Knight’s Statue",
+          "description": "A weathered stone monument, its inscription nearly worn away, depicting a forgotten hero with a drawn sword."
+        },
+        {
+          "name": "Lantern Posts",
+          "description": "Iron lanterns burn through most nights, keeping superstitious villagers at ease."
+        },
+        {
+          "name": "Market Stalls",
+          "description": "Colorful canvas stalls, currently empty save for a few crates and benches."
+        }
+      ],
+      "encounters": [
+        {
+          "encounterId": "R02-E1",
+          "summary": "The party arrived at Harrow’s Hollow Town Square, finding the area quiet and devoid of activity or threats.",
+          "impact": "No significant events occurred; no NPCs were engaged and no traps or dangers were encountered. The party prepared to move toward the main gate.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "09:01:00"
+          }
+        }
+      ],
+      "adventureSummary": "Upon arriving at Harrow’s Hollow Town Square, the party found a modest, weathered plaza surrounded by aged stone buildings and the general store nearby. The square was quiet and free of traps or threats. No NPCs or plot developments arose before the party chose to proceed toward the main gate, marking the end of their time here. (Game Time: 1492 Ches 1, 09:01:00)"
+    },
+    {
+      "locationId": "R03",
+      "name": "East Gate and Guardhouse",
+      "type": "gate",
+      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town’s eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond.",
+      "coordinates": "X2Y3",
+      "connectivity": [
+        "R01"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Sergeant Mara Feld",
+          "description": "A stoic, broad-shouldered veteran overseeing the town’s security. She has a no-nonsense manner and fierce loyalty to Harrow’s Hollow.",
+          "attitude": "Suspicious of outsiders, but fair; she values courage and honesty."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Town gate key (kept on Sergeant Feld’s belt)",
+        "Guard’s whistle",
+        "Small pouch with 12 cp",
+        "Town patrol schedule (handwritten, with notes about recent disturbances near the keep)"
+      ],
+      "plotHooks": [
+        "Sergeant Feld asks the party to help search for Scout Elen, missing after a routine patrol.",
+        "Feld warns the party: the east road is dangerous after dark, and the keep is strictly off limits to townsfolk.",
+        "A bloodstained scrap of cloth is found snagged on the gate; Feld suspects foul play nearby."
+      ],
+      "dmInstructions": "Sergeant Feld can provide basic information about town defenses and recent troubles. She may require a DC 13 Persuasion check before allowing non-residents to leave after dusk. Searching the area (DC 14 Investigation) uncovers subtle tracks leading toward the woods.",
+      "doors": [
+        {
+          "name": "Main Gate",
+          "description": "Double doors of heavy oak and iron, barred at night.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 15,
+          "breakDC": 18,
+          "keyname": "Town gate key",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "Guardhouse Door",
+          "description": "A narrow, iron-banded door set into the stone guardhouse.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 13,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 14: Discover faint footprints and broken brush leading toward the haunted keep.",
+        "Persuasion DC 13: Convince Sergeant Feld to share information or allow after-hours travel."
+      ],
+      "lighting": "Dim",
+      "accessibility": "Easily accessible by road, but guarded and locked at night.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Watch Bell",
+          "description": "A large bronze bell used to sound alarms; can be heard across town."
+        },
+        {
+          "name": "Patrol Roster",
+          "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen’s name circled in chalk."
+        },
+        {
+          "name": "Gate Mechanism",
+          "description": "A stout bar and iron lock securing the gates, requiring a key or brute force to bypass."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "R04",
+      "name": "Militia Barracks",
+      "type": "barracks",
+      "description": "A utilitarian, two-story stone building with a small training yard. The barracks houses Harrow’s militia—peasant guards, hunters, and retired soldiers. Inside, bunks are neatly arranged, and a wall bears faded banners from better days.",
+      "coordinates": "X2Y1",
+      "connectivity": [
+        "R01"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Ranger Branik",
+          "description": "A grizzled, sharp-eyed scout recently returned from patrolling the wilds. Branik is laconic and slow to trust, but fiercely protective of the town.",
+          "attitude": "Wary of strangers, but quick to aid those who prove themselves. Respects martial skill."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Militia uniform (common clothing)",
+        "Shortbow and 10 arrows",
+        "Simple iron dagger",
+        "Coiled rope (30 ft)",
+        "Map of local wilds annotated with hunting blinds and secret trails"
+      ],
+      "plotHooks": [
+        "Ranger Branik asks the party to help track a strange beast seen near the keep.",
+        "A militia member mentions hearing unearthly howls from the woods at night.",
+        "A battered shield bears a crest matching that on the general store's bronze key."
+      ],
+      "dmInstructions": "Branik can teach basic survival skills or offer to guide the party to the keep for a price. A DC 12 Survival check reveals his annotated maps contain hidden routes to bypass obvious dangers.",
+      "doors": [
+        {
+          "name": "Barracks Main Door",
+          "description": "A stout, iron-bound wooden door with scrape marks from years of use.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 13,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "Armory Door",
+          "description": "A reinforced wooden door with a heavy padlock, leading to the militia’s armory.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 14,
+          "breakDC": 17,
+          "keyname": "Armory key (carried by Branik)",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Survival DC 12: Learn about hidden paths and dangers in the wilds.",
+        "Investigation DC 13: Find a battered shield with a mysterious crest."
+      ],
+      "lighting": "Dim",
+      "accessibility": "Located on a side street, accessible by road; entry is monitored by militia.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Training Yard",
+          "description": "A small, open area with straw dummies and simple wooden fencing."
+        },
+        {
+          "name": "Banner Wall",
+          "description": "A display of tattered banners and crests of old lords who once protected the vale."
+        },
+        {
+          "name": "Armory",
+          "description": "A locked room containing spare weapons and gear for the militia."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "R05",
+      "name": "The Wyrd Lantern Inn",
+      "type": "tavern",
+      "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew and fresh bread fills the air. Laughter and song are frequent, but at night, whispers of fear and superstition drift between tables.",
+      "coordinates": "X1Y2",
+      "connectivity": [
+        "R01"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Cira the Innkeeper",
+          "description": "A warm, quick-witted woman with a knack for remembering faces and secrets. She runs the Wyrd Lantern with a firm but friendly hand.",
+          "attitude": "Welcoming to all, but especially those with coin or gossip. Protective of her staff and regulars."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Free meal and ale (at Cira’s discretion)",
+        "Set of bone dice (left in a booth)",
+        "Silver earring (lost under a table)",
+        "Charm against the evil eye (hanging near the bar)"
+      ],
+      "plotHooks": [
+        "A fearful regular claims to have seen a ghostly figure on the east road.",
+        "Cira offers the party free rooms if they can calm frightened townsfolk.",
+        "A drunken patron insists the keep’s curse is growing stronger and tries to start a brawl."
+      ],
+      "dmInstructions": "Cira is the party’s best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
+      "doors": [
+        {
+          "name": "Inn Door",
+          "description": "A wide, inviting wooden door painted green, with a brass lantern hanging overhead.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 12,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "Cellar Hatch",
+          "description": "A sturdy hatch behind the bar, leading to the root cellar.",
+          "type": "regular",
+          "locked": true,
+          "lockDC": 10,
+          "breakDC": 14,
+          "keyname": "Cellar key (kept by Cira)",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Persuasion DC 10: Convince Cira to share confidential rumors or grant a favor.",
+        "Insight DC 12: Detect if a patron is hiding something about recent ghost sightings."
+      ],
+      "lighting": "Bright",
+      "accessibility": "Easily reached from the square, step-free entrance, welcoming to all.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "The Bar",
+          "description": "A polished oak bar lined with lanterns and dangling good luck charms."
+        },
+        {
+          "name": "Hearth and Common Room",
+          "description": "A crackling fire and mismatched armchairs make this a favorite gathering spot."
+        },
+        {
+          "name": "Guest Rooms",
+          "description": "Modest but clean rooms available for travelers."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    }
+  ]
+}

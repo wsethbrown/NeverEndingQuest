@@ -617,6 +617,18 @@ Check the location schema carefully for all required fields.
             if "adventureSummary" not in location:
                 location["adventureSummary"] = ""
         
+        # Post-process: ensure name consistency between map and locations
+        if "map" in area_data and "rooms" in area_data["map"]:
+            for location in locations:
+                # Find the corresponding map room
+                for room in area_data["map"]["rooms"]:
+                    if room["id"] == location["locationId"]:
+                        # If names differ, update map room name to match location
+                        if room["name"] != location["name"]:
+                            room["name"] = location["name"]
+                            print(f"Updated map room {room['id']} name to match location: {location['name']}")
+                        break
+        
         return {"locations": locations}
     
     def validate_locations(self, location_data: Dict[str, Any]) -> List[str]:

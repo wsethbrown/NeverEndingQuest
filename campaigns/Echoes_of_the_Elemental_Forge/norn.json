@@ -67,16 +67,16 @@
   "specialAbilities": [],
   "classFeatures": [
     {
-      "name": "Fighting Style: Defense",
-      "description": "+1 to AC when wearing armor"
-    },
-    {
       "name": "Second Wind",
-      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action"
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (restored)"
     },
     {
       "name": "Action Surge",
-      "description": "Once per short rest, take one additional action on your turn"
+      "description": "Once per short rest, take one additional action on your turn (restored)"
+    },
+    {
+      "name": "Fighting Style: Defense",
+      "description": "+1 to AC when wearing armor"
     },
     {
       "name": "Improved Critical",
@@ -85,9 +85,9 @@
   ],
   "equipment": [
     {
-      "item_name": "Worn Journal",
+      "item_name": "Puzzle Clues and Runes Notes",
       "item_type": "miscellaneous",
-      "description": "Contains important information regarding the Elemental Forge and potential clues for the lock's puzzle.",
+      "description": "Personal notes transcribed from the corpse's journal, including sketches of the circular stone door, ring sequence hints, possible password words ('Baraz, Khazad-d\u00fbm, Orin'), and a warning about the guardian. (Used to solve the dwarven puzzle lock and deactivated the stone guardian.)",
       "quantity": 1
     }
   ],
@@ -158,7 +158,7 @@
     "silver": 0,
     "copper": 5
   },
-  "experience_points": 4521,
+  "experience_points": 4571,
   "exp_required_for_next_level": 6500,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",

@@ -1,0 +1,96 @@
+{
+  "mapId": "MAP_G001",
+  "mapName": "Gloamwood Trail Map",
+  "totalRooms": 7,
+  "rooms": [
+    {
+      "id": "R01",
+      "name": "Witchlight Trailhead",
+      "type": "trail",
+      "connections": [
+        "R02",
+        "R03"
+      ],
+      "coordinates": "X2Y1"
+    },
+    {
+      "id": "R02",
+      "name": "Abandoned Ranger Outpost",
+      "type": "outpost",
+      "connections": [
+        "R01",
+        "R04"
+      ],
+      "coordinates": "X3Y1"
+    },
+    {
+      "id": "R03",
+      "name": "The Withered Shrine",
+      "type": "shrine",
+      "connections": [
+        "R01",
+        "R05",
+        "R06"
+      ],
+      "coordinates": "X1Y2"
+    },
+    {
+      "id": "R04",
+      "name": "Lost Ward Circle",
+      "type": "ritual",
+      "connections": [
+        "R02",
+        "R07"
+      ],
+      "coordinates": "X3Y2"
+    },
+    {
+      "id": "R05",
+      "name": "Boggard Marsh",
+      "type": "marsh",
+      "connections": [
+        "R03",
+        "R06"
+      ],
+      "coordinates": "X1Y3"
+    },
+    {
+      "id": "R06",
+      "name": "Spectral Clearing",
+      "type": "clearing",
+      "connections": [
+        "R03",
+        "R05",
+        "R07"
+      ],
+      "coordinates": "X2Y3"
+    },
+    {
+      "id": "R07",
+      "name": "Keeper's Cottage",
+      "type": "cottage",
+      "connections": [
+        "R04",
+        "R06"
+      ],
+      "coordinates": "X3Y3"
+    }
+  ],
+  "layout": [
+    [
+      "   ",
+      "R01",
+      "R02"
+    ],
+    [
+      "R03",
+      "   ",
+      "R04"
+    ],
+    [
+      "R05",
+      "R06",
+      "R07"
+    ]
+  ]
+}

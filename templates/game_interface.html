@@ -233,7 +233,7 @@
         
         .tab-content {
             height: calc(100% - 41px);
-            overflow: hidden;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
         }
@@ -245,40 +245,80 @@
             font-style: italic;
         }
         
-        /* Inventory styling */
+        /* Inventory styling - compact list format */
+        .inventory-list {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.75em;
+            padding: 5px;
+        }
+        
         .inventory-section {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            border-radius: 3px;
+            padding: 5px;
         }
         
         .inventory-section h3 {
             color: #4CAF50;
-            margin-bottom: 10px;
+            font-size: 0.9em;
+            margin-bottom: 5px;
             border-bottom: 1px solid #444;
-            padding-bottom: 5px;
+            padding-bottom: 2px;
+            text-transform: uppercase;
         }
         
         .inventory-item {
-            padding: 8px;
-            margin: 5px 0;
-            background-color: #333;
-            border-radius: 3px;
-            border-left: 3px solid #4CAF50;
+            display: flex;
+            padding: 2px 0;
+            border-bottom: 1px solid #222;
+            align-items: baseline;
         }
         
-        .inventory-item-name {
-            font-weight: bold;
+        .inventory-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-quantity {
+            color: #999;
+            width: 30px;
+            flex-shrink: 0;
+            text-align: right;
+            padding-right: 5px;
+        }
+        
+        .item-name {
             color: #4CAF50;
+            width: 150px;
+            flex-shrink: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         
-        .inventory-item-desc {
-            color: #ccc;
+        .item-type {
+            color: #777;
+            width: 60px;
+            flex-shrink: 0;
+            font-style: italic;
             font-size: 0.9em;
-            margin-top: 3px;
         }
         
-        .inventory-item-quantity {
-            color: #888;
-            float: right;
+        .item-desc {
+            color: #bbb;
+            flex: 1;
+            padding-left: 5px;
+            font-size: 0.9em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        /* Weapon stats in compact format */
+        .weapon-stats {
+            color: #ff8c00;
+            font-size: 0.85em;
         }
         
         /* Stats styling */
@@ -545,22 +585,27 @@
         // Display inventory data
         function displayInventory(data) {
             const container = document.getElementById('inventory-content');
-            if (!data || !data.equipment) {
+            if (!data) {
                 container.innerHTML = '<div class="loading">No inventory data available</div>';
                 return;
             }
             
-            let html = '';
+            let html = '<div class="inventory-list">';
             
             // Equipment section
             if (data.equipment && data.equipment.length > 0) {
                 html += '<div class="inventory-section"><h3>Equipment</h3>';
                 data.equipment.forEach(item => {
+                    const qty = item.quantity || 1;
+                    const qtyStr = qty > 1 ? `${qty}` : ' ';
+                    const type = (item.item_type || 'misc').toLowerCase();
+                    const desc = (item.description || '').substr(0, 50);
                     html += `
                         <div class="inventory-item">
-                            <span class="inventory-item-name">${item.item_name}</span>
-                            <span class="inventory-item-quantity">x${item.quantity || 1}</span>
-                            <div class="inventory-item-desc">${item.description}</div>
+                            <span class="item-quantity">${qtyStr}</span>
+                            <span class="item-name">${item.item_name}</span>
+                            <span class="item-type">[${type}]</span>
+                            <span class="item-desc">${desc}</span>
                         </div>
                     `;
                 });
@@ -569,16 +614,33 @@
             
             // Weapons and attacks
             if (data.attacksAndSpellcasting && data.attacksAndSpellcasting.length > 0) {
-                html += '<div class="inventory-section"><h3>Weapons & Attacks</h3>';
+                html += '<div class="inventory-section"><h3>Weapons</h3>';
                 data.attacksAndSpellcasting.forEach(weapon => {
+                    const damage = weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`;
+                    const stats = `D:${damage} A:+${weapon.attackBonus} ${weapon.damageType}`;
                     html += `
                         <div class="inventory-item">
-                            <span class="inventory-item-name">${weapon.name}</span>
-                            <span class="inventory-item-quantity">${weapon.damage || weapon.damageDice}+${weapon.damageBonus}</span>
-                            <div class="inventory-item-desc">
-                                Attack: +${weapon.attackBonus}, ${weapon.damageType} damage
-                                ${weapon.description ? `<br>${weapon.description}` : ''}
-                            </div>
+                            <span class="item-quantity"> </span>
+                            <span class="item-name">${weapon.name}</span>
+                            <span class="item-type">[${weapon.type || 'wpn'}]</span>
+                            <span class="item-desc" title="${weapon.description || ''}">${stats}</span>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // Ammunition
+            if (data.ammunition && data.ammunition.length > 0) {
+                html += '<div class="inventory-section"><h3>Ammo</h3>';
+                data.ammunition.forEach(ammo => {
+                    const desc = (ammo.description || '').substr(0, 30);
+                    html += `
+                        <div class="inventory-item">
+                            <span class="item-quantity">${ammo.quantity}</span>
+                            <span class="item-name">${ammo.name}</span>
+                            <span class="item-type">[ammo]</span>
+                            <span class="item-desc">${desc}</span>
                         </div>
                     `;
                 });
@@ -588,23 +650,57 @@
             // Currency
             if (data.currency) {
                 html += '<div class="inventory-section"><h3>Currency</h3>';
-                html += `
-                    <div class="stat-item">
-                        <span class="stat-name">Gold</span>
-                        <span class="stat-value">${data.currency.gold || 0}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-name">Silver</span>
-                        <span class="stat-value">${data.currency.silver || 0}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-name">Copper</span>
-                        <span class="stat-value">${data.currency.copper || 0}</span>
-                    </div>
-                `;
+                const curr = [];
+                if (data.currency.gold) curr.push(`<span class="item-quantity">${data.currency.gold}</span><span class="item-name">GP</span>`);
+                if (data.currency.silver) curr.push(`<span class="item-quantity">${data.currency.silver}</span><span class="item-name">SP</span>`);
+                if (data.currency.copper) curr.push(`<span class="item-quantity">${data.currency.copper}</span><span class="item-name">CP</span>`);
+                if (curr.length > 0) {
+                    html += `<div class="inventory-item">${curr.join(' &nbsp; ')}</div>`;
+                } else {
+                    html += `<div class="inventory-item"><span class="item-desc">No currency</span></div>`;
+                }
                 html += '</div>';
             }
             
+            // Class features if present
+            if (data.classFeatures && data.classFeatures.length > 0) {
+                html += '<div class="inventory-section"><h3>Features</h3>';
+                data.classFeatures.forEach(feature => {
+                    const desc = (feature.description || '').substr(0, 50);
+                    html += `
+                        <div class="inventory-item">
+                            <span class="item-quantity"> </span>
+                            <span class="item-name">${feature.name}</span>
+                            <span class="item-type">[feat]</span>
+                            <span class="item-desc" title="${feature.description}">${desc}</span>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // Skills if present
+            if (data.skills) {
+                html += '<div class="inventory-section"><h3>Skills</h3>';
+                const skillRows = [];
+                Object.entries(data.skills).forEach(([skill, value]) => {
+                    const bonus = value >= 0 ? `+${value}` : `${value}`;
+                    skillRows.push(`<span class="item-quantity">${bonus}</span><span class="item-name" style="width:100px">${skill}</span>`);
+                });
+                
+                // Display skills in two columns for compactness
+                for (let i = 0; i < skillRows.length; i += 2) {
+                    html += '<div class="inventory-item">';
+                    html += skillRows[i];
+                    if (i + 1 < skillRows.length) {
+                        html += '&nbsp;&nbsp;&nbsp;' + skillRows[i + 1];
+                    }
+                    html += '</div>';
+                }
+                html += '</div>';
+            }
+            
+            html += '</div>';
             container.innerHTML = html;
         }
         

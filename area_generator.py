@@ -166,6 +166,44 @@ class AreaGenerator:
         # Generate map layout
         map_data = self.map_gen.generate_layout(num_locations, config.area_type)
         
+        # Generate locations from map rooms
+        locations = []
+        for room in map_data.get("rooms", []):
+            room_id = room.get("id")
+            name = room.get("name")
+            room_type = room.get("type", "room")
+            
+            # Generate location data
+            location = {
+                "locationId": room_id,
+                "name": name,
+                "description": f"A {room_type} in {area_name}.",
+                "type": room_type,
+                "visited": False,
+                "connectivity": room.get("connections", []),
+                "areaConnectivity": [],
+                "areaConnectivityId": [],
+                "npcs": [],
+                "monsters": [],
+                "items": [],
+                "features": self.generate_location_features(room_type),
+                "traps": [],
+                "notes": ""
+            }
+            
+            # Add some rare features like traps or hidden items
+            if random.random() < 0.2:  # 20% chance
+                if config.area_type == "dungeon":
+                    location["traps"].append({
+                        "name": "Simple trap",
+                        "description": "A basic trap that could harm unwary adventurers.",
+                        "detected": False,
+                        "disarmed": False,
+                        "difficulty": "medium"
+                    })
+            
+            locations.append(location)
+        
         # Create area structure
         area_data = {
             "areaId": area_id,
@@ -177,6 +215,7 @@ class AreaGenerator:
             "climate": self.determine_climate(config.area_type),
             "terrain": self.determine_terrain(config.area_type),
             "map": map_data,
+            "locations": locations,
             "randomEncounters": self.generate_encounter_table(config),
             "areaFeatures": self.generate_area_features(config),
             "notes": self.generate_dm_notes(config)
@@ -252,6 +291,37 @@ class AreaGenerator:
         area_features = features.get(config.area_type, ["interesting locations"])
         return random.sample(area_features, min(3, len(area_features)))
     
+    def generate_location_features(self, room_type: str) -> List[str]:
+        """Generate features for a specific location type"""
+        feature_types = {
+            "entrance": ["weathered door", "grand archway", "narrow passage", "hidden opening"],
+            "corridor": ["sconces", "tapestries", "cracks in walls", "echoing sound"],
+            "chamber": ["furniture", "fireplace", "wall decorations", "floor symbols"],
+            "hall": ["high ceiling", "support columns", "chandeliers", "banners"],
+            "vault": ["locked chests", "shelves", "strange containers", "preservation magic"],
+            "shrine": ["altar", "religious symbols", "offering bowls", "prayer mats"],
+            "prison": ["cell bars", "chains", "guard post", "scratches on walls"],
+            "laboratory": ["workbenches", "alchemical equipment", "strange ingredients", "experiment notes"],
+            "clearing": ["fallen logs", "stone circle", "wild flowers", "animal tracks"],
+            "grove": ["ancient trees", "mushroom circles", "unusual plants", "birdsong"],
+            "cave": ["stalactites", "rock formations", "underground pool", "glowing fungi"],
+            "square": ["well", "notice board", "sitting area", "merchant stalls"],
+            "market": ["vendor stalls", "crowd areas", "display tables", "haggling spots"],
+            "tavern": ["bar counter", "tables and chairs", "hearth", "trophy display"],
+            "shop": ["merchandise displays", "counter", "backroom storage", "specialty items"],
+            "temple": ["worship area", "offering space", "religious symbols", "ritual items"]
+        }
+        
+        # Default features if room type not recognized
+        default_features = ["dust", "signs of age", "interesting architecture"]
+        
+        # Get features for this room type, or use defaults
+        room_features = feature_types.get(room_type, default_features)
+        
+        # Return 1-3 random features
+        num_features = random.randint(1, min(3, len(room_features)))
+        return random.sample(room_features, num_features)
+    
     def generate_dm_notes(self, config: AreaConfig) -> str:
         """Generate helpful DM notes for running the area"""
         notes = {
@@ -319,7 +389,7 @@ def main():
     generator.save_area(area_data)
     
     print("\nArea generation complete!")
-    print(f"Locations: {len(area_data['locations'])}")
+    print(f"Locations: {len(area_data.get('locations', []))}")
     print(f"Danger level: {area_data['dangerLevel']}")
 
 if __name__ == "__main__":

@@ -761,14 +761,12 @@
     {
       "name": "Hidden Entrance to Dwarven Complex",
       "type": "Secret Doorway",
-      "description": "A well-hidden doorway carved into the rock, adorned with ancient dwarven runes. Signs of a fierce battle are evident: scorch marks on the walls, broken weapons, and dried bloodstains. The entrance shows multiple attempts at forced entry, with deep gouges in the stone and shattered mining equipment scattered about. The figure of a larger than life dwarven soldier is carved intricately in the stone wall. A recently deceased corpse, no more than 2 weeks aged, lies near the door, its rotting fingers still clutching a worn journal.",
-      "dmInstructions": "The part would be unaware of the stone guardian unless they make a skill check to investigate the statue in the wall. If the party attempts to break down the door or perform a lock pick then a stone guardian is automatically triggered. If the party has a dwarf in its company, the party has one attempt to perform a skill check to convince the guardian to allow them to provide the password. If unsuccessful, the stone guardian automatically becomes hostile. Otherwise, if the party successfully solves the puzzle, the stone guardian appears from inside the wall and directs the party to provide the password or leave else they face certain death.",
+      "description": "A well-hidden doorway carved into the rock, adorned with ancient dwarven runes. The massive circular stone door has five concentric rings inscribed with dwarven runes, some faintly glowing. Signs of a fierce and recent battle remain: shattered tools, bloodstains, and a rotting corpse clutching a worn journal. The journal contains desperate notes from a fallen Ember Enclave member attempting to solve the rune puzzle. The party has now aligned the runes according to the clues, triggering the emergence of a stone dwarven guardian demanding the true dwarven phrase to grant passage.",
+      "dmInstructions": "The party is unaware of the stone guardian until they align the runes as per the journal's clues. Once the correct sequence is attempted, the stone guardian animates and demands the true dwarven phrase be spoken. The party must provide the password or face judgment. If the party has a dwarf, they have one chance to convince the guardian with a skill check before it becomes hostile. Combat or failure to speak the correct phrase results in a deadly encounter.",
       "locationId": "R14",
       "coordinates": "X1Y6",
-      "lighting": "Dark",
-      "accessibility": "Accessible via the Hidden Passage; requires solving a puzzle to open.",
-      "encounterRate": "High",
-      "commonCreatures": [],
+      "lighting": "Dim",
+      "accessibility": "Accessible via the Hidden Passage; requires solving the rune puzzle and speaking the true dwarven phrase to proceed.",
       "npcs": [],
       "monsters": [
         {
@@ -779,19 +777,18 @@
           }
         }
       ],
-      "resourcesAvailable": [],
-      "weatherConditions": "N/A",
       "plotHooks": [
         "The dwarven runes hold clues about the complex beyond.",
-        "The corpse's journal contains vital information about the entrance puzzle. If the party knows of the password provided by the miner then the journal confirms as much but that the corpse must have gotten it wrong. If the party has discovered the three possible words from the library, then this journal either narrows the word down to two or one depending on how many other clues have been found.",
-        "Signs of failed forced entry indicate the importance of solving the puzzle correctly."
+        "The corpse's journal contains vital information about the entrance puzzle and hints at the true dwarven phrase needed to prevent the guardian's wrath.",
+        "The stone guardian demands the correct dwarven phrase to grant passage or face judgment.",
+        "Solving the puzzle and speaking the phrase may open the door to the Dwarven Complex beyond."
       ],
       "lootTable": [
         "Worn journal with partial puzzle solution",
-        "Ancient dwarven coin",
+        "Ancient dwarven coins",
         "Broken lockpicking tools"
       ],
-      "dangerLevel": "High",
+      "dangerLevel": "Very High",
       "connectivity": [
         "Hidden Passage",
         "Waterlogged Tunnels"
@@ -802,7 +799,16 @@
       "areaConnectivityId": [
         "DS001"
       ],
-      "traps": [],
+      "traps": [
+        {
+          "name": "Stone Guardian Summoning",
+          "description": "Activating the wrong rune sequence summons a stone dwarven guardian that attacks intruders.",
+          "detectDC": 20,
+          "disableDC": 25,
+          "triggerDC": 15,
+          "damage": "Varies (guardian attacks)"
+        }
+      ],
       "features": [
         {
           "name": "Dwarven Runes",
@@ -814,32 +820,34 @@
         },
         {
           "name": "Battle Aftermath",
-          "description": "Signs of a fierce battle, including scorch marks, broken weapons, and dried bloodstains."
+          "description": "Signs of a fierce battle, including shattered tools, bloodstains, and a rotting corpse clutching a worn journal."
         },
         {
           "name": "Rotting Corpse",
-          "description": "Upon searching the body, the party will discover the deceased was a member of the Ember Enclave."
+          "description": "The deceased was a member of the Ember Enclave; their journal contains notes on the rune puzzle."
         }
       ],
       "dcChecks": [
         "Investigation DC 15: Piece together the events of the battle from the surrounding evidence.",
         "History DC 14: Recognize the significance of the dwarven runes and their role in the locking mechanism.",
-        "Perception DC 16: Notice subtle clues in the carvings that hint at the correct sequence for solving the puzzle."
+        "Perception DC 16: Notice subtle clues in the carvings that hint at the correct sequence for solving the puzzle.",
+        "Arcana DC 18: Understand the magic animating the stone guardian.",
+        "Insight DC 17: Interpret the fallen member's journal notes to deduce the true dwarven phrase."
       ],
       "encounters": [
         {
-          "encounterId": "",
-          "summary": "{\n  \"narration\": \"In the eerie shadows outside the Hidden Entrance to the Dwarven Complex, your party faces down a snarling Giant Rat intent on disrupting your progress. Gilly, with practiced precision, darts forward and delivers a deadly strike with her shortsword, skipping lightly to the side. She rolls a d20 and scores a 16, hitting comfortably. For damage, she rolls 1d6 plus 3 plus sneak attack 2d6, dealing a total of 18 piercing damage to the creature. The rat squeals in pain but still stands, albeit weakened. Then Elara swiftly steps in and fires an arrow with her longbow, rolling a 14 on her attack roll, hitting the rat's AC with her +5 bonus. Damage roll of 1d8 plus 3 yields 9 piercing damage. The rat's body collapses lifelessly to the ground, twitching once briefly before falling silent. Thalor, gripping his warhammer, nods approvingly but remains ready should any new threats arise. With the Giant Rat defeated, the combat encounter ends swiftly. Your party shares a brief moment of relief before returning attention to the formidable dwarven door puzzle. Gilly claps you on the back, \\\"Good call guarding the rear, Norn. We couldn't have taken that down so quickly without your cover.\\\" Each of you gains 6 experience points from this brief but critical victory, as the tunnel quiets once more.\",\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"R14-E1\",\n        \"changes\": \"Giant Rat loses 27 hit points (18 from Gilly's shortsword attack including sneak attack, 9 from Elara's longbow). Giant Rat's HP reduced from 7 to -20, status changed to 'dead'.\"\n      }\n    },\n    {\n      \"action\": \"updateNPCInfo\",\n      \"parameters\": {\n        \"npcName\": \"Gilly\",\n        \"changes\": \"Gilly's attack hits the Giant Rat, dealing significant damage.\"\n      }\n    },\n    {\n      \"action\": \"updateNPCInfo\",\n      \"parameters\": {\n        \"npcName\": \"Elara\",\n        \"changes\": \"Elara's ranged attack strikes the wounded Giant Rat, delivering the finishing blow.\"\n      }\n    },\n    {\n      \"action\": \"updatePlayerInfo\",\n      \"parameters\": {\n        \"changes\": \"Norn successfully guards the rear and directs the team's focus.\"\n      }\n    },\n    {\n      \"action\": \"exit\",\n      \"parameters\": {}\n    }\n  ]\n}",
-          "impact": "To be determined",
+          "encounterId": "R14-E1",
+          "summary": "The party entered a forgotten chamber where flickering torchlight revealed the massive circular stone door with five concentric rune rings. They found grim evidence of a recent violent struggle including a rotting corpse clutching a worn journal. Elara searched the body, retrieving the journal, ancient dwarven coins, and broken lockpicks. The journal contained notes from a fallen Ember Enclave member attempting to solve the door's puzzle. Using the clues, the party aligned the runes accordingly. This caused the door to shudder and a stone dwarven guardian emerged, demanding that the party speak the true dwarven phrase to grant passage or face judgment. The party now prepares to respond, holding their fate in their hands.",
+          "impact": "The stone guardian is now active and awaiting the party's response. The door remains locked until the correct dwarven phrase is spoken or combat ensues.",
           "worldConditions": {
             "year": 1492,
             "month": "Ches",
             "day": 22,
-            "time": "06:28:54"
+            "time": "11:49:54"
           }
         }
       ],
-      "adventureSummary": "{\n  \"narration\": \"In the eerie shadows outside the Hidden Entrance to the Dwarven Complex, your party faces down a snarling Giant Rat intent on disrupting your progress. Gilly, with practiced precision, darts forward and delivers a deadly strike with her shortsword, skipping lightly to the side. She rolls a d20 and scores a 16, hitting comfortably. For damage, she rolls 1d6 plus 3 plus sneak attack 2d6, dealing a total of 18 piercing damage to the creature. The rat squeals in pain but still stands, albeit weakened. Then Elara swiftly steps in and fires an arrow with her longbow, rolling a 14 on her attack roll, hitting the rat's AC with her +5 bonus. Damage roll of 1d8 plus 3 yields 9 piercing damage. The rat's body collapses lifelessly to the ground, twitching once briefly before falling silent. Thalor, gripping his warhammer, nods approvingly but remains ready should any new threats arise. With the Giant Rat defeated, the combat encounter ends swiftly. Your party shares a brief moment of relief before returning attention to the formidable dwarven door puzzle. Gilly claps you on the back, \\\"Good call guarding the rear, Norn. We couldn't have taken that down so quickly without your cover.\\\" Each of you gains 6 experience points from this brief but critical victory, as the tunnel quiets once more.\",\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"R14-E1\",\n        \"changes\": \"Giant Rat loses 27 hit points (18 from Gilly's shortsword attack including sneak attack, 9 from Elara's longbow). Giant Rat's HP reduced from 7 to -20, status changed to 'dead'.\"\n      }\n    },\n    {\n      \"action\": \"updateNPCInfo\",\n      \"parameters\": {\n        \"npcName\": \"Gilly\",\n        \"changes\": \"Gilly's attack hits the Giant Rat, dealing significant damage.\"\n      }\n    },\n    {\n      \"action\": \"updateNPCInfo\",\n      \"parameters\": {\n        \"npcName\": \"Elara\",\n        \"changes\": \"Elara's ranged attack strikes the wounded Giant Rat, delivering the finishing blow.\"\n      }\n    },\n    {\n      \"action\": \"updatePlayerInfo\",\n      \"parameters\": {\n        \"changes\": \"Norn successfully guards the rear and directs the team's focus.\"\n      }\n    },\n    {\n      \"action\": \"exit\",\n      \"parameters\": {}\n    }\n  ]\n}",
+      "adventureSummary": "In the Hidden Entrance to the Dwarven Complex, the party entered a forgotten chamber where flickering torchlight revealed a massive circular stone door adorned with five concentric rings inscribed with ancient dwarven runes, some faintly glowing. The scene bore grim evidence of a recent violent struggle: shattered tools, bloodstains, and a rotting corpse clutching a worn journal. Elara carefully searched the body, retrieving the journal, ancient dwarven coins, and broken lockpicks. The journal contained desperate notes from a fallen Ember Enclave member who had attempted to solve the puzzle of the door's rune rings, recording sequences tried and failing to discover the true dwarven phrase needed to prevent the door's deadly guardian from activating. After studying the journal, the party transcribed key clues, including sketches of the rune rings, hints on the ring sequence—specifically that the third ring should bear the anchor rune and the outer ring the guardian's crest—and a list of possible dwarven words such as \"Baraz,\" \"Khazad-dûm,\" and \"Orin,\" with a stark warning that only the true phrase would stay the guardian's hand. Utilizing these clues, the party carefully aligned the runes on the door's rings according to the fallen member’s notes, causing the door to shudder as a stone dwarven guardian emerged animated and imposing. The guardian demanded that the party speak the true dwarven phrase to grant passage or face judgment. The party then prepared to respond, holding the fate of their entry in their hands.",
       "doors": [
         {
           "name": "Hidden Dwarven Door",

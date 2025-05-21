@@ -64,19 +64,24 @@
     "Improved Critical",
     "Martial Archetype: Champion"
   ],
-  "specialAbilities": [],
+  "specialAbilities": [
+    {
+      "name": "Blessing of the Forest Guardian",
+      "description": "Advantage on saving throws against fear effects for 24 hours."
+    }
+  ],
   "classFeatures": [
     {
-      "name": "Fighting Style: Defense",
-      "description": "+1 to AC when wearing armor"
-    },
-    {
       "name": "Second Wind",
-      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action"
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (restored)"
     },
     {
       "name": "Action Surge",
-      "description": "Once per short rest, take one additional action on your turn"
+      "description": "Once per short rest, take one additional action on your turn (restored)"
+    },
+    {
+      "name": "Fighting Style: Defense",
+      "description": "+1 to AC when wearing armor"
     },
     {
       "name": "Improved Critical",
@@ -85,16 +90,52 @@
   ],
   "equipment": [
     {
-      "item_name": "Worn Journal",
+      "item_name": "Battered Spirit Lantern",
       "item_type": "miscellaneous",
-      "description": "Contains important information regarding the Elemental Forge and potential clues for the lock's puzzle.",
+      "description": "A worn lantern once belonging to Scout Elen, faintly glowing with residual warmth.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Scrap of Scout's Cloak",
+      "item_type": "miscellaneous",
+      "description": "A torn piece of fabric matching Scout Elen's cloak, found in the cellar.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Elen's Note",
+      "item_type": "miscellaneous",
+      "description": "A crumpled note with faint writing, possibly left by Scout Elen.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Old bronze key marked with a faded raven sigil",
+      "item_type": "miscellaneous",
+      "description": "An ancient bronze key bearing a faded raven sigil, given by Elder Mirna to access a hidden passage beneath the old keep.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Tarnished Silver Amulet (stag motif)",
+      "item_type": "miscellaneous",
+      "description": "A tarnished silver amulet once used in blessing rituals, bearing a delicate stag motif.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ceremonial Dagger with Wooden Handle",
+      "item_type": "miscellaneous",
+      "description": "A ceremonial dagger with a wooden handle, possibly used as a focus for ward rituals.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Stone Tablet Fragment with Ritual Instructions",
+      "item_type": "miscellaneous",
+      "description": "A fragment of a stone tablet inscribed with partial ritual instructions.",
       "quantity": 1
     }
   ],
   "ammunition": [
     {
       "name": "Arrows",
-      "quantity": 14,
+      "quantity": 32,
       "description": "Standard arrows for a bow"
     }
   ],
@@ -158,7 +199,7 @@
     "silver": 0,
     "copper": 5
   },
-  "experience_points": 4521,
+  "experience_points": 4571,
   "exp_required_for_next_level": 6500,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",

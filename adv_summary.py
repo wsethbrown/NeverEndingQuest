@@ -4,6 +4,7 @@ import sys
 from openai import OpenAI
 from jsonschema import validate, ValidationError
 from config import OPENAI_API_KEY, ADVENTURE_SUMMARY_MODEL
+from campaign_path_manager import CampaignPathManager
 
 TEMPERATURE = 0.8
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -164,7 +165,8 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
 
             validate_location_json(updated_location, loca_single_item_schema)
 
-            all_locations_file = f"{current_area_id_from_main}.json"
+            path_manager = CampaignPathManager()
+            all_locations_file = path_manager.get_area_path(current_area_id_from_main)
             all_locations = load_json_file(all_locations_file)
 
             found_and_updated = False
@@ -375,7 +377,8 @@ if __name__ == "__main__":
     update_journal(adventure_summary_text, party_tracker_content, leaving_location_name_arg)
 
     # Load the full data for the area being updated
-    area_file_to_update = f"{current_area_id_arg}.json"
+    path_manager = CampaignPathManager()
+    area_file_to_update = path_manager.get_area_path(current_area_id_arg)
     all_locations_in_area = load_json_file(area_file_to_update)
     
     # Find the specific location object within that area's data that matches the name of the location being left

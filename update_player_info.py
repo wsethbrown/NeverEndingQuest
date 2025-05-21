@@ -266,6 +266,14 @@ Remember to:
 
             # Apply updates to the player_info
             player_info = update_nested_dict(player_info, updates)
+            
+            # Normalize status field case if present
+            if 'status' in player_info and isinstance(player_info['status'], str):
+                player_info['status'] = player_info['status'].lower()
+            
+            # Normalize condition field - convert 'normal' to 'none'
+            if 'condition' in player_info and player_info['condition'] == 'normal':
+                player_info['condition'] = 'none'
 
             # Validate the updated info against the schema
             validate(instance=player_info, schema=schema)

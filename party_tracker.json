@@ -1,48 +1,63 @@
 {
-    "campaign": "Echoes_of_the_Elemental_Forge",
+    "campaign": "Keep_of_Doom",
     "partyMembers": [
-        "Norn"
+        "norn"
     ],
-    "partyNPCs": [
-        {
-            "name": "Gilly",
-            "role": "Companion"
-        },
-        {
-            "name": "Elara",
-            "role": "Scout"
-        },
-        {
-            "name": "Thalor",
-            "role": "Healer"
-        }
-    ],
+    "partyNPCs": [],
     "worldConditions": {
         "year": 1492,
         "month": "Ches",
-        "day": 22,
-        "time": "06:48:54",
+        "day": 1,
+        "time": "12:41:00",
         "weather": "",
         "season": "Spring",
-        "dayNightCycle": "Night",
-        "moonPhase": "Waxing Gibbous",
-        "currentLocation": "Hidden Entrance to Dwarven Complex",
-        "currentLocationId": "R14",
-        "currentArea": "Old Mines of Ember Hollow",
-        "currentAreaId": "EM001",
+        "dayNightCycle": "Day",
+        "moonPhase": "New Moon",
+        "currentLocation": "The Withered Shrine",
+        "currentLocationId": "R03",
+        "currentArea": "Gloamwood",
+        "currentAreaId": "G001",
         "majorEventsUnderway": [],
         "politicalClimate": "",
         "activeEncounter": "",
-        "activeCombatEncounter": "",
-        "weatherConditions": "",
-        "lastCompletedEncounter": "R14-E1"
+        "activeCombatEncounter": ""
     },
     "activeQuests": [
         {
-            "id": "PP014",
-            "title": "Reaching the Hidden Entrance",
-            "description": "The party reaches the Hidden Entrance to the Dwarven Complex (R14), completing their main objective in the mines. To gain entry, they must solve an ancient dwarven puzzle lock. The puzzle consists of a circular stone door with five concentric rings, each engraved with dwarven runes. The party must rotate these rings to align specific runes, creating a code based on clues found throughout their journey. Once the correct sequence is set, they will be confronted by a stone guradian and must speak the dwarven phrase 'Khazad-d\u00c3\u00bbm' to to deactivate the stone guardian and open the door.",
+            "id": "PP001",
+            "title": "Shadows Over Harrow's Hollow",
+            "description": "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run high as rumors of curses, spirits, and the haunted Keep of Doom swirl among the villagers. Players must gather information, win trust, and follow leads to piece together the mystery.",
             "status": "in progress"
+        },
+        {
+            "id": "SQ001",
+            "title": "Superstition and Shadows",
+            "description": "Old Tommen believes a wandering spirit haunts the village. If the party investigates, they may encounter the Wandering Shade\u2014a restless ghost whose cryptic words offer hints about the keep and the missing villagers.",
+            "status": "not started"
+        },
+        {
+            "id": "SQ002",
+            "title": "Trouble at the Hearth",
+            "description": "Cira the Innkeeper's cellar is plagued by minor poltergeist activity. Calming the spirit earns Cira's gratitude and a helpful clue about Scout Elen's last known movements.",
+            "status": "not started"
+        },
+        {
+            "id": "PP002",
+            "title": "The Road to Doom",
+            "description": "Tracking clues and rumors, the party must brave the haunted forest and reach the Keep of Doom. Along the way, they navigate treacherous terrain, spectral ambushes, and lingering wards. The forest is alive with unnatural energies, and the party may encounter allies or enemies who help or hinder their journey.",
+            "status": "in progress"
+        },
+        {
+            "id": "SQ003",
+            "title": "Lost in the Dark",
+            "description": "The party finds evidence of a wounded villager (Scout Elen\u2019s trail) and can choose to follow it. This detour leads to an encounter with hostile forest spirits and potentially the rescue of Scout Elen.",
+            "status": "not started"
+        },
+        {
+            "id": "SQ004",
+            "title": "Circle of the Wild Heart",
+            "description": "The party may encounter Druidess Halwen or Feyfriend Lirael, who offer cryptic warnings or aid against the keep\u2019s curse\u2014if the party helps drive off a corrupted beast menacing the woods.",
+            "status": "not started"
         }
     ]
 }

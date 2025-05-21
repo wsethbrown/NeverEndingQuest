@@ -98,8 +98,23 @@ class WebOutputCapture:
                         # Still in DM section - add to buffer
                         self.dm_buffer.append(clean_line)
                 else:
-                    # Not in DM section - send to debug
-                    if line.strip():  # Only send non-empty lines
+                    # Not in DM section - check if it's a debug message that should be filtered
+                    if any(marker in clean_line for marker in [
+                        'Lightweight chat history updated',
+                        'System messages removed:',
+                        'User messages:',
+                        'Assistant messages:',
+                        'not found. Skipping',
+                        'not found. Returning None',
+                        'has an invalid JSON format'
+                    ]):
+                        # These are debug messages - send to debug output
+                        debug_output_queue.put({
+                            'type': 'debug',
+                            'content': clean_line,
+                            'timestamp': datetime.now().isoformat()
+                        })
+                    elif line.strip():  # Only send non-empty lines
                         debug_output_queue.put({
                             'type': 'debug',
                             'content': clean_line,
