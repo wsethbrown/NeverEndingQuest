@@ -142,7 +142,7 @@
       "locationId": "R01",
       "name": "Harrow's Hollow General Store",
       "type": "shop",
-      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Sunlight streams through large windows revealing shelves stocked with lanterns, tools, and jars of preserves. The air carries scents of leather, dried herbs, wax, and parchment. A cluttered notice board displays missing pet posters and warnings. Behind the counter stands Elder Mirna Harrow, wrapped in a shawl bearing the town’s crest, her demeanor both sharp and warm as she assesses visitors.",
+      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter.",
       "coordinates": "X2Y2",
       "connectivity": [
         "R02",
@@ -155,7 +155,7 @@
       "npcs": [
         {
           "name": "Elder Mirna Harrow",
-          "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs. She has a brief, tense glance at the old bronze key with the faded raven sigil, suggesting she is withholding information about it and its connection to the keep.",
+          "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs.",
           "attitude": "Respectful but cautious toward outsiders; friendly and supportive to locals, especially those in need."
         }
       ],
@@ -169,12 +169,11 @@
         "Old bronze key marked with a faded raven sigil"
       ],
       "plotHooks": [
-        "Several townsfolk have recently gone missing, including Scout Elen who vanished checking the old east trail.",
+        "A worried villager asks if the party has news of Scout Elen, who vanished checking the old east trail.",
         "Elder Mirna discreetly seeks brave souls to investigate odd nighttime lights near the ruined keep.",
-        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.",
-        "Caution is advised after dark; trust little and ask many questions."
+        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts."
       ],
-      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something. The store is quiet but charged with anticipation, as if the whole town awaits action.",
+      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something.",
       "doors": [
         {
           "name": "Front Door",
@@ -214,27 +213,15 @@
         },
         {
           "name": "Counter and Ledger",
-          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. On it lies an old bronze key with a faded raven sigil, now in the party's possession."
+          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike."
         },
         {
           "name": "Back Storeroom",
           "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "R01-E1",
-          "summary": "The party met Elder Mirna Harrow in the general store, learned of recent disappearances including Scout Elen, and took possession of an old bronze key with a faded raven sigil from the counter.",
-          "impact": "The party now holds a mysterious key possibly linked to the nearby keep; Mirna's guarded attitude hints at hidden secrets. The party gains information and potential quest leads related to recent missing persons and livestock thefts.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "08:05:00"
-          }
-        }
-      ],
-      "adventureSummary": "The party entered Harrow’s Hollow General Store, where they met Elder Mirna Harrow who informed them of recent disappearances including Scout Elen. They examined the notice board and took an old bronze key with a faded raven sigil from the counter, suspecting it is connected to the ruined keep. Mirna was cautious and withheld some information about the key. The store was quiet but filled with anticipation as the town waited for action. After some consideration, the party decided to leave the store and proceed toward the East Gate."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R02",
@@ -296,11 +283,10 @@
       "locationId": "R03",
       "name": "East Gate and Guardhouse",
       "type": "gate",
-      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town’s eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond. The area is currently calm and quiet with no immediate threats or complications.",
+      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town’s eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond.",
       "coordinates": "X2Y3",
       "connectivity": [
-        "R01",
-        "Witchlight Trailhead"
+        "R01"
       ],
       "areaConnectivity": [
         "Witchlight Trailhead"
@@ -327,7 +313,7 @@
         "Feld warns the party: the east road is dangerous after dark, and the keep is strictly off limits to townsfolk.",
         "A bloodstained scrap of cloth is found snagged on the gate; Feld suspects foul play nearby."
       ],
-      "dmInstructions": "Sergeant Feld can provide basic information about town defenses and recent troubles. She may require a DC 13 Persuasion check before allowing non-residents to leave after dusk. Searching the area (DC 14 Investigation) uncovers subtle tracks leading toward the woods. Currently no traps are active or threatening passage.",
+      "dmInstructions": "Sergeant Feld can provide basic information about town defenses and recent troubles. She may require a DC 13 Persuasion check before allowing non-residents to leave after dusk. Searching the area (DC 14 Investigation) uncovers subtle tracks leading toward the woods.",
       "doors": [
         {
           "name": "Main Gate",
@@ -374,20 +360,8 @@
           "description": "A stout bar and iron lock securing the gates, requiring a key or brute force to bypass."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "R03-E1",
-          "summary": "Party arrives at the East Gate and Guardhouse on the morning of 1492 Ches 1 at 09:10. The area is calm with no traps or enemies present.",
-          "impact": "No changes to NPCs or inventory. Party prepared to proceed towards Witchlight Trailhead.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "09:10"
-          }
-        }
-      ],
-      "adventureSummary": "Upon arriving at the East Gate and Guardhouse (R03) on the morning of 1492 Ches 1 at 09:10, the party found the area calm and quiet with no immediate threats or complications. No traps were found, and Sergeant Mara Feld remained vigilant. The party prepared to move onward towards the Witchlight Trailhead, connected directly to this location."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R04",

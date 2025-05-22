@@ -227,14 +227,8 @@
           "description": "An unnatural fog that hugs the ground and swirls around movement, never fully dispersing."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "SK001-R01-E1",
-          "summary": "As players explore the courtyard, skeletons rise from beneath the cobblestones near the central fountain, while shadows detach from the walls to attack from behind. The noise of battle causes shadows within the keep to stir, potentially attracting more attention if the fight is prolonged.",
-          "impact": "This initial encounter sets the tone for the keep's dangers. Success builds confidence; failure or heavy resource expenditure suggests caution is needed in deeper areas. The fountain may provide historical insights if examined."
-        }
-      ],
-      "adventureSummary": "The party entered the Outer Courtyard of Shadowfall Keep, a weed-choked expanse surrounded by crumbling walls and scattered with fallen, defaced statues. Mist clung unnaturally to the ground as they approached a dry fountain at the center, its basin filled with strangely stagnant water. Upon reaching the fountain, skeletons burst from beneath the ancient cobblestones—the animated remains of the keep's former guards—while shadow creatures peeled away from the walls to attack from behind. After defeating these undead, they discovered a tarnished silver medallion bearing a knight's insignia and a rusted key ring that might open doors within the keep. Most significantly, they noticed one fallen statue depicted Sir Garran Vael himself, its stone hand outstretched toward the chapel, and fresh bootprints revealed Scout Elen had recently passed that way. When they gazed into the fountain's dark water, they glimpsed surprising visions of the keep in its former glory—a thriving fortress untouched by corruption—providing valuable insights into its tragic history. With the immediate threat eliminated, they could now proceed either toward the Gatehouse Ruins to the west or The Ruined Chapel to the east."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R02",
@@ -328,14 +322,8 @@
           "description": "A raised area containing an old desk with the logbook and evidence of the final guards' presence."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "SK001-R02-E1",
-          "summary": "Players exploring the gatehouse trigger the animated armor guardian when approaching the barracks door. The narrow space and potential for the weakened floor to collapse creates a dangerous battlefield requiring careful positioning.",
-          "impact": "This encounter tests the party's ability to observe and solve problems rather than fighting directly. Success through deduction (finding the password) rewards clever play; brute force approaches risk structural collapse and injury."
-        }
-      ],
-      "adventureSummary": "The party explored the Gatehouse Ruins, a partially collapsed defensive structure with ancient bloodstains darkening the stones and tattered banners bearing Sir Garran's family crest. While investigating the watch post, they discovered a guard's logbook recording the keep's final days, including disturbing mentions of 'shadows moving against the light' and 'the lord's disturbing new relic.' As they approached the splintered door leading to the barracks, an empty suit of armor suddenly animated, blocking their path. Rather than fighting in the dangerous confined space with its weakened upper walkway, they listened carefully and caught ghostly whispers repeating what seemed to be a challenge password: 'Honor and Shadow are One.' When spoken, the armor stood aside, allowing access without conflict. Their thorough search revealed a captain's badge, a well-preserved longbow, and a hidden alcove containing a valuable scroll of Protection from Undead. Most intriguing was a desperate message scratched near the portcullis: 'The heart! The heart is the key!'—perhaps referring to Sir Garran's heart mentioned in earlier clues. With the gatehouse secured, they could now return to the Outer Courtyard or proceed deeper into the keep through the door leading to the Fallen Barracks."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R03",
@@ -431,14 +419,8 @@
           "description": "Ghostly blue flames that appear at dusk, floating where real candles once stood."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "SK001-R03-E1",
-          "summary": "Players investigating the chapel disturb shadows lurking among the broken pews. After this threat, Father Aldren appears to guide them toward the knight's heart amulet. The specter guardian attacks those who approach the altar without showing proper respect.",
-          "impact": "This encounter provides crucial plot information and the heart amulet—a key item for confronting Sir Garran. Success grants powerful protection; failure means missing vital lore and protective items."
-        }
-      ],
-      "adventureSummary": "The party entered The Ruined Chapel, once sacred but now desecrated, with its altar split in two and stained glass windows shattered. Ghostly hymns echoed faintly as they noted the unnatural cold and the dark spiral stain pattern leading to the altar. Cautiously moving between toppled pews, they spotted shadows moving independently before the creatures attacked from the darkness. After defeating these undead, the sorrowful ghost of Father Aldren appeared—the keep's former chaplain, now trapped between worlds. Though unable to speak directly due to some curse, his gestures and pantomime pointed them toward the altar. Showing respect for the fallen by bowing before approaching, they avoided confrontation with a vengeful specter guardian. Their search revealed a chaplain's journal describing the shadow relic's arrival, a small silver key, and ultimately a secret compartment beneath the altar containing the Knight's Heart Amulet—an artifact containing a drop of Sir Garran's blood created as protection against corruption. They also found evidence Scout Elen had been there and learned about the amulet's importance. Father Aldren's spirit seemed at peace knowing the heart amulet had been found, and with this crucial protective item secured, they could now return to the Outer Courtyard or proceed deeper into the keep toward the Great Hall."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R04",
@@ -527,14 +509,8 @@
           "description": "A small private room with a bed, desk, and personal belongings of the garrison leader."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "SK001-R04-E1",
-          "summary": "Players exploring the barracks face animated weapons from the rack and skeletal archers hiding among the debris. The uneven floor and collapsed sections create dangerous terrain during combat.",
-          "impact": "This encounter provides military context for the keep's fall through documents and personal effects. Success yields valuable equipment and crucial warnings about dangers below; failure means missing key information and possibly sustaining injuries."
-        }
-      ],
-      "adventureSummary": "The party entered the Fallen Barracks, a long chamber with rotted bunks, rusted armor, and a partially collapsed ceiling letting in pale light. As they investigated the scattered personal effects of long-dead soldiers, several corroded weapons suddenly rose from a rack and attacked, followed by skeletal archers that emerged from hiding among the debris. During the battle, they carefully avoided a weakened section of floor that threatened to collapse beneath them. After defeating the undead, they discovered one skeleton carried a key to the Commander's Quarters, a small private room at the back of the barracks. Inside, they found a soldier's lockbox containing gold coins and a silver ring, a weatherproof cloak, and most valuably, a masterwork longsword and commander's horn said to summon spectral allies in dire need. Letters and documents from the garrison's final days revealed growing fear about 'the lord's new power' and warnings of 'something imprisoned beneath the study' that must never be released. Their careful examination also uncovered evidence that Scout Elen had fought through this area and continued toward the tower, leaving a trail of destroyed undead behind her. With these discoveries and warnings about dangers below, they could now proceed either back toward the Gatehouse Ruins or onward to the Broken Tower."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R05",
@@ -631,14 +607,8 @@
           "description": "A massive fireplace filled with cold ash and the remnants of ancient logs."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "SK001-R05-E1",
-          "summary": "Players entering the hall are 'welcomed' by phantom servants offering poisoned spectral food and drink. After dealing with this threat and potentially the mimic, they can interact with the Spectral Scribe to learn crucial history.",
-          "impact": "This social/combat encounter provides essential lore about Sir Garran and the shadow relic. Success means gaining historical context and the signet ring needed for the study; failure means missing key information about the keep's tragedy."
-        }
-      ],
-      "adventureSummary": "The party entered the vast Great Hall, its soaring ceiling supported by columns carved as knights and a massive feast table still set with dusty goblets and tarnished silverware. As they approached the table, phantom servants materialized, performing a macabre parody of their duties by offering spectral food and drink. Those who wisely refused were attacked, while the party also narrowly avoided a mimic disguised as an ornate chair at the head of the table. After defeating these threats, they noticed a translucent figure bent over a phantom writing desk—the Spectral Scribe, once Sir Garran's trusted chronicler, now cursed to document the keep's tragedy eternally. The scribe offered to share complete knowledge of the shadow relic if they could recover his missing journal pages scattered throughout the keep. While searching the hall, they found Lord Vael's signet ring (necessary to access the study), an enchanted poison-detecting goblet, and a family chronicle revealing Sir Garran had originally acquired the relic to protect his people from a rival lord's necromancy. Most intriguingly, the scribe hinted at something in 'the lowest chamber beneath the study' holding the key to Sir Garran's salvation or destruction. With the signet ring secured and new historical context gained, they could now proceed to the Broken Tower, return to The Ruined Chapel, or attempt to access the Lord's Study if properly prepared."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R06",
@@ -727,14 +697,8 @@
           "description": "Collected water on stone floors that forms reflective surfaces, sometimes showing more than they should."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "SK001-R06-E1",
-          "summary": "Players climbing the treacherous tower must navigate structural hazards while shadows attack through arrow slits. Upon reaching the observatory, gargoyles animate and attack from multiple angles, attempting to knock intruders from the height.",
-          "impact": "This vertical challenge tests different skills than standard combat. Success provides valuable insight about the shadow relic's celestial connections; failure could mean serious injuries from falls or being trapped."
-        }
-      ],
-      "adventureSummary": "The party ventured into the Broken Tower, a partially collapsed structure with spiral stairs winding precariously upward, many steps missing entirely. Their ascent proved challenging, requiring careful navigation around unstable sections while shadows slipped through arrow slits to attack at their most vulnerable moments. Halfway up, a section of stairs collapsed beneath them, though quick reflexes prevented serious injury. At the tower's peak, they discovered an observatory platform that had somehow survived the destruction, offering a panoramic view marred by unnatural shadows clinging to the keep. As they explored this chamber, decorative gargoyles suddenly animated, forcing a precarious battle with limited footing. After defeating these creatures, they discovered several valuable items: a quality spyglass, a guard captain's journal noting strange stellar alignments preceding Sir Garran's corruption, and a celestial map showing constellations linked to the shadow relic's power. Most significantly, they found Scout Elen's final journal entry, indicating she planned to confront Sir Garran directly after finding 'the heart that remembers love'—likely referring to the amulet from the chapel. Using the brass key found during their search, they unlocked an observatory cabinet containing star charts that revealed optimal times for confronting the shadow relic. With this astronomical knowledge and a better understanding of Scout Elen's fate, they could now descend to either the Fallen Barracks or the Great Hall."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R07",
@@ -831,14 +795,8 @@
           "description": "A grandfather clock perpetually stopped at midnight, occasionally ticking backward."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "SK001-R07-E1",
-          "summary": "Players exploring the study disturb the Shadow of Sir Garran, which manifests to defend the chamber's secrets. The animated objects and confined space create a challenging battlefield where knowledge gained earlier in the keep (particularly the heart amulet) can provide significant advantages.",
-          "impact": "This climactic keep encounter provides essential context before the final confrontation. Success means gaining the dungeon key and crucial knowledge; failure could mean retreating without the means to reach the shadow relic."
-        }
-      ],
-      "adventureSummary": "The party entered the Lord's Study, Sir Garran Vael's remarkably well-preserved private sanctuary. Wood-paneled walls lined with bookshelves surrounded an imposing desk, while arcane symbols etched into the floor formed a complex containment circle beneath a central rug. The portrait of Sir Garran above the mantle seemed to watch their every move, and a grandfather clock stood frozen at midnight regardless of attempts to adjust it. As they examined the scattered parchments on the desk—the ink somehow still appearing wet despite being centuries old—a shadowy figure began to coalesce: the Shadow of Sir Garran, a powerful spectral guardian. When a party member displayed the Knight's Heart Amulet found in the chapel, the shadow hesitated momentarily, allowing them to ask one question before the inevitable confrontation. After a difficult battle where books and furniture animated to attack alongside the shadow, they recovered several precious items: Sir Garran's personal journal detailing his corruption and resistance, a locket containing a portrait of his lost love, and most importantly, an ornate key to the dungeons below. The journal revealed Sir Garran was initially a victim, not the cause of the corruption, and still fought the relic's influence from within his cursed form. Diagrams showed a hidden chamber beneath the study where the shadow relic was originally stored. Using the ornate key, they unlocked a trapdoor beneath the central rug, revealing a passage leading down to The Cursed Dungeons below, where the final confrontation with the fully manifested Sir Garran and the shadow relic awaited."
+      "encounters": [],
+      "adventureSummary": ""
     }
   ]
 }

@@ -43,8 +43,8 @@
       "nextPoints": [
         "PP003"
       ],
-      "status": "in progress",
-      "plotImpact": "Norn leaves the safety of Harrow\u2019s Hollow for the Witchlight Trailhead, beginning the search for Scout Elen and advancing the investigation toward the Keep of Doom.",
+      "status": "not started",
+      "plotImpact": "Surviving the journey and overcoming obstacles gives the party a tactical edge entering the keep. Failure or taking too long may worsen conditions in the village or endanger Scout Elen further.",
       "sideQuests": [
         {
           "id": "SQ003",

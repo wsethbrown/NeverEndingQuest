@@ -9,7 +9,10 @@ party_tracker_file = "party_tracker.json"
 # Initialize path manager
 path_manager = CampaignPathManager()
 
-# Campaign-specific files for Keep of Doom
+# Define all area IDs for Keep of Doom campaign
+area_ids = ["HH001", "G001", "SK001", "TBM001", "TCD001"]
+
+# Campaign-specific files for Keep of Doom - we'll focus on HH001 for backup/restore
 original_locations_file = path_manager.get_area_path("HH001")
 backup_locations_file = f"{path_manager.campaign_dir}/HH001_BU.json"
 original_plot_file = path_manager.get_plot_path("HH001")
@@ -22,6 +25,43 @@ def restore_from_backup(original_file, backup_file):
         print(f"Restored {original_file} from {backup_file}")
     else:
         print(f"Backup file {backup_file} not found. No changes made to {original_file}.")
+
+# Function to clean encounter data from location files
+def clean_encounter_data_from_areas():
+    """Remove generated encounter entries and adventure summaries from all area files"""
+    for area_id in area_ids:
+        area_file = path_manager.get_area_path(area_id)
+        if os.path.exists(area_file):
+            try:
+                with open(area_file, 'r', encoding='utf-8') as f:
+                    area_data = json.load(f)
+                
+                # Clean each location in the area
+                if 'locations' in area_data:
+                    for location in area_data['locations']:
+                        # Clear encounters array - these are generated during gameplay
+                        if 'encounters' in location:
+                            location['encounters'] = []
+                        
+                        # Clear adventure summary - this is also generated during gameplay
+                        if 'adventureSummary' in location:
+                            location['adventureSummary'] = ""
+                        
+                        # Optional: Reset description if it was modified during gameplay
+                        # (Only uncomment if you want to reset descriptions to original state)
+                        # if 'originalDescription' in location:
+                        #     location['description'] = location['originalDescription']
+                
+                # Save the cleaned area file
+                with open(area_file, 'w', encoding='utf-8') as f:
+                    json.dump(area_data, f, indent=2, ensure_ascii=False)
+                
+                print(f"Cleaned encounter data from {area_file}")
+                
+            except Exception as e:
+                print(f"Error cleaning encounter data from {area_file}: {str(e)}")
+        else:
+            print(f"Area file {area_file} not found")
 
 # Create backup files if they don't exist
 if not os.path.exists(backup_locations_file) and os.path.exists(original_locations_file):
@@ -43,8 +83,13 @@ if os.path.exists(backup_plot_file):
 else:
     print(f"No backup found for plot file. Using existing {original_plot_file}")
 
+# Clean encounter data from all area files
+print("Cleaning encounter data from all area files...")
+clean_encounter_data_from_areas()
+
 # Delete combat_conversation_history.json and conversation_history.json
-files_to_delete = ['combat_conversation_history.json', 'conversation_history.json', 'chat_history.json']
+files_to_delete = ['combat_conversation_history.json', 'conversation_history.json', 'chat_history.json', 
+                   'transition_debug.log', 'adv_summary_debug.log']
 for file in files_to_delete:
     if os.path.exists(file):
         os.remove(file)

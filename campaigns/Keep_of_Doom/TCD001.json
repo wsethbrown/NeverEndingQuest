@@ -253,14 +253,8 @@
           "description": "Magical light fixtures that sputter and dim periodically, creating shifting shadows."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TCD001-R01-E1",
-          "summary": "Players entering the dungeon are ambushed by shadows after examining the prisoner ledgers. The magical sconces dim during combat, making the shadows more difficult to target. The shadow sigil may activate during the fight, causing magical darkness and draining vitality.",
-          "impact": "This encounter establishes the dangers of the dungeon and provides important clues about Scout Elen's fate. Success means gaining tools (keys) and insight for the challenges ahead; failure could deplete resources or lead to exhaustion that persists throughout the dungeon."
-        }
-      ],
-      "adventureSummary": "The party descended the narrow staircase from the Lord's Study into the Dungeon Entrance, a dank antechamber lit by sputtering magical sconces that cast eerie blue light across the room. Rusted manacles hung from the walls, and a processing desk stood intact, covered with moldering ledgers. As they examined these records, they discovered disturbing entries—names of people not yet born and a recent notation about 'Scout E' being brought in by 'shadows that walk like men' and taken to 'the chamber below all chambers.' While studying these unsettling documents, shadows peeled away from the walls and attacked, temporarily dimming the magical sconces to gain advantage. During the battle, one party member inadvertently stepped on a hidden shadow sigil in the floor, triggering a pulse of magical darkness that drained their vitality. After defeating the shadows, they recovered a jailer's key ring necessary for opening cells in The Gaol, a blackened iron dagger particularly effective against incorporeal undead, and noticed a desperate message scratched beneath the desk: 'The relic feeds on suffering. Do not react to what you see or hear.' With this warning in mind and the knowledge that Scout Elen was somewhere in the dungeon's depths, they faced a choice between the western door leading to The Gaol or the eastern door leading to the Torture Chamber."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R02",
@@ -366,14 +360,8 @@
           "description": "The cell containing the Prisoner Echo of Scout Elen, where temporal distortions are strongest."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TCD001-R02-E1",
-          "summary": "Players searching through the cells encounter ghouls hiding among them, while the desperate cries from the darkest cell might lure compassionate characters to the gibbering mouther. The Prisoner Echo of Scout Elen provides cryptic clues if approached carefully.",
-          "impact": "This encounter provides vital information about Scout Elen and the nature of Sir Garran's relationship with the shadow relic. Success means gaining insights crucial for the final confrontation; failure might result in characters becoming temporarily overwhelmed by the Hunger Curse or injured by the monsters."
-        }
-      ],
-      "adventureSummary": "The party entered The Gaol, a long corridor flanked by small cells extending into shadow-filled darkness. Most cell doors hung open with rusted locks, while others remained shut. Strangest of all were the distortions within some cells—showing occupants who weren't physically present and replaying scenes of past suffering. The constant sounds of weeping and occasional screaming echoed through the corridor despite the apparent emptiness. As they searched through the cells, ghouls—former prisoners who had resorted to cannibalism—sprang from hiding, forcing a desperate battle in the narrow space. After defeating these undead, they discovered cell 7 contained a partially substantial echo of Scout Elen, endlessly reliving her capture and questioning. This echo repeatedly mentioned 'the heart' and 'his lost love' being the key to Sir Garran's salvation. Their thorough investigation of the guard station yielded an echo crystal that, when activated, played a conversation between Shadow Knight Garran and the shadow relic, revealing their conflicted relationship—the knight still struggling against the artifact's control. They also recovered Scout Elen's identification tag torn from her cloak, confirming she had indeed been brought here recently. The party narrowly avoided the gibbering mouther lurking in the darkest cell, recognizing that the desperate cries for help were a lure rather than genuine distress. With the jailer's keys and new insights about both Scout Elen's fate and Sir Garran's inner conflict, they proceeded toward the door leading to the Guard Post."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R03",
@@ -462,14 +450,8 @@
           "description": "A heavy wooden surface holding numerous implements and the speaking trumpet device."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TCD001-R03-E1",
-          "summary": "Players exploring the chamber trigger the Phantom Torturer and animated devices, which attempt to restrain and torment them. The pain amplifier makes the center of the room a dangerous area during combat.",
-          "impact": "This challenging encounter provides crucial information about Sir Garran's original intentions and Scout Elen's mission. Success means gaining powerful tools against the undead and key plot revelations; failure could result in characters being captured and tormented by the phantom."
-        }
-      ],
-      "adventureSummary": "The party entered the Torture Chamber, a nightmarish space filled with instruments of suffering—iron maidens, stretching racks, and more esoteric devices arrayed throughout. The stone floor sloped toward drainage channels stained rust-brown, while chains swayed from the ceiling without any breeze. As they examined a heavy wooden table holding cruel implements with disturbing orderliness, a ghostly figure materialized—the Phantom Torturer, methodically preparing his tools as though they were his next subjects. Simultaneously, several torture devices animated, attempting to trap and hold them for the torturer's work. During the desperate battle that followed, they discovered a magical field in the chamber's center that amplified any pain suffered there, forcing them to fight from the periphery. After defeating these horrors, they recovered several valuable items: enchanted manacles effective against undead, a vial of ghostfire that harmed incorporeal spirits, and the torturer's journal. The journal revealed rebels had claimed the real Sir Garran had 'trapped his soul in his heart' for safekeeping before the shadow fully claimed him. A silver key found on the phantom's remains opened a secret compartment containing reports about 'Project Umbral Shield'—evidence that Sir Garran had originally created the shadow relic as a defensive weapon against rival necromancers. Most promisingly, they discovered a recording crystal in a speaking trumpet device that contained Scout Elen's voice claiming she had found 'the heart amulet' but was ambushed before she could use it. With the bloodstained silver key in hand, they could now unlock the door leading to the Storage Vaults."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R04",
@@ -570,14 +552,8 @@
           "description": "A heavy wooden surface covered with duty rosters, playing cards, and a scratched map."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TCD001-R04-E1",
-          "summary": "Players entering the guard post face coordinated attacks from wights using crossbows from cover while the shadow mastiff circles to attack from behind. The room's pillars and furnishings provide tactical cover for both sides.",
-          "impact": "This tactical encounter rewards strategic thinking. Success provides useful equipment and reveals the hidden passage to the Forgotten Ossuary; failure could deplete resources before the final confrontation."
-        }
-      ],
-      "adventureSummary": "The party entered the Guard Post, a fortified chamber with weapon racks along the walls and a heavy wooden table at its center covered with faded duty rosters and stained playing cards. Almost immediately, they were met with coordinated attacks from wights—undead former guards who fired crossbows from behind the room's supporting pillars. During the exchange, a shadow mastiff emerged from darkness, attempting to flank and isolate party members. Using the chamber's tactical features, including arrow slits and the partially open barred gate, they eventually overcame these undead sentinels. Their subsequent search yielded several valuable finds: a guard captain's enchanted crossbow, a ring of keys opening various storage lockers, and an antique silver flask of potent spirits. Most importantly, they discovered a duty roster revealing guards were frequently rotated to prevent 'the whispering darkness' from affecting them, and a hidden letter from Sir Garran ordering the guard captain to 'end him' should he ever lose control completely. In the desecrated shrine to gods of order and justice, they found a potion of heroism concealed in the hollow base. After restoring the shrine with a proper blessing, they received divine protection against undead. Their most fortunate discovery came from examining the table, where they found a crude map scratched into the surface showing a hidden escape tunnel connecting directly to the Forgotten Ossuary—a secret path that would allow them to bypass potential dangers in the regular route."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R05",
@@ -666,14 +642,8 @@
           "description": "A partially collapsed section where the ceiling has fallen, revealing stonework from upper levels."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TCD001-R05-E1",
-          "summary": "Players navigating the cluttered storage vaults must avoid the slow-moving gelatinous cube while searching for useful supplies. The mimic surprises treasure-hunters, while careless handling of alchemical equipment could release toxic fumes.",
-          "impact": "This exploration-focused encounter rewards caution and investigation. Success provides valuable supplies and crucial information about the shadow relic's vulnerabilities; failure could result in poisoning or being consumed by the cube."
-        }
-      ],
-      "adventureSummary": "The party carefully entered the Storage Vaults, a series of interconnected chambers filled with shelves, crates, and various containers, many broken and spilling their contents across the floor. Bioluminescent fungi on the ceiling cast an eerie, pulsing green light that revealed preserved specimens floating in cloudy jars and alchemical equipment lining one wall. Their cautious approach served them well when they spotted the nearly transparent form of a gelatinous cube slowly moving between shelving units, allowing them to safely navigate around it. While searching through the various supplies, they narrowly avoided disturbing what appeared to be an ornate chest but was actually a mimic waiting to ambush treasure seekers. Using the bloodstained silver key recovered from the Torture Chamber, they unlocked a secured cabinet containing an experimental journal that detailed shadow magic research. Most crucially, the journal revealed the shadow relic's vulnerability to specific frequencies of light—tactical information that could prove vital in the final confrontation. Behind several specimen jars, they discovered a small box containing doses of rare antitoxin effective against magical poisons. They also found a preserved specimen labeled 'Shadow Manifestation'—an actual physical sample of the relic's substance—and a partially burned letter from Sir Garran mentioning how the relic had begun speaking to him 'even in daylight,' showing his growing concern before full corruption took hold. With these valuable supplies and information gathered, they proceeded carefully toward the passage leading to the Forgotten Ossuary."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R06",
@@ -774,14 +744,8 @@
           "description": "A slightly raised circular area bearing magical markings related to death and transformation."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TCD001-R06-E1",
-          "summary": "Players must negotiate with the Bone Speaker to gain passage to the Relic Chamber, answering questions about their journey or demonstrating their purpose. Failure results in combat with animated skeletons from the walls, while success grants valuable guidance for the final confrontation.",
-          "impact": "This pivotal encounter tests knowledge gained throughout the dungeon. Success provides crucial information and aid for facing Sir Garran and the shadow relic; failure means a difficult battle and potentially entering the final chamber unprepared."
-        }
-      ],
-      "adventureSummary": "The party entered the Forgotten Ossuary, a vast cathedral-like chamber with walls lined floor to ceiling with elaborately arranged bones. Spectral blue light emanated from within some skull eye sockets, while bone chimes hanging from the ceiling moved and clacked without wind, creating unsettling melodies. As they approached the grand archway at the far end, a skeletal figure in tattered robes materialized—the Bone Speaker, guardian of the passage to deeper levels. It blocked their way and demanded they demonstrate their knowledge of Sir Garran's true story. Drawing on information gathered throughout the dungeon, they correctly answered the entity's three questions about Sir Garran, the shadow relic, and Scout Elen's mission. When they displayed the Knight's Heart Amulet found in the chapel, the Bone Speaker became more forthcoming, explaining how to use it against the shadow relic by 'awakening the heart's resonance through genuine compassion.' Their thorough investigation of the chamber revealed a cryptic map hidden in a skull marked with a crown symbol, showing the Relic Chamber's features and vulnerabilities. They also discovered a circular ritual platform bearing markings that illustrated the proper approach to bind the shadow relic, and noted with grave interest that names inscribed on certain skulls matched those of Sir Garran's most trusted knights, suggesting they were early victims of the relic's influence. With the Bone Speaker's blessing, they collected a staff of Speaking with Dead, an ancient funerary mask, and a vial of blessed silver dust effective against shadow creatures. Thus prepared, they approached the grand archway leading down to the Relic Chamber, where they would face Sir Garran and the shadow relic itself."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R07",
@@ -880,14 +844,8 @@
           "description": "Seven columns bearing carved scenes depicting the relic's creation, purpose, and effects."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TCD001-R07-E1",
-          "summary": "The final confrontation with Sir Garran Vael and the shadow relic presents multiple possible resolutions. Combat, negotiation, ritual containment, or cleansing are all viable approaches depending on players' previous discoveries and current choices. The shadow relic attempts to divide the party with temptations while creating manifestations to attack.",
-          "impact": "This climactic encounter resolves the campaign's central conflict. The outcome determines the fate of Sir Garran, Scout Elen, the shadow relic, and the entire region, potentially setting up future adventures or bringing definitive closure."
-        }
-      ],
-      "adventureSummary": "The party descended into the Relic Chamber, a perfectly circular room with a domed ceiling covered in shifting arcane symbols. At its center floated a pulsating object of pure shadow—the relic itself—while seven pillars arranged in a circle bore scenes depicting its history and original purpose as a defensive weapon against necromantic invasion. Near a throne-like chair sat the fully manifested form of Sir Garran Vael, more shadow than man, his armor fused with corrupted flesh and his eyes burning with conflicted purpose. Suspended in a cage of shadows near the ceiling, they spotted Scout Elen, weakened but still alive. As they approached, Sir Garran attacked, commanding shadow manifestations that took forms reflecting their greatest fears and failures. Simultaneously, the relic itself whispered personalized temptations to each party member, promising power, vengeance, or whatever desires lurked in their hearts. Drawing upon all they had learned, they presented the Knight's Heart Amulet while speaking words that called to Sir Garran's humanity, referencing his original noble purpose and lost love. This briefly broke through the shadow's control, creating an opening for their chosen approach. After an intense struggle involving both combat and appeals to the knight's better nature, they succeeded in their goal—whether destroying the relic with light-based attacks, containing it through the ritual markings, or attempting to cleanse it of corruption. They freed Scout Elen from her shadow prison and recovered valuable treasures, including Sir Garran's sword, ancient scrolls, and a deed to the keep itself. Their actions determined the fate of Sir Garran, the shadow relic, and the entire region—bringing an end to the curse that had plagued Shadowvale for generations."
+      "encounters": [],
+      "adventureSummary": ""
     }
   ]
 }

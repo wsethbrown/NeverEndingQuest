@@ -210,14 +210,8 @@
           "description": "A small alcove in the central marker where travelers leave offerings for safe passage."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "G001-R01-E1",
-          "summary": "As travelers enter the Gloamwood, the mist thickens and the ambient sounds of the forest—birds, insects, rustling leaves—gradually fade to an unnatural silence. Players who linger after dark encounter shadows that seem to peel away from the trees, attacking without warning.",
-          "impact": "Establishes the supernatural danger of the forest and creates urgency to reach shelter before nightfall. Success means understanding the forest's dangers; failure could result in injury or worse before the adventure properly begins."
-        }
-      ],
-      "adventureSummary": "The party approached the foreboding entrance to Gloamwood Forest, marked by ancient stone pillars covered with faded warnings and modest offerings from superstitious villagers. Pale blue witchlights drifted eerily along the path ahead, illuminating the thick mist that hung between twisted trees. A careful examination of the trail revealed fresh bootprints matching the description of Scout Elen's distinctive boots, confirming she had indeed ventured this way recently. As daylight began to wane, they noted the unnatural silence of the forest—no birds called, no insects chirped—creating an atmosphere of mounting dread. Deciding not to linger until nightfall when shadows were known to hunt, the party pressed onward, following the trail deeper into the misty woods toward either the Abandoned Ranger Outpost to the east or The Withered Shrine to the west."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R02",
@@ -306,14 +300,8 @@
           "description": "A section where the roof has partially fallen in, allowing visibility to the sky above."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "G001-R02-E1",
-          "summary": "Players exploring the outpost disturb the giant spider that has claimed the rafters as its territory. The creature drops silently from above, attempting to surprise and immobilize a party member with its web.",
-          "impact": "A successful encounter provides safe shelter and valuable supplies; failure could leave party members poisoned or webbed with limited resources for the journey ahead."
-        }
-      ],
-      "adventureSummary": "The party discovered the Abandoned Ranger Outpost nestled around a massive oak tree, its wooden structure dilapidated with a partially collapsed roof and walls overtaken by vines. Inside, they found signs of a hasty departure: overturned furniture, scattered supplies, and a cold firepit. While searching the main room, they narrowly noticed a giant spider lurking in the rafters before it dropped down to attack. After defeating the creature and clearing its webs, they recovered several useful items including a ranger's pack with supplies, a hunting bow with arrows, and a silver whistle. Most valuable was a journal describing increasing dangers in the forest and mentioning a 'shadow knight' near the keep. A map on the wall marked the Lost Ward Circle with a note about failing protections needing ritual renewal. Before departing, they discovered a locked chest containing a healing potion and some gold coins, along with a hastily scratched warning about whispers coming from the keeper's cottage. The outpost provided temporary shelter and valuable information about the path ahead, either back toward the Witchlight Trailhead or onward to the Lost Ward Circle."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R03",
@@ -380,14 +368,8 @@
           "description": "Stone bowls at the base of the altar, some containing old offerings, others filled with stagnant water."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "G001-R03-E1",
-          "summary": "As players approach the shrine, the twig blights attack from hiding. After this encounter, the Lingering Spirit manifests, attempting to warn the party about the keep's influence and the failing wards.",
-          "impact": "Success grants insight into the plot and potentially a blessing; failure could mean leaving without crucial information about the Ward Circle or taking injuries from the ambush."
-        }
-      ],
-      "adventureSummary": "The party entered a desolate clearing containing The Withered Shrine, once sacred to forest guardians but now corrupted and abandoned. At its center stood a cracked stone altar surrounded by a circle of twisted, lifeless trees. As they approached to examine the dark stains across the altar's surface, twig blights emerged from the dead foliage to ambush them. After defeating these plant creatures, a translucent, flickering spirit appeared—shifting between the form of a serene forest guardian and a tormented wraith. Though its communication was fragmented, they discerned warnings about 'the binding failing' and 'shadows escaping their chains.' Their respectful approach seemed to please the entity, which granted them a temporary blessing against fear. Among the shrine's remains, they discovered a tarnished silver amulet, a ceremonial dagger, and a stone tablet fragment with partial ritual instructions. Most significantly, they found a map carved into the altar's base showing the path to both the Lost Ward Circle and the keep beyond. The party could now proceed either back to the Witchlight Trailhead, deeper into the Boggard Marsh, or toward the Spectral Clearing."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R04",
@@ -454,14 +436,8 @@
           "description": "Faint blue energy that occasionally arcs between the stones, remnants of once-powerful protection magic."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "G001-R04-E1",
-          "summary": "Players investigating the ward circle are approached by a friendly-seeming wisp of light, while specters rise from the ground to attack anyone touching the monoliths. The will-o'-wisp reveals its true nature if followed away from the group.",
-          "impact": "Successfully performing the ritual provides advantages against the undead; failure strengthens the hostile presence and could make the journey to the keep more dangerous."
-        }
-      ],
-      "adventureSummary": "The party discovered the Lost Ward Circle, an ancient magical site consisting of seven monoliths arranged in a perfect circle, several now toppled and cracked. As they approached, ghostly blue energy flickered between the remaining stones, and they noticed the ground within the circle was eerily barren. While examining the central dais with its bowl-like depression, they were approached by what appeared to be a helpful wisp of light, but their keen insight revealed its malicious intent. Simultaneously, two specters rose from the ground, attacking as the party began inspecting the monoliths more closely. After defeating these spirits, they recovered several valuable items: a ward stone fragment, a scroll of protection, five ancient runestones, a silver ritual dagger, and most importantly, a tattered ritual book. The book contained instructions for renewing the wards, which they successfully performed after deciphering the arcane requirements. The ritual temporarily strengthened the circle's power, weakening the undead in the forest and revealing a clearer path forward. They also found evidence that Scout Elen had attempted the same ritual but fled when something went wrong. With the wards renewed, they could now proceed either back toward the Abandoned Ranger Outpost or onward to the mysterious Keeper's Cottage."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R05",
@@ -546,14 +522,8 @@
           "description": "Hints of stone structures beneath the water, suggesting this was once dry land."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "G001-R05-E1",
-          "summary": "As players navigate the treacherous marsh, will-o'-wisps attempt to lead them astray into quicksand or the territory of the shambling mound. The creatures coordinate their attacks, creating false safe paths that lead into danger.",
-          "impact": "Successfully navigating the marsh provides access to valuable items and a shortcut; failure could result in multiple members becoming trapped or separated."
-        }
-      ],
-      "adventureSummary": "The party cautiously entered the dismal expanse of Boggard Marsh, a nightmarish landscape of stagnant water, twisted cypress trees, and floating patches of deceptive moss. Ghostly lights hovered above the murky water, and the croaking of unseen creatures was occasionally interrupted by unnaturally large splashes. Using their wilderness expertise, they identified a series of strange runes carved into certain trees that marked a safer path through the hazardous terrain. Despite their caution, they were soon targeted by will-o'-wisps that attempted to lead them into quicksand and deep water. After narrowly avoiding these dangers and dispatching one of the malevolent lights, they discovered a half-sunken rowboat containing a waterlogged journal page that mentioned sensing 'the knight's sorrow' emanating from the keep. Further exploration revealed a small chest containing gold coins and a damaged map, as well as a well-preserved longsword with silver inlay trapped in tree roots beneath the water. They also noted footprints suggesting Scout Elen had attempted to cross the marsh but wisely turned back toward the Spectral Clearing. Having gathered what information and treasures they could, the party carefully made their way back along the runic path, able to proceed either toward The Withered Shrine or the Spectral Clearing."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R06",
@@ -630,14 +600,8 @@
           "description": "Translucent figures that appear and disappear around the clearing, whispering fragments of memory and warning."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "G001-R06-E1",
-          "summary": "As players investigate the clearing, multiple spectral figures appear, including the Echo of Scout Elen. When trying to leave toward the Keeper's Cottage, they are confronted by the guardian ghost who tests their worthiness with a riddle or judgment of their intentions.",
-          "impact": "Successful interaction provides crucial plot information and passage; failure could result in combat with the ghost or leaving without key insights about Scout Elen and the keep."
-        }
-      ],
-      "adventureSummary": "The party entered the eerily perfect Spectral Clearing, where twilight seemed perpetually frozen and pale, luminescent grass swayed without wind. At the center, they observed a ring of glowing mushrooms—a faerie circle—within which the air shimmered strangely. Translucent figures flickered at the clearing's edge, their whispers creating an unsettling background murmur. As they explored, they discovered Scout Elen's torn cloak clasp hidden in the grass, and moments later, an echo of Elen herself materialized—not her ghost, but a supernatural impression left by her passage. This spectral echo repeated fragments of Elen's journey, mentioning her quest to find 'the knight's heart' to break his curse and free him from the relic's control. When the party attempted to continue toward the Keeper's Cottage, a more substantial ghost barred their path—the spirit of an ancient forest guardian. It tested their worthiness with a riddle about light and shadow, which they successfully answered. Before departing, they found a spectral lens allowing them to see invisible creatures and a silver flute said to calm restless spirits. The clearing provided crucial information linking Scout Elen's disappearance to Sir Garran Vael and the Shadow Relic, confirming their mission's importance. They could now proceed toward either the Boggard Marsh, The Withered Shrine, or the mysterious Keeper's Cottage that lay ahead."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R07",
@@ -732,14 +696,8 @@
           "description": "A wide ceramic bowl filled with dark liquid that occasionally shows visions of the forest and keep."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "G001-R07-E1",
-          "summary": "Keeper Morvath invites the party inside for tea and conversation, testing their character through riddles and offers of both aid and temptation. The encounter can range from receiving valuable guidance to being attacked by awakened shrubs if the Keeper is offended.",
-          "impact": "Success earns powerful allies, supplies, and information for confronting the keep; failure means missing crucial aids and potentially facing a more difficult path forward."
-        }
-      ],
-      "adventureSummary": "The party approached a stone cottage nearly consumed by the forest, its walls covered in pulsing ivy and moss, with strange charms of bones and herbs hanging from the eaves. Following a path of rune-etched stones, they were greeted by Keeper Morvath—an ancient, bark-skinned figure whose eyes reflected the forest's primordial depths. The keeper invited them inside for tea, where the aromatic steam from his bubbling cauldron created mild visions of the forest and keep. Through careful conversation and respect for the Keeper's cryptic ways, they earned his trust. Morvath revealed he had guided Scout Elen toward the keep after she helped him gather rare herbs, and he now feared for her safety. Among his possessions, they discovered Elen's journal containing crucial observations about Sir Garran Vael and the shadow relic. The Keeper offered them a potion of greater healing and an ancient key with a skull motif that would open a specific door in the keep. Before they departed, Morvath created protective charms against the keep's influence, requiring a small personal sacrifice from each party member. With these gifts and a clearer understanding of the dangers ahead, the party prepared to leave the relative safety of the Gloamwood Forest and approach the foreboding Shadowfall Keep, which Morvath warned was stronger and more malevolent than it had been in centuries."
+      "encounters": [],
+      "adventureSummary": ""
     }
   ]
 }

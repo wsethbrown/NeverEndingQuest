@@ -168,7 +168,7 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
         - Update the 'adventureSummary' field with the new summary and game time.
         - Modify 'description' if the location has changed significantly.
         - Update 'npcs', 'monsters', 'resourcesAvailable', 'plotHooks', etc., based on recent events. Be aware of any mispellings of NPCs or monsters and make sure to not create new entities if the player commands it, directs it, or mispells. For example, if the area started with an NPC called Mordenkainen, and the player refers to the NPC as Mordy, don't add Mordy to the NPC list in addition to Mordenkainen.
-        - Create a new 'encounter' entry for this update. The encounterId should be the locationId appended with '-E' and then the next sequential number (e.g., if locationId is 'forest-1' and there are 2 existing encounters, the new encounterId should be 'forest-1-E3').
+        - Create a new 'encounter' entry for this update. The encounterId should be the location's locationId (e.g., 'R01', 'R02') appended with '-E' and then the next sequential number (e.g., if locationId is 'R01' and there are 2 existing encounters, the new encounterId should be 'R01-E3'). Do NOT include the area ID prefix.
         - Adjust 'dangerLevel' if applicable.
         - Update any other fields that may have changed due to the party's actions such as items removed or added, damage to the location, traps disabled, doors smashed, or anything else impacting the area.
 

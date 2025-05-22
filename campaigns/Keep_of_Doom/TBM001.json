@@ -213,14 +213,8 @@
           "description": "Ghostly images of travelers from the past that periodically manifest along the causeway's former path."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TBM001-R01-E1",
-          "summary": "As players traverse the broken causeway, spectral soldiers materialize from the mist, challenging them with raised weapons while vine blights emerge from the surrounding marsh. The difficult terrain and unstable sections create a dynamic battlefield where positioning is crucial.",
-          "impact": "This encounter establishes the dangers of the Blighted Marches and provides tools for safer navigation. Success means gaining the officer's medallion and enchanted compass; failure could result in characters being dragged into the toxic marsh or falling through unstable sections."
-        }
-      ],
-      "adventureSummary": "The party approached The Sundered Causeway, once a proud road now reduced to a broken ribbon of stone slabs half-swallowed by the surrounding marsh. Massive toppled pillars and collapsed sections created a treacherous path, while ghostly processions of merchants and travelers occasionally traversed the air where the causeway once stood unbroken. As they carefully picked their way forward, spectral soldiers materialized from the mist, challenging them with raised spectral weapons. Simultaneously, corrupted vine blights emerged from vegetation growing over ruined sections, attempting to drag party members into the toxic marsh. During this engagement, one party member narrowly avoided falling through an unstable section of stonework that appeared solid but was seconds from collapse. After defeating these threats, they discovered an ancient officer's medallion that granted safe passage past the remaining spectral guards, and found an enchanted compass hidden in a waterproof compartment inside one of the intact guard posts—a valuable tool that pointed toward the nearest safe path rather than north. Among the ruins, they uncovered preserved maps showing the region before its corruption, including evidence that the Black Banner Encampment now stands where a settlement once existed. Most ominously, they found a warning etched into one of the fallen pillars: 'The barrow calls to the relic; they must never meet.' With these discoveries and new navigational aids, they could now proceed either toward The Mire of Echoes or the Abandoned Watchtower visible in the distance."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R02",
@@ -307,14 +301,8 @@
           "description": "Lifeless trees rising from the water, carved with symbols that collectively form a map."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TBM001-R02-E1",
-          "summary": "Players navigating the mire hear desperate calls for help in familiar voices—deceptive will-o'-wisps attempting to lead them into danger. Those following these lights risk quicksand and the territorial bog mummy rising from the depths.",
-          "impact": "This challenging environment tests wisdom and survival skills. Success means finding valuable tools for water traversal; failure could result in characters becoming trapped in quicksand or disoriented by overwhelming echoes."
-        }
-      ],
-      "adventureSummary": "The party ventured into The Mire of Echoes, a vast bog where murky water stretched in all directions, broken only by small islands and twisted vegetation. Almost immediately, they noticed the bog's most unsettling feature—voices emerging from nowhere, some repeating conversations from years past, others seemingly predicting words not yet spoken. As they cautiously followed stepping stones through the mire, they heard desperate calls for help in voices that sounded eerily familiar. Their insight revealed these to be will-o'-wisps attempting to lure them into deeper water. Using the enchanted compass recovered from the causeway, they identified safer paths while avoiding quicksand pools that appeared deceptively solid. In one particularly dense patch of mist, they discovered a preserved journal describing paths through the mire—though now partly outdated, it still offered valuable guidance. Their careful navigation brought them to an island marked with ancient druidic symbols, which they wisely chose not to disturb after recognizing its significance. Using the vial of swamp luminescence they had found, they illuminated the murky water to reveal a skeleton of a previous adventurer with boots of water walking still strapped to its feet—a valuable find that would make crossing the remaining bog much safer. Most intriguingly, they noticed the echoes occasionally repeated fragments of Sir Garran's original plan to contain the shadow relic in the barrow, suggesting it held some special containment property. They also observed that markings on dead trees throughout the mire formed a map when mentally arranged, showing the original design of the standing stones before they were partially destroyed. Having gathered these insights and tools, they could now proceed toward the Black Banner Encampment, the Ancient Standing Stones, or back toward the relative safety of the Sundered Causeway."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R03",
@@ -420,14 +408,8 @@
           "description": "Wall markings and free-standing charts tracking celestial movements in relation to the shadow relic's activity."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TBM001-R03-E1",
-          "summary": "Players exploring the tower encounter animated armor protecting specific areas and meet Watcher Morven, who offers valuable knowledge about the shadow relic's celestial connections in exchange for news from beyond the marches.",
-          "impact": "This information-focused encounter provides crucial context about the shadow relic and the region's design. Success means gaining strategic knowledge and items; failure to engage peacefully with Morven means missing key insights needed for the optimal approach to the barrow or standing stones."
-        }
-      ],
-      "adventureSummary": "The party approached the Abandoned Watchtower, a crumbling stone structure rising from the only truly solid ground for miles around. As they entered through the weathered but sturdy door, they found the interior unnaturally quiet—the stones themselves seemed to absorb sound. Carefully navigating around sections of unstable flooring, they ascended past ancient defense mechanisms and empty storage rooms. On one level, empty suits of armor suddenly animated, blocking their path until they diplomatically explained their mission to confront the shadow relic. Continuing upward, they reached the observation deck where they met Watcher Morven—a gaunt, ancient hermit with paper-thin gray skin and completely black eyes. Initially suspicious, the hermit warmed to them when they shared news from beyond the marches. Morven revealed he had once been Sir Garran's court astronomer and had spent decades studying the shadow relic's connection to celestial events. From the tower's height, he showed them patterns visible in the landscape suggesting the entire region was designed as a massive ritual space, with the keep at its center. The tower commander's journal they discovered described 'the ritual of seven stones' that could potentially bind or destroy the shadow relic if performed during specific lunar alignments. After earning Morven's trust, he revealed a concealed compartment containing a spyglass of true seeing and detailed charts of the standing stones' astronomical alignments. He also explained that the Cursed Barrow contained ancient binding magic that Sir Garran had intended to use to contain the shadow relic—before it corrupted him. With this strategic information and a clearer understanding of the region's magical significance, they could now proceed toward either the Cursed Barrow or return to the Sundered Causeway with new insights."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R04",
@@ -538,14 +520,8 @@
           "description": "Elevated platforms where cultists monitor the keep, barrow, and standing stones."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TBM001-R04-E1",
-          "summary": "Players must navigate the dangers of the Black Banner Encampment through stealth, deception, or force. They can potentially ally with the doubtful Acolyte Therin, confront or negotiate with Magister Valen, and/or free captives to create chaos.",
-          "impact": "This social/infiltration encounter provides crucial information about the shadow relic and potential allies or enemies for the final confrontation. Success means gaining valuable intelligence and possibly a guide; failure could result in being captured for experimentation or pursued by shadow hounds."
-        }
-      ],
-      "adventureSummary": "The party approached the Black Banner Encampment with caution, observing the collection of dark tents arranged in a pattern that formed mystical symbols. The Black Banner—depicting a shadowy hand grasping a bleeding heart—flew ominously from the central pavilion. After weighing their options, they chose to use stealth to infiltrate rather than risk direct confrontation with the numerous cultists and guards. Carefully avoiding the perimeter wards they identified as magical alarms, they made their way to a section where captives were kept in crude cages. There they encountered Acolyte Therin, a young cultist tending to prisoners who appeared conflicted about his duties. Sensing his doubt, they quietly approached and convinced him to help them in exchange for safe passage away from the cult. Therin provided valuable information—the Black Banner had been studying Sir Garran and the shadow relic for decades, believing an upcoming lunar alignment would allow them to extract its power without corruption. He also revealed that Magister Valen, the expedition leader, possessed an ancient text suggesting the barrow was originally created to imprison a different entity that the shadow relic might awaken if brought there. With Therin's help, they accessed the central pavilion during Valen's absence and recovered his research journal detailing shadow magic experiments, a medallion of shadow resistance, and maps showing other Black Banner operations. They also obtained the key to the captives' cages. Before departing, Therin shared knowledge of a secret path to approach the barrow unseen, avoiding the more dangerous aspects of the cursed landscape. As they carefully retreated with their newfound ally and information, they released several captives to create a diversion, successfully escaping despite the shadow hounds that began tracking their scent. With these valuable insights about the Black Banner's plans and the potential catastrophe of bringing the relic to the barrow, they could now proceed toward either the Ancient Standing Stones or return through The Mire of Echoes with greater understanding of what was at stake."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R05",
@@ -613,14 +589,8 @@
           "description": "The spot where shadows cast by the stones meet during specific astronomical alignments."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TBM001-R05-E1",
-          "summary": "Players investigating the standing stones must contend with wisps of memory attempting to share knowledge and potentially stone guardians if they disturb the site improperly. Success in understanding the circle's purpose provides powerful tools against the shadow relic.",
-          "impact": "This mystical encounter offers crucial knowledge about countering the shadow relic. Success grants ritual tools and methods to use against it; failure means missing vital opportunities or potentially awakening hostile guardians."
-        }
-      ],
-      "adventureSummary": "The party approached the Ancient Standing Stones—massive monoliths arranged in a perfect circle, some still standing proud while others had fallen to time and corruption. Each stone bore deeply carved symbols that emitted a faint blue luminescence as twilight descended. The ground within the circle remained surprisingly dry and solid compared to the surrounding marsh, with plant life growing in unnaturally symmetrical patterns. As they explored this mystical site, small floating lights—wisps of memory—approached and began sharing fragmentary visions of past rituals. Though initially disorienting, they managed to process these ancient memories, glimpsing an earlier confrontation between Sir Garran and the shadow relic, where he had nearly succeeded in containing it before being overwhelmed. Their careful investigation revealed a ritual dagger embedded in the central altar stone, which one of their spellcasters was able to remove. Beneath one of the fallen monoliths, they discovered a hidden hollow containing an ancient manual describing the proper ceremonial use of the standing stones. This valuable text revealed that the circle had been created specifically to counter shadow magic like that contained in the relic, potentially offering a method to cleanse or destroy it completely. They also found a vial of liquid starlight said to temporarily counteract shadow corruption and a set of runestones used for divination. Following the manual's instructions, they performed a small ritual that activated the stones' latent power, causing the symbols to glow more brightly and creating a temporary enhancement to magic cast within the circle. The arrangement of the stones, they realized, mirrored constellations associated with barriers between worlds, suggesting they were part of an ancient effort to prevent something worse than the shadow relic from entering this realm. With these powerful insights and ritual tools, they felt better prepared for their eventual confrontation with the shadow relic, and could now proceed either toward The Cursed Barrow, the Black Banner Encampment, or back through The Mire of Echoes."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R06",
@@ -720,14 +690,8 @@
           "description": "Small recesses in the barrow walls where the Entity's influence is strongest."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "TBM001-R06-E1",
-          "summary": "Players exploring the barrow must contend with its guardians and the subtle influence of the imprisoned Entity. The innermost chamber offers tools for containing the shadow relic but risks awakening something potentially worse.",
-          "impact": "This culminating encounter provides both solution and complication for the shadow relic problem. Success grants powerful containment methods; failure could unleash a greater threat or lead to corruption of party members."
-        }
-      ],
-      "adventureSummary": "The party approached The Cursed Barrow, an enormous earthen mound with twisted trees growing from its summit and an entrance marked by a trilithon of massive stones. The passage inside descended steeply into a network of ancient stone chambers predating the keep by centuries. Wall carvings depicted rituals of binding and containment, showing figures imprisoning a dark, amorphous entity. As they explored deeper, spectral warriors—the Barrow Guardians—materialized but did not immediately attack, instead watching with wary attention. Their careful examination of the wall carvings revealed the barrow was designed to imprison an ancient entity of pure shadow that predated even the keep—the very entity from which the shadow relic accidentally drew power. One party member began hearing whispers that others couldn't detect, subtle promises and offers of knowledge from what they realized must be a fragment of the imprisoned Entity. Through careful ritual phrases discovered in the carvings, they managed to open the inner sanctum door, finding a sarcophagus-like structure designed to contain something intangible rather than a body. Here they discovered ritual components specifically designed for shadow containment and a vial of purified earth that could negate shadow corruption in a small area. From a hidden alcove near the entrance, they recovered an amulet that granted the Barrow Guardians' non-interference. Most significantly, they learned Sir Garran had discovered the barrow and attempted to use its containment properties to control the shadow relic, but had underestimated the connection between the relic and the Entity. The Entity offered knowledge about destroying the shadow relic completely, but at a dangerous price—replacing it in the relic's connection to Sir Garran, potentially saving the knight but creating a new threat. This presented them with a complex moral choice for their final confrontation with the shadow relic, armed now with understanding of its true nature and potential methods for its destruction or containment."
+      "encounters": [],
+      "adventureSummary": ""
     }
   ]
 }
