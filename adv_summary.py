@@ -1,6 +1,8 @@
 import json
 import os
 import sys
+import traceback
+from datetime import datetime
 from openai import OpenAI
 from jsonschema import validate, ValidationError
 from config import OPENAI_API_KEY, ADVENTURE_SUMMARY_MODEL
@@ -20,18 +22,40 @@ def get_current_location():
         print("DEBUG: ERROR: Invalid JSON in current_location.json")
         return None
 
-def debug_print(text):
+def debug_print(text, log_to_file=True):
+    """Print debug message and optionally log to file"""
     print(f"DEBUG: {text}")
+    if log_to_file:
+        try:
+            with open("adv_summary_debug.log", "a") as log_file:
+                log_file.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - {text}\n")
+        except Exception as e:
+            print(f"DEBUG: Could not write to debug log file: {str(e)}")
 
 def load_json_file(file_path):
+    debug_print(f"Attempting to load file: {file_path}")
     try:
         with open(file_path, "r", encoding="utf-8") as file:
-            return json.load(file)
+            debug_print(f"File opened successfully: {file_path}")
+            try:
+                content = json.load(file)
+                debug_print(f"File parsed successfully: {file_path}")
+                return content
+            except json.JSONDecodeError as json_err:
+                error_msg = f"Error: Invalid JSON in {file_path}. Error: {str(json_err)}"
+                debug_print(error_msg)
+                debug_print(f"JSON error at line {json_err.lineno}, column {json_err.colno}: {json_err.msg}")
+                debug_print(traceback.format_exc())
+                sys.exit(1)
     except FileNotFoundError:
-        debug_print(f"Error: File {file_path} not found.")
+        error_msg = f"Error: File {file_path} not found."
+        debug_print(error_msg)
+        debug_print(traceback.format_exc())
         sys.exit(1)
-    except json.JSONDecodeError:
-        debug_print(f"Error: Invalid JSON in {file_path}.")
+    except Exception as e:
+        error_msg = f"Unexpected error loading {file_path}: {str(e)}"
+        debug_print(error_msg)
+        debug_print(traceback.format_exc())
         sys.exit(1)
 
 def get_game_time():
@@ -89,18 +113,48 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
     loca_schema_full = load_json_file("loca_schema.json") # Load the full schema
     game_time = get_game_time()
 
-    # --- CORRECTED SCHEMA ACCESS ---
+    # --- DETAILED SCHEMA ACCESS DEBUGGING ---
+    debug_print("Starting schema processing...")
     loca_single_item_schema = None
-    if loca_schema_full and isinstance(loca_schema_full, dict) and \
-       'properties' in loca_schema_full and \
-       'locations' in loca_schema_full['properties'] and \
-       isinstance(loca_schema_full['properties']['locations'], dict) and \
-       'items' in loca_schema_full['properties']['locations']:
-        loca_single_item_schema = loca_schema_full['properties']['locations']['items']
-    else:
-        debug_print(f"ERROR: Could not extract single item schema from loca_schema.json. Structure is not as expected ('properties.locations.items').")
-        sys.exit("Fatal: loca_schema.json does not have the expected structure for a single location item.")
-    # --- END OF CORRECTED SCHEMA ACCESS ---
+    
+    # Check schema structure in detail with logging
+    if loca_schema_full is None:
+        debug_print("ERROR: loca_schema_full is None")
+        sys.exit("Fatal: loca_schema.json loaded as None")
+        
+    debug_print(f"Schema type: {type(loca_schema_full)}")
+    
+    if not isinstance(loca_schema_full, dict):
+        debug_print(f"ERROR: loca_schema_full is not a dict but {type(loca_schema_full)}")
+        sys.exit("Fatal: loca_schema.json not a dictionary")
+    
+    debug_print(f"Schema keys: {list(loca_schema_full.keys())}")
+    
+    if 'properties' not in loca_schema_full:
+        debug_print("ERROR: 'properties' key missing from schema")
+        sys.exit("Fatal: loca_schema.json missing 'properties' key")
+    
+    debug_print(f"Properties keys: {list(loca_schema_full['properties'].keys())}")
+    
+    if 'locations' not in loca_schema_full['properties']:
+        debug_print("ERROR: 'locations' key missing from schema properties")
+        sys.exit("Fatal: loca_schema.json missing 'properties.locations' key")
+    
+    if not isinstance(loca_schema_full['properties']['locations'], dict):
+        debug_print(f"ERROR: 'locations' is not a dict but {type(loca_schema_full['properties']['locations'])}")
+        sys.exit("Fatal: 'properties.locations' is not a dictionary")
+    
+    debug_print(f"Location properties keys: {list(loca_schema_full['properties']['locations'].keys())}")
+    
+    if 'items' not in loca_schema_full['properties']['locations']:
+        debug_print("ERROR: 'items' key missing from schema properties.locations")
+        sys.exit("Fatal: loca_schema.json missing 'properties.locations.items' key")
+    
+    # If we get here, all checks passed
+    loca_single_item_schema = loca_schema_full['properties']['locations']['items']
+    debug_print("Schema structure validation passed")
+    debug_print(f"Single item schema extracted, keys: {list(loca_single_item_schema.keys()) if isinstance(loca_single_item_schema, dict) else 'Not a dict'}")
+    # --- END OF DETAILED SCHEMA ACCESS DEBUGGING ---
 
     # Update the prompt to include encounter ID if available
     encounter_id_instruction = ""
@@ -165,22 +219,55 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
 
             validate_location_json(updated_location, loca_single_item_schema)
 
+            debug_print(f"Getting area path for ID: {current_area_id_from_main}")
             path_manager = CampaignPathManager()
+            # Add extra debug for path manager to see if we're getting the right campaign data
+            debug_print(f"CampaignPathManager using campaign: {path_manager.campaign_name}")
+            debug_print(f"CampaignPathManager directory: {path_manager.campaign_dir}")
+            
             all_locations_file = path_manager.get_area_path(current_area_id_from_main)
+            debug_print(f"Area file path generated: {all_locations_file}")
+            
+            # Check if file exists before loading
+            if not os.path.exists(all_locations_file):
+                debug_print(f"ERROR: Area file does not exist: {all_locations_file}")
+                debug_print(f"Current area ID: {current_area_id_from_main}")
+                debug_print(f"Available files in campaign dir: {os.listdir(path_manager.campaign_dir) if os.path.exists(path_manager.campaign_dir) else 'Campaign directory not found'}")
+                sys.exit(f"Fatal: Area file not found: {all_locations_file}")
+            
             all_locations = load_json_file(all_locations_file)
+            debug_print(f"All locations loaded from {all_locations_file}")
+            
+            # Check if locations key exists
+            if "locations" not in all_locations:
+                debug_print(f"ERROR: 'locations' key missing from {all_locations_file}")
+                debug_print(f"File keys: {list(all_locations.keys())}")
+                sys.exit(f"Fatal: 'locations' array missing from area file")
+            
+            debug_print(f"Locations count: {len(all_locations.get('locations', []))}")
+            debug_print(f"Looking for location name: {location_info.get('name')}")
+            
+            # Detailed logging of all location names
+            location_names = [loc.get('name', 'NO_NAME') for loc in all_locations.get("locations", [])]
+            debug_print(f"Available location names: {location_names}")
 
             found_and_updated = False
             for i, location in enumerate(all_locations.get("locations", [])): # Use .get for safety
+                debug_print(f"Checking location {i}: {location.get('name')}")
                 if location.get("name") == location_info.get("name"): # Use .get for safety
+                    debug_print(f"Found matching location at index {i}")
                     changes = compare_and_update(all_locations["locations"][i], updated_location)
+                    debug_print(f"Changes to apply: {json.dumps(changes) if changes else 'No changes'}")
                     deep_update(all_locations["locations"][i], changes)
                     found_and_updated = True
+                    debug_print("Location updated successfully")
                     break
             
             if not found_and_updated:
                 debug_print(f"ERROR: Could not find location '{location_info.get('name')}' in '{all_locations_file}' to update.")
-                # Decide how to handle this: skip saving, or save anyway if structure allows, or exit.
-                # For now, let's proceed to save if no structural error in all_locations occurred.
+                debug_print(f"Looking for: {location_info.get('name')}")
+                debug_print(f"Available: {location_names}")
+                # We'll log the error but continue - this gives us more debugging info
 
             try:
                 with open(all_locations_file, "w", encoding="utf-8") as file:

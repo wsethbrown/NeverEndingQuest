@@ -1,70 +1,74 @@
 {
-  "locationId": "R01",
-  "name": "Witchlight Trailhead",
-  "type": "trail",
-  "description": "The narrow path leading from Harrow's Hollow into the Gloamwood is marked by weathered stone pillars inscribed with faded warnings. Pale blue lights\u2014part natural phosphorescence, part otherworldly illumination\u2014drift along the trail. The air is thick with mist and the smell of damp earth and decay. Small offerings\u2014coins, trinkets, and dried flowers\u2014have been placed at the base of the markers by superstitious villagers seeking safe passage.",
-  "coordinates": "X2Y1",
+  "locationId": "R03",
+  "name": "The Withered Shrine",
+  "type": "shrine",
+  "description": "A clearing dominated by a crumbling stone altar surrounded by a circle of withered trees that seem frozen in torment. Once dedicated to forest guardians, the shrine now emanates a sense of abandonment and corruption. The altar stone is cracked down the middle, and dark stains spread across its surface. Tattered prayer ribbons hang limply from skeletal branches, and the ground is covered with dead leaves regardless of season. The air here is unnaturally still, and whispers seem to echo just at the edge of hearing.",
+  "coordinates": "X1Y2",
   "connectivity": [
-    "R02",
-    "R03"
+    "R01",
+    "R05",
+    "R06"
   ],
-  "areaConnectivity": [
-    "Harrow's Hollow East Gate"
+  "areaConnectivity": [],
+  "areaConnectivityId": [],
+  "npcs": [
+    {
+      "name": "The Lingering Spirit",
+      "description": "A translucent, shifting figure that appears as a hooded forest guardian. Its form is unstable, flickering between a serene protector and a tormented wraith. It seeks to warn travelers about the forest's dangers but struggles to communicate clearly through its corrupted state.",
+      "attitude": "Neutral, trying to help but corrupted by the keep's influence"
+    }
   ],
-  "areaConnectivityId": [
-    "HH001"
-  ],
-  "npcs": [],
   "monsters": [
     {
-      "name": "Shadow",
-      "number": 3,
+      "name": "Twig Blights",
+      "number": "2d4",
       "disposition": "hostile",
-      "strategy": "These shadows lurk near the trailhead, attacking anyone who lingers too long after sunset. They attempt to separate weaker party members, focusing attacks on one target at a time."
+      "strategy": "These corrupted plant creatures hide among the dead vegetation, attacking in synchronized ambushes when victims approach the altar."
     }
   ],
   "lootTable": [
-    "Silver pendant (protection charm, 5 gp value)",
-    "Broken lantern (once belonged to a lost traveler)",
-    "Small leather pouch with 3d6 sp scattered among the offerings",
-    "Half-burned map showing part of the forest trail"
+    "Tarnished silver amulet (once used in blessing rituals, 10 gp value)",
+    "Ceremonial dagger with wooden handle (potential focus for ward rituals)",
+    "Small pouch of herbs (can be used for healing poultice, equivalent to healing potion)",
+    "Stone tablet fragment with partial ritual instructions"
   ],
   "plotHooks": [
-    "An inscription on one of the markers reads: 'Walk with light, for shadows hunger in the wood.'",
-    "Fresh footprints indicate someone recently entered the forest, possibly Scout Elen.",
-    "A tattered journal page pinned to a tree describes hearing 'whispers that know your name' deeper in the woods."
+    "The spirit tries to convey information about 'the binding failing' and 'shadows escaping their chains'.",
+    "An echo of blood sacrifice lingers around the altar, suggesting darker rituals have been performed recently.",
+    "Carved into the base of the altar is a map showing the path to the Lost Ward Circle and the keep beyond."
   ],
-  "dmInstructions": "This location serves as the transition from Harrow's Hollow to the Gloamwood. As night falls, the shadows become active (if the party hasn't moved on). A DC 12 Perception check reveals fresh bootprints matching Scout Elen's description (small, with a distinctive star pattern on the heel). Players who make offerings at the markers gain advantage on their first saving throw in the forest.",
+  "dmInstructions": "The Lingering Spirit appears after players investigate the altar. It communicates through fragmented phrases, gestures, and emotional impressions rather than clear speech. A DC 13 Religion check helps interpret its warnings about the ward circle failing. Players who show respect (offering items, repairing damage, or expressing reverence) might receive a blessing granting advantage on saves against fear for 24 hours.",
   "doors": [],
   "traps": [],
   "dcChecks": [
-    "Perception DC 12: Notice fresh bootprints and signs of recent passage, likely Scout Elen's.",
-    "Religion DC 14: Recognize the markers as ancient wards against spirits, now weakened.",
-    "Survival DC 13: Identify which path shows signs of Scout Elen's passage."
+    "Religion DC 13: Interpret the spirit's warnings and understand the shrine's original purpose.",
+    "Arcana DC 14: Identify traces of recent dark magic performed at the altar.",
+    "Perception DC 12: Notice the twig blights before they attack.",
+    "Investigation DC 15: Discover the map carved into the altar's base."
   ],
   "lighting": "Dim (day), Dark (night)",
-  "accessibility": "Narrow trail with occasional rough terrain; reasonable for most travelers.",
+  "accessibility": "Open clearing with uneven ground; altar has several steps.",
   "dangerLevel": "Medium",
   "features": [
     {
-      "name": "Warning Markers",
-      "description": "Stone pillars carved with protective runes and symbols, now weathered and cracked."
+      "name": "Cracked Altar",
+      "description": "A massive stone altar split down the middle, stained with what might be old blood or corruption."
     },
     {
-      "name": "Witchlights",
-      "description": "Soft blue-green lights that hover just above the path, providing minimal illumination."
+      "name": "Circle of Withered Trees",
+      "description": "Dead trees surrounding the clearing, their branches twisted in unnatural poses."
     },
     {
-      "name": "Offering Shrine",
-      "description": "A small alcove in the central marker where travelers leave offerings for safe passage."
+      "name": "Offering Bowls",
+      "description": "Stone bowls at the base of the altar, some containing old offerings, others filled with stagnant water."
     }
   ],
   "encounters": [
     {
-      "encounterId": "G001-R01-E1",
-      "summary": "As travelers enter the Gloamwood, the mist thickens and the ambient sounds of the forest\u2014birds, insects, rustling leaves\u2014gradually fade to an unnatural silence. Players who linger after dark encounter shadows that seem to peel away from the trees, attacking without warning.",
-      "impact": "Establishes the supernatural danger of the forest and creates urgency to reach shelter before nightfall. Success means understanding the forest's dangers; failure could result in injury or worse before the adventure properly begins."
+      "encounterId": "G001-R03-E1",
+      "summary": "As players approach the shrine, the twig blights attack from hiding. After this encounter, the Lingering Spirit manifests, attempting to warn the party about the keep's influence and the failing wards.",
+      "impact": "Success grants insight into the plot and potentially a blessing; failure could mean leaving without crucial information about the Ward Circle or taking injuries from the ambush."
     }
   ],
-  "adventureSummary": "The party approached the foreboding entrance to Gloamwood Forest, marked by ancient stone pillars covered with faded warnings and modest offerings from superstitious villagers. Pale blue witchlights drifted eerily along the path ahead, illuminating the thick mist that hung between twisted trees. A careful examination of the trail revealed fresh bootprints matching the description of Scout Elen's distinctive boots, confirming she had indeed ventured this way recently. As daylight began to wane, they noted the unnatural silence of the forest\u2014no birds called, no insects chirped\u2014creating an atmosphere of mounting dread. Deciding not to linger until nightfall when shadows were known to hunt, the party pressed onward, following the trail deeper into the misty woods toward either the Abandoned Ranger Outpost to the east or The Withered Shrine to the west."
+  "adventureSummary": "The party entered a desolate clearing containing The Withered Shrine, once sacred to forest guardians but now corrupted and abandoned. At its center stood a cracked stone altar surrounded by a circle of twisted, lifeless trees. As they approached to examine the dark stains across the altar's surface, twig blights emerged from the dead foliage to ambush them. After defeating these plant creatures, a translucent, flickering spirit appeared\u2014shifting between the form of a serene forest guardian and a tormented wraith. Though its communication was fragmented, they discerned warnings about 'the binding failing' and 'shadows escaping their chains.' Their respectful approach seemed to please the entity, which granted them a temporary blessing against fear. Among the shrine's remains, they discovered a tarnished silver amulet, a ceremonial dagger, and a stone tablet fragment with partial ritual instructions. Most significantly, they found a map carved into the altar's base showing the path to both the Lost Ward Circle and the keep beyond. The party could now proceed either back to the Witchlight Trailhead, deeper into the Boggard Marsh, or toward the Spectral Clearing."
 }

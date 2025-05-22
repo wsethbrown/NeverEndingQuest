@@ -3,6 +3,8 @@ import subprocess
 import os
 import unicodedata
 import re
+import traceback
+from datetime import datetime
 from campaign_path_manager import CampaignPathManager
 
 def load_json_file(file_path):
@@ -210,13 +212,42 @@ def handle_location_transition(current_location, new_location, current_area, cur
         except Exception as e:
             print(f"ERROR: Failed to update current_location.json. Error: {str(e)}")
 
-        # Run adventure summary update
+        # Run adventure summary update with detailed error logging
+        debug_log_file = "transition_debug.log"
         try:
-            result = subprocess.run(["python", "adv_summary.py", "conversation_history.json", "current_location.json", current_location, current_area_id],
-                        check=True, capture_output=True, text=True)
-            print("DEBUG: Adventure summary updated successfully")
-        except subprocess.CalledProcessError as e:
-            print(f"ERROR: Error occurred while running adv_summary.py: {e}")
+            # Log the command we're about to run
+            with open(debug_log_file, "a") as debug_file:
+                debug_file.write(f"\n--- TRANSITION DEBUG: {current_location} to {new_location} ---\n")
+                debug_file.write(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                debug_file.write(f"Area ID: {current_area_id}\n")
+                debug_file.write(f"Command: python adv_summary.py conversation_history.json current_location.json {current_location} {current_area_id}\n")
+                
+            # Use subprocess.run with full error capture
+            result = subprocess.run(
+                ["python", "adv_summary.py", "conversation_history.json", "current_location.json", current_location, current_area_id],
+                check=False,  # Don't raise exception
+                capture_output=True,
+                text=True
+            )
+            
+            # Log regardless of success or failure
+            with open(debug_log_file, "a") as debug_file:
+                debug_file.write(f"Return code: {result.returncode}\n")
+                debug_file.write(f"stdout: {result.stdout}\n")
+                debug_file.write(f"stderr: {result.stderr}\n")
+            
+            # Still print message but proceed with transition even if summary fails
+            if result.returncode != 0:
+                print(f"ERROR: Error occurred while running adv_summary.py: {result.stderr}")
+            else:
+                print("DEBUG: Adventure summary updated successfully")
+                
+        except Exception as e:
+            import traceback
+            with open(debug_log_file, "a") as debug_file:
+                debug_file.write(f"Exception occurred: {str(e)}\n")
+                debug_file.write(traceback.format_exc())
+            print(f"ERROR: Exception in adv_summary call: {str(e)}")
 
         # Update party tracker with new location information
         if party_tracker and new_location_info:

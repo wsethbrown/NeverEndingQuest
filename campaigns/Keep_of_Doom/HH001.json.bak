@@ -303,8 +303,12 @@
       "connectivity": [
         "R01"
       ],
-      "areaConnectivity": [],
-      "areaConnectivityId": [],
+      "areaConnectivity": [
+          "Witchlight Trailhead"
+        ],
+        "areaConnectivityId": [
+          "G001"
+        ],
       "npcs": [
         {
           "name": "Sergeant Mara Feld",
