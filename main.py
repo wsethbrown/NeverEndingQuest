@@ -567,7 +567,7 @@ def main_game_loop():
                 traps = location_data.get("traps", [])
                 if traps:
                     traps_str = "\n".join([
-                        f"- {trap['name']}: {trap['description']} (Detect DC: {trap['detectDC']}, Disable DC: {trap['disableDC']}, Trigger DC: {trap['triggerDC']}, Damage: {trap['damage']})"
+                        f"- {trap.get('name', 'Unknown Trap')}: {trap.get('description', 'No description')} (Detect DC: {trap.get('detectDC', 'N/A')}, Disable DC: {trap.get('disableDC', 'N/A')}, Trigger DC: {trap.get('triggerDC', 'N/A')}, Damage: {trap.get('damage', 'N/A')})"
                         for trap in traps
                     ])
 
