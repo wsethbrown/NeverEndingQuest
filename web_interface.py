@@ -274,6 +274,35 @@ def handle_player_data_request(data):
     except Exception as e:
         emit('player_data_response', {'dataType': dataType, 'data': None, 'error': str(e)})
 
+@socketio.on('request_location_data')
+def handle_location_data_request():
+    """Handle requests for current location information"""
+    try:
+        # Load party tracker to get current location
+        party_tracker_path = 'party_tracker.json'
+        if os.path.exists(party_tracker_path):
+            with open(party_tracker_path, 'r') as f:
+                party_tracker = json.load(f)
+            
+            world_conditions = party_tracker.get('worldConditions', {})
+            location_info = {
+                'currentLocation': world_conditions.get('currentLocation', 'Unknown'),
+                'currentArea': world_conditions.get('currentArea', 'Unknown'),
+                'currentLocationId': world_conditions.get('currentLocationId', ''),
+                'currentAreaId': world_conditions.get('currentAreaId', ''),
+                'time': world_conditions.get('time', ''),
+                'day': world_conditions.get('day', ''),
+                'month': world_conditions.get('month', ''),
+                'year': world_conditions.get('year', '')
+            }
+            
+            emit('location_data_response', {'data': location_info})
+        else:
+            emit('location_data_response', {'data': None, 'error': 'Party tracker not found'})
+    
+    except Exception as e:
+        emit('location_data_response', {'data': None, 'error': str(e)})
+
 def run_game_loop():
     """Run the main game loop"""
     try:

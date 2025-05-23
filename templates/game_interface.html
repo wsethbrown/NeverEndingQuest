@@ -35,6 +35,26 @@
             font-size: 24px;
         }
         
+        .location-info {
+            color: #FFA500;
+            font-size: 14px;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            flex: 1;
+            margin: 0 20px;
+        }
+        
+        .location-name {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        
+        .location-details {
+            color: #888;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        
         .status {
             display: flex;
             align-items: center;
@@ -374,6 +394,10 @@
 <body>
     <div class="header">
         <h1>DungeonMasterAI</h1>
+        <div class="location-info" id="location-info">
+            <div class="location-name" id="location-name">Loading location...</div>
+            <div class="location-details" id="location-details"></div>
+        </div>
         <div class="status">
             <span id="status-text">Disconnected</span>
             <div class="status-indicator" id="status-indicator"></div>
@@ -580,6 +604,11 @@
         // Load NPC information
         function loadNPCs() {
             socket.emit('request_player_data', { dataType: 'npcs' });
+        }
+        
+        // Load current location data
+        function loadLocationData() {
+            socket.emit('request_location_data');
         }
         
         // Display inventory data
@@ -843,6 +872,26 @@
             container.innerHTML = html;
         }
         
+        // Display location data
+        function displayLocationData(data) {
+            const locationName = document.getElementById('location-name');
+            const locationDetails = document.getElementById('location-details');
+            
+            if (!data) {
+                locationName.textContent = 'Location Unknown';
+                locationDetails.textContent = '';
+                return;
+            }
+            
+            // Display current location and area
+            locationName.textContent = `${data.currentLocation} (${data.currentArea})`;
+            
+            // Display time and location IDs for debugging
+            const timeStr = data.time ? `${data.day} ${data.month} ${data.year} - ${data.time}` : 'Time Unknown';
+            const idStr = data.currentLocationId ? `[${data.currentAreaId}:${data.currentLocationId}]` : '';
+            locationDetails.textContent = `${timeStr} ${idStr}`;
+        }
+        
         // Handle data responses from server
         socket.on('player_data_response', (response) => {
             if (response.dataType === 'inventory') {
@@ -852,6 +901,11 @@
             } else if (response.dataType === 'npcs') {
                 displayNPCs(response.data);
             }
+        });
+        
+        // Handle location data response
+        socket.on('location_data_response', (response) => {
+            displayLocationData(response.data);
         });
         
         // Auto-refresh data every 5 seconds when tab is active
@@ -864,6 +918,8 @@
             } else if (activeTab === 'npcs') {
                 loadNPCs();
             }
+            // Always refresh location data for debugging
+            loadLocationData();
         }, 5000);
         
         // Initial setup
@@ -871,6 +927,9 @@
             // Focus on input field when page loads
             const inputField = document.getElementById('user-input');
             inputField.focus();
+            
+            // Load initial location data
+            loadLocationData();
         });
     </script>
 </body>

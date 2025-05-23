@@ -177,10 +177,13 @@ if os.path.exists(character_file):
     norn_data['condition'] = 'none'
     norn_data['condition_affected'] = []
     
+    # Clear gameplay-acquired equipment (items picked up during play)
+    norn_data['equipment'] = []
+    
     # Save the updated character
     with open(character_file, 'w', encoding='utf-8') as f:
         json.dump(norn_data, f, indent=2, ensure_ascii=False)
     
-    print("Reset Norn's character to full health.")
+    print("Reset Norn's character to full health and cleared equipment.")
 
 print("Reset complete. Keep of Doom campaign ready to start fresh!")
