@@ -2,12 +2,12 @@
 """
 Atomic file operations module for safe JSON file handling.
 Prevents data corruption by using temporary files and atomic renames.
+Cross-platform compatible (Windows/Unix).
 """
 
 import json
 import os
 import shutil
-import fcntl
 import time
 import logging
 from typing import Any, Dict, Optional
@@ -30,19 +30,36 @@ class AtomicFileWriter:
         self.lock_files = {}
     
     def acquire_lock(self, filepath: str, timeout: float = 5.0) -> Optional[int]:
-        """Acquire exclusive lock on file for writing"""
+        """Acquire exclusive lock on file for writing using lock files"""
         lock_path = f"{filepath}.lock"
         start_time = time.time()
         
         while time.time() - start_time < timeout:
             try:
                 # Try to create lock file exclusively
+                # Using low-level os.open for cross-platform exclusive creation
                 fd = os.open(lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-                self.lock_files[filepath] = (fd, lock_path)
+                # Write PID to lock file for debugging
+                os.write(fd, str(os.getpid()).encode())
+                os.close(fd)
+                self.lock_files[filepath] = lock_path
                 logger.debug(f"Acquired lock for {filepath}")
-                return fd
+                return 1  # Return non-None to indicate success
             except FileExistsError:
-                # Lock file exists, wait and retry
+                # Lock file exists, check if it's stale
+                if os.path.exists(lock_path):
+                    try:
+                        # Check if lock file is old (stale)
+                        lock_age = time.time() - os.path.getmtime(lock_path)
+                        if lock_age > 60:  # Lock older than 60 seconds is considered stale
+                            logger.warning(f"Removing stale lock file: {lock_path}")
+                            try:
+                                os.unlink(lock_path)
+                            except:
+                                pass
+                    except:
+                        pass
+                # Wait and retry
                 time.sleep(self.retry_delay)
             except Exception as e:
                 logger.error(f"Error acquiring lock for {filepath}: {e}")
@@ -53,10 +70,10 @@ class AtomicFileWriter:
     def release_lock(self, filepath: str):
         """Release file lock"""
         if filepath in self.lock_files:
-            fd, lock_path = self.lock_files[filepath]
+            lock_path = self.lock_files[filepath]
             try:
-                os.close(fd)
-                os.unlink(lock_path)
+                if os.path.exists(lock_path):
+                    os.unlink(lock_path)
                 del self.lock_files[filepath]
                 logger.debug(f"Released lock for {filepath}")
             except Exception as e:
@@ -105,14 +122,27 @@ class AtomicFileWriter:
             if create_backup and os.path.exists(filepath):
                 backup_path = self.create_backup(filepath)
             
+            # Ensure directory exists
+            dir_path = os.path.dirname(filepath)
+            if dir_path:  # Only create directory if dirname is not empty
+                os.makedirs(dir_path, exist_ok=True)
+            
             # Write to temporary file
             with open(temp_path, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
                 f.flush()
-                os.fsync(f.fileno())  # Force write to disk
+                # Force write to disk
+                try:
+                    os.fsync(f.fileno())
+                except:
+                    # fsync might not work on all systems, that's OK
+                    pass
             
-            # Atomic rename
-            os.replace(temp_path, filepath)
+            # Atomic rename (as atomic as possible on the platform)
+            # On Windows, we need to remove the target first if it exists
+            if os.name == 'nt' and os.path.exists(filepath):
+                os.unlink(filepath)
+            os.rename(temp_path, filepath)
             logger.info(f"Successfully wrote {filepath}")
             
             return True

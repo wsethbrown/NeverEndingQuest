@@ -404,7 +404,6 @@ Remember to:
                 existing_log = [existing_log]
             existing_log.append(debug_update_log)
             safe_write_json("npc_update_detailed_log.json", existing_log, create_backup=False)
-                log_file.write("\n")
             
             return npc_info
 

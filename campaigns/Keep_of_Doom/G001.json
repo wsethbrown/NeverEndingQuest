@@ -220,20 +220,8 @@
           "description": "Faint bootprints of varying freshness and a scrap of faded blue cloth caught on a thorn bush, tying to Elen's uniform."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "R01-E1",
-          "summary": "The party discovered fresh bootprints, a scrap of blue cloth, and a silver coin beneath a cairn with a warning inscription, confirming recent passage of Scout Elen and pointing the way north toward the Withered Shrine.",
-          "impact": "The party gains a clear lead on Elen's trail, enhancing their investigation and decision-making for the next steps. The environment remains cautiously watchful with the threat of shadows lurking nearby.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "14:45:00"
-          }
-        }
-      ],
-      "adventureSummary": "Upon entering the Witchlight Trailhead, the party found themselves beneath towering trees whose dense, knotted branches dimmed the afternoon light, casting flickering shadows over mossy earth permeated by the scent of damp soil and old leaves. The quiet of the deep woods was broken only by distant, hidden water sounds and occasional birdsong muffled by the forest’s hush. Scouring the trail, they noted weathered cairns marking the path and discerned faint bootprints in the soft earth—some fresh, some eroded—with a scrap of faded blue cloth caught on a thorn bush, linking to Elen’s uniform discovered earlier beneath the inn. Approaching a fork near the woods' edge, they observed two overgrown routes: one leading to the Abandoned Ranger Outpost, the other toward the Withered Shrine; subtle signs suggested recent passage along both. Exercising skill, Norn made a successful Survival check, revealing a trail of smaller, purposeful footprints heading north toward the Withered Shrine, accompanied by snapped twigs and disturbed moss signaling a brief pause. Nearby, a small silver coin lay beneath a cairn inscribed with the warning: \"Walk with light, for shadows hunger in the wood.\" This evidence solidified the trail toward the shrine as the party’s best lead on Elen’s fate and the unfolding mystery. With the forest’s silence pressing around them, they resolved to advance toward the Withered Shrine, marking a significant progression in their investigation before leaving the Witchlight Trailhead for new ground."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R02",
@@ -396,20 +384,8 @@
           "description": "Ration wrapper and a strip of blue cloth torn from Elen’s uniform found on the ground."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "R03-E1",
-          "summary": "The party encounters the Lingering Spirit who warns that the shrine's protective binding is failing and shadows are escaping.",
-          "impact": "The party gains knowledge of the failing ward and the necessity to perform a binding ritual at the Spectral Clearing and Lost Ward Circle. They also find a pouch of fragrant herbs and a tarnished silver amulet near the altar.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "16:12:00"
-          }
-        }
-      ],
-      "adventureSummary": "Upon entering The Withered Shrine, the party found an eerie clearing with moss-covered stone pillars and a cracked altar bearing fresh blood and a map pointing north. They discovered discarded items including a ration wrapper and torn blue cloth from Elen’s uniform, along with a pouch of fragrant herbs and a tarnished silver amulet. The Lingering Spirit appeared, warning that the shrine’s binding is failing and shadows are escaping. The party studied ritual carvings revealing faded instructions for a binding ritual involving offerings of earth, flame, and living memory to be performed at the Spectral Clearing and Lost Ward Circle. With these clues and items gathered, the party prepared to proceed northward to continue their quest to restore the wards and save Harrow’s Hollow from encroaching darkness."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R04",
@@ -490,20 +466,8 @@
           "description": "Faint blue energy that occasionally arcs between the stones, remnants of once-powerful protection magic."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "R04-E1",
-          "summary": "Norn stealthily observes the Keeper's Cottage at night and discovers Scout Elen wounded inside, tending to her injuries and revealing critical information about dangers in the ward circle.",
-          "impact": "Elen's survival and her shared knowledge provide the party with vital clues about the shrine, the ward circle's ensnaring magic, and the creeping darkness threatening the village. This advances the quest to uncover the spirits haunting Harrow's Hollow and sets the stage for confronting Keeper Morvath.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "20:41:00"
-          }
-        }
-      ],
-      "adventureSummary": "On 1492 Ches 1 at 20:41, Norn stealthily observed the Keeper's Cottage and found Scout Elen wounded but alive inside. After tending her wounds, Elen shared crucial information about the ward circle's magical dangers, the shrine, and the encroaching darkness threatening Harrow's Hollow. The party prepared for the Keeper Morvath's imminent return, marking a pivotal advancement in their quest."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R05",

@@ -90,20 +90,7 @@
       "description": "Your weapon attacks score a critical hit on a roll of 19 or 20"
     }
   ],
-  "equipment": [
-    {
-      "item_name": "Ward stone fragment (key component for ritual)",
-      "item_type": "miscellaneous",
-      "description": "A fragment of a ward stone essential for performing the ancient ritual to renew the protective wards.",
-      "quantity": 0
-    },
-    {
-      "item_name": "Tattered ritual book with instructions for renewing the wards",
-      "item_type": "miscellaneous",
-      "description": "An old, worn book containing faded instructions and rituals for restoring the protective wards around Harrow's Hollow.",
-      "quantity": 0
-    }
-  ],
+  "equipment": [],
   "ammunition": [
     {
       "name": "Arrows",

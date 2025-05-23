@@ -11,11 +11,15 @@ class CampaignPathManager:
     def _get_active_campaign(self):
         """Read the active campaign from party_tracker.json"""
         try:
-            with open("party_tracker.json", 'r') as file:
+            with open("party_tracker.json", 'r', encoding='utf-8') as file:
                 data = json.load(file)
-                return data.get("campaign", "Echoes_of_the_Elemental_Forge")
-        except:
-            return "Echoes_of_the_Elemental_Forge"  # Default fallback
+                campaign = data.get("campaign", "Keep_of_Doom")
+                print(f"DEBUG: CampaignPathManager loaded campaign '{campaign}' from party_tracker.json")
+                return campaign
+        except Exception as e:
+            print(f"DEBUG: CampaignPathManager could not load party_tracker.json: {e}")
+            print(f"DEBUG: Using default campaign 'Keep_of_Doom'")
+            return "Keep_of_Doom"  # Default fallback
     
     def format_filename(self, name):
         """Convert a name to a valid filename format"""

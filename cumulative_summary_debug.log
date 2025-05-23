@@ -14,3 +14,71 @@
 2025-05-22 22:38:18 - Skipping entry 40 - contains JSON action data
 2025-05-22 22:38:18 - Built cumulative summary with 213164 characters
 2025-05-22 22:38:18 - Inserting new cumulative summary at position 1
+2025-05-22 23:05:19 - Inserting cumulative summary into conversation history
+2025-05-22 23:05:19 - Cleaning old-style summaries from conversation history
+2025-05-22 23:05:19 - Removed 1 old-style summary messages
+2025-05-22 23:05:19 - Building cumulative adventure summary from journal entries
+2025-05-22 23:05:19 - Found 156 journal entries
+2025-05-22 23:05:19 - Skipping entry 1 - contains JSON action data
+2025-05-22 23:05:19 - Skipping entry 2 - contains JSON action data
+2025-05-22 23:05:19 - Skipping entry 40 - contains JSON action data
+2025-05-22 23:05:19 - Built cumulative summary with 213164 characters
+2025-05-22 23:05:19 - Inserting new cumulative summary at position 1
+2025-05-22 23:06:42 - Inserting cumulative summary into conversation history
+2025-05-22 23:06:42 - Cleaning old-style summaries from conversation history
+2025-05-22 23:06:42 - Building cumulative adventure summary from journal entries
+2025-05-22 23:06:42 - Found 156 journal entries
+2025-05-22 23:06:42 - Skipping entry 1 - contains JSON action data
+2025-05-22 23:06:42 - Skipping entry 2 - contains JSON action data
+2025-05-22 23:06:42 - Skipping entry 40 - contains JSON action data
+2025-05-22 23:06:42 - Built cumulative summary with 213164 characters
+2025-05-22 23:06:42 - Updating existing cumulative summary
+2025-05-22 23:09:08 - Inserting cumulative summary into conversation history
+2025-05-22 23:09:08 - Cleaning old-style summaries from conversation history
+2025-05-22 23:09:08 - Building cumulative adventure summary from journal entries
+2025-05-22 23:09:08 - Found 156 journal entries
+2025-05-22 23:09:08 - Skipping entry 1 - contains JSON action data
+2025-05-22 23:09:08 - Skipping entry 2 - contains JSON action data
+2025-05-22 23:09:08 - Skipping entry 40 - contains JSON action data
+2025-05-22 23:09:08 - Built cumulative summary with 213164 characters
+2025-05-22 23:09:08 - Inserting new cumulative summary at position 1
+2025-05-22 23:12:24 - Inserting cumulative summary into conversation history
+2025-05-22 23:12:24 - Cleaning old-style summaries from conversation history
+2025-05-22 23:12:24 - Building cumulative adventure summary from journal entries
+2025-05-22 23:12:24 - Found 156 journal entries
+2025-05-22 23:12:24 - Skipping entry 1 - contains JSON action data
+2025-05-22 23:12:24 - Skipping entry 2 - contains JSON action data
+2025-05-22 23:12:24 - Skipping entry 40 - contains JSON action data
+2025-05-22 23:12:24 - Built cumulative summary with 213164 characters
+2025-05-22 23:12:24 - Inserting new cumulative summary at position 1
+2025-05-22 23:21:50 - Inserting cumulative summary into conversation history
+2025-05-22 23:21:50 - Cleaning old-style summaries from conversation history
+2025-05-22 23:21:50 - Building cumulative adventure summary for current session
+2025-05-22 23:21:50 - No conversation history found
+2025-05-22 23:21:50 - No cumulative summary to insert
+2025-05-22 23:30:44 - Inserting cumulative summary into conversation history
+2025-05-22 23:30:44 - Cleaning old-style summaries from conversation history
+2025-05-22 23:30:44 - Building cumulative adventure summary for current session
+2025-05-22 23:30:44 - No conversation history found
+2025-05-22 23:30:44 - No cumulative summary to insert
+2025-05-22 23:31:21 - Inserting cumulative summary into conversation history
+2025-05-22 23:31:21 - Cleaning old-style summaries from conversation history
+2025-05-22 23:31:21 - Building cumulative adventure summary for current session
+2025-05-22 23:31:21 - Building location summaries from current conversation
+2025-05-22 23:31:21 - Session starts at index 7
+2025-05-22 23:31:21 - Found 1 location segments in current session
+2025-05-22 23:31:21 - No location summaries generated for current session
+2025-05-22 23:31:21 - No cumulative summary to insert
+2025-05-23 09:46:16 - Inserting cumulative summary into conversation history
+2025-05-23 09:46:16 - Cleaning old-style summaries from conversation history
+2025-05-23 09:46:16 - Building cumulative adventure summary for current session
+2025-05-23 09:46:16 - No conversation history found
+2025-05-23 09:46:16 - No cumulative summary to insert
+2025-05-23 09:49:29 - Inserting cumulative summary into conversation history
+2025-05-23 09:49:29 - Cleaning old-style summaries from conversation history
+2025-05-23 09:49:29 - Building cumulative adventure summary for current session
+2025-05-23 09:49:30 - Building location summaries from current conversation
+2025-05-23 09:49:30 - Session starts at index 7
+2025-05-23 09:49:30 - Found 1 location segments in current session
+2025-05-23 09:49:30 - No location summaries generated for current session
+2025-05-23 09:49:30 - No cumulative summary to insert
