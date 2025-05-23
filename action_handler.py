@@ -151,7 +151,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         plot_point_id = parameters["plotPointId"]
         new_status = parameters["newStatus"]
         plot_impact = parameters.get("plotImpact", "")
-        plot_filename = f"plot_{party_tracker_data['worldConditions']['currentAreaId']}.json"
+        plot_filename = "campaign_plot.json"  # Now using unified plot file
         updated_plot = update_plot(plot_point_id, new_status, plot_impact, plot_filename)
 
     elif action_type == ACTION_EXIT_GAME:

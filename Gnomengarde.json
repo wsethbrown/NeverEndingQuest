@@ -7,7 +7,6 @@
       "locationId": "GN003",
       "coordinates": "15N, 22W",
       "size": "30 ft x 40 ft",
-      "lighting": "Dim light from flickering lanterns",
       "accessibility": "Normal access within Gnomengarde",
       "encounterRate": "Medium",
       "commonCreatures": [
@@ -136,7 +135,6 @@
       "locationId": "GN002",
       "coordinates": "15N, 21W",
       "size": "50 ft x 50 ft",
-      "lighting": "Well-lit",
       "accessibility": "Moderate",
       "encounterRate": "Moderate",
       "commonCreatures": [
@@ -270,7 +268,6 @@
       "locationId": "GN001",
       "coordinates": "15N, 20W",
       "size": "5 ft x 7 ft",
-      "lighting": "Dim light (when open)",
       "accessibility": "Hidden, requires perception and investigation checks",
       "encounterRate": "Very Low",
       "commonCreatures": [
@@ -379,7 +376,6 @@
       "locationId": "GN004",
       "coordinates": "15N, 23W",
       "size": "40 ft x 50 ft (total area)",
-      "lighting": "Soft, magical light",
       "accessibility": "Normal within Gnomengarde",
       "encounterRate": "Low",
       "commonCreatures": [
@@ -477,7 +473,6 @@
       "locationId": "GN005",
       "coordinates": "16N, 22W",
       "size": "35 ft x 35 ft",
-      "lighting": "Bright, fluctuating magical light",
       "accessibility": "Restricted, requires gnome approval",
       "encounterRate": "High",
       "commonCreatures": [
@@ -578,7 +573,6 @@
       "locationId": "GN006",
       "coordinates": "14N, 23W",
       "size": "45 ft x 30 ft",
-      "lighting": "Bright, warm light",
       "accessibility": "Easy",
       "encounterRate": "Medium",
       "commonCreatures": [
@@ -689,7 +683,6 @@
       "locationId": "GN007",
       "coordinates": "17N, 22W",
       "size": "25 ft x 25 ft",
-      "lighting": "Dim, magical light",
       "accessibility": "Heavily restricted, requires special access",
       "encounterRate": "Low",
       "commonCreatures": [
@@ -777,7 +770,6 @@
       "locationId": "GN008",
       "coordinates": "13N, 23W",
       "size": "40 ft x 50 ft",
-      "lighting": "Bright, magical light with color-changing effects",
       "accessibility": "Guarded, requires permission",
       "encounterRate": "Low",
       "commonCreatures": [
@@ -875,7 +867,6 @@
       "locationId": "GN009",
       "coordinates": "12N, 24W",
       "size": "5 ft wide, 100 ft long",
-      "lighting": "Dark",
       "accessibility": "Hidden, requires successful search",
       "encounterRate": "Very Low",
       "commonCreatures": [],

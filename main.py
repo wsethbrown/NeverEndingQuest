@@ -18,6 +18,10 @@ import update_npc_info
 # Import new manager modules
 import location_manager
 import action_handler
+import cumulative_summary
+
+# Import atomic file operations
+from file_operations import safe_write_json, safe_read_json
 from campaign_path_manager import CampaignPathManager
 
 # Import model configurations from config.py
@@ -41,91 +45,7 @@ json_file = "conversation_history.json"
 
 needs_conversation_history_update = False
 
-def summarize_conversation(conversation_history, messages_per_summary=9):
-    # Find all summary messages and the last system message
-    summary_indices = [i for i, msg in enumerate(conversation_history)
-                       if msg['role'] == 'user' and msg['content'].startswith("Summary of previous interactions:")]
-    last_system_index = max((i for i, msg in enumerate(conversation_history) if msg['role'] == 'system'), default=-1)
-
-    if not summary_indices:
-        start_index = last_system_index + 1
-    else:
-        start_index = summary_indices[0]
-
-    messages_to_summarize = conversation_history[start_index:]
-
-    if len(messages_to_summarize) <= messages_per_summary:
-        return conversation_history  # Not enough new messages to summarize
-
-    # Combine all existing summaries
-    combined_summary = ""
-    for idx in summary_indices:
-        combined_summary += conversation_history[idx]['content'].replace("Summary of previous interactions: ", "") + " "
-
-    # Find the next set of messages to summarize
-    end_index = start_index + messages_per_summary
-    while end_index < len(conversation_history) and conversation_history[end_index]['role'] != 'assistant':
-        end_index += 1
-
-    if end_index == len(conversation_history):
-        return conversation_history  # No complete set of messages to summarize
-
-    new_messages_to_summarize = conversation_history[start_index:end_index]
-
-    # Prepare the summarization prompt
-    summarization_prompt_text = """
-    You are a historian who is summarizing a 5th Edition campaign adventure to pass onto other Dungeon Masters and record the parties adventures. Your task is to create concise but engaging summaries of scenes, focusing on key actions, character interactions, and relevant environmental descriptions. The summaries should maintain the narrative flow while capturing the essential points of interest, particularly character decisions, skill checks, and encounters.
-    Instructions:
-    1. Narrative Focus: Extract and summarize the essential elements of the scene. This includes the setting description, key actions taken by characters, and any interactions between them or with NPCs/monsters. Maintain a flow that reads like a cohesive story, but keep it concise and to the point.
-    2. Character Actions & Decisions: Highlight any skill checks, important decisions, or actions made by the players. Include any results from these actions (e.g., successful searches, combat outcomes, treasure discoveries).
-    3. Encounters & Combat: Briefly describe any combat encounters, including the initiation, actions taken by characters, and the outcome of the encounter (e.g., monster defeated, experience gained).
-    4. Environment & Setting: Mention key environmental details or atmospheric elements (e.g., dim light, ancient stone, mysterious aura) that set the tone of the scene, but do not focus on them in excessive detail.
-    5. Concise and Clear: The summary should be short, generally around one or two paragraphs, avoiding unnecessary repetition or verbose details.
-    6. Party Interactions: Capture important interactions and dynamics between party members, such as conversations, support, disagreements, or suggestions that impact the group's decisions or mood.
-    7. Be sure to document the beginning and ending dates/times of the history you're summarizing if the date/times are available.
-    8. Do not include in your summary any actions involving the player leaving or rejoining the game.
-    """
-
-    user_prompt = f"""Previous summary:
-    {combined_summary}
-
-    Please summarize the following new conversation, incorporating relevant details from the previous summary:
-    """
-
-    for msg in new_messages_to_summarize:
-        user_prompt += f"\n{msg['role'].upper()}: {msg['content']}"
-
-    # Get AI summary
-    summary_response = client.chat.completions.create(
-        model=DM_SUMMARIZATION_MODEL, # Use imported model name
-        temperature=TEMPERATURE,
-        messages=[
-            {"role": "system", "content": summarization_prompt_text},
-            {"role": "user", "content": user_prompt}
-        ]
-    )
-    new_summary = summary_response.choices[0].message.content.strip()
-
-    # Replace summarized messages with new summary
-    new_conversation_history = (
-        conversation_history[:last_system_index + 1] +
-        [{"role": "user", "content": f"Summary of previous interactions: {new_summary}"}] +
-        conversation_history[end_index:]
-    )
-
-    return new_conversation_history
-
-def needs_summarization(conversation_history, threshold=80):
-    summary_indices = [i for i, msg in enumerate(conversation_history)
-                       if msg['role'] == 'user' and msg['content'].startswith("Summary of previous interactions:")]
-    last_system_index = max((i for i, msg in enumerate(conversation_history) if msg['role'] == 'system'), default=-1)
-
-    if not summary_indices:
-        start_index = last_system_index + 1
-    else:
-        start_index = summary_indices[-1] + 1
-
-    return len(conversation_history) - start_index > threshold
+# Note: Old summarization functions removed - using cumulative summary system instead
 
 # Add this new function near the top of the file
 def exit_game():
@@ -335,8 +255,8 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
         return {"role": "assistant", "content": response} # Return raw if parsing fails
 
 def save_conversation_history(history):
-    with open(json_file, "w") as file:
-        json.dump(history, file, indent=2)
+    if not safe_write_json(json_file, history):
+        print(colored("ERROR: Failed to save conversation history", "red"))
 
 def get_ai_response(conversation_history):
     response = client.chat.completions.create(
@@ -411,7 +331,7 @@ def main_game_loop():
         current_area_id
     )
 
-    plot_data = load_json_file(path_manager.get_plot_path(current_area_id))
+    plot_data = load_json_file(path_manager.get_plot_path())
     
     campaign_name = party_tracker_data.get("campaign", "").replace(" ", "_")
     campaign_data = load_json_file(path_manager.get_campaign_file_path())
@@ -419,6 +339,9 @@ def main_game_loop():
     conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
     conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data)
     conversation_history = update_character_data(conversation_history, party_tracker_data)
+    
+    # Insert cumulative adventure summary
+    conversation_history = cumulative_summary.insert_cumulative_summary_in_conversation(conversation_history)
 
     # Use the new order_conversation_messages function
     conversation_history = order_conversation_messages(conversation_history, main_system_prompt_text)
@@ -437,8 +360,8 @@ def main_game_loop():
             save_conversation_history(conversation_history)
             needs_conversation_history_update = False
 
-        if needs_summarization(conversation_history):
-            conversation_history = summarize_conversation(conversation_history)
+        # Cumulative summary is updated in conversation history on each loop
+        # No need for old summarization check
 
         player_name_actual = party_tracker_data["partyMembers"][0]
         player_data_file = path_manager.get_player_path(player_name_actual)
@@ -464,7 +387,8 @@ def main_game_loop():
             member_data_iter = load_json_file(member_file_path)
             if member_data_iter:
                 stats = {
-                    "name": member_name_iter.capitalize(), 
+                    "name": member_name_iter,  # Keep original case to match file names
+                    "display_name": member_name_iter.capitalize(),  # For display purposes
                     "level": member_data_iter.get("level", "N/A"),
                     "xp": member_data_iter.get("experience_points", "N/A"),
                     "hp": member_data_iter.get("hitPoints", "N/A"),
@@ -478,7 +402,8 @@ def main_game_loop():
             npc_data_iter = load_json_file(npc_data_file)
             if npc_data_iter:
                 stats = {
-                    "name": npc_info_iter["name"], 
+                    "name": npc_info_iter["name"],
+                    "display_name": npc_info_iter["name"].capitalize(),  # For display purposes
                     "level": npc_data_iter.get("level", npc_info_iter.get("level", "N/A")),
                     "xp": npc_data_iter.get("experience_points", "N/A"),
                     "hp": npc_data_iter.get("hitPoints", "N/A"),
@@ -501,7 +426,7 @@ def main_game_loop():
             party_stats_formatted = []
             for stats_item in party_members_stats:
                 # Check if this is a player or an NPC
-                if stats_item['name'] in [p for p in party_tracker_data["partyMembers"]]:
+                if stats_item['name'] in party_tracker_data["partyMembers"]:
                     member_data_for_note = load_json_file(path_manager.get_player_path(stats_item['name']))
                 else:
                     member_data_for_note = load_json_file(path_manager.get_npc_path(stats_item['name']))
@@ -509,7 +434,8 @@ def main_game_loop():
                     abilities = member_data_for_note.get("abilities", {})
                     ability_str = f"STR:{abilities.get('strength', 'N/A')} DEX:{abilities.get('dexterity', 'N/A')} CON:{abilities.get('constitution', 'N/A')} INT:{abilities.get('intelligence', 'N/A')} WIS:{abilities.get('wisdom', 'N/A')} CHA:{abilities.get('charisma', 'N/A')}"
                     next_level_xp_note = member_data_for_note.get("exp_required_for_next_level", "N/A")
-                    party_stats_formatted.append(f"{stats_item['name']}: Level {stats_item['level']}, XP {stats_item['xp']}/{next_level_xp_note}, HP {stats_item['hp']}/{stats_item['max_hp']}, {ability_str}")
+                    display_name = stats_item.get('display_name', stats_item['name'].capitalize())
+                    party_stats_formatted.append(f"{display_name}: Level {stats_item['level']}, XP {stats_item['xp']}/{next_level_xp_note}, HP {stats_item['hp']}/{stats_item['max_hp']}, {ability_str}")
 
             party_stats_str = "; ".join(party_stats_formatted)
             current_location_name_note = world_conditions["currentLocation"]
@@ -546,12 +472,12 @@ def main_game_loop():
                         connected_areas_display_str = ". Connects to new areas: " + ", ".join(area_connections_formatted)
             # --- END OF CONNECTIVITY SECTION ---
             
-            plot_data_for_note = load_json_file(path_manager.get_plot_path(current_area_id)) 
+            plot_data_for_note = load_json_file(path_manager.get_plot_path()) 
             current_plot_points = []
             if plot_data_for_note and "plotPoints" in plot_data_for_note:
                  current_plot_points = [
                     point for point in plot_data_for_note["plotPoints"]
-                    if point["location"] == current_location_id_note and point["status"] != "completed"
+                    if point.get("location") == current_area_id and point["status"] != "completed"
                 ]
             plot_points_str = "\n".join([f"- {point['title']}: {point['description']}" for point in current_plot_points])
             
@@ -641,13 +567,16 @@ def main_game_loop():
 
 
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"] 
-        plot_data = load_json_file(path_manager.get_plot_path(current_area_id))
+        plot_data = load_json_file(path_manager.get_plot_path())
         campaign_name_updated = party_tracker_data.get("campaign", "").replace(" ", "_")
         campaign_data = load_json_file(path_manager.get_campaign_file_path())
 
         conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data)
         conversation_history = update_character_data(conversation_history, party_tracker_data)
         conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
+        
+        # Update cumulative summary in conversation
+        conversation_history = cumulative_summary.insert_cumulative_summary_in_conversation(conversation_history)
         
         # Use the new order_conversation_messages function
         conversation_history = order_conversation_messages(conversation_history, main_system_prompt_text)

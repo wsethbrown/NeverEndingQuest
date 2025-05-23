@@ -7,6 +7,7 @@ import copy
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, PLAYER_INFO_UPDATE_MODEL
 from campaign_path_manager import CampaignPathManager
+from file_operations import safe_write_json, safe_read_json
 
 # ANSI escape codes
 ORANGE = "\033[38;2;255;165;0m"
@@ -24,11 +25,8 @@ def load_schema():
         return json.load(schema_file)
 
 def load_conversation_history():
-    try:
-        with open("conversation_history.json", "r") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return []
+    data = safe_read_json("conversation_history.json")
+    return data if data else []
 
 def process_conversation_history(history):
     for message in history:
@@ -127,8 +125,10 @@ def update_player(player_name, changes, max_retries=3):
     # Load the current player info and schema
     path_manager = CampaignPathManager()
     player_file_path = path_manager.get_player_path(player_name)
-    with open(player_file_path, "r") as file:
-        player_info = json.load(file)
+    player_info = safe_read_json(player_file_path)
+    if not player_info:
+        print(f"{RED}ERROR: Could not read player file for {player_name}{RESET}")
+        return None
 
     original_info = copy.deepcopy(player_info)  # Keep a copy of the original info
     schema = load_schema()
@@ -253,8 +253,7 @@ Remember to:
         ai_response = response.choices[0].message.content.strip()
 
         # Write the raw AI response to a debug file
-        with open("debug_player_update.json", "w") as debug_file:
-            json.dump({"raw_ai_response": ai_response}, debug_file, indent=2)
+        safe_write_json("debug_player_update.json", {"raw_ai_response": ai_response}, create_backup=False)
 
         print(f"{ORANGE}DEBUG: Raw AI response written to debug_player_update.json{RESET}")
 
@@ -286,17 +285,18 @@ Remember to:
             print(f"{ORANGE}DEBUG: Changes made:{RESET}")
             print(json.dumps(diff, indent=2))
 
-            # Save the updated player info
-            with open(player_file_path, "w") as file:
-                json.dump(player_info, file, indent=2)
+            # Save the updated player info with atomic write
+            if not safe_write_json(player_file_path, player_info):
+                print(f"{RED}ERROR: Failed to save player file for {player_name}{RESET}")
+                return original_info
 
-            # Save the processed conversation history
+            # Save the processed conversation history with atomic write
             # Note: This saves the main conversation_history.json.
             # If this function is called by combat_manager.py, it might be overwriting
             # the main history with a version that doesn't yet include combat summary.
             # This is a pre-existing behavior.
-            with open("conversation_history.json", "w") as file:
-                json.dump(processed_history, file, indent=2)
+            if not safe_write_json("conversation_history.json", processed_history):
+                print(f"{RED}WARNING: Failed to save conversation history{RESET}")
 
             print(f"{ORANGE}DEBUG: {player_name}'s character information updated{RESET}")
             return player_info

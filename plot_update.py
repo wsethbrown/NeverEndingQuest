@@ -6,6 +6,7 @@ import time
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, PLOT_UPDATE_MODEL
 from campaign_path_manager import CampaignPathManager
+from file_operations import safe_write_json, safe_read_json
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -24,22 +25,17 @@ def load_schema():
         return json.load(schema_file)
 
 def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
-    with open("party_tracker.json", "r") as file:
-        party_tracker = json.load(file)
+    party_tracker = safe_read_json("party_tracker.json")
+    if not party_tracker:
+        print(f"{RED}ERROR: Could not read party_tracker.json{RESET}")
+        return
 
-    # Use CampaignPathManager to get correct path
+    # Use CampaignPathManager to get campaign plot path
     path_manager = CampaignPathManager()
-    if "/" in plot_filename:
-        # If it's already a full path, use it
-        plot_file_path = plot_filename
-    else:
-        # Extract area ID from filename and get proper path
-        area_id = plot_filename.replace("plot_", "").replace(".json", "")
-        plot_file_path = path_manager.get_plot_path(area_id)
+    plot_file_path = path_manager.get_plot_path()
 
     try:
-        with open(plot_file_path, "r") as file:
-            plot_info = json.load(file)
+        plot_info = safe_read_json(plot_file_path)
     except FileNotFoundError:
         print(f"{RED}ERROR: Plot file {plot_filename} not found in update_party_tracker.{RESET}")
         return
@@ -78,26 +74,21 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
 
     party_tracker["activeQuests"] = [q for q in party_tracker.get("activeQuests", []) if q.get("status") != "completed"]
 
-    with open("party_tracker.json", "w") as file:
-        json.dump(party_tracker, file, indent=2)
+    if not safe_write_json("party_tracker.json", party_tracker):
+        print(f"{RED}ERROR: Failed to save party_tracker.json{RESET}")
 
     print(f"{ORANGE}DEBUG: Party tracker updated for plot point {plot_point_id}{RESET}")
 
 def update_plot(plot_point_id_param, new_status_param, plot_impact_param, plot_filename_param, max_retries=3): # Renamed params
     try:
-        # Extract area ID from plot filename (e.g., "plot_EM001.json" -> "EM001")
+        # Use unified campaign plot file
         path_manager = CampaignPathManager()
-        
-        # If plot_filename_param already includes the full path, use it. Otherwise, construct it.
-        if "/" in plot_filename_param:
-            plot_file_path = plot_filename_param
-        else:
-            # Extract area ID from filename
-            area_id = plot_filename_param.replace("plot_", "").replace(".json", "")
-            plot_file_path = path_manager.get_plot_path(area_id)
+        plot_file_path = path_manager.get_plot_path()
             
-        with open(plot_file_path, "r") as file:
-            plot_info_data = json.load(file) # Renamed variable
+        plot_info_data = safe_read_json(plot_file_path)
+        if not plot_info_data:
+            print(f"{RED}ERROR: Could not read plot file{RESET}")
+            return None
     except FileNotFoundError:
         print(f"{RED}ERROR: Plot file {plot_filename_param} not found.{RESET}")
         return None # Or raise error
@@ -165,8 +156,9 @@ Examples:
 
             print(f"{GREEN}DEBUG: Successfully updated and validated plot info on attempt {attempt + 1}{RESET}")
 
-            with open(plot_file_path, "w") as file:
-                json.dump(plot_info_data, file, indent=2)
+            if not safe_write_json(plot_file_path, plot_info_data):
+                print(f"{RED}ERROR: Failed to save plot file{RESET}")
+                return plot_info_data
 
             update_party_tracker(plot_point_id_param, new_status_param, plot_impact_param, plot_filename_param)
 

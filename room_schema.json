@@ -14,9 +14,6 @@
       "size": {
         "type": "string"
       },
-      "lighting": {
-        "type": "string"
-      },
       "features": {
         "type": "array",
         "items": {
@@ -182,7 +179,6 @@
       "name",
       "description",
       "size",
-      "lighting",
       "features",
       "potentialMonsters",
       "potentialEncounters",

@@ -1,74 +1,67 @@
 {
-  "locationId": "R03",
-  "name": "The Withered Shrine",
-  "type": "shrine",
-  "description": "A clearing dominated by a crumbling stone altar surrounded by a circle of withered trees that seem frozen in torment. Once dedicated to forest guardians, the shrine now emanates a sense of abandonment and corruption. The altar stone is cracked down the middle, and dark stains spread across its surface. Tattered prayer ribbons hang limply from skeletal branches, and the ground is covered with dead leaves regardless of season. The air here is unnaturally still, and whispers seem to echo just at the edge of hearing.",
-  "coordinates": "X1Y2",
+  "locationId": "R04",
+  "name": "Lost Ward Circle",
+  "type": "ritual",
+  "description": "An ancient ritual site consisting of seven stone monoliths arranged in a perfect circle. Each stone bears worn carvings of protective symbols and runes that once glowed with powerful magic. Now, several stones have toppled, and the remaining ones are cracked and covered in moss. The center of the circle contains a raised dais with a shallow bowl-like depression. Ghostly blue energy occasionally flickers between the stones like dying lightning, and the ground within the circle is barren of all plant life. The boundary between worlds feels thin here, with whispers and distant wails drifting on the wind.",
+  "coordinates": "X3Y2",
   "connectivity": [
-    "R01",
-    "R05",
-    "R06"
+    "R02",
+    "R07"
   ],
   "areaConnectivity": [],
   "areaConnectivityId": [],
-  "npcs": [
-    {
-      "name": "The Lingering Spirit",
-      "description": "A translucent, shifting figure that appears as a hooded forest guardian. Its form is unstable, flickering between a serene protector and a tormented wraith. It seeks to warn travelers about the forest's dangers but struggles to communicate clearly through its corrupted state.",
-      "attitude": "Neutral, trying to help but corrupted by the keep's influence"
-    }
-  ],
+  "npcs": [],
   "monsters": [
     {
-      "name": "Twig Blights",
-      "number": "2d4",
+      "name": "Specters",
+      "number": 2,
       "disposition": "hostile",
-      "strategy": "These corrupted plant creatures hide among the dead vegetation, attacking in synchronized ambushes when victims approach the altar."
+      "strategy": "These are the spirits of failed guardians who now attack anyone attempting to repair the ward circle. They phase through stones for cover and target spellcasters first."
+    },
+    {
+      "name": "Will-o'-Wisp",
+      "number": 1,
+      "disposition": "neutral, then hostile",
+      "strategy": "Initially appears helpful, trying to lure party members away from the group before attacking the isolated target."
     }
   ],
   "lootTable": [
-    "Tarnished silver amulet (once used in blessing rituals, 10 gp value)",
-    "Ceremonial dagger with wooden handle (potential focus for ward rituals)",
-    "Small pouch of herbs (can be used for healing poultice, equivalent to healing potion)",
-    "Stone tablet fragment with partial ritual instructions"
+    "Ward stone fragment (key component for potential ritual)",
+    "Scroll of protection from evil and good",
+    "Pouch containing 5 runestones (focus items for ritual magic)",
+    "Silver ritual dagger with moonstone pommel (25 gp value)",
+    "Tattered ritual book with instructions for renewing the wards"
   ],
   "plotHooks": [
-    "The spirit tries to convey information about 'the binding failing' and 'shadows escaping their chains'.",
-    "An echo of blood sacrifice lingers around the altar, suggesting darker rituals have been performed recently.",
-    "Carved into the base of the altar is a map showing the path to the Lost Ward Circle and the keep beyond."
+    "The ritual book contains instructions for temporarily strengthening the wards, which could weaken the keep's influence.",
+    "One of the fallen stones has a message etched on its inner face: 'The knight's heart remains, buried beneath his hatred.'",
+    "Evidence suggests Scout Elen attempted a ritual here but fled when something went wrong."
   ],
-  "dmInstructions": "The Lingering Spirit appears after players investigate the altar. It communicates through fragmented phrases, gestures, and emotional impressions rather than clear speech. A DC 13 Religion check helps interpret its warnings about the ward circle failing. Players who show respect (offering items, repairing damage, or expressing reverence) might receive a blessing granting advantage on saves against fear for 24 hours.",
+  "dmInstructions": "This location offers a significant side quest opportunity. Players can attempt to restore the ward circle with a successful Arcana check (DC 15) and appropriate components (ward stone, runestones, and either blood or powerful magic). Success temporarily weakens undead in the forest (they have disadvantage on attacks for 24 hours) and reveals a clearer path to the keep. Failure attracts additional specters. The will-o'-wisp initially appears as a helpful spirit guide but turns hostile if followed away from the group.",
   "doors": [],
   "traps": [],
   "dcChecks": [
-    "Religion DC 13: Interpret the spirit's warnings and understand the shrine's original purpose.",
-    "Arcana DC 14: Identify traces of recent dark magic performed at the altar.",
-    "Perception DC 12: Notice the twig blights before they attack.",
-    "Investigation DC 15: Discover the map carved into the altar's base."
+    "Arcana DC 15: Understand how to perform the warding ritual.",
+    "Religion DC 14: Identify the original purpose of the ward stones (containing the keep's influence).",
+    "Perception DC 13: Notice disturbed earth and footprints suggesting Scout Elen was here recently.",
+    "Insight DC 14: Sense the will-o'-wisp's malicious intent despite its seemingly helpful appearance."
   ],
-  "lighting": "Dim (day), Dark (night)",
-  "accessibility": "Open clearing with uneven ground; altar has several steps.",
-  "dangerLevel": "Medium",
+  "accessibility": "Relatively flat clearing with seven large standing stones; one must step over fallen stones to reach the center.",
+  "dangerLevel": "High",
   "features": [
     {
-      "name": "Cracked Altar",
-      "description": "A massive stone altar split down the middle, stained with what might be old blood or corruption."
+      "name": "Standing Monoliths",
+      "description": "Seven large stone pillars in various states of disrepair, carved with faded magical runes."
     },
     {
-      "name": "Circle of Withered Trees",
-      "description": "Dead trees surrounding the clearing, their branches twisted in unnatural poses."
+      "name": "Central Dais",
+      "description": "A raised stone platform with a bowl-like depression, possibly for offerings or ritual components."
     },
     {
-      "name": "Offering Bowls",
-      "description": "Stone bowls at the base of the altar, some containing old offerings, others filled with stagnant water."
+      "name": "Ward Energy",
+      "description": "Faint blue energy that occasionally arcs between the stones, remnants of once-powerful protection magic."
     }
   ],
-  "encounters": [
-    {
-      "encounterId": "G001-R03-E1",
-      "summary": "As players approach the shrine, the twig blights attack from hiding. After this encounter, the Lingering Spirit manifests, attempting to warn the party about the keep's influence and the failing wards.",
-      "impact": "Success grants insight into the plot and potentially a blessing; failure could mean leaving without crucial information about the Ward Circle or taking injuries from the ambush."
-    }
-  ],
-  "adventureSummary": "The party entered a desolate clearing containing The Withered Shrine, once sacred to forest guardians but now corrupted and abandoned. At its center stood a cracked stone altar surrounded by a circle of twisted, lifeless trees. As they approached to examine the dark stains across the altar's surface, twig blights emerged from the dead foliage to ambush them. After defeating these plant creatures, a translucent, flickering spirit appeared\u2014shifting between the form of a serene forest guardian and a tormented wraith. Though its communication was fragmented, they discerned warnings about 'the binding failing' and 'shadows escaping their chains.' Their respectful approach seemed to please the entity, which granted them a temporary blessing against fear. Among the shrine's remains, they discovered a tarnished silver amulet, a ceremonial dagger, and a stone tablet fragment with partial ritual instructions. Most significantly, they found a map carved into the altar's base showing the path to both the Lost Ward Circle and the keep beyond. The party could now proceed either back to the Witchlight Trailhead, deeper into the Boggard Marsh, or toward the Spectral Clearing."
+  "encounters": [],
+  "adventureSummary": ""
 }

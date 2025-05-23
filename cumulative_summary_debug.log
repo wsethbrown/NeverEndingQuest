@@ -1,0 +1,16 @@
+2025-05-22 22:38:17 - Building cumulative adventure summary from journal entries
+2025-05-22 22:38:17 - Found 156 journal entries
+2025-05-22 22:38:17 - Skipping entry 1 - contains JSON action data
+2025-05-22 22:38:17 - Skipping entry 2 - contains JSON action data
+2025-05-22 22:38:17 - Skipping entry 40 - contains JSON action data
+2025-05-22 22:38:17 - Built cumulative summary with 213164 characters
+2025-05-22 22:38:17 - Inserting cumulative summary into conversation history
+2025-05-22 22:38:17 - Cleaning old-style summaries from conversation history
+2025-05-22 22:38:17 - Removed 1 old-style summary messages
+2025-05-22 22:38:18 - Building cumulative adventure summary from journal entries
+2025-05-22 22:38:18 - Found 156 journal entries
+2025-05-22 22:38:18 - Skipping entry 1 - contains JSON action data
+2025-05-22 22:38:18 - Skipping entry 2 - contains JSON action data
+2025-05-22 22:38:18 - Skipping entry 40 - contains JSON action data
+2025-05-22 22:38:18 - Built cumulative summary with 213164 characters
+2025-05-22 22:38:18 - Inserting new cumulative summary at position 1

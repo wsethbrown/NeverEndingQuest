@@ -203,7 +203,6 @@
         "Insight DC 12: Discern Elder Mirna is withholding information about the key and certain historical events.",
         "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the keep."
       ],
-      "lighting": "Bright",
       "accessibility": "Easily accessible from the main square, wide doorways and step-free entry.",
       "dangerLevel": "Low",
       "features": [
@@ -225,7 +224,7 @@
     },
     {
       "locationId": "R02",
-      "name": "Harrow\u2019s Hollow Town Square",
+      "name": "Harrow’s Hollow Town Square",
       "type": "square",
       "description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. On market days, stalls crowd the space, but even now, locals gossip in small clusters, eyes wary of newcomers. At dusk, shadows pool and the wind carries the faint echo of old songs.",
       "coordinates": "X3Y2",
@@ -250,21 +249,20 @@
       "plotHooks": [
         "Old Tommen corners the party to warn them about 'the shade on the moor,' referencing recent spectral sightings.",
         "A traveling merchant seeks help recovering goods lost to bandits north of town.",
-        "Children whisper about a secret under the statue\u2014a lost trinket or something darker."
+        "Children whisper about a secret under the statue—a lost trinket or something darker."
       ],
-      "dmInstructions": "Use Tommen\u2019s superstitious ramblings for early foreshadowing. A DC 11 Persuasion check gets him to share legends about the keep and the cursed knight. If players search the statue (DC 13 Investigation), they find a hidden compartment holding a rusty locket (worth 2 gp, sentimental value to some locals).",
+      "dmInstructions": "Use Tommen’s superstitious ramblings for early foreshadowing. A DC 11 Persuasion check gets him to share legends about the keep and the cursed knight. If players search the statue (DC 13 Investigation), they find a hidden compartment holding a rusty locket (worth 2 gp, sentimental value to some locals).",
       "doors": [],
       "traps": [],
       "dcChecks": [
         "Investigation DC 13: Discover a hidden compartment in the statue.",
-        "Persuasion DC 11: Convince Tommen to reveal a local legend about ghostly lights or the keep\u2019s curse."
+        "Persuasion DC 11: Convince Tommen to reveal a local legend about ghostly lights or the keep’s curse."
       ],
-      "lighting": "Bright",
       "accessibility": "Fully open and central, all major buildings and streets lead here; accessible to all.",
       "dangerLevel": "Low",
       "features": [
         {
-          "name": "Knight\u2019s Statue",
+          "name": "Knight’s Statue",
           "description": "A weathered stone monument, its inscription nearly worn away, depicting a forgotten hero with a drawn sword."
         },
         {
@@ -283,7 +281,7 @@
       "locationId": "R03",
       "name": "East Gate and Guardhouse",
       "type": "gate",
-      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town\u2019s eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond.",
+      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town’s eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond.",
       "coordinates": "X2Y3",
       "connectivity": [
         "R01"
@@ -293,14 +291,14 @@
       "npcs": [
         {
           "name": "Sergeant Mara Feld",
-          "description": "A stoic, broad-shouldered veteran overseeing the town\u2019s security. She has a no-nonsense manner and fierce loyalty to Harrow\u2019s Hollow.",
+          "description": "A stoic, broad-shouldered veteran overseeing the town’s security. She has a no-nonsense manner and fierce loyalty to Harrow’s Hollow.",
           "attitude": "Suspicious of outsiders, but fair; she values courage and honesty."
         }
       ],
       "monsters": [],
       "lootTable": [
-        "Town gate key (kept on Sergeant Feld\u2019s belt)",
-        "Guard\u2019s whistle",
+        "Town gate key (kept on Sergeant Feld’s belt)",
+        "Guard’s whistle",
         "Small pouch with 12 cp",
         "Town patrol schedule (handwritten, with notes about recent disturbances near the keep)"
       ],
@@ -339,7 +337,6 @@
         "Investigation DC 14: Discover faint footprints and broken brush leading toward the haunted keep.",
         "Persuasion DC 13: Convince Sergeant Feld to share information or allow after-hours travel."
       ],
-      "lighting": "Dim",
       "accessibility": "Easily accessible by road, but guarded and locked at night.",
       "dangerLevel": "Low",
       "features": [
@@ -349,7 +346,7 @@
         },
         {
           "name": "Patrol Roster",
-          "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen\u2019s name circled in chalk."
+          "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen’s name circled in chalk."
         },
         {
           "name": "Gate Mechanism",
@@ -363,7 +360,7 @@
       "locationId": "R04",
       "name": "Militia Barracks",
       "type": "barracks",
-      "description": "A utilitarian, two-story stone building with a small training yard. The barracks houses Harrow\u2019s militia\u2014peasant guards, hunters, and retired soldiers. Inside, bunks are neatly arranged, and a wall bears faded banners from better days.",
+      "description": "A utilitarian, two-story stone building with a small training yard. The barracks houses Harrow’s militia—peasant guards, hunters, and retired soldiers. Inside, bunks are neatly arranged, and a wall bears faded banners from better days.",
       "coordinates": "X2Y1",
       "connectivity": [
         "R01"
@@ -405,7 +402,7 @@
         },
         {
           "name": "Armory Door",
-          "description": "A reinforced wooden door with a heavy padlock, leading to the militia\u2019s armory.",
+          "description": "A reinforced wooden door with a heavy padlock, leading to the militia’s armory.",
           "type": "heavy",
           "locked": true,
           "lockDC": 14,
@@ -420,7 +417,6 @@
         "Survival DC 12: Learn about hidden paths and dangers in the wilds.",
         "Investigation DC 13: Find a battered shield with a mysterious crest."
       ],
-      "lighting": "Dim",
       "accessibility": "Located on a side street, accessible by road; entry is monitored by militia.",
       "dangerLevel": "Low",
       "features": [
@@ -460,7 +456,7 @@
       ],
       "monsters": [],
       "lootTable": [
-        "Free meal and ale (at Cira\u2019s discretion)",
+        "Free meal and ale (at Cira’s discretion)",
         "Set of bone dice (left in a booth)",
         "Silver earring (lost under a table)",
         "Charm against the evil eye (hanging near the bar)"
@@ -468,9 +464,9 @@
       "plotHooks": [
         "A fearful regular claims to have seen a ghostly figure on the east road.",
         "Cira offers the party free rooms if they can calm frightened townsfolk.",
-        "A drunken patron insists the keep\u2019s curse is growing stronger and tries to start a brawl."
+        "A drunken patron insists the keep’s curse is growing stronger and tries to start a brawl."
       ],
-      "dmInstructions": "Cira is the party\u2019s best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
+      "dmInstructions": "Cira is the party’s best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
       "doors": [
         {
           "name": "Inn Door",
@@ -500,7 +496,6 @@
         "Persuasion DC 10: Convince Cira to share confidential rumors or grant a favor.",
         "Insight DC 12: Detect if a patron is hiding something about recent ghost sightings."
       ],
-      "lighting": "Bright",
       "accessibility": "Easily reached from the square, step-free entrance, welcoming to all.",
       "dangerLevel": "Low",
       "features": [

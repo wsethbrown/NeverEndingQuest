@@ -33,11 +33,6 @@
             "pattern": "^X[0-9]+Y[0-9]+$",
             "description": "The location's coordinates in the format 'XnYn' where n is a number."
           },
-          "lighting": { 
-            "type": "string",
-            "enum": ["Bright", "Dim", "Dark"],
-            "description": "The general lighting condition of the location."
-          },
           "accessibility": { 
             "type": "string",
             "description": "Description of how easily the location can be accessed."
@@ -197,7 +192,7 @@
           }
         },
         "required": [
-          "name", "type", "description", "dmInstructions", "locationId", "coordinates", "lighting",
+          "name", "type", "description", "dmInstructions", "locationId", "coordinates",
           "accessibility", "npcs", "monsters",
           "plotHooks", "lootTable", "dangerLevel",
           "connectivity", "areaConnectivity", "areaConnectivityId", "traps", "features", "dcChecks", "encounters", "adventureSummary",

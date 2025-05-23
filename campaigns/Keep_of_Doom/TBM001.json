@@ -196,7 +196,6 @@
         "Acrobatics DC 13: Safely jump across broken sections of the causeway.",
         "History DC 14: Recognize the significance of the defensive formations and their implications about the shadow's spread."
       ],
-      "lighting": "Varies with weather (often Dim due to mist)",
       "accessibility": "Broken path with gaps and unstable sections; extremely challenging to navigate safely.",
       "dangerLevel": "High",
       "features": [
@@ -284,7 +283,6 @@
         "Nature DC 14: Identify patterns in the bog lights that indicate safer paths.",
         "Investigation DC 16: Find the submerged boots of water walking."
       ],
-      "lighting": "Dim (perpetual mist reduces visibility)",
       "accessibility": "Extremely difficult terrain with deep water, unstable ground, and few solid paths.",
       "dangerLevel": "Extreme",
       "features": [
@@ -391,7 +389,6 @@
         "Arcana DC 14: Understand the significance of the astronomical alignments in Morven's charts.",
         "Perception DC 14: Notice the unstable flooring before stepping on it."
       ],
-      "lighting": "Varies by level (Bright near windows, Dim in interior, Dark in lower levels)",
       "accessibility": "Multi-level tower with stairs, some collapsed sections; challenging to navigate fully.",
       "dangerLevel": "High",
       "features": [
@@ -503,7 +500,6 @@
         "Deception DC 14: Enter the camp under false pretenses.",
         "Arcana DC 16: Understand and disable the perimeter wards without insider knowledge."
       ],
-      "lighting": "Varies (Bright near ritual fires, Dim elsewhere)",
       "accessibility": "Relatively flat terrain with intentional pathways; most areas accessible but heavily guarded.",
       "dangerLevel": "Extreme",
       "features": [
@@ -572,7 +568,6 @@
         "Wisdom DC 14: Process the wisps' memories without disorientation.",
         "Investigation DC 14: Find the hidden ritual manual."
       ],
-      "lighting": "Varies with time of day (stones glow faintly at night)",
       "accessibility": "Open ritual space with relatively solid ground; moderately accessible.",
       "dangerLevel": "High",
       "features": [
@@ -673,7 +668,6 @@
         "Religion DC 15: Interpret the ritual symbolism to safely open the inner sanctum.",
         "Perception DC 15: Find the hidden amulet of the Barrow Guardians."
       ],
-      "lighting": "Dark",
       "accessibility": "Narrow passages and chambers; challenging to navigate, especially for larger creatures.",
       "dangerLevel": "Extreme",
       "features": [

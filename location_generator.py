@@ -100,18 +100,6 @@ class LocationPromptGuide:
     Style: Mechanical, specific DCs and effects
     """
     
-    lighting: str = """
-    Lighting conditions affect visibility and atmosphere.
-    Must be one of: "Bright", "Dim", "Dark"
-    
-    Guidelines:
-    - Bright: Sunlight, magical illumination, well-lit torches
-    - Dim: Few torches, twilight, shadowy areas
-    - Dark: No light sources, underground, night
-    
-    Consider: How does lighting affect stealth, perception, and mood?
-    """
-    
     accessibility: str = """
     How easily can this location be accessed?
     Describes physical entry/exit challenges.
@@ -502,7 +490,6 @@ CRITICAL: Field names must match the schema EXACTLY:
 - Use "doors" for door information (ALL fields required: name, description, type, locked, lockDC, breakDC, keyname, trapped, trap)
 - Use "traps" for trap details (must include detectDC, disableDC, triggerDC, damage)
 - Use "dcChecks" in format "SkillName DC XX: Description"
-- Include "lighting" (must be "Bright", "Dim", or "Dark")
 - Include "accessibility" (describe how easily the location can be accessed)
 - Include "dangerLevel" (must be "Low", "Medium", "High", or "Very High")
 - Include "features" (array of objects with name and description)

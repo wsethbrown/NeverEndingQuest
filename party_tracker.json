@@ -1,46 +1,51 @@
 {
-  "campaign": "Keep_of_Doom",
-  "partyMembers": [
-    "norn"
-  ],
-  "partyNPCs": [],
-  "worldConditions": {
-    "year": 1492,
-    "month": "Ches",
-    "day": 1,
-    "time": "08:00:00",
-    "weather": "Overcast",
-    "season": "Spring",
-    "dayNightCycle": "Morning",
-    "moonPhase": "New Moon",
-    "currentLocation": "Harrow's Hollow General Store",
-    "currentLocationId": "R01",
-    "currentArea": "Harrow's Hollow",
-    "currentAreaId": "HH001",
-    "majorEventsUnderway": [],
-    "politicalClimate": "",
-    "activeEncounter": "",
-    "activeCombatEncounter": "",
-    "weatherConditions": "Overcast with morning mist"
-  },
-  "activeQuests": [
-    {
-      "id": "PP001",
-      "title": "Shadows Over Harrow's Hollow",
-      "description": "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run high as rumors of curses, spirits, and the haunted Keep of Doom swirl among the villagers. Players must gather information, win trust, and follow leads to piece together the mystery.",
-      "status": "in progress"
+    "campaign": "Keep_of_Doom",
+    "partyMembers": [
+        "norn"
+    ],
+    "partyNPCs": [],
+    "worldConditions": {
+        "year": 1492,
+        "month": "Ches",
+        "day": 1,
+        "time": "20:41:00",
+        "weather": "",
+        "season": "Spring",
+        "dayNightCycle": "Night",
+        "moonPhase": "New Moon",
+        "currentLocation": "Keeper's Cottage",
+        "currentLocationId": "R07",
+        "currentArea": "Gloamwood",
+        "currentAreaId": "G001",
+        "majorEventsUnderway": [],
+        "politicalClimate": "",
+        "activeEncounter": "",
+        "activeCombatEncounter": ""
     },
-    {
-      "id": "SQ001",
-      "title": "Superstition and Shadows",
-      "description": "Old Tommen believes a wandering spirit haunts the village. If the party investigates, they may encounter the Wandering Shade—a restless ghost whose cryptic words offer hints about the keep and the missing villagers.",
-      "status": "not started"
-    },
-    {
-      "id": "SQ002",
-      "title": "Trouble at the Hearth",
-      "description": "Cira the Innkeeper's cellar is plagued by minor poltergeist activity. Calming the spirit earns Cira's gratitude and a helpful clue about Scout Elen's last known movements.",
-      "status": "not started"
-    }
-  ]
+    "activeQuests": [
+        {
+            "id": "SQ001",
+            "title": "Superstition and Shadows",
+            "description": "Old Tommen believes a wandering spirit haunts the village. If the party investigates, they may encounter the Wandering Shade\u00e2\u20ac\u201da restless ghost whose cryptic words offer hints about the keep and the missing villagers.",
+            "status": "not started"
+        },
+        {
+            "id": "PP002",
+            "title": "The Road to Doom",
+            "description": "Tracking clues and rumors, the party must brave the haunted forest and reach the Keep of Doom. Along the way, they navigate treacherous terrain, spectral ambushes, and lingering wards. The forest is alive with unnatural energies, and the party may encounter allies or enemies who help or hinder their journey.",
+            "status": "in progress"
+        },
+        {
+            "id": "SQ003",
+            "title": "Lost in the Dark",
+            "description": "The party finds evidence of a wounded villager (Scout Elen\u2019s trail) and can choose to follow it. This detour leads to an encounter with hostile forest spirits and potentially the rescue of Scout Elen.",
+            "status": "not started"
+        },
+        {
+            "id": "SQ004",
+            "title": "Circle of the Wild Heart",
+            "description": "The party may encounter Druidess Halwen or Feyfriend Lirael, who offer cryptic warnings or aid against the keep\u2019s curse\u2014if the party helps drive off a corrupted beast menacing the woods.",
+            "status": "not started"
+        }
+    ]
 }

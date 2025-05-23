@@ -236,7 +236,6 @@
         "History DC 14: Recognize the unusual prisoner classification system used in the ledger.",
         "Arcana DC 15: Sense the warping of reality that allows the shadows to manifest."
       ],
-      "lighting": "Dim (magical sconces)",
       "accessibility": "Narrow staircase entrance with a single chamber below; reasonably navigable but cold and damp.",
       "dangerLevel": "Medium",
       "features": [
@@ -343,7 +342,6 @@
         "Perception DC 13: Notice which cells contain hidden ghouls before they attack.",
         "Insight DC 15: Interpret the meaning behind the Prisoner Echo's repetitive statements."
       ],
-      "lighting": "Dark",
       "accessibility": "Long corridor with narrow cell entrances; relatively flat but psychologically disorienting.",
       "dangerLevel": "High",
       "features": [
@@ -433,7 +431,6 @@
         "History DC 14: Recognize torture methods specific to extracting information about magical abilities.",
         "Perception DC 13: Notice the recording crystal in the speaking trumpet device."
       ],
-      "lighting": "Dim (ghostly blue flames)",
       "accessibility": "Open chamber with numerous obstacles and dangerous equipment; difficult to navigate safely.",
       "dangerLevel": "High",
       "features": [
@@ -535,7 +532,6 @@
         "Religion DC 13: Understand how to properly restore the desecrated shrine.",
         "Insight DC 14: Interpret the deeper meaning behind Sir Garran's letter to the guard captain."
       ],
-      "lighting": "Dark",
       "accessibility": "Low-ceilinged chamber with pillars and obstacles; somewhat difficult to navigate.",
       "dangerLevel": "Medium",
       "features": [
@@ -625,7 +621,6 @@
         "Arcana DC 15: Understand the significance of the experimental notes about light frequencies.",
         "Nature DC 14: Identify which of the bioluminescent fungi might have useful properties."
       ],
-      "lighting": "Dim (bioluminescent fungi)",
       "accessibility": "Cluttered space with narrow passages between shelving; challenging to navigate.",
       "dangerLevel": "Medium",
       "features": [
@@ -727,7 +722,6 @@
         "History DC 13: Recognize the names of Sir Garran's knights among the marked skulls.",
         "Arcana DC 16: Interpret the archway's symbols to understand how the relic might be approached safely."
       ],
-      "lighting": "Dim (spectral blue lights from skulls)",
       "accessibility": "Large open chamber with ritual areas; relatively navigable but psychologically distressing.",
       "dangerLevel": "High",
       "features": [
@@ -827,7 +821,6 @@
         "Insight DC 15: Recognize which appeals to Sir Garran's humanity might be most effective.",
         "Religion DC 14: Understand how to properly use blessed or holy items against the shadows."
       ],
-      "lighting": "Dark (with pulsating shadow illumination from relic)",
       "accessibility": "Open chamber with ritual features; shadow pools create hazardous areas.",
       "dangerLevel": "Extreme",
       "features": [

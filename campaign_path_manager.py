@@ -35,9 +35,9 @@ class CampaignPathManager:
         """Get the path to an area file"""
         return f"{self.campaign_dir}/{area_id}.json"
     
-    def get_plot_path(self, area_id):
-        """Get the path to a plot file"""
-        return f"{self.campaign_dir}/plot_{area_id}.json"
+    def get_plot_path(self, area_id=None):
+        """Get the path to the campaign plot file (no longer area-specific)"""
+        return f"{self.campaign_dir}/campaign_plot.json"
     
     def get_map_path(self, area_id):
         """Get the path to a map file"""

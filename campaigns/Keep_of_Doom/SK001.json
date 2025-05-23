@@ -210,7 +210,6 @@
         "Arcana DC 14: Understand the supernatural properties of the fountain's reflections.",
         "Nature DC 12: Realize the courtyard's vegetation has been twisted by dark magic."
       ],
-      "lighting": "Dim (regardless of time of day)",
       "accessibility": "Open area with scattered debris and uneven cobblestones; challenging but navigable.",
       "dangerLevel": "Medium",
       "features": [
@@ -305,7 +304,6 @@
         "Investigation DC 14: Find the hidden supply alcove containing the scroll.",
         "Perception DC 13: Notice the weakened floor before stepping on it."
       ],
-      "lighting": "Dim",
       "accessibility": "Partially collapsed structure with stairs, narrow passages, and debris; challenging to navigate.",
       "dangerLevel": "Medium",
       "features": [
@@ -402,7 +400,6 @@
         "History DC 13: Recognize the significance of the symbols and imagery in the chapel.",
         "Perception DC 12: Notice the shadows moving independently before they attack."
       ],
-      "lighting": "Dim (day), Dark (night) with spectral blue candles",
       "accessibility": "Debris-strewn chamber with broken pews and steps up to the altar area.",
       "dangerLevel": "High",
       "features": [
@@ -492,7 +489,6 @@
         "History DC 12: Recognize military insignias and the significance of displayed battle scenes.",
         "Perception DC 14: Notice the weakened floor section before stepping on it."
       ],
-      "lighting": "Dim (day), Dark (night)",
       "accessibility": "Debris-strewn room with collapsed sections and uneven flooring; difficult terrain in many areas.",
       "dangerLevel": "Medium",
       "features": [
@@ -590,7 +586,6 @@
         "Arcana DC 13: Sense the poisonous nature of the phantom food without partaking.",
         "Investigation DC 16: Find the scattered journal pages within the hall."
       ],
-      "lighting": "Dim",
       "accessibility": "Grand chamber with some debris but relatively open space; stairs lead up to elevated areas.",
       "dangerLevel": "High",
       "features": [
@@ -680,7 +675,6 @@
         "Perception DC 14: Spot the gargoyles before they animate.",
         "Arcana DC 16: Understand how to use the observatory's instruments for optimal timing against the relic."
       ],
-      "lighting": "Dim (day), Dark (night)",
       "accessibility": "Dangerous vertical space with collapsed sections and missing stairs; extremely difficult to navigate.",
       "dangerLevel": "High",
       "features": [
@@ -778,7 +772,6 @@
         "History DC 14: Recognize references in Sir Garran's writings to historical events and figures.",
         "Perception DC 13: Notice the portrait's eyes tracking movement and the subtle gathering of shadows."
       ],
-      "lighting": "Dim (perpetually shadowed regardless of time)",
       "accessibility": "Well-preserved room with minimal obstacles; rug conceals trapdoor.",
       "dangerLevel": "High",
       "features": [

@@ -11,7 +11,7 @@
         "PP002"
       ],
       "status": "in progress",
-      "plotImpact": "Norn arrives in Harrow\u2019s Hollow and is asked by Elder Mirna to investigate the disappearances, including Scout Elen. The investigation can begin with questioning villagers or searching for clues.",
+      "plotImpact": "Norn leaves Harrow's Hollow for the Witchlight Trail, advancing the main quest toward investigating the Keep of Doom and pushing deeper into the mystery of the missing villagers.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -30,8 +30,8 @@
           "involvedLocations": [
             "HH001"
           ],
-          "status": "not started",
-          "plotImpact": "Provides a clue to Elen's disappearance and a possible safe haven."
+          "status": "completed",
+          "plotImpact": "Norn has revealed the true nature of the tunnels beneath the inn to Cira, warning her to keep the cellar sealed. The investigation into Elen\u2019s disappearance and the supernatural threat under Harrow\u2019s Hollow advances, closing the cellar mystery and setting the stage for the journey to the keep."
         }
       ]
     },

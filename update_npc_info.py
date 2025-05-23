@@ -7,6 +7,7 @@ import re
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, NPC_INFO_UPDATE_MODEL
 from campaign_path_manager import CampaignPathManager
+from file_operations import safe_write_json, safe_read_json
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -24,11 +25,8 @@ def load_schema():
         return json.load(schema_file)
 
 def load_conversation_history():
-    try:
-        with open("conversation_history.json", "r") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return []
+    data = safe_read_json("conversation_history.json")
+    return data if data else []
 
 def format_schema_for_prompt(schema):
     """Format schema information for inclusion in the prompt"""
@@ -158,8 +156,10 @@ def update_npc(npc_name, changes, max_retries=3):
     # Load the current NPC info and schema
     path_manager = CampaignPathManager()
     npc_file_path = path_manager.get_npc_path(npc_name)
-    with open(npc_file_path, "r") as file:
-        npc_info = json.load(file)
+    npc_info = safe_read_json(npc_file_path)
+    if not npc_info:
+        print(f"{RED}ERROR: Could not read NPC file for '{npc_name}' at path: {npc_file_path}{RESET}")
+        return None
 
     original_info = copy.deepcopy(npc_info)  # Keep a copy of the original info
     schema = load_schema()
@@ -347,13 +347,12 @@ Remember to:
         print(f"{ORANGE}{ai_response}{RESET}")
 
         # Write the raw AI response to a debug file
-        with open("debug_npc_update.json", "w") as debug_file:
-            json.dump({
-                "attempt": attempt + 1,
-                "npc_name": npc_name,
-                "changes": changes,
-                "raw_ai_response": ai_response
-            }, debug_file, indent=2)
+        safe_write_json("debug_npc_update.json", {
+            "attempt": attempt + 1,
+            "npc_name": npc_name,
+            "changes": changes,
+            "raw_ai_response": ai_response
+        }, create_backup=False)
 
         print(f"{ORANGE}DEBUG: Raw AI response written to debug_npc_update.json{RESET}")
 
@@ -392,15 +391,19 @@ Remember to:
             debug_update_log["final_diff"] = diff
             debug_update_log["success"] = True
 
-            # Save the updated NPC info
-            with open(npc_file_path, "w") as file:
-                json.dump(npc_info, file, indent=2)
+            # Save the updated NPC info with atomic write
+            if not safe_write_json(npc_file_path, npc_info):
+                print(f"{RED}ERROR: Failed to save NPC file for {npc_name}{RESET}")
+                return original_info
 
             print(f"{ORANGE}DEBUG: {npc_name}'s information updated{RESET}")
             
-            # Write debug log
-            with open("npc_update_detailed_log.json", "a") as log_file:
-                json.dump(debug_update_log, log_file)
+            # Append to debug log (read existing, append, write back)
+            existing_log = safe_read_json("npc_update_detailed_log.json") or []
+            if isinstance(existing_log, dict):
+                existing_log = [existing_log]
+            existing_log.append(debug_update_log)
+            safe_write_json("npc_update_detailed_log.json", existing_log, create_backup=False)
                 log_file.write("\n")
             
             return npc_info
@@ -426,9 +429,12 @@ Remember to:
             debug_update_log["success"] = False
             debug_update_log["error"] = "Failed after all retries"
             
-            with open("npc_update_detailed_log.json", "a") as log_file:
-                json.dump(debug_update_log, log_file)
-                log_file.write("\n")
+            # Append to debug log (read existing, append, write back)
+            existing_log = safe_read_json("npc_update_detailed_log.json") or []
+            if isinstance(existing_log, dict):
+                existing_log = [existing_log]
+            existing_log.append(debug_update_log)
+            safe_write_json("npc_update_detailed_log.json", existing_log, create_backup=False)
                 
             return original_info
 

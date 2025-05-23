@@ -62,7 +62,9 @@
     "Second Wind",
     "Action Surge",
     "Improved Critical",
-    "Martial Archetype: Champion"
+    "Martial Archetype: Champion",
+    "Empowered Ward Ritual: Performing the ancient rite at the faerie circle grants spiritual fortitude, providing advantage on saving throws against enchantment effects for 24 hours.",
+    "Renewed Protective Ward: Completed the ancient rite at the Lost Ward Circle, renewing the protective ward and gaining spiritual fortitude."
   ],
   "specialAbilities": [
     {
@@ -90,46 +92,16 @@
   ],
   "equipment": [
     {
-      "item_name": "Battered Spirit Lantern",
+      "item_name": "Ward stone fragment (key component for ritual)",
       "item_type": "miscellaneous",
-      "description": "A worn lantern once belonging to Scout Elen, faintly glowing with residual warmth.",
-      "quantity": 1
+      "description": "A fragment of a ward stone essential for performing the ancient ritual to renew the protective wards.",
+      "quantity": 0
     },
     {
-      "item_name": "Scrap of Scout's Cloak",
+      "item_name": "Tattered ritual book with instructions for renewing the wards",
       "item_type": "miscellaneous",
-      "description": "A torn piece of fabric matching Scout Elen's cloak, found in the cellar.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Elen's Note",
-      "item_type": "miscellaneous",
-      "description": "A crumpled note with faint writing, possibly left by Scout Elen.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Old bronze key marked with a faded raven sigil",
-      "item_type": "miscellaneous",
-      "description": "An ancient bronze key bearing a faded raven sigil, given by Elder Mirna to access a hidden passage beneath the old keep.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Tarnished Silver Amulet (stag motif)",
-      "item_type": "miscellaneous",
-      "description": "A tarnished silver amulet once used in blessing rituals, bearing a delicate stag motif.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Ceremonial Dagger with Wooden Handle",
-      "item_type": "miscellaneous",
-      "description": "A ceremonial dagger with a wooden handle, possibly used as a focus for ward rituals.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Stone Tablet Fragment with Ritual Instructions",
-      "item_type": "miscellaneous",
-      "description": "A fragment of a stone tablet inscribed with partial ritual instructions.",
-      "quantity": 1
+      "description": "An old, worn book containing faded instructions and rituals for restoring the protective wards around Harrow's Hollow.",
+      "quantity": 0
     }
   ],
   "ammunition": [
@@ -197,7 +169,7 @@
   "currency": {
     "gold": 0,
     "silver": 0,
-    "copper": 5
+    "copper": 0
   },
   "experience_points": 4571,
   "exp_required_for_next_level": 6500,

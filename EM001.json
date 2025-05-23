@@ -6,7 +6,6 @@
       "description": "The main entrance to the old mines, a wide tunnel supported by aged wooden beams. The air is cool and damp, and the sound of dripping water echoes from within.",
       "locationId": "R1",
       "coordinates": "X2Y1",
-      "lighting": "Dim",
       "accessibility": "Easily accessible from Ember Hollow; the tunnel slopes gently downward.",
       "npcs": [
         {
@@ -69,7 +68,6 @@
       "description": "A derelict room filled with the remnants of a once-thriving operation. The air is thick with dust, and broken furniture lies strewn about, hinting at a hasty departure. Papers and ledgers, now yellowed with age, are scattered across the floor, and the scent of mildew permeates the space.",
       "locationId": "R2",
       "coordinates": "X1Y1",
-      "lighting": "Dim",
       "accessibility": "Accessible via a side passage from the Entrance Tunnel.",
       "npcs": [],
       "monsters": [],
@@ -162,7 +160,6 @@
       "description": "A narrow corridor choked with rubble and debris from a long-ago cave-in. The air is heavy with dust, and the sound of small rocks shifting underfoot echoes eerily through the tight space.",
       "locationId": "R3",
       "coordinates": "X3Y1",
-      "lighting": "Dim",
       "accessibility": "Difficult terrain due to rubble; squeezing required.",
       "npcs": [],
       "monsters": [
@@ -221,7 +218,6 @@
       "description": "A chamber where the air smells foul. Pockets of flammable gas seep from cracks in the walls.",
       "locationId": "R4",
       "coordinates": "X2Y2",
-      "lighting": "Dark",
       "accessibility": "Accessible via the Collapsed Passage; caution required due to gas.",
       "npcs": [],
       "monsters": [
@@ -271,7 +267,6 @@
       "description": "A warm chamber illuminated by the glow of several fire beetles. The floor is littered with beetle shells.",
       "locationId": "R5",
       "coordinates": "X1Y3",
-      "lighting": "Dim",
       "accessibility": "Accessible from the Gas Pocket Chamber.",
       "npcs": [],
       "monsters": [
@@ -322,7 +317,6 @@
       "description": "A room filled with old mining equipment: pickaxes, shovels, and helmets. Many items are rusted or broken.",
       "locationId": "R6",
       "coordinates": "X1Y4",
-      "lighting": "Dark",
       "accessibility": "Accessible from the Fire Beetle Nest.",
       "npcs": [],
       "monsters": [],
@@ -382,7 +376,6 @@
       "description": "A narrow, concealed passageway that seems to have been recently used. The walls are marked with strange symbols.",
       "locationId": "R7",
       "coordinates": "X1Y5",
-      "lighting": "Dark",
       "accessibility": "Hidden entrance from Equipment Storage; requires perception to find.",
       "npcs": [],
       "monsters": [
@@ -442,7 +435,6 @@
       "description": "A cavern bisected by a flowing underground stream. The water is cold and clear. The sound of rushing water echoes off the damp, stone walls.",
       "locationId": "R8",
       "coordinates": "X3Y2",
-      "lighting": "Dim",
       "accessibility": "Accessible from the Collapsed Passage; requires crossing the stream.",
       "npcs": [],
       "monsters": [
@@ -493,7 +485,6 @@
       "description": "An area with old, rusted equipment used for processing mined ore. There are signs of recent activity.",
       "locationId": "R9",
       "coordinates": "X3Y3",
-      "lighting": "Dim",
       "accessibility": "Accessible from the Underground Stream.",
       "npcs": [],
       "monsters": [
@@ -556,7 +547,6 @@
       "description": "A fortified room where members of the Ember Enclave stand watch.",
       "locationId": "R10",
       "coordinates": "X3Y4",
-      "lighting": "Bright",
       "accessibility": "Accessible through the locked door from the Ore Processing Room.",
       "npcs": [],
       "monsters": [
@@ -620,7 +610,6 @@
       "description": "A beautiful cavern filled with glowing crystals that illuminate the room with a soft light.",
       "locationId": "R11",
       "coordinates": "X4Y4",
-      "lighting": "Dim",
       "accessibility": "Accessible from the Guard Post.",
       "npcs": [],
       "monsters": [
@@ -671,7 +660,6 @@
       "description": "A deep shaft with a rickety wooden platform and old ropes. The air is cold and stale.",
       "locationId": "R12",
       "coordinates": "X5Y4",
-      "lighting": "Dark",
       "accessibility": "Requires climbing gear or careful navigation.",
       "npcs": [],
       "monsters": [],
@@ -714,7 +702,6 @@
       "description": "Tunnels partially submerged in water. The air is damp, and the sound of dripping water is constant.",
       "locationId": "R13",
       "coordinates": "X5Y5",
-      "lighting": "Dark",
       "accessibility": "Requires wading through waist-deep water.",
       "npcs": [],
       "monsters": [
@@ -765,7 +752,6 @@
       "dmInstructions": "The party is unaware of the stone guardian until they align the runes as per the journal's clues. Once the correct sequence is attempted, the stone guardian animates and demands the true dwarven phrase be spoken. The party must provide the password or face judgment. If the party has a dwarf, they have one chance to convince the guardian with a skill check before it becomes hostile. Combat or failure to speak the correct phrase results in a deadly encounter.",
       "locationId": "R14",
       "coordinates": "X1Y6",
-      "lighting": "Dim",
       "accessibility": "Accessible via the Hidden Passage; requires solving the rune puzzle and speaking the true dwarven phrase to proceed.",
       "npcs": [],
       "monsters": [
@@ -868,7 +854,6 @@
       "description": "A small, ornate chamber dedicated to dwarven deities. Ancient carvings and faded murals adorn the walls.",
       "locationId": "R15",
       "coordinates": "X1Y0",
-      "lighting": "Dim",
       "accessibility": "Hidden passage from the Entrance Tunnel.",
       "npcs": [],
       "monsters": [],
@@ -911,7 +896,6 @@
       "description": "A dust-covered room filled with ancient tomes and scrolls. Many of the books are in dwarven script.",
       "locationId": "R16",
       "coordinates": "X2Y0",
-      "lighting": "Dark",
       "accessibility": "Connected to the Ancient Dwarven Shrine and Abandoned Mining Office.",
       "npcs": [],
       "monsters": [],
@@ -955,7 +939,6 @@
       "description": "A large chamber housing an ancient dwarven forge. The air shimmers with residual magic.",
       "locationId": "R17",
       "coordinates": "X0Y5",
-      "lighting": "Bright",
       "accessibility": "Connected to the Hidden Passage and Forgotten Library.",
       "npcs": [],
       "monsters": [
@@ -1006,7 +989,6 @@
       "description": "A surprisingly lush garden thriving in a large underground cavern. Bioluminescent plants provide soft illumination.",
       "locationId": "R18",
       "coordinates": "X4Y2",
-      "lighting": "Dim",
       "accessibility": "Connected to the Underground Stream.",
       "npcs": [],
       "monsters": [
@@ -1057,7 +1039,6 @@
       "description": "A well-organized room filled with maps, plans, and strategic documents. This appears to be the heart of the Ember Enclave's operations.",
       "locationId": "R19",
       "coordinates": "X4Y3",
-      "lighting": "Bright",
       "accessibility": "Connected to the Ember Enclave Guard Post and Subterranean Garden.",
       "npcs": [],
       "monsters": [
@@ -1137,7 +1118,6 @@
       "description": "A mysterious chamber sealed by an intricate time-based locking mechanism. The air here feels charged with temporal energy.",
       "locationId": "R20",
       "coordinates": "X5Y6",
-      "lighting": "Dim",
       "accessibility": "Connected to the Abandoned Shaft, requires solving a time-based puzzle to enter.",
       "npcs": [],
       "monsters": [],
