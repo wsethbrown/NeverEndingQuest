@@ -17,6 +17,10 @@ from datetime import datetime
 import io
 from contextlib import redirect_stdout, redirect_stderr
 
+# Install debug interceptor before importing main
+from redirect_debug_output import install_debug_interceptor
+install_debug_interceptor()
+
 # Import the main game module
 import main as dm_main
 

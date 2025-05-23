@@ -1,67 +1,101 @@
 {
-  "locationId": "R04",
-  "name": "Lost Ward Circle",
-  "type": "ritual",
-  "description": "An ancient ritual site consisting of seven stone monoliths arranged in a perfect circle. Each stone bears worn carvings of protective symbols and runes that once glowed with powerful magic. Now, several stones have toppled, and the remaining ones are cracked and covered in moss. The center of the circle contains a raised dais with a shallow bowl-like depression. Ghostly blue energy occasionally flickers between the stones like dying lightning, and the ground within the circle is barren of all plant life. The boundary between worlds feels thin here, with whispers and distant wails drifting on the wind.",
-  "coordinates": "X3Y2",
+  "locationId": "R01",
+  "name": "Harrow's Hollow General Store",
+  "type": "shop",
+  "description": "A well-kept timber-and-stone building at the town's heart, the general store serves as the main source of goods for Harrow's Hollow. Inside, shelves are meticulously arranged with common goods including preserved foods, simple tools, remedies, and household trinkets. A locked glass display case near the back holds curious objects, including a small bronze key bearing a faint raven sigil, suggesting special significance. The store is quiet and orderly, with an air of restrained concern among its sparse patrons.",
+  "coordinates": "X2Y2",
   "connectivity": [
     "R02",
-    "R07"
+    "R03",
+    "R04",
+    "R05"
   ],
   "areaConnectivity": [],
   "areaConnectivityId": [],
-  "npcs": [],
-  "monsters": [
+  "npcs": [
     {
-      "name": "Specters",
-      "number": 2,
-      "disposition": "hostile",
-      "strategy": "These are the spirits of failed guardians who now attack anyone attempting to repair the ward circle. They phase through stones for cover and target spellcasters first."
-    },
-    {
-      "name": "Will-o'-Wisp",
-      "number": 1,
-      "disposition": "neutral, then hostile",
-      "strategy": "Initially appears helpful, trying to lure party members away from the group before attacking the isolated target."
+      "name": "Elder Mirna Harrow",
+      "description": "A woman in her early sixties with silver-streaked hair in a neat bun and sharp, observant eyes. Mirna is the proprietor of the general store and the village elder, deeply concerned about recent disappearances yet maintaining a warm and steady demeanor.",
+      "attitude": "Respectful but cautious toward outsiders; warm and supportive, though her smile betrays underlying worry."
     }
   ],
+  "monsters": [],
   "lootTable": [
-    "Ward stone fragment (key component for potential ritual)",
-    "Scroll of protection from evil and good",
-    "Pouch containing 5 runestones (focus items for ritual magic)",
-    "Silver ritual dagger with moonstone pommel (25 gp value)",
-    "Tattered ritual book with instructions for renewing the wards"
+    "Adventurer's pack (1 gp)",
+    "Lantern, hooded (5 gp)",
+    "10 days' rations (5 sp per)",
+    "Cured leather pouch (8 sp)",
+    "Handwritten map of local trails (contains a clue about a haunted ruin)",
+    "Old bronze key marked with a faded raven sigil"
   ],
   "plotHooks": [
-    "The ritual book contains instructions for temporarily strengthening the wards, which could weaken the keep's influence.",
-    "One of the fallen stones has a message etched on its inner face: 'The knight's heart remains, buried beneath his hatred.'",
-    "Evidence suggests Scout Elen attempted a ritual here but fled when something went wrong."
+    "Investigate the recent disappearances in Harrow's Hollow, including that of Scout Elen, last seen on the old east trail.",
+    "Seek out Old Tommen in the town square for insight on spectral sightings near the ruined keep.",
+    "Return any clues or artifacts found near the keep to Elder Mirna for the village's welfare.",
+    "Follow up on local whispers of restless spirits in the woods and around the dilapidated keep."
   ],
-  "dmInstructions": "This location offers a significant side quest opportunity. Players can attempt to restore the ward circle with a successful Arcana check (DC 15) and appropriate components (ward stone, runestones, and either blood or powerful magic). Success temporarily weakens undead in the forest (they have disadvantage on attacks for 24 hours) and reveals a clearer path to the keep. Failure attracts additional specters. The will-o'-wisp initially appears as a helpful spirit guide but turns hostile if followed away from the group.",
-  "doors": [],
-  "traps": [],
-  "dcChecks": [
-    "Arcana DC 15: Understand how to perform the warding ritual.",
-    "Religion DC 14: Identify the original purpose of the ward stones (containing the keep's influence).",
-    "Perception DC 13: Notice disturbed earth and footprints suggesting Scout Elen was here recently.",
-    "Insight DC 14: Sense the will-o'-wisp's malicious intent despite its seemingly helpful appearance."
-  ],
-  "accessibility": "Relatively flat clearing with seven large standing stones; one must step over fallen stones to reach the center.",
-  "dangerLevel": "High",
-  "features": [
+  "dmInstructions": "Use Elder Mirna as the primary source of local lore and rumors about the keep and disappearances. She offers supplies such as ration packs, healing salves, and simple tools. If players inquire about the bronze key, a DC 12 Insight check reveals she is withholding information about its significance. No hostile encounters occur here; focus on setting tone and advancing the investigation.",
+  "doors": [
     {
-      "name": "Standing Monoliths",
-      "description": "Seven large stone pillars in various states of disrepair, carved with faded magical runes."
+      "name": "Front Door",
+      "description": "A broad, reinforced oak door with brass fittings and a bell overhead.",
+      "type": "regular",
+      "locked": false,
+      "lockDC": 0,
+      "breakDC": 13,
+      "keyname": "",
+      "trapped": false,
+      "trap": ""
     },
     {
-      "name": "Central Dais",
-      "description": "A raised stone platform with a bowl-like depression, possibly for offerings or ritual components."
-    },
-    {
-      "name": "Ward Energy",
-      "description": "Faint blue energy that occasionally arcs between the stones, remnants of once-powerful protection magic."
+      "name": "Back Storeroom Door",
+      "description": "A smaller, iron-banded door leading to a cramped storeroom, currently locked and secured with the old bronze key.",
+      "type": "regular",
+      "locked": true,
+      "lockDC": 13,
+      "breakDC": 15,
+      "keyname": "Old bronze key",
+      "trapped": false,
+      "trap": ""
     }
   ],
-  "encounters": [],
-  "adventureSummary": ""
+  "traps": [],
+  "dcChecks": [
+    "Insight DC 12: Discern Elder Mirna is withholding information about the bronze key and related historical events.",
+    "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the ruined keep."
+  ],
+  "accessibility": "Easily accessible from the main square, wide doorways and step-free entry.",
+  "dangerLevel": "Low",
+  "features": [
+    {
+      "name": "Notice Board",
+      "description": "A cluttered board filled with handwritten notices, missing pet posters, and cryptic local warnings."
+    },
+    {
+      "name": "Counter and Ledger",
+      "description": "A sturdy wooden counter with a thick ledger book used for tracking trades and village gossip."
+    },
+    {
+      "name": "Back Storeroom",
+      "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests."
+    },
+    {
+      "name": "Locked Glass Display Case",
+      "description": "Near the back of the store, this case contains curious objects including the small bronze key with a faded raven sigil."
+    }
+  ],
+  "encounters": [
+    {
+      "encounterId": "R01-E1",
+      "summary": "The party meets Elder Mirna Harrow, who provides information on the recent disappearances and local rumors of restless spirits near the old keep. She offers supplies and suggests seeking Old Tommen in the town square.",
+      "impact": "The party gains valuable intelligence and basic provisions, setting the tone for their investigation. No combat occurs.",
+      "worldConditions": {
+        "year": 1492,
+        "month": "Ches",
+        "day": 1,
+        "time": "08:05:00"
+      }
+    }
+  ],
+  "adventureSummary": "Day 7: The party arrived at Harrow's Hollow General Store and met Elder Mirna Harrow. She conveyed the villagers' worries about recent unexplained disappearances, including that of Scout Elen last seen near the old east trail. Mirna mentioned local rumors of restless spirits near the woods and the ruined keep. She offered supplies and urged the party to seek Old Tommen for further insight. The meeting was informative and peaceful, equipping the party for their investigation with cautious optimism."
 }

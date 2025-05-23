@@ -14,11 +14,20 @@ class CampaignPathManager:
             with open("party_tracker.json", 'r', encoding='utf-8') as file:
                 data = json.load(file)
                 campaign = data.get("campaign", "Keep_of_Doom")
-                print(f"DEBUG: CampaignPathManager loaded campaign '{campaign}' from party_tracker.json")
+                # Use logger if available, otherwise print
+                try:
+                    from enhanced_logger import debug
+                    debug(f"CampaignPathManager loaded campaign '{campaign}' from party_tracker.json", category="campaign_loading")
+                except:
+                    print(f"DEBUG: CampaignPathManager loaded campaign '{campaign}' from party_tracker.json")
                 return campaign
         except Exception as e:
-            print(f"DEBUG: CampaignPathManager could not load party_tracker.json: {e}")
-            print(f"DEBUG: Using default campaign 'Keep_of_Doom'")
+            try:
+                from enhanced_logger import error
+                error(f"CampaignPathManager could not load party_tracker.json", exception=e)
+            except:
+                print(f"DEBUG: CampaignPathManager could not load party_tracker.json: {e}")
+                print(f"DEBUG: Using default campaign 'Keep_of_Doom'")
             return "Keep_of_Doom"  # Default fallback
     
     def format_filename(self, name):

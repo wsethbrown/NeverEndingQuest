@@ -82,3 +82,56 @@
 2025-05-23 09:49:30 - Found 1 location segments in current session
 2025-05-23 09:49:30 - No location summaries generated for current session
 2025-05-23 09:49:30 - No cumulative summary to insert
+2025-05-23 09:52:51 - Generating enhanced adventure summary for Harrow's Hollow General Store
+2025-05-23 09:52:51 - Generating summary for Harrow's Hollow General Store
+2025-05-23 09:52:55 - Summary generated for Harrow's Hollow General Store
+2025-05-23 09:53:03 - Enhanced adventure summary generated successfully
+2025-05-23 09:53:03 - Updating journal with summary for Harrow's Hollow General Store
+2025-05-23 09:53:03 - Journal updated successfully
+2025-05-23 09:53:23 - Inserting cumulative summary into conversation history
+2025-05-23 09:53:23 - Cleaning old-style summaries from conversation history
+2025-05-23 09:53:23 - Building cumulative adventure summary for current session
+2025-05-23 09:53:23 - Building location summaries from current conversation
+2025-05-23 09:53:23 - Session starts at index 7
+2025-05-23 09:53:23 - Found 1 location segments in current session
+2025-05-23 09:53:23 - Generating summary for Harrow's Hollow General Store
+2025-05-23 09:53:28 - Summary generated for Harrow's Hollow General Store
+2025-05-23 09:53:28 - Built cumulative summary with 1688 characters
+2025-05-23 09:53:28 - Inserting new cumulative summary at position 1
+2025-05-23 09:56:57 - Inserting cumulative summary into conversation history
+2025-05-23 09:56:57 - Cleaning old-style summaries from conversation history
+2025-05-23 09:56:57 - Removed 1 old summary messages
+2025-05-23 09:56:57 - Building cumulative adventure summary for current session
+2025-05-23 09:56:57 - Building location summaries from current conversation
+2025-05-23 09:56:57 - Session starts at index 8
+2025-05-23 09:56:57 - Found 1 location segments in current session
+2025-05-23 09:56:57 - Generating summary for Harrow’s Hollow Town Square
+2025-05-23 09:57:02 - Summary generated for Harrow’s Hollow Town Square
+2025-05-23 09:57:02 - Built cumulative summary with 1979 characters
+2025-05-23 09:57:02 - Inserting new cumulative summary at position 1
+2025-05-23 09:57:31 - Generating enhanced adventure summary for Harrow’s Hollow Town Square
+2025-05-23 09:57:31 - No messages found for location Harrow’s Hollow Town Square
+2025-05-23 09:57:31 - Inserting cumulative summary into conversation history
+2025-05-23 09:57:31 - Cleaning old-style summaries from conversation history
+2025-05-23 09:57:31 - Removed 1 old summary messages
+2025-05-23 09:57:31 - Building cumulative adventure summary for current session
+2025-05-23 09:57:31 - Building location summaries from current conversation
+2025-05-23 09:57:31 - Session starts at index 8
+2025-05-23 09:57:31 - Found 1 location segments in current session
+2025-05-23 09:57:31 - Generating summary for Harrow’s Hollow Town Square
+2025-05-23 09:57:38 - Summary generated for Harrow’s Hollow Town Square
+2025-05-23 09:57:38 - Built cumulative summary with 2211 characters
+2025-05-23 09:57:38 - Inserting new cumulative summary at position 1
+2025-05-23 09:57:52 - Generating enhanced adventure summary for Harrow's Hollow General Store
+2025-05-23 09:57:52 - No messages found for location Harrow's Hollow General Store
+2025-05-23 09:57:52 - Inserting cumulative summary into conversation history
+2025-05-23 09:57:52 - Cleaning old-style summaries from conversation history
+2025-05-23 09:57:52 - Removed 1 old summary messages
+2025-05-23 09:57:52 - Building cumulative adventure summary for current session
+2025-05-23 09:57:52 - Building location summaries from current conversation
+2025-05-23 09:57:52 - Session starts at index 8
+2025-05-23 09:57:52 - Found 1 location segments in current session
+2025-05-23 09:57:52 - Generating summary for Harrow's Hollow General Store
+2025-05-23 09:57:59 - Summary generated for Harrow's Hollow General Store
+2025-05-23 09:57:59 - Built cumulative summary with 2325 characters
+2025-05-23 09:57:59 - Inserting new cumulative summary at position 1

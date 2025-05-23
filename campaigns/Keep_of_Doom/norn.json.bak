@@ -94,7 +94,7 @@
   "ammunition": [
     {
       "name": "Arrows",
-      "quantity": 31,
+      "quantity": 32,
       "description": "Standard arrows for a bow"
     }
   ],
