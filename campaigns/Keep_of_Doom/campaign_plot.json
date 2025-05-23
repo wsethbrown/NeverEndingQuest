@@ -10,8 +10,8 @@
       "nextPoints": [
         "PP002"
       ],
-      "status": "in progress",
-      "plotImpact": "Norn has begun a direct investigation into the disappearances, gathering firsthand testimony from Elder Mirna and learning of key leads—the missing Scout Elen, rumors of spirits, and possible ties to the keep.",
+      "status": "completed",
+      "plotImpact": "Norn has completed the ancient ritual at the Lost Ward Circle, successfully renewing the ward and weakening the keep's curse. The immediate supernatural threat to Harrow's Hollow is abated, and the next stage of the adventure can begin.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -20,8 +20,8 @@
           "involvedLocations": [
             "HH001"
           ],
-          "status": "in progress",
-          "plotImpact": "Norn has earned Old Tommen's trust by giving him an arrow for luck, prompting Tommen to share eyewitness details about the Wandering Shade and the danger on the east trail."
+          "status": "not started",
+          "plotImpact": "Communicating with the spirit yields crucial information or warnings."
         },
         {
           "id": "SQ002",
@@ -114,15 +114,8 @@
       "sideQuests": []
     }
   ],
-  "activeQuests": [
-    "PP002",
-    "SQ004"
-  ],
-  "completedQuests": [
-    "PP001",
-    "SQ002",
-    "SQ003"
-  ],
+  "activeQuests": ["PP002", "SQ004"],
+  "completedQuests": ["PP001", "SQ002", "SQ003"],
   "failedQuests": [],
   "worldEvents": [
     {

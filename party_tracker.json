@@ -1,39 +1,46 @@
 {
-    "campaign": "Keep_of_Doom",
-    "partyMembers": [
-        "norn"
-    ],
-    "partyNPCs": [],
-    "worldConditions": {
-        "year": 1492,
-        "month": "Ches",
-        "day": 1,
-        "time": "11:18:00",
-        "weather": "",
-        "season": "Spring",
-        "dayNightCycle": "Day",
-        "moonPhase": "New Moon",
-        "currentLocation": "Harrow\u2019s Hollow Town Square",
-        "currentLocationId": "R02",
-        "currentArea": "Harrow's Hollow",
-        "currentAreaId": "HH001",
-        "majorEventsUnderway": [],
-        "politicalClimate": "",
-        "activeEncounter": "",
-        "activeCombatEncounter": ""
+  "campaign": "Keep_of_Doom",
+  "partyMembers": [
+    "norn"
+  ],
+  "partyNPCs": [],
+  "worldConditions": {
+    "year": 1492,
+    "month": "Ches",
+    "day": 1,
+    "time": "08:00:00",
+    "weather": "Overcast",
+    "season": "Spring",
+    "dayNightCycle": "Morning",
+    "moonPhase": "New Moon",
+    "currentLocation": "Harrow's Hollow General Store",
+    "currentLocationId": "R01",
+    "currentArea": "Harrow's Hollow",
+    "currentAreaId": "HH001",
+    "majorEventsUnderway": [],
+    "politicalClimate": "",
+    "activeEncounter": "",
+    "activeCombatEncounter": "",
+    "weatherConditions": "Overcast with morning mist"
+  },
+  "activeQuests": [
+    {
+      "id": "PP001",
+      "title": "Shadows Over Harrow's Hollow",
+      "description": "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run high as rumors of curses, spirits, and the haunted Keep of Doom swirl among the villagers. Players must gather information, win trust, and follow leads to piece together the mystery.",
+      "status": "in progress"
     },
-    "activeQuests": [
-        {
-            "id": "PP001",
-            "title": "Shadows Over Harrow's Hollow",
-            "description": "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run high as rumors of curses, spirits, and the haunted Keep of Doom swirl among the villagers. Players must gather information, win trust, and follow leads to piece together the mystery.",
-            "status": "in progress"
-        },
-        {
-            "id": "SQ001",
-            "title": "Superstition and Shadows",
-            "description": "Old Tommen believes a wandering spirit haunts the village. If the party investigates, they may encounter the Wandering Shade\u00e2\u20ac\u201da restless ghost whose cryptic words offer hints about the keep and the missing villagers.",
-            "status": "not started"
-        }
-    ]
+    {
+      "id": "SQ001",
+      "title": "Superstition and Shadows",
+      "description": "Old Tommen believes a wandering spirit haunts the village. If the party investigates, they may encounter the Wandering Shade—a restless ghost whose cryptic words offer hints about the keep and the missing villagers.",
+      "status": "not started"
+    },
+    {
+      "id": "SQ002",
+      "title": "Trouble at the Hearth",
+      "description": "Cira the Innkeeper's cellar is plagued by minor poltergeist activity. Calming the spirit earns Cira's gratitude and a helpful clue about Scout Elen's last known movements.",
+      "status": "not started"
+    }
+  ]
 }
