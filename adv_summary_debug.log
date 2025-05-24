@@ -1,0 +1,195 @@
+2025-05-24 14:56:40 - Attempting to load file: conversation_history.json
+2025-05-24 14:56:40 - File parsed successfully: conversation_history.json
+2025-05-24 14:56:40 - Attempting to load file: party_tracker.json
+2025-05-24 14:56:40 - File parsed successfully: party_tracker.json
+2025-05-24 14:56:44 - Adventure Summary generated
+2025-05-24 14:56:44 - Attempting to load file: journal_schema.json
+2025-05-24 14:56:44 - File parsed successfully: journal_schema.json
+2025-05-24 14:56:44 - Journal updated successfully
+2025-05-24 14:56:44 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:56:44 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:56:44 - Updating location JSON for Harrow's Hollow General Store with all changes
+2025-05-24 14:56:44 - No last completed encounter ID found in party_tracker
+2025-05-24 14:56:44 - Attempting to load file: loca_schema.json
+2025-05-24 14:56:44 - File parsed successfully: loca_schema.json
+2025-05-24 14:56:44 - Attempting to load file: party_tracker.json
+2025-05-24 14:56:44 - File parsed successfully: party_tracker.json
+2025-05-24 14:56:44 - Starting schema processing...
+2025-05-24 14:56:44 - Schema type: <class 'dict'>
+2025-05-24 14:56:44 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-24 14:56:44 - Properties keys: ['locations']
+2025-05-24 14:56:44 - Location properties keys: ['type', 'items']
+2025-05-24 14:56:44 - Schema structure validation passed
+2025-05-24 14:56:44 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-24 14:56:44 - Attempt 1 to update location JSON
+2025-05-24 14:56:59 - Getting area path for ID: HH001
+2025-05-24 14:56:59 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-24 14:56:59 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-24 14:56:59 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:56:59 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:56:59 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:56:59 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:56:59 - Locations count: 5
+2025-05-24 14:56:59 - Looking for location name: Harrow's Hollow General Store
+2025-05-24 14:56:59 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
+2025-05-24 14:56:59 - Checking location 0: Harrow's Hollow General Store
+2025-05-24 14:56:59 - Found matching location at index 0
+2025-05-24 14:56:59 - Changes to apply: {"description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather. Lamplight casts a warm glow on a cluttered notice board filled with various announcements, including cryptic warnings and a reward poster. Behind the wooden counter stands Elder Mirna Harrow amid neatly arranged supplies such as coils of rope, dried herbs, and well-used tools. A tarnished bronze key bearing a faded raven sigil rests beside a sealed pouch on the counter. The atmosphere is quiet save for the ticking of a clock and distant crow calls.", "plotHooks": ["A worried villager asks if the party has news of Scout Elen, who vanished checking the old east trail.", "Elder Mirna discreetly seeks brave souls to investigate odd nighttime lights near the ruined keep.", "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.", "Investigate the mysterious disappearances of several villagers including miller Jarrek, the tanner's boy, two trappers, and Scout Elen.", "Seek out Cira at the Wyrd Lantern Inn or Old Tommen by the town square for further information."], "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep and recent disappearances. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something. Highlight the party's opportunity to gather more information from Cira and Old Tommen.", "features": [{"name": "Notice Board", "description": "A cluttered board filled with handwritten notices, missing pet posters, cryptic local warnings, and a reward poster."}, {"name": "Counter and Ledger", "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. A tarnished bronze key with a faded raven sigil and a sealed pouch rest here."}, {"name": "Back Storeroom", "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests."}], "encounters": [{"encounterId": "R01-E1", "summary": "The party meets Elder Mirna Harrow behind the counter amid the general store's supplies. She informs them of several villagers who have mysteriously disappeared after dark, including the miller Jarrek, the tanner's boy, two trappers, and Scout Elen. Mirna expresses grave concern and gratitude for the party's willingness to help and hints at hidden knowledge connected to an old bronze key on the counter. She advises seeking out Cira at the Wyrd Lantern Inn or Old Tommen by the town square for more information.", "impact": "The party gains valuable leads on the disappearances, a potentially important bronze key, and new contacts for their investigation.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "08:08:00"}}], "adventureSummary": "Upon entering Harrow's Hollow General Store, the party encountered Elder Mirna Harrow, the village leader standing behind the wooden counter amid neatly arranged supplies. The atmosphere was quiet save for the ticking clock and distant crow calls, with lamplight casting a warm glow on a notice board crowded with various announcements, including cryptic warnings and a reward poster. The party noticed a tarnished bronze key bearing a faded raven sigil resting beside a sealed pouch on the counter. When Norn expressed a desire to help with the recent disappearances, Elder Mirna responded with gratitude and grave concern, recounting that several villagers--including the miller Jarrek, the tanner's boy, two trappers, and the scout Elen--had vanished mysteriously after dark in different locations. She mentioned rumors of spirits from nearby ruins and a growing fear among the villagers, advising the party to seek out Cira at the Wyrd Lantern Inn or Old Tommen by the town square for more information. Though Mirna hinted at concealed knowledge related to the bronze key, she did not elaborate further. After this exchange, the party concluded their business in the general store and proceeded toward the town square to speak with Old Tommen, marking a progression in their investigation of the village's troubling disappearances. (Game Time: 1492 Ches 1, 08:08:00)"}
+2025-05-24 14:56:59 - Location updated successfully
+2025-05-24 14:56:59 - Successfully updated Harrow's Hollow General Store in campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:59:03 - Attempting to load file: conversation_history.json
+2025-05-24 14:59:03 - File parsed successfully: conversation_history.json
+2025-05-24 14:59:03 - Attempting to load file: party_tracker.json
+2025-05-24 14:59:03 - File parsed successfully: party_tracker.json
+2025-05-24 14:59:11 - Adventure Summary generated
+2025-05-24 14:59:11 - Attempting to load file: journal_schema.json
+2025-05-24 14:59:11 - File parsed successfully: journal_schema.json
+2025-05-24 14:59:11 - Journal updated successfully
+2025-05-24 14:59:11 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:59:11 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:59:11 - Updating location JSON for Harrow's Hollow Town Square with all changes
+2025-05-24 14:59:11 - No last completed encounter ID found in party_tracker
+2025-05-24 14:59:11 - Attempting to load file: loca_schema.json
+2025-05-24 14:59:11 - File parsed successfully: loca_schema.json
+2025-05-24 14:59:11 - Attempting to load file: party_tracker.json
+2025-05-24 14:59:11 - File parsed successfully: party_tracker.json
+2025-05-24 14:59:11 - Starting schema processing...
+2025-05-24 14:59:11 - Schema type: <class 'dict'>
+2025-05-24 14:59:11 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-24 14:59:11 - Properties keys: ['locations']
+2025-05-24 14:59:11 - Location properties keys: ['type', 'items']
+2025-05-24 14:59:11 - Schema structure validation passed
+2025-05-24 14:59:11 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-24 14:59:11 - Attempt 1 to update location JSON
+2025-05-24 14:59:23 - Invalid JSON from AI. Attempt 1/3. Response: {
+  "locationId": "R02",
+  "name": "Harrow's Hollow Town Square",
+  "type": "square",
+  "description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. On market days, stalls crowd the space, but currently the square is noticeably quiet with only faint sounds of hammering and distant dogs breaking the silence. The locals seem wary, and the atmosphere carries a subtle tension as Old Tommen shares tales of vanished villagers and ominous happenings to the east near Blackberry Hollow.",
+  "coordinates": "X3Y2",
+  "connectivity": [
+    "R01",
+    "General Store"
+  ],
+  "areaConnectivity": [],
+  "areaConnectivityId": [],
+  "npcs": [
+    {
+      "name": "Old Tommen",
+      "description": "A weathered, hunched herdsman with wild hair and a nervous gaze. Tommen is known for spreading superstitions and warning of restless spirits in the woods. He provided crucial information regarding the missing scout Elen and the suspicious tanner's boy.",
+      "attitude": "Suspicious of strangers, eager to share tales of doom, but grateful for kind words and a listening ear."
+    },
+    {
+      "name": "Cira",
+      "description": "A woman who manages the village inn and keeps informed of local happenings. Suggested as a source for further inquiry about the missing scout and strange occurrences.",
+      "attitude": "Helpful and knowledgeable, willing to share rumors and news with visitors who earn her trust."
+    }
+  ],
+  "monsters": [],
+  "lootTable": [
+    "Dropped pouch of 7 sp (hidden beneath a bench)",
+    "Wooden whistle carved in the shape of a raven",
+    "Small tin amulet of protection (nonmagical, but rumored to ward off evil)"
+  ],
+  "plotHooks": [
+    "The mystery of Scout Elen's disappearance after investigating strange lights near the mill and Blackberry Hollow.",
+    "The missing tanner's boy last seen arguing with Elen; both may be connected to supernatural happenings.",
+    "Old Tommen's warnings about restless spirits, curses, and ominous shadows in the woods to the east.",
+    "Investigate Blackberry Hollow for tracks or clues related to Elen's disappearance.",
+    "Inquire at the inn with Cira to gather more information on local rumors and recent events."
+  ],
+  "dmInstructions": "Use Tommen's superstitious ramblings and concerns about the woods to foreshadow supernatural elements. A DC 11 Persuasion check gets him to share legends about the cursed knight and the woods. Encourage players to visit the innkeeper Cira for additional leads. Maintain the quiet, tense atmosphere in the square to reflect local unease.",
+  "doors": [],
+  "traps": [],
+  "dcChecks": [
+    "Investigation DC 13: Discover a hidden compartment in the statue.",
+    "Persuasion DC 11: Convince Tommen to reveal a local legend about ghostly lights or the keep's curse.",
+    "Investigation DC 12: Search the square and nearby areas for clues about Scout Elen or the missing tanner's boy."
+  ],
+  "accessibility": "Fully open and central, all major buildings and streets lead here; accessible to all.",
+  "dangerLevel": "Low",
+  "features": [
+    {
+      "name": "Knight's Statue",
+      "description": "A weathered stone monument, its inscription nearly worn away, depicting a forgotten hero with a drawn sword."
+    },
+    {
+      "name": "Lantern Posts",
+      "description": "Iron lanterns burn through most nights, keeping superstitious villagers at ease."
+    },
+    {
+      "name": "Market Stalls",
+      "description": "Colorful canvas stalls, currently empty save for a few crates and benches."
+    }
+  ],
+  "encounters": [
+    {
+      "encounterId": "R02-E1",
+      "summary": "The party met Old Tommen in the town square, who shared vital information on the missing scout Elen and the missing tanner's boy, hinting at supernatural causes and suggesting investigation east towards Blackberry Hollow and inquiries at the inn.",
+      "impact": "Introduced the central mystery of Scout Elen's disappearance with a supernatural angle; expanded plot hooks and NPC contacts for further investigation.",
+      "worldConditions": {
+        "year": 1492,
+        "month": "Ches",
+        "day": 1,
+        "time": "09:15:00"
+      }
+    }
+  ],
+  "adventureSummary": "At Harrow's Hollow Town Square, the party encountered Old Tommen, who provided crucial information about the missing scout Elen and the missing tanner's boy. He suggested supernatural causes involving restless spirits and ominous woods east near Blackberry Hollow. The party was advised to investigate the area and speak with Cira at the inn, leading to an active plot regarding Elen's disappearance and a supernatural mystery. The square remains quiet and tense, with the party considering further exploration including the general store nearby. (Game Time: 1492 Ches 1, 09:15)",
+}
+2025-05-24 14:59:23 - Attempt 2 to update location JSON
+2025-05-24 14:59:37 - Getting area path for ID: HH001
+2025-05-24 14:59:37 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-24 14:59:37 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-24 14:59:37 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:59:37 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:59:37 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:59:37 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
+2025-05-24 14:59:37 - Locations count: 5
+2025-05-24 14:59:37 - Looking for location name: Harrow's Hollow Town Square
+2025-05-24 14:59:37 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
+2025-05-24 14:59:37 - Checking location 0: Harrow's Hollow General Store
+2025-05-24 14:59:37 - Checking location 1: Harrow's Hollow Town Square
+2025-05-24 14:59:37 - Found matching location at index 1
+2025-05-24 14:59:37 - Changes to apply: {"description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. On market days, stalls crowd the space, but currently the square is noticeably quiet with only faint sounds of hammering and distant dogs breaking the silence. The locals seem wary, and the atmosphere carries a subtle tension as Old Tommen shares tales of vanished villagers and ominous happenings to the east near Blackberry Hollow.", "connectivity": ["R01", "General Store"], "npcs": [{"name": "Old Tommen", "description": "A weathered, hunched herdsman with wild hair and a nervous gaze. Tommen is known for spreading superstitions and warning of restless spirits in the woods. He provided crucial information regarding the missing scout Elen and the suspicious tanner's boy.", "attitude": "Suspicious of strangers, eager to share tales of doom, but grateful for kind words and a listening ear."}, {"name": "Cira", "description": "A woman who manages the village inn and keeps informed of local happenings. Suggested as a source for further inquiry about the missing scout and strange occurrences.", "attitude": "Helpful and knowledgeable, willing to share rumors and news with visitors who earn her trust."}], "plotHooks": ["The mystery of Scout Elen's disappearance after investigating strange lights near the mill and Blackberry Hollow.", "The missing tanner's boy last seen arguing with Elen; both may be connected to supernatural happenings.", "Old Tommen's warnings about restless spirits, curses, and ominous shadows in the woods to the east.", "Investigate Blackberry Hollow for tracks or clues related to Elen's disappearance.", "Inquire at the inn with Cira to gather more information on local rumors and recent events."], "dmInstructions": "Use Tommen's superstitious ramblings and concerns about the woods to foreshadow supernatural elements. A DC 11 Persuasion check gets him to share legends about the cursed knight and the woods. Encourage players to visit the innkeeper Cira for additional leads. Maintain the quiet, tense atmosphere in the square to reflect local unease.", "dcChecks": ["Investigation DC 13: Discover a hidden compartment in the statue.", "Persuasion DC 11: Convince Tommen to reveal a local legend about ghostly lights or the keep's curse.", "Investigation DC 12: Search the square and nearby areas for clues about Scout Elen or the missing tanner's boy."], "encounters": [{"encounterId": "R02-E1", "summary": "The party met Old Tommen in the town square, who shared vital information on the missing scout Elen and the missing tanner's boy, hinting at supernatural causes and suggesting investigation east towards Blackberry Hollow and inquiries at the inn.", "impact": "Introduced the central mystery of Scout Elen's disappearance with a supernatural angle; expanded plot hooks and NPC contacts for further investigation.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "09:15:00"}}], "adventureSummary": "At Harrow's Hollow Town Square, the party encountered Old Tommen, who provided crucial information about the missing scout Elen and the missing tanner's boy. He suggested supernatural causes involving restless spirits and ominous woods east near Blackberry Hollow. The party was advised to investigate the area and speak with Cira at the inn, leading to an active plot regarding Elen's disappearance and a supernatural mystery. The square remains quiet and tense, with the party considering further exploration including the general store nearby. (Game Time: 1492 Ches 1, 09:15)"}
+2025-05-24 14:59:37 - Location updated successfully
+2025-05-24 14:59:37 - Successfully updated Harrow's Hollow Town Square in campaigns/Keep_of_Doom/HH001.json
+2025-05-24 15:01:16 - Attempting to load file: conversation_history.json
+2025-05-24 15:01:16 - File parsed successfully: conversation_history.json
+2025-05-24 15:01:16 - Attempting to load file: party_tracker.json
+2025-05-24 15:01:16 - File parsed successfully: party_tracker.json
+2025-05-24 15:01:19 - Adventure Summary generated
+2025-05-24 15:01:19 - Attempting to load file: journal_schema.json
+2025-05-24 15:01:19 - File parsed successfully: journal_schema.json
+2025-05-24 15:01:19 - Journal updated successfully
+2025-05-24 15:01:19 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 15:01:19 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 15:01:19 - Updating location JSON for Harrow's Hollow General Store with all changes
+2025-05-24 15:01:19 - No last completed encounter ID found in party_tracker
+2025-05-24 15:01:19 - Attempting to load file: loca_schema.json
+2025-05-24 15:01:19 - File parsed successfully: loca_schema.json
+2025-05-24 15:01:19 - Attempting to load file: party_tracker.json
+2025-05-24 15:01:19 - File parsed successfully: party_tracker.json
+2025-05-24 15:01:19 - Starting schema processing...
+2025-05-24 15:01:19 - Schema type: <class 'dict'>
+2025-05-24 15:01:19 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-24 15:01:19 - Properties keys: ['locations']
+2025-05-24 15:01:19 - Location properties keys: ['type', 'items']
+2025-05-24 15:01:19 - Schema structure validation passed
+2025-05-24 15:01:19 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-24 15:01:19 - Attempt 1 to update location JSON
+2025-05-24 15:01:39 - Getting area path for ID: HH001
+2025-05-24 15:01:39 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-24 15:01:39 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-24 15:01:39 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 15:01:39 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 15:01:39 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-24 15:01:39 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
+2025-05-24 15:01:39 - Locations count: 5
+2025-05-24 15:01:39 - Looking for location name: Harrow's Hollow General Store
+2025-05-24 15:01:39 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
+2025-05-24 15:01:39 - Checking location 0: Harrow's Hollow General Store
+2025-05-24 15:01:39 - Found matching location at index 0
+2025-05-24 15:01:39 - Changes to apply: {"description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather. Lamplight casts a warm glow on a cluttered notice board filled with various announcements, including cryptic warnings and a reward poster. Behind the wooden counter stands Elder Mirna Harrow meticulously arranging jars. Shelves display similar charms to the sprig of dried rowan and tin amulet believed to ward off ill fortune that Scout Elen recently purchased. The atmosphere is quiet save for the ticking of a clock and distant crow calls.", "npcs": [{"name": "Elder Mirna Harrow", "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs.", "attitude": "Respectful but cautious toward outsiders; friendly and supportive to locals, especially those in need."}, {"name": "Callum", "description": "A young villager offered by Elder Mirna to accompany those investigating the tracks near Blackberry Hollow. He is eager but inexperienced.", "attitude": "Helpful and hopeful; somewhat nervous about dangers ahead."}], "lootTable": ["Adventurer's pack (1 gp)", "Lantern, hooded (5 gp)", "10 days' rations (5 sp per)", "Cured leather pouch (8 sp)", "Handwritten map of local trails (contains a clue about a haunted ruin)", "Old bronze key marked with a faded raven sigil", "Sprig of dried rowan charm", "Tin amulet charm", "Length of strong hempen rope", "Oilskin for journal", "Fine lantern", "Flint and tinder"], "plotHooks": ["A worried villager asks if the party has news of Scout Elen, who vanished checking the old east trail.", "Elder Mirna discreetly seeks brave souls to investigate odd nighttime lights near the ruined keep.", "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.", "Investigate the mysterious disappearances of several villagers including miller Jarrek, the tanner's boy, two trappers, and Scout Elen.", "Seek out Cira at the Wyrd Lantern Inn or Old Tommen by the town square for further information.", "Follow tracks near Blackberry Hollow where Elen was last seen, with or without the aid of Callum."], "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep and recent disappearances. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something. Highlight the party's opportunity to gather more information from Cira and Old Tommen. Mention the details about Scout Elen's last purchases and her determined intent to investigate alone. Introduce Callum as a potential companion if players seek local assistance.", "features": [{"name": "Notice Board", "description": "A cluttered board filled with handwritten notices, missing pet posters, cryptic local warnings, and a reward poster."}, {"name": "Counter and Ledger", "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. A tarnished bronze key with a faded raven sigil and a sealed pouch rest here."}, {"name": "Back Storeroom", "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests."}, {"name": "Shelves with Charms", "description": "Shelves display several similar charms to the one Scout Elen purchased, including sprigs of dried rowan and tin amulets believed to ward off ill fortune."}], "encounters": [{"encounterId": "R01-E1", "summary": "The party meets Elder Mirna Harrow behind the counter amid the general store's supplies. She informs them of several villagers who have mysteriously disappeared after dark, including the miller Jarrek, the tanner's boy, two trappers, and Scout Elen. Mirna expresses grave concern and gratitude for the party's willingness to help and hints at hidden knowledge connected to an old bronze key on the counter. She advises seeking out Cira at the Wyrd Lantern Inn or Old Tommen by the town square for more information.", "impact": "The party gains valuable leads on the disappearances, a potentially important bronze key, and new contacts for their investigation.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "08:08:00"}}, {"encounterId": "R01-E2", "summary": "The party interacts with Elder Mirna, who is arranging jars behind the counter. She recounts the morning Scout Elen left the village, detailing Elen's purchases of hempen rope, an oilskin journal cover, a fine lantern, flint, tinder, and a protective charm of rowan and tin amulet. Mirna describes Elen's determined intent to investigate tracks near Blackberry Hollow alone, rejecting an offer to send the young villager Callum. Mirna expresses hope for Elen's safe return and confirms no other items are missing from the shelves.", "impact": "The party receives detailed information about Scout Elen's last preparations, potential items for their own use, and the location of her investigation near Blackberry Hollow. They also learn about Callum, a potential companion for the journey.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "10:20:00"}}], "adventureSummary": "Upon entering Harrow's Hollow General Store, the party encountered Elder Mirna, who was meticulously arranging jars behind the counter. When questioned about Elen, Mirna recalled the morning Elen had left, describing how Elen had come in early to purchase a length of strong hempen rope, a fresh oilskin for her journal, a fine lantern, flint, tinder, and a charm consisting of a sprig of dried rowan and a tin amulet believed to ward off ill fortune. Mirna noted Elen's determined demeanor and her intent to follow tracks near Blackberry Hollow, refusing accompaniment despite Mirna's offer to send a young villager, Callum. Mirna expressed hope for Elen's safe return and mentioned no other items missing from the shelves, emphasizing Elen's honesty in always paying her due. The interaction took place in the well-lit, modest general store, with shelves displaying various goods, including similar amulets hanging from chipped nails. After acquiring this information, the party decided to leave the store and head toward the Wyrd Lantern Inn, concluding their time at the general store without triggering any traps or additional encounters. (Game Time: 1492 Ches 1, 10:20:00)"}
+2025-05-24 15:01:39 - Location updated successfully
+2025-05-24 15:01:39 - Successfully updated Harrow's Hollow General Store in campaigns/Keep_of_Doom/HH001.json

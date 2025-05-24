@@ -1,0 +1,110 @@
+2:19:39 PMDEBUG: File conversation_history.json not found - creating first time
+2:19:39 PMLightweight chat history updated!
+2:19:39 PMSystem messages removed: 5
+2:19:39 PMUser messages: 0
+2:19:39 PMAssistant messages: 0
+2:19:46 PM[08:00:00][HP:36/36][XP:4571/6500] norn: 
+2:20:12 PMDEBUG: Validation passed successfully
+2:20:12 PMDEBUG: Valid response generated on attempt 1
+2:20:12 PM[08:05:00][HP:36/36][XP:4571/6500] norn: 
+2:20:32 PMDEBUG: Validation passed successfully
+2:20:32 PMDEBUG: Valid response generated on attempt 1
+2:20:32 PM[08:07:00][HP:36/36][XP:4571/6500] norn: 
+2:21:13 PMDEBUG: Validation passed successfully
+2:21:13 PMDEBUG: Valid response generated on attempt 1
+2:21:13 PMDEBUG: Processing updatePlayerInfo action
+2:21:13 PMDEBUG: Updating player info for norn
+2:21:16 PMDEBUG: Raw AI response written to debug_player_update.json
+2:21:16 PMDEBUG: Successfully updated and validated player info on attempt 1
+2:21:16 PMDEBUG: Changes made:
+2:21:16 PM{
+2:21:16 PM  "equipment": [
+2:21:16 PM    {
+2:21:16 PM      "item_name": "Old bronze key marked with a faded raven sigil",
+2:21:16 PM      "item_type": "miscellaneous",
+2:21:16 PM      "description": "An old bronze key with a faded raven sigil, possibly linked to the haunted keep.",
+2:21:16 PM      "quantity": 1
+2:21:16 PM    }
+2:21:16 PM  ]
+2:21:16 PM}
+2:21:16 PMDEBUG: norn's character information updated
+2:21:16 PMDEBUG: Player info updated successfully
+2:21:16 PMDEBUG: Transitioning from 'Harrow's Hollow General Store' to 'Harrow's Hollow Town Square'
+2:21:16 PMDEBUG: Current location string (hex): 486172726f77277320486f6c6c6f772047656e6572616c2053746f7265
+2:21:16 PMDEBUG: New location string (hex): 486172726f77277320486f6c6c6f7720546f776e20537175617265
+2:21:16 PMDEBUG: Handling location transition from 'Harrow's Hollow General Store' to 'Harrow's Hollow Town Square'
+2:21:16 PMDEBUG: Current area: 'Harrow's Hollow', Current area ID: 'HH001'
+2:21:16 PMDEBUG: Current location identified: Harrow's Hollow General Store (ID: R01)
+2:21:16 PMDEBUG: Found new location by exact name: Harrow's Hollow Town Square (ID: R02)
+2:21:16 PMDEBUG: New location info: Harrow's Hollow Town Square (ID: R02)
+2:21:41 PMDEBUG: Adventure summary updated successfully
+2:21:41 PMDEBUG: Successfully updated party_tracker.json
+2:21:41 PMDEBUG: Location transition complete
+2:21:41 PMCurrent Time: 09:09:00, Time Advanced: 2 minutes, New Time: 09:11:00, Days Passed: 0
+2:21:41 PMLightweight chat history updated!
+2:21:41 PMSystem messages removed: 6
+2:21:41 PMUser messages: 4
+2:21:41 PMAssistant messages: 4
+2:21:41 PMDEBUG: Processing conversation history
+2:21:41 PMDEBUG: Conversation history processing complete
+2:21:42 PM[08:09:00][HP:36/36][XP:4571/6500] norn: 
+2:21:59 PMDEBUG: Validation passed successfully
+2:21:59 PMDEBUG: Valid response generated on attempt 1
+2:22:00 PMDEBUG: Extracted from new format - Location: Harrow's Hollow General Store, ID: R01
+2:22:00 PMDEBUG: Processing transition from Harrow's Hollow General Store
+2:22:00 PMDEBUG: Generating enhanced adventure summary for Harrow's Hollow General Store
+2:22:00 PMDEBUG: Found location ID from transition: R01
+2:22:00 PMDEBUG: No messages found for location Harrow's Hollow General Store (ID: R01)
+2:22:00 PMDEBUG: No adventure summary generated
+2:22:00 PM[09:11:00][HP:36/36][XP:4571/6500] norn: 
+2:22:18 PMDEBUG: Validation passed successfully
+2:22:18 PMDEBUG: Valid response generated on attempt 1
+2:22:18 PMDEBUG: Transitioning from 'Harrow's Hollow Town Square' to 'Harrow's Hollow General Store'
+2:22:18 PMDEBUG: Current location string (hex): 486172726f77277320486f6c6c6f7720546f776e20537175617265
+2:22:18 PMDEBUG: New location string (hex): 486172726f77277320486f6c6c6f772047656e6572616c2053746f7265
+2:22:18 PMDEBUG: Handling location transition from 'Harrow's Hollow Town Square' to 'Harrow's Hollow General Store'
+2:22:18 PMDEBUG: Current area: 'Harrow's Hollow', Current area ID: 'HH001'
+2:22:18 PMDEBUG: Current location identified: Harrow's Hollow Town Square (ID: R02)
+2:22:18 PMDEBUG: Found new location by exact name: Harrow's Hollow General Store (ID: R01)
+2:22:18 PMDEBUG: New location info: Harrow's Hollow General Store (ID: R01)
+2:22:35 PMDEBUG: Adventure summary updated successfully
+2:22:35 PMDEBUG: Successfully updated party_tracker.json
+2:22:35 PMDEBUG: Location transition complete
+2:22:35 PMCurrent Time: 10:16:00, Time Advanced: 2 minutes, New Time: 10:18:00, Days Passed: 0
+2:22:35 PMLightweight chat history updated!
+2:22:35 PMSystem messages removed: 6
+2:22:35 PMUser messages: 7
+2:22:35 PMAssistant messages: 6
+2:22:35 PMDEBUG: Processing conversation history
+2:22:35 PMDEBUG: Conversation history processing complete
+2:22:35 PM[09:16:00][HP:36/36][XP:4571/6500] norn: 
+2:23:45 PMDEBUG: Validation passed successfully
+2:23:45 PMDEBUG: Valid response generated on attempt 1
+2:23:46 PMDEBUG: Extracted from new format - Location: Harrow's Hollow Town Square, ID: R02
+2:23:46 PMDEBUG: Processing transition from Harrow's Hollow Town Square
+2:23:46 PMDEBUG: Generating enhanced adventure summary for Harrow's Hollow Town Square
+2:23:46 PMDEBUG: Found location ID from transition: R02
+2:23:46 PMDEBUG: No messages found for location Harrow's Hollow Town Square (ID: R02)
+2:23:46 PMDEBUG: No adventure summary generated
+2:23:46 PM[10:18:00][HP:36/36][XP:4571/6500] norn: 
+2:24:03 PMDEBUG: Validation passed successfully
+2:24:03 PMDEBUG: Valid response generated on attempt 1
+2:24:03 PMDEBUG: Transitioning from 'Harrow's Hollow General Store' to 'The Wyrd Lantern Inn'
+2:24:03 PMDEBUG: Current location string (hex): 486172726f77277320486f6c6c6f772047656e6572616c2053746f7265
+2:24:03 PMDEBUG: New location string (hex): 5468652057797264204c616e7465726e20496e6e
+2:24:03 PMDEBUG: Handling location transition from 'Harrow's Hollow General Store' to 'The Wyrd Lantern Inn'
+2:24:03 PMDEBUG: Current area: 'Harrow's Hollow', Current area ID: 'HH001'
+2:24:03 PMDEBUG: Current location identified: Harrow's Hollow General Store (ID: R01)
+2:24:03 PMDEBUG: Found new location by exact name: The Wyrd Lantern Inn (ID: R05)
+2:24:03 PMDEBUG: New location info: The Wyrd Lantern Inn (ID: R05)
+2:24:27 PMDEBUG: Adventure summary updated successfully
+2:24:27 PMDEBUG: Successfully updated party_tracker.json
+2:24:27 PMDEBUG: Location transition complete
+2:24:27 PMCurrent Time: 11:23:00, Time Advanced: 5 minutes, New Time: 11:28:00, Days Passed: 0
+2:24:27 PMLightweight chat history updated!
+2:24:27 PMSystem messages removed: 6
+2:24:27 PMUser messages: 10
+2:24:27 PMAssistant messages: 8
+2:24:27 PMDEBUG: Processing conversation history
+2:24:27 PMDEBUG: Conversation history processing complete
+2:24:27 PM[10:23:00][HP:36/36][XP:4571/6500] norn:

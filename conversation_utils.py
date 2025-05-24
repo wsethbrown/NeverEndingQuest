@@ -1,5 +1,6 @@
 import json
 from campaign_path_manager import CampaignPathManager
+from encoding_utils import safe_json_load
 
 def compress_json_data(data):
     """Compress JSON data by removing unnecessary whitespace."""
@@ -7,12 +8,12 @@ def compress_json_data(data):
 
 def load_json_data(file_path):
     try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            data = json.load(file)
+        data = safe_json_load(file_path)
+        if data is not None:
             return compress_json_data(data)
-    except FileNotFoundError:
-        print(f"{file_path} not found. Returning None.")
-        return None
+        else:
+            print(f"{file_path} not found. Returning None.")
+            return None
     except json.JSONDecodeError:
         print(f"{file_path} has an invalid JSON format. Returning None.")
         return None
@@ -78,11 +79,9 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
         path_manager = CampaignPathManager()
         area_file = path_manager.get_area_path(current_area_id)
         try:
-            with open(area_file, 'r', encoding='utf-8') as file:
-                location_data = json.load(file)
-        except FileNotFoundError:
-            print(f"{area_file} not found. Skipping location data.")
-            location_data = None
+            location_data = safe_json_load(area_file)
+            if location_data is None:
+                print(f"{area_file} not found. Skipping location data.")
         except json.JSONDecodeError:
             print(f"{area_file} has an invalid JSON format. Skipping location data.")
             location_data = None

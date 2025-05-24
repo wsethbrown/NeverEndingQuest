@@ -162,6 +162,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         area_connectivity_id = parameters.get("areaConnectivityId")
         # Sanitize location names to prevent encoding issues
         current_location_name = sanitize_text(party_tracker_data["worldConditions"]["currentLocation"])
+        current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
         current_area_name = party_tracker_data["worldConditions"]["currentArea"]
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
         
@@ -180,8 +181,19 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         )
 
         if transition_prompt:
-            # Use sanitized location names in conversation history
-            conversation_history.append({"role": "user", "content": f"Location transition: {sanitize_text(current_location_name)} to {sanitize_text(new_location_name_or_id)}"}) # Use the provided name/ID
+            # Get the new location ID from party tracker after transition
+            # The location manager updates party_tracker.json before we get here
+            try:
+                updated_party_tracker = safe_json_load("party_tracker.json")
+                new_location_name = updated_party_tracker["worldConditions"]["currentLocation"]
+                new_location_id = updated_party_tracker["worldConditions"]["currentLocationId"]
+                # Include location IDs in the transition message for reliable matching
+                conversation_history.append({"role": "user", "content": f"Location transition: {sanitize_text(current_location_name)} ({current_location_id}) to {sanitize_text(new_location_name)} ({new_location_id})"})
+            except Exception as e:
+                print(f"DEBUG: Could not get updated location IDs: {str(e)}")
+                # Fallback to original format if we can't get the IDs
+                conversation_history.append({"role": "user", "content": f"Location transition: {sanitize_text(current_location_name)} to {sanitize_text(new_location_name_or_id)}"})
+            
             print("DEBUG: Location transition complete")
             needs_conversation_history_update = True  # Trigger conversation history reload
              # After transition, the current_location_data in the main loop might be stale.

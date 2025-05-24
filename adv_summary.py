@@ -7,19 +7,16 @@ from openai import OpenAI
 from jsonschema import validate, ValidationError
 from config import OPENAI_API_KEY, ADVENTURE_SUMMARY_MODEL
 from campaign_path_manager import CampaignPathManager
+from encoding_utils import sanitize_text, safe_json_load, safe_json_dump
 
 TEMPERATURE = 0.8
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def get_current_location():
     try:
-        with open("current_location.json", "r", encoding="utf-8") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        print("DEBUG: ERROR: current_location.json not found")
-        return None
-    except json.JSONDecodeError:
-        print("DEBUG: ERROR: Invalid JSON in current_location.json")
+        return safe_json_load("current_location.json")
+    except Exception as e:
+        print(f"DEBUG: ERROR: Failed to load current_location.json: {e}")
         return None
 
 def debug_print(text, log_to_file=True):
@@ -35,18 +32,19 @@ def debug_print(text, log_to_file=True):
 def load_json_file(file_path):
     debug_print(f"Attempting to load file: {file_path}")
     try:
-        with open(file_path, "r", encoding="utf-8") as file:
-            debug_print(f"File opened successfully: {file_path}")
-            try:
-                content = json.load(file)
-                debug_print(f"File parsed successfully: {file_path}")
-                return content
-            except json.JSONDecodeError as json_err:
-                error_msg = f"Error: Invalid JSON in {file_path}. Error: {str(json_err)}"
-                debug_print(error_msg)
-                debug_print(f"JSON error at line {json_err.lineno}, column {json_err.colno}: {json_err.msg}")
-                debug_print(traceback.format_exc())
-                sys.exit(1)
+        content = safe_json_load(file_path)
+        if content is not None:
+            debug_print(f"File parsed successfully: {file_path}")
+            return content
+        else:
+            debug_print(f"File not found: {file_path}")
+            return None
+    except json.JSONDecodeError as json_err:
+        error_msg = f"Error: Invalid JSON in {file_path}. Error: {str(json_err)}"
+        debug_print(error_msg)
+        debug_print(f"JSON error at line {json_err.lineno}, column {json_err.colno}: {json_err.msg}")
+        debug_print(traceback.format_exc())
+        sys.exit(1)
     except FileNotFoundError:
         error_msg = f"Error: File {file_path} not found."
         debug_print(error_msg)
@@ -99,8 +97,8 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
     # Get the last completed encounter ID from party_tracker
     encounter_id = ""
     try:
-        with open("party_tracker.json", "r", encoding="utf-8") as file:
-            party_tracker = json.load(file)
+        party_tracker = safe_json_load("party_tracker.json")
+        if party_tracker:
             last_completed_id = party_tracker.get("worldConditions", {}).get("lastCompletedEncounter", "")
             if last_completed_id:
                 encounter_id = last_completed_id
@@ -200,6 +198,8 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
                 messages=location_updater_prompt
             )
             location_updates = response.choices[0].message.content.strip()
+            # Sanitize AI response to prevent encoding issues
+            location_updates = sanitize_text(location_updates)
             location_updates = location_updates.replace("```json", "").replace("```", "").strip()
             updated_location = json.loads(location_updates)
 
@@ -270,8 +270,7 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
                 # We'll log the error but continue - this gives us more debugging info
 
             try:
-                with open(all_locations_file, "w", encoding="utf-8") as file:
-                    json.dump(all_locations, file, indent=2, ensure_ascii=False)
+                safe_json_dump(all_locations, all_locations_file)
             except IOError as e:
                 debug_print(f"Error writing updated locations to {all_locations_file}: {e}")
                 sys.exit(1)
@@ -367,22 +366,19 @@ def generate_adventure_summary(conversation_history_data, party_tracker_data, le
             debug_print(f"Error removing {dump_file_path}: {e}")
 
     try:
-        with open(dump_file_path, "w", encoding="utf-8") as dump_file:
-            json.dump(messages, dump_file, ensure_ascii=False, indent=2)
+        safe_json_dump(messages, dump_file_path)
     except IOError as e:
         debug_print(f"Error writing to {dump_file_path}: {e}")
 
     trimmed_data = trim_conversation(messages)
     try:
-        with open('trimmed_summary_dump.json', 'w', encoding="utf-8") as f: # Added encoding
-            json.dump(trimmed_data, f, indent=2, ensure_ascii=False) # Added ensure_ascii
+        safe_json_dump(trimmed_data, 'trimmed_summary_dump.json')
     except IOError as e:
         debug_print(f"Error writing to trimmed_summary_dump.json: {e}")
 
     dialogue_data = convert_to_dialogue(trimmed_data)
     try:
-        with open('dialogue_summary.json', 'w', encoding="utf-8") as f: # Added encoding
-            json.dump(dialogue_data, f, indent=2, ensure_ascii=False) # Added ensure_ascii
+        safe_json_dump(dialogue_data, 'dialogue_summary.json')
     except IOError as e:
         debug_print(f"Error writing to dialogue_summary.json: {e}")
 
@@ -394,6 +390,8 @@ def generate_adventure_summary(conversation_history_data, party_tracker_data, le
             messages=dialogue_data
         )
         adventure_summary = response.choices[0].message.content.strip()
+        # Sanitize AI response to prevent encoding issues
+        adventure_summary = sanitize_text(adventure_summary)
         return adventure_summary
     except Exception as e:
         debug_print(f"ERROR: Failed to generate adventure summary. Error: {str(e)}")
@@ -404,15 +402,13 @@ def update_journal(adventure_summary, party_tracker_data, location_name):
     journal_data = {"entries": []} # Default to empty journal
 
     try:
-        with open("journal.json", "r", encoding="utf-8") as journal_file:
-            journal_data = json.load(journal_file)
-            if not isinstance(journal_data, dict) or "entries" not in journal_data or not isinstance(journal_data["entries"], list):
-                debug_print("journal.json has invalid structure, reinitializing.")
-                journal_data = {"entries": []}
-    except FileNotFoundError:
-        debug_print("journal.json not found, creating new journal")
-    except json.JSONDecodeError:
-        debug_print("journal.json is empty or invalid, creating new journal")
+        journal_data = safe_json_load("journal.json")
+        if not journal_data or not isinstance(journal_data, dict) or "entries" not in journal_data or not isinstance(journal_data["entries"], list):
+            debug_print("journal.json has invalid structure, reinitializing.")
+            journal_data = {"campaign": "Keep_of_Doom", "entries": []}
+    except Exception as e:
+        debug_print(f"Error loading journal.json: {e}, creating new journal")
+        journal_data = {"campaign": "Keep_of_Doom", "entries": []}
     
     world_conditions = party_tracker_data.get('worldConditions', {}) # Use .get for safety
     new_entry = {
@@ -431,8 +427,7 @@ def update_journal(adventure_summary, party_tracker_data, location_name):
         return # Or handle error, e.g., don't save if invalid
 
     try:
-        with open("journal.json", "w", encoding="utf-8") as journal_file:
-            json.dump(journal_data, journal_file, indent=2, ensure_ascii=False)
+        safe_json_dump(journal_data, "journal.json")
         debug_print("Journal updated successfully")
     except IOError as e:
         debug_print(f"Error writing to journal.json: {e}")
@@ -486,8 +481,7 @@ if __name__ == "__main__":
             
             if found_in_all_locations:
                 try:
-                    with open(area_file_to_update, "w", encoding="utf-8") as file:
-                        json.dump(all_locations_in_area, file, indent=2, ensure_ascii=False)
+                    safe_json_dump(all_locations_in_area, area_file_to_update)
                     debug_print(f"Successfully updated {leaving_location_name_arg} in {area_file_to_update}")
                 except IOError as e:
                     debug_print(f"Error writing updated area data to {area_file_to_update}: {e}")

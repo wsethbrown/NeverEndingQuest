@@ -1,41 +1,70 @@
-
-2025-05-24 09:45:16 - Generating enhanced adventure summary for Harrow's Hollow General Store
-2025-05-24 09:45:16 - No messages found for location Harrow's Hollow General Store
-2025-05-24 09:45:16 - Generating summary for Harrow's Hollow General Store
-2025-05-24 09:45:21 - Summary generated for Harrow's Hollow General Store
-2025-05-24 09:45:30 - Enhanced adventure summary generated successfully
-2025-05-24 09:45:30 - Updating journal with summary for Harrow's Hollow General Store
-2025-05-24 09:45:30 - Journal updated successfully
-2025-05-24 09:45:30 - Compressing conversation history when leaving Harrow's Hollow General Store
-2025-05-24 09:45:30 - Total messages in history: 14
-2025-05-24 09:45:30 - Cleaning old-style summaries from conversation history
-2025-05-24 09:45:30 - Found transition at index 11: Location transition: Harrow's Hollow General Store to Harrow's Hollow Town Square
-2025-05-24 09:45:30 - Using last system message at index 5 as start marker
-2025-05-24 09:45:30 - Using last system message at index 4 as start marker
-2025-05-24 09:45:30 - Using last system message at index 3 as start marker
-2025-05-24 09:45:30 - Using last system message at index 2 as start marker
-2025-05-24 09:45:30 - Using last system message at index 1 as start marker
-2025-05-24 09:45:30 - Using last system message at index 0 as start marker
-2025-05-24 09:45:30 - Collecting messages from index 1 to 10
-2025-05-24 09:45:30 - Found 5 messages to summarize
-2025-05-24 09:45:30 - Generating summary for Harrow's Hollow General Store
-2025-05-24 09:45:35 - Summary generated for Harrow's Hollow General Store
-2025-05-24 09:45:35 - Compressed history from 14 to 5 messages
-2025-05-24 09:45:35 - Removed 5 messages from Harrow's Hollow General Store
-2025-05-24 09:46:37 - Generating enhanced adventure summary for Harrow’s Hollow Town Square
-2025-05-24 09:46:37 - Generating summary for Harrow’s Hollow Town Square
-2025-05-24 09:46:42 - Summary generated for Harrow’s Hollow Town Square
-2025-05-24 09:46:50 - Enhanced adventure summary generated successfully
-2025-05-24 09:46:50 - Updating journal with summary for Harrow’s Hollow Town Square
-2025-05-24 09:46:50 - Journal updated successfully
-2025-05-24 09:46:50 - Compressing conversation history when leaving Harrow’s Hollow Town Square
-2025-05-24 09:46:50 - Total messages in history: 15
-2025-05-24 09:46:50 - Cleaning old-style summaries from conversation history
-2025-05-24 09:46:50 - Found transition at index 12: Location transition: Harrow’s Hollow Town Square to Harrow's Hollow General Store
-2025-05-24 09:46:50 - Found previous transition at index 7
-2025-05-24 09:46:50 - Collecting messages from index 8 to 11
-2025-05-24 09:46:50 - Found 4 messages to summarize
-2025-05-24 09:46:50 - Generating summary for Harrow’s Hollow Town Square
-2025-05-24 09:46:53 - Summary generated for Harrow’s Hollow Town Square
-2025-05-24 09:46:53 - Compressed history from 15 to 12 messages
-2025-05-24 09:46:53 - Removed 4 messages from Harrow’s Hollow Town Square
+2025-05-24 14:58:10 - Generating enhanced adventure summary for Harrow's Hollow General Store
+2025-05-24 14:58:10 - Found most recent transition at index 11: Location transition: Harrow's Hollow General Store (R01) to Harrow's Hollow Town Square (R02)
+2025-05-24 14:58:10 - Using last system message at index 5 as boundary
+2025-05-24 14:58:10 - Using last system message at index 4 as boundary
+2025-05-24 14:58:10 - Using last system message at index 3 as boundary
+2025-05-24 14:58:10 - Using last system message at index 2 as boundary
+2025-05-24 14:58:10 - Using last system message at index 1 as boundary
+2025-05-24 14:58:10 - Using last system message at index 0 as boundary
+2025-05-24 14:58:10 - Collected 5 messages for location summary
+2025-05-24 14:58:10 - Generating summary for Harrow's Hollow General Store
+2025-05-24 14:58:14 - Summary generated for Harrow's Hollow General Store
+2025-05-24 14:58:21 - Enhanced adventure summary generated successfully
+2025-05-24 14:58:21 - Updating journal with summary for Harrow's Hollow General Store
+2025-05-24 14:58:21 - Journal updated successfully
+2025-05-24 14:58:21 - Compressing conversation history when leaving Harrow's Hollow General Store
+2025-05-24 14:58:21 - Total messages in history: 14
+2025-05-24 14:58:21 - Cleaning old-style summaries from conversation history
+2025-05-24 14:58:21 - Found transition at index 11: Location transition: Harrow's Hollow General Store (R01) to Harrow's Hollow Town Square (R02)
+2025-05-24 14:58:21 - Using last system message at index 5 as start marker
+2025-05-24 14:58:21 - Using last system message at index 4 as start marker
+2025-05-24 14:58:21 - Using last system message at index 3 as start marker
+2025-05-24 14:58:21 - Using last system message at index 2 as start marker
+2025-05-24 14:58:21 - Using last system message at index 1 as start marker
+2025-05-24 14:58:21 - Using last system message at index 0 as start marker
+2025-05-24 14:58:21 - Collecting messages from index 1 to 10
+2025-05-24 14:58:21 - Found 5 messages to summarize
+2025-05-24 14:58:21 - Generating summary for Harrow's Hollow General Store
+2025-05-24 14:58:25 - Summary generated for Harrow's Hollow General Store
+2025-05-24 14:58:25 - Compressed history from 14 to 5 messages
+2025-05-24 14:58:25 - Removed 5 messages from Harrow's Hollow General Store
+2025-05-24 14:59:53 - Generating enhanced adventure summary for Harrow's Hollow Town Square
+2025-05-24 14:59:53 - Found most recent transition at index 12: Location transition: Harrow's Hollow Town Square (R02) to Harrow's Hollow General Store (R01)
+2025-05-24 14:59:53 - Found previous transition at index 7
+2025-05-24 14:59:53 - Collected 4 messages for location summary
+2025-05-24 14:59:53 - Generating summary for Harrow's Hollow Town Square
+2025-05-24 14:59:56 - Summary generated for Harrow's Hollow Town Square
+2025-05-24 15:00:03 - Enhanced adventure summary generated successfully
+2025-05-24 15:00:03 - Updating journal with summary for Harrow's Hollow Town Square
+2025-05-24 15:00:03 - Journal updated successfully
+2025-05-24 15:00:03 - Compressing conversation history when leaving Harrow's Hollow Town Square
+2025-05-24 15:00:03 - Total messages in history: 15
+2025-05-24 15:00:03 - Cleaning old-style summaries from conversation history
+2025-05-24 15:00:03 - Found transition at index 12: Location transition: Harrow's Hollow Town Square (R02) to Harrow's Hollow General Store (R01)
+2025-05-24 15:00:03 - Found previous transition at index 7
+2025-05-24 15:00:03 - Collecting messages from index 8 to 11
+2025-05-24 15:00:03 - Found 4 messages to summarize
+2025-05-24 15:00:03 - Generating summary for Harrow's Hollow Town Square
+2025-05-24 15:00:08 - Summary generated for Harrow's Hollow Town Square
+2025-05-24 15:00:08 - Compressed history from 15 to 12 messages
+2025-05-24 15:00:08 - Removed 4 messages from Harrow's Hollow Town Square
+2025-05-24 15:02:36 - Generating enhanced adventure summary for Harrow's Hollow General Store
+2025-05-24 15:02:36 - Found most recent transition at index 14: Location transition: Harrow's Hollow General Store (R01) to The Wyrd Lantern Inn (R05)
+2025-05-24 15:02:36 - Found previous transition at index 9
+2025-05-24 15:02:36 - Collected 4 messages for location summary
+2025-05-24 15:02:36 - Generating summary for Harrow's Hollow General Store
+2025-05-24 15:02:39 - Summary generated for Harrow's Hollow General Store
+2025-05-24 15:02:45 - Enhanced adventure summary generated successfully
+2025-05-24 15:02:45 - Updating journal with summary for Harrow's Hollow General Store
+2025-05-24 15:02:45 - Journal updated successfully
+2025-05-24 15:02:45 - Compressing conversation history when leaving Harrow's Hollow General Store
+2025-05-24 15:02:45 - Total messages in history: 17
+2025-05-24 15:02:45 - Cleaning old-style summaries from conversation history
+2025-05-24 15:02:45 - Found transition at index 14: Location transition: Harrow's Hollow General Store (R01) to The Wyrd Lantern Inn (R05)
+2025-05-24 15:02:45 - Found previous transition at index 9
+2025-05-24 15:02:45 - Collecting messages from index 10 to 13
+2025-05-24 15:02:45 - Found 4 messages to summarize
+2025-05-24 15:02:45 - Generating summary for Harrow's Hollow General Store
+2025-05-24 15:02:48 - Summary generated for Harrow's Hollow General Store
+2025-05-24 15:02:48 - Compressed history from 17 to 14 messages
+2025-05-24 15:02:48 - Removed 4 messages from Harrow's Hollow General Store

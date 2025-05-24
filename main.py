@@ -265,15 +265,30 @@ def check_and_process_location_transitions(conversation_history, party_tracker_d
         return conversation_history
     
     # Extract the leaving location from the transition message
-    # Format: "Location transition: [from_location] to [to_location]"
+    # New format: "Location transition: [from_location] (ID) to [to_location] (ID)"
+    # Old format: "Location transition: [from_location] to [to_location]"
     try:
-        parts = last_transition_content.split(" to ")
-        if len(parts) == 2:
-            from_part = parts[0].replace("Location transition: ", "").strip()
-            leaving_location_name = from_part
+        import re
+        # Try to extract with IDs first (new format)
+        id_pattern = r'Location transition: (.+?) \(([A-Z]\d+)\) to (.+?) \(([A-Z]\d+)\)'
+        id_match = re.match(id_pattern, last_transition_content)
+        
+        if id_match:
+            # New format with IDs
+            leaving_location_name = id_match.group(1)
+            leaving_location_id = id_match.group(2)
+            print(f"DEBUG: Extracted from new format - Location: {leaving_location_name}, ID: {leaving_location_id}")
         else:
-            print("DEBUG: Could not parse transition message format")
-            return conversation_history
+            # Fall back to old format
+            parts = last_transition_content.split(" to ")
+            if len(parts) == 2:
+                from_part = parts[0].replace("Location transition: ", "").strip()
+                leaving_location_name = from_part
+                leaving_location_id = None
+                print(f"DEBUG: Extracted from old format - Location: {leaving_location_name}")
+            else:
+                print("DEBUG: Could not parse transition message format")
+                return conversation_history
     except Exception as e:
         print(f"DEBUG: Error parsing transition message: {str(e)}")
         return conversation_history

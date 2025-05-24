@@ -11,6 +11,7 @@ from datetime import datetime
 from openai import OpenAI
 from config import OPENAI_API_KEY, DM_MINI_MODEL
 from enhanced_logger import game_logger, game_event
+from encoding_utils import safe_json_dump, sanitize_text
 
 class AIPlayer:
     """AI player that makes decisions based on test objectives"""
@@ -178,6 +179,8 @@ When responding:
             )
             
             action = response.choices[0].message.content.strip()
+            # Sanitize AI response to prevent encoding issues
+            action = sanitize_text(action)
             
             # Log the decision
             self.log_action(filtered_output, action)
@@ -306,8 +309,7 @@ When responding:
         
         report = self.generate_test_report()
         
-        with open(filename, 'w') as f:
-            json.dump(report, f, indent=2)
+        safe_json_dump(report, filename)
         
         game_logger.info(f"Test results saved to {filename}")
         return filename

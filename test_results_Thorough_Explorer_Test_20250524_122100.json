@@ -1,0 +1,219 @@
+{
+  "test_profile": "Thorough Explorer Test",
+  "player_name": "TestHero",
+  "start_time": "2025-05-24T12:19:21.567832",
+  "end_time": "2025-05-24T12:21:00.786429",
+  "total_actions": 71,
+  "objectives_attempted": 1,
+  "objectives_completed": 0,
+  "issues_found": 1,
+  "issues_detail": [
+    {
+      "type": "Raw JSON in output",
+      "timestamp": "2025-05-24T12:20:30.908488",
+      "objective": "Visit all 5 locations in Harrow's Hollow",
+      "location": "Unknown",
+      "context": "{\n  \"equipment\": [\n    {\n      \"item_name\": \"Old bronze key marked with a faded raven sigil\",\n      \"item_type\": \"miscellaneous\",\n      \"description\": \"An old bronze key with a faded raven sigil, possibly linked to House Greymont and the Keep of Doom.\",\n      \"quantity\": 1\n    }\n  ]\n}"
+    }
+  ],
+  "objectives_progress": [
+    {
+      "objective": "Visit all 5 locations in Harrow's Hollow",
+      "status": "possible_completion",
+      "timestamp": "2025-05-24T12:19:26.377140",
+      "location": "Unknown"
+    }
+  ],
+  "sample_interactions": [
+    {
+      "timestamp": "2025-05-24T12:20:46.975175",
+      "game_output": "System messages removed: 6",
+      "ai_action": "I ask Elder Mirna to clearly list the five key locations in Harrow's Hollow, including their names, precise locations, and significance, so I can visit them systematically.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:12:00",
+        "recent_events": [
+          "[38;5;208mCurrent Time: 08:14:00, Time Advanced: 1 minutes, New Time: 08:15:00, Days Passed: 0[0m",
+          "Lightweight chat history updated!",
+          "System messages removed: 6",
+          "User messages: 10",
+          "Assistant messages: 10"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T12:20:49.008300",
+      "game_output": "User messages: 9",
+      "ai_action": "ISSUE DETECTED: Repeated requests to Elder Mirna for the five key locations yield no direct list or clear details on the five locations. The responses have not provided the requested explicit list with names, precise locations, and significance.\n\nI will try a different approach:\n\nI say to Elder Mirna: \"Please name each of the five key locations in Harrow's Hollow, one by one, starting with their name, where exactly they are in the village, and why they matter.\"",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:12:00",
+        "recent_events": [
+          "[38;5;208mCurrent Time: 08:14:00, Time Advanced: 1 minutes, New Time: 08:15:00, Days Passed: 0[0m",
+          "Lightweight chat history updated!",
+          "System messages removed: 6",
+          "User messages: 10",
+          "Assistant messages: 10"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T12:20:50.101136",
+      "game_output": "Assistant messages: 9",
+      "ai_action": "I say to Elder Mirna: \"Please name each of the five key locations in Harrow's Hollow, one by one, starting with their name, where exactly they are in the village, and why they matter.\"",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:12:00",
+        "recent_events": [
+          "[38;5;208mCurrent Time: 08:14:00, Time Advanced: 1 minutes, New Time: 08:15:00, Days Passed: 0[0m",
+          "Lightweight chat history updated!",
+          "System messages removed: 6",
+          "User messages: 10",
+          "Assistant messages: 10"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T12:20:51.346527",
+      "game_output": "[38;2;100;180;100m[08:13:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+      "ai_action": "I move to the first key location Elder Mirna mentions and thoroughly search the area for any notable features, clues, or items. Then I exhaust any dialogue options or interactions available there.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:13:00",
+        "recent_events": [
+          "[38;5;208mCurrent Time: 08:14:00, Time Advanced: 1 minutes, New Time: 08:15:00, Days Passed: 0[0m",
+          "Lightweight chat history updated!",
+          "System messages removed: 6",
+          "User messages: 10",
+          "Assistant messages: 10"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T12:20:52.505791",
+      "game_output": "[34mDungeon Master:[0m [34mElder Mirna leans in, her expression somber as she speaks with rare frankness. \"That bronze key, Norn, was forged for the Greymont family and marked with their raven sigil. My grandfather said it unlocks the 'raven door' deep within the Keep of Doom--a secret passage or vault only the Greymonts and their most trusted could access. None in the village have ever seen it, but the stories agree: the raven mark guards the family's most important secrets, and perhaps the heart of their tragedy.\"\n\nShe taps the counter near the key for emphasis. \"If you find a door in the keep with that faded raven, this key will open it. What you find beyond...\" She pauses, searching your eyes. \"May be what finally puts the village's curse to rest, or reveals the truth of what happened to them.\"\n\nThe weight of her words hangs in the air--a crossroads between the past and the fate of Harrow's Hollow.[0m",
+      "ai_action": "I thoroughly search the Keep of Doom for any hidden doors, compartments, or markings related to the Greymont raven sigil. After searching, I look for anyone present to speak with and exhaust all dialogue options available.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:13:00",
+        "recent_events": [
+          "[38;5;208mCurrent Time: 08:14:00, Time Advanced: 1 minutes, New Time: 08:15:00, Days Passed: 0[0m",
+          "Lightweight chat history updated!",
+          "System messages removed: 6",
+          "User messages: 10",
+          "Assistant messages: 10"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T12:20:53.724404",
+      "game_output": "[38;5;208mCurrent Time: 08:14:00, Time Advanced: 1 minutes, New Time: 08:15:00, Days Passed: 0[0m",
+      "ai_action": "I thoroughly search the Keep of Doom for hidden doors, compartments, or markings with the Greymont raven sigil. Then I look for anyone present to speak with and exhaust all dialogue options.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:13:00",
+        "recent_events": [
+          "[38;5;208mCurrent Time: 08:14:00, Time Advanced: 1 minutes, New Time: 08:15:00, Days Passed: 0[0m",
+          "Lightweight chat history updated!",
+          "System messages removed: 6",
+          "User messages: 10",
+          "Assistant messages: 10"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T12:20:55.268893",
+      "game_output": "Lightweight chat history updated!",
+      "ai_action": "I thoroughly examine all walls, floors, and furniture in the Keep of Doom, focusing on any doorways, panels, or carvings that feature or could hide the Greymont raven sigil. After the search, I look around to find anyone present and, if found, initiate conversation to ask about the raven door or any secrets related to the Greymont family, making sure to exhaust all dialogue options.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:13:00",
+        "recent_events": [
+          "[38;5;208mCurrent Time: 08:14:00, Time Advanced: 1 minutes, New Time: 08:15:00, Days Passed: 0[0m",
+          "Lightweight chat history updated!",
+          "System messages removed: 6",
+          "User messages: 10",
+          "Assistant messages: 10"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T12:20:56.798250",
+      "game_output": "System messages removed: 6",
+      "ai_action": "I thoroughly search the Keep of Doom for any hidden doors, compartments, or markings related to the Greymont raven sigil. Then I look around for anyone present and exhaust all dialogue options about the raven door or Greymont family secrets.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:13:00",
+        "recent_events": [
+          "[38;5;208mCurrent Time: 08:14:00, Time Advanced: 1 minutes, New Time: 08:15:00, Days Passed: 0[0m",
+          "Lightweight chat history updated!",
+          "System messages removed: 6",
+          "User messages: 10",
+          "Assistant messages: 10"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T12:20:58.422183",
+      "game_output": "User messages: 10",
+      "ai_action": "I thoroughly search the Keep of Doom for any hidden doors, compartments, or markings related to the Greymont raven sigil. Then I look around for anyone present and exhaust all dialogue options about the raven door or Greymont family secrets.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:13:00",
+        "recent_events": [
+          "[38;5;208mCurrent Time: 08:14:00, Time Advanced: 1 minutes, New Time: 08:15:00, Days Passed: 0[0m",
+          "Lightweight chat history updated!",
+          "System messages removed: 6",
+          "User messages: 10",
+          "Assistant messages: 10"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T12:20:59.834472",
+      "game_output": "Assistant messages: 10",
+      "ai_action": "I thoroughly search the Keep of Doom for any hidden doors, compartments, or markings related to the Greymont raven sigil. Then I look around for anyone present and exhaust all dialogue options about the raven door or Greymont family secrets.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:13:00",
+        "recent_events": [
+          "[38;5;208mCurrent Time: 08:14:00, Time Advanced: 1 minutes, New Time: 08:15:00, Days Passed: 0[0m",
+          "Lightweight chat history updated!",
+          "System messages removed: 6",
+          "User messages: 10",
+          "Assistant messages: 10"
+        ]
+      }
+    }
+  ]
+}

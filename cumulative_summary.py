@@ -72,6 +72,19 @@ def extract_location_from_conversation(conversation_history):
                     return location_name
     return "Unknown Location"
 
+def extract_location_id_from_conversation(conversation_history):
+    """Extract the current location ID (e.g., R01, R02) from recent conversation messages"""
+    import re
+    for msg in reversed(conversation_history):
+        if msg.get("role") == "user" and "Current location:" in msg.get("content", ""):
+            # Extract location ID from DM note
+            content = msg["content"]
+            # Look for pattern like (R01) or (R02) etc.
+            id_match = re.search(r'\(([A-Z]\d+)\)', content)
+            if id_match:
+                return id_match.group(1)  # Return just the ID without parentheses
+    return None
+
 def get_session_start_index(conversation_history):
     """Find where the current play session starts in conversation history"""
     # Look for the first user message after the system prompts
@@ -384,36 +397,63 @@ def generate_enhanced_adventure_summary(conversation_history_data, party_tracker
     """
     debug_print(f"Generating enhanced adventure summary for {leaving_location_name}")
     
-    # Normalize the location name to handle encoding issues
-    normalized_leaving_name = sanitize_text(leaving_location_name)
+    # Find the most recent location transition message
+    transition_index = None
+    for i in range(len(conversation_history_data) - 1, -1, -1):
+        msg = conversation_history_data[i]
+        if msg.get("role") == "user" and "Location transition:" in msg.get("content", ""):
+            transition_index = i
+            debug_print(f"Found most recent transition at index {i}: {msg.get('content', '')}")
+            break
     
-    # Extract messages for this specific location
-    location_messages = []
-    in_location = False
+    if transition_index is None:
+        debug_print("No location transition found in conversation history")
+        return None
     
-    for msg in reversed(conversation_history_data):
-        # Check if we're in the target location
-        if msg.get("role") == "user" and "Current location:" in msg.get("content", ""):
-            current_loc = extract_location_from_conversation([msg])
-            # Compare with normalized names
-            if current_loc == leaving_location_name or current_loc == normalized_leaving_name:
-                in_location = True
-            elif in_location:
-                # We've gone back to a different location, stop collecting
-                break
+    # Find the previous boundary (either another transition or the last system message)
+    previous_boundary_index = None
+    
+    # Look backwards from the current transition
+    for i in range(transition_index - 1, -1, -1):
+        msg = conversation_history_data[i]
         
-        if in_location and msg.get("role") != "system":
-            location_messages.insert(0, msg)  # Insert at beginning to maintain order
+        # Stop at previous transition
+        if msg.get("role") == "user" and "Location transition:" in msg.get("content", ""):
+            previous_boundary_index = i
+            debug_print(f"Found previous transition at index {i}")
+            break
+            
+        # Stop at location summary (from previous compression)
+        if msg.get("role") == "assistant" and "=== LOCATION SUMMARY ===" in msg.get("content", ""):
+            previous_boundary_index = i
+            debug_print(f"Found previous location summary at index {i}")
+            break
+    
+    # If no previous transition found, find the last system message
+    if previous_boundary_index is None:
+        for i in range(transition_index - 1, -1, -1):
+            if conversation_history_data[i].get("role") == "system":
+                previous_boundary_index = i
+                debug_print(f"Using last system message at index {i} as boundary")
+        
+        # If still nothing, start from beginning
+        if previous_boundary_index is None:
+            previous_boundary_index = -1
+            debug_print("Starting from beginning of conversation")
+    
+    # Collect messages between boundaries (excluding the boundaries themselves)
+    location_messages = []
+    for i in range(previous_boundary_index + 1, transition_index):
+        msg = conversation_history_data[i]
+        # Include all messages except system messages
+        if msg.get("role") != "system":
+            location_messages.append(msg)
+    
+    debug_print(f"Collected {len(location_messages)} messages for location summary")
     
     if not location_messages:
         debug_print(f"No messages found for location {leaving_location_name}")
-        # Try to find messages by searching more broadly
-        for msg in conversation_history_data:
-            if msg.get("role") == "assistant" and leaving_location_name in msg.get("content", ""):
-                location_messages.append(msg)
-        
-        if not location_messages:
-            return None
+        return None
     
     # Generate the summary using the same function
     summary = generate_location_summary(leaving_location_name, location_messages)

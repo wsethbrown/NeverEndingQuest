@@ -17,6 +17,7 @@ from main import main_game_loop
 from ai_player import AIPlayer, AIPlayerPersonality
 from enhanced_logger import game_logger, game_event
 from file_operations import safe_write_json, safe_read_json
+from encoding_utils import safe_json_dump, safe_json_load
 
 class AutomatedGameRunner:
     """Runs the game with AI player input"""
@@ -32,7 +33,7 @@ class AutomatedGameRunner:
         self.ai_player = None
         
         # Load test objectives
-        self.test_objectives = safe_read_json("test_objectives.json")
+        self.test_objectives = safe_json_load("test_objectives.json")
         if not self.test_objectives:
             raise ValueError("Could not load test_objectives.json")
         
@@ -238,14 +239,14 @@ class AutomatedGameRunner:
             "activeQuests": []
         }
         
-        safe_write_json("party_tracker.json", test_party_tracker)
+        safe_json_dump(test_party_tracker, "party_tracker.json")
         
         # Clear conversation history
         if os.path.exists("conversation_history.json"):
             os.remove("conversation_history.json")
         
         # Clear journal
-        safe_write_json("journal.json", {"entries": []})
+        safe_json_dump({"campaign": "Keep_of_Doom", "entries": []}, "journal.json")
         
         game_logger.info(f"Test environment set up in {test_dir}")
 
@@ -274,7 +275,7 @@ def main():
     
     # List profiles if requested
     if args.list_profiles:
-        objectives = safe_read_json("test_objectives.json")
+        objectives = safe_json_load("test_objectives.json")
         if objectives:
             print("\nAvailable test profiles:")
             for name, profile in objectives["test_profiles"].items():
@@ -296,7 +297,7 @@ def main():
         print(f"Results saved to: {results_file}")
         
         # Show summary
-        results = safe_read_json(results_file)
+        results = safe_json_load(results_file)
         if results:
             print(f"\nTest Summary:")
             print(f"  Profile: {results['test_profile']}")
