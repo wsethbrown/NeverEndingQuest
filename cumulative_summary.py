@@ -50,6 +50,20 @@ def extract_location_from_conversation(conversation_history):
                 # Extract location name (before the ID in parentheses)
                 if "(" in loc_text:
                     location_name = loc_text.split("(")[0].replace("Current location:", "").strip()
+                    # Handle encoding issues - normalize the location name
+                    # Replace common problematic characters
+                    location_name = location_name.replace('\u2019', "'")
+                    location_name = location_name.replace('\u2018', "'")
+                    location_name = location_name.replace('\u201c', '"')
+                    location_name = location_name.replace('\u201d', '"')
+                    location_name = location_name.replace('\u2014', '-')
+                    location_name = location_name.replace('\u2013', '-')
+                    location_name = location_name.replace('\u00e2\u20ac\u2122', "'")
+                    location_name = location_name.replace('â€™', "'")
+                    location_name = location_name.replace('â€"', '-')
+                    location_name = location_name.replace('â€˜', "'")
+                    location_name = location_name.replace('â€œ', '"')
+                    location_name = location_name.replace('â€', '"')
                     return location_name
     return "Unknown Location"
 
@@ -99,6 +113,18 @@ def build_location_summaries_from_conversation(conversation_history):
             msg.get("role") == "user" and msg.get("content", "").startswith("Adventure History Context:")
         ):
             current_segment.append(msg)
+        
+        # Also check for location transitions in assistant messages
+        if msg.get("role") == "assistant" and "transitionLocation" in msg.get("content", ""):
+            # This is a transition message, should trigger a segment save
+            if current_location and current_segment and len(current_segment) > 2:
+                # Make sure we haven't already saved this segment
+                if not location_segments or location_segments[-1].get("location") != current_location:
+                    location_segments.append({
+                        "location": current_location,
+                        "messages": current_segment.copy()
+                    })
+                    debug_print(f"Saved segment for {current_location} due to transition")
     
     # Save the final location segment
     if current_location and current_segment:
@@ -290,6 +316,13 @@ def generate_enhanced_adventure_summary(conversation_history_data, party_tracker
     """
     debug_print(f"Generating enhanced adventure summary for {leaving_location_name}")
     
+    # Normalize the location name to handle encoding issues
+    normalized_leaving_name = leaving_location_name
+    normalized_leaving_name = normalized_leaving_name.replace('\u2019', "'")
+    normalized_leaving_name = normalized_leaving_name.replace('\u2018', "'")
+    normalized_leaving_name = normalized_leaving_name.replace('\u00e2\u20ac\u2122', "'")
+    normalized_leaving_name = normalized_leaving_name.replace('â€™', "'")
+    
     # Extract messages for this specific location
     location_messages = []
     in_location = False
@@ -298,7 +331,8 @@ def generate_enhanced_adventure_summary(conversation_history_data, party_tracker
         # Check if we're in the target location
         if msg.get("role") == "user" and "Current location:" in msg.get("content", ""):
             current_loc = extract_location_from_conversation([msg])
-            if current_loc == leaving_location_name:
+            # Compare with normalized names
+            if current_loc == leaving_location_name or current_loc == normalized_leaving_name:
                 in_location = True
             elif in_location:
                 # We've gone back to a different location, stop collecting
@@ -309,7 +343,13 @@ def generate_enhanced_adventure_summary(conversation_history_data, party_tracker
     
     if not location_messages:
         debug_print(f"No messages found for location {leaving_location_name}")
-        return None
+        # Try to find messages by searching more broadly
+        for msg in conversation_history_data:
+            if msg.get("role") == "assistant" and leaving_location_name in msg.get("content", ""):
+                location_messages.append(msg)
+        
+        if not location_messages:
+            return None
     
     # Generate the summary using the same function
     summary = generate_location_summary(leaving_location_name, location_messages)
