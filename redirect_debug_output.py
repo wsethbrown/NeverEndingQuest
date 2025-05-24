@@ -16,6 +16,10 @@ class DebugOutputInterceptor:
         
     def write(self, text):
         """Intercept and process output"""
+        # Handle both str and bytes
+        if isinstance(text, bytes):
+            text = text.decode('utf-8', errors='replace')
+            
         if not text or text == '\n':
             return
             
