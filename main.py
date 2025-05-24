@@ -18,7 +18,6 @@ import update_npc_info
 # Import new manager modules
 import location_manager
 import action_handler
-import cumulative_summary
 
 # Import atomic file operations
 from file_operations import safe_write_json, safe_read_json
@@ -57,7 +56,7 @@ def get_npc_stat(npc_name, stat_name, time_estimate):
     path_manager = CampaignPathManager()
     npc_file = path_manager.get_npc_path(npc_name)
     try:
-        with open(npc_file, "r") as file:
+        with open(npc_file, "r", encoding="utf-8") as file:
             npc_stats = json.load(file)
     except FileNotFoundError:
         print(f"{npc_file} not found. Stat retrieval failed.")
@@ -123,7 +122,7 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
     path_manager = CampaignPathManager()
     area_file = path_manager.get_area_path(current_area_id)
     try:
-        with open(area_file, "r") as file:
+        with open(area_file, "r", encoding="utf-8") as file:
             area_data = json.load(file)
         location_data = next((loc for loc in area_data["locations"] if loc["locationId"] == current_location_id), None)
     except (FileNotFoundError, json.JSONDecodeError):
@@ -166,7 +165,7 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
                     "reason": reason
                 }
 
-                with open("prompt_validation.json", "a") as log_file:
+                with open("prompt_validation.json", "a", encoding="utf-8") as log_file:
                     json.dump(log_entry, log_file)
                     log_file.write("\n")  # Add a newline for better readability
 
@@ -186,7 +185,7 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
     return True
 
 def load_validation_prompt():
-    with open("validation_prompt.txt", "r") as file:
+    with open("validation_prompt.txt", "r", encoding="utf-8") as file:
         return file.read().strip()
 
 def load_json_file(file_path):
@@ -315,7 +314,7 @@ def main_game_loop():
 
     validation_prompt_text = load_validation_prompt() 
 
-    with open("system_prompt.txt", "r") as file:
+    with open("system_prompt.txt", "r", encoding="utf-8") as file:
         main_system_prompt_text = file.read() 
 
     conversation_history = load_json_file(json_file) or []
@@ -340,9 +339,6 @@ def main_game_loop():
     conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data)
     conversation_history = update_character_data(conversation_history, party_tracker_data)
     
-    # Insert cumulative adventure summary
-    conversation_history = cumulative_summary.insert_cumulative_summary_in_conversation(conversation_history)
-
     # Use the new order_conversation_messages function
     conversation_history = order_conversation_messages(conversation_history, main_system_prompt_text)
     
@@ -574,9 +570,6 @@ def main_game_loop():
         conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data)
         conversation_history = update_character_data(conversation_history, party_tracker_data)
         conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
-        
-        # Update cumulative summary in conversation
-        conversation_history = cumulative_summary.insert_cumulative_summary_in_conversation(conversation_history)
         
         # Use the new order_conversation_messages function
         conversation_history = order_conversation_messages(conversation_history, main_system_prompt_text)

@@ -263,51 +263,126 @@ def clean_old_summaries_from_conversation(conversation_history):
     
     return cleaned_history
 
-def insert_cumulative_summary_in_conversation(conversation_history):
+def compress_conversation_history_on_transition(conversation_history, leaving_location_name):
     """
-    Insert the cumulative adventure summary into the conversation history.
-    Places it after the main system prompt but before other messages.
-    Returns the updated conversation history.
+    Compress conversation history when transitioning out of a location.
+    Creates a summary of the location being left and removes those messages.
+    Returns the compressed conversation history.
     """
-    debug_print("Inserting cumulative summary into conversation history")
+    debug_print(f"Compressing conversation history when leaving {leaving_location_name}")
+    debug_print(f"Total messages in history: {len(conversation_history)}")
     
     # First clean old summaries
     conversation_history = clean_old_summaries_from_conversation(conversation_history)
     
-    # Get the cumulative summary for current session
-    cumulative_summary = get_cumulative_adventure_summary()
-    if not cumulative_summary:
-        debug_print("No cumulative summary to insert")
-        return conversation_history
+    # Keep system messages and any existing adventure history
+    preserved_messages = []
+    location_messages = []
+    current_location_messages = []
     
-    # Find where to insert the summary (after first system message)
-    insert_index = 1  # Default to position 1
+    in_leaving_location = False
+    found_transition = False
+    
     for i, msg in enumerate(conversation_history):
+        content = msg.get("content", "")
+        
+        # Always preserve system messages
         if msg.get("role") == "system":
-            insert_index = i + 1
-            break
+            preserved_messages.append(msg)
+            continue
+            
+        # Always preserve adventure history
+        if "Adventure History Context:" in content:
+            preserved_messages.append(msg)
+            continue
+        
+        # Check for location context
+        if msg.get("role") == "user" and "Current location:" in content:
+            if leaving_location_name in content:
+                in_leaving_location = True
+                location_messages.append(msg)
+            else:
+                in_leaving_location = False
+                current_location_messages.append(msg)
+        # Check for transition messages
+        elif msg.get("role") == "user" and "Location transition:" in content:
+            if f"from {leaving_location_name}" in content:
+                found_transition = True
+                location_messages.append(msg)
+                in_leaving_location = False
+            else:
+                current_location_messages.append(msg)
+        # Collect messages based on current location context
+        elif in_leaving_location:
+            location_messages.append(msg)
+        else:
+            # After transition or in different location
+            current_location_messages.append(msg)
     
-    # Create the summary message
-    summary_message = {
-        "role": "user",
-        "content": f"Adventure History Context:\n{cumulative_summary}"
-    }
+    debug_print(f"Found {len(location_messages)} messages from {leaving_location_name}")
+    debug_print(f"Preserved messages: {len(preserved_messages)}")
+    debug_print(f"Current location messages: {len(current_location_messages)}")
     
-    # Check if a cumulative summary already exists and update it
-    summary_exists = False
-    for i, msg in enumerate(conversation_history):
-        if msg.get("role") == "user" and "Adventure History Context:" in msg.get("content", ""):
-            debug_print("Updating existing cumulative summary")
-            conversation_history[i] = summary_message
-            summary_exists = True
-            break
-    
-    # If no existing summary, insert it
-    if not summary_exists:
-        debug_print(f"Inserting new cumulative summary at position {insert_index}")
-        conversation_history.insert(insert_index, summary_message)
-    
-    return conversation_history
+    # Generate summary if we have ANY messages to summarize
+    if len(location_messages) > 0:  # Summarize even a single message
+        summary = generate_location_summary(leaving_location_name, location_messages)
+        
+        if summary:
+            # Find or create the adventure history summary
+            summary_index = None
+            for i, msg in enumerate(conversation_history):
+                if msg.get("role") == "user" and "Adventure History Context:" in msg.get("content", ""):
+                    summary_index = i
+                    break
+            
+            # Create or update the adventure history
+            if summary_index is not None:
+                # Extract existing summaries and add new one
+                existing_content = conversation_history[summary_index]["content"]
+                if "=== ADVENTURE HISTORY ===" not in existing_content:
+                    new_content = f"Adventure History Context:\n=== ADVENTURE HISTORY ===\n\nPrevious locations visited:\n\n{leaving_location_name}:\n{'-' * len(leaving_location_name + ':')}\n{summary}\n"
+                else:
+                    # Add to existing history
+                    new_content = existing_content.rstrip() + f"\n\n{leaving_location_name}:\n{'-' * len(leaving_location_name + ':')}\n{summary}\n"
+                conversation_history[summary_index]["content"] = new_content
+            else:
+                # Create new adventure history after system prompt
+                insert_index = 1
+                for i, msg in enumerate(conversation_history):
+                    if msg.get("role") == "system":
+                        insert_index = i + 1
+                        break
+                
+                summary_message = {
+                    "role": "user",
+                    "content": f"Adventure History Context:\n=== ADVENTURE HISTORY ===\n\nPrevious locations visited:\n\n{leaving_location_name}:\n{'-' * len(leaving_location_name + ':')}\n{summary}\n"
+                }
+                conversation_history.insert(insert_index, summary_message)
+                # Adjust indices after insertion
+                indices_to_remove = [i + 1 for i in indices_to_remove]
+            
+            # Rebuild conversation history with summary
+            new_history = preserved_messages.copy()
+            
+            # Add or update adventure history
+            if summary_index is not None:
+                # History already exists, it's in preserved_messages
+                pass
+            else:
+                # Add new history after system messages
+                new_history.append(summary_message)
+            
+            # Add current location messages
+            new_history.extend(current_location_messages)
+            
+            debug_print(f"Compressed history from {len(conversation_history)} to {len(new_history)} messages")
+            debug_print(f"Removed {len(location_messages)} messages from {leaving_location_name}")
+            
+            return new_history
+    else:
+        debug_print(f"No messages found from {leaving_location_name}")
+        # Return original history if we can't compress
+        return conversation_history
 
 def generate_enhanced_adventure_summary(conversation_history_data, party_tracker_data, leaving_location_name):
     """

@@ -7,7 +7,7 @@ def compress_json_data(data):
 
 def load_json_data(file_path):
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
             return compress_json_data(data)
     except FileNotFoundError:
@@ -19,7 +19,7 @@ def load_json_data(file_path):
 
 def update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data):
     # Read the actual system prompt to get the proper identifier
-    with open("system_prompt.txt", "r") as file:
+    with open("system_prompt.txt", "r", encoding="utf-8") as file:
         main_system_prompt_text = file.read().strip()
     
     # Use the first part of the actual system prompt as identifier
@@ -78,7 +78,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
         path_manager = CampaignPathManager()
         area_file = path_manager.get_area_path(current_area_id)
         try:
-            with open(area_file, 'r') as file:
+            with open(area_file, 'r', encoding='utf-8') as file:
                 location_data = json.load(file)
         except FileNotFoundError:
             print(f"{area_file} not found. Skipping location data.")
@@ -139,7 +139,7 @@ def update_character_data(conversation_history, party_tracker_data):
             name = member.lower()
             member_file = path_manager.get_player_path(member)
             try:
-                with open(member_file, "r") as file:
+                with open(member_file, "r", encoding="utf-8") as file:
                     member_data = json.load(file)
                     
                     # Format equipment list with quantities
@@ -196,7 +196,7 @@ FLAWS: {member_data['flaws']}
             npc_name = npc['name']
             npc_file = path_manager.get_npc_path(npc_name)
             try:
-                with open(npc_file, "r") as file:
+                with open(npc_file, "r", encoding="utf-8") as file:
                     npc_data = json.load(file)
                     
                     # Format equipment list with quantities

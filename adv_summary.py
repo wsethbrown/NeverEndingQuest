@@ -13,7 +13,7 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 
 def get_current_location():
     try:
-        with open("current_location.json", "r") as file:
+        with open("current_location.json", "r", encoding="utf-8") as file:
             return json.load(file)
     except FileNotFoundError:
         print("DEBUG: ERROR: current_location.json not found")
@@ -27,7 +27,7 @@ def debug_print(text, log_to_file=True):
     print(f"DEBUG: {text}")
     if log_to_file:
         try:
-            with open("adv_summary_debug.log", "a") as log_file:
+            with open("adv_summary_debug.log", "a", encoding="utf-8") as log_file:
                 log_file.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - {text}\n")
         except Exception as e:
             print(f"DEBUG: Could not write to debug log file: {str(e)}")
@@ -99,7 +99,7 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
     # Get the last completed encounter ID from party_tracker
     encounter_id = ""
     try:
-        with open("party_tracker.json", "r") as file:
+        with open("party_tracker.json", "r", encoding="utf-8") as file:
             party_tracker = json.load(file)
             last_completed_id = party_tracker.get("worldConditions", {}).get("lastCompletedEncounter", "")
             if last_completed_id:

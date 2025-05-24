@@ -58,7 +58,7 @@ def get_location_data(location_id, area_id):
     path_manager = CampaignPathManager()
     area_file = path_manager.get_area_path(area_id)
     try:
-        with open(area_file, "r") as file:
+        with open(area_file, "r", encoding="utf-8") as file:
             area_data = json.load(file)
         for location in area_data["locations"]:
             if location["locationId"] == location_id:
@@ -208,7 +208,7 @@ def handle_location_transition(current_location, new_location, current_area, cur
     if current_location_info:
         # Update current_location.json with current location info
         try:
-            with open("current_location.json", "w") as file:
+            with open("current_location.json", "w", encoding="utf-8") as file:
                 json.dump(current_location_info, file, indent=2)
         except Exception as e:
             print(f"ERROR: Failed to update current_location.json. Error: {str(e)}")
@@ -217,7 +217,7 @@ def handle_location_transition(current_location, new_location, current_area, cur
         debug_log_file = "transition_debug.log"
         try:
             # Log the transition
-            with open(debug_log_file, "a") as debug_file:
+            with open(debug_log_file, "a", encoding="utf-8") as debug_file:
                 debug_file.write(f"\n--- TRANSITION DEBUG: {current_location} to {new_location} ---\n")
                 debug_file.write(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                 debug_file.write(f"Area ID: {current_area_id}\n")
@@ -225,7 +225,7 @@ def handle_location_transition(current_location, new_location, current_area, cur
             
             # Load conversation history
             try:
-                with open("conversation_history.json", "r") as file:
+                with open("conversation_history.json", "r", encoding="utf-8") as file:
                     conversation_history = json.load(file)
             except Exception as e:
                 print(f"ERROR: Failed to load conversation history: {str(e)}")
@@ -250,18 +250,34 @@ def handle_location_transition(current_location, new_location, current_area, cur
                 from adv_summary import update_location_json
                 update_location_json(adventure_summary, current_location_info, current_area_id)
                 
+                # Compress conversation history
+                conversation_history = cumulative_summary.compress_conversation_history_on_transition(
+                    conversation_history,
+                    current_location
+                )
+                
+                # Save the compressed conversation history
+                try:
+                    with open("conversation_history.json", "w", encoding="utf-8") as file:
+                        json.dump(conversation_history, file, indent=2)
+                    with open(debug_log_file, "a", encoding="utf-8") as debug_file:
+                        debug_file.write(f"Conversation history compressed and saved\n")
+                except Exception as e:
+                    with open(debug_log_file, "a", encoding="utf-8") as debug_file:
+                        debug_file.write(f"Failed to save compressed conversation history: {str(e)}\n")
+                
                 print("DEBUG: Adventure summary updated successfully")
                 
-                with open(debug_log_file, "a") as debug_file:
+                with open(debug_log_file, "a", encoding="utf-8") as debug_file:
                     debug_file.write(f"Summary generated successfully\n")
             else:
                 print("ERROR: Failed to generate adventure summary")
-                with open(debug_log_file, "a") as debug_file:
+                with open(debug_log_file, "a", encoding="utf-8") as debug_file:
                     debug_file.write(f"Failed to generate summary\n")
                     
         except Exception as e:
             import traceback
-            with open(debug_log_file, "a") as debug_file:
+            with open(debug_log_file, "a", encoding="utf-8") as debug_file:
                 debug_file.write(f"Exception occurred: {str(e)}\n")
                 debug_file.write(traceback.format_exc())
             print(f"ERROR: Exception in adventure summary generation: {str(e)}")
@@ -287,7 +303,7 @@ def handle_location_transition(current_location, new_location, current_area, cur
                 party_tracker["worldConditions"]["currentAreaId"] = area_connectivity_id
 
             try:
-                with open("party_tracker.json", "w") as file:
+                with open("party_tracker.json", "w", encoding="utf-8") as file:
                     json.dump(party_tracker, file, indent=2)
                 print("DEBUG: Successfully updated party_tracker.json")
             except Exception as e:

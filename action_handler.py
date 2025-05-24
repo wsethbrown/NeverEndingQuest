@@ -45,7 +45,7 @@ def update_party_npcs(party_tracker_data, operation, npc):
     elif operation == "remove":
         party_tracker_data["partyNPCs"] = [x for x in party_tracker_data["partyNPCs"] if x["name"] != npc["name"]]
 
-    with open("party_tracker.json", "w") as file:
+    with open("party_tracker.json", "w", encoding="utf-8") as file:
         json.dump(party_tracker_data, file, indent=2)
     print(f"DEBUG: Party NPCs updated - {operation} {npc['name']}")
 
@@ -87,7 +87,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 encounter_id = result.stdout.strip().split()[-1].replace(".json", "")
 
                 party_tracker_data["worldConditions"]["activeCombatEncounter"] = encounter_id
-                with open("party_tracker.json", "w") as file:
+                with open("party_tracker.json", "w", encoding="utf-8") as file:
                     json.dump(party_tracker_data, file, indent=2)
                 print(f"DEBUG: Updated party tracker with combat encounter ID: {encounter_id}")
 
@@ -109,14 +109,14 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 if player_name and updated_player_info is not None:
                     path_manager = CampaignPathManager()
                     player_file = path_manager.get_player_path(player_name)
-                    with open(player_file, "w") as file:
+                    with open(player_file, "w", encoding="utf-8") as file:
                         json.dump(updated_player_info, file, indent=2)
                     print(f"DEBUG: Updated player file for {player_name}")
                 else:
                     print("WARNING: Combat simulation did not return valid player info. Player file not updated.")
 
                 # Copy combat summary to main conversation history
-                with open("combat_conversation_history.json", "r") as combat_file:
+                with open("combat_conversation_history.json", "r", encoding="utf-8") as combat_file:
                     combat_history = json.load(combat_file)
                     combat_summary = next((entry for entry in reversed(combat_history) if entry["role"] == "assistant" and "Combat Summary:" in entry["content"]), None)
 
@@ -195,7 +195,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         entity_name = parameters.get("entityName")
         new_level = parameters.get("newLevel")
 
-        with open("leveling_info.txt", "r") as file:
+        with open("leveling_info.txt", "r", encoding="utf-8") as file:
             leveling_info = file.read()
 
         dm_note = f"Leveling Dungeon Master Guidance: Proceed with leveling up the player character or the party NPC given the 5th Edition role playing game rules. Only level the player or the party NPC one level at a time to ensure no mistakes are made. If you are leveling up a party NPC then pass all changes at once using the 'updateNPCInfo' action and use the narration to narrate the party NPCs growth. If you are leveling up a player character then you must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updatePlayerInfo' to pass all changes to the players character sheet and include the experience goal for the next level. Do not update the player's information in segements. \n\n{leveling_info}"

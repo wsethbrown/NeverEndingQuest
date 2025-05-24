@@ -94,7 +94,7 @@
   "ammunition": [
     {
       "name": "Arrows",
-      "quantity": 32,
+      "quantity": 31,
       "description": "Standard arrows for a bow"
     }
   ],
@@ -154,7 +154,7 @@
     }
   },
   "currency": {
-    "gold": 0,
+    "gold": 25,
     "silver": 0,
     "copper": 0
   },
