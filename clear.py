@@ -87,13 +87,52 @@ else:
 print("Cleaning encounter data from all area files...")
 clean_encounter_data_from_areas()
 
-# Delete combat_conversation_history.json and conversation_history.json
-files_to_delete = ['combat_conversation_history.json', 'conversation_history.json', 'chat_history.json', 
-                   'transition_debug.log', 'adv_summary_debug.log']
+# Delete conversation history and debug/log files
+files_to_delete = [
+    # Conversation history files
+    'combat_conversation_history.json', 
+    'conversation_history.json', 
+    'chat_history.json',
+    'player_conversation_history.json',
+    
+    # Debug log files
+    'transition_debug.log', 
+    'adv_summary_debug.log',
+    'cumulative_summary_debug.log',
+    'combat_builder.log',
+    'debug_log.txt',
+    'game_debug.log',
+    'game_errors.log',
+    'error.txt',
+    
+    # Summary dump files
+    'summary_dump.json',
+    'trimmed_summary_dump.json',
+    
+    # Model history files
+    'second_model_history.json',
+    'third_model_history.json',
+    
+    # Debug JSON files
+    'debug_encounter_update.json',
+    'debug_initial_response.json',
+    'debug_npc_update.json',
+    'debug_player_update.json',
+    'debug_second_model.json',
+    'npc_update_debug_log.json',
+    'npc_update_detailed_log.json',
+    'prompt_validation.json'
+]
+
 for file in files_to_delete:
     if os.path.exists(file):
-        os.remove(file)
-        print(f"Deleted {file}")
+        try:
+            os.remove(file)
+            print(f"Deleted {file}")
+        except PermissionError:
+            print(f"WARNING: Could not delete {file} - file is in use")
+        except Exception as e:
+            print(f"ERROR: Could not delete {file} - {str(e)}")
     else:
         print(f"{file} not found")
 
@@ -117,27 +156,8 @@ if os.path.exists(party_tracker_file):
     party_tracker['worldConditions']['weather'] = "Overcast"
     party_tracker['worldConditions']['weatherConditions'] = "Overcast with morning mist"
 
-    # Reset quests to initial Keep of Doom state
-    party_tracker['activeQuests'] = [
-        {
-            "id": "PP001",
-            "title": "Shadows Over Harrow's Hollow",
-            "description": "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run high as rumors of curses, spirits, and the haunted Keep of Doom swirl among the villagers. Players must gather information, win trust, and follow leads to piece together the mystery.",
-            "status": "in progress"
-        },
-        {
-            "id": "SQ001",
-            "title": "Superstition and Shadows",
-            "description": "Old Tommen believes a wandering spirit haunts the village. If the party investigates, they may encounter the Wandering Shade—a restless ghost whose cryptic words offer hints about the keep and the missing villagers.",
-            "status": "not started"
-        },
-        {
-            "id": "SQ002",
-            "title": "Trouble at the Hearth",
-            "description": "Cira the Innkeeper's cellar is plagued by minor poltergeist activity. Calming the spirit earns Cira's gratitude and a helpful clue about Scout Elen's last known movements.",
-            "status": "not started"
-        }
-    ]
+    # Clear all active quests - they will be populated fresh when the game starts
+    party_tracker['activeQuests'] = []
 
     # Ensure we're using the Keep of Doom campaign
     party_tracker['campaign'] = "Keep_of_Doom"
@@ -152,12 +172,45 @@ if os.path.exists(party_tracker_file):
 else:
     print(f"{party_tracker_file} not found. No changes made to party tracker.")
 
+# Reset journal to empty state
+journal_file = "journal.json"
+if os.path.exists(journal_file):
+    journal_data = {
+        "campaign": "Keep_of_Doom",
+        "entries": []
+    }
+    with open(journal_file, 'w', encoding='utf-8') as f:
+        json.dump(journal_data, f, indent=2, ensure_ascii=False)
+    print("Reset journal.json to empty state")
+
+# Reset current_location.json to starting location
+current_location_file = "current_location.json"
+if os.path.exists(original_locations_file):
+    try:
+        with open(original_locations_file, 'r', encoding='utf-8') as f:
+            area_data = json.load(f)
+        
+        # Find the starting location (R01 - General Store)
+        for location in area_data.get('locations', []):
+            if location.get('locationId') == 'R01':
+                with open(current_location_file, 'w', encoding='utf-8') as f:
+                    json.dump(location, f, indent=2, ensure_ascii=False)
+                print("Reset current_location.json to starting location (General Store)")
+                break
+    except Exception as e:
+        print(f"Error resetting current_location.json: {str(e)}")
+
 # Reset any campaign-specific debug files
 debug_files = ['combat_validation_log.json', 'debug_ai_response.json', 'dialogue_summary.json']
 for file in debug_files:
     if os.path.exists(file):
-        os.remove(file)
-        print(f"Deleted {file}")
+        try:
+            os.remove(file)
+            print(f"Deleted {file}")
+        except PermissionError:
+            print(f"WARNING: Could not delete {file} - file is in use")
+        except Exception as e:
+            print(f"ERROR: Could not delete {file} - {str(e)}")
 
 # Reset character file to starting state
 character_file = path_manager.get_player_path("norn")
@@ -186,4 +239,27 @@ if os.path.exists(character_file):
     
     print("Reset Norn's character to full health and cleared equipment.")
 
-print("Reset complete. Keep of Doom campaign ready to start fresh!")
+# Clean up generated plot files (G001, etc.)
+plot_files_to_clean = ['plot_G001.json']
+for plot_file in plot_files_to_clean:
+    plot_path = f"{path_manager.campaign_dir}/{plot_file}"
+    if os.path.exists(plot_path):
+        os.remove(plot_path)
+        print(f"Deleted generated plot file: {plot_file}")
+
+# Also clean up any combat logs
+combat_logs_dir = "combat_logs"
+if os.path.exists(combat_logs_dir):
+    for root, dirs, files in os.walk(combat_logs_dir):
+        for file in files:
+            if file.endswith('.json'):
+                file_path = os.path.join(root, file)
+                try:
+                    os.remove(file_path)
+                    print(f"Deleted combat log: {file_path}")
+                except PermissionError:
+                    print(f"WARNING: Could not delete {file_path} - file is in use")
+                except Exception as e:
+                    print(f"ERROR: Could not delete {file_path} - {str(e)}")
+
+print("\nReset complete. Keep of Doom campaign ready to start fresh!")

@@ -213,6 +213,16 @@ def handle_location_transition(current_location, new_location, current_area, cur
         except Exception as e:
             print(f"ERROR: Failed to update current_location.json. Error: {str(e)}")
 
+        # Run adventure summary update
+        try:
+            result = subprocess.run(["python", "adv_summary.py", "conversation_history.json", "current_location.json", current_location, current_area_id],
+                        check=True, capture_output=True, text=True)
+            print("DEBUG: Adventure summary updated successfully")
+        except subprocess.CalledProcessError as e:
+            print(f"ERROR: Error occurred while running adv_summary.py: {e}")
+            print(f"ERROR: stdout: {e.stdout}")
+            print(f"ERROR: stderr: {e.stderr}")
+
         # Log the transition for debugging
         debug_log_file = "transition_debug.log"
         try:
@@ -220,7 +230,7 @@ def handle_location_transition(current_location, new_location, current_area, cur
                 debug_file.write(f"\n--- TRANSITION DEBUG: {current_location} to {new_location} ---\n")
                 debug_file.write(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                 debug_file.write(f"Area ID: {current_area_id}\n")
-                debug_file.write(f"Summary generation will happen on next game loop\n")
+                debug_file.write(f"Adventure summary has been generated\n")
         except Exception as e:
             print(f"ERROR: Failed to write to debug log: {str(e)}")
 

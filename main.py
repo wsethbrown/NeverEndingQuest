@@ -2,9 +2,23 @@ import json
 import subprocess
 import os
 import re
+import sys
+import codecs
 from openai import OpenAI
 from datetime import datetime, timedelta
 from termcolor import colored
+
+# Function to set UTF-8 encoding for Windows console
+def setup_utf8_console():
+    """Set UTF-8 encoding for stdout to handle special characters on Windows"""
+    if sys.platform == 'win32':
+        try:
+            # For Windows, use UTF-8 mode
+            sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
+            sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
+        except AttributeError:
+            # If stdout doesn't have a buffer (e.g., when redirected), skip
+            pass
 
 # Import other necessary modules
 from combat_manager import run_combat_simulation
@@ -355,7 +369,26 @@ def get_ai_response(conversation_history):
         temperature=TEMPERATURE,
         messages=conversation_history
     )
-    return response.choices[0].message.content.strip()
+    content = response.choices[0].message.content.strip()
+    
+    # Clean up problematic Unicode characters that can cause encoding issues
+    # Replace smart quotes and other problematic characters with standard ASCII
+    replacements = {
+        '\u2018': "'",  # Left single quote
+        '\u2019': "'",  # Right single quote
+        '\u201C': '"',  # Left double quote
+        '\u201D': '"',  # Right double quote
+        '\u2013': '-',  # En dash
+        '\u2014': '--', # Em dash
+        '\u2026': '...', # Ellipsis
+        '\u00A0': ' ',  # Non-breaking space
+        '\u009D': "'",  # Another problematic quote character
+    }
+    
+    for old_char, new_char in replacements.items():
+        content = content.replace(old_char, new_char)
+    
+    return content
 
 def ensure_main_system_prompt(conversation_history, main_system_prompt_text):
     """
@@ -672,4 +705,5 @@ def main_game_loop():
         save_conversation_history(conversation_history)
 
 if __name__ == "__main__":
+    setup_utf8_console()
     main_game_loop()
