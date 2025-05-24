@@ -5,6 +5,7 @@ from openai import OpenAI
 from config import OPENAI_API_KEY, ADVENTURE_SUMMARY_MODEL
 from campaign_path_manager import CampaignPathManager
 from file_operations import safe_write_json, safe_read_json
+from encoding_utils import sanitize_text, safe_json_load, safe_json_dump
 
 TEMPERATURE = 0.8
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -20,10 +21,9 @@ def debug_print(text, log_to_file=True):
             print(f"DEBUG: Could not write to debug log file: {str(e)}")
 
 def load_json_file(file_path):
-    """Load a JSON file with error handling"""
+    """Load a JSON file with error handling and encoding sanitization"""
     try:
-        with open(file_path, "r", encoding="utf-8") as file:
-            return json.load(file)
+        return safe_json_load(file_path)
     except FileNotFoundError:
         debug_print(f"File not found: {file_path}")
         return None
@@ -35,8 +35,13 @@ def load_json_file(file_path):
         return None
 
 def save_json_file(file_path, data):
-    """Save data to a JSON file with error handling"""
-    return safe_write_json(file_path, data)
+    """Save data to a JSON file with error handling and encoding sanitization"""
+    try:
+        safe_json_dump(data, file_path)
+        return True
+    except Exception as e:
+        debug_print(f"Error saving {file_path}: {str(e)}")
+        return False
 
 def extract_location_from_conversation(conversation_history):
     """Extract the current location from recent conversation messages"""
@@ -199,6 +204,8 @@ Write in past tense, third person. Be specific about outcomes and consequences. 
             max_tokens=500  # Keep summaries concise
         )
         summary = response.choices[0].message.content.strip()
+        # Sanitize AI response to prevent encoding issues
+        summary = sanitize_text(summary)
         debug_print(f"Summary generated for {location_name}")
         return summary
     except Exception as e:
@@ -378,11 +385,7 @@ def generate_enhanced_adventure_summary(conversation_history_data, party_tracker
     debug_print(f"Generating enhanced adventure summary for {leaving_location_name}")
     
     # Normalize the location name to handle encoding issues
-    normalized_leaving_name = leaving_location_name
-    normalized_leaving_name = normalized_leaving_name.replace('\u2019', "'")
-    normalized_leaving_name = normalized_leaving_name.replace('\u2018', "'")
-    normalized_leaving_name = normalized_leaving_name.replace('\u00e2\u20ac\u2122', "'")
-    normalized_leaving_name = normalized_leaving_name.replace('â€™', "'")
+    normalized_leaving_name = sanitize_text(leaving_location_name)
     
     # Extract messages for this specific location
     location_messages = []
@@ -439,6 +442,8 @@ Keep the narrative engaging but factual."""},
                 messages=messages
             )
             enhanced_summary = response.choices[0].message.content.strip()
+            # Sanitize AI response to prevent encoding issues
+            enhanced_summary = sanitize_text(enhanced_summary)
             debug_print("Enhanced adventure summary generated successfully")
             return enhanced_summary
         except Exception as e:

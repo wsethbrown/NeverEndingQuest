@@ -1,5 +1,6 @@
 import json
 from openai import OpenAI
+from encoding_utils import sanitize_text, safe_json_load, safe_json_dump
 
 client = OpenAI(api_key="sk-proj-YHoOCk08nxYvZss63drnT3BlbkFJa6f5DH7hbOfwkwrAcnGc")
 
@@ -9,15 +10,15 @@ conversation_history = [
 
 json_file = "conversation_history.json"
 try:
-    with open(json_file, "r") as file:
-        conversation_history.extend(json.load(file))
+    loaded_history = safe_json_load(json_file)
+    if loaded_history:
+        conversation_history.extend(loaded_history)
 except FileNotFoundError:
     pass
 
 # Read the encounter data from the JSON file
 try:
-    with open("encounter_E101.json", "r") as file:
-        encounter_data = json.load(file)
+    encounter_data = safe_json_load("encounter_E101.json")
 except FileNotFoundError:
     print("encounter_E101.json not found. Starting the conversation without encounter data.")
     encounter_data = None
@@ -44,6 +45,8 @@ while True:
         messages=conversation_history
     )
     ai_response = response.choices[0].message.content.strip()
+    # Sanitize AI response to prevent encoding issues
+    ai_response = sanitize_text(ai_response)
     assistant_output = {"role": "assistant", "content": ai_response}
     conversation_history.append(assistant_output)
     print("Assistant:", ai_response)
@@ -54,8 +57,7 @@ while True:
     conversation_history.append(user_input)
 
     # Save conversation history to JSON file
-    with open(json_file, "w") as file:
-        json.dump(conversation_history[1:], file, indent=2)
+    safe_json_dump(conversation_history[1:], json_file)
 
     user_choice = input("Continue the conversation? (y/n): ")
     if user_choice.lower() != 'y':

@@ -8,17 +8,15 @@ from openai import OpenAI
 from datetime import datetime, timedelta
 from termcolor import colored
 
-# Function to set UTF-8 encoding for Windows console
-def setup_utf8_console():
-    """Set UTF-8 encoding for stdout to handle special characters on Windows"""
-    if sys.platform == 'win32':
-        try:
-            # For Windows, use UTF-8 mode
-            sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
-            sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
-        except AttributeError:
-            # If stdout doesn't have a buffer (e.g., when redirected), skip
-            pass
+# Import encoding utilities
+from encoding_utils import (
+    sanitize_text,
+    sanitize_dict,
+    safe_json_load,
+    safe_json_dump,
+    fix_corrupted_location_name,
+    setup_utf8_console
+)
 
 # Import other necessary modules
 from combat_manager import run_combat_simulation
@@ -204,8 +202,8 @@ def load_validation_prompt():
         return file.read().strip()
 
 def load_json_file(file_path):
-    """Load a JSON file, with error handling"""
-    return location_manager.load_json_file(file_path)
+    """Load a JSON file, with error handling and encoding sanitization"""
+    return safe_json_load(file_path)
 
 def process_conversation_history(history):
     print(f"DEBUG: Processing conversation history")
@@ -360,8 +358,10 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
         return {"role": "assistant", "content": response} # Return raw if parsing fails
 
 def save_conversation_history(history):
-    if not safe_write_json(json_file, history):
-        print(colored("ERROR: Failed to save conversation history", "red"))
+    try:
+        safe_json_dump(history, json_file)
+    except Exception as e:
+        print(colored(f"ERROR: Failed to save conversation history: {e}", "red"))
 
 def get_ai_response(conversation_history):
     response = client.chat.completions.create(
@@ -371,22 +371,8 @@ def get_ai_response(conversation_history):
     )
     content = response.choices[0].message.content.strip()
     
-    # Clean up problematic Unicode characters that can cause encoding issues
-    # Replace smart quotes and other problematic characters with standard ASCII
-    replacements = {
-        '\u2018': "'",  # Left single quote
-        '\u2019': "'",  # Right single quote
-        '\u201C': '"',  # Left double quote
-        '\u201D': '"',  # Right double quote
-        '\u2013': '-',  # En dash
-        '\u2014': '--', # Em dash
-        '\u2026': '...', # Ellipsis
-        '\u00A0': ' ',  # Non-breaking space
-        '\u009D': "'",  # Another problematic quote character
-    }
-    
-    for old_char, new_char in replacements.items():
-        content = content.replace(old_char, new_char)
+    # Use the encoding utility to sanitize the AI response
+    content = sanitize_text(content)
     
     return content
 
@@ -621,6 +607,8 @@ def main_game_loop():
                         for trap in traps
                     ])
 
+            # Sanitize location name before using in DM note
+            current_location_name_note = sanitize_text(current_location_name_note)
             dm_note = (f"Dungeon Master Note: Current date and time: {date_time_str}. "
                 f"Party stats: {party_stats_str}. "
                 f"Current location: {current_location_name_note} ({current_location_id_note}). "

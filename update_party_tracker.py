@@ -1,5 +1,6 @@
 import json
 from file_operations import safe_write_json
+from encoding_utils import sanitize_text, safe_json_dump
 
 def update_party_tracker(player_name, player_stats, party_tracker_data):
     if player_stats and party_tracker_data:
@@ -30,9 +31,11 @@ def update_party_tracker(player_name, player_stats, party_tracker_data):
                 })
                 break
 
-    # Save the updated party_tracker.json file with atomic write
-    if not safe_write_json("party_tracker.json", party_tracker_data):
-        print("ERROR: Failed to save party tracker")
+    # Save the updated party_tracker.json file with sanitization
+    try:
+        safe_json_dump(party_tracker_data, "party_tracker.json")
+    except Exception as e:
+        print(f"ERROR: Failed to save party tracker: {e}")
         return None
 
     return party_tracker_data

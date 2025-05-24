@@ -4,6 +4,7 @@ import os
 from location_manager import get_location_data
 from campaign_path_manager import CampaignPathManager
 from plot_update import update_plot
+from encoding_utils import sanitize_text, safe_json_dump, safe_json_load
 
 # Action type constants
 ACTION_CREATE_ENCOUNTER = "createEncounter"
@@ -45,8 +46,7 @@ def update_party_npcs(party_tracker_data, operation, npc):
     elif operation == "remove":
         party_tracker_data["partyNPCs"] = [x for x in party_tracker_data["partyNPCs"] if x["name"] != npc["name"]]
 
-    with open("party_tracker.json", "w", encoding="utf-8") as file:
-        json.dump(party_tracker_data, file, indent=2)
+    safe_json_dump(party_tracker_data, "party_tracker.json")
     print(f"DEBUG: Party NPCs updated - {operation} {npc['name']}")
 
 def run_combat_simulation(encounter_id, party_tracker_data, location_data):
@@ -87,8 +87,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 encounter_id = result.stdout.strip().split()[-1].replace(".json", "")
 
                 party_tracker_data["worldConditions"]["activeCombatEncounter"] = encounter_id
-                with open("party_tracker.json", "w", encoding="utf-8") as file:
-                    json.dump(party_tracker_data, file, indent=2)
+                safe_json_dump(party_tracker_data, "party_tracker.json")
                 print(f"DEBUG: Updated party tracker with combat encounter ID: {encounter_id}")
 
                 # Reload location data here
@@ -109,16 +108,14 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 if player_name and updated_player_info is not None:
                     path_manager = CampaignPathManager()
                     player_file = path_manager.get_player_path(player_name)
-                    with open(player_file, "w", encoding="utf-8") as file:
-                        json.dump(updated_player_info, file, indent=2)
+                    safe_json_dump(updated_player_info, player_file)
                     print(f"DEBUG: Updated player file for {player_name}")
                 else:
                     print("WARNING: Combat simulation did not return valid player info. Player file not updated.")
 
                 # Copy combat summary to main conversation history
-                with open("combat_conversation_history.json", "r", encoding="utf-8") as combat_file:
-                    combat_history = json.load(combat_file)
-                    combat_summary = next((entry for entry in reversed(combat_history) if entry["role"] == "assistant" and "Combat Summary:" in entry["content"]), None)
+                combat_history = safe_json_load("combat_conversation_history.json")
+                combat_summary = next((entry for entry in reversed(combat_history) if entry["role"] == "assistant" and "Combat Summary:" in entry["content"]), None)
 
                 if combat_summary:
                     modified_combat_summary = {
@@ -163,7 +160,8 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
     elif action_type == ACTION_TRANSITION_LOCATION:
         new_location_name_or_id = parameters["newLocation"] # This could be a name or an ID
         area_connectivity_id = parameters.get("areaConnectivityId")
-        current_location_name = party_tracker_data["worldConditions"]["currentLocation"]
+        # Sanitize location names to prevent encoding issues
+        current_location_name = sanitize_text(party_tracker_data["worldConditions"]["currentLocation"])
         current_area_name = party_tracker_data["worldConditions"]["currentArea"]
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
         
@@ -182,7 +180,8 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         )
 
         if transition_prompt:
-            conversation_history.append({"role": "user", "content": f"Location transition: {current_location_name} to {new_location_name_or_id}"}) # Use the provided name/ID
+            # Use sanitized location names in conversation history
+            conversation_history.append({"role": "user", "content": f"Location transition: {sanitize_text(current_location_name)} to {sanitize_text(new_location_name_or_id)}"}) # Use the provided name/ID
             print("DEBUG: Location transition complete")
             needs_conversation_history_update = True  # Trigger conversation history reload
              # After transition, the current_location_data in the main loop might be stale.

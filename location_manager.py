@@ -7,6 +7,13 @@ import traceback
 from datetime import datetime
 from campaign_path_manager import CampaignPathManager
 import cumulative_summary
+from encoding_utils import (
+    sanitize_text,
+    sanitize_dict,
+    safe_json_load,
+    safe_json_dump,
+    fix_corrupted_location_name
+)
 
 def load_json_file(file_path):
     """Load a JSON file, with error handling"""
@@ -15,8 +22,8 @@ def load_json_file(file_path):
             with open(file_path, "r", encoding="utf-8") as file:
                 return file.read()
         else:
-            with open(file_path, "r", encoding="utf-8") as file:
-                return json.load(file)
+            # Use safe_json_load for JSON files
+            return safe_json_load(file_path)
     except FileNotFoundError:
         # This message is misleading - we're not creating the file, just noting it doesn't exist
         print(f"DEBUG: File {file_path} not found.")
@@ -32,6 +39,8 @@ def normalize_string(s):
     """Simple string normalization for fallback comparison"""
     if not s:
         return ""
+    # First sanitize the text to fix encoding issues
+    s = sanitize_text(s)
     s = unicodedata.normalize('NFC', s)
     s = s.lower().strip()
     return s
@@ -208,8 +217,7 @@ def handle_location_transition(current_location, new_location, current_area, cur
     if current_location_info:
         # Update current_location.json with current location info
         try:
-            with open("current_location.json", "w", encoding="utf-8") as file:
-                json.dump(current_location_info, file, indent=2)
+            safe_json_dump(current_location_info, "current_location.json")
         except Exception as e:
             print(f"ERROR: Failed to update current_location.json. Error: {str(e)}")
 
@@ -247,7 +255,8 @@ def handle_location_transition(current_location, new_location, current_area, cur
             )
             
             # Explicitly set these values to ensure they're correct
-            party_tracker["worldConditions"]["currentLocation"] = new_location_info["name"]
+            # Sanitize the location name before saving
+            party_tracker["worldConditions"]["currentLocation"] = sanitize_text(new_location_info["name"])
             party_tracker["worldConditions"]["currentLocationId"] = new_location_info["locationId"]
 
             if area_connectivity_id and new_area_data:
@@ -255,8 +264,7 @@ def handle_location_transition(current_location, new_location, current_area, cur
                 party_tracker["worldConditions"]["currentAreaId"] = area_connectivity_id
 
             try:
-                with open("party_tracker.json", "w", encoding="utf-8") as file:
-                    json.dump(party_tracker, file, indent=2)
+                safe_json_dump(party_tracker, "party_tracker.json")
                 print("DEBUG: Successfully updated party_tracker.json")
             except Exception as e:
                 print(f"ERROR: Failed to update party_tracker.json. Error: {str(e)}")
