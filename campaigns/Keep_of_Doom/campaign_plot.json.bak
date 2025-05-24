@@ -10,8 +10,8 @@
       "nextPoints": [
         "PP002"
       ],
-      "status": "in progress",
-      "plotImpact": "Norn has begun a direct investigation into the disappearances, gathering firsthand testimony from Elder Mirna and learning of key leads—the missing Scout Elen, rumors of spirits, and possible ties to the keep.",
+      "status": "completed",
+      "plotImpact": "Norn has completed the ancient ritual at the Lost Ward Circle, successfully renewing the ward and weakening the keep's curse. The immediate supernatural threat to Harrow's Hollow is abated, and the next stage of the adventure can begin.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -109,8 +109,8 @@
       "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
       "location": "HH001",
       "nextPoints": [],
-      "status": "not started",
-      "plotImpact": "The campaign concludes with the party's triumph. Seeds for future adventures may be planted based on discoveries made in the keep.",
+      "status": "in progress",
+      "plotImpact": "Norn continues to press Elder Mirna about the old mill and its mysterious lights, uncovering deeper fears and lore and closely examining the faded map for clues. The next step may lead to Tam, Old Tommen, or investigation of the mill itself.",
       "sideQuests": []
     }
   ],

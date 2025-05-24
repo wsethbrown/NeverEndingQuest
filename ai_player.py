@@ -19,7 +19,8 @@ class AIPlayer:
         self.client = OpenAI(api_key=OPENAI_API_KEY)
         self.test_profile = test_profile
         self.player_name = player_name
-        self.conversation_history = []
+        self.conversation_history = []  # Clean conversation history
+        self.raw_output_buffer = []  # Buffer for raw game output
         self.test_log = []
         self.issues_found = []
         self.objectives_completed = []
@@ -63,8 +64,8 @@ When responding:
 - Don't explain your reasoning unless encountering an issue
 - If something seems broken, say "ISSUE DETECTED: [description]" before trying alternatives
 - Stay in character as an adventurer, but with testing awareness
-
-What is your next action?"""
+- DO NOT narrate the DM's responses or describe what you see - only state your actions
+- Respond as if you are the player, not the DM"""
         
         return prompt
     
@@ -101,26 +102,72 @@ What is your next action?"""
         if len(self.game_state['recent_events']) > 5:
             self.game_state['recent_events'].pop(0)
     
+    def filter_game_output(self, raw_output):
+        """Filter out JSON schemas, debug messages, and system prompts"""
+        # Skip empty output
+        if not raw_output or not raw_output.strip():
+            return None
+            
+        # Skip pure JSON schemas
+        if raw_output.strip().startswith('{') and '"properties"' in raw_output:
+            return None
+            
+        # Skip debug messages
+        if any(prefix in raw_output for prefix in ['DEBUG:', 'VALIDATION:', 'System:', 'Schema:']):
+            return None
+            
+        # Skip error messages that aren't relevant to gameplay
+        if 'Traceback' in raw_output or 'Error:' in raw_output and 'validation' in raw_output.lower():
+            return None
+            
+        # Skip repeated dashes or formatting lines
+        if raw_output.strip() in ['---', '===', '***'] or raw_output.strip().startswith('---'):
+            return None
+            
+        # Skip adventure history context (we'll handle this separately)
+        if 'Adventure History Context:' in raw_output:
+            return None
+            
+        # Skip pure time/date notes without other content
+        if raw_output.strip().startswith('Dungeon Master Note:') and 'Current date and time:' in raw_output and len(raw_output.strip()) < 100:
+            return None
+            
+        return raw_output.strip()
+    
     def get_next_action(self, game_output):
         """Determine the next action based on game output and objectives"""
+        # Filter the game output
+        filtered_output = self.filter_game_output(game_output)
+        
+        # If output was filtered out, don't process it
+        if filtered_output is None:
+            return None
+            
+        # Add to raw buffer for debugging
+        self.raw_output_buffer.append(game_output)
+        if len(self.raw_output_buffer) > 100:
+            self.raw_output_buffer.pop(0)
+        
         # Update game state
-        self.update_game_state(game_output)
+        self.update_game_state(filtered_output)
         
         # Check for objective completion
-        self.check_objective_completion(game_output)
+        self.check_objective_completion(filtered_output)
         
         # Check for issues
-        self.check_for_issues(game_output)
+        self.check_for_issues(filtered_output)
         
-        # Get AI decision
+        # Build messages for AI
         messages = [
-            {"role": "system", "content": self.create_system_prompt()},
-            {"role": "user", "content": f"Game Output:\n{game_output}\n\nWhat is your next action?"}
+            {"role": "system", "content": self.create_system_prompt()}
         ]
         
-        # Add recent conversation context
-        for msg in self.conversation_history[-4:]:
+        # Add conversation history (DM responses as assistant, player actions as user)
+        for msg in self.conversation_history[-10:]:  # Increased from 4 to 10
             messages.append(msg)
+            
+        # Add current DM output
+        messages.append({"role": "assistant", "content": filtered_output})
         
         try:
             response = self.client.chat.completions.create(
@@ -133,15 +180,15 @@ What is your next action?"""
             action = response.choices[0].message.content.strip()
             
             # Log the decision
-            self.log_action(game_output, action)
+            self.log_action(filtered_output, action)
             
-            # Add to conversation history
-            self.conversation_history.append({"role": "assistant", "content": game_output})
+            # Add to conversation history with correct roles
+            self.conversation_history.append({"role": "assistant", "content": filtered_output})
             self.conversation_history.append({"role": "user", "content": action})
             
-            # Keep conversation history manageable
-            if len(self.conversation_history) > 20:
-                self.conversation_history = self.conversation_history[-20:]
+            # Keep conversation history manageable but longer
+            if len(self.conversation_history) > 40:  # Increased from 20
+                self.conversation_history = self.conversation_history[-40:]
             
             return action
             

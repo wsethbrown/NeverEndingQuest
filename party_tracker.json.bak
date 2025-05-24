@@ -8,13 +8,13 @@
         "year": 1492,
         "month": "Ches",
         "day": 1,
-        "time": "09:13:00",
-        "weather": "",
+        "time": "08:27:00",
+        "weather": "Overcast",
         "season": "Spring",
-        "dayNightCycle": "Day",
+        "dayNightCycle": "Morning",
         "moonPhase": "New Moon",
-        "currentLocation": "Harrow\u2019s Hollow Town Square",
-        "currentLocationId": "R02",
+        "currentLocation": "Harrow's Hollow General Store",
+        "currentLocationId": "R01",
         "currentArea": "Harrow's Hollow",
         "currentAreaId": "HH001",
         "majorEventsUnderway": [],
@@ -24,16 +24,10 @@
     },
     "activeQuests": [
         {
-            "id": "PP001",
-            "title": "Shadows Over Harrow's Hollow",
-            "description": "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run high as rumors of curses, spirits, and the haunted Keep of Doom swirl among the villagers. Players must gather information, win trust, and follow leads to piece together the mystery.",
+            "id": "PP005",
+            "title": "Resolution and Rewards",
+            "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
             "status": "in progress"
-        },
-        {
-            "id": "SQ001",
-            "title": "Superstition and Shadows",
-            "description": "Old Tommen believes a wandering spirit haunts the village. If the party investigates, they may encounter the Wandering Shade\u00e2\u20ac\u201da restless ghost whose cryptic words offer hints about the keep and the missing villagers.",
-            "status": "not started"
         }
     ]
 }

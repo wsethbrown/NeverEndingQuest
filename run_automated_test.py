@@ -71,8 +71,14 @@ class AutomatedGameRunner:
         # Send to AI player
         self.game_output_queue.put(output)
         
-        # Still print to console (will be intercepted by logger)
-        print(*args, **kwargs)
+        # Still print to console using original print
+        import builtins
+        if hasattr(builtins, '_original_print'):
+            builtins._original_print(*args, **kwargs)
+        else:
+            # Fallback if original print is not saved
+            import sys
+            sys.stdout.write(output + '\n')
     
     def run_game_thread(self):
         """Run the game in a separate thread"""
@@ -82,14 +88,18 @@ class AutomatedGameRunner:
             original_input = builtins.input
             original_print = builtins.print
             
+            # Save original print for mock_print to use
+            builtins._original_print = original_print
+            
             builtins.input = self.mock_input
-            # Note: We don't override print here to avoid breaking logging
+            builtins.print = self.mock_print
             
             # Run the game
             main_game_loop()
             
             # Restore original functions
             builtins.input = original_input
+            builtins.print = original_print
             
         except Exception as e:
             game_logger.error(f"Game thread error: {str(e)}")
@@ -107,16 +117,18 @@ class AutomatedGameRunner:
                         # Get AI decision
                         ai_action = self.ai_player.get_next_action(game_output)
                         
-                        # Send action to game
-                        self.ai_input_queue.put(ai_action)
-                        
-                        # Check for special commands
-                        if "ISSUE DETECTED:" in ai_action:
-                            game_logger.warning(f"AI reported issue: {ai_action}")
-                        
-                        if ai_action.lower() in ["exit game", "quit", "exit"]:
-                            game_logger.info("AI requested game exit")
-                            self.running = False
+                        # Only process non-None actions (filtered output)
+                        if ai_action:
+                            # Send action to game
+                            self.ai_input_queue.put(ai_action)
+                            
+                            # Check for special commands
+                            if "ISSUE DETECTED:" in ai_action:
+                                game_logger.warning(f"AI reported issue: {ai_action}")
+                            
+                            if ai_action.lower() in ["exit game", "quit", "exit"]:
+                                game_logger.info("AI requested game exit")
+                                self.running = False
                             
                 except queue.Empty:
                     continue
