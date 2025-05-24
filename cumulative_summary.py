@@ -243,23 +243,25 @@ def get_cumulative_adventure_summary():
 
 def clean_old_summaries_from_conversation(conversation_history):
     """
-    Remove old-style summary messages from conversation history.
+    Remove old-style summary messages and error notes from conversation history.
     """
     debug_print("Cleaning old-style summaries from conversation history")
     cleaned_history = []
     removed_count = 0
     
     for msg in conversation_history:
-        # Skip old-style summary messages and adventure history messages
-        if (msg.get("role") == "user" and 
-            (msg.get("content", "").startswith("Summary of previous interactions:") or
-             msg.get("content", "").startswith("Adventure History Context:"))):
-            removed_count += 1
-            continue
+        # Skip old-style summary messages, adventure history messages, and error notes
+        if msg.get("role") == "user":
+            content = msg.get("content", "")
+            if (content.startswith("Summary of previous interactions:") or
+                content.startswith("Adventure History Context:") or
+                content.startswith("Error Note:")):
+                removed_count += 1
+                continue
         cleaned_history.append(msg)
     
     if removed_count > 0:
-        debug_print(f"Removed {removed_count} old summary messages")
+        debug_print(f"Removed {removed_count} old summary messages and error notes")
     
     return cleaned_history
 
@@ -267,6 +269,7 @@ def compress_conversation_history_on_transition(conversation_history, leaving_lo
     """
     Compress conversation history when transitioning out of a location.
     Creates a summary of the location being left and removes those messages.
+    Uses location transition messages as markers.
     Returns the compressed conversation history.
     """
     debug_print(f"Compressing conversation history when leaving {leaving_location_name}")
@@ -275,113 +278,96 @@ def compress_conversation_history_on_transition(conversation_history, leaving_lo
     # First clean old summaries
     conversation_history = clean_old_summaries_from_conversation(conversation_history)
     
-    # Keep system messages and any existing adventure history
-    preserved_messages = []
-    location_messages = []
-    current_location_messages = []
+    # Find the most recent location transition message
+    transition_index = None
+    for i in range(len(conversation_history) - 1, -1, -1):
+        msg = conversation_history[i]
+        if msg.get("role") == "user" and "Location transition:" in msg.get("content", ""):
+            transition_index = i
+            debug_print(f"Found transition at index {i}: {msg.get('content', '')}")
+            break
     
-    in_leaving_location = False
-    found_transition = False
+    if transition_index is None:
+        debug_print("No location transition found in conversation history")
+        return conversation_history
     
-    for i, msg in enumerate(conversation_history):
-        content = msg.get("content", "")
+    # Find the previous marker (transition, adventure history, or last system message)
+    previous_marker_index = None
+    
+    # Look backwards from the transition
+    for i in range(transition_index - 1, -1, -1):
+        msg = conversation_history[i]
         
-        # Always preserve system messages
-        if msg.get("role") == "system":
-            preserved_messages.append(msg)
-            continue
+        # Stop at previous transition
+        if msg.get("role") == "user" and "Location transition:" in msg.get("content", ""):
+            previous_marker_index = i
+            debug_print(f"Found previous transition at index {i}")
+            break
             
-        # Always preserve adventure history
-        if "Adventure History Context:" in content:
-            preserved_messages.append(msg)
+        # Stop at assistant summary (from previous compression)
+        if msg.get("role") == "assistant" and "=== LOCATION SUMMARY ===" in msg.get("content", ""):
+            previous_marker_index = i
+            debug_print(f"Found previous summary at index {i}")
+            break
+    
+    # If no previous marker found, find the last system message
+    if previous_marker_index is None:
+        for i in range(transition_index - 1, -1, -1):
+            if conversation_history[i].get("role") == "system":
+                previous_marker_index = i
+                debug_print(f"Using last system message at index {i} as start marker")
+    
+    # If still nothing, start from beginning
+    if previous_marker_index is None:
+        previous_marker_index = -1
+    
+    debug_print(f"Collecting messages from index {previous_marker_index + 1} to {transition_index - 1}")
+    
+    # Collect messages to summarize (between markers, excluding the markers themselves)
+    messages_to_summarize = []
+    for i in range(previous_marker_index + 1, transition_index):
+        msg = conversation_history[i]
+        # Include all messages except system messages and error notes
+        if msg.get("role") == "system":
             continue
-        
-        # Check for location context
-        if msg.get("role") == "user" and "Current location:" in content:
-            if leaving_location_name in content:
-                in_leaving_location = True
-                location_messages.append(msg)
-            else:
-                in_leaving_location = False
-                current_location_messages.append(msg)
-        # Check for transition messages
-        elif msg.get("role") == "user" and "Location transition:" in content:
-            if f"from {leaving_location_name}" in content:
-                found_transition = True
-                location_messages.append(msg)
-                in_leaving_location = False
-            else:
-                current_location_messages.append(msg)
-        # Collect messages based on current location context
-        elif in_leaving_location:
-            location_messages.append(msg)
-        else:
-            # After transition or in different location
-            current_location_messages.append(msg)
+        if msg.get("role") == "user" and msg.get("content", "").startswith("Error Note:"):
+            continue
+        messages_to_summarize.append(msg)
     
-    debug_print(f"Found {len(location_messages)} messages from {leaving_location_name}")
-    debug_print(f"Preserved messages: {len(preserved_messages)}")
-    debug_print(f"Current location messages: {len(current_location_messages)}")
+    debug_print(f"Found {len(messages_to_summarize)} messages to summarize")
     
-    # Generate summary if we have ANY messages to summarize
-    if len(location_messages) > 0:  # Summarize even a single message
-        summary = generate_location_summary(leaving_location_name, location_messages)
+    # Generate summary if we have messages to summarize
+    if len(messages_to_summarize) > 0:
+        summary = generate_location_summary(leaving_location_name, messages_to_summarize)
         
         if summary:
-            # Find or create the adventure history summary
-            summary_index = None
-            for i, msg in enumerate(conversation_history):
-                if msg.get("role") == "user" and "Adventure History Context:" in msg.get("content", ""):
-                    summary_index = i
-                    break
+            # Build the new conversation history
+            new_history = []
             
-            # Create or update the adventure history
-            if summary_index is not None:
-                # Extract existing summaries and add new one
-                existing_content = conversation_history[summary_index]["content"]
-                if "=== ADVENTURE HISTORY ===" not in existing_content:
-                    new_content = f"Adventure History Context:\n=== ADVENTURE HISTORY ===\n\nPrevious locations visited:\n\n{leaving_location_name}:\n{'-' * len(leaving_location_name + ':')}\n{summary}\n"
-                else:
-                    # Add to existing history
-                    new_content = existing_content.rstrip() + f"\n\n{leaving_location_name}:\n{'-' * len(leaving_location_name + ':')}\n{summary}\n"
-                conversation_history[summary_index]["content"] = new_content
-            else:
-                # Create new adventure history after system prompt
-                insert_index = 1
-                for i, msg in enumerate(conversation_history):
-                    if msg.get("role") == "system":
-                        insert_index = i + 1
-                        break
-                
-                summary_message = {
-                    "role": "user",
-                    "content": f"Adventure History Context:\n=== ADVENTURE HISTORY ===\n\nPrevious locations visited:\n\n{leaving_location_name}:\n{'-' * len(leaving_location_name + ':')}\n{summary}\n"
-                }
-                conversation_history.insert(insert_index, summary_message)
-                # Adjust indices after insertion
-                indices_to_remove = [i + 1 for i in indices_to_remove]
+            # 1. Keep everything up to and including the previous marker
+            for i in range(0, previous_marker_index + 1):
+                new_history.append(conversation_history[i])
             
-            # Rebuild conversation history with summary
-            new_history = preserved_messages.copy()
+            # 2. Insert the summary as an assistant message
+            summary_message = {
+                "role": "assistant",
+                "content": f"=== LOCATION SUMMARY ===\n\n{leaving_location_name}:\n{'-' * len(leaving_location_name + ':')}\n{summary}"
+            }
+            new_history.append(summary_message)
             
-            # Add or update adventure history
-            if summary_index is not None:
-                # History already exists, it's in preserved_messages
-                pass
-            else:
-                # Add new history after system messages
-                new_history.append(summary_message)
-            
-            # Add current location messages
-            new_history.extend(current_location_messages)
+            # 3. Add everything from the transition onwards (including the transition itself)
+            for i in range(transition_index, len(conversation_history)):
+                new_history.append(conversation_history[i])
             
             debug_print(f"Compressed history from {len(conversation_history)} to {len(new_history)} messages")
-            debug_print(f"Removed {len(location_messages)} messages from {leaving_location_name}")
+            debug_print(f"Removed {len(messages_to_summarize)} messages from {leaving_location_name}")
             
             return new_history
+        else:
+            debug_print("Failed to generate summary")
+            return conversation_history
     else:
-        debug_print(f"No messages found from {leaving_location_name}")
-        # Return original history if we can't compress
+        debug_print(f"No messages to summarize for {leaving_location_name}")
         return conversation_history
 
 def generate_enhanced_adventure_summary(conversation_history_data, party_tracker_data, leaving_location_name):

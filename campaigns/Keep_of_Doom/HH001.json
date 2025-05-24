@@ -142,7 +142,7 @@
       "locationId": "R01",
       "name": "Harrow's Hollow General Store",
       "type": "shop",
-      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter. Elder Mirna Harrow watches over a bronze key adorned with a faded raven sigil that hints at deeper secrets tied to the town's troubled history.",
+      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter.",
       "coordinates": "X2Y2",
       "connectivity": [
         "R02",
@@ -171,10 +171,9 @@
       "plotHooks": [
         "A worried villager asks if the party has news of Scout Elen, who vanished checking the old east trail.",
         "Elder Mirna discreetly seeks brave souls to investigate odd nighttime lights near the ruined keep.",
-        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.",
-        "Talk to Tommen, a villager who may have valuable information about recent disappearances and the lingering effects of the curse."
+        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts."
       ],
-      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something. The notice board is a valuable source of leads about ongoing threats and missing persons.",
+      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something.",
       "doors": [
         {
           "name": "Front Door",
@@ -220,20 +219,8 @@
           "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "R01-E1",
-          "summary": "The party met Elder Mirna Harrow at the general store. She welcomed them warmly yet cautiously, offering support and access to supplies. The party noticed a bronze key with a faded raven sigil that Mirna guarded protectively. The group learned of ongoing fears and disappearances from the notice board and received a lead to find a villager named Tommen.",
-          "impact": "Established a foundation of trust with Elder Mirna, gained access to supplies and valuable local information, and obtained a new lead to investigate ongoing threats in Harrow's Hollow.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "08:05:00"
-          }
-        }
-      ],
-      "adventureSummary": "Day 7: The party visited Harrow's Hollow General Store and met Elder Mirna Harrow. They discussed the lingering fears and recent disappearances in the town. An old bronze key with a raven sigil was noticed, hinting at deeper secrets. Mirna offered supplies and counsel, and the party obtained new leads from the notice board, including the villager Tommen. The encounter was peaceful, focused on gathering intelligence and building trust."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R02",

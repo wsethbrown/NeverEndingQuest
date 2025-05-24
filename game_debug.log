@@ -473,3 +473,234 @@ I will try a different approach: I ask the shopkeeper, "Could you please tell me
 2025-05-24 03:24:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
 2025-05-24 03:24:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
 2025-05-24 03:24:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:31:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:31:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:31:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:31:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:31:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:31:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:31:43 - DEBUG - File conversation_history.json not found.Lightweight chat history updated!System messages removed: 5User messages: 0Assistant messages: 0Dungeon Master: Morning light struggles through the clouded windows as you step into Harrow's Hollow General Store. The familiar creak of floorboards mingles with the subtle scents of wax, leather, and old paper. Shelves are neatly lined with lanterns, bundles of rope, dried provisions, and a few more curious oddments—a testament to the village's isolation and self-sufficiency.
+2025-05-24 03:32:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:32:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:32:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:32:19 - DEBUG - Validation failed. Reason: The assistant's response narrates Mirna sliding the bronze key across the counter and offering it to the player, which constitutes a transfer of an item. The 'updatePlayerInfo' action is required to add the bronze key to the player's inventory, even if final acceptance is pending player confirmation. If the player must confirm before the transfer is complete, the narration should clarify that. Otherwise, if the key is being handed over as described, the action should be taken. Try again and use 'updatePlayerInfo' to track the key transfer, ensuring the narration is consistent with the player's choice.Validation failed. Reason: The assistant's response narrates Mirna sliding the bronze key across the counter and offering it to the player, which constitutes a transfer of an item. The 'updatePlayerInfo' action is required to add the bronze key to the player's inventory, even if final acceptance is pending player confirmation. If the player must confirm before the transfer is complete, the narration should clarify that. Otherwise, if the key is being handed over as described, the action should be taken. Try again and use 'updatePlayerInfo' to track the key transfer, ensuring the narration is consistent with the player's choice.Retrying... (Attempt 1/5)DEBUG: Validation passed successfullyDEBUG: Valid response generated on attempt 2Dungeon Master: Elder Mirna's posture stiffens at your words, the resolve behind your offer clear in your tone. She takes a slow breath, glancing again at the old bronze key hanging from its nail. For a long moment, she seems to weigh her own burdens against the trust she must place in you.
+2025-05-24 03:32:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:32:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:32:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:33:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:33:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:33:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:33:44 - DEBUG - Validation failed. Reason: The assistant's narration confirms that the player received the old bronze key from Mirna, but fails to use the 'updatePlayerInfo' action to add the key to the player's inventory. When a player gains, loses, or trades an item, the assistant must execute the relevant inventory update action. The correct response should include 'updatePlayerInfo' to add the key to the inventory.Validation failed. Reason: The assistant's narration confirms that the player received the old bronze key from Mirna, but fails to use the 'updatePlayerInfo' action to add the key to the player's inventory. When a player gains, loses, or trades an item, the assistant must execute the relevant inventory update action. The correct response should include 'updatePlayerInfo' to add the key to the inventory.Retrying... (Attempt 1/5)DEBUG: Validation passed successfullyDEBUG: Valid response generated on attempt 2Dungeon Master: Elder Mirna offers a faint, grateful smile as you accept the old bronze key, her tension easing just a little as she watches you tuck it away. The key feels cool and oddly heavy in your hand—a tangible weight of hope and history.
+2025-05-24 03:33:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:33:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:33:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:33:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:33:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:33:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:33:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:33:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:34:29 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:34:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:34:36 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Mirna nods in understanding, her expression softening at your question. "Old Tommen? You’ll find him in the town square, just outside—he never strays far from the heart of the village. He’s easy to spot: long coat, wild white beard, always muttering to himself or hunched over some carving. Some say he’s half-mad, but he’s seen things most of us would rather forget."
+2025-05-24 03:34:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:34:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:34:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:34:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:35:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:35:22 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You step out of the dim, comforting clutter of the general store and into the cool morning air of Harrow's Hollow Town Square. Overcast skies shroud the village in silvery light, and a gentle mist lingers at the edges of the bustling square. Stalls selling bread, root vegetables, and simple wares are just setting up, and villagers murmur in small knots, casting uneasy glances toward the forested horizon.
+2025-05-24 03:35:22 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:36:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:36:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:36:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:36:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:36:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:37:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:37:34 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:37:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:37:45 - DEBUG - Validation failed. Reason: The party has already transitioned to Harrow's Hollow Town Square, as indicated by the system note, so no transitionLocation was required. The assistant's response is a roleplay interaction with Tommen, which is appropriate. However, the assistant included an 'updateTime' action with a time estimate of 60 minutes just for greeting and conversing with Tommen, which is excessive for a greeting and initial conversation—it should only be used for activities explicitly taking 5+ minutes. Since the player's action was just a greeting and did not indicate extended conversation or any action that would consume significant in-game time, no action was required at this point. The assistant should not have included an 'updateTime' action.Validation failed. Reason: The party has already transitioned to Harrow's Hollow Town Square, as indicated by the system note, so no transitionLocation was required. The assistant's response is a roleplay interaction with Tommen, which is appropriate. However, the assistant included an 'updateTime' action with a time estimate of 60 minutes just for greeting and conversing with Tommen, which is excessive for a greeting and initial conversation—it should only be used for activities explicitly taking 5+ minutes. Since the player's action was just a greeting and did not indicate extended conversation or any action that would consume significant in-game time, no action was required at this point. The assistant should not have included an 'updateTime' action.Retrying... (Attempt 1/5)DEBUG: Validation passed successfullyDEBUG: Valid response generated on attempt 2Dungeon Master: Old Tommen looks up at your approach, his bushy white eyebrows knotting together in suspicion as you greet him. He squints, studying your armor and the purposeful set of your shoulders. For a moment, his hands go still atop the half-carved block of wood in his lap.
+2025-05-24 03:37:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:37:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:37:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:46:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:11 - DEBUG - File conversation_history.json not found.Lightweight chat history updated!System messages removed: 5User messages: 0Assistant messages: 0Dungeon Master: You stand within the heart of Harrow's Hollow's general store, its shelves lined with everything from sturdy lanterns to trail-worn boots. The faint scent of leather and beeswax fills the air, mingling with the muted bustle from outside. Elder Mirna Harrow, the wise matriarch of the village, stands behind the counter, her posture composed but her eyes shadowed with worry. Her fingers absently tap the ledger as she peers at you, seeming to weigh her words carefully.
+2025-05-24 03:47:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:49 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Elder Mirna's lips twitch in a faint, appreciative smile as you address her in your direct manner. She leans in slightly, lowering her voice so the bustle of the store won't carry her words beyond the counter.
+2025-05-24 03:47:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:55 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:55 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:55 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:47:55 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:48:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:48:29 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:48:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:48:42 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You scoop up the reward pouch, feeling the reassuring weight of coin—a tangible sign of the village’s gratitude—then make your way out into the cool, mist-laced morning. The bustle of Harrow’s Hollow stirs around you: merchants hauling crates, children darting between puddles, and wary glances cast toward the shadowed woods.
+2025-05-24 03:48:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:49:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:49:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:49:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:49:22 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:49:22 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:49:22 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:49:29 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:50:31 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:50:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:50:38 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Old Tommen’s wiry face splits into a crooked grin as you hail him. He leans forward on his battered walking stick, his eyes twinkling beneath bushy brows.
+2025-05-24 03:50:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:50:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:50:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:57:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:57:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:57:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:57:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:57:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:57:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:57:57 - DEBUG - File conversation_history.json not found.Lightweight chat history updated!System messages removed: 5User messages: 0Assistant messages: 0Dungeon Master: The familiar, earthy aroma of wax, parchment, and leather greets you as you enter Harrow's Hollow General Store. Sunlight filters through the wavy glass of the front windows, illuminating shelves stacked with everything from coiled rope to jars of preserves and battered lanterns. Behind the sturdy counter, Elder Mirna Harrow presides over her morning ledger, quill scratching with measured precision. Her silver-flecked hair is pulled into a tight bun, and her gaze sharpens as she notices your approach.
+2025-05-24 03:58:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:58:17 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:58:19 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You offer Elder Mirna a polite nod before making your way toward the door. The bell overhead jingles softly as you step out of the general store and into the morning mist of Harrow's Hollow.
+2025-05-24 03:58:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:58:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:58:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:58:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:58:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:58:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:58:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:58:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:59:51 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 03:59:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 04:00:00 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: As you stand in the center of Harrow’s Hollow Town Square, the low morning mist swirls at your feet, diffusing the pale light that slips through the overcast sky. Villagers pause in their routines, some offering cautious nods or grateful glances, their faces marked by a fatigue just beginning to lift.
+2025-05-24 04:00:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 04:00:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 04:00:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:10:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:11:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:11:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:11:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:11:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:11:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:12:00 - DEBUG - File conversation_history.json not found.Lightweight chat history updated!System messages removed: 5User messages: 0Assistant messages: 0Dungeon Master: The morning mist clings to the windows of the Harrow's Hollow General Store, sunlight struggling to pierce the overcast sky outside. Within, the steady hush is broken by the rustle of parchment and the quiet clatter of goods as you survey the shelves lined with lanterns, rations, and curious oddments from distant places. Elder Mirna Harrow stands behind the counter—her posture straight despite the weight of recent worries. She busies herself with her ledger, but you notice her keen eyes flick up to watch you from beneath furrowed brows.
+2025-05-24 09:12:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:12:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:12:32 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Elder Mirna’s expression softens just a touch at your offer. She leans forward, lowering her voice so the conversation won’t carry beyond the counter.
+2025-05-24 09:12:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:12:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:12:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:12:59 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:13:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:13:16 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Mirna’s eyes search your face for a moment, then she nods, gratitude and a flicker of relief softening her features. She pushes the bronze key across the counter. The cold metal feels heavy and old in your palm, its surface worn by years of handling and the faded raven sigil just visible in the morning light.
+2025-05-24 09:13:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:13:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:13:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:13:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:13:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:13:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:13:52 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You bid Elder Mirna farewell, the old bronze key safely in your grasp, and step out into the crisp morning air. Mist hangs low over the cobbled street as you make your way from the general store toward the heart of Harrow's Hollow.
+2025-05-24 09:13:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:13:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:13:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:13:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:13:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:14:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:14:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:14:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:14:56 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Old Tommen taps out his pipe and gives you a gap-toothed grin, his eyes crinkling with warmth and a hint of mischief. "Aye, Norn, if I can help, I will. Folk say old Tommen’s got more stories than sense, but I do pay heed to what prowls in the night. And I reckon you’re the sort who listens, not just hears."
+2025-05-24 09:14:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:14:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:14:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:16:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:16:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:16:17 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Old Tommen grins, giving your shoulder a firm pat. "Stay sharp, young one. The Hollow’s counting on you. Come find me if you need another tale or two." As you turn away, the morning mist curls through the cobbled square, carrying with it the distant sounds of waking village life.
+2025-05-24 09:16:17 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:16:17 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:16:17 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:16:17 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:16:17 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:17:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:17:13 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:17:16 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Elder Mirna glances up from her ledger, her eyes reflecting a mix of relief and worry as you step inside. She straightens, smoothing the front of her apron. "You're persistent, Norn. That's good. The Hollow needs folk who won't give up easily."
+2025-05-24 09:17:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:17:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:17:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:19 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Elder Mirna gives you a wry smile, already turning to a shelf behind the counter. She selects a small cured leather pouch, its drawstring tied with blue twine, and places it gently on the counter in front of you.
+2025-05-24 09:18:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:46 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:54 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: With the pouch of fine salt tucked safely among your belongings, you thank Elder Mirna. She offers a reassuring nod, her expression a mixture of hope and worry as she watches you head out. The bell above the door jingles softly as you step from the familiar scent of wax and old parchment back into the cool morning air of Harrow's Hollow.
+2025-05-24 09:18:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:18:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:19:59 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:20:05 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:20:07 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: As you step into The Wyrd Lantern Inn, you’re greeted by the gentle glow of lantern light reflecting off aged beams and polished mugs. The morning crowd is thin—a few hunters nursing mugs of cider, a pair of farmers sharing a quiet laugh near the hearth, and the fire crackling with a welcoming warmth.
+2025-05-24 09:20:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:20:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:20:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:43:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:43:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:43:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:43:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:43:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:43:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:43:43 - DEBUG - File conversation_history.json not found.Lightweight chat history updated!System messages removed: 5User messages: 0Assistant messages: 0Dungeon Master: The morning light filters through the wavy glass windows of Harrow's Hollow General Store, bathing the shelves in a gentle, golden glow. The familiar scents of wax, leather, and dried herbs mingle in the air. Elder Mirna Harrow stands behind the sturdy counter, her posture upright but her eyes shadowed by worry. She scans the store, taking note of your presence with a tight-lipped smile—respectful, but cautious, as always.
+2025-05-24 09:43:55 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:44:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:44:03 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Elder Mirna’s eyes soften at your earnest question, and she allows herself a weary sigh, her mask of stoic leadership slipping for just a moment. She gestures toward the notice board, where several faded scraps of parchment flutter in the light breeze each time the door opens.
+2025-05-24 09:44:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:44:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:44:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:44:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:44:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:44:30 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Elder Mirna inclines her head in gratitude as you thank her, the lines of concern on her face easing just a touch. "Bless you, Norn. The village needs folk like you now more than ever."
+2025-05-24 09:44:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:44:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:44:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:44:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:44:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:45:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:45:14 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:45:16 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Old Tommen squints up at you, his bushy eyebrows knitting together as he sizes you up. The morning chill seems to cling to his bones, but his voice carries a note of pride mixed with worry.
+2025-05-24 09:45:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:45:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:45:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:45:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:45:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:45:51 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Old Tommen gives a grateful nod, his weathered hand resting gently on your arm for a moment. "You’ve a good heart, Norn. May the spirits guide your steps."
+2025-05-24 09:45:51 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:45:51 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:45:51 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:45:51 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:45:51 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:46:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:46:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:46:34 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Elder Mirna places a half-sorted apple back into its crate and considers your question carefully. Her gaze lingers on the counter, as though searching for details she might have missed.
+2025-05-24 09:46:34 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:46:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:46:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:46:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:47:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:47:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:47:13 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:47:13 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:47:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:47:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:47:21 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You thank Elder Mirna for her trust, slipping the tarnished bronze key into your pouch. The bell above the door jingles softly as you step out into the daylight. The square is already awake with the bustle of villagers, the crisp spring air carrying distant laughter and the clatter of wagon wheels.
+2025-05-24 09:47:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:47:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:47:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:47:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 09:47:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json

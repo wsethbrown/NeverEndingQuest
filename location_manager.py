@@ -213,74 +213,16 @@ def handle_location_transition(current_location, new_location, current_area, cur
         except Exception as e:
             print(f"ERROR: Failed to update current_location.json. Error: {str(e)}")
 
-        # Generate enhanced adventure summary for the location being left
+        # Log the transition for debugging
         debug_log_file = "transition_debug.log"
         try:
-            # Log the transition
             with open(debug_log_file, "a", encoding="utf-8") as debug_file:
                 debug_file.write(f"\n--- TRANSITION DEBUG: {current_location} to {new_location} ---\n")
                 debug_file.write(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                 debug_file.write(f"Area ID: {current_area_id}\n")
-                debug_file.write(f"Using new cumulative summary system\n")
-            
-            # Load conversation history
-            try:
-                with open("conversation_history.json", "r", encoding="utf-8") as file:
-                    conversation_history = json.load(file)
-            except Exception as e:
-                print(f"ERROR: Failed to load conversation history: {str(e)}")
-                conversation_history = []
-            
-            # Generate enhanced adventure summary
-            adventure_summary = cumulative_summary.generate_enhanced_adventure_summary(
-                conversation_history,
-                party_tracker,
-                current_location
-            )
-            
-            if adventure_summary:
-                # Update journal with the summary
-                cumulative_summary.update_journal_with_summary(
-                    adventure_summary,
-                    party_tracker,
-                    current_location
-                )
-                
-                # Update location JSON with adventure summary
-                from adv_summary import update_location_json
-                update_location_json(adventure_summary, current_location_info, current_area_id)
-                
-                # Compress conversation history
-                conversation_history = cumulative_summary.compress_conversation_history_on_transition(
-                    conversation_history,
-                    current_location
-                )
-                
-                # Save the compressed conversation history
-                try:
-                    with open("conversation_history.json", "w", encoding="utf-8") as file:
-                        json.dump(conversation_history, file, indent=2)
-                    with open(debug_log_file, "a", encoding="utf-8") as debug_file:
-                        debug_file.write(f"Conversation history compressed and saved\n")
-                except Exception as e:
-                    with open(debug_log_file, "a", encoding="utf-8") as debug_file:
-                        debug_file.write(f"Failed to save compressed conversation history: {str(e)}\n")
-                
-                print("DEBUG: Adventure summary updated successfully")
-                
-                with open(debug_log_file, "a", encoding="utf-8") as debug_file:
-                    debug_file.write(f"Summary generated successfully\n")
-            else:
-                print("ERROR: Failed to generate adventure summary")
-                with open(debug_log_file, "a", encoding="utf-8") as debug_file:
-                    debug_file.write(f"Failed to generate summary\n")
-                    
+                debug_file.write(f"Summary generation will happen on next game loop\n")
         except Exception as e:
-            import traceback
-            with open(debug_log_file, "a", encoding="utf-8") as debug_file:
-                debug_file.write(f"Exception occurred: {str(e)}\n")
-                debug_file.write(traceback.format_exc())
-            print(f"ERROR: Exception in adventure summary generation: {str(e)}")
+            print(f"ERROR: Failed to write to debug log: {str(e)}")
 
         # Update party tracker with new location information
         if party_tracker and new_location_info:

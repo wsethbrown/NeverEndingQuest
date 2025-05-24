@@ -184,6 +184,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         if transition_prompt:
             conversation_history.append({"role": "user", "content": f"Location transition: {current_location_name} to {new_location_name_or_id}"}) # Use the provided name/ID
             print("DEBUG: Location transition complete")
+            needs_conversation_history_update = True  # Trigger conversation history reload
              # After transition, the current_location_data in the main loop might be stale.
             # We need to ensure the AI response processing uses the *new* location data.
             # This might require process_ai_response to reload location data or for main_game_loop to handle it.

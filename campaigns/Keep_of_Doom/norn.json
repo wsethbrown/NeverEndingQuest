@@ -90,7 +90,14 @@
       "description": "Your weapon attacks score a critical hit on a roll of 19 or 20"
     }
   ],
-  "equipment": [],
+  "equipment": [
+    {
+      "item_name": "Tarnished Bronze Key",
+      "item_type": "miscellaneous",
+      "description": "A worn bronze key given by Elder Mirna, possibly important for investigating the keep and Scout Elen's disappearance.",
+      "quantity": 1
+    }
+  ],
   "ammunition": [
     {
       "name": "Arrows",
@@ -154,7 +161,7 @@
     }
   },
   "currency": {
-    "gold": 25,
+    "gold": 75,
     "silver": 0,
     "copper": 0
   },

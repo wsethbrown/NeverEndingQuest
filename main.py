@@ -18,6 +18,7 @@ import update_npc_info
 # Import new manager modules
 import location_manager
 import action_handler
+import cumulative_summary
 
 # Import atomic file operations
 from file_operations import safe_write_json, safe_read_json
@@ -210,6 +211,97 @@ def truncate_dm_notes(conversation_history):
                     message["content"] = f"Dungeon Master Note: {date_time.group(0)}. Player:{parts[1]}"
     return conversation_history
 
+def check_and_process_location_transitions(conversation_history, party_tracker_data, path_manager):
+    """
+    Check if there are any unprocessed location transitions in the conversation history
+    and process them to create summaries and compress the history.
+    """
+    # Find the most recent transition that hasn't been processed yet
+    last_transition_index = None
+    last_transition_content = None
+    
+    for i in range(len(conversation_history) - 1, -1, -1):
+        msg = conversation_history[i]
+        if msg.get("role") == "user" and "Location transition:" in msg.get("content", ""):
+            last_transition_index = i
+            last_transition_content = msg.get("content", "")
+            break
+    
+    if last_transition_index is None:
+        # No transitions found
+        return conversation_history
+    
+    # Check if this transition has already been processed (has a summary right before it)
+    if last_transition_index > 0:
+        prev_msg = conversation_history[last_transition_index - 1]
+        if prev_msg.get("role") == "assistant" and "=== LOCATION SUMMARY ===" in prev_msg.get("content", ""):
+            # This transition has already been processed
+            return conversation_history
+    
+    # Check if there's already a summary after this transition
+    # If there are regular conversation messages after the transition, we should process it
+    has_conversation_after = False
+    for i in range(last_transition_index + 1, len(conversation_history)):
+        msg = conversation_history[i]
+        # Skip system messages and DM notes
+        if msg.get("role") == "assistant" or (msg.get("role") == "user" and "Dungeon Master Note:" not in msg.get("content", "")):
+            has_conversation_after = True
+            break
+    
+    if not has_conversation_after:
+        # No conversation after the transition yet, wait for next round
+        return conversation_history
+    
+    # Extract the leaving location from the transition message
+    # Format: "Location transition: [from_location] to [to_location]"
+    try:
+        parts = last_transition_content.split(" to ")
+        if len(parts) == 2:
+            from_part = parts[0].replace("Location transition: ", "").strip()
+            leaving_location_name = from_part
+        else:
+            print("DEBUG: Could not parse transition message format")
+            return conversation_history
+    except Exception as e:
+        print(f"DEBUG: Error parsing transition message: {str(e)}")
+        return conversation_history
+    
+    print(f"DEBUG: Processing transition from {leaving_location_name}")
+    
+    try:
+        # Generate enhanced adventure summary
+        adventure_summary = cumulative_summary.generate_enhanced_adventure_summary(
+            conversation_history,
+            party_tracker_data,
+            leaving_location_name
+        )
+        
+        if adventure_summary:
+            # Update journal with the summary
+            cumulative_summary.update_journal_with_summary(
+                adventure_summary,
+                party_tracker_data,
+                leaving_location_name
+            )
+            
+            # Compress conversation history
+            compressed_history = cumulative_summary.compress_conversation_history_on_transition(
+                conversation_history,
+                leaving_location_name
+            )
+            
+            print("DEBUG: Location summary and compression completed")
+            return compressed_history
+        else:
+            print("DEBUG: No adventure summary generated")
+            return conversation_history
+            
+    except Exception as e:
+        print(f"ERROR: Failed to process location transition: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return conversation_history
+
 def extract_json_from_codeblock(text):
     match = re.search(r'```json\n(.*?)```', text, re.DOTALL)
     if match:
@@ -352,12 +444,15 @@ def main_game_loop():
         conversation_history = truncate_dm_notes(conversation_history)
 
         if needs_conversation_history_update:
+            # Reload conversation history from disk to get any changes made during actions
+            conversation_history = load_json_file("conversation_history.json") or []
             conversation_history = process_conversation_history(conversation_history)
             save_conversation_history(conversation_history)
             needs_conversation_history_update = False
 
-        # Cumulative summary is updated in conversation history on each loop
-        # No need for old summarization check
+        # Check for and process any location transitions
+        conversation_history = check_and_process_location_transitions(conversation_history, party_tracker_data, path_manager)
+        save_conversation_history(conversation_history)
 
         player_name_actual = party_tracker_data["partyMembers"][0]
         player_data_file = path_manager.get_player_path(player_name_actual)

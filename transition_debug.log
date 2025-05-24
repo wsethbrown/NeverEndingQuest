@@ -1,7 +1,15 @@
 
 --- TRANSITION DEBUG: Harrow's Hollow General Store to Harrow's Hollow Town Square ---
-Timestamp: 2025-05-24 03:21:57
+Timestamp: 2025-05-24 09:44:30
 Area ID: HH001
-Using new cumulative summary system
-Conversation history compressed and saved
-Summary generated successfully
+Summary generation will happen on next game loop
+
+--- TRANSITION DEBUG: Harrow’s Hollow Town Square to Harrow's Hollow General Store ---
+Timestamp: 2025-05-24 09:45:51
+Area ID: HH001
+Summary generation will happen on next game loop
+
+--- TRANSITION DEBUG: Harrow's Hollow General Store to The Wyrd Lantern Inn ---
+Timestamp: 2025-05-24 09:47:21
+Area ID: HH001
+Summary generation will happen on next game loop
