@@ -142,7 +142,7 @@
       "locationId": "R01",
       "name": "Harrow's Hollow General Store",
       "type": "shop",
-      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather. Lamplight casts a warm glow on a cluttered notice board filled with various announcements, including cryptic warnings and a reward poster. Behind the wooden counter stands Elder Mirna Harrow meticulously arranging jars. Shelves display similar charms to the sprig of dried rowan and tin amulet believed to ward off ill fortune that Scout Elen recently purchased. The atmosphere is quiet save for the ticking of a clock and distant crow calls.",
+      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter.",
       "coordinates": "X2Y2",
       "connectivity": [
         "R02",
@@ -157,11 +157,6 @@
           "name": "Elder Mirna Harrow",
           "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs.",
           "attitude": "Respectful but cautious toward outsiders; friendly and supportive to locals, especially those in need."
-        },
-        {
-          "name": "Callum",
-          "description": "A young villager offered by Elder Mirna to accompany those investigating the tracks near Blackberry Hollow. He is eager but inexperienced.",
-          "attitude": "Helpful and hopeful; somewhat nervous about dangers ahead."
         }
       ],
       "monsters": [],
@@ -171,23 +166,14 @@
         "10 days' rations (5 sp per)",
         "Cured leather pouch (8 sp)",
         "Handwritten map of local trails (contains a clue about a haunted ruin)",
-        "Old bronze key marked with a faded raven sigil",
-        "Sprig of dried rowan charm",
-        "Tin amulet charm",
-        "Length of strong hempen rope",
-        "Oilskin for journal",
-        "Fine lantern",
-        "Flint and tinder"
+        "Old bronze key marked with a faded raven sigil"
       ],
       "plotHooks": [
         "A worried villager asks if the party has news of Scout Elen, who vanished checking the old east trail.",
         "Elder Mirna discreetly seeks brave souls to investigate odd nighttime lights near the ruined keep.",
-        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.",
-        "Investigate the mysterious disappearances of several villagers including miller Jarrek, the tanner's boy, two trappers, and Scout Elen.",
-        "Seek out Cira at the Wyrd Lantern Inn or Old Tommen by the town square for further information.",
-        "Follow tracks near Blackberry Hollow where Elen was last seen, with or without the aid of Callum."
+        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts."
       ],
-      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep and recent disappearances. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something. Highlight the party's opportunity to gather more information from Cira and Old Tommen. Mention the details about Scout Elen's last purchases and her determined intent to investigate alone. Introduce Callum as a potential companion if players seek local assistance.",
+      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something.",
       "doors": [
         {
           "name": "Front Door",
@@ -222,96 +208,61 @@
       "features": [
         {
           "name": "Notice Board",
-          "description": "A cluttered board filled with handwritten notices, missing pet posters, cryptic local warnings, and a reward poster."
+          "description": "A cluttered board filled with handwritten notices, missing pet posters, and cryptic local warnings."
         },
         {
           "name": "Counter and Ledger",
-          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. A tarnished bronze key with a faded raven sigil and a sealed pouch rest here."
+          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike."
         },
         {
           "name": "Back Storeroom",
           "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests."
-        },
-        {
-          "name": "Shelves with Charms",
-          "description": "Shelves display several similar charms to the one Scout Elen purchased, including sprigs of dried rowan and tin amulets believed to ward off ill fortune."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "R01-E1",
-          "summary": "The party meets Elder Mirna Harrow behind the counter amid the general store's supplies. She informs them of several villagers who have mysteriously disappeared after dark, including the miller Jarrek, the tanner's boy, two trappers, and Scout Elen. Mirna expresses grave concern and gratitude for the party's willingness to help and hints at hidden knowledge connected to an old bronze key on the counter. She advises seeking out Cira at the Wyrd Lantern Inn or Old Tommen by the town square for more information.",
-          "impact": "The party gains valuable leads on the disappearances, a potentially important bronze key, and new contacts for their investigation.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "08:08:00"
-          }
-        },
-        {
-          "encounterId": "R01-E2",
-          "summary": "The party interacts with Elder Mirna, who is arranging jars behind the counter. She recounts the morning Scout Elen left the village, detailing Elen's purchases of hempen rope, an oilskin journal cover, a fine lantern, flint, tinder, and a protective charm of rowan and tin amulet. Mirna describes Elen's determined intent to investigate tracks near Blackberry Hollow alone, rejecting an offer to send the young villager Callum. Mirna expresses hope for Elen's safe return and confirms no other items are missing from the shelves.",
-          "impact": "The party receives detailed information about Scout Elen's last preparations, potential items for their own use, and the location of her investigation near Blackberry Hollow. They also learn about Callum, a potential companion for the journey.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "10:20:00"
-          }
-        }
-      ],
-      "adventureSummary": "Upon entering Harrow's Hollow General Store, the party encountered Elder Mirna, who was meticulously arranging jars behind the counter. When questioned about Elen, Mirna recalled the morning Elen had left, describing how Elen had come in early to purchase a length of strong hempen rope, a fresh oilskin for her journal, a fine lantern, flint, tinder, and a charm consisting of a sprig of dried rowan and a tin amulet believed to ward off ill fortune. Mirna noted Elen's determined demeanor and her intent to follow tracks near Blackberry Hollow, refusing accompaniment despite Mirna's offer to send a young villager, Callum. Mirna expressed hope for Elen's safe return and mentioned no other items missing from the shelves, emphasizing Elen's honesty in always paying her due. The interaction took place in the well-lit, modest general store, with shelves displaying various goods, including similar amulets hanging from chipped nails. After acquiring this information, the party decided to leave the store and head toward the Wyrd Lantern Inn, concluding their time at the general store without triggering any traps or additional encounters. (Game Time: 1492 Ches 1, 10:20:00)"
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R02",
-      "name": "Harrow's Hollow Town Square",
+      "name": "Harrow’s Hollow Town Square",
       "type": "square",
-      "description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. On market days, stalls crowd the space, but currently the square is noticeably quiet with only faint sounds of hammering and distant dogs breaking the silence. The locals seem wary, and the atmosphere carries a subtle tension as Old Tommen shares tales of vanished villagers and ominous happenings to the east near Blackberry Hollow.",
+      "description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. On market days, stalls crowd the space, but even now, locals gossip in small clusters, eyes wary of newcomers. At dusk, shadows pool and the wind carries the faint echo of old songs.",
       "coordinates": "X3Y2",
       "connectivity": [
-        "R01",
-        "General Store"
+        "R01"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [
         {
           "name": "Old Tommen",
-          "description": "A weathered, hunched herdsman with wild hair and a nervous gaze. Tommen is known for spreading superstitions and warning of restless spirits in the woods. He provided crucial information regarding the missing scout Elen and the suspicious tanner's boy.",
+          "description": "A weathered, hunched herdsman with wild hair and a nervous gaze. Tommen is known for spreading superstitions and warning of restless spirits in the woods.",
           "attitude": "Suspicious of strangers, eager to share tales of doom, but grateful for kind words and a listening ear."
-        },
-        {
-          "name": "Cira",
-          "description": "A woman who manages the village inn and keeps informed of local happenings. Suggested as a source for further inquiry about the missing scout and strange occurrences.",
-          "attitude": "Helpful and knowledgeable, willing to share rumors and news with visitors who earn her trust."
         }
       ],
       "monsters": [],
-      "plotHooks": [
-        "The mystery of Scout Elen's disappearance after investigating strange lights near the mill and Blackberry Hollow.",
-        "The missing tanner's boy last seen arguing with Elen; both may be connected to supernatural happenings.",
-        "Old Tommen's warnings about restless spirits, curses, and ominous shadows in the woods to the east.",
-        "Investigate Blackberry Hollow for tracks or clues related to Elen's disappearance.",
-        "Inquire at the inn with Cira to gather more information on local rumors and recent events."
-      ],
       "lootTable": [
         "Dropped pouch of 7 sp (hidden beneath a bench)",
         "Wooden whistle carved in the shape of a raven",
         "Small tin amulet of protection (nonmagical, but rumored to ward off evil)"
       ],
-      "dangerLevel": "Low",
-      "dmInstructions": "Use Tommen's superstitious ramblings and concerns about the woods to foreshadow supernatural elements. A DC 11 Persuasion check gets him to share legends about the cursed knight and the woods. Encourage players to visit the innkeeper Cira for additional leads. Maintain the quiet, tense atmosphere in the square to reflect local unease.",
+      "plotHooks": [
+        "Old Tommen corners the party to warn them about 'the shade on the moor,' referencing recent spectral sightings.",
+        "A traveling merchant seeks help recovering goods lost to bandits north of town.",
+        "Children whisper about a secret under the statue—a lost trinket or something darker."
+      ],
+      "dmInstructions": "Use Tommen’s superstitious ramblings for early foreshadowing. A DC 11 Persuasion check gets him to share legends about the keep and the cursed knight. If players search the statue (DC 13 Investigation), they find a hidden compartment holding a rusty locket (worth 2 gp, sentimental value to some locals).",
       "doors": [],
       "traps": [],
       "dcChecks": [
         "Investigation DC 13: Discover a hidden compartment in the statue.",
-        "Persuasion DC 11: Convince Tommen to reveal a local legend about ghostly lights or the keep's curse.",
-        "Investigation DC 12: Search the square and nearby areas for clues about Scout Elen or the missing tanner's boy."
+        "Persuasion DC 11: Convince Tommen to reveal a local legend about ghostly lights or the keep’s curse."
       ],
+      "accessibility": "Fully open and central, all major buildings and streets lead here; accessible to all.",
+      "dangerLevel": "Low",
       "features": [
         {
-          "name": "Knight's Statue",
+          "name": "Knight’s Statue",
           "description": "A weathered stone monument, its inscription nearly worn away, depicting a forgotten hero with a drawn sword."
         },
         {
@@ -323,27 +274,14 @@
           "description": "Colorful canvas stalls, currently empty save for a few crates and benches."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "R02-E1",
-          "summary": "The party met Old Tommen in the town square, who shared vital information on the missing scout Elen and the missing tanner's boy, hinting at supernatural causes and suggesting investigation east towards Blackberry Hollow and inquiries at the inn.",
-          "impact": "Introduced the central mystery of Scout Elen's disappearance with a supernatural angle; expanded plot hooks and NPC contacts for further investigation.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "09:15:00"
-          }
-        }
-      ],
-      "adventureSummary": "At Harrow's Hollow Town Square, the party encountered Old Tommen, who provided crucial information about the missing scout Elen and the missing tanner's boy. He suggested supernatural causes involving restless spirits and ominous woods east near Blackberry Hollow. The party was advised to investigate the area and speak with Cira at the inn, leading to an active plot regarding Elen's disappearance and a supernatural mystery. The square remains quiet and tense, with the party considering further exploration including the general store nearby. (Game Time: 1492 Ches 1, 09:15)",
-      "accessibility": "Fully open and central, all major buildings and streets lead here; accessible to all."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R03",
       "name": "East Gate and Guardhouse",
       "type": "gate",
-      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town's eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond.",
+      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town’s eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond.",
       "coordinates": "X2Y3",
       "connectivity": [
         "R01"
@@ -357,14 +295,14 @@
       "npcs": [
         {
           "name": "Sergeant Mara Feld",
-          "description": "A stoic, broad-shouldered veteran overseeing the town's security. She has a no-nonsense manner and fierce loyalty to Harrow's Hollow.",
+          "description": "A stoic, broad-shouldered veteran overseeing the town’s security. She has a no-nonsense manner and fierce loyalty to Harrow’s Hollow.",
           "attitude": "Suspicious of outsiders, but fair; she values courage and honesty."
         }
       ],
       "monsters": [],
       "lootTable": [
-        "Town gate key (kept on Sergeant Feld's belt)",
-        "Guard's whistle",
+        "Town gate key (kept on Sergeant Feld’s belt)",
+        "Guard’s whistle",
         "Small pouch with 12 cp",
         "Town patrol schedule (handwritten, with notes about recent disturbances near the keep)"
       ],
@@ -412,7 +350,7 @@
         },
         {
           "name": "Patrol Roster",
-          "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen's name circled in chalk."
+          "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen’s name circled in chalk."
         },
         {
           "name": "Gate Mechanism",
@@ -426,7 +364,7 @@
       "locationId": "R04",
       "name": "Militia Barracks",
       "type": "barracks",
-      "description": "A utilitarian, two-story stone building with a small training yard. The barracks houses Harrow's militia--peasant guards, hunters, and retired soldiers. Inside, bunks are neatly arranged, and a wall bears faded banners from better days.",
+      "description": "A utilitarian, two-story stone building with a small training yard. The barracks houses Harrow’s militia—peasant guards, hunters, and retired soldiers. Inside, bunks are neatly arranged, and a wall bears faded banners from better days.",
       "coordinates": "X2Y1",
       "connectivity": [
         "R01"
@@ -468,7 +406,7 @@
         },
         {
           "name": "Armory Door",
-          "description": "A reinforced wooden door with a heavy padlock, leading to the militia's armory.",
+          "description": "A reinforced wooden door with a heavy padlock, leading to the militia’s armory.",
           "type": "heavy",
           "locked": true,
           "lockDC": 14,
@@ -522,7 +460,7 @@
       ],
       "monsters": [],
       "lootTable": [
-        "Free meal and ale (at Cira's discretion)",
+        "Free meal and ale (at Cira’s discretion)",
         "Set of bone dice (left in a booth)",
         "Silver earring (lost under a table)",
         "Charm against the evil eye (hanging near the bar)"
@@ -530,9 +468,9 @@
       "plotHooks": [
         "A fearful regular claims to have seen a ghostly figure on the east road.",
         "Cira offers the party free rooms if they can calm frightened townsfolk.",
-        "A drunken patron insists the keep's curse is growing stronger and tries to start a brawl."
+        "A drunken patron insists the keep’s curse is growing stronger and tries to start a brawl."
       ],
-      "dmInstructions": "Cira is the party's best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
+      "dmInstructions": "Cira is the party’s best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
       "doors": [
         {
           "name": "Inn Door",

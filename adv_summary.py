@@ -8,6 +8,7 @@ from jsonschema import validate, ValidationError
 from config import OPENAI_API_KEY, ADVENTURE_SUMMARY_MODEL
 from campaign_path_manager import CampaignPathManager
 from encoding_utils import sanitize_text, safe_json_load, safe_json_dump
+from status_manager import status_generating_summary
 
 TEMPERATURE = 0.8
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -353,6 +354,7 @@ def convert_to_dialogue(trimmed_data):
     ]
 
 def generate_adventure_summary(conversation_history_data, party_tracker_data, leaving_location_name):
+    status_generating_summary()
     messages = [
         {"role": "system", "content": f"""You are a historian documenting the historic events of a 5th Edition roleplaying game encounter as a narrative. Provide a single, detailed and past tense narrative paragraph summarizing all factual events that occurred in '{leaving_location_name}'. Do not include in your narrative any information from prior areas or areas encountered after '{leaving_location_name}'. Include descriptions of the environment, character interactions, discoveries, and consequences of actions. Focus exclusively on what transpired in this location before the party moved to a new area. Cover all significant occurrences chronologically, including environmental details, character actions, reactions, and any information gained. Do not include dialogue, headings, bullet points, or speculation about future events. Describe only what actually happened, without editorializing or asking questions. The summary should read like a comprehensive, factual journal entry recounting past events in third-person perspective, providing a complete picture of the scene and events in {leaving_location_name}. Do not include DM notes or JSON schemas."""},
         {"role": "user", "content": "Summarize this conversation per instructions:"},

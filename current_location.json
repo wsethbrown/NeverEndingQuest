@@ -2,7 +2,7 @@
   "locationId": "R01",
   "name": "Harrow's Hollow General Store",
   "type": "shop",
-  "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather. Lamplight casts a warm glow on a cluttered notice board filled with various announcements, including cryptic warnings and a reward poster. Behind the wooden counter stands Elder Mirna Harrow amid neatly arranged supplies such as coils of rope, dried herbs, and well-used tools. A tarnished bronze key bearing a faded raven sigil rests beside a sealed pouch on the counter. The atmosphere is quiet save for the ticking of a clock and distant crow calls.",
+  "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter.",
   "coordinates": "X2Y2",
   "connectivity": [
     "R02",
@@ -31,11 +31,9 @@
   "plotHooks": [
     "A worried villager asks if the party has news of Scout Elen, who vanished checking the old east trail.",
     "Elder Mirna discreetly seeks brave souls to investigate odd nighttime lights near the ruined keep.",
-    "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.",
-    "Investigate the mysterious disappearances of several villagers including miller Jarrek, the tanner's boy, two trappers, and Scout Elen.",
-    "Seek out Cira at the Wyrd Lantern Inn or Old Tommen by the town square for further information."
+    "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts."
   ],
-  "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep and recent disappearances. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something. Highlight the party's opportunity to gather more information from Cira and Old Tommen.",
+  "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something.",
   "doors": [
     {
       "name": "Front Door",
@@ -70,29 +68,17 @@
   "features": [
     {
       "name": "Notice Board",
-      "description": "A cluttered board filled with handwritten notices, missing pet posters, cryptic local warnings, and a reward poster."
+      "description": "A cluttered board filled with handwritten notices, missing pet posters, and cryptic local warnings."
     },
     {
       "name": "Counter and Ledger",
-      "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. A tarnished bronze key with a faded raven sigil and a sealed pouch rest here."
+      "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike."
     },
     {
       "name": "Back Storeroom",
       "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests."
     }
   ],
-  "encounters": [
-    {
-      "encounterId": "R01-E1",
-      "summary": "The party meets Elder Mirna Harrow behind the counter amid the general store's supplies. She informs them of several villagers who have mysteriously disappeared after dark, including the miller Jarrek, the tanner's boy, two trappers, and Scout Elen. Mirna expresses grave concern and gratitude for the party's willingness to help and hints at hidden knowledge connected to an old bronze key on the counter. She advises seeking out Cira at the Wyrd Lantern Inn or Old Tommen by the town square for more information.",
-      "impact": "The party gains valuable leads on the disappearances, a potentially important bronze key, and new contacts for their investigation.",
-      "worldConditions": {
-        "year": 1492,
-        "month": "Ches",
-        "day": 1,
-        "time": "08:08:00"
-      }
-    }
-  ],
-  "adventureSummary": "Upon entering Harrow's Hollow General Store, the party encountered Elder Mirna Harrow, the village leader standing behind the wooden counter amid neatly arranged supplies. The atmosphere was quiet save for the ticking clock and distant crow calls, with lamplight casting a warm glow on a notice board crowded with various announcements, including cryptic warnings and a reward poster. The party noticed a tarnished bronze key bearing a faded raven sigil resting beside a sealed pouch on the counter. When Norn expressed a desire to help with the recent disappearances, Elder Mirna responded with gratitude and grave concern, recounting that several villagers--including the miller Jarrek, the tanner's boy, two trappers, and the scout Elen--had vanished mysteriously after dark in different locations. She mentioned rumors of spirits from nearby ruins and a growing fear among the villagers, advising the party to seek out Cira at the Wyrd Lantern Inn or Old Tommen by the town square for more information. Though Mirna hinted at concealed knowledge related to the bronze key, she did not elaborate further. After this exchange, the party concluded their business in the general store and proceeded toward the town square to speak with Old Tommen, marking a progression in their investigation of the village's troubling disappearances. (Game Time: 1492 Ches 1, 08:08:00)"
+  "encounters": [],
+  "adventureSummary": ""
 }

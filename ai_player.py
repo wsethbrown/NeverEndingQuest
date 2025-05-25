@@ -12,6 +12,7 @@ from openai import OpenAI
 from config import OPENAI_API_KEY, DM_MINI_MODEL
 from enhanced_logger import game_logger, game_event
 from encoding_utils import safe_json_dump, sanitize_text
+import os
 
 class AIPlayer:
     """AI player that makes decisions based on test objectives"""
@@ -33,6 +34,27 @@ class AIPlayer:
             "time": "Unknown",
             "recent_events": []
         }
+        
+        # Initialize LLM debug log
+        self.llm_debug_file = "ai_player_llm_debug.log"
+        self._init_llm_debug_log()
+    
+    def _init_llm_debug_log(self):
+        """Initialize the LLM debug log file"""
+        # Create empty file
+        with open(self.llm_debug_file, 'w') as f:
+            f.write("")
+    
+    def _log_llm_interaction(self, messages, response_text=None):
+        """Log only the exact messages sent to OpenAI API - overwrites file each time"""
+        with open(self.llm_debug_file, 'w') as f:
+            # Write the exact API payload
+            api_payload = {
+                "model": DM_MINI_MODEL,
+                "temperature": 0.7,
+                "messages": messages
+            }
+            f.write(json.dumps(api_payload, indent=2))
         
     def create_system_prompt(self):
         """Create the system prompt for the AI player"""
@@ -104,7 +126,7 @@ When responding:
             self.game_state['recent_events'].pop(0)
     
     def filter_game_output(self, raw_output):
-        """Filter out JSON schemas, debug messages, and system prompts"""
+        """Extract only the DM's narrative content from game output"""
         # Skip empty output
         if not raw_output or not raw_output.strip():
             return None
@@ -125,15 +147,38 @@ When responding:
         if raw_output.strip() in ['---', '===', '***'] or raw_output.strip().startswith('---'):
             return None
             
-        # Skip adventure history context (we'll handle this separately)
+        # Skip adventure history context
         if 'Adventure History Context:' in raw_output:
             return None
             
         # Skip pure time/date notes without other content
         if raw_output.strip().startswith('Dungeon Master Note:') and 'Current date and time:' in raw_output and len(raw_output.strip()) < 100:
             return None
+        
+        # Skip status messages
+        if any(status in raw_output for status in ['[Processing', '[Validating', '[Generating']):
+            return None
             
-        return raw_output.strip()
+        # Skip debug info like "User messages: X" or "Assistant messages: X"
+        if re.match(r'^(User|Assistant) messages: \d+$', raw_output.strip()):
+            return None
+        
+        # Remove ANSI color codes
+        ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
+        cleaned = ansi_escape.sub('', raw_output)
+        
+        # Extract DM narrative - look for "Dungeon Master:" prefix
+        dm_match = re.search(r'Dungeon Master:\s*(.+)', cleaned, re.DOTALL)
+        if dm_match:
+            return dm_match.group(1).strip()
+        
+        # If no DM prefix but contains narrative content (not just status/time)
+        # Check if it's likely narrative (contains multiple words, not just timestamps)
+        cleaned = cleaned.strip()
+        if cleaned and not re.match(r'^\[\d+:\d+:\d+\]', cleaned) and len(cleaned.split()) > 5:
+            return cleaned
+            
+        return None
     
     def get_next_action(self, game_output):
         """Determine the next action based on game output and objectives"""
@@ -163,19 +208,23 @@ When responding:
             {"role": "system", "content": self.create_system_prompt()}
         ]
         
-        # Add conversation history (DM responses as assistant, player actions as user)
-        for msg in self.conversation_history[-10:]:  # Increased from 4 to 10
+        # Add conversation history with correct roles
+        # DM outputs are "user" messages (telling the AI what happened)
+        # AI actions are "assistant" messages (the AI's responses)
+        for msg in self.conversation_history[-10:]:
             messages.append(msg)
             
-        # Add current DM output
-        messages.append({"role": "assistant", "content": filtered_output})
+        # Add current DM output as a user message
+        messages.append({"role": "user", "content": filtered_output})
+        
+        # Log the exact API payload before making the call
+        self._log_llm_interaction(messages, None)
         
         try:
             response = self.client.chat.completions.create(
                 model=DM_MINI_MODEL,
                 temperature=0.7,
-                messages=messages,
-                max_tokens=150
+                messages=messages
             )
             
             action = response.choices[0].message.content.strip()
@@ -186,8 +235,10 @@ When responding:
             self.log_action(filtered_output, action)
             
             # Add to conversation history with correct roles
-            self.conversation_history.append({"role": "assistant", "content": filtered_output})
-            self.conversation_history.append({"role": "user", "content": action})
+            # DM output is "user" (what the game told the AI)
+            # AI action is "assistant" (how the AI responded)
+            self.conversation_history.append({"role": "user", "content": filtered_output})
+            self.conversation_history.append({"role": "assistant", "content": action})
             
             # Keep conversation history manageable but longer
             if len(self.conversation_history) > 40:  # Increased from 20
@@ -312,6 +363,11 @@ When responding:
         safe_json_dump(report, filename)
         
         game_logger.info(f"Test results saved to {filename}")
+        game_logger.info(f"LLM debug log available at: {self.llm_debug_file}")
+        
+        # Add note about debug log to report
+        report['llm_debug_log'] = self.llm_debug_file
+        
         return filename
 
 class AIPlayerPersonality:

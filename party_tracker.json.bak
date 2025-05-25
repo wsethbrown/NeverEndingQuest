@@ -8,13 +8,13 @@
         "year": 1492,
         "month": "Ches",
         "day": 1,
-        "time": "09:15:00",
-        "weather": "",
+        "time": "08:05:00",
+        "weather": "Overcast",
         "season": "Spring",
-        "dayNightCycle": "Day",
+        "dayNightCycle": "Morning",
         "moonPhase": "New Moon",
-        "currentLocation": "Harrow's Hollow Town Square",
-        "currentLocationId": "R02",
+        "currentLocation": "Harrow's Hollow General Store",
+        "currentLocationId": "R01",
         "currentArea": "Harrow's Hollow",
         "currentAreaId": "HH001",
         "majorEventsUnderway": [],
@@ -22,12 +22,5 @@
         "activeEncounter": "",
         "activeCombatEncounter": ""
     },
-    "activeQuests": [
-        {
-            "id": "PP005",
-            "title": "Resolution and Rewards",
-            "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
-            "status": "in progress"
-        }
-    ]
+    "activeQuests": []
 }

@@ -5,6 +5,10 @@ from location_manager import get_location_data
 from campaign_path_manager import CampaignPathManager
 from plot_update import update_plot
 from encoding_utils import sanitize_text, safe_json_dump, safe_json_load
+from status_manager import (
+    status_transitioning_location, status_updating_character, status_updating_party,
+    status_updating_plot, status_advancing_time, status_processing_levelup
+)
 
 # Action type constants
 ACTION_CREATE_ENCOUNTER = "createEncounter"
@@ -141,10 +145,12 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
             traceback.print_exc()
 
     elif action_type == ACTION_UPDATE_TIME:
+        status_advancing_time()
         time_estimate_str = str(parameters["timeEstimate"])
         update_world_time(time_estimate_str)
 
     elif action_type == ACTION_UPDATE_PLOT:
+        status_updating_plot()
         plot_point_id = parameters["plotPointId"]
         new_status = parameters["newStatus"]
         plot_impact = parameters.get("plotImpact", "")
@@ -158,6 +164,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         exit_game()
 
     elif action_type == ACTION_TRANSITION_LOCATION:
+        status_transitioning_location()
         new_location_name_or_id = parameters["newLocation"] # This could be a name or an ID
         area_connectivity_id = parameters.get("areaConnectivityId")
         # Sanitize location names to prevent encoding issues
@@ -218,6 +225,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         return process_ai_response(new_response, party_tracker_data, location_data, conversation_history) # Pass location_data
 
     elif action_type == ACTION_UPDATE_PLAYER_INFO:
+        status_updating_character()
         print(f"DEBUG: Processing updatePlayerInfo action")
         changes = parameters["changes"]
         player_name = next((member.lower() for member in party_tracker_data["partyMembers"]), None)

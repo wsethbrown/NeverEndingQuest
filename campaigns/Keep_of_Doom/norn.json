@@ -90,7 +90,14 @@
       "description": "Your weapon attacks score a critical hit on a roll of 19 or 20"
     }
   ],
-  "equipment": [],
+  "equipment": [
+    {
+      "item_name": "Old bronze key marked with a faded raven sigil",
+      "item_type": "miscellaneous",
+      "description": "An old bronze key with a faded raven sigil, possibly linked to the keep or local noble families.",
+      "quantity": 1
+    }
+  ],
   "ammunition": [
     {
       "name": "Arrows",

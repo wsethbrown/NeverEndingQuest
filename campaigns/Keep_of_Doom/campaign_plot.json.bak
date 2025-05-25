@@ -109,20 +109,13 @@
       "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
       "location": "HH001",
       "nextPoints": [],
-      "status": "in progress",
-      "plotImpact": "Norn has offered assistance to Elder Mirna regarding the disappearances, formally setting the stage for resolving the village's crisis and learning more about the fate of the missing.",
+      "status": "not started",
+      "plotImpact": "The campaign concludes with the party's triumph. Seeds for future adventures may be planted based on discoveries made in the keep.",
       "sideQuests": []
     }
   ],
-  "activeQuests": [
-    "PP002",
-    "SQ004"
-  ],
-  "completedQuests": [
-    "PP001",
-    "SQ002",
-    "SQ003"
-  ],
+  "activeQuests": ["PP002", "SQ004"],
+  "completedQuests": ["PP001", "SQ002", "SQ003"],
   "failedQuests": [],
   "worldEvents": [
     {

@@ -1,0 +1,54 @@
+{
+  "model": "gpt-4.1-mini-2025-04-14",
+  "temperature": 0.7,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an AI testing a D&D game. Your role is 'Thorough Explorer Test'.\n\nCurrent Test Profile: Systematically explore all locations and interactions\n\nYour Current Objective: Visit all 5 locations in Harrow's Hollow\n\nGame State:\n- Location: Unknown\n- HP: Unknown\n- Time: Unknown\n- Recent Events: Current Time: 08:03:00, Time Advanced: 2 minutes, New Time: 08:05:00, Days Passed: 0; You steady your gaze on Elder Mirna, searching her face as she confides the truth of the key and its connection to House Greymont. With your practiced intuition, you notice subtle signs--a tremor at t...; Elder Mirna gives a grateful nod as you accept the old bronze key. She seems to stand a touch straighter, as if a weight has shifted from her shoulders. Her tone is warmer now, touched by a sense of h...\n\nTesting Guidelines:\n1. Make decisions that progress toward your current objective\n2. If you encounter an error or unexpected response, note it and try a different approach\n3. Be specific in your commands (e.g., \"I search the room\" not just \"search\")\n4. Test variations of commands when appropriate\n5. Document any issues or unclear responses\n\nConstraints:\n{\n  \"avoid_combat\": false,\n  \"thorough_search\": true,\n  \"exhaust_dialogue\": true\n}\n\nWhen responding:\n- Give a single, clear action or response\n- Don't explain your reasoning unless encountering an issue\n- If something seems broken, say \"ISSUE DETECTED: [description]\" before trying alternatives\n- Stay in character as an adventurer, but with testing awareness\n- DO NOT narrate the DM's responses or describe what you see - only state your actions\n- Respond as if you are the player, not the DM"
+    },
+    {
+      "role": "user",
+      "content": "Elder Mirna's fingers still for a moment on the battered ledger, her eyes narrowing ever so slightly as you mention the bronze key. She gives a small, practiced smile, but you sense a flicker of discomfort behind it.\n\n\"Ah, that old thing? Just a trinket, really. Been in the store for years. Folk say it belonged to one of the old families, but nobody's claimed it in a generation. Some think it opens a cellar or a lockbox lost to time. I reckon it's just another relic of the Hollow's past.\"\n\nYet her gaze lingers on you, and there's a subtle tension in her posture--a hesitation, as if she's holding something back.\n\nIf you want to discern whether Elder Mirna is telling you the whole truth about the key, please make an Insight check. Roll a d20 and add your Insight modifier."
+    },
+    {
+      "role": "assistant",
+      "content": "I roll a d20 and add my Insight modifier to see if I can discern Elder Mirna's true feelings about the key. (Roll: 14 + Insight modifier 3 = 17)"
+    },
+    {
+      "role": "user",
+      "content": "Elder Mirna's practiced smile falters just a touch as you press her about the key and its possible connection to the keep. She sets the ledger aside, folds her hands atop the counter, and leans forward conspiratorially, her voice barely above a whisper.\n\n\"You've sharp eyes, Norn,\" she says, the formality slipping away from her tone. \"That key does have a history, though not one I share lightly. The raven sigil belonged to House Greymont, the old lords of the keep before... well, before darkness claimed it. My family has watched over the Hollow for generations. When the Greymonts fell, the survivors left relics--keys to places best left undisturbed.\"\n\nShe glances around to ensure no others are listening and continues, \"Some say the key opens a path into the keep itself, or perhaps a vault beneath it. I never had the courage to try, nor would I send someone unprepared. But you, after all you've done for us... perhaps you're meant to have it.\"\n\nMirna hesitates, eyes searching your face for resolve. \"If you truly mean to press on against the curse, then take the key, with my blessing and my warning: House Greymont's secrets are like old wounds--disturbed, they bleed anew.\"\n\nShe slides the cold bronze key across the counter toward you, its weight more than just metal in your palm.\n\n\"May you find answers where my courage failed,\" she finishes quietly. \"And may the Hollow never have cause to regret it.\"\n\nYou have gained the 'Old bronze key marked with a faded raven sigil'."
+    },
+    {
+      "role": "assistant",
+      "content": "I take the old bronze key from Elder Mirna's hand and say, \"Thank you, Elder Mirna. I will be cautious. Now, I want to explore all the locations in Harrow's Hollow. Please tell me what the five locations are, so I can visit each one.\""
+    },
+    {
+      "role": "user",
+      "content": "{\n  \"equipment\": [\n    {\n      \"item_name\": \"Old bronze key marked with a faded raven sigil\",\n      \"item_type\": \"miscellaneous\",\n      \"description\": \"An old bronze key with a faded raven sigil, possibly linked to the keep or local noble families.\",\n      \"quantity\": 1\n    }\n  ]\n}"
+    },
+    {
+      "role": "assistant",
+      "content": "I ask Elder Mirna, \"Could you please tell me all the main locations in Harrow's Hollow? I want to make sure I visit each one to learn more.\""
+    },
+    {
+      "role": "user",
+      "content": "Current Time: 08:03:00, Time Advanced: 2 minutes, New Time: 08:05:00, Days Passed: 0"
+    },
+    {
+      "role": "assistant",
+      "content": "I say, \"Thank you. I will start by visiting the Harrow's Hollow General Store. After this, I want to visit the other four locations you mentioned. Could you list them for me, please?\""
+    },
+    {
+      "role": "user",
+      "content": "You steady your gaze on Elder Mirna, searching her face as she confides the truth of the key and its connection to House Greymont. With your practiced intuition, you notice subtle signs--a tremor at the edge of her voice, the way her hand lingers over the counter as if longing to hold the key back, a shadow flickering behind her eyes.\n\nShe's telling the truth, but there's more beneath the surface: a deep, personal fear and a sense of guilt. You sense that giving you the key is not merely a practical gesture--it feels like the passing of a burden. Mirna is relieved to entrust it to you, but also deeply anxious about what darkness you might awaken by using it. This is not just a relic, but a symbol of old promises and mistakes the village would rather forget.\n\nShe meets your gaze, and for a moment, the weight of history passes silently between you. \"Take care, Norn. Some doors open both ways,\" she murmurs, her meaning clear."
+    },
+    {
+      "role": "assistant",
+      "content": "I nod solemnly to Elder Mirna and say, \"I understand the weight of this burden. I will be careful with the key and honor the trust you have placed in me.\" Then I ask, \"Now, please, can you tell me the names and locations of all five key locations in Harrow's Hollow? I intend to visit each one thoroughly.\""
+    },
+    {
+      "role": "user",
+      "content": "Elder Mirna gives a grateful nod as you accept the old bronze key. She seems to stand a touch straighter, as if a weight has shifted from her shoulders. Her tone is warmer now, touched by a sense of hope.\n\n\"You do the Hollow proud, Norn. If you're set on learning all you can, let me be your guide to what passes for civilization here. There are five key places in Harrow's Hollow--each with its own folk, troubles, and secrets:\n\nFirst, you're standing in the General Store, the heart of the village's trade--anything worth bartering or learning sooner or later passes through here.\n\nTo the east, you'll find the Town Square--folk gather there for news, market days, and the odd announcement from myself or the militia.\n\nThe Militia Barracks waits just to the south, where our defenders train and take their ease. Captain Jasp keeps a close eye on any strangers.\n\nIf you head north, you'll reach the East Gate and Guardhouse, the main point of entry and our last line of defense. It's where travelers and trouble come and go.\n\nAnd to the west, The Wyrd Lantern Inn--a place for a hot meal, a warm bed, and gossip aplenty, should you have coin or patience for it.\n\nEach place has its own stories, and most folk will be glad of a friendly face--especially after all we've endured. Where will you begin your rounds, Norn? Or do you seek something particular in one of these places?\""
+    }
+  ]
+}

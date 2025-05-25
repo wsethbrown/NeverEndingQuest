@@ -1,0 +1,211 @@
+{
+  "test_profile": "Thorough Explorer Test",
+  "player_name": "TestHero",
+  "start_time": "2025-05-24T22:22:53.646735",
+  "end_time": "2025-05-24T22:23:45.534890",
+  "total_actions": 24,
+  "objectives_attempted": 1,
+  "objectives_completed": 0,
+  "issues_found": 0,
+  "issues_detail": [],
+  "objectives_progress": [
+    {
+      "objective": "Visit all 5 locations in Harrow's Hollow",
+      "status": "possible_completion",
+      "timestamp": "2025-05-24T22:23:18.740683",
+      "location": "Unknown"
+    }
+  ],
+  "sample_interactions": [
+    {
+      "timestamp": "2025-05-24T22:23:25.998136",
+      "game_output": "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+      "ai_action": "I take note of the locals' responses and carefully investigate any clues or leads they provide. Then, I decide to move on to the next location: the East Gate and Guardhouse to the edge of town. I head there to continue my exploration and gather more information.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "System messages removed: 6",
+          "User messages: 2",
+          "Assistant messages: 3",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:23:27.250204",
+      "game_output": "[38;2;255;215;0m[Processing AI response...][0m",
+      "ai_action": "I proceed east to the East Gate and Guardhouse, then thoroughly explore the area, examining the structure, speaking with guards or attendants, and searching for any signs or clues about Harrow's Hollow.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "System messages removed: 6",
+          "User messages: 2",
+          "Assistant messages: 3",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:23:28.327819",
+      "game_output": "[38;2;255;215;0m[Validating response format...][0m",
+      "ai_action": "I thoroughly examine the East Gate and Guardhouse, inspecting the structure for signs of damage or unusual markings. I speak to any guards or attendants present, asking about recent events, suspicious activity, or notable visitors. I also search the surrounding area for clues or items of interest.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "System messages removed: 6",
+          "User messages: 2",
+          "Assistant messages: 3",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:23:30.421998",
+      "game_output": "[34mDungeon Master:[0m [34m\"You're standing in the Harrow's Hollow General Store, Norn,\" Elder Mirna answers, her tone both businesslike and kindly. \"This is where most folk come to trade, barter for supplies, and catch a bit of news. My family has run it since the town was founded. You'll find a little of everything here--tools, rations, even a lantern or two for when the mists roll in.\"\n\nShe gestures around the sturdy timber-and-stone shop. Sunbeams glint off a well-stocked counter, shelves crammed with gear, and a bustling notice board heavy with handwritten posts. Through the broad front window, you can glimpse the Town Square just beyond--its cobblestones busy with villagers beginning their day.\n\n\"If you're looking to explore, the store's right at the center of Harrow's Hollow,\" Mirna continues. \"From here, you can reach the Town Square, the East Gate and Guardhouse, the Militia Barracks, or the Wyrd Lantern Inn--each just a short walk away.\"\n\nShe leans in, offering a subtle wink. \"But you're always welcome here, should you need supplies or a word of wisdom. Where will your boots take you next?\"[0m",
+      "ai_action": "ISSUE DETECTED: The response repeated the initial General Store description instead of addressing the East Gate and Guardhouse exploration. I will reissue my command with more emphasis on moving to and investigating the East Gate and Guardhouse. \n\nI proceed directly to the East Gate and Guardhouse and conduct a thorough examination of the structure and surroundings, then engage in conversation with any guards or attendants present to inquire about recent activity or unusual events.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "System messages removed: 6",
+          "User messages: 2",
+          "Assistant messages: 3",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:23:31.841918",
+      "game_output": "Lightweight chat history updated!",
+      "ai_action": "I proceed directly to the East Gate and Guardhouse. Upon arrival, I carefully examine the structure for signs of wear, damage, or unusual markings. I also inspect the immediate surroundings for anything out of place. Then, I approach any guards or attendants present and ask them about recent activity, suspicious occurrences, or notable visitors in the area. I listen attentively to their responses and take detailed notes.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "System messages removed: 6",
+          "User messages: 2",
+          "Assistant messages: 3",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:23:33.519043",
+      "game_output": "System messages removed: 6",
+      "ai_action": "I carefully examine the East Gate and Guardhouse structure, looking for signs of wear, damage, or unusual markings. I then search the surrounding area for anything out of place. Afterward, I approach the guards or attendants present and ask about any recent activity, suspicious occurrences, or notable visitors. I listen attentively and take detailed notes.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "System messages removed: 6",
+          "User messages: 2",
+          "Assistant messages: 3",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:23:34.810977",
+      "game_output": "User messages: 2",
+      "ai_action": "I proceed to the East Gate and Guardhouse. I thoroughly examine the structure for signs of wear, damage, or unusual markings, carefully noting any details. I then search the surrounding area for anything unusual or out of place. Finally, I approach the guards or attendants present and ask them about recent activity, suspicious occurrences, or notable visitors, listening closely and taking detailed notes.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "System messages removed: 6",
+          "User messages: 2",
+          "Assistant messages: 3",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:23:36.858767",
+      "game_output": "Assistant messages: 3",
+      "ai_action": "I move to the Town Square next and thoroughly examine the area for any notable features, signs, or items of interest. I also speak to any townsfolk present, asking about recent happenings or rumors.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "System messages removed: 6",
+          "User messages: 2",
+          "Assistant messages: 3",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:23:37.773348",
+      "game_output": "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+      "ai_action": "I move to the Town Square. Upon arrival, I conduct a thorough examination of the area, inspecting for any notable features, signs, or items of interest. I also engage with any townsfolk present, asking detailed questions about recent happenings or rumors, and carefully record their responses.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "System messages removed: 6",
+          "User messages: 2",
+          "Assistant messages: 3",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m"
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:23:39.080132",
+      "game_output": "[38;2;255;215;0m[Processing AI response...][0m",
+      "ai_action": "I proceed to the Marketplace. I thoroughly explore all stalls, vendors, and items for sale, noting anything unusual or noteworthy. I also speak with several merchants and shoppers to gather information on recent events, rumors, or suspicious activities.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "System messages removed: 6",
+          "User messages: 2",
+          "Assistant messages: 3",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m"
+        ]
+      }
+    }
+  ]
+}

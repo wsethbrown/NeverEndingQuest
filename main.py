@@ -31,6 +31,12 @@ import update_npc_info
 import location_manager
 import action_handler
 import cumulative_summary
+from status_manager import (
+    status_manager, status_ready, status_processing_ai, status_validating,
+    status_retrying, status_transitioning_location, status_generating_summary,
+    status_updating_journal, status_compressing_history, status_updating_character,
+    status_updating_party, status_updating_plot, status_advancing_time, status_saving
+)
 
 # Import atomic file operations
 from file_operations import safe_write_json, safe_read_json
@@ -51,11 +57,41 @@ TEMPERATURE = 0.8
 
 SOLID_GREEN = "\033[38;2;0;180;0m"  # Slightly darker solid green for player name
 LIGHT_OFF_GREEN = "\033[38;2;100;180;100m"  # More muted light green for stats
+GOLD = "\033[38;2;255;215;0m"  # Gold color for status messages
 RESET_COLOR = "\033[0m"
 
 json_file = "conversation_history.json"
 
 needs_conversation_history_update = False
+
+# Status display configuration
+current_status_line = None
+
+def display_status(message):
+    """Display status message above the command prompt"""
+    global current_status_line
+    # Clear previous status line if exists
+    if current_status_line is not None:
+        print(f"\r{' ' * len(current_status_line)}\r", end='', flush=True)
+    # Display new status
+    status_display = f"{GOLD}[{message}]{RESET_COLOR}"
+    print(f"\r{status_display}", flush=True)
+    current_status_line = status_display
+
+# Set up status callback
+def status_callback(message, is_processing):
+    """Callback for status manager to display status updates"""
+    if is_processing:
+        display_status(message)
+    else:
+        # Clear status when ready
+        global current_status_line
+        if current_status_line is not None:
+            print(f"\r{' ' * len(current_status_line)}\r", end='', flush=True)
+            current_status_line = None
+
+# Register the callback
+status_manager.set_callback(status_callback)
 
 # Note: Old summarization functions removed - using cumulative summary system instead
 
@@ -120,6 +156,7 @@ def parse_json_safely(text):
     raise json.JSONDecodeError("Unable to parse JSON from the given text", text, 0)
 
 def validate_ai_response(primary_response, user_input, validation_prompt_text, conversation_history, party_tracker_data):
+    status_validating()
     # Get the last two messages from the conversation history
     last_two_messages = conversation_history[-2:]
 
@@ -379,6 +416,7 @@ def save_conversation_history(history):
         print(colored(f"ERROR: Failed to save conversation history: {e}", "red"))
 
 def get_ai_response(conversation_history):
+    status_processing_ai()
     response = client.chat.completions.create(
         model=DM_MAIN_MODEL, # Use imported model name
         temperature=TEMPERATURE,
@@ -487,6 +525,9 @@ def main_game_loop():
         # Check for and process any location transitions
         conversation_history = check_and_process_location_transitions(conversation_history, party_tracker_data, path_manager)
         save_conversation_history(conversation_history)
+
+        # Set status to ready before accepting input
+        status_ready()
 
         player_name_actual = party_tracker_data["partyMembers"][0]
         player_data_file = path_manager.get_player_path(player_name_actual)
@@ -671,6 +712,7 @@ def main_game_loop():
             elif isinstance(validation_result, str):
                 print(f"Validation failed. Reason: {validation_result}")
                 print(f"Retrying... (Attempt {retry_count + 1}/5)")
+                status_retrying(retry_count + 1, 5)
                 conversation_history.append({
                     "role": "user",
                     "content": f"Error Note: Your previous response failed validation. Reason: {validation_result}. Please adjust your response accordingly."

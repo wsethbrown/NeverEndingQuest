@@ -586,3 +586,507 @@ I say to Elder Mirna: "Please name each of the five key locations in Harrow's Ho
 2025-05-24 15:02:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
 2025-05-24 15:02:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
 2025-05-24 15:02:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:24:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:24:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:24:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:24:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:24:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:24:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:25:02 - DEBUG - File conversation_history.json not found - creating first timeLightweight chat history updated!System messages removed: 5User messages: 0Assistant messages: 0
+2025-05-24 15:25:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:25:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:25:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:25:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:25:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:25:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:25:22 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:25:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:25:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:25:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 15:26:00 - DEBUG - File conversation_history.json not found - creating first timeLightweight chat history updated!System messages removed: 5User messages: 0Assistant messages: 0
+2025-05-24 16:13:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:14:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:14:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:14:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:14:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:14:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:14:02 - DEBUG - File conversation_history.json not found - creating first timeLightweight chat history updated!System messages removed: 5User messages: 0Assistant messages: 0[38;2;255;215;0m[Processing AI response...][0m
+2025-05-24 16:16:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:16:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:16:19 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Elder Mirna studies you for a moment, then gives a slow, weary sigh. "It's the same names, Norn. Scout Elen was the last to vanish, but before that--Kara the cooper's son, young Milla from the mill, even old Bram the trapper. Folk disappear, sometimes at night, sometimes after venturing too close to the woods or that cursed old keep."
+2025-05-24 16:16:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:16:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:16:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:16:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:16:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:16:52 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You thank Elder Mirna for her candor and step out into the awakening village. The bell above the general store door gives a cheerful jingle as you exit, replaced by the cool embrace of morning mist. Harrow's Hollow Town Square lies at the heart of the settlement--a broad, hard-packed circle ringed by weathered cottages and shingled rooftops.
+2025-05-24 16:16:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:16:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:17:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:17:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:17:10 - DEBUG - Transitioning from 'Harrow's Hollow General Store' to 'Harrow's Hollow Town Square'DEBUG: Current location string (hex): 486172726f77277320486f6c6c6f772047656e6572616c2053746f7265DEBUG: New location string (hex): 486172726f77277320486f6c6c6f7720546f776e20537175617265DEBUG: Handling location transition from 'Harrow's Hollow General Store' to 'Harrow's Hollow Town Square'DEBUG: Current area: 'Harrow's Hollow', Current area ID: 'HH001'DEBUG: Current location identified: Harrow's Hollow General Store (ID: R01)DEBUG: Found new location by exact name: Harrow's Hollow Town Square (ID: R02)DEBUG: New location info: Harrow's Hollow Town Square (ID: R02)DEBUG: Adventure summary updated successfullyDEBUG: Successfully updated party_tracker.jsonDEBUG: Location transition complete
+2025-05-24 16:17:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:17:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:17:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:17:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:17:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:17:58 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You spot Old Tommen near the edge of the square, hunched on his usual bench with a mug of weak cider in his gnarled hands. His eyes, watery but keen beneath wild white brows, track your approach with a flicker of curiosity.
+2025-05-24 16:17:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:17:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:17:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:18:16 - DEBUG - Generating summary for Harrow's Hollow General StoreDEBUG: Summary generated for Harrow's Hollow General StoreDEBUG: Enhanced adventure summary generated successfully
+2025-05-24 16:18:16 - DEBUG - Updating journal with summary for Harrow's Hollow General StoreDEBUG: Journal updated successfully
+2025-05-24 16:18:16 - DEBUG - Compressing conversation history when leaving Harrow's Hollow General StoreDEBUG: Total messages in history: 14DEBUG: Cleaning old-style summaries from conversation historyDEBUG: Found transition at index 11: Location transition: Harrow's Hollow General Store (R01) to Harrow's Hollow Town Square (R02)DEBUG: Using last system message at index 5 as start markerDEBUG: Using last system message at index 4 as start markerDEBUG: Using last system message at index 3 as start markerDEBUG: Using last system message at index 2 as start markerDEBUG: Using last system message at index 1 as start markerDEBUG: Using last system message at index 0 as start markerDEBUG: Collecting messages from index 1 to 10DEBUG: Found 5 messages to summarize
+2025-05-24 16:18:21 - DEBUG - Generating summary for Harrow's Hollow General StoreDEBUG: Summary generated for Harrow's Hollow General StoreDEBUG: Compressed history from 14 to 5 messagesDEBUG: Removed 5 messages from Harrow's Hollow General StoreDEBUG: Location summary and compression completed
+2025-05-24 16:19:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:19:27 - INFO - Starting automated test: thorough_explorer
+2025-05-24 16:19:27 - INFO - test_start: {'profile': 'thorough_explorer', 'max_actions': 20}
+2025-05-24 16:19:28 - INFO - Test environment set up in test_runs/thorough_explorer_20250524_161928
+2025-05-24 16:19:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:19:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:19:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:19:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:19:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:19:35 - INFO - Progress: 0 actions taken
+2025-05-24 16:19:40 - INFO - Progress: 0 actions taken
+2025-05-24 16:19:40 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:19:40 - INFO - AI: I check my current location and inventory to orient myself before proceeding.
+2025-05-24 16:19:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:19:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:19:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:19:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:19:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:19:50 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:19:50 - INFO - AI: I examine my current location details. Then, I check my inventory thoroughly.
+2025-05-24 16:19:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:19:52 - WARNING - AI reported issue: ISSUE DETECTED: The response did not address the specific actions requested--asked about the bronze key, examined the notice board for clues, inspected the lantern, rations, and pouch, and questioned the worried villager. Instead, it repeated a general description of the store and Elder Mirna without progressing the objective.
+
+I will retry with a focused, step-by-step request:
+
+I ask Elder Mirna Harrow about the bronze key, its significance, and whether it might open the storeroom door. Then, I carefully examine the notice board for any additional clues or quests. Next, I inspect the hooded lantern, rations, and leather pouch with the raven sigil on the shelves for descriptions and potential uses. Finally, I
+2025-05-24 16:20:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:11 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:20:11 - INFO - AI: I examine the current location details carefully. Then, I open my inventory and list all items, checking each for descriptions and potential uses.
+2025-05-24 16:20:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:26 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:20:26 - INFO - AI: I proceed to travel to the first location in Harrow's Hollow. I choose to go to the "Old Mill" first and thoroughly explore it, examining all objects, searching the area carefully, and interacting with any possible elements or NPCs.
+2025-05-24 16:20:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:31 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:35 - WARNING - AI reported issue: ISSUE DETECTED: Elder Mirna Harrow's response to the permission request is not being provided; no progress toward investigating the storeroom door. I will try a direct command to request permission again.
+
+I say to Elder Mirna Harrow, "Please, Elder Mirna, grant me permission to use the bronze key to open the storeroom door and investigate its contents."
+2025-05-24 16:20:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:41 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:20:41 - INFO - AI: I enter the Old Mill. I search the mill thoroughly, examining the machinery, surrounding area, and any objects present. I also look for any NPCs to interact with and exhaust any dialogue options available.
+2025-05-24 16:20:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:20:51 - WARNING - AI reported issue: ISSUE DETECTED: The response repeated the initial scene description instead of answering the vendor about the four locations in Harrow's Hollow. I will try rephrasing my question to the vendor to request information about the other four locations explicitly. 
+
+I say to the vendor: "Please tell me the names and directions of the other four locations in Harrow's Hollow so I can visit each of them."
+2025-05-24 16:20:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:10 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:21:10 - INFO - AI: I approach Elder Mirna Harrow and ask about the bronze key, its significance, and whether it might open the storeroom door. Then, I carefully examine the notice board for any additional clues or quests, and afterward, I check the goods on the shelves, focusing on the hooded lantern, rations, and the leather pouch with the raven sigil, inspecting them for descriptions and potential uses. Finally, I engage the worried villager nearby, asking if they have any information about the recent troubles or missing scout.
+2025-05-24 16:21:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:22 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:54 - INFO - Game: [38;2;100;180;100m[09:02:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:21:54 - INFO - AI: I ask Elder Mirna Harrow about the bronze key, its significance, and if it might open the storeroom door. Then, I examine the notice board carefully for any additional clues or quests. Next, I inspect the hooded lantern, rations, and leather pouch with the raven sigil on the shelves for descriptions and potential uses. Finally, I talk to the worried villager nearby, asking if they have any information about the recent troubles or the missing scout.
+2025-05-24 16:21:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:21:55 - WARNING - AI reported issue: ISSUE DETECTED: The game is not responding with directions or confirmation of location transitions after requesting directions multiple times. I will try a direct movement command to a known location to continue exploration.
+
+I travel to the Blackwood Cemetery, the next notable location in Harrow's Hollow.
+2025-05-24 16:22:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:13 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:14 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:14 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:14 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:14 - INFO - Game: [38;2;100;180;100m[09:17:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:22:14 - INFO - AI: I ask Elder Mirna Harrow about the bronze key, its significance, and if it might open the storeroom door. Then, I examine the notice board carefully for any additional clues or quests. Next, I inspect the hooded lantern, rations, and leather pouch with the raven sigil on the shelves for descriptions and potential uses. Finally, I talk to the worried villager nearby, asking if they have any information about the recent troubles or the missing scout.
+2025-05-24 16:22:14 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:18 - WARNING - AI reported issue: ISSUE DETECTED: Repeated attempts to examine the standing stones area have not yielded new information or responses.
+
+I will now move to the next location in Harrow's Hollow to continue thorough exploration.
+
+I travel to the second location in Harrow's Hollow and begin a detailed examination of the area, searching for clues or interactions.
+2025-05-24 16:22:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:35 - INFO - Game: [38;2;100;180;100m[09:27:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:22:35 - INFO - AI: I ask Elder Mirna Harrow about the bronze key, its significance, and if it might open the storeroom door. Then, I carefully examine the notice board for additional clues or quests. Next, I inspect the hooded lantern, rations, and leather pouch with the raven sigil on the shelves, reading any labels or descriptions and assessing their potential uses. Finally, I approach the worried villager nearby and ask if they have any information about the recent troubles or the missing scout.
+2025-05-24 16:22:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:46 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:49 - INFO - Game: [38;2;100;180;100m[09:37:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:22:49 - INFO - AI: ISSUE DETECTED: The response did not address the specific actions requested--asked about the bronze key, examined the notice board for clues, inspected the lantern, rations, and pouch, and questioned the worried villager. Instead, it repeated a general description of the store and Elder Mirna without progressing the objective.
+
+I will retry with a focused, step-by-step request:
+
+I ask Elder Mirna Harrow about the bronze key, its significance, and whether it might open the storeroom door. Then, I carefully examine the notice board for any additional clues or quests. Next, I inspect the hooded lantern, rations, and leather pouch with the raven sigil on the shelves for descriptions and potential uses. Finally, I
+2025-05-24 16:22:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:22:50 - INFO - Progress: 10 actions taken
+2025-05-24 16:22:55 - INFO - Progress: 10 actions taken
+2025-05-24 16:22:58 - WARNING - AI reported issue: ISSUE DETECTED: Repeated attempts to ask Elder Mirna for accompaniment yield no new response or progress.
+
+I will now change approach.
+
+I say aloud, "Elder Mirna, if you cannot come with me, can you at least tell me more about the old keep and any dangers I should expect?"
+2025-05-24 16:23:00 - INFO - Progress: 10 actions taken
+2025-05-24 16:23:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:04 - INFO - Game: [38;2;100;180;100m[09:47:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:23:04 - INFO - AI: I ask Elder Mirna Harrow about the bronze key, its significance, and whether it might open the storeroom door. Then, I carefully examine the notice board for any additional clues or quests. Next, I inspect the hooded lantern, rations, and leather pouch with the raven sigil on the shelves for descriptions and potential uses. Finally, I approach the worried villager nearby and ask if they have any information about the recent troubles or the missing scout.
+2025-05-24 16:23:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:25 - INFO - Game: [38;2;100;180;100m[09:57:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:23:25 - INFO - AI: I approach Elder Mirna Harrow and ask, "Can you tell me about this bronze key? What is its significance, and might it open the storeroom door behind you?" Then, I thoroughly examine the notice board for any additional clues or quests posted. After that, I inspect the hooded lantern on the shelves, reading any labels or descriptions, and consider its potential uses. Next, I examine the rations carefully to understand their type and quantity. I also inspect the leather pouch bearing the raven sigil, looking for any markings or contents. Finally, I approach the worried villager nearby and ask, "Do you have any information about the recent troubles in Harrow's Hollow or about the missing scout?"
+2025-05-24 16:23:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:43 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:45 - INFO - Game: [38;2;100;180;100m[10:07:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:23:45 - INFO - AI: I approach Elder Mirna Harrow and ask, "Can you tell me about this bronze key? What is its significance, and might it open the storeroom door behind you?" Then, I carefully examine the notice board for any additional clues or quests posted. After that, I inspect the hooded lantern on the shelves, reading any labels or descriptions, and consider its potential uses. Next, I examine the rations carefully to understand their type and quantity. I also inspect the leather pouch bearing the raven sigil, looking for any markings or contents. Finally, I approach the worried villager nearby and ask, "Do you have any information about the recent troubles in Harrow's Hollow or about the missing scout?"
+2025-05-24 16:23:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:23:49 - WARNING - AI reported issue: ISSUE DETECTED: Elder Mirna does not respond with the remaining four locations when asked repeatedly. I will try a different approach.
+
+I ask Elder Mirna, "Can you tell me about the main places in Harrow's Hollow I should visit to understand the village better?"
+2025-05-24 16:24:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:24:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:24:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:24:28 - WARNING - Issue detected: Error message detected at Unknown
+2025-05-24 16:24:28 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
+2025-05-24 16:24:28 - WARNING - Issue detected: Raw JSON in output at Unknown
+2025-05-24 16:24:28 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
+2025-05-24 16:24:30 - WARNING - AI reported issue: ISSUE DETECTED: Inventory item "folded slip of parchment with Harrow crest" missing required 'quantity' and 'item_type' properties. I will correct the inventory update format.
+
+{
+  "updatePlayerInfo": {
+    "equipment": [
+      {
+        "item_name": "Bronze Key with Raven Engraving",
+        "item_type": "miscellaneous",
+        "description": "An heirloom bronze key engraved with a raven, used to open storerooms and possibly deeper doors in the manor or keep.",
+        "quantity": 1
+      },
+      {
+        "item_name": "Leather Pouch with Raven Sigil",
+        "item_type": "miscellaneous",
+        "description": "A soft
+2025-05-24 16:24:33 - WARNING - Issue detected: Error message detected at Unknown
+2025-05-24 16:24:33 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
+2025-05-24 16:24:33 - WARNING - Issue detected: Raw JSON in output at Unknown
+2025-05-24 16:24:33 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
+2025-05-24 16:24:34 - WARNING - AI reported issue: ISSUE DETECTED: Inventory update incomplete or truncated; 'quantity' missing for items. I will provide a complete and correctly formatted inventory update with all required fields.
+
+{
+  "updatePlayerInfo": {
+    "equipment": [
+      {
+        "item_name": "Bronze Key with Raven Engraving",
+        "item_type": "miscellaneous",
+        "description": "An heirloom bronze key engraved with a raven, used to open storerooms and possibly deeper doors in the manor or keep.",
+        "quantity": 1
+      },
+      {
+        "item_name": "Leather Pouch with Raven Sigil",
+        "item_type": "miscellaneous",
+        "description": "A soft leather pouch embossed with a
+2025-05-24 16:24:37 - WARNING - Issue detected: Error message detected at Unknown
+2025-05-24 16:24:37 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
+2025-05-24 16:24:37 - WARNING - Issue detected: Raw JSON in output at Unknown
+2025-05-24 16:24:37 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
+2025-05-24 16:24:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:24:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:24:38 - WARNING - AI reported issue: ISSUE DETECTED: Inventory update incomplete or truncated; 'quantity' missing for some items. Please resend full inventory update including all required fields for each item, specifically 'quantity'.
+2025-05-24 16:24:38 - WARNING - Issue detected: Error message detected at Unknown
+2025-05-24 16:24:38 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
+2025-05-24 16:24:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:24:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:24:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:24:38 - INFO - Game: [38;2;100;180;100m[10:17:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:24:38 - INFO - AI: I ask Elder Mirna Harrow about the bronze key, its significance, and whether it might open the storeroom door behind her. Then, I thoroughly examine the notice board for any additional clues or quests. Next, I inspect the hooded lantern on the shelves, reading any labels or descriptions, and assess its potential uses. After that, I examine the rations carefully to determine their type and quantity. I also inspect the leather pouch with the raven sigil, looking for any markings or contents. Finally, I approach the worried villager nearby and ask if they have any information about the recent troubles in Harrow's Hollow or about the missing scout.
+2025-05-24 16:24:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:24:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:24:55 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:00 - WARNING - Issue detected: Raw JSON in output at Unknown
+2025-05-24 16:25:00 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
+2025-05-24 16:25:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:01 - INFO - Game: [38;2;100;180;100m[10:27:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:25:01 - INFO - AI: I ask Elder Mirna Harrow about the bronze key, its significance, and whether it might open the storeroom door behind her. Then, I carefully examine the notice board for any additional clues or quests posted. Next, I inspect the hooded lantern on the shelves, reading any labels or descriptions, and assess its potential uses. After that, I examine the rations carefully to determine their type and quantity. I also inspect the leather pouch with the raven sigil, looking for any markings or contents. Finally, I approach the worried villager nearby and ask if they have any information about the recent troubles in Harrow's Hollow or about the missing scout.
+2025-05-24 16:25:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:09 - WARNING - AI reported issue: ISSUE DETECTED: The game is not responding to the thorough search and dialogue initiation commands for the fifth location. I will try a different approach.
+
+I begin by stating: "I search the fifth location methodically, checking all surfaces, containers, and hidden spots for items or clues." After completing the search, I will look around for any NPCs and say: "I greet any NPC present and ask, 'Can you tell me about this place's history, any quests here, or important information?'" I will then ask all dialogue options presented until no more remain.
+2025-05-24 16:25:17 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:23 - WARNING - Issue detected: Raw JSON in output at Unknown
+2025-05-24 16:25:23 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
+2025-05-24 16:25:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:25 - INFO - Game: [38;2;100;180;100m[10:37:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:25:25 - INFO - AI: I ask Elder Mirna Harrow about the bronze key, its significance, and whether it might open the storeroom door behind her. Then, I carefully examine the notice board for any additional clues or quests posted. Next, I inspect the hooded lantern on the shelves, reading any labels or descriptions, and assess its potential uses. After that, I examine the rations carefully to determine their type and quantity. I also inspect the leather pouch with the raven sigil, looking for any markings or contents. Finally, I approach the worried villager nearby and ask if they have any information about the recent troubles in Harrow's Hollow or about the missing scout.
+2025-05-24 16:25:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:34 - WARNING - AI reported issue: ISSUE DETECTED: The game is not providing a response to queries about the current location. I will try moving to a known location to trigger a location update.
+
+I say, "I head to the village square in Harrow's Hollow" and wait for the game to describe the location and provide interactions.
+2025-05-24 16:25:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:46 - WARNING - Issue detected: Raw JSON in output at Unknown
+2025-05-24 16:25:46 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
+2025-05-24 16:25:46 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:25:48 - INFO - Game: [38;2;100;180;100m[10:47:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:25:48 - INFO - AI: I ask Elder Mirna Harrow about the bronze key, its significance, and whether it might open the storeroom door behind her. Then, I carefully examine the notice board for any additional clues or quests posted. Next, I inspect the hooded lantern on the shelves, reading any labels or descriptions, and assess its potential uses. After that, I examine the rations carefully to determine their type and quantity. I also inspect the leather pouch with the raven sigil, looking for any markings or contents. Finally, I approach the worried villager nearby and ask if they have any information about the recent troubles in Harrow's Hollow or about the missing scout.
+2025-05-24 16:25:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:07 - WARNING - Issue detected: Raw JSON in output at Unknown
+2025-05-24 16:26:07 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
+2025-05-24 16:26:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:09 - INFO - Game: [38;2;100;180;100m[10:57:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:26:09 - INFO - AI: I ask Elder Mirna Harrow about the bronze key, its significance, and whether it might open the storeroom door behind her. Then, I carefully examine the notice board for any additional clues or quests posted. Next, I inspect the hooded lantern on the shelves, reading any labels or descriptions, and assess its potential uses. After that, I examine the rations carefully to determine their type and quantity. I also inspect the leather pouch with the raven sigil, looking for any markings or contents. Finally, I approach the worried villager nearby and ask if they have any information about the recent troubles in Harrow's Hollow or about the missing scout.
+2025-05-24 16:26:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:12 - WARNING - AI reported issue: ISSUE DETECTED: The game is not providing any description or details about the parchment inside the leather pouch despite repeated commands. I will try a different approach.
+
+I say aloud, "Describe the parchment inside the leather pouch in detail."
+2025-05-24 16:26:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:35 - WARNING - Issue detected: Raw JSON in output at Unknown
+2025-05-24 16:26:35 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
+2025-05-24 16:26:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:37 - INFO - Game: [38;2;100;180;100m[11:07:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:26:37 - INFO - AI: I ask Elder Mirna Harrow about the bronze key, its significance, and whether it might open the storeroom door behind her. Then, I carefully examine the notice board for any additional clues or quests posted. Next, I inspect the hooded lantern on the shelves, reading any labels or descriptions, and assess its potential uses. After that, I examine the rations carefully to determine their type and quantity. I also inspect the leather pouch with the raven sigil, looking for any markings or contents. Finally, I approach the worried villager nearby and ask if they have any information about the recent troubles in Harrow's Hollow or about the missing scout.
+2025-05-24 16:26:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:58 - WARNING - Issue detected: Raw JSON in output at Unknown
+2025-05-24 16:26:58 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
+2025-05-24 16:26:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:59 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:59 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:59 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:59 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:26:59 - INFO - Game: [38;2;100;180;100m[11:17:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 16:26:59 - INFO - AI: I ask Elder Mirna Harrow about the bronze key, its significance, and whether it might open the storeroom door behind her. After that, I carefully examine the notice board for any additional clues or quests posted. Then, I inspect the hooded lantern on the shelves, reading any labels or descriptions, and assess its potential uses. Next, I examine the rations carefully to determine their type and quantity. I also inspect the leather pouch with the raven sigil, looking for any markings or contents. Finally, I approach the worried villager nearby and ask if they have any information about the recent troubles in Harrow's Hollow or about the missing scout.
+2025-05-24 16:26:59 - WARNING - Reached maximum actions (20)
+2025-05-24 16:26:59 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 16:27:00 - INFO - Progress: 20 actions taken
+2025-05-24 16:27:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:22:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:22:50 - INFO - Starting automated test: thorough_explorer
+2025-05-24 22:22:50 - INFO - test_start: {'profile': 'thorough_explorer', 'max_actions': 5}
+2025-05-24 22:22:50 - INFO - Test environment set up in test_runs/thorough_explorer_20250524_222250
+2025-05-24 22:22:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:22:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:22:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:22:51 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:22:51 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:22:56 - WARNING - AI reported issue: ISSUE DETECTED: The game does not provide the current location when asked directly.
+
+I will attempt to move north to see if the location is revealed.
+2025-05-24 22:22:57 - INFO - Progress: 0 actions taken
+2025-05-24 22:23:02 - INFO - Progress: 0 actions taken
+2025-05-24 22:23:03 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:23:03 - INFO - AI: I ask for the current location to begin exploring Harrow's Hollow systematically.
+2025-05-24 22:23:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:18 - INFO - objective_progress: {'objective': "Visit all 5 locations in Harrow's Hollow...", 'status': 'possible_completion'}
+2025-05-24 22:23:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:18 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:23:18 - INFO - AI: I ask the DM, "What is my current location?"
+2025-05-24 22:23:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:26 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:23:26 - INFO - AI: I ask the DM, "Please tell me my current location in Harrow's Hollow."
+2025-05-24 22:23:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:30 - WARNING - AI reported issue: ISSUE DETECTED: The response repeated the initial General Store description instead of addressing the East Gate and Guardhouse exploration. I will reissue my command with more emphasis on moving to and investigating the East Gate and Guardhouse. 
+
+I proceed directly to the East Gate and Guardhouse and conduct a thorough examination of the structure and surroundings, then engage in conversation with any guards or attendants present to inquire about recent activity or unusual events.
+2025-05-24 22:23:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:32 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:23:32 - INFO - AI: I ask the DM, "Please provide my current location in Harrow's Hollow to begin systematic exploration."
+2025-05-24 22:23:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:38 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:23:38 - INFO - AI: ISSUE DETECTED: The game does not provide the current location when asked directly.
+
+I will attempt to move north to see if the location is revealed.
+2025-05-24 22:23:38 - WARNING - Reached maximum actions (5)
+2025-05-24 22:23:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:43 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:23:45 - INFO - Test results saved to test_results_Thorough_Explorer_Test_20250524_222345.json
+2025-05-24 22:23:45 - INFO - LLM debug log available at: ai_player_llm_debug.log
+2025-05-24 22:23:45 - INFO - Test completed: 5 actions taken
+2025-05-24 22:23:45 - INFO - test_complete: {'profile': 'thorough_explorer', 'actions': 5, 'issues_found': 0, 'results_file': 'test_results_Thorough_Explorer_Test_20250524_222345.json'}
+2025-05-24 22:27:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:27:53 - INFO - Starting automated test: thorough_explorer
+2025-05-24 22:27:53 - INFO - test_start: {'profile': 'thorough_explorer', 'max_actions': 5}
+2025-05-24 22:27:53 - INFO - Test environment set up in test_runs/thorough_explorer_20250524_222753
+2025-05-24 22:27:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:27:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:27:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:27:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:27:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:00 - INFO - Progress: 0 actions taken
+2025-05-24 22:28:01 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:28:01 - INFO - AI: I ask, "Where am I currently located in Harrow's Hollow?" to establish my starting point.
+2025-05-24 22:28:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:09 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:28:09 - INFO - AI: I ask the innkeeper, "Can you please tell me the names of all the key locations within Harrow's Hollow so I can visit each one?"
+2025-05-24 22:28:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:19 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:28:19 - INFO - AI: I ask the innkeeper, "Could you please list all the key locations within Harrow's Hollow that I should visit?"
+2025-05-24 22:28:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:30 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:28:30 - INFO - AI: Since the innkeeper has not responded, I will try a different approach.
+
+I look around the inn for any posted maps, notices, or signs that list or mention key locations in Harrow's Hollow. I thoroughly examine any bulletin boards, wall maps, or pamphlets available in the common area.
+2025-05-24 22:28:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:52 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:28:52 - INFO - AI: I carefully inspect any posted maps, notices, or signs in the inn's common area to identify all key locations in Harrow's Hollow.
+2025-05-24 22:28:52 - WARNING - Reached maximum actions (5)
+2025-05-24 22:28:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:28:59 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:29:00 - INFO - Test results saved to test_results_Thorough_Explorer_Test_20250524_222900.json
+2025-05-24 22:29:00 - INFO - LLM debug log available at: ai_player_llm_debug.log
+2025-05-24 22:29:00 - INFO - Test completed: 5 actions taken
+2025-05-24 22:29:00 - INFO - test_complete: {'profile': 'thorough_explorer', 'actions': 5, 'issues_found': 0, 'results_file': 'test_results_Thorough_Explorer_Test_20250524_222900.json'}
+2025-05-24 22:40:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:03 - INFO - Starting automated test: thorough_explorer
+2025-05-24 22:41:03 - INFO - test_start: {'profile': 'thorough_explorer', 'max_actions': 5}
+2025-05-24 22:41:03 - INFO - Test environment set up in test_runs/thorough_explorer_20250524_224103
+2025-05-24 22:41:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:10 - INFO - Progress: 0 actions taken
+2025-05-24 22:41:15 - INFO - Progress: 0 actions taken
+2025-05-24 22:41:16 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:41:16 - INFO - AI: I say to Elder Mirna, "That bronze key with the raven sigil--what is its story? Does it open something important here in Harrow's Hollow?"
+2025-05-24 22:41:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:24 - INFO - Game: [38;2;100;180;100m[08:03:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:41:24 - INFO - AI: I continue, "Is the key connected to the keep you mentioned? Please, tell me what you can about its history and significance."
+2025-05-24 22:41:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:34 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:39 - WARNING - Issue detected: Raw JSON in output at Unknown
+2025-05-24 22:41:39 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
+2025-05-24 22:41:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:39 - INFO - Game: [38;2;100;180;100m[08:03:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:41:39 - INFO - AI: I roll a d20 and add my Insight modifier to see if I can discern Elder Mirna's true feelings about the key. (Roll: 14 + Insight modifier 3 = 17)
+2025-05-24 22:41:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:51 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:41:52 - INFO - Game: [38;2;100;180;100m[08:05:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:41:52 - INFO - AI: I take the old bronze key from Elder Mirna's hand and say, "Thank you, Elder Mirna. I will be cautious. Now, I want to explore all the locations in Harrow's Hollow. Please tell me what the five locations are, so I can visit each one."
+2025-05-24 22:41:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:42:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:42:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:42:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:42:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:42:04 - INFO - Game: [38;2;100;180;100m[08:05:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:42:04 - INFO - AI: I ask Elder Mirna, "Could you please tell me all the main locations in Harrow's Hollow? I want to make sure I visit each one to learn more."
+2025-05-24 22:42:04 - WARNING - Reached maximum actions (5)
+2025-05-24 22:42:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:42:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:42:13 - INFO - Test results saved to test_results_Thorough_Explorer_Test_20250524_224213.json
+2025-05-24 22:42:13 - INFO - LLM debug log available at: ai_player_llm_debug.log
+2025-05-24 22:42:13 - INFO - Test completed: 5 actions taken
+2025-05-24 22:42:13 - INFO - test_complete: {'profile': 'thorough_explorer', 'actions': 5, 'issues_found': 1, 'results_file': 'test_results_Thorough_Explorer_Test_20250524_224213.json'}

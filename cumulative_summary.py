@@ -6,6 +6,7 @@ from config import OPENAI_API_KEY, ADVENTURE_SUMMARY_MODEL
 from campaign_path_manager import CampaignPathManager
 from file_operations import safe_write_json, safe_read_json
 from encoding_utils import sanitize_text, safe_json_load, safe_json_dump
+from status_manager import status_generating_summary, status_updating_journal, status_compressing_history
 
 TEMPERATURE = 0.8
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -168,6 +169,7 @@ def build_location_summaries_from_conversation(conversation_history):
 
 def generate_location_summary(location_name, messages):
     """Generate a summary for what happened in a specific location"""
+    status_generating_summary()
     debug_print(f"Generating summary for {location_name}")
     
     # Extract conversation content
@@ -292,6 +294,7 @@ def compress_conversation_history_on_transition(conversation_history, leaving_lo
     Uses location transition messages as markers.
     Returns the compressed conversation history.
     """
+    status_compressing_history()
     debug_print(f"Compressing conversation history when leaving {leaving_location_name}")
     debug_print(f"Total messages in history: {len(conversation_history)}")
     
@@ -497,6 +500,7 @@ def update_journal_with_summary(adventure_summary, party_tracker_data, location_
     Update the journal with the new adventure summary.
     This adds to the journal but doesn't affect conversation history.
     """
+    status_updating_journal()
     debug_print(f"Updating journal with summary for {location_name}")
     
     journal_data = safe_read_json("journal.json")

@@ -1,0 +1,204 @@
+{
+  "test_profile": "Thorough Explorer Test",
+  "player_name": "TestHero",
+  "start_time": "2025-05-24T22:27:56.516621",
+  "end_time": "2025-05-24T22:29:00.827310",
+  "total_actions": 34,
+  "objectives_attempted": 1,
+  "objectives_completed": 0,
+  "issues_found": 0,
+  "issues_detail": [],
+  "objectives_progress": [],
+  "sample_interactions": [
+    {
+      "timestamp": "2025-05-24T22:28:29.484803",
+      "game_output": "[38;2;255;215;0m[Validating response format...][0m",
+      "ai_action": "I proceed to the Old Mill, ensuring to carefully observe and thoroughly inspect the exterior and interior of the building. I look for any workers or inhabitants to speak with, check for posted notices or signs, and explore any accessible rooms or areas. I also engage in conversation with any present individuals to exhaust dialogue options about the Old Mill and its role in Harrow's Hollow.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "Assistant messages: 4",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m",
+          "[38;2;255;215;0m[Validating response format...][0m",
+          "[34mDungeon Master:[0m [34mYou step away from the counter and make your way toward the notice board, its battered frame nearly hidden beneath layers of tacked-up parchment, scraps of cloth, and cur..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:28:31.739115",
+      "game_output": "[34mDungeon Master:[0m [34mElder Mirna gives you a measured look, her lips curling in a faint, approving smile. She gestures around the shop, then points out the window toward the morning-lit village.\n\n\"Let me lay out the heart of Harrow's Hollow for you, Norn--especially now, when you've done so much for us. There's the General Store, where you're standing now, the hub of supplies and trade. Step outside and you're in the Town Square--folk meet there, post news, or gather for festivals when there's joy to be had. Eastward, you'll find the Guardhouse and the old gate--our first and last defense, should trouble come knocking. Just beyond that, the Militia Barracks. Modest, but it's where our watch rests, and where plans are made to keep the peace. Finally, the Wyrd Lantern Inn--good food, better drink, and a place to rest your head--or hear the latest rumors by firelight.\"\n\nShe pauses, her gaze lingering on you. \"Each place has its own folk, stories, and scars, Norn. And truth told, you'll find both thanks and new troubles waiting--folk haven't forgotten your deeds. If you'd like directions, or if you're curious about a particular place, just say the word.\"\n\nMirna's words hang in the air, her tone making it clear you are welcome wherever you choose to go. The village feels poised for change--and you sense that your next steps might shape its future.[0m",
+      "ai_action": "I thank Elder Mirna for her guidance, then leave the General Store and head east toward the Guardhouse, carefully observing the surroundings and preparing to thoroughly inspect the Guardhouse upon arrival.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "Assistant messages: 4",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m",
+          "[38;2;255;215;0m[Validating response format...][0m",
+          "[34mDungeon Master:[0m [34mYou step away from the counter and make your way toward the notice board, its battered frame nearly hidden beneath layers of tacked-up parchment, scraps of cloth, and cur..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:28:33.212802",
+      "game_output": "Lightweight chat history updated!",
+      "ai_action": "I approach the Guardhouse, carefully examining the exterior walls, door, and surrounding area for any signs, notices, or clues. Upon arrival, I enter the Guardhouse and thoroughly inspect the interior rooms and common areas. I look for any guards or personnel present and initiate conversation to exhaust all dialogue options related to the Guardhouse, its role in Harrow's Hollow, and any relevant local information.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "Assistant messages: 4",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m",
+          "[38;2;255;215;0m[Validating response format...][0m",
+          "[34mDungeon Master:[0m [34mYou step away from the counter and make your way toward the notice board, its battered frame nearly hidden beneath layers of tacked-up parchment, scraps of cloth, and cur..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:28:34.457634",
+      "game_output": "System messages removed: 6",
+      "ai_action": "I approach the Guardhouse, carefully examining the exterior walls, door, and surrounding area for any signs, notices, or clues. Upon arrival, I enter the Guardhouse and thoroughly inspect the interior rooms and common areas. I look for any guards or personnel present and initiate conversation to exhaust all dialogue options related to the Guardhouse, its role in Harrow's Hollow, and any relevant local information.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "Assistant messages: 4",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m",
+          "[38;2;255;215;0m[Validating response format...][0m",
+          "[34mDungeon Master:[0m [34mYou step away from the counter and make your way toward the notice board, its battered frame nearly hidden beneath layers of tacked-up parchment, scraps of cloth, and cur..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:28:36.186377",
+      "game_output": "User messages: 3",
+      "ai_action": "I carefully examine the Guardhouse's exterior walls, door, and surrounding area for any signs, notices, or clues. Then, I enter the Guardhouse and thoroughly inspect the interior rooms and common areas. I look for any guards or personnel present and engage them in conversation, exhaustively exploring all dialogue options related to the Guardhouse, its role in Harrow's Hollow, and any relevant local information.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "Assistant messages: 4",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m",
+          "[38;2;255;215;0m[Validating response format...][0m",
+          "[34mDungeon Master:[0m [34mYou step away from the counter and make your way toward the notice board, its battered frame nearly hidden beneath layers of tacked-up parchment, scraps of cloth, and cur..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:28:37.854768",
+      "game_output": "Assistant messages: 4",
+      "ai_action": "I carefully examine the Guardhouse's exterior walls, door, and surrounding area for any signs, notices, or clues. Then, I enter the Guardhouse and thoroughly inspect the interior rooms and common areas. I look for any guards or personnel present and engage them in conversation, exhaustively exploring all dialogue options related to the Guardhouse, its role in Harrow's Hollow, and any relevant local information.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "Assistant messages: 4",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m",
+          "[38;2;255;215;0m[Validating response format...][0m",
+          "[34mDungeon Master:[0m [34mYou step away from the counter and make your way toward the notice board, its battered frame nearly hidden beneath layers of tacked-up parchment, scraps of cloth, and cur..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:28:39.414540",
+      "game_output": "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+      "ai_action": "I carefully examine the Guardhouse's exterior walls, door, and surrounding area for any signs, notices, or clues. Then, I enter the Guardhouse and thoroughly inspect the interior rooms and common areas. I look for any guards or personnel present and engage them in conversation, exhaustively exploring all dialogue options related to the Guardhouse, its role in Harrow's Hollow, and any relevant local information.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "Assistant messages: 4",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m",
+          "[38;2;255;215;0m[Validating response format...][0m",
+          "[34mDungeon Master:[0m [34mYou step away from the counter and make your way toward the notice board, its battered frame nearly hidden beneath layers of tacked-up parchment, scraps of cloth, and cur..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:28:41.562187",
+      "game_output": "[38;2;255;215;0m[Processing AI response...][0m",
+      "ai_action": "Move to the Guardhouse. Examine exterior walls, door, and surroundings for signs or clues. Enter the Guardhouse. Inspect interior rooms and common areas thoroughly. Look for guards or personnel. Engage in conversation, exhaustively exploring all dialogue about the Guardhouse, its role, and local information.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "Assistant messages: 4",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m",
+          "[38;2;255;215;0m[Validating response format...][0m",
+          "[34mDungeon Master:[0m [34mYou step away from the counter and make your way toward the notice board, its battered frame nearly hidden beneath layers of tacked-up parchment, scraps of cloth, and cur..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:28:51.590017",
+      "game_output": "[38;2;255;215;0m[Validating response format...][0m",
+      "ai_action": "I move to the Guardhouse. I examine the exterior walls, door, and surrounding area carefully for any signs, notices, or clues. Then, I enter the Guardhouse and thoroughly inspect all interior rooms and common areas. I look for any guards or personnel present and engage them in conversation, exhaustively exploring all dialogue options related to the Guardhouse, its role in Harrow's Hollow, and any relevant local information.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "Assistant messages: 4",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m",
+          "[38;2;255;215;0m[Validating response format...][0m",
+          "[34mDungeon Master:[0m [34mYou step away from the counter and make your way toward the notice board, its battered frame nearly hidden beneath layers of tacked-up parchment, scraps of cloth, and cur..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:28:58.824062",
+      "game_output": "[34mDungeon Master:[0m [34mYou step away from the counter and make your way toward the notice board, its battered frame nearly hidden beneath layers of tacked-up parchment, scraps of cloth, and curling posters. The low murmur of morning trade fades as you focus, scanning for anything that might serve as a guide to Harrow's Hollow or reveal its key locations.\n\nThere are missing pet notices, a call for help with spring planting, and a half-torn flyer advertising the Wyrd Lantern Inn's stew night. One broad, yellowed sheet catches your eye: a rough hand-drawn map of the village, complete with childlike illustrations for each landmark. The general store, town square, militia barracks, east gate and guardhouse, and the Wyrd Lantern Inn are each marked with little sketches--a storefront, a fountain, a squat stone building, a gate, and a lantern-lit inn, respectively. The map is smudged but clear enough to follow, and someone has scrawled helpful notes beside each spot: 'Store: Ask Mirna for deals,' 'Square: Notices/meetings,' 'Barracks: Talk to Soren,' 'Gate: Watch duty,' and 'Inn: Cira's famous ale.'\n\nNo pamphlets or formal guides are in sight, but this board seems to hold all the knowledge a newcomer might need--if they're willing to piece it together.\n\nAs you study the board, Elder Mirna glances over with a wry smile. \"Folk around here prefer ink and tack to fancy signposts, but that old map's saved more than one traveler from wandering in circles. If you're thinking of visiting somewhere specific, let me know and I'll point you true.\"\n\nYou now have a clearer sense of the town's layout. Would you like to take the map for later reference, or question Mirna about one of these locations?[0m",
+      "ai_action": "I thank Elder Mirna for the information and ask to take the map for later reference. Then, I proceed directly to the Guardhouse, carefully examining its exterior walls, door, and surrounding area for any signs, notices, or clues. Afterward, I enter the Guardhouse and thoroughly inspect all interior rooms and common areas. I look for any guards or personnel present and engage them in conversation, exhaustively exploring all dialogue options related to the Guardhouse, its role in Harrow's Hollow, and any relevant local information.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "36/36",
+        "inventory": [],
+        "time": "08:00:00",
+        "recent_events": [
+          "Assistant messages: 4",
+          "[38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m:",
+          "[38;2;255;215;0m[Processing AI response...][0m",
+          "[38;2;255;215;0m[Validating response format...][0m",
+          "[34mDungeon Master:[0m [34mYou step away from the counter and make your way toward the notice board, its battered frame nearly hidden beneath layers of tacked-up parchment, scraps of cloth, and cur..."
+        ]
+      }
+    }
+  ]
+}
