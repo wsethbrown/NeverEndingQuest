@@ -124,13 +124,30 @@ files_to_delete = [
     'prompt_validation.json'
 ]
 
+# Special handling for log files that might be in use
+log_files_to_clear = ['game_debug.log', 'game_errors.log']
+
 for file in files_to_delete:
     if os.path.exists(file):
         try:
-            os.remove(file)
-            print(f"Deleted {file}")
+            # For log files that might be in use, clear contents instead of deleting
+            if file in log_files_to_clear:
+                with open(file, 'w') as f:
+                    f.write('')  # Clear the file contents
+                print(f"Cleared contents of {file}")
+            else:
+                os.remove(file)
+                print(f"Deleted {file}")
         except PermissionError:
             print(f"WARNING: Could not delete {file} - file is in use")
+            # Try to clear contents if deletion fails
+            if file in log_files_to_clear:
+                try:
+                    with open(file, 'w') as f:
+                        f.write('')
+                    print(f"Cleared contents of {file} instead")
+                except:
+                    print(f"ERROR: Could not clear {file}")
         except Exception as e:
             print(f"ERROR: Could not delete {file} - {str(e)}")
     else:

@@ -142,7 +142,7 @@
       "locationId": "R01",
       "name": "Harrow's Hollow General Store",
       "type": "shop",
-      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, leather, and ink, suffusing the dimly lit interior where Elder Mirna Harrow stands behind the counter amidst shelves stocked with dried goods, lanterns, and rope.",
+      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter.",
       "coordinates": "X2Y2",
       "connectivity": [
         "R02",
@@ -155,7 +155,7 @@
       "npcs": [
         {
           "name": "Elder Mirna Harrow",
-          "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs and has entrusted the party with a weathered bronze key bearing a faded raven sigil, a family heirloom from the Greymonts who built the nearby keep.",
+          "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs.",
           "attitude": "Respectful but cautious toward outsiders; friendly and supportive to locals, especially those in need."
         }
       ],
@@ -165,13 +165,13 @@
         "Lantern, hooded (5 gp)",
         "10 days' rations (5 sp per)",
         "Cured leather pouch (8 sp)",
-        "Handwritten map of local trails (contains a clue about a haunted ruin)"
+        "Handwritten map of local trails (contains a clue about a haunted ruin)",
+        "Old bronze key marked with a faded raven sigil"
       ],
       "plotHooks": [
-        "A worried villager asks if the party has news of Scout Elen, who vanished checking the old east trail.",
+        "A worried villager asks if the party has news of Scout Elen, who vanished while patrolling the Witchlight Trailhead beyond the East Gate.",
         "Elder Mirna discreetly seeks brave souls to investigate odd nighttime lights near the ruined keep.",
-        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.",
-        "Discover the truth about the Greymont family and the ancient malevolence in the ruined keep."
+        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts."
       ],
       "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something.",
       "doors": [
@@ -219,24 +219,12 @@
           "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "R01-E1",
-          "summary": "The party entered the general store and met Elder Mirna Harrow, who revealed the significance of a weathered bronze key bearing a faded raven sigil. She entrusted the key to the party, explaining its connection to the Greymont family and the nearby ruined keep. Mirna provided supplies including a hooded lantern, rations, a cured leather pouch to protect the key, bandages, and herbal salves, and advised the party to seek out Mara, the village herbalist, for additional aid.",
-          "impact": "The party obtained the bronze key and valuable supplies, received important lore about the Greymont keep's ancient malevolence, and gained a plot hook to investigate the ruined keep further. Their inventory was enriched and their purpose clarified.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "08:25:00"
-          }
-        }
-      ],
-      "adventureSummary": "Upon entering Harrow's Hollow General Store, the party was greeted by the dimly lit interior suffused with the scent of wax, leather, and ink, where Elder Mirna Harrow stood behind the counter amidst shelves stocked with dried goods, lanterns, and rope. Noticing a weathered bronze key bearing a faded raven sigil hidden beneath the glass counter, the party inquired about its significance. Mirna revealed that the key, a family heirloom from the Greymonts who once built the nearby keep before its fall into darkness, opened a door within that very keep. She entrusted the key to the party, urging them to uncover the truth of the Greymont family and to share their findings to aid the village's healing. When pressed about the dangers tied to the keep, Mirna recounted chilling tales passed down from her grandmother describing unnatural shadows, disembodied voices, and vanished villagers, warning that the keep held an ancient and lingering malevolence. Acknowledging the weight of this responsibility, the party asked for guidance on supplies. Mirna advised taking a hooded lantern, ample rations, and offered a sturdy, lined leather pouch free of charge to protect the key. She also provided bandages and herbal salves for treating wounds, recommending seeking out Mara, the village herbalist at the nearby Wyrd Lantern Inn, for additional aid. After purchasing the lantern, ten days' rations, and the herbal supplies, the party prepared to proceed with caution and resolve, their inventory enriched and their purpose clear, before considering their next steps beyond the general store. (Game Time: 1492 Ches 1, 08:25:00)"
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "R02",
-      "name": "Harrow's Hollow Town Square",
+      "name": "Harrow’s Hollow Town Square",
       "type": "square",
       "description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. On market days, stalls crowd the space, but even now, locals gossip in small clusters, eyes wary of newcomers. At dusk, shadows pool and the wind carries the faint echo of old songs.",
       "coordinates": "X3Y2",
@@ -261,20 +249,20 @@
       "plotHooks": [
         "Old Tommen corners the party to warn them about 'the shade on the moor,' referencing recent spectral sightings.",
         "A traveling merchant seeks help recovering goods lost to bandits north of town.",
-        "Children whisper about a secret under the statue--a lost trinket or something darker."
+        "Children whisper about a secret under the statue—a lost trinket or something darker."
       ],
-      "dmInstructions": "Use Tommen's superstitious ramblings for early foreshadowing. A DC 11 Persuasion check gets him to share legends about the keep and the cursed knight. If players search the statue (DC 13 Investigation), they find a hidden compartment holding a rusty locket (worth 2 gp, sentimental value to some locals).",
+      "dmInstructions": "Use Tommen’s superstitious ramblings for early foreshadowing. A DC 11 Persuasion check gets him to share legends about the keep and the cursed knight. If players search the statue (DC 13 Investigation), they find a hidden compartment holding a rusty locket (worth 2 gp, sentimental value to some locals).",
       "doors": [],
       "traps": [],
       "dcChecks": [
         "Investigation DC 13: Discover a hidden compartment in the statue.",
-        "Persuasion DC 11: Convince Tommen to reveal a local legend about ghostly lights or the keep's curse."
+        "Persuasion DC 11: Convince Tommen to reveal a local legend about ghostly lights or the keep’s curse."
       ],
       "accessibility": "Fully open and central, all major buildings and streets lead here; accessible to all.",
       "dangerLevel": "Low",
       "features": [
         {
-          "name": "Knight's Statue",
+          "name": "Knight’s Statue",
           "description": "A weathered stone monument, its inscription nearly worn away, depicting a forgotten hero with a drawn sword."
         },
         {
@@ -293,7 +281,7 @@
       "locationId": "R03",
       "name": "East Gate and Guardhouse",
       "type": "gate",
-      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town's eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond.",
+      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town’s eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond.",
       "coordinates": "X2Y3",
       "connectivity": [
         "R01"
@@ -307,14 +295,14 @@
       "npcs": [
         {
           "name": "Sergeant Mara Feld",
-          "description": "A stoic, broad-shouldered veteran overseeing the town's security. She has a no-nonsense manner and fierce loyalty to Harrow's Hollow.",
+          "description": "A stoic, broad-shouldered veteran overseeing the town’s security. She has a no-nonsense manner and fierce loyalty to Harrow’s Hollow.",
           "attitude": "Suspicious of outsiders, but fair; she values courage and honesty."
         }
       ],
       "monsters": [],
       "lootTable": [
-        "Town gate key (kept on Sergeant Feld's belt)",
-        "Guard's whistle",
+        "Town gate key (kept on Sergeant Feld’s belt)",
+        "Guard’s whistle",
         "Small pouch with 12 cp",
         "Town patrol schedule (handwritten, with notes about recent disturbances near the keep)"
       ],
@@ -362,7 +350,7 @@
         },
         {
           "name": "Patrol Roster",
-          "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen's name circled in chalk."
+          "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen’s name circled in chalk."
         },
         {
           "name": "Gate Mechanism",
@@ -376,7 +364,7 @@
       "locationId": "R04",
       "name": "Militia Barracks",
       "type": "barracks",
-      "description": "A utilitarian, two-story stone building with a small training yard. The barracks houses Harrow's militia--peasant guards, hunters, and retired soldiers. Inside, bunks are neatly arranged, and a wall bears faded banners from better days.",
+      "description": "A utilitarian, two-story stone building with a small training yard. The barracks houses Harrow’s militia—peasant guards, hunters, and retired soldiers. Inside, bunks are neatly arranged, and a wall bears faded banners from better days.",
       "coordinates": "X2Y1",
       "connectivity": [
         "R01"
@@ -418,7 +406,7 @@
         },
         {
           "name": "Armory Door",
-          "description": "A reinforced wooden door with a heavy padlock, leading to the militia's armory.",
+          "description": "A reinforced wooden door with a heavy padlock, leading to the militia’s armory.",
           "type": "heavy",
           "locked": true,
           "lockDC": 14,
@@ -456,7 +444,7 @@
       "locationId": "R05",
       "name": "The Wyrd Lantern Inn",
       "type": "tavern",
-      "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew and fresh bread fills the air, mingled now with the sharp scent of herbs. Green-tinted lanterns cast lively shadows in the warm, bustling taproom. The inn serves as a refuge and supply point for adventurers preparing to face the cursed keep.",
+      "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew and fresh bread fills the air. Laughter and song are frequent, but at night, whispers of fear and superstition drift between tables.",
       "coordinates": "X1Y2",
       "connectivity": [
         "R01"
@@ -468,30 +456,21 @@
           "name": "Cira the Innkeeper",
           "description": "A warm, quick-witted woman with a knack for remembering faces and secrets. She runs the Wyrd Lantern with a firm but friendly hand.",
           "attitude": "Welcoming to all, but especially those with coin or gossip. Protective of her staff and regulars."
-        },
-        {
-          "name": "Mara the Herbalist",
-          "description": "A village herbalist adorned with sprigs of lavender and yarrow in her braid, tending to the wounded and offering remedies like poultices, an anti-toxin vial, and a bitter tincture for sale. She provides crucial advice about the cursed keep's supernatural dangers.",
-          "attitude": "Helpful and cautious, respects those brave enough to face the keep but mindful of their limited resources."
         }
       ],
       "monsters": [],
       "lootTable": [
-        "Poultices (purchased)",
-        "Anti-toxin vial (purchased)",
-        "Bitter tincture",
-        "Free meal and ale (at Cira's discretion)",
+        "Free meal and ale (at Cira’s discretion)",
         "Set of bone dice (left in a booth)",
         "Silver earring (lost under a table)",
         "Charm against the evil eye (hanging near the bar)"
       ],
       "plotHooks": [
-        "Mara warns about chilling mists that distort perception and the importance of salt and iron wards.",
-        "Do not break protective circles or heed the warnings of ghostly childlike laughter near the keep.",
-        "The tragic history of the Greymont family and the restless spirit Elenora seeking redemption.",
-        "Prepare for the dangers ahead by securing remedies and advice within the inn."
+        "A fearful regular claims to have seen a ghostly figure on the east road.",
+        "Cira offers the party free rooms if they can calm frightened townsfolk.",
+        "A drunken patron insists the keep’s curse is growing stronger and tries to start a brawl."
       ],
-      "dmInstructions": "Cira remains the central source of rumors and local color, with Mara providing herbal remedies and vital information about the cursed keep's supernatural hazards. Encourage players to interact with Mara for supplies and lore. The inn is a safe haven and a staging ground before venturing to the keep.",
+      "dmInstructions": "Cira is the party’s best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
       "doors": [
         {
           "name": "Inn Door",
@@ -519,8 +498,7 @@
       "traps": [],
       "dcChecks": [
         "Persuasion DC 10: Convince Cira to share confidential rumors or grant a favor.",
-        "Insight DC 12: Detect if a patron is hiding something about recent ghost sightings.",
-        "Investigation DC 14: Inspect Mara's remedies for purity and effectiveness."
+        "Insight DC 12: Detect if a patron is hiding something about recent ghost sightings."
       ],
       "accessibility": "Easily reached from the square, step-free entrance, welcoming to all.",
       "dangerLevel": "Low",
@@ -536,26 +514,10 @@
         {
           "name": "Guest Rooms",
           "description": "Modest but clean rooms available for travelers."
-        },
-        {
-          "name": "Herbalist's Corner",
-          "description": "A small nook with drying herbs and a selection of remedies maintained by Mara."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "R05-E1",
-          "summary": "The party meets Mara the Herbalist tending to a limping farmer and purchases poultices and anti-toxin while receiving vital advice about supernatural dangers of Greymont Keep.",
-          "impact": "Party obtains valuable healing items and knowledge about ghostly phenomena and warding techniques, aiding preparation for the cursed keep.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "10:05:00"
-          }
-        }
-      ],
-      "adventureSummary": "Upon entering the Wyrd Lantern Inn, the party was greeted by the comforting scents of baking bread and sharp herbs amid a warm, bustling taproom illuminated by green-tinted lanterns casting lively shadows. They encountered Mara, the village herbalist, who attended a limping farmer nearby and offered remedies--poultices, an anti-toxin vial, and a bitter tincture--at cost, recognizing the party's bravery in facing the cursed keep. The party purchased the poultices and anti-toxin, mindful of their limited funds and the dangers ahead. Mara shared crucial advice about the keep's supernatural hazards: chilling mists that distort perception, the importance of salt and iron to reinforce wards, the peril of breaking protective circles, and warnings about ghostly childlike laughter signaling danger. When asked about the Greymont family, Mara recounted their tragic history, emphasizing Lord Thaddeus's pride and the disappearance of his kin after the curse descended, with a lingering spirit named Elenora who might seek redemption. After heeding her counsel and securing their supplies, the party prepared to depart. Villagers acknowledged them with nods and blessings as the party left the inn, stepping into the misty morning and setting out along the winding path toward the foreboding silhouette of Greymont Keep. This marked the conclusion of their time at the Wyrd Lantern Inn and the beginning of their approach to the next area."
+      "encounters": [],
+      "adventureSummary": ""
     }
   ]
 }

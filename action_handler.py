@@ -209,6 +209,23 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
             # For now, let's assume the main loop will reload it before the next AI call.
         else:
             print("ERROR: Failed to handle location transition")
+            # Create error message for the AI DM
+            error_message = f"""SYSTEM ERROR: Location Transition Failed
+
+The attempted transition to '{new_location_name_or_id}' failed because this location does not exist or is not connected from the current location '{current_location_name}'.
+
+Please use a valid location that exists in the current area ({current_area_id}) and is connected to the current location. Check the map data and connectivity information to ensure valid transitions."""
+            
+            # Append error to conversation history
+            conversation_history.append({"role": "user", "content": error_message})
+            
+            # Import necessary functions from main
+            from main import save_conversation_history, get_ai_response, process_ai_response
+            save_conversation_history(conversation_history)
+            
+            # Get AI response to the error
+            new_response = get_ai_response(conversation_history)
+            return process_ai_response(new_response, party_tracker_data, location_data, conversation_history)
 
     elif action_type == ACTION_LEVEL_UP:
         entity_name = parameters.get("entityName")
