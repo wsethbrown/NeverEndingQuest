@@ -1348,3 +1348,297 @@ I wait politely for her response, ready to purchase what I need.
 2025-05-24 23:15:50 - INFO - LLM debug log available at: ai_player_llm_debug.log
 2025-05-24 23:15:50 - INFO - Test completed: 5 actions taken
 2025-05-24 23:15:50 - INFO - test_complete: {'profile': 'thorough_explorer', 'actions': 5, 'issues_found': 0, 'results_file': 'test_results_Thorough_Explorer_Test_20250524_231550.json'}
+2025-05-24 23:23:17 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:23:25 - INFO - Starting automated test: thorough_explorer
+2025-05-24 23:23:25 - INFO - test_start: {'profile': 'thorough_explorer', 'max_actions': 20}
+2025-05-24 23:23:26 - INFO - Loaded character data from campaigns\Keep_of_Doom\norn.json
+2025-05-24 23:23:26 - INFO - Test environment set up in test_runs/thorough_explorer_20250524_232326
+2025-05-24 23:23:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:23:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:23:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:23:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:23:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:23:33 - INFO - Progress: 0 actions taken
+2025-05-24 23:23:38 - INFO - Progress: 0 actions taken
+2025-05-24 23:23:39 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:23:39 - INFO - AI: I give Elder Mirna a polite nod in return. "Good day, Elder Mirna. I appreciate your time. Before I consider any supplies, I must ask about that bronze key beneath the counter. It caught my eye, and your glance tells me it holds some significance. Would you be willing to share what you know about it? I mean no disrespect, but if it relates to the strange happenings in Harrow's Hollow, I have a responsibility to understand."
+2025-05-24 23:23:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:23:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:23:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:23:55 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:01 - INFO - Game: [38;2;100;180;100m[08:05:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:24:01 - INFO - AI: I accept the key with a respectful bow of my head, my voice steady but sincere. "Elder Mirna, I promise you on my honor as a soldier and protector that I will uncover the truth behind the Greymont family and return to share what I learn. The people of Harrow's Hollow deserve to know, and I will carry that responsibility with all due care."
+
+I hesitate briefly, then add with a sharp edge to my tone, "But I must ask--why did your grandmother warn of trouble? What sort of darkness are we truly facing in that old keep? I need to understand what I am walking into, even if it is unpleasant."
+2025-05-24 23:24:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:12 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:12 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:12 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:14 - INFO - Game: [38;2;100;180;100m[08:07:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:24:14 - INFO - AI: I nod solemnly, meeting Mirna's haunted gaze with steady resolve. "Thank you for your candor, Elder Mirna. I will carry your grandmother's warnings close to my heart. Though I am cautious by nature, I will not shirk from this responsibility. The people who have suffered deserve answers, and I will face whatever darkness lies within the keep."
+
+I hesitate a moment, then add, my voice firm but respectful, "If there is anything else I should prepare for--supplies or knowledge--I would be grateful for your guidance. I intend to be as ready as I can before stepping into that shadowed place."
+2025-05-24 23:24:14 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:22 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:26 - INFO - Game: [38;2;100;180;100m[08:10:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:24:26 - INFO - AI: I offer Mirna a respectful nod. "Thank you, Elder Mirna. Your warnings and kindness mean a great deal. I will take heed of the signs you described and keep a careful watch."
+
+I then approach the shelves to examine the supplies, focusing on lanterns, rations, and any sturdy pouches suitable for carrying the bronze key safely. "I will gather what I need here before venturing to the keep," I say quietly to myself, trying to steady the hesitation that creeps in despite my resolve.
+
+Once I have a better sense of the supplies, I will decide whether to purchase them or ask Mirna for her recommendations on what is most essential for such a journey.
+2025-05-24 23:24:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:38 - INFO - Game: [38;2;100;180;100m[08:15:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:24:38 - INFO - AI: I nod appreciatively toward Mirna. "Thank you for your generosity and advice, Elder Mirna. I will take the hooded lantern and the full ten days' rations. It is wise to be prepared for the worst, even if I hope for the best."
+
+I pause, then ask with a polite but direct tone, "Are there any other supplies you would recommend for dealing with potential wounds or ailments? Perhaps herbs or bandages? I want to be ready for whatever challenges the keep might present, not only from the darkness but from its physical dangers as well."
+2025-05-24 23:24:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:46 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:24:53 - INFO - Game: [38;2;100;180;100m[08:20:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:24:53 - INFO - AI: I nod firmly, feeling the weight of responsibility settle deeper. "Yes, Elder Mirna, I will take the bandages and salve as well. Every bit of preparation counts, and I would rather face the unknown well-equipped than regret leaving supplies behind."
+
+I count out the gold for the purchases: "That will be 11 gold for the lantern, rations, and herbal supplies--thank you for your honesty and kindness."
+
+Before I leave, I add with a polite but slightly sharp edge, "And I will seek out Mara at the Wyrd Lantern Inn. If there is more aid to be had, I need to be as ready as possible."
+
+With my purchases in hand, I prepare to make my way to the inn or the next location in Harrow's Hollow, whichever seems most prudent.
+2025-05-24 23:24:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:14 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:22 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:43 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:43 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:43 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:43 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:43 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:43 - INFO - Game: [38;2;100;180;100m[08:25:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:25:43 - INFO - AI: I walk steadily toward the Wyrd Lantern Inn, keeping my posture respectful and my gaze alert for any sign of Mara. As I approach, I plan to greet her politely but straightforwardly.
+
+Upon finding her, I will say, "Good morning, Mara. I hear you are the village's healer and herbalist. I am preparing to enter the old keep and face dangers both seen and unseen. If you have any remedies or advice to offer, I would be grateful to hear it. The people of Harrow's Hollow depend on those who stand between them and darkness, and I intend to do my part."
+
+I will watch her reaction closely, ready to ask further questions or accept any aid she offers.
+2025-05-24 23:25:43 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:25:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:26:19 - INFO - Game: [38;2;100;180;100m[09:30:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:26:19 - INFO - AI: I take a seat at the table with a polite nod to Mara. "Thank you for your willingness to help, Mara. Your expertise is invaluable, and I appreciate the fair prices."
+
+I carefully examine the remedies laid out before me, then say, "I will take the bundle of poultices and the vial of anti-toxin. Poison is a danger I cannot afford to underestimate, and wounds will come. The tincture for chills is tempting but I must be prudent with my coin."
+
+Then, leaning in slightly with a serious tone, I ask, "What else can you tell me about the dangers inside the keep? Are there particular threats I should watch for beyond the cold mists and voices? Any advice on wards or ways to protect myself from the unnatural elements there?"
+2025-05-24 23:26:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:26:31 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:26:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:26:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:26:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:26:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:26:38 - INFO - Game: [38;2;100;180;100m[09:40:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:26:38 - INFO - AI: I meet Mara's gaze steadily, grateful for her wisdom and the warmth beneath her calloused hand. "Thank you, Mara. Your guidance is a light in this shadowed path. I will heed your warnings closely--salt and iron, respect for the wards, and caution before the laughter of the lost."
+
+I pause, then ask carefully, "If I may, is there anything you know of the Greymont family themselves? Any remnants of their story beyond the curses and disappearances? Understanding their past might help me face whatever haunts the keep."
+
+Once I've heard her answer, I will prepare to depart for the keep, ensuring my supplies are secure and my resolve firm.
+2025-05-24 23:26:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:26:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:11 - WARNING - Issue detected: Error message detected at Unknown
+2025-05-24 23:27:11 - INFO - Game: [38;2;100;180;100m[09:45:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:27:11 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
+2025-05-24 23:27:11 - INFO - AI: I take a deep breath and nod solemnly. "Thank you, Mara. Your stories and counsel will guide me as much as any sword or shield. I will treat any tokens I find with the respect they deserve, in honor of Elenora and the Greymont family."
+
+I adjust my gear, ensuring the pouch with the bronze key is secure and the lantern ready. As I set out toward the keep, I remind myself to stay cautious, keep my senses sharp, and remember the warnings about salt, iron, and the strange voices.
+
+With steady steps and a determined heart, I head toward Greymont Keep, prepared to face whatever darkness awaits inside.
+2025-05-24 23:27:11 - WARNING - Issue detected: Missing content detected at Unknown
+2025-05-24 23:27:11 - INFO - issue_detected: {'type': 'Missing content detected', 'location': 'Unknown'}
+2025-05-24 23:27:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:13 - WARNING - AI reported issue: ISSUE DETECTED: The location 'Keep of Doom' is not recognized as part of the current connected areas in the game.
+
+Since I intended to proceed to Greymont Keep, I will clarify to the DM:
+
+"I intend to proceed to the Greymont Keep as the next location in Harrow's Hollow. Could you please confirm that this location is accessible? If it is known by another name or requires a specific action to reach, kindly advise so I can continue accordingly."
+2025-05-24 23:27:13 - WARNING - Issue detected: Error message detected at Unknown
+2025-05-24 23:27:13 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
+2025-05-24 23:27:13 - INFO - Progress: 10 actions taken
+2025-05-24 23:27:15 - WARNING - AI reported issue: ISSUE DETECTED: Unable to transition to the Greymont Keep location due to an error.
+
+Given this, I will respond politely but with clear intent:
+
+"It seems there is an issue reaching the keep at this time. While I wait for the path to open or for further instructions, I will remain vigilant here in Harrow's Hollow. If there are other locations I must visit first or preparations to make, please let me know. I do not wish to rush blindly into danger without proper guidance."
+2025-05-24 23:27:18 - INFO - Progress: 10 actions taken
+2025-05-24 23:27:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:23 - INFO - Progress: 10 actions taken
+2025-05-24 23:27:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:28 - INFO - Progress: 10 actions taken
+2025-05-24 23:27:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:30 - INFO - Game: [38;2;100;180;100m[09:50:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:27:30 - INFO - AI: ISSUE DETECTED: The location 'Keep of Doom' is not recognized as part of the current connected areas in the game.
+
+Since I intended to proceed to Greymont Keep, I will clarify to the DM:
+
+"I intend to proceed to the Greymont Keep as the next location in Harrow's Hollow. Could you please confirm that this location is accessible? If it is known by another name or requires a specific action to reach, kindly advise so I can continue accordingly."
+2025-05-24 23:27:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:33 - WARNING - Issue detected: Error message detected at Unknown
+2025-05-24 23:27:33 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
+2025-05-24 23:27:33 - WARNING - Issue detected: Missing content detected at Unknown
+2025-05-24 23:27:33 - INFO - issue_detected: {'type': 'Missing content detected', 'location': 'Unknown'}
+2025-05-24 23:27:35 - WARNING - AI reported issue: ISSUE DETECTED: The location 'Greymont Keep' is still not recognized as accessible from the current area.
+
+Since direct entry is blocked, I will reconsider my approach.
+
+I step back from the gate and thoroughly examine the surrounding area--looking for side entrances, windows, or any clues that might reveal an alternate way inside the keep. I also scan for any signs of wards, salt circles, or iron implements nearby that Mara mentioned.
+
+If nothing obvious appears, I will speak aloud, maintaining my respectful tone despite my frustration: "If the main gate is barred by forces unseen, perhaps the keep itself wishes its secrets guarded. I will seek another path or clue that might grant me entry without disturbing the wards prematurely."
+
+I remain alert and proceed carefully around the perimeter, hoping to find a way forward that honors the warnings and keeps me safe.
+2025-05-24 23:27:35 - WARNING - Issue detected: Error message detected at Unknown
+2025-05-24 23:27:35 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
+2025-05-24 23:27:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:37 - WARNING - AI reported issue: ISSUE DETECTED: Still unable to transition to any area within Greymont Keep, including attempts at alternate approaches.
+
+Given these repeated errors, I will pause and address the situation directly.
+
+"I am encountering technical difficulties accessing the Greymont Keep location. While awaiting resolution, I will remain vigilant here at the keep's entrance, observing my surroundings carefully. If there are other locations in Harrow's Hollow I should visit or preparations I can make, please advise so I may continue effectively."
+2025-05-24 23:27:51 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:27:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:28:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:28:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:28:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:28:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:28:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:28:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:28:20 - INFO - Game: [38;2;100;180;100m[10:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:28:20 - INFO - AI: ISSUE DETECTED: Unable to transition to the Greymont Keep location due to an error.
+
+Given this, I will respond politely but with clear intent:
+
+"It seems there is an issue reaching the keep at this time. While I wait for the path to open or for further instructions, I will remain vigilant here in Harrow's Hollow. If there are other locations I must visit first or preparations to make, please let me know. I do not wish to rush blindly into danger without proper guidance."
+2025-05-24 23:28:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:28:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:28:29 - INFO - objective_progress: {'objective': "Visit all 5 locations in Harrow's Hollow...", 'status': 'possible_completion'}
+2025-05-24 23:28:29 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:28:29 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:28:29 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:28:52 - INFO - Game: [38;2;100;180;100m[11:05:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:28:52 - INFO - AI: I pause at the threshold, taking a moment to steady myself and recall the warnings -- salt at the threshold, iron at the heart, and respect for the wards. I carefully inspect the gate and surrounding area for any signs of wards or protective markings, or anything unusual in the stonework or ground.
+
+I then quietly say, with a respectful but cautious tone, "I mean no harm to those who have suffered here. I seek only to uncover the truth and bring peace to Harrow's Hollow."
+
+With my lantern lit and the bronze key secure in its pouch, I prepare to unlock the gate if it appears to be locked, watching closely for any reaction or change as I do so.
+2025-05-24 23:28:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:12 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:12 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:12 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:12 - INFO - Game: [38;2;100;180;100m[11:10:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:29:12 - INFO - AI: ISSUE DETECTED: The location 'Greymont Keep' is still not recognized as accessible from the current area.
+
+Since direct entry is blocked, I will reconsider my approach.
+
+I step back from the gate and thoroughly examine the surrounding area--looking for side entrances, windows, or any clues that might reveal an alternate way inside the keep. I also scan for any signs of wards, salt circles, or iron implements nearby that Mara mentioned.
+
+If nothing obvious appears, I will speak aloud, maintaining my respectful tone despite my frustration: "If the main gate is barred by forces unseen, perhaps the keep itself wishes its secrets guarded. I will seek another path or clue that might grant me entry without disturbing the wards prematurely."
+
+I remain alert and proceed carefully around the perimeter, hoping to find a way forward that honors the warnings and keeps me safe.
+2025-05-24 23:29:12 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:19 - INFO - Game: [38;2;100;180;100m[11:12:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:29:19 - INFO - AI: ISSUE DETECTED: Still unable to transition to any area within Greymont Keep, including attempts at alternate approaches.
+
+Given these repeated errors, I will pause and address the situation directly.
+
+"I am encountering technical difficulties accessing the Greymont Keep location. While awaiting resolution, I will remain vigilant here at the keep's entrance, observing my surroundings carefully. If there are other locations in Harrow's Hollow I should visit or preparations I can make, please advise so I may continue effectively."
+2025-05-24 23:29:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:25 - INFO - Game: [38;2;100;180;100m[11:14:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:29:25 - INFO - AI: I take a deep breath, steadying myself as I stand once more before the General Store. I remind myself of my duty to the people of Harrow's Hollow and the promise I made to Elder Mirna to seek the truth and bring it back.
+
+With purposeful steps, I enter the store again and approach Elder Mirna. I say politely, "Elder Mirna, before I proceed to the keep, is there anything else I should know or any last advice you can offer? I wish to honor the trust placed in me and face what lies ahead prepared in both body and mind."
+2025-05-24 23:29:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:39 - INFO - Game: [38;2;100;180;100m[11:16:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:29:39 - INFO - AI: I offer Mirna a respectful nod. "Thank you, Elder Mirna. Your wisdom is a steady anchor in uncertain times."
+
+I consider my options carefully, feeling the weight of responsibility but also the need to prepare fully. "I would like to speak with other villagers who might have knowledge or stories about the keep, the Greymonts, or the strange happenings in Harrow's Hollow. Their insights could provide clues or warnings I have yet to hear."
+
+I add, with my characteristic honesty, "And if there is anyone who might need protection or aid while I wait, I want to offer what help I can. I fight for those who cannot fight for themselves, after all."
+
+Then, I ask, "Could you kindly direct me to someone who might have such knowledge, or point me toward those in need?"
+2025-05-24 23:29:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:46 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:48 - INFO - Game: [38;2;100;180;100m[11:17:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:29:48 - INFO - AI: I roll 1d20+3 for Investigation. Result: 12+3=15
+
+With steady hands, I carefully examine the back entrance--the stone lintel, the floor, and the surrounding walls--for any signs of salt lines, iron nails, or etched runes. My eyes search for anything out of place or faintly glowing, knowing that these small details may hold the key to safely entering the keep.
+2025-05-24 23:29:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:55 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:29:57 - INFO - Game: [38;2;100;180;100m[11:19:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:29:57 - INFO - AI: I roll 1d20+3 for Investigation. Result: 9+3=12
+
+I carefully inspect the perimeter of the general store once more, focusing on the foundation stones, doorframes, and eaves for any signs of wards or hidden entrances. Although nothing immediately obvious stands out, I remain alert for subtle clues or irregularities that might reveal an alternate path or protection.
+
+If my search yields no clear results, I will consider asking Elder Mirna or a nearby villager if they have noticed anything unusual about the store or its surroundings.
+2025-05-24 23:29:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:30:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:30:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:30:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:30:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:30:06 - INFO - Game: [38;2;100;180;100m[11:21:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:30:06 - INFO - AI: I meet Elder Mirna's gaze with respect and a hint of frustration, but also a steady resolve. "Thank you, Elder Mirna. Your words remind me that patience and thoroughness are as vital as courage."
+
+I consider my options and say, "I will take your advice and explore the village more deeply. The militia barracks may hold insights from those who have guarded the town longer, and the eastern path could reveal hidden signs or forgotten places tied to the keep's history."
+
+I add, with honest determination, "I will also keep an eye out for anyone in need of protection or aid. My duty extends beyond the keep's gates to the people I fight for."
+
+With that, I prepare to make my way toward the militia barracks, ready to listen, learn, and offer help where it is needed.
+2025-05-24 23:30:06 - WARNING - Reached maximum actions (20)
+2025-05-24 23:30:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:30:08 - INFO - Progress: 20 actions taken
+2025-05-24 23:30:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:30:17 - INFO - Test results saved to test_results_Thorough_Explorer_Test_20250524_233017.json
+2025-05-24 23:30:17 - INFO - LLM debug log available at: ai_player_llm_debug.log
+2025-05-24 23:30:17 - INFO - Test completed: 20 actions taken
+2025-05-24 23:30:17 - INFO - test_complete: {'profile': 'thorough_explorer', 'actions': 20, 'issues_found': 6, 'results_file': 'test_results_Thorough_Explorer_Test_20250524_233017.json'}

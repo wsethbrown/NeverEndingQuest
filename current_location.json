@@ -1,82 +1,77 @@
 {
-  "locationId": "R01",
-  "name": "Harrow's Hollow General Store",
-  "type": "shop",
-  "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter.",
-  "coordinates": "X2Y2",
+  "locationId": "R05",
+  "name": "The Wyrd Lantern Inn",
+  "type": "tavern",
+  "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew and fresh bread fills the air. Laughter and song are frequent, but at night, whispers of fear and superstition drift between tables.",
+  "coordinates": "X1Y2",
   "connectivity": [
-    "R02",
-    "R03",
-    "R04",
-    "R05"
+    "R01"
   ],
   "areaConnectivity": [],
   "areaConnectivityId": [],
   "npcs": [
     {
-      "name": "Elder Mirna Harrow",
-      "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs.",
-      "attitude": "Respectful but cautious toward outsiders; friendly and supportive to locals, especially those in need."
+      "name": "Cira the Innkeeper",
+      "description": "A warm, quick-witted woman with a knack for remembering faces and secrets. She runs the Wyrd Lantern with a firm but friendly hand.",
+      "attitude": "Welcoming to all, but especially those with coin or gossip. Protective of her staff and regulars."
     }
   ],
   "monsters": [],
   "lootTable": [
-    "Adventurer's pack (1 gp)",
-    "Lantern, hooded (5 gp)",
-    "10 days' rations (5 sp per)",
-    "Cured leather pouch (8 sp)",
-    "Handwritten map of local trails (contains a clue about a haunted ruin)",
-    "Old bronze key marked with a faded raven sigil"
+    "Free meal and ale (at Cira's discretion)",
+    "Set of bone dice (left in a booth)",
+    "Silver earring (lost under a table)",
+    "Charm against the evil eye (hanging near the bar)"
   ],
   "plotHooks": [
-    "A worried villager asks if the party has news of Scout Elen, who vanished checking the old east trail.",
-    "Elder Mirna discreetly seeks brave souls to investigate odd nighttime lights near the ruined keep.",
-    "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts."
+    "A fearful regular claims to have seen a ghostly figure on the east road.",
+    "Cira offers the party free rooms if they can calm frightened townsfolk.",
+    "A drunken patron insists the keep's curse is growing stronger and tries to start a brawl."
   ],
-  "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something.",
+  "dmInstructions": "Cira is the party's best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
   "doors": [
     {
-      "name": "Front Door",
-      "description": "A broad, reinforced oak door with brass fittings and a bell overhead.",
+      "name": "Inn Door",
+      "description": "A wide, inviting wooden door painted green, with a brass lantern hanging overhead.",
       "type": "regular",
       "locked": false,
       "lockDC": 0,
-      "breakDC": 13,
+      "breakDC": 12,
       "keyname": "",
       "trapped": false,
       "trap": ""
     },
     {
-      "name": "Back Storeroom Door",
-      "description": "A smaller, iron-banded door leading to a cramped storeroom.",
+      "name": "Cellar Hatch",
+      "description": "A sturdy hatch behind the bar, leading to the root cellar.",
       "type": "regular",
       "locked": true,
-      "lockDC": 13,
-      "breakDC": 15,
-      "keyname": "Old bronze key",
+      "lockDC": 10,
+      "breakDC": 14,
+      "keyname": "Cellar key (kept by Cira)",
       "trapped": false,
       "trap": ""
     }
   ],
   "traps": [],
   "dcChecks": [
-    "Insight DC 12: Discern Elder Mirna is withholding information about the key and certain historical events.",
-    "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the keep."
+    "Persuasion DC 10: Convince Cira to share confidential rumors or grant a favor.",
+    "Insight DC 12: Detect if a patron is hiding something about recent ghost sightings."
   ],
-  "accessibility": "Easily accessible from the main square, wide doorways and step-free entry.",
+  "accessibility": "Easily reached from the square, step-free entrance, welcoming to all.",
   "dangerLevel": "Low",
   "features": [
     {
-      "name": "Notice Board",
-      "description": "A cluttered board filled with handwritten notices, missing pet posters, and cryptic local warnings."
+      "name": "The Bar",
+      "description": "A polished oak bar lined with lanterns and dangling good luck charms."
     },
     {
-      "name": "Counter and Ledger",
-      "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike."
+      "name": "Hearth and Common Room",
+      "description": "A crackling fire and mismatched armchairs make this a favorite gathering spot."
     },
     {
-      "name": "Back Storeroom",
-      "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests."
+      "name": "Guest Rooms",
+      "description": "Modest but clean rooms available for travelers."
     }
   ],
   "encounters": [],
