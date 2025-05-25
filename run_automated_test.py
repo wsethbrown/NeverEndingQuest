@@ -146,7 +146,7 @@ class AutomatedGameRunner:
             "max_actions": self.max_actions
         })
         
-        # Initialize AI player
+        # Initialize AI player (will read campaign from party_tracker.json)
         self.ai_player = AIPlayer(self.test_profile)
         
         # Set up test environment

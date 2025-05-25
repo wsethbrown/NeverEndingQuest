@@ -1090,3 +1090,261 @@ I look around the inn for any posted maps, notices, or signs that list or mentio
 2025-05-24 22:42:13 - INFO - LLM debug log available at: ai_player_llm_debug.log
 2025-05-24 22:42:13 - INFO - Test completed: 5 actions taken
 2025-05-24 22:42:13 - INFO - test_complete: {'profile': 'thorough_explorer', 'actions': 5, 'issues_found': 1, 'results_file': 'test_results_Thorough_Explorer_Test_20250524_224213.json'}
+2025-05-24 22:47:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:47:59 - INFO - Starting automated test: thorough_explorer
+2025-05-24 22:47:59 - INFO - test_start: {'profile': 'thorough_explorer', 'max_actions': 5}
+2025-05-24 22:48:00 - INFO - Test environment set up in test_runs/thorough_explorer_20250524_224800
+2025-05-24 22:48:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:07 - INFO - Progress: 0 actions taken
+2025-05-24 22:48:09 - INFO - objective_progress: {'objective': "Visit all 5 locations in Harrow's Hollow...", 'status': 'possible_completion'}
+2025-05-24 22:48:10 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:48:10 - INFO - AI: I will start by thoroughly examining the notice board near the counter. I want to read all the handwritten fliers, missing livestock reports, cryptic warnings, and the reward poster about the recent disappearances.
+2025-05-24 22:48:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:27 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:48:27 - INFO - AI: I will ask Elder Mirna about the bronze key with the faded raven sigil behind the counter. "Elder Mirna, may I ask about the bronze key with the raven sigil I noticed behind you? Does it open something important in Harrow's Hollow?"
+2025-05-24 22:48:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:44 - INFO - Game: [38;2;100;180;100m[08:05:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:48:44 - INFO - AI: I will make an Insight check to discern whether Elder Mirna is withholding information or has deeper feelings about the bronze key and its history.
+2025-05-24 22:48:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:46 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:48:50 - INFO - Game: [38;2;100;180;100m[08:05:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:48:50 - INFO - AI: I roll 1d20 and add +3 for Insight. The result is 14 (roll) + 3 = 17 total.
+2025-05-24 22:48:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:49:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:49:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:49:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:49:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:49:04 - INFO - Game: [38;2;100;180;100m[08:05:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:49:04 - INFO - AI: I say to Elder Mirna: "I accept the responsibility. I will take the key and promise not to face the keep's secrets alone. Please, share what you can about the dangers within the keep and any guidance for someone seeking the truth there."
+2025-05-24 22:49:04 - WARNING - Reached maximum actions (5)
+2025-05-24 22:49:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:49:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:49:09 - INFO - Test results saved to test_results_Thorough_Explorer_Test_20250524_224909.json
+2025-05-24 22:49:09 - INFO - LLM debug log available at: ai_player_llm_debug.log
+2025-05-24 22:49:09 - INFO - Test completed: 5 actions taken
+2025-05-24 22:49:09 - INFO - test_complete: {'profile': 'thorough_explorer', 'actions': 5, 'issues_found': 0, 'results_file': 'test_results_Thorough_Explorer_Test_20250524_224909.json'}
+2025-05-24 22:57:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:58:06 - INFO - Starting automated test: thorough_explorer
+2025-05-24 22:58:06 - INFO - test_start: {'profile': 'thorough_explorer', 'max_actions': 5}
+2025-05-24 22:58:06 - INFO - Test environment set up in test_runs/thorough_explorer_20250524_225806
+2025-05-24 22:58:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:58:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:58:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:58:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:58:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:58:14 - INFO - Progress: 0 actions taken
+2025-05-24 22:58:19 - INFO - Progress: 0 actions taken
+2025-05-24 22:58:24 - INFO - Progress: 0 actions taken
+2025-05-24 22:58:26 - INFO - objective_progress: {'objective': "Visit all 5 locations in Harrow's Hollow...", 'status': 'possible_completion'}
+2025-05-24 22:58:27 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:58:27 - INFO - AI: I approach the display case and carefully examine the old bronze key with the faded raven sigil. I look for any inscriptions, markings, or clues about its origin or purpose. Then, I turn to Mirna and ask, "Elder Mirna, this key--does it open something important around here? What can you tell me about it?"
+2025-05-24 22:58:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:58:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:58:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:58:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:58:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:58:42 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:58:42 - INFO - AI: I say to Mirna, "I sense there's more to this key than you're letting on. If it's truly just a relic, why keep it locked away here? If you don't mind, I would like to understand its significance better. Could you tell me if it has any connection to the keep or any old secrets of Harrow's Hollow?"
+
+Then, I roll for Insight to discern whether Mirna is withholding information: I roll 1d20 + 3 Insight modifier.
+
+Rolling: 1d20 result is 14. Adding 3 gives 17.
+
+Result: 14 + 3 = 17
+2025-05-24 22:58:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:58:55 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:14 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:15 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:59:15 - INFO - AI: I say to Mirna, "I sense there's more to this key than you're letting on. If it's truly just a relic, why keep it locked away here? If you don't mind, I would like to understand its significance better. Could you tell me if it has any connection to the keep or any old secrets of Harrow's Hollow?"
+
+Then, I roll for Insight to discern whether Mirna is withholding information: I roll 1d20 + 3 Insight modifier.
+
+Rolling: 1d20 result is 14. Adding 3 gives 17.
+
+Result: 14 + 3 = 17
+
+[updatePlot: Mirna reveals that the bronze key with the raven sigil is linked to a hidden chamber beneath the old keep, holding secrets from the founding of Harrow's Hollow.]
+2025-05-24 22:59:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:29 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:30 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:59:30 - INFO - AI: I nod solemnly, gripping the bronze key firmly. "Thank you, Mirna. I won't take this lightly. The secrets of the keep and the curse--they need to be faced. I will do my best to bring peace to Harrow's Hollow."
+
+I pocket the key securely and then ask, "Before I go, could you tell me the best way to reach the old keep? And are there any dangers or warnings I should heed on the path?"
+2025-05-24 22:59:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:44 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 22:59:44 - INFO - AI: I secure the bronze key carefully in my pack, then look back to Mirna with a determined expression.
+
+"Mirna, I will face whatever awaits in the keep. Before I go, please tell me the safest route to the keep. Are there any particular dangers or warnings I should be aware of on the way?"
+2025-05-24 22:59:44 - WARNING - Reached maximum actions (5)
+2025-05-24 22:59:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 22:59:50 - INFO - Test results saved to test_results_Thorough_Explorer_Test_20250524_225950.json
+2025-05-24 22:59:50 - INFO - LLM debug log available at: ai_player_llm_debug.log
+2025-05-24 22:59:50 - INFO - Test completed: 5 actions taken
+2025-05-24 22:59:50 - INFO - test_complete: {'profile': 'thorough_explorer', 'actions': 5, 'issues_found': 0, 'results_file': 'test_results_Thorough_Explorer_Test_20250524_225950.json'}
+2025-05-24 23:00:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:01:02 - INFO - Starting automated test: thorough_explorer
+2025-05-24 23:01:02 - INFO - test_start: {'profile': 'thorough_explorer', 'max_actions': 5}
+2025-05-24 23:01:03 - INFO - Test environment set up in test_runs/thorough_explorer_20250524_230103
+2025-05-24 23:01:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:01:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:01:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:01:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:01:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:01:10 - INFO - Progress: 0 actions taken
+2025-05-24 23:01:15 - INFO - Progress: 0 actions taken
+2025-05-24 23:01:18 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:01:18 - INFO - AI: I approach the counter and greet Mirna warmly. "Good morning, Mirna. I'm alright, thank you. The forest was quiet, but the unease in town still lingers." I glance at the bronze key with the faded raven sigil. "This key--what can you tell me about it? It looks important." Then I look over the notice board, examining the postings carefully for any clues or details related to the recent hauntings or missing livestock.
+2025-05-24 23:01:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:01:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:01:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:01:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:01:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:01:38 - INFO - Game: [38;2;100;180;100m[08:01:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:01:38 - INFO - AI: I meet Mirna's cautious gaze and lean slightly closer, lowering my voice. "Mirna, I appreciate your trust. That key and the raven sigil... have you heard any stories or rumors about where it might fit? Perhaps an old door or chest connected to the east trail or the area where the livestock disappeared? If there's anything--no matter how small--that could help me understand, I'm ready to listen." 
+
+Afterward, I turn back to the notice board and carefully reread the warning about the lantern-paths and strange shadows, considering asking Mirna if she knows more about those shadows or if anyone has tried to follow the lantern-paths at night.
+2025-05-24 23:01:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:01:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:12 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:12 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:12 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:12 - INFO - Game: [38;2;100;180;100m[08:04:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:02:12 - INFO - AI: I take the bronze key carefully, weighing it in my hand. "Thank you, Mirna. I won't take this lightly." I nod solemnly. "I'll be cautious with the lantern-paths and the shadows. If there's a way to uncover the truth without stirring danger, I'll find it."
+
+I then ask Mirna, "Have you or anyone you trust ever tried to explore the family crypts or the keep itself recently? Any details about where the hidden lock might be, or signs to look for?" 
+
+Finally, I examine the key closely for any additional markings or inscriptions beyond the raven sigil that might give clues to its use.
+2025-05-24 23:02:12 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:44 - INFO - Game: [38;2;100;180;100m[08:06:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:02:44 - INFO - AI: I carefully trace the tiny numbers '13-7-2' etched on the key's edge with my fingertip, committing them to memory. "Thank you, Mirna. Jorren's footprints near the east wall and the crypt's supposed access by the great hall's hearth give me a good starting point."
+
+I then say, "I'll look for any hidden locks or clues near the hearth inside the keep. If I find anything unusual, I'll keep the numbers in mind as a possible code or sequence."
+
+Before leaving, I ask Mirna, "Is there any chance I could speak with Jorren the stonecutter or anyone who might have seen those footprints or explored near the east wall recently? It could help to know more about what was found."
+2025-05-24 23:02:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:02:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:03:05 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:03:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:03:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:03:09 - ERROR - Game thread error: 'charmap' codec can't decode byte 0x9d in position 913: character maps to <undefined>
+2025-05-24 23:03:10 - INFO - Test results saved to test_results_Thorough_Explorer_Test_20250524_230310.json
+2025-05-24 23:03:10 - INFO - LLM debug log available at: ai_player_llm_debug.log
+2025-05-24 23:03:10 - INFO - Test completed: 4 actions taken
+2025-05-24 23:03:10 - INFO - test_complete: {'profile': 'thorough_explorer', 'actions': 4, 'issues_found': 0, 'results_file': 'test_results_Thorough_Explorer_Test_20250524_230310.json'}
+2025-05-24 23:13:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:01 - INFO - Starting automated test: thorough_explorer
+2025-05-24 23:14:01 - INFO - test_start: {'profile': 'thorough_explorer', 'max_actions': 5}
+2025-05-24 23:14:01 - INFO - Loaded character data from campaigns\Keep_of_Doom\norn.json
+2025-05-24 23:14:01 - INFO - Test environment set up in test_runs/thorough_explorer_20250524_231401
+2025-05-24 23:14:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:08 - INFO - Progress: 0 actions taken
+2025-05-24 23:14:13 - INFO - Progress: 0 actions taken
+2025-05-24 23:14:15 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:14:15 - INFO - AI: I approach the counter with a respectful nod to Elder Mirna. "Good morning, Elder Mirna. Thank you for setting aside supplies; I appreciate your consideration." I glance at the bronze key again, then back to Mirna. "That key seems quite interesting, especially with the raven sigil. If you don't mind my asking, is there any story behind it? It seems unusual compared to the other items here."
+
+If her response seems guarded or evasive, I will consider an Insight check to discern her honesty. Otherwise, I may inquire about Scout Elen or local news, as I want to gather all relevant information to protect those who cannot protect themselves.
+2025-05-24 23:14:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:22 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:28 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:14:28 - INFO - AI: I study Elder Mirna's expression carefully, noting the tightness around her eyes and the guarded hope in her gaze. I hesitate for a moment, not trusting my instincts fully, but feeling a responsibility to uncover the truth for the sake of the town. 
+
+"Thank you for sharing that, Elder Mirna. I can understand the key might be more than it seems." I pause, then add politely but firmly, "If there is anything more you think I should know--especially if it could help keep Harrow's Hollow safe--I would be grateful for your honesty."
+
+I then say, "If you prefer, I can respect your discretion about the key. In the meantime, could you tell me if Scout Elen has been heard from recently? Her disappearance worries me, as someone who fights for those who cannot defend themselves."
+
+If Mirna remains evasive about the key, I am ready to make an Insight check.
+2025-05-24 23:14:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:14:53 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:14:53 - INFO - AI: I take a steadying breath and focus on Elder Mirna's subtle cues, determined to see through any hesitation. "Very well, Elder Mirna. I appreciate your candor." 
+
+"I roll 1d20+3 for Insight. Result: 14+3=17."
+2025-05-24 23:14:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:32 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:15:32 - INFO - AI: I accept the bronze key carefully, meeting Elder Mirna's anxious gaze with steady resolve. "Thank you for trusting me with this, Elder Mirna. I will carry this responsibility with care and respect. Those who cannot defend themselves will have my protection."
+
+I pause, my sharp tongue itching to speak but holding back out of respect. Instead, I add, "Scout Elen's disappearance is troubling. I will search for her and uncover whatever secrets the keep holds. The people of Harrow's Hollow deserve to know the truth and to be safe."
+
+"I will prepare to visit the keep next. Before I go, is there anything else I should know about the keep or the recent curse that might help me?" I ask politely, though my concern is clear in my voice.
+2025-05-24 23:15:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:44 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
+2025-05-24 23:15:44 - INFO - AI: I nod respectfully to Elder Mirna, appreciating her candid advice. "Thank you, Elder Mirna. Your guidance is invaluable. I will follow the river's edge through Gloamwood and be cautious of the spirits. I will also look for any wards and do my best to restore them."
+
+I add with sincere determination, "If I find Scout Elen, I will deliver your message. Harrow's Hollow will not be abandoned."
+
+Pausing, I say, "Before I head out, I would like to check if there are any supplies that might aid me on this journey--torches, rope, or healing potions, perhaps. I want to be as prepared as possible to protect the village."
+
+I wait politely for her response, ready to purchase what I need.
+2025-05-24 23:15:44 - WARNING - Reached maximum actions (5)
+2025-05-24 23:15:44 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-24 23:15:50 - INFO - Test results saved to test_results_Thorough_Explorer_Test_20250524_231550.json
+2025-05-24 23:15:50 - INFO - LLM debug log available at: ai_player_llm_debug.log
+2025-05-24 23:15:50 - INFO - Test completed: 5 actions taken
+2025-05-24 23:15:50 - INFO - test_complete: {'profile': 'thorough_explorer', 'actions': 5, 'issues_found': 0, 'results_file': 'test_results_Thorough_Explorer_Test_20250524_231550.json'}

@@ -13,14 +13,16 @@ from config import OPENAI_API_KEY, DM_MINI_MODEL
 from enhanced_logger import game_logger, game_event
 from encoding_utils import safe_json_dump, sanitize_text
 import os
+from pathlib import Path
 
 class AIPlayer:
     """AI player that makes decisions based on test objectives"""
     
-    def __init__(self, test_profile, player_name="TestHero"):
+    def __init__(self, test_profile, player_name="TestHero", campaign_path=None):
         self.client = OpenAI(api_key=OPENAI_API_KEY)
         self.test_profile = test_profile
         self.player_name = player_name
+        self.campaign_path = campaign_path
         self.conversation_history = []  # Clean conversation history
         self.raw_output_buffer = []  # Buffer for raw game output
         self.test_log = []
@@ -35,6 +37,9 @@ class AIPlayer:
             "recent_events": []
         }
         
+        # Load character data
+        self.character_data = self._load_character_data()
+        
         # Initialize LLM debug log
         self.llm_debug_file = "ai_player_llm_debug.log"
         self._init_llm_debug_log()
@@ -44,6 +49,42 @@ class AIPlayer:
         # Create empty file
         with open(self.llm_debug_file, 'w') as f:
             f.write("")
+    
+    def _load_character_data(self):
+        """Load character data from norn.json using party_tracker campaign"""
+        try:
+            # First, get the campaign name from party_tracker.json
+            with open("party_tracker.json", 'r', encoding='utf-8') as f:
+                party_data = json.load(f)
+                campaign_name = party_data.get("campaign", "Keep_of_Doom")
+                
+            # Construct the path to norn.json in the campaign folder
+            char_path = Path(f"campaigns/{campaign_name}/norn.json")
+            
+            if char_path.exists():
+                with open(char_path, 'r', encoding='utf-8') as f:
+                    game_logger.info(f"Loaded character data from {char_path}")
+                    return json.load(f)
+            else:
+                game_logger.warning(f"Character file not found at {char_path}")
+                
+        except Exception as e:
+            game_logger.error(f"Error loading character data: {str(e)}")
+        
+        # Return minimal default if not found
+        game_logger.warning("Using default character data")
+        return {
+            "name": "Norn",
+            "race": "Human",
+            "class": "Fighter",
+            "level": 4,
+            "background": "Soldier",
+            "alignment": "lawful good",
+            "personality_traits": "Always polite and respectful",
+            "ideals": "Responsibility",
+            "bonds": "Fight for those who cannot fight for themselves",
+            "flaws": "Hard time hiding true feelings"
+        }
     
     def _log_llm_interaction(self, messages, response_text=None):
         """Log only the exact messages sent to OpenAI API - overwrites file each time"""
@@ -59,36 +100,64 @@ class AIPlayer:
     def create_system_prompt(self):
         """Create the system prompt for the AI player"""
         current_objective = self.get_current_objective()
+        char = self.character_data
         
-        prompt = f"""You are an AI testing a D&D game. Your role is '{self.test_profile['name']}'.
+        # Extract key skills with modifiers
+        skills = char.get('skills', {})
+        skill_text = []
+        for skill, bonus in skills.items():
+            skill_text.append(f"  - {skill}: +{bonus}")
+        
+        # Get key equipment
+        equipment = []
+        if 'equipment' in char:
+            for item in char['equipment']:
+                equipment.append(f"  - {item['item_name']}: {item.get('description', '')}")
+        
+        prompt = f"""You are playing a D&D 5e game as {char['name']}, a level {char['level']} {char['race']} {char['class']}.
 
-Current Test Profile: {self.test_profile['description']}
+CHARACTER DETAILS:
+Background: {char.get('background', 'Unknown')}
+Alignment: {char.get('alignment', 'Unknown')}
+HP: {char.get('hitPoints', 0)}/{char.get('maxHitPoints', 0)}
+AC: {char.get('armorClass', 10)}
 
-Your Current Objective: {current_objective}
+PERSONALITY:
+- Traits: {char.get('personality_traits', 'Unknown')}
+- Ideals: {char.get('ideals', 'Unknown')} 
+- Bonds: {char.get('bonds', 'Unknown')}
+- Flaws: {char.get('flaws', 'Unknown')}
 
-Game State:
-- Location: {self.game_state['location']}
-- HP: {self.game_state['hp']}
-- Time: {self.game_state['time']}
-- Recent Events: {'; '.join(self.game_state['recent_events'][-3:])}
+KEY SKILLS (with modifiers):
+{chr(10).join(skill_text)}
 
-Testing Guidelines:
-1. Make decisions that progress toward your current objective
-2. If you encounter an error or unexpected response, note it and try a different approach
-3. Be specific in your commands (e.g., "I search the room" not just "search")
-4. Test variations of commands when appropriate
-5. Document any issues or unclear responses
+CURRENT KEY ITEMS:
+{chr(10).join(equipment) if equipment else '  - None noted'}
 
-Constraints:
-{json.dumps(self.test_profile.get('constraints', {}), indent=2)}
+HOW TO PLAY:
+- The DM will describe scenes and ask what you do
+- Respond with your character's actions, staying true to their personality
+- Be specific (e.g., "I examine the bronze key" not just "examine")
+- Your personality traits should influence your decisions:
+  * You're always polite and respectful
+  * You hesitate and don't trust gut feelings
+  * You fight for those who can't fight for themselves
+  * You have trouble hiding feelings and a sharp tongue
 
-When responding:
-- Give a single, clear action or response
-- Don't explain your reasoning unless encountering an issue
-- If something seems broken, say "ISSUE DETECTED: [description]" before trying alternatives
-- Stay in character as an adventurer, but with testing awareness
-- DO NOT narrate the DM's responses or describe what you see - only state your actions
-- Respond as if you are the player, not the DM"""
+ACTIONS YOU CAN TAKE:
+- Explore and examine objects/areas
+- Talk to NPCs (remember: polite but sometimes sharp-tongued)
+- Search for items or clues
+- Combat when necessary
+- Make skill checks (roll d20 + modifier when asked)
+
+Current testing objective: {current_objective}
+
+IMPORTANT:
+- Respond only as {char['name']} would act
+- For dice rolls: "I roll 1d20+{skills.get('Insight', 0)}. Result: [roll]+{skills.get('Insight', 0)}=[total]"
+- Stay in character based on the personality traits above
+- If something seems broken, say "ISSUE DETECTED: [description]" then continue"""
         
         return prompt
     
@@ -131,8 +200,8 @@ When responding:
         if not raw_output or not raw_output.strip():
             return None
             
-        # Skip pure JSON schemas
-        if raw_output.strip().startswith('{') and '"properties"' in raw_output:
+        # Skip any JSON objects (equipment updates, etc.)
+        if raw_output.strip().startswith('{') and raw_output.strip().endswith('}'):
             return None
             
         # Skip debug messages
@@ -159,13 +228,25 @@ When responding:
         if any(status in raw_output for status in ['[Processing', '[Validating', '[Generating']):
             return None
             
+        # Skip validation failure messages
+        if raw_output.strip().startswith('Validation failed'):
+            return None
+            
         # Skip debug info like "User messages: X" or "Assistant messages: X"
         if re.match(r'^(User|Assistant) messages: \d+$', raw_output.strip()):
+            return None
+        
+        # Skip time advancement messages
+        if 'Current Time:' in raw_output and 'Time Advanced:' in raw_output:
             return None
         
         # Remove ANSI color codes
         ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
         cleaned = ansi_escape.sub('', raw_output)
+        
+        # Skip player status lines (time/HP/XP display)
+        if re.match(r'^\[\d+:\d+:\d+\]\[HP:\d+/\d+\]\[XP:\d+/\d+\]', cleaned):
+            return None
         
         # Extract DM narrative - look for "Dungeon Master:" prefix
         dm_match = re.search(r'Dungeon Master:\s*(.+)', cleaned, re.DOTALL)
@@ -176,6 +257,9 @@ When responding:
         # Check if it's likely narrative (contains multiple words, not just timestamps)
         cleaned = cleaned.strip()
         if cleaned and not re.match(r'^\[\d+:\d+:\d+\]', cleaned) and len(cleaned.split()) > 5:
+            # Skip if it looks like a player name followed by colon (like "norn:")
+            if re.match(r'^[a-zA-Z]+:$', cleaned):
+                return None
             return cleaned
             
         return None
@@ -211,7 +295,7 @@ When responding:
         # Add conversation history with correct roles
         # DM outputs are "user" messages (telling the AI what happened)
         # AI actions are "assistant" messages (the AI's responses)
-        for msg in self.conversation_history[-10:]:
+        for msg in self.conversation_history:
             messages.append(msg)
             
         # Add current DM output as a user message
@@ -239,10 +323,6 @@ When responding:
             # AI action is "assistant" (how the AI responded)
             self.conversation_history.append({"role": "user", "content": filtered_output})
             self.conversation_history.append({"role": "assistant", "content": action})
-            
-            # Keep conversation history manageable but longer
-            if len(self.conversation_history) > 40:  # Increased from 20
-                self.conversation_history = self.conversation_history[-40:]
             
             return action
             

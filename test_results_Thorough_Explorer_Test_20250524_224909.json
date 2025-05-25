@@ -1,0 +1,116 @@
+{
+  "test_profile": "Thorough Explorer Test",
+  "player_name": "TestHero",
+  "start_time": "2025-05-24T22:48:10.918324",
+  "end_time": "2025-05-24T22:49:09.984037",
+  "total_actions": 5,
+  "objectives_attempted": 1,
+  "objectives_completed": 0,
+  "issues_found": 0,
+  "issues_detail": [],
+  "objectives_progress": [
+    {
+      "objective": "Visit all 5 locations in Harrow's Hollow",
+      "status": "possible_completion",
+      "timestamp": "2025-05-24T22:48:09.911638",
+      "location": "Unknown"
+    }
+  ],
+  "sample_interactions": [
+    {
+      "timestamp": "2025-05-24T22:48:10.918324",
+      "game_output": "Morning light seeps through the broad window of Harrow's Hollow General Store, casting golden stripes across crowded shelves of goods and the scuffed wooden floor. Elder Mirna Harrow stands behind the counter, her posture both matronly and watchful, fingers idly tracing the edge of her heavy ledger as she surveys the store. The subtle aroma of wax and leather floats in the air, mingling with the faint tang of dried herbs from the provisions racks.\n\nMirna glances up as you enter, her eyes flickering with both recognition and a hint of relief. \"Norn,\" she greets you, her voice low but earnest, \"have you come to check on supplies, or is there something you wish to ask about the goings-on in the Hollow? Rumors are swirling like leaves in a storm--folk are on edge, and you might overhear a thing or two if you keep your ears open.\"\n\nA notice board near the counter bristles with handwritten fliers--missing livestock, cryptic warnings, and a reward poster for information about the recent disappearances. Among the clutter behind Mirna rests a small, old bronze key marked with a faded raven sigil, its surface worn smooth by age. A handwritten map of local trails peeks from beneath a pile of ledgers, its edges curling.\n\nMirna's voice drops as she leans in slightly, giving a sidelong glance to be sure no one else is listening. \"If there's aught weighing on your mind, you can speak it here. Not everything in this store is for sale--but some secrets might be worth more than coin.\"\n\nYou can browse the shelves, ask Mirna about the bronze key or the map, study the notice board, or bring up any suspicions or questions you have about the recent events in the village. What would you like to do?",
+      "ai_action": "I will start by thoroughly examining the notice board near the counter. I want to read all the handwritten fliers, missing livestock reports, cryptic warnings, and the reward poster about the recent disappearances.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "Morning light seeps through the broad window of Harrow's Hollow General Store, casting golden stripes across crowded shelves of goods and the scuffed wooden floor. Elder Mirna Harrow stands behind the...",
+          "You step closer to the battered notice board, the soft tap of your boots muffled by the well-trod floor. The fliers and posters are layered and curling at the edges, each penned in a different hand--s...",
+          "Elder Mirna's hand stills over her ledger at your question, and for a heartbeat, the gentle bustle of the store seems to fade. She follows your gaze toward the bronze key, its old surface catching the...",
+          "Please make an Insight check. Roll 1d20 and add your Insight modifier (+3). Let me know the result.",
+          "You watch Elder Mirna closely as she speaks, her careful words and the way her fingers linger on the old bronze key. With your soldier's eye for reading hesitation and unspoken truths, you catch subtl..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:48:27.307706",
+      "game_output": "You step closer to the battered notice board, the soft tap of your boots muffled by the well-trod floor. The fliers and posters are layered and curling at the edges, each penned in a different hand--some hurried and childlike, others neat and deliberate.\n\nYou take a moment to read through them all:\n\nFirst, a scrawled notice: \"Lost: Two goats and a hound. Vanished from pasture east of the hollow. No sign o' tracks. Reward: 2 silver for safe return. --Old Tommen.\"\n\nBeneath it, a faded reward poster with a black wax seal: \"To those who bring word of the missing--Scout Elen last seen on the old east trail, near the woods' edge. Any clue to her fate earns the gratitude of Harrow's Hollow and 10 gold coins. See Elder Mirna.\"\n\nA third sheet is cryptic, written in shaky script: \"Beware the lights that dance at midnight. They lead the unwary astray. If you hear the Wailing--block your ears and seek shelter.\"\n\nThere are also smaller notes: a missing cat, requests for extra lantern oil, and a warning from the militia about travelers passing through after dusk--\"Strange figures glimpsed by the old keep ruins. Stay to the marked roads.\"\n\nAs you scan the board, Elder Mirna glances up from her ledger, her eyes lingering on you. \"Folk's worries grow with every posting,\" she says quietly. \"But sometimes a set of steady hands and a clear head can do more good than all these warnings. Is there one of these troubles that calls to you, Norn? Or are you looking for more than just stories?\"",
+      "ai_action": "I will ask Elder Mirna about the bronze key with the faded raven sigil behind the counter. \"Elder Mirna, may I ask about the bronze key with the raven sigil I noticed behind you? Does it open something important in Harrow's Hollow?\"",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "Morning light seeps through the broad window of Harrow's Hollow General Store, casting golden stripes across crowded shelves of goods and the scuffed wooden floor. Elder Mirna Harrow stands behind the...",
+          "You step closer to the battered notice board, the soft tap of your boots muffled by the well-trod floor. The fliers and posters are layered and curling at the edges, each penned in a different hand--s...",
+          "Elder Mirna's hand stills over her ledger at your question, and for a heartbeat, the gentle bustle of the store seems to fade. She follows your gaze toward the bronze key, its old surface catching the...",
+          "Please make an Insight check. Roll 1d20 and add your Insight modifier (+3). Let me know the result.",
+          "You watch Elder Mirna closely as she speaks, her careful words and the way her fingers linger on the old bronze key. With your soldier's eye for reading hesitation and unspoken truths, you catch subtl..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:48:44.446339",
+      "game_output": "Elder Mirna's hand stills over her ledger at your question, and for a heartbeat, the gentle bustle of the store seems to fade. She follows your gaze toward the bronze key, its old surface catching the morning light. Her face remains composed, but a flicker of hesitation crosses her eyes.\n\n\"That old thing?\" she says, attempting a casual tone as she picks up the key, turning it between her weathered fingers. \"It's been here for longer than I've kept the store. Folks say it belonged to the old Harrow family, back when the keep was still whole and this town was just a cluster of huts. The raven was their symbol... but these days, it's just a relic.\"\n\nShe sets the key down gently, but her fingers linger. \"It doesn't open anything in the shop, nor in any house I know of. Least, not anymore. But--\" Mirna's eyes meet yours, searching your face, \"--I've always suspected there's more to it. The keep's ruin is older than most folk remember, and things left behind often have a story.\"\n\nHer voice softens, a note of caution threading through. \"If you're thinking to take it, Norn, or if you've a reason to ask, I'd want your word you'll treat it with the respect it deserves. Some memories are best left untouched, but others... well, perhaps they wait for someone brave enough to learn the truth.\"\n\nAs Mirna speaks, you notice a subtle tension in her posture. If you'd like, you can try to read her true feelings or intentions about the key and its history.\n\nWould you like to make an Insight check to discern whether she's withholding information, or will you ask her directly for the story she isn't telling?",
+      "ai_action": "I will make an Insight check to discern whether Elder Mirna is withholding information or has deeper feelings about the bronze key and its history.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "Morning light seeps through the broad window of Harrow's Hollow General Store, casting golden stripes across crowded shelves of goods and the scuffed wooden floor. Elder Mirna Harrow stands behind the...",
+          "You step closer to the battered notice board, the soft tap of your boots muffled by the well-trod floor. The fliers and posters are layered and curling at the edges, each penned in a different hand--s...",
+          "Elder Mirna's hand stills over her ledger at your question, and for a heartbeat, the gentle bustle of the store seems to fade. She follows your gaze toward the bronze key, its old surface catching the...",
+          "Please make an Insight check. Roll 1d20 and add your Insight modifier (+3). Let me know the result.",
+          "You watch Elder Mirna closely as she speaks, her careful words and the way her fingers linger on the old bronze key. With your soldier's eye for reading hesitation and unspoken truths, you catch subtl..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:48:50.201303",
+      "game_output": "Please make an Insight check. Roll 1d20 and add your Insight modifier (+3). Let me know the result.",
+      "ai_action": "I roll 1d20 and add +3 for Insight. The result is 14 (roll) + 3 = 17 total.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "Morning light seeps through the broad window of Harrow's Hollow General Store, casting golden stripes across crowded shelves of goods and the scuffed wooden floor. Elder Mirna Harrow stands behind the...",
+          "You step closer to the battered notice board, the soft tap of your boots muffled by the well-trod floor. The fliers and posters are layered and curling at the edges, each penned in a different hand--s...",
+          "Elder Mirna's hand stills over her ledger at your question, and for a heartbeat, the gentle bustle of the store seems to fade. She follows your gaze toward the bronze key, its old surface catching the...",
+          "Please make an Insight check. Roll 1d20 and add your Insight modifier (+3). Let me know the result.",
+          "You watch Elder Mirna closely as she speaks, her careful words and the way her fingers linger on the old bronze key. With your soldier's eye for reading hesitation and unspoken truths, you catch subtl..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-24T22:49:04.073105",
+      "game_output": "You watch Elder Mirna closely as she speaks, her careful words and the way her fingers linger on the old bronze key. With your soldier's eye for reading hesitation and unspoken truths, you catch subtle cues: the quick flicker of her gaze toward the map tucked beneath her ledger, the tension at the corners of her mouth, the almost imperceptible tightening of her grip on the key as she sets it down.\n\nThough Mirna tries to maintain an air of casual dismissal, it's clear she knows more about the key's history--and its connection to the keep--than she's letting on. Her words about 'respecting memories' and 'waiting for someone brave enough' are laden with deeper meaning, as if she's quietly hoping you'll pursue the matter but cannot say more openly. There's a trace of fear there too, as if the key is tied to secrets or dangers she would rather not see unearthed, yet believes might finally find resolution in the right hands.\n\nMirna meets your gaze, and for a moment, the mask slips. \"You remind me of the old stories,\" she says, voice barely above a whisper. \"Of those who walk into darkness for the sake of others. If you're set on this path, Norn, take the key. Just promise me you won't face what waits in the keep alone. And--if you have questions about what my family left behind, ask now, before duty binds your steps.\"\n\nMirna's defenses are down. You sense this is your chance to press for the truth, ask about the key's true purpose, or request guidance about the keep's dangers. How do you respond?",
+      "ai_action": "I say to Elder Mirna: \"I accept the responsibility. I will take the key and promise not to face the keep's secrets alone. Please, share what you can about the dangers within the keep and any guidance for someone seeking the truth there.\"",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "Morning light seeps through the broad window of Harrow's Hollow General Store, casting golden stripes across crowded shelves of goods and the scuffed wooden floor. Elder Mirna Harrow stands behind the...",
+          "You step closer to the battered notice board, the soft tap of your boots muffled by the well-trod floor. The fliers and posters are layered and curling at the edges, each penned in a different hand--s...",
+          "Elder Mirna's hand stills over her ledger at your question, and for a heartbeat, the gentle bustle of the store seems to fade. She follows your gaze toward the bronze key, its old surface catching the...",
+          "Please make an Insight check. Roll 1d20 and add your Insight modifier (+3). Let me know the result.",
+          "You watch Elder Mirna closely as she speaks, her careful words and the way her fingers linger on the old bronze key. With your soldier's eye for reading hesitation and unspoken truths, you catch subtl..."
+        ]
+      }
+    }
+  ]
+}

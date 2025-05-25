@@ -11,7 +11,7 @@
         "PP002"
       ],
       "status": "completed",
-      "plotImpact": "Norn has completed the ancient ritual at the Lost Ward Circle, successfully renewing the ward and weakening the keep's curse. The immediate supernatural threat to Harrow's Hollow is abated, and the next stage of the adventure can begin.",
+      "plotImpact": "Norn has learned the true significance of the Greymont key from Elder Mirna, connecting it to the keep and Scout Elen's disappearance. This provides a critical clue for advancing the investigation and confronting the curse.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -109,8 +109,8 @@
       "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
       "location": "HH001",
       "nextPoints": [],
-      "status": "in progress",
-      "plotImpact": "Norn has accepted the old bronze key from Elder Mirna, learning its connection to House Greymont and the haunted keep. The village's burden and the potential for new dangers now rest with him.",
+      "status": "not started",
+      "plotImpact": "The campaign concludes with the party's triumph. Seeds for future adventures may be planted based on discoveries made in the keep.",
       "sideQuests": []
     }
   ],

@@ -1,33 +1,33 @@
 {
-    "campaign": "Keep_of_Doom",
-    "partyMembers": [
-        "norn"
-    ],
-    "partyNPCs": [],
-    "worldConditions": {
-        "year": 1492,
-        "month": "Ches",
-        "day": 1,
-        "time": "08:07:00",
-        "weather": "Overcast",
-        "season": "Spring",
-        "dayNightCycle": "Morning",
-        "moonPhase": "New Moon",
-        "currentLocation": "Harrow's Hollow General Store",
-        "currentLocationId": "R01",
-        "currentArea": "Harrow's Hollow",
-        "currentAreaId": "HH001",
-        "majorEventsUnderway": [],
-        "politicalClimate": "",
-        "activeEncounter": "",
-        "activeCombatEncounter": ""
-    },
-    "activeQuests": [
-        {
-            "id": "PP005",
-            "title": "Resolution and Rewards",
-            "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
-            "status": "in progress"
-        }
-    ]
+  "campaign": "Keep_of_Doom",
+  "partyMembers": [
+    "norn"
+  ],
+  "partyNPCs": [],
+  "worldConditions": {
+    "year": 1492,
+    "month": "Ches",
+    "day": 1,
+    "time": "08:00:00",
+    "weather": "Overcast",
+    "season": "Spring",
+    "dayNightCycle": "Morning",
+    "moonPhase": "New Moon",
+    "currentLocation": "Harrow's Hollow General Store",
+    "currentLocationId": "R01",
+    "currentArea": "Harrow's Hollow",
+    "currentAreaId": "HH001",
+    "majorEventsUnderway": [],
+    "politicalClimate": "",
+    "activeEncounter": "",
+    "activeCombatEncounter": ""
+  },
+  "activeQuests": [
+    {
+      "id": "SQ001",
+      "title": "Superstition and Shadows",
+      "description": "Old Tommen believes a wandering spirit haunts the village. If the party investigates, they may encounter the Wandering Shade—a restless ghost whose cryptic words offer hints about the keep and the missing villagers.",
+      "status": "not started"
+    }
+  ]
 }
