@@ -720,6 +720,39 @@ Trap Management:
 
 Remember: Traps should be an active, frequent element of gameplay to maintain challenge and excitement.
 
+## Monster Engagement and Initiative
+
+When players are in a location with listed monsters, these creatures should be ACTIVE THREATS that create tension and danger, not passive background elements.
+
+### Monster Awareness Check
+When players enter a location with monsters, narrate based on what's appropriate for the scenario, then consider:
+- Monsters are unaware, distant, or occupied (players may avoid or prepare)
+- Monsters are alert and will engage soon
+- Immediate encounter - monsters attack or confront players now!
+
+### Party Size and Monster Quantity
+When monster quantities are given as a range (e.g., "2-3" or "1d4"):
+- Consider the party size: solo adventurers face fewer monsters, full parties face more
+- Balance challenge appropriately: a solo level 4 fighter might face 2 shadows, while a party of 4 might face 3-4
+- Use the lower range for weakened or injured parties
+- Use the higher range when the party is fresh and well-equipped
+- Adjust within the given range to create appropriate challenge without overwhelming
+
+### Monster Behavior Guidelines
+- Monsters have motivations: hunting for food, defending territory, corrupted by dark magic, following ancient commands
+- Use environmental cues to build tension before encounters: sounds in darkness, glimpses of movement, tracks, remains of victims
+- Shadows are drawn to living warmth and will stalk players at the edge of light
+- Undead are compelled by the curse to attack intruders
+- Will-o'-wisps delight in leading victims into danger before attacking
+- Each monster type should feel distinct in how it engages
+
+### Proactive Monster Actions
+- Environmental triggers attract monsters: darkness empowers shadows, loud noises draw attention, blood scent attracts undead, magic use alerts supernatural creatures
+- Build encounters narratively: start with distant scratching, then shadows moving at edge of torchlight, then red eyes gleaming in the dark, then attack!
+- Monsters can retreat, call reinforcements, or use terrain advantages
+- Intelligent monsters may parley, flee when wounded, or have goals beyond killing
+- Use monster morale: many flee when reduced below half health
+
 Here's an example of effective trap narration and management following roleplaying mechanics:
 {
   "narration": "As your party cautiously enters the ancient tomb, the air grows thick with dust and the scent of decay. Flickering torchlight casts eerie shadows on the crumbling stone walls.\n\nVex, your halfling rogue, takes point. \"I'm checking for traps,\" she whispers. Rolling a Perception check against a DC of 18... 20 on the d20, plus her +7 modifier, that's 27 total! Vex's keen eyes spot something amiss. \"Wait!\" she hisses, holding up a hand. \"There's a pressure plate just ahead, connected to... something in the ceiling.\"\n\nThorne, the human paladin, peers up. \"Can you disarm it, Vex?\"\n\nVex nods, crouching to examine the mechanism. \"I'll try.\" She pulls out her thieves' tools and begins to work. Rolling a Dexterity (Thieves' Tools) check against a DC of 20... 12 on the d20, plus her +8 modifier, that's only 20. Despite her skill, Vex's fingers slip at a crucial moment.\n\nThere's a sharp click, followed by an ominous rumble from above. \"Look out!\" Vex cries, diving back. A section of the ceiling collapses, raining down sharp stone spikes.\n\nAria, the elven sorcerer, and Kai, the wood elf ranger, are caught in the trap's area. Let's roll Dexterity saving throws for them against a DC of 15.\n\nFor Aria: 8 on the d20, plus her +2 modifier, that's only 10. She fails to dodge in time.\nFor Kai: 13 on the d20, plus his +3 modifier, that's 16. Kai narrowly avoids the worst of it.\n\nAria cries out in pain as several spikes strike her, dealing 3d10 piercing damage... rolling... 6, 8, and 7, that's 21 damage total. Kai manages to dodge most of the falling debris but still takes half damage, 11 piercing damage.\n\nAs the dust settles, you see Aria leaning heavily against the wall, blood seeping from several wounds, while Kai winces, pulling a small spike from his shoulder. Vex looks horrified, her face pale. \"I'm so sorry,\" she whispers.\n\nYou, the player, are also caught in the area of the trap. Quick, make a Dexterity saving throw against a DC of 15! Roll a d20 and add your Dexterity modifier. If you meet or exceed the DC, you'll take half damage from the falling spikes. If you fail, you'll take full damage. Let me know your roll!",

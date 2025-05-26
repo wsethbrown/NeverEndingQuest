@@ -667,6 +667,21 @@ def main_game_loop():
                         for trap in traps
                     ])
 
+            monsters_str = "None listed"
+            if location_data and "monsters" in location_data:
+                monsters = location_data.get("monsters", [])
+                if monsters:
+                    monster_list = []
+                    for monster in monsters:
+                        name = monster.get('name', 'Unknown')
+                        qty = monster.get('quantity', {})
+                        if isinstance(qty, dict):
+                            qty_str = f"{qty.get('min', 1)}-{qty.get('max', 1)}"
+                        else:
+                            qty_str = str(qty)
+                        monster_list.append(f"- {name} ({qty_str})")
+                    monsters_str = "\n".join(monster_list)
+
             # Sanitize location name before using in DM note
             current_location_name_note = sanitize_text(current_location_name_note)
             dm_note = (f"Dungeon Master Note: Current date and time: {date_time_str}. "
@@ -677,7 +692,9 @@ def main_game_loop():
                 # --- END OF MODIFIED LINE ---
                 f"Active plot points for this location:\n{plot_points_str}\n"
                 f"Active side quests for this location:\n{side_quests_str}\n"
+                f"Monsters in this location:\n{monsters_str}\n"
                 f"Traps in this location:\n{traps_str}\n"
+                "Monsters should be active threats per engagement rules. "
                 "updatePlayerInfo for the player's inventory, "
                 "updateTime for time passage, "
                 "updatePlot for story progression, discovers, and new information, "

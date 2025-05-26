@@ -35,6 +35,8 @@ import update_encounter
 import update_party_tracker
 # Import the preroll generator
 from generate_prerolls import generate_prerolls
+# Import safe JSON functions
+from encoding_utils import safe_json_load
 
 # Updated color constants
 SOLID_GREEN = "\033[38;2;0;180;0m"
@@ -273,10 +275,18 @@ def log_conversation_structure(conversation):
 
 def summarize_dialogue(conversation_history_param, location_data, party_tracker_data):
     print("DEBUG: Activating the third model...")
+    
+    # Load the clean narrative history from third_model_history
+    try:
+        third_model_history = safe_json_load(third_model_history_file) or []
+        print(f"DEBUG: Loaded third_model_history with {len(third_model_history)} entries")
+    except Exception as e:
+        print(f"ERROR: Failed to load third_model_history: {str(e)}")
+        third_model_history = []
 
     dialogue_summary_prompt = [
         {"role": "system", "content": "Your task is to provide a concise summary of the combat encounter in the world's most popular 5th Edition roleplayign game dialogue between the dungeon master running the combat encounter and the player. Focus on capturing the key events, actions, and outcomes of the encounter. Be sure to include the experience points awarded, which will be provided in the conversation history. The summary should be written in a narrative style suitable for presenting to the main dungeon master. Include in your summary any defeated monsters or corpses left behind after combat."},
-        {"role": "user", "content": json.dumps(conversation_history_param)}
+        {"role": "user", "content": json.dumps(third_model_history)}
     ]
 
     # Generate dialogue summary
@@ -798,6 +808,15 @@ Player: The combat begins. Describe the scene and the enemies we face."""
            parsed_response = json.loads(initial_response)
            narration = parsed_response["narration"]
            print(f"Dungeon Master: {SOFT_REDDISH_ORANGE}{narration}{RESET_COLOR}")
+           
+           # Add initial narration to third_model_history
+           try:
+               third_model_history = []
+               third_model_history.append({"role": "assistant", "content": narration})
+               save_json_file(third_model_history_file, third_model_history)
+               print("DEBUG: Added initial narration to third_model_history")
+           except Exception as e:
+               print(f"DEBUG: Failed to add initial narration to third_model_history: {str(e)}")
        except Exception as e:
            print(f"ERROR: Failed to parse initial response: {str(e)}")
    else:
@@ -924,6 +943,15 @@ Player: {user_input_text}"""
        conversation_history.append({"role": "user", "content": user_input_with_note})
        save_json_file(conversation_history_file, conversation_history)
        
+       # Also add clean user input to third_model_history for summary generation
+       try:
+           third_model_history = safe_json_load(third_model_history_file) or []
+           third_model_history.append({"role": "user", "content": user_input_text})
+           save_json_file(third_model_history_file, third_model_history)
+           print("DEBUG: Added user input to third_model_history")
+       except Exception as e:
+           print(f"DEBUG: Failed to update third_model_history with user input: {str(e)}")
+       
        # Get AI response with validation and retries
        max_retries = 3
        valid_response = False
@@ -966,6 +994,15 @@ Player: {user_input_text}"""
                parsed_response = json.loads(ai_response)
                narration = parsed_response["narration"]
                actions = parsed_response["actions"]
+               
+               # Store clean narration for summary generation
+               try:
+                   third_model_history = safe_json_load(third_model_history_file) or []
+                   third_model_history.append({"role": "assistant", "content": narration})
+                   save_json_file(third_model_history_file, third_model_history)
+                   print("DEBUG: Added clean narration to third_model_history for summary generation")
+               except Exception as e:
+                   print(f"DEBUG: Failed to update third_model_history: {str(e)}")
                
                # Validate the combat logic
                validation_result = validate_combat_response(ai_response, encounter_data, user_input_text)

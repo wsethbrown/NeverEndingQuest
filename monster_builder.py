@@ -35,6 +35,12 @@ def load_schema(file_name):
 
 def save_json(file_name, data):
     try:
+        # Create directory if it doesn't exist
+        directory = os.path.dirname(file_name)
+        if directory and not os.path.exists(directory):
+            os.makedirs(directory)
+            print(f"{YELLOW}Created directory: {directory}{RESET}")
+        
         with open(file_name, 'w') as file:
             json.dump(data, file, indent=2)
         print(f"{GREEN}Successfully saved data to {file_name}{RESET}")
