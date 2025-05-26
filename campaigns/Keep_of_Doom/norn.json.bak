@@ -92,16 +92,16 @@
   ],
   "equipment": [
     {
-      "item_name": "Bronze Key (Keep of Doom)",
+      "item_name": "Journal",
       "item_type": "miscellaneous",
-      "description": "A sturdy bronze key believed to open doors within the Keep of Doom.",
+      "description": "Describes increasing forest dangers and the final patrol's plans, including mention of a 'shadow knight'. Now updated with map route to the Lost Ward Circle and notes about the warning from the Keeper.",
       "quantity": 1
     }
   ],
   "ammunition": [
     {
       "name": "Arrows",
-      "quantity": 31,
+      "quantity": 46,
       "description": "Standard arrows for a bow"
     }
   ],
@@ -162,7 +162,7 @@
   },
   "currency": {
     "gold": 24,
-    "silver": 0,
+    "silver": -1,
     "copper": 0
   },
   "experience_points": 4571,

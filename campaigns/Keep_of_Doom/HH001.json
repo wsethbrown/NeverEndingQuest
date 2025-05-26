@@ -142,7 +142,7 @@
       "locationId": "A01",
       "name": "Harrow's Hollow General Store",
       "type": "shop",
-      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter. The atmosphere is warm and inviting, softened by the soft murmur of grateful villagers. Elder Mirna Harrow stands behind the wooden counter, her expression now reflecting relief and hope following the lifting of the village curse. The morning mist still clings lightly outside, but there is a palpable sense of cautious optimism as the village looks toward new beginnings.",
+      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter. Elder Mirna Harrow stands behind the wooden counter with a concerned yet respectful gaze, reflecting the unease hanging over the village due to recent disappearances and the dark influence of the ancient keep.",
       "coordinates": "X2Y2",
       "connectivity": [
         "A02",
@@ -155,8 +155,8 @@
       "npcs": [
         {
           "name": "Elder Mirna Harrow",
-          "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. Having witnessed the party's success in lifting the village's curse, she now carries a mixture of relief and cautious hope while continuing to prepare the village for further challenges tied to the ancient keep. She warmly thanks the party and promises rewards of both wealth and enhanced social standing.",
-          "attitude": "Respectful and supportive toward the party, friendly to locals, and cautiously optimistic about the village's future."
+          "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs and now carries a hidden worry about the ancient keep and the village's safety.",
+          "attitude": "Respectful but cautious toward outsiders; friendly and supportive to locals and allies, especially those seeking to aid the village."
         }
       ],
       "monsters": [],
@@ -172,11 +172,9 @@
         "Elder Mirna entrusts the party with a bronze key relic and a quest to investigate the ancient keep on the hill.",
         "A worried villager asks if the party has news of Scout Elen, who vanished while patrolling the Witchlight Trailhead beyond the East Gate.",
         "The village faces a lurking dark influence tied to the keep and ongoing disappearances.",
-        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.",
-        "New social and material rewards have been promised to the party for lifting the curse, opening new avenues for adventure.",
-        "Directions to the Town Square, East Gate and Guardhouse, Militia Barracks, and The Wyrd Lantern Inn are highlighted as potential next destinations."
+        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts."
       ],
-      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She now openly acknowledges the party's heroism and offers supplies, news, and aid freely. Emphasize the significance of the bronze key and the importance of caution as the morning mists linger. The notice board remains a rich source of quests and information. Encourage the party to consider their next destination based on the new connections and rewards.",
+      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna reveals its significance and entrusts it to the party after a successful Insight check.",
       "doors": [
         {
           "name": "Front Door",
@@ -203,7 +201,7 @@
       ],
       "traps": [],
       "dcChecks": [
-        "Insight DC 12: Discern Elder Mirna is now more forthcoming but still wary of the key's full power and history.",
+        "Insight DC 12: Discern Elder Mirna is withholding information about the key and certain historical events.",
         "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the keep."
       ],
       "accessibility": "Easily accessible from the main square, wide doorways and step-free entry.",
@@ -211,48 +209,25 @@
       "features": [
         {
           "name": "Notice Board",
-          "description": "A cluttered board filled with handwritten notices, missing pet posters, cryptic local warnings, and a plea about the missing Scout Elen. New parchments highlight the party's achievements and offer additional quests."
+          "description": "A cluttered board filled with handwritten notices, missing pet posters, cryptic local warnings, and a plea about the missing Scout Elen."
         },
         {
           "name": "Counter and Ledger",
-          "description": "A sturdy wooden counter with a thick ledger book used for tracking trades and gossip alike. Elder Mirna often stands here, now openly offering aid and supplies to the party."
+          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. Elder Mirna often stands here, observing visitors with a watchful eye."
         },
         {
           "name": "Back Storeroom",
-          "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests. Supplies here have been made available to the party to aid their upcoming quest."
+          "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests. Supplies here are offered to the party to aid their upcoming quest."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "A01-E1",
-          "summary": "The party was greeted by Elder Mirna Harrow behind the counter, who acknowledged their role in lifting the village's curse and offered aid. The notice board displayed new and ongoing quests, including information about missing livestock, Scout Elen, and a bronze key with a raven sigil. Directions to multiple locations were pointed out as possible next steps.",
-          "impact": "The party gained social standing and material rewards from the villagers. New plot hooks were introduced, and the village's mood shifted from anxious to hopeful. The bronze key was entrusted to the party, setting the stage for further investigation.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "08:05:00"
-          }
-        },
-        {
-          "encounterId": "A01-E2",
-          "summary": "The party spent time in the general store gathering supplies and information. Elder Mirna personally thanked them and promised rewards reflecting both material wealth and increased social status within Harrow's Hollow. Villagers expressed their gratitude and shared hints about new opportunities and adventures arising from the party's heroics. No threats or traps were encountered; the environment was safe for rest and resupply.",
-          "impact": "The party's reputation in the village improved significantly. Several new plot hooks emerged, including directions to The Wyrd Lantern Inn where the party planned to continue their exploration. The village atmosphere shifted to one of hopeful optimism.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "10:09:00"
-          }
-        }
-      ],
-      "adventureSummary": "Upon entering Harrow's Hollow General Store, the party found themselves amidst a modest, well-stocked establishment that served as a hub for the local villagers. Shelves lined with various goods, from foodstuffs to tools, hinted at the day-to-day life of the town. The atmosphere was warm and inviting, softened by the soft murmur of the villagers expressing their gratitude for the party's recent heroic deeds in lifting the curse that had plagued Harrow's Hollow. Elder Mirna personally greeted the adventurers, offering heartfelt thanks and promising rewards that reflected both material wealth and elevated social standing within the community. Throughout their time in the store, the party was able to gather valuable information from the townsfolk about new opportunities and potential adventures arising from their newfound reputation. No traps were encountered, and the environment proved safe for rest and resupply. After completing their business and accepting the recognition bestowed upon them, the party prepared to leave the general store, with one member expressing the intention to proceed to The Wyrd Lantern Inn to continue their exploration of Harrow's Hollow."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "A02",
       "name": "Harrow's Hollow Town Square",
       "type": "square",
-      "description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. Following the lifting of the town's curse, the square buzzes with renewed energy and festive celebration. Villagers, led by Elder Mirna, gather to honor the heroes and share stories of hope. The atmosphere is warm and inviting, free from any traps or threats, and filled with whispers of future adventures. The Rusty Old Barn is notably absent here, a reminder that travel beyond the known locations requires local guidance.",
+      "description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. On market days, stalls crowd the space, but even now, locals gossip in small clusters, eyes wary of newcomers. At dusk, shadows pool and the wind carries the faint echo of old songs.",
       "coordinates": "X3Y2",
       "connectivity": [
         "A01"
@@ -262,13 +237,8 @@
       "npcs": [
         {
           "name": "Old Tommen",
-          "description": "A weathered, hunched herdsman with wild hair and a nervous gaze. Tommen is known for spreading superstitions and warning of restless spirits in the woods. He now shares tales with a more hopeful tone, grateful for the party's heroism.",
-          "attitude": "Friendly and appreciative towards the party, still cautious but less suspicious of newcomers."
-        },
-        {
-          "name": "Elder Mirna",
-          "description": "The wise and respected leader of Harrow's Hollow, Elder Mirna presides over the festivities with a proud smile, honoring the party's role in lifting the curse.",
-          "attitude": "Grateful and warm, eager to reward and support the party."
+          "description": "A weathered, hunched herdsman with wild hair and a nervous gaze. Tommen is known for spreading superstitions and warning of restless spirits in the woods.",
+          "attitude": "Suspicious of strangers, eager to share tales of doom, but grateful for kind words and a listening ear."
         }
       ],
       "monsters": [],
@@ -280,10 +250,9 @@
       "plotHooks": [
         "Old Tommen corners the party to warn them about 'the shade on the moor,' referencing recent spectral sightings.",
         "A traveling merchant seeks help recovering goods lost to bandits north of town.",
-        "Children whisper about a secret under the statue--a lost trinket or something darker.",
-        "The party's growing reputation has sparked interest in new quests and opportunities within the village and beyond."
+        "Children whisper about a secret under the statue--a lost trinket or something darker."
       ],
-      "dmInstructions": "Use the festive atmosphere and Elder Mirna's gratitude to reward the party and provide social opportunities. Old Tommen's tales now carry a tone of hopeful renewal. Continue using Investigation and Persuasion checks around the statue and locals as hooks for future adventures. Note the absence of the Rusty Old Barn in the square and emphasize the need for local guidance to explore beyond.",
+      "dmInstructions": "Use Tommen's superstitious ramblings for early foreshadowing. A DC 11 Persuasion check gets him to share legends about the keep and the cursed knight. If players search the statue (DC 13 Investigation), they find a hidden compartment holding a rusty locket (worth 2 gp, sentimental value to some locals).",
       "doors": [],
       "traps": [],
       "dcChecks": [
@@ -306,37 +275,14 @@
           "description": "Colorful canvas stalls, currently empty save for a few crates and benches."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "A02-E1",
-          "summary": "The party returns to Harrow's Hollow Town Square to find a festive celebration honoring their success in lifting the town's curse.",
-          "impact": "The villagers, led by Elder Mirna, express gratitude and offer both social and tangible rewards. The square is free of threats and filled with optimism, providing new plot hooks and potential future quests.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "09:07:00"
-          }
-        },
-        {
-          "encounterId": "A02-E2",
-          "summary": "The party surveys the lively town square post-curse lifting and acknowledges the absence of the Rusty Old Barn, recognizing the need for local guidance for further travel.",
-          "impact": "The party is celebrated as heroes and gains increased respect and potential quest opportunities. The square remains safe and welcoming with no traps. Plans are made to proceed towards the nearby guard tower area.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "12:13:00"
-          }
-        }
-      ],
-      "adventureSummary": "Upon arriving at Harrow's Hollow Town Square, the party took in the lively scene of familiar townsfolk and vibrant market stalls. They noted the absence of the 'Rusty Old Barn' within the square, recognizing that travel beyond known locations required local guidance. The square connected directly to the General Store, which in turn provided access to the Militia Barracks, East Gate and Guardhouse, and The Wyrd Lantern Inn. The party was aware that villagers such as Old Tommen or Elder Mirna might hold knowledge of any hidden places like the barn. Having lifted a curse, the party returned as celebrated heroes, receiving rewards and newfound respect among the villagers, opening doors to potential future adventures. No traps were present in the town square, ensuring safe passage. After surveying their options and acknowledging the current plot developments, the party expressed their intent to proceed towards the guard tower, ready to explore that adjacent location. Game Time: 1492 Ches 1, 12:13:00"
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "A03",
       "name": "East Gate and Guardhouse",
       "type": "gate",
-      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town's eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond. The gate area remains vigilant yet calm, serving as a crucial point for gathering information before venturing along the Witchlight Trail. The gate now stands open, inviting travelers eastward onto the trail deeper into the mysterious forest.",
+      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town's eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond. The gate area remains vigilant yet calm, serving as a crucial point for gathering information before venturing along the Witchlight Trail.",
       "coordinates": "X2Y3",
       "connectivity": [
         "A01"
@@ -370,16 +316,15 @@
         "Sergeant Feld asks the party to help search for Scout Elen, missing after a routine patrol.",
         "Feld warns the party: the east road is dangerous after dark, and the keep is strictly off limits to townsfolk.",
         "A bloodstained scrap of cloth is found snagged on the gate; Feld suspects foul play nearby.",
-        "Militia provide valuable intelligence about dangers along the Witchlight Trail and the approach to the keep.",
-        "The party's successful lifting of a curse has earned them acclaim and rewards from Elder Mirna and the villagers."
+        "Militia provide valuable intelligence about dangers along the Witchlight Trail and the approach to the keep."
       ],
       "dmInstructions": "Sergeant Feld can provide basic information about town defenses and recent troubles. She may require a DC 13 Persuasion check before allowing non-residents to leave after dusk. Searching the area (DC 14 Investigation) uncovers subtle tracks leading toward the woods. Note the absence of magical quest markers or HUD indicators which may challenge new adventurers.",
       "doors": [
         {
           "name": "Main Gate",
-          "description": "Double doors of heavy oak and iron, previously barred at night but now open for passage.",
+          "description": "Double doors of heavy oak and iron, barred at night.",
           "type": "heavy",
-          "locked": false,
+          "locked": true,
           "lockDC": 15,
           "breakDC": 18,
           "keyname": "Town gate key",
@@ -403,7 +348,7 @@
         "Investigation DC 14: Discover faint footprints and broken brush leading toward the haunted keep.",
         "Persuasion DC 13: Convince Sergeant Feld to share information or allow after-hours travel."
       ],
-      "accessibility": "Easily accessible by road, the main gate now stands open as the party departs toward the forest trail.",
+      "accessibility": "Easily accessible by road, but guarded and locked at night.",
       "dangerLevel": "Low",
       "features": [
         {
@@ -416,23 +361,11 @@
         },
         {
           "name": "Gate Mechanism",
-          "description": "A stout bar and iron lock securing the gates, now unlatched and open for departure."
+          "description": "A stout bar and iron lock securing the gates, requiring a key or brute force to bypass."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "A03-E1",
-          "summary": "The party departs the village by passing through the now open East Gate and begins their journey along the Witchlight Trailhead into the Gloamwood.",
-          "impact": "The gate is left open for the party's departure, signaling their transition from village safety to the wilderness adventure beyond. Villagers celebrate the party's recent heroic deeds, enhancing their reputation.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "13:16:00"
-          }
-        }
-      ],
-      "adventureSummary": "Upon arriving at the East Gate and Guardhouse, the party found themselves at a pivotal juncture between the safety of Harrow's Hollow village and the mysteries of the wild Gloamwood forest beyond. The general store lay a short walk behind them, while the open gate invited the adventurers eastward onto the Witchlight Trailhead, a path leading deeper into the forest and toward the haunted Keep of Doom. With no traps detected in the area and the recent lifting of a curse garnering them acclaim and rewards from Elder Mirna and the villagers, the party stood celebrated as heroes within the village. After considering their options, the party chose to leave the village behind and proceeded through the gate to embark on the Witchlight Trailhead, venturing into the unknown territories of Gloamwood to continue their adventure. (Game Time: 1492 Ches 1, 13:16:00)"
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "A04",
@@ -518,7 +451,7 @@
       "locationId": "A05",
       "name": "The Wyrd Lantern Inn",
       "type": "tavern",
-      "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew and fresh bread fills the air. Laughter and song are frequent, but at night, whispers of fear and superstition drift between tables. Recently, the inn has become a place of quiet relief and celebration as villagers gather to honor the party's triumph in lifting the curse that plagued Harrow's Hollow.",
+      "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew and fresh bread fills the air. Laughter and song are frequent, but at night, whispers of fear and superstition drift between tables.",
       "coordinates": "X1Y2",
       "connectivity": [
         "A01"
@@ -530,11 +463,6 @@
           "name": "Cira the Innkeeper",
           "description": "A warm, quick-witted woman with a knack for remembering faces and secrets. She runs the Wyrd Lantern with a firm but friendly hand.",
           "attitude": "Welcoming to all, but especially those with coin or gossip. Protective of her staff and regulars."
-        },
-        {
-          "name": "Elder Mirna",
-          "description": "A respected village elder known for her wisdom and calm demeanor. She is grateful to the party for lifting the curse and often speaks to villagers here.",
-          "attitude": "Grateful and respectful towards the party, hopeful for the village's future."
         }
       ],
       "monsters": [],
@@ -547,10 +475,9 @@
       "plotHooks": [
         "A fearful regular claims to have seen a ghostly figure on the east road.",
         "Cira offers the party free rooms if they can calm frightened townsfolk.",
-        "A drunken patron insists the keep's curse is growing stronger and tries to start a brawl.",
-        "The party's heroic deeds have spread their reputation, leading to new conversations and potential future adventures."
+        "A drunken patron insists the keep's curse is growing stronger and tries to start a brawl."
       ],
-      "dmInstructions": "Cira is the party's best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace. The inn serves as a safe haven with no traps, encouraging rest and recovery.",
+      "dmInstructions": "Cira is the party's best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
       "doors": [
         {
           "name": "Inn Door",
@@ -596,20 +523,8 @@
           "description": "Modest but clean rooms available for travelers."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "A05-E1",
-          "summary": "The party is greeted warmly by the villagers at The Wyrd Lantern Inn, celebrating the lifting of the curse on Harrow's Hollow.",
-          "impact": "The party gains material rewards and social recognition among the townsfolk; the inn serves as a safe resting place without traps or dangers.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "11:11:00"
-          }
-        }
-      ],
-      "adventureSummary": "Upon entering The Wyrd Lantern Inn, the party found themselves in a modest yet warmly lit establishment, imbued with an atmosphere of quiet relief following their recent triumph. The inn's rustic wooden beams and the soft glow of lanterns created a welcoming environment where villagers, including Elder Mirna, gathered to celebrate the lifting of the curse that had plagued Harrow's Hollow. The party was greeted with gratitude and admiration, their heroic deeds earning them both material rewards and social recognition among the townsfolk. Throughout their time at the inn, they engaged in various conversations that revealed new information and potential future adventures as their reputation began to spread. No traps were encountered within the inn, allowing the party to rest and regroup without incident. The atmosphere was one of hopeful respite, setting the stage for the party's eventual departure back to the town square to continue their journey. Current Game Time: 1492 Ches 1, 11:11:00"
+      "encounters": [],
+      "adventureSummary": ""
     }
   ]
 }

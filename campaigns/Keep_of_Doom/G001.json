@@ -153,7 +153,7 @@
       "locationId": "B01",
       "name": "Witchlight Trailhead",
       "type": "trail",
-      "description": "The party stands at the Witchlight Trailhead, a moss-covered path flanked by dense, ancient trees of the Gloamwood. The faint outlines of Harrow's Hollow rooftops are visible through the forest's edge behind them, though the village's sounds are muted and carried faintly on the wind. The trail forks here: to the west lies an open route back to the relative safety of the village's East Gate; to the north, a narrow, overgrown path leads toward the Abandoned Ranger Outpost, where remnants of old patrol markers and toppled stones hint at a once-watchful presence; to the east, the Witchlight Trail tapers toward the crumbling ruins of The Withered Shrine, where strange birdsong and flickers of mystic light suggest lingering magical energies. The atmosphere is heavy with the unnerving promise of secrets and dangers seeping through the forest.",
+      "description": "The party cautiously advanced along the Witchlight Trail, now entering a dense forest where the thick canopy suppresses daylight and an uneasy silence pervades. Tangled branches loom overhead and cold blue lights flicker faintly at the edges of vision, creating an eerie atmosphere along the winding path. Weathered milestones inscribed with strange sigils and remnants of old patrol camps suggest previous travelers who may not have survived. The distant calls of a raven and the steady dripping of condensation punctuate the stillness, heightening the party's alertness as they keep their bearings. The trail forks ahead, with overgrown routes leading toward the Abandoned Ranger Outpost and the Withered Shrine, both showing subtle signs of recent passage.",
       "coordinates": "X2Y1",
       "connectivity": [
         "B02",
@@ -196,7 +196,7 @@
         "The party's quest to find Scout Elen and uncover the keep's secrets is in progress.",
         "Vigilant for encounters with the Keeper, who may provide vital information about the keep's curse."
       ],
-      "dmInstructions": "This location serves as the transition from Harrow's Hollow to the Gloamwood. The party arrived at the moss-covered Witchlight Trailhead where the forest thickens and the trail forks. They chose to proceed north along the overgrown path toward the Abandoned Ranger Outpost. No traps were encountered here, but the ominous atmosphere remains potent. The party should remain alert for shadows, the Keeper, and the many mysteries the forest holds as they journey deeper.",
+      "dmInstructions": "This location serves as the transition from Harrow's Hollow to the Gloamwood. The party has advanced cautiously, observing eerie cold blue lights and remnants of old patrol camps suggesting danger ahead. No traps have been detected on the path. The party should remain alert for encounters with shadows and the elusive Keeper, while tracking footprints toward the Withered Shrine. The quest tracker functions smoothly to guide the party forward.",
       "doors": [],
       "traps": [],
       "dcChecks": [
@@ -232,26 +232,14 @@
           "description": "Signs of previous travelers who may have perished here, including broken equipment and worn gear."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "B01-E1",
-          "summary": "The party arrived at the Witchlight Trailhead, observing the moss-covered path and dense forest surroundings. They chose to proceed north toward the Abandoned Ranger Outpost.",
-          "impact": "No traps or combat encountered; the party remains alert to the ominous atmosphere and the mysteries ahead.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "14:21:00"
-          }
-        }
-      ],
-      "adventureSummary": "Upon arriving at the Witchlight Trailhead, the party found themselves on a moss-covered path flanked by dense, ancient trees of the Gloamwood. They observed the faint outlines of Harrow's Hollow rooftops behind them. The trail forks ahead: west leads back to the village's East Gate; north toward the Abandoned Ranger Outpost; east towards the Withered Shrine ruins. Choosing to proceed north along the overgrown path, the party began their deeper journey into the wilds and the unfolding quests tied to the haunted forest and the Keep of Doom. No traps were encountered, but the ominous atmosphere and looming challenges remain."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "B02",
       "name": "Abandoned Ranger Outpost",
       "type": "outpost",
-      "description": "A dilapidated wooden structure built around the massive trunk of an ancient oak. Once a way station for forest patrols, the outpost has fallen into disrepair--its roof partially collapsed and its walls covered in creeping vines. Inside, overturned furniture and scattered supplies suggest a hasty departure or violent struggle. A cold firepit dominates the center of the main room, and faded maps of the forest hang on the walls. Despite the decay, the structure remains largely intact and could provide temporary shelter. The surrounding area shows scattered broken patrol markers embedded in moss, the collapsed watchtower creaks softly in the breeze, and gaps in the barricade reveal the passage of time and neglect.",
+      "description": "A dilapidated wooden structure built around the massive trunk of an ancient oak. Once a way station for forest patrols, the outpost has fallen into disrepair--its roof partially collapsed and its walls covered in creeping vines. Inside, overturned furniture and scattered supplies suggest a hasty departure or violent struggle. A cold firepit dominates the center of the main room, and faded maps of the forest hang on the walls. Despite the decay, the structure remains largely intact and could provide temporary shelter.",
       "coordinates": "X3Y1",
       "connectivity": [
         "B01",
@@ -263,17 +251,15 @@
       "monsters": [
         {
           "name": "Giant Spider",
-          "quantity": {
-            "min": 1,
-            "max": 1
-          }
+          "number": 1,
+          "disposition": "territorial",
+          "strategy": "The spider has made its home in the rafters and attacks anyone who disturbs its web-covered nest. It prefers to drop onto unsuspecting prey from above."
         },
         {
           "name": "Swarm of Spiders",
-          "quantity": {
-            "min": 2,
-            "max": 2
-          }
+          "number": 2,
+          "disposition": "neutral",
+          "strategy": "These smaller spiders nest in the darkest corners and only attack if their areas are disturbed."
         }
       ],
       "lootTable": [
@@ -333,34 +319,10 @@
         {
           "name": "Collapsed Bunk Area",
           "description": "A section where the roof has partially fallen in, allowing visibility to the sky above."
-        },
-        {
-          "name": "Broken Patrol Markers",
-          "description": "Scattered broken patrol markers embedded in moss around the outpost, remnants of past forest patrols."
-        },
-        {
-          "name": "Collapsed Watchtower",
-          "description": "The watchtower has fully collapsed, its timbers creaking softly in the breeze."
-        },
-        {
-          "name": "Gaps in Barricade",
-          "description": "Sections of the wooden barricade around the outpost have rotted away or fallen, leaving gaps."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "B02-E1",
-          "summary": "The party arrived at the Abandoned Ranger Outpost and noted the dilapidated condition, broken patrol markers, and collapsed watchtower. They observed the paths south to Witchlight Trailhead and east toward the Lost Ward Circle. No traps were triggered and no NPCs were encountered before they departed eastward into the undergrowth.",
-          "impact": "The outpost remains unaltered by the party's visit; no combat or interaction occurred. The surrounding environment is noted for future reference.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "15:29:00"
-          }
-        }
-      ],
-      "adventureSummary": "The party visited the Abandoned Ranger Outpost, a crumbling wooden fortification on the edge of Gloamwood. They observed broken patrol markers, a collapsed watchtower, and gaps in the barricade but found no traps or NPCs. After assessing the area, they proceeded eastward toward the Lost Ward Circle, leaving the outpost unchanged and undisturbed."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "B03",
@@ -441,7 +403,7 @@
       "locationId": "B04",
       "name": "Lost Ward Circle",
       "type": "ritual",
-      "description": "A quiet, eerie clearing marked by ancient stone monoliths arranged in a circle. The stones cast long shadows as dusk approaches, their worn carvings faintly glowing with residual magic. A faint magical hum lingers in the air, and the atmosphere feels heavy and watchful. The ground within the circle remains barren, while the surrounding undergrowth thickens toward the east. To the west, the path leads back toward the overgrown trail of the Abandoned Ranger Outpost. To the east, a narrow, gloomier path winds through dense woods toward the elusive Keeper's Cottage.",
+      "description": "An ancient ritual site consisting of seven stone monoliths arranged in a perfect circle. Each stone bears worn carvings of protective symbols and runes that once glowed with powerful magic. Now, several stones have toppled, and the remaining ones are cracked and covered in moss. The center of the circle contains a raised dais with a shallow bowl-like depression. Ghostly blue energy occasionally flickers between the stones like dying lightning, and the ground within the circle is barren of all plant life. The boundary between worlds feels thin here, with whispers and distant wails drifting on the wind. Recently, news from Scout Elen reveals the lingering presence of twisted shadowy figures and the encroaching darkness threatening the village, adding a palpable tension to the site.",
       "coordinates": "X3Y2",
       "connectivity": [
         "B02",
@@ -489,8 +451,7 @@
         "The ritual book contains instructions for temporarily strengthening the wards, which could weaken the keep's influence.",
         "One of the fallen stones has a message etched on its inner face: 'The knight's heart remains, buried beneath his hatred.'",
         "Evidence suggests Scout Elen attempted a ritual here but fled when something went wrong.",
-        "Scout Elen's survival and knowledge open a new path to uncover the creeping darkness and the spirits haunting Harrow's Hollow.",
-        "The path east leads to the Keeper's Cottage, where a hermit may hold crucial knowledge about the keep's curse."
+        "Scout Elen's survival and knowledge open a new path to uncover the creeping darkness and the spirits haunting Harrow's Hollow."
       ],
       "dmInstructions": "This location offers a significant side quest opportunity. Players can attempt to restore the ward circle with a successful Arcana check (DC 15) and appropriate components (ward stone, runestones, and either blood or powerful magic). Success temporarily weakens undead in the forest (they have disadvantage on attacks for 24 hours) and reveals a clearer path to the keep. Failure attracts additional specters. The will-o'-wisp initially appears as a helpful spirit guide but turns hostile if followed away from the group. Scout Elen may provide critical information and aid but is fragile and needs tending.",
       "doors": [],
@@ -501,7 +462,7 @@
         "Perception DC 13: Notice disturbed earth and footprints suggesting Scout Elen was here recently.",
         "Insight DC 14: Sense the will-o'-wisp's malicious intent despite its seemingly helpful appearance."
       ],
-      "accessibility": "Relatively flat clearing with seven large standing stones; one must step over fallen stones to reach the center. Paths east and west provide access to nearby key locations.",
+      "accessibility": "Relatively flat clearing with seven large standing stones; one must step over fallen stones to reach the center.",
       "dangerLevel": "High",
       "features": [
         {
@@ -517,20 +478,8 @@
           "description": "Faint blue energy that occasionally arcs between the stones, remnants of once-powerful protection magic."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "B04-E1",
-          "summary": "The party arrives at the Lost Ward Circle at dusk, taking in the eerie atmosphere and noting the faint magical hum in the air. They observe the paths leading west to the Abandoned Ranger Outpost and east toward the Keeper's Cottage.",
-          "impact": "The party chooses to proceed eastward toward the Keeper's Cottage, seeking the hermit's guidance. No traps or immediate threats are present in the clearing. This decision sets the stage for further exploration of the warded woods.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "16:39:00"
-          }
-        }
-      ],
-      "adventureSummary": "Upon arriving at the Lost Ward Circle, the party found themselves in a quiet, eerie clearing marked by ancient stones casting long shadows as dusk approached. The atmosphere was heavy with a faint magical hum and punctuated only by the distant caw of a lone crow. From this point, the path west led back toward the overgrown trail of the Abandoned Ranger Outpost, while to the east, a narrower, gloomier path wound through thickening undergrowth toward the elusive Keeper's Cottage, reputed to shelter a hermit knowledgeable about the keep's curse. The party assessed their options, noting that no traps impeded their current location and that active quests and plot threads--such as 'The Road to Doom' and 'The Keeper's Warning'--hinged on progress from this juncture. Choosing to pursue further knowledge, the party elected to proceed eastward toward the Keeper's Cottage, venturing into the warded woods to seek the hermit's guidance before moving on to new areas. Current game time is 1492 Ches 1, 16:39:00."
+      "encounters": [],
+      "adventureSummary": ""
     },
     {
       "locationId": "B05",
@@ -698,7 +647,7 @@
       "locationId": "B07",
       "name": "Keeper's Cottage",
       "type": "cottage",
-      "description": "A stone cottage nearly swallowed by the forest, its walls covered in thick ivy and moss that seem to pulse with slow vitality. Smoke drifts from a crooked chimney, and strange charms--bones, crystals, and dried herbs--hang from the eaves and windows. The cottage appears both welcoming and foreboding, with warm light spilling from the windows but shadows that move independently within. The garden surrounding the structure contains plants both medicinal and poisonous, some of which are unknown to conventional herbalism. A path of smooth stones leads to the wooden door, each stone etched with a different protective rune. The clearing around the cottage serves as a crossroads with multiple trails branching out into the ancient forest.",
+      "description": "A stone cottage nearly swallowed by the forest, its walls covered in thick ivy and moss that seem to pulse with slow vitality. Smoke drifts from a crooked chimney, and strange charms--bones, crystals, and dried herbs--hang from the eaves and windows. The cottage appears both welcoming and foreboding, with warm light spilling from the windows but shadows that move independently within. The garden surrounding the structure contains plants both medicinal and poisonous, some of which are unknown to conventional herbalism. A path of smooth stones leads to the wooden door, each stone etched with a different protective rune.",
       "coordinates": "X3Y3",
       "connectivity": [
         "B04",
@@ -722,10 +671,9 @@
       "monsters": [
         {
           "name": "Awakened Shrubs",
-          "quantity": {
-            "min": 3,
-            "max": 3
-          }
+          "number": 3,
+          "disposition": "protective",
+          "strategy": "These animated plants guard the cottage and respond to Morvath's will, attacking only if the Keeper is threatened or his hospitality abused."
         }
       ],
       "lootTable": [
@@ -737,9 +685,7 @@
       "plotHooks": [
         "Morvath reveals he guided Scout Elen toward the keep after she helped him gather rare herbs, and he fears for her safety.",
         "The Keeper offers to create a protective charm against the keep's influence, but requires a personal sacrifice from each party member.",
-        "Among Morvath's possessions is a portrait of a younger Sir Garran Vael, suggesting the Keeper knew him before his corruption.",
-        "The party is tracking clues toward the Keep of Doom.",
-        "The party engages with the Keeper's Warning side quest involving Morvath's knowledge of the keep's curse."
+        "Among Morvath's possessions is a portrait of a younger Sir Garran Vael, suggesting the Keeper knew him before his corruption."
       ],
       "dmInstructions": "Keeper Morvath serves as both guide and gatekeeper to the keep. He offers hospitality (food, rest, and information) but tests the party through cryptic conversations. Players who show respect, offer assistance, or demonstrate genuine concern for Scout Elen earn his favor (and gifts). Those who threaten or dismiss him face hostility. Morvath can provide directions to the keep and warnings about specific dangers, but he speaks in riddles that require Insight checks (DC 14) to fully understand.",
       "doors": [
@@ -789,20 +735,8 @@
           "description": "A wide ceramic bowl filled with dark liquid that occasionally shows visions of the forest and keep."
         }
       ],
-      "encounters": [
-        {
-          "encounterId": "B07-E1",
-          "summary": "The party paused at twilight at the Keeper's Cottage, considering their paths west to Lost Ward Circle, south to the Spectral Clearing, east to the Sundered Causeway, and north toward Shadowfall Keep. Keeper Morvath offered cryptic guidance and observed the party's readiness.",
-          "impact": "No traps triggered. The party chose to retreat westward towards Lost Ward Circle, concluding their actions here. Morvath remains as a potential ally or source of cryptic information in future encounters.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Ches",
-            "day": 1,
-            "time": "17:49:00"
-          }
-        }
-      ],
-      "adventureSummary": "At the Keeper's Cottage, the party assessed options for travel and engaged with Keeper Morvath, who provided cryptic guidance and warnings. The clearing serves as a critical junction to Lost Ward Circle, Spectral Clearing, Sundered Causeway, and Shadowfall Keep. No traps were encountered. Active quests include tracking clues toward the Keep of Doom and the Keeper's Warning side quest involving Morvath's knowledge of the keep's curse. The party ultimately chose to retreat westward to the Lost Ward Circle at twilight (1492 Ches 1, 17:49)."
+      "encounters": [],
+      "adventureSummary": ""
     }
   ]
 }

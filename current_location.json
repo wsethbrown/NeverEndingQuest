@@ -1,93 +1,83 @@
 {
-  "locationId": "B07",
-  "name": "Keeper's Cottage",
-  "type": "cottage",
-  "description": "A stone cottage nearly swallowed by the forest, its walls covered in thick ivy and moss that seem to pulse with slow vitality. Smoke drifts from a crooked chimney, and strange charms--bones, crystals, and dried herbs--hang from the eaves and windows. The cottage appears both welcoming and foreboding, with warm light spilling from the windows but shadows that move independently within. The garden surrounding the structure contains plants both medicinal and poisonous, some of which are unknown to conventional herbalism. A path of smooth stones leads to the wooden door, each stone etched with a different protective rune.",
-  "coordinates": "X3Y3",
+  "locationId": "A01",
+  "name": "Harrow's Hollow General Store",
+  "type": "shop",
+  "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter. Elder Mirna Harrow stands behind the wooden counter with a concerned yet respectful gaze, reflecting the unease hanging over the village due to recent disappearances and the dark influence of the ancient keep.",
+  "coordinates": "X2Y2",
   "connectivity": [
-    "B04",
-    "B06"
+    "A02",
+    "A03",
+    "A04",
+    "A05"
   ],
-  "areaConnectivity": [
-    "Shadowfall Keep Outer Courtyard",
-    "Sundered Causeway"
-  ],
-  "areaConnectivityId": [
-    "SK001-C01",
-    "TBM001-D01"
-  ],
+  "areaConnectivity": [],
+  "areaConnectivityId": [],
   "npcs": [
     {
-      "name": "Keeper Morvath",
-      "description": "An ancient, wizened figure with skin like bark and eyes that reflect the forest's depths. Morvath appears simultaneously grandfatherly and predatory, speaking in riddles and archaic language. The Keeper has watched over the forest for centuries, neither fully alive nor undead, bound to the land through old magic.",
-      "attitude": "Ambiguously neutral, testing worthiness while offering cryptic guidance"
+      "name": "Elder Mirna Harrow",
+      "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs and now carries a hidden worry about the ancient keep and the village's safety.",
+      "attitude": "Respectful but cautious toward outsiders; friendly and supportive to locals and allies, especially those seeking to aid the village."
     }
   ],
-  "monsters": [
-    {
-      "name": "Awakened Shrubs",
-      "number": 3,
-      "disposition": "protective",
-      "strategy": "These animated plants guard the cottage and respond to Morvath's will, attacking only if the Keeper is threatened or his hospitality abused."
-    }
-  ],
+  "monsters": [],
   "lootTable": [
-    "Potion of greater healing (offered as a gift if Morvath is pleased)",
-    "Wand of secrets (hidden on a shelf amongst curious trinkets)",
-    "Scout Elen's journal (containing her observations about the keep and Sir Garran)",
-    "Ancient key with skull motif (opens a specific door in the keep)"
+    "Adventurer's pack (1 gp)",
+    "Lantern, hooded (5 gp)",
+    "10 days' rations (5 sp per)",
+    "Cured leather pouch (8 sp)",
+    "Handwritten map of local trails (contains a clue about a haunted ruin)",
+    "Old bronze key marked with a faded raven sigil"
   ],
   "plotHooks": [
-    "Morvath reveals he guided Scout Elen toward the keep after she helped him gather rare herbs, and he fears for her safety.",
-    "The Keeper offers to create a protective charm against the keep's influence, but requires a personal sacrifice from each party member.",
-    "Among Morvath's possessions is a portrait of a younger Sir Garran Vael, suggesting the Keeper knew him before his corruption."
+    "Elder Mirna entrusts the party with a bronze key relic and a quest to investigate the ancient keep on the hill.",
+    "A worried villager asks if the party has news of Scout Elen, who vanished while patrolling the Witchlight Trailhead beyond the East Gate.",
+    "The village faces a lurking dark influence tied to the keep and ongoing disappearances.",
+    "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts."
   ],
-  "dmInstructions": "Keeper Morvath serves as both guide and gatekeeper to the keep. He offers hospitality (food, rest, and information) but tests the party through cryptic conversations. Players who show respect, offer assistance, or demonstrate genuine concern for Scout Elen earn his favor (and gifts). Those who threaten or dismiss him face hostility. Morvath can provide directions to the keep and warnings about specific dangers, but he speaks in riddles that require Insight checks (DC 14) to fully understand.",
+  "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna reveals its significance and entrusts it to the party after a successful Insight check.",
   "doors": [
     {
-      "name": "Cottage Door",
-      "description": "A heavy wooden door carved with protective symbols and fitted with iron hinges.",
+      "name": "Front Door",
+      "description": "A broad, reinforced oak door with brass fittings and a bell overhead.",
       "type": "regular",
       "locked": false,
       "lockDC": 0,
-      "breakDC": 15,
+      "breakDC": 13,
       "keyname": "",
       "trapped": false,
       "trap": ""
     },
     {
-      "name": "Cellar Trapdoor",
-      "description": "A well-hidden trapdoor in the floor leading to a root cellar filled with strange ingredients.",
-      "type": "hidden",
+      "name": "Back Storeroom Door",
+      "description": "A smaller, iron-banded door leading to a cramped storeroom.",
+      "type": "regular",
       "locked": true,
-      "lockDC": 16,
-      "breakDC": 18,
-      "keyname": "Morvath's bone key",
-      "trapped": true,
-      "trap": "Releases poisonous spores if forced open, DC 14 Constitution save or take 2d6 poison damage"
+      "lockDC": 13,
+      "breakDC": 15,
+      "keyname": "Old bronze key",
+      "trapped": false,
+      "trap": ""
     }
   ],
   "traps": [],
   "dcChecks": [
-    "Insight DC 14: Interpret Morvath's riddles and discern his true intentions.",
-    "Perception DC 15: Notice Scout Elen's journal among Morvath's possessions.",
-    "Nature DC 13: Identify the rare and useful plants in Morvath's garden.",
-    "History DC 16: Recognize symbols suggesting Morvath's connection to the ancient order that originally bound the shadow relic."
+    "Insight DC 12: Discern Elder Mirna is withholding information about the key and certain historical events.",
+    "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the keep."
   ],
-  "accessibility": "Small cottage with step at entrance; cramped interior with many obstacles.",
-  "dangerLevel": "Medium",
+  "accessibility": "Easily accessible from the main square, wide doorways and step-free entry.",
+  "dangerLevel": "Low",
   "features": [
     {
-      "name": "Hearth and Cauldron",
-      "description": "A stone fireplace with a bubbling cauldron emitting aromatic steam with mild hallucinogenic properties."
+      "name": "Notice Board",
+      "description": "A cluttered board filled with handwritten notices, missing pet posters, cryptic local warnings, and a plea about the missing Scout Elen."
     },
     {
-      "name": "Herb Racks",
-      "description": "Walls lined with drying plants, fungi, and stranger organic materials used in Morvath's concoctions."
+      "name": "Counter and Ledger",
+      "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. Elder Mirna often stands here, observing visitors with a watchful eye."
     },
     {
-      "name": "Scrying Bowl",
-      "description": "A wide ceramic bowl filled with dark liquid that occasionally shows visions of the forest and keep."
+      "name": "Back Storeroom",
+      "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests. Supplies here are offered to the party to aid their upcoming quest."
     }
   ],
   "encounters": [],

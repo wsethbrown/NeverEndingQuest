@@ -10,8 +10,8 @@
       "nextPoints": [
         "PP002"
       ],
-      "status": "completed",
-      "plotImpact": "Norn has completed the ancient ritual at the Lost Ward Circle, successfully renewing the ward and weakening the keep's curse. The immediate supernatural threat to Harrow's Hollow is abated, and the next stage of the adventure can begin.",
+      "status": "not started",
+      "plotImpact": "",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -21,7 +21,7 @@
             "HH001"
           ],
           "status": "not started",
-          "plotImpact": "Communicating with the spirit yields crucial information or warnings."
+          "plotImpact": ""
         },
         {
           "id": "SQ002",
@@ -30,8 +30,8 @@
           "involvedLocations": [
             "HH001"
           ],
-          "status": "completed",
-          "plotImpact": "Norn has revealed the true nature of the tunnels beneath the inn to Cira, warning her to keep the cellar sealed. The investigation into Elen's disappearance and the supernatural threat under Harrow's Hollow advances, closing the cellar mystery and setting the stage for the journey to the keep."
+          "status": "not started",
+          "plotImpact": ""
         }
       ]
     },
@@ -43,8 +43,8 @@
       "nextPoints": [
         "PP003"
       ],
-      "status": "in progress",
-      "plotImpact": "Norn has reached the Keeper's Cottage, initiating a key meeting with Keeper Morvath and advancing the quest to unravel the keep's curse.",
+      "status": "not started",
+      "plotImpact": "",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -53,8 +53,8 @@
           "involvedLocations": [
             "G001"
           ],
-          "status": "completed",
-          "plotImpact": "Norn has successfully restored the Lost Ward Circle, creating a temporary protective barrier that weakens the undead and reveals a clearer path to the keep."
+          "status": "not started",
+          "plotImpact": ""
         },
         {
           "id": "SQ004",
@@ -63,8 +63,8 @@
           "involvedLocations": [
             "G001"
           ],
-          "status": "in progress",
-          "plotImpact": "Scout Elen stabilized with herbs and vital clues gathered for the restoration of ward circles. The party is prepared to consult the Keeper regarding the ritual and the curse's undoing."
+          "status": "not started",
+          "plotImpact": ""
         }
       ]
     },
@@ -77,7 +77,7 @@
         "PP004"
       ],
       "status": "not started",
-      "plotImpact": "Successfully entering the keep allows exploration of its haunted halls. The party gains access to deeper mysteries and faces the true source of the village's troubles.",
+      "plotImpact": "",
       "sideQuests": [
         {
           "id": "SQ005",
@@ -87,7 +87,7 @@
             "TBM001"
           ],
           "status": "not started",
-          "plotImpact": "Handling the mercenaries wisely could provide reinforcements or at least prevent them from interfering."
+          "plotImpact": ""
         }
       ]
     },
@@ -100,7 +100,7 @@
         "PP005"
       ],
       "status": "not started",
-      "plotImpact": "Defeating or pacifying Lord Greymont lifts the curse from the keep and surrounding lands. The village is saved, and any surviving captives (including Scout Elen if not already rescued) are freed.",
+      "plotImpact": "",
       "sideQuests": []
     },
     {
@@ -110,38 +110,13 @@
       "location": "HH001",
       "nextPoints": [],
       "status": "not started",
-      "plotImpact": "The campaign concludes with the party's triumph. Seeds for future adventures may be planted based on discoveries made in the keep.",
+      "plotImpact": "",
       "sideQuests": []
     }
   ],
-  "activeQuests": [
-    "PP002",
-    "SQ004"
-  ],
-  "completedQuests": [
-    "PP001",
-    "SQ002",
-    "SQ003"
-  ],
+  "activeQuests": [],
+  "completedQuests": [],
   "failedQuests": [],
-  "worldEvents": [
-    {
-      "id": "WE001",
-      "title": "The Ward's Renewal",
-      "description": "Norn successfully restored the Lost Ward Circle, creating a protective barrier against spectral threats.",
-      "trigger": "Completion of the ward ritual",
-      "effects": [
-        "Undead in G001 have disadvantage on attacks for 24 hours",
-        "A clearer path to the keep is revealed",
-        "The village gains temporary protection from spectral incursions"
-      ],
-      "status": "active"
-    }
-  ],
-  "dmNotes": [
-    "Scout Elen has been found wounded at the Keeper's Cottage",
-    "The party is currently in the Gloamwood (G001) area",
-    "The bronze key from Elder Mirna may be important for the keep",
-    "The party should encounter Keeper Morvath soon for crucial information"
-  ]
+  "worldEvents": [],
+  "dmNotes": []
 }

@@ -1,39 +1,27 @@
 {
-    "campaign": "Keep_of_Doom",
-    "partyMembers": [
-        "norn"
-    ],
-    "partyNPCs": [],
-    "worldConditions": {
-        "year": 1492,
-        "month": "Ches",
-        "day": 1,
-        "time": "18:57:00",
-        "weather": "",
-        "season": "Spring",
-        "dayNightCycle": "Night",
-        "moonPhase": "New Moon",
-        "currentLocation": "Lost Ward Circle",
-        "currentLocationId": "B04",
-        "currentArea": "Gloamwood",
-        "currentAreaId": "G001",
-        "majorEventsUnderway": [],
-        "politicalClimate": "",
-        "activeEncounter": "",
-        "activeCombatEncounter": ""
-    },
-    "activeQuests": [
-        {
-            "id": "PP002",
-            "title": "The Road to Doom",
-            "description": "Tracking clues and rumors, the party must brave the haunted forest and reach the Keep of Doom. Along the way, they navigate treacherous terrain, spectral ambushes, and lingering wards. The forest is alive with unnatural energies, and the party may encounter allies or enemies who help or hinder their journey.",
-            "status": "in progress"
-        },
-        {
-            "id": "SQ004",
-            "title": "The Keeper's Warning",
-            "description": "A mysterious hermit known as the Keeper dwells near the forest edge. They possess knowledge about the keep's curse but require assistance or convincing to share it.",
-            "status": "in progress"
-        }
-    ]
+  "campaign": "Keep_of_Doom",
+  "partyMembers": [
+    "norn"
+  ],
+  "partyNPCs": [],
+  "worldConditions": {
+    "year": 1492,
+    "month": "Ches",
+    "day": 1,
+    "time": "08:00:00",
+    "weather": "Overcast",
+    "season": "Spring",
+    "dayNightCycle": "Morning",
+    "moonPhase": "New Moon",
+    "currentLocation": "Harrow's Hollow General Store",
+    "currentLocationId": "A01",
+    "currentArea": "Harrow's Hollow",
+    "currentAreaId": "HH001",
+    "majorEventsUnderway": [],
+    "politicalClimate": "",
+    "activeEncounter": "",
+    "activeCombatEncounter": "",
+    "weatherConditions": "Overcast with morning mist"
+  },
+  "activeQuests": []
 }

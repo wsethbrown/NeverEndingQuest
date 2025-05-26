@@ -44,7 +44,7 @@
         "PP003"
       ],
       "status": "in progress",
-      "plotImpact": "Norn advances deeper into Gloamwood, arriving at the Lost Ward Circle and uncovering evidence of recent events tied to the forest's waning protections.",
+      "plotImpact": "Norn confirmed recent magical rituals and fresh offerings at the Withered Shrine, strengthening the link between the Keeper, the ward circles, and the encroaching supernatural threat. The discoveries highlight the need to consult the Keeper and investigate the shrines for further clues.",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -109,8 +109,8 @@
       "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
       "location": "HH001",
       "nextPoints": [],
-      "status": "not started",
-      "plotImpact": "The campaign concludes with the party's triumph. Seeds for future adventures may be planted based on discoveries made in the keep.",
+      "status": "completed",
+      "plotImpact": "Norn has accepted the silver hawk brooch, marking the formal completion of the curse-lifting quest and confirming the party's status as heroes of Harrow's Hollow.",
       "sideQuests": []
     }
   ],
