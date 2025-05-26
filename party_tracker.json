@@ -8,15 +8,15 @@
         "year": 1492,
         "month": "Ches",
         "day": 1,
-        "time": "14:46:00",
+        "time": "18:57:00",
         "weather": "",
         "season": "Spring",
-        "dayNightCycle": "Day",
+        "dayNightCycle": "Night",
         "moonPhase": "New Moon",
-        "currentLocation": "The Wyrd Lantern Inn",
-        "currentLocationId": "A05",
-        "currentArea": "Harrow's Hollow",
-        "currentAreaId": "HH001",
+        "currentLocation": "Lost Ward Circle",
+        "currentLocationId": "B04",
+        "currentArea": "Gloamwood",
+        "currentAreaId": "G001",
         "majorEventsUnderway": [],
         "politicalClimate": "",
         "activeEncounter": "",
@@ -24,9 +24,15 @@
     },
     "activeQuests": [
         {
-            "id": "PP005",
-            "title": "Resolution and Rewards",
-            "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
+            "id": "PP002",
+            "title": "The Road to Doom",
+            "description": "Tracking clues and rumors, the party must brave the haunted forest and reach the Keep of Doom. Along the way, they navigate treacherous terrain, spectral ambushes, and lingering wards. The forest is alive with unnatural energies, and the party may encounter allies or enemies who help or hinder their journey.",
+            "status": "in progress"
+        },
+        {
+            "id": "SQ004",
+            "title": "The Keeper's Warning",
+            "description": "A mysterious hermit known as the Keeper dwells near the forest edge. They possess knowledge about the keep's curse but require assistance or convincing to share it.",
             "status": "in progress"
         }
     ]

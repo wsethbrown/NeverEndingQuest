@@ -20,8 +20,8 @@
           "involvedLocations": [
             "HH001"
           ],
-          "status": "in progress",
-          "plotImpact": "Norn has received the first clues for the side quest 'Superstition and Shadows' from Old Tommen, involving the wandering ghost on the moor and the hidden trinket beneath the knight's statue."
+          "status": "not started",
+          "plotImpact": "Communicating with the spirit yields crucial information or warnings."
         },
         {
           "id": "SQ002",
@@ -44,7 +44,7 @@
         "PP003"
       ],
       "status": "in progress",
-      "plotImpact": "With the ghost guardian's riddle answered, Norn is granted passage to the Keeper's Cottage. The way forward is now open, and the main quest can advance to the next critical encounter.",
+      "plotImpact": "Norn has reached the Keeper's Cottage, initiating a key meeting with Keeper Morvath and advancing the quest to unravel the keep's curse.",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -109,8 +109,8 @@
       "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
       "location": "HH001",
       "nextPoints": [],
-      "status": "in progress",
-      "plotImpact": "Norn stands at the East Gate as a recognized hero, with the villagers awaiting his next move. Elder Mirna prepares to officially reward Norn in the town square, offering both gratitude and new opportunities.",
+      "status": "not started",
+      "plotImpact": "The campaign concludes with the party's triumph. Seeds for future adventures may be planted based on discoveries made in the keep.",
       "sideQuests": []
     }
   ],

@@ -1,694 +1,190 @@
-2025-05-25 15:28:33 - INFO - Starting automated test: main_quest_speedrun
-2025-05-25 15:28:33 - INFO - test_start: {'profile': 'main_quest_speedrun', 'max_actions': 30}
-2025-05-25 15:28:33 - INFO - Loaded character data from campaigns\Keep_of_Doom\norn.json
-2025-05-25 15:28:33 - INFO - Test environment set up in test_runs/main_quest_speedrun_20250525_152833
-2025-05-25 15:28:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:28:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:28:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:28:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:28:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:28:40 - INFO - Progress: 0 actions taken
-2025-05-25 15:28:40 - INFO - Game: [38;2;100;180;100m[08:00:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:28:40 - INFO - AI: I call out in a clear voice, "Hello? Is anyone here? I am looking for someone who can give me a quest or task to help the village."  
-I listen carefully for any response and watch for movement from the back room, focusing on discovering if the storekeeper or another NPC can provide a quest.  
-This action aligns with my testing methodology to immediately seek out quest-giving NPCs and ask about quests or tasks.
-2025-05-25 15:28:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:28:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:28:51 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:28:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:28:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:28:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:28:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:28:54 - INFO - Game: [38;2;100;180;100m[08:01:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:28:54 - INFO - AI: Documented quest information from NPC Old Marna:
-
-- Main quest lead: Seek out Elder Mirna in the Town Square for official village restoration tasks.
-- Alternative option: Help Marna restock the storeroom by fetching a crate from the inn's cellar as a simple task.
-- Additional context: Village is recovering from a curse, rebuilding efforts underway, trust and goodwill important.
-- No immediate quest objectives given, but clear direction to find Elder Mirna for main quest tasks.
-- Quest objectives appear clear: find Elder Mirna for official quest assignment.
-- No quest markers or tracking mentioned yet.
-
-Next step: I will proceed directly to the Town Square to find Elder Mirna as per highest priority for main quest discovery.
-
-Action: Leave the general store and move directly to the Town Square to locate Elder Mirna.  
-I will ask Elder Mirna explicitly for any quests or tasks upon meeting her, using keywords: "quest", "help", "task", "mission", "problem".  
-I will document quest details and verify quest tracking after receipt.
-2025-05-25 15:28:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:05 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:23 - INFO - Game: [38;2;100;180;100m[08:03:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:29:23 - INFO - AI: Quest information from Elder Mirna:
-
-- Multiple quest/task options provided:
-  1. Guard the next trade caravan
-  2. Help repair the palisade
-  3. See to the wounded
-  4. Retrieve belongings from the keep
-  5. Investigate strange lights near the old graveyard after dusk (potentially combat or exploration)
-  6. Confront Black Banner mercenaries near the keep (combat-related)
-
-- Quest objectives are clearly communicated as distinct tasks.
-- Mirna confirms that these are opportunities for earning village trust and gratitude.
-- No immediate quest markers or objective tracking details provided yet.
-- Quest giver is clearly identified and main storyline progression is implied through these tasks.
-- Player choice is presented for next task focus.
-
-Next step: I will explicitly ask Elder Mirna for the primary or recommended quest to test quest assignment and tracking.  
-Action: "Elder Mirna, which of these tasks is the main quest or priority for restoring the village? Please assign me the quest that advances the main storyline."  
-I will then verify that the quest appears in my objectives and check for quest markers or tracking information.
-2025-05-25 15:29:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:31 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:34 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:29:53 - INFO - Game: [38;2;100;180;100m[09:05:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:29:53 - INFO - AI: Quest assigned by Elder Mirna:
-
-- Main quest: Guard the supply caravan arriving at the East Gate at noon.
-- Objective: Protect the trade route and see the caravan safely to the village.
-- Importance: Critical for village safety, supplies, and morale.
-- Meeting place and time: East Gate at noon.
-- Clear quest objective and priority confirmed.
-- Quest giver explicitly entrusting this task as main storyline progression.
-- No immediate quest markers or tracking details mentioned.
-
-Next step: Verify quest appears in objectives and check for quest tracking or markers in the game interface.
-
-Action:
-1. Check quest log/objectives to confirm "Guard the supply caravan at East Gate" is listed.
-2. Check for any quest markers on the map or HUD guiding to East Gate.
-3. Prepare for meeting the caravan at the designated time, minimizing unnecessary actions.
-4. Move directly to the East Gate to await the caravan.
-
-I will report if quest objectives are unclear or if tracking fails.  
-Proceeding now to check quest log and move to East Gate.
-2025-05-25 15:29:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:07 - WARNING - Issue detected: Error message detected at Unknown
-2025-05-25 15:30:07 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
-2025-05-25 15:30:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:11 - INFO - Game: [38;2;100;180;100m[09:06:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:30:11 - INFO - AI: Quest tracking and guidance validated:
-- Main quest "Guard the supply caravan at East Gate" appears prominently in quest log.
-- Quest marker present on map confirming destination.
-- Objective is clear and priority confirmed.
-- No quest tracking bugs detected so far.
-
-Next actions for testing:
-1. Survey the gate area for threats to test environmental interaction and potential hidden quest triggers.
-2. Speak with the local watch to test NPC interaction regarding quest-related information or assistance.
-3. Prepare gear to test inventory and readiness systems.
-
-I will proceed with the following sequence for thorough quest testing:
-
-Action:  
-- First, survey the gate area carefully for any signs of ambush, traps, or suspicious activity.  
-- Then, engage in conversation with the local watch NPC(s) to gather any additional information or instructions related to the caravan protection quest.  
-- Finally, check and prepare gear to ensure readiness for any potential combat or challenges.
-
-Please proceed with the survey and inform me of any findings or NPCs present.
-2025-05-25 15:30:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:11 - WARNING - Issue detected: Error message detected at Unknown
-2025-05-25 15:30:11 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
-2025-05-25 15:30:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:20 - INFO - Game: [38;2;100;180;100m[09:14:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:30:20 - INFO - AI: ISSUE REPORT:
-
-- ISSUE TYPE: PROGRESSION_BLOCKED
-- DESCRIPTION: Attempted to survey the East Gate area for threats, but loading the area data failed with error "Failed to load new area data from campaigns/Keep_of_Doom/A03.json".
-- IMPACT: Unable to proceed with scouting or interacting with local watch NPC at East Gate. This blocks main quest progression and testing of quest-related NPC dialogue and environmental cues.
-- REPRO STEPS: Upon arrival at East Gate and issuing survey action, game attempted to load area data file A03.json and failed.
-- EXPECTED: Area data should load successfully, allowing player to survey, interact with NPCs, and prepare for caravan arrival.
-- ADDITIONAL NOTES: This error constitutes a critical progression blocker as the main quest requires presence at East Gate.
-
-RECOMMENDATION: Investigate missing or corrupted area data file campaigns/Keep_of_Doom/A03.json and restore it to enable quest continuation. Implement error handling to prevent softlock.
-
-Please advise on next steps or provide workaround to continue main quest testing.
-2025-05-25 15:30:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:31 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:31 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:31 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:31 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:31 - INFO - Game: [38;2;100;180;100m[09:22:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:30:31 - INFO - AI: ISSUE REPORT UPDATE:
-
-- ISSUE TYPE: PROGRESSION_BLOCKED (Escalated)
-- DESCRIPTION: Following previous area load failure, an additional error "Failed to handle location transition" occurred upon attempting to move to the East Gate area.
-- IMPACT: Location transition failure compounds the progression block, preventing access to critical main quest location and halting quest progression testing.
-- REPRO STEPS: After initial load failure of campaigns/Keep_of_Doom/A03.json, any attempt to transition or move to East Gate triggers this error.
-- EXPECTED: Smooth location transition with area data loading and environment rendering.
-- ADDITIONAL NOTES: This error indicates potential deeper issues with area data management or transition mechanics.
-
-RECOMMENDATION: Prioritize fixing area data loading and location transition systems to unblock main quest progression. Implement fallback or error recovery to avoid player softlock.
-
-Requesting guidance or patch to bypass this error for continued testing of main quest.
-2025-05-25 15:30:31 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:41 - INFO - Game: [38;2;100;180;100m[09:23:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:30:41 - INFO - AI: Given the ambiguity in navigation and the lack of a direct path to the East Gate from the Town Square, I will prioritize quest clarity and efficient progression.
-
-Action:
-1. Speak to Elder Mirna again to request explicit directions or guidance on the route to the East Gate.
-   - Use clear keywords: "East Gate", "path", "route", "directions".
-   - Confirm if any intermediate areas or steps are required to reach the East Gate.
-2. If Elder Mirna cannot assist, then ask a nearby guard for guidance.
-3. Avoid backtracking unnecessarily until clear route is confirmed.
-
-This approach aligns with testing for quest clarity, navigation guidance, and prevention of player confusion or softlock.
-
-Please provide dialogue or information from Elder Mirna regarding directions to the East Gate.
-2025-05-25 15:30:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:46 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:48 - INFO - Game: [38;2;100;180;100m[09:24:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:30:48 - INFO - AI: To efficiently gather quest-critical information and verify NPC interactions:
-
-Action sequence:
-1. Approach the militia watch first to inquire about the East Gate route, caravan details, and any known threats. This tests quest-related NPC dialogue and information dissemination.
-   - Use keywords: "East Gate", "caravan", "threats", "guard duty".
-2. If additional information is needed, speak with Old Tommen to cross-check or gain local insight on road conditions or suspicious activity.
-3. Finally, double-check weapons, armor, and supplies to test inventory management and readiness systems.
-
-I will start by addressing the militia watch with a clear inquiry about the quest location and caravan arrival. Please provide their dialogue or response.
-2025-05-25 15:30:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:30:57 - INFO - Game: [38;2;100;180;100m[09:25:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:30:57 - INFO - AI: ISSUE REPORT:
-
-- ISSUE TYPE: PROGRESSION_BLOCKED
-- DESCRIPTION: Main quest progression blocked due to inaccessible East Gate caused by missing or corrupted path/area data.
-- IMPACT: Player cannot proceed to assigned main quest location or complete critical quest objectives.
-- IN-CHARACTER RESPONSE: Elder Mirna and militia acknowledge the problem and suggest waiting or assisting locally.
-- ALTERNATIVE OPTIONS: Player offered side tasks or downtime in the square, but these are outside main quest critical path.
-
-TESTING NOTES:
-- The game currently lacks a workaround or alternate route to reach the East Gate.
-- No in-game prompt or quest update indicating the blockage or alternative objectives.
-- Quest tracking still shows primary objective as "Guard the supply caravan at East Gate," causing potential confusion.
-- Suggest implementing quest fail-safe or notification for players when critical path is blocked.
-
-NEXT STEPS:
-- In-character, I will report the issue to Elder Mirna explicitly for official acknowledgment and possible quest adjustment.
-- Request if there is an alternate mission or temporary task to maintain main quest progression.
-- If no alternate main quest tasks are available, I will briefly explore the General Store for any side quests or preparation until the issue is resolved.
-
-Action:
-"Elder Mirna, the path to the East Gate appears blocked or inaccessible. Is there an alternative way to proceed with the quest, or a temporary task I can undertake to aid the village while this is resolved?"
-
-Please provide Elder Mirna's response or next available quest options.
-2025-05-25 15:30:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:00 - INFO - Progress: 10 actions taken
-2025-05-25 15:31:05 - INFO - Progress: 10 actions taken
-2025-05-25 15:31:05 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:08 - INFO - Game: [38;2;100;180;100m[09:26:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:31:08 - INFO - AI: ISSUE SUMMARY:
-
-- Main quest progression is currently blocked due to inaccessible East Gate.
-- Elder Mirna acknowledges the issue in-story and suggests engaging in side activities until the main path reopens.
-- No alternate main quest or priority quest is given to bypass the blockage.
-- This effectively stalls main quest critical path progression.
-- Quest tracking remains on the original main quest without update or fail-safe.
-
-TESTING DECISION:
-
-To continue thorough testing and document side content availability and NPC interactions during main quest downtime, I will proceed with a side activity.
-
-Action:  
-I will speak with Old Tommen first to test NPC interaction, side quest or lore dialogue, and to verify that side content is accessible and functional while the main quest is blocked.
-
-Please provide the dialogue or options available when interacting with Old Tommen.
-2025-05-25 15:31:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:21 - INFO - Game: [38;2;100;180;100m[09:27:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:31:21 - INFO - AI: Thank you for the clarified directions from Elder Mirna.
-
-Action plan for testing:
-
-1. Transition back into the General Store from the Town Square as per instructions.
-2. Once inside the General Store, look for the side door or back lane that leads east toward the palisade and East Gate.
-3. Attempt to move through the side door to access the palisade area.
-4. If blocked or requiring a key, interact with Old Marna in the store to request assistance or the key.
-5. Verify that the path from General Store to East Gate loads correctly, to resolve prior area loading errors.
-6. Confirm quest tracking updates and markers correctly guide to the East Gate after this transition.
-7. Report any loading errors, pathfinding issues, or NPC interaction problems during this sequence.
-
-I will now proceed to exit the Town Square into the General Store, then seek the side passage eastward. Please update me on the environment and any relevant NPC interactions.
-2025-05-25 15:31:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:29 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:50 - INFO - Game: [38;2;100;180;100m[09:29:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:31:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:54 - WARNING - Issue detected: Error message detected at Unknown
-2025-05-25 15:31:54 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
-2025-05-25 15:31:54 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:31:58 - WARNING - Issue detected: Error message detected at Unknown
-2025-05-25 15:31:58 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
-2025-05-25 15:31:58 - WARNING - Issue detected: Null reference detected at Unknown
-2025-05-25 15:31:58 - INFO - issue_detected: {'type': 'Null reference detected', 'location': 'Unknown'}
-2025-05-25 15:31:58 - WARNING - Issue detected: HTML/XML tags in output at Unknown
-2025-05-25 15:31:58 - INFO - issue_detected: {'type': 'HTML/XML tags in output', 'location': 'Unknown'}
-2025-05-25 15:32:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:01 - WARNING - Issue detected: Escaped characters in output at Unknown
-2025-05-25 15:32:01 - INFO - issue_detected: {'type': 'Escaped characters in output', 'location': 'Unknown'}
-2025-05-25 15:32:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:04 - WARNING - Issue detected: Escaped characters in output at Unknown
-2025-05-25 15:32:04 - INFO - issue_detected: {'type': 'Escaped characters in output', 'location': 'Unknown'}
-2025-05-25 15:32:07 - WARNING - Issue detected: Escaped characters in output at Unknown
-2025-05-25 15:32:07 - INFO - issue_detected: {'type': 'Escaped characters in output', 'location': 'Unknown'}
-2025-05-25 15:32:15 - WARNING - Issue detected: Raw JSON in output at Unknown
-2025-05-25 15:32:15 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
-2025-05-25 15:32:18 - WARNING - Issue detected: Raw JSON in output at Unknown
-2025-05-25 15:32:18 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
-2025-05-25 15:32:27 - INFO - Game: [38;2;100;180;100m[10:31:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:32:27 - INFO - AI: ISSUE REPORT SUMMARY:
-
-- Main quest to guard the caravan at East Gate remains blocked due to inaccessible route.
-- Elder Mirna offers alternative side quests to maintain player engagement.
-- Options given:
-  1. Aid Old Marna at the General Store (restocking supplies and dealing with rats)
-  2. Help merchant by the statue (loading goods)
-  3. Investigate Old Tommen's claims of restless shades on the moors
-- Elder Mirna offers to mark these side tasks in quest log.
-- No updates or workarounds provided to unblock main quest critical path.
-- Side quests provided to avoid player downtime, but do not advance main storyline.
-
-TESTING DECISION:
-
-To continue testing side quest implementation and quest log updates, I will opt to aid Old Marna at the General Store.
-
-Action:
-- Accept the side quest to help Old Marna.
-- Verify that the quest is added to the quest log with clear objectives.
-- Proceed to the General Store to interact with Old Marna and begin the task.
-- Monitor quest tracking, NPC dialogue, and environment loading.
-- Report any issues or inconsistencies.
-
-Requesting quest log update and side quest details for aiding Old Marna before proceeding.
-2025-05-25 15:32:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:34 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:37 - INFO - Game: [38;2;100;180;100m[10:33:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:32:37 - INFO - AI: Summary of side quest lead:
-
-- Old Tommen reports a restless shade near the old stone marker on the moors, seen recently.
-- Shade is mysterious, speaks in riddles, potentially dangerous.
-- Suggested tasks:
-  1. Investigate the shade on the moor at night.
-  2. Search beneath the knight's statue for a trinket linked to luck or curses.
-- Both options appear to be side quests offering lore, exploration, and possible quest progression.
-- Tommen's dialogue provides atmospheric and quest flavor.
-
-Testing decision:
-
-To comprehensively test side content and quest variety, I will first choose to search beneath the knight's statue for the trinket.
-
-Action plan:
-
-1. Move to the statue in the Town Square.
-2. Search carefully beneath the statue's base for the trinket.
-3. Document any interactive elements, loot, or quest triggers found.
-4. Verify if this action updates quest log or provides new objectives.
-5. Report any issues with interaction, missing objects, or quest tracking.
-
-Please provide details of the statue area and any items or interactions available.
-2025-05-25 15:32:37 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:45 - INFO - Game: [38;2;100;180;100m[10:34:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:32:45 - INFO - AI: Action plan:
-
-1. Speak with Old Marna first to request the key or assistance for accessing the side door leading to the palisade and East Gate.
-   - Use keywords: "key", "side door", "palisade", "East Gate", "access".
-2. Verify if Old Marna provides the key or unlocks the door for me.
-3. If granted access, proceed through the side door to test area transition and quest progression toward the East Gate.
-4. Monitor for any loading errors or pathfinding issues during the transition.
-5. Report any problems or successful navigation.
-
-Please provide Old Marna's response and any relevant interaction details.
-2025-05-25 15:32:45 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:32:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:27 - INFO - Game: [38;2;100;180;100m[10:37:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:33:27 - INFO - AI: ISSUE REPORT:
-
-- ISSUE TYPE: PROGRESSION_BLOCKED / SYSTEM ERROR
-- DESCRIPTION: Encountered a Python logging error during interaction with Old Marna in the General Store: "File 'C:\Python312\Lib\logging\__init__.py', line 1163, in emit stream.write(msg + self.terminator)".
-- IMPACT: Potential crash or failure in game event handling or dialogue output.
-- REPRO STEPS: During request for key or assistance to access side door, the logging system emitted an error.
-- EXPECTED: Seamless NPC interaction with dialogue and quest progression.
-- ADDITIONAL NOTES: This error might disrupt quest flow, NPC response, or area transition.
-
-RECOMMENDATION: Investigate logging implementation and error handling during NPC dialogue events to prevent crashes and ensure smooth quest progression.
-
-Requesting guidance or patch to continue quest testing.
-2025-05-25 15:33:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:35 - WARNING - Issue detected: Error message detected at Unknown
-2025-05-25 15:33:35 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
-2025-05-25 15:33:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:33:57 - INFO - Game: [38;2;100;180;100m[11:39:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:33:57 - INFO - AI: ISSUE REPORT UPDATE:
-
-- ISSUE TYPE: PROGRESSION_BLOCKED / ENCODING ERROR
-- DESCRIPTION: Encountered encoding error in cp1252.py during game dialogue or text output: "return codecs.charmap_encode(input,self.errors,encoding_table)[0]".
-- IMPACT: Likely causes failure in rendering NPC dialogue or game text, potentially leading to crashes or incomplete information delivery.
-- REPRO STEPS: Occurred during interaction with Old Marna or related quest event.
-- EXPECTED: Proper handling of character encoding for all in-game text.
-- ADDITIONAL NOTES: Encoding issues may affect localization, special characters, or text output.
-
-RECOMMENDATION: Review text encoding and character set handling in game engine and dialogue systems. Ensure all text data is compatible with expected encodings or implement robust encoding fallback.
-
-This error further blocks main quest progression and requires urgent resolution.
-2025-05-25 15:33:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:06 - INFO - Game: [38;2;100;180;100m[11:44:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:34:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:12 - WARNING - Issue detected: Error message detected at Unknown
-2025-05-25 15:34:12 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
-2025-05-25 15:34:13 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:15 - INFO - Game: [38;2;100;180;100m[11:49:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:34:15 - INFO - AI: ISSUE REPORT UPDATE:
-
-- ISSUE TYPE: PROGRESSION_BLOCKED / THREADING ERROR
-- DESCRIPTION: Threading error encountered in Python threading module at line 1030 in _bootstrap function during game execution.
-- IMPACT: This may cause asynchronous operations related to game events, area loading, or NPC interactions to fail or halt unexpectedly.
-- REPRO STEPS: Occurred during previous errors involving area loading and dialogue handling.
-- EXPECTED: Threaded tasks should execute and complete without crashing or deadlocking.
-- ADDITIONAL NOTES: This threading failure compounds existing progression blockers and may cause softlocks or crashes.
-
-RECOMMENDATION:
-- Review and debug threading implementation in game engine.
-- Ensure proper exception handling and thread safety.
-- Test concurrency scenarios in quest event handling to prevent failures.
-
-Due to multiple critical errors (area loading, encoding, threading), main quest progression is currently halted. Resolution and patching are necessary for continued testing.
-2025-05-25 15:34:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:15 - INFO - Progress: 20 actions taken
-2025-05-25 15:34:15 - WARNING - Issue detected: Error message detected at Unknown
-2025-05-25 15:34:15 - INFO - issue_detected: {'type': 'Error message detected', 'location': 'Unknown'}
-2025-05-25 15:34:15 - WARNING - Issue detected: Null reference detected at Unknown
-2025-05-25 15:34:15 - INFO - issue_detected: {'type': 'Null reference detected', 'location': 'Unknown'}
-2025-05-25 15:34:15 - WARNING - Issue detected: HTML/XML tags in output at Unknown
-2025-05-25 15:34:15 - INFO - issue_detected: {'type': 'HTML/XML tags in output', 'location': 'Unknown'}
-2025-05-25 15:34:18 - WARNING - Issue detected: Escaped characters in output at Unknown
-2025-05-25 15:34:18 - INFO - issue_detected: {'type': 'Escaped characters in output', 'location': 'Unknown'}
-2025-05-25 15:34:20 - INFO - Progress: 20 actions taken
-2025-05-25 15:34:21 - WARNING - Issue detected: Escaped characters in output at Unknown
-2025-05-25 15:34:21 - INFO - issue_detected: {'type': 'Escaped characters in output', 'location': 'Unknown'}
-2025-05-25 15:34:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:24 - WARNING - Issue detected: Escaped characters in output at Unknown
-2025-05-25 15:34:24 - INFO - issue_detected: {'type': 'Escaped characters in output', 'location': 'Unknown'}
-2025-05-25 15:34:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:25 - INFO - Progress: 20 actions taken
-2025-05-25 15:34:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:26 - INFO - Game: [38;2;100;180;100m[11:54:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:34:26 - INFO - AI: ISSUE REPORT UPDATE:
-
-- ISSUE TYPE: PROGRESSION_BLOCKED / THREADING ERROR CONTINUED
-- DESCRIPTION: Further traceback in threading.py at line 1073 in _bootstrap_inner method indicates failure during thread execution of self.run().
-- IMPACT: Confirms that thread responsible for game event or area loading is crashing or not completing properly.
-- REPRO STEPS: Triggered during area transition or NPC interaction sequences.
-- EXPECTED: Thread executes run() method fully without errors.
-- ADDITIONAL NOTES: This ongoing threading failure likely causes cascading errors affecting game stability and quest progression.
-
-RECOMMENDATION:
-- Implement detailed debug logging around thread lifecycle to identify root cause.
-- Ensure thread-safe operations and proper exception management in game engine concurrency.
-- Prioritize fix to unblock main quest and prevent softlocks.
-
-Currently, main quest critical path remains blocked due to unresolved threading and encoding errors.
-2025-05-25 15:34:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:31 - WARNING - Issue detected: Raw JSON in output at Unknown
-2025-05-25 15:34:31 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
-2025-05-25 15:34:32 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:34 - WARNING - Issue detected: Raw JSON in output at Unknown
-2025-05-25 15:34:34 - INFO - issue_detected: {'type': 'Raw JSON in output', 'location': 'Unknown'}
-2025-05-25 15:34:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:35 - INFO - Game: [38;2;100;180;100m[11:59:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:34:35 - INFO - AI: ISSUE REPORT UPDATE:
-
-- ISSUE TYPE: PROGRESSION_BLOCKED / THREAD EXECUTION ERROR
-- DESCRIPTION: Thread run method attempts to execute target function but encounters failure, as indicated by traceback at line 1010 in threading.py.
-- IMPACT: Target function for game event or area loading fails during threaded execution, halting critical game processes.
-- REPRO STEPS: Occurs during quest progression involving area transitions or NPC dialogue.
-- EXPECTED: Target functions execute successfully within threads to maintain game flow.
-- ADDITIONAL NOTES: This error builds on previous threading and encoding errors.
-
-RECOMMENDATION:
-- Investigate the specific target function causing thread failure.
-- Add error handling within threaded functions to catch exceptions.
-- Review thread management in quest and event systems.
-
-Main quest progression remains blocked pending resolution of these threading and encoding failures.
-2025-05-25 15:34:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:42 - INFO - Game: [38;2;100;180;100m[12:04:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:34:42 - INFO - AI: ISSUE REPORT SUMMARY:
-
-- ISSUE TYPE: PROGRESSION_BLOCKED / CRITICAL GAME LOOP FAILURE
-- DESCRIPTION: The main game loop function 'main_game_loop()' invoked by the game thread (run_game_thread) is failing or causing thread crashes as indicated by traceback at run_automated_test.py line 99.
-- IMPACT: Game execution halts, preventing further quest progression, area loading, NPC interaction, and testing steps.
-- REPRO STEPS: Observed during automated main quest testing after prior encoding and threading errors.
-- EXPECTED: main_game_loop() runs continuously and manages game state without crashing.
-- ADDITIONAL NOTES: This is a high-level failure likely resulting from earlier encoding and threading issues cascading into main loop failure.
-
-RECOMMENDATION:
-- Conduct comprehensive debugging of main_game_loop() function and its dependencies.
-- Address underlying encoding and threading exceptions to stabilize game runtime.
-- Implement robust exception handling in main loop to avoid complete crashes.
-- Prioritize this fix to resume critical path quest testing.
-
-Current status: Main quest testing halted due to catastrophic system failures; patches required to proceed.
-2025-05-25 15:34:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:48 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:50 - INFO - Game: [38;2;100;180;100m[12:09:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:34:50 - INFO - AI: ISSUE REPORT:
-
-- ISSUE TYPE: PROGRESSION_BLOCKED / INPUT HANDLING FAILURE
-- DESCRIPTION: In main_game_loop at line 544, the game attempts to read user input with the `input()` function but this may cause blocking or failure in automated test environment.
-- IMPACT: User input prompt may hang or disrupt automated testing, halting progression.
-- REPRO STEPS: During main quest testing invoking main_game_loop.
-- EXPECTED: Input handling should be compatible with both manual and automated testing modes, allowing smooth progression.
-- ADDITIONAL NOTES: Input blocking may interfere with automated speedrun testing.
-
-RECOMMENDATION:
-- Implement non-blocking or simulated input methods for automated testing.
-- Add timeout or default input handling to prevent stalls.
-- Separate input/output handling from game logic to improve testability.
-
-This issue contributes to testing interruptions and should be addressed alongside prior threading and encoding fixes.
-2025-05-25 15:34:50 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:55 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:34:56 - INFO - Game: [38;2;100;180;100m[12:14:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:34:56 - INFO - AI: ISSUE REPORT:
-
-- ISSUE TYPE: LOGGING FAILURE DURING MOCK INPUT HANDLING
-- DESCRIPTION: During automated testing, the mock_input function at line 55 attempts to log AI responses using game_logger.info but may cause logging errors or crashes.
-- IMPACT: Logging failure interrupts automated input simulation, halting test execution.
-- REPRO STEPS: Triggered during automated test input cycles.
-- EXPECTED: Logging should handle all input strings, including special characters, without error.
-- ADDITIONAL NOTES: This may be related to previous encoding issues affecting logging subsystem.
-
-RECOMMENDATION:
-- Ensure logging system supports Unicode and special characters.
-- Add error handling around logging calls to prevent test interruption.
-- Review and sanitize AI response strings before logging.
-
-Resolving this alongside prior encoding and threading issues is essential for stable automated quest testing.
-2025-05-25 15:34:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:00 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:02 - INFO - Game: [38;2;100;180;100m[12:19:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:35:02 - INFO - AI: ISSUE REPORT:
-
-- ISSUE TYPE: LOGGING SUBSYSTEM FAILURE
-- DESCRIPTION: In enhanced_logger.py line 133, the info() method calls self.logger.handle(record), which may be failing or causing exceptions during logging operations.
-- IMPACT: Failure in logging handler disrupts game logging, possibly halting automated tests and obscuring diagnostic information.
-- REPRO STEPS: Occurs during logging of AI responses or other game events.
-- EXPECTED: Logging handlers should process records without error.
-- ADDITIONAL NOTES: This issue likely ties into previous encoding and logging errors, impacting test stability.
-
-RECOMMENDATION:
-- Review logging handler implementation for robustness.
-- Add exception handling within logging to prevent propagation.
-- Test logging with diverse input to ensure stability.
-
-Fixing this is crucial to maintain reliable logs for debugging and testing main quest progression.
-2025-05-25 15:35:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:08 - INFO - Game: [38;2;100;180;100m[12:24:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:35:08 - INFO - AI: Action:
-
-I will ask Old Marna for the key or assistance to open the side door leading to the palisade and East Gate, confirming that I have permission to proceed.
-
-Dialogue prompt: "Old Marna, may I have the key or your help to open the side door? I need to reach the palisade and the East Gate for my guard duty."
-
-I will then proceed through the side door once access is granted, monitoring for any area loading errors or pathfinding issues.
-
-Please provide Old Marna's response and any relevant interaction details.
-2025-05-25 15:35:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:46 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:47 - INFO - Game: [38;2;100;180;100m[12:29:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:35:47 - INFO - AI: Quest log updated and objectives clear:
-
-- Quest: Help Old Marna: Restock the Store and Clear the Rats
-- Objective 1: Retrieve supply crate from The Wyrd Lantern Inn's cellar (speak with Cira)
-- Objective 2: Clear rats from General Store storeroom and report back
-
-Testing plan:
-
-1. Verify quest appears properly in quest log and tracking system.
-2. Choose objective 1 first: Proceed to The Wyrd Lantern Inn's cellar to retrieve the crate.
-3. Test NPC interaction with Cira for crate retrieval.
-4. Monitor for any area loading or pathfinding issues en route to the inn.
-5. After completing objective 1, return and complete objective 2 at the General Store storeroom.
-6. Report any quest tracking issues, objective clarity problems, or quest-breaking bugs.
-
-Action:  
-"I will go first to The Wyrd Lantern Inn's cellar to retrieve the supply crate and speak with Cira."  
-Please provide details on route to the inn and interactions with Cira.
-2025-05-25 15:35:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:55 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:35:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:01 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:22 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:22 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:22 - INFO - Game: [38;2;100;180;100m[13:34:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:36:22 - INFO - AI: Rolling Investigation check: d20 + 0 (assuming no Investigation modifier given).
-
-Roll result: 13 + 0 = 13
-
-I carefully investigate the seams and base of the knight's statue with a total Investigation check of 13.
-
-Please provide the outcome of this investigation.
-2025-05-25 15:36:22 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:29 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:53 - INFO - Game: [38;2;100;180;100m[14:44:00][HP:36/36][XP:4571/6500][0m [38;2;0;180;0mnorn[0m: 
-2025-05-25 15:36:53 - INFO - AI: Quest progression update:
-
-- Old Marna has unlocked the side door, granting access to the side lane leading to the palisade and East Gate.
-- Path to East Gate is now accessible for the main quest.
-- NPC dialogue provides atmospheric warnings about wild dogs and dangers beyond the palisade.
-- Transition to new area (side lane) successful without loading errors reported.
-
-Next steps for testing:
-
-1. Proceed along the side lane toward the East Gate and Guardhouse.
-2. Monitor area loading, pathfinding, and quest marker updates.
-3. Verify quest tracking continues to reflect main objective: guard the supply caravan at East Gate.
-4. Prepare to interact with local watch or caravan master upon arrival.
-5. Report any issues with navigation, NPC interactions, or quest progression.
-
-Action:  
-I will continue along the side lane toward the East Gate, maintaining focus on main quest progression.  
-Please provide environment details and any NPCs encountered on the path.
-2025-05-25 15:36:53 - WARNING - Reached maximum actions (30)
-2025-05-25 15:36:53 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:55 - INFO - Progress: 30 actions taken
-2025-05-25 15:36:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
-2025-05-25 15:36:57 - INFO - Test results saved to test_results_Main_Quest_Critical_Path_20250525_153657.json
-2025-05-25 15:36:57 - INFO - LLM debug log available at: ai_player_llm_debug.log
-2025-05-25 15:36:57 - INFO - Test completed: 30 actions taken
-2025-05-25 15:36:57 - INFO - test_complete: {'profile': 'main_quest_speedrun', 'actions': 30, 'issues_found': 21, 'results_file': 'test_results_Main_Quest_Critical_Path_20250525_153657.json'}
+2025-05-25 18:15:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:15:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:15:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:15:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:15:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:15:35 - DEBUG - File conversation_history.json not found - creating first timeLightweight chat history updated!System messages removed: 5User messages: 0Assistant messages: 0[38;2;255;215;0m[Processing AI response...][0m
+2025-05-25 18:15:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:02 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:03 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You glance around the general store, taking in the comforting clutter and the muted bustle of the village beyond its walls. Elder Mirna follows your gaze, then nods toward the front windows. "If you're looking to step out, Norn," she says with a knowing smile, "the square's just through the main door. From there, you can reach most anywhere in town. But if it's something more specific..."
+2025-05-25 18:16:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:03 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:18 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:25 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You nod to Elder Mirna, her worried eyes following you as you make your way to the broad oak door. The bell overhead jingles softly as you step out, the morning mist brushing cool against your face.
+2025-05-25 18:16:25 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:31 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:52 - DEBUG - Transitioning from 'Harrow's Hollow General Store' to 'Harrow's Hollow Town Square'DEBUG: Current location string (hex): 486172726f77277320486f6c6c6f772047656e6572616c2053746f7265DEBUG: New location string (hex): 486172726f77277320486f6c6c6f7720546f776e20537175617265DEBUG: Handling location transition from 'Harrow's Hollow General Store' to 'Harrow's Hollow Town Square'DEBUG: Current area: 'Harrow's Hollow', Current area ID: 'HH001'DEBUG: Current location identified: Harrow's Hollow General Store (ID: A01)DEBUG: Found new location by exact name: Harrow's Hollow Town Square (ID: A02)DEBUG: New location info: Harrow's Hollow Town Square (ID: A02)DEBUG: Adventure summary updated successfullyDEBUG: Successfully updated party_tracker.jsonDEBUG: Location transition complete
+2025-05-25 18:16:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:16:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:10 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You turn from the murmurs of the square and retrace your steps toward the familiar facade of the general store. The morning mist has thinned slightly, carrying with it the scent of damp earth and hearth smoke. Villagers part quietly as you pass, some offering nods of gratitude for your recent deeds.
+2025-05-25 18:17:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:33 - DEBUG - Transitioning from 'Harrow's Hollow Town Square' to 'Harrow's Hollow General Store'DEBUG: Current location string (hex): 486172726f77277320486f6c6c6f7720546f776e20537175617265DEBUG: New location string (hex): 486172726f77277320486f6c6c6f772047656e6572616c2053746f7265DEBUG: Handling location transition from 'Harrow's Hollow Town Square' to 'Harrow's Hollow General Store'DEBUG: Current area: 'Harrow's Hollow', Current area ID: 'HH001'DEBUG: Current location identified: Harrow's Hollow Town Square (ID: A02)DEBUG: Found new location by exact name: Harrow's Hollow General Store (ID: A01)DEBUG: New location info: Harrow's Hollow General Store (ID: A01)DEBUG: Adventure summary updated successfullyDEBUG: Successfully updated party_tracker.jsonDEBUG: Location transition complete
+2025-05-25 18:17:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:33 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:46 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:47 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You give Elder Mirna a polite nod as you leave the general store, her gentle gaze lingering on you as you step back out onto the cobblestone lane. The morning sun glimmers across the rooftops as you make your way west, your boots echoing in the quiet that follows the village's recent troubles.
+2025-05-25 18:17:47 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:17:52 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:16 - DEBUG - Transitioning from 'Harrow's Hollow General Store' to 'The Wyrd Lantern Inn'DEBUG: Current location string (hex): 486172726f77277320486f6c6c6f772047656e6572616c2053746f7265DEBUG: New location string (hex): 5468652057797264204c616e7465726e20496e6eDEBUG: Handling location transition from 'Harrow's Hollow General Store' to 'The Wyrd Lantern Inn'DEBUG: Current area: 'Harrow's Hollow', Current area ID: 'HH001'DEBUG: Current location identified: Harrow's Hollow General Store (ID: A01)DEBUG: Found new location by exact name: The Wyrd Lantern Inn (ID: A05)DEBUG: New location info: The Wyrd Lantern Inn (ID: A05)DEBUG: Adventure summary updated successfullyDEBUG: Successfully updated party_tracker.jsonDEBUG: Location transition complete
+2025-05-25 18:18:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:34 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:35 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You leave behind the warmth and lively chatter of The Wyrd Lantern Inn, stepping once more into the gentle light of midmorning. The village feels more awake now, the shadows of the past night finally receding. You make your way east, the rhythmic sound of your boots on the cobblestones guiding you toward the heart of Harrow's Hollow.
+2025-05-25 18:18:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:58 - DEBUG - Transitioning from 'The Wyrd Lantern Inn' to 'Harrow's Hollow Town Square'DEBUG: Current location string (hex): 5468652057797264204c616e7465726e20496e6eDEBUG: New location string (hex): 486172726f77277320486f6c6c6f7720546f776e20537175617265DEBUG: Handling location transition from 'The Wyrd Lantern Inn' to 'Harrow's Hollow Town Square'DEBUG: Current area: 'Harrow's Hollow', Current area ID: 'HH001'DEBUG: Current location identified: The Wyrd Lantern Inn (ID: A05)DEBUG: Found new location by exact name: Harrow's Hollow Town Square (ID: A02)DEBUG: New location info: Harrow's Hollow Town Square (ID: A02)DEBUG: Adventure summary updated successfullyDEBUG: Successfully updated party_tracker.jsonDEBUG: Location transition complete
+2025-05-25 18:18:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:18:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:19:20 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:19:23 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:19:24 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You scan the familiar faces and bustling market stalls of Harrow's Hollow Town Square, but as you consider your next move, you realize there is no 'Rusty Old Barn' among the locations here. The square connects directly to the General Store, and from there you can reach the Militia Barracks, East Gate and Guardhouse, or The Wyrd Lantern Inn. You recall that any travel beyond these recognized places would require finding the proper path or learning about such a location from a villager.
+2025-05-25 18:19:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:19:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:19:24 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:19:37 - DEBUG - Generating summary for The Wyrd Lantern InnDEBUG: Summary generated for The Wyrd Lantern InnDEBUG: Enhanced adventure summary generated successfully
+2025-05-25 18:19:37 - DEBUG - Updating journal with summary for The Wyrd Lantern InnDEBUG: Journal updated successfully
+2025-05-25 18:19:37 - DEBUG - Compressing conversation history when leaving The Wyrd Lantern InnDEBUG: Total messages in history: 23DEBUG: Cleaning old-style summaries from conversation historyDEBUG: Found transition at index 20: Location transition: The Wyrd Lantern Inn (A05) to Harrow's Hollow Town Square (A02)DEBUG: Found previous transition at index 17DEBUG: Collecting messages from index 18 to 19DEBUG: Found 2 messages to summarize
+2025-05-25 18:19:40 - DEBUG - Generating summary for The Wyrd Lantern InnDEBUG: Summary generated for The Wyrd Lantern InnDEBUG: Compressed history from 23 to 22 messagesDEBUG: Removed 2 messages from The Wyrd Lantern InnDEBUG: Location summary and compression completed
+2025-05-25 18:20:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:20:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:20:16 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: With the celebratory buzz of the square fading behind you, you set off toward the only path leading to the village's perimeter. Passing the General Store's sturdy facade, you soon spot the stone and timber frame of the East Gate and Guardhouse--a modest but sturdy structure marking Harrow's Hollow's eastern edge. The air grows quieter as you approach, the distant sound of birdsong mixing with the steady creak of a weather vane above the guardhouse roof.
+2025-05-25 18:20:16 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:20:21 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:20:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:20:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:20:40 - DEBUG - Transitioning from 'Harrow's Hollow Town Square' to 'East Gate and Guardhouse'DEBUG: Current location string (hex): 486172726f77277320486f6c6c6f7720546f776e20537175617265DEBUG: New location string (hex): 45617374204761746520616e64204775617264686f757365DEBUG: Handling location transition from 'Harrow's Hollow Town Square' to 'East Gate and Guardhouse'DEBUG: Current area: 'Harrow's Hollow', Current area ID: 'HH001'DEBUG: Current location identified: Harrow's Hollow Town Square (ID: A02)DEBUG: Found new location by exact name: East Gate and Guardhouse (ID: A03)DEBUG: New location info: East Gate and Guardhouse (ID: A03)DEBUG: Adventure summary updated successfullyDEBUG: Successfully updated party_tracker.jsonDEBUG: Location transition complete
+2025-05-25 18:20:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:20:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:20:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:21:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:21:14 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:21:15 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Standing at the threshold of the East Gate and Guardhouse, you take in your surroundings. Directly behind you lies the familiar path back to the heart of Harrow's Hollow: the General Store is just a short walk away through the village lanes.
+2025-05-25 18:21:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:21:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:21:15 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:21:32 - DEBUG - Generating summary for Harrow's Hollow Town SquareDEBUG: Summary generated for Harrow's Hollow Town SquareDEBUG: Enhanced adventure summary generated successfully
+2025-05-25 18:21:32 - DEBUG - Updating journal with summary for Harrow's Hollow Town SquareDEBUG: Journal updated successfully
+2025-05-25 18:21:32 - DEBUG - Compressing conversation history when leaving Harrow's Hollow Town SquareDEBUG: Total messages in history: 27DEBUG: Cleaning old-style summaries from conversation historyDEBUG: Found transition at index 24: Location transition: Harrow's Hollow Town Square (A02) to East Gate and Guardhouse (A03)DEBUG: Found previous transition at index 19DEBUG: Collecting messages from index 20 to 23DEBUG: Found 4 messages to summarize
+2025-05-25 18:21:36 - DEBUG - Generating summary for Harrow's Hollow Town SquareDEBUG: Summary generated for Harrow's Hollow Town SquareDEBUG: Compressed history from 27 to 24 messagesDEBUG: Removed 4 messages from Harrow's Hollow Town SquareDEBUG: Location summary and compression completed
+2025-05-25 18:22:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:22:28 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:22:30 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You step forward, the weight of recent victories steady in your stride as you approach the heavy wooden gates. Sergeant Mara Feld glances up from her post, her keen eyes assessing you with a mix of respect and caution. She gives a curt nod. "Off again, Norn? May the mists part in your favor. The Witchlight Trail has been restless lately--keep your wits about you."
+2025-05-25 18:22:30 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:22:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:22:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:22:56 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:22:56 - DEBUG - Transitioning from 'East Gate and Guardhouse' to 'Witchlight Trailhead'DEBUG: Current location string (hex): 45617374204761746520616e64204775617264686f757365DEBUG: New location string (hex): 57697463686c6967687420547261696c68656164DEBUG: Handling location transition from 'East Gate and Guardhouse' to 'Witchlight Trailhead'DEBUG: Current area: 'Harrow's Hollow', Current area ID: 'HH001'DEBUG: Current location identified: East Gate and Guardhouse (ID: A03)DEBUG: Found new location in connected area: Witchlight Trailhead (ID: B01)DEBUG: New location info: Witchlight Trailhead (ID: B01)DEBUG: Adventure summary updated successfullyDEBUG: Successfully updated party_tracker.jsonDEBUG: Location transition complete
+2025-05-25 18:22:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:22:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:22:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:22:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:22:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:23:29 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:23:34 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:23:36 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: Shadows flicker across the mossy path as you stand at the Witchlight Trailhead, the ancient Gloamwood pressing close on either side. Behind you, the distant rooftops of Harrow's Hollow are barely visible through the trees, and the wind carries only the faintest echo of village life.
+2025-05-25 18:23:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:23:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:23:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:23:51 - DEBUG - Generating summary for East Gate and GuardhouseDEBUG: Summary generated for East Gate and GuardhouseDEBUG: Enhanced adventure summary generated successfully
+2025-05-25 18:23:51 - DEBUG - Updating journal with summary for East Gate and GuardhouseDEBUG: Journal updated successfully
+2025-05-25 18:23:51 - DEBUG - Compressing conversation history when leaving East Gate and GuardhouseDEBUG: Total messages in history: 29DEBUG: Cleaning old-style summaries from conversation historyDEBUG: Found transition at index 26: Location transition: East Gate and Guardhouse (A03) to Witchlight Trailhead (B01)DEBUG: Found previous transition at index 21DEBUG: Collecting messages from index 22 to 25DEBUG: Found 4 messages to summarize
+2025-05-25 18:23:56 - DEBUG - Generating summary for East Gate and GuardhouseDEBUG: Summary generated for East Gate and GuardhouseDEBUG: Compressed history from 29 to 26 messagesDEBUG: Removed 4 messages from East Gate and GuardhouseDEBUG: Location summary and compression completed
+2025-05-25 18:24:58 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:25:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:25:08 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: With a steadying breath, you turn northward, bootsteps soft on the mossy earth as you follow the overgrown trail toward the Abandoned Ranger Outpost. The trees close in, their tangled branches forming a vaulted canopy that filters the wan afternoon light into shifting patterns. Here and there, old patrol markers jut from the undergrowth--some toppled, others bearing crude carvings of eyes and warning runes.
+2025-05-25 18:25:08 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:25:14 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:25:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:25:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:25:39 - DEBUG - Transitioning from 'Witchlight Trailhead' to 'Abandoned Ranger Outpost'DEBUG: Current location string (hex): 57697463686c6967687420547261696c68656164DEBUG: New location string (hex): 4162616e646f6e65642052616e676572204f7574706f7374DEBUG: Handling location transition from 'Witchlight Trailhead' to 'Abandoned Ranger Outpost'DEBUG: Current area: 'Gloamwood', Current area ID: 'G001'DEBUG: Current location identified: Witchlight Trailhead (ID: B01)DEBUG: Found new location by exact name: Abandoned Ranger Outpost (ID: B02)DEBUG: New location info: Abandoned Ranger Outpost (ID: B02)DEBUG: Adventure summary updated successfullyDEBUG: Successfully updated party_tracker.jsonDEBUG: Location transition complete
+2025-05-25 18:25:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:25:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:25:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:25:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:25:40 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:26:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:26:34 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:26:36 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You stand at the edge of the Abandoned Ranger Outpost, the crooked wooden palisade looming before you as the shadows of Gloamwood stretch longer with the passing afternoon. Broken patrol markers lie scattered in the moss, and the ruins hum with the silence of things left unsaid.
+2025-05-25 18:26:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:26:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:26:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:26:53 - DEBUG - Generating summary for Witchlight TrailheadDEBUG: Summary generated for Witchlight TrailheadDEBUG: Enhanced adventure summary generated successfully
+2025-05-25 18:26:53 - DEBUG - Updating journal with summary for Witchlight TrailheadDEBUG: Journal updated successfully
+2025-05-25 18:26:53 - DEBUG - Compressing conversation history when leaving Witchlight TrailheadDEBUG: Total messages in history: 31DEBUG: Cleaning old-style summaries from conversation historyDEBUG: Found transition at index 28: Location transition: Witchlight Trailhead (B01) to Abandoned Ranger Outpost (B02)DEBUG: Found previous transition at index 23DEBUG: Collecting messages from index 24 to 27DEBUG: Found 4 messages to summarize
+2025-05-25 18:26:57 - DEBUG - Generating summary for Witchlight TrailheadDEBUG: Summary generated for Witchlight TrailheadDEBUG: Compressed history from 31 to 28 messagesDEBUG: Removed 4 messages from Witchlight TrailheadDEBUG: Location summary and compression completed
+2025-05-25 18:26:57 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:04 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:05 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You take a steadying breath and set out eastward, following the faint track that slips through tangled brambles and beneath ancient, twisted boughs. The air grows cooler and heavier as you press onward, the sounds of the ruined outpost fading behind you. Occasional flutters of movement in the underbrush hint at the Gloamwood's restless denizens, but none approach.
+2025-05-25 18:27:05 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:11 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:26 - DEBUG - Transitioning from 'Abandoned Ranger Outpost' to 'Lost Ward Circle'DEBUG: Current location string (hex): 4162616e646f6e65642052616e676572204f7574706f7374DEBUG: New location string (hex): 4c6f7374205761726420436972636c65DEBUG: Handling location transition from 'Abandoned Ranger Outpost' to 'Lost Ward Circle'DEBUG: Current area: 'Gloamwood', Current area ID: 'G001'DEBUG: Current location identified: Abandoned Ranger Outpost (ID: B02)DEBUG: Found new location by exact name: Lost Ward Circle (ID: B04)DEBUG: New location info: Lost Ward Circle (ID: B04)DEBUG: Adventure summary updated successfullyDEBUG: Successfully updated party_tracker.jsonDEBUG: Location transition complete
+2025-05-25 18:27:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:27 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:35 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:41 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You stand quietly in the eerie calm of the Lost Ward Circle, the ancient stones casting long shadows as dusk approaches. The clearing is still, save for the caw of a lone crow and the faint, magical hum in the air. To the west, the path you came from returns to the Abandoned Ranger Outpost, its overgrown trail winding through the somber forest.
+2025-05-25 18:27:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:27:59 - DEBUG - Generating summary for Abandoned Ranger OutpostDEBUG: Summary generated for Abandoned Ranger OutpostDEBUG: Enhanced adventure summary generated successfully
+2025-05-25 18:27:59 - DEBUG - Updating journal with summary for Abandoned Ranger OutpostDEBUG: Journal updated successfully
+2025-05-25 18:27:59 - DEBUG - Compressing conversation history when leaving Abandoned Ranger OutpostDEBUG: Total messages in history: 33DEBUG: Cleaning old-style summaries from conversation historyDEBUG: Found transition at index 30: Location transition: Abandoned Ranger Outpost (B02) to Lost Ward Circle (B04)DEBUG: Found previous transition at index 25DEBUG: Collecting messages from index 26 to 29DEBUG: Found 4 messages to summarize
+2025-05-25 18:28:04 - DEBUG - Generating summary for Abandoned Ranger OutpostDEBUG: Summary generated for Abandoned Ranger OutpostDEBUG: Compressed history from 33 to 30 messagesDEBUG: Removed 4 messages from Abandoned Ranger OutpostDEBUG: Location summary and compression completed
+2025-05-25 18:28:31 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:28:39 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:28:41 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You step carefully over the mossy roots and broken stones at the edge of the Lost Ward Circle, the whispers of lingering magic fading behind you as you follow the narrow path east. The forest presses close, shadows deepening with the promise of approaching evening. Faint animal tracks and an occasional glint of weathered metal hint at the passage of others who ventured here before you.
+2025-05-25 18:28:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:28:49 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:06 - DEBUG - Transitioning from 'Lost Ward Circle' to 'Keeper's Cottage'DEBUG: Current location string (hex): 4c6f7374205761726420436972636c65DEBUG: New location string (hex): 4b6565706572277320436f7474616765DEBUG: Handling location transition from 'Lost Ward Circle' to 'Keeper's Cottage'DEBUG: Current area: 'Gloamwood', Current area ID: 'G001'DEBUG: Current location identified: Lost Ward Circle (ID: B04)DEBUG: Found new location by exact name: Keeper's Cottage (ID: B07)DEBUG: New location info: Keeper's Cottage (ID: B07)DEBUG: Adventure summary updated successfullyDEBUG: Successfully updated party_tracker.jsonDEBUG: Location transition complete
+2025-05-25 18:29:06 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:07 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:26 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:36 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:38 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: The Keeper's Cottage stands at the edge of the ancient forest, its crooked roof and patchwork shutters sheltering secrets both old and new. As twilight deepens, you take a moment to survey your surroundings from the cottage's clearing.
+2025-05-25 18:29:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:38 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:29:55 - DEBUG - Generating summary for Lost Ward CircleDEBUG: Summary generated for Lost Ward CircleDEBUG: Enhanced adventure summary generated successfully
+2025-05-25 18:29:55 - DEBUG - Updating journal with summary for Lost Ward CircleDEBUG: Journal updated successfully
+2025-05-25 18:29:55 - DEBUG - Compressing conversation history when leaving Lost Ward CircleDEBUG: Total messages in history: 35DEBUG: Cleaning old-style summaries from conversation historyDEBUG: Found transition at index 32: Location transition: Lost Ward Circle (B04) to Keeper's Cottage (B07)DEBUG: Found previous transition at index 27DEBUG: Collecting messages from index 28 to 31DEBUG: Found 4 messages to summarize
+2025-05-25 18:29:59 - DEBUG - Generating summary for Lost Ward CircleDEBUG: Summary generated for Lost Ward CircleDEBUG: Compressed history from 35 to 32 messagesDEBUG: Removed 4 messages from Lost Ward CircleDEBUG: Location summary and compression completed
+2025-05-25 18:29:59 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:30:09 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:30:10 - DEBUG - Validation passed successfullyDEBUG: Valid response generated on attempt 1Dungeon Master: You give the enigmatic Keeper Morvath a respectful nod, his ancient gaze lingering on you as if weighing unspoken possibilities. Gathering your composure, you step out from the strange warmth of the cottage and back onto the rune-marked stones of the garden path. The woods seem to draw in around you as you trace the narrow trail west.
+2025-05-25 18:30:10 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:30:19 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:30:41 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:30:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:30:42 - DEBUG - Transitioning from 'Keeper's Cottage' to 'Lost Ward Circle'DEBUG: Current location string (hex): 4b6565706572277320436f7474616765DEBUG: New location string (hex): 4c6f7374205761726420436972636c65DEBUG: Handling location transition from 'Keeper's Cottage' to 'Lost Ward Circle'DEBUG: Current area: 'Gloamwood', Current area ID: 'G001'DEBUG: Current location identified: Keeper's Cottage (ID: B07)DEBUG: Found new location by exact name: Lost Ward Circle (ID: B04)DEBUG: New location info: Lost Ward Circle (ID: B04)DEBUG: Adventure summary updated successfullyDEBUG: Successfully updated party_tracker.jsonDEBUG: Location transition complete
+2025-05-25 18:30:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:30:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json
+2025-05-25 18:30:42 - DEBUG - CampaignPathManager loaded campaign 'Keep_of_Doom' from party_tracker.json

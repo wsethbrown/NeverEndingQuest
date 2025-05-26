@@ -1,112 +1,95 @@
 {
-  "locationId": "A03",
-  "name": "East Gate and Guardhouse",
-  "type": "gate",
-  "description": "The East Gate stands open, flanked by a well-kept stone guardhouse with wooden roofing and ready lanterns. The towering palisade of Harrow's Hollow looms above, guarding the muddy road that leads eastward along the Witchlight Trail. The atmosphere is one of cautious optimism as villagers resume their daily routines and sentries maintain vigilant yet hopeful watch over the gate.",
-  "coordinates": "X2Y3",
+  "locationId": "B07",
+  "name": "Keeper's Cottage",
+  "type": "cottage",
+  "description": "A stone cottage nearly swallowed by the forest, its walls covered in thick ivy and moss that seem to pulse with slow vitality. Smoke drifts from a crooked chimney, and strange charms--bones, crystals, and dried herbs--hang from the eaves and windows. The cottage appears both welcoming and foreboding, with warm light spilling from the windows but shadows that move independently within. The garden surrounding the structure contains plants both medicinal and poisonous, some of which are unknown to conventional herbalism. A path of smooth stones leads to the wooden door, each stone etched with a different protective rune.",
+  "coordinates": "X3Y3",
   "connectivity": [
-    "A01"
+    "B04",
+    "B06"
   ],
   "areaConnectivity": [
-    "Witchlight Trailhead"
+    "Shadowfall Keep Outer Courtyard",
+    "Sundered Causeway"
   ],
   "areaConnectivityId": [
-    "G001"
+    "SK001-C01",
+    "TBM001-D01"
   ],
   "npcs": [
     {
-      "name": "Joran",
-      "description": "A broad-shouldered militia watchman, armed with a spear, friendly and knowledgeable about local happenings. He conveys gratitude from Elder Mirna and offers assistance to travelers.",
-      "attitude": "Welcoming and cautiously hopeful after recent troubles."
-    },
-    {
-      "name": "Old Marna",
-      "description": "An elder villager who holds the key to the side door granting access to the palisade and East Gate. She is cooperative and supportive of the party's efforts.",
-      "attitude": "Helpful and approving."
+      "name": "Keeper Morvath",
+      "description": "An ancient, wizened figure with skin like bark and eyes that reflect the forest's depths. Morvath appears simultaneously grandfatherly and predatory, speaking in riddles and archaic language. The Keeper has watched over the forest for centuries, neither fully alive nor undead, bound to the land through old magic.",
+      "attitude": "Ambiguously neutral, testing worthiness while offering cryptic guidance"
     }
   ],
-  "monsters": [],
+  "monsters": [
+    {
+      "name": "Awakened Shrubs",
+      "number": 3,
+      "disposition": "protective",
+      "strategy": "These animated plants guard the cottage and respond to Morvath's will, attacking only if the Keeper is threatened or his hospitality abused."
+    }
+  ],
   "lootTable": [
-    "Town gate key (now held by Old Marna)",
-    "Guard's whistle",
-    "Small pouch with 12 cp",
-    "Town patrol schedule (handwritten, with notes about recent disturbances near the keep)"
+    "Potion of greater healing (offered as a gift if Morvath is pleased)",
+    "Wand of secrets (hidden on a shelf amongst curious trinkets)",
+    "Scout Elen's journal (containing her observations about the keep and Sir Garran)",
+    "Ancient key with skull motif (opens a specific door in the keep)"
   ],
   "plotHooks": [
-    "Await the arrival of the merchant wagon mentioned by Joran.",
-    "Assist villagers in rebuilding security and prosperity after the curse lifts.",
-    "Venture beyond the gate to explore the Witchlight Trail and the wilderness beyond.",
-    "Seek out Elder Mirna in the town square for recognition and further quests."
+    "Morvath reveals he guided Scout Elen toward the keep after she helped him gather rare herbs, and he fears for her safety.",
+    "The Keeper offers to create a protective charm against the keep's influence, but requires a personal sacrifice from each party member.",
+    "Among Morvath's possessions is a portrait of a younger Sir Garran Vael, suggesting the Keeper knew him before his corruption."
   ],
-  "dmInstructions": "Joran serves as a friendly militia watchman who can provide information on local events and the state of affairs. Old Marna holds the key to the palisade's side door and can grant access. There are no traps or threats in the immediate area. The atmosphere reflects the village's recovery, encouraging interactions that emphasize hope and cautious optimism.",
+  "dmInstructions": "Keeper Morvath serves as both guide and gatekeeper to the keep. He offers hospitality (food, rest, and information) but tests the party through cryptic conversations. Players who show respect, offer assistance, or demonstrate genuine concern for Scout Elen earn his favor (and gifts). Those who threaten or dismiss him face hostility. Morvath can provide directions to the keep and warnings about specific dangers, but he speaks in riddles that require Insight checks (DC 14) to fully understand.",
   "doors": [
     {
-      "name": "Main Gate",
-      "description": "Double heavy wooden gates, open now, iron-banded and weathered but sturdy.",
-      "type": "heavy",
-      "locked": false,
-      "lockDC": 15,
-      "breakDC": 18,
-      "keyname": "Town gate key",
-      "trapped": false,
-      "trap": ""
-    },
-    {
-      "name": "Guardhouse Door",
-      "description": "A narrow, iron-banded door set into the stone guardhouse, unlocked for party access.",
+      "name": "Cottage Door",
+      "description": "A heavy wooden door carved with protective symbols and fitted with iron hinges.",
       "type": "regular",
       "locked": false,
       "lockDC": 0,
-      "breakDC": 13,
+      "breakDC": 15,
       "keyname": "",
       "trapped": false,
       "trap": ""
     },
     {
-      "name": "Side Door to Palisade",
-      "description": "A wooden side door in the palisade, recently unlocked with Old Marna's key to grant party passage.",
-      "type": "wooden",
-      "locked": false,
-      "lockDC": 12,
-      "breakDC": 15,
-      "keyname": "Side door key",
-      "trapped": false,
-      "trap": ""
+      "name": "Cellar Trapdoor",
+      "description": "A well-hidden trapdoor in the floor leading to a root cellar filled with strange ingredients.",
+      "type": "hidden",
+      "locked": true,
+      "lockDC": 16,
+      "breakDC": 18,
+      "keyname": "Morvath's bone key",
+      "trapped": true,
+      "trap": "Releases poisonous spores if forced open, DC 14 Constitution save or take 2d6 poison damage"
     }
   ],
   "traps": [],
   "dcChecks": [
-    "Investigation DC 14: Discover faint footprints and broken brush leading toward the haunted keep.",
-    "Persuasion DC 13: Convince militia to share information or allow after-hours travel."
+    "Insight DC 14: Interpret Morvath's riddles and discern his true intentions.",
+    "Perception DC 15: Notice Scout Elen's journal among Morvath's possessions.",
+    "Nature DC 13: Identify the rare and useful plants in Morvath's garden.",
+    "History DC 16: Recognize symbols suggesting Morvath's connection to the ancient order that originally bound the shadow relic."
   ],
-  "accessibility": "Accessible via a side lane and main road; guarded but welcoming during daylight hours.",
-  "dangerLevel": "Low",
+  "accessibility": "Small cottage with step at entrance; cramped interior with many obstacles.",
+  "dangerLevel": "Medium",
   "features": [
     {
-      "name": "Watch Bell",
-      "description": "A large bronze bell used to sound alarms; can be heard across town."
+      "name": "Hearth and Cauldron",
+      "description": "A stone fireplace with a bubbling cauldron emitting aromatic steam with mild hallucinogenic properties."
     },
     {
-      "name": "Patrol Roster",
-      "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen's name circled in chalk."
+      "name": "Herb Racks",
+      "description": "Walls lined with drying plants, fungi, and stranger organic materials used in Morvath's concoctions."
     },
     {
-      "name": "Gate Mechanism",
-      "description": "A stout bar and iron lock securing the gates, currently disengaged as the gate stands open."
+      "name": "Scrying Bowl",
+      "description": "A wide ceramic bowl filled with dark liquid that occasionally shows visions of the forest and keep."
     }
   ],
-  "encounters": [
-    {
-      "encounterId": "A03-E1",
-      "summary": "The party meets Joran and Old Marna at the East Gate and Guardhouse, gaining information about local conditions and receiving permission to pass through the side door.",
-      "impact": "The gate is open and accessible, the party has the key to the side door, and local militia shows cautious optimism reflecting the village's recovery.",
-      "worldConditions": {
-        "year": 1492,
-        "month": "Ches",
-        "day": 1,
-        "time": "12:29:00"
-      }
-    }
-  ],
-  "adventureSummary": "At the East Gate and Guardhouse on 1492 Ches 1, 12:29:00, the party encountered militia watchman Joran and elder Old Marna. They learned of the village's cautious recovery from recent troubles, received thanks from Elder Mirna, and were granted access through the side door with Old Marna's key. The gate stands open, with no traps or threats present. The party now contemplates their next steps, including awaiting a merchant wagon or venturing along the Witchlight Trail."
+  "encounters": [],
+  "adventureSummary": ""
 }

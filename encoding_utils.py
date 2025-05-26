@@ -31,6 +31,13 @@ CHARACTER_REPLACEMENTS = {
     '\u0096': '-',   # Windows-1252 en dash
     '\u0097': '--',  # Windows-1252 em dash
     
+    # Arrow characters
+    '\u2192': '->',  # Right arrow
+    '\u2190': '<-',  # Left arrow
+    '\u2194': '<->',  # Left-right arrow
+    '\u21D2': '=>',  # Right double arrow
+    '\u21D0': '<=',  # Left double arrow
+    
     # Common corrupted sequences (these appear when UTF-8 is misinterpreted)
     'â€™': "'",      # Corrupted apostrophe
     'â€œ': '"',      # Corrupted left quote

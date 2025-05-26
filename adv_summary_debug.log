@@ -1,200 +1,408 @@
-2025-05-25 15:29:06 - Attempting to load file: conversation_history.json
-2025-05-25 15:29:06 - File parsed successfully: conversation_history.json
-2025-05-25 15:29:06 - Attempting to load file: party_tracker.json
-2025-05-25 15:29:06 - File parsed successfully: party_tracker.json
-2025-05-25 15:29:09 - Adventure Summary generated
-2025-05-25 15:29:09 - Attempting to load file: journal_schema.json
-2025-05-25 15:29:09 - File parsed successfully: journal_schema.json
-2025-05-25 15:29:09 - Journal updated successfully
-2025-05-25 15:29:09 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:29:09 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:29:09 - Updating location JSON for Harrow's Hollow General Store with all changes
-2025-05-25 15:29:09 - No last completed encounter ID found in party_tracker
-2025-05-25 15:29:09 - Attempting to load file: loca_schema.json
-2025-05-25 15:29:09 - File parsed successfully: loca_schema.json
-2025-05-25 15:29:09 - Attempting to load file: party_tracker.json
-2025-05-25 15:29:09 - File parsed successfully: party_tracker.json
-2025-05-25 15:29:09 - Starting schema processing...
-2025-05-25 15:29:09 - Schema type: <class 'dict'>
-2025-05-25 15:29:09 - Schema keys: ['$schema', 'type', 'properties', 'required']
-2025-05-25 15:29:09 - Properties keys: ['locations']
-2025-05-25 15:29:09 - Location properties keys: ['type', 'items']
-2025-05-25 15:29:09 - Schema structure validation passed
-2025-05-25 15:29:09 - Single item schema extracted, keys: ['type', 'properties', 'required']
-2025-05-25 15:29:09 - Attempt 1 to update location JSON
-2025-05-25 15:29:23 - Getting area path for ID: HH001
-2025-05-25 15:29:23 - CampaignPathManager using campaign: Keep_of_Doom
-2025-05-25 15:29:23 - CampaignPathManager directory: campaigns/Keep_of_Doom
-2025-05-25 15:29:23 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:29:23 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:29:23 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:29:23 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:29:23 - Locations count: 5
-2025-05-25 15:29:23 - Looking for location name: Harrow's Hollow General Store
-2025-05-25 15:29:23 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
-2025-05-25 15:29:23 - Checking location 0: Harrow's Hollow General Store
-2025-05-25 15:29:23 - Found matching location at index 0
-2025-05-25 15:29:23 - Changes to apply: {"description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with practical supplies such as rope, grain sacks, lanterns, and tools. The air carries the mingled scents of oiled leather and dried herbs. The shop is quiet except for faint shuffling sounds from the back room. The atmosphere holds a cautious hope as villagers begin rebuilding after a recent curse.", "npcs": [{"name": "Old Marna", "description": "A wiry, sharp-eyed woman who runs the general store. She is practical and straightforward, aware of the village's recent troubles and the need to rebuild trust among villagers. She offers simple tasks to those willing to help and hints at unclaimed rewards for those who aided in lifting the curse.", "attitude": "Cautious but helpful, encouraging trust-building and cooperation."}], "plotHooks": ["Old Marna offers a labor task to restock the storeroom by fetching a crate from the inn's cellar.", "Elder Mirna is organizing official quests in the Town Square related to village recovery.", "Hints of unclaimed rewards for those who helped lift the recent curse.", "The village is in a phase of rebuilding and regaining trust among its people."], "dmInstructions": "Use Old Marna as the proprietor who can provide minor tasks such as helping restock supplies. Emphasize the importance of villagers' trust during the village's recovery. Direct players to Elder Mirna in the Town Square for main quest assignments. Keep the back room sounds as atmospheric detail.", "dcChecks": ["Insight DC 12: Understand that Old Marna values the rebuilding efforts and the trust of the villagers.", "Investigation DC 14: Notice the well-used supplies and crates indicating ongoing restocking and recovery."], "features": [{"name": "Notice Board", "description": "A cluttered board filled with handwritten notices about village recovery, missing pets, and calls for aid."}, {"name": "Counter and Ledger", "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and local labor tasks."}, {"name": "Back Storeroom", "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests. Supplies here are being restocked and can be offered for labor quests."}], "encounters": [{"encounterId": "A01-E1", "summary": "The party enters the general store in the early morning and meets Old Marna, the store's proprietor. She offers a simple labor task to help restock the storeroom and advises the party to seek out Elder Mirna in the Town Square for main quest assignments.", "impact": "Introduced Old Marna as the NPC proprietor, established the availability of minor quest tasks, and directed the party toward Elder Mirna for further quests. Set the tone for village recovery and trust-building.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "08:03:00"}}], "adventureSummary": "Upon entering Harrow's Hollow General Store in the early morning, the party found the dimly lit interior lined with practical supplies such as rope, grain sacks, lanterns, and tools, accompanied by the mingled scents of oiled leather and dried herbs. The shop was quiet except for faint shuffling sounds emanating from the back room. When the player called out seeking a quest or task to aid the village, the store's proprietor, Old Marna, emerged--a wiry, sharp-eyed woman who acknowledged the unusual request. Marna explained that although the village was recovering from a recent curse and rebuilding efforts were underway, official tasks were being organized by Elder Mirna in the Town Square. She also offered a simpler labor task to help restock the storeroom by fetching a crate from the inn's cellar. Marna emphasized the importance of earning villagers' trust during these uncertain times and hinted at unclaimed rewards for those who previously helped lift the curse. After considering these options, the party documented the quest information and elected to leave the store promptly to seek out Elder Mirna in the Town Square for main quest assignments, marking the beginning of their active involvement in the village's restoration efforts."}
-2025-05-25 15:29:23 - Location updated successfully
-2025-05-25 15:29:23 - Successfully updated Harrow's Hollow General Store in campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:31:31 - Attempting to load file: conversation_history.json
-2025-05-25 15:31:31 - File parsed successfully: conversation_history.json
-2025-05-25 15:31:31 - Attempting to load file: party_tracker.json
-2025-05-25 15:31:31 - File parsed successfully: party_tracker.json
-2025-05-25 15:31:36 - Adventure Summary generated
-2025-05-25 15:31:36 - Attempting to load file: journal_schema.json
-2025-05-25 15:31:36 - File parsed successfully: journal_schema.json
-2025-05-25 15:31:36 - Journal updated successfully
-2025-05-25 15:31:36 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:31:36 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:31:36 - Updating location JSON for Harrow's Hollow Town Square with all changes
-2025-05-25 15:31:36 - No last completed encounter ID found in party_tracker
-2025-05-25 15:31:36 - Attempting to load file: loca_schema.json
-2025-05-25 15:31:36 - File parsed successfully: loca_schema.json
-2025-05-25 15:31:36 - Attempting to load file: party_tracker.json
-2025-05-25 15:31:36 - File parsed successfully: party_tracker.json
-2025-05-25 15:31:36 - Starting schema processing...
-2025-05-25 15:31:36 - Schema type: <class 'dict'>
-2025-05-25 15:31:36 - Schema keys: ['$schema', 'type', 'properties', 'required']
-2025-05-25 15:31:36 - Properties keys: ['locations']
-2025-05-25 15:31:36 - Location properties keys: ['type', 'items']
-2025-05-25 15:31:36 - Schema structure validation passed
-2025-05-25 15:31:36 - Single item schema extracted, keys: ['type', 'properties', 'required']
-2025-05-25 15:31:36 - Attempt 1 to update location JSON
-2025-05-25 15:31:50 - Getting area path for ID: HH001
-2025-05-25 15:31:50 - CampaignPathManager using campaign: Keep_of_Doom
-2025-05-25 15:31:50 - CampaignPathManager directory: campaigns/Keep_of_Doom
-2025-05-25 15:31:50 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:31:50 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:31:50 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:31:50 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:31:50 - Locations count: 5
-2025-05-25 15:31:50 - Looking for location name: Harrow's Hollow Town Square
-2025-05-25 15:31:50 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
-2025-05-25 15:31:50 - Checking location 0: Harrow's Hollow General Store
-2025-05-25 15:31:50 - Checking location 1: Harrow's Hollow Town Square
-2025-05-25 15:31:50 - Found matching location at index 1
-2025-05-25 15:31:50 - Changes to apply: {"description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. On market days, stalls crowd the space, but even now, locals gossip in small clusters, eyes wary of newcomers. The villagers wear anxious expressions as they prepare for the incoming supply caravan. Elder Mirna has entrusted the party with guarding the caravan's arrival at the East Gate at noon. Despite the bustling activity, the East Gate is not directly accessible from the Town Square; only the General Store lies adjacent. Villagers and militia volunteers advise patience or aid with local tasks until the route to the gate is restored. The atmosphere is tense but without immediate threats.", "connectivity": ["A01", "A03"], "npcs": [{"name": "Old Tommen", "description": "A weathered, hunched herdsman with wild hair and a nervous gaze. Tommen is known for spreading superstitions and warning of restless spirits in the woods. He shared a side quest about a ghostly shade near the moor and mentioned a mysterious trinket beneath the statue of the forgotten knight.", "attitude": "Suspicious of strangers, eager to share tales of doom, but grateful for kind words and a listening ear."}, {"name": "Elder Mirna", "description": "The village elder who entrusted the party with the critical quest of guarding the supply caravan arriving at the East Gate. She is wise and deeply concerned about the village's recovery and safety.", "attitude": "Serious and focused, respectful towards the party, supportive but anxious about upcoming events."}, {"name": "Militia Watch", "description": "Volunteers from the village militia tasked with protecting the Town Square and coordinating defense. They warned the party of dangers near the East Gate, including bandits and wild dogs, and gave directions through the General Store's back lane.", "attitude": "Alert and cautious, cooperative with the party, eager to ensure safety."}], "plotHooks": ["Old Tommen corners the party to warn them about 'the shade on the moor,' referencing recent spectral sightings.", "A traveling merchant seeks help recovering goods lost to bandits north of town.", "Children whisper about a secret under the statue--a lost trinket or something darker.", "Assist Elder Mirna in preparing for the supply caravan's arrival and guarding the East Gate.", "Help militia volunteers with local tasks while awaiting the reopening of the route to the East Gate."], "dmInstructions": "Use Tommen's superstitious ramblings for early foreshadowing. A DC 11 Persuasion check gets him to share legends about the keep and the cursed knight. If players search the statue (DC 13 Investigation), they find a hidden compartment holding a rusty locket (worth 2 gp, sentimental value to some locals). Highlight the blocked passage to the East Gate and encourage interaction with the militia and Elder Mirna for side quests.", "accessibility": "Fully open and central, all major buildings and streets lead here; accessible to all. Passage to the East Gate is currently blocked and must be accessed via the General Store's back lane.", "features": [{"name": "Knight's Statue", "description": "A weathered stone monument, its inscription nearly worn away, depicting a forgotten hero with a drawn sword. Beneath it lies a hidden compartment discovered by the party."}, {"name": "Lantern Posts", "description": "Iron lanterns burn through most nights, keeping superstitious villagers at ease."}, {"name": "Market Stalls", "description": "Colorful canvas stalls, currently empty save for a few crates and benches."}], "encounters": [{"encounterId": "A02-E1", "summary": "Elder Mirna entrusts the party with guarding the incoming supply caravan at the East Gate and explains the village's dependence on safe trade. The party learns the East Gate is not directly accessible from the Town Square, only via the General Store, which blocks immediate progression.", "impact": "Main quest logged and marked. Party advised to assist with local tasks or wait until route restoration. Side quests introduced by Old Tommen and militia watch. Party prepares to transition to the General Store to access the back lane to the East Gate.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "09:29:00"}}], "adventureSummary": "Elder Mirna assigned the party to guard the supply caravan arriving at the East Gate at noon. The East Gate is unreachable directly from the Town Square; only the General Store is adjacent. Attempts to proceed were blocked due to missing area data. The party spoke with militia volunteers and Old Tommen, who shared side quests about a restless shade on the moor and a trinket beneath the knight's statue. The party resolved to enter the General Store next to seek the back passage to the East Gate and prepare for the caravan's arrival."}
-2025-05-25 15:31:50 - Location updated successfully
-2025-05-25 15:31:50 - Successfully updated Harrow's Hollow Town Square in campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:33:02 - Attempting to load file: conversation_history.json
-2025-05-25 15:33:02 - File parsed successfully: conversation_history.json
-2025-05-25 15:33:02 - Attempting to load file: party_tracker.json
-2025-05-25 15:33:02 - File parsed successfully: party_tracker.json
-2025-05-25 15:33:06 - Adventure Summary generated
-2025-05-25 15:33:06 - Attempting to load file: journal_schema.json
-2025-05-25 15:33:06 - File parsed successfully: journal_schema.json
-2025-05-25 15:33:06 - Journal updated successfully
-2025-05-25 15:33:06 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:33:06 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:33:06 - Updating location JSON for Harrow's Hollow General Store with all changes
-2025-05-25 15:33:06 - No last completed encounter ID found in party_tracker
-2025-05-25 15:33:06 - Attempting to load file: loca_schema.json
-2025-05-25 15:33:06 - File parsed successfully: loca_schema.json
-2025-05-25 15:33:06 - Attempting to load file: party_tracker.json
-2025-05-25 15:33:06 - File parsed successfully: party_tracker.json
-2025-05-25 15:33:06 - Starting schema processing...
-2025-05-25 15:33:06 - Schema type: <class 'dict'>
-2025-05-25 15:33:06 - Schema keys: ['$schema', 'type', 'properties', 'required']
-2025-05-25 15:33:06 - Properties keys: ['locations']
-2025-05-25 15:33:06 - Location properties keys: ['type', 'items']
-2025-05-25 15:33:06 - Schema structure validation passed
-2025-05-25 15:33:06 - Single item schema extracted, keys: ['type', 'properties', 'required']
-2025-05-25 15:33:06 - Attempt 1 to update location JSON
-2025-05-25 15:33:27 - Getting area path for ID: HH001
-2025-05-25 15:33:27 - CampaignPathManager using campaign: Keep_of_Doom
-2025-05-25 15:33:27 - CampaignPathManager directory: campaigns/Keep_of_Doom
-2025-05-25 15:33:27 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:33:27 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:33:27 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:33:27 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:33:27 - Locations count: 5
-2025-05-25 15:33:27 - Looking for location name: Harrow's Hollow General Store
-2025-05-25 15:33:27 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
-2025-05-25 15:33:27 - Checking location 0: Harrow's Hollow General Store
-2025-05-25 15:33:27 - Found matching location at index 0
-2025-05-25 15:33:27 - Changes to apply: {"description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with practical supplies such as rope, grain sacks, lanterns, and tools. The air carries the mingled scents of oiled leather and dried herbs. Dimly lit by lantern light, the shop holds a quiet ambiance with soft shuffling sounds from the back storeroom. The atmosphere is one of cautious hope as villagers rebuild after a recent curse.", "npcs": [{"name": "Old Marna", "description": "A wiry, sharp-eyed woman who runs the general store. Practical and straightforward, she monitors village affairs with a mixture of suspicion and cautious friendliness. She offers minor tasks to willing helpers and emphasizes the importance of purposeful travel beyond the palisade.", "attitude": "Cautious but helpful, encouraging trust-building and cooperation."}], "plotHooks": ["Old Marna offers a labor task to restock the storeroom by fetching a crate from the Wyrd Lantern Inn's cellar through Cira.", "Old Marna requests help clearing a rat infestation in the store's back storeroom and hints at valuables hidden among crates bearing noble crests.", "Old Marna emphasizes the need for purposeful travel beyond the palisade and offers assistance with access to the side door.", "Elder Mirna organizes official quests in the Town Square related to village recovery.", "Hints of unclaimed rewards for those who helped lift the recent curse.", "The village is rebuilding and regaining trust among its people."], "dmInstructions": "Use Old Marna as the proprietor who can provide minor tasks such as fetching supplies and clearing infestations. Emphasize the importance of purposeful travel and villagers' trust during the village's recovery. She cooperates with the party regarding side door access for quest progression. Direct players to Elder Mirna in the Town Square for main quests. Keep the back storeroom atmospheric with sounds of movement but no traps detected.", "doors": [{"name": "Front Door", "description": "A broad, reinforced oak door with brass fittings and a bell overhead.", "type": "regular", "locked": false, "lockDC": 0, "breakDC": 13, "keyname": "", "trapped": false, "trap": ""}, {"name": "Back Storeroom Door", "description": "A smaller, iron-banded door leading to the cramped storeroom, locked but accessible with the Old bronze key.", "type": "regular", "locked": true, "lockDC": 13, "breakDC": 15, "keyname": "Old bronze key", "trapped": false, "trap": ""}, {"name": "Eastern Side Door", "description": "A sturdy side door marked for watchmen and deliveries, leading toward the East Gate beyond the palisade. Access is controlled by Old Marna and requires purposeful travel beyond the village boundary.", "type": "regular", "locked": true, "lockDC": 15, "breakDC": 17, "keyname": "Side Door Key", "trapped": false, "trap": ""}], "dcChecks": ["Insight DC 12: Understand that Old Marna values the rebuilding efforts and the trust of the villagers.", "Investigation DC 14: Notice the well-used supplies and crates indicating ongoing restocking and recovery.", "Perception DC 13: Detect signs of a rat infestation in the back storeroom.", "Persuasion DC 15: Convince Old Marna to grant access to the eastern side door for purposeful travel."], "accessibility": "Easily accessible from the main square, with wide doorways and step-free entry. Side door access requires authorization from Old Marna.", "features": [{"name": "Notice Board", "description": "A cluttered board filled with handwritten notices about village recovery, missing pets, and calls for aid."}, {"name": "Counter and Ledger", "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and local labor tasks."}, {"name": "Back Storeroom", "description": "A cramped room packed with crates and burlap sacks, some bearing noble crests. A recent rat infestation affects this area, and some crates may contain hidden valuables."}, {"name": "Eastern Side Door", "description": "A reinforced side door leading to the palisade and East Gate. Controlled access granted only for purposeful travel beyond the village."}], "encounters": [{"encounterId": "A01-E1", "summary": "The party enters the general store in the early morning and meets Old Marna, the store's proprietor. She offers a simple labor task to help restock the storeroom and advises the party to seek out Elder Mirna in the Town Square for main quest assignments.", "impact": "Introduced Old Marna as the NPC proprietor, established the availability of minor quest tasks, and directed the party toward Elder Mirna for further quests. Set the tone for village recovery and trust-building.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "08:03:00"}}, {"encounterId": "A01-E2", "summary": "The party returned to the general store, engaged with Old Marna who greeted them with suspicion and cautious friendliness, and accepted a side quest involving retrieving a supply crate from the Wyrd Lantern Inn's cellar by speaking with Cira, as well as clearing a rat infestation in the store's back storeroom. The party informed Marna of their plan to investigate a side quest involving a trinket beneath the knight's statue in the Town Square. Marna permitted the detour and offered assistance with access to the eastern side door leading to the palisade and East Gate.", "impact": "Established active quest progression through Old Marna, confirmed her cooperation for access to the side door, and added new tasks involving the Wyrd Lantern Inn and store storeroom. The general store environment remains intact with no traps detected.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "10:37:00"}}], "adventureSummary": "Upon entering Harrow's Hollow General Store from the Town Square, the party encountered Old Marna, who greeted them with a mixture of suspicion and cautious friendliness as she busied herself tallying supplies by lantern light. Noticing their interest in the eastern side door marked for watchmen and deliveries, Marna acknowledged their intent to proceed toward the East Gate and offered assistance in gaining access, emphasizing the need for purposeful travel beyond the palisade. When the party accepted a side quest to aid Marna, she assigned two tasks: retrieve a supply crate from The Wyrd Lantern Inn's cellar by speaking with Cira and clear a rat infestation in the store's back storeroom, also hinting at possible valuables hidden among crates bearing noble crests. The quest was formally logged with clear objectives, and Marna updated the village log to prevent interference during the work. Before commencing these tasks, the party informed Marna of their plan to investigate a side quest involving a trinket hidden beneath the knight's statue in the Town Square. Marna responded with a knowing smile, permitting the brief detour. Throughout these interactions, the General Store remained dimly lit and filled with the quiet ambiance of a small village's daily commerce, with no traps detected. The party prepared to request the key or assistance from Marna to access the side door leading to the palisade and East Gate, intending to confirm her cooperation, test area transitions, and ensure quest progression without encountering loading or pathfinding issues before moving forward."}
-2025-05-25 15:33:27 - Location updated successfully
-2025-05-25 15:33:27 - Successfully updated Harrow's Hollow General Store in campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:35:28 - Attempting to load file: conversation_history.json
-2025-05-25 15:35:28 - File parsed successfully: conversation_history.json
-2025-05-25 15:35:28 - Attempting to load file: party_tracker.json
-2025-05-25 15:35:28 - File parsed successfully: party_tracker.json
-2025-05-25 15:35:33 - Adventure Summary generated
-2025-05-25 15:35:33 - Attempting to load file: journal_schema.json
-2025-05-25 15:35:33 - File parsed successfully: journal_schema.json
-2025-05-25 15:35:33 - Journal updated successfully
-2025-05-25 15:35:33 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:35:33 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:35:33 - Updating location JSON for East Gate and Guardhouse with all changes
-2025-05-25 15:35:33 - No last completed encounter ID found in party_tracker
-2025-05-25 15:35:33 - Attempting to load file: loca_schema.json
-2025-05-25 15:35:33 - File parsed successfully: loca_schema.json
-2025-05-25 15:35:33 - Attempting to load file: party_tracker.json
-2025-05-25 15:35:33 - File parsed successfully: party_tracker.json
-2025-05-25 15:35:33 - Starting schema processing...
-2025-05-25 15:35:33 - Schema type: <class 'dict'>
-2025-05-25 15:35:33 - Schema keys: ['$schema', 'type', 'properties', 'required']
-2025-05-25 15:35:33 - Properties keys: ['locations']
-2025-05-25 15:35:33 - Location properties keys: ['type', 'items']
-2025-05-25 15:35:33 - Schema structure validation passed
-2025-05-25 15:35:33 - Single item schema extracted, keys: ['type', 'properties', 'required']
-2025-05-25 15:35:33 - Attempt 1 to update location JSON
-2025-05-25 15:35:46 - Getting area path for ID: HH001
-2025-05-25 15:35:46 - CampaignPathManager using campaign: Keep_of_Doom
-2025-05-25 15:35:46 - CampaignPathManager directory: campaigns/Keep_of_Doom
-2025-05-25 15:35:46 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:35:46 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:35:46 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:35:46 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:35:46 - Locations count: 5
-2025-05-25 15:35:46 - Looking for location name: East Gate and Guardhouse
-2025-05-25 15:35:46 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
-2025-05-25 15:35:46 - Checking location 0: Harrow's Hollow General Store
-2025-05-25 15:35:46 - Checking location 1: Harrow's Hollow Town Square
-2025-05-25 15:35:46 - Checking location 2: East Gate and Guardhouse
-2025-05-25 15:35:46 - Found matching location at index 2
-2025-05-25 15:35:46 - Changes to apply: {"description": "The East Gate stands open, flanked by a well-kept stone guardhouse with wooden roofing and ready lanterns. The towering palisade of Harrow's Hollow looms above, guarding the muddy road that leads eastward along the Witchlight Trail. The atmosphere is one of cautious optimism as villagers resume their daily routines and sentries maintain vigilant yet hopeful watch over the gate.", "npcs": [{"name": "Joran", "description": "A broad-shouldered militia watchman, armed with a spear, friendly and knowledgeable about local happenings. He conveys gratitude from Elder Mirna and offers assistance to travelers.", "attitude": "Welcoming and cautiously hopeful after recent troubles."}, {"name": "Old Marna", "description": "An elder villager who holds the key to the side door granting access to the palisade and East Gate. She is cooperative and supportive of the party's efforts.", "attitude": "Helpful and approving."}], "lootTable": ["Town gate key (now held by Old Marna)", "Guard's whistle", "Small pouch with 12 cp", "Town patrol schedule (handwritten, with notes about recent disturbances near the keep)"], "plotHooks": ["Await the arrival of the merchant wagon mentioned by Joran.", "Assist villagers in rebuilding security and prosperity after the curse lifts.", "Venture beyond the gate to explore the Witchlight Trail and the wilderness beyond.", "Seek out Elder Mirna in the town square for recognition and further quests."], "dmInstructions": "Joran serves as a friendly militia watchman who can provide information on local events and the state of affairs. Old Marna holds the key to the palisade's side door and can grant access. There are no traps or threats in the immediate area. The atmosphere reflects the village's recovery, encouraging interactions that emphasize hope and cautious optimism.", "doors": [{"name": "Main Gate", "description": "Double heavy wooden gates, open now, iron-banded and weathered but sturdy.", "type": "heavy", "locked": false, "lockDC": 15, "breakDC": 18, "keyname": "Town gate key", "trapped": false, "trap": ""}, {"name": "Guardhouse Door", "description": "A narrow, iron-banded door set into the stone guardhouse, unlocked for party access.", "type": "regular", "locked": false, "lockDC": 0, "breakDC": 13, "keyname": "", "trapped": false, "trap": ""}, {"name": "Side Door to Palisade", "description": "A wooden side door in the palisade, recently unlocked with Old Marna's key to grant party passage.", "type": "wooden", "locked": false, "lockDC": 12, "breakDC": 15, "keyname": "Side door key", "trapped": false, "trap": ""}], "dcChecks": ["Investigation DC 14: Discover faint footprints and broken brush leading toward the haunted keep.", "Persuasion DC 13: Convince militia to share information or allow after-hours travel."], "accessibility": "Accessible via a side lane and main road; guarded but welcoming during daylight hours.", "features": [{"name": "Watch Bell", "description": "A large bronze bell used to sound alarms; can be heard across town."}, {"name": "Patrol Roster", "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen's name circled in chalk."}, {"name": "Gate Mechanism", "description": "A stout bar and iron lock securing the gates, currently disengaged as the gate stands open."}], "encounters": [{"encounterId": "A03-E1", "summary": "The party meets Joran and Old Marna at the East Gate and Guardhouse, gaining information about local conditions and receiving permission to pass through the side door.", "impact": "The gate is open and accessible, the party has the key to the side door, and local militia shows cautious optimism reflecting the village's recovery.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "12:29:00"}}], "adventureSummary": "At the East Gate and Guardhouse on 1492 Ches 1, 12:29:00, the party encountered militia watchman Joran and elder Old Marna. They learned of the village's cautious recovery from recent troubles, received thanks from Elder Mirna, and were granted access through the side door with Old Marna's key. The gate stands open, with no traps or threats present. The party now contemplates their next steps, including awaiting a merchant wagon or venturing along the Witchlight Trail."}
-2025-05-25 15:35:46 - Location updated successfully
-2025-05-25 15:35:46 - Successfully updated East Gate and Guardhouse in campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:35:58 - Attempting to load file: conversation_history.json
-2025-05-25 15:35:58 - File parsed successfully: conversation_history.json
-2025-05-25 15:35:58 - Attempting to load file: party_tracker.json
-2025-05-25 15:35:58 - File parsed successfully: party_tracker.json
-2025-05-25 15:36:01 - Adventure Summary generated
-2025-05-25 15:36:01 - Attempting to load file: journal_schema.json
-2025-05-25 15:36:01 - File parsed successfully: journal_schema.json
-2025-05-25 15:36:01 - Journal updated successfully
-2025-05-25 15:36:01 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:36:01 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:36:01 - Updating location JSON for East Gate and Guardhouse with all changes
-2025-05-25 15:36:01 - No last completed encounter ID found in party_tracker
-2025-05-25 15:36:01 - Attempting to load file: loca_schema.json
-2025-05-25 15:36:01 - File parsed successfully: loca_schema.json
-2025-05-25 15:36:01 - Attempting to load file: party_tracker.json
-2025-05-25 15:36:01 - File parsed successfully: party_tracker.json
-2025-05-25 15:36:01 - Starting schema processing...
-2025-05-25 15:36:01 - Schema type: <class 'dict'>
-2025-05-25 15:36:01 - Schema keys: ['$schema', 'type', 'properties', 'required']
-2025-05-25 15:36:01 - Properties keys: ['locations']
-2025-05-25 15:36:01 - Location properties keys: ['type', 'items']
-2025-05-25 15:36:01 - Schema structure validation passed
-2025-05-25 15:36:01 - Single item schema extracted, keys: ['type', 'properties', 'required']
-2025-05-25 15:36:01 - Attempt 1 to update location JSON
-2025-05-25 15:36:21 - Getting area path for ID: HH001
-2025-05-25 15:36:21 - CampaignPathManager using campaign: Keep_of_Doom
-2025-05-25 15:36:21 - CampaignPathManager directory: campaigns/Keep_of_Doom
-2025-05-25 15:36:21 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:36:21 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:36:21 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:36:21 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
-2025-05-25 15:36:21 - Locations count: 5
-2025-05-25 15:36:21 - Looking for location name: East Gate and Guardhouse
-2025-05-25 15:36:21 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
-2025-05-25 15:36:21 - Checking location 0: Harrow's Hollow General Store
-2025-05-25 15:36:21 - Checking location 1: Harrow's Hollow Town Square
-2025-05-25 15:36:21 - Checking location 2: East Gate and Guardhouse
-2025-05-25 15:36:21 - Found matching location at index 2
-2025-05-25 15:36:21 - Changes to apply: {"description": "The East Gate stands open, flanked by a well-kept stone guardhouse with wooden roofing and ready lanterns. The towering palisade of Harrow's Hollow looms above, guarding the muddy road that leads eastward along the Witchlight Trail. The atmosphere is one of cautious optimism as villagers resume their daily routines and sentries maintain vigilant yet hopeful watch over the gate. Elder Mirna and several villagers offer quiet congratulations to the party, acknowledging their heroic efforts in lifting the village's curse. The area is free of traps and threats, allowing smooth passage as the party prepares to undertake local quests.", "npcs": [{"name": "Joran", "description": "A broad-shouldered militia watchman, armed with a spear, friendly and knowledgeable about local happenings. He conveys gratitude from Elder Mirna and offers assistance to travelers.", "attitude": "Welcoming and cautiously hopeful after recent troubles."}, {"name": "Old Marna", "description": "An elder villager who holds the key to the side door granting access to the palisade and East Gate. She is cooperative and supportive of the party's efforts.", "attitude": "Helpful and approving."}, {"name": "Elder Mirna", "description": "The village elder who acknowledges the party's success in lifting the curse and offers quiet congratulations along with hints of material and social rewards.", "attitude": "Respectful and encouraging."}, {"name": "Cira", "description": "The innkeeper of The Wyrd Lantern Inn, whose cooperation is essential for the party's supply retrieval mission.", "attitude": "Cooperative and attentive."}], "plotHooks": ["Assist Old Marna by restocking the General Store and clearing the rat infestation.", "Retrieve supply crate from The Wyrd Lantern Inn's cellar with Cira's cooperation.", "Await the arrival of the merchant wagon mentioned by Joran.", "Assist villagers in rebuilding security and prosperity after the curse lifts.", "Venture beyond the gate to explore the Witchlight Trail and the wilderness beyond.", "Seek out Elder Mirna in the town square for recognition and further quests."], "dmInstructions": "Joran serves as a friendly militia watchman who can provide information on local events and the state of affairs. Old Marna holds the key to the palisade's side door and can grant access. Elder Mirna and Cira are additional NPCs to interact with for social and quest-related purposes. There are no traps or threats in the immediate area. The atmosphere reflects the village's recovery, encouraging interactions that emphasize hope and cautious optimism. The party can prepare here before proceeding to other local quest objectives.", "encounters": [{"encounterId": "A03-E1", "summary": "The party meets Joran and Old Marna at the East Gate and Guardhouse, gaining information about local conditions and receiving permission to pass through the side door.", "impact": "The gate is open and accessible, the party has the key to the side door, and local militia shows cautious optimism reflecting the village's recovery.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "12:29:00"}}, {"encounterId": "A03-E2", "summary": "The party returns to the East Gate and Guardhouse, greeted with congratulations from Elder Mirna and other villagers for lifting the village's curse. They prepare to assist Old Marna by restocking the General Store and clearing a rat infestation, coordinating with innkeeper Cira for supply retrieval.", "impact": "The party's reputation is enhanced, no new threats exist at the gate, and quest objectives are clarified toward local assistance and supply recovery.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "13:34:00"}}], "adventureSummary": "Upon arriving at the East Gate and Guardhouse on 1492 Ches 1, 13:34:00, the party was welcomed with cautious optimism after lifting the village's curse. Elder Mirna and villagers offered congratulations and hints of rewards. The gate remains open and free of traps or threats. The party resolved to assist Old Marna by restocking the General Store and clearing a rat infestation, with plans to retrieve supplies from The Wyrd Lantern Inn's cellar through cooperation with innkeeper Cira. The atmosphere remains hopeful as the party sets out toward these objectives."}
-2025-05-25 15:36:21 - Location updated successfully
-2025-05-25 15:36:21 - Successfully updated East Gate and Guardhouse in campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:16:26 - Attempting to load file: conversation_history.json
+2025-05-25 18:16:26 - File parsed successfully: conversation_history.json
+2025-05-25 18:16:26 - Attempting to load file: party_tracker.json
+2025-05-25 18:16:26 - File parsed successfully: party_tracker.json
+2025-05-25 18:16:31 - Adventure Summary generated
+2025-05-25 18:16:31 - Attempting to load file: journal_schema.json
+2025-05-25 18:16:31 - File parsed successfully: journal_schema.json
+2025-05-25 18:16:31 - Journal updated successfully
+2025-05-25 18:16:31 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:16:31 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:16:31 - Updating location JSON for Harrow's Hollow General Store with all changes
+2025-05-25 18:16:31 - No last completed encounter ID found in party_tracker
+2025-05-25 18:16:31 - Attempting to load file: loca_schema.json
+2025-05-25 18:16:31 - File parsed successfully: loca_schema.json
+2025-05-25 18:16:31 - Attempting to load file: party_tracker.json
+2025-05-25 18:16:31 - File parsed successfully: party_tracker.json
+2025-05-25 18:16:31 - Starting schema processing...
+2025-05-25 18:16:31 - Schema type: <class 'dict'>
+2025-05-25 18:16:31 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-25 18:16:31 - Properties keys: ['locations']
+2025-05-25 18:16:31 - Location properties keys: ['type', 'items']
+2025-05-25 18:16:31 - Schema structure validation passed
+2025-05-25 18:16:31 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-25 18:16:31 - Attempt 1 to update location JSON
+2025-05-25 18:16:52 - Getting area path for ID: HH001
+2025-05-25 18:16:52 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-25 18:16:52 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-25 18:16:52 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:16:52 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:16:52 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:16:52 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:16:52 - Locations count: 5
+2025-05-25 18:16:52 - Looking for location name: Harrow's Hollow General Store
+2025-05-25 18:16:52 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
+2025-05-25 18:16:52 - Checking location 0: Harrow's Hollow General Store
+2025-05-25 18:16:52 - Found matching location at index 0
+2025-05-25 18:16:52 - Changes to apply: {"description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter. Elder Mirna Harrow stands behind the wooden counter with a concerned yet respectful gaze, reflecting both the lingering unease over recent disappearances and newfound hope after the curse was lifted. The morning mist clings lightly outside, hinting at a day of cautious optimism as the village looks to move forward.", "npcs": [{"name": "Elder Mirna Harrow", "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. Having witnessed the party's success in lifting the village's curse, she now carries a mixture of relief and cautious hope while continuing to prepare the village for further challenges tied to the ancient keep.", "attitude": "Respectful and supportive toward the party, friendly to locals, and cautiously optimistic about the village's future."}], "plotHooks": ["Elder Mirna entrusts the party with a bronze key relic and a quest to investigate the ancient keep on the hill.", "A worried villager asks if the party has news of Scout Elen, who vanished while patrolling the Witchlight Trailhead beyond the East Gate.", "The village faces a lurking dark influence tied to the keep and ongoing disappearances.", "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.", "New social and material rewards have been promised to the party for lifting the curse, opening new avenues for adventure.", "Directions to the Town Square, East Gate and Guardhouse, Militia Barracks, and The Wyrd Lantern Inn are highlighted as potential next destinations."], "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She now openly acknowledges the party's heroism and offers supplies, news, and aid freely. Emphasize the significance of the bronze key and the importance of caution as the morning mists linger. The notice board remains a rich source of quests and information. Encourage the party to consider their next destination based on the new connections and rewards.", "dcChecks": ["Insight DC 12: Discern Elder Mirna is now more forthcoming but still wary of the key's full power and history.", "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the keep."], "features": [{"name": "Notice Board", "description": "A cluttered board filled with handwritten notices, missing pet posters, cryptic local warnings, and a plea about the missing Scout Elen. New parchments highlight the party's achievements and offer additional quests."}, {"name": "Counter and Ledger", "description": "A sturdy wooden counter with a thick ledger book used for tracking trades and gossip alike. Elder Mirna often stands here, now openly offering aid and supplies to the party."}, {"name": "Back Storeroom", "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests. Supplies here have been made available to the party to aid their upcoming quest."}], "encounters": [{"encounterId": "A01-E1", "summary": "The party was greeted by Elder Mirna Harrow behind the counter, who acknowledged their role in lifting the village's curse and offered aid. The notice board displayed new and ongoing quests, including information about missing livestock, Scout Elen, and a bronze key with a raven sigil. Directions to multiple locations were pointed out as possible next steps.", "impact": "The party gained social standing and material rewards from the villagers. New plot hooks were introduced, and the village's mood shifted from anxious to hopeful. The bronze key was entrusted to the party, setting the stage for further investigation.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "08:05:00"}}], "adventureSummary": "Upon entering Harrow's Hollow General Store, the party was greeted by Elder Mirna Harrow, who recognized their efforts in lifting the village's curse and offered assistance. The notice board displayed various new and ongoing quests, including missing livestock, a vanished scout, and the bronze key with a raven sigil. Mirna cautioned about the morning mists and suggested it might be time to pass on old burdens. The party was directed to nearby locations such as the Town Square, East Gate, Militia Barracks, and The Wyrd Lantern Inn. Celebrations of the party's success promised new rewards and adventure opportunities. After gathering information, the party chose to proceed to Harrow's Hollow Town Square."}
+2025-05-25 18:16:52 - Location updated successfully
+2025-05-25 18:16:52 - Successfully updated Harrow's Hollow General Store in campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:17:12 - Attempting to load file: conversation_history.json
+2025-05-25 18:17:12 - File parsed successfully: conversation_history.json
+2025-05-25 18:17:12 - Attempting to load file: party_tracker.json
+2025-05-25 18:17:12 - File parsed successfully: party_tracker.json
+2025-05-25 18:17:15 - Adventure Summary generated
+2025-05-25 18:17:15 - Attempting to load file: journal_schema.json
+2025-05-25 18:17:15 - File parsed successfully: journal_schema.json
+2025-05-25 18:17:16 - Journal updated successfully
+2025-05-25 18:17:16 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:17:16 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:17:16 - Updating location JSON for Harrow's Hollow Town Square with all changes
+2025-05-25 18:17:16 - No last completed encounter ID found in party_tracker
+2025-05-25 18:17:16 - Attempting to load file: loca_schema.json
+2025-05-25 18:17:16 - File parsed successfully: loca_schema.json
+2025-05-25 18:17:16 - Attempting to load file: party_tracker.json
+2025-05-25 18:17:16 - File parsed successfully: party_tracker.json
+2025-05-25 18:17:16 - Starting schema processing...
+2025-05-25 18:17:16 - Schema type: <class 'dict'>
+2025-05-25 18:17:16 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-25 18:17:16 - Properties keys: ['locations']
+2025-05-25 18:17:16 - Location properties keys: ['type', 'items']
+2025-05-25 18:17:16 - Schema structure validation passed
+2025-05-25 18:17:16 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-25 18:17:16 - Attempt 1 to update location JSON
+2025-05-25 18:17:33 - Getting area path for ID: HH001
+2025-05-25 18:17:33 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-25 18:17:33 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-25 18:17:33 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:17:33 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:17:33 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:17:33 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:17:33 - Locations count: 5
+2025-05-25 18:17:33 - Looking for location name: Harrow's Hollow Town Square
+2025-05-25 18:17:33 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
+2025-05-25 18:17:33 - Checking location 0: Harrow's Hollow General Store
+2025-05-25 18:17:33 - Checking location 1: Harrow's Hollow Town Square
+2025-05-25 18:17:33 - Found matching location at index 1
+2025-05-25 18:17:33 - Changes to apply: {"description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. Following the lifting of the town's curse, the square buzzes with renewed energy and festive celebration. Villagers, led by Elder Mirna, gather to honor the heroes and share stories of hope. The atmosphere is warm and inviting, free from any traps or threats, and filled with whispers of future adventures.", "npcs": [{"name": "Old Tommen", "description": "A weathered, hunched herdsman with wild hair and a nervous gaze. Tommen is known for spreading superstitions and warning of restless spirits in the woods. He now shares tales with a more hopeful tone, grateful for the party's heroism.", "attitude": "Friendly and appreciative towards the party, still cautious but less suspicious of newcomers."}, {"name": "Elder Mirna", "description": "The wise and respected leader of Harrow's Hollow, Elder Mirna presides over the festivities with a proud smile, honoring the party's role in lifting the curse.", "attitude": "Grateful and warm, eager to reward and support the party."}], "plotHooks": ["Old Tommen corners the party to warn them about 'the shade on the moor,' referencing recent spectral sightings.", "A traveling merchant seeks help recovering goods lost to bandits north of town.", "Children whisper about a secret under the statue--a lost trinket or something darker.", "The party's growing reputation has sparked interest in new quests and opportunities within the village and beyond."], "dmInstructions": "Use the festive atmosphere and Elder Mirna's gratitude to reward the party and provide social opportunities. Old Tommen's tales now carry a tone of hopeful renewal. Continue using Investigation and Persuasion checks around the statue and locals as hooks for future adventures.", "encounters": [{"encounterId": "A02-E1", "summary": "The party returns to Harrow's Hollow Town Square to find a festive celebration honoring their success in lifting the town's curse.", "impact": "The villagers, led by Elder Mirna, express gratitude and offer both social and tangible rewards. The square is free of threats and filled with optimism, providing new plot hooks and potential future quests.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "09:07:00"}}], "adventureSummary": "Upon returning to Harrow's Hollow Town Square, the party was greeted with a festive atmosphere as Elder Mirna and the villagers celebrated their recent triumph in lifting the curse that had plagued the town. The air was filled with a sense of relief and admiration for the heroes who had restored peace. The square, free from any traps, buzzed with new energy and whispered promises of future quests stemming from the growing reputation of the party. Game Time: 1492 Ches 1, 09:07:00"}
+2025-05-25 18:17:33 - Location updated successfully
+2025-05-25 18:17:33 - Successfully updated Harrow's Hollow Town Square in campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:17:49 - Attempting to load file: conversation_history.json
+2025-05-25 18:17:49 - File parsed successfully: conversation_history.json
+2025-05-25 18:17:49 - Attempting to load file: party_tracker.json
+2025-05-25 18:17:49 - File parsed successfully: party_tracker.json
+2025-05-25 18:17:52 - Adventure Summary generated
+2025-05-25 18:17:52 - Attempting to load file: journal_schema.json
+2025-05-25 18:17:52 - File parsed successfully: journal_schema.json
+2025-05-25 18:17:52 - Journal updated successfully
+2025-05-25 18:17:52 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:17:52 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:17:52 - Updating location JSON for Harrow's Hollow General Store with all changes
+2025-05-25 18:17:52 - No last completed encounter ID found in party_tracker
+2025-05-25 18:17:52 - Attempting to load file: loca_schema.json
+2025-05-25 18:17:52 - File parsed successfully: loca_schema.json
+2025-05-25 18:17:52 - Attempting to load file: party_tracker.json
+2025-05-25 18:17:52 - File parsed successfully: party_tracker.json
+2025-05-25 18:17:52 - Starting schema processing...
+2025-05-25 18:17:52 - Schema type: <class 'dict'>
+2025-05-25 18:17:52 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-25 18:17:52 - Properties keys: ['locations']
+2025-05-25 18:17:52 - Location properties keys: ['type', 'items']
+2025-05-25 18:17:52 - Schema structure validation passed
+2025-05-25 18:17:52 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-25 18:17:52 - Attempt 1 to update location JSON
+2025-05-25 18:18:16 - Getting area path for ID: HH001
+2025-05-25 18:18:16 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-25 18:18:16 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-25 18:18:16 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:18:16 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:18:16 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:18:16 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:18:16 - Locations count: 5
+2025-05-25 18:18:16 - Looking for location name: Harrow's Hollow General Store
+2025-05-25 18:18:16 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
+2025-05-25 18:18:16 - Checking location 0: Harrow's Hollow General Store
+2025-05-25 18:18:16 - Found matching location at index 0
+2025-05-25 18:18:16 - Changes to apply: {"description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter. The atmosphere is warm and inviting, softened by the soft murmur of grateful villagers. Elder Mirna Harrow stands behind the wooden counter, her expression now reflecting relief and hope following the lifting of the village curse. The morning mist still clings lightly outside, but there is a palpable sense of cautious optimism as the village looks toward new beginnings.", "npcs": [{"name": "Elder Mirna Harrow", "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. Having witnessed the party's success in lifting the village's curse, she now carries a mixture of relief and cautious hope while continuing to prepare the village for further challenges tied to the ancient keep. She warmly thanks the party and promises rewards of both wealth and enhanced social standing.", "attitude": "Respectful and supportive toward the party, friendly to locals, and cautiously optimistic about the village's future."}], "encounters": [{"encounterId": "A01-E1", "summary": "The party was greeted by Elder Mirna Harrow behind the counter, who acknowledged their role in lifting the village's curse and offered aid. The notice board displayed new and ongoing quests, including information about missing livestock, Scout Elen, and a bronze key with a raven sigil. Directions to multiple locations were pointed out as possible next steps.", "impact": "The party gained social standing and material rewards from the villagers. New plot hooks were introduced, and the village's mood shifted from anxious to hopeful. The bronze key was entrusted to the party, setting the stage for further investigation.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "08:05:00"}}, {"encounterId": "A01-E2", "summary": "The party spent time in the general store gathering supplies and information. Elder Mirna personally thanked them and promised rewards reflecting both material wealth and increased social status within Harrow's Hollow. Villagers expressed their gratitude and shared hints about new opportunities and adventures arising from the party's heroics. No threats or traps were encountered; the environment was safe for rest and resupply.", "impact": "The party's reputation in the village improved significantly. Several new plot hooks emerged, including directions to The Wyrd Lantern Inn where the party planned to continue their exploration. The village atmosphere shifted to one of hopeful optimism.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "10:09:00"}}], "adventureSummary": "Upon entering Harrow's Hollow General Store, the party found themselves amidst a modest, well-stocked establishment that served as a hub for the local villagers. Shelves lined with various goods, from foodstuffs to tools, hinted at the day-to-day life of the town. The atmosphere was warm and inviting, softened by the soft murmur of the villagers expressing their gratitude for the party's recent heroic deeds in lifting the curse that had plagued Harrow's Hollow. Elder Mirna personally greeted the adventurers, offering heartfelt thanks and promising rewards that reflected both material wealth and elevated social standing within the community. Throughout their time in the store, the party was able to gather valuable information from the townsfolk about new opportunities and potential adventures arising from their newfound reputation. No traps were encountered, and the environment proved safe for rest and resupply. After completing their business and accepting the recognition bestowed upon them, the party prepared to leave the general store, with one member expressing the intention to proceed to The Wyrd Lantern Inn to continue their exploration of Harrow's Hollow."}
+2025-05-25 18:18:16 - Location updated successfully
+2025-05-25 18:18:16 - Successfully updated Harrow's Hollow General Store in campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:18:37 - Attempting to load file: conversation_history.json
+2025-05-25 18:18:37 - File parsed successfully: conversation_history.json
+2025-05-25 18:18:37 - Attempting to load file: party_tracker.json
+2025-05-25 18:18:37 - File parsed successfully: party_tracker.json
+2025-05-25 18:18:40 - Adventure Summary generated
+2025-05-25 18:18:40 - Attempting to load file: journal_schema.json
+2025-05-25 18:18:40 - File parsed successfully: journal_schema.json
+2025-05-25 18:18:40 - Journal updated successfully
+2025-05-25 18:18:40 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:18:40 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:18:40 - Updating location JSON for The Wyrd Lantern Inn with all changes
+2025-05-25 18:18:40 - No last completed encounter ID found in party_tracker
+2025-05-25 18:18:40 - Attempting to load file: loca_schema.json
+2025-05-25 18:18:40 - File parsed successfully: loca_schema.json
+2025-05-25 18:18:40 - Attempting to load file: party_tracker.json
+2025-05-25 18:18:40 - File parsed successfully: party_tracker.json
+2025-05-25 18:18:40 - Starting schema processing...
+2025-05-25 18:18:40 - Schema type: <class 'dict'>
+2025-05-25 18:18:40 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-25 18:18:40 - Properties keys: ['locations']
+2025-05-25 18:18:40 - Location properties keys: ['type', 'items']
+2025-05-25 18:18:40 - Schema structure validation passed
+2025-05-25 18:18:40 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-25 18:18:40 - Attempt 1 to update location JSON
+2025-05-25 18:18:58 - Getting area path for ID: HH001
+2025-05-25 18:18:58 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-25 18:18:58 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-25 18:18:58 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:18:58 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:18:58 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:18:58 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:18:58 - Locations count: 5
+2025-05-25 18:18:58 - Looking for location name: The Wyrd Lantern Inn
+2025-05-25 18:18:58 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
+2025-05-25 18:18:58 - Checking location 0: Harrow's Hollow General Store
+2025-05-25 18:18:58 - Checking location 1: Harrow's Hollow Town Square
+2025-05-25 18:18:58 - Checking location 2: East Gate and Guardhouse
+2025-05-25 18:18:58 - Checking location 3: Militia Barracks
+2025-05-25 18:18:58 - Checking location 4: The Wyrd Lantern Inn
+2025-05-25 18:18:58 - Found matching location at index 4
+2025-05-25 18:18:58 - Changes to apply: {"description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew and fresh bread fills the air. Laughter and song are frequent, but at night, whispers of fear and superstition drift between tables. Recently, the inn has become a place of quiet relief and celebration as villagers gather to honor the party's triumph in lifting the curse that plagued Harrow's Hollow.", "npcs": [{"name": "Cira the Innkeeper", "description": "A warm, quick-witted woman with a knack for remembering faces and secrets. She runs the Wyrd Lantern with a firm but friendly hand.", "attitude": "Welcoming to all, but especially those with coin or gossip. Protective of her staff and regulars."}, {"name": "Elder Mirna", "description": "A respected village elder known for her wisdom and calm demeanor. She is grateful to the party for lifting the curse and often speaks to villagers here.", "attitude": "Grateful and respectful towards the party, hopeful for the village's future."}], "plotHooks": ["A fearful regular claims to have seen a ghostly figure on the east road.", "Cira offers the party free rooms if they can calm frightened townsfolk.", "A drunken patron insists the keep's curse is growing stronger and tries to start a brawl.", "The party's heroic deeds have spread their reputation, leading to new conversations and potential future adventures."], "dmInstructions": "Cira is the party's best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace. The inn serves as a safe haven with no traps, encouraging rest and recovery.", "encounters": [{"encounterId": "A05-E1", "summary": "The party is greeted warmly by the villagers at The Wyrd Lantern Inn, celebrating the lifting of the curse on Harrow's Hollow.", "impact": "The party gains material rewards and social recognition among the townsfolk; the inn serves as a safe resting place without traps or dangers.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "11:11:00"}}], "adventureSummary": "Upon entering The Wyrd Lantern Inn, the party found themselves in a modest yet warmly lit establishment, imbued with an atmosphere of quiet relief following their recent triumph. The inn's rustic wooden beams and the soft glow of lanterns created a welcoming environment where villagers, including Elder Mirna, gathered to celebrate the lifting of the curse that had plagued Harrow's Hollow. The party was greeted with gratitude and admiration, their heroic deeds earning them both material rewards and social recognition among the townsfolk. Throughout their time at the inn, they engaged in various conversations that revealed new information and potential future adventures as their reputation began to spread. No traps were encountered within the inn, allowing the party to rest and regroup without incident. The atmosphere was one of hopeful respite, setting the stage for the party's eventual departure back to the town square to continue their journey. Current Game Time: 1492 Ches 1, 11:11:00"}
+2025-05-25 18:18:58 - Location updated successfully
+2025-05-25 18:18:58 - Successfully updated The Wyrd Lantern Inn in campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:20:18 - Attempting to load file: conversation_history.json
+2025-05-25 18:20:18 - File parsed successfully: conversation_history.json
+2025-05-25 18:20:18 - Attempting to load file: party_tracker.json
+2025-05-25 18:20:18 - File parsed successfully: party_tracker.json
+2025-05-25 18:20:21 - Adventure Summary generated
+2025-05-25 18:20:21 - Attempting to load file: journal_schema.json
+2025-05-25 18:20:21 - File parsed successfully: journal_schema.json
+2025-05-25 18:20:21 - Journal updated successfully
+2025-05-25 18:20:21 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:20:21 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:20:21 - Updating location JSON for Harrow's Hollow Town Square with all changes
+2025-05-25 18:20:21 - No last completed encounter ID found in party_tracker
+2025-05-25 18:20:21 - Attempting to load file: loca_schema.json
+2025-05-25 18:20:21 - File parsed successfully: loca_schema.json
+2025-05-25 18:20:21 - Attempting to load file: party_tracker.json
+2025-05-25 18:20:21 - File parsed successfully: party_tracker.json
+2025-05-25 18:20:21 - Starting schema processing...
+2025-05-25 18:20:21 - Schema type: <class 'dict'>
+2025-05-25 18:20:21 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-25 18:20:21 - Properties keys: ['locations']
+2025-05-25 18:20:21 - Location properties keys: ['type', 'items']
+2025-05-25 18:20:21 - Schema structure validation passed
+2025-05-25 18:20:21 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-25 18:20:21 - Attempt 1 to update location JSON
+2025-05-25 18:20:40 - Getting area path for ID: HH001
+2025-05-25 18:20:40 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-25 18:20:40 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-25 18:20:40 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:20:40 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:20:40 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:20:40 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:20:40 - Locations count: 5
+2025-05-25 18:20:40 - Looking for location name: Harrow's Hollow Town Square
+2025-05-25 18:20:40 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
+2025-05-25 18:20:40 - Checking location 0: Harrow's Hollow General Store
+2025-05-25 18:20:40 - Checking location 1: Harrow's Hollow Town Square
+2025-05-25 18:20:40 - Found matching location at index 1
+2025-05-25 18:20:40 - Changes to apply: {"description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. Following the lifting of the town's curse, the square buzzes with renewed energy and festive celebration. Villagers, led by Elder Mirna, gather to honor the heroes and share stories of hope. The atmosphere is warm and inviting, free from any traps or threats, and filled with whispers of future adventures. The Rusty Old Barn is notably absent here, a reminder that travel beyond the known locations requires local guidance.", "dmInstructions": "Use the festive atmosphere and Elder Mirna's gratitude to reward the party and provide social opportunities. Old Tommen's tales now carry a tone of hopeful renewal. Continue using Investigation and Persuasion checks around the statue and locals as hooks for future adventures. Note the absence of the Rusty Old Barn in the square and emphasize the need for local guidance to explore beyond.", "encounters": [{"encounterId": "A02-E1", "summary": "The party returns to Harrow's Hollow Town Square to find a festive celebration honoring their success in lifting the town's curse.", "impact": "The villagers, led by Elder Mirna, express gratitude and offer both social and tangible rewards. The square is free of threats and filled with optimism, providing new plot hooks and potential future quests.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "09:07:00"}}, {"encounterId": "A02-E2", "summary": "The party surveys the lively town square post-curse lifting and acknowledges the absence of the Rusty Old Barn, recognizing the need for local guidance for further travel.", "impact": "The party is celebrated as heroes and gains increased respect and potential quest opportunities. The square remains safe and welcoming with no traps. Plans are made to proceed towards the nearby guard tower area.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "12:13:00"}}], "adventureSummary": "Upon arriving at Harrow's Hollow Town Square, the party took in the lively scene of familiar townsfolk and vibrant market stalls. They noted the absence of the 'Rusty Old Barn' within the square, recognizing that travel beyond known locations required local guidance. The square connected directly to the General Store, which in turn provided access to the Militia Barracks, East Gate and Guardhouse, and The Wyrd Lantern Inn. The party was aware that villagers such as Old Tommen or Elder Mirna might hold knowledge of any hidden places like the barn. Having lifted a curse, the party returned as celebrated heroes, receiving rewards and newfound respect among the villagers, opening doors to potential future adventures. No traps were present in the town square, ensuring safe passage. After surveying their options and acknowledging the current plot developments, the party expressed their intent to proceed towards the guard tower, ready to explore that adjacent location. Game Time: 1492 Ches 1, 12:13:00"}
+2025-05-25 18:20:40 - Location updated successfully
+2025-05-25 18:20:40 - Successfully updated Harrow's Hollow Town Square in campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:22:32 - Attempting to load file: conversation_history.json
+2025-05-25 18:22:32 - File parsed successfully: conversation_history.json
+2025-05-25 18:22:32 - Attempting to load file: party_tracker.json
+2025-05-25 18:22:32 - File parsed successfully: party_tracker.json
+2025-05-25 18:22:35 - Adventure Summary generated
+2025-05-25 18:22:35 - Attempting to load file: journal_schema.json
+2025-05-25 18:22:35 - File parsed successfully: journal_schema.json
+2025-05-25 18:22:35 - Journal updated successfully
+2025-05-25 18:22:35 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:22:35 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:22:35 - Updating location JSON for East Gate and Guardhouse with all changes
+2025-05-25 18:22:35 - No last completed encounter ID found in party_tracker
+2025-05-25 18:22:35 - Attempting to load file: loca_schema.json
+2025-05-25 18:22:35 - File parsed successfully: loca_schema.json
+2025-05-25 18:22:35 - Attempting to load file: party_tracker.json
+2025-05-25 18:22:35 - File parsed successfully: party_tracker.json
+2025-05-25 18:22:35 - Starting schema processing...
+2025-05-25 18:22:35 - Schema type: <class 'dict'>
+2025-05-25 18:22:35 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-25 18:22:35 - Properties keys: ['locations']
+2025-05-25 18:22:35 - Location properties keys: ['type', 'items']
+2025-05-25 18:22:35 - Schema structure validation passed
+2025-05-25 18:22:35 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-25 18:22:35 - Attempt 1 to update location JSON
+2025-05-25 18:22:56 - Getting area path for ID: HH001
+2025-05-25 18:22:56 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-25 18:22:56 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-25 18:22:56 - Area file path generated: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:22:56 - Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:22:56 - File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:22:56 - All locations loaded from campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:22:56 - Locations count: 5
+2025-05-25 18:22:56 - Looking for location name: East Gate and Guardhouse
+2025-05-25 18:22:56 - Available location names: ["Harrow's Hollow General Store", "Harrow's Hollow Town Square", 'East Gate and Guardhouse', 'Militia Barracks', 'The Wyrd Lantern Inn']
+2025-05-25 18:22:56 - Checking location 0: Harrow's Hollow General Store
+2025-05-25 18:22:56 - Checking location 1: Harrow's Hollow Town Square
+2025-05-25 18:22:56 - Checking location 2: East Gate and Guardhouse
+2025-05-25 18:22:56 - Found matching location at index 2
+2025-05-25 18:22:56 - Changes to apply: {"description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town's eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond. The gate area remains vigilant yet calm, serving as a crucial point for gathering information before venturing along the Witchlight Trail. The gate now stands open, inviting travelers eastward onto the trail deeper into the mysterious forest.", "plotHooks": ["Sergeant Feld asks the party to help search for Scout Elen, missing after a routine patrol.", "Feld warns the party: the east road is dangerous after dark, and the keep is strictly off limits to townsfolk.", "A bloodstained scrap of cloth is found snagged on the gate; Feld suspects foul play nearby.", "Militia provide valuable intelligence about dangers along the Witchlight Trail and the approach to the keep.", "The party's successful lifting of a curse has earned them acclaim and rewards from Elder Mirna and the villagers."], "doors": [{"name": "Main Gate", "description": "Double doors of heavy oak and iron, previously barred at night but now open for passage.", "type": "heavy", "locked": false, "lockDC": 15, "breakDC": 18, "keyname": "Town gate key", "trapped": false, "trap": ""}, {"name": "Guardhouse Door", "description": "A narrow, iron-banded door set into the stone guardhouse.", "type": "regular", "locked": false, "lockDC": 0, "breakDC": 13, "keyname": "", "trapped": false, "trap": ""}], "accessibility": "Easily accessible by road, the main gate now stands open as the party departs toward the forest trail.", "features": [{"name": "Watch Bell", "description": "A large bronze bell used to sound alarms; can be heard across town."}, {"name": "Patrol Roster", "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen's name circled in chalk."}, {"name": "Gate Mechanism", "description": "A stout bar and iron lock securing the gates, now unlatched and open for departure."}], "encounters": [{"encounterId": "A03-E1", "summary": "The party departs the village by passing through the now open East Gate and begins their journey along the Witchlight Trailhead into the Gloamwood.", "impact": "The gate is left open for the party's departure, signaling their transition from village safety to the wilderness adventure beyond. Villagers celebrate the party's recent heroic deeds, enhancing their reputation.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "13:16:00"}}], "adventureSummary": "Upon arriving at the East Gate and Guardhouse, the party found themselves at a pivotal juncture between the safety of Harrow's Hollow village and the mysteries of the wild Gloamwood forest beyond. The general store lay a short walk behind them, while the open gate invited the adventurers eastward onto the Witchlight Trailhead, a path leading deeper into the forest and toward the haunted Keep of Doom. With no traps detected in the area and the recent lifting of a curse garnering them acclaim and rewards from Elder Mirna and the villagers, the party stood celebrated as heroes within the village. After considering their options, the party chose to leave the village behind and proceeded through the gate to embark on the Witchlight Trailhead, venturing into the unknown territories of Gloamwood to continue their adventure. (Game Time: 1492 Ches 1, 13:16:00)"}
+2025-05-25 18:22:56 - Location updated successfully
+2025-05-25 18:22:56 - Successfully updated East Gate and Guardhouse in campaigns/Keep_of_Doom/HH001.json
+2025-05-25 18:25:10 - Attempting to load file: conversation_history.json
+2025-05-25 18:25:10 - File parsed successfully: conversation_history.json
+2025-05-25 18:25:10 - Attempting to load file: party_tracker.json
+2025-05-25 18:25:10 - File parsed successfully: party_tracker.json
+2025-05-25 18:25:14 - Adventure Summary generated
+2025-05-25 18:25:14 - Attempting to load file: journal_schema.json
+2025-05-25 18:25:14 - File parsed successfully: journal_schema.json
+2025-05-25 18:25:14 - Journal updated successfully
+2025-05-25 18:25:14 - Attempting to load file: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:25:14 - File parsed successfully: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:25:14 - Updating location JSON for Witchlight Trailhead with all changes
+2025-05-25 18:25:14 - No last completed encounter ID found in party_tracker
+2025-05-25 18:25:14 - Attempting to load file: loca_schema.json
+2025-05-25 18:25:14 - File parsed successfully: loca_schema.json
+2025-05-25 18:25:14 - Attempting to load file: party_tracker.json
+2025-05-25 18:25:14 - File parsed successfully: party_tracker.json
+2025-05-25 18:25:14 - Starting schema processing...
+2025-05-25 18:25:14 - Schema type: <class 'dict'>
+2025-05-25 18:25:14 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-25 18:25:14 - Properties keys: ['locations']
+2025-05-25 18:25:14 - Location properties keys: ['type', 'items']
+2025-05-25 18:25:14 - Schema structure validation passed
+2025-05-25 18:25:14 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-25 18:25:14 - Attempt 1 to update location JSON
+2025-05-25 18:25:38 - Getting area path for ID: G001
+2025-05-25 18:25:38 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-25 18:25:38 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-25 18:25:38 - Area file path generated: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:25:38 - Attempting to load file: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:25:38 - File parsed successfully: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:25:38 - All locations loaded from campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:25:38 - Locations count: 7
+2025-05-25 18:25:38 - Looking for location name: Witchlight Trailhead
+2025-05-25 18:25:38 - Available location names: ['Witchlight Trailhead', 'Abandoned Ranger Outpost', 'The Withered Shrine', 'Lost Ward Circle', 'Boggard Marsh', 'Spectral Clearing', "Keeper's Cottage"]
+2025-05-25 18:25:38 - Checking location 0: Witchlight Trailhead
+2025-05-25 18:25:38 - Found matching location at index 0
+2025-05-25 18:25:38 - Changes to apply: {"description": "The party stands at the Witchlight Trailhead, a moss-covered path flanked by dense, ancient trees of the Gloamwood. The faint outlines of Harrow's Hollow rooftops are visible through the forest's edge behind them, though the village's sounds are muted and carried faintly on the wind. The trail forks here: to the west lies an open route back to the relative safety of the village's East Gate; to the north, a narrow, overgrown path leads toward the Abandoned Ranger Outpost, where remnants of old patrol markers and toppled stones hint at a once-watchful presence; to the east, the Witchlight Trail tapers toward the crumbling ruins of The Withered Shrine, where strange birdsong and flickers of mystic light suggest lingering magical energies. The atmosphere is heavy with the unnerving promise of secrets and dangers seeping through the forest.", "dmInstructions": "This location serves as the transition from Harrow's Hollow to the Gloamwood. The party arrived at the moss-covered Witchlight Trailhead where the forest thickens and the trail forks. They chose to proceed north along the overgrown path toward the Abandoned Ranger Outpost. No traps were encountered here, but the ominous atmosphere remains potent. The party should remain alert for shadows, the Keeper, and the many mysteries the forest holds as they journey deeper.", "encounters": [{"encounterId": "B01-E1", "summary": "The party arrived at the Witchlight Trailhead, observing the moss-covered path and dense forest surroundings. They chose to proceed north toward the Abandoned Ranger Outpost.", "impact": "No traps or combat encountered; the party remains alert to the ominous atmosphere and the mysteries ahead.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "14:21:00"}}], "adventureSummary": "Upon arriving at the Witchlight Trailhead, the party found themselves on a moss-covered path flanked by dense, ancient trees of the Gloamwood. They observed the faint outlines of Harrow's Hollow rooftops behind them. The trail forks ahead: west leads back to the village's East Gate; north toward the Abandoned Ranger Outpost; east towards the Withered Shrine ruins. Choosing to proceed north along the overgrown path, the party began their deeper journey into the wilds and the unfolding quests tied to the haunted forest and the Keep of Doom. No traps were encountered, but the ominous atmosphere and looming challenges remain."}
+2025-05-25 18:25:38 - Location updated successfully
+2025-05-25 18:25:38 - Successfully updated Witchlight Trailhead in campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:27:07 - Attempting to load file: conversation_history.json
+2025-05-25 18:27:07 - File parsed successfully: conversation_history.json
+2025-05-25 18:27:07 - Attempting to load file: party_tracker.json
+2025-05-25 18:27:07 - File parsed successfully: party_tracker.json
+2025-05-25 18:27:11 - Adventure Summary generated
+2025-05-25 18:27:11 - Attempting to load file: journal_schema.json
+2025-05-25 18:27:11 - File parsed successfully: journal_schema.json
+2025-05-25 18:27:11 - Journal updated successfully
+2025-05-25 18:27:11 - Attempting to load file: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:27:11 - File parsed successfully: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:27:11 - Updating location JSON for Abandoned Ranger Outpost with all changes
+2025-05-25 18:27:11 - No last completed encounter ID found in party_tracker
+2025-05-25 18:27:11 - Attempting to load file: loca_schema.json
+2025-05-25 18:27:11 - File parsed successfully: loca_schema.json
+2025-05-25 18:27:11 - Attempting to load file: party_tracker.json
+2025-05-25 18:27:11 - File parsed successfully: party_tracker.json
+2025-05-25 18:27:11 - Starting schema processing...
+2025-05-25 18:27:11 - Schema type: <class 'dict'>
+2025-05-25 18:27:11 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-25 18:27:11 - Properties keys: ['locations']
+2025-05-25 18:27:11 - Location properties keys: ['type', 'items']
+2025-05-25 18:27:11 - Schema structure validation passed
+2025-05-25 18:27:11 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-25 18:27:11 - Attempt 1 to update location JSON
+2025-05-25 18:27:26 - Getting area path for ID: G001
+2025-05-25 18:27:26 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-25 18:27:26 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-25 18:27:26 - Area file path generated: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:27:26 - Attempting to load file: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:27:26 - File parsed successfully: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:27:26 - All locations loaded from campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:27:26 - Locations count: 7
+2025-05-25 18:27:26 - Looking for location name: Abandoned Ranger Outpost
+2025-05-25 18:27:26 - Available location names: ['Witchlight Trailhead', 'Abandoned Ranger Outpost', 'The Withered Shrine', 'Lost Ward Circle', 'Boggard Marsh', 'Spectral Clearing', "Keeper's Cottage"]
+2025-05-25 18:27:26 - Checking location 0: Witchlight Trailhead
+2025-05-25 18:27:26 - Checking location 1: Abandoned Ranger Outpost
+2025-05-25 18:27:26 - Found matching location at index 1
+2025-05-25 18:27:26 - Changes to apply: {"description": "A dilapidated wooden structure built around the massive trunk of an ancient oak. Once a way station for forest patrols, the outpost has fallen into disrepair--its roof partially collapsed and its walls covered in creeping vines. Inside, overturned furniture and scattered supplies suggest a hasty departure or violent struggle. A cold firepit dominates the center of the main room, and faded maps of the forest hang on the walls. Despite the decay, the structure remains largely intact and could provide temporary shelter. The surrounding area shows scattered broken patrol markers embedded in moss, the collapsed watchtower creaks softly in the breeze, and gaps in the barricade reveal the passage of time and neglect.", "monsters": [{"name": "Giant Spider", "quantity": {"min": 1, "max": 1}}, {"name": "Swarm of Spiders", "quantity": {"min": 2, "max": 2}}], "features": [{"name": "Firepit", "description": "A stone-ringed firepit with cold ashes and charred wood, could be relit for warmth and light."}, {"name": "Map Wall", "description": "Faded parchment maps of the forest pinned to walls, showing trails and landmarks."}, {"name": "Collapsed Bunk Area", "description": "A section where the roof has partially fallen in, allowing visibility to the sky above."}, {"name": "Broken Patrol Markers", "description": "Scattered broken patrol markers embedded in moss around the outpost, remnants of past forest patrols."}, {"name": "Collapsed Watchtower", "description": "The watchtower has fully collapsed, its timbers creaking softly in the breeze."}, {"name": "Gaps in Barricade", "description": "Sections of the wooden barricade around the outpost have rotted away or fallen, leaving gaps."}], "encounters": [{"encounterId": "B02-E1", "summary": "The party arrived at the Abandoned Ranger Outpost and noted the dilapidated condition, broken patrol markers, and collapsed watchtower. They observed the paths south to Witchlight Trailhead and east toward the Lost Ward Circle. No traps were triggered and no NPCs were encountered before they departed eastward into the undergrowth.", "impact": "The outpost remains unaltered by the party's visit; no combat or interaction occurred. The surrounding environment is noted for future reference.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "15:29:00"}}], "adventureSummary": "The party visited the Abandoned Ranger Outpost, a crumbling wooden fortification on the edge of Gloamwood. They observed broken patrol markers, a collapsed watchtower, and gaps in the barricade but found no traps or NPCs. After assessing the area, they proceeded eastward toward the Lost Ward Circle, leaving the outpost unchanged and undisturbed."}
+2025-05-25 18:27:26 - Location updated successfully
+2025-05-25 18:27:26 - Successfully updated Abandoned Ranger Outpost in campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:28:43 - Attempting to load file: conversation_history.json
+2025-05-25 18:28:43 - File parsed successfully: conversation_history.json
+2025-05-25 18:28:43 - Attempting to load file: party_tracker.json
+2025-05-25 18:28:43 - File parsed successfully: party_tracker.json
+2025-05-25 18:28:49 - Adventure Summary generated
+2025-05-25 18:28:49 - Attempting to load file: journal_schema.json
+2025-05-25 18:28:49 - File parsed successfully: journal_schema.json
+2025-05-25 18:28:49 - Journal updated successfully
+2025-05-25 18:28:49 - Attempting to load file: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:28:49 - File parsed successfully: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:28:49 - Updating location JSON for Lost Ward Circle with all changes
+2025-05-25 18:28:49 - No last completed encounter ID found in party_tracker
+2025-05-25 18:28:49 - Attempting to load file: loca_schema.json
+2025-05-25 18:28:49 - File parsed successfully: loca_schema.json
+2025-05-25 18:28:49 - Attempting to load file: party_tracker.json
+2025-05-25 18:28:49 - File parsed successfully: party_tracker.json
+2025-05-25 18:28:49 - Starting schema processing...
+2025-05-25 18:28:49 - Schema type: <class 'dict'>
+2025-05-25 18:28:49 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-25 18:28:49 - Properties keys: ['locations']
+2025-05-25 18:28:49 - Location properties keys: ['type', 'items']
+2025-05-25 18:28:49 - Schema structure validation passed
+2025-05-25 18:28:49 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-25 18:28:49 - Attempt 1 to update location JSON
+2025-05-25 18:29:06 - Getting area path for ID: G001
+2025-05-25 18:29:06 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-25 18:29:06 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-25 18:29:06 - Area file path generated: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:29:06 - Attempting to load file: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:29:06 - File parsed successfully: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:29:06 - All locations loaded from campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:29:06 - Locations count: 7
+2025-05-25 18:29:06 - Looking for location name: Lost Ward Circle
+2025-05-25 18:29:06 - Available location names: ['Witchlight Trailhead', 'Abandoned Ranger Outpost', 'The Withered Shrine', 'Lost Ward Circle', 'Boggard Marsh', 'Spectral Clearing', "Keeper's Cottage"]
+2025-05-25 18:29:06 - Checking location 0: Witchlight Trailhead
+2025-05-25 18:29:06 - Checking location 1: Abandoned Ranger Outpost
+2025-05-25 18:29:06 - Checking location 2: The Withered Shrine
+2025-05-25 18:29:06 - Checking location 3: Lost Ward Circle
+2025-05-25 18:29:06 - Found matching location at index 3
+2025-05-25 18:29:06 - Changes to apply: {"description": "A quiet, eerie clearing marked by ancient stone monoliths arranged in a circle. The stones cast long shadows as dusk approaches, their worn carvings faintly glowing with residual magic. A faint magical hum lingers in the air, and the atmosphere feels heavy and watchful. The ground within the circle remains barren, while the surrounding undergrowth thickens toward the east. To the west, the path leads back toward the overgrown trail of the Abandoned Ranger Outpost. To the east, a narrow, gloomier path winds through dense woods toward the elusive Keeper's Cottage.", "plotHooks": ["The ritual book contains instructions for temporarily strengthening the wards, which could weaken the keep's influence.", "One of the fallen stones has a message etched on its inner face: 'The knight's heart remains, buried beneath his hatred.'", "Evidence suggests Scout Elen attempted a ritual here but fled when something went wrong.", "Scout Elen's survival and knowledge open a new path to uncover the creeping darkness and the spirits haunting Harrow's Hollow.", "The path east leads to the Keeper's Cottage, where a hermit may hold crucial knowledge about the keep's curse."], "accessibility": "Relatively flat clearing with seven large standing stones; one must step over fallen stones to reach the center. Paths east and west provide access to nearby key locations.", "encounters": [{"encounterId": "B04-E1", "summary": "The party arrives at the Lost Ward Circle at dusk, taking in the eerie atmosphere and noting the faint magical hum in the air. They observe the paths leading west to the Abandoned Ranger Outpost and east toward the Keeper's Cottage.", "impact": "The party chooses to proceed eastward toward the Keeper's Cottage, seeking the hermit's guidance. No traps or immediate threats are present in the clearing. This decision sets the stage for further exploration of the warded woods.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "16:39:00"}}], "adventureSummary": "Upon arriving at the Lost Ward Circle, the party found themselves in a quiet, eerie clearing marked by ancient stones casting long shadows as dusk approached. The atmosphere was heavy with a faint magical hum and punctuated only by the distant caw of a lone crow. From this point, the path west led back toward the overgrown trail of the Abandoned Ranger Outpost, while to the east, a narrower, gloomier path wound through thickening undergrowth toward the elusive Keeper's Cottage, reputed to shelter a hermit knowledgeable about the keep's curse. The party assessed their options, noting that no traps impeded their current location and that active quests and plot threads--such as 'The Road to Doom' and 'The Keeper's Warning'--hinged on progress from this juncture. Choosing to pursue further knowledge, the party elected to proceed eastward toward the Keeper's Cottage, venturing into the warded woods to seek the hermit's guidance before moving on to new areas. Current game time is 1492 Ches 1, 16:39:00."}
+2025-05-25 18:29:06 - Location updated successfully
+2025-05-25 18:29:06 - Successfully updated Lost Ward Circle in campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:30:12 - Attempting to load file: conversation_history.json
+2025-05-25 18:30:12 - File parsed successfully: conversation_history.json
+2025-05-25 18:30:12 - Attempting to load file: party_tracker.json
+2025-05-25 18:30:12 - File parsed successfully: party_tracker.json
+2025-05-25 18:30:19 - Adventure Summary generated
+2025-05-25 18:30:19 - Attempting to load file: journal_schema.json
+2025-05-25 18:30:19 - File parsed successfully: journal_schema.json
+2025-05-25 18:30:19 - Journal updated successfully
+2025-05-25 18:30:19 - Attempting to load file: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:30:19 - File parsed successfully: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:30:19 - Updating location JSON for Keeper's Cottage with all changes
+2025-05-25 18:30:19 - No last completed encounter ID found in party_tracker
+2025-05-25 18:30:19 - Attempting to load file: loca_schema.json
+2025-05-25 18:30:19 - File parsed successfully: loca_schema.json
+2025-05-25 18:30:19 - Attempting to load file: party_tracker.json
+2025-05-25 18:30:19 - File parsed successfully: party_tracker.json
+2025-05-25 18:30:19 - Starting schema processing...
+2025-05-25 18:30:19 - Schema type: <class 'dict'>
+2025-05-25 18:30:19 - Schema keys: ['$schema', 'type', 'properties', 'required']
+2025-05-25 18:30:19 - Properties keys: ['locations']
+2025-05-25 18:30:19 - Location properties keys: ['type', 'items']
+2025-05-25 18:30:19 - Schema structure validation passed
+2025-05-25 18:30:19 - Single item schema extracted, keys: ['type', 'properties', 'required']
+2025-05-25 18:30:19 - Attempt 1 to update location JSON
+2025-05-25 18:30:41 - Getting area path for ID: G001
+2025-05-25 18:30:41 - CampaignPathManager using campaign: Keep_of_Doom
+2025-05-25 18:30:41 - CampaignPathManager directory: campaigns/Keep_of_Doom
+2025-05-25 18:30:41 - Area file path generated: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:30:41 - Attempting to load file: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:30:41 - File parsed successfully: campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:30:41 - All locations loaded from campaigns/Keep_of_Doom/G001.json
+2025-05-25 18:30:41 - Locations count: 7
+2025-05-25 18:30:41 - Looking for location name: Keeper's Cottage
+2025-05-25 18:30:41 - Available location names: ['Witchlight Trailhead', 'Abandoned Ranger Outpost', 'The Withered Shrine', 'Lost Ward Circle', 'Boggard Marsh', 'Spectral Clearing', "Keeper's Cottage"]
+2025-05-25 18:30:41 - Checking location 0: Witchlight Trailhead
+2025-05-25 18:30:41 - Checking location 1: Abandoned Ranger Outpost
+2025-05-25 18:30:41 - Checking location 2: The Withered Shrine
+2025-05-25 18:30:41 - Checking location 3: Lost Ward Circle
+2025-05-25 18:30:41 - Checking location 4: Boggard Marsh
+2025-05-25 18:30:41 - Checking location 5: Spectral Clearing
+2025-05-25 18:30:41 - Checking location 6: Keeper's Cottage
+2025-05-25 18:30:41 - Found matching location at index 6
+2025-05-25 18:30:41 - Changes to apply: {"description": "A stone cottage nearly swallowed by the forest, its walls covered in thick ivy and moss that seem to pulse with slow vitality. Smoke drifts from a crooked chimney, and strange charms--bones, crystals, and dried herbs--hang from the eaves and windows. The cottage appears both welcoming and foreboding, with warm light spilling from the windows but shadows that move independently within. The garden surrounding the structure contains plants both medicinal and poisonous, some of which are unknown to conventional herbalism. A path of smooth stones leads to the wooden door, each stone etched with a different protective rune. The clearing around the cottage serves as a crossroads with multiple trails branching out into the ancient forest.", "monsters": [{"name": "Awakened Shrubs", "quantity": {"min": 3, "max": 3}}], "plotHooks": ["Morvath reveals he guided Scout Elen toward the keep after she helped him gather rare herbs, and he fears for her safety.", "The Keeper offers to create a protective charm against the keep's influence, but requires a personal sacrifice from each party member.", "Among Morvath's possessions is a portrait of a younger Sir Garran Vael, suggesting the Keeper knew him before his corruption.", "The party is tracking clues toward the Keep of Doom.", "The party engages with the Keeper's Warning side quest involving Morvath's knowledge of the keep's curse."], "encounters": [{"encounterId": "B07-E1", "summary": "The party paused at twilight at the Keeper's Cottage, considering their paths west to Lost Ward Circle, south to the Spectral Clearing, east to the Sundered Causeway, and north toward Shadowfall Keep. Keeper Morvath offered cryptic guidance and observed the party's readiness.", "impact": "No traps triggered. The party chose to retreat westward towards Lost Ward Circle, concluding their actions here. Morvath remains as a potential ally or source of cryptic information in future encounters.", "worldConditions": {"year": 1492, "month": "Ches", "day": 1, "time": "17:49:00"}}], "adventureSummary": "At the Keeper's Cottage, the party assessed options for travel and engaged with Keeper Morvath, who provided cryptic guidance and warnings. The clearing serves as a critical junction to Lost Ward Circle, Spectral Clearing, Sundered Causeway, and Shadowfall Keep. No traps were encountered. Active quests include tracking clues toward the Keep of Doom and the Keeper's Warning side quest involving Morvath's knowledge of the keep's curse. The party ultimately chose to retreat westward to the Lost Ward Circle at twilight (1492 Ches 1, 17:49)."}
+2025-05-25 18:30:41 - Location updated successfully
+2025-05-25 18:30:41 - Successfully updated Keeper's Cottage in campaigns/Keep_of_Doom/G001.json

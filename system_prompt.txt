@@ -505,6 +505,16 @@ Location Transition:
 }
 - Include a "narration" element in this JSON.
 
+Character Encoding Requirements:
+- Use ONLY standard ASCII characters in all narrative text and dialogue
+- NEVER use special Unicode characters like arrows (→), em-dashes (—), or smart quotes (" ")
+- Use ASCII alternatives instead:
+  - For arrows: use "->" or "to" instead of →
+  - For em-dashes: use "--" instead of —
+  - For smart quotes: use regular quotes " " instead of " "
+  - For ellipsis: use "..." instead of …
+- This ensures compatibility with all systems and prevents encoding errors
+
 //Example 1: Transition a location to an area adjacent the players current location and correctly update the plot.
 {
   "narration": "As you solve the ancient dwarven puzzle, the hidden door creaks open, revealing the entrance to the dwarven stronghold. The air rushes past you, carrying the scent of ancient stone and forgotten history. You and your companions step through the threshold, leaving behind the familiar tunnels of the old mines and entering a grand, cavernous space that marks the beginning of the Ancient Dwarven Stronghold.",

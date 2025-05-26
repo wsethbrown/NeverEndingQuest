@@ -380,7 +380,9 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
         parsed_response = json.loads(json_content)
 
         narration = parsed_response.get("narration", "")
-        print(colored("Dungeon Master:", "blue"), colored(narration, "blue"))
+        # Sanitize narration to handle problematic Unicode characters
+        sanitized_narration = sanitize_text(narration)
+        print(colored("Dungeon Master:", "blue"), colored(sanitized_narration, "blue"))
 
         conversation_history.append({"role": "assistant", "content": response})
 
@@ -405,7 +407,9 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
         print(f"Error: Unable to parse AI response as JSON: {e}")
         print(f"Problematic response: {response}")
         conversation_history.append({"role": "assistant", "content": response}) # Still save if narration was printed
-        print(colored("Dungeon Master:", "blue"), colored(response, "blue")) # Print raw response if JSON fails but it was a narration
+        # Sanitize response before printing in case of JSON parsing errors
+        sanitized_response = sanitize_text(response)
+        print(colored("Dungeon Master:", "blue"), colored(sanitized_response, "blue")) # Print raw response if JSON fails but it was a narration
         save_conversation_history(conversation_history)
         return {"role": "assistant", "content": response} # Return raw if parsing fails
 

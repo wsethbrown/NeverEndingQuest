@@ -1,93 +1,120 @@
-2025-05-25 15:29:35 - Generating enhanced adventure summary for Harrow's Hollow General Store
-2025-05-25 15:29:35 - Found most recent transition at index 11: Location transition: Harrow's Hollow General Store (R01) to Harrow's Hollow Town Square (A02)
-2025-05-25 15:29:35 - Using last system message at index 5 as boundary
-2025-05-25 15:29:35 - Using last system message at index 4 as boundary
-2025-05-25 15:29:35 - Using last system message at index 3 as boundary
-2025-05-25 15:29:35 - Using last system message at index 2 as boundary
-2025-05-25 15:29:35 - Using last system message at index 1 as boundary
-2025-05-25 15:29:35 - Using last system message at index 0 as boundary
-2025-05-25 15:29:35 - Collected 5 messages for location summary
-2025-05-25 15:29:35 - Generating summary for Harrow's Hollow General Store
-2025-05-25 15:29:40 - Summary generated for Harrow's Hollow General Store
-2025-05-25 15:29:48 - Enhanced adventure summary generated successfully
-2025-05-25 15:29:48 - Updating journal with summary for Harrow's Hollow General Store
-2025-05-25 15:29:48 - Journal updated successfully
-2025-05-25 15:29:48 - Compressing conversation history when leaving Harrow's Hollow General Store
-2025-05-25 15:29:48 - Total messages in history: 14
-2025-05-25 15:29:48 - Cleaning old-style summaries from conversation history
-2025-05-25 15:29:48 - Found transition at index 11: Location transition: Harrow's Hollow General Store (R01) to Harrow's Hollow Town Square (A02)
-2025-05-25 15:29:48 - Using last system message at index 5 as start marker
-2025-05-25 15:29:48 - Using last system message at index 4 as start marker
-2025-05-25 15:29:48 - Using last system message at index 3 as start marker
-2025-05-25 15:29:48 - Using last system message at index 2 as start marker
-2025-05-25 15:29:48 - Using last system message at index 1 as start marker
-2025-05-25 15:29:48 - Using last system message at index 0 as start marker
-2025-05-25 15:29:48 - Collecting messages from index 1 to 10
-2025-05-25 15:29:48 - Found 5 messages to summarize
-2025-05-25 15:29:48 - Generating summary for Harrow's Hollow General Store
-2025-05-25 15:29:53 - Summary generated for Harrow's Hollow General Store
-2025-05-25 15:29:53 - Compressed history from 14 to 5 messages
-2025-05-25 15:29:53 - Removed 5 messages from Harrow's Hollow General Store
-2025-05-25 15:32:01 - Generating enhanced adventure summary for Harrow's Hollow Town Square
-2025-05-25 15:32:01 - Found most recent transition at index 30: Location transition: Harrow's Hollow Town Square (A02) to Harrow's Hollow General Store (A01)
-2025-05-25 15:32:01 - Found previous transition at index 7
-2025-05-25 15:32:01 - Collected 22 messages for location summary
-2025-05-25 15:32:01 - Generating summary for Harrow's Hollow Town Square
-2025-05-25 15:32:08 - Summary generated for Harrow's Hollow Town Square
-2025-05-25 15:32:21 - Enhanced adventure summary generated successfully
-2025-05-25 15:32:21 - Updating journal with summary for Harrow's Hollow Town Square
-2025-05-25 15:32:21 - Journal updated successfully
-2025-05-25 15:32:21 - Compressing conversation history when leaving Harrow's Hollow Town Square
-2025-05-25 15:32:21 - Total messages in history: 34
-2025-05-25 15:32:21 - Cleaning old-style summaries from conversation history
-2025-05-25 15:32:21 - Removed 1 old summary messages and error notes
-2025-05-25 15:32:21 - Found transition at index 30: Location transition: Harrow's Hollow Town Square (A02) to Harrow's Hollow General Store (A01)
-2025-05-25 15:32:21 - Found previous transition at index 7
-2025-05-25 15:32:21 - Collecting messages from index 8 to 29
-2025-05-25 15:32:21 - Found 22 messages to summarize
-2025-05-25 15:32:21 - Generating summary for Harrow's Hollow Town Square
-2025-05-25 15:32:27 - Summary generated for Harrow's Hollow Town Square
-2025-05-25 15:32:27 - Compressed history from 33 to 12 messages
-2025-05-25 15:32:27 - Removed 22 messages from Harrow's Hollow Town Square
-2025-05-25 15:33:35 - Generating enhanced adventure summary for Harrow's Hollow General Store
-2025-05-25 15:33:35 - Found most recent transition at index 19: Location transition: Harrow's Hollow General Store (A01) to East Gate and Guardhouse (A03)
-2025-05-25 15:33:35 - Found previous transition at index 9
-2025-05-25 15:33:35 - Collected 9 messages for location summary
-2025-05-25 15:33:35 - Generating summary for Harrow's Hollow General Store
-2025-05-25 15:33:42 - Summary generated for Harrow's Hollow General Store
-2025-05-25 15:33:51 - Enhanced adventure summary generated successfully
-2025-05-25 15:33:51 - Updating journal with summary for Harrow's Hollow General Store
-2025-05-25 15:33:51 - Journal updated successfully
-2025-05-25 15:33:51 - Compressing conversation history when leaving Harrow's Hollow General Store
-2025-05-25 15:33:51 - Total messages in history: 22
-2025-05-25 15:33:51 - Cleaning old-style summaries from conversation history
-2025-05-25 15:33:51 - Removed 1 old summary messages and error notes
-2025-05-25 15:33:51 - Found transition at index 18: Location transition: Harrow's Hollow General Store (A01) to East Gate and Guardhouse (A03)
-2025-05-25 15:33:51 - Found previous transition at index 9
-2025-05-25 15:33:51 - Collecting messages from index 10 to 17
-2025-05-25 15:33:51 - Found 8 messages to summarize
-2025-05-25 15:33:51 - Generating summary for Harrow's Hollow General Store
-2025-05-25 15:33:57 - Summary generated for Harrow's Hollow General Store
-2025-05-25 15:33:57 - Compressed history from 21 to 14 messages
-2025-05-25 15:33:57 - Removed 8 messages from Harrow's Hollow General Store
-2025-05-25 15:36:41 - Generating enhanced adventure summary for East Gate and Guardhouse
-2025-05-25 15:36:41 - Found most recent transition at index 38: Location transition: East Gate and Guardhouse (A03) to The Wyrd Lantern Inn (A05)
-2025-05-25 15:36:41 - Found previous transition at index 35
-2025-05-25 15:36:41 - Collected 2 messages for location summary
-2025-05-25 15:36:41 - Generating summary for East Gate and Guardhouse
-2025-05-25 15:36:44 - Summary generated for East Gate and Guardhouse
-2025-05-25 15:36:50 - Enhanced adventure summary generated successfully
-2025-05-25 15:36:50 - Updating journal with summary for East Gate and Guardhouse
-2025-05-25 15:36:50 - Journal updated successfully
-2025-05-25 15:36:50 - Compressing conversation history when leaving East Gate and Guardhouse
-2025-05-25 15:36:50 - Total messages in history: 42
-2025-05-25 15:36:50 - Cleaning old-style summaries from conversation history
-2025-05-25 15:36:50 - Removed 2 old summary messages and error notes
-2025-05-25 15:36:50 - Found transition at index 37: Location transition: East Gate and Guardhouse (A03) to The Wyrd Lantern Inn (A05)
-2025-05-25 15:36:50 - Found previous transition at index 34
-2025-05-25 15:36:50 - Collecting messages from index 35 to 36
-2025-05-25 15:36:50 - Found 2 messages to summarize
-2025-05-25 15:36:50 - Generating summary for East Gate and Guardhouse
-2025-05-25 15:36:53 - Summary generated for East Gate and Guardhouse
-2025-05-25 15:36:53 - Compressed history from 40 to 39 messages
-2025-05-25 15:36:53 - Removed 2 messages from East Gate and Guardhouse
+2025-05-25 18:19:24 - Generating enhanced adventure summary for The Wyrd Lantern Inn
+2025-05-25 18:19:24 - Found most recent transition at index 20: Location transition: The Wyrd Lantern Inn (A05) to Harrow's Hollow Town Square (A02)
+2025-05-25 18:19:24 - Found previous transition at index 17
+2025-05-25 18:19:24 - Collected 2 messages for location summary
+2025-05-25 18:19:24 - Generating summary for The Wyrd Lantern Inn
+2025-05-25 18:19:27 - Summary generated for The Wyrd Lantern Inn
+2025-05-25 18:19:37 - Enhanced adventure summary generated successfully
+2025-05-25 18:19:37 - Updating journal with summary for The Wyrd Lantern Inn
+2025-05-25 18:19:37 - Journal updated successfully
+2025-05-25 18:19:37 - Compressing conversation history when leaving The Wyrd Lantern Inn
+2025-05-25 18:19:37 - Total messages in history: 23
+2025-05-25 18:19:37 - Cleaning old-style summaries from conversation history
+2025-05-25 18:19:37 - Found transition at index 20: Location transition: The Wyrd Lantern Inn (A05) to Harrow's Hollow Town Square (A02)
+2025-05-25 18:19:37 - Found previous transition at index 17
+2025-05-25 18:19:37 - Collecting messages from index 18 to 19
+2025-05-25 18:19:37 - Found 2 messages to summarize
+2025-05-25 18:19:37 - Generating summary for The Wyrd Lantern Inn
+2025-05-25 18:19:40 - Summary generated for The Wyrd Lantern Inn
+2025-05-25 18:19:40 - Compressed history from 23 to 22 messages
+2025-05-25 18:19:40 - Removed 2 messages from The Wyrd Lantern Inn
+2025-05-25 18:21:15 - Generating enhanced adventure summary for Harrow's Hollow Town Square
+2025-05-25 18:21:15 - Found most recent transition at index 24: Location transition: Harrow's Hollow Town Square (A02) to East Gate and Guardhouse (A03)
+2025-05-25 18:21:15 - Found previous transition at index 19
+2025-05-25 18:21:15 - Collected 4 messages for location summary
+2025-05-25 18:21:15 - Generating summary for Harrow's Hollow Town Square
+2025-05-25 18:21:22 - Summary generated for Harrow's Hollow Town Square
+2025-05-25 18:21:32 - Enhanced adventure summary generated successfully
+2025-05-25 18:21:32 - Updating journal with summary for Harrow's Hollow Town Square
+2025-05-25 18:21:32 - Journal updated successfully
+2025-05-25 18:21:32 - Compressing conversation history when leaving Harrow's Hollow Town Square
+2025-05-25 18:21:32 - Total messages in history: 27
+2025-05-25 18:21:32 - Cleaning old-style summaries from conversation history
+2025-05-25 18:21:32 - Found transition at index 24: Location transition: Harrow's Hollow Town Square (A02) to East Gate and Guardhouse (A03)
+2025-05-25 18:21:32 - Found previous transition at index 19
+2025-05-25 18:21:32 - Collecting messages from index 20 to 23
+2025-05-25 18:21:32 - Found 4 messages to summarize
+2025-05-25 18:21:32 - Generating summary for Harrow's Hollow Town Square
+2025-05-25 18:21:36 - Summary generated for Harrow's Hollow Town Square
+2025-05-25 18:21:36 - Compressed history from 27 to 24 messages
+2025-05-25 18:21:36 - Removed 4 messages from Harrow's Hollow Town Square
+2025-05-25 18:23:36 - Generating enhanced adventure summary for East Gate and Guardhouse
+2025-05-25 18:23:36 - Found most recent transition at index 26: Location transition: East Gate and Guardhouse (A03) to Witchlight Trailhead (B01)
+2025-05-25 18:23:36 - Found previous transition at index 21
+2025-05-25 18:23:36 - Collected 4 messages for location summary
+2025-05-25 18:23:36 - Generating summary for East Gate and Guardhouse
+2025-05-25 18:23:40 - Summary generated for East Gate and Guardhouse
+2025-05-25 18:23:51 - Enhanced adventure summary generated successfully
+2025-05-25 18:23:51 - Updating journal with summary for East Gate and Guardhouse
+2025-05-25 18:23:51 - Journal updated successfully
+2025-05-25 18:23:51 - Compressing conversation history when leaving East Gate and Guardhouse
+2025-05-25 18:23:51 - Total messages in history: 29
+2025-05-25 18:23:51 - Cleaning old-style summaries from conversation history
+2025-05-25 18:23:51 - Found transition at index 26: Location transition: East Gate and Guardhouse (A03) to Witchlight Trailhead (B01)
+2025-05-25 18:23:51 - Found previous transition at index 21
+2025-05-25 18:23:51 - Collecting messages from index 22 to 25
+2025-05-25 18:23:51 - Found 4 messages to summarize
+2025-05-25 18:23:51 - Generating summary for East Gate and Guardhouse
+2025-05-25 18:23:56 - Summary generated for East Gate and Guardhouse
+2025-05-25 18:23:56 - Compressed history from 29 to 26 messages
+2025-05-25 18:23:56 - Removed 4 messages from East Gate and Guardhouse
+2025-05-25 18:26:36 - Generating enhanced adventure summary for Witchlight Trailhead
+2025-05-25 18:26:36 - Found most recent transition at index 28: Location transition: Witchlight Trailhead (B01) to Abandoned Ranger Outpost (B02)
+2025-05-25 18:26:36 - Found previous transition at index 23
+2025-05-25 18:26:36 - Collected 4 messages for location summary
+2025-05-25 18:26:36 - Generating summary for Witchlight Trailhead
+2025-05-25 18:26:41 - Summary generated for Witchlight Trailhead
+2025-05-25 18:26:53 - Enhanced adventure summary generated successfully
+2025-05-25 18:26:53 - Updating journal with summary for Witchlight Trailhead
+2025-05-25 18:26:53 - Journal updated successfully
+2025-05-25 18:26:53 - Compressing conversation history when leaving Witchlight Trailhead
+2025-05-25 18:26:53 - Total messages in history: 31
+2025-05-25 18:26:53 - Cleaning old-style summaries from conversation history
+2025-05-25 18:26:53 - Found transition at index 28: Location transition: Witchlight Trailhead (B01) to Abandoned Ranger Outpost (B02)
+2025-05-25 18:26:53 - Found previous transition at index 23
+2025-05-25 18:26:53 - Collecting messages from index 24 to 27
+2025-05-25 18:26:53 - Found 4 messages to summarize
+2025-05-25 18:26:53 - Generating summary for Witchlight Trailhead
+2025-05-25 18:26:57 - Summary generated for Witchlight Trailhead
+2025-05-25 18:26:57 - Compressed history from 31 to 28 messages
+2025-05-25 18:26:57 - Removed 4 messages from Witchlight Trailhead
+2025-05-25 18:27:41 - Generating enhanced adventure summary for Abandoned Ranger Outpost
+2025-05-25 18:27:41 - Found most recent transition at index 30: Location transition: Abandoned Ranger Outpost (B02) to Lost Ward Circle (B04)
+2025-05-25 18:27:41 - Found previous transition at index 25
+2025-05-25 18:27:41 - Collected 4 messages for location summary
+2025-05-25 18:27:41 - Generating summary for Abandoned Ranger Outpost
+2025-05-25 18:27:47 - Summary generated for Abandoned Ranger Outpost
+2025-05-25 18:27:59 - Enhanced adventure summary generated successfully
+2025-05-25 18:27:59 - Updating journal with summary for Abandoned Ranger Outpost
+2025-05-25 18:27:59 - Journal updated successfully
+2025-05-25 18:27:59 - Compressing conversation history when leaving Abandoned Ranger Outpost
+2025-05-25 18:27:59 - Total messages in history: 33
+2025-05-25 18:27:59 - Cleaning old-style summaries from conversation history
+2025-05-25 18:27:59 - Found transition at index 30: Location transition: Abandoned Ranger Outpost (B02) to Lost Ward Circle (B04)
+2025-05-25 18:27:59 - Found previous transition at index 25
+2025-05-25 18:27:59 - Collecting messages from index 26 to 29
+2025-05-25 18:27:59 - Found 4 messages to summarize
+2025-05-25 18:27:59 - Generating summary for Abandoned Ranger Outpost
+2025-05-25 18:28:04 - Summary generated for Abandoned Ranger Outpost
+2025-05-25 18:28:04 - Compressed history from 33 to 30 messages
+2025-05-25 18:28:04 - Removed 4 messages from Abandoned Ranger Outpost
+2025-05-25 18:29:38 - Generating enhanced adventure summary for Lost Ward Circle
+2025-05-25 18:29:38 - Found most recent transition at index 32: Location transition: Lost Ward Circle (B04) to Keeper's Cottage (B07)
+2025-05-25 18:29:38 - Found previous transition at index 27
+2025-05-25 18:29:38 - Collected 4 messages for location summary
+2025-05-25 18:29:38 - Generating summary for Lost Ward Circle
+2025-05-25 18:29:43 - Summary generated for Lost Ward Circle
+2025-05-25 18:29:55 - Enhanced adventure summary generated successfully
+2025-05-25 18:29:55 - Updating journal with summary for Lost Ward Circle
+2025-05-25 18:29:55 - Journal updated successfully
+2025-05-25 18:29:55 - Compressing conversation history when leaving Lost Ward Circle
+2025-05-25 18:29:55 - Total messages in history: 35
+2025-05-25 18:29:55 - Cleaning old-style summaries from conversation history
+2025-05-25 18:29:55 - Found transition at index 32: Location transition: Lost Ward Circle (B04) to Keeper's Cottage (B07)
+2025-05-25 18:29:55 - Found previous transition at index 27
+2025-05-25 18:29:55 - Collecting messages from index 28 to 31
+2025-05-25 18:29:55 - Found 4 messages to summarize
+2025-05-25 18:29:55 - Generating summary for Lost Ward Circle
+2025-05-25 18:29:59 - Summary generated for Lost Ward Circle
+2025-05-25 18:29:59 - Compressed history from 35 to 32 messages
+2025-05-25 18:29:59 - Removed 4 messages from Lost Ward Circle
