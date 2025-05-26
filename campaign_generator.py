@@ -16,9 +16,27 @@ from openai import OpenAI
 from config import OPENAI_API_KEY, DM_MAIN_MODEL
 import jsonschema
 from campaign_path_manager import CampaignPathManager
+from file_operations import save_json_safely
 
 # Initialize OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)
+
+# Location ID prefix mapping to ensure unique IDs across areas
+LOCATION_PREFIX_MAP = {
+    # This will be populated dynamically, but here are common patterns:
+    # First area gets 'A', second gets 'B', etc.
+    # Special areas can have specific prefixes
+}
+
+def get_location_prefix(area_index: int) -> str:
+    """Get the appropriate prefix for location IDs based on area index"""
+    # Use letters A-Z for first 26 areas, then AA-AZ, BA-BZ, etc.
+    if area_index < 26:
+        return chr(65 + area_index)  # A-Z
+    else:
+        first_letter = chr(65 + (area_index // 26) - 1)
+        second_letter = chr(65 + (area_index % 26))
+        return first_letter + second_letter
 
 @dataclass
 class CampaignPromptGuide:
@@ -363,8 +381,7 @@ def update_location_references(file_path, id_mappings):
         
         # Save if modified
         if modified:
-            with open(file_path, 'w') as file:
-                json.dump(data, file, indent=2)
+            save_json_safely(data, file_path)
             print(f"Updated location references in {file_path}")
     
     except (json.JSONDecodeError, IOError):
@@ -598,8 +615,7 @@ If the field expects an object, return just the object.
                 
                 # Create validation report
                 campaign_dir = f"campaigns/{campaign_name}"
-                with open(f"{campaign_dir}/validation_report.json", "w") as f:
-                    json.dump({"issues": issues}, f, indent=2)
+                save_json_safely({"issues": issues}, f"{campaign_dir}/validation_report.json")
                 print(f"Validation report saved to {campaign_dir}/validation_report.json")
             else:
                 print("\nNo validation issues found.")
@@ -690,12 +706,15 @@ If the field expects an object, return just the object.
         world_map = campaign_data.get("worldMap", [])
         
         # Generate each area
-        for region in world_map:
+        for index, region in enumerate(world_map):
             area_id = region.get("mapId")
             area_name = region.get("regionName")
             area_type = self._determine_area_type(region.get("regionDescription", ""))
             danger_level = region.get("dangerLevel", "medium")
             recommended_level = region.get("recommendedLevel", 1)
+            
+            # Get unique prefix for this area's locations
+            location_prefix = get_location_prefix(index)
             
             # Add area to context
             context.add_area(area_id, area_name, area_type)
@@ -713,6 +732,9 @@ If the field expects an object, return just the object.
             # Generate area data
             area_data = area_gen.generate_area(area_name, area_id, context.to_dict(), config)
             
+            # Update location IDs with unique prefix
+            area_data = self.update_area_with_prefix(area_data, location_prefix)
+            
             # Add locations to context
             for location in area_data.get("locations", []):
                 loc_id = location.get("locationId")
@@ -723,7 +745,7 @@ If the field expects an object, return just the object.
             area_gen.save_area(area_data, f"{campaign_dir}/{area_id}.json")
             generated_areas.append(area_id)
             
-            print(f"Generated area: {area_name} ({area_id}) with {len(area_data.get('locations', []))} locations")
+            print(f"Generated area: {area_name} ({area_id}) with location prefix '{location_prefix}' and {len(area_data.get('locations', []))} locations")
         
         # Save context file
         context.save(f"{campaign_dir}/campaign_context.json")
@@ -743,6 +765,52 @@ If the field expects an object, return just the object.
             return "town"
         else:
             return "mixed"
+    
+    def update_area_with_prefix(self, area_data: Dict[str, Any], prefix: str) -> Dict[str, Any]:
+        """Update all location IDs in area data to use the specified prefix"""
+        # Update map room IDs
+        if "map" in area_data and "rooms" in area_data["map"]:
+            for room in area_data["map"]["rooms"]:
+                if "id" in room and room["id"].startswith("R"):
+                    # Extract the number part and add new prefix
+                    num = room["id"][1:]
+                    new_id = prefix + num
+                    old_id = room["id"]
+                    room["id"] = new_id
+                    
+                    # Update room name if it contains the ID
+                    if "name" in room and old_id in room["name"]:
+                        room["name"] = room["name"].replace(old_id, new_id)
+                    
+                    # Update connections
+                    if "connections" in room:
+                        room["connections"] = [
+                            prefix + conn[1:] if conn.startswith("R") else conn
+                            for conn in room["connections"]
+                        ]
+        
+        # Update layout grid
+        if "map" in area_data and "layout" in area_data["map"]:
+            for i, row in enumerate(area_data["map"]["layout"]):
+                for j, cell in enumerate(row):
+                    if cell.startswith("R"):
+                        area_data["map"]["layout"][i][j] = prefix + cell[1:]
+        
+        # Update location IDs
+        if "locations" in area_data:
+            for location in area_data["locations"]:
+                if "locationId" in location and location["locationId"].startswith("R"):
+                    num = location["locationId"][1:]
+                    location["locationId"] = prefix + num
+                
+                # Update connectivity
+                if "connectivity" in location:
+                    location["connectivity"] = [
+                        prefix + conn[1:] if conn.startswith("R") else conn
+                        for conn in location["connectivity"]
+                    ]
+        
+        return area_data
     
     def generate_area_connections(self, campaign_data: Dict[str, Any], areas: List[str], campaign_name: str):
         """Create connections between generated areas"""
@@ -786,8 +854,7 @@ If the field expects an object, return just the object.
         
         # Save updated area files
         for area_id, area_data in area_files.items():
-            with open(f"{campaign_dir}/{area_id}.json", 'w') as f:
-                json.dump(area_data, f, indent=2)
+            save_json_safely(area_data, f"{campaign_dir}/{area_id}.json")
         
         print("Area connections generated successfully")
         
@@ -826,9 +893,9 @@ If the field expects an object, return just the object.
         entrance_loc["areaConnectivity"].append(exit_loc["name"])
         entrance_loc["areaConnectivityId"].append(from_area)
 
-    def generate_plot_files(self, campaign_data: Dict[str, Any], areas: List[str], campaign_name: str):
-        """Generate plot files for each area"""
-        print("\nGenerating plot files for all areas...")
+    def generate_unified_plot_file(self, campaign_data: Dict[str, Any], areas: List[str], campaign_name: str):
+        """Generate unified campaign plot file"""
+        print("\nGenerating unified campaign plot file...")
         
         campaign_dir = f"campaigns/{campaign_name.replace(' ', '_')}"
         
@@ -837,9 +904,6 @@ If the field expects an object, return just the object.
         if not plot_stages:
             print("Warning: No plot stages found in campaign data")
             return
-        
-        # Distribute plot stages across areas
-        area_plots = {}
         
         # Sort areas by recommended level
         area_files = {}
@@ -855,74 +919,54 @@ If the field expects an object, return just the object.
                              key=lambda x: x[1])
         sorted_area_ids = [a[0] for a in sorted_areas]
         
-        # Distribute plot points
+        # Create unified plot structure
+        campaign_plot = {
+            "plotTitle": campaign_data.get("campaignName", "Unknown Campaign"),
+            "mainObjective": campaign_data.get("mainPlot", {}).get("mainObjective", ""),
+            "plotPoints": []
+        }
+        
+        # Generate plot points
+        side_quest_counter = 1
         for i, stage in enumerate(plot_stages):
             # Assign to appropriate area based on progression
             target_area_index = min(i, len(sorted_area_ids) - 1)
             area_id = sorted_area_ids[target_area_index]
             
-            if area_id not in area_plots:
-                area_plots[area_id] = []
-            
-            area_plots[area_id].append({
-                "plotPointId": f"PP{i+1:03d}",
+            # Create plot point
+            plot_point = {
+                "id": f"PP{i+1:03d}",
                 "title": stage.get("stageName", f"Plot Point {i+1}"),
                 "description": stage.get("stageDescription", ""),
-                "requiredLevel": stage.get("requiredLevel", 1),
-                "location": area_id,  # Default to area ID, will be updated with specific location
-                "keyNPCs": stage.get("keyNPCs", []),
-                "majorEvents": stage.get("majorEvents", []),
-                "completed": False,
+                "location": area_id,  # Use area ID, not specific room
+                "nextPoints": [f"PP{i+2:03d}"] if i < len(plot_stages) - 1 else [],
+                "status": "not started",
+                "plotImpact": "",
                 "sideQuests": []
-            })
-        
-        # Create and save plot files
-        for area_id, plot_points in area_plots.items():
-            # Assign specific locations within area
-            if area_id in area_files:
-                locations = area_files[area_id].get("locations", [])
-                for i, plot_point in enumerate(plot_points):
-                    if locations:
-                        # Use evenly distributed locations for plot points
-                        loc_index = min(i * (len(locations) // (len(plot_points) + 1)), len(locations) - 1)
-                        plot_point["location"] = locations[loc_index]["locationId"]
-                        
-                        # Add involved locations for side quests
-                        involved_locations = [loc["locationId"] for loc in locations 
-                                              if loc["locationId"] != plot_point["location"]]
-                        if involved_locations:
-                            # Add a simple side quest
-                            plot_point["sideQuests"] = [{
-                                "questId": f"SQ{i+1:03d}",
-                                "title": f"Side Quest {i+1}",
-                                "description": "A simple side quest to explore additional locations",
-                                "location": plot_point["location"],
-                                "involvedLocations": involved_locations[:min(3, len(involved_locations))],
-                                "reward": "Appropriate reward for character level",
-                                "completed": False
-                            }]
-            
-            # Create plot file structure
-            plot_file = {
-                "plotId": f"plot_{area_id}",
-                "areaId": area_id,
-                "plotPoints": plot_points,
-                "plotConnections": []
             }
             
-            # Add connections between plot points
-            for i in range(len(plot_points) - 1):
-                plot_file["plotConnections"].append({
-                    "from": plot_points[i]["plotPointId"],
-                    "to": plot_points[i+1]["plotPointId"],
-                    "condition": "Completion of previous plot point"
-                })
+            # Generate side quests based on key NPCs and events
+            key_npcs = stage.get("keyNPCs", [])
+            major_events = stage.get("majorEvents", [])
             
-            # Save plot file
-            with open(f"{campaign_dir}/plot_{area_id}.json", 'w') as f:
-                json.dump(plot_file, f, indent=2)
-                
-            print(f"Generated plot file for {area_id} with {len(plot_points)} plot points")
+            # Create 1-2 side quests per plot point
+            for j in range(min(2, max(1, len(key_npcs)))):
+                side_quest = {
+                    "id": f"SQ{side_quest_counter:03d}",
+                    "title": f"Side Quest: {key_npcs[j] if j < len(key_npcs) else 'Additional Investigation'}",
+                    "description": f"A quest involving {key_npcs[j] if j < len(key_npcs) else 'local concerns'} that may provide useful information or resources.",
+                    "involvedLocations": [area_id],
+                    "status": "not started",
+                    "plotImpact": "Completing this quest provides advantages in the main plot."
+                }
+                plot_point["sideQuests"].append(side_quest)
+                side_quest_counter += 1
+            
+            campaign_plot["plotPoints"].append(plot_point)
+        
+        # Save unified plot file
+        save_json_safely(campaign_plot, f"{campaign_dir}/campaign_plot.json")
+        print(f"Generated unified campaign plot file with {len(campaign_plot['plotPoints'])} plot points")
     
     def save_campaign(self, campaign_data: Dict[str, Any], filename: str = None):
         """Save campaign data to file"""
@@ -941,8 +985,7 @@ If the field expects an object, return just the object.
             if not filename.startswith(campaign_dir):
                 filename = f"{campaign_dir}/{os.path.basename(filename)}"
         
-        with open(filename, "w") as f:
-            json.dump(campaign_data, f, indent=2)
+        save_json_safely(campaign_data, filename)
         
         print(f"Campaign saved to {filename}")
         
@@ -952,8 +995,8 @@ If the field expects an object, return just the object.
         # Create area connections
         self.generate_area_connections(campaign_data, areas, campaign_name)
         
-        # Generate plot files
-        self.generate_plot_files(campaign_data, areas, campaign_name)
+        # Generate unified plot file
+        self.generate_unified_plot_file(campaign_data, areas, campaign_name)
         
         # Create party tracker file
         party_tracker = {
@@ -975,8 +1018,7 @@ If the field expects an object, return just the object.
             "notes": ""
         }
         
-        with open(f"{campaign_dir}/party_tracker.json", "w") as f:
-            json.dump(party_tracker, f, indent=2)
+        save_json_safely(party_tracker, f"{campaign_dir}/party_tracker.json")
         
         # Run campaign debugger for validation
         from campaign_debugger import CampaignDebugger
@@ -995,13 +1037,12 @@ If the field expects an object, return just the object.
         report = debugger.generate_report()
         
         # Save validation report
-        with open(f"{campaign_dir}/validation_report.json", "w") as f:
-            validation_data = {
-                "timestamp": datetime.now().isoformat(),
-                "errors": debugger.errors,
-                "warnings": debugger.warnings
-            }
-            json.dump(validation_data, f, indent=2)
+        validation_data = {
+            "timestamp": datetime.now().isoformat(),
+            "errors": debugger.errors,
+            "warnings": debugger.warnings
+        }
+        save_json_safely(validation_data, f"{campaign_dir}/validation_report.json")
         
         print(f"Validation complete - {len(debugger.errors)} errors, {len(debugger.warnings)} warnings")
         print(f"Validation report saved to {campaign_dir}/validation_report.json")

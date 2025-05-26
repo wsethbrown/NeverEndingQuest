@@ -13,91 +13,91 @@
     "totalRooms": 7,
     "rooms": [
       {
-        "id": "R01",
+        "id": "C01",
         "name": "Outer Courtyard",
         "type": "courtyard",
         "connections": [
-          "R02",
-          "R03"
+          "C02",
+          "C03"
         ],
         "coordinates": "X2Y1"
       },
       {
-        "id": "R02",
+        "id": "C02",
         "name": "Gatehouse Ruins",
         "type": "gatehouse",
         "connections": [
-          "R01",
-          "R04"
+          "C01",
+          "C04"
         ],
         "coordinates": "X1Y1"
       },
       {
-        "id": "R03",
+        "id": "C03",
         "name": "The Ruined Chapel",
         "type": "chapel",
         "connections": [
-          "R01",
-          "R05"
+          "C01",
+          "C05"
         ],
         "coordinates": "X3Y1"
       },
       {
-        "id": "R04",
+        "id": "C04",
         "name": "Fallen Barracks",
         "type": "barracks",
         "connections": [
-          "R02",
-          "R06"
+          "C02",
+          "C06"
         ],
         "coordinates": "X1Y2"
       },
       {
-        "id": "R05",
+        "id": "C05",
         "name": "Great Hall",
         "type": "hall",
         "connections": [
-          "R03",
-          "R06",
-          "R07"
+          "C03",
+          "C06",
+          "C07"
         ],
         "coordinates": "X3Y2"
       },
       {
-        "id": "R06",
+        "id": "C06",
         "name": "Broken Tower",
         "type": "tower",
         "connections": [
-          "R04",
-          "R05"
+          "C04",
+          "C05"
         ],
         "coordinates": "X2Y2"
       },
       {
-        "id": "R07",
+        "id": "C07",
         "name": "Lord's Study",
         "type": "study",
         "connections": [
-          "R05"
+          "C05"
         ],
         "coordinates": "X3Y3"
       }
     ],
     "layout": [
       [
-        "R02",
-        "R01",
-        "R03"
+        "C02",
+        "C01",
+        "C03"
       ],
       [
-        "R04",
-        "R06",
-        "R05"
+        "C04",
+        "C06",
+        "C05"
       ],
       [
         "   ",
         "   ",
-        "R07"
+        "C07"
       ]
     ]
   },
@@ -148,20 +148,20 @@
   "notes": "The keep's architecture often seems to shift subtly when not directly observed. Time flows strangely within the walls, and compasses spin uselessly. The shadow relic's influence grows stronger as one moves deeper into the structure.",
   "locations": [
     {
-      "locationId": "R01",
+      "locationId": "C01",
       "name": "Outer Courtyard",
       "type": "courtyard",
       "description": "A weed-choked expanse ringed by crumbling walls, with the main keep looming ahead. Fallen statues of knights and nobles lie broken across the cobblestones, their faces eroded by time or deliberately defaced. A dry fountain stands at the center, its basin cracked and filled with dark stagnant water that never seems to evaporate. Mist clings to the ground regardless of weather, and shadows stretch impossibly long. The massive wooden gates that once secured the entrance hang askew from rusted hinges, creaking in the slightest breeze.",
       "coordinates": "X2Y1",
       "connectivity": [
-        "R02",
-        "R03"
+        "C02",
+        "C03"
       ],
       "areaConnectivity": [
         "Keeper's Cottage"
       ],
       "areaConnectivityId": [
-        "G001-R07"
+        "G001-B07"
       ],
       "npcs": [],
       "monsters": [
@@ -230,14 +230,14 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R02",
+      "locationId": "C02",
       "name": "Gatehouse Ruins",
       "type": "gatehouse",
       "description": "A partially collapsed defensive structure that once controlled access to the keep. Stone stairs ascend to a broken walkway where guards patrolled. Arrow slits line the remaining walls, and a rusted portcullis is permanently jammed halfway open. Ancient bloodstains darken the stones around a splintered wooden door, and tattered banners bearing Sir Garran's family crest hang limply from iron brackets. The shadows here are particularly dense, occasionally forming humanoid shapes in peripheral vision. The air smells of rust, mold, and a faint metallic tang that brings to mind spilled blood.",
       "coordinates": "X1Y1",
       "connectivity": [
-        "R01",
-        "R04"
+        "C01",
+        "C04"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -324,14 +324,14 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R03",
+      "locationId": "C03",
       "name": "The Ruined Chapel",
       "type": "chapel",
       "description": "Once a place of solemn worship, now a mockery of its former sanctity. The stone altar has been split in two, and the stained glass windows shattered, leaving only jagged colored fragments that cast eerie prismatic patterns when light strikes them. Pews lie toppled and rotting, and religious symbols have been desecrated or inverted. Ghostly hymns echo faintly through the chamber at irregular intervals, and the temperature drops noticeably upon entry. Dark stains form a spiral pattern on the floor leading to the altar, and spectral candles flicker into existence at dusk, burning with cold blue flames that provide no warmth.",
       "coordinates": "X3Y1",
       "connectivity": [
-        "R01",
-        "R05"
+        "C01",
+        "C05"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -420,14 +420,14 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R04",
+      "locationId": "C04",
       "name": "Fallen Barracks",
       "type": "barracks",
       "description": "A long, partially collapsed chamber once housing the keep's garrison. Rotted bunk frames line the walls, and rusted weapons and armor pieces litter the floor. The ceiling has caved in at the far end, allowing pale light and occasionally rain to enter. Moldy tapestries depicting military victories hang in tatters from the walls, and a large weapon rack stands empty save for a few corroded blades. The floor is uneven, with flagstones pushed up by tree roots that have somehow grown through the stone. Personal effects of long-dead soldiers—letters, trinkets, gambling dice—remain scattered around, preserved in the unnatural stillness of the keep.",
       "coordinates": "X1Y2",
       "connectivity": [
-        "R02",
-        "R06"
+        "C02",
+        "C06"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -509,15 +509,15 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R05",
+      "locationId": "C05",
       "name": "Great Hall",
       "type": "hall",
       "description": "A vast chamber with a soaring ceiling supported by stone columns carved to resemble armored knights. Once the heart of the keep's social life, the hall now stands in eerie stillness. A massive wooden table runs down the center, set for a feast never consumed, with dusty goblets and tarnished silverware laid out precisely. Rotted tapestries depicting the Vael family history hang on the walls, and a large fireplace yawns like a black mouth at the far end, cold ash spilling across the hearth. Broken chandeliers lie shattered on the floor, their candles long melted away. The stones themselves seem to absorb sound, creating an unnatural hush where even whispers die quickly.",
       "coordinates": "X3Y2",
       "connectivity": [
-        "R03",
-        "R06",
-        "R07"
+        "C03",
+        "C06",
+        "C07"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -606,14 +606,14 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R06",
+      "locationId": "C06",
       "name": "Broken Tower",
       "type": "tower",
       "description": "A once-proud watchtower now partially collapsed, with the upper floors open to the sky. Spiral stairs wind upward precariously, some steps missing entirely. Arrow slits line the intact walls, offering narrow glimpses of the surrounding lands and forestry. The lower levels contain abandoned guard posts with rotted furnishings and rusted weapons racks. Rainwater has pooled on the stone floors, reflecting the open sky above like dark mirrors. The higher one climbs, the more unstable the structure becomes, with walls cracked and floors tilting at dangerous angles. At the very top, a small observatory platform somehow remains, offering a panoramic view marred only by the unnatural shadows that seem to cling to the keep regardless of the sun's position.",
       "coordinates": "X2Y2",
       "connectivity": [
-        "R04",
-        "R05"
+        "C04",
+        "C05"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -695,19 +695,19 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R07",
+      "locationId": "C07",
       "name": "Lord's Study",
       "type": "study",
       "description": "Sir Garran Vael's private sanctuary, remarkably preserved compared to the rest of the keep. Wood-paneled walls lined with bookshelves surround an imposing desk carved from dark wood. A massive fireplace dominates one wall, eternally cold despite logs laid ready. Arcane symbols have been etched into the floor around the central rug, forming a complex containment circle. A portrait of Sir Garran in his prime hangs above the mantle, the eyes seeming to follow any movement in the room. The air here feels charged with potential energy, and whispers at the edge of hearing suggest secrets being shared just beyond comprehension. Scattered parchments cover the desk, the ink still appearing wet despite being centuries old. A grandfather clock stands in one corner, its hands frozen at midnight regardless of attempts to move them.",
       "coordinates": "X3Y3",
       "connectivity": [
-        "R05"
+        "C05"
       ],
       "areaConnectivity": [
         "The Cursed Dungeons Entrance"
       ],
       "areaConnectivityId": [
-        "TCD001-R01"
+        "TCD001-E01"
       ],
       "npcs": [],
       "monsters": [

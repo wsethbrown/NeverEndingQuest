@@ -4,50 +4,50 @@
   "totalRooms": 5,
   "rooms": [
     {
-      "id": "R01",
+      "id": "A01",
       "name": "Harrow's Hollow General Store",
       "type": "shop",
       "connections": [
-        "R02",
-        "R03",
-        "R04",
-        "R05"
+        "A02",
+        "A03",
+        "A04",
+        "A05"
       ],
       "coordinates": "X2Y2"
     },
     {
-      "id": "R02",
+      "id": "A02",
       "name": "Harrow's Hollow Town Square",
       "type": "square",
       "connections": [
-        "R01"
+        "A01"
       ],
       "coordinates": "X3Y2"
     },
     {
-      "id": "R03",
+      "id": "A03",
       "name": "East Gate and Guardhouse",
       "type": "gate",
       "connections": [
-        "R01"
+        "A01"
       ],
       "coordinates": "X2Y3"
     },
     {
-      "id": "R04",
+      "id": "A04",
       "name": "Militia Barracks",
       "type": "barracks",
       "connections": [
-        "R01"
+        "A01"
       ],
       "coordinates": "X2Y1"
     },
     {
-      "id": "R05",
+      "id": "A05",
       "name": "The Wyrd Lantern Inn",
       "type": "tavern",
       "connections": [
-        "R01"
+        "A01"
       ],
       "coordinates": "X1Y2"
     }
@@ -55,17 +55,17 @@
   "layout": [
     [
       "   ",
-      "R04",
+      "A04",
       "   "
     ],
     [
-      "R05",
-      "R01",
-      "R02"
+      "A05",
+      "A01",
+      "A02"
     ],
     [
       "   ",
-      "R03",
+      "A03",
       "   "
     ]
   ]

@@ -1,0 +1,39 @@
+Restored campaigns/Keep_of_Doom/HH001.json from campaigns/Keep_of_Doom/HH001_BU.json
+Restored campaigns/Keep_of_Doom/G001.json from campaigns/Keep_of_Doom/G001_BU.json
+Restored campaigns/Keep_of_Doom/SK001.json from campaigns/Keep_of_Doom/SK001_BU.json
+Restored campaigns/Keep_of_Doom/TBM001.json from campaigns/Keep_of_Doom/TBM001_BU.json
+Restored campaigns/Keep_of_Doom/TCD001.json from campaigns/Keep_of_Doom/TCD001_BU.json
+Restored campaigns/Keep_of_Doom/campaign_plot.json from campaigns/Keep_of_Doom/campaign_plot_BU.json
+Restored party_tracker.json from campaigns/Keep_of_Doom/party_tracker_BU.json
+Restored party tracker from backup
+Restored campaigns/Keep_of_Doom/norn.json from campaigns/Keep_of_Doom/norn_BU.json
+Restored Norn character from backup
+Area files restored from clean backups.
+combat_conversation_history.json not found
+Deleted conversation_history.json
+Deleted chat_history.json
+player_conversation_history.json not found
+transition_debug.log not found
+adv_summary_debug.log not found
+cumulative_summary_debug.log not found
+combat_builder.log not found
+debug_log.txt not found
+Cleared contents of game_debug.log
+Cleared contents of game_errors.log
+error.txt not found
+summary_dump.json not found
+trimmed_summary_dump.json not found
+second_model_history.json not found
+third_model_history.json not found
+debug_encounter_update.json not found
+debug_initial_response.json not found
+debug_npc_update.json not found
+Deleted debug_player_update.json
+debug_second_model.json not found
+npc_update_debug_log.json not found
+npc_update_detailed_log.json not found
+Deleted prompt_validation.json
+Reset journal.json to empty state
+Reset current_location.json to starting location (General Store)
+
+Reset complete. Keep of Doom campaign ready to start fresh!

@@ -4,74 +4,74 @@
   "totalRooms": 7,
   "rooms": [
     {
-      "id": "R01",
+      "id": "B01",
       "name": "Witchlight Trailhead",
       "type": "trail",
       "connections": [
-        "R02",
-        "R03"
+        "B02",
+        "B03"
       ],
       "coordinates": "X2Y1"
     },
     {
-      "id": "R02",
+      "id": "B02",
       "name": "Abandoned Ranger Outpost",
       "type": "outpost",
       "connections": [
-        "R01",
-        "R04"
+        "B01",
+        "B04"
       ],
       "coordinates": "X3Y1"
     },
     {
-      "id": "R03",
+      "id": "B03",
       "name": "The Withered Shrine",
       "type": "shrine",
       "connections": [
-        "R01",
-        "R05",
-        "R06"
+        "B01",
+        "B05",
+        "B06"
       ],
       "coordinates": "X1Y2"
     },
     {
-      "id": "R04",
+      "id": "B04",
       "name": "Lost Ward Circle",
       "type": "ritual",
       "connections": [
-        "R02",
-        "R07"
+        "B02",
+        "B07"
       ],
       "coordinates": "X3Y2"
     },
     {
-      "id": "R05",
+      "id": "B05",
       "name": "Boggard Marsh",
       "type": "marsh",
       "connections": [
-        "R03",
-        "R06"
+        "B03",
+        "B06"
       ],
       "coordinates": "X1Y3"
     },
     {
-      "id": "R06",
+      "id": "B06",
       "name": "Spectral Clearing",
       "type": "clearing",
       "connections": [
-        "R03",
-        "R05",
-        "R07"
+        "B03",
+        "B05",
+        "B07"
       ],
       "coordinates": "X2Y3"
     },
     {
-      "id": "R07",
+      "id": "B07",
       "name": "Keeper's Cottage",
       "type": "cottage",
       "connections": [
-        "R04",
-        "R06"
+        "B04",
+        "B06"
       ],
       "coordinates": "X3Y3"
     }
@@ -79,18 +79,18 @@
   "layout": [
     [
       "   ",
-      "R01",
-      "R02"
+      "B01",
+      "B02"
     ],
     [
-      "R03",
+      "B03",
       "   ",
-      "R04"
+      "B04"
     ],
     [
-      "R05",
-      "R06",
-      "R07"
+      "B05",
+      "B06",
+      "B07"
     ]
   ]
 }

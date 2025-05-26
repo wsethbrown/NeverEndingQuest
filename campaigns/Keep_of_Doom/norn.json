@@ -90,50 +90,7 @@
       "description": "Your weapon attacks score a critical hit on a roll of 19 or 20"
     }
   ],
-  "equipment": [
-    {
-      "item_name": "Old bronze key marked with a faded raven sigil",
-      "item_type": "miscellaneous",
-      "description": "A weathered bronze key with a faded raven sigil, possibly linked to the Keep of Doom.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Sturdy, lined leather pouch",
-      "item_type": "miscellaneous",
-      "description": "A finely crafted leather pouch, lined for protection, suitable for carrying delicate items like keys.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Hooded Lantern",
-      "item_type": "miscellaneous",
-      "description": "A lantern with a shutter to control the light, useful for stealth and exploration.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Rations",
-      "item_type": "miscellaneous",
-      "description": "Sufficient food for 10 days of travel.",
-      "quantity": 10
-    },
-    {
-      "item_name": "Bandages and Herbal Salve",
-      "item_type": "miscellaneous",
-      "description": "Basic medical supplies for treating wounds and ailments.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Bundle of Poultices",
-      "item_type": "miscellaneous",
-      "description": "A bundle of poultices for treating wounds.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Vial of Anti-toxin",
-      "item_type": "miscellaneous",
-      "description": "A vial of anti-toxin to counteract poisons.",
-      "quantity": 1
-    }
-  ],
+  "equipment": [],
   "ammunition": [
     {
       "name": "Arrows",
@@ -197,8 +154,8 @@
     }
   },
   "currency": {
-    "gold": 45,
-    "silver": 0,
+    "gold": 24,
+    "silver": -1,
     "copper": 0
   },
   "experience_points": 4571,

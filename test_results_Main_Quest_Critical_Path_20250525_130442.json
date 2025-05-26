@@ -1,0 +1,109 @@
+{
+  "test_profile": "Main Quest Critical Path",
+  "player_name": "TestHero",
+  "start_time": "2025-05-25T13:03:33.518300",
+  "end_time": "2025-05-25T13:04:42.810401",
+  "total_actions": 5,
+  "objectives_attempted": 1,
+  "objectives_completed": 0,
+  "issues_found": 0,
+  "issues_detail": [],
+  "objectives_progress": [],
+  "sample_interactions": [
+    {
+      "timestamp": "2025-05-25T13:03:33.518300",
+      "game_output": "You stand within the heart of Harrow's Hollow--the General Store--a haven of order amid the uncertainty gripping the village. The sturdy timber beams creak softly overhead, and the scent of wax and old leather is pervasive among the shelves jammed with tools, ration packs, and oddities from distant places. Near the battered counter, handwritten notices and pleas for help crowd the bulletin board, their corners curled from anxious hands.\n\nElder Mirna Harrow, the village's matriarch, stands behind the counter. Her gray hair is pulled into a severe knot, her posture proud yet tinged by fatigue. She eyes you with a keen wisdom that seems to weigh every word and gesture. As the morning light filters through the windows, you notice Mirna's gaze lingering on the old bronze key--marked with a faded raven sigil--sitting atop the ledger. The key glints with a subtle importance, yet when she realizes you're watching, she pointedly shifts a stack of receipts to partially obscure it.\n\nBehind her, the storeroom's iron-banded door stands shut. Its lock appears undisturbed, but you can't help but note its solid construction and the faint impression where the key would fit.\n\nAs you regard the shop's wares and the threads of tension in the air, Mirna addresses you in a low, steady voice. \"Norn, you've done this village a great service already. But some shadows do not lift so easily. If you're to face what lies ahead, you may need more than courage alone. Is there anything else you wish to ask--or perhaps, something you wish to purchase before you go?\"\n\nYou sense Mirna is concealing something about the key and perhaps events tied to the keep. If you wish to press her or examine the bronze key, you may attempt an Insight check (DC 12) to see through her reserve, or an Investigation check (DC 14) to scrutinize the key's crest. Alternatively, you might peruse the shop's goods, inquire about rumors, or address the notices on the board. The path to the keep and Scout Elen's fate may hinge on what you learn here.",
+      "ai_action": "I will first attempt an Insight check to see if I can see through Elder Mirna's reserve about the bronze key and what she might be concealing.\n\nRolling Insight (DC 12)... With +3 Insight, I need a 9 or higher.\n\nPlease roll the d20 for Insight check.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "You stand within the heart of Harrow's Hollow--the General Store--a haven of order amid the uncertainty gripping the village. The sturdy timber beams creak softly overhead, and the scent of wax and ol...",
+          "You steady your gaze on Elder Mirna, allowing your intuition and hard-earned discipline to sift through her careful words and guarded posture. The morning light glints softly off the bronze key, and f...",
+          "Elder Mirna's hands hover protectively over the ledger as you speak, her weathered face caught between pride and the weight of secrets too long kept. She looks into your eyes for a lingering moment, s...",
+          "Elder Mirna considers your question with a somber nod, her eyes flicking once more to the shelves packed with provisions. \"If you have the means, I suggest bringing enough food, a lantern or two, and ...",
+          "Elder Mirna nods approvingly as you indicate your selections. She retrieves a sturdy hooded lantern from a shelf behind the counter, its brass fittings polished and its frame solid. From beneath the c..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T13:03:46.471946",
+      "game_output": "You steady your gaze on Elder Mirna, allowing your intuition and hard-earned discipline to sift through her careful words and guarded posture. The morning light glints softly off the bronze key, and for a moment, Mirna's fingers tighten imperceptibly around the edge of the ledger, a subtle tension in her jaw betraying more than her words ever could.\n\nRolling the d20 for your Insight check... \n\nThe die tumbles across the worn counter and comes to rest, showing a 14. With your +3 Insight modifier, that's a total of 17.\n\nYour disciplined eye picks up on the microexpressions and the faintest hesitation in Mirna's speech. You sense that she is deeply conflicted about the key--protective, even fearful, as if it is more than a mere relic. Her reluctance is not simply caution; it is the burden of a secret that weighs heavily on her conscience. You notice, too, how her gaze flickers once to the notice board as if checking to see if any others are listening in.\n\nMirna meets your eyes, and after a long pause, she exhales quietly, her shoulders slumping just a fraction. \"You see more than most, Norn. There are truths I have kept for the safety of this village--and for my own peace of mind. Ask your questions, and I will answer as I can. But know that the keep's shadow lingers long, and some doors are best left unopened.\"\n\nWhat do you ask of Elder Mirna now that her guard is down? Will you press her about the key, inquire about the keep, or something else?",
+      "ai_action": "I will press Elder Mirna directly about the bronze key, asking:\n\n\"Elder Mirna, this key with the raven sigil--what does it unlock? Why do you seem so burdened by it? Is it connected to the keep or the shadows you mentioned?\" \n\nI want to see if she will reveal the main quest details or objectives related to the keep and the key.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "You stand within the heart of Harrow's Hollow--the General Store--a haven of order amid the uncertainty gripping the village. The sturdy timber beams creak softly overhead, and the scent of wax and ol...",
+          "You steady your gaze on Elder Mirna, allowing your intuition and hard-earned discipline to sift through her careful words and guarded posture. The morning light glints softly off the bronze key, and f...",
+          "Elder Mirna's hands hover protectively over the ledger as you speak, her weathered face caught between pride and the weight of secrets too long kept. She looks into your eyes for a lingering moment, s...",
+          "Elder Mirna considers your question with a somber nod, her eyes flicking once more to the shelves packed with provisions. \"If you have the means, I suggest bringing enough food, a lantern or two, and ...",
+          "Elder Mirna nods approvingly as you indicate your selections. She retrieves a sturdy hooded lantern from a shelf behind the counter, its brass fittings polished and its frame solid. From beneath the c..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T13:04:00.822210",
+      "game_output": "Elder Mirna's hands hover protectively over the ledger as you speak, her weathered face caught between pride and the weight of secrets too long kept. She looks into your eyes for a lingering moment, searching for judgment, then finally slides the bronze key into the open, its raven sigil catching the weak morning light.\n\n\"You are as direct as you are brave,\" she says, voice soft but steady. \"This key--yes, it is tied to the keep, and to the curse that's haunted us since before I was born. The raven was the crest of Lord Greymont's lineage, the last true lord of that place. When the doom fell, it was said only those of the blood, or those chosen by the village, could pass through the inner gates unharmed.\"\n\nShe traces the faded lines with her thumb, her tone low so only you can hear. \"The keep's doors haven't opened in a generation. But now, with the ward renewed and the shadows pushed back, I believe you are meant to carry this key, Norn. It unlocks the way to the deepest part of the keep--the heart of the curse. Take it, if you will. Return with Elen, if you can. And if you find what remains of the Greymonts, may you bring them peace, for their suffering is the village's as well.\"\n\nMirna slides the heavy key into your palm. \"Beware, for the spirits guarding that door remember more than most. You may need both courage and compassion to see this through.\"\n\nWith the bronze key now yours and Mirna's blessing, the way to the keep's secrets lies open before you. The villagers, sensing a change, watch your interaction with a mixture of hope and fear.\n\nIs there anything else you wish to ask Mirna or acquire before setting out--supplies, advice, or perhaps news from the notice board? Or are you ready to brave the road toward the keep?",
+      "ai_action": "Quest Discovery Summary:\n- Quest received from Elder Mirna: Use the bronze raven key to unlock the inner gates of the keep.\n- Objective: Enter the keep, confront the curse, and attempt to rescue Scout Elen.\n- Quest is clearly communicated and tied directly to the key.\n- Elder Mirna provided the key and the blessing.\n\nNext Steps:\n1. Verify quest appears in objectives and quest log.\n2. Check for quest markers or directional hints to the keep.\n3. Confirm if any supplies or advice from Mirna could be critical before departure.\n4. If no critical supplies or information needed, proceed directly to the keep to test quest progression tracking.\n\nI will ask Elder Mirna:\n\"Is there anything specific I should prepare for before heading to the keep? Any supplies or information you recommend?\"\n\nIf no critical items or info, I will check the quest log/objectives for the new quest and then head directly to the keep to test quest tracking.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "You stand within the heart of Harrow's Hollow--the General Store--a haven of order amid the uncertainty gripping the village. The sturdy timber beams creak softly overhead, and the scent of wax and ol...",
+          "You steady your gaze on Elder Mirna, allowing your intuition and hard-earned discipline to sift through her careful words and guarded posture. The morning light glints softly off the bronze key, and f...",
+          "Elder Mirna's hands hover protectively over the ledger as you speak, her weathered face caught between pride and the weight of secrets too long kept. She looks into your eyes for a lingering moment, s...",
+          "Elder Mirna considers your question with a somber nod, her eyes flicking once more to the shelves packed with provisions. \"If you have the means, I suggest bringing enough food, a lantern or two, and ...",
+          "Elder Mirna nods approvingly as you indicate your selections. She retrieves a sturdy hooded lantern from a shelf behind the counter, its brass fittings polished and its frame solid. From beneath the c..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T13:04:22.487511",
+      "game_output": "Elder Mirna considers your question with a somber nod, her eyes flicking once more to the shelves packed with provisions. \"If you have the means, I suggest bringing enough food, a lantern or two, and perhaps a stout rope. The keep is old and treacherous--there's no telling what's collapsed or what shadows still linger. Beyond that, trust your instincts, Norn. The key will open the way, but what you find inside... that will test more than just your strength.\"\n\nShe reaches under the counter and slides a small, hand-drawn map your way. \"These are the old trails leading to the keep. The Witchlight Trailhead starts at the East Gate. The path is not long, but beware the twisted trees and the silence.\"\n\nYour quest log updates, confirming your new objective: 'Enter the Keep of Doom, use the raven key to unlock the inner gates, confront the curse, and attempt to rescue Scout Elen.' A faint sense of purpose settles over you as you prepare to face the unknown. If you wish to purchase any provisions or ask further questions, now is the time. Otherwise, the road to the keep awaits--your destiny marked on the map.",
+      "ai_action": "Quest Tracking Validation:\n- Quest log updated with clear, detailed objective.\n- Quest marker or directional hint is indirectly provided via Elder Mirna's map and instructions.\n- Essential supplies (food, lantern, rope) suggested but optional for quest completion.\n- No immediate blockers or unclear objectives.\n\nNext Steps:\n1. Attempt to purchase provisions: lantern and rope to test shop purchase system.\n2. If purchase successful, verify inventory updated.\n3. Confirm quest marker or guidance leads to East Gate and Witchlight Trailhead.\n4. Begin travel to keep to test quest progression tracking and objective updates.\n\nI will proceed to purchase one lantern and one stout rope from the general store. Please confirm if purchase is successful and inventory updated.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "You stand within the heart of Harrow's Hollow--the General Store--a haven of order amid the uncertainty gripping the village. The sturdy timber beams creak softly overhead, and the scent of wax and ol...",
+          "You steady your gaze on Elder Mirna, allowing your intuition and hard-earned discipline to sift through her careful words and guarded posture. The morning light glints softly off the bronze key, and f...",
+          "Elder Mirna's hands hover protectively over the ledger as you speak, her weathered face caught between pride and the weight of secrets too long kept. She looks into your eyes for a lingering moment, s...",
+          "Elder Mirna considers your question with a somber nod, her eyes flicking once more to the shelves packed with provisions. \"If you have the means, I suggest bringing enough food, a lantern or two, and ...",
+          "Elder Mirna nods approvingly as you indicate your selections. She retrieves a sturdy hooded lantern from a shelf behind the counter, its brass fittings polished and its frame solid. From beneath the c..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T13:04:37.149484",
+      "game_output": "Elder Mirna nods approvingly as you indicate your selections. She retrieves a sturdy hooded lantern from a shelf behind the counter, its brass fittings polished and its frame solid. From beneath the counter, she produces a coil of tough, hempen rope--thirty feet, weathered but strong. \n\n\"That should see you safely through the forest and anything the keep throws your way,\" she remarks, tallying the total on her ledger. \"That's 5 gold pieces for the lantern and 1 gold piece for the rope.\"\n\nAfter exchanging coins and confirming your purchase, Mirna carefully wraps the lantern and hands you the rope. \"May the light guide your steps, Norn. Come back safe.\"\n\nYour inventory now includes a hooded lantern and rope, with the appropriate gold deducted. Is there anything else you wish to purchase or ask before heading to the East Gate and the Witchlight Trailhead, as marked on your map?",
+      "ai_action": "Inventory and Quest Prep Confirmed:\n- Purchased hooded lantern (5 gp) and 30-foot rope (1 gp).\n- Gold deducted accordingly.\n- Quest log and objective clear: Enter the Keep of Doom, use raven key, confront curse, rescue Scout Elen.\n- Map and directions provided to East Gate and Witchlight Trailhead.\n\nNo further purchases or questions necessary for main quest speedrun.\n\nI will now proceed directly to the East Gate and Witchlight Trailhead to begin the journey to the keep.\n\nRequesting to move to the East Gate and Witchlight Trailhead location to test quest progression and tracking. Please confirm if quest markers or any guidance appear and if the journey triggers any quest updates or events.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "You stand within the heart of Harrow's Hollow--the General Store--a haven of order amid the uncertainty gripping the village. The sturdy timber beams creak softly overhead, and the scent of wax and ol...",
+          "You steady your gaze on Elder Mirna, allowing your intuition and hard-earned discipline to sift through her careful words and guarded posture. The morning light glints softly off the bronze key, and f...",
+          "Elder Mirna's hands hover protectively over the ledger as you speak, her weathered face caught between pride and the weight of secrets too long kept. She looks into your eyes for a lingering moment, s...",
+          "Elder Mirna considers your question with a somber nod, her eyes flicking once more to the shelves packed with provisions. \"If you have the means, I suggest bringing enough food, a lantern or two, and ...",
+          "Elder Mirna nods approvingly as you indicate your selections. She retrieves a sturdy hooded lantern from a shelf behind the counter, its brass fittings polished and its frame solid. From beneath the c..."
+        ]
+      }
+    }
+  ]
+}

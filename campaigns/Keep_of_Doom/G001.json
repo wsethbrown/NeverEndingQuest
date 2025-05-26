@@ -13,74 +13,74 @@
     "totalRooms": 7,
     "rooms": [
       {
-        "id": "R01",
+        "id": "B01",
         "name": "Witchlight Trailhead",
         "type": "trail",
         "connections": [
-          "R02",
-          "R03"
+          "B02",
+          "B03"
         ],
         "coordinates": "X2Y1"
       },
       {
-        "id": "R02",
+        "id": "B02",
         "name": "Abandoned Ranger Outpost",
         "type": "outpost",
         "connections": [
-          "R01",
-          "R04"
+          "B01",
+          "B04"
         ],
         "coordinates": "X3Y1"
       },
       {
-        "id": "R03",
+        "id": "B03",
         "name": "The Withered Shrine",
         "type": "shrine",
         "connections": [
-          "R01",
-          "R05",
-          "R06"
+          "B01",
+          "B05",
+          "B06"
         ],
         "coordinates": "X1Y2"
       },
       {
-        "id": "R04",
+        "id": "B04",
         "name": "Lost Ward Circle",
         "type": "ritual",
         "connections": [
-          "R02",
-          "R07"
+          "B02",
+          "B07"
         ],
         "coordinates": "X3Y2"
       },
       {
-        "id": "R05",
+        "id": "B05",
         "name": "Boggard Marsh",
         "type": "marsh",
         "connections": [
-          "R03",
-          "R06"
+          "B03",
+          "B06"
         ],
         "coordinates": "X1Y3"
       },
       {
-        "id": "R06",
+        "id": "B06",
         "name": "Spectral Clearing",
         "type": "clearing",
         "connections": [
-          "R03",
-          "R05",
-          "R07"
+          "B03",
+          "B05",
+          "B07"
         ],
         "coordinates": "X2Y3"
       },
       {
-        "id": "R07",
+        "id": "B07",
         "name": "Keeper's Cottage",
         "type": "cottage",
         "connections": [
-          "R04",
-          "R06"
+          "B04",
+          "B06"
         ],
         "coordinates": "X3Y3"
       }
@@ -88,18 +88,18 @@
     "layout": [
       [
         "   ",
-        "R01",
-        "R02"
+        "B01",
+        "B02"
       ],
       [
-        "R03",
+        "B03",
         "   ",
-        "R04"
+        "B04"
       ],
       [
-        "R05",
-        "R06",
-        "R07"
+        "B05",
+        "B06",
+        "B07"
       ]
     ]
   },
@@ -150,14 +150,14 @@
   "notes": "The forest's paths are treacherous and seem to shift. Players should make Survival checks when navigating between locations. The whispers of spirits can be heard throughout the forest, growing louder as one nears the keep.",
   "locations": [
     {
-      "locationId": "R01",
+      "locationId": "B01",
       "name": "Witchlight Trailhead",
       "type": "trail",
-      "description": "Beneath towering trees with dense, knotted branches dimming the afternoon light, the Witchlight Trailhead winds through mossy earth permeated by the scent of damp soil and old leaves. The quiet of the deep woods is broken only by distant, hidden water sounds and occasional muffled birdsong. Weathered cairns mark the path alongside faint bootprints in the soft earth—some fresh, some eroded—with a scrap of faded blue cloth caught on a thorn bush, linking to Elen's uniform discovered earlier. Near a fork at the woods' edge, two overgrown routes lead onward: one toward the Abandoned Ranger Outpost, the other to the Withered Shrine, both showing subtle signs of recent passage.",
+      "description": "The party cautiously advanced along the Witchlight Trail, now entering a dense forest where the thick canopy suppresses daylight and an uneasy silence pervades. Tangled branches loom overhead and cold blue lights flicker faintly at the edges of vision, creating an eerie atmosphere along the winding path. Weathered milestones inscribed with strange sigils and remnants of old patrol camps suggest previous travelers who may not have survived. The distant calls of a raven and the steady dripping of condensation punctuate the stillness, heightening the party's alertness as they keep their bearings. The trail forks ahead, with overgrown routes leading toward the Abandoned Ranger Outpost and the Withered Shrine, both showing subtle signs of recent passage.",
       "coordinates": "X2Y1",
       "connectivity": [
-        "R02",
-        "R03"
+        "B02",
+        "B03"
       ],
       "areaConnectivity": [
         "Harrow's Hollow East Gate"
@@ -165,7 +165,13 @@
       "areaConnectivityId": [
         "HH001"
       ],
-      "npcs": [],
+      "npcs": [
+        {
+          "name": "The Keeper",
+          "description": "A reclusive hermit rumored to possess vital information about the keep's curse. Not yet encountered but expected to be met along the trail.",
+          "attitude": "Unknown"
+        }
+      ],
       "monsters": [
         {
           "name": "Shadow",
@@ -186,9 +192,11 @@
         "An inscription on one of the markers reads: 'Walk with light, for shadows hunger in the wood.'",
         "Fresh footprints indicate someone recently entered the forest, possibly Scout Elen.",
         "A tattered journal page pinned to a tree describes hearing 'whispers that know your name' deeper in the woods.",
-        "Trail of smaller, purposeful footprints heading north toward the Withered Shrine, with snapped twigs and disturbed moss indicating a brief pause."
+        "Trail of smaller, purposeful footprints heading north toward the Withered Shrine, with snapped twigs and disturbed moss indicating a brief pause.",
+        "The party's quest to find Scout Elen and uncover the keep's secrets is in progress.",
+        "Vigilant for encounters with the Keeper, who may provide vital information about the keep's curse."
       ],
-      "dmInstructions": "This location serves as the transition from Harrow's Hollow to the Gloamwood. The party has discovered evidence linking the trail to Scout Elen including a scrap of her uniform and fresh footprints. A successful Survival check reveals a trail moving north toward the Withered Shrine. The inscription on a cairn warns travelers to keep light for safety. As night falls, shadows remain a threat if the party lingers.",
+      "dmInstructions": "This location serves as the transition from Harrow's Hollow to the Gloamwood. The party has advanced cautiously, observing eerie cold blue lights and remnants of old patrol camps suggesting danger ahead. No traps have been detected on the path. The party should remain alert for encounters with shadows and the elusive Keeper, while tracking footprints toward the Withered Shrine. The quest tracker functions smoothly to guide the party forward.",
       "doors": [],
       "traps": [],
       "dcChecks": [
@@ -205,7 +213,7 @@
         },
         {
           "name": "Witchlights",
-          "description": "Soft blue-green lights that hover just above the path, providing minimal illumination."
+          "description": "Soft blue-green lights that hover just above the path, providing minimal illumination and an eerie atmosphere."
         },
         {
           "name": "Offering Shrine",
@@ -218,20 +226,24 @@
         {
           "name": "Bootprints and Scraps",
           "description": "Faint bootprints of varying freshness and a scrap of faded blue cloth caught on a thorn bush, tying to Elen's uniform."
+        },
+        {
+          "name": "Old Patrol Camp Remnants",
+          "description": "Signs of previous travelers who may have perished here, including broken equipment and worn gear."
         }
       ],
       "encounters": [],
       "adventureSummary": ""
     },
     {
-      "locationId": "R02",
+      "locationId": "B02",
       "name": "Abandoned Ranger Outpost",
       "type": "outpost",
-      "description": "A dilapidated wooden structure built around the massive trunk of an ancient oak. Once a way station for forest patrols, the outpost has fallen into disrepair—its roof partially collapsed and its walls covered in creeping vines. Inside, overturned furniture and scattered supplies suggest a hasty departure or violent struggle. A cold firepit dominates the center of the main room, and faded maps of the forest hang on the walls. Despite the decay, the structure remains largely intact and could provide temporary shelter.",
+      "description": "A dilapidated wooden structure built around the massive trunk of an ancient oak. Once a way station for forest patrols, the outpost has fallen into disrepair--its roof partially collapsed and its walls covered in creeping vines. Inside, overturned furniture and scattered supplies suggest a hasty departure or violent struggle. A cold firepit dominates the center of the main room, and faded maps of the forest hang on the walls. Despite the decay, the structure remains largely intact and could provide temporary shelter.",
       "coordinates": "X3Y1",
       "connectivity": [
-        "R01",
-        "R04"
+        "B01",
+        "B04"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -259,7 +271,7 @@
       ],
       "plotHooks": [
         "The ranger's journal mentions a 'shadow knight' seen near the keep, matching descriptions of Sir Garran Vael.",
-        "A map on the wall has the Lost Ward Circle marked with the annotation 'failing—needs ritual renewal'.",
+        "A map on the wall has the Lost Ward Circle marked with the annotation 'failing--needs ritual renewal'.",
         "Scratched into a table is a hurried message: 'The whispers are coming from the cottage. DO NOT TRUST THE KEEPER.'"
       ],
       "dmInstructions": "This outpost offers potential supplies and important plot information. The giant spider attacks when players explore the rafters or disturb its nest. A successful DC 14 Investigation of the journal and maps provides a clearer path to the keep (advantage on navigation checks). If players rest here, roll for random encounters with disadvantage due to the shelter's protection.",
@@ -313,22 +325,22 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R03",
+      "locationId": "B03",
       "name": "The Withered Shrine",
       "type": "shrine",
-      "description": "An eerie clearing encircled by ancient, moss-covered stone pillars inscribed with faded prayers. The air is thick with the scent of incense and ancient magic, while drifting witchlights cast an ethereal glow under a dense canopy. The ground is soft, marked with recent footprints and discarded items including a ration wrapper and a strip of blue cloth torn from Elen’s uniform. The cracked altar bears fresh bloodstains and a rough map etched into its base, pointing north toward the Spectral Clearing and the Lost Ward Circle.",
+      "description": "A bleak clearing dominated by toppled stone pillars and cracked altars adorned with faded runes and neglected offerings such as wilted flowers and tarnished trinkets. The atmosphere is thick with damp moss and residual incense scents, faintly illuminated by drifting blue witchlight. Fresh bootprints and a scrap of blue fabric belonging to Scout Elen are found near the largest altar, which bears half-obscured glyphs revealing faded prayers of protection and warnings about shadows contained only by the warded circle. A roughly carved map on the altar points north toward the Spectral Clearing and Lost Ward Circle--key ritual sites for restoring the forest's ancient protections.",
       "coordinates": "X1Y2",
       "connectivity": [
-        "R01",
-        "R05",
-        "R06"
+        "B01",
+        "B05",
+        "B06"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [
         {
           "name": "The Lingering Spirit",
-          "description": "A translucent, flickering spirit appearing as a hooded forest guardian. It reveals that the shrine’s protective binding is failing and warns that shadows are escaping their chains, threatening to engulf the area in darkness. It urges the party to restore the rites to prevent the curse from consuming the Hollow.",
+          "description": "A translucent, flickering spirit appearing as a hooded forest guardian. It conveys a grave warning about failing wards and escaping shadows, urging restoration of the rites to prevent darkness from overwhelming the forest. It gestures toward the altar, offerings, and a faint trail heading north, signaling the next direction of the party's quest.",
           "attitude": "Neutral, urgent and seeking aid to restore protections"
         }
       ],
@@ -347,15 +359,15 @@
         "Small pouch of fragrant dried herbs (can be used for healing poultice, equivalent to healing potion)",
         "Stone tablet fragment with partial ritual instructions",
         "Ration wrapper",
-        "Strip of blue cloth torn from Elen’s uniform"
+        "Strip of blue cloth torn from Elen's uniform"
       ],
       "plotHooks": [
-        "The Lingering Spirit warns that the shrine’s binding is failing and shadows are escaping their chains.",
-        "Fresh blood stains on the altar hint at recent dark rituals.",
+        "The Lingering Spirit warns that the shrine's binding is failing and shadows are escaping their chains.",
+        "Recent bootprints and a scrap of blue fabric belonging to Scout Elen indicate her recent passage and link the party's quest to her disappearance.",
         "Map etched into the altar points north to the Spectral Clearing and Lost Ward Circle, locations key to restoring the wards.",
         "Ritual carvings on the altar provide faded instructions for a binding ritual requiring offerings of earth, flame, and living memory."
       ],
-      "dmInstructions": "The Lingering Spirit appears after players investigate the altar and reveals the failing ward. It communicates through fragmented phrases, gestures, and emotional impressions. A DC 13 Religion check helps interpret the spirit's warnings about the failing ward ritual. Players who offer respect or perform minor restorative actions may receive a blessing granting advantage on saves against fear for 24 hours.",
+      "dmInstructions": "The Lingering Spirit appears after players investigate the altar and reveals the failing ward. It communicates through fragmented phrases, gestures, and emotional impressions. A DC 13 Religion check helps interpret the spirit's warnings about the failing ward ritual. Players who offer respect or perform minor restorative actions may receive a blessing granting advantage on saves against fear for 24 hours. Emphasize the urgency conveyed by the spirit and the importance of investigating the northern trail.",
       "doors": [],
       "traps": [],
       "dcChecks": [
@@ -377,32 +389,32 @@
         },
         {
           "name": "Offering Bowls",
-          "description": "Stone bowls at the altar’s base, some containing old offerings, others stagnant water."
+          "description": "Stone bowls at the altar's base, some containing old offerings, others stagnant water."
         },
         {
           "name": "Discarded Items",
-          "description": "Ration wrapper and a strip of blue cloth torn from Elen’s uniform found on the ground."
+          "description": "Ration wrapper and a strip of blue cloth torn from Elen's uniform found on the ground."
         }
       ],
       "encounters": [],
       "adventureSummary": ""
     },
     {
-      "locationId": "R04",
+      "locationId": "B04",
       "name": "Lost Ward Circle",
       "type": "ritual",
       "description": "An ancient ritual site consisting of seven stone monoliths arranged in a perfect circle. Each stone bears worn carvings of protective symbols and runes that once glowed with powerful magic. Now, several stones have toppled, and the remaining ones are cracked and covered in moss. The center of the circle contains a raised dais with a shallow bowl-like depression. Ghostly blue energy occasionally flickers between the stones like dying lightning, and the ground within the circle is barren of all plant life. The boundary between worlds feels thin here, with whispers and distant wails drifting on the wind. Recently, news from Scout Elen reveals the lingering presence of twisted shadowy figures and the encroaching darkness threatening the village, adding a palpable tension to the site.",
       "coordinates": "X3Y2",
       "connectivity": [
-        "R02",
-        "R07"
+        "B02",
+        "B07"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [
         {
           "name": "Scout Elen",
-          "description": "A wounded scout cloaked in blue-and-grey, recently escaped from the tunnels and bearing critical information about the ward circle’s dangers and encroaching darkness.",
+          "description": "A wounded scout cloaked in blue-and-grey, recently escaped from the tunnels and bearing critical information about the ward circle's dangers and encroaching darkness.",
           "attitude": "friendly"
         },
         {
@@ -439,7 +451,7 @@
         "The ritual book contains instructions for temporarily strengthening the wards, which could weaken the keep's influence.",
         "One of the fallen stones has a message etched on its inner face: 'The knight's heart remains, buried beneath his hatred.'",
         "Evidence suggests Scout Elen attempted a ritual here but fled when something went wrong.",
-        "Scout Elen's survival and knowledge open a new path to uncover the creeping darkness and the spirits haunting Harrow’s Hollow."
+        "Scout Elen's survival and knowledge open a new path to uncover the creeping darkness and the spirits haunting Harrow's Hollow."
       ],
       "dmInstructions": "This location offers a significant side quest opportunity. Players can attempt to restore the ward circle with a successful Arcana check (DC 15) and appropriate components (ward stone, runestones, and either blood or powerful magic). Success temporarily weakens undead in the forest (they have disadvantage on attacks for 24 hours) and reveals a clearer path to the keep. Failure attracts additional specters. The will-o'-wisp initially appears as a helpful spirit guide but turns hostile if followed away from the group. Scout Elen may provide critical information and aid but is fragile and needs tending.",
       "doors": [],
@@ -470,14 +482,14 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R05",
+      "locationId": "B05",
       "name": "Boggard Marsh",
       "type": "marsh",
-      "description": "A dismal expanse of stagnant water, twisted cypress trees, and floating patches of spongy moss. The air is thick with the smell of decay and strange gases that bubble up from the murky depths. Ghostly lights—part natural bioluminescence, part supernatural manifestation—hover above the water's surface, creating misleading paths through the treacherous terrain. Skeletal trees rise from the water, draped with gray moss that seems to shift and reach when not directly observed. The croaking of unseen creatures fills the air, occasionally punctuated by splashes too large to be natural amphibians.",
+      "description": "A dismal expanse of stagnant water, twisted cypress trees, and floating patches of spongy moss. The air is thick with the smell of decay and strange gases that bubble up from the murky depths. Ghostly lights--part natural bioluminescence, part supernatural manifestation--hover above the water's surface, creating misleading paths through the treacherous terrain. Skeletal trees rise from the water, draped with gray moss that seems to shift and reach when not directly observed. The croaking of unseen creatures fills the air, occasionally punctuated by splashes too large to be natural amphibians.",
       "coordinates": "X1Y3",
       "connectivity": [
-        "R03",
-        "R06"
+        "B03",
+        "B06"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -555,22 +567,22 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R06",
+      "locationId": "B06",
       "name": "Spectral Clearing",
       "type": "clearing",
-      "description": "An unnaturally perfect circular clearing where no trees grow and the sky above seems perpetually twilit regardless of the actual time of day. The ground is covered with pale, luminescent grass that sways even when no wind blows. At the clearing's center stands a ring of mushrooms—a faerie circle—within which the air shimmers like heat waves. Translucent figures occasionally manifest around the perimeter: lost travelers, forest guardians, and more sinister entities from the keep. Their whispers create a constant, unsettling background murmur that sometimes coalesces into recognizable warnings or pleas.",
+      "description": "An unnaturally perfect circular clearing where no trees grow and the sky above seems perpetually twilit regardless of the actual time of day. The ground is covered with pale, luminescent grass that sways even when no wind blows. At the clearing's center stands a ring of mushrooms--a faerie circle--within which the air shimmers like heat waves. Translucent figures occasionally manifest around the perimeter: lost travelers, forest guardians, and more sinister entities from the keep. Their whispers create a constant, unsettling background murmur that sometimes coalesces into recognizable warnings or pleas.",
       "coordinates": "X2Y3",
       "connectivity": [
-        "R03",
-        "R05",
-        "R07"
+        "B03",
+        "B05",
+        "B07"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [
         {
           "name": "Echo of Scout Elen",
-          "description": "A spectral reflection of Scout Elen—not her ghost, but an echo created by her passage through this supernaturally charged area. The echo repeats fragments of Elen's experiences and fears, providing clues to her fate.",
+          "description": "A spectral reflection of Scout Elen--not her ghost, but an echo created by her passage through this supernaturally charged area. The echo repeats fragments of Elen's experiences and fears, providing clues to her fate.",
           "attitude": "Neutral, not truly sentient but reactive to questions related to Elen's journey"
         }
       ],
@@ -591,7 +603,7 @@
       "plotHooks": [
         "The Echo of Scout Elen mentions seeking 'the knight's heart' to break his curse and free him from the relic's control.",
         "Spectral whispers reveal that entering the faerie circle during a full moon opens a direct path to the keep's innermost chamber.",
-        "The ghost guardian speaks of a betrayal within the keep—a scribe who summoned the shadow that corrupted Sir Garran Vael."
+        "The ghost guardian speaks of a betrayal within the keep--a scribe who summoned the shadow that corrupted Sir Garran Vael."
       ],
       "dmInstructions": "This clearing serves as an information hub where players can learn crucial details about the keep and Scout Elen's mission. The Echo appears when players mention Elen or the keep, repeating phrases she spoke when passing through. The ghost guardian appears when players attempt to leave toward the Keeper's Cottage, demanding they answer a riddle about light and shadow or prove their intentions are pure (any good-aligned action or DC 14 Persuasion check).",
       "doors": [],
@@ -632,22 +644,22 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R07",
+      "locationId": "B07",
       "name": "Keeper's Cottage",
       "type": "cottage",
-      "description": "A stone cottage nearly swallowed by the forest, its walls covered in thick ivy and moss that seem to pulse with slow vitality. Smoke drifts from a crooked chimney, and strange charms—bones, crystals, and dried herbs—hang from the eaves and windows. The cottage appears both welcoming and foreboding, with warm light spilling from the windows but shadows that move independently within. The garden surrounding the structure contains plants both medicinal and poisonous, some of which are unknown to conventional herbalism. A path of smooth stones leads to the wooden door, each stone etched with a different protective rune.",
+      "description": "A stone cottage nearly swallowed by the forest, its walls covered in thick ivy and moss that seem to pulse with slow vitality. Smoke drifts from a crooked chimney, and strange charms--bones, crystals, and dried herbs--hang from the eaves and windows. The cottage appears both welcoming and foreboding, with warm light spilling from the windows but shadows that move independently within. The garden surrounding the structure contains plants both medicinal and poisonous, some of which are unknown to conventional herbalism. A path of smooth stones leads to the wooden door, each stone etched with a different protective rune.",
       "coordinates": "X3Y3",
       "connectivity": [
-        "R04",
-        "R06"
+        "B04",
+        "B06"
       ],
       "areaConnectivity": [
         "Shadowfall Keep Outer Courtyard",
         "Sundered Causeway"
       ],
       "areaConnectivityId": [
-        "SK001-R01",
-        "TBM001-R01"
+        "SK001-C01",
+        "TBM001-D01"
       ],
       "npcs": [
         {

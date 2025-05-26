@@ -1,0 +1,46 @@
+{
+  "test_profile": "Main Quest Critical Path",
+  "player_name": "TestHero",
+  "start_time": "2025-05-25T12:56:48.492921",
+  "end_time": "2025-05-25T12:57:09.067283",
+  "total_actions": 2,
+  "objectives_attempted": 1,
+  "objectives_completed": 0,
+  "issues_found": 0,
+  "issues_detail": [],
+  "objectives_progress": [],
+  "sample_interactions": [
+    {
+      "timestamp": "2025-05-25T12:56:48.492921",
+      "game_output": "The familiar bell above the door jingles as you step into Harrow's Hollow General Store. It's early morning, but the place already hums with quiet activity; the shelves are stocked with all manner of goods, and the scent of wax and leather lingers in the still air. A shaft of gray light filters through the front windows, illuminating the notice board cluttered with handwritten postings and cryptic warnings.\n\nBehind the sturdy counter stands Elder Mirna Harrow, her posture straight despite the years etched in her features. She greets you with a nod, her sharp eyes flickering with recognition and a hint of relief. \"Norn,\" she says, her voice both warm and businesslike. \"I wasn't sure we'd see you return so soon. Word travels fast in a small town--folk are already whispering about what you did at the circle.\"\n\nShe gestures subtly to the counter, where a small, tarnished bronze key rests among her ledger books. Its head bears the faded outline of a raven, just barely visible. Mirna regards it for a moment, then looks up, her expression guarded. \"Some relics ought to be left to gather dust, but I suppose you have your reasons for asking about that old thing.\"\n\nAs you take in the room, you hear the muted sounds of the village waking up outside. Notices on the board mention missing livestock, odd lights at the ruined keep, and a reward for information about the disappearances. The storeroom door behind the counter is locked tight, and you notice the key on the counter seems to match its description.\n\nMirna's gaze lingers on you. Her tone is measured, but there's something in her posture--an uncertainty or perhaps a hidden weight. If you wish to press her for more information about the key or the history of Harrow's Hollow, you sense now might be the moment. Would you like to question Elder Mirna further, inspect the key, examine the notice board, or do something else?",
+      "ai_action": "I will start by inspecting the key on the counter to test the item examination functionality and see if detailed information or interaction options appear.\n\nExpected result: Detailed description of the key, possible interaction options (e.g., taking the key, using it on the storeroom door), or additional lore.\n\nAction: \"examine key\"",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "The familiar bell above the door jingles as you step into Harrow's Hollow General Store. It's early morning, but the place already hums with quiet activity; the shelves are stocked with all manner of ...",
+          "You step closer to the counter, your gaze settling on the small bronze key resting beside Elder Mirna's ledger. The metal is old but well-crafted, its once-bright surface dulled by time and handling. ..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T12:57:00.795718",
+      "game_output": "You step closer to the counter, your gaze settling on the small bronze key resting beside Elder Mirna's ledger. The metal is old but well-crafted, its once-bright surface dulled by time and handling. The head of the key bears the faint outline of a raven, wings spread in mid-flight--a detail just visible beneath the tarnish. Along the shaft, you notice a shallow groove and a faint, nearly worn-away crest that hints at noble origins.\n\nAs you study it, Mirna watches you carefully. \"That key's been in my family for generations,\" she offers, her tone cautious. \"It's said to open more than just doors, if the stories are to be believed. But stories grow wild with age, Norn.\" For a moment, you sense a flicker of something unspoken--a reluctance, or perhaps a warning.\n\nYou recall that the store's back storeroom door is locked, and the description matches the key on the counter. The key's unusual markings and association with the raven motif suggest it may have ties to the old keep and its long-buried secrets.\n\nIf you wish, you could:\n- Take the bronze key (if Mirna allows it)\n- Ask Mirna about the crest, the raven symbol, or any family stories\n- Attempt to use the key on the storeroom door\n- Examine the notice board or other features of the shop\n\nWhat would you like to do next?",
+      "ai_action": "Next, I will test NPC interaction by asking Elder Mirna specifically about the raven symbol and any family stories related to the key to see if additional lore or quest information is triggered.\n\nAction: \"Ask Mirna about the raven symbol and family stories related to the key.\"\n\nExpected result: Mirna provides more detailed background, possibly unlocking new dialogue options or quest clues.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "The familiar bell above the door jingles as you step into Harrow's Hollow General Store. It's early morning, but the place already hums with quiet activity; the shelves are stocked with all manner of ...",
+          "You step closer to the counter, your gaze settling on the small bronze key resting beside Elder Mirna's ledger. The metal is old but well-crafted, its once-bright surface dulled by time and handling. ..."
+        ]
+      }
+    }
+  ]
+}

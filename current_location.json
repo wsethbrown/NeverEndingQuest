@@ -1,79 +1,112 @@
 {
-  "locationId": "R05",
-  "name": "The Wyrd Lantern Inn",
-  "type": "tavern",
-  "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew and fresh bread fills the air. Laughter and song are frequent, but at night, whispers of fear and superstition drift between tables.",
-  "coordinates": "X1Y2",
+  "locationId": "A03",
+  "name": "East Gate and Guardhouse",
+  "type": "gate",
+  "description": "The East Gate stands open, flanked by a well-kept stone guardhouse with wooden roofing and ready lanterns. The towering palisade of Harrow's Hollow looms above, guarding the muddy road that leads eastward along the Witchlight Trail. The atmosphere is one of cautious optimism as villagers resume their daily routines and sentries maintain vigilant yet hopeful watch over the gate.",
+  "coordinates": "X2Y3",
   "connectivity": [
-    "R01"
+    "A01"
   ],
-  "areaConnectivity": [],
-  "areaConnectivityId": [],
+  "areaConnectivity": [
+    "Witchlight Trailhead"
+  ],
+  "areaConnectivityId": [
+    "G001"
+  ],
   "npcs": [
     {
-      "name": "Cira the Innkeeper",
-      "description": "A warm, quick-witted woman with a knack for remembering faces and secrets. She runs the Wyrd Lantern with a firm but friendly hand.",
-      "attitude": "Welcoming to all, but especially those with coin or gossip. Protective of her staff and regulars."
+      "name": "Joran",
+      "description": "A broad-shouldered militia watchman, armed with a spear, friendly and knowledgeable about local happenings. He conveys gratitude from Elder Mirna and offers assistance to travelers.",
+      "attitude": "Welcoming and cautiously hopeful after recent troubles."
+    },
+    {
+      "name": "Old Marna",
+      "description": "An elder villager who holds the key to the side door granting access to the palisade and East Gate. She is cooperative and supportive of the party's efforts.",
+      "attitude": "Helpful and approving."
     }
   ],
   "monsters": [],
   "lootTable": [
-    "Free meal and ale (at Cira's discretion)",
-    "Set of bone dice (left in a booth)",
-    "Silver earring (lost under a table)",
-    "Charm against the evil eye (hanging near the bar)"
+    "Town gate key (now held by Old Marna)",
+    "Guard's whistle",
+    "Small pouch with 12 cp",
+    "Town patrol schedule (handwritten, with notes about recent disturbances near the keep)"
   ],
   "plotHooks": [
-    "A fearful regular claims to have seen a ghostly figure on the east road.",
-    "Cira offers the party free rooms if they can calm frightened townsfolk.",
-    "A drunken patron insists the keep's curse is growing stronger and tries to start a brawl."
+    "Await the arrival of the merchant wagon mentioned by Joran.",
+    "Assist villagers in rebuilding security and prosperity after the curse lifts.",
+    "Venture beyond the gate to explore the Witchlight Trail and the wilderness beyond.",
+    "Seek out Elder Mirna in the town square for recognition and further quests."
   ],
-  "dmInstructions": "Cira is the party's best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
+  "dmInstructions": "Joran serves as a friendly militia watchman who can provide information on local events and the state of affairs. Old Marna holds the key to the palisade's side door and can grant access. There are no traps or threats in the immediate area. The atmosphere reflects the village's recovery, encouraging interactions that emphasize hope and cautious optimism.",
   "doors": [
     {
-      "name": "Inn Door",
-      "description": "A wide, inviting wooden door painted green, with a brass lantern hanging overhead.",
+      "name": "Main Gate",
+      "description": "Double heavy wooden gates, open now, iron-banded and weathered but sturdy.",
+      "type": "heavy",
+      "locked": false,
+      "lockDC": 15,
+      "breakDC": 18,
+      "keyname": "Town gate key",
+      "trapped": false,
+      "trap": ""
+    },
+    {
+      "name": "Guardhouse Door",
+      "description": "A narrow, iron-banded door set into the stone guardhouse, unlocked for party access.",
       "type": "regular",
       "locked": false,
       "lockDC": 0,
-      "breakDC": 12,
+      "breakDC": 13,
       "keyname": "",
       "trapped": false,
       "trap": ""
     },
     {
-      "name": "Cellar Hatch",
-      "description": "A sturdy hatch behind the bar, leading to the root cellar.",
-      "type": "regular",
-      "locked": true,
-      "lockDC": 10,
-      "breakDC": 14,
-      "keyname": "Cellar key (kept by Cira)",
+      "name": "Side Door to Palisade",
+      "description": "A wooden side door in the palisade, recently unlocked with Old Marna's key to grant party passage.",
+      "type": "wooden",
+      "locked": false,
+      "lockDC": 12,
+      "breakDC": 15,
+      "keyname": "Side door key",
       "trapped": false,
       "trap": ""
     }
   ],
   "traps": [],
   "dcChecks": [
-    "Persuasion DC 10: Convince Cira to share confidential rumors or grant a favor.",
-    "Insight DC 12: Detect if a patron is hiding something about recent ghost sightings."
+    "Investigation DC 14: Discover faint footprints and broken brush leading toward the haunted keep.",
+    "Persuasion DC 13: Convince militia to share information or allow after-hours travel."
   ],
-  "accessibility": "Easily reached from the square, step-free entrance, welcoming to all.",
+  "accessibility": "Accessible via a side lane and main road; guarded but welcoming during daylight hours.",
   "dangerLevel": "Low",
   "features": [
     {
-      "name": "The Bar",
-      "description": "A polished oak bar lined with lanterns and dangling good luck charms."
+      "name": "Watch Bell",
+      "description": "A large bronze bell used to sound alarms; can be heard across town."
     },
     {
-      "name": "Hearth and Common Room",
-      "description": "A crackling fire and mismatched armchairs make this a favorite gathering spot."
+      "name": "Patrol Roster",
+      "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen's name circled in chalk."
     },
     {
-      "name": "Guest Rooms",
-      "description": "Modest but clean rooms available for travelers."
+      "name": "Gate Mechanism",
+      "description": "A stout bar and iron lock securing the gates, currently disengaged as the gate stands open."
     }
   ],
-  "encounters": [],
-  "adventureSummary": ""
+  "encounters": [
+    {
+      "encounterId": "A03-E1",
+      "summary": "The party meets Joran and Old Marna at the East Gate and Guardhouse, gaining information about local conditions and receiving permission to pass through the side door.",
+      "impact": "The gate is open and accessible, the party has the key to the side door, and local militia shows cautious optimism reflecting the village's recovery.",
+      "worldConditions": {
+        "year": 1492,
+        "month": "Ches",
+        "day": 1,
+        "time": "12:29:00"
+      }
+    }
+  ],
+  "adventureSummary": "At the East Gate and Guardhouse on 1492 Ches 1, 12:29:00, the party encountered militia watchman Joran and elder Old Marna. They learned of the village's cautious recovery from recent troubles, received thanks from Elder Mirna, and were granted access through the side door with Old Marna's key. The gate stands open, with no traps or threats present. The party now contemplates their next steps, including awaiting a merchant wagon or venturing along the Witchlight Trail."
 }

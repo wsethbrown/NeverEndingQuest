@@ -4,90 +4,90 @@
   "totalRooms": 7,
   "rooms": [
     {
-      "id": "R01",
+      "id": "E01",
       "name": "Dungeon Entrance",
       "type": "entrance",
       "connections": [
-        "R02",
-        "R03"
+        "E02",
+        "E03"
       ],
       "coordinates": "X2Y1"
     },
     {
-      "id": "R02",
+      "id": "E02",
       "name": "The Gaol",
       "type": "prison",
       "connections": [
-        "R01",
-        "R04"
+        "E01",
+        "E04"
       ],
       "coordinates": "X1Y1"
     },
     {
-      "id": "R03",
+      "id": "E03",
       "name": "Torture Chamber",
       "type": "chamber",
       "connections": [
-        "R01",
-        "R05"
+        "E01",
+        "E05"
       ],
       "coordinates": "X3Y1"
     },
     {
-      "id": "R04",
+      "id": "E04",
       "name": "Guard Post",
       "type": "garrison",
       "connections": [
-        "R02",
-        "R06"
+        "E02",
+        "E06"
       ],
       "coordinates": "X1Y2"
     },
     {
-      "id": "R05",
+      "id": "E05",
       "name": "Storage Vaults",
       "type": "storage",
       "connections": [
-        "R03",
-        "R06"
+        "E03",
+        "E06"
       ],
       "coordinates": "X3Y2"
     },
     {
-      "id": "R06",
+      "id": "E06",
       "name": "Forgotten Ossuary",
       "type": "crypt",
       "connections": [
-        "R04",
-        "R05",
-        "R07"
+        "E04",
+        "E05",
+        "E07"
       ],
       "coordinates": "X2Y2"
     },
     {
-      "id": "R07",
+      "id": "E07",
       "name": "Relic Chamber",
       "type": "ritual",
       "connections": [
-        "R06"
+        "E06"
       ],
       "coordinates": "X2Y3"
     }
   ],
   "layout": [
     [
-      "R02",
-      "R01",
-      "R03"
+      "E02",
+      "E01",
+      "E03"
     ],
     [
-      "R04",
-      "R06",
-      "R05"
+      "E04",
+      "E06",
+      "E05"
     ],
     [
       "   ",
-      "R07",
+      "E07",
       "   "
     ]
   ]

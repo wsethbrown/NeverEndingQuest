@@ -13,90 +13,90 @@
     "totalRooms": 7,
     "rooms": [
       {
-        "id": "R01",
+        "id": "E01",
         "name": "Dungeon Entrance",
         "type": "entrance",
         "connections": [
-          "R02",
-          "R03"
+          "E02",
+          "E03"
         ],
         "coordinates": "X2Y1"
       },
       {
-        "id": "R02",
+        "id": "E02",
         "name": "The Gaol",
         "type": "prison",
         "connections": [
-          "R01",
-          "R04"
+          "E01",
+          "E04"
         ],
         "coordinates": "X1Y1"
       },
       {
-        "id": "R03",
+        "id": "E03",
         "name": "Torture Chamber",
         "type": "chamber",
         "connections": [
-          "R01",
-          "R05"
+          "E01",
+          "E05"
         ],
         "coordinates": "X3Y1"
       },
       {
-        "id": "R04",
+        "id": "E04",
         "name": "Guard Post",
         "type": "garrison",
         "connections": [
-          "R02",
-          "R06"
+          "E02",
+          "E06"
         ],
         "coordinates": "X1Y2"
       },
       {
-        "id": "R05",
+        "id": "E05",
         "name": "Storage Vaults",
         "type": "storage",
         "connections": [
-          "R03",
-          "R06"
+          "E03",
+          "E06"
         ],
         "coordinates": "X3Y2"
       },
       {
-        "id": "R06",
+        "id": "E06",
         "name": "Forgotten Ossuary",
         "type": "crypt",
         "connections": [
-          "R04",
-          "R05",
-          "R07"
+          "E04",
+          "E05",
+          "E07"
         ],
         "coordinates": "X2Y2"
       },
       {
-        "id": "R07",
+        "id": "E07",
         "name": "Relic Chamber",
         "type": "ritual",
         "connections": [
-          "R06"
+          "E06"
         ],
         "coordinates": "X2Y3"
       }
     ],
     "layout": [
       [
-        "R02",
-        "R01",
-        "R03"
+        "E02",
+        "E01",
+        "E03"
       ],
       [
-        "R04",
-        "R06",
-        "R05"
+        "E04",
+        "E06",
+        "E05"
       ],
       [
         "   ",
-        "R07",
+        "E07",
         "   "
       ]
     ]
@@ -148,20 +148,20 @@
   "notes": "The shadow relic's influence is strongest here, causing mental and physical strain on all who enter. Characters experience unsettling visions of their own fears and may have difficulty distinguishing reality from illusion in the deepest chambers.",
   "locations": [
     {
-      "locationId": "R01",
+      "locationId": "E01",
       "name": "Dungeon Entrance",
       "type": "entrance",
       "description": "A narrow, descending staircase emerging into a dank antechamber lit by sputtering magical sconces that shed minimal blue light. Rusted manacles hang from the walls, and deep gouges in the stone suggest desperate escape attempts. A central processing desk remains intact, its surface covered with moldering ledgers recording prisoner details. Two imposing iron doors lead deeper into the complex, each marked with symbols of doom and punishment. The air is noticeably colder here than in the keep above, with each breath visible as mist, and the steady sound of dripping water creates an unsettling rhythm from unseen sources.",
       "coordinates": "X2Y1",
       "connectivity": [
-        "R02",
-        "R03"
+        "E02",
+        "E03"
       ],
       "areaConnectivity": [
         "Lord's Study"
       ],
       "areaConnectivityId": [
-        "SK001-R07"
+        "SK001-C07"
       ],
       "npcs": [],
       "monsters": [
@@ -256,14 +256,14 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R02",
+      "locationId": "E02",
       "name": "The Gaol",
       "type": "prison",
       "description": "A long corridor flanked by small, barred cells extends into shadow-filled darkness. Most cell doors hang open, their locks long since rusted or broken, while others remain ominously shut. Within some cells, strange distortions warp reality—showing occupants that aren't physically present or replaying scenes of past suffering. The stone floor is worn smooth from countless shuffling steps, and faded bloodstains mark where prisoners or guards met violent ends. A guard station with a simple desk and weapons rack stands near the entrance, while at the far end, a heavy iron door leads deeper into the dungeon complex. The constant sounds of weeping, moaning, and occasionally screaming emanate from the cells, though investigation reveals them to be empty of living occupants.",
       "coordinates": "X1Y1",
       "connectivity": [
-        "R01",
-        "R04"
+        "E01",
+        "E04"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -362,14 +362,14 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R03",
+      "locationId": "E03",
       "name": "Torture Chamber",
       "type": "chamber",
       "description": "A nightmarish space dominated by instruments of suffering. Iron maidens, stretching racks, cages, and devices of more esoteric purpose line the walls and fill the central area. The stone floor slopes subtly toward central drainage channels still stained rust-brown. Chains hang from the ceiling, occasionally swaying without any breeze. Spectral screams periodically fill the air, and the temperature fluctuates wildly from freezing cold to uncomfortable heat. A large iron brazier stands in one corner, eternally burning with ghostly blue flames that provide minimal illumination but no warmth. The walls bear scratch marks from desperate victims and carefully etched tallies marking unknown counts. A heavy wooden table holds implements of precision cruelty—pliers, blades, and hooks arrayed with disturbing orderliness despite centuries of abandonment.",
       "coordinates": "X3Y1",
       "connectivity": [
-        "R01",
-        "R05"
+        "E01",
+        "E05"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -451,14 +451,14 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R04",
+      "locationId": "E04",
       "name": "Guard Post",
       "type": "garrison",
       "description": "A fortified chamber where dungeon guards once monitored prisoner movement and defended against escape attempts. Weapon racks line the walls, most empty but some still holding corroded halberds and crossbows. A heavy wooden table dominates the center, covered with faded duty rosters and stained playing cards. Arrow slits in one wall allowed guards to fire upon trouble in connecting corridors. Several cots remain in various states of decay along the back wall, and a small shrine to forgotten gods of order and justice stands desecrated in one corner. The ceiling is lower here than in other chambers, creating a sense of claustrophobia, and supporting pillars cast distinctive cross-shaped shadows regardless of light source position. A barred gate designed to control access stands partially open, its mechanism long since failed.",
       "coordinates": "X1Y2",
       "connectivity": [
-        "R02",
-        "R06"
+        "E02",
+        "E06"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -552,14 +552,14 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R05",
+      "locationId": "E05",
       "name": "Storage Vaults",
       "type": "storage",
       "description": "A series of interconnected chambers filled with shelves, crates, and barrels containing supplies for the dungeon's operation. Many containers have rotted or broken over time, spilling their contents across the stone floor. Preserved specimens float in cloudy jars—body parts and stranger things collected for unknown purposes. Alchemical equipment lines one wall, with dried residue suggesting the creation of toxins and truth serums. The air carries a chemical smell overlaid with decay, and bioluminescent fungi growing on the ceiling casts an eerie, pulsing green light throughout. Several wardrobes contain moldering guard uniforms and restraint devices, while locked cabinets hold more sinister implements. A partially collapsed passage in one corner suggests a cave-in from upper levels, with rubble partially blocking access to some storage areas.",
       "coordinates": "X3Y2",
       "connectivity": [
-        "R03",
-        "R06"
+        "E03",
+        "E06"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -641,15 +641,15 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R06",
+      "locationId": "E06",
       "name": "Forgotten Ossuary",
       "type": "crypt",
       "description": "A vast, cathedral-like chamber whose walls are lined floor to ceiling with the bones of the dead. Hundreds of skulls stare from niches, while thousands of femurs, ribs, and other bones are arranged in elaborate, almost artistic patterns. The center of the room contains several stone slabs where bodies were once prepared, and channels in the floor lead to a central drain. Spectral blue light emanates from within some of the skull eye sockets, creating an eerie, shifting illumination. The air is surprisingly dry and carries the scent of ancient dust and faint decay. Bone chimes hang from the ceiling, moving and clacking without wind, creating unsettling melodies that seem almost purposeful. At the chamber's far end stands a grand archway decorated with skeletal motifs, leading to a descending staircase. Near this archway, a circular platform raised slightly from the floor bears ritualistic markings suggesting it once served in ceremonies dedicated to death or transformation.",
       "coordinates": "X2Y2",
       "connectivity": [
-        "R04",
-        "R05",
-        "R07"
+        "E04",
+        "E05",
+        "E07"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -742,13 +742,13 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R07",
+      "locationId": "E07",
       "name": "Relic Chamber",
       "type": "ritual",
       "description": "The heart of darkness beneath the keep—a perfectly circular chamber with a domed ceiling covered in arcane symbols that seem to shift and change when not directly observed. The room's center holds a raised dais upon which floats a pulsating object of pure shadow, vaguely heart-shaped but constantly morphing—the shadow relic itself. Channels carved into the floor form concentric circles around the dais, once filled with blood but now dry and dark. Seven pillars arranged in a circle support the domed ceiling, each carved with scenes depicting the relic's history and power. The air here feels thick and resistant, as if reality itself struggles against dissolution, and shadows cast by any light source move independently and reach toward living creatures. Whispers constantly emanate from the relic, speaking in multiple overlapping voices promising power, revenge, or salvation depending on who listens. At the chamber's far side, a throne-like chair holds the fully manifested form of Sir Garran Vael, now more shadow than man, his armor fused with his corrupted flesh and his eyes burning with conflicted purpose.",
       "coordinates": "X2Y3",
       "connectivity": [
-        "R06"
+        "E06"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],

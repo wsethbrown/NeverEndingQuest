@@ -1,0 +1,185 @@
+{
+  "test_profile": "Thorough Explorer Test",
+  "player_name": "TestHero",
+  "start_time": "2025-05-25T04:32:02.826941",
+  "end_time": "2025-05-25T04:33:54.744904",
+  "total_actions": 9,
+  "objectives_attempted": 1,
+  "objectives_completed": 0,
+  "issues_found": 0,
+  "issues_detail": [],
+  "objectives_progress": [],
+  "sample_interactions": [
+    {
+      "timestamp": "2025-05-25T04:32:02.826941",
+      "game_output": "The bell above the door jingles softly as you step further into the heart of Harrow's Hollow General Store. Shelves groan beneath the weight of goods: lanterns, bundles of rope, jars of hard candy, and tools for every trade. The air carries the comforting scent of wax and leather, with a subtle undertone of something older--perhaps the history of the town itself.\n\nBehind the counter, Elder Mirna Harrow stands with her hands folded over a thick ledger. The lines on her face seem deeper this morning, her usually sharp eyes shadowed by worry. She straightens as you approach, her expression shifting into one of practiced warmth.\n\n\"Ah, Norn. Welcome,\" she says, her voice gentle but steady. \"It's good to see a friendly face so early. I trust you've rested well?\" Her gaze flickers briefly to a bronze key lying near the ledger, its surface worn and tarnished. Her hand hovers over it for a heartbeat before she slides it just out of view. \n\nAs you glance around, you notice a faded handwritten map pinned to the notice board, alongside a few new notes: one seeking help for a lost goat, another offering a reward for news of missing livestock, and, most prominent, a message in neat script: 'Any word of Elen, last seen near the old east trail? Please speak with Mirna.'\n\nThe back storeroom door stands closed and locked, the faint outline of an old crest barely visible in the dim morning light. The store is peaceful, but you sense currents of tension beneath the surface--especially when Mirna deftly changes the subject anytime the keep or the key is mentioned.\n\nMirna leans in, lowering her voice. \"You know, Norn, some things are best left alone. But... if you're set on helping, well, I trust your judgment.\"\n\nIf you wish to probe Mirna further about the bronze key or the village's secrets, you may try to read her intentions. Or, perhaps, you wish to examine the map or the notice board for clues, or simply purchase supplies for your journey. What will you do?",
+      "ai_action": "Intended action: Systematically test all interactions in the General Store.\n\nStep 1: Examine the bronze key near the ledger using different command variations:\n- \"examine bronze key\"\n- \"look at key\"\n- \"inspect the bronze key\"\nExpected: Detailed description of the key and possible clues about its use or importance.\nActual: [To be noted after response]\n\nStep 2: Attempt to ask Mirna about the bronze key with different dialogue approaches:\n- Polite: \"May I ask about the bronze key on your ledger? It seems important.\"\n- Confrontational: \"Why are you hiding that key? What are you afraid of?\"\n- Neutral: \"What is the significance of that bronze key?\"\nExpected: Varied responses revealing more or deflecting, testing dialogue options and NPC behavior.\n\nStep 3: Examine the faded handwritten map pinned to the notice board with command variations:\n- \"examine map\"\n- \"look at notice board\"\n- \"inspect map\"\nExpected: Description of the map, details on locations, trails, or key points.\n\nStep 4: Read each note on the notice board:\n- \"read note about lost goat\"\n- \"read reward notice\"\n- \"read message about Elen\"\nExpected: Clear text of each note, verifying content and any clues.\n\nStep 5: Attempt to open the back storeroom door:\n- \"open door\"\n- \"unlock door\"\n- \"examine door\"\n- \"try bronze key on door\"\nExpected: Either the door is locked and cannot be opened or opens with the key if allowed; test error handling if not.\n\nStep 6: Attempt invalid or incomplete commands to test error handling:\n- \"examin key\" (typo)\n- \"read\"\n- \"talk Mirna\"\nExpected: Appropriate error messages or prompts for clarification.\n\nStep 7: Attempt synonyms and case variations:\n- \"EXAMINE Key\"\n- \"Look AT the Map\"\nExpected: System handles case insensitivity and synonyms properly.\n\nProceeding with step 1: \"examine bronze key\"",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "At your gentle, respectful question, Elder Mirna's careful composure falters. For a long moment, she gazes at the bronze key, worry and resignation flickering in her eyes. She lowers her voice, the wa...",
+          "You reach out and take the bronze key from the counter, the cool metal heavier in your palm than you expected. Elder Mirna releases it with a lingering touch, her eyes shining with a mix of relief and...",
+          "You quickly check your pack and belt. Among your weapons and provisions, you find the old bronze key marked with a faded raven sigil resting securely in your possession. Its weight is a tangible remin...",
+          "You move to the back of the store, where the smaller, iron-banded storeroom door stands in quiet contrast to the bustling shelves. Up close, its wood bears the scars of age and countless deliveries, r...",
+          "You fit the old bronze key into the storeroom door's lock. It slides in with a satisfying click, as if the mechanism had been waiting for this very moment. With a gentle turn, you feel the long-unused..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T04:32:12.817776",
+      "game_output": "You approach the counter, your gaze settling on the old bronze key lying just within reach of Elder Mirna's ledger. The key is small but sturdy, its surface dulled by age and frequent handling. A faint engraving--almost lost to time--traces the bow's edge: the outline of a raven, wings unfurled, surrounded by a faded sigil. The stem is grooved and worn, suggesting use in a lock that has resisted many attempts.\n\nAs you study it, you notice a tiny crest at the base, nearly invisible without close scrutiny. Something about its design tugs at your memory--perhaps a family tied to the keep, or a symbol you've seen amidst the village's older architecture.\n\nMirna's posture stiffens slightly as she notices your interest, but she says nothing for now.\n\nIf you'd like to try to recall the significance of the crest or symbol, you could attempt an Investigation check. Alternatively, you may proceed with your next action.",
+      "ai_action": "Intended action: Attempt an Investigation check to recall the significance of the crest on the bronze key.\n\nRoll: Investigation +3\n\nReasoning: To test the system's handling of skill checks related to item examination and knowledge recall.\n\nExpected: A description or insight about the crest, possibly linking it to a family or location in the village, or a message indicating no clear recollection if the check fails.\n\nProceeding with the Investigation check. Please roll or provide the result.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "At your gentle, respectful question, Elder Mirna's careful composure falters. For a long moment, she gazes at the bronze key, worry and resignation flickering in her eyes. She lowers her voice, the wa...",
+          "You reach out and take the bronze key from the counter, the cool metal heavier in your palm than you expected. Elder Mirna releases it with a lingering touch, her eyes shining with a mix of relief and...",
+          "You quickly check your pack and belt. Among your weapons and provisions, you find the old bronze key marked with a faded raven sigil resting securely in your possession. Its weight is a tangible remin...",
+          "You move to the back of the store, where the smaller, iron-banded storeroom door stands in quiet contrast to the bustling shelves. Up close, its wood bears the scars of age and countless deliveries, r...",
+          "You fit the old bronze key into the storeroom door's lock. It slides in with a satisfying click, as if the mechanism had been waiting for this very moment. With a gentle turn, you feel the long-unused..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T04:32:18.064637",
+      "game_output": "Please roll an Investigation check. Roll 1d20 and add your Investigation modifier (+3). Let me know your result, and I'll tell you what, if anything, you recall about the crest on the bronze key.",
+      "ai_action": "Rolling 1d20 + 3 for Investigation check:\n\nRoll: 14 + 3 = 17\n\nInvestigation check result: 17\n\nPlease provide what I recall about the crest on the bronze key based on this result.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "At your gentle, respectful question, Elder Mirna's careful composure falters. For a long moment, she gazes at the bronze key, worry and resignation flickering in her eyes. She lowers her voice, the wa...",
+          "You reach out and take the bronze key from the counter, the cool metal heavier in your palm than you expected. Elder Mirna releases it with a lingering touch, her eyes shining with a mix of relief and...",
+          "You quickly check your pack and belt. Among your weapons and provisions, you find the old bronze key marked with a faded raven sigil resting securely in your possession. Its weight is a tangible remin...",
+          "You move to the back of the store, where the smaller, iron-banded storeroom door stands in quiet contrast to the bustling shelves. Up close, its wood bears the scars of age and countless deliveries, r...",
+          "You fit the old bronze key into the storeroom door's lock. It slides in with a satisfying click, as if the mechanism had been waiting for this very moment. With a gentle turn, you feel the long-unused..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T04:32:30.652981",
+      "game_output": "You study the faint crest etched at the base of the bronze key--a raven, wings unfurled, clutching what appears to be a broken chain. The details, though worn, spark a memory from old tales you've heard in Harrow's Hollow. This symbol matches the sigil of the Greymont family, long believed to be the original lords of the Keep of Doom.\n\nThe Greymonts were rumored to have forged special keys to their estate, each marked with the raven--a guardian and a harbinger in local legend. The broken chain, rare in the family's heraldry, is said to represent a failed pact or a curse upon the line, dating back to the fall of the keep generations ago.\n\nIt's likely this key opens a lock tied to the Greymonts--possibly a sealed chamber within the keep or an ancestral vault, perhaps even the storeroom door here if its origins are older than Mirna lets on.\n\nAs you recall this, Mirna's eyes meet yours, searching your face for signs of understanding. She hesitates before clearing her throat quietly, \"Not many remember the old stories, Norn. It's... not always wise to go poking at things best forgotten.\"\n\nWhat would you like to do next? Ask about the key, question Mirna directly, or continue your exploration of the store?",
+      "ai_action": "Intended action: Systematically test all dialogue options with Mirna about the bronze key and the Greymont family.\n\nStep 1: Polite inquiry:\n- \"Mirna, can you tell me more about the Greymont family and their connection to the keep? What do you know about the key?\"\n\nStep 2: Confrontational approach:\n- \"Why are you hiding the key, Mirna? What secrets are you afraid I'll uncover?\"\n\nStep 3: Neutral approach:\n- \"Is the storeroom door connected to the Greymont key? Why is it locked?\"\n\nStep 4: Attempt to persuade or intimidate if available:\n- \"I need that key, Mirna. Please, don't keep it from me.\"\n\nExpected: Varied NPC responses, testing dialogue branching, emotional tone changes, and possible unlocking of new information or content.\n\nProceeding with Step 1: Polite inquiry - \"Mirna, can you tell me more about the Greymont family and their connection to the keep? What do you know about the key?\"",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "At your gentle, respectful question, Elder Mirna's careful composure falters. For a long moment, she gazes at the bronze key, worry and resignation flickering in her eyes. She lowers her voice, the wa...",
+          "You reach out and take the bronze key from the counter, the cool metal heavier in your palm than you expected. Elder Mirna releases it with a lingering touch, her eyes shining with a mix of relief and...",
+          "You quickly check your pack and belt. Among your weapons and provisions, you find the old bronze key marked with a faded raven sigil resting securely in your possession. Its weight is a tangible remin...",
+          "You move to the back of the store, where the smaller, iron-banded storeroom door stands in quiet contrast to the bustling shelves. Up close, its wood bears the scars of age and countless deliveries, r...",
+          "You fit the old bronze key into the storeroom door's lock. It slides in with a satisfying click, as if the mechanism had been waiting for this very moment. With a gentle turn, you feel the long-unused..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T04:32:56.446900",
+      "game_output": "At your gentle, respectful question, Elder Mirna's careful composure falters. For a long moment, she gazes at the bronze key, worry and resignation flickering in her eyes. She lowers her voice, the warmth in it tinged with sorrow and a hard-earned wisdom.\n\n\"The Greymont family... their story is as much a part of Harrow's Hollow as the stone in our walls. They built the keep generations ago, brought prosperity, but also secrets best left buried. The keep fell the night the old pact was broken--a curse, some say, chained to their bloodline and all who dwell nearby. This key...\" Mirna slides it toward you with trembling fingers. \"It opens the oldest doors--places even I was warned to avoid. My grandmother kept it hidden, said it was for when all hope was lost.\"\n\nShe meets your gaze, her voice barely above a whisper. \"Norn, if you are meant to carry this burden, do so with care. The keep's shadows reach further than you know. But perhaps, by facing them, you can free us all.\"\n\nMirna's hands linger on the counter, as if she's unsure whether to let go of history or trust it to your keeping. The mood in the shop grows heavier, the past pressing in from every shelf.\n\nYou now have confirmation that the key is indeed tied to the Greymonts and the keep's most ancient mysteries. Mirna is willing to entrust it to you--should you accept.",
+      "ai_action": "Intended action: Test interaction options related to accepting or declining the bronze key.\n\nStep 1: Attempt to accept the key explicitly:\n- \"I accept this key and the responsibility it carries.\"\n\nStep 2: Attempt to decline the key:\n- \"I cannot take this burden now. Perhaps someone else should keep it.\"\n\nStep 3: Attempt to examine or inspect the key again after Mirna slides it toward me, to verify if the inventory or game state updates accordingly.\n\nStep 4: Attempt to take the key physically:\n- \"take key\"\n- \"pick up bronze key\"\n\nExpected: The system correctly registers acceptance or refusal of the key, updates inventory if accepted, and responds appropriately to declining. Verify that the key is now in possession if accepted.\n\nProceeding with Step 1: \"I accept this key and the responsibility it carries.\"",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "At your gentle, respectful question, Elder Mirna's careful composure falters. For a long moment, she gazes at the bronze key, worry and resignation flickering in her eyes. She lowers her voice, the wa...",
+          "You reach out and take the bronze key from the counter, the cool metal heavier in your palm than you expected. Elder Mirna releases it with a lingering touch, her eyes shining with a mix of relief and...",
+          "You quickly check your pack and belt. Among your weapons and provisions, you find the old bronze key marked with a faded raven sigil resting securely in your possession. Its weight is a tangible remin...",
+          "You move to the back of the store, where the smaller, iron-banded storeroom door stands in quiet contrast to the bustling shelves. Up close, its wood bears the scars of age and countless deliveries, r...",
+          "You fit the old bronze key into the storeroom door's lock. It slides in with a satisfying click, as if the mechanism had been waiting for this very moment. With a gentle turn, you feel the long-unused..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T04:33:06.916736",
+      "game_output": "You reach out and take the bronze key from the counter, the cool metal heavier in your palm than you expected. Elder Mirna releases it with a lingering touch, her eyes shining with a mix of relief and unspoken worry. \n\n\"Thank you, Norn,\" she says quietly. \"May the spirits of the Hollow watch over you--and may the Greymonts finally find peace. If you need anything before you set out, you know where to find me.\"\n\nAs the key settles into your possession, something in the air feels subtly different. The shop, for a moment, grows silent--a hush as if the past itself is watching to see what you will do next.\n\nYou now possess the bronze key, the symbol of the Greymonts, and a tangible link to the keep's most hidden secrets.",
+      "ai_action": "Intended action: Verify inventory update and test interaction with the storeroom door using the newly acquired bronze key.\n\nStep 1: Check inventory:\n- Command: \"inventory\"\nExpected: The bronze key is listed as an item in inventory.\n\nStep 2: Attempt to examine the storeroom door again:\n- Commands: \"examine door\", \"look at storeroom door\"\nExpected: Description of the door, possibly updated now that the key is in possession.\n\nStep 3: Attempt to unlock the storeroom door using the bronze key:\n- Commands: \"use bronze key on door\", \"unlock door with bronze key\", \"unlock storeroom door\"\nExpected: Door unlocks if the key fits; test system handling of item usage and door interaction.\n\nStep 4: Attempt to open the door after unlocking:\n- Command: \"open door\"\nExpected: Door opens, allowing access to the storeroom or revealing new content.\n\nProceeding with Step 1: \"inventory\" to verify possession of the bronze key.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "At your gentle, respectful question, Elder Mirna's careful composure falters. For a long moment, she gazes at the bronze key, worry and resignation flickering in her eyes. She lowers her voice, the wa...",
+          "You reach out and take the bronze key from the counter, the cool metal heavier in your palm than you expected. Elder Mirna releases it with a lingering touch, her eyes shining with a mix of relief and...",
+          "You quickly check your pack and belt. Among your weapons and provisions, you find the old bronze key marked with a faded raven sigil resting securely in your possession. Its weight is a tangible remin...",
+          "You move to the back of the store, where the smaller, iron-banded storeroom door stands in quiet contrast to the bustling shelves. Up close, its wood bears the scars of age and countless deliveries, r...",
+          "You fit the old bronze key into the storeroom door's lock. It slides in with a satisfying click, as if the mechanism had been waiting for this very moment. With a gentle turn, you feel the long-unused..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T04:33:20.108382",
+      "game_output": "You quickly check your pack and belt. Among your weapons and provisions, you find the old bronze key marked with a faded raven sigil resting securely in your possession. Its weight is a tangible reminder of the responsibility--and mystery--that now lies before you.",
+      "ai_action": "Intended action: Proceed with Step 2 and examine the storeroom door now that I have the bronze key.\n\nCommand: \"examine storeroom door\"\n\nExpected: A detailed description of the door, possibly including any changes now that I hold the key, or hints about the lock mechanism.\n\nProceeding with this command.",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "At your gentle, respectful question, Elder Mirna's careful composure falters. For a long moment, she gazes at the bronze key, worry and resignation flickering in her eyes. She lowers her voice, the wa...",
+          "You reach out and take the bronze key from the counter, the cool metal heavier in your palm than you expected. Elder Mirna releases it with a lingering touch, her eyes shining with a mix of relief and...",
+          "You quickly check your pack and belt. Among your weapons and provisions, you find the old bronze key marked with a faded raven sigil resting securely in your possession. Its weight is a tangible remin...",
+          "You move to the back of the store, where the smaller, iron-banded storeroom door stands in quiet contrast to the bustling shelves. Up close, its wood bears the scars of age and countless deliveries, r...",
+          "You fit the old bronze key into the storeroom door's lock. It slides in with a satisfying click, as if the mechanism had been waiting for this very moment. With a gentle turn, you feel the long-unused..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T04:33:28.595119",
+      "game_output": "You move to the back of the store, where the smaller, iron-banded storeroom door stands in quiet contrast to the bustling shelves. Up close, its wood bears the scars of age and countless deliveries, reinforced with weathered iron bands and a heavy lock. The faint outline of the same raven sigil etched on your bronze key is visible above the keyhole--worn, but unmistakable now that you know what to look for.\n\nThe lock itself is old, fashioned in a style you recognize from older village buildings, and its mechanism seems almost ceremonial in its complexity. It looks as though it hasn't been opened in many years, but the bronze key in your hand feels like it would fit perfectly. The air near the door carries a hint of dust and secrets long undisturbed.\n\nIf you wish, you may try to unlock the door with the bronze key.",
+      "ai_action": "Intended action: Attempt to unlock the storeroom door using the bronze key.\n\nCommands to test different phrasing and system handling:\n- \"unlock door with bronze key\"\n- \"use bronze key on door\"\n- \"unlock storeroom door\"\n\nExpected: The door unlocks successfully, possibly with descriptive feedback about the mechanism turning and the door becoming accessible. If unsuccessful, an appropriate error message should appear.\n\nProceeding first with: \"unlock door with bronze key\"",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "At your gentle, respectful question, Elder Mirna's careful composure falters. For a long moment, she gazes at the bronze key, worry and resignation flickering in her eyes. She lowers her voice, the wa...",
+          "You reach out and take the bronze key from the counter, the cool metal heavier in your palm than you expected. Elder Mirna releases it with a lingering touch, her eyes shining with a mix of relief and...",
+          "You quickly check your pack and belt. Among your weapons and provisions, you find the old bronze key marked with a faded raven sigil resting securely in your possession. Its weight is a tangible remin...",
+          "You move to the back of the store, where the smaller, iron-banded storeroom door stands in quiet contrast to the bustling shelves. Up close, its wood bears the scars of age and countless deliveries, r...",
+          "You fit the old bronze key into the storeroom door's lock. It slides in with a satisfying click, as if the mechanism had been waiting for this very moment. With a gentle turn, you feel the long-unused..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T04:33:43.597537",
+      "game_output": "You fit the old bronze key into the storeroom door's lock. It slides in with a satisfying click, as if the mechanism had been waiting for this very moment. With a gentle turn, you feel the long-unused tumblers shift and a faint, echoing thunk signals the door is now unlocked.\n\nElder Mirna, watching from behind the counter, lets out a quiet gasp--surprise and a hint of trepidation in her eyes. \"I never thought I'd see that door open again,\" she murmurs.\n\nThe air seems to grow heavier, dust motes swirling in a shaft of morning light by the doorway. Whatever lies within has been sealed away for years, perhaps decades. The door stands slightly ajar now, inviting you to peer into secrets long kept from prying eyes.",
+      "ai_action": "Intended action: Test door opening and entering the storeroom.\n\nCommands:\n- \"open door\"\n- \"enter storeroom\"\n\nExpected: The door opens fully, allowing access to the storeroom; the environment description updates to show the contents of the storeroom and any objects or NPCs present. Verify transition mechanics and content loading.\n\nProceeding with \"open door,\" then \"enter storeroom.\"",
+      "current_objective": "Visit all 5 locations in Harrow's Hollow",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "At your gentle, respectful question, Elder Mirna's careful composure falters. For a long moment, she gazes at the bronze key, worry and resignation flickering in her eyes. She lowers her voice, the wa...",
+          "You reach out and take the bronze key from the counter, the cool metal heavier in your palm than you expected. Elder Mirna releases it with a lingering touch, her eyes shining with a mix of relief and...",
+          "You quickly check your pack and belt. Among your weapons and provisions, you find the old bronze key marked with a faded raven sigil resting securely in your possession. Its weight is a tangible remin...",
+          "You move to the back of the store, where the smaller, iron-banded storeroom door stands in quiet contrast to the bustling shelves. Up close, its wood bears the scars of age and countless deliveries, r...",
+          "You fit the old bronze key into the storeroom door's lock. It slides in with a satisfying click, as if the mechanism had been waiting for this very moment. With a gentle turn, you feel the long-unused..."
+        ]
+      }
+    }
+  ]
+}

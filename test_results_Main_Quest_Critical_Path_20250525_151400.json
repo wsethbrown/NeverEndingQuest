@@ -1,0 +1,136 @@
+{
+  "test_profile": "Main Quest Critical Path",
+  "player_name": "TestHero",
+  "start_time": "2025-05-25T15:11:51.718025",
+  "end_time": "2025-05-25T15:14:00.738422",
+  "total_actions": 6,
+  "objectives_attempted": 1,
+  "objectives_completed": 0,
+  "issues_found": 1,
+  "issues_detail": [
+    {
+      "type": "Error message detected",
+      "timestamp": "2025-05-25T15:12:21.341556",
+      "objective": "Get quest from Elder Mirna",
+      "location": "Unknown",
+      "context": "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-zero exit status 1."
+    }
+  ],
+  "objectives_progress": [],
+  "sample_interactions": [
+    {
+      "timestamp": "2025-05-25T15:11:51.718025",
+      "game_output": "You stand in the Harrow's Hollow General Store, the familiar aroma of dried herbs and leather mingling in the cool morning air. The overcast sky beyond the window casts a grey pall over the shelves of goods. The store is quiet, with only the faint creak of floorboards as you shift your weight--a rare moment of calm after your harrowing journey through the Gloamwood.\n\nAs you take stock of your gear and catch your breath, memories of the night's supernatural trials flicker at the edge of your thoughts: the damp forest gloom, the renewed protective ward, and the promise of answers at the Keeper's Cottage. Though the village remains tense, the knowledge that you have temporarily weakened the keep's curse brings a measure of relief.\n\nOutside, the square stirs softly as villagers begin their day, wary but hopeful in the wake of your deeds. The path ahead is uncertain, but you have gained the trust of Elder Mirna and the thanks of those you've saved--at least for now.\n\nWhat will you do, Norn? Will you check your supplies, visit another part of the village, or seek out news about Scout Elen and the Keeper? The morning is yours, and the investigation into the fate of Harrow's Hollow stands at a crossroads.",
+      "ai_action": "I will immediately seek out Elder Mirna to get the main quest, as per my testing profile's highest priority to discover the quest from the quest-giving NPC. I will leave the general store and head directly to Elder Mirna's location in the village square or nearby, asking any NPCs on the way for directions if needed, using keywords like \"quest,\" \"task,\" or \"problem.\" I will avoid checking supplies or side content for now to focus on main quest discovery.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "You step briskly out of the General Store, your boots striking the weathered planks as the bell above the door jingles softly. The morning air in Harrow's Hollow is brisk and tinged with nervous energ...",
+          "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-...",
+          "Elder Mirna's eyes linger on you with gratitude and the weight of responsibility. She gestures for you to walk with her to the old stone bench beneath the village elm. As you sit, the villagers at the...",
+          "Elder Mirna remains at your side as the applause fades, her gentle eyes searching your face for resolve. She speaks quietly, so only you and your closest companions can hear. \n\n\"The keep has stood sin...",
+          "Elder Mirna gives you a wan but hopeful smile, folding her hands as she answers your questions in full.\n\n\"The most direct route is to follow the old north trail beyond Gloamwood's edge. The path split..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T15:12:03.507342",
+      "game_output": "You step briskly out of the General Store, your boots striking the weathered planks as the bell above the door jingles softly. The morning air in Harrow's Hollow is brisk and tinged with nervous energy, but you sense the villagers' mood has shifted--your deeds in the wilds have not gone unnoticed.\n\nCrossing the narrow lane, you stride purposefully toward the Town Square, the heart of the village. A few early risers tend to chores or cluster in quiet conversation, glancing your way with growing hope. Near the center, beneath the branches of the old hanging elm, you spot Elder Mirna Harrow--her silver hair gathered neatly, her cloak drawn close against the morning chill. She speaks in low tones with a pair of townsfolk, their anxious faces softening at your approach.\n\nAs you near, Mirna turns and offers you a warm, grateful smile. \"Ah, Norn,\" she says, her voice steady but laced with exhaustion. \"Word of your actions has already begun to ease troubled hearts. Please, join me. There are matters we must discuss--about the curse, the missing, and the future of this village.\"\n\nShe gestures for you to walk alongside her as the villagers respectfully step back. \"You have questions, I am sure. And I have answers--though some come with new burdens. Tell me, Norn, are you ready to hear what task awaits, now that the shadows have lifted--if only for a time?\"\n\nThe square is yours. Will you press Elder Mirna for details about your next quest, ask after the missing, or inquire about your hard-won rewards? Others in the square cast hopeful glances, eager to see what the hero of Harrow's Hollow will do.",
+      "ai_action": "I will press Elder Mirna directly for details about the next quest. Using clear keywords to ensure quest discovery, I say:\n\n\"Elder Mirna, I am ready to hear the task that awaits. Please tell me what must be done next to lift the curse and find the missing.\"\n\nI will document all quest information she provides, focusing on clear quest objectives and any critical details. If any objectives are unclear or missing, I will note that as an issue.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "You step briskly out of the General Store, your boots striking the weathered planks as the bell above the door jingles softly. The morning air in Harrow's Hollow is brisk and tinged with nervous energ...",
+          "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-...",
+          "Elder Mirna's eyes linger on you with gratitude and the weight of responsibility. She gestures for you to walk with her to the old stone bench beneath the village elm. As you sit, the villagers at the...",
+          "Elder Mirna remains at your side as the applause fades, her gentle eyes searching your face for resolve. She speaks quietly, so only you and your closest companions can hear. \n\n\"The keep has stood sin...",
+          "Elder Mirna gives you a wan but hopeful smile, folding her hands as she answers your questions in full.\n\n\"The most direct route is to follow the old north trail beyond Gloamwood's edge. The path split..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T15:12:23.118780",
+      "game_output": "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-zero exit status 1.",
+      "ai_action": "Noted: The system encountered an error running adv_summary.py with a non-zero exit status 1 while processing the conversation history and current location data.\n\nAction:\n- I will continue testing manually and proceed with the current quest discovery steps.\n- I will report this error as a bug related to quest summary or data processing.\n\nNext, I will wait for Elder Mirna's quest details to continue validating quest discovery and tracking. Please provide her response or further NPC dialogue.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "You step briskly out of the General Store, your boots striking the weathered planks as the bell above the door jingles softly. The morning air in Harrow's Hollow is brisk and tinged with nervous energ...",
+          "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-...",
+          "Elder Mirna's eyes linger on you with gratitude and the weight of responsibility. She gestures for you to walk with her to the old stone bench beneath the village elm. As you sit, the villagers at the...",
+          "Elder Mirna remains at your side as the applause fades, her gentle eyes searching your face for resolve. She speaks quietly, so only you and your closest companions can hear. \n\n\"The keep has stood sin...",
+          "Elder Mirna gives you a wan but hopeful smile, folding her hands as she answers your questions in full.\n\n\"The most direct route is to follow the old north trail beyond Gloamwood's edge. The path split..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T15:12:45.188433",
+      "game_output": "Elder Mirna's eyes linger on you with gratitude and the weight of responsibility. She gestures for you to walk with her to the old stone bench beneath the village elm. As you sit, the villagers at the edge of the square watch in respectful silence, eager for what comes next.\n\n\"Your bravery has brought us hope, Norn,\" she begins, her voice carrying to those gathered. \"The ritual you performed at the Lost Ward Circle has weakened the keep's grip. Still, the darkness at the heart of the Keep of Doom remains unbroken. The curse is not yet fully lifted. And as for the missing--Scout Elen among them--their fates are entwined with the secrets sealed within those walls.\"\n\nShe produces a battered bronze key from her cloak, pressing it into your palm with solemn care. \"This belonged to our last guardian. It may open the way into the keep or unlock a chamber within. Your next task is clear: travel to the Keep of Doom. Find the source of the corruption--the vengeful spirit of Lord Thaddeus Greymont. Whether by blade, ritual, or compassion, end his torment and break the curse upon these lands.\"\n\nMirna leans closer, her tone hushed. \"Scout Elen may yet live, held captive by the keep's restless spirits. Free any you find. Beware the wards and traps--the keep twists the minds of intruders. If you can, return alive, and our gratitude will be boundless. The villagers will rally behind you, and I will see to it you are rewarded both in gold and in kinship.\"\n\nShe stands, addressing the square, \"Let it be known: Norn has accepted the hero's charge. The future of Harrow's Hollow rests upon your shoulders.\"\n\nThe villagers break into relieved applause. A few step forward to offer small tokens--fresh bread, a lucky coin, a simple blessing. Mirna's expression softens. \"Go when you are ready, champion. May the wards you renewed protect you on the road to Doom.\"\n\nYou now possess the bronze key and clear quest instructions. If you have any questions about the keep, Lord Greymont, or the missing, Mirna remains at your side, ready to answer.",
+      "ai_action": "Quest Information Documented:\n\n- Quest Name: Break the Curse of the Keep of Doom\n- Quest Giver: Elder Mirna Harrow\n- Objectives:\n  1. Travel to the Keep of Doom.\n  2. Find the source of corruption: the vengeful spirit of Lord Thaddeus Greymont.\n  3. End his torment by any means (blade, ritual, or compassion) to break the curse.\n  4. Rescue any captives, including Scout Elen, if found.\n  5. Beware wards and traps; the keep affects intruders' minds.\n  6. Return alive to receive rewards and village support.\n\n- Quest Item Received: Battered bronze key (may open the keep or a chamber inside).\n\nQUEST DISCOVERY STATUS: SUCCESS\n- Objectives are clearly communicated.\n- Key quest item received.\n- NPC provides opportunity for questions.\n\nNext Steps:\n- Verify quest appears in objectives.\n- Check for quest markers or hints guiding to Keep of Doom.\n- Seek confirmation about Scout Elen and any other details.\n\nI will now ask Elder Mirna:\n\n\"Elder Mirna, thank you for the guidance. Can you tell me the most direct route to the Keep of Doom? Also, are there known wards or traps I should prepare for? And any advice on Lord Greymont's spirit--what weaknesses or strengths should I know?\"",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "You step briskly out of the General Store, your boots striking the weathered planks as the bell above the door jingles softly. The morning air in Harrow's Hollow is brisk and tinged with nervous energ...",
+          "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-...",
+          "Elder Mirna's eyes linger on you with gratitude and the weight of responsibility. She gestures for you to walk with her to the old stone bench beneath the village elm. As you sit, the villagers at the...",
+          "Elder Mirna remains at your side as the applause fades, her gentle eyes searching your face for resolve. She speaks quietly, so only you and your closest companions can hear. \n\n\"The keep has stood sin...",
+          "Elder Mirna gives you a wan but hopeful smile, folding her hands as she answers your questions in full.\n\n\"The most direct route is to follow the old north trail beyond Gloamwood's edge. The path split..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T15:13:24.813940",
+      "game_output": "Elder Mirna remains at your side as the applause fades, her gentle eyes searching your face for resolve. She speaks quietly, so only you and your closest companions can hear. \n\n\"The keep has stood since before my grandmother's time, its misery festering--never truly empty. Lord Greymont's spirit is bound there by regret and rage. To break the curse, you must either grant him the peace he was denied in life, or drive him from this world with steel and will.\"\n\nShe presses a weathered parchment into your hands--a hastily sketched map of the keep's outer grounds. \"This may help you find a safer path in. Beware: the wards are weakest on the east side, near the old chapel. If you seek the missing, start there. Listen for the voices of the dead; sometimes, they wish to be heard.\"\n\nA young villager, eyes wide and hands trembling, approaches. \"Sir Norn, my brother disappeared near the crypts beneath the keep. If you find him--please, bring him home.\"\n\nMirna lays a comforting hand on your arm. \"You have our trust, and all that we can offer. Return with news, or with the lost. The Hollow will never forget.\"\n\nThe villagers seem to draw strength from your presence, and a sense of determination settles over the square. Your quest is clear, but Mirna lingers, ready to answer any final questions or share local lore that might guide your way.\n\nIs there anything else you wish to ask before departing for the haunted keep?",
+      "ai_action": "I will confirm quest tracking and details before departure:\n\n\"Elder Mirna, thank you for the map and guidance. Before I leave, can you confirm if my current objectives appear in the quest log or journal for tracking? Also, does the game provide any markers or hints to guide me to the Keep of Doom or specifically to the east side chapel entrance? Finally, are there any known traps or ward effects I should look out for once inside?\"\n\nI want to verify quest tracking functionality, markers, and clarity of objectives as part of the critical testing focus.\n\nIf no further questions, I will proceed directly to the Keep of Doom's east side chapel entrance using the map.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "You step briskly out of the General Store, your boots striking the weathered planks as the bell above the door jingles softly. The morning air in Harrow's Hollow is brisk and tinged with nervous energ...",
+          "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-...",
+          "Elder Mirna's eyes linger on you with gratitude and the weight of responsibility. She gestures for you to walk with her to the old stone bench beneath the village elm. As you sit, the villagers at the...",
+          "Elder Mirna remains at your side as the applause fades, her gentle eyes searching your face for resolve. She speaks quietly, so only you and your closest companions can hear. \n\n\"The keep has stood sin...",
+          "Elder Mirna gives you a wan but hopeful smile, folding her hands as she answers your questions in full.\n\n\"The most direct route is to follow the old north trail beyond Gloamwood's edge. The path split..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T15:13:57.234819",
+      "game_output": "Elder Mirna gives you a wan but hopeful smile, folding her hands as she answers your questions in full.\n\n\"The most direct route is to follow the old north trail beyond Gloamwood's edge. The path splits at an ancient willow--take the left fork, past the standing stones marked with warding runes. That will bring you to the east side of the keep, near the ruined chapel. The wards there are weakest, but caution is warranted--the land itself feels twisted, and even the trees lean away.\"\n\nShe lowers her voice, her gaze flickering with unease. \"As for traps: the keep's outer doors are often warded with glyphs that trigger ghostly alarms or bursts of cold. Some villagers say the stones themselves can sap your strength if you linger in shadow too long. If you are able, bring a lantern or some blessed token--light and faith have power against the curse.\"\n\nAt the mention of Lord Greymont, Mirna's expression turns grave. \"He was once a just man, but grief--then dark magic--twisted him. They say his spirit cannot bear to see tokens of his lost love, Lady Isolde. If you come across something belonging to her--a locket, a ribbon--it may weaken his anger. He is proud, vulnerable to reminders of the hope he lost. And steel may not finish him unless his heart is eased first.\"\n\nShe pauses to let her words sink in. \"Prepare yourself, Norn. If you need supplies or prayers, the folk here will help how they can. When you're ready, the way lies before you.\"\n\nYou now have directions, warnings, and a clue to Greymont's unique weakness. The villagers look to you with mingled fear and trust, and Elder Mirna is ready to answer any final questions or help prepare your departure.",
+      "ai_action": "Summary of Quest Tracking and Guidance Validation:\n\n- Directions to quest location (Keep of Doom, east side chapel) clearly given.\n- Quest objectives remain clear and detailed.\n- Warnings about wards, traps, and environmental effects specified.\n- Unique weakness of Lord Greymont's spirit communicated.\n- Potential quest aids (lantern, blessed tokens) recommended.\n- Opportunity to prepare supplies or prayers offered.\n\nQUEST TRACKING VERIFICATION:\n- I will check if the quest \"Break the Curse of the Keep of Doom\" now appears in my quest log/objectives.\n- Verify if the map or quest markers highlight the old north trail, ancient willow fork, and east chapel entrance.\n- Confirm if warnings about wards and traps are noted in quest details.\n- Test if progress updates when I reach key waypoints.\n\nNext Action:\n- Request to see quest log or objectives display.\n- Ask if map or compass shows quest markers.\n- When confirmed, prepare and depart immediately via the old north trail to the keep's east side chapel.\n\nI say to Elder Mirna:\n\n\"Thank you, Elder Mirna. Before I go, may I see my quest log or objectives to confirm the information is properly recorded? Also, does my map or compass mark the path and key points of interest for this quest?\"",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "You step briskly out of the General Store, your boots striking the weathered planks as the bell above the door jingles softly. The morning air in Harrow's Hollow is brisk and tinged with nervous energ...",
+          "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-...",
+          "Elder Mirna's eyes linger on you with gratitude and the weight of responsibility. She gestures for you to walk with her to the old stone bench beneath the village elm. As you sit, the villagers at the...",
+          "Elder Mirna remains at your side as the applause fades, her gentle eyes searching your face for resolve. She speaks quietly, so only you and your closest companions can hear. \n\n\"The keep has stood sin...",
+          "Elder Mirna gives you a wan but hopeful smile, folding her hands as she answers your questions in full.\n\n\"The most direct route is to follow the old north trail beyond Gloamwood's edge. The path split..."
+        ]
+      }
+    }
+  ]
+}

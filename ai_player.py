@@ -101,6 +101,14 @@ class AIPlayer:
         """Create the system prompt for the AI player"""
         current_objective = self.get_current_objective()
         char = self.character_data
+        # Check if we have a speedrun profile by looking at constraints
+        constraints = self.test_profile.get('constraints', {})
+        profile_name = self.test_profile.get('name', '')
+        
+        # Determine profile type based on constraints and name
+        is_speedrun = (constraints.get('focus_main_quest', False) and 
+                      constraints.get('minimize_side_content', False))
+        is_combat_test = 'combat' in profile_name.lower()
         
         # Extract key skills with modifiers
         skills = char.get('skills', {})
@@ -108,7 +116,8 @@ class AIPlayer:
         for skill, bonus in skills.items():
             skill_text.append(f"  - {skill}: +{bonus}")
         
-        prompt = f"""You are an AI tester validating a D&D 5e game system while playing as {char['name']}, a level {char['level']} {char['race']} {char['class']}.
+        # Create base character info
+        base_info = f"""You are an AI tester validating a D&D 5e game system while playing as {char['name']}, a level {char['level']} {char['race']} {char['class']}.
 
 PRIMARY ROLE: Game System Tester
 Your main purpose is to systematically test game functionality, find issues, and validate that all systems work correctly.
@@ -120,7 +129,94 @@ CURRENT OBJECTIVE: {current_objective}
 
 CHARACTER ABILITIES (for testing purposes):
 {chr(10).join(skill_text)}
-HP: {char.get('hitPoints', 0)}/{char.get('maxHitPoints', 0)}, AC: {char.get('armorClass', 10)}
+HP: {char.get('hitPoints', 0)}/{char.get('maxHitPoints', 0)}, AC: {char.get('armorClass', 10)}"""
+
+        # Profile-specific prompts
+        if is_speedrun:
+            prompt = f"""{base_info}
+
+CRITICAL TESTING FOCUS: QUEST DISCOVERY & TRACKING
+
+SPEEDRUN TESTING METHODOLOGY:
+1. QUEST DISCOVERY (HIGHEST PRIORITY)
+   - Immediately seek out quest-giving NPCs
+   - Ask every NPC about quests, missions, or tasks
+   - Use keywords: "quest", "help", "task", "mission", "problem"
+   - Document ALL quest information received
+   - Report if quest objectives are unclear or missing
+
+2. QUEST TRACKING
+   - After receiving a quest, verify it appears in your objectives
+   - Check if quest markers or hints are provided
+   - Test if the game tracks quest progress
+   - Verify quest completion conditions
+   - Document any quest-breaking bugs
+
+3. EFFICIENT PROGRESSION
+   - Move directly between quest objectives
+   - Skip optional content (note it exists but don't explore)
+   - Focus on main storyline NPCs
+   - Test fast travel if available
+   - Minimize combat unless required for quest
+
+4. SPEEDRUN BEHAVIORS
+   - Take the most direct path to objectives
+   - Skip flavor text and lore unless quest-critical
+   - Avoid side quests unless they block main progression
+   - Test if you can sequence-break quests
+   - Try to complete objectives out of order
+
+5. CRITICAL VALIDATION POINTS
+   - Can you find the main quest?
+   - Are quest objectives clearly communicated?
+   - Does the game guide you to the next objective?
+   - Can you complete the quest as intended?
+   - Are there any softlocks or progression blockers?
+
+ISSUE REPORTING FOCUS:
+- QUEST_NOT_FOUND: Cannot discover main quest
+- OBJECTIVE_UNCLEAR: Quest objectives are vague or missing
+- PROGRESSION_BLOCKED: Cannot advance main quest
+- SEQUENCE_BREAK: Able to skip required steps
+- QUEST_TRACKING_FAIL: Game doesn't track quest progress
+
+CONSTRAINTS:
+- Minimize side content: {constraints.get('minimize_side_content', False)}
+- Focus main quest: {constraints.get('focus_main_quest', False)}
+- Combat required: {constraints.get('require_combat', False)}
+- Complete speedrun: {constraints.get('complete_speedrun', False)}
+
+Remember: Your goal is to speedrun the main quest while documenting any issues that would prevent a player from finding or completing it quickly."""
+
+        elif is_combat_test:
+            prompt = f"""{base_info}
+
+COMBAT STRESS TESTING METHODOLOGY:
+1. SEEK COMBAT ENCOUNTERS
+   - Actively look for enemies
+   - Engage every hostile creature
+   - Test group combat scenarios
+   - Try to trigger multiple enemies at once
+
+2. COMBAT MECHANICS TESTING
+   - Test all available attacks and abilities
+   - Verify damage calculations
+   - Check status effects
+   - Test healing and recovery
+   - Validate death and respawn mechanics
+
+3. EDGE CASES
+   - Fight with low HP
+   - Test combat with no equipment
+   - Try to flee from combat
+   - Test environmental damage
+   - Verify turn order and initiative
+
+Remember: Focus on breaking combat mechanics and finding edge cases."""
+
+        else:
+            # Default thorough testing prompt
+            prompt = f"""{base_info}
 
 TESTING METHODOLOGY:
 1. SYSTEMATIC EXPLORATION

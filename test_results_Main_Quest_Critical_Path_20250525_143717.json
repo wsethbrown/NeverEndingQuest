@@ -1,0 +1,136 @@
+{
+  "test_profile": "Main Quest Critical Path",
+  "player_name": "TestHero",
+  "start_time": "2025-05-25T14:35:40.923740",
+  "end_time": "2025-05-25T14:37:17.789969",
+  "total_actions": 6,
+  "objectives_attempted": 1,
+  "objectives_completed": 0,
+  "issues_found": 1,
+  "issues_detail": [
+    {
+      "type": "Error message detected",
+      "timestamp": "2025-05-25T14:36:26.603850",
+      "objective": "Get quest from Elder Mirna",
+      "location": "Unknown",
+      "context": "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-zero exit status 1."
+    }
+  ],
+  "objectives_progress": [],
+  "sample_interactions": [
+    {
+      "timestamp": "2025-05-25T14:35:40.923740",
+      "game_output": "You stand within the dim, tidy confines of the Harrow's Hollow General Store. Wooden shelves sag under the weight of salted meats, sacks of flour, and modest supplies--lantern oil, rope, simple tools, and a handful of dusty trinkets that might catch the eye of a desperate adventurer. The faint scent of beeswax and dried herbs lingers in the air.\n\nThrough the frosted front window, you glimpse the overcast morning outside--a gray sky that presses down on the quiet village. The world is hushed, as if holding its breath. From behind the counter, old Mistress Della, the shopkeeper, gives you a thin smile. Her hands are busy folding muslin cloth, but her eyes are sharp and watchful.\n\n\"Morning, Norn,\" she says, voice as creaky as the floorboards. \"You're up early. Word is you've been dealing with those peculiar happenings out by the edge of the woods. You look like you could use something strong--tea or otherwise. Anything you need before you head out again?\"\n\nThe store is quiet, its shelves offering only the essentials. There are no other customers, and outside, the Hollow remains subdued--its usual bustle dampened by the recent troubles. The faint toll of the distant bell marks the hour: 8 o'clock.\n\nDella raises an eyebrow as she awaits your reply. Perhaps you wish to purchase supplies, ask after the latest rumors, or simply take a moment to gather your thoughts before venturing forth once more. What will you do?",
+      "ai_action": "I address Mistress Della directly, focusing on testing quest discovery protocols.\n\n\"Norn here. Mistress Della, I am looking for any quests or tasks that might help with the strange happenings near the woods. Do you have any problems, missions, or tasks that need urgent attention?\" \n\nI use keywords: \"quest\", \"help\", \"task\", \"mission\", \"problem\" to trigger any available quest dialogue.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "Mistress Della pauses, her knotted fingers lingering over a spool of thread. Her brow furrows, and she leans in, lowering her voice as if the shadows in the corners might be listening.\n\n\"Well, Norn, i...",
+          "You thank Mistress Della for her guidance and step out into the overcast morning. The heavy clouds cast the village in a silvery gloom, but the air is alive with the subtle stirrings of new hope--a se...",
+          "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-...",
+          "Elder Mirna offers you a fond, approving smile, the lines of care and leadership etched deeply into her face. She leans on her cane, voice steady and clear as she addresses you--not just as a guest, b...",
+          "Elder Mirna arches an eyebrow at your careful, methodical approach, sensing the weight of your responsibility. She speaks with quiet resolve, \"I see you take the work of a hero seriously, Norn. No sha..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T14:35:57.159360",
+      "game_output": "Mistress Della pauses, her knotted fingers lingering over a spool of thread. Her brow furrows, and she leans in, lowering her voice as if the shadows in the corners might be listening.\n\n\"Well, Norn, it warms my heart to see a young soul still eager for honest work and not just glory,\" she says, voice tinged with gratitude. \"Truth be told, after all that's happened, folks in the Hollow are slow to trust strangers, and most are keeping to their own. But... there are always needs, big and small.\"\n\nShe glances to the side, hesitating. \"With the curse lifted, folk are hoping for brighter days, but not all wounds heal quick. My cousin, Old Tommen, swears he's still seen shadows moving by the old well at dusk. Swears it's the wandering spirit again--he's certain of it. If you're willing to lend an ear to an old man's ramblings, maybe you could help lay his mind to rest.\"\n\nDella's eyes flit toward the door, voice softening. \"And--well--supplies have been running thin, and the last few deliveries from the outlying farms haven't come. We're short on dried mushrooms and wild honey. If you're headed toward the edge of the woods again, maybe you could ask after the farmers, see if they're safe.\"\n\nShe offers a wry smile. \"Help enough folk here, and I'll wager you'll never pay a copper for bread or stew again. The Hollow remembers its friends. If you want more specifics, you might check with Elder Mirna in the Town Square or Cira at the inn. Both keep their ears close to the ground, if you catch my meaning.\"\n\nDella folds her hands, meeting your gaze. \"So, Norn--will you look into Old Tommen's ghost, the missing farmers, or perhaps speak to the others for more work? Or maybe you'd rather rest for a spell and take stock of your supplies?\"",
+      "ai_action": "Quest Discovery Report:\n\n- Quest leads identified: \n  1. Investigate Old Tommen's sightings of wandering spirits by the old well at dusk.\n  2. Check on the missing deliveries from outlying farms; verify farmer safety.\n  3. Suggested NPCs for further quests: Elder Mirna (Town Square), Cira (Inn).\n\n- Quest objectives are reasonably clear: investigate supernatural sightings, inquire about missing farmers.\n- Della also suggests speaking to Elder Mirna, which matches current objective to get quest from Elder Mirna.\n- No ambiguity or missing information detected.\n- Quest markers or tracking not yet tested as no quest accepted yet.\n\nNext step per test plan: Proceed directly to Elder Mirna in the Town Square to obtain quest details and verify quest tracking.\n\nI leave the store and head straight to the Town Square, seeking Elder Mirna. I ask any NPCs en route to confirm Elder Mirna's exact location if needed.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "Mistress Della pauses, her knotted fingers lingering over a spool of thread. Her brow furrows, and she leans in, lowering her voice as if the shadows in the corners might be listening.\n\n\"Well, Norn, i...",
+          "You thank Mistress Della for her guidance and step out into the overcast morning. The heavy clouds cast the village in a silvery gloom, but the air is alive with the subtle stirrings of new hope--a se...",
+          "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-...",
+          "Elder Mirna offers you a fond, approving smile, the lines of care and leadership etched deeply into her face. She leans on her cane, voice steady and clear as she addresses you--not just as a guest, b...",
+          "Elder Mirna arches an eyebrow at your careful, methodical approach, sensing the weight of your responsibility. She speaks with quiet resolve, \"I see you take the work of a hero seriously, Norn. No sha..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T14:36:11.304206",
+      "game_output": "You thank Mistress Della for her guidance and step out into the overcast morning. The heavy clouds cast the village in a silvery gloom, but the air is alive with the subtle stirrings of new hope--a sense that, with the worst behind, life might yet return to normal in Harrow's Hollow.\n\nYour boots thud against the cobbled path as you cross from the general store toward the Town Square. The square itself is the heart of the Hollow: an open space ringed by low timbered buildings, with a weathered well at its center and the faded banners of past festivals fluttering halfheartedly in the breeze.\n\nA pair of villagers, bundled in plain cloaks, pause in their morning chores to greet you.\n\n\"Looking for Elder Mirna, are you?\" says a wiry man, setting down a basket of early greens. \"She'll be by the old oak, speaking with Marshal Hobb. Can't miss the cane--and her voice carries like a crow in a church.\"\n\nYou follow his gesture to the broad oak that anchors one edge of the square. There, Elder Mirna--her stooped frame draped in a blue shawl--stands deep in conversation with the town's marshal. She notices your approach and lifts her chin, a gentle but commanding presence in the modest crowd.\n\nAs you draw near, Marshal Hobb gives you a respectful nod before stepping aside. Elder Mirna fixes you with her keen, appraising gaze. \"Norn,\" she says, her tone warm but businesslike, \"you've returned to us in one piece, and with our thanks. I trust Della sent you my way. Is it new trouble on your mind, or are you here for the rewards owed--and perhaps more besides?\"\n\nThe villagers nearby look up, attentive. Mirna stands ready to answer your questions about new tasks, rewards, or any rumors that might shape your next adventure.",
+      "ai_action": "I engage Elder Mirna directly to test quest acquisition and tracking.\n\n\"Elder Mirna, I am here to learn of any tasks or quests that need urgent attention. I have heard rumors of strange happenings near the woods and concerns from the village. Do you have a mission, problem, or task for me to assist with?\"\n\nI use keywords: \"quest\", \"help\", \"task\", \"mission\", \"problem\" to prompt quest-giving dialogue.\n\nI also observe if the quest is clearly communicated and if it will appear in my objectives.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "Mistress Della pauses, her knotted fingers lingering over a spool of thread. Her brow furrows, and she leans in, lowering her voice as if the shadows in the corners might be listening.\n\n\"Well, Norn, i...",
+          "You thank Mistress Della for her guidance and step out into the overcast morning. The heavy clouds cast the village in a silvery gloom, but the air is alive with the subtle stirrings of new hope--a se...",
+          "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-...",
+          "Elder Mirna offers you a fond, approving smile, the lines of care and leadership etched deeply into her face. She leans on her cane, voice steady and clear as she addresses you--not just as a guest, b...",
+          "Elder Mirna arches an eyebrow at your careful, methodical approach, sensing the weight of your responsibility. She speaks with quiet resolve, \"I see you take the work of a hero seriously, Norn. No sha..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T14:36:29.741230",
+      "game_output": "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-zero exit status 1.",
+      "ai_action": "Acknowledged error report: adv_summary.py failed with exit status 1 when processing current conversation and location data.\n\nImmediate action:\n- This error interrupts quest summary generation and may impact quest tracking validation.\n- I will continue manual quest discovery and tracking testing to isolate if this is a systemic issue or isolated to the summary script.\n- I will document this error under QUEST_TRACKING_FAIL due to failure in quest-related processing.\n\nNext step:\n- Continue engagement with Elder Mirna to obtain quest details manually.\n- Observe if quest objectives appear in the game's quest log or UI.\n- Attempt to track quest progress and completion conditions.\n- Report any tracking or progression bugs encountered.\n\nPlease confirm if I should proceed with manual quest dialogue or attempt system diagnostics for the script error.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "Mistress Della pauses, her knotted fingers lingering over a spool of thread. Her brow furrows, and she leans in, lowering her voice as if the shadows in the corners might be listening.\n\n\"Well, Norn, i...",
+          "You thank Mistress Della for her guidance and step out into the overcast morning. The heavy clouds cast the village in a silvery gloom, but the air is alive with the subtle stirrings of new hope--a se...",
+          "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-...",
+          "Elder Mirna offers you a fond, approving smile, the lines of care and leadership etched deeply into her face. She leans on her cane, voice steady and clear as she addresses you--not just as a guest, b...",
+          "Elder Mirna arches an eyebrow at your careful, methodical approach, sensing the weight of your responsibility. She speaks with quiet resolve, \"I see you take the work of a hero seriously, Norn. No sha..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T14:36:40.941885",
+      "game_output": "Elder Mirna offers you a fond, approving smile, the lines of care and leadership etched deeply into her face. She leans on her cane, voice steady and clear as she addresses you--not just as a guest, but as a trusted champion of Harrow's Hollow.\n\n\"Norn, your deeds have lifted a shadow from our village, but you know as well as I that trouble seldom travels alone. We have need of sharp eyes and steadier hands yet.\"\n\nShe gestures for you to walk with her beneath the old oak, out of earshot of the bustling square. Her tone grows more confidential. \"There are two matters that weigh on me, and I'd name them quests if you'll have them:\n\nFirst, Old Tommen, our well-watcher, claims the spirit that haunted him before has returned--restless and moaning by the well at dusk. He's frightened, and the folk are spooked too. If you can uncover the truth or lay the shade to rest, you'd bring peace to a troubled soul and the Hollow besides.\n\nSecond, we've had no word from the farms out past the wood since the curse was lifted. Our supplies run thin. If you could check on the farmers--see they're safe, and learn why the deliveries have stopped--we'd all rest easier.\"\n\nMirna fixes you with a pointed look. \"Take up either task, both, or none at all. But know that helping us now will not be forgotten. And should you need more detail, Tommen himself is by the well most afternoons, and Mistress Della keeps track of the storehouse and who's overdue.\"\n\nShe waits, hope and worry mingling in her gaze. \"Will you accept one of these quests, Norn? Or both? Tell me, and I'll see you have what you need to get started.\"",
+      "ai_action": "Quest Acquisition Report:\n\n- Elder Mirna explicitly offers two quests:\n  1. Investigate the restless spirit near the well at dusk (Old Tommen's ghost).\n  2. Check on the missing farms and supply deliveries.\n\n- Quest objectives are clearly stated and aligned with Della's earlier hints.\n- Elder Mirna provides NPC locations for further details: Old Tommen by the well, Mistress Della at the storehouse.\n- Option to accept either or both quests.\n- No ambiguity or missing information detected.\n- Awaiting acceptance to verify quest tracking integration.\n\nNext action:\n- For speedrun testing, I accept both quests simultaneously to test multi-quest tracking.\n- I confirm acceptance: \"I will take on both tasks, Elder Mirna. I will investigate the spirit at the well and check on the farmers beyond the woods.\"\n- Request any starting equipment or information needed.\n- Verify if quests appear in objectives immediately and if quest markers or guidance are provided.\n- Proceed directly to the well to investigate Old Tommen's claims.\n\nI will document quest tracking visibility and any issues encountered during acceptance and objective updates.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "Mistress Della pauses, her knotted fingers lingering over a spool of thread. Her brow furrows, and she leans in, lowering her voice as if the shadows in the corners might be listening.\n\n\"Well, Norn, i...",
+          "You thank Mistress Della for her guidance and step out into the overcast morning. The heavy clouds cast the village in a silvery gloom, but the air is alive with the subtle stirrings of new hope--a se...",
+          "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-...",
+          "Elder Mirna offers you a fond, approving smile, the lines of care and leadership etched deeply into her face. She leans on her cane, voice steady and clear as she addresses you--not just as a guest, b...",
+          "Elder Mirna arches an eyebrow at your careful, methodical approach, sensing the weight of your responsibility. She speaks with quiet resolve, \"I see you take the work of a hero seriously, Norn. No sha..."
+        ]
+      }
+    },
+    {
+      "timestamp": "2025-05-25T14:37:15.845140",
+      "game_output": "Elder Mirna arches an eyebrow at your careful, methodical approach, sensing the weight of your responsibility. She speaks with quiet resolve, \"I see you take the work of a hero seriously, Norn. No shame in being thorough--our village has had enough of half-measures and empty promises. If the spirits and missing farmers are to be set right, I'll trust your judgment in how you proceed.\"\n\nShe offers a thin smile. \"You are welcome to take notes or make your own records if the fates are playing tricks with our ledgers again. The people here will remember what you do, whether it's written down or not.\"\n\nThe villagers nearby continue to watch, a mixture of curiosity and hope in their eyes. Mirna gives a reassuring nod. \"If you wish to make certain the Hollow's troubles are tracked, perhaps speak with Mistress Della or check the notice board by the well. But it is your actions--investigation and resolution--that will truly mark these quests as complete.\"\n\nWould you like to ask for further written confirmation of these quests, proceed to question Old Tommen or Mistress Della for details, or set out for the farms or the well to begin your investigation? Let me know how you wish to proceed, and I'll ensure your objectives are clear. The village awaits your decision.",
+      "ai_action": "I test quest tracking and clarity by requesting written confirmation:\n\n\"Elder Mirna, to ensure I do not miss any important details, could you provide written notes or direct me to the notice board by the well where these quests might be recorded? I want to verify that these objectives appear in my quest log and have clear markers to guide my progress.\"\n\nBased on the response, I will then choose the next step:\n\n- If written confirmation and quest tracking work correctly, I will proceed directly to investigate Old Tommen by the well.\n- If tracking is unclear or quests do not appear in my objectives, I will report QUEST_TRACKING_FAIL and attempt to manually note quest details.\n\nThis step will validate the system's handling of quest documentation and player guidance.",
+      "current_objective": "Get quest from Elder Mirna",
+      "game_state": {
+        "location": "Unknown",
+        "hp": "Unknown",
+        "inventory": [],
+        "time": "Unknown",
+        "recent_events": [
+          "Mistress Della pauses, her knotted fingers lingering over a spool of thread. Her brow furrows, and she leans in, lowering her voice as if the shadows in the corners might be listening.\n\n\"Well, Norn, i...",
+          "You thank Mistress Della for her guidance and step out into the overcast morning. The heavy clouds cast the village in a silvery gloom, but the air is alive with the subtle stirrings of new hope--a se...",
+          "ERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', \"Harrow's Hollow General Store\", 'HH001']' returned non-...",
+          "Elder Mirna offers you a fond, approving smile, the lines of care and leadership etched deeply into her face. She leans on her cane, voice steady and clear as she addresses you--not just as a guest, b...",
+          "Elder Mirna arches an eyebrow at your careful, methodical approach, sensing the weight of your responsibility. She speaks with quiet resolve, \"I see you take the work of a hero seriously, Norn. No sha..."
+        ]
+      }
+    }
+  ]
+}

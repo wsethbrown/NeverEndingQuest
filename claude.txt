@@ -1,2 +1,78 @@
-3:25:18 PMGame started! You can now enter commands.
-3:25:18 PMGame error: name 'GOLD' is not defined
+3:15:05 PMDEBUG: File conversation_history.json not found - creating first time
+3:15:06 PMLightweight chat history updated!
+3:15:06 PMSystem messages removed: 5
+3:15:06 PMUser messages: 0
+3:15:06 PMAssistant messages: 0
+3:15:06 PM
+[Processing AI response...]
+3:15:12 PM
+[Advancing world time...]
+3:15:12 PMCurrent Time: 08:00:00, Time Advanced: 1 minutes, New Time: 08:01:00, Days Passed: 0
+3:15:12 PM[08:00:00][HP:36/36][XP:4571/6500] norn: 
+3:15:29 PM
+[Processing AI response...]
+3:15:37 PM
+[Validating response format...]
+3:15:39 PMDEBUG: Validation passed successfully
+3:15:39 PMDEBUG: Valid response generated on attempt 1
+3:15:39 PM
+[Transitioning location...]
+3:15:39 PMDEBUG: Transitioning from 'Harrow's Hollow General Store' to 'Harrow's Hollow Town Square'
+3:15:39 PMDEBUG: Current location string (hex): 486172726f77277320486f6c6c6f772047656e6572616c2053746f7265
+3:15:39 PMDEBUG: New location string (hex): 486172726f77277320486f6c6c6f7720546f776e20537175617265
+3:15:39 PMDEBUG: Handling location transition from 'Harrow's Hollow General Store' to 'Harrow's Hollow Town Square'
+3:15:39 PMDEBUG: Current area: 'Harrow's Hollow', Current area ID: 'HH001'
+3:15:39 PMDEBUG: Current location identified: Harrow's Hollow General Store (ID: A01)
+3:15:39 PMDEBUG: Found new location by exact name: Harrow's Hollow Town Square (ID: A02)
+3:15:39 PMDEBUG: New location info: Harrow's Hollow Town Square (ID: A02)
+3:15:58 PMERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', "Harrow's Hollow General Store", 'HH001']' returned non-zero exit status 1.
+3:15:58 PMERROR: stdout: DEBUG: Attempting to load file: conversation_history.json
+3:15:58 PMDEBUG: File parsed successfully: conversation_history.json
+3:15:58 PMDEBUG: Attempting to load file: party_tracker.json
+3:15:58 PMDEBUG: File parsed successfully: party_tracker.json
+3:15:58 PMDEBUG: Adventure Summary generated
+3:15:58 PMDEBUG: Attempting to load file: journal_schema.json
+3:15:58 PMDEBUG: File parsed successfully: journal_schema.json
+3:15:58 PMDEBUG: Journal updated successfully
+3:15:58 PMDEBUG: Attempting to load file: campaigns/Keep_of_Doom/HH001.json
+3:15:58 PMDEBUG: File parsed successfully: campaigns/Keep_of_Doom/HH001.json
+3:15:58 PMDEBUG: Updating location JSON for Harrow's Hollow General Store with all changes
+3:15:58 PMDEBUG: No last completed encounter ID found in party_tracker
+3:15:58 PMDEBUG: Attempting to load file: loca_schema.json
+3:15:58 PMDEBUG: File parsed successfully: loca_schema.json
+3:15:58 PMDEBUG: Attempting to load file: party_tracker.json
+3:15:58 PMDEBUG: File parsed successfully: party_tracker.json
+3:15:58 PMDEBUG: Starting schema processing...
+3:15:58 PMDEBUG: Schema type: <class 'dict'>
+3:15:58 PMDEBUG: Schema keys: ['$schema', 'type', 'properties', 'required']
+3:15:58 PMDEBUG: Properties keys: ['locations']
+3:15:58 PMDEBUG: Location properties keys: ['type', 'items']
+3:15:58 PMDEBUG: Schema structure validation passed
+3:15:58 PMDEBUG: Single item schema extracted, keys: ['type', 'properties', 'required']
+3:15:58 PMDEBUG: Attempt 1 to update location JSON
+3:15:58 PMDEBUG: Error: Invalid location data structure. 'A01' does not match '^R[0-9]+$'
+3:15:58 PMFailed validating 'pattern' in schema['properties']['locationId']:
+3:15:58 PM    {'description': 'A unique identifier for the location, starting with '
+3:15:58 PM                    "'R' followed by numbers.",
+3:15:58 PM     'pattern': '^R[0-9]+$',
+3:15:58 PM     'type': 'string'}
+3:15:58 PMOn instance['locationId']:
+3:15:58 PM    'A01'
+3:15:58 PMERROR: stderr: 
+3:15:58 PMDEBUG: Successfully updated party_tracker.json
+3:15:58 PMDEBUG: Location transition complete
+3:15:58 PM
+[Advancing world time...]
+3:15:58 PMCurrent Time: 09:01:00, Time Advanced: 2 minutes, New Time: 09:03:00, Days Passed: 0
+3:15:58 PM
+[Updating plot progression...]
+3:15:59 PMDEBUG: Successfully updated and validated plot info on attempt 1
+3:15:59 PMDEBUG: Party tracker updated for plot point PP005
+3:15:59 PMDEBUG: Plot information updated for plot point PP005
+3:15:59 PMLightweight chat history updated!
+3:15:59 PMSystem messages removed: 6
+3:15:59 PMUser messages: 2
+3:15:59 PMAssistant messages: 2
+3:15:59 PMDEBUG: Processing conversation history
+3:15:59 PMDEBUG: Conversation history processing complete
+3:15:59 PM[08:01:00][HP:36/36][XP:4571/650

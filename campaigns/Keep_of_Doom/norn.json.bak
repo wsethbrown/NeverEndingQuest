@@ -92,33 +92,9 @@
   ],
   "equipment": [
     {
-      "item_name": "Old bronze key marked with a faded raven sigil",
+      "item_name": "Bronze Key (Keep of Doom)",
       "item_type": "miscellaneous",
-      "description": "A weathered bronze key with a faded raven sigil, possibly linked to the Keep of Doom.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Sturdy, lined leather pouch",
-      "item_type": "miscellaneous",
-      "description": "A finely crafted leather pouch, lined for protection, suitable for carrying delicate items like keys.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Hooded Lantern",
-      "item_type": "miscellaneous",
-      "description": "A lantern with a shutter to control the light, useful for stealth and exploration.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Rations",
-      "item_type": "miscellaneous",
-      "description": "Sufficient food for 10 days of travel.",
-      "quantity": 10
-    },
-    {
-      "item_name": "Bandages and Herbal Salve",
-      "item_type": "miscellaneous",
-      "description": "Basic medical supplies for treating wounds and ailments.",
+      "description": "A sturdy bronze key believed to open doors within the Keep of Doom.",
       "quantity": 1
     }
   ],
@@ -185,7 +161,7 @@
     }
   },
   "currency": {
-    "gold": 52,
+    "gold": 24,
     "silver": 0,
     "copper": 0
   },

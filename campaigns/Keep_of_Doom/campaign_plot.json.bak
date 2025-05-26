@@ -20,8 +20,8 @@
           "involvedLocations": [
             "HH001"
           ],
-          "status": "not started",
-          "plotImpact": "Communicating with the spirit yields crucial information or warnings."
+          "status": "in progress",
+          "plotImpact": "Norn has received the first clues for the side quest 'Superstition and Shadows' from Old Tommen, involving the wandering ghost on the moor and the hidden trinket beneath the knight's statue."
         },
         {
           "id": "SQ002",
@@ -44,7 +44,7 @@
         "PP003"
       ],
       "status": "in progress",
-      "plotImpact": "Surviving the journey and overcoming obstacles gives the party a tactical edge entering the keep. Failure or taking too long may worsen conditions in the village or endanger Scout Elen further.",
+      "plotImpact": "With the ghost guardian's riddle answered, Norn is granted passage to the Keeper's Cottage. The way forward is now open, and the main quest can advance to the next critical encounter.",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -64,7 +64,7 @@
             "G001"
           ],
           "status": "in progress",
-          "plotImpact": "Scout Elen has been found wounded at the Keeper's Cottage. The party awaits Keeper Morvath's return to learn more about the curse and the keep's dangers."
+          "plotImpact": "Scout Elen stabilized with herbs and vital clues gathered for the restoration of ward circles. The party is prepared to consult the Keeper regarding the ritual and the curse's undoing."
         }
       ]
     },
@@ -109,13 +109,20 @@
       "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
       "location": "HH001",
       "nextPoints": [],
-      "status": "not started",
-      "plotImpact": "The campaign concludes with the party's triumph. Seeds for future adventures may be planted based on discoveries made in the keep.",
+      "status": "in progress",
+      "plotImpact": "With the path to the East Gate blocked, Elder Mirna officially acknowledges the obstacle and offers alternative village aid tasks to keep Norn engaged and productive while awaiting a resolution for the main quest.",
       "sideQuests": []
     }
   ],
-  "activeQuests": ["PP002", "SQ004"],
-  "completedQuests": ["PP001", "SQ002", "SQ003"],
+  "activeQuests": [
+    "PP002",
+    "SQ004"
+  ],
+  "completedQuests": [
+    "PP001",
+    "SQ002",
+    "SQ003"
+  ],
   "failedQuests": [],
   "worldEvents": [
     {

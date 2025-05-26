@@ -4,78 +4,78 @@
   "totalRooms": 6,
   "rooms": [
     {
-      "id": "R01",
+      "id": "D01",
       "name": "The Sundered Causeway",
       "type": "ruins",
       "connections": [
-        "R02",
-        "R03"
+        "D02",
+        "D03"
       ],
       "coordinates": "X1Y1"
     },
     {
-      "id": "R02",
+      "id": "D02",
       "name": "The Mire of Echoes",
       "type": "bog",
       "connections": [
-        "R01",
-        "R04",
-        "R05"
+        "D01",
+        "D04",
+        "D05"
       ],
       "coordinates": "X2Y1"
     },
     {
-      "id": "R03",
+      "id": "D03",
       "name": "Abandoned Watchtower",
       "type": "tower",
       "connections": [
-        "R01",
-        "R06"
+        "D01",
+        "D06"
       ],
       "coordinates": "X1Y2"
     },
     {
-      "id": "R04",
+      "id": "D04",
       "name": "Black Banner Encampment",
       "type": "camp",
       "connections": [
-        "R02",
-        "R05"
+        "D02",
+        "D05"
       ],
       "coordinates": "X3Y1"
     },
     {
-      "id": "R05",
+      "id": "D05",
       "name": "Ancient Standing Stones",
       "type": "ritual",
       "connections": [
-        "R02",
-        "R04",
-        "R06"
+        "D02",
+        "D04",
+        "D06"
       ],
       "coordinates": "X2Y2"
     },
     {
-      "id": "R06",
+      "id": "D06",
       "name": "The Cursed Barrow",
       "type": "tomb",
       "connections": [
-        "R03",
-        "R05"
+        "D03",
+        "D05"
       ],
       "coordinates": "X3Y2"
     }
   ],
   "layout": [
     [
-      "R01",
-      "R02",
-      "R04"
+      "D01",
+      "D02",
+      "D04"
     ],
     [
-      "R03",
-      "R05",
-      "R06"
+      "D03",
+      "D05",
+      "D06"
     ]
   ]
 }

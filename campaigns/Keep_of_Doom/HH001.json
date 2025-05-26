@@ -13,50 +13,50 @@
     "totalRooms": 5,
     "rooms": [
       {
-        "id": "R01",
-        "name": "Shop R01",
+        "id": "A01",
+        "name": "Shop A01",
         "type": "shop",
         "connections": [
-          "R02",
-          "R03",
-          "R04",
-          "R05"
+          "A02",
+          "A03",
+          "A04",
+          "A05"
         ],
         "coordinates": "X2Y2"
       },
       {
-        "id": "R02",
-        "name": "Square R02",
+        "id": "A02",
+        "name": "Square A02",
         "type": "square",
         "connections": [
-          "R01"
+          "A01"
         ],
         "coordinates": "X3Y2"
       },
       {
-        "id": "R03",
-        "name": "Gate R03",
+        "id": "A03",
+        "name": "Gate A03",
         "type": "gate",
         "connections": [
-          "R01"
+          "A01"
         ],
         "coordinates": "X2Y3"
       },
       {
-        "id": "R04",
-        "name": "Barracks R04",
+        "id": "A04",
+        "name": "Barracks A04",
         "type": "barracks",
         "connections": [
-          "R01"
+          "A01"
         ],
         "coordinates": "X2Y1"
       },
       {
-        "id": "R05",
-        "name": "Tavern R05",
+        "id": "A05",
+        "name": "Tavern A05",
         "type": "tavern",
         "connections": [
-          "R01"
+          "A01"
         ],
         "coordinates": "X1Y2"
       }
@@ -64,17 +64,17 @@
     "layout": [
       [
         "   ",
-        "R04",
+        "A04",
         "   "
       ],
       [
-        "R05",
-        "R01",
-        "R02"
+        "A05",
+        "A01",
+        "A02"
       ],
       [
         "   ",
-        "R03",
+        "A03",
         "   "
       ]
     ]
@@ -139,24 +139,24 @@
   "notes": "NPCs should have daily routines. Political factions create roleplay opportunities.",
   "locations": [
     {
-      "locationId": "R01",
+      "locationId": "A01",
       "name": "Harrow's Hollow General Store",
       "type": "shop",
-      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter.",
+      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with practical supplies such as rope, grain sacks, lanterns, and tools. The air carries the mingled scents of oiled leather and dried herbs. Dimly lit by lantern light, the shop holds a quiet ambiance with soft shuffling sounds from the back storeroom. The atmosphere is one of cautious hope as villagers rebuild after a recent curse.",
       "coordinates": "X2Y2",
       "connectivity": [
-        "R02",
-        "R03",
-        "R04",
-        "R05"
+        "A02",
+        "A03",
+        "A04",
+        "A05"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [
         {
-          "name": "Elder Mirna Harrow",
-          "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs.",
-          "attitude": "Respectful but cautious toward outsiders; friendly and supportive to locals, especially those in need."
+          "name": "Old Marna",
+          "description": "A wiry, sharp-eyed woman who runs the general store. Practical and straightforward, she monitors village affairs with a mixture of suspicion and cautious friendliness. She offers minor tasks to willing helpers and emphasizes the importance of purposeful travel beyond the palisade.",
+          "attitude": "Cautious but helpful, encouraging trust-building and cooperation."
         }
       ],
       "monsters": [],
@@ -169,11 +169,14 @@
         "Old bronze key marked with a faded raven sigil"
       ],
       "plotHooks": [
-        "A worried villager asks if the party has news of Scout Elen, who vanished while patrolling the Witchlight Trailhead beyond the East Gate.",
-        "Elder Mirna discreetly seeks brave souls to investigate odd nighttime lights near the ruined keep.",
-        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts."
+        "Old Marna offers a labor task to restock the storeroom by fetching a crate from the Wyrd Lantern Inn's cellar through Cira.",
+        "Old Marna requests help clearing a rat infestation in the store's back storeroom and hints at valuables hidden among crates bearing noble crests.",
+        "Old Marna emphasizes the need for purposeful travel beyond the palisade and offers assistance with access to the side door.",
+        "Elder Mirna organizes official quests in the Town Square related to village recovery.",
+        "Hints of unclaimed rewards for those who helped lift the recent curse.",
+        "The village is rebuilding and regaining trust among its people."
       ],
-      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna claims it's a forgotten relic, but a DC 12 Insight check reveals she's hiding something.",
+      "dmInstructions": "Use Old Marna as the proprietor who can provide minor tasks such as fetching supplies and clearing infestations. Emphasize the importance of purposeful travel and villagers' trust during the village's recovery. She cooperates with the party regarding side door access for quest progression. Direct players to Elder Mirna in the Town Square for main quests. Keep the back storeroom atmospheric with sounds of movement but no traps detected.",
       "doors": [
         {
           "name": "Front Door",
@@ -188,7 +191,7 @@
         },
         {
           "name": "Back Storeroom Door",
-          "description": "A smaller, iron-banded door leading to a cramped storeroom.",
+          "description": "A smaller, iron-banded door leading to the cramped storeroom, locked but accessible with the Old bronze key.",
           "type": "regular",
           "locked": true,
           "lockDC": 13,
@@ -196,48 +199,99 @@
           "keyname": "Old bronze key",
           "trapped": false,
           "trap": ""
+        },
+        {
+          "name": "Eastern Side Door",
+          "description": "A sturdy side door marked for watchmen and deliveries, leading toward the East Gate beyond the palisade. Access is controlled by Old Marna and requires purposeful travel beyond the village boundary.",
+          "type": "regular",
+          "locked": true,
+          "lockDC": 15,
+          "breakDC": 17,
+          "keyname": "Side Door Key",
+          "trapped": false,
+          "trap": ""
         }
       ],
       "traps": [],
       "dcChecks": [
-        "Insight DC 12: Discern Elder Mirna is withholding information about the key and certain historical events.",
-        "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the keep."
+        "Insight DC 12: Understand that Old Marna values the rebuilding efforts and the trust of the villagers.",
+        "Investigation DC 14: Notice the well-used supplies and crates indicating ongoing restocking and recovery.",
+        "Perception DC 13: Detect signs of a rat infestation in the back storeroom.",
+        "Persuasion DC 15: Convince Old Marna to grant access to the eastern side door for purposeful travel."
       ],
-      "accessibility": "Easily accessible from the main square, wide doorways and step-free entry.",
+      "accessibility": "Easily accessible from the main square, with wide doorways and step-free entry. Side door access requires authorization from Old Marna.",
       "dangerLevel": "Low",
       "features": [
         {
           "name": "Notice Board",
-          "description": "A cluttered board filled with handwritten notices, missing pet posters, and cryptic local warnings."
+          "description": "A cluttered board filled with handwritten notices about village recovery, missing pets, and calls for aid."
         },
         {
           "name": "Counter and Ledger",
-          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike."
+          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and local labor tasks."
         },
         {
           "name": "Back Storeroom",
-          "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests."
+          "description": "A cramped room packed with crates and burlap sacks, some bearing noble crests. A recent rat infestation affects this area, and some crates may contain hidden valuables."
+        },
+        {
+          "name": "Eastern Side Door",
+          "description": "A reinforced side door leading to the palisade and East Gate. Controlled access granted only for purposeful travel beyond the village."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "A01-E1",
+          "summary": "The party enters the general store in the early morning and meets Old Marna, the store's proprietor. She offers a simple labor task to help restock the storeroom and advises the party to seek out Elder Mirna in the Town Square for main quest assignments.",
+          "impact": "Introduced Old Marna as the NPC proprietor, established the availability of minor quest tasks, and directed the party toward Elder Mirna for further quests. Set the tone for village recovery and trust-building.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "08:03:00"
+          }
+        },
+        {
+          "encounterId": "A01-E2",
+          "summary": "The party returned to the general store, engaged with Old Marna who greeted them with suspicion and cautious friendliness, and accepted a side quest involving retrieving a supply crate from the Wyrd Lantern Inn's cellar by speaking with Cira, as well as clearing a rat infestation in the store's back storeroom. The party informed Marna of their plan to investigate a side quest involving a trinket beneath the knight's statue in the Town Square. Marna permitted the detour and offered assistance with access to the eastern side door leading to the palisade and East Gate.",
+          "impact": "Established active quest progression through Old Marna, confirmed her cooperation for access to the side door, and added new tasks involving the Wyrd Lantern Inn and store storeroom. The general store environment remains intact with no traps detected.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "10:37:00"
+          }
+        }
+      ],
+      "adventureSummary": "Upon entering Harrow's Hollow General Store from the Town Square, the party encountered Old Marna, who greeted them with a mixture of suspicion and cautious friendliness as she busied herself tallying supplies by lantern light. Noticing their interest in the eastern side door marked for watchmen and deliveries, Marna acknowledged their intent to proceed toward the East Gate and offered assistance in gaining access, emphasizing the need for purposeful travel beyond the palisade. When the party accepted a side quest to aid Marna, she assigned two tasks: retrieve a supply crate from The Wyrd Lantern Inn's cellar by speaking with Cira and clear a rat infestation in the store's back storeroom, also hinting at possible valuables hidden among crates bearing noble crests. The quest was formally logged with clear objectives, and Marna updated the village log to prevent interference during the work. Before commencing these tasks, the party informed Marna of their plan to investigate a side quest involving a trinket hidden beneath the knight's statue in the Town Square. Marna responded with a knowing smile, permitting the brief detour. Throughout these interactions, the General Store remained dimly lit and filled with the quiet ambiance of a small village's daily commerce, with no traps detected. The party prepared to request the key or assistance from Marna to access the side door leading to the palisade and East Gate, intending to confirm her cooperation, test area transitions, and ensure quest progression without encountering loading or pathfinding issues before moving forward."
     },
     {
-      "locationId": "R02",
-      "name": "Harrow’s Hollow Town Square",
+      "locationId": "A02",
+      "name": "Harrow's Hollow Town Square",
       "type": "square",
-      "description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. On market days, stalls crowd the space, but even now, locals gossip in small clusters, eyes wary of newcomers. At dusk, shadows pool and the wind carries the faint echo of old songs.",
+      "description": "The communal heart of the village, this open cobblestone square is ringed by lantern posts, benches, and the faded statue of a forgotten knight. On market days, stalls crowd the space, but even now, locals gossip in small clusters, eyes wary of newcomers. The villagers wear anxious expressions as they prepare for the incoming supply caravan. Elder Mirna has entrusted the party with guarding the caravan's arrival at the East Gate at noon. Despite the bustling activity, the East Gate is not directly accessible from the Town Square; only the General Store lies adjacent. Villagers and militia volunteers advise patience or aid with local tasks until the route to the gate is restored. The atmosphere is tense but without immediate threats.",
       "coordinates": "X3Y2",
       "connectivity": [
-        "R01"
+        "A01",
+        "A03"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [
         {
           "name": "Old Tommen",
-          "description": "A weathered, hunched herdsman with wild hair and a nervous gaze. Tommen is known for spreading superstitions and warning of restless spirits in the woods.",
+          "description": "A weathered, hunched herdsman with wild hair and a nervous gaze. Tommen is known for spreading superstitions and warning of restless spirits in the woods. He shared a side quest about a ghostly shade near the moor and mentioned a mysterious trinket beneath the statue of the forgotten knight.",
           "attitude": "Suspicious of strangers, eager to share tales of doom, but grateful for kind words and a listening ear."
+        },
+        {
+          "name": "Elder Mirna",
+          "description": "The village elder who entrusted the party with the critical quest of guarding the supply caravan arriving at the East Gate. She is wise and deeply concerned about the village's recovery and safety.",
+          "attitude": "Serious and focused, respectful towards the party, supportive but anxious about upcoming events."
+        },
+        {
+          "name": "Militia Watch",
+          "description": "Volunteers from the village militia tasked with protecting the Town Square and coordinating defense. They warned the party of dangers near the East Gate, including bandits and wild dogs, and gave directions through the General Store's back lane.",
+          "attitude": "Alert and cautious, cooperative with the party, eager to ensure safety."
         }
       ],
       "monsters": [],
@@ -249,21 +303,23 @@
       "plotHooks": [
         "Old Tommen corners the party to warn them about 'the shade on the moor,' referencing recent spectral sightings.",
         "A traveling merchant seeks help recovering goods lost to bandits north of town.",
-        "Children whisper about a secret under the statue—a lost trinket or something darker."
+        "Children whisper about a secret under the statue--a lost trinket or something darker.",
+        "Assist Elder Mirna in preparing for the supply caravan's arrival and guarding the East Gate.",
+        "Help militia volunteers with local tasks while awaiting the reopening of the route to the East Gate."
       ],
-      "dmInstructions": "Use Tommen’s superstitious ramblings for early foreshadowing. A DC 11 Persuasion check gets him to share legends about the keep and the cursed knight. If players search the statue (DC 13 Investigation), they find a hidden compartment holding a rusty locket (worth 2 gp, sentimental value to some locals).",
+      "dmInstructions": "Use Tommen's superstitious ramblings for early foreshadowing. A DC 11 Persuasion check gets him to share legends about the keep and the cursed knight. If players search the statue (DC 13 Investigation), they find a hidden compartment holding a rusty locket (worth 2 gp, sentimental value to some locals). Highlight the blocked passage to the East Gate and encourage interaction with the militia and Elder Mirna for side quests.",
       "doors": [],
       "traps": [],
       "dcChecks": [
         "Investigation DC 13: Discover a hidden compartment in the statue.",
-        "Persuasion DC 11: Convince Tommen to reveal a local legend about ghostly lights or the keep’s curse."
+        "Persuasion DC 11: Convince Tommen to reveal a local legend about ghostly lights or the keep's curse."
       ],
-      "accessibility": "Fully open and central, all major buildings and streets lead here; accessible to all.",
+      "accessibility": "Fully open and central, all major buildings and streets lead here; accessible to all. Passage to the East Gate is currently blocked and must be accessed via the General Store's back lane.",
       "dangerLevel": "Low",
       "features": [
         {
-          "name": "Knight’s Statue",
-          "description": "A weathered stone monument, its inscription nearly worn away, depicting a forgotten hero with a drawn sword."
+          "name": "Knight's Statue",
+          "description": "A weathered stone monument, its inscription nearly worn away, depicting a forgotten hero with a drawn sword. Beneath it lies a hidden compartment discovered by the party."
         },
         {
           "name": "Lantern Posts",
@@ -274,17 +330,29 @@
           "description": "Colorful canvas stalls, currently empty save for a few crates and benches."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "A02-E1",
+          "summary": "Elder Mirna entrusts the party with guarding the incoming supply caravan at the East Gate and explains the village's dependence on safe trade. The party learns the East Gate is not directly accessible from the Town Square, only via the General Store, which blocks immediate progression.",
+          "impact": "Main quest logged and marked. Party advised to assist with local tasks or wait until route restoration. Side quests introduced by Old Tommen and militia watch. Party prepares to transition to the General Store to access the back lane to the East Gate.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "09:29:00"
+          }
+        }
+      ],
+      "adventureSummary": "Elder Mirna assigned the party to guard the supply caravan arriving at the East Gate at noon. The East Gate is unreachable directly from the Town Square; only the General Store is adjacent. Attempts to proceed were blocked due to missing area data. The party spoke with militia volunteers and Old Tommen, who shared side quests about a restless shade on the moor and a trinket beneath the knight's statue. The party resolved to enter the General Store next to seek the back passage to the East Gate and prepare for the caravan's arrival."
     },
     {
-      "locationId": "R03",
+      "locationId": "A03",
       "name": "East Gate and Guardhouse",
       "type": "gate",
-      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town’s eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond.",
+      "description": "The East Gate stands open, flanked by a well-kept stone guardhouse with wooden roofing and ready lanterns. The towering palisade of Harrow's Hollow looms above, guarding the muddy road that leads eastward along the Witchlight Trail. The atmosphere is one of cautious optimism as villagers resume their daily routines and sentries maintain vigilant yet hopeful watch over the gate. Elder Mirna and several villagers offer quiet congratulations to the party, acknowledging their heroic efforts in lifting the village's curse. The area is free of traps and threats, allowing smooth passage as the party prepares to undertake local quests.",
       "coordinates": "X2Y3",
       "connectivity": [
-        "R01"
+        "A01"
       ],
       "areaConnectivity": [
         "Witchlight Trailhead"
@@ -294,30 +362,48 @@
       ],
       "npcs": [
         {
-          "name": "Sergeant Mara Feld",
-          "description": "A stoic, broad-shouldered veteran overseeing the town’s security. She has a no-nonsense manner and fierce loyalty to Harrow’s Hollow.",
-          "attitude": "Suspicious of outsiders, but fair; she values courage and honesty."
+          "name": "Joran",
+          "description": "A broad-shouldered militia watchman, armed with a spear, friendly and knowledgeable about local happenings. He conveys gratitude from Elder Mirna and offers assistance to travelers.",
+          "attitude": "Welcoming and cautiously hopeful after recent troubles."
+        },
+        {
+          "name": "Old Marna",
+          "description": "An elder villager who holds the key to the side door granting access to the palisade and East Gate. She is cooperative and supportive of the party's efforts.",
+          "attitude": "Helpful and approving."
+        },
+        {
+          "name": "Elder Mirna",
+          "description": "The village elder who acknowledges the party's success in lifting the curse and offers quiet congratulations along with hints of material and social rewards.",
+          "attitude": "Respectful and encouraging."
+        },
+        {
+          "name": "Cira",
+          "description": "The innkeeper of The Wyrd Lantern Inn, whose cooperation is essential for the party's supply retrieval mission.",
+          "attitude": "Cooperative and attentive."
         }
       ],
       "monsters": [],
       "lootTable": [
-        "Town gate key (kept on Sergeant Feld’s belt)",
-        "Guard’s whistle",
+        "Town gate key (now held by Old Marna)",
+        "Guard's whistle",
         "Small pouch with 12 cp",
         "Town patrol schedule (handwritten, with notes about recent disturbances near the keep)"
       ],
       "plotHooks": [
-        "Sergeant Feld asks the party to help search for Scout Elen, missing after a routine patrol.",
-        "Feld warns the party: the east road is dangerous after dark, and the keep is strictly off limits to townsfolk.",
-        "A bloodstained scrap of cloth is found snagged on the gate; Feld suspects foul play nearby."
+        "Assist Old Marna by restocking the General Store and clearing the rat infestation.",
+        "Retrieve supply crate from The Wyrd Lantern Inn's cellar with Cira's cooperation.",
+        "Await the arrival of the merchant wagon mentioned by Joran.",
+        "Assist villagers in rebuilding security and prosperity after the curse lifts.",
+        "Venture beyond the gate to explore the Witchlight Trail and the wilderness beyond.",
+        "Seek out Elder Mirna in the town square for recognition and further quests."
       ],
-      "dmInstructions": "Sergeant Feld can provide basic information about town defenses and recent troubles. She may require a DC 13 Persuasion check before allowing non-residents to leave after dusk. Searching the area (DC 14 Investigation) uncovers subtle tracks leading toward the woods.",
+      "dmInstructions": "Joran serves as a friendly militia watchman who can provide information on local events and the state of affairs. Old Marna holds the key to the palisade's side door and can grant access. Elder Mirna and Cira are additional NPCs to interact with for social and quest-related purposes. There are no traps or threats in the immediate area. The atmosphere reflects the village's recovery, encouraging interactions that emphasize hope and cautious optimism. The party can prepare here before proceeding to other local quest objectives.",
       "doors": [
         {
           "name": "Main Gate",
-          "description": "Double doors of heavy oak and iron, barred at night.",
+          "description": "Double heavy wooden gates, open now, iron-banded and weathered but sturdy.",
           "type": "heavy",
-          "locked": true,
+          "locked": false,
           "lockDC": 15,
           "breakDC": 18,
           "keyname": "Town gate key",
@@ -326,7 +412,7 @@
         },
         {
           "name": "Guardhouse Door",
-          "description": "A narrow, iron-banded door set into the stone guardhouse.",
+          "description": "A narrow, iron-banded door set into the stone guardhouse, unlocked for party access.",
           "type": "regular",
           "locked": false,
           "lockDC": 0,
@@ -334,14 +420,25 @@
           "keyname": "",
           "trapped": false,
           "trap": ""
+        },
+        {
+          "name": "Side Door to Palisade",
+          "description": "A wooden side door in the palisade, recently unlocked with Old Marna's key to grant party passage.",
+          "type": "wooden",
+          "locked": false,
+          "lockDC": 12,
+          "breakDC": 15,
+          "keyname": "Side door key",
+          "trapped": false,
+          "trap": ""
         }
       ],
       "traps": [],
       "dcChecks": [
         "Investigation DC 14: Discover faint footprints and broken brush leading toward the haunted keep.",
-        "Persuasion DC 13: Convince Sergeant Feld to share information or allow after-hours travel."
+        "Persuasion DC 13: Convince militia to share information or allow after-hours travel."
       ],
-      "accessibility": "Easily accessible by road, but guarded and locked at night.",
+      "accessibility": "Accessible via a side lane and main road; guarded but welcoming during daylight hours.",
       "dangerLevel": "Low",
       "features": [
         {
@@ -350,24 +447,47 @@
         },
         {
           "name": "Patrol Roster",
-          "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen’s name circled in chalk."
+          "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen's name circled in chalk."
         },
         {
           "name": "Gate Mechanism",
-          "description": "A stout bar and iron lock securing the gates, requiring a key or brute force to bypass."
+          "description": "A stout bar and iron lock securing the gates, currently disengaged as the gate stands open."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "A03-E1",
+          "summary": "The party meets Joran and Old Marna at the East Gate and Guardhouse, gaining information about local conditions and receiving permission to pass through the side door.",
+          "impact": "The gate is open and accessible, the party has the key to the side door, and local militia shows cautious optimism reflecting the village's recovery.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "12:29:00"
+          }
+        },
+        {
+          "encounterId": "A03-E2",
+          "summary": "The party returns to the East Gate and Guardhouse, greeted with congratulations from Elder Mirna and other villagers for lifting the village's curse. They prepare to assist Old Marna by restocking the General Store and clearing a rat infestation, coordinating with innkeeper Cira for supply retrieval.",
+          "impact": "The party's reputation is enhanced, no new threats exist at the gate, and quest objectives are clarified toward local assistance and supply recovery.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "13:34:00"
+          }
+        }
+      ],
+      "adventureSummary": "Upon arriving at the East Gate and Guardhouse on 1492 Ches 1, 13:34:00, the party was welcomed with cautious optimism after lifting the village's curse. Elder Mirna and villagers offered congratulations and hints of rewards. The gate remains open and free of traps or threats. The party resolved to assist Old Marna by restocking the General Store and clearing a rat infestation, with plans to retrieve supplies from The Wyrd Lantern Inn's cellar through cooperation with innkeeper Cira. The atmosphere remains hopeful as the party sets out toward these objectives."
     },
     {
-      "locationId": "R04",
+      "locationId": "A04",
       "name": "Militia Barracks",
       "type": "barracks",
-      "description": "A utilitarian, two-story stone building with a small training yard. The barracks houses Harrow’s militia—peasant guards, hunters, and retired soldiers. Inside, bunks are neatly arranged, and a wall bears faded banners from better days.",
+      "description": "A utilitarian, two-story stone building with a small training yard. The barracks houses Harrow's militia--peasant guards, hunters, and retired soldiers. Inside, bunks are neatly arranged, and a wall bears faded banners from better days.",
       "coordinates": "X2Y1",
       "connectivity": [
-        "R01"
+        "A01"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -406,7 +526,7 @@
         },
         {
           "name": "Armory Door",
-          "description": "A reinforced wooden door with a heavy padlock, leading to the militia’s armory.",
+          "description": "A reinforced wooden door with a heavy padlock, leading to the militia's armory.",
           "type": "heavy",
           "locked": true,
           "lockDC": 14,
@@ -441,13 +561,13 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "R05",
+      "locationId": "A05",
       "name": "The Wyrd Lantern Inn",
       "type": "tavern",
       "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew and fresh bread fills the air. Laughter and song are frequent, but at night, whispers of fear and superstition drift between tables.",
       "coordinates": "X1Y2",
       "connectivity": [
-        "R01"
+        "A01"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -460,7 +580,7 @@
       ],
       "monsters": [],
       "lootTable": [
-        "Free meal and ale (at Cira’s discretion)",
+        "Free meal and ale (at Cira's discretion)",
         "Set of bone dice (left in a booth)",
         "Silver earring (lost under a table)",
         "Charm against the evil eye (hanging near the bar)"
@@ -468,9 +588,9 @@
       "plotHooks": [
         "A fearful regular claims to have seen a ghostly figure on the east road.",
         "Cira offers the party free rooms if they can calm frightened townsfolk.",
-        "A drunken patron insists the keep’s curse is growing stronger and tries to start a brawl."
+        "A drunken patron insists the keep's curse is growing stronger and tries to start a brawl."
       ],
-      "dmInstructions": "Cira is the party’s best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
+      "dmInstructions": "Cira is the party's best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
       "doors": [
         {
           "name": "Inn Door",
