@@ -1,78 +1,40 @@
-3:15:05 PMDEBUG: File conversation_history.json not found - creating first time
-3:15:06 PMLightweight chat history updated!
-3:15:06 PMSystem messages removed: 5
-3:15:06 PMUser messages: 0
-3:15:06 PMAssistant messages: 0
-3:15:06 PM
-[Processing AI response...]
-3:15:12 PM
-[Advancing world time...]
-3:15:12 PMCurrent Time: 08:00:00, Time Advanced: 1 minutes, New Time: 08:01:00, Days Passed: 0
-3:15:12 PM[08:00:00][HP:36/36][XP:4571/6500] norn: 
-3:15:29 PM
-[Processing AI response...]
-3:15:37 PM
-[Validating response format...]
-3:15:39 PMDEBUG: Validation passed successfully
-3:15:39 PMDEBUG: Valid response generated on attempt 1
-3:15:39 PM
-[Transitioning location...]
-3:15:39 PMDEBUG: Transitioning from 'Harrow's Hollow General Store' to 'Harrow's Hollow Town Square'
-3:15:39 PMDEBUG: Current location string (hex): 486172726f77277320486f6c6c6f772047656e6572616c2053746f7265
-3:15:39 PMDEBUG: New location string (hex): 486172726f77277320486f6c6c6f7720546f776e20537175617265
-3:15:39 PMDEBUG: Handling location transition from 'Harrow's Hollow General Store' to 'Harrow's Hollow Town Square'
-3:15:39 PMDEBUG: Current area: 'Harrow's Hollow', Current area ID: 'HH001'
-3:15:39 PMDEBUG: Current location identified: Harrow's Hollow General Store (ID: A01)
-3:15:39 PMDEBUG: Found new location by exact name: Harrow's Hollow Town Square (ID: A02)
-3:15:39 PMDEBUG: New location info: Harrow's Hollow Town Square (ID: A02)
-3:15:58 PMERROR: Error occurred while running adv_summary.py: Command '['python', 'adv_summary.py', 'conversation_history.json', 'current_location.json', "Harrow's Hollow General Store", 'HH001']' returned non-zero exit status 1.
-3:15:58 PMERROR: stdout: DEBUG: Attempting to load file: conversation_history.json
-3:15:58 PMDEBUG: File parsed successfully: conversation_history.json
-3:15:58 PMDEBUG: Attempting to load file: party_tracker.json
-3:15:58 PMDEBUG: File parsed successfully: party_tracker.json
-3:15:58 PMDEBUG: Adventure Summary generated
-3:15:58 PMDEBUG: Attempting to load file: journal_schema.json
-3:15:58 PMDEBUG: File parsed successfully: journal_schema.json
-3:15:58 PMDEBUG: Journal updated successfully
-3:15:58 PMDEBUG: Attempting to load file: campaigns/Keep_of_Doom/HH001.json
-3:15:58 PMDEBUG: File parsed successfully: campaigns/Keep_of_Doom/HH001.json
-3:15:58 PMDEBUG: Updating location JSON for Harrow's Hollow General Store with all changes
-3:15:58 PMDEBUG: No last completed encounter ID found in party_tracker
-3:15:58 PMDEBUG: Attempting to load file: loca_schema.json
-3:15:58 PMDEBUG: File parsed successfully: loca_schema.json
-3:15:58 PMDEBUG: Attempting to load file: party_tracker.json
-3:15:58 PMDEBUG: File parsed successfully: party_tracker.json
-3:15:58 PMDEBUG: Starting schema processing...
-3:15:58 PMDEBUG: Schema type: <class 'dict'>
-3:15:58 PMDEBUG: Schema keys: ['$schema', 'type', 'properties', 'required']
-3:15:58 PMDEBUG: Properties keys: ['locations']
-3:15:58 PMDEBUG: Location properties keys: ['type', 'items']
-3:15:58 PMDEBUG: Schema structure validation passed
-3:15:58 PMDEBUG: Single item schema extracted, keys: ['type', 'properties', 'required']
-3:15:58 PMDEBUG: Attempt 1 to update location JSON
-3:15:58 PMDEBUG: Error: Invalid location data structure. 'A01' does not match '^R[0-9]+$'
-3:15:58 PMFailed validating 'pattern' in schema['properties']['locationId']:
-3:15:58 PM    {'description': 'A unique identifier for the location, starting with '
-3:15:58 PM                    "'R' followed by numbers.",
-3:15:58 PM     'pattern': '^R[0-9]+$',
-3:15:58 PM     'type': 'string'}
-3:15:58 PMOn instance['locationId']:
-3:15:58 PM    'A01'
-3:15:58 PMERROR: stderr: 
-3:15:58 PMDEBUG: Successfully updated party_tracker.json
-3:15:58 PMDEBUG: Location transition complete
-3:15:58 PM
-[Advancing world time...]
-3:15:58 PMCurrent Time: 09:01:00, Time Advanced: 2 minutes, New Time: 09:03:00, Days Passed: 0
-3:15:58 PM
-[Updating plot progression...]
-3:15:59 PMDEBUG: Successfully updated and validated plot info on attempt 1
-3:15:59 PMDEBUG: Party tracker updated for plot point PP005
-3:15:59 PMDEBUG: Plot information updated for plot point PP005
-3:15:59 PMLightweight chat history updated!
-3:15:59 PMSystem messages removed: 6
-3:15:59 PMUser messages: 2
-3:15:59 PMAssistant messages: 2
-3:15:59 PMDEBUG: Processing conversation history
-3:15:59 PMDEBUG: Conversation history processing complete
-3:15:59 PM[08:01:00][HP:36/36][XP:4571/650
+ {
+    "role": "user",
+    "content": "Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. Use 'updatePlayerInfo', 'updateNPCInfo', and 'updateEncounter' actions to record changes in hit points, status, or conditions for any creature in the encounter. Remember to use separate 'updateNPCInfo' actions whenever NPCs take damage or their status changes. Monster changes should be in 'updateEncounter', but NPC changes require their own 'updateNPCInfo' actions.\n\nImportant: \n1. The status field for creatures must be lowercase: 'alive', 'dead', 'unconscious', or 'defeated'.\n2. Include the 'exit' action when the encounter ends.\n3. NPC and monster status updates must match the expected schema values.\n\nCurrent hitpoints for all creatures:\nNorn's current hitpoints: 28/36\nTwig Blight's current hitpoints: 4/4\nTwig Blight_2's current hitpoints: 4/4\n\nDM Note: Pre-generated UNMODIFIED dice rolls for this round:\n[PLAYER CHARACTER: Norn] The player must make their own rolls.\n[ENEMY: Twig Blight] Raw d20 rolls: [7, 18, 7], Damage dice: [6, 4, 7], Save dice: [STR:4, DEX:17, CON:2, INT:10, WIS:4, CHA:11], Ability rolls: [14, 11, 6]\n[ENEMY: Twig Blight_2] Raw d20 rolls: [16, 13, 11], Damage dice: [7, 2, 7], Save dice: [STR:14, DEX:17, CON:10, INT:4, WIS:17, CHA:16], Ability rolls: [2, 16, 8]\n\nCREATURE TYPES IN THIS ENCOUNTER:\n- Norn: PLAYER CHARACTER (controlled by the human player)\n\nIMPORTANT: You must apply all appropriate modifiers to these rolls based on:\n- Ability score modifiers\n- Proficiency bonuses\n- Weapon/spell bonuses\n- Situational advantages/disadvantages\n- Special abilities and feats\n\nNote: The player must make their own rolls.\n\nPlayer: I rolled a 5 + 3 for 8"
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"narration\": \"You slash your longsword across the second Twig Blight, the blade biting into its wooden form. With 8 points of slashing damage, the creature shudders and breaks apart, falling limp to the ground as splinters scatter. The second Twig Blight is defeated.\\n\\nThe first Twig Blight snarls and lashes out with its claws, attempting to strike you. It rolls d20... an 18 plus 3 attack bonus equals 21, which hits your armor class of 16! Rolling damage: 1d4 plus 1... it deals 6 points of piercing damage as the claws tear into your side.\\n\\nYour current hit points are now 22 out of 36.\\n\\nThe battle continues. Two foes started the encounter; one now lies defeated. The surviving Twig Blight glowers with malice, still ready to strike.\\n\\nYour move, Norn. What will you do next? Remember to roll a d20 for your attack and add your bonus when you strike.\",\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"B03-E1\",\n        \"changes\": \"Second Twig Blight takes 8 slashing damage from Norn's longsword and is defeated (0 HP, status changed to 'dead').\"\n      }\n    },\n    {\n      \"action\": \"updatePlayerInfo\",\n      \"parameters\": {\n        \"changes\": \"Norn takes 6 points of piercing damage from the first Twig Blight's claw attack. Current hit points reduced from 28 to 22.\"\n      }\n    }\n  ]\n}"
+  },
+  {
+    "role": "user",
+    "content": "Your previous response had issues with the combat logic: The narration processes both the player's attack and the enemy's attack in a single response, skipping proper initiative order. The AI Dungeon Master should have resolved only the player's attack, checked for the Twig Blight_2's defeat, and then paused for the next initiative turn. Additionally, the narration assumes the player's target was Twig Blight_2, but the player did not specify a target. The AI Dungeon Master should have clarified the target if ambiguous.\n\nAfter the player rolls an 8 for their attack, the AI Dungeon Master should first confirm if this hits the intended target (and clarify which Twig Blight is being attacked if not specified). If the attack hits, apply damage, update HP, and narrate the result. If the Twig Blight drops to 0 HP, mark it as dead and remove it from initiative. Only then should the AI Dungeon Master proceed to the next creature's turn in initiative order. Do not process both the player's and the enemy's actions in a single narration. Pause after the player's action for clarity and proper turn flow.. Please correct these issues and try again."
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"narration\": \"You swung your longsword with precision, dealing 8 points of slashing damage. Which Twig Blight are you aiming for? The first one at full health, or the second one standing slightly to your right? Please specify your target so I can apply the damage correctly.\",\n  \"actions\": []\n}"
+  },
+  {
+    "role": "user",
+    "content": "Your previous response had issues with the combat logic: The AI Dungeon Master should not process the player's attack and apply damage until the player specifies the target. However, the narration incorrectly states that the player has already dealt 8 points of damage without knowing which Twig Blight is being targeted. The AI Dungeon Master should first ask for the target before narrating the result of the attack.\n\nThe proper flow should be: (1) Player provides attack and damage rolls, (2) AI Dungeon Master asks for the target if not specified, (3) Once the target is specified, the AI Dungeon Master narrates the attack, applies the damage, updates HP, and checks for death. Do not narrate the result or apply damage until the target is clear.. Please correct these issues and try again."
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"narration\": \"You have rolled an 8 for your longsword attack. Before I apply this damage, which Twig Blight would you like to target? The first one with initiative 13, or the second one with initiative 11? Please specify your target so we can proceed with resolving your attack.\",\n  \"actions\": []\n}"
+  },
+  {
+    "role": "user",
+    "content": "Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. Use 'updatePlayerInfo', 'updateNPCInfo', and 'updateEncounter' actions to record changes in hit points, status, or conditions for any creature in the encounter. Remember to use separate 'updateNPCInfo' actions whenever NPCs take damage or their status changes. Monster changes should be in 'updateEncounter', but NPC changes require their own 'updateNPCInfo' actions.\n\nImportant: \n1. The status field for creatures must be lowercase: 'alive', 'dead', 'unconscious', or 'defeated'.\n2. Include the 'exit' action when the encounter ends.\n3. NPC and monster status updates must match the expected schema values.\n\nCurrent hitpoints for all creatures:\nNorn's current hitpoints: 28/36\nTwig Blight's current hitpoints: 4/4\nTwig Blight_2's current hitpoints: 4/4\n\nDM Note: Pre-generated UNMODIFIED dice rolls for this round:\n[PLAYER CHARACTER: Norn] The player must make their own rolls.\n[ENEMY: Twig Blight] Raw d20 rolls: [5, 1, 18], Damage dice: [7, 7, 2], Save dice: [STR:3, DEX:20, CON:16, INT:19, WIS:1, CHA:13], Ability rolls: [17, 15, 19]\n[ENEMY: Twig Blight_2] Raw d20 rolls: [8, 9, 11], Damage dice: [2, 3, 4], Save dice: [STR:4, DEX:20, CON:14, INT:11, WIS:17, CHA:5], Ability rolls: [13, 2, 16]\n\nCREATURE TYPES IN THIS ENCOUNTER:\n- Norn: PLAYER CHARACTER (controlled by the human player)\n\nIMPORTANT: You must apply all appropriate modifiers to these rolls based on:\n- Ability score modifiers\n- Proficiency bonuses\n- Weapon/spell bonuses\n- Situational advantages/disadvantages\n- Special abilities and feats\n\nNote: The player must make their own rolls.\n\nPlayer: Let's do the one with 13"
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"narration\": \"You focus your attack on the first Twig Blight, the one with initiative 13. Your longsword arcs through the air, striking true. With an attack roll of 16 plus 5, you hit its armor class of 13. Rolling damage, you dealt 8 points of slashing damage to the Twig Blight. This damage overwhelms its fragile form, causing it to splinter and collapse to the ground, defeated.\\n\\nThe first Twig Blight is now dead.\\n\\nNow, the surviving Twig Blight with initiative 11 turns to you, its wooden claws swiping fiercely. It rolls a d20... a 5 plus 3 attack bonus equals 8, which misses your armor class of 16. The claws scrape harmlessly against your armor.\\n\\nYour turn, Norn. The single Twig Blight remains facing you, vulnerable but dangerous. What will you do next? Remember to roll a d20 for your attack and add your attack bonus.\",\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"B03-E1\",\n        \"changes\": \"First Twig Blight takes 8 slashing damage from Norn's longsword and is defeated (0 hit points, status changed to 'dead').\"\n      }\n    }\n  ]\n}"
+  },
+  {
+    "role": "user",
+    "content": "Your previous response had issues with the combat logic: The AI Dungeon Master processed Norn's attack and immediately described the attack roll, damage, and defeat of the Twig Blight (initiative 13), which is correct. However, the player did not provide an attack roll or damage roll; the AI Dungeon Master assumed both rolls and resolved the action without waiting for the player's input. According to the rules, the AI Dungeon Master should only resolve NPC/monster actions and must pause and ask for the player's attack and damage rolls before resolving the player's action.\n\nAfter the player says 'Let's do the one with 13', the AI Dungeon Master should prompt: 'Roll a d20 for your attack against the Twig Blight (initiative 13) and tell me the result.' Only after the player provides the attack roll (and, if it hits, the damage roll) should the AI Dungeon Master resolve the attack, update HP, and narrate the outcome. Do not assume or roll for the player unless the player asks for it.. Please correct these issues and try again."
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"narration\": \"You have chosen to attack the Twig Blight with initiative 13. Please roll a d20 for your attack roll against this Twig Blight and tell me the result.\",\n  \"actions\": []\n}"
+  },

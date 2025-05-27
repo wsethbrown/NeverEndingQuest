@@ -10,7 +10,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 36,
+  "hitPoints": 22,
   "maxHitPoints": 36,
   "armorClass": 16,
   "initiative": 2,
@@ -64,7 +64,8 @@
     "Improved Critical",
     "Martial Archetype: Champion",
     "Empowered Ward Ritual: Performing the ancient rite at the faerie circle grants spiritual fortitude, providing advantage on saving throws against enchantment effects for 24 hours.",
-    "Renewed Protective Ward: Completed the ancient rite at the Lost Ward Circle, renewing the protective ward and gaining spiritual fortitude."
+    "Renewed Protective Ward: Completed the ancient rite at the Lost Ward Circle, renewing the protective ward and gaining spiritual fortitude.",
+    "Completed Withered Shrine Ward Ritual"
   ],
   "specialAbilities": [
     {
@@ -92,16 +93,16 @@
   ],
   "equipment": [
     {
-      "item_name": "Journal",
+      "item_name": "Scout Elen's torn cloak clasp (engraved E.R., faintly magical)",
       "item_type": "miscellaneous",
-      "description": "Describes increasing forest dangers and the final patrol's plans, including mention of a 'shadow knight'. Now updated with map route to the Lost Ward Circle and notes about the warning from the Keeper.",
+      "description": "A delicate cloak clasp torn from Scout Elen's cloak, engraved with the initials E.R. It radiates faint magical energy.",
       "quantity": 1
     }
   ],
   "ammunition": [
     {
       "name": "Arrows",
-      "quantity": 46,
+      "quantity": 31,
       "description": "Standard arrows for a bow"
     }
   ],
@@ -165,7 +166,7 @@
     "silver": -1,
     "copper": 0
   },
-  "experience_points": 4571,
+  "experience_points": 4971,
   "exp_required_for_next_level": 6500,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",

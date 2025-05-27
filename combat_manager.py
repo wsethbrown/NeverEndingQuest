@@ -36,7 +36,7 @@ import update_party_tracker
 # Import the preroll generator
 from generate_prerolls import generate_prerolls
 # Import safe JSON functions
-from encoding_utils import safe_json_load
+from encoding_utils import safe_json_load, safe_json_dump
 
 # Updated color constants
 SOLID_GREEN = "\033[38;2;0;180;0m"
@@ -61,8 +61,10 @@ os.makedirs("combat_logs", exist_ok=True)
 HISTORY_TIMESTAMP_FORMAT = "%Y%m%d_%H%M%S"
 
 def get_current_area_id():
-    with open("party_tracker.json", "r") as file:
-        party_tracker = json.load(file)
+    party_tracker = safe_json_load("party_tracker.json")
+    if not party_tracker:
+        print("ERROR: Failed to load party_tracker.json")
+        return None
     return party_tracker["worldConditions"]["currentAreaId"]
 
 def get_location_data(location_id):
@@ -78,8 +80,10 @@ def get_location_data(location_id):
         print(f"ERROR: Area file {area_file} does not exist")
         return None
 
-    with open(area_file, "r") as file:
-        area_data = json.load(file)
+    area_data = safe_json_load(area_file)
+    if not area_data:
+        print(f"ERROR: Failed to load area file: {area_file}")
+        return None
     print(f"DEBUG: Loaded area data: {json.dumps(area_data, indent=2)}")
 
     for location in area_data["locations"]:
@@ -93,8 +97,12 @@ def get_location_data(location_id):
 def read_prompt_from_file(filename):
     script_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(script_dir, filename)
-    with open(file_path, 'r') as file:
-        return file.read().strip()
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return file.read().strip()
+    except Exception as e:
+        print(f"ERROR: Failed to read prompt file {filename}: {str(e)}")
+        return ""
 
 def load_monster_stats(monster_name):
     # Import the path manager
@@ -104,29 +112,23 @@ def load_monster_stats(monster_name):
     # Get the correct path for the monster file
     monster_file = path_manager.get_monster_path(monster_name)
 
-    try:
-        with open(monster_file, "r") as file:
-            monster_stats = json.load(file)
-        return monster_stats
-    except FileNotFoundError:
-        print(f"Monster file {monster_file} not found.")
-        return None
+    monster_stats = safe_json_load(monster_file)
+    if not monster_stats:
+        print(f"ERROR: Failed to load monster file: {monster_file}")
+    return monster_stats
 
 def load_json_file(file_path):
-    try:
-        if os.path.exists(file_path):
-            with open(file_path, "r") as file:
-                return json.load(file)
-        else:
-            # If file doesn't exist yet, return an empty list
-            return []
-    except json.JSONDecodeError:
-        # If file contains invalid JSON, return an empty list
+    data = safe_json_load(file_path)
+    if data is None:
+        # If file doesn't exist or has invalid JSON, return an empty list
         return []
+    return data
 
 def save_json_file(file_path, data):
-    with open(file_path, "w") as file:
-        json.dump(data, file, indent=2)
+    try:
+        safe_json_dump(data, file_path)
+    except Exception as e:
+        print(f"ERROR: Failed to save {file_path}: {str(e)}")
 
 def is_valid_json(json_string):
     try:
@@ -276,17 +278,9 @@ def log_conversation_structure(conversation):
 def summarize_dialogue(conversation_history_param, location_data, party_tracker_data):
     print("DEBUG: Activating the third model...")
     
-    # Load the clean narrative history from third_model_history
-    try:
-        third_model_history = safe_json_load(third_model_history_file) or []
-        print(f"DEBUG: Loaded third_model_history with {len(third_model_history)} entries")
-    except Exception as e:
-        print(f"ERROR: Failed to load third_model_history: {str(e)}")
-        third_model_history = []
-
     dialogue_summary_prompt = [
         {"role": "system", "content": "Your task is to provide a concise summary of the combat encounter in the world's most popular 5th Edition roleplayign game dialogue between the dungeon master running the combat encounter and the player. Focus on capturing the key events, actions, and outcomes of the encounter. Be sure to include the experience points awarded, which will be provided in the conversation history. The summary should be written in a narrative style suitable for presenting to the main dungeon master. Include in your summary any defeated monsters or corpses left behind after combat."},
-        {"role": "user", "content": json.dumps(third_model_history)}
+        {"role": "user", "content": json.dumps(conversation_history_param)}
     ]
 
     # Generate dialogue summary
@@ -326,26 +320,28 @@ def summarize_dialogue(conversation_history_param, location_data, party_tracker_
         path_manager = CampaignPathManager()
         current_area_id = get_current_area_id()
         area_file = path_manager.get_area_path(current_area_id)
-        with open(area_file, "r") as file:
-            area_data = json.load(file)
+        area_data = safe_json_load(area_file)
+        if not area_data:
+            print(f"ERROR: Failed to load area file: {area_file}")
+            return dialogue_summary
+        
         for i, loc in enumerate(area_data["locations"]):
             if loc["locationId"] == current_location_id:
                 area_data["locations"][i] = location_data
                 break
-        with open(area_file, "w") as file:
-            json.dump(area_data, file, indent=2)
+        
+        if not safe_json_dump(area_data, area_file):
+            print(f"ERROR: Failed to save area file: {area_file}")
         print(f"DEBUG: Encounter {encounter_id} added to {area_file}.")
 
         conversation_history_param.append({"role": "assistant", "content": f"Combat Summary: {dialogue_summary}"})
         conversation_history_param.append({"role": "user", "content": "The combat has concluded. What would you like to do next?"})
 
         print(f"DEBUG: Attempting to write to file: {conversation_history_file}")
-        try:
-            with open(conversation_history_file, "w") as file:
-                json.dump(conversation_history_param, file, indent=2)
+        if not safe_json_dump(conversation_history_param, conversation_history_file):
+            print(f"ERROR: Failed to save conversation history")
+        else:
             print("DEBUG: Conversation history saved successfully")
-        except Exception as e:
-            print(f"ERROR: Failed to save conversation history. Error: {str(e)}")
         print("Conversation history updated with encounter summary.")
     else:
         print(f"ERROR: Location {current_location_id} not found in location data or location data is incorrect.")
@@ -402,8 +398,8 @@ def update_json_schema(ai_response, player_info, encounter_data, party_tracker_d
         party_tracker_data['worldConditions']['activeCombatEncounter'] = ""
 
     # Save the updated party_tracker.json file
-    with open("party_tracker.json", "w") as file:
-        json.dump(party_tracker_data, file, indent=2)
+    if not safe_json_dump(party_tracker_data, "party_tracker.json"):
+        print("ERROR: Failed to save party_tracker.json")
 
     return updated_player_info, updated_encounter_data, party_tracker_data
 
@@ -428,8 +424,8 @@ def generate_chat_history(conversation_history, encounter_id):
         chat_history = [msg for msg in conversation_history if msg["role"] != "system"]
 
         # Write the filtered chat history to the output file
-        with open(output_file, "w", encoding="utf-8") as f:
-            json.dump(chat_history, f, indent=2)
+        if not safe_json_dump(chat_history, output_file):
+            print(f"ERROR: Failed to save chat history to {output_file}")
 
         # Print statistics
         system_count = len(conversation_history) - len(chat_history)
@@ -447,8 +443,8 @@ def generate_chat_history(conversation_history, encounter_id):
 
         # Also create/update the latest version of this encounter for easy reference
         latest_file = f"{encounter_dir}/combat_chat_latest.json"
-        with open(latest_file, "w", encoding="utf-8") as f:
-            json.dump(chat_history, f, indent=2)
+        if not safe_json_dump(chat_history, latest_file):
+            print(f"ERROR: Failed to save latest chat history")
         print(f"Latest version also saved to: {latest_file}\n")
 
         # Save a combined latest file for all encounters as well
@@ -485,8 +481,10 @@ def sync_active_encounter():
     
     # Check if there's an active combat encounter
     try:
-        with open("party_tracker.json", "r") as file:
-            party_tracker = json.load(file)
+        party_tracker = safe_json_load("party_tracker.json")
+        if not party_tracker:
+            print("ERROR: Failed to load party_tracker.json")
+            return
         
         active_encounter_id = party_tracker.get("worldConditions", {}).get("activeCombatEncounter", "")
         if not active_encounter_id:
@@ -495,8 +493,10 @@ def sync_active_encounter():
             
         # Load the encounter file
         encounter_file = f"encounter_{active_encounter_id}.json"
-        with open(encounter_file, "r") as file:
-            encounter_data = json.load(file)
+        encounter_data = safe_json_load(encounter_file)
+        if not encounter_data:
+            print(f"ERROR: Failed to load encounter file: {encounter_file}")
+            return {}
             
         # Track if any changes were made
         changes_made = False
@@ -506,8 +506,9 @@ def sync_active_encounter():
             if creature["type"] == "player":
                 player_file = path_manager.get_player_path(creature['name'].lower().replace(' ', '_'))
                 try:
-                    with open(player_file, "r") as file:
-                        player_data = json.load(file)
+                    player_data = safe_json_load(player_file)
+                    if not player_data:
+                        print(f"ERROR: Failed to load player file: {player_file}")
                         # Update combat-relevant fields
                         if creature.get("currentHitPoints") != player_data.get("hitPoints"):
                             creature["currentHitPoints"] = player_data.get("hitPoints")
@@ -528,8 +529,10 @@ def sync_active_encounter():
                 npc_name = creature['name'].lower().replace(' ', '_').split('_')[0]
                 npc_file = path_manager.get_npc_path(npc_name)
                 try:
-                    with open(npc_file, "r") as file:
-                        npc_data = json.load(file)
+                    npc_data = safe_json_load(npc_file)
+                    if not npc_data:
+                        print(f"ERROR: Failed to load NPC file: {npc_file}")
+                    else:
                         # Update combat-relevant fields
                         if creature.get("currentHitPoints") != npc_data.get("hitPoints"):
                             creature["currentHitPoints"] = npc_data.get("hitPoints")
@@ -548,8 +551,8 @@ def sync_active_encounter():
         
         # Save the encounter file if changes were made
         if changes_made:
-            with open(encounter_file, "w") as file:
-                json.dump(encounter_data, file, indent=2)
+            if not safe_json_dump(encounter_data, encounter_file):
+                print(f"ERROR: Failed to save encounter file: {encounter_file}")
             print(f"Active encounter {active_encounter_id} synced with latest character data")
             
     except Exception as e:
@@ -584,8 +587,10 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    # Load encounter data
    json_file_path = f"encounter_{encounter_id}.json"
    try:
-       with open(json_file_path, "r") as file:
-           encounter_data = json.load(file)
+       encounter_data = safe_json_load(json_file_path)
+       if not encounter_data:
+           print(f"ERROR: Failed to load encounter file {json_file_path}")
+           return None, None
    except Exception as e:
        print(f"ERROR: Failed to load encounter file {json_file_path}: {str(e)}")
        return None, None
@@ -601,8 +606,10 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
            player_name = creature["name"].lower().replace(" ", "_")
            player_file = path_manager.get_player_path(player_name)
            try:
-               with open(player_file, "r") as file:
-                   player_info = json.load(file)
+               player_info = safe_json_load(player_file)
+               if not player_info:
+                   print(f"ERROR: Failed to load player file: {player_file}")
+                   return None, None
            except Exception as e:
                print(f"ERROR: Failed to load player file {player_file}: {str(e)}")
                return None, None
@@ -613,9 +620,12 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
                monster_file = path_manager.get_monster_path(monster_type)
                print(f"DEBUG: Attempting to load monster file: {monster_file}")
                try:
-                   with open(monster_file, "r") as file:
-                       monster_templates[monster_type] = json.load(file)
+                   monster_data = safe_json_load(monster_file)
+                   if monster_data:
+                       monster_templates[monster_type] = monster_data
                        print(f"DEBUG: Successfully loaded monster: {monster_type}")
+                   else:
+                       print(f"ERROR: Failed to load monster file: {monster_file}")
                except FileNotFoundError as e:
                    print(f"ERROR: Monster file not found: {monster_file}")
                    print(f"ERROR: {str(e)}")
@@ -642,8 +652,11 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
            npc_file = path_manager.get_npc_path(npc_file_name_part)
            if npc_file_name_part not in npc_templates: # Check against the base name
                try:
-                   with open(npc_file, "r") as file:
-                       npc_templates[npc_file_name_part] = json.load(file)
+                   npc_data = safe_json_load(npc_file)
+                   if npc_data:
+                       npc_templates[npc_file_name_part] = npc_data
+                   else:
+                       print(f"ERROR: Failed to load NPC file: {npc_file}")
                except Exception as e:
                    print(f"ERROR: Failed to load NPC file {npc_file}: {str(e)}")
    
@@ -808,15 +821,6 @@ Player: The combat begins. Describe the scene and the enemies we face."""
            parsed_response = json.loads(initial_response)
            narration = parsed_response["narration"]
            print(f"Dungeon Master: {SOFT_REDDISH_ORANGE}{narration}{RESET_COLOR}")
-           
-           # Add initial narration to third_model_history
-           try:
-               third_model_history = []
-               third_model_history.append({"role": "assistant", "content": narration})
-               save_json_file(third_model_history_file, third_model_history)
-               print("DEBUG: Added initial narration to third_model_history")
-           except Exception as e:
-               print(f"DEBUG: Failed to add initial narration to third_model_history: {str(e)}")
        except Exception as e:
            print(f"ERROR: Failed to parse initial response: {str(e)}")
    else:
@@ -834,8 +838,9 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        player_name = player_info["name"].lower().replace(" ", "_")
        player_file = path_manager.get_player_path(player_name)
        try:
-           with open(player_file, "r") as file:
-               player_info = json.load(file)
+           player_info = safe_json_load(player_file)
+           if not player_info:
+               print(f"ERROR: Failed to load player file: {player_file}")
                # Replace player data in conversation history
                conversation_history[2]["content"] = f"Player Character:\n{json.dumps(player_info, indent=2)}"
        except Exception as e:
@@ -844,8 +849,8 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        # Reload encounter data
        json_file_path = f"encounter_{encounter_id}.json"
        try:
-           with open(json_file_path, "r") as file:
-               encounter_data = json.load(file)
+           encounter_data = safe_json_load(json_file_path)
+           if encounter_data:
                # Find and update the encounter data in conversation history
                for i, msg in enumerate(conversation_history):
                    if msg["role"] == "system" and "Encounter Details:" in msg["content"]:
@@ -943,15 +948,6 @@ Player: {user_input_text}"""
        conversation_history.append({"role": "user", "content": user_input_with_note})
        save_json_file(conversation_history_file, conversation_history)
        
-       # Also add clean user input to third_model_history for summary generation
-       try:
-           third_model_history = safe_json_load(third_model_history_file) or []
-           third_model_history.append({"role": "user", "content": user_input_text})
-           save_json_file(third_model_history_file, third_model_history)
-           print("DEBUG: Added user input to third_model_history")
-       except Exception as e:
-           print(f"DEBUG: Failed to update third_model_history with user input: {str(e)}")
-       
        # Get AI response with validation and retries
        max_retries = 3
        valid_response = False
@@ -994,15 +990,6 @@ Player: {user_input_text}"""
                parsed_response = json.loads(ai_response)
                narration = parsed_response["narration"]
                actions = parsed_response["actions"]
-               
-               # Store clean narration for summary generation
-               try:
-                   third_model_history = safe_json_load(third_model_history_file) or []
-                   third_model_history.append({"role": "assistant", "content": narration})
-                   save_json_file(third_model_history_file, third_model_history)
-                   print("DEBUG: Added clean narration to third_model_history for summary generation")
-               except Exception as e:
-                   print(f"DEBUG: Failed to update third_model_history: {str(e)}")
                
                # Validate the combat logic
                validation_result = validate_combat_response(ai_response, encounter_data, user_input_text)
@@ -1171,8 +1158,10 @@ def main():
     
     # Load party tracker
     try:
-        with open("party_tracker.json", "r") as file:
-            party_tracker_data = json.load(file)
+        party_tracker_data = safe_json_load("party_tracker.json")
+        if not party_tracker_data:
+            print("ERROR: Failed to load party_tracker.json")
+            return
         print(f"DEBUG: Loaded party_tracker: {party_tracker_data}")
     except Exception as e:
         print(f"ERROR: Failed to load party tracker: {str(e)}")

@@ -83,7 +83,7 @@ def update_world_conditions(current_conditions, new_location, current_area, curr
     """Update world conditions based on location change"""
     from datetime import datetime, timedelta
     current_time = datetime.strptime(current_conditions["time"], "%H:%M:%S")
-    new_time = (current_time + timedelta(hours=1)).strftime("%H:%M:%S")
+    new_time = current_time.strftime("%H:%M:%S")  # Don't automatically add time - let DM handle it
 
     location_info = get_location_info(new_location, current_area, current_area_id)
 

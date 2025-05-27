@@ -1,0 +1,48 @@
+{
+  "encounterId": "B03-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 10,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 28,
+      "maxHitPoints": 36,
+      "armorClass": 16
+    },
+    {
+      "name": "Twig Blight",
+      "type": "enemy",
+      "monsterType": "twig_blight",
+      "initiative": 13,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 0,
+      "maxHitPoints": 4
+    },
+    {
+      "name": "Twig Blight_2",
+      "type": "enemy",
+      "monsterType": "twig_blight",
+      "initiative": 11,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 0,
+      "maxHitPoints": 4
+    }
+  ],
+  "encounterSummary": "As Norn investigates the uneasy feeling at the Withered Shrine, two twig blights emerge from the undergrowth, preparing to attack."
+}

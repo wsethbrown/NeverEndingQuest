@@ -142,7 +142,7 @@
       "locationId": "A01",
       "name": "Harrow's Hollow General Store",
       "type": "shop",
-      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter. Elder Mirna Harrow stands behind the wooden counter with a concerned yet respectful gaze, reflecting the unease hanging over the village due to recent disappearances and the dark influence of the ancient keep.",
+      "description": "A sturdy timber-and-stone building at the town's heart, the general store remains the main source of goods and local news for Harrow's Hollow. The atmosphere is tense but hopeful following recent reports of shadow creatures near the Witchlight Trail. Elder Mirna Harrow, the silver-haired matriarch, now tends carefully to Norn's wounds with old herbal remedies, her expression a mix of shock and grim determination. Shelves still brim with tools, dried provisions, and oddities, but the weight of the village's growing troubles hangs palpably in the air.",
       "coordinates": "X2Y2",
       "connectivity": [
         "A02",
@@ -155,26 +155,36 @@
       "npcs": [
         {
           "name": "Elder Mirna Harrow",
-          "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs and now carries a hidden worry about the ancient keep and the village's safety.",
-          "attitude": "Respectful but cautious toward outsiders; friendly and supportive to locals and allies, especially those seeking to aid the village."
+          "description": "The wise and solemn matriarch of Harrow's Hollow, deeply concerned by the intensifying curse of the ancient keep. She is cautious but supportive, offering old remedies and supplies to aid adventurers despite the village's lack of a trained cleric. Her demeanor is now marked by a resolute hope sparked by Norn's bravery.",
+          "attitude": "Respectful and supportive toward allies, especially those confronting the village's dark threats; cautious but cooperative with outsiders."
         }
       ],
-      "monsters": [],
+      "monsters": [
+        {
+          "name": "Shadow Creature",
+          "quantity": {
+            "min": 3,
+            "max": 3
+          }
+        }
+      ],
       "lootTable": [
         "Adventurer's pack (1 gp)",
         "Lantern, hooded (5 gp)",
         "10 days' rations (5 sp per)",
         "Cured leather pouch (8 sp)",
         "Handwritten map of local trails (contains a clue about a haunted ruin)",
-        "Old bronze key marked with a faded raven sigil"
+        "Old bronze key marked with a faded raven sigil",
+        "Herbal salves and bandages (used for healing wounds)"
       ],
       "plotHooks": [
         "Elder Mirna entrusts the party with a bronze key relic and a quest to investigate the ancient keep on the hill.",
-        "A worried villager asks if the party has news of Scout Elen, who vanished while patrolling the Witchlight Trailhead beyond the East Gate.",
+        "A worried villager asks if the party has news of Scout Elen, who vanished while patrolling near the East Gate.",
         "The village faces a lurking dark influence tied to the keep and ongoing disappearances.",
-        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts."
+        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.",
+        "Elder Mirna warns of older, crueler dangers lurking in the Gloamwood and offers aid and supplies to brave adventurers."
       ],
-      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna reveals its significance and entrusts it to the party after a successful Insight check.",
+      "dmInstructions": "Elder Mirna now tends wounds with old herbal remedies, restoring some health despite the lack of a trained cleric. Use her to provide cautious but hopeful guidance about the increasing supernatural threats, including shadow creatures near the Witchlight Trail and darker dangers in the Gloamwood. She may offer supplies and old knowledge, fostering NPC and player roleplay opportunities.",
       "doors": [
         {
           "name": "Front Door",
@@ -205,23 +215,46 @@
         "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the keep."
       ],
       "accessibility": "Easily accessible from the main square, wide doorways and step-free entry.",
-      "dangerLevel": "Low",
+      "dangerLevel": "Medium",
       "features": [
         {
           "name": "Notice Board",
-          "description": "A cluttered board filled with handwritten notices, missing pet posters, cryptic local warnings, and a plea about the missing Scout Elen."
+          "description": "A cluttered board filled with handwritten notices, missing pet posters, cryptic local warnings, and a fresh plea regarding the disappearance of Scout Elen near the East Gate."
         },
         {
           "name": "Counter and Ledger",
-          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. Elder Mirna often stands here, observing visitors with a watchful eye."
+          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. Elder Mirna stands here, now tending wounds and sharing grim news with visitors."
         },
         {
           "name": "Back Storeroom",
-          "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests. Supplies here are offered to the party to aid their upcoming quest."
+          "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests. Supplies and herbal remedies are here and may be offered to aid the party."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "A01-E1",
+          "summary": "Encountered Elder Mirna Harrow at dawn in the general store; she shared grave news about recent disappearances, including Scout Elen's vanishing near the East Gate, and entrusted a bronze key and a map to the party after a serious conversation.",
+          "impact": "Initiated the active plot 'Shadows Over Harrow's Hollow' with a quest to investigate the ancient keep and the disappearances; party gained important items and information.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "08:00:00"
+          }
+        },
+        {
+          "encounterId": "A01-E2",
+          "summary": "Norn returned from the Witchlight Trail battle, recounting a fierce fight against three shadow creatures, confirming the supernatural threat the village fears. Elder Mirna tended Norn's wounds with old herbal remedies, restoring health despite the village's lack of a trained cleric. The mood in the store was tense yet hopeful as news of Norn's bravery spread among the villagers.",
+          "impact": "Reinforced the party's role as defenders against the dark curse; Elder Mirna offered further aid and supplies, warning of more dangers in the Gloamwood. The general store became a place of healing and resolve before the party's next move to rest at the Wyrd Lantern Inn.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "12:45:00"
+          }
+        }
+      ],
+      "adventureSummary": "Upon returning at midday on Ches 1, 1492, Norn shared a harrowing account of battling three shadow creatures near the Witchlight Trail, confirming villagers' fears of a supernatural threat. Elder Mirna Harrow tended to Norn's wounds with old herbal remedies, restoring some health despite the absence of a trained cleric. The villagers remained tense but hopeful, stirred by Norn's bravery. Mirna warned of older, crueler dangers lurking in the Gloamwood and offered supplies and aid. After recuperating, Norn chose to rest at the nearby Wyrd Lantern Inn before continuing the quest, marking a pivotal moment of hope and resolve within Harrow's Hollow General Store."
     },
     {
       "locationId": "A02",
@@ -282,7 +315,7 @@
       "locationId": "A03",
       "name": "East Gate and Guardhouse",
       "type": "gate",
-      "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town's eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond. The gate area remains vigilant yet calm, serving as a crucial point for gathering information before venturing along the Witchlight Trail.",
+      "description": "A pair of heavy wooden gates, iron-banded and weathered, mark the town's eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond. The gate area remains vigilant yet tense, with two militia members on duty. Mist thickens beyond the gate, casting an eerie atmosphere as the party prepares to venture along the Witchlight Trail. The atmosphere is heavy with unease, reflecting the villagers' growing concern about supernatural threats in the area.",
       "coordinates": "X2Y3",
       "connectivity": [
         "A01"
@@ -295,14 +328,14 @@
       ],
       "npcs": [
         {
-          "name": "Sergeant Mara Feld",
-          "description": "A stoic, broad-shouldered veteran overseeing the town's security. She has a no-nonsense manner and fierce loyalty to Harrow's Hollow.",
-          "attitude": "Suspicious of outsiders, but fair; she values courage and honesty."
+          "name": "Young Guard",
+          "description": "A young woman holding a faintly glowing lantern. She is cautious but willing to share information about the recent disturbances and the missing scout.",
+          "attitude": "Concerned and cooperative; urges caution when traveling beyond the gate."
         },
         {
-          "name": "Norn",
-          "description": "The party leader who approached the militia to gather intelligence about the Witchlight Trail and the keep.",
-          "attitude": "Focused and determined to advance the main quest."
+          "name": "Broad-Shouldered Guard",
+          "description": "A broad-shouldered man carrying a battered spear. He expresses worry about strange phenomena in the nearby woods and missing livestock.",
+          "attitude": "Grave and watchful; values the safety of the town and its people."
         }
       ],
       "monsters": [],
@@ -313,12 +346,13 @@
         "Town patrol schedule (handwritten, with notes about recent disturbances near the keep)"
       ],
       "plotHooks": [
-        "Sergeant Feld asks the party to help search for Scout Elen, missing after a routine patrol.",
-        "Feld warns the party: the east road is dangerous after dark, and the keep is strictly off limits to townsfolk.",
-        "A bloodstained scrap of cloth is found snagged on the gate; Feld suspects foul play nearby.",
-        "Militia provide valuable intelligence about dangers along the Witchlight Trail and the approach to the keep."
+        "The young guard shares that Scout Elen went missing two days ago while patrolling the Witchlight Trail.",
+        "The broad-shouldered guard warns of mysterious lights, shadows, and missing livestock in the nearby woods.",
+        "Both guards urge the party to report any findings about Elen or unusual occurrences to help the strained village defenses.",
+        "Mysterious phenomena along the Witchlight Trail suggest dangers beyond natural predators.",
+        "Elder Mirna Harrow tasks the party with investigating the recent disappearances and curse rumors haunting Harrow's Hollow."
       ],
-      "dmInstructions": "Sergeant Feld can provide basic information about town defenses and recent troubles. She may require a DC 13 Persuasion check before allowing non-residents to leave after dusk. Searching the area (DC 14 Investigation) uncovers subtle tracks leading toward the woods. Note the absence of magical quest markers or HUD indicators which may challenge new adventurers.",
+      "dmInstructions": "Two militia members are on duty: a young woman with a glowing lantern and a broad-shouldered man with a spear. Provide information on the missing scout Elen, recent strange sightings, and the dangers of the Witchlight Trail. The atmosphere is heavy with unease and mist beyond the gate. Encourage cautious roleplay as the party prepares to move forward. Note that the party has chosen to leave this location to investigate footprints at the Witchlight Trailhead.",
       "doors": [
         {
           "name": "Main Gate",
@@ -357,15 +391,49 @@
         },
         {
           "name": "Patrol Roster",
-          "description": "A chalkboard inside the guardhouse listing names and shifts, with Elen's name circled in chalk."
+          "description": "A chalkboard inside the guardhouse listing names and shifts, with Scout Elen's name circled in chalk."
         },
         {
           "name": "Gate Mechanism",
           "description": "A stout bar and iron lock securing the gates, requiring a key or brute force to bypass."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "A03-E1",
+          "summary": "The party meets two militia members guarding the East Gate: a young woman with a glowing lantern and a broad-shouldered man with a battered spear. They inform the party of recent strange phenomena and the disappearance of Scout Elen.",
+          "impact": "The party gains valuable information about the dangers along the Witchlight Trail and is urged to report any findings. The atmosphere becomes heavy with foreboding as mist thickens beyond the gate.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "09:05:00"
+          }
+        },
+        {
+          "encounterId": "A03-E2",
+          "summary": "The party engages in a cautious conversation with the two militia guards at the East Gate, learning about the recent appearance of eerie, self-moving shadows and troubling signs like disappearing livestock and ghostly lantern lights in the nearby Gloamwood.",
+          "impact": "The party understands the growing supernatural threat pressing upon the village and is advised to retreat if confronted. The guards reassure that ringing the bell above the gate can summon help, though it's not guaranteed.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "11:27:00"
+          }
+        },
+        {
+          "encounterId": "A03-E3",
+          "summary": "The party gathers information about the village's uneasy state and the missing scout Elen from the militia, then chooses to depart the East Gate to follow footprints discovered along the Witchlight Trailhead.",
+          "impact": "The party reinforces their understanding of the mounting supernatural threats and takes the first step toward investigating outside the village limits. No combat or traps occurred, and no new threats were encountered during this departure.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "16:00:00"
+          }
+        }
+      ],
+      "adventureSummary": "Upon arriving at the East Gate and Guardhouse of Harrow's Hollow, the party found themselves in a village shrouded in fear and uneasy whispers about recent disappearances and curse rumors. Elder Mirna Harrow had tasked them with investigating the unsettling events, including the vanishing of Scout Elen. The environment was tense but devoid of immediate threats such as monsters or traps, allowing the party to focus on gathering information and winning the villagers' trust. Active side quests hinted at spectral encounters and poltergeist disturbances, promising clues to the mystery. After some exploration and interaction, the player character decided to return to a spot on the Witchlight Trailhead where footprints had been previously discovered, indicating a strategic move to follow leads outside the gate area. Throughout their time at the East Gate and Guardhouse, the party carefully updated their knowledge, plot progression, and maintained readiness for the challenges ahead, with no combat or traps triggered within this zone before their transition to the adjacent Witchlight Trailhead area. (Game Time: 1492 Ches 1, 16:00:00)"
     },
     {
       "locationId": "A04",
@@ -451,7 +519,7 @@
       "locationId": "A05",
       "name": "The Wyrd Lantern Inn",
       "type": "tavern",
-      "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew and fresh bread fills the air. Laughter and song are frequent, but at night, whispers of fear and superstition drift between tables.",
+      "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew, fresh bread, and herbal tea fills the air. Lanterns flicker warmly, casting golden light on the worn timber beams. Villagers gather quietly around tables, their voices low yet friendly, while the innkeeper, Cira, offers comforting hospitality.",
       "coordinates": "X1Y2",
       "connectivity": [
         "A01"
@@ -461,8 +529,8 @@
       "npcs": [
         {
           "name": "Cira the Innkeeper",
-          "description": "A warm, quick-witted woman with a knack for remembering faces and secrets. She runs the Wyrd Lantern with a firm but friendly hand.",
-          "attitude": "Welcoming to all, but especially those with coin or gossip. Protective of her staff and regulars."
+          "description": "A warm, quick-witted woman with a knack for remembering faces and secrets. She runs the Wyrd Lantern with a firm but friendly hand. Recently shared concerns about Scout Elen's strange behavior before her disappearance and advised the party to seek Old Tommen for more information.",
+          "attitude": "Welcoming to all, especially guests. Protective of her staff and regulars, and cautious about the recent unsettling events."
         }
       ],
       "monsters": [],
@@ -473,11 +541,11 @@
         "Charm against the evil eye (hanging near the bar)"
       ],
       "plotHooks": [
-        "A fearful regular claims to have seen a ghostly figure on the east road.",
-        "Cira offers the party free rooms if they can calm frightened townsfolk.",
-        "A drunken patron insists the keep's curse is growing stronger and tries to start a brawl."
+        "Scout Elen disappeared after acting restless and fearful about failing wards near the shrine and boundary stones.",
+        "Cira suggests speaking with Old Tommen in the village square for more information about recent strange occurrences.",
+        "The village's mysteries and hopes rest on the party's investigation."
       ],
-      "dmInstructions": "Cira is the party's best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
+      "dmInstructions": "Cira is the party's best source for rumors and local color. She can direct them to Elder Mirna, Sergeant Feld, or Old Tommen for more official or local matters. A DC 10 Persuasion check gets her to share stories about recent events, including Scout Elen's odd behavior and disappearance. If trouble starts, Cira expects the party to help keep peace.",
       "doors": [
         {
           "name": "Inn Door",
@@ -505,7 +573,8 @@
       "traps": [],
       "dcChecks": [
         "Persuasion DC 10: Convince Cira to share confidential rumors or grant a favor.",
-        "Insight DC 12: Detect if a patron is hiding something about recent ghost sightings."
+        "Insight DC 12: Detect if a patron is hiding something about recent ghost sightings.",
+        "Perception DC 14: Notice Scout Elen's map or signs of her recent presence in the inn."
       ],
       "accessibility": "Easily reached from the square, step-free entrance, welcoming to all.",
       "dangerLevel": "Low",
@@ -523,8 +592,20 @@
           "description": "Modest but clean rooms available for travelers."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "A05-E1",
+          "summary": "Party arrives at The Wyrd Lantern Inn and is warmly welcomed by Cira. Norn rests and recovers hit points. Cira shares concerning news about Scout Elen's recent behavior and disappearance, advises seeking Old Tommen in the village square, and warns to stay vigilant.",
+          "impact": "The party gains valuable local information about Scout Elen and a new lead for their investigation. Norn rejuvenates for the journey ahead. Cira promises to keep a lantern burning until their return.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "14:55:00"
+          }
+        }
+      ],
+      "adventureSummary": "Upon arriving at The Wyrd Lantern Inn, the party was met with a warm and inviting atmosphere, where flickering lanterns cast golden light upon worn timber beams and the comforting scents of roasting meat and fresh bread filled the air. Villagers gathered quietly around tables, their voices low yet friendly, while Cira, the innkeeper, offered a welcoming nod and a steaming mug of herbal tea. The party settled into a corner seat, allowing the inn's gentle bustle to soothe their weariness. Norn took the opportunity to rest for an hour, recovering hit points and rejuvenating for the journey ahead. As they prepared to depart, Cira shared concerning news about Scout Elen, who had been in the inn the night before her disappearance, acting restless and repeatedly checking a map while expressing fears about failing wards and strange occurrences near the shrine and boundary stones. She advised the party to seek out Old Tommen in the village square for further information and cautioned Norn to remain vigilant. After bidding farewell to Cira, who promised to keep a lantern burning until their return, the party left the comforting warmth of The Wyrd Lantern Inn and headed back toward the trailhead, carrying with them the weight of the village's mysteries and hopes."
     }
   ]
 }

@@ -10,7 +10,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 36,
+  "hitPoints": 22,
   "maxHitPoints": 36,
   "armorClass": 16,
   "initiative": 2,
@@ -64,7 +64,8 @@
     "Improved Critical",
     "Martial Archetype: Champion",
     "Empowered Ward Ritual: Performing the ancient rite at the faerie circle grants spiritual fortitude, providing advantage on saving throws against enchantment effects for 24 hours.",
-    "Renewed Protective Ward: Completed the ancient rite at the Lost Ward Circle, renewing the protective ward and gaining spiritual fortitude."
+    "Renewed Protective Ward: Completed the ancient rite at the Lost Ward Circle, renewing the protective ward and gaining spiritual fortitude.",
+    "Completed Withered Shrine Ward Ritual"
   ],
   "specialAbilities": [
     {
@@ -90,7 +91,14 @@
       "description": "Your weapon attacks score a critical hit on a roll of 19 or 20"
     }
   ],
-  "equipment": [],
+  "equipment": [
+    {
+      "item_name": "Dust of disappearance (partial, enough for one use)",
+      "item_type": "miscellaneous",
+      "description": "A small pouch containing a partial dose of dust that grants invisibility for a short duration when used.",
+      "quantity": 1
+    }
+  ],
   "ammunition": [
     {
       "name": "Arrows",
@@ -158,7 +166,7 @@
     "silver": -1,
     "copper": 0
   },
-  "experience_points": 4571,
+  "experience_points": 4971,
   "exp_required_for_next_level": 6500,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",

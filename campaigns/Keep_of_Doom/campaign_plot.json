@@ -10,8 +10,8 @@
       "nextPoints": [
         "PP002"
       ],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "Norn returns to Harrow's Hollow and reports defeating three shadows near the Witchlight Trail, confirming the supernatural threat. Mirna and the villagers are shaken but grateful, and the story spreads, increasing the village's hope and urgency.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -43,8 +43,8 @@
       "nextPoints": [
         "PP003"
       ],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "Norn has recovered Scout Elen's torn cloak clasp, discovering a magical vision that confirms her flight toward the Keeper's Cottage and provides a key clue for the party's investigation and potential rituals.",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -53,8 +53,8 @@
           "involvedLocations": [
             "G001"
           ],
-          "status": "not started",
-          "plotImpact": ""
+          "status": "in progress",
+          "plotImpact": "Norn has uncovered the magical workings of the faerie circle and realized its connection to the ancient protective wards. This begins the search for restoring the Lost Ward Circle to weaken the keep's curse."
         },
         {
           "id": "SQ004",

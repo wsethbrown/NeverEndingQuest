@@ -1,85 +1,87 @@
 {
-  "locationId": "A01",
-  "name": "Harrow's Hollow General Store",
-  "type": "shop",
-  "description": "A sturdy timber-and-stone building at the town's heart, the general store is the main source of goods for Harrow's Hollow, catering to both locals and frontiersfolk. Shelves brim with tools, dried provisions, lanterns, and the occasional oddity from distant lands. The air smells of wax, old paper, and leather, and handwritten notices clutter a bulletin board near the counter. Elder Mirna Harrow stands behind the wooden counter with a concerned yet respectful gaze, reflecting the unease hanging over the village due to recent disappearances and the dark influence of the ancient keep.",
-  "coordinates": "X2Y2",
+  "locationId": "B03",
+  "name": "The Withered Shrine",
+  "type": "shrine",
+  "description": "A bleak clearing dominated by toppled stone pillars and cracked altars adorned with faded runes and neglected offerings such as wilted flowers and tarnished trinkets. The atmosphere is thick with damp moss and residual incense scents, faintly illuminated by drifting blue witchlight. Fresh bootprints and a scrap of blue fabric belonging to Scout Elen are found near the largest altar, which bears half-obscured glyphs revealing faded prayers of protection and warnings about shadows contained only by the warded circle. A roughly carved map on the altar points north toward the Spectral Clearing and Lost Ward Circle--key ritual sites for restoring the forest's ancient protections.",
+  "coordinates": "X1Y2",
   "connectivity": [
-    "A02",
-    "A03",
-    "A04",
-    "A05"
+    "B01",
+    "B05",
+    "B06"
   ],
   "areaConnectivity": [],
   "areaConnectivityId": [],
   "npcs": [
     {
-      "name": "Elder Mirna Harrow",
-      "description": "The wise, firm, and sometimes weary matriarch of Harrow's Hollow. Mirna is known for her sharp wit and deep concern for the welfare of all villagers. She maintains a subtle but unwavering command of the town's affairs and now carries a hidden worry about the ancient keep and the village's safety.",
-      "attitude": "Respectful but cautious toward outsiders; friendly and supportive to locals and allies, especially those seeking to aid the village."
+      "name": "The Lingering Spirit",
+      "description": "A translucent, flickering spirit appearing as a hooded forest guardian. It conveys a grave warning about failing wards and escaping shadows, urging restoration of the rites to prevent darkness from overwhelming the forest. It gestures toward the altar, offerings, and a faint trail heading north, signaling the next direction of the party's quest.",
+      "attitude": "Neutral, urgent and seeking aid to restore protections"
     }
   ],
-  "monsters": [],
+  "monsters": [
+    {
+      "name": "Twig Blights",
+      "quantity": {
+        "min": 2,
+        "max": 4
+      }
+    }
+  ],
   "lootTable": [
-    "Adventurer's pack (1 gp)",
-    "Lantern, hooded (5 gp)",
-    "10 days' rations (5 sp per)",
-    "Cured leather pouch (8 sp)",
-    "Handwritten map of local trails (contains a clue about a haunted ruin)",
-    "Old bronze key marked with a faded raven sigil"
+    "Tarnished silver amulet (once used in blessing rituals, 10 gp value)",
+    "Ceremonial dagger with wooden handle (potential focus for ward rituals)",
+    "Small pouch of fragrant dried herbs (can be used for healing poultice, equivalent to healing potion)",
+    "Stone tablet fragment with partial ritual instructions",
+    "Ration wrapper",
+    "Strip of blue cloth torn from Elen's uniform"
   ],
   "plotHooks": [
-    "Elder Mirna entrusts the party with a bronze key relic and a quest to investigate the ancient keep on the hill.",
-    "A worried villager asks if the party has news of Scout Elen, who vanished while patrolling the Witchlight Trailhead beyond the East Gate.",
-    "The village faces a lurking dark influence tied to the keep and ongoing disappearances.",
-    "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts."
+    "The Lingering Spirit warns that the shrine's binding is failing and shadows are escaping their chains.",
+    "Recent bootprints and a scrap of blue fabric belonging to Scout Elen indicate her recent passage and link the party's quest to her disappearance.",
+    "Map etched into the altar points north to the Spectral Clearing and Lost Ward Circle, locations key to restoring the wards.",
+    "Ritual carvings on the altar provide faded instructions for a binding ritual requiring offerings of earth, flame, and living memory."
   ],
-  "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna reveals its significance and entrusts it to the party after a successful Insight check.",
-  "doors": [
-    {
-      "name": "Front Door",
-      "description": "A broad, reinforced oak door with brass fittings and a bell overhead.",
-      "type": "regular",
-      "locked": false,
-      "lockDC": 0,
-      "breakDC": 13,
-      "keyname": "",
-      "trapped": false,
-      "trap": ""
-    },
-    {
-      "name": "Back Storeroom Door",
-      "description": "A smaller, iron-banded door leading to a cramped storeroom.",
-      "type": "regular",
-      "locked": true,
-      "lockDC": 13,
-      "breakDC": 15,
-      "keyname": "Old bronze key",
-      "trapped": false,
-      "trap": ""
-    }
-  ],
+  "dmInstructions": "The Lingering Spirit appears after players investigate the altar and reveals the failing ward. It communicates through fragmented phrases, gestures, and emotional impressions. A DC 13 Religion check helps interpret the spirit's warnings about the failing ward ritual. Players who offer respect or perform minor restorative actions may receive a blessing granting advantage on saves against fear for 24 hours. Emphasize the urgency conveyed by the spirit and the importance of investigating the northern trail.",
+  "doors": [],
   "traps": [],
   "dcChecks": [
-    "Insight DC 12: Discern Elder Mirna is withholding information about the key and certain historical events.",
-    "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the keep."
+    "Religion DC 13: Interpret the spirit's warnings and understand the shrine's original purpose and failing ward.",
+    "Arcana DC 14: Identify traces of recent dark magic performed at the altar.",
+    "Perception DC 12: Notice the twig blights before they attack.",
+    "Investigation DC 15: Discover the map carved into the altar's base and faded ritual instructions."
   ],
-  "accessibility": "Easily accessible from the main square, wide doorways and step-free entry.",
-  "dangerLevel": "Low",
+  "accessibility": "Open clearing with soft, uneven ground; altar has several steps leading up to it.",
+  "dangerLevel": "Medium",
   "features": [
     {
-      "name": "Notice Board",
-      "description": "A cluttered board filled with handwritten notices, missing pet posters, cryptic local warnings, and a plea about the missing Scout Elen."
+      "name": "Cracked Altar",
+      "description": "A massive stone altar split down the middle, stained with fresh blood and etched with a rough map pointing toward key ritual sites."
     },
     {
-      "name": "Counter and Ledger",
-      "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. Elder Mirna often stands here, observing visitors with a watchful eye."
+      "name": "Circle of Moss-Covered Stone Pillars",
+      "description": "Ancient pillars inscribed with faded prayers, surrounding the clearing and emanating faint magical energy."
     },
     {
-      "name": "Back Storeroom",
-      "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests. Supplies here are offered to the party to aid their upcoming quest."
+      "name": "Offering Bowls",
+      "description": "Stone bowls at the altar's base, some containing old offerings, others stagnant water."
+    },
+    {
+      "name": "Discarded Items",
+      "description": "Ration wrapper and a strip of blue cloth torn from Elen's uniform found on the ground."
     }
   ],
-  "encounters": [],
-  "adventureSummary": ""
+  "encounters": [
+    {
+      "encounterId": "B03-E1",
+      "summary": "In the Withered Shrine clearing, Norn faced two hostile twig blights emerging from the undergrowth. The first twig blight initiated combat, but missed its initial attack, while the second successfully struck Norn for 4 piercing damage. Norn responded with a decisive longsword strike, dealing 8 slashing damage to the second blight, which was then defeated. The first blight counterattacked, hitting Norn with 6 piercing damage. Norn focused on the first blight, landing another 8 damage blow that splintered it to death. The surviving blight missed its next attack, and Norn finished the fight with a final 7 damage longsword strike, destroying the last twig blight. Both foes were left defeated as cracked wooden bodies on the forest floor. The encounter ended with Norn at 22 out of 36 hit points. Experience points awarded for the encounter are not yet provided.",
+      "impact": "The blights were defeated from the area",
+      "worldConditions": {
+        "year": 1492,
+        "month": "Ches",
+        "day": 1,
+        "time": "17:47:00"
+      }
+    }
+  ],
+  "adventureSummary": "In the Withered Shrine clearing, Norn faced two hostile twig blights emerging from the undergrowth. The first twig blight initiated combat, but missed its initial attack, while the second successfully struck Norn for 4 piercing damage. Norn responded with a decisive longsword strike, dealing 8 slashing damage to the second blight, which was then defeated. The first blight counterattacked, hitting Norn with 6 piercing damage. Norn focused on the first blight, landing another 8 damage blow that splintered it to death. The surviving blight missed its next attack, and Norn finished the fight with a final 7 damage longsword strike, destroying the last twig blight. Both foes were left defeated as cracked wooden bodies on the forest floor. The encounter ended with Norn at 22 out of 36 hit points. Experience points awarded for the encounter are not yet provided."
 }

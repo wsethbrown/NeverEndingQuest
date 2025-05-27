@@ -1,0 +1,175 @@
+2025-05-25 21:33:39 - Generating enhanced adventure summary for Harrow's Hollow General Store
+2025-05-25 21:33:39 - Found most recent transition at index 9: Location transition: Harrow's Hollow General Store (A01) to East Gate and Guardhouse (A03)
+2025-05-25 21:33:39 - Using last system message at index 5 as boundary
+2025-05-25 21:33:39 - Using last system message at index 4 as boundary
+2025-05-25 21:33:39 - Using last system message at index 3 as boundary
+2025-05-25 21:33:39 - Using last system message at index 2 as boundary
+2025-05-25 21:33:39 - Using last system message at index 1 as boundary
+2025-05-25 21:33:39 - Using last system message at index 0 as boundary
+2025-05-25 21:33:39 - Collected 3 messages for location summary
+2025-05-25 21:33:39 - Generating summary for Harrow's Hollow General Store
+2025-05-25 21:33:45 - Summary generated for Harrow's Hollow General Store
+2025-05-25 21:34:00 - Enhanced adventure summary generated successfully
+2025-05-25 21:34:00 - Updating journal with summary for Harrow's Hollow General Store
+2025-05-25 21:34:00 - Journal updated successfully
+2025-05-25 21:34:00 - Compressing conversation history when leaving Harrow's Hollow General Store
+2025-05-25 21:34:00 - Total messages in history: 12
+2025-05-25 21:34:00 - Cleaning old-style summaries from conversation history
+2025-05-25 21:34:00 - Found transition at index 9: Location transition: Harrow's Hollow General Store (A01) to East Gate and Guardhouse (A03)
+2025-05-25 21:34:00 - Using last system message at index 5 as start marker
+2025-05-25 21:34:00 - Using last system message at index 4 as start marker
+2025-05-25 21:34:00 - Using last system message at index 3 as start marker
+2025-05-25 21:34:00 - Using last system message at index 2 as start marker
+2025-05-25 21:34:00 - Using last system message at index 1 as start marker
+2025-05-25 21:34:00 - Using last system message at index 0 as start marker
+2025-05-25 21:34:00 - Collecting messages from index 1 to 8
+2025-05-25 21:34:00 - Found 3 messages to summarize
+2025-05-25 21:34:00 - Generating summary for Harrow's Hollow General Store
+2025-05-25 21:34:05 - Summary generated for Harrow's Hollow General Store
+2025-05-25 21:34:05 - Compressed history from 12 to 5 messages
+2025-05-25 21:34:05 - Removed 3 messages from Harrow's Hollow General Store
+2025-05-25 21:35:33 - Generating enhanced adventure summary for East Gate and Guardhouse
+2025-05-25 21:35:33 - Found most recent transition at index 12: Location transition: East Gate and Guardhouse (A03) to Witchlight Trailhead (B01)
+2025-05-25 21:35:33 - Found previous transition at index 7
+2025-05-25 21:35:33 - Collected 4 messages for location summary
+2025-05-25 21:35:33 - Generating summary for East Gate and Guardhouse
+2025-05-25 21:35:37 - Summary generated for East Gate and Guardhouse
+2025-05-25 21:35:46 - Enhanced adventure summary generated successfully
+2025-05-25 21:35:46 - Updating journal with summary for East Gate and Guardhouse
+2025-05-25 21:35:46 - Journal updated successfully
+2025-05-25 21:35:46 - Compressing conversation history when leaving East Gate and Guardhouse
+2025-05-25 21:35:46 - Total messages in history: 15
+2025-05-25 21:35:46 - Cleaning old-style summaries from conversation history
+2025-05-25 21:35:46 - Found transition at index 12: Location transition: East Gate and Guardhouse (A03) to Witchlight Trailhead (B01)
+2025-05-25 21:35:46 - Found previous transition at index 7
+2025-05-25 21:35:46 - Collecting messages from index 8 to 11
+2025-05-25 21:35:46 - Found 4 messages to summarize
+2025-05-25 21:35:46 - Generating summary for East Gate and Guardhouse
+2025-05-25 21:35:50 - Summary generated for East Gate and Guardhouse
+2025-05-25 21:35:50 - Compressed history from 15 to 12 messages
+2025-05-25 21:35:50 - Removed 4 messages from East Gate and Guardhouse
+2025-05-25 22:46:20 - Generating enhanced adventure summary for Witchlight Trailhead
+2025-05-25 22:46:20 - Found most recent transition at index 30: Location transition: Witchlight Trailhead (B01) to East Gate and Guardhouse (A03)
+2025-05-25 22:46:20 - Found previous transition at index 9
+2025-05-25 22:46:20 - Collected 20 messages for location summary
+2025-05-25 22:46:20 - Generating summary for Witchlight Trailhead
+2025-05-25 22:46:26 - Summary generated for Witchlight Trailhead
+2025-05-25 22:46:35 - Enhanced adventure summary generated successfully
+2025-05-25 22:46:35 - Updating journal with summary for Witchlight Trailhead
+2025-05-25 22:46:35 - Journal updated successfully
+2025-05-25 22:46:35 - Compressing conversation history when leaving Witchlight Trailhead
+2025-05-25 22:46:35 - Total messages in history: 33
+2025-05-25 22:46:35 - Cleaning old-style summaries from conversation history
+2025-05-25 22:46:35 - Removed 1 old summary messages and error notes
+2025-05-25 22:46:35 - Found transition at index 29: Location transition: Witchlight Trailhead (B01) to East Gate and Guardhouse (A03)
+2025-05-25 22:46:35 - Found previous transition at index 9
+2025-05-25 22:46:35 - Collecting messages from index 10 to 28
+2025-05-25 22:46:35 - Found 19 messages to summarize
+2025-05-25 22:46:35 - Generating summary for Witchlight Trailhead
+2025-05-25 22:46:40 - Summary generated for Witchlight Trailhead
+2025-05-25 22:46:40 - Compressed history from 32 to 14 messages
+2025-05-25 22:46:40 - Removed 19 messages from Witchlight Trailhead
+2025-05-25 22:51:52 - Generating enhanced adventure summary for East Gate and Guardhouse
+2025-05-25 22:51:52 - Found most recent transition at index 20: Location transition: East Gate and Guardhouse (A03) to Harrow's Hollow General Store (A01)
+2025-05-25 22:51:52 - Found previous transition at index 11
+2025-05-25 22:51:52 - Collected 8 messages for location summary
+2025-05-25 22:51:52 - Generating summary for East Gate and Guardhouse
+2025-05-25 22:51:57 - Summary generated for East Gate and Guardhouse
+2025-05-25 22:52:19 - Enhanced adventure summary generated successfully
+2025-05-25 22:52:19 - Updating journal with summary for East Gate and Guardhouse
+2025-05-25 22:52:19 - Journal updated successfully
+2025-05-25 22:52:19 - Compressing conversation history when leaving East Gate and Guardhouse
+2025-05-25 22:52:19 - Total messages in history: 23
+2025-05-25 22:52:19 - Cleaning old-style summaries from conversation history
+2025-05-25 22:52:19 - Found transition at index 20: Location transition: East Gate and Guardhouse (A03) to Harrow's Hollow General Store (A01)
+2025-05-25 22:52:19 - Found previous transition at index 11
+2025-05-25 22:52:19 - Collecting messages from index 12 to 19
+2025-05-25 22:52:19 - Found 8 messages to summarize
+2025-05-25 22:52:19 - Generating summary for East Gate and Guardhouse
+2025-05-25 22:52:25 - Summary generated for East Gate and Guardhouse
+2025-05-25 22:52:25 - Compressed history from 23 to 16 messages
+2025-05-25 22:52:25 - Removed 8 messages from East Gate and Guardhouse
+2025-05-25 22:55:58 - Generating enhanced adventure summary for Harrow's Hollow General Store
+2025-05-25 22:55:58 - Found most recent transition at index 21: Location transition: Harrow's Hollow General Store (A01) to The Wyrd Lantern Inn (A05)
+2025-05-25 22:55:58 - Found previous transition at index 13
+2025-05-25 22:55:58 - Collected 7 messages for location summary
+2025-05-25 22:55:58 - Generating summary for Harrow's Hollow General Store
+2025-05-25 22:56:04 - Summary generated for Harrow's Hollow General Store
+2025-05-25 22:56:14 - Enhanced adventure summary generated successfully
+2025-05-25 22:56:14 - Updating journal with summary for Harrow's Hollow General Store
+2025-05-25 22:56:14 - Journal updated successfully
+2025-05-25 22:56:14 - Compressing conversation history when leaving Harrow's Hollow General Store
+2025-05-25 22:56:14 - Total messages in history: 24
+2025-05-25 22:56:14 - Cleaning old-style summaries from conversation history
+2025-05-25 22:56:14 - Removed 1 old summary messages and error notes
+2025-05-25 22:56:14 - Found transition at index 20: Location transition: Harrow's Hollow General Store (A01) to The Wyrd Lantern Inn (A05)
+2025-05-25 22:56:14 - Found previous transition at index 13
+2025-05-25 22:56:14 - Collecting messages from index 14 to 19
+2025-05-25 22:56:14 - Found 6 messages to summarize
+2025-05-25 22:56:14 - Generating summary for Harrow's Hollow General Store
+2025-05-25 22:56:19 - Summary generated for Harrow's Hollow General Store
+2025-05-25 22:56:19 - Compressed history from 23 to 18 messages
+2025-05-25 22:56:19 - Removed 6 messages from Harrow's Hollow General Store
+2025-05-26 08:53:07 - Generating enhanced adventure summary for East Gate and Guardhouse
+2025-05-26 08:53:07 - Found most recent transition at index 30: Location transition: East Gate and Guardhouse (A03) to Witchlight Trailhead (B01)
+2025-05-26 08:53:07 - Found previous transition at index 27
+2025-05-26 08:53:07 - Collected 2 messages for location summary
+2025-05-26 08:53:07 - Generating summary for East Gate and Guardhouse
+2025-05-26 08:53:10 - Summary generated for East Gate and Guardhouse
+2025-05-26 08:53:21 - Enhanced adventure summary generated successfully
+2025-05-26 08:53:21 - Updating journal with summary for East Gate and Guardhouse
+2025-05-26 08:53:21 - Journal updated successfully
+2025-05-26 08:53:21 - Compressing conversation history when leaving East Gate and Guardhouse
+2025-05-26 08:53:21 - Total messages in history: 35
+2025-05-26 08:53:21 - Cleaning old-style summaries from conversation history
+2025-05-26 08:53:21 - Removed 1 old summary messages and error notes
+2025-05-26 08:53:21 - Found transition at index 29: Location transition: East Gate and Guardhouse (A03) to Witchlight Trailhead (B01)
+2025-05-26 08:53:21 - Found previous transition at index 26
+2025-05-26 08:53:21 - Collecting messages from index 27 to 28
+2025-05-26 08:53:21 - Found 2 messages to summarize
+2025-05-26 08:53:21 - Generating summary for East Gate and Guardhouse
+2025-05-26 08:53:26 - Summary generated for East Gate and Guardhouse
+2025-05-26 08:53:26 - Compressed history from 34 to 33 messages
+2025-05-26 08:53:26 - Removed 2 messages from East Gate and Guardhouse
+2025-05-26 09:22:58 - Generating enhanced adventure summary for Witchlight Trailhead
+2025-05-26 09:22:58 - Found most recent transition at index 45: Location transition: Witchlight Trailhead (B01) to The Withered Shrine (B03)
+2025-05-26 09:22:58 - Found previous transition at index 28
+2025-05-26 09:22:58 - Collected 16 messages for location summary
+2025-05-26 09:22:58 - Generating summary for Witchlight Trailhead
+2025-05-26 09:23:05 - Summary generated for Witchlight Trailhead
+2025-05-26 09:23:21 - Enhanced adventure summary generated successfully
+2025-05-26 09:23:21 - Updating journal with summary for Witchlight Trailhead
+2025-05-26 09:23:21 - Journal updated successfully
+2025-05-26 09:23:21 - Compressing conversation history when leaving Witchlight Trailhead
+2025-05-26 09:23:21 - Total messages in history: 48
+2025-05-26 09:23:21 - Cleaning old-style summaries from conversation history
+2025-05-26 09:23:21 - Removed 2 old summary messages and error notes
+2025-05-26 09:23:21 - Found transition at index 43: Location transition: Witchlight Trailhead (B01) to The Withered Shrine (B03)
+2025-05-26 09:23:21 - Found previous transition at index 28
+2025-05-26 09:23:21 - Collecting messages from index 29 to 42
+2025-05-26 09:23:21 - Found 14 messages to summarize
+2025-05-26 09:23:21 - Generating summary for Witchlight Trailhead
+2025-05-26 09:23:29 - Summary generated for Witchlight Trailhead
+2025-05-26 09:23:29 - Compressed history from 46 to 33 messages
+2025-05-26 09:23:29 - Removed 14 messages from Witchlight Trailhead
+2025-05-26 19:33:49 - Generating enhanced adventure summary for The Withered Shrine
+2025-05-26 19:33:49 - Found most recent transition at index 58: Location transition: The Withered Shrine (B03) to Spectral Clearing (B06)
+2025-05-26 19:33:49 - Found previous transition at index 30
+2025-05-26 19:33:49 - Collected 27 messages for location summary
+2025-05-26 19:33:49 - Generating summary for The Withered Shrine
+2025-05-26 19:33:55 - Summary generated for The Withered Shrine
+2025-05-26 19:34:14 - Enhanced adventure summary generated successfully
+2025-05-26 19:34:14 - Updating journal with summary for The Withered Shrine
+2025-05-26 19:34:14 - Journal updated successfully
+2025-05-26 19:34:14 - Compressing conversation history when leaving The Withered Shrine
+2025-05-26 19:34:14 - Total messages in history: 61
+2025-05-26 19:34:14 - Cleaning old-style summaries from conversation history
+2025-05-26 19:34:14 - Removed 1 old summary messages and error notes
+2025-05-26 19:34:14 - Found transition at index 57: Location transition: The Withered Shrine (B03) to Spectral Clearing (B06)
+2025-05-26 19:34:14 - Found previous transition at index 30
+2025-05-26 19:34:14 - Collecting messages from index 31 to 56
+2025-05-26 19:34:14 - Found 26 messages to summarize
+2025-05-26 19:34:14 - Generating summary for The Withered Shrine
+2025-05-26 19:34:21 - Summary generated for The Withered Shrine
+2025-05-26 19:34:21 - Compressed history from 60 to 35 messages
+2025-05-26 19:34:21 - Removed 26 messages from The Withered Shrine

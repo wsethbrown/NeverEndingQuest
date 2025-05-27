@@ -477,6 +477,20 @@ Time Management:
 - Replace <time_in_minutes> with the estimated time the activity took in minutes.
 - This action MUST be included immediately after describing the time-consuming activity in the narrative.
 - Do not proceed with further narration, actions, or dialogue until you've updated the time.
+
+Location Transition Time Guidelines:
+- Use realistic travel times based on distance and difficulty:
+  - Within the same building/dungeon room: 2-5 minutes
+  - Between adjacent areas in the same location: 5-10 minutes  
+  - Between nearby outdoor locations: 10-30 minutes
+  - Difficult terrain or obstacles: Add 5-15 minutes
+  - Long journeys between distant areas: 1-4 hours
+- Consider environmental factors:
+  - Dense forest or swamp: Movement takes 50% longer
+  - Steep terrain or climbing: Double the normal time
+  - Following a road or clear path: Normal time
+  - Stealth or cautious movement: Add 25-50% to travel time
+- Always include updateTime action when using transitionLocation action
 - After every response, double-check if any significant time has passed. If so, and you haven't updated the time, do so immediately in your next response.
 - Include a "narration" element in this JSON.
 

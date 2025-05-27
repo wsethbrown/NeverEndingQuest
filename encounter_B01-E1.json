@@ -1,0 +1,62 @@
+{
+  "encounterId": "B01-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 7,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 13,
+      "maxHitPoints": 36,
+      "armorClass": 16
+    },
+    {
+      "name": "Shadow",
+      "type": "enemy",
+      "monsterType": "shadow",
+      "initiative": 16,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -3,
+      "maxHitPoints": 16
+    },
+    {
+      "name": "Shadow_2",
+      "type": "enemy",
+      "monsterType": "shadow",
+      "initiative": 4,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -1,
+      "maxHitPoints": 16
+    },
+    {
+      "name": "Shadow_3",
+      "type": "enemy",
+      "monsterType": "shadow",
+      "initiative": 16,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -1,
+      "maxHitPoints": 16
+    }
+  ],
+  "encounterSummary": "Three Shadows materialize at the edges of the Witchlight Trailhead, converging silently on Norn as the witchlights flare with unnatural light and the air grows frigid."
+}

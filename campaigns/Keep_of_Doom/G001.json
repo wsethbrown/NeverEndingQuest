@@ -153,7 +153,7 @@
       "locationId": "B01",
       "name": "Witchlight Trailhead",
       "type": "trail",
-      "description": "The party cautiously advanced along the Witchlight Trail, now entering a dense forest where the thick canopy suppresses daylight and an uneasy silence pervades. Tangled branches loom overhead and cold blue lights flicker faintly at the edges of vision, creating an eerie atmosphere along the winding path. Weathered milestones inscribed with strange sigils and remnants of old patrol camps suggest previous travelers who may not have survived. The distant calls of a raven and the steady dripping of condensation punctuate the stillness, heightening the party's alertness as they keep their bearings. The trail forks ahead, with overgrown routes leading toward the Abandoned Ranger Outpost and the Withered Shrine, both showing subtle signs of recent passage.",
+      "description": "The Witchlight Trailhead is shrouded in mist, with patches of pale grass and muddy earth underfoot. Ancient standing stones lean close as if whispering secrets, softly illuminated by flickering blue witchlights from above. Evidence of Scout Elen's hurried passage is plainly visible: a bootprint pressed deep in the mud, a broken branch snapped at waist height, and a scrap of faded blue cloth caught in a thorn bush, all pointing northward into the Gloamwood. Several carefully placed items suggest a mixture of ritual offerings and signs of panic-- a silver pendant etched with protective runes hangs deliberately from a standing stone, a weathered leather pouch containing silver coins rests in an alcove, and near a cairn lies a broken lantern stained with soot alongside a small silver coin gleaming faintly beneath it. Additionally, a half-burned map showing part of the forest trail with singed edges was found, hinting at a frantic escape. The ancient ward markers faintly pulse with protective magic, their glow now mingling with the subtle pulse of the ritual items. The trail northward toward the Withered Shrine beckons through the deepening shadows, while the path back to Harrow's Hollow East Gate remains a short five-minute walk through the shadowed woods.",
       "coordinates": "X2Y1",
       "connectivity": [
         "B02",
@@ -172,15 +172,7 @@
           "attitude": "Unknown"
         }
       ],
-      "monsters": [
-        {
-          "name": "Shadow",
-          "quantity": {
-            "min": 2,
-            "max": 3
-          }
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Silver pendant (protection charm, 5 gp value)",
         "Broken lantern (once belonged to a lost traveler)",
@@ -196,16 +188,17 @@
         "The party's quest to find Scout Elen and uncover the keep's secrets is in progress.",
         "Vigilant for encounters with the Keeper, who may provide vital information about the keep's curse."
       ],
-      "dmInstructions": "This location serves as the transition from Harrow's Hollow to the Gloamwood. The party has advanced cautiously, observing eerie cold blue lights and remnants of old patrol camps suggesting danger ahead. No traps have been detected on the path. The party should remain alert for encounters with shadows and the elusive Keeper, while tracking footprints toward the Withered Shrine. The quest tracker functions smoothly to guide the party forward.",
+      "dmInstructions": "This location serves as the transition from Harrow's Hollow to the Gloamwood. The party discovered clear and recent signs of Scout Elen's flight northward, including a bootprint in the mud, a broken branch, and a scrap of faded blue cloth. Several ritual offerings and hastily dropped items were found, such as a silver pendant etched with protective runes hanging from a standing stone, a pouch of silver coins, a broken lantern stained with soot, a small silver coin beneath a cairn, and a half-burned map with singed edges. The ancient ward markers continue to pulse with faint protective magic, now mingled with the energy of these tokens. No immediate threats are present. The party took the half-burned map and small silver coin as clues and prepared to follow the footprints north toward the Withered Shrine. The path back to Harrow's Hollow East Gate remains easily accessible, a short five-minute walk through the shadowed woods.",
       "doors": [],
       "traps": [],
       "dcChecks": [
         "Perception DC 12: Notice fresh bootprints and signs of recent passage, likely Scout Elen's.",
         "Religion DC 14: Recognize the markers as ancient wards against spirits, now weakened.",
-        "Survival DC 15: Track the smaller footprints toward the Withered Shrine and interpret disturbed foliage as signs of a brief stop."
+        "Survival DC 15: Track the smaller footprints toward the Withered Shrine and interpret disturbed foliage as signs of a brief stop.",
+        "Investigation DC 16: Identify ritual offerings and differentiate between tokens of protection and items dropped in haste."
       ],
       "accessibility": "Narrow trail with occasional rough terrain; reasonable for most travelers.",
-      "dangerLevel": "Medium",
+      "dangerLevel": "Low",
       "features": [
         {
           "name": "Warning Markers",
@@ -213,15 +206,15 @@
         },
         {
           "name": "Witchlights",
-          "description": "Soft blue-green lights that hover just above the path, providing minimal illumination and an eerie atmosphere."
+          "description": "Soft blue-green lights that hover just above the path, glowing gently after the Shadows' defeat."
         },
         {
           "name": "Offering Shrine",
-          "description": "A small alcove in the central marker where travelers leave offerings for safe passage."
+          "description": "A small alcove in the central marker where travelers leave offerings for safe passage, now containing a silver pendant and a leather pouch."
         },
         {
           "name": "Trail Cairns",
-          "description": "Weathered stone cairns marking the trail, including one inscribed with a warning about shadows."
+          "description": "Weathered stone cairns marking the trail, including one inscribed with a warning about shadows, near which a broken lantern and small silver coin were found."
         },
         {
           "name": "Bootprints and Scraps",
@@ -230,10 +223,41 @@
         {
           "name": "Old Patrol Camp Remnants",
           "description": "Signs of previous travelers who may have perished here, including broken equipment and worn gear."
+        },
+        {
+          "name": "Ancient Ward Markers",
+          "description": "Faintly pulsing magical runes that provide protective magic against lingering dark forces."
+        },
+        {
+          "name": "Half-Burned Map",
+          "description": "A partially singed map showing part of the forest trail, found near the offerings and taken by the party."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "B01-E1",
+          "summary": "The party encountered three malevolent Shadows emerging silently from the darkness, attacking with ghostly forms. After a fierce battle, Norn delivered a critical blow to the last Shadow, dispelling the chilling oppression from the area. The Witchlight Trailhead fell silent once more, with the blue witchlights casting a gentler glow and the dark energy lifting.",
+          "impact": "The Shadows were defeated, removing the immediate threat from the Witchlight Trailhead. The oppressive atmosphere dissipated, making the area safer for travel. Evidence of Scout Elen's passage was confirmed. The party chose to return to Harrow's Hollow East Gate after the battle.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "10:17:00"
+          }
+        },
+        {
+          "encounterId": "B01-E2",
+          "summary": "The party investigated the Witchlight Trailhead, discovering multiple signs of Scout Elen's hurried passage including bootprints and a broken branch. They found ritual offerings such as a silver pendant and a leather pouch, as well as hastily dropped items including a broken lantern, a small silver coin beneath a cairn, and a half-burned map. The ward markers pulsed faintly in acknowledgment of these findings.",
+          "impact": "The party took the half-burned map and small silver coin as important clues for tracking Scout Elen. The signs confirmed her flight northward toward the Withered Shrine. No immediate danger was present, allowing the party to prepare to follow the trail further.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "17:37:00"
+          }
+        }
+      ],
+      "adventureSummary": "At the Witchlight Trailhead, the party returned amidst the mist-damp earth where ancient standing stones leaned together, softly illuminated by flickering blue witchlights. They observed clear signs of Scout Elen's hurried passage: a bootprint pressed in the mud, a snapped branch, and a scrap of faded blue cloth caught in a thorn bush, all evidence of her flight northward into the Gloamwood. Upon investigation, the party discovered several carefully placed items indicating both ritual offerings and signs of panic: a silver pendant etched with protective runes hung deliberately from a standing stone, a weathered leather pouch containing silver coins rested in an alcove, a broken lantern stained with soot lay near a cairn, and beneath it, a small silver coin gleamed faintly. Additionally, they uncovered a half-burned map showing part of the forest trail, its edges singed as if hastily discarded. Analysis of these items revealed a dual nature--some were left intentionally as wards and tokens of hope, while others appeared dropped in haste during a frantic escape. Bootprints matching Elen's led northward toward the Withered Shrine, strengthening the link between the offerings, local fears, and her disappearance. The party chose to take the half-burned map and the small silver coin, sensing these might serve as markers or guides left behind for someone tracking Elen. As they pocketed these clues, the forest seemed to acknowledge their resolve, with ward markers pulsing faintly and the path northward beckoning through the deepening shadows. With no immediate threats present, the party prepared to follow the footprints leading onward into the Gloamwood's enigmatic depths."
     },
     {
       "locationId": "B02",
@@ -328,7 +352,7 @@
       "locationId": "B03",
       "name": "The Withered Shrine",
       "type": "shrine",
-      "description": "A bleak clearing dominated by toppled stone pillars and cracked altars adorned with faded runes and neglected offerings such as wilted flowers and tarnished trinkets. The atmosphere is thick with damp moss and residual incense scents, faintly illuminated by drifting blue witchlight. Fresh bootprints and a scrap of blue fabric belonging to Scout Elen are found near the largest altar, which bears half-obscured glyphs revealing faded prayers of protection and warnings about shadows contained only by the warded circle. A roughly carved map on the altar points north toward the Spectral Clearing and Lost Ward Circle--key ritual sites for restoring the forest's ancient protections.",
+      "description": "A moss-covered clearing featuring a cracked stone altar etched with faded runes and surrounded by twisted undergrowth. The altar holds remnants of past offerings and a roughly scratched map pointing north toward the Spectral Clearing and Lost Ward Circle. The air is thick with a faint spiritual energy, and the oppressive feeling of being watched has lifted since the ward was restored. Scattered near the altar are clues to Scout Elen's recent passage: a torn scrap of blue cloth, fresh bootprints, a ration wrapper, and a battered silver amulet partially buried in the soil. The shrine's protective ward has been renewed, marked by an intensified blue witchlight that now softly illuminates the clearing.",
       "coordinates": "X1Y2",
       "connectivity": [
         "B01",
@@ -344,15 +368,7 @@
           "attitude": "Neutral, urgent and seeking aid to restore protections"
         }
       ],
-      "monsters": [
-        {
-          "name": "Twig Blights",
-          "quantity": {
-            "min": 2,
-            "max": 4
-          }
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Tarnished silver amulet (once used in blessing rituals, 10 gp value)",
         "Ceremonial dagger with wooden handle (potential focus for ward rituals)",
@@ -365,7 +381,8 @@
         "The Lingering Spirit warns that the shrine's binding is failing and shadows are escaping their chains.",
         "Recent bootprints and a scrap of blue fabric belonging to Scout Elen indicate her recent passage and link the party's quest to her disappearance.",
         "Map etched into the altar points north to the Spectral Clearing and Lost Ward Circle, locations key to restoring the wards.",
-        "Ritual carvings on the altar provide faded instructions for a binding ritual requiring offerings of earth, flame, and living memory."
+        "Ritual carvings on the altar provide faded instructions for a binding ritual requiring offerings of earth, flame, and living memory.",
+        "The shrine's protective ward has been restored, lifting the oppressive atmosphere and strengthening the party against fear effects."
       ],
       "dmInstructions": "The Lingering Spirit appears after players investigate the altar and reveals the failing ward. It communicates through fragmented phrases, gestures, and emotional impressions. A DC 13 Religion check helps interpret the spirit's warnings about the failing ward ritual. Players who offer respect or perform minor restorative actions may receive a blessing granting advantage on saves against fear for 24 hours. Emphasize the urgency conveyed by the spirit and the importance of investigating the northern trail.",
       "doors": [],
@@ -377,7 +394,7 @@
         "Investigation DC 15: Discover the map carved into the altar's base and faded ritual instructions."
       ],
       "accessibility": "Open clearing with soft, uneven ground; altar has several steps leading up to it.",
-      "dangerLevel": "Medium",
+      "dangerLevel": "Low",
       "features": [
         {
           "name": "Cracked Altar",
@@ -396,8 +413,20 @@
           "description": "Ration wrapper and a strip of blue cloth torn from Elen's uniform found on the ground."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "B03-E1",
+          "summary": "The party arrived at the Withered Shrine, where Norn sensed a lurking presence that manifested as two hostile twig blights. After a fierce combat, Norn sustained injuries but ultimately defeated both blights. Investigating the surroundings, Norn found clues of Scout Elen's recent passage, including a torn scrap of blue cloth, fresh bootprints, a ration wrapper, and a battered silver amulet near the altar. The altar's faded glyphs revealed an incomplete ritual to reinforce the shrine's protective ward. Norn gathered the necessary offerings of earth, flame, and memory and recited the ritual vow, successfully restoring the ward. The blue witchlight intensified and the oppressive atmosphere lifted, granting Norn the Blessing of the Forest Guardian with advantage against fear effects. The trail northward toward the Spectral Clearing and Lost Ward Circle was confirmed as the party's next destination.",
+          "impact": "Defeated twig blights, restored the shrine's protective ward, and uncovered clues to Scout Elen's whereabouts. The ward's restoration lifted the oppressive atmosphere and granted a blessing against fear.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "18:12:00"
+          }
+        }
+      ],
+      "adventureSummary": "The party arrived at the Withered Shrine, a moss-covered clearing marked by a cracked altar and twisted undergrowth that concealed a palpable sense of being watched. While surveying the area, Norn sensed a lurking presence, which soon manifested as two hostile twig blights emerging from the shadows. A fierce combat ensued in which Norn sustained injuries but ultimately defeated both blights. After the battle, Norn took stock of the surroundings, finding scattered offerings, faded runes etched into the altar, and a faint spiritual energy hinting at the shrine's lingering power. Investigating further, Norn discovered clear evidence of Scout Elen's recent passage: a torn scrap of blue cloth caught on stone, fresh bootprints pressed deeply into soft earth, a ration wrapper, and a battered silver amulet partially buried near the altar. These clues, along with a roughly scratched map on the altar, pointed north toward the Spectral Clearing and Lost Ward Circle and indicated that Elen had hurried through the area, likely pursued or under duress. Examining the altar's faded glyphs and the disturbed offerings, Norn discerned that Elen had attempted a ritual to reinforce the shrine's protective ward but had left it incomplete. Through a careful study of the ritual's components, Norn learned that completing the ward required offerings of earth (such as moss), flame (a living fire), and memory (a memento like the silver amulet), placed in order while invoking a vow at the altar's perimeter. Acting on this knowledge, Norn gathered the necessary items, recited the vow aloud while circling the altar, and restored the protective ward, which caused the blue witchlight to intensify and the oppressive atmosphere to lift. This restoration earned Norn the \"Blessing of the Forest Guardian,\" granting advantage against fear effects. Finally, Norn confirmed that Elen's footprints led north from the shrine, winding between stone pillars and into the forest path toward the Spectral Clearing and Lost Ward Circle, marking the next stage in the search. With the ward renewed and the trail clear, the party prepared to follow Elen's path deeper into the Gloamwood's haunted heart."
     },
     {
       "locationId": "B04",
@@ -411,18 +440,7 @@
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
-      "npcs": [
-        {
-          "name": "Scout Elen",
-          "description": "A wounded scout cloaked in blue-and-grey, recently escaped from the tunnels and bearing critical information about the ward circle's dangers and encroaching darkness.",
-          "attitude": "friendly"
-        },
-        {
-          "name": "Keeper Morvath",
-          "description": "The elusive Keeper whose presence lingers near the ward circle and the cottage, known to be protective yet mysterious.",
-          "attitude": "unknown"
-        }
-      ],
+      "npcs": [],
       "monsters": [
         {
           "name": "Specters",
