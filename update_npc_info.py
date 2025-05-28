@@ -13,6 +13,7 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Constants
 TEMPERATURE = 0.7
+VALIDATION_TEMPERATURE = 0.1  # Lower temperature for validation
 
 # ANSI escape codes
 ORANGE = "\033[38;2;255;165;0m"
@@ -129,6 +130,88 @@ def update_nested_dict(d, u):
             d[k] = v
     return d
 
+def validate_npc_update(original_info, proposed_updates, change_description, attempt_number=1):
+    """
+    Validate if proposed updates correctly implement the requested changes.
+    Returns (is_valid, issues, corrections)
+    """
+    # Apply proposed updates to get final state
+    test_info = copy.deepcopy(original_info)
+    test_info = update_nested_dict(test_info, proposed_updates)
+    
+    # Create validation prompt
+    validation_prompt = [
+        {"role": "system", "content": """You are a validation assistant for a D&D 5e game system. 
+Your job is to verify if the proposed JSON updates correctly implement the requested changes for an NPC.
+
+Analyze:
+1. What was requested to change
+2. What the original state was  
+3. What the proposed updates would result in
+4. Whether this matches the intent
+
+For arrays (equipment, actions, ammunition, etc.):
+- "Add X" or "gained X" means X should be ADDED to existing items, not replace them
+- "Remove/use/lose X" means only X should be removed, other items stay
+- "Replace with X" means clear and set to only X
+- Empty arrays should only occur if explicitly clearing all items
+
+Return JSON with this exact structure:
+{
+  "is_valid": true/false,
+  "issues": ["list of specific problems found"],
+  "corrections": {
+    // Only if invalid - the corrected updates that should be applied
+  }
+}"""},
+        {"role": "user", "content": f"""Requested changes: {change_description}
+
+Original NPC state (relevant fields):
+- Name: {original_info.get('name', 'Unknown')}
+- Equipment: {[item.get('item_name', 'unknown') for item in original_info.get('equipment', [])]}
+- Actions: {len(original_info.get('actions', []))} actions
+- HP: {original_info.get('hitPoints', 0)}/{original_info.get('maxHitPoints', 0)}
+- Status: {original_info.get('status', 'alive')}
+
+Proposed updates:
+{json.dumps(proposed_updates, indent=2)}
+
+Final state after updates (relevant fields):
+- Equipment: {[item.get('item_name', 'unknown') for item in test_info.get('equipment', [])]}
+- Actions: {len(test_info.get('actions', []))} actions
+- HP: {test_info.get('hitPoints', 0)}/{test_info.get('maxHitPoints', 0)}
+- Status: {test_info.get('status', 'alive')}
+
+Validate if the proposed updates correctly implement the requested changes."""}
+    ]
+    
+    try:
+        # Get validation response
+        response = client.chat.completions.create(
+            model=NPC_INFO_UPDATE_MODEL,
+            temperature=VALIDATION_TEMPERATURE,
+            messages=validation_prompt
+        )
+        
+        validation_response = response.choices[0].message.content.strip()
+        # Remove markdown if present
+        validation_response = re.sub(r'```json\n|\n```', '', validation_response)
+        
+        validation = json.loads(validation_response)
+        
+        # Debug output
+        print(f"{ORANGE}DEBUG: NPC validation result for attempt {attempt_number}:{RESET}")
+        print(f"{ORANGE}Valid: {validation.get('is_valid', False)}{RESET}")
+        if validation.get('issues'):
+            print(f"{ORANGE}Issues: {', '.join(validation['issues'])}{RESET}")
+        
+        return validation.get('is_valid', False), validation.get('issues', []), validation.get('corrections', {})
+        
+    except Exception as e:
+        print(f"{RED}ERROR: NPC validation failed: {str(e)}{RESET}")
+        # If validation fails, assume the update is valid to avoid blocking
+        return True, [], {}
+
 def compare_json(old, new):
     diff = {}
     for key in new:
@@ -176,6 +259,14 @@ def update_npc(npc_name, changes, max_retries=3):
             {"role": "system", "content": f"""You are an assistant that updates NPC information in the world's most popular 5th Edition roleplaying game. Given the current NPC information and a description of changes, you must return only the updated sections as a JSON object. Do not include unchanged fields. Your response should be a valid JSON object representing only the modified parts of the NPC sheet.
 
 {schema_info}
+
+CRITICAL RULES FOR ARRAYS (equipment, actions, ammunition, etc.):
+- When ADDING items: Return the COMPLETE array including all existing items PLUS the new items
+- When REMOVING/USING items: Return the COMPLETE array with those items removed
+- When UPDATING quantities: Return the COMPLETE array with updated quantities
+- NEVER return a partial array with only new/changed items
+- NEVER return an empty array unless explicitly clearing all items
+- The system will REPLACE the entire array with what you return
 
 You must also do the math based on what is contextually presented. 
 
@@ -361,6 +452,24 @@ Remember to:
 
         try:
             updates = json.loads(ai_response)
+            
+            # Validate the proposed updates before applying
+            is_valid, issues, corrections = validate_npc_update(
+                original_info, 
+                updates, 
+                changes,
+                attempt + 1
+            )
+            
+            if not is_valid:
+                print(f"{ORANGE}DEBUG: Proposed NPC updates have issues: {', '.join(issues)}{RESET}")
+                if corrections:
+                    print(f"{GREEN}DEBUG: Applying corrections from validator{RESET}")
+                    updates = corrections
+                else:
+                    # If no corrections provided, retry with feedback
+                    print(f"{ORANGE}DEBUG: No corrections provided, retrying...{RESET}")
+                    continue
 
             # Apply updates to the NPC info
             npc_info = update_nested_dict(npc_info, updates)

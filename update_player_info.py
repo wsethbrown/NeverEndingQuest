@@ -17,6 +17,7 @@ RESET = "\033[0m"
 
 # Constants
 TEMPERATURE = 0.7
+VALIDATION_TEMPERATURE = 0.1  # Lower temperature for validation
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -149,6 +150,14 @@ def update_player(player_name, changes, max_retries=3):
 
 {schema_info}
 
+CRITICAL RULES FOR ARRAYS (equipment, ammunition, etc.):
+- When ADDING items: Return the COMPLETE array including all existing items PLUS the new items
+- When REMOVING/USING/EXPENDING items: Return the COMPLETE array with those items removed
+- When UPDATING quantities: Return the COMPLETE array with updated quantities
+- NEVER return a partial array with only new/changed items
+- NEVER return an empty array unless explicitly clearing all items
+- The system will REPLACE the entire array with what you return
+
 You must also do the math based on what is contextually presented.
 
 Here are examples of proper JSON structures:
@@ -159,9 +168,21 @@ Here are examples of proper JSON structures:
      "maxHitPoints": 36
    }}
 
-2. Input: Add a Potion of Healing to Norn's inventory and update experience points to 4500.
+2. Input: Add a Potion of Healing to Norn's inventory (which already contains a sword and shield) and update experience points to 4500.
    Output: {{
      "equipment": [
+       {{
+         "item_name": "Longsword",
+         "item_type": "weapon",
+         "description": "Versatile weapon",
+         "quantity": 1
+       }},
+       {{
+         "item_name": "Shield", 
+         "item_type": "armor",
+         "description": "+2 AC",
+         "quantity": 1
+       }},
        {{
          "item_name": "Potion of Healing",
          "item_type": "miscellaneous",
@@ -238,7 +259,17 @@ Remember to:
 - Only include fields that are being changed
 - Use the exact values specified in the schema for enumerated fields
 - Include all required properties for complex objects like equipment and attacks
-- Use the 'ammunition' array for any changes to arrow counts or other ammunition types"""},
+- Use the 'ammunition' array for any changes to arrow counts or other ammunition types
+- FOR ARRAYS: Always return the COMPLETE updated array, not just new/changed items
+- NEVER return empty arrays unless explicitly clearing all items
+
+Example of WRONG approach:
+Input: Used potion of healing from inventory
+WRONG Output: {"equipment": []}  // This deletes ALL equipment!
+
+Example of CORRECT approach:
+Input: Used potion of healing from inventory (player has sword, shield, potion)
+CORRECT Output: {"equipment": [{"item_name": "Longsword", ...}, {"item_name": "Shield", ...}]}  // Potion removed, other items kept"""},
             *processed_history,
             {"role": "user", "content": f"Current player info: {json.dumps(player_info)}\n\nChanges to apply: {changes}\n\nRespond with ONLY the updated JSON object representing the changed sections of the character sheet, with no additional text or explanation."}
         ]
@@ -262,6 +293,24 @@ Remember to:
 
         try:
             updates = json.loads(ai_response)
+            
+            # Validate the proposed updates before applying
+            is_valid, issues, corrections = validate_player_update(
+                original_info, 
+                updates, 
+                changes,
+                attempt + 1
+            )
+            
+            if not is_valid:
+                print(f"{ORANGE}DEBUG: Proposed updates have issues: {', '.join(issues)}{RESET}")
+                if corrections:
+                    print(f"{GREEN}DEBUG: Applying corrections from validator{RESET}")
+                    updates = corrections
+                else:
+                    # If no corrections provided, retry with feedback
+                    print(f"{ORANGE}DEBUG: No corrections provided, retrying...{RESET}")
+                    continue
 
             # Apply updates to the player_info
             player_info = update_nested_dict(player_info, updates)
@@ -324,6 +373,98 @@ def update_nested_dict(d, u):
         else:
             d[k] = v
     return d
+
+def validate_player_update(original_info, proposed_updates, change_description, attempt_number=1):
+    """
+    Validate if proposed updates correctly implement the requested changes.
+    Returns (is_valid, issues, corrections)
+    """
+    # Apply proposed updates to get final state
+    test_info = copy.deepcopy(original_info)
+    test_info = update_nested_dict(test_info, proposed_updates)
+    
+    # Create validation prompt
+    validation_prompt = [
+        {"role": "system", "content": """You are a validation assistant for a D&D 5e game system. 
+Your job is to verify if the proposed JSON updates correctly implement the requested changes.
+
+Analyze:
+1. What was requested to change
+2. What the original state was  
+3. What the proposed updates would result in
+4. Whether this matches the intent
+
+For arrays (equipment, ammunition, etc.):
+- "Add X" or "found X" or "received X" means X should be ADDED to existing items, not replace them
+- "Remove/use/expend/consume X" means only X should be removed, other items stay
+- "Replace inventory with X" or "inventory is now X" means clear and set to only X
+- Empty arrays should only occur if explicitly clearing all items
+
+Common issues to check:
+- Equipment array being replaced instead of items being added/removed
+- Ammunition counts being replaced instead of updated
+- Currency calculations (ensure math is correct)
+- Status effects being properly added to arrays
+
+Return JSON with this exact structure:
+{
+  "is_valid": true/false,
+  "issues": ["list of specific problems found"],
+  "corrections": {
+    // Only if invalid - the corrected updates that should be applied
+    // This should be the minimal set of changes needed
+  }
+}"""},
+        {"role": "user", "content": f"""Requested changes: {change_description}
+
+Original player state (relevant fields):
+- Equipment ({len(original_info.get('equipment', []))} items): {[item.get('item_name', 'unknown') for item in original_info.get('equipment', [])]}
+- Ammunition: {json.dumps(original_info.get('ammunition', []), indent=2)}
+- Currency: {json.dumps(original_info.get('currency', {}), indent=2)}
+- HP: {original_info.get('hitPoints', 0)}/{original_info.get('maxHitPoints', 0)}
+- Status: {original_info.get('status', 'alive')}
+- Condition: {original_info.get('condition', 'none')}
+
+Proposed updates:
+{json.dumps(proposed_updates, indent=2)}
+
+Final state after updates (relevant fields):
+- Equipment ({len(test_info.get('equipment', []))} items): {[item.get('item_name', 'unknown') for item in test_info.get('equipment', [])]}
+- Ammunition: {json.dumps(test_info.get('ammunition', []), indent=2)}  
+- Currency: {json.dumps(test_info.get('currency', {}), indent=2)}
+- HP: {test_info.get('hitPoints', 0)}/{test_info.get('maxHitPoints', 0)}
+- Status: {test_info.get('status', 'alive')}
+- Condition: {test_info.get('condition', 'none')}
+
+Validate if the proposed updates correctly implement the requested changes."""}
+    ]
+    
+    try:
+        # Get validation response
+        response = client.chat.completions.create(
+            model=PLAYER_INFO_UPDATE_MODEL,
+            temperature=VALIDATION_TEMPERATURE,
+            messages=validation_prompt
+        )
+        
+        validation_response = response.choices[0].message.content.strip()
+        # Remove markdown if present
+        validation_response = re.sub(r'```json\n|\n```', '', validation_response)
+        
+        validation = json.loads(validation_response)
+        
+        # Debug output
+        print(f"{ORANGE}DEBUG: Validation result for attempt {attempt_number}:{RESET}")
+        print(f"{ORANGE}Valid: {validation.get('is_valid', False)}{RESET}")
+        if validation.get('issues'):
+            print(f"{ORANGE}Issues: {', '.join(validation['issues'])}{RESET}")
+        
+        return validation.get('is_valid', False), validation.get('issues', []), validation.get('corrections', {})
+        
+    except Exception as e:
+        print(f"{RED}ERROR: Validation failed: {str(e)}{RESET}")
+        # If validation fails, assume the update is valid to avoid blocking
+        return True, [], {}
 
 def compare_json(old, new):
     diff = {}
