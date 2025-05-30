@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DungeonMasterAI</title>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -256,6 +257,23 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
+            background-color: #1a1a1a;
+        }
+        
+        /* MODIFIED */
+        #stats-content {
+            padding: 0 !important; /* Ensure no top padding */
+            background-color: #0a0a0a;
+            overflow: hidden;
+            display: block; /* Ensure block display to prevent flex centering of child */
+        }
+        
+        /* MODIFIED */
+        .character-sheet-wrapper {
+            transform-origin: top left;
+            transition: transform 0.3s ease;
+            display: block; /* Explicitly set display type */
+            margin: 0;      /* Remove any potential default margins */
         }
         
         .loading {
@@ -341,32 +359,331 @@
             font-size: 0.85em;
         }
         
-        /* Stats styling */
-        .stat-group {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #333;
+        /* Character Sheet Styling */
+        .character-sheet {
+            padding: 8px;
+            margin: 0;
+            background-color: #1a1a1a;
+            border: 2px solid #444;
+            border-radius: 8px;
+            font-family: 'Crimson Text', Georgia, serif;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 255, 255, 0.01) 10px,
+                    rgba(255, 255, 255, 0.01) 20px
+                );
+        }
+        
+        /* MODIFIED */
+        .character-header {
+            margin: 0;
+            padding: 0 0 3px 0;
+            border-bottom: 2px solid #666;
+        }
+        
+        /* MODIFIED */
+        .character-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            color: #ccc;
+            font-size: 16px;
+            line-height: 1.2;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* ADDED */
+        .character-details > .detail-left > div,
+        .character-details > .detail-right > div {
+            margin-bottom: 2px; /* Small gap between lines in each column */
+            min-height: 1.3em; /* Ensure lines take up similar space for better cross-alignment */
+        }
+        
+        /* ADDED */
+        .character-details > .detail-left > div:last-child,
+        .character-details > .detail-right > div:last-child {
+            margin-bottom: 0; /* No margin for the last line in each column */
+        }
+        
+        .detail-left {
+            flex: 1;
+        }
+        
+        .detail-right {
+            text-align: right;
+        }
+        
+        .orange {
+            color: #FFA500;
+            font-weight: bold;
+        }
+        
+        /* MODIFIED */
+        .character-name {
+            font-size: 32px;
+            font-weight: 600;
+            color: #FFA500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Cinzel', Georgia, serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: 0;
+            outline: 0;
+            vertical-align: baseline;
+            background: transparent;
+        }
+        
+        /* Ability Scores */
+        /* MODIFIED */
+        .abilities-row {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2px;
+            margin-top: 3px; /* Ensure it's not too far from details */
+            margin-bottom: 3px; /* Reduced */
+        }
+        
+        .ability-score {
+            background-color: #2c2c2c;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 2px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .ability-score:hover {
+            border-color: #FFA500;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 165, 0, 0.2);
+        }
+        
+        .ability-name {
+            font-size: 18px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .ability-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #e0e0e0;
+            margin: 0;
+            line-height: 0.9;
+        }
+        
+        .ability-modifier {
+            font-size: 20px;
+            color: #FFA500;
+            border: 1px solid #FFA500;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            background-color: rgba(255, 165, 0, 0.1);
+            font-weight: bold;
+        }
+        
+        /* Combat Stats */
+        .combat-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            margin-bottom: 0;
+        }
+        
+        .combat-stat {
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 3px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .combat-stat::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #FFA500, #444);
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+        
+        .combat-stat:hover::before {
+            opacity: 0.1;
+        }
+        
+        .combat-stat-label {
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .combat-stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4CAF50;
+            line-height: 1;
+            margin: 2px 0;
+        }
+        
+        .hp-bar {
+            background-color: #1a1a1a;
+            border: 1px solid #444;
             border-radius: 3px;
+            height: 6px;
+            margin-top: 1px;
+            overflow: hidden;
+        }
+        
+        .hp-fill {
+            background-color: #4CAF50;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .hp-fill.low {
+            background-color: #f44336;
+        }
+        
+        .hp-fill.medium {
+            background-color: #ff9800;
+        }
+        
+        /* Skills and Saves */
+        .skills-saves-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-top: 0;
+            margin-bottom: 3px;
+        }
+        
+        .stat-group {
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 2px;
+            margin: 0;
         }
         
         .stat-group h4 {
-            color: #4CAF50;
-            margin-bottom: 8px;
+            margin: 0 0 2px 0;
+            color: #FFA500;
+            border-bottom: 1px solid #444;
+            padding: 2px 0 2px 0;
+            text-transform: uppercase;
+            font-size: 18px;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', Georgia, serif;
         }
         
-        .stat-item {
+        .save-item, .skill-item {
             display: flex;
             justify-content: space-between;
-            padding: 3px 0;
+            align-items: center;
+            padding: 1px 2px;
+            margin: 0;
+            font-size: 21px;
+            line-height: 1;
         }
         
-        .stat-name {
-            color: #ccc;
+        .save-item:hover, .skill-item:hover {
+            background-color: rgba(255, 165, 0, 0.1);
         }
         
-        .stat-value {
-            color: #4CAF50;
+        .save-name, .skill-name {
+            color: #aaa;
+            font-size: 21px;
+        }
+        
+        .save-value, .skill-value {
+            color: #e0e0e0;
             font-weight: bold;
+            font-size: 21px;
+        }
+        
+        .stat-group-content {
+            padding-right: 0;
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        
+        
+        
+        /* Features and Abilities */
+        .features-section {
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 3px;
+            margin-bottom: 3px;
+        }
+        
+        .features-section h4 {
+            margin: 0 0 2px 0;
+            color: #FFA500;
+            border-bottom: 1px solid #444;
+            padding-bottom: 2px;
+            text-transform: uppercase;
+            font-size: 24px;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', Georgia, serif;
+        }
+        
+        .feature-item {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 3px;
+            padding: 2px;
+            margin-bottom: 2px;
+        }
+        
+        .feature-name {
+            color: #FFA500;
+            font-weight: bold;
+            margin-bottom: 1px;
+            font-size: 20px;
+        }
+        
+        .feature-desc {
+            color: #aaa;
+            font-size: 18px;
+            line-height: 1.2;
         }
         
         /* NPC styling */
@@ -537,6 +854,24 @@
             });
         });
         
+        socket.on('status_update', (data) => {
+            const input = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            
+            if (data.is_processing) {
+                // Show status message and disable input
+                input.placeholder = data.message;
+                input.disabled = true;
+                sendButton.disabled = true;
+            } else {
+                // Clear status and enable input
+                input.placeholder = "Enter your command...";
+                input.disabled = false;
+                sendButton.disabled = false;
+                input.focus();
+            }
+        });
+        
         // User interaction functions
         function startGame() {
             if (connected && !gameStarted) {
@@ -684,7 +1019,7 @@
                 if (data.currency.silver) curr.push(`<span class="item-quantity">${data.currency.silver}</span><span class="item-name">SP</span>`);
                 if (data.currency.copper) curr.push(`<span class="item-quantity">${data.currency.copper}</span><span class="item-name">CP</span>`);
                 if (curr.length > 0) {
-                    html += `<div class="inventory-item">${curr.join(' &nbsp; ')}</div>`;
+                    html += `<div class="inventory-item">${curr.join('   ')}</div>`;
                 } else {
                     html += `<div class="inventory-item"><span class="item-desc">No currency</span></div>`;
                 }
@@ -722,7 +1057,7 @@
                     html += '<div class="inventory-item">';
                     html += skillRows[i];
                     if (i + 1 < skillRows.length) {
-                        html += '&nbsp;&nbsp;&nbsp;' + skillRows[i + 1];
+                        html += '   ' + skillRows[i + 1];
                     }
                     html += '</div>';
                 }
@@ -741,90 +1076,102 @@
                 return;
             }
             
-            let html = '';
-            
-            // Basic info
-            html += `
-                <div class="stat-group">
-                    <h4>Basic Information</h4>
-                    <div class="stat-item">
-                        <span class="stat-name">Name</span>
-                        <span class="stat-value">${data.name}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-name">Race</span>
-                        <span class="stat-value">${data.race}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-name">Class</span>
-                        <span class="stat-value">${data.class}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-name">Level</span>
-                        <span class="stat-value">${data.level}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-name">XP</span>
-                        <span class="stat-value">${data.experience_points}/${data.exp_required_for_next_level}</span>
-                    </div>
-                </div>
-            `;
-            
-            // Combat stats
-            html += `
-                <div class="stat-group">
-                    <h4>Combat Stats</h4>
-                    <div class="stat-item">
-                        <span class="stat-name">Hit Points</span>
-                        <span class="stat-value">${data.hitPoints}/${data.maxHitPoints}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-name">Armor Class</span>
-                        <span class="stat-value">${data.armorClass}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-name">Initiative</span>
-                        <span class="stat-value">+${data.initiative}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-name">Speed</span>
-                        <span class="stat-value">${data.speed} ft</span>
-                    </div>
-                </div>
-            `;
-            
-            // Abilities
-            if (data.abilities) {
-                html += `
-                    <div class="stat-group">
-                        <h4>Abilities</h4>
-                        <div class="stat-item">
-                            <span class="stat-name">Strength</span>
-                            <span class="stat-value">${data.abilities.strength}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-name">Dexterity</span>
-                            <span class="stat-value">${data.abilities.dexterity}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-name">Constitution</span>
-                            <span class="stat-value">${data.abilities.constitution}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-name">Intelligence</span>
-                            <span class="stat-value">${data.abilities.intelligence}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-name">Wisdom</span>
-                            <span class="stat-value">${data.abilities.wisdom}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-name">Charisma</span>
-                            <span class="stat-value">${data.abilities.charisma}</span>
-                        </div>
-                    </div>
-                `;
+            // Calculate ability modifiers
+            function getModifier(score) {
+                const mod = Math.floor((score - 10) / 2);
+                return mod >= 0 ? `+${mod}` : `${mod}`;
             }
+            
+            // Calculate HP percentage
+            const hpPercent = (data.hitPoints / data.maxHitPoints) * 100;
+            let hpClass = '';
+            if (hpPercent <= 25) hpClass = 'low';
+            else if (hpPercent <= 50) hpClass = 'medium';
+            
+            let html = '<div class="character-sheet">';
+            
+            // Character Header
+            html += `<div class="character-header"><div class="character-name">${data.name}</div><div class="character-details"><div class="detail-left"><div><span class="orange">Level ${data.level}</span> ${data.race} ${data.class}</div><div><span class="orange">Profession:</span> ${data.background || 'Adventurer'} • <span class="orange">Alignment:</span> ${data.alignment || 'Neutral'}</div></div><div class="detail-right"><div><span class="orange">XP:</span> ${data.experience_points} / ${data.exp_required_for_next_level}</div><div><span class="orange">Status:</span> ${data.status || 'Alive'} • <span class="orange">Prof:</span> +${data.proficiencyBonus || 2}</div></div></div></div>`;
+            
+            // Ability Scores
+            if (data.abilities) {
+                html += '<div class="abilities-row">';
+                const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+                abilities.forEach(ability => {
+                    const score = data.abilities[ability] || 10;
+                    const modifier = getModifier(score);
+                    html += `
+                        <div class="ability-score">
+                            <div class="ability-name">${ability.substr(0, 3).toUpperCase()}</div>
+                            <div class="ability-value">${score}</div>
+                            <div class="ability-modifier">${modifier}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // Combat Stats
+            html += `<div class="combat-stats"><div class="combat-stat"><div class="combat-stat-label">Hit Points</div><div class="combat-stat-value">${data.hitPoints}/${data.maxHitPoints}</div><div class="hp-bar"><div class="hp-fill ${hpClass}" style="width: ${hpPercent}%"></div></div></div><div class="combat-stat"><div class="combat-stat-label">Armor Class</div><div class="combat-stat-value">${data.armorClass}</div></div><div class="combat-stat"><div class="combat-stat-label">Initiative</div><div class="combat-stat-value">${data.initiative >= 0 ? '+' : ''}${data.initiative}</div></div></div>`;
+            
+            // Skills and Saves in two columns
+            html += '<div class="skills-saves-container">';
+            
+            // Saving Throws
+            if (data.savingThrows && data.savingThrows.length > 0) {
+                html += '<div class="stat-group"><h4>Saving Throws</h4><div class="stat-group-content">';
+                const allSaves = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
+                allSaves.forEach(save => {
+                    const isProficient = data.savingThrows.includes(save);
+                    const ability = save.toLowerCase();
+                    const abilityMod = data.abilities ? Math.floor((data.abilities[ability] - 10) / 2) : 0;
+                    const bonus = isProficient ? abilityMod + (data.proficiencyBonus || 2) : abilityMod;
+                    const bonusStr = bonus >= 0 ? `+${bonus}` : `${bonus}`;
+                    html += `<div class="save-item"><span class="save-name">${save} ${isProficient ? '●' : '○'}</span><span class="save-value">${bonusStr}</span></div>`;
+                });
+                html += '</div></div>';
+            }
+            
+            // Skills
+            if (data.skills) {
+                html += '<div class="stat-group"><h4>Skills</h4><div class="stat-group-content">';
+                Object.entries(data.skills).forEach(([skill, value]) => {
+                    const bonus = value >= 0 ? `+${value}` : `${value}`;
+                    html += `<div class="skill-item"><span class="skill-name">${skill}</span><span class="skill-value">${bonus}</span></div>`;
+                });
+                html += '</div></div>';
+            }
+            
+            html += '</div>'; // End skills-saves-container
+            
+            // Features and Traits
+            if (data.features && data.features.length > 0) {
+                html += '<div class="features-section"><h4>Features & Traits</h4>';
+                data.features.forEach(feature => {
+                    html += `
+                        <div class="feature-item">
+                            <div class="feature-name">${feature}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // Special Abilities
+            if (data.specialAbilities && data.specialAbilities.length > 0) {
+                html += '<div class="features-section"><h4>Special Abilities</h4>';
+                data.specialAbilities.forEach(ability => {
+                    html += `
+                        <div class="feature-item">
+                            <div class="feature-name">${ability.name}</div>
+                            <div class="feature-desc">${ability.description}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            html += '</div>'; // End character-sheet
             
             container.innerHTML = html;
         }
@@ -910,13 +1257,16 @@
         
         // Auto-refresh data every 5 seconds when tab is active
         setInterval(() => {
-            const activeTab = document.querySelector('.tab-button.active').textContent.toLowerCase();
-            if (activeTab === 'inventory') {
-                loadInventory();
-            } else if (activeTab === 'character stats') {
-                loadCharacterStats();
-            } else if (activeTab === 'npcs') {
-                loadNPCs();
+            const activeTabButton = document.querySelector('.tab-button.active');
+            if (activeTabButton) {
+                const activeTab = activeTabButton.textContent.toLowerCase();
+                if (activeTab === 'inventory') {
+                    loadInventory();
+                } else if (activeTab === 'character stats') {
+                    loadCharacterStats();
+                } else if (activeTab === 'npcs') {
+                    loadNPCs();
+                }
             }
             // Always refresh location data for debugging
             loadLocationData();
