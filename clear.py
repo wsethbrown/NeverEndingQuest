@@ -50,7 +50,7 @@ if os.path.exists(party_tracker_backup):
     print("Restored party tracker from backup")
 
 # Restore norn character from backup
-norn_file = path_manager.get_player_path("norn")
+norn_file = path_manager.get_character_path("norn")
 norn_backup = f"{campaign_dir}/norn_BU.json"
 
 if os.path.exists(norn_backup):

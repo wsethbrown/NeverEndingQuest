@@ -92,6 +92,12 @@
       "item_type": "miscellaneous",
       "description": "Sturdy rope useful for climbing, tying, and securing items",
       "quantity": 1
+    },
+    {
+      "item_name": "Torch",
+      "item_type": "light source",
+      "description": "A wooden torch that burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet",
+      "quantity": 3
     }
   ],
   "ammunition": [

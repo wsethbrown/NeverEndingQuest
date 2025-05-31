@@ -258,7 +258,7 @@ def handle_player_data_request(data):
                 path_manager = CampaignPathManager()
                 
                 try:
-                    player_file = path_manager.get_player_path(player_name)
+                    player_file = path_manager.get_character_path(player_name)
                     if os.path.exists(player_file):
                         with open(player_file, 'r', encoding='utf-8') as f:
                             response_data = json.load(f)
@@ -279,7 +279,7 @@ def handle_player_data_request(data):
                 npc_name = npc_info['name'].lower().replace(' ', '_').split('_')[0]
                 
                 try:
-                    npc_file = path_manager.get_npc_path(npc_name)
+                    npc_file = path_manager.get_character_path(npc_name)
                     if os.path.exists(npc_file):
                         with open(npc_file, 'r', encoding='utf-8') as f:
                             npc_data = json.load(f)
