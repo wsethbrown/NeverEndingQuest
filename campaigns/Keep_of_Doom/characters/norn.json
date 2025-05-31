@@ -1,7 +1,9 @@
 {
+  "character_role": "player",
   "character_type": "player",
   "name": "Norn",
   "type": "player",
+  "size": "Medium",
   "level": 4,
   "race": "Human",
   "class": "Fighter",
@@ -10,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 22,
+  "hitPoints": 17,
   "maxHitPoints": 36,
   "armorClass": 16,
   "initiative": 2,
@@ -155,8 +157,8 @@
     }
   },
   "currency": {
-    "gold": 24,
-    "silver": 0,
+    "gold": 85,
+    "silver": 1,
     "copper": 0
   },
   "experience_points": 4971,
@@ -179,19 +181,19 @@
     }
   ],
   "temporaryEffects": [
-  {
-    "name": "Spiritual Fortitude",
-    "description": "Advantage on saving throws against enchantment and fear effects.",
-    "duration": "24 hours",
-    "source": "Ward Rituals"
-  },
-  {
-    "name": "Blessing of the Forest Guardian",
-    "description": "Advantage on saving throws against fear effects.",
-    "duration": "24 hours", 
-    "source": "Forest Guardian"
-  }
-],
+    {
+      "name": "Spiritual Fortitude",
+      "description": "Advantage on saving throws against enchantment and fear effects.",
+      "duration": "24 hours",
+      "source": "Ward Rituals"
+    },
+    {
+      "name": "Blessing of the Forest Guardian",
+      "description": "Advantage on saving throws against fear effects.",
+      "duration": "24 hours",
+      "source": "Forest Guardian"
+    }
+  ],
   "feats": [],
   "backgroundFeature": {
     "name": "Military Rank",

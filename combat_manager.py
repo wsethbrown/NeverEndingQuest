@@ -29,8 +29,7 @@ from config import (
     DM_VALIDATION_MODEL, 
     COMBAT_DIALOGUE_SUMMARY_MODEL
 )
-import update_player_info
-import update_npc_info
+from update_character_info import update_character_info
 import update_encounter
 import update_party_tracker
 # Import the preroll generator
@@ -955,7 +954,7 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        preroll_text = generate_prerolls(encounter_data)
        
        # Format user input with DM note, hitpoints info, and prerolls
-       user_input_with_note = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. Use 'updatePlayerInfo', 'updateNPCInfo', and 'updateEncounter' actions to record changes in hit points, status, or conditions for any creature in the encounter. Remember to use separate 'updateNPCInfo' actions whenever NPCs take damage or their status changes. Monster changes should be in 'updateEncounter', but NPC changes require their own 'updateNPCInfo' actions.
+       user_input_with_note = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. Use 'updateCharacterInfo' (with characterName parameter) and 'updateEncounter' actions to record changes in hit points, status, or conditions for any creature in the encounter. Remember to use separate 'updateCharacterInfo' actions whenever players or NPCs take damage or their status changes. Monster changes should be in 'updateEncounter', but player and NPC changes require their own 'updateCharacterInfo' actions with the specific character name.
 
 Important: 
 1. The status field for creatures must be lowercase: 'alive', 'dead', 'unconscious', or 'defeated'.
@@ -1088,44 +1087,50 @@ Player: {user_input_text}"""
            action_type = action.get("action", "").lower()
            parameters = action.get("parameters", {})
            
-           if action_type == "updateplayerinfo":
-               player_name_for_update = player_info["name"].lower().replace(" ", "_")
+           if action_type == "updateplayerinfo" or action_type == "updatecharacterinfo":
+               # Handle both legacy and new action types
+               if action_type == "updateplayerinfo":
+                   character_name = player_info["name"].lower().replace(" ", "_")
+               else:
+                   character_name = parameters.get("characterName", player_info["name"]).lower().replace(" ", "_")
+               
                changes = parameters.get("changes", "")
                try:
-                   updated_player_info = update_player_info.update_player(player_name_for_update, changes)
-                   if updated_player_info:
-                       player_info = updated_player_info
-                       print(f"DEBUG: Player info updated successfully")
+                   success = update_character_info(character_name, changes)
+                   if success:
+                       print(f"DEBUG: Character info updated successfully for {character_name}")
+                   else:
+                       print(f"ERROR: Failed to update character info for {character_name}")
                except Exception as e:
-                   print(f"ERROR: Failed to update player info: {str(e)}")
+                   print(f"ERROR: Failed to update character info: {str(e)}")
            
            elif action_type == "updatenpcinfo":
-               npc_name_for_update = parameters.get("npcName", "").lower().replace(' ', '_').split('_')[0] # Format for file access
+               # Legacy NPC update - redirect to unified system
+               npc_name_for_update = parameters.get("npcName", "").lower().replace(' ', '_').split('_')[0]
                changes = parameters.get("changes", "")
                
-               # Debug logging for updateNPCInfo transaction
+               # Debug logging for character update transaction
                debug_log = {
                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
                    "action_type": action_type,
                    "raw_action": action,
-                   "extracted_npc_name": npc_name_for_update,
+                   "extracted_character_name": npc_name_for_update,
                    "extracted_changes": changes,
                    "original_parameters": parameters
                }
                
                try:
-                   print(f"DEBUG: UpdateNPCInfo transaction starting...")
-                   print(f"DEBUG: NPC Name: {npc_name_for_update}")
+                   print(f"DEBUG: Character update transaction starting...")
+                   print(f"DEBUG: Character Name: {npc_name_for_update}")
                    print(f"DEBUG: Changes requested: {changes}")
                    print(f"DEBUG: Raw action object: {json.dumps(action, indent=2)}")
                    
-                   updated_npc_info = update_npc_info.update_npc(npc_name_for_update, changes)
+                   success = update_character_info(npc_name_for_update, changes)
                    
-                   debug_log["update_result"] = "success" if updated_npc_info else "failed"
-                   debug_log["updated_info"] = updated_npc_info if updated_npc_info else None
+                   debug_log["update_result"] = "success" if success else "failed"
                    
-                   if updated_npc_info:
-                       print(f"DEBUG: NPC {npc_name_for_update} info updated successfully")
+                   if success:
+                       print(f"DEBUG: Character {npc_name_for_update} info updated successfully")
                    else:
                        print(f"DEBUG: Update failed for NPC {npc_name_for_update}")
                except Exception as e:

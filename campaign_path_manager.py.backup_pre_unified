@@ -40,7 +40,7 @@ class CampaignPathManager:
         return f"{self.campaign_dir}/monsters/{self.format_filename(monster_name)}.json"
     
     def get_npc_path(self, npc_name):
-        """Get the path to an NPC file (legacy support)"""
+        """Get the path to an NPC file"""
         return f"{self.campaign_dir}/npcs/{self.format_filename(npc_name)}.json"
     
     # Area-related paths
@@ -63,59 +63,8 @@ class CampaignPathManager:
     
     # Player character paths
     def get_player_path(self, player_name):
-        """Get the path to a player character file (legacy support)"""
+        """Get the path to a player character file"""
         return f"{self.campaign_dir}/{self.format_filename(player_name)}.json"
-    
-    # Unified character paths with fallback support
-    def get_character_path(self, character_name):
-        """
-        Get the path to a character file - tries unified structure first, 
-        falls back to legacy structure if needed
-        """
-        # First try unified structure
-        unified_path = f"{self.campaign_dir}/characters/{self.format_filename(character_name)}.json"
-        if os.path.exists(unified_path):
-            return unified_path
-        
-        # Fall back to legacy structure based on party_tracker.json
-        character_role = self._determine_character_role(character_name)
-        if character_role == 'player':
-            return self.get_player_path(character_name)
-        else:
-            return self.get_npc_path(character_name)
-    
-    def _determine_character_role(self, character_name):
-        """Determine character role from party_tracker.json"""
-        try:
-            with open("party_tracker.json", 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                party_members = data.get("partyMembers", [])
-                party_npcs = data.get("partyNPCs", [])
-                
-                if character_name.lower() in [name.lower() for name in party_members]:
-                    return 'player'
-                elif character_name.lower() in [name.lower() for name in party_npcs]:
-                    return 'npc'
-                else:
-                    # Default to NPC if not in party members
-                    return 'npc'
-        except Exception:
-            # If we can't read party_tracker, default to NPC
-            return 'npc'
-    
-    def get_character_unified_path(self, character_name):
-        """Get the unified path (whether file exists or not)"""
-        return f"{self.campaign_dir}/characters/{self.format_filename(character_name)}.json"
-    
-    def get_character_legacy_path(self, character_name, character_role=None):
-        """Get the legacy path for a character based on role"""
-        if character_role is None:
-            character_role = self._determine_character_role(character_name)
-            
-        if character_role == 'player':
-            return self.get_player_path(character_name)
-        else:
-            return self.get_npc_path(character_name)
     
     # Encounter paths
     def get_encounter_path(self, location_id, encounter_num):

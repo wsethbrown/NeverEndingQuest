@@ -1,11 +1,13 @@
 {
+  "character_role": "npc",
+  "character_type": "npc",
   "name": "Test Guard",
+  "type": "npc",
   "size": "Medium",
-  "type": "humanoid",
   "race": "Human",
   "class": "Fighter",
   "level": 2,
-  "alignment": "Lawful Neutral",
+  "alignment": "lawful neutral",
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
@@ -58,7 +60,10 @@
     "darkvision": 0,
     "passivePerception": 12
   },
-  "languages": "Common, Dwarvish",
+  "languages": [
+    "Common",
+    "Dwarvish"
+  ],
   "challengeRating": 0.25,
   "proficiencyBonus": 2,
   "temporaryEffects": [],
@@ -80,22 +85,6 @@
     "source": "PHB"
   },
   "feats": [],
-  "actions": [
-    {
-      "name": "Longsword",
-      "attackBonus": 4,
-      "damageDice": "1d8",
-      "damageBonus": 2,
-      "damageType": "slashing"
-    },
-    {
-      "name": "Spear (ranged)",
-      "attackBonus": 3,
-      "damageDice": "1d6",
-      "damageBonus": 2,
-      "damageType": "piercing"
-    }
-  ],
   "equipment": [
     {
       "item_name": "Chain Mail",
@@ -160,7 +149,7 @@
     }
   ],
   "background": "Soldier",
-  "personality": "I can stare down a hell hound without flinching.",
+  "personality_traits": "I can stare down a hell hound without flinching.",
   "ideals": "Responsibility. I do what I must and obey just authority.",
   "bonds": "I would still lay down my life for the people I served with.",
   "flaws": "I obey the law, even if the law causes misery.",
@@ -174,14 +163,20 @@
   "attacksAndSpellcasting": [
     {
       "name": "Longsword",
+      "attackBonus": 4,
+      "damageDice": "1d8",
+      "damageBonus": 2,
+      "damageType": "slashing",
       "type": "melee",
-      "damage": "1d8+2 slashing",
       "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 1d8+2 slashing damage."
     },
     {
       "name": "Spear (ranged)",
+      "attackBonus": 3,
+      "damageDice": "1d6",
+      "damageBonus": 2,
+      "damageType": "piercing",
       "type": "ranged",
-      "damage": "1d6+2 piercing",
       "description": "Ranged Weapon Attack: +3 to hit, range 20/60 ft., one target. Hit: 1d6+2 piercing damage."
     }
   ],
@@ -212,6 +207,12 @@
         "times": 1,
         "reset": "short or long rest"
       }
+    },
+    {
+      "name": "Fighting Style - Protection",
+      "description": "When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.",
+      "source": "PHB",
+      "level": 1
     }
   ]
 }

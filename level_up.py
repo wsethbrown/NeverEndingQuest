@@ -7,7 +7,13 @@ import time
 from datetime import datetime
 from jsonschema import validate, ValidationError
 from openai import OpenAI
-from update_player_info import update_player, load_schema
+from update_character_info import update_character_info
+from jsonschema import validate as jsonschema_validate
+
+def load_schema():
+    """Load the unified character schema"""
+    with open("char_schema.json", "r") as schema_file:
+        return json.load(schema_file)
 from config import OPENAI_API_KEY, LEVEL_UP_MODEL, DM_VALIDATION_MODEL
 from file_operations import safe_write_json, safe_read_json
 

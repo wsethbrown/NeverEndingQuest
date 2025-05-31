@@ -2,7 +2,7 @@
 """Test script to verify inventory validation works correctly"""
 
 import json
-from update_player_info import validate_player_update, update_player
+from update_character_info import update_character_info
 
 # Test scenarios
 def test_validation():

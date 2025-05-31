@@ -17,8 +17,7 @@ ACTION_UPDATE_PLOT = "updatePlot"
 ACTION_EXIT_GAME = "exitGame"
 ACTION_TRANSITION_LOCATION = "transitionLocation"
 ACTION_LEVEL_UP = "levelUp"
-ACTION_UPDATE_PLAYER_INFO = "updatePlayerInfo"
-ACTION_UPDATE_NPC_INFO = "updateNPCInfo"
+ACTION_UPDATE_CHARACTER_INFO = "updateCharacterInfo"
 ACTION_UPDATE_PARTY_NPCS = "updatePartyNPCs"
 
 def update_party_npcs(party_tracker_data, operation, npc):
@@ -65,8 +64,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
     import location_manager
     from update_world_time import update_world_time
     from plot_update import update_plot
-    import update_player_info
-    import update_npc_info
+    from update_character_info import update_character_info
 
     global needs_conversation_history_update
     needs_conversation_history_update = False
@@ -234,40 +232,62 @@ Please use a valid location that exists in the current area ({current_area_id}) 
         with open("leveling_info.txt", "r", encoding="utf-8") as file:
             leveling_info = file.read()
 
-        dm_note = f"Leveling Dungeon Master Guidance: Proceed with leveling up the player character or the party NPC given the 5th Edition role playing game rules. Only level the player or the party NPC one level at a time to ensure no mistakes are made. If you are leveling up a party NPC then pass all changes at once using the 'updateNPCInfo' action and use the narration to narrate the party NPCs growth. If you are leveling up a player character then you must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updatePlayerInfo' to pass all changes to the players character sheet and include the experience goal for the next level. Do not update the player's information in segements. \n\n{leveling_info}"
+        dm_note = f"Leveling Dungeon Master Guidance: Proceed with leveling up the player character or the party NPC given the 5th Edition role playing game rules. Only level the player or the party NPC one level at a time to ensure no mistakes are made. Use the 'updateCharacterInfo' action for both player characters and NPCs. Include the character name and all changes. If you are leveling up a player character, you must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updateCharacterInfo' to pass all changes to the character sheet and include the experience goal for the next level. Do not update the character's information in segments. \n\n{leveling_info}"
         conversation_history.append({"role": "user", "content": dm_note})
         # Import get_ai_response and process_ai_response from main
         from main import get_ai_response, process_ai_response
         new_response = get_ai_response(conversation_history)
         return process_ai_response(new_response, party_tracker_data, location_data, conversation_history) # Pass location_data
 
-    elif action_type == ACTION_UPDATE_PLAYER_INFO:
+    elif action_type == ACTION_UPDATE_CHARACTER_INFO:
         status_updating_character()
-        print(f"DEBUG: Processing updatePlayerInfo action")
+        print(f"DEBUG: Processing updateCharacterInfo action")
+        changes = parameters["changes"]
+        character_name = parameters.get("characterName")
+        
+        # Backward compatibility: if no characterName provided, try legacy parameters
+        if not character_name:
+            # Try npcName first (for NPC updates)
+            character_name = parameters.get("npcName")
+            if not character_name:
+                # Fall back to player name from party tracker
+                character_name = next((member.lower() for member in party_tracker_data["partyMembers"]), None)
+        
+        if character_name:
+            print(f"DEBUG: Updating character info for {character_name}")
+            try:
+                success = update_character_info(character_name, changes)
+                if success:
+                    print(f"DEBUG: Character info updated successfully")
+                    needs_conversation_history_update = True
+                else:
+                    print(f"ERROR: Failed to update character info for {character_name}")
+            except Exception as e:
+                print(f"ERROR: Failed to update character info: {str(e)}")
+        else:
+            print("ERROR: No character name provided and no player found in party tracker.")
+
+    # Backward compatibility for old action types
+    elif action_type == ACTION_UPDATE_PLAYER_INFO or action_type == "updatePlayerInfo":
+        print(f"DEBUG: Processing legacy updatePlayerInfo action - redirecting to updateCharacterInfo")
         changes = parameters["changes"]
         player_name = next((member.lower() for member in party_tracker_data["partyMembers"]), None)
-
         if player_name:
-            print(f"DEBUG: Updating player info for {player_name}")
             try:
-                updated_player_info = update_player_info.update_player(player_name, changes)
-                print(f"DEBUG: Player info updated successfully")
-                needs_conversation_history_update = True
+                success = update_character_info(player_name, changes)
+                if success:
+                    needs_conversation_history_update = True
             except Exception as e:
                 print(f"ERROR: Failed to update player info: {str(e)}")
-        else:
-            print("ERROR: No player found in the party tracker data.")
 
-    elif action_type == ACTION_UPDATE_NPC_INFO:
-        print(f"DEBUG: Processing updateNPCInfo action")
+    elif action_type == ACTION_UPDATE_NPC_INFO or action_type == "updateNPCInfo":
+        print(f"DEBUG: Processing legacy updateNPCInfo action - redirecting to updateCharacterInfo")
         changes = parameters["changes"]
         npc_name = parameters["npcName"]
-
-        print(f"DEBUG: Updating NPC info for {npc_name}")
         try:
-            updated_npc_info = update_npc_info.update_npc(npc_name, changes)
-            print(f"DEBUG: NPC info updated successfully")
-            needs_conversation_history_update = True
+            success = update_character_info(npc_name, changes)
+            if success:
+                needs_conversation_history_update = True
         except Exception as e:
             print(f"ERROR: Failed to update NPC info: {str(e)}")
 

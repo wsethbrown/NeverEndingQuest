@@ -2,24 +2,16 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "character_role": {
-      "type": "string",
-      "enum": ["player", "npc"]
-    },
     "character_type": {
       "type": "string",
-      "enum": ["player", "npc"]
+      "enum": ["player"]
     },
     "name": {
       "type": "string"
     },
     "type": {
       "type": "string",
-      "enum": ["player", "npc"]
-    },
-    "size": {
-      "type": "string",
-      "enum": ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"]
+      "enum": ["player"]
     },
     "level": {
       "type": "integer"
@@ -278,7 +270,7 @@
     }
   },
   "required": [
-    "character_role", "character_type", "name", "type", "size", "level", "race", "class", "alignment", "background",
+    "character_type", "name", "type", "level", "race", "class", "alignment", "background",
     "status", "condition", "condition_affected", "hitPoints", "maxHitPoints", "armorClass", 
     "initiative", "speed", "abilities", "savingThrows", "skills", "proficiencyBonus",
     "senses", "languages", "proficiencies", "damageVulnerabilities", "damageResistances",
