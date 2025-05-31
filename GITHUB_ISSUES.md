@@ -171,3 +171,49 @@ When exiting and resuming the game, location summaries from the conversation his
 - `location_manager.py`
 
 *Note: Already documented in plan.md as Issue #7*
+
+---
+
+## Issue 6: Standardize character naming conventions for filesystem compatibility
+**Labels:** `enhancement`, `data-integrity`, `breaking-change`
+
+### Description
+Character names with spaces or special characters (e.g., "Sir Reginald", "D'Artagnan") can cause filesystem issues when used in filenames. We need to establish and enforce a standard naming convention for all character files.
+
+### Current Behavior
+- Character names can contain spaces, apostrophes, and other special characters
+- Some operations sanitize filenames ad-hoc (e.g., level_up conversation logs)
+- No validation when creating new characters
+- Inconsistent handling across different modules
+
+### Expected Behavior
+- Establish naming convention: alphanumeric, underscore, and hyphen only (e.g., "Sir_Reginald", "D_Artagnan")
+- Validate character names at creation time
+- Provide migration script for existing character files
+- Consistent filename handling across all modules
+
+### Affected Files
+- `npc_builder.py` (enforce during NPC creation)
+- `char_schema.json` (add pattern validation for name field)
+- All character JSON files in campaigns
+- `level_up.py` (already partially addressed)
+- Any module that creates character-named files
+
+### Migration Strategy
+1. Add validation to prevent new characters with non-compliant names
+2. Create migration script to rename existing character files
+3. Update all references in campaign data
+4. Provide clear error messages for invalid names
+
+### Example Valid Names
+- "Norn" ✓
+- "Sir_Reginald" ✓ 
+- "D_Artagnan" ✓
+- "Mary-Sue" ✓
+- "Fighter_1" ✓
+
+### Example Invalid Names
+- "Sir Reginald" ✗ (contains space)
+- "D'Artagnan" ✗ (contains apostrophe)
+- "Mary Sue" ✗ (contains space)
+- "Fighter #1" ✗ (contains space and #)
