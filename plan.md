@@ -242,6 +242,31 @@ This document outlines a comprehensive plan to debug and improve the DungeonMast
 
 ## Conclusion
 
+### Issue #7: Missing Location Summaries After Exit/Resume (MEDIUM PRIORITY)
+**Problem**: Location visits can be skipped for summarization when exitGame/resume occurs during a visit.
+
+**Symptoms**:
+- Messages between location transitions are not summarized
+- Conversation history shows raw messages instead of location summary
+- Occurs when player exits game mid-location and resumes
+
+**Evidence**: User found Wyrd Lantern Inn (A05) visit was never summarized after exit/resume cycle
+
+**Root Cause**:
+- Exit/resume disrupts location visit tracking
+- System only processes most recent transition
+- Check for "already processed" may incorrectly skip summarization
+- State not properly preserved across game sessions
+
+**Fix Strategy**:
+1. **Build recovery function**: Scan conversation history for missing summaries
+2. **Detect pattern**: Find location transitions without summaries between them
+3. **Generate missing summaries**: Summarize orphaned location visits
+4. **Run on game load**: Check and fix on startup or periodically
+5. **Preserve state**: Better tracking across exit/resume cycles
+
+## Conclusion
+
 This plan addresses the core issues identified during gameplay testing while maintaining system stability and improving overall reliability. The phased approach allows for careful implementation and testing of critical fixes while building toward a more robust and user-friendly system.
 
 The evidence shows that most core systems are functioning correctly, but infrastructure improvements are needed to handle edge cases and provide better error recovery. The focus should be on defensive programming, better validation, and improved user feedback to create a stable gaming experience.

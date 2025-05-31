@@ -65,12 +65,17 @@
     "Martial Archetype: Champion",
     "Empowered Ward Ritual: Performing the ancient rite at the faerie circle grants spiritual fortitude, providing advantage on saving throws against enchantment effects for 24 hours.",
     "Renewed Protective Ward: Completed the ancient rite at the Lost Ward Circle, renewing the protective ward and gaining spiritual fortitude.",
-    "Completed Withered Shrine Ward Ritual"
+    "Completed Withered Shrine Ward Ritual",
+    "Completed Faerie Circle Ritual: Completed the faerie circle ritual using Scout Elen's clasp and dust of disappearance, gaining spiritual fortitude granting advantage on saving throws against enchantment and fear effects for 24 hours."
   ],
   "specialAbilities": [
     {
       "name": "Blessing of the Forest Guardian",
       "description": "Advantage on saving throws against fear effects for 24 hours."
+    },
+    {
+      "name": "Spiritual Fortitude",
+      "description": "Granted by completing the faerie circle ritual, you have advantage on saving throws against enchantment and fear effects for 24 hours."
     }
   ],
   "classFeatures": [
@@ -91,14 +96,7 @@
       "description": "Your weapon attacks score a critical hit on a roll of 19 or 20"
     }
   ],
-  "equipment": [
-    {
-      "item_name": "Dust of disappearance (partial, enough for one use)",
-      "item_type": "miscellaneous",
-      "description": "A small pouch containing a partial dose of dust that grants invisibility for a short duration when used.",
-      "quantity": 1
-    }
-  ],
+  "equipment": [],
   "ammunition": [
     {
       "name": "Arrows",

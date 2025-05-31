@@ -173,3 +173,24 @@
 2025-05-26 19:34:21 - Summary generated for The Withered Shrine
 2025-05-26 19:34:21 - Compressed history from 60 to 35 messages
 2025-05-26 19:34:21 - Removed 26 messages from The Withered Shrine
+2025-05-28 17:48:38 - Generating enhanced adventure summary for Spectral Clearing
+2025-05-28 17:48:38 - Found most recent transition at index 63: Location transition: Spectral Clearing (B06) to Keeper's Cottage (B07)
+2025-05-28 17:48:38 - Found previous transition at index 32
+2025-05-28 17:48:38 - Collected 30 messages for location summary
+2025-05-28 17:48:38 - Generating summary for Spectral Clearing
+2025-05-28 17:48:47 - Summary generated for Spectral Clearing
+2025-05-28 17:48:55 - Enhanced adventure summary generated successfully
+2025-05-28 17:48:55 - Updating journal with summary for Spectral Clearing
+2025-05-28 17:48:55 - Journal updated successfully
+2025-05-28 17:48:55 - Compressing conversation history when leaving Spectral Clearing
+2025-05-28 17:48:55 - Total messages in history: 66
+2025-05-28 17:48:55 - Cleaning old-style summaries from conversation history
+2025-05-28 17:48:55 - Removed 2 old summary messages and error notes
+2025-05-28 17:48:55 - Found transition at index 61: Location transition: Spectral Clearing (B06) to Keeper's Cottage (B07)
+2025-05-28 17:48:55 - Found previous transition at index 32
+2025-05-28 17:48:55 - Collecting messages from index 33 to 60
+2025-05-28 17:48:55 - Found 28 messages to summarize
+2025-05-28 17:48:55 - Generating summary for Spectral Clearing
+2025-05-28 17:49:06 - Summary generated for Spectral Clearing
+2025-05-28 17:49:06 - Compressed history from 64 to 37 messages
+2025-05-28 17:49:06 - Removed 28 messages from Spectral Clearing

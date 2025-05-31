@@ -93,9 +93,9 @@
   ],
   "equipment": [
     {
-      "item_name": "Scout Elen's torn cloak clasp (engraved E.R., faintly magical)",
+      "item_name": "Dust of disappearance (partial, enough for one use)",
       "item_type": "miscellaneous",
-      "description": "A delicate cloak clasp torn from Scout Elen's cloak, engraved with the initials E.R. It radiates faint magical energy.",
+      "description": "A small pouch containing a partial dose of dust that grants invisibility for a short duration when used.",
       "quantity": 1
     }
   ],

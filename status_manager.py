@@ -136,3 +136,12 @@ def status_ready():
 def status_busy():
     """Set generic busy status"""
     status_manager.update_status("System busy...", True)
+
+# Global function to set the status callback
+def set_status_callback(callback: Callable[[str, bool], None]):
+    """Set the global status callback function
+    
+    Args:
+        callback: Function that takes (status_message, is_processing) as arguments
+    """
+    status_manager.set_callback(callback)

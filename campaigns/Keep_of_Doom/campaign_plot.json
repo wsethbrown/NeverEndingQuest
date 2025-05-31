@@ -44,7 +44,7 @@
         "PP003"
       ],
       "status": "in progress",
-      "plotImpact": "Norn has recovered Scout Elen's torn cloak clasp, discovering a magical vision that confirms her flight toward the Keeper's Cottage and provides a key clue for the party's investigation and potential rituals.",
+      "plotImpact": "Norn follows Scout Elen's tracks from the Spectral Clearing north toward the Keeper's Cottage, advancing the investigation and drawing closer to a confrontation with the hermit known as the Keeper.",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -53,8 +53,8 @@
           "involvedLocations": [
             "G001"
           ],
-          "status": "in progress",
-          "plotImpact": "Norn has uncovered the magical workings of the faerie circle and realized its connection to the ancient protective wards. This begins the search for restoring the Lost Ward Circle to weaken the keep's curse."
+          "status": "completed",
+          "plotImpact": "Norn has completed the ancient ritual at the faerie circle, restoring the Lost Ward Circle. The spectral curse's influence is weakened, and protective magic now shields the Spectral Clearing and nearby paths."
         },
         {
           "id": "SQ004",
@@ -63,8 +63,8 @@
           "involvedLocations": [
             "G001"
           ],
-          "status": "not started",
-          "plotImpact": ""
+          "status": "in progress",
+          "plotImpact": "Morvath has explained the ritual and provided Norn with the components to restore the Lost Ward Circle, clearly stating the need for a sacrifice of personal meaning."
         }
       ]
     },

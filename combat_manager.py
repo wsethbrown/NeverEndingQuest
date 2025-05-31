@@ -177,7 +177,7 @@ def parse_json_safely(text):
     # If we still can't parse it, raise an exception
     raise json.JSONDecodeError("Unable to parse JSON from the given text", text, 0)
 
-def validate_combat_response(response, encounter_data, user_input):
+def validate_combat_response(response, encounter_data, user_input, conversation_history=None):
     """
     Validate a combat response for accuracy in HP tracking, combat flow, etc.
     Returns True if valid, or a string with the reason for failure if invalid.
@@ -187,12 +187,37 @@ def validate_combat_response(response, encounter_data, user_input):
     # Load validation prompt from file
     validation_prompt = read_prompt_from_file('combat_validation_prompt.txt')
     
+    # Start with validation prompt
     validation_conversation = [
-        {"role": "system", "content": validation_prompt},
+        {"role": "system", "content": validation_prompt}
+    ]
+    
+    # Add previous 3 user/assistant pairs for context
+    if conversation_history and len(conversation_history) > 6:
+        # Get the last 7 messages (3 pairs + current user input)
+        # But exclude the current user input since we'll add it separately
+        recent_messages = conversation_history[-7:-1]  # Last 6 messages before current
+        
+        # Filter to only user/assistant messages (no system messages)
+        context_messages = [
+            msg for msg in recent_messages 
+            if msg["role"] in ["user", "assistant"]
+        ][-6:]  # Ensure we only get last 6 (3 pairs)
+        
+        # Add context header and messages
+        validation_conversation.append({
+            "role": "system", 
+            "content": "=== PREVIOUS COMBAT CONTEXT (last 3 exchanges) ==="
+        })
+        validation_conversation.extend(context_messages)
+    
+    # Add current validation data
+    validation_conversation.extend([
+        {"role": "system", "content": "=== CURRENT VALIDATION DATA ==="},
         {"role": "system", "content": f"Encounter Data:\n{json.dumps(encounter_data, indent=2)}"},
         {"role": "user", "content": f"Player Input: {user_input}"},
         {"role": "assistant", "content": response}
-    ]
+    ])
 
     max_validation_retries = 3
     for attempt in range(max_validation_retries):
@@ -774,7 +799,7 @@ Player: The combat begins. Describe the scene and the enemies we face."""
            
            # Validate the combat logic
            print("DEBUG: Validating combat response...")
-           validation_result = validate_combat_response(initial_response, encounter_data, "The combat begins. Describe the scene and the enemies we face.")
+           validation_result = validate_combat_response(initial_response, encounter_data, "The combat begins. Describe the scene and the enemies we face.", conversation_history)
            
            if validation_result is True:
                valid_response = True
@@ -992,7 +1017,7 @@ Player: {user_input_text}"""
                actions = parsed_response["actions"]
                
                # Validate the combat logic
-               validation_result = validate_combat_response(ai_response, encounter_data, user_input_text)
+               validation_result = validate_combat_response(ai_response, encounter_data, user_input_text, conversation_history)
                
                if validation_result is True:
                    valid_response = True

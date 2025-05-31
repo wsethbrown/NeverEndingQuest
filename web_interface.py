@@ -23,6 +23,7 @@ install_debug_interceptor()
 
 # Import the main game module
 import main as dm_main
+from status_manager import set_status_callback
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dungeon-master-secret-key'
@@ -36,6 +37,17 @@ game_thread = None
 original_stdout = sys.stdout
 original_stderr = sys.stderr
 original_stdin = sys.stdin
+
+# Status callback function
+def emit_status_update(status_message, is_processing):
+    """Emit status updates to the frontend"""
+    socketio.emit('status_update', {
+        'message': status_message,
+        'is_processing': is_processing
+    })
+
+# Set the status callback
+set_status_callback(emit_status_update)
 
 class WebOutputCapture:
     """Captures output and routes it to appropriate queues"""
@@ -156,6 +168,10 @@ class WebInput:
         self.queue = queue
     
     def readline(self):
+        # Signal that we're ready for input
+        from status_manager import status_ready
+        status_ready()
+        
         # Wait for input from the web interface
         while True:
             try:
@@ -365,4 +381,5 @@ if __name__ == '__main__':
                 host='0.0.0.0',
                 port=5000,
                 debug=False,
-                use_reloader=False)
+                use_reloader=False,
+                allow_unsafe_werkzeug=True)

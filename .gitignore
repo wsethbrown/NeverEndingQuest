@@ -1,62 +1,86 @@
-# Config file with API keys
-config.py
-
-# Backup folders
-backup/
-backup_2/
-back_up_3/
-old_files/
-legacy/
-
-# Temporary files
-debug_*.json
-*_BU*.json
-*copy*.json
-*copy*.py
-*_old*.json
-npc_update_debug_log.json
-npc_update_detailed_log.json
-
-# Conversation logs
-conversation_history.json
-combat_conversation_history.json
-second_model_history.json
-third_model_history.json
-player_conversation_history.json
-prompt_validation.json
-summary_dump.json
-trimmed_summary_dump.json
-dialogue_summary.json
-combat_logs/
-combat_builder.log
-combat_validation_log.json
-error.txt
-chat_history.json
-
-# Python environment
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
-.env
-.venv
-env/
+*.so
+.Python
 venv/
+env/
 ENV/
-env.bak/
-venv.bak/
 
-# Editor files
+# Logs
+*.log
+logs/
+
+# Runtime data
+conversation_history.json
+conversation_history.json.bak
+combat_conversation_history.json
+current_location.json
+party_tracker.json.bak
+journal.json
+journal.json.bak
+chronology.json
+
+# Debug files
+debug_*.json
+*_debug.json
+prompt_validation.json
+summary_dump.json
+
+# Test results
+test_results_*.json
+test_runs/
+
+# Backup files
+*.bak
+*_BU.json
+*_backup_*
+backup/
+backup_*/
+old_files/
+legacy/
+
+# Copy files
+*copy.*
+* copy.*
+
+# Temporary files
+*.tmp
+*.temp
+clear_output.txt
+test_objectives.json
+
+# Screenshots
+*.png
+*.jpg
+*.jpeg
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-**/.claude/settings.local.json
+# Game data in root (should be in campaigns/)
+/DS*.json
+/EM*.json
+/encounter_*.json
+/map_*.json
+/plot_*.json
+/norn.json
+/elara.json
+/gilly.json
+/thalor.json
+/eor.json
+/Gnomengarde.json
+/*_campaign.json
+
+# Temporary test files
+test_character_sheet*.html
+capture_screenshot.py
+install_gh.sh

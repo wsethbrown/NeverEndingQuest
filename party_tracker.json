@@ -8,13 +8,13 @@
     "year": 1492,
     "month": "Ches",
     "day": 1,
-    "time": "18:29:00",
+    "time": "19:00:00",
     "weather": "",
     "season": "Spring",
     "dayNightCycle": "Night",
     "moonPhase": "New Moon",
-    "currentLocation": "Spectral Clearing",
-    "currentLocationId": "B06",
+    "currentLocation": "Keeper's Cottage",
+    "currentLocationId": "B07",
     "currentArea": "Gloamwood",
     "currentAreaId": "G001",
     "majorEventsUnderway": [],
@@ -46,12 +46,6 @@
       "title": "The Road to Doom",
       "description": "Tracking clues and rumors, the party must brave the haunted forest and reach the Keep of Doom. Along the way, they navigate treacherous terrain, spectral ambushes, and lingering wards. The forest is alive with unnatural energies, and the party may encounter allies or enemies who help or hinder their journey.",
       "status": "in progress"
-    },
-    {
-      "id": "SQ003",
-      "title": "The Lost Ward Circle",
-      "description": "An ancient protective ward circle in the forest has failed. Restoring it could weaken the keep's influence and protect the village from spectral incursions.",
-      "status": "not started"
     },
     {
       "id": "SQ004",
