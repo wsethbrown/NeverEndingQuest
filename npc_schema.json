@@ -86,13 +86,48 @@
     "languages": {"type": "string"},
     "challengeRating": {"type": "number"},
     "proficiencyBonus": {"type": "integer"},
-    "specialAbilities": {
+    "temporaryEffects": {
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
           "name": {"type": "string"},
-          "description": {"type": "string"}
+          "description": {"type": "string"},
+          "duration": {"type": "string"},
+          "source": {"type": "string"}
+        },
+        "required": ["name", "description"]
+      }
+    },
+    "racialTraits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "source": {"type": "string"}
+        },
+        "required": ["name", "description"]
+      }
+    },
+    "backgroundFeature": {
+      "type": "object",
+      "properties": {
+        "name": {"type": "string"},
+        "description": {"type": "string"},
+        "source": {"type": "string"}
+      },
+      "required": ["name", "description"]
+    },
+    "feats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "source": {"type": "string"}
         },
         "required": ["name", "description"]
       }
@@ -150,9 +185,9 @@
     "currency": {
       "type": "object",
       "properties": {
-        "gold": {"type": "integer"},
-        "silver": {"type": "integer"},
-        "copper": {"type": "integer"}
+        "gold": {"type": "integer", "minimum": 0},
+        "silver": {"type": "integer", "minimum": 0},
+        "copper": {"type": "integer", "minimum": 0}
       },
       "required": ["gold", "silver", "copper"]
     },
@@ -198,7 +233,8 @@
         "type": "object",
         "properties": {
           "name": {"type": "string"},
-          "description": {"type": "string"}
+          "description": {"type": "string"},
+          "source": {"type": "string"}
         },
         "required": ["name", "description"]
       }
@@ -210,7 +246,8 @@
     "speed", "initiative", "abilities", "savingThrows", "skills", "proficiencies", 
     "damageVulnerabilities", "damageResistances", "damageImmunities", 
     "conditionImmunities", "senses", "languages", "challengeRating", 
-    "proficiencyBonus", "specialAbilities", "actions", "equipment", "ammunition",
+    "proficiencyBonus", "temporaryEffects", "racialTraits", "backgroundFeature", 
+    "feats", "actions", "equipment", "ammunition",
     "background", "personality", "ideals", "bonds", "flaws", 
     "experience_points", "currency", "attacksAndSpellcasting", "classFeatures"
   ]

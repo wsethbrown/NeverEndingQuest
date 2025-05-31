@@ -146,9 +146,9 @@ def update_player(player_name, changes, max_retries=3):
 
         # Prepare the prompt for the AI
         prompt = [
-            {"role": "system", "content": f"""You are an assistant that updates player information in a 5th Edition roleplaying game. Given the current player information and a description of changes, you must return only the updated sections as a JSON object. Do not include unchanged fields. Your response should be a valid JSON object representing only the modified parts of the character sheet.
+            {"role": "system", "content": """You are an assistant that updates player information in a 5th Edition roleplaying game. Given the current player information and a description of changes, you must return only the updated sections as a JSON object. Do not include unchanged fields. Your response should be a valid JSON object representing only the modified parts of the character sheet.
 
-{schema_info}
+""" + schema_info + """
 
 CRITICAL RULES FOR ARRAYS (equipment, ammunition, etc.):
 - When ADDING items: Return the COMPLETE array including all existing items PLUS the new items
@@ -271,7 +271,7 @@ Example of CORRECT approach:
 Input: Used potion of healing from inventory (player has sword, shield, potion)
 CORRECT Output: {"equipment": [{"item_name": "Longsword", ...}, {"item_name": "Shield", ...}]}  // Potion removed, other items kept"""},
             *processed_history,
-            {"role": "user", "content": f"Current player info: {json.dumps(player_info)}\n\nChanges to apply: {changes}\n\nRespond with ONLY the updated JSON object representing the changed sections of the character sheet, with no additional text or explanation."}
+            {"role": "user", "content": "Current player info: " + json.dumps(player_info) + "\n\nChanges to apply: " + changes + "\n\nRespond with ONLY the updated JSON object representing the changed sections of the character sheet, with no additional text or explanation."}
         ]
 
         # Get AI's response

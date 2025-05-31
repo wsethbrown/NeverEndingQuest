@@ -305,10 +305,11 @@ Examples of inputs requiring updates to the JSON:
      "skills": {{
        "Athletics": 6
      }},
-     "specialAbilities": [
+     "classFeatures": [
        {{
          "name": "Extra Attack",
-         "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+         "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+         "source": "Fighter 5th level"
        }}
      ],
      "proficiencyBonus": 3

@@ -57,46 +57,41 @@
   "damageResistances": [],
   "damageImmunities": [],
   "conditionImmunities": [],
-  "features": [
-    "Fighting Style: Defense",
-    "Second Wind",
-    "Action Surge",
-    "Improved Critical",
-    "Martial Archetype: Champion",
-    "Empowered Ward Ritual: Performing the ancient rite at the faerie circle grants spiritual fortitude, providing advantage on saving throws against enchantment effects for 24 hours.",
-    "Renewed Protective Ward: Completed the ancient rite at the Lost Ward Circle, renewing the protective ward and gaining spiritual fortitude.",
-    "Completed Withered Shrine Ward Ritual",
-    "Completed Faerie Circle Ritual: Completed the faerie circle ritual using Scout Elen's clasp and dust of disappearance, gaining spiritual fortitude granting advantage on saving throws against enchantment and fear effects for 24 hours."
-  ],
-  "specialAbilities": [
-    {
-      "name": "Blessing of the Forest Guardian",
-      "description": "Advantage on saving throws against fear effects for 24 hours."
-    },
-    {
-      "name": "Spiritual Fortitude",
-      "description": "Granted by completing the faerie circle ritual, you have advantage on saving throws against enchantment and fear effects for 24 hours."
-    }
-  ],
   "classFeatures": [
     {
       "name": "Second Wind",
-      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (restored)"
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (restored)",
+      "source": "Fighter feature"
     },
     {
       "name": "Action Surge",
-      "description": "Once per short rest, take one additional action on your turn (restored)"
+      "description": "Once per short rest, take one additional action on your turn (restored)",
+      "source": "Fighter feature"
     },
     {
       "name": "Fighting Style: Defense",
-      "description": "+1 to AC when wearing armor"
+      "description": "+1 to AC when wearing armor",
+      "source": "Fighter feature"
     },
     {
       "name": "Improved Critical",
-      "description": "Your weapon attacks score a critical hit on a roll of 19 or 20"
+      "description": "Your weapon attacks score a critical hit on a roll of 19 or 20",
+      "source": "Fighter feature"
+    },
+    {
+      "name": "Martial Archetype: Champion",
+      "description": "Martial Archetype: Champion",
+      "source": "Fighter feature"
     }
   ],
-  "equipment": [],
+  "equipment": [
+    {
+      "item_name": "Hemp Rope (50 feet)",
+      "item_type": "miscellaneous",
+      "description": "Sturdy rope useful for climbing, tying, and securing items",
+      "quantity": 1
+    }
+  ],
   "ammunition": [
     {
       "name": "Arrows",
@@ -161,7 +156,7 @@
   },
   "currency": {
     "gold": 24,
-    "silver": -1,
+    "silver": 0,
     "copper": 0
   },
   "experience_points": 4971,
@@ -170,5 +165,37 @@
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
   "ideals": "Responsibility. I do what I must and obey just authority.",
   "bonds": "I fight for those who cannot fight for themselves.",
-  "flaws": "I have a hard time hiding my true feelings. My sharp tongue often gets me into trouble."
+  "flaws": "I have a hard time hiding my true feelings. My sharp tongue often gets me into trouble.",
+  "racialTraits": [
+    {
+      "name": "Ability Score Increase",
+      "description": "Your ability scores each increase by 1.",
+      "source": "Human"
+    },
+    {
+      "name": "Languages",
+      "description": "You can speak, read, and write Common and one extra language of your choice.",
+      "source": "Human"
+    }
+  ],
+  "temporaryEffects": [
+  {
+    "name": "Spiritual Fortitude",
+    "description": "Advantage on saving throws against enchantment and fear effects.",
+    "duration": "24 hours",
+    "source": "Ward Rituals"
+  },
+  {
+    "name": "Blessing of the Forest Guardian",
+    "description": "Advantage on saving throws against fear effects.",
+    "duration": "24 hours", 
+    "source": "Forest Guardian"
+  }
+],
+  "feats": [],
+  "backgroundFeature": {
+    "name": "Military Rank",
+    "description": "Soldiers loyal to your former military organization still recognize your authority and military rank. They will defer to you if they are of a lower rank, and you can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use.",
+    "source": "Soldier background"
+  }
 }

@@ -116,30 +116,60 @@
       "type": "array",
       "items": {"type": "string"}
     },
-    "features": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "specialAbilities": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {"type": "string"},
-          "description": {"type": "string"}
-        },
-        "required": ["name", "description"]
-      }
-    },
     "classFeatures": {
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
           "name": {"type": "string"},
-          "description": {"type": "string"}
+          "description": {"type": "string"},
+          "source": {"type": "string"}
+        },
+        "required": ["name", "description"]
+      }
+    },
+    "racialTraits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "source": {"type": "string"}
+        },
+        "required": ["name", "description"]
+      }
+    },
+    "backgroundFeature": {
+      "type": "object",
+      "properties": {
+        "name": {"type": "string"},
+        "description": {"type": "string"},
+        "source": {"type": "string"}
+      },
+      "required": ["name", "description"]
+    },
+    "temporaryEffects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "duration": {"type": "string"},
+          "source": {"type": "string"}
+        },
+        "required": ["name", "description"]
+      }
+    },
+    "feats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "source": {"type": "string"}
         },
         "required": ["name", "description"]
       }
@@ -211,9 +241,9 @@
     "currency": {
       "type": "object",
       "properties": {
-        "gold": {"type": "integer"},
-        "silver": {"type": "integer"},
-        "copper": {"type": "integer"}
+        "gold": {"type": "integer", "minimum": 0},
+        "silver": {"type": "integer", "minimum": 0},
+        "copper": {"type": "integer", "minimum": 0}
       },
       "required": ["gold", "silver", "copper"]
     },
@@ -244,8 +274,8 @@
     "status", "condition", "condition_affected", "hitPoints", "maxHitPoints", "armorClass", 
     "initiative", "speed", "abilities", "savingThrows", "skills", "proficiencyBonus",
     "senses", "languages", "proficiencies", "damageVulnerabilities", "damageResistances",
-    "damageImmunities", "conditionImmunities", "features", "specialAbilities", "classFeatures", 
-    "equipment", "attacksAndSpellcasting", "spellcasting", "currency", "experience_points", 
+    "damageImmunities", "conditionImmunities", "classFeatures", "racialTraits", "backgroundFeature",
+    "temporaryEffects", "feats", "equipment", "attacksAndSpellcasting", "spellcasting", "currency", "experience_points", 
     "exp_required_for_next_level", "challengeRating", "personality_traits", "ideals", "bonds", "flaws"
   ],
   "additionalProperties": false

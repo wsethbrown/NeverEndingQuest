@@ -1076,17 +1076,20 @@
                 html += `<div class="inventory-header"><div class="currency-display"><div class="currency-title">Currency</div><div class="currency-grid"><div class="currency-item"><span class="currency-amount">${gold}</span><span class="currency-type">GP</span></div><div class="currency-item"><span class="currency-amount">${silver}</span><span class="currency-type">SP</span></div><div class="currency-item"><span class="currency-amount">${copper}</span><span class="currency-type">CP</span></div></div><div class="currency-total">Total: ${total.toFixed(2)} GP</div></div></div>`;
             }
             
+            // Equipment section - always show
+            html += '<div class="equipment-section"><h4>Equipment</h4>';
             if (data.equipment && data.equipment.length > 0) {
-                html += '<div class="equipment-section"><h4>Equipment</h4>';
                 data.equipment.forEach(item => {
                     const qty = item.quantity || 1;
-                    const qtyStr = qty > 1 ? qty.toString() : '';
+                    const qtyStr = qty > 1 ? ` ×${qty}` : '';
                     const type = (item.item_type || 'misc').toLowerCase();
                     const desc = (item.description || '').substr(0, 80);
-                    html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${item.item_name}</span>${qtyStr ? `<span class="item-qty">×${qtyStr}</span>` : ''}</div><div class="item-details"><span class="item-type">${type}</span></div></div>`;
+                    html += `<div class="inventory-item" title="${desc}"><span class="feature-bullet">●</span><span class="item-name">${item.item_name}${qtyStr}</span><span class="item-type"> (${type})</span></div>`;
                 });
-                html += '</div>';
+            } else {
+                html += '<div class="inventory-item"><span class="feature-bullet">●</span><span class="item-name">No equipment</span></div>';
             }
+            html += '</div>';
             
             // Main inventory sections in grid layout
             html += '<div class="inventory-sections">';
@@ -1205,26 +1208,58 @@
                     const desc = feature.description || '';
                     html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">●</span><span class="feature-name">${feature.name || feature}</span></div>`;
                 });
-            } else if (data.features && data.features.length > 0) {
-                // Fallback to simple features array
-                data.features.forEach(feature => {
-                    html += `<div class="feature-item"><span class="feature-bullet">●</span><span class="feature-name">${feature}</span></div>`;
-                });
             } else {
                 html += '<div class="feature-item"><span class="feature-name">No class features</span></div>';
             }
             html += '</div></div>';
             
-            // Special Abilities column
+            // Temporary Effects & Other Abilities column
             html += '<div class="stat-group"><h4>Special Abilities</h4><div class="stat-group-content">';
-            if (data.specialAbilities && data.specialAbilities.length > 0) {
-                data.specialAbilities.forEach(ability => {
-                    const desc = ability.description || '';
-                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">◆</span><span class="feature-name">${ability.name}</span></div>`;
+            
+            // Show racial traits (excluding basic ones)
+            if (data.racialTraits && data.racialTraits.length > 0) {
+                const basicTraits = ['Ability Score Increase', 'Languages', 'Extra Language'];
+                data.racialTraits.forEach(trait => {
+                    // Only show special racial traits, not basic ones
+                    if (!basicTraits.includes(trait.name)) {
+                        const desc = trait.description || '';
+                        html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">◈</span><span class="feature-name">${trait.name}</span></div>`;
+                    }
                 });
-            } else {
+            }
+            
+            // Show background feature
+            if (data.backgroundFeature && data.backgroundFeature.name) {
+                const desc = data.backgroundFeature.description || '';
+                html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">✦</span><span class="feature-name">${data.backgroundFeature.name}</span></div>`;
+            }
+            
+            // Show temporary effects
+            if (data.temporaryEffects && data.temporaryEffects.length > 0) {
+                data.temporaryEffects.forEach(effect => {
+                    const desc = effect.description || '';
+                    const duration = effect.duration ? ` (${effect.duration})` : '';
+                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">◆</span><span class="feature-name">${effect.name}${duration}</span></div>`;
+                });
+            }
+            
+            // Show feats
+            if (data.feats && data.feats.length > 0) {
+                data.feats.forEach(feat => {
+                    const desc = feat.description || '';
+                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">★</span><span class="feature-name">${feat.name}</span></div>`;
+                });
+            }
+            
+            // Show if no special abilities
+            const hasAnySpecial = (data.racialTraits && data.racialTraits.length > 0) || 
+                                 (data.backgroundFeature && data.backgroundFeature.name) || 
+                                 (data.temporaryEffects && data.temporaryEffects.length > 0) ||
+                                 (data.feats && data.feats.length > 0);
+            if (!hasAnySpecial) {
                 html += '<div class="feature-item"><span class="feature-name">No special abilities</span></div>';
             }
+            
             html += '</div></div>';
             
             html += '</div>'; // End features-abilities-container
