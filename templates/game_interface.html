@@ -665,25 +665,37 @@
             font-family: 'Cinzel', Georgia, serif;
         }
         
+        .features-abilities-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-top: 3px;
+        }
+        
         .feature-item {
-            background-color: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 3px;
-            padding: 2px;
-            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            padding: 2px 4px;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.2;
+            cursor: help;
+            transition: background-color 0.2s;
+        }
+        
+        .feature-item:hover {
+            background-color: rgba(255, 165, 0, 0.1);
+        }
+        
+        .feature-bullet {
+            color: #FFA500;
+            margin-right: 6px;
+            font-size: 14px;
         }
         
         .feature-name {
-            color: #FFA500;
-            font-weight: bold;
-            margin-bottom: 1px;
-            font-size: 20px;
-        }
-        
-        .feature-desc {
-            color: #aaa;
-            font-size: 18px;
-            line-height: 1.2;
+            color: #e0e0e0;
+            font-size: 16px;
         }
         
         /* NPC styling */
@@ -1144,32 +1156,39 @@
             
             html += '</div>'; // End skills-saves-container
             
-            // Features and Traits
-            if (data.features && data.features.length > 0) {
-                html += '<div class="features-section"><h4>Features & Traits</h4>';
-                data.features.forEach(feature => {
-                    html += `
-                        <div class="feature-item">
-                            <div class="feature-name">${feature}</div>
-                        </div>
-                    `;
-                });
-                html += '</div>';
-            }
+            // Features and Abilities in two columns
+            html += '<div class="features-abilities-container">';
             
-            // Special Abilities
-            if (data.specialAbilities && data.specialAbilities.length > 0) {
-                html += '<div class="features-section"><h4>Special Abilities</h4>';
-                data.specialAbilities.forEach(ability => {
-                    html += `
-                        <div class="feature-item">
-                            <div class="feature-name">${ability.name}</div>
-                            <div class="feature-desc">${ability.description}</div>
-                        </div>
-                    `;
+            // Class Features column
+            html += '<div class="stat-group"><h4>Class Features</h4><div class="stat-group-content">';
+            if (data.classFeatures && data.classFeatures.length > 0) {
+                data.classFeatures.forEach(feature => {
+                    const desc = feature.description || '';
+                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">●</span><span class="feature-name">${feature.name || feature}</span></div>`;
                 });
-                html += '</div>';
+            } else if (data.features && data.features.length > 0) {
+                // Fallback to simple features array
+                data.features.forEach(feature => {
+                    html += `<div class="feature-item"><span class="feature-bullet">●</span><span class="feature-name">${feature}</span></div>`;
+                });
+            } else {
+                html += '<div class="feature-item"><span class="feature-name">No class features</span></div>';
             }
+            html += '</div></div>';
+            
+            // Special Abilities column
+            html += '<div class="stat-group"><h4>Special Abilities</h4><div class="stat-group-content">';
+            if (data.specialAbilities && data.specialAbilities.length > 0) {
+                data.specialAbilities.forEach(ability => {
+                    const desc = ability.description || '';
+                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">◆</span><span class="feature-name">${ability.name}</span></div>`;
+                });
+            } else {
+                html += '<div class="feature-item"><span class="feature-name">No special abilities</span></div>';
+            }
+            html += '</div></div>';
+            
+            html += '</div>'; // End features-abilities-container
             
             html += '</div>'; // End character-sheet
             
