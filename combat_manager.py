@@ -398,7 +398,7 @@ def update_json_schema(ai_response, player_info, encounter_data, party_tracker_d
     # Update player information, including XP
     player_name = player_info['name'].lower().replace(' ', '_')
     player_changes = f"Update the character's experience points. XP Awarded: {xp_info}"
-    updated_player_info = update_player_info.update_player(player_name, player_changes)
+    updated_player_info = update_character_info(player_name, player_changes)
 
     # Update encounter information (monsters only, no XP)
     encounter_id = encounter_data['encounterId']
@@ -410,7 +410,7 @@ def update_json_schema(ai_response, player_info, encounter_data, party_tracker_d
         if creature['type'] == 'npc':
             npc_name = creature['name'].lower().replace(' ', '_').split('_')[0] # Format for file access
             npc_changes = "Update NPC status after combat."
-            update_npc_info.update_npc(npc_name, npc_changes)
+            update_character_info(npc_name, npc_changes)
 
     # Update party tracker: store last combat encounter before removing active one
     if 'worldConditions' in party_tracker_data and 'activeCombatEncounter' in party_tracker_data['worldConditions']:
