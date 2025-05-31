@@ -283,80 +283,179 @@
             font-style: italic;
         }
         
-        /* Inventory styling - compact list format */
-        .inventory-list {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.75em;
-            padding: 5px;
+        /* Inventory styling - modern design matching character sheet */
+        .inventory-sheet {
+            padding: 8px;
+            margin: 0;
+            background-color: #1a1a1a;
+            border: 2px solid #444;
+            border-radius: 8px;
+            font-family: 'Crimson Text', Georgia, serif;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 255, 255, 0.01) 10px,
+                    rgba(255, 255, 255, 0.01) 20px
+                );
+        }
+        
+        .inventory-header {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #666;
+        }
+        
+        .currency-display {
+            text-align: center;
+        }
+        
+        .currency-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #FFA500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Cinzel', Georgia, serif;
+            margin-bottom: 8px;
+        }
+        
+        .currency-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        
+        .currency-item {
+            background-color: #2c2c2c;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 4px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .currency-amount {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4CAF50;
+            line-height: 1;
+        }
+        
+        .currency-type {
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .currency-total {
+            font-size: 16px;
+            color: #FFA500;
+            font-style: italic;
+            margin-top: 4px;
+        }
+        
+        .inventory-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .equipment-section {
+            grid-column: 1 / -1; /* Full width */
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 6px;
+            margin-bottom: 8px;
         }
         
         .inventory-section {
-            margin-bottom: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid #333;
-            border-radius: 3px;
-            padding: 5px;
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 6px;
+            margin: 0;
         }
         
-        .inventory-section h3 {
-            color: #4CAF50;
-            font-size: 0.9em;
-            margin-bottom: 5px;
+        .inventory-section h4 {
+            margin: 0 0 6px 0;
+            color: #FFA500;
             border-bottom: 1px solid #444;
-            padding-bottom: 2px;
+            padding-bottom: 3px;
             text-transform: uppercase;
+            font-size: 16px;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', Georgia, serif;
         }
         
         .inventory-item {
-            display: flex;
-            padding: 2px 0;
+            padding: 3px 0;
             border-bottom: 1px solid #222;
-            align-items: baseline;
+            font-size: 14px;
         }
         
         .inventory-item:last-child {
             border-bottom: none;
         }
         
-        .item-quantity {
-            color: #999;
-            width: 30px;
-            flex-shrink: 0;
-            text-align: right;
-            padding-right: 5px;
+        .inventory-item:hover {
+            background-color: rgba(255, 165, 0, 0.1);
+        }
+        
+        .item-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
         }
         
         .item-name {
             color: #4CAF50;
-            width: 150px;
-            flex-shrink: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            font-weight: bold;
+            font-size: 15px;
+        }
+        
+        .item-qty {
+            color: #999;
+            font-size: 12px;
+            font-style: italic;
+        }
+        
+        .weapon-bonus {
+            color: #ff8c00;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .item-details {
+            font-size: 12px;
+            color: #bbb;
+            line-height: 1.3;
         }
         
         .item-type {
             color: #777;
-            width: 60px;
-            flex-shrink: 0;
             font-style: italic;
-            font-size: 0.9em;
+            text-transform: capitalize;
+        }
+        
+        .weapon-damage {
+            color: #ff8c00;
+            font-weight: bold;
         }
         
         .item-desc {
-            color: #bbb;
-            flex: 1;
-            padding-left: 5px;
-            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 1px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-        }
-        
-        /* Weapon stats in compact format */
-        .weapon-stats {
-            color: #ff8c00;
-            font-size: 0.85em;
         }
         
         /* Character Sheet Styling */
@@ -966,66 +1065,113 @@
                 return;
             }
             
-            let html = '<div class="inventory-list">';
+            let html = '<div class="inventory-sheet">';
             
-            // Equipment section
+            // Currency section - moved to top
+            if (data.currency) {
+                const gold = data.currency.gold || 0;
+                const silver = data.currency.silver || 0;
+                const copper = data.currency.copper || 0;
+                const total = gold + (silver * 0.1) + (copper * 0.01);
+                
+                html += `<div class="inventory-header"><div class="currency-display"><div class="currency-title">Currency</div><div class="currency-grid"><div class="currency-item"><span class="currency-amount">${gold}</span><span class="currency-type">GP</span></div><div class="currency-item"><span class="currency-amount">${silver}</span><span class="currency-type">SP</span></div><div class="currency-item"><span class="currency-amount">${copper}</span><span class="currency-type">CP</span></div></div><div class="currency-total">Total: ${total.toFixed(2)} GP</div></div></div>`;
+            }
+            
+            // Full-width Equipment section
             if (data.equipment && data.equipment.length > 0) {
-                html += '<div class="inventory-section"><h3>Equipment</h3>';
+                html += '<div class="equipment-section"><h4>Equipment</h4>';
                 data.equipment.forEach(item => {
                     const qty = item.quantity || 1;
-                    const qtyStr = qty > 1 ? `${qty}` : ' ';
+                    const qtyStr = qty > 1 ? qty.toString() : '';
                     const type = (item.item_type || 'misc').toLowerCase();
-                    const desc = (item.description || '').substr(0, 50);
-                    html += `
-                        <div class="inventory-item">
-                            <span class="item-quantity">${qtyStr}</span>
-                            <span class="item-name">${item.item_name}</span>
-                            <span class="item-type">[${type}]</span>
-                            <span class="item-desc">${desc}</span>
-                        </div>
-                    `;
+                    const desc = (item.description || '').substr(0, 80);
+                    html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${item.item_name}</span>${qtyStr ? `<span class="item-qty">×${qtyStr}</span>` : ''}</div><div class="item-details"><span class="item-type">${type}</span></div></div>`;
                 });
                 html += '</div>';
             }
             
+            // Main inventory sections in grid layout
+            html += '<div class="inventory-sections">';
+            
             // Weapons and attacks
             if (data.attacksAndSpellcasting && data.attacksAndSpellcasting.length > 0) {
-                html += '<div class="inventory-section"><h3>Weapons</h3>';
+                html += '<div class="inventory-section"><h4>Weapons & Attacks</h4>';
                 data.attacksAndSpellcasting.forEach(weapon => {
                     const damage = weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`;
-                    const stats = `D:${damage} A:+${weapon.attackBonus} ${weapon.damageType}`;
-                    html += `
-                        <div class="inventory-item">
-                            <span class="item-quantity"> </span>
-                            <span class="item-name">${weapon.name}</span>
-                            <span class="item-type">[${weapon.type || 'wpn'}]</span>
-                            <span class="item-desc" title="${weapon.description || ''}">${stats}</span>
-                        </div>
-                    `;
+                    const attack = weapon.attackBonus >= 0 ? `+${weapon.attackBonus}` : weapon.attackBonus;
+                    const damageInfo = `Damage: ${damage} (${weapon.damageType || 'damage'})`;
+                    const fullDesc = weapon.description || '';
+                    html += `<div class="inventory-item" title="${fullDesc}"><div class="item-main"><span class="item-name">${weapon.name}</span><span class="weapon-bonus">${attack}</span></div><div class="item-details"><span class="weapon-damage">${damageInfo}</span></div></div>`;
                 });
                 html += '</div>';
             }
             
             // Ammunition
             if (data.ammunition && data.ammunition.length > 0) {
-                html += '<div class="inventory-section"><h3>Ammo</h3>';
+                html += '<div class="inventory-section"><h4>Ammunition</h4>';
                 data.ammunition.forEach(ammo => {
-                    const desc = (ammo.description || '').substr(0, 30);
-                    html += `
-                        <div class="inventory-item">
-                            <span class="item-quantity">${ammo.quantity}</span>
-                            <span class="item-name">${ammo.name}</span>
-                            <span class="item-type">[ammo]</span>
-                            <span class="item-desc">${desc}</span>
-                        </div>
-                    `;
+                    const desc = (ammo.description || '');
+                    html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${ammo.name}</span><span class="item-qty">×${ammo.quantity}</span></div></div>`;
                 });
                 html += '</div>';
             }
             
-            // Currency
+            html += '</div>'; // End inventory-sections
+            html += '</div>'; // End inventory-sheet
+            container.innerHTML = html;
+            
+            // Currency section - moved to top
             if (data.currency) {
-                html += '<div class="inventory-section"><h3>Currency</h3>';
+                const gold = data.currency.gold || 0;
+                const silver = data.currency.silver || 0;
+                const copper = data.currency.copper || 0;
+                const total = gold + (silver * 0.1) + (copper * 0.01);
+                
+                html += `<div class="inventory-header"><div class="currency-display"><div class="currency-title">Currency</div><div class="currency-grid"><div class="currency-item"><span class="currency-amount">${gold}</span><span class="currency-type">GP</span></div><div class="currency-item"><span class="currency-amount">${silver}</span><span class="currency-type">SP</span></div><div class="currency-item"><span class="currency-amount">${copper}</span><span class="currency-type">CP</span></div></div><div class="currency-total">Total: ${total.toFixed(2)} GP</div></div></div>`;
+            }
+            
+            // Full-width Equipment section
+            if (data.equipment && data.equipment.length > 0) {
+                html += '<div class="equipment-section"><h4>Equipment</h4>';
+                data.equipment.forEach(item => {
+                    const qty = item.quantity || 1;
+                    const qtyStr = qty > 1 ? qty.toString() : '';
+                    const type = (item.item_type || 'misc').toLowerCase();
+                    const desc = (item.description || '').substr(0, 80);
+                    html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${item.item_name}</span>${qtyStr ? `<span class="item-qty">×${qtyStr}</span>` : ''}</div><div class="item-details"><span class="item-type">${type}</span></div></div>`;
+                });
+                html += '</div>';
+            }
+            
+            // Main inventory sections in grid layout
+            html += '<div class="inventory-sections">';
+            
+            // Weapons and attacks
+            if (data.attacksAndSpellcasting && data.attacksAndSpellcasting.length > 0) {
+                html += '<div class="inventory-section"><h4>Weapons & Attacks</h4>';
+                data.attacksAndSpellcasting.forEach(weapon => {
+                    const damage = weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`;
+                    const attack = weapon.attackBonus >= 0 ? `+${weapon.attackBonus}` : weapon.attackBonus;
+                    const damageInfo = `Damage: ${damage} (${weapon.damageType || 'damage'})`;
+                    const fullDesc = weapon.description || '';
+                    html += `<div class="inventory-item" title="${fullDesc}"><div class="item-main"><span class="item-name">${weapon.name}</span><span class="weapon-bonus">${attack}</span></div><div class="item-details"><span class="weapon-damage">${damageInfo}</span></div></div>`;
+                });
+                html += '</div>';
+            }
+            
+            // Ammunition
+            if (data.ammunition && data.ammunition.length > 0) {
+                html += '<div class="inventory-section"><h4>Ammunition</h4>';
+                data.ammunition.forEach(ammo => {
+                    const desc = (ammo.description || '');
+                    html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${ammo.name}</span><span class="item-qty">×${ammo.quantity}</span></div></div>`;
+                });
+                html += '</div>';
+            }
+            
+            // Class features if present
+            if (data.classFeatures && data.classFeatures.length > 0) {
+                html += '<div class="inventory-section"><h4>Class Features</h4>';
                 const curr = [];
                 if (data.currency.gold) curr.push(`<span class="item-quantity">${data.currency.gold}</span><span class="item-name">GP</span>`);
                 if (data.currency.silver) curr.push(`<span class="item-quantity">${data.currency.silver}</span><span class="item-name">SP</span>`);
@@ -1038,22 +1184,6 @@
                 html += '</div>';
             }
             
-            // Class features if present
-            if (data.classFeatures && data.classFeatures.length > 0) {
-                html += '<div class="inventory-section"><h3>Features</h3>';
-                data.classFeatures.forEach(feature => {
-                    const desc = (feature.description || '').substr(0, 50);
-                    html += `
-                        <div class="inventory-item">
-                            <span class="item-quantity"> </span>
-                            <span class="item-name">${feature.name}</span>
-                            <span class="item-type">[feat]</span>
-                            <span class="item-desc" title="${feature.description}">${desc}</span>
-                        </div>
-                    `;
-                });
-                html += '</div>';
-            }
             
             // Skills if present
             if (data.skills) {
@@ -1076,7 +1206,8 @@
                 html += '</div>';
             }
             
-            html += '</div>';
+            html += '</div>'; // End inventory-sections
+            html += '</div>'; // End inventory-sheet
             container.innerHTML = html;
         }
         

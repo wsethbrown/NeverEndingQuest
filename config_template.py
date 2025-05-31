@@ -2,10 +2,14 @@
 # Replace with your actual OpenAI API key
 OPENAI_API_KEY = "your_openai_api_key_here"
 
+# --- Campaign folder structure ---
+CAMPAIGNS_DIR = "campaigns"
+DEFAULT_CAMPAIGN = "Echoes_of_the_Elemental_Forge"
+
 # --- Main Game Logic Models (used in main.py) ---
-DM_MAIN_MODEL = "gpt-4.1-mini-2025-04-14"
+DM_MAIN_MODEL = "gpt-4.1-2025-04-14"
 DM_SUMMARIZATION_MODEL = "gpt-4.1-2025-04-14"
-DM_VALIDATION_MODEL = "gpt-4.1-mini-2025-04-14"
+DM_VALIDATION_MODEL = "gpt-4.1-2025-04-14"
 
 # --- Combat Simulation Models (used in combat_manager.py) ---
 COMBAT_MAIN_MODEL = "gpt-4.1-mini-2025-04-14"
@@ -20,7 +24,10 @@ ADVENTURE_SUMMARY_MODEL = "gpt-4.1-mini-2025-04-14"    # Used in adv_summary.py
 PLOT_UPDATE_MODEL = "gpt-4.1-mini-2025-04-14"          # Used in plot_update.py
 PLAYER_INFO_UPDATE_MODEL = "gpt-4.1-mini-2025-04-14"   # Used in update_player_info.py
 NPC_INFO_UPDATE_MODEL = "gpt-4.1-mini-2025-04-14"      # Used in update_npc_info.py
-MONSTER_BUILDER_MODEL = "gpt-4.1-2025-04-14"           # Used in monster_builder.py
-ENCOUNTER_UPDATE_MODEL = "gpt-4.1-mini-2025-04-14"     # Used in update_encounter.py
+MONSTER_BUILDER_MODEL = "gpt-4.1-2025-04-14"
+ENCOUNTER_UPDATE_MODEL = "gpt-4.1-mini-2025-04-14"
+
+# --- Testing Models ---
+DM_MINI_MODEL = "gpt-4.1-mini-2025-04-14"              # Used for AI player in automated tests
 
 # --- END OF FILE config_template.py ---
