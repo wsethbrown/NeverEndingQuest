@@ -533,7 +533,7 @@ def main_game_loop():
         status_ready()
 
         player_name_actual = party_tracker_data["partyMembers"][0]
-        player_data_file = path_manager.get_player_path(player_name_actual)
+        player_data_file = path_manager.get_character_path(player_name_actual)
         player_data_current = load_json_file(player_data_file)
 
         if player_data_current:
@@ -552,7 +552,7 @@ def main_game_loop():
 
         party_members_stats = []
         for member_name_iter in party_tracker_data["partyMembers"]:
-            member_file_path = path_manager.get_player_path(member_name_iter)
+            member_file_path = path_manager.get_character_path(member_name_iter)
             member_data_iter = load_json_file(member_file_path)
             if member_data_iter:
                 stats = {
@@ -596,7 +596,7 @@ def main_game_loop():
             for stats_item in party_members_stats:
                 # Check if this is a player or an NPC
                 if stats_item['name'] in party_tracker_data["partyMembers"]:
-                    member_data_for_note = load_json_file(path_manager.get_player_path(stats_item['name']))
+                    member_data_for_note = load_json_file(path_manager.get_character_path(stats_item['name']))
                 else:
                     member_data_for_note = load_json_file(path_manager.get_npc_path(stats_item['name']))
                 if member_data_for_note:

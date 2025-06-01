@@ -109,7 +109,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 player_name = next((member for member in party_tracker_data["partyMembers"]), None)
                 if player_name and updated_player_info is not None:
                     path_manager = CampaignPathManager()
-                    player_file = path_manager.get_player_path(player_name)
+                    player_file = path_manager.get_character_path(player_name)
                     safe_json_dump(updated_player_info, player_file)
                     print(f"DEBUG: Updated player file for {player_name}")
                 else:

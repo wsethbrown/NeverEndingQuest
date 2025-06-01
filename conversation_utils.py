@@ -136,7 +136,7 @@ def update_character_data(conversation_history, party_tracker_data):
         # Process player characters
         for member in party_tracker_data["partyMembers"]:
             name = member.lower()
-            member_file = path_manager.get_player_path(member)
+            member_file = path_manager.get_character_path(member)
             try:
                 with open(member_file, "r", encoding="utf-8") as file:
                     member_data = json.load(file)
@@ -193,7 +193,7 @@ FLAWS: {member_data['flaws']}
         # Process NPCs
         for npc in party_tracker_data.get("partyNPCs", []):
             npc_name = npc['name']
-            npc_file = path_manager.get_npc_path(npc_name)
+            npc_file = path_manager.get_character_path(npc_name)
             try:
                 with open(npc_file, "r", encoding="utf-8") as file:
                     npc_data = json.load(file)

@@ -528,7 +528,7 @@ def sync_active_encounter():
         # Update player and NPC data in the encounter
         for creature in encounter_data.get("creatures", []):
             if creature["type"] == "player":
-                player_file = path_manager.get_player_path(creature['name'].lower().replace(' ', '_'))
+                player_file = path_manager.get_character_path(creature['name'].lower().replace(' ', '_'))
                 try:
                     player_data = safe_json_load(player_file)
                     if not player_data:
@@ -628,7 +628,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    for creature in encounter_data["creatures"]:
        if creature["type"] == "player":
            player_name = creature["name"].lower().replace(" ", "_")
-           player_file = path_manager.get_player_path(player_name)
+           player_file = path_manager.get_character_path(player_name)
            try:
                player_info = safe_json_load(player_file)
                if not player_info:
@@ -860,7 +860,7 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        
        # Reload player info
        player_name = player_info["name"].lower().replace(" ", "_")
-       player_file = path_manager.get_player_path(player_name)
+       player_file = path_manager.get_character_path(player_name)
        try:
            player_info = safe_json_load(player_file)
            if not player_info:
