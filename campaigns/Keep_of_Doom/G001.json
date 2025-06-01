@@ -153,8 +153,41 @@
       "locationId": "B01",
       "name": "Witchlight Trailhead",
       "type": "trail",
-      "description": "The Witchlight Trailhead is shrouded in mist, with patches of pale grass and muddy earth underfoot. Ancient standing stones lean close as if whispering secrets, softly illuminated by flickering blue witchlights from above. Evidence of Scout Elen's hurried passage is plainly visible: a bootprint pressed deep in the mud, a broken branch snapped at waist height, and a scrap of faded blue cloth caught in a thorn bush, all pointing northward into the Gloamwood. Several carefully placed items suggest a mixture of ritual offerings and signs of panic-- a silver pendant etched with protective runes hangs deliberately from a standing stone, a weathered leather pouch containing silver coins rests in an alcove, and near a cairn lies a broken lantern stained with soot alongside a small silver coin gleaming faintly beneath it. Additionally, a half-burned map showing part of the forest trail with singed edges was found, hinting at a frantic escape. The ancient ward markers faintly pulse with protective magic, their glow now mingling with the subtle pulse of the ritual items. The trail northward toward the Withered Shrine beckons through the deepening shadows, while the path back to Harrow's Hollow East Gate remains a short five-minute walk through the shadowed woods.",
+      "description": "The Witchlight Trailhead is enveloped in a cold mist curling around the muddy earth and pale grass beneath the party's feet. Ancient standing stones loom close, their runes flickering faintly as ethereal blue witchlights hover softly above, guiding the way through the shadowed forest. Disturbed ground with fallen twigs, scuffed earth, and a scrap of blue fabric caught on a thorny bush mark the hurried passage of Scout Elen northward. Beneath twisted boughs, the air holds a heavy anticipation, touched by faint fluttering whispers carried on a chill breeze. The area remains free of monsters and traps, but the lingering dread of the haunted woods presses ever onward. The trail continues north toward the Withered Shrine, while paths back to Harrow's Hollow East Gate and nearby locations like the Abandoned Ranger Outpost remain accessible.",
+      "dmInstructions": "This location marks the party's cautious advance along the Witchlight Trailhead, retracing Scout Elen's desperate flight through the ancient forest. The runes on standing stones flicker faintly, functioning as ethereal guides toward their ritual vision destination. The party finds clear signs of Elen's passage including disturbed earth, snapped twigs, and a scrap of blue fabric. A chill breeze carries faint whispering sounds, enhancing the tense atmosphere. No monsters or traps are present here currently. The party remains vigilant and prepared to pursue the trail northward toward the Withered Shrine or to explore adjacent locations such as the Abandoned Ranger Outpost or Harrow's Hollow East Gate. Watch for environmental cues and mysterious influences during travel.",
       "coordinates": "X2Y1",
+      "accessibility": "Narrow trail with occasional rough terrain; reasonable for most travelers.",
+      "npcs": [
+        {
+          "name": "The Keeper",
+          "description": "A reclusive hermit rumored to possess vital information about the keep's curse. Not yet encountered but expected to be met along the trail.",
+          "attitude": "Unknown"
+        },
+        {
+          "name": "Harrow's Hollow East Gate Guards",
+          "description": "The guards stationed at the east gate of Harrow's Hollow, assessed by the party for condition and information. Currently alert and holding position.",
+          "attitude": "Neutral"
+        }
+      ],
+      "monsters": [],
+      "plotHooks": [
+        "An inscription on one of the markers reads: 'Walk with light, for shadows hunger in the wood.'",
+        "Fresh footprints indicate someone recently entered the forest, possibly Scout Elen.",
+        "A tattered journal page pinned to a tree describes hearing 'whispers that know your name' deeper in the woods.",
+        "Trail of smaller, purposeful footprints heading north toward the Withered Shrine, with snapped twigs and disturbed moss indicating a brief pause.",
+        "The party's quest to find Scout Elen and uncover the keep's secrets is in progress.",
+        "Vigilant for encounters with the Keeper, who may provide vital information about the keep's curse.",
+        "The party seeks to navigate the haunted forest towards the Keep of Doom, contending with spectral ambushes and magical wards.",
+        "The side quest 'The Keeper's Warning' centers on persuading a mysterious hermit near the forest edge holding secrets of the keep's curse."
+      ],
+      "lootTable": [
+        "Silver pendant (protection charm, 5 gp value)",
+        "Broken lantern (once belonged to a lost traveler)",
+        "Small leather pouch with 3d6 sp scattered among the offerings",
+        "Half-burned map showing part of the forest trail",
+        "Small silver coin found beneath cairn near trail fork"
+      ],
+      "dangerLevel": "Low",
       "connectivity": [
         "B02",
         "B03"
@@ -165,40 +198,7 @@
       "areaConnectivityId": [
         "HH001"
       ],
-      "npcs": [
-        {
-          "name": "The Keeper",
-          "description": "A reclusive hermit rumored to possess vital information about the keep's curse. Not yet encountered but expected to be met along the trail.",
-          "attitude": "Unknown"
-        }
-      ],
-      "monsters": [],
-      "lootTable": [
-        "Silver pendant (protection charm, 5 gp value)",
-        "Broken lantern (once belonged to a lost traveler)",
-        "Small leather pouch with 3d6 sp scattered among the offerings",
-        "Half-burned map showing part of the forest trail",
-        "Small silver coin found beneath cairn near trail fork"
-      ],
-      "plotHooks": [
-        "An inscription on one of the markers reads: 'Walk with light, for shadows hunger in the wood.'",
-        "Fresh footprints indicate someone recently entered the forest, possibly Scout Elen.",
-        "A tattered journal page pinned to a tree describes hearing 'whispers that know your name' deeper in the woods.",
-        "Trail of smaller, purposeful footprints heading north toward the Withered Shrine, with snapped twigs and disturbed moss indicating a brief pause.",
-        "The party's quest to find Scout Elen and uncover the keep's secrets is in progress.",
-        "Vigilant for encounters with the Keeper, who may provide vital information about the keep's curse."
-      ],
-      "dmInstructions": "This location serves as the transition from Harrow's Hollow to the Gloamwood. The party discovered clear and recent signs of Scout Elen's flight northward, including a bootprint in the mud, a broken branch, and a scrap of faded blue cloth. Several ritual offerings and hastily dropped items were found, such as a silver pendant etched with protective runes hanging from a standing stone, a pouch of silver coins, a broken lantern stained with soot, a small silver coin beneath a cairn, and a half-burned map with singed edges. The ancient ward markers continue to pulse with faint protective magic, now mingled with the energy of these tokens. No immediate threats are present. The party took the half-burned map and small silver coin as clues and prepared to follow the footprints north toward the Withered Shrine. The path back to Harrow's Hollow East Gate remains easily accessible, a short five-minute walk through the shadowed woods.",
-      "doors": [],
       "traps": [],
-      "dcChecks": [
-        "Perception DC 12: Notice fresh bootprints and signs of recent passage, likely Scout Elen's.",
-        "Religion DC 14: Recognize the markers as ancient wards against spirits, now weakened.",
-        "Survival DC 15: Track the smaller footprints toward the Withered Shrine and interpret disturbed foliage as signs of a brief stop.",
-        "Investigation DC 16: Identify ritual offerings and differentiate between tokens of protection and items dropped in haste."
-      ],
-      "accessibility": "Narrow trail with occasional rough terrain; reasonable for most travelers.",
-      "dangerLevel": "Low",
       "features": [
         {
           "name": "Warning Markers",
@@ -233,6 +233,13 @@
           "description": "A partially singed map showing part of the forest trail, found near the offerings and taken by the party."
         }
       ],
+      "dcChecks": [
+        "Perception DC 12: Notice fresh bootprints and signs of recent passage, likely Scout Elen's.",
+        "Religion DC 14: Recognize the markers as ancient wards against spirits, now weakened.",
+        "Survival DC 15: Track the smaller footprints toward the Withered Shrine and interpret disturbed foliage as signs of a brief stop.",
+        "Investigation DC 16: Identify ritual offerings and differentiate between tokens of protection and items dropped in haste.",
+        "Insight DC 13: Assess the condition and morale of the guards at Harrow's Hollow East Gate."
+      ],
       "encounters": [
         {
           "encounterId": "B01-E1",
@@ -255,9 +262,32 @@
             "day": 1,
             "time": "17:37:00"
           }
+        },
+        {
+          "encounterId": "B01-E3",
+          "summary": "The party approached the Harrow's Hollow East Gate and checked on the guards stationed there, assessing their condition and gathering pertinent information. The guards were alert and cooperative, providing updates on local conditions and confirming no recent incursions. The party remained cautious, taking care not to trigger any traps along the trailhead.",
+          "impact": "The party gained valuable information regarding the security status of Harrow's Hollow East Gate and confirmed the absence of immediate threats in the vicinity. Their vigilance ensured the trailhead remained safe for continued travel deeper into the haunted forest.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "20:28:00"
+          }
+        },
+        {
+          "encounterId": "B01-E4",
+          "summary": "The party advanced cautiously along the Witchlight Trailhead, enveloped by a cold mist that curled around their boots, retracing the fading memory of Elen's desperate flight through the ancient, looming forest. The runes on standing stones flickered faintly, serving as ethereal guides toward their ritual vision. At the edge of a shallow hollow, they found disturbed ground marked by fallen twigs, scuffed earth, and a scrap of blue fabric caught on a thorny bush--clear evidence of Elen's passage. Beneath twisted boughs and pale ghostly witchlight, the air hung heavy with dread and anticipation. A chill breeze brought faint fluttering whispers, indistinct but suggestive of distant words or something stranger. No monsters or traps were present.",
+          "impact": "The party confirmed the trail of Scout Elen continuing northward toward the Withered Shrine, reinforced their vigilance against unseen threats, and prepared for onward progress toward Harrow's Hollow East Gate. Their awareness of nearby locations, including the Abandoned Ranger Outpost and Withered Shrine, was updated. The atmosphere remained tense but free of immediate danger, allowing thoughtful preparation for future challenges.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "21:03:00"
+          }
         }
       ],
-      "adventureSummary": "At the Witchlight Trailhead, the party returned amidst the mist-damp earth where ancient standing stones leaned together, softly illuminated by flickering blue witchlights. They observed clear signs of Scout Elen's hurried passage: a bootprint pressed in the mud, a snapped branch, and a scrap of faded blue cloth caught in a thorn bush, all evidence of her flight northward into the Gloamwood. Upon investigation, the party discovered several carefully placed items indicating both ritual offerings and signs of panic: a silver pendant etched with protective runes hung deliberately from a standing stone, a weathered leather pouch containing silver coins rested in an alcove, a broken lantern stained with soot lay near a cairn, and beneath it, a small silver coin gleamed faintly. Additionally, they uncovered a half-burned map showing part of the forest trail, its edges singed as if hastily discarded. Analysis of these items revealed a dual nature--some were left intentionally as wards and tokens of hope, while others appeared dropped in haste during a frantic escape. Bootprints matching Elen's led northward toward the Withered Shrine, strengthening the link between the offerings, local fears, and her disappearance. The party chose to take the half-burned map and the small silver coin, sensing these might serve as markers or guides left behind for someone tracking Elen. As they pocketed these clues, the forest seemed to acknowledge their resolve, with ward markers pulsing faintly and the path northward beckoning through the deepening shadows. With no immediate threats present, the party prepared to follow the footprints leading onward into the Gloamwood's enigmatic depths."
+      "adventureSummary": "The party advanced cautiously along the Witchlight Trailhead, enveloped by a cold mist curling around their boots, retracing Scout Elen's desperate flight through the ancient, looming forest. The runes on standing stones flickered faintly as ethereal guides. At a shallow hollow's edge, disturbed ground with fallen twigs, scuffed earth, and a scrap of blue fabric caught on a thorny bush provided clear evidence of Elen's passage. Beneath twisted boughs and ghostly witchlight, the air was heavy with dread and anticipation. A chill breeze brought faint fluttering whispers, indistinct but suggestive of distant words or something stranger. No monsters or traps were present. Nearby lay the Abandoned Ranger Outpost and the Withered Shrine, with onward progress toward Harrow's Hollow East Gate awaiting. The party remained vigilant and prepared for the challenges ahead. Current time recorded as 1492 Ches 1, 21:03.",
+      "doors": []
     },
     {
       "locationId": "B02",
@@ -345,8 +375,20 @@
           "description": "A section where the roof has partially fallen in, allowing visibility to the sky above."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "",
+          "summary": "{\n  \"narration\": \"With a decisive strike, your blade severs the last thread of life from the giant spider. It lets out a final, echoing shriek before collapsing lifeless to the floor. The swarm of spiders you had previously dispatched lies motionless as well. The outpost falls silent once more, the menace eradicated. Your vigilance and skill have seen you through this deadly encounter in the abandoned ranger outpost. You gain 300 experience points for defeating these foes.\",\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"B02-E1\",\n        \"changes\": \"Giant Spider status updated to 'dead'. Swarm of Spiders status already 'dead'.\"\n      }\n    },\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"changes\": \"Norn gains 300 experience points. Current XP: 5821 + 300 = 6121.\"\n      }\n    },\n    {\n      \"action\": \"exit\",\n      \"parameters\": {}\n    }\n  ]\n}",
+          "impact": "To be determined",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "21:20:00"
+          }
+        }
+      ],
+      "adventureSummary": "{\n  \"narration\": \"With a decisive strike, your blade severs the last thread of life from the giant spider. It lets out a final, echoing shriek before collapsing lifeless to the floor. The swarm of spiders you had previously dispatched lies motionless as well. The outpost falls silent once more, the menace eradicated. Your vigilance and skill have seen you through this deadly encounter in the abandoned ranger outpost. You gain 300 experience points for defeating these foes.\",\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"B02-E1\",\n        \"changes\": \"Giant Spider status updated to 'dead'. Swarm of Spiders status already 'dead'.\"\n      }\n    },\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"changes\": \"Norn gains 300 experience points. Current XP: 5821 + 300 = 6121.\"\n      }\n    },\n    {\n      \"action\": \"exit\",\n      \"parameters\": {}\n    }\n  ]\n}"
     },
     {
       "locationId": "B03",
@@ -432,7 +474,7 @@
       "locationId": "B04",
       "name": "Lost Ward Circle",
       "type": "ritual",
-      "description": "An ancient ritual site consisting of seven stone monoliths arranged in a perfect circle. Each stone bears worn carvings of protective symbols and runes that once glowed with powerful magic. Now, several stones have toppled, and the remaining ones are cracked and covered in moss. The center of the circle contains a raised dais with a shallow bowl-like depression. Ghostly blue energy occasionally flickers between the stones like dying lightning, and the ground within the circle is barren of all plant life. The boundary between worlds feels thin here, with whispers and distant wails drifting on the wind. Recently, news from Scout Elen reveals the lingering presence of twisted shadowy figures and the encroaching darkness threatening the village, adding a palpable tension to the site.",
+      "description": "An ancient ritual site consisting of seven stone monoliths arranged in a perfect circle. Each stone bears worn carvings of protective symbols and runes that once glowed with powerful magic. Several stones are cracked and moss-covered, though none have recently toppled. The center contains a raised dais with a shallow bowl-like depression. The ward's protective magic now softly glows with a calm blue light, renewed and stable. The ground inside the circle remains barren of plant life. The oppressive darkness has lessened, and the spectral threats have been vanquished, offering a rare moment of peace in the haunted forest.",
       "coordinates": "X3Y2",
       "connectivity": [
         "B02",
@@ -441,29 +483,10 @@
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [],
-      "monsters": [
-        {
-          "name": "Specters",
-          "quantity": {
-            "min": 2,
-            "max": 2
-          }
-        },
-        {
-          "name": "Will-o'-Wisp",
-          "quantity": {
-            "min": 1,
-            "max": 1
-          }
-        }
-      ],
+      "monsters": [],
       "lootTable": [
-        "Ward stone fragment (key component for potential ritual)",
         "Scroll of protection from evil and good",
-        "Pouch containing 5 runestones (focus items for ritual magic)",
-        "Silver ritual dagger with moonstone pommel (25 gp value)",
-        "Tattered ritual book with instructions for renewing the wards",
-        "Scout Elen's notes containing vital information about the shrine and ward circle's magic"
+        "Tattered ritual book with instructions for renewing the wards"
       ],
       "plotHooks": [
         "The ritual book contains instructions for temporarily strengthening the wards, which could weaken the keep's influence.",
@@ -481,7 +504,7 @@
         "Insight DC 14: Sense the will-o'-wisp's malicious intent despite its seemingly helpful appearance."
       ],
       "accessibility": "Relatively flat clearing with seven large standing stones; one must step over fallen stones to reach the center.",
-      "dangerLevel": "High",
+      "dangerLevel": "Low",
       "features": [
         {
           "name": "Standing Monoliths",
@@ -492,12 +515,35 @@
           "description": "A raised stone platform with a bowl-like depression, possibly for offerings or ritual components."
         },
         {
-          "name": "Ward Energy",
-          "description": "Faint blue energy that occasionally arcs between the stones, remnants of once-powerful protection magic."
+          "name": "Renewed Ward Energy",
+          "description": "Soft blue energy that casts a gentle light after the successful ritual, providing protection against undead."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "B04-E1",
+          "summary": "Upon arrival, Norn cautiously surveyed the Lost Ward Circle, detecting lingering magical flickers and active threats beyond the stones. Two malevolent specters and a will-o'-wisp materialized, drawn by the unstable ward magic. After a fierce and exhausting battle, Norn defeated the spectral guardians, restoring silence to the ancient stones. Using the ward stone fragment, five runestones, a silver dagger, and Scout Elen's notes, Norn performed the warding ritual, sacrificing his blood and half his gold. The runes flared brightly, renewing the protective magic and momentarily piercing the darkness. Norn gained 850 experience points and a temporary boon reducing undead threat within the Gloamwood for the next day.",
+          "impact": "Spectral enemies defeated and removed from the location. The ward circle's protective magic renewed, resulting in a decreased danger level and a temporary boon reducing undead threat in the surrounding forest for 24 hours. Physical state of stones improved with energy visibly renewed. Ritual components used from loot table remain noted for narrative but considered consumed in ritual.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "19:26:00"
+          }
+        },
+        {
+          "encounterId": "B04-E2",
+          "summary": "The party found a momentary refuge beneath the soft blue light cast by the renewed runes etched into moss-covered stones. The tranquil clearing, embraced by ancient forest shadows, offered a rare calm amid the surrounding darkness. After tending wounds and securing gear, the group contemplated their next move, the memory of Elen's vision vivid in their minds. The party then resolved to follow the path Elen had taken in the vision, stepping away from the sanctuary's protective glow to navigate deeper into the enigmatic forest. Throughout their time in the circle, no hostile creatures or traps appeared, and the surrounding silence held an expectant peace as they prepared to pursue the challenges and secrets lurking beyond.",
+          "impact": "The location remained a safe haven with no new threats appearing. The party healed and prepared to explore further. The renewed wards continue to provide protection. No new loot or NPCs were added or removed during this respite.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "21:11:00"
+          }
+        }
+      ],
+      "adventureSummary": "In the Lost Ward Circle, the party found a momentary refuge beneath the soft blue light cast by the renewed runes etched into moss-covered stones. The tranquil clearing, embraced by ancient forest shadows, offered a rare calm amid the surrounding darkness. After tending wounds and securing gear, the group contemplated their next move, the memory of Elen's vision vivid in their minds. The party then resolved to follow the path Elen had taken in the vision, stepping away from the sanctuary's protective glow to navigate deeper into the enigmatic forest. Throughout their time in the circle, no hostile creatures or traps appeared, and the surrounding silence held an expectant peace as they prepared to pursue the challenges and secrets lurking beyond."
     },
     {
       "locationId": "B05",
@@ -682,7 +728,7 @@
       "locationId": "B07",
       "name": "Keeper's Cottage",
       "type": "cottage",
-      "description": "A stone cottage nearly swallowed by the forest, its walls covered in thick ivy and moss that seem to pulse with slow vitality. Smoke drifts from a crooked chimney, and strange charms--bones, crystals, and dried herbs--hang from the eaves and windows. The cottage appears both welcoming and foreboding, with warm light spilling from the windows but shadows that move independently within. The garden surrounding the structure contains plants both medicinal and poisonous, some of which are unknown to conventional herbalism. A path of smooth stones leads to the wooden door, each stone etched with a different protective rune.",
+      "description": "A stone cottage nearly swallowed by the forest, its walls covered in thick ivy and moss that seem to pulse with slow vitality. Smoke drifts from a crooked chimney, and strange charms--bones, crystals, and dried herbs--hang from the eaves and windows. The cottage appears both welcoming and foreboding, with warm light spilling from the windows but shadows that move independently within. The garden surrounding the structure contains plants both medicinal and poisonous, some of which are unknown to conventional herbalism. A path of smooth stones leads to the wooden door, each stone etched with a different protective rune. Two awakened shrubs now stand vigil outside the cottage, their awareness shifting subtly with the forest's arcane energies. Disturbed earth and small bootprints near the stoop betray recent activity, yet no signs of violence mar the clearing. The air is thick with the forest's restless energy as the party prepares to depart, having received healing and counsel from Keeper Morvath.",
       "coordinates": "X3Y3",
       "connectivity": [
         "B04",
@@ -699,30 +745,38 @@
       "npcs": [
         {
           "name": "Keeper Morvath",
-          "description": "An ancient, wizened figure with skin like bark and eyes that reflect the forest's depths. Morvath appears simultaneously grandfatherly and predatory, speaking in riddles and archaic language. The Keeper has watched over the forest for centuries, neither fully alive nor undead, bound to the land through old magic.",
+          "description": "An ancient, wizened figure with skin like bark and eyes that reflect the forest's depths. Morvath appears simultaneously grandfatherly and predatory, speaking in riddles and archaic language. The Keeper has watched over the forest for centuries, neither fully alive nor undead, bound to the land through old magic. He welcomed the party warily but respectfully and shared knowledge about Scout Elen and the cursed keep. He also provided healing and cautioned about the dangers of Shadowfall Keep, suggesting that entry might require an old key or the forest's blessing.",
           "attitude": "Ambiguously neutral, testing worthiness while offering cryptic guidance"
         }
       ],
       "monsters": [
         {
           "name": "Awakened Shrubs",
-          "number": 3,
-          "disposition": "protective",
-          "strategy": "These animated plants guard the cottage and respond to Morvath's will, attacking only if the Keeper is threatened or his hospitality abused."
+          "quantity": {
+            "min": 2,
+            "max": 2
+          }
         }
       ],
       "lootTable": [
         "Potion of greater healing (offered as a gift if Morvath is pleased)",
         "Wand of secrets (hidden on a shelf amongst curious trinkets)",
         "Scout Elen's journal (containing her observations about the keep and Sir Garran)",
-        "Ancient key with skull motif (opens a specific door in the keep)"
+        "Ancient key with skull motif (opens a specific door in the keep)",
+        "Carved bone talisman (ritual component provided by Morvath)",
+        "Pouch of dried Gloamwood roots (ritual component provided by Morvath)",
+        "Potent herbal concoction (restores vitality; brewed by Morvath)"
       ],
       "plotHooks": [
-        "Morvath reveals he guided Scout Elen toward the keep after she helped him gather rare herbs, and he fears for her safety.",
-        "The Keeper offers to create a protective charm against the keep's influence, but requires a personal sacrifice from each party member.",
-        "Among Morvath's possessions is a portrait of a younger Sir Garran Vael, suggesting the Keeper knew him before his corruption."
+        "Morvath guided Scout Elen toward the keep and fears for her safety.",
+        "The Keeper requires aid in restoring the Lost Ward Circle, the final protective ward weakened by the keep's dark influence.",
+        "Restoration of the ward demands placing a living token of earth, binding intent with the bone talisman, and a meaningful personal sacrifice.",
+        "Morvath's knowledge and ritual components are crucial to countering the forest's curse tied to the keep.",
+        "The party's path now leads northeast toward the Lost Ward Circle, entwining their fate with Scout Elen and the shadowed curse.",
+        "Entry to Shadowfall Keep may require an old key or the forest's blessing as cautioned by Morvath.",
+        "The absence of the bronze key with the raven sigil means the party must return to Harrow's Hollow to obtain it before proceeding."
       ],
-      "dmInstructions": "Keeper Morvath serves as both guide and gatekeeper to the keep. He offers hospitality (food, rest, and information) but tests the party through cryptic conversations. Players who show respect, offer assistance, or demonstrate genuine concern for Scout Elen earn his favor (and gifts). Those who threaten or dismiss him face hostility. Morvath can provide directions to the keep and warnings about specific dangers, but he speaks in riddles that require Insight checks (DC 14) to fully understand.",
+      "dmInstructions": "Keeper Morvath serves as both guide and gatekeeper to the keep. He offers hospitality (food, rest, and information) but tests the party through cryptic conversations. Players who show respect, offer assistance, or demonstrate genuine concern for Scout Elen earn his favor (and gifts), including ritual components and a potent healing concoction. Those who threaten or dismiss him face hostility. Morvath can provide directions to the keep and warnings about specific dangers, but he speaks in riddles that require Insight checks (DC 14) to fully understand. The awakened shrubs now number two and are vigilant, reacting only if the party threatens the Keeper or abuses his hospitality. Morvath has applied healing herbal paste to the party, restoring vitality after their recent battle.",
       "doors": [
         {
           "name": "Cottage Door",
@@ -770,8 +824,31 @@
           "description": "A wide ceramic bowl filled with dark liquid that occasionally shows visions of the forest and keep."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "B07-E1",
+          "summary": "The party meets Keeper Morvath and discovers Scout Elen has sought his aid. Morvath warns about the keep's curse and offers ritual components to restore the Lost Ward Circle.",
+          "impact": "The party gains crucial knowledge and ritual items, receives healing from Morvath, and establishes a key ally in the Keeper. Two awakened shrubs now guard the cottage vigilantly. The party's quest is redirected toward the Lost Ward Circle to combat the dark affliction.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "19:05:00"
+          }
+        },
+        {
+          "encounterId": "B07-E2",
+          "summary": "The party recounted the perilous events at the Lost Ward Circle to Keeper Morvath, who listened with grave understanding and acknowledged the unfinished rituals and spectral threats. Morvath confirmed that Scout Elen fled before the ward's renewal and expressed concern for her safety, suggesting the party might need an old key or the forest's blessing to enter Shadowfall Keep. The Keeper applied a potent herbal paste and chanted incantations to heal the party, restoring their vitality. The party discovered the absence of the bronze key with the raven sigil in their inventory, indicating a return to Harrow's Hollow is necessary to obtain it. After receiving Morvath's counsel and healing, the party prepared to depart toward Shadowfall Keep.",
+          "impact": "Party members recovered vitality thanks to Morvath's healing. The need to return to Harrow's Hollow for the bronze raven key was established, and caution about the dangers at Shadowfall Keep was reinforced. The awakened shrubs remain vigilant outside the cottage as the party departs.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "20:18:00"
+          }
+        }
+      ],
+      "adventureSummary": "Within the somber confines of Keeper Morvath's cottage, the party recounted the perilous events at the Lost Ward Circle to the venerable hermit, who listened with grave understanding and clasped his bark-like hands behind his back. Morvath acknowledged the unfinished rituals and spectral threats encountered, affirming that Elen had fled the ward before its renewal, and inquired about any vision of her fate or intentions. Upon learning that Elen appeared to have survived and moved onward, likely toward Shadowfall Keep, Morvath expressed concern for the dangers that awaited there and suggested that entry might require an old key or the forest's blessing. Noting the player's weariness after battle, Morvath offered his healing expertise, applying a pungent herbal paste and chanting incantations to restore vitality, which refreshed the party member's strength significantly. The player then examined their inventory within the dimly lit cottage and discovered the absence of any bronze key with a raven sigil previously mentioned by Elder Mirna at the general store, indicating the need to return to Harrow's Hollow for that item if they hoped to proceed. With the forest's restless energy palpable around them and the awakened shrubs murmuring at the cottage's stoop, the party prepared to depart. Having received Morvath's cautionary counsel and healing aid, they bid the Keeper farewell and moved back toward the trailhead, ready to continue their quest toward the foreboding Shadowfall Keep. (Game Time: 1492 Ches 1, 20:18:00)"
     }
   ]
 }

@@ -1,0 +1,44 @@
+2:18:17 PMDEBUG: Encounter B02-E1 information updated
+2:18:17 PMDEBUG: Encounter B02-E1 updated successfully
+2:18:17 PMDEBUG: Combat has ended, preparing summary...
+2:18:17 PMUpdating character info for: norn
+2:18:17 PMDetected character role: player
+2:18:17 PMAttempt 1 of 3
+2:18:18 PMSuccessfully updated norn (player)!
+2:18:18 PMUpdated fields: experience_points, exp_required_for_next_level
+2:18:20 PMDEBUG: Raw AI response written to debug_encounter_update.json
+2:18:20 PMDEBUG: Successfully updated and validated encounter info on attempt 1
+2:18:20 PMDEBUG: Changes made:
+2:18:20 PM{}
+2:18:20 PMDEBUG: Encounter B02-E1 information updated
+2:18:20 PMERROR: Failed to save party_tracker.json
+2:18:20 PMDEBUG: Activating the third model...
+2:18:25 PMDEBUG: Current location ID: B02
+2:18:26 PMERROR: Failed to save area file: campaigns/Keep_of_Doom/G001.json
+2:18:26 PMDEBUG: Encounter  added to campaigns/Keep_of_Doom/G001.json.
+2:18:26 PMDEBUG: Attempting to write to file: combat_conversation_history.json
+2:18:26 PMERROR: Failed to save conversation history
+2:18:26 PMConversation history updated with encounter summary.
+2:18:26 PMERROR: Failed to save chat history to combat_logs/B02-E1/combat_chat_20250601_141826.json
+2:18:26 PMCombat chat history updated!
+2:18:26 PMEncounter ID: B02-E1
+2:18:26 PMSystem messages removed: 8
+2:18:26 PMUser messages: 21
+2:18:26 PMAssistant messages: 21
+2:18:26 PMTotal messages (including system): 50
+2:18:26 PMOutput saved to: combat_logs/B02-E1/combat_chat_20250601_141826.json
+2:18:26 PMERROR: Failed to save latest chat history
+2:18:26 PMLatest version also saved to: combat_logs/B02-E1/combat_chat_latest.json
+2:18:26 PMCombat encounter closed. Exiting combat simulation.
+2:18:26 PMDEBUG: Updated player file for norn
+2:18:38 PMWARNING: Unknown action type: updateEncounter
+2:18:38 PMDEBUG: Processing updateCharacterInfo action
+2:18:38 PMDEBUG: Updating character info for Norn
+2:18:38 PMUpdating character info for: Norn
+2:18:38 PMERROR: Failed to update character info: 'bool' object has no attribute 'get'
+2:18:38 PMCurrent Time: 21:20:00, Time Advanced: 5 minutes, New Time: 21:25:00, Days Passed: 0
+2:18:38 PMCurrent Time: 21:25:00, Time Advanced: 2 minutes, New Time: 21:27:00, Days Passed: 0
+2:18:38 PMLightweight chat history updated!
+2:18:38 PMSystem messages removed: 6
+2:18:38 PMUser messages: 33
+2:18:38 PMAssistant messages: 30

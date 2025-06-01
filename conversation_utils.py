@@ -141,6 +141,11 @@ def update_character_data(conversation_history, party_tracker_data):
                 with open(member_file, "r", encoding="utf-8") as file:
                     member_data = json.load(file)
                     
+                    # Validate that member_data is a dictionary
+                    if not isinstance(member_data, dict):
+                        print(f"Warning: {member_file} contains corrupted data (not a dictionary). Skipping.")
+                        continue
+                    
                     # Format equipment list with quantities
                     equipment_list = []
                     for item in member_data['equipment']:
@@ -151,6 +156,12 @@ def update_character_data(conversation_history, party_tracker_data):
                     
                     equipment_str = ", ".join(equipment_list)
 
+                    # Handle backgroundFeature which might be None or bool
+                    bg_feature = member_data.get('backgroundFeature')
+                    bg_feature_name = 'None'
+                    if isinstance(bg_feature, dict) and 'name' in bg_feature:
+                        bg_feature_name = bg_feature['name']
+                    
                     # Format character data
                     formatted_data = f"""
 CHAR: {member_data['name']}
@@ -170,7 +181,7 @@ IMM: {', '.join(member_data['damageImmunities'])}
 COND IMM: {', '.join(member_data['conditionImmunities'])}
 CLASS FEAT: {', '.join([f"{feature['name']}" for feature in member_data['classFeatures']])}
 RACIAL: {', '.join([f"{trait['name']}" for trait in member_data['racialTraits']])}
-BG FEAT: {member_data['backgroundFeature']['name'] if member_data.get('backgroundFeature') else 'None'}
+BG FEAT: {bg_feature_name}
 FEATS: {', '.join([f"{feat['name']}" for feat in member_data.get('feats', [])])}
 TEMP FX: {', '.join([f"{effect['name']}" for effect in member_data.get('temporaryEffects', [])])}
 EQUIP: {equipment_str}
@@ -200,6 +211,11 @@ FLAWS: {member_data['flaws']}
                 with open(npc_file, "r", encoding="utf-8") as file:
                     npc_data = json.load(file)
                     
+                    # Validate that npc_data is a dictionary
+                    if not isinstance(npc_data, dict):
+                        print(f"Warning: {npc_file} contains corrupted data (not a dictionary). Skipping.")
+                        continue
+                    
                     # Format equipment list with quantities
                     equipment_list = []
                     for item in npc_data['equipment']:
@@ -209,6 +225,12 @@ FLAWS: {member_data['flaws']}
                         equipment_list.append(item_description)
                     
                     equipment_str = ", ".join(equipment_list)
+                    
+                    # Handle backgroundFeature which might be None or bool
+                    bg_feature = npc_data.get('backgroundFeature')
+                    bg_feature_name = 'None'
+                    if isinstance(bg_feature, dict) and 'name' in bg_feature:
+                        bg_feature_name = bg_feature['name']
 
                     # Format NPC data
                     formatted_data = f"""
@@ -227,7 +249,7 @@ COND IMM: {', '.join(npc_data['conditionImmunities'])}
 SENSES: {', '.join(f"{sense} {value}" for sense, value in npc_data['senses'].items())}
 LANGUAGES: {npc_data['languages']}
 CR: {npc_data['challengeRating']} | PROF BONUS: +{npc_data['proficiencyBonus']}
-SPECIAL: {', '.join([f"{trait['name']}" for trait in npc_data.get('racialTraits', [])] + [f"{feat['name']}" for feat in npc_data.get('feats', [])] + ([npc_data['backgroundFeature']['name']] if npc_data.get('backgroundFeature') else []))}
+SPECIAL: {', '.join([f"{trait['name']}" for trait in npc_data.get('racialTraits', [])] + [f"{feat['name']}" for feat in npc_data.get('feats', [])] + ([bg_feature_name] if bg_feature_name != 'None' else []))}
 ACTIONS: {', '.join(action['name'] for action in npc_data['actions'])}
 EQUIP: {equipment_str}
 AMMO: {', '.join([f"{ammo['name']} x{ammo['quantity']}" for ammo in npc_data['ammunition']])}

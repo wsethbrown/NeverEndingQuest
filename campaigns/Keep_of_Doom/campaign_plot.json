@@ -11,7 +11,7 @@
         "PP002"
       ],
       "status": "in progress",
-      "plotImpact": "Norn returns to Harrow's Hollow and reports defeating three shadows near the Witchlight Trail, confirming the supernatural threat. Mirna and the villagers are shaken but grateful, and the story spreads, increasing the village's hope and urgency.",
+      "plotImpact": "Norn inspires the militia to heightened vigilance, bolstering Harrow's Hollow's defenses and morale as he prepares to confront the curse at the keep.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -44,7 +44,7 @@
         "PP003"
       ],
       "status": "in progress",
-      "plotImpact": "Norn follows Scout Elen's tracks from the Spectral Clearing north toward the Keeper's Cottage, advancing the investigation and drawing closer to a confrontation with the hermit known as the Keeper.",
+      "plotImpact": "Morvath confirms that Elen most likely fled toward Shadowfall Keep. He warns Norn of the dangers ahead and hints that an old key or forest blessing may be needed to enter the keep, setting the next step of the quest.",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -64,7 +64,7 @@
             "G001"
           ],
           "status": "in progress",
-          "plotImpact": "Morvath has explained the ritual and provided Norn with the components to restore the Lost Ward Circle, clearly stating the need for a sacrifice of personal meaning."
+          "plotImpact": "Norn has reported the outcome of the ritual and spectral encounter to Keeper Morvath, confirming that Elen fled before finishing the ritual. The Keeper now seeks further details, hoping for any clue to Elen's fate."
         }
       ]
     },

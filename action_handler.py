@@ -12,6 +12,7 @@ from status_manager import (
 
 # Action type constants
 ACTION_CREATE_ENCOUNTER = "createEncounter"
+ACTION_UPDATE_ENCOUNTER = "updateEncounter"
 ACTION_UPDATE_TIME = "updateTime"
 ACTION_UPDATE_PLOT = "updatePlot"
 ACTION_EXIT_GAME = "exitGame"
@@ -253,7 +254,17 @@ Please use a valid location that exists in the current area ({current_area_id}) 
     elif action_type == ACTION_UPDATE_CHARACTER_INFO:
         status_updating_character()
         print(f"DEBUG: Processing updateCharacterInfo action")
-        changes = parameters["changes"]
+        changes = parameters.get("changes")
+        
+        # Validate changes parameter
+        if not changes or not isinstance(changes, (str, dict)):
+            print(f"ERROR: Invalid changes parameter: {changes} (type: {type(changes)})")
+            return create_return(status="continue", needs_update=False)
+        
+        # Convert dict to string if needed
+        if isinstance(changes, dict):
+            changes = json.dumps(changes)
+        
         character_name = parameters.get("characterName")
         
         # Backward compatibility: if no characterName provided, try legacy parameters
@@ -283,6 +294,31 @@ Please use a valid location that exists in the current area ({current_area_id}) 
         operation = parameters["operation"]
         npc = parameters["npc"]
         update_party_npcs(party_tracker_data, operation, npc)
+
+    elif action_type == ACTION_UPDATE_ENCOUNTER:
+        print(f"DEBUG: Processing updateEncounter action")
+        encounter_id = parameters.get("encounterId")
+        changes = parameters.get("changes")
+        
+        if encounter_id and changes:
+            try:
+                # Import the update_encounter function
+                from update_encounter import update_encounter
+                
+                # Update the encounter
+                updated_encounter = update_encounter(encounter_id, changes)
+                
+                if updated_encounter:
+                    print(f"DEBUG: Encounter {encounter_id} updated successfully")
+                    needs_conversation_history_update = True
+                else:
+                    print(f"ERROR: Failed to update encounter {encounter_id}")
+            except Exception as e:
+                print(f"ERROR: Exception while updating encounter: {str(e)}")
+                import traceback
+                traceback.print_exc()
+        else:
+            print(f"ERROR: Missing required parameters for updateEncounter. encounterId: {encounter_id}, changes: {changes}")
 
     else:
         print(f"WARNING: Unknown action type: {action_type}")

@@ -69,6 +69,7 @@ Important clarifications:
    8. createEncounter should not be used for traps unless the trap involves monsters starting combat.
    9. ALWAYS pay close attention to when trading occurs between the player and the party NPCs to ensure all actions are taken to update the player and party inventories.
    10. rollSkillCheck is not a valid action.
+   11. RITUAL MATERIALS: When a character performs a ritual that consumes material components, the model MUST use updateCharacterInfo to remove those materials from inventory. If ritual materials are not removed after a ritual is performed, the response is invalid.
 
 Here are examples of acceptable model assistant responses:
 

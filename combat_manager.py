@@ -35,7 +35,8 @@ import update_party_tracker
 # Import the preroll generator
 from generate_prerolls import generate_prerolls
 # Import safe JSON functions
-from encoding_utils import safe_json_load, safe_json_dump
+from encoding_utils import safe_json_load
+from file_operations import safe_write_json
 
 # Updated color constants
 SOLID_GREEN = "\033[38;2;0;180;0m"
@@ -125,7 +126,7 @@ def load_json_file(file_path):
 
 def save_json_file(file_path, data):
     try:
-        safe_json_dump(data, file_path)
+        safe_write_json(file_path, data)
     except Exception as e:
         print(f"ERROR: Failed to save {file_path}: {str(e)}")
 
@@ -375,7 +376,7 @@ def summarize_dialogue(conversation_history_param, location_data, party_tracker_
                 area_data["locations"][i] = location_data
                 break
         
-        if not safe_json_dump(area_data, area_file):
+        if not safe_write_json(area_file, area_data):
             print(f"ERROR: Failed to save area file: {area_file}")
         print(f"DEBUG: Encounter {encounter_id} added to {area_file}.")
 
@@ -383,7 +384,7 @@ def summarize_dialogue(conversation_history_param, location_data, party_tracker_
         conversation_history_param.append({"role": "user", "content": "The combat has concluded. What would you like to do next?"})
 
         print(f"DEBUG: Attempting to write to file: {conversation_history_file}")
-        if not safe_json_dump(conversation_history_param, conversation_history_file):
+        if not safe_write_json(conversation_history_file, conversation_history_param):
             print(f"ERROR: Failed to save conversation history")
         else:
             print("DEBUG: Conversation history saved successfully")
@@ -443,7 +444,7 @@ def update_json_schema(ai_response, player_info, encounter_data, party_tracker_d
         party_tracker_data['worldConditions']['activeCombatEncounter'] = ""
 
     # Save the updated party_tracker.json file
-    if not safe_json_dump(party_tracker_data, "party_tracker.json"):
+    if not safe_write_json("party_tracker.json", party_tracker_data):
         print("ERROR: Failed to save party_tracker.json")
 
     return updated_player_info, updated_encounter_data, party_tracker_data
@@ -469,7 +470,7 @@ def generate_chat_history(conversation_history, encounter_id):
         chat_history = [msg for msg in conversation_history if msg["role"] != "system"]
 
         # Write the filtered chat history to the output file
-        if not safe_json_dump(chat_history, output_file):
+        if not safe_write_json(output_file, chat_history):
             print(f"ERROR: Failed to save chat history to {output_file}")
 
         # Print statistics
@@ -488,7 +489,7 @@ def generate_chat_history(conversation_history, encounter_id):
 
         # Also create/update the latest version of this encounter for easy reference
         latest_file = f"{encounter_dir}/combat_chat_latest.json"
-        if not safe_json_dump(chat_history, latest_file):
+        if not safe_write_json(latest_file, chat_history):
             print(f"ERROR: Failed to save latest chat history")
         print(f"Latest version also saved to: {latest_file}\n")
 
@@ -596,7 +597,7 @@ def sync_active_encounter():
         
         # Save the encounter file if changes were made
         if changes_made:
-            if not safe_json_dump(encounter_data, encounter_file):
+            if not safe_write_json(encounter_file, encounter_data):
                 print(f"ERROR: Failed to save encounter file: {encounter_file}")
             print(f"Active encounter {active_encounter_id} synced with latest character data")
             

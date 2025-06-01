@@ -201,6 +201,13 @@ def update_character_info(character_name, changes, character_role=None):
         if not character_data:
             print(f"{RED}Error: Could not load character data for {character_name}{RESET}")
             return False
+        
+        # Validate that character_data is a dictionary
+        if not isinstance(character_data, dict):
+            print(f"{RED}Error: Character data for {character_name} is corrupted (not a dictionary){RESET}")
+            print(f"{RED}Loaded data type: {type(character_data)}, value: {character_data}{RESET}")
+            return False
+            
     except Exception as e:
         print(f"{RED}Error loading character data: {str(e)}{RESET}")
         return False

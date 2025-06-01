@@ -142,7 +142,7 @@
       "locationId": "A01",
       "name": "Harrow's Hollow General Store",
       "type": "shop",
-      "description": "A sturdy timber-and-stone building at the town's heart, the general store remains the main source of goods and local news for Harrow's Hollow. The atmosphere is tense but hopeful following recent reports of shadow creatures near the Witchlight Trail. Elder Mirna Harrow, the silver-haired matriarch, now tends carefully to Norn's wounds with old herbal remedies, her expression a mix of shock and grim determination. Shelves still brim with tools, dried provisions, and oddities, but the weight of the village's growing troubles hangs palpably in the air.",
+      "description": "Within the dimly lit general store at the village heart, Elder Mirna attentively listens as Norn recounts harrowing recent events, including Scout Elen's bravery, the incomplete ritual, and her flight toward the cursed keep. The lanternlight flickers over Mirna's anxious features as she absorbs warnings of Keeper Morvath and the mention of an essential old key. Mirna retrieves a heavy iron box behind the counter and produces a tarnished bronze key etched with a raven, which she solemnly entrusts to Norn, cautioning that it will open the oldest gate of the keep and that darkness awaits beyond. The few villagers present stand silently, expressions mixing hope and fear, as Mirna urges Norn to return with Elen or news of her fate and offers supplies at a fair price, affirming the village's support. The atmosphere is tense but hopeful, marked by renewed trust and purpose.",
       "coordinates": "X2Y2",
       "connectivity": [
         "A02",
@@ -155,8 +155,13 @@
       "npcs": [
         {
           "name": "Elder Mirna Harrow",
-          "description": "The wise and solemn matriarch of Harrow's Hollow, deeply concerned by the intensifying curse of the ancient keep. She is cautious but supportive, offering old remedies and supplies to aid adventurers despite the village's lack of a trained cleric. Her demeanor is now marked by a resolute hope sparked by Norn's bravery.",
-          "attitude": "Respectful and supportive toward allies, especially those confronting the village's dark threats; cautious but cooperative with outsiders."
+          "description": "The wise and solemn matriarch of Harrow's Hollow, deeply concerned by the intensifying curse of the ancient keep. She is cautious but supportive, offering old remedies, supplies, and crucial relics like the bronze raven key to aid the party. Her demeanor is now marked by resolute hope sparked by Norn's bravery and the shared urgency of current threats.",
+          "attitude": "Respectful and supportive toward allies confronting the village's dark threats; cautious but cooperative with outsiders."
+        },
+        {
+          "name": "Villagers",
+          "description": "A small group of silent villagers present in the store, their expressions a mix of hope and fear concerning recent events and the fate of Scout Elen.",
+          "attitude": "Quietly hopeful and supportive of the party's efforts."
         }
       ],
       "monsters": [
@@ -184,7 +189,7 @@
         "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.",
         "Elder Mirna warns of older, crueler dangers lurking in the Gloamwood and offers aid and supplies to brave adventurers."
       ],
-      "dmInstructions": "Elder Mirna now tends wounds with old herbal remedies, restoring some health despite the lack of a trained cleric. Use her to provide cautious but hopeful guidance about the increasing supernatural threats, including shadow creatures near the Witchlight Trail and darker dangers in the Gloamwood. She may offer supplies and old knowledge, fostering NPC and player roleplay opportunities.",
+      "dmInstructions": "Elder Mirna now entrusts the party with the old bronze raven key, providing cautious but hopeful guidance about the increasing supernatural threats and the ancient keep. Use her to foster roleplay involving the key, the villagers' fears, and the growing darkness. The villagers express renewed hope and support, offering supplies and encouraging the party. The general store remains a hub for healing, news, and preparations for the journey ahead.",
       "doors": [
         {
           "name": "Front Door",
@@ -199,7 +204,7 @@
         },
         {
           "name": "Back Storeroom Door",
-          "description": "A smaller, iron-banded door leading to a cramped storeroom.",
+          "description": "A smaller, iron-banded door leading to a cramped storeroom containing supplies and herbal remedies.",
           "type": "regular",
           "locked": true,
           "lockDC": 13,
@@ -211,8 +216,8 @@
       ],
       "traps": [],
       "dcChecks": [
-        "Insight DC 12: Discern Elder Mirna is withholding information about the key and certain historical events.",
-        "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the keep."
+        "Insight DC 12: Discern Elder Mirna is cautious but trusting in entrusting the party with the bronze key and knowledge of the keep.",
+        "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the ancient keep."
       ],
       "accessibility": "Easily accessible from the main square, wide doorways and step-free entry.",
       "dangerLevel": "Medium",
@@ -223,7 +228,7 @@
         },
         {
           "name": "Counter and Ledger",
-          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. Elder Mirna stands here, now tending wounds and sharing grim news with visitors."
+          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. Elder Mirna stands here, now entrusting the party with a key and supplies."
         },
         {
           "name": "Back Storeroom",
@@ -252,9 +257,20 @@
             "day": 1,
             "time": "12:45:00"
           }
+        },
+        {
+          "encounterId": "A01-E3",
+          "summary": "Within the dimly lit store, Norn recounts harrowing events including Scout Elen's bravery and flight toward the cursed keep. Elder Mirna solemnly entrusts Norn with a tarnished bronze raven key, warning of darkness beyond the oldest gate. Villagers silently watch with hope and fear, as Mirna urges the party to return with news or Elen herself, offering supplies for a fair price and renewed support.",
+          "impact": "Significantly advanced the investigation into the ancient keep; party obtained the bronze raven key, strengthening trust with villagers and receiving renewed aid and encouragement for the perilous quest ahead.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "20:42:00"
+          }
         }
       ],
-      "adventureSummary": "Upon returning at midday on Ches 1, 1492, Norn shared a harrowing account of battling three shadow creatures near the Witchlight Trail, confirming villagers' fears of a supernatural threat. Elder Mirna Harrow tended to Norn's wounds with old herbal remedies, restoring some health despite the absence of a trained cleric. The villagers remained tense but hopeful, stirred by Norn's bravery. Mirna warned of older, crueler dangers lurking in the Gloamwood and offered supplies and aid. After recuperating, Norn chose to rest at the nearby Wyrd Lantern Inn before continuing the quest, marking a pivotal moment of hope and resolve within Harrow's Hollow General Store."
+      "adventureSummary": "Within the dimly lit Harrow's Hollow General Store, Elder Mirna attentively listened as Norn recounted the harrowing events witnessed, including Scout Elen's bravery, the incomplete ritual, and the vision of her flight toward the cursed keep. Mirna solemnly entrusted Norn with a tarnished bronze raven key to the oldest gate of the keep, warning of darkness beyond. Villagers stood silently with mixed hope and fear as Mirna urged Norn to return with Elen or news of her fate and offered supplies at a fair price, affirming the village's support. This exchange strengthened trust and marked a significant advancement in their investigation. After this crucial encounter, Norn prepared to move toward the gate."
     },
     {
       "locationId": "A02",
@@ -315,36 +331,22 @@
       "locationId": "A03",
       "name": "East Gate and Guardhouse",
       "type": "gate",
-      "description": "A pair of heavy wooden gates, iron-banded and weathered, mark the town's eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond. The gate area remains vigilant yet tense, with two militia members on duty. Mist thickens beyond the gate, casting an eerie atmosphere as the party prepares to venture along the Witchlight Trail. The atmosphere is heavy with unease, reflecting the villagers' growing concern about supernatural threats in the area.",
+      "description": "A pair of heavy wooden gates, iron-banded and weathered, mark the town's eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond. The gate area now carries a sense of renewed hope and determination among the defenders after Norn shared a message of hope concerning the missing Scout Elen. The young woman holding a lantern and the broad-shouldered guard visibly lift their spirits, and villagers nearby exchange hopeful glances, easing the previous tension and anxiety.",
       "coordinates": "X2Y3",
-      "connectivity": [
-        "A01"
-      ],
-      "areaConnectivity": [
-        "Witchlight Trailhead"
-      ],
-      "areaConnectivityId": [
-        "G001"
-      ],
+      "accessibility": "Easily accessible by road, but guarded and locked at night.",
       "npcs": [
         {
           "name": "Young Guard",
-          "description": "A young woman holding a faintly glowing lantern. She is cautious but willing to share information about the recent disturbances and the missing scout.",
-          "attitude": "Concerned and cooperative; urges caution when traveling beyond the gate."
+          "description": "A young woman holding a faintly glowing lantern. She is more hopeful after hearing about Scout Elen and is eager to support the party's investigation.",
+          "attitude": "Encouraged and cooperative; more confident about the village's defense."
         },
         {
           "name": "Broad-Shouldered Guard",
-          "description": "A broad-shouldered man carrying a battered spear. He expresses worry about strange phenomena in the nearby woods and missing livestock.",
-          "attitude": "Grave and watchful; values the safety of the town and its people."
+          "description": "A broad-shouldered man carrying a battered spear. He is visibly grateful for the reassuring message and remains watchful for any threats.",
+          "attitude": "Grateful and determined; focused on protecting the town."
         }
       ],
       "monsters": [],
-      "lootTable": [
-        "Town gate key (kept on Sergeant Feld's belt)",
-        "Guard's whistle",
-        "Small pouch with 12 cp",
-        "Town patrol schedule (handwritten, with notes about recent disturbances near the keep)"
-      ],
       "plotHooks": [
         "The young guard shares that Scout Elen went missing two days ago while patrolling the Witchlight Trail.",
         "The broad-shouldered guard warns of mysterious lights, shadows, and missing livestock in the nearby woods.",
@@ -352,38 +354,24 @@
         "Mysterious phenomena along the Witchlight Trail suggest dangers beyond natural predators.",
         "Elder Mirna Harrow tasks the party with investigating the recent disappearances and curse rumors haunting Harrow's Hollow."
       ],
-      "dmInstructions": "Two militia members are on duty: a young woman with a glowing lantern and a broad-shouldered man with a spear. Provide information on the missing scout Elen, recent strange sightings, and the dangers of the Witchlight Trail. The atmosphere is heavy with unease and mist beyond the gate. Encourage cautious roleplay as the party prepares to move forward. Note that the party has chosen to leave this location to investigate footprints at the Witchlight Trailhead.",
-      "doors": [
-        {
-          "name": "Main Gate",
-          "description": "Double doors of heavy oak and iron, barred at night.",
-          "type": "heavy",
-          "locked": true,
-          "lockDC": 15,
-          "breakDC": 18,
-          "keyname": "Town gate key",
-          "trapped": false,
-          "trap": ""
-        },
-        {
-          "name": "Guardhouse Door",
-          "description": "A narrow, iron-banded door set into the stone guardhouse.",
-          "type": "regular",
-          "locked": false,
-          "lockDC": 0,
-          "breakDC": 13,
-          "keyname": "",
-          "trapped": false,
-          "trap": ""
-        }
+      "lootTable": [
+        "Town gate key (kept on Sergeant Feld's belt)",
+        "Guard's whistle",
+        "Small pouch with 12 cp",
+        "Town patrol schedule (handwritten, with notes about recent disturbances near the keep)"
+      ],
+      "dangerLevel": "Low",
+      "connectivity": [
+        "A01"
+      ],
+      "areaConnectivity": [
+        "Witchlight Trailhead",
+        "Harrow's Hollow General Store"
+      ],
+      "areaConnectivityId": [
+        "G001"
       ],
       "traps": [],
-      "dcChecks": [
-        "Investigation DC 14: Discover faint footprints and broken brush leading toward the haunted keep.",
-        "Persuasion DC 13: Convince Sergeant Feld to share information or allow after-hours travel."
-      ],
-      "accessibility": "Easily accessible by road, but guarded and locked at night.",
-      "dangerLevel": "Low",
       "features": [
         {
           "name": "Watch Bell",
@@ -397,6 +385,10 @@
           "name": "Gate Mechanism",
           "description": "A stout bar and iron lock securing the gates, requiring a key or brute force to bypass."
         }
+      ],
+      "dcChecks": [
+        "Investigation DC 14: Discover faint footprints and broken brush leading toward the haunted keep.",
+        "Persuasion DC 13: Convince Sergeant Feld to share information or allow after-hours travel."
       ],
       "encounters": [
         {
@@ -431,9 +423,56 @@
             "day": 1,
             "time": "16:00:00"
           }
+        },
+        {
+          "encounterId": "A03-E4",
+          "summary": "Upon arriving at the East Gate and Guardhouse, the party found the village defenders tense yet attentive. Norn addressed the guards, sharing a message of hope regarding the missing Scout Elen, visibly lifting the spirits of those present. The young woman holding a lantern nodded eagerly, and the broad-shouldered man smiled appreciatively. Nearby villagers paused their anxious chatter, exchanging hopeful glances. The mood shifted from anxiety to determination, bolstering the defenders' resolve to resist the encroaching darkness.",
+          "impact": "The party's morale-boosting message eased the anxiety at the gate, encouraging the defenders and villagers. No hostile creatures or traps were encountered. This moment strengthens the village's readiness and cooperation with the party's investigation into the disappearances and mysteries.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "20:35:00"
+          }
+        },
+        {
+          "encounterId": "A03-E5",
+          "summary": "Upon arriving at the East Gate and Guardhouse of Harrow's Hollow, the party found a small but resolute militia on watch, their torchlight flickering against the night. Norn addressed the two guards stationed there--a younger woman bearing a crest-stitched cloak and an older, broad-shouldered man wielding a spear--instilling a renewed sense of vigilance and determination. The younger guard promised heightened attentiveness to any suspicious activity, while the older guard vowed to alert and rally the villagers at the first sign of danger, prepared to support the party's stand against the looming curse at the Keep of Doom. This interaction not only bolstered the morale and readiness of the militia but also infused the village with cautious hope, as passing villagers acknowledged this newfound courage with nods and blessings. The party's presence and words strengthened the collective resolve of Harrow's Hollow, setting the stage for the forthcoming confrontation. With no immediate threats or traps detected, the party, now supported by the watchful militia, prepared to move forward, and Norn soon chose to proceed toward the Witchlight Trailhead, leaving the East Gate and Guardhouse behind.",
+          "impact": "The militia's vigilance and morale have been reinforced, enhancing the village's defensive posture. The party's influence boosts the defenders' readiness and the villagers' hope. No hostiles or traps are present, allowing safe passage forward.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 1,
+            "time": "20:50:00"
+          }
         }
       ],
-      "adventureSummary": "Upon arriving at the East Gate and Guardhouse of Harrow's Hollow, the party found themselves in a village shrouded in fear and uneasy whispers about recent disappearances and curse rumors. Elder Mirna Harrow had tasked them with investigating the unsettling events, including the vanishing of Scout Elen. The environment was tense but devoid of immediate threats such as monsters or traps, allowing the party to focus on gathering information and winning the villagers' trust. Active side quests hinted at spectral encounters and poltergeist disturbances, promising clues to the mystery. After some exploration and interaction, the player character decided to return to a spot on the Witchlight Trailhead where footprints had been previously discovered, indicating a strategic move to follow leads outside the gate area. Throughout their time at the East Gate and Guardhouse, the party carefully updated their knowledge, plot progression, and maintained readiness for the challenges ahead, with no combat or traps triggered within this zone before their transition to the adjacent Witchlight Trailhead area. (Game Time: 1492 Ches 1, 16:00:00)"
+      "adventureSummary": "Upon arriving at the East Gate and Guardhouse of Harrow's Hollow, the party found a small but resolute militia on watch, their torchlight flickering against the night. Norn addressed the two guards stationed there--a younger woman bearing a crest-stitched cloak and an older, broad-shouldered man wielding a spear--instilling a renewed sense of vigilance and determination. The younger guard promised heightened attentiveness to any suspicious activity, while the older guard vowed to alert and rally the villagers at the first sign of danger, prepared to support the party's stand against the looming curse at the Keep of Doom. This interaction not only bolstered the morale and readiness of the militia but also infused the village with cautious hope, as passing villagers acknowledged this newfound courage with nods and blessings. The party's presence and words strengthened the collective resolve of Harrow's Hollow, setting the stage for the forthcoming confrontation. With no immediate threats or traps detected, the party, now supported by the watchful militia, prepared to move forward, and Norn soon chose to proceed toward the Witchlight Trailhead, leaving the East Gate and Guardhouse behind. (Game Time: 1492 Ches 1, 20:50:00)",
+      "doors": [
+        {
+          "name": "Main Gate",
+          "description": "Double doors of heavy oak and iron, barred at night.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 15,
+          "breakDC": 18,
+          "keyname": "Town gate key",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "Guardhouse Door",
+          "description": "A narrow, iron-banded door set into the stone guardhouse.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 13,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "dmInstructions": "Two militia members remain on duty: the young woman with a glowing lantern and the broad-shouldered man with a spear. They are encouraged by Norn's message of hope regarding Scout Elen, which has lifted morale. Provide roleplay opportunities reflecting this improved atmosphere as the party prepares to move toward the Harrow's Hollow General Store. There are no hostile creatures or traps encountered here currently."
     },
     {
       "locationId": "A04",

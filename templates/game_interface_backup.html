@@ -1,0 +1,63 @@
+// Clean inventory function for reference
+function displayInventory(data) {
+    const container = document.getElementById('inventory-content');
+    if (!data) {
+        container.innerHTML = '<div class="loading">No inventory data available</div>';
+        return;
+    }
+    
+    let html = '<div class="inventory-sheet">';
+    
+    // Currency section - moved to top
+    if (data.currency) {
+        const gold = data.currency.gold || 0;
+        const silver = data.currency.silver || 0;
+        const copper = data.currency.copper || 0;
+        const total = gold + (silver * 0.1) + (copper * 0.01);
+        
+        html += `<div class="inventory-header"><div class="currency-display"><div class="currency-title">Currency</div><div class="currency-grid"><div class="currency-item"><span class="currency-amount">${gold}</span><span class="currency-type">GP</span></div><div class="currency-item"><span class="currency-amount">${silver}</span><span class="currency-type">SP</span></div><div class="currency-item"><span class="currency-amount">${copper}</span><span class="currency-type">CP</span></div></div><div class="currency-total">Total: ${total.toFixed(2)} GP</div></div></div>`;
+    }
+    
+    // Full-width Equipment section
+    if (data.equipment && data.equipment.length > 0) {
+        html += '<div class="equipment-section"><h4>Equipment</h4>';
+        data.equipment.forEach(item => {
+            const qty = item.quantity || 1;
+            const qtyStr = qty > 1 ? qty.toString() : '';
+            const type = (item.item_type || 'misc').toLowerCase();
+            const desc = (item.description || '').substr(0, 80);
+            html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${item.item_name}</span>${qtyStr ? `<span class="item-qty">×${qtyStr}</span>` : ''}</div><div class="item-details"><span class="item-type">${type}</span></div></div>`;
+        });
+        html += '</div>';
+    }
+    
+    // Main inventory sections in grid layout
+    html += '<div class="inventory-sections">';
+    
+    // Weapons and attacks
+    if (data.attacksAndSpellcasting && data.attacksAndSpellcasting.length > 0) {
+        html += '<div class="inventory-section"><h4>Weapons & Attacks</h4>';
+        data.attacksAndSpellcasting.forEach(weapon => {
+            const damage = weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`;
+            const attack = weapon.attackBonus >= 0 ? `+${weapon.attackBonus}` : weapon.attackBonus;
+            const damageInfo = `Damage: ${damage} (${weapon.damageType || 'damage'})`;
+            const fullDesc = weapon.description || '';
+            html += `<div class="inventory-item" title="${fullDesc}"><div class="item-main"><span class="item-name">${weapon.name}</span><span class="weapon-bonus">${attack}</span></div><div class="item-details"><span class="weapon-damage">${damageInfo}</span></div></div>`;
+        });
+        html += '</div>';
+    }
+    
+    // Ammunition
+    if (data.ammunition && data.ammunition.length > 0) {
+        html += '<div class="inventory-section"><h4>Ammunition</h4>';
+        data.ammunition.forEach(ammo => {
+            const desc = (ammo.description || '');
+            html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${ammo.name}</span><span class="item-qty">×${ammo.quantity}</span></div></div>`;
+        });
+        html += '</div>';
+    }
+    
+    html += '</div>'; // End inventory-sections
+    html += '</div>'; // End inventory-sheet
+    container.innerHTML = html;
+}

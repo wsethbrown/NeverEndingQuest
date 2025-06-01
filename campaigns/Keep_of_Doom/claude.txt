@@ -1,0 +1,11 @@
+PS C:\dungeon_master_v1> python run_web.py
+Launching DungeonMasterAI Web Interface...
+The browser should open automatically. If not, navigate to http://localhost:5000
+Traceback (most recent call last):
+  File "C:\dungeon_master_v1\web_interface.py", line 25, in <module>
+    import main as dm_main
+  File "C:\dungeon_master_v1\main.py", line 22, in <module>
+    from combat_manager import run_combat_simulation
+  File "C:\dungeon_master_v1\combat_manager.py", line 25, in <module>
+    from config import (
+ModuleNotFoundError: No module named 'config'

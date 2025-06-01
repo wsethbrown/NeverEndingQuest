@@ -418,19 +418,19 @@
         .item-name {
             color: #4CAF50;
             font-weight: bold;
-            font-size: 17px;
+            font-size: 15px;
         }
         
         .item-qty {
             color: #999;
-            font-size: 14px;
+            font-size: 12px;
             font-style: italic;
         }
         
         .weapon-bonus {
             color: #ff8c00;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 14px;
         }
         
         .item-details {
@@ -448,7 +448,6 @@
         .weapon-damage {
             color: #ff8c00;
             font-weight: bold;
-            font-size: 15px;
         }
         
         .item-desc {
@@ -853,15 +852,15 @@
         
         <div class="panel debug-panel">
             <div class="tabs">
-                <button class="tab-button active" onclick="switchTab('inventory')">Character</button>
-                <button class="tab-button" onclick="switchTab('stats')">Stats</button>
+                <button class="tab-button active" onclick="switchTab('debug')">Debug Output</button>
+                <button class="tab-button" onclick="switchTab('inventory')">Inventory</button>
+                <button class="tab-button" onclick="switchTab('stats')">Character Stats</button>
                 <button class="tab-button" onclick="switchTab('npcs')">NPCs</button>
-                <button class="tab-button" onclick="switchTab('debug')">Debug</button>
             </div>
-            <div class="tab-content" id="debug-tab" style="display: none;">
+            <div class="tab-content" id="debug-tab" style="display: block;">
                 <div class="panel-content" id="debug-output"></div>
             </div>
-            <div class="tab-content" id="inventory-tab" style="display: block;">
+            <div class="tab-content" id="inventory-tab" style="display: none;">
                 <div class="panel-content" id="inventory-content">
                     <div class="loading">Loading inventory...</div>
                 </div>
@@ -1067,6 +1066,8 @@
             }
             
             let html = '<div class="inventory-sheet">';
+            
+            // Currency section - moved to top
             if (data.currency) {
                 const gold = data.currency.gold || 0;
                 const silver = data.currency.silver || 0;
@@ -1076,20 +1077,18 @@
                 html += `<div class="inventory-header"><div class="currency-display"><div class="currency-title">Currency</div><div class="currency-grid"><div class="currency-item"><span class="currency-amount">${gold}</span><span class="currency-type">GP</span></div><div class="currency-item"><span class="currency-amount">${silver}</span><span class="currency-type">SP</span></div><div class="currency-item"><span class="currency-amount">${copper}</span><span class="currency-type">CP</span></div></div><div class="currency-total">Total: ${total.toFixed(2)} GP</div></div></div>`;
             }
             
-            // Equipment section - always show
-            html += '<div class="equipment-section"><h4>Equipment</h4>';
+            // Full-width Equipment section
             if (data.equipment && data.equipment.length > 0) {
+                html += '<div class="equipment-section"><h4>Equipment</h4>';
                 data.equipment.forEach(item => {
                     const qty = item.quantity || 1;
-                    const qtyStr = qty > 1 ? ` ×${qty}` : '';
+                    const qtyStr = qty > 1 ? qty.toString() : '';
                     const type = (item.item_type || 'misc').toLowerCase();
                     const desc = (item.description || '').substr(0, 80);
-                    html += `<div class="inventory-item" title="${desc}"><span class="feature-bullet">●</span><span class="item-name">${item.item_name}${qtyStr}</span><span class="item-type"> (${type})</span></div>`;
+                    html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${item.item_name}</span>${qtyStr ? `<span class="item-qty">×${qtyStr}</span>` : ''}</div><div class="item-details"><span class="item-type">${type}</span></div></div>`;
                 });
-            } else {
-                html += '<div class="inventory-item"><span class="feature-bullet">●</span><span class="item-name">No equipment</span></div>';
+                html += '</div>';
             }
-            html += '</div>';
             
             // Main inventory sections in grid layout
             html += '<div class="inventory-sections">';
@@ -1114,6 +1113,93 @@
                     const desc = (ammo.description || '');
                     html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${ammo.name}</span><span class="item-qty">×${ammo.quantity}</span></div></div>`;
                 });
+                html += '</div>';
+            }
+            
+            html += '</div>'; // End inventory-sections
+            html += '</div>'; // End inventory-sheet
+            container.innerHTML = html;
+        }
+                const silver = data.currency.silver || 0;
+                const copper = data.currency.copper || 0;
+                const total = gold + (silver * 0.1) + (copper * 0.01);
+                
+                html += `<div class="inventory-header"><div class="currency-display"><div class="currency-title">Currency</div><div class="currency-grid"><div class="currency-item"><span class="currency-amount">${gold}</span><span class="currency-type">GP</span></div><div class="currency-item"><span class="currency-amount">${silver}</span><span class="currency-type">SP</span></div><div class="currency-item"><span class="currency-amount">${copper}</span><span class="currency-type">CP</span></div></div><div class="currency-total">Total: ${total.toFixed(2)} GP</div></div></div>`;
+            }
+            
+            // Full-width Equipment section
+            if (data.equipment && data.equipment.length > 0) {
+                html += '<div class="equipment-section"><h4>Equipment</h4>';
+                data.equipment.forEach(item => {
+                    const qty = item.quantity || 1;
+                    const qtyStr = qty > 1 ? qty.toString() : '';
+                    const type = (item.item_type || 'misc').toLowerCase();
+                    const desc = (item.description || '').substr(0, 80);
+                    html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${item.item_name}</span>${qtyStr ? `<span class="item-qty">×${qtyStr}</span>` : ''}</div><div class="item-details"><span class="item-type">${type}</span></div></div>`;
+                });
+                html += '</div>';
+            }
+            
+            // Main inventory sections in grid layout
+            html += '<div class="inventory-sections">';
+            
+            // Weapons and attacks
+            if (data.attacksAndSpellcasting && data.attacksAndSpellcasting.length > 0) {
+                html += '<div class="inventory-section"><h4>Weapons & Attacks</h4>';
+                data.attacksAndSpellcasting.forEach(weapon => {
+                    const damage = weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`;
+                    const attack = weapon.attackBonus >= 0 ? `+${weapon.attackBonus}` : weapon.attackBonus;
+                    const damageInfo = `Damage: ${damage} (${weapon.damageType || 'damage'})`;
+                    const fullDesc = weapon.description || '';
+                    html += `<div class="inventory-item" title="${fullDesc}"><div class="item-main"><span class="item-name">${weapon.name}</span><span class="weapon-bonus">${attack}</span></div><div class="item-details"><span class="weapon-damage">${damageInfo}</span></div></div>`;
+                });
+                html += '</div>';
+            }
+            
+            // Ammunition
+            if (data.ammunition && data.ammunition.length > 0) {
+                html += '<div class="inventory-section"><h4>Ammunition</h4>';
+                data.ammunition.forEach(ammo => {
+                    const desc = (ammo.description || '');
+                    html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${ammo.name}</span><span class="item-qty">×${ammo.quantity}</span></div></div>`;
+                });
+                html += '</div>';
+            }
+            
+            // Class features if present
+            if (data.classFeatures && data.classFeatures.length > 0) {
+                html += '<div class="inventory-section"><h4>Class Features</h4>';
+                const curr = [];
+                if (data.currency.gold) curr.push(`<span class="item-quantity">${data.currency.gold}</span><span class="item-name">GP</span>`);
+                if (data.currency.silver) curr.push(`<span class="item-quantity">${data.currency.silver}</span><span class="item-name">SP</span>`);
+                if (data.currency.copper) curr.push(`<span class="item-quantity">${data.currency.copper}</span><span class="item-name">CP</span>`);
+                if (curr.length > 0) {
+                    html += `<div class="inventory-item">${curr.join('   ')}</div>`;
+                } else {
+                    html += `<div class="inventory-item"><span class="item-desc">No currency</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            
+            // Skills if present
+            if (data.skills) {
+                html += '<div class="inventory-section"><h3>Skills</h3>';
+                const skillRows = [];
+                Object.entries(data.skills).forEach(([skill, value]) => {
+                    const bonus = value >= 0 ? `+${value}` : `${value}`;
+                    skillRows.push(`<span class="item-quantity">${bonus}</span><span class="item-name" style="width:100px">${skill}</span>`);
+                });
+                
+                // Display skills in two columns for compactness
+                for (let i = 0; i < skillRows.length; i += 2) {
+                    html += '<div class="inventory-item">';
+                    html += skillRows[i];
+                    if (i + 1 < skillRows.length) {
+                        html += '   ' + skillRows[i + 1];
+                    }
+                    html += '</div>';
+                }
                 html += '</div>';
             }
             
@@ -1208,58 +1294,26 @@
                     const desc = feature.description || '';
                     html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">●</span><span class="feature-name">${feature.name || feature}</span></div>`;
                 });
+            } else if (data.features && data.features.length > 0) {
+                // Fallback to simple features array
+                data.features.forEach(feature => {
+                    html += `<div class="feature-item"><span class="feature-bullet">●</span><span class="feature-name">${feature}</span></div>`;
+                });
             } else {
                 html += '<div class="feature-item"><span class="feature-name">No class features</span></div>';
             }
             html += '</div></div>';
             
-            // Temporary Effects & Other Abilities column
+            // Special Abilities column
             html += '<div class="stat-group"><h4>Special Abilities</h4><div class="stat-group-content">';
-            
-            // Show racial traits (excluding basic ones)
-            if (data.racialTraits && data.racialTraits.length > 0) {
-                const basicTraits = ['Ability Score Increase', 'Languages', 'Extra Language'];
-                data.racialTraits.forEach(trait => {
-                    // Only show special racial traits, not basic ones
-                    if (!basicTraits.includes(trait.name)) {
-                        const desc = trait.description || '';
-                        html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">◈</span><span class="feature-name">${trait.name}</span></div>`;
-                    }
+            if (data.specialAbilities && data.specialAbilities.length > 0) {
+                data.specialAbilities.forEach(ability => {
+                    const desc = ability.description || '';
+                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">◆</span><span class="feature-name">${ability.name}</span></div>`;
                 });
-            }
-            
-            // Show background feature
-            if (data.backgroundFeature && data.backgroundFeature.name) {
-                const desc = data.backgroundFeature.description || '';
-                html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">✦</span><span class="feature-name">${data.backgroundFeature.name}</span></div>`;
-            }
-            
-            // Show temporary effects
-            if (data.temporaryEffects && data.temporaryEffects.length > 0) {
-                data.temporaryEffects.forEach(effect => {
-                    const desc = effect.description || '';
-                    const duration = effect.duration ? ` (${effect.duration})` : '';
-                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">◆</span><span class="feature-name">${effect.name}${duration}</span></div>`;
-                });
-            }
-            
-            // Show feats
-            if (data.feats && data.feats.length > 0) {
-                data.feats.forEach(feat => {
-                    const desc = feat.description || '';
-                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">★</span><span class="feature-name">${feat.name}</span></div>`;
-                });
-            }
-            
-            // Show if no special abilities
-            const hasAnySpecial = (data.racialTraits && data.racialTraits.length > 0) || 
-                                 (data.backgroundFeature && data.backgroundFeature.name) || 
-                                 (data.temporaryEffects && data.temporaryEffects.length > 0) ||
-                                 (data.feats && data.feats.length > 0);
-            if (!hasAnySpecial) {
+            } else {
                 html += '<div class="feature-item"><span class="feature-name">No special abilities</span></div>';
             }
-            
             html += '</div></div>';
             
             html += '</div>'; // End features-abilities-container
