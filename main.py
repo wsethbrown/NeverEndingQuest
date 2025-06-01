@@ -389,15 +389,22 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
         for action in actions:
             # Call action_handler to process each action
             result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
-            if result == "exit":
+            
+            # Handle new dictionary return format
+            if isinstance(result, dict):
+                if result.get("status") == "exit":
+                    return "exit"
+                if result.get("needs_update"):
+                    needs_conversation_history_update = True
+                if result.get("status") == "needs_response":
+                    # Get a new AI response
+                    new_response = get_ai_response(conversation_history)
+                    process_ai_response(new_response, party_tracker_data, location_data, conversation_history)
+            # Backward compatibility for old return types (can be removed later)
+            elif result == "exit":
                 return "exit"
-            if isinstance(result, bool) and result:
+            elif isinstance(result, bool) and result:
                 needs_conversation_history_update = True
-            if isinstance(result, tuple) and result[0] == "skillCheck":  # This condition seems unlikely to be met now
-                dm_note = result[1]
-                conversation_history.append({"role": "user", "content": dm_note})
-                new_response = get_ai_response(conversation_history)
-                process_ai_response(new_response, party_tracker_data, location_data, conversation_history)
 
         save_conversation_history(conversation_history)
 

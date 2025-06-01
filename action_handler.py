@@ -59,12 +59,27 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_data):
     return run_combat(encounter_id, party_tracker_data, location_data)
 
 def process_action(action, party_tracker_data, location_data, conversation_history):
-    """Process an action based on its type"""
+    """Process an action based on its type
+    
+    Returns:
+        dict: {
+            "status": "continue" | "exit" | "needs_response",
+            "needs_update": bool,
+            "response_data": dict (optional) - data for generating new AI response
+        }
+    """
     # Import modules here to avoid circular imports
     import location_manager
     from update_world_time import update_world_time
     from plot_update import update_plot
     from update_character_info import update_character_info
+
+    # Helper function to create consistent return values
+    def create_return(status="continue", needs_update=False, response_data=None):
+        result = {"status": status, "needs_update": needs_update}
+        if response_data:
+            result["response_data"] = response_data
+        return result
 
     global needs_conversation_history_update
     needs_conversation_history_update = False
@@ -125,11 +140,10 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                         "content": combat_summary["content"]
                     }
                     conversation_history.append(modified_combat_summary)
-                    # Import save_conversation_history and get_ai_response from main
-                    from main import save_conversation_history, get_ai_response, process_ai_response
+                    # Import save_conversation_history from main
+                    from main import save_conversation_history
                     save_conversation_history(conversation_history)
-                    new_response = get_ai_response(conversation_history)
-                    process_ai_response(new_response, party_tracker_data, reloaded_location_data, conversation_history)
+                    return create_return(status="needs_response", needs_update=True)
                 else:
                     print("ERROR: Combat summary not found in combat conversation history")
 
@@ -160,6 +174,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         from main import save_conversation_history, exit_game
         save_conversation_history(conversation_history)
         exit_game()
+        return create_return(status="exit")
 
     elif action_type == ACTION_TRANSITION_LOCATION:
         status_transitioning_location()
@@ -218,12 +233,11 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             conversation_history.append({"role": "user", "content": error_message})
             
             # Import necessary functions from main
-            from main import save_conversation_history, get_ai_response, process_ai_response
+            from main import save_conversation_history
             save_conversation_history(conversation_history)
             
-            # Get AI response to the error
-            new_response = get_ai_response(conversation_history)
-            return process_ai_response(new_response, party_tracker_data, location_data, conversation_history)
+            # Return signal to get new AI response
+            return create_return(status="needs_response", needs_update=True)
 
     elif action_type == ACTION_LEVEL_UP:
         entity_name = parameters.get("entityName")
@@ -234,10 +248,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
 
         dm_note = f"Leveling Dungeon Master Guidance: Proceed with leveling up the player character or the party NPC given the 5th Edition role playing game rules. Only level the player or the party NPC one level at a time to ensure no mistakes are made. Use the 'updateCharacterInfo' action for both player characters and NPCs. Include the character name and all changes. If you are leveling up a player character, you must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updateCharacterInfo' to pass all changes to the character sheet and include the experience goal for the next level. Do not update the character's information in segments. \n\n{leveling_info}"
         conversation_history.append({"role": "user", "content": dm_note})
-        # Import get_ai_response and process_ai_response from main
-        from main import get_ai_response, process_ai_response
-        new_response = get_ai_response(conversation_history)
-        return process_ai_response(new_response, party_tracker_data, location_data, conversation_history) # Pass location_data
+        return create_return(status="needs_response", needs_update=True)
 
     elif action_type == ACTION_UPDATE_CHARACTER_INFO:
         status_updating_character()
@@ -267,29 +278,6 @@ Please use a valid location that exists in the current area ({current_area_id}) 
         else:
             print("ERROR: No character name provided and no player found in party tracker.")
 
-    # Backward compatibility for old action types
-    elif action_type == ACTION_UPDATE_PLAYER_INFO or action_type == "updatePlayerInfo":
-        print(f"DEBUG: Processing legacy updatePlayerInfo action - redirecting to updateCharacterInfo")
-        changes = parameters["changes"]
-        player_name = next((member.lower() for member in party_tracker_data["partyMembers"]), None)
-        if player_name:
-            try:
-                success = update_character_info(player_name, changes)
-                if success:
-                    needs_conversation_history_update = True
-            except Exception as e:
-                print(f"ERROR: Failed to update player info: {str(e)}")
-
-    elif action_type == ACTION_UPDATE_NPC_INFO or action_type == "updateNPCInfo":
-        print(f"DEBUG: Processing legacy updateNPCInfo action - redirecting to updateCharacterInfo")
-        changes = parameters["changes"]
-        npc_name = parameters["npcName"]
-        try:
-            success = update_character_info(npc_name, changes)
-            if success:
-                needs_conversation_history_update = True
-        except Exception as e:
-            print(f"ERROR: Failed to update NPC info: {str(e)}")
 
     elif action_type == ACTION_UPDATE_PARTY_NPCS:
         operation = parameters["operation"]
@@ -299,4 +287,4 @@ Please use a valid location that exists in the current area ({current_area_id}) 
     else:
         print(f"WARNING: Unknown action type: {action_type}")
     
-    return needs_conversation_history_update
+    return create_return(needs_update=needs_conversation_history_update)
