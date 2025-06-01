@@ -191,22 +191,22 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
         {"role": "system", "content": validation_prompt}
     ]
     
-    # Add previous 3 user/assistant pairs for context
-    if conversation_history and len(conversation_history) > 6:
-        # Get the last 7 messages (3 pairs + current user input)
+    # Add previous 6 user/assistant pairs for context
+    if conversation_history and len(conversation_history) > 12:
+        # Get the last 13 messages (6 pairs + current user input)
         # But exclude the current user input since we'll add it separately
-        recent_messages = conversation_history[-7:-1]  # Last 6 messages before current
+        recent_messages = conversation_history[-13:-1]  # Last 12 messages before current
         
         # Filter to only user/assistant messages (no system messages)
         context_messages = [
             msg for msg in recent_messages 
             if msg["role"] in ["user", "assistant"]
-        ][-6:]  # Ensure we only get last 6 (3 pairs)
+        ][-12:]  # Ensure we only get last 12 (6 pairs)
         
         # Add context header and messages
         validation_conversation.append({
             "role": "system", 
-            "content": "=== PREVIOUS COMBAT CONTEXT (last 3 exchanges) ==="
+            "content": "=== PREVIOUS COMBAT CONTEXT (last 6 exchanges) ==="
         })
         validation_conversation.extend(context_messages)
     
@@ -281,6 +281,27 @@ def normalize_encounter_status(encounter_data):
             creature['status'] = creature['status'].lower()
     
     return encounter_data
+
+def get_initiative_order(encounter_data):
+    """Generate initiative order string for combat validation context"""
+    if not encounter_data or not isinstance(encounter_data, dict):
+        return "Initiative order unknown"
+        
+    creatures = encounter_data.get("creatures", [])
+    if not creatures:
+        return "No creatures in encounter"
+    
+    # Sort by initiative (descending), then alphabetically for ties
+    sorted_creatures = sorted(creatures, key=lambda x: (-x.get("initiative", 0), x.get("name", "")))
+    
+    order_parts = []
+    for creature in sorted_creatures:
+        name = creature.get("name", "Unknown")
+        initiative = creature.get("initiative", 0)
+        status = creature.get("status", "unknown")
+        order_parts.append(f"{name} ({initiative}, {status})")
+    
+    return " → ".join(order_parts)
 
 def log_conversation_structure(conversation):
     """Log the structure of the conversation history for debugging"""
@@ -742,10 +763,15 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    
    # Get initial scene description before first user input
    print("DEBUG: Getting initial scene description...")
+   # Generate initiative order for validation context
+   initiative_order = get_initiative_order(encounter_data)
+   
    initial_prompt = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. This is the start of combat, so please describe the scene and set initiative order, but don't take any actions yet. Start off by hooking the player and engaging them for the start of combat the way any world class dungeon master would.
 
 Current hitpoints for all creatures:
 {all_hitpoints_info}
+
+Initiative Order: {initiative_order}
 
 {preroll_text}
 
@@ -953,6 +979,9 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        # Generate fresh prerolls for this combat round
        preroll_text = generate_prerolls(encounter_data)
        
+       # Generate initiative order for validation context
+       initiative_order = get_initiative_order(encounter_data)
+       
        # Format user input with DM note, hitpoints info, and prerolls
        user_input_with_note = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. Use 'updateCharacterInfo' (with characterName parameter) and 'updateEncounter' actions to record changes in hit points, status, or conditions for any creature in the encounter. Remember to use separate 'updateCharacterInfo' actions whenever players or NPCs take damage or their status changes. Monster changes should be in 'updateEncounter', but player and NPC changes require their own 'updateCharacterInfo' actions with the specific character name.
 
@@ -963,6 +992,8 @@ Important:
 
 Current hitpoints for all creatures:
 {all_hitpoints_info}
+
+Initiative Order: {initiative_order}
 
 {preroll_text}
 
