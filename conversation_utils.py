@@ -168,9 +168,11 @@ VULN: {', '.join(member_data['damageVulnerabilities'])}
 RES: {', '.join(member_data['damageResistances'])}
 IMM: {', '.join(member_data['damageImmunities'])}
 COND IMM: {', '.join(member_data['conditionImmunities'])}
-FEAT: {', '.join(member_data['features'])}
-SPECIAL: {', '.join([f"{ability['name']}" for ability in member_data['specialAbilities']])}
 CLASS FEAT: {', '.join([f"{feature['name']}" for feature in member_data['classFeatures']])}
+RACIAL: {', '.join([f"{trait['name']}" for trait in member_data['racialTraits']])}
+BG FEAT: {member_data['backgroundFeature']['name'] if member_data.get('backgroundFeature') else 'None'}
+FEATS: {', '.join([f"{feat['name']}" for feat in member_data.get('feats', [])])}
+TEMP FX: {', '.join([f"{effect['name']}" for effect in member_data.get('temporaryEffects', [])])}
 EQUIP: {equipment_str}
 AMMO: {', '.join([f"{ammo['name']} x{ammo['quantity']}" for ammo in member_data['ammunition']])}
 ATK: {', '.join([f"{atk['name']} ({atk['type']}, {atk['damageDice']} {atk['damageType']})" for atk in member_data['attacksAndSpellcasting']])}
@@ -225,7 +227,7 @@ COND IMM: {', '.join(npc_data['conditionImmunities'])}
 SENSES: {', '.join(f"{sense} {value}" for sense, value in npc_data['senses'].items())}
 LANGUAGES: {npc_data['languages']}
 CR: {npc_data['challengeRating']} | PROF BONUS: +{npc_data['proficiencyBonus']}
-ABILITIES: {', '.join(ability['name'] for ability in npc_data['specialAbilities'])}
+SPECIAL: {', '.join([f"{trait['name']}" for trait in npc_data.get('racialTraits', [])] + [f"{feat['name']}" for feat in npc_data.get('feats', [])] + ([npc_data['backgroundFeature']['name']] if npc_data.get('backgroundFeature') else []))}
 ACTIONS: {', '.join(action['name'] for action in npc_data['actions'])}
 EQUIP: {equipment_str}
 AMMO: {', '.join([f"{ammo['name']} x{ammo['quantity']}" for ammo in npc_data['ammunition']])}
