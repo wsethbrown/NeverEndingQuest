@@ -768,6 +768,12 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    
    initial_prompt = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. This is the start of combat, so please describe the scene and set initiative order, but don't take any actions yet. Start off by hooking the player and engaging them for the start of combat the way any world class dungeon master would.
 
+Important Character Field Definitions:
+- 'status' field: Overall life/death state - ONLY use 'alive', 'dead', 'unconscious', or 'defeated' (lowercase)
+- 'condition' field: D&D 5e status conditions - use 'none' when no conditions, or valid D&D conditions like 'blinded', 'charmed', 'poisoned', etc.
+- NEVER set condition to 'alive' - that goes in the status field
+- NEVER set status to 'none' - use 'alive' for conscious characters
+
 Current hitpoints for all creatures:
 {all_hitpoints_info}
 
@@ -985,10 +991,16 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        # Format user input with DM note, hitpoints info, and prerolls
        user_input_with_note = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. Use 'updateCharacterInfo' (with characterName parameter) and 'updateEncounter' actions to record changes in hit points, status, or conditions for any creature in the encounter. Remember to use separate 'updateCharacterInfo' actions whenever players or NPCs take damage or their status changes. Monster changes should be in 'updateEncounter', but player and NPC changes require their own 'updateCharacterInfo' actions with the specific character name.
 
-Important: 
-1. The status field for creatures must be lowercase: 'alive', 'dead', 'unconscious', or 'defeated'.
-2. Include the 'exit' action when the encounter ends.
-3. NPC and monster status updates must match the expected schema values.
+Important Character Field Definitions:
+- 'status' field: Overall life/death state - ONLY use 'alive', 'dead', 'unconscious', or 'defeated' (lowercase)
+- 'condition' field: D&D 5e status conditions - use 'none' when no conditions, or valid D&D conditions like 'blinded', 'charmed', 'poisoned', etc.
+- 'condition_affected' array: List of active D&D conditions affecting the character
+
+Critical Rules:
+1. NEVER set condition to 'alive' - that goes in the status field
+2. NEVER set status to 'none' - use 'alive' for conscious characters
+3. Include the 'exit' action when the encounter ends
+4. All field values must match the expected schema exactly
 
 Current hitpoints for all creatures:
 {all_hitpoints_info}
