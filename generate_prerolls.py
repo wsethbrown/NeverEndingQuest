@@ -50,7 +50,7 @@ def load_npc_data(npc_name):
     from campaign_path_manager import CampaignPathManager
     path_manager = CampaignPathManager()
     
-    npc_file = path_manager.get_npc_path(npc_name)
+    npc_file = path_manager.get_character_path(npc_name)
     try:
         with open(npc_file, "r") as file:
             npc_data = json.load(file)

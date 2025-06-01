@@ -134,7 +134,7 @@ def load_or_create_monster(monster_type):
 def load_or_create_npc(npc_name):
     formatted_npc_name = format_type_name(npc_name)
     path_manager = CampaignPathManager()
-    npc_file = path_manager.get_npc_path(npc_name)
+    npc_file = path_manager.get_character_path(npc_name)
     npc_data = load_json(npc_file)
     if not npc_data:
         print(colored(f"NPC {npc_name} not found. Attempting to create it...", "yellow"))
@@ -174,7 +174,7 @@ def generate_encounter(encounter_data):
 
     # Add player
     path_manager = CampaignPathManager()
-    player_file = path_manager.get_player_path(encounter_data['player'])
+    player_file = path_manager.get_character_path(encounter_data['player'])
     logging.debug(f"Attempting to load player data from {player_file}")
     
     backup_player_file(player_file)

@@ -125,7 +125,7 @@ Abilities object:
 def update_player(player_name, changes, max_retries=3):
     # Load the current player info and schema
     path_manager = CampaignPathManager()
-    player_file_path = path_manager.get_player_path(player_name)
+    player_file_path = path_manager.get_character_path(player_name)
     player_info = safe_read_json(player_file_path)
     if not player_info:
         print(f"{RED}ERROR: Could not read player file for {player_name}{RESET}")

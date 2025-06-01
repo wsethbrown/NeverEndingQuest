@@ -35,7 +35,7 @@ def detect_character_role(character_name):
     path_manager = CampaignPathManager()
     
     # First try player path
-    player_path = path_manager.get_player_path(character_name)
+    player_path = path_manager.get_character_path(character_name)
     try:
         with open(player_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
@@ -44,7 +44,7 @@ def detect_character_role(character_name):
         pass
     
     # Then try NPC path
-    npc_path = path_manager.get_npc_path(character_name)
+    npc_path = path_manager.get_character_path(character_name)
     try:
         with open(npc_path, 'r', encoding='utf-8') as f:
             data = json.load(f)

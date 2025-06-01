@@ -152,7 +152,7 @@ def main():
     generated_npc_data = generate_npc(npc_name_arg, npc_schema_data, npc_race_arg, npc_class_arg, npc_level_arg, npc_background_arg) # Renamed variable
     if generated_npc_data:
         path_manager = CampaignPathManager()
-        full_path = path_manager.get_npc_path(npc_name_arg)
+        full_path = path_manager.get_character_path(npc_name_arg)
         if save_json(full_path, generated_npc_data):
             print(f"{GREEN}NPC '{npc_name_arg}' created and saved to {full_path}{RESET}")
         else:

@@ -238,7 +238,7 @@ def update_npc(npc_name, changes, max_retries=3):
     }
     # Load the current NPC info and schema
     path_manager = CampaignPathManager()
-    npc_file_path = path_manager.get_npc_path(npc_name)
+    npc_file_path = path_manager.get_character_path(npc_name)
     npc_info = safe_read_json(npc_file_path)
     if not npc_info:
         print(f"{RED}ERROR: Could not read NPC file for '{npc_name}' at path: {npc_file_path}{RESET}")

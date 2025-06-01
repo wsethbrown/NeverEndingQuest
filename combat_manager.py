@@ -551,7 +551,7 @@ def sync_active_encounter():
                     
             elif creature["type"] == "npc":
                 npc_name = creature['name'].lower().replace(' ', '_').split('_')[0]
-                npc_file = path_manager.get_npc_path(npc_name)
+                npc_file = path_manager.get_character_path(npc_name)
                 try:
                     npc_data = safe_json_load(npc_file)
                     if not npc_data:
@@ -673,7 +673,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
        elif creature["type"] == "npc":
            # Ensure npc_name is correctly formatted for file access
            npc_file_name_part = creature["name"].lower().replace(" ", "_").split('_')[0] # Handle names like "NPC_1"
-           npc_file = path_manager.get_npc_path(npc_file_name_part)
+           npc_file = path_manager.get_character_path(npc_file_name_part)
            if npc_file_name_part not in npc_templates: # Check against the base name
                try:
                    npc_data = safe_json_load(npc_file)
@@ -722,7 +722,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
            if creature["type"] == "npc":
                # For NPCs, look up their true max HP from their character file
                npc_name = creature_name.lower().replace(" ", "_").split('_')[0]
-               npc_file = path_manager.get_npc_path(npc_name)
+               npc_file = path_manager.get_character_path(npc_name)
                try:
                    with open(npc_file, "r") as file:
                        npc_data = json.load(file)
@@ -887,7 +887,7 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        for creature in encounter_data["creatures"]:
            if creature["type"] == "npc":
                npc_name = creature["name"].lower().replace(" ", "_").split('_')[0]
-               npc_file = path_manager.get_npc_path(npc_name)
+               npc_file = path_manager.get_character_path(npc_name)
                try:
                    with open(npc_file, "r") as file:
                        npc_data = json.load(file)
@@ -935,7 +935,7 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                if creature["type"] == "npc":
                    # For NPCs, look up their true max HP from their character file
                    npc_name = creature_name.lower().replace(" ", "_").split('_')[0]
-                   npc_file = path_manager.get_npc_path(npc_name)
+                   npc_file = path_manager.get_character_path(npc_name)
                    try:
                        with open(npc_file, "r") as file:
                            npc_data = json.load(file)

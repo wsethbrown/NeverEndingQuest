@@ -394,8 +394,8 @@ def ensure_campaign_path_manager_usage(campaign_name):
         "area": lambda area_id: path_manager.get_area_path(area_id),
         "map": lambda area_id: path_manager.get_map_path(area_id),
         "plot": lambda area_id: path_manager.get_plot_path(area_id),
-        "player": lambda player_name: path_manager.get_player_path(player_name),
-        "npc": lambda npc_name: path_manager.get_npc_path(npc_name)
+        "player": lambda player_name: path_manager.get_character_path(player_name),
+        "npc": lambda npc_name: path_manager.get_character_path(npc_name)
     }
     
     modified_files = []
@@ -493,8 +493,8 @@ class CampaignGenerator:
             "area_pattern": lambda area_id: path_manager.get_area_path(area_id),
             "map_pattern": lambda area_id: path_manager.get_map_path(area_id),
             "plot_pattern": lambda area_id: path_manager.get_plot_path(area_id),
-            "player_pattern": lambda player_name: path_manager.get_player_path(player_name),
-            "npc_pattern": lambda npc_name: path_manager.get_npc_path(npc_name)
+            "player_pattern": lambda player_name: path_manager.get_character_path(player_name),
+            "npc_pattern": lambda npc_name: path_manager.get_character_path(npc_name)
         }
     
     def generate_field(self, field_path: str, schema_info: Dict[str, Any], 

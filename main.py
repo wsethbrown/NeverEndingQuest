@@ -102,7 +102,7 @@ def exit_game():
 def get_npc_stat(npc_name, stat_name, time_estimate):
     print(f"DEBUG: get_npc_stat called for {npc_name}, stat: {stat_name}")
     path_manager = CampaignPathManager()
-    npc_file = path_manager.get_npc_path(npc_name)
+    npc_file = path_manager.get_character_path(npc_name)
     try:
         with open(npc_file, "r", encoding="utf-8") as file:
             npc_stats = json.load(file)
@@ -567,7 +567,7 @@ def main_game_loop():
 
         for npc_info_iter in party_tracker_data["partyNPCs"]:
             npc_name_iter = npc_info_iter["name"]
-            npc_data_file = path_manager.get_npc_path(npc_name_iter)
+            npc_data_file = path_manager.get_character_path(npc_name_iter)
             npc_data_iter = load_json_file(npc_data_file)
             if npc_data_iter:
                 stats = {
@@ -598,7 +598,7 @@ def main_game_loop():
                 if stats_item['name'] in party_tracker_data["partyMembers"]:
                     member_data_for_note = load_json_file(path_manager.get_character_path(stats_item['name']))
                 else:
-                    member_data_for_note = load_json_file(path_manager.get_npc_path(stats_item['name']))
+                    member_data_for_note = load_json_file(path_manager.get_character_path(stats_item['name']))
                 if member_data_for_note:
                     abilities = member_data_for_note.get("abilities", {})
                     ability_str = f"STR:{abilities.get('strength', 'N/A')} DEX:{abilities.get('dexterity', 'N/A')} CON:{abilities.get('constitution', 'N/A')} INT:{abilities.get('intelligence', 'N/A')} WIS:{abilities.get('wisdom', 'N/A')} CHA:{abilities.get('charisma', 'N/A')}"
