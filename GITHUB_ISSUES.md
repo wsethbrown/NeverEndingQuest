@@ -255,3 +255,78 @@ The game interface displays inconsistent capitalization for character sheet sect
 - Apply text-transform CSS rules where appropriate
 - Update HTML templates to use proper casing
 - Consider using CSS classes for consistent styling across similar elements
+
+---
+
+## Issue 8: Improve validation error handling with AI feedback loop
+**Labels:** `enhancement`, `error-handling`, `ai-integration`
+
+### Description
+When character update validation fails (like the recent consumable item_type issue), the system retries 3 times with the same AI response, leading to repeated failures. We need a feedback mechanism that informs the AI about the specific validation error so it can correct its response.
+
+### Current Behavior
+- Validation fails with specific error message
+- System retries 3 times with identical AI response
+- No feedback provided to AI about what failed
+- Changes are reverted after max attempts
+- User experiences failed update with no resolution
+
+### Expected Behavior
+- On validation failure, extract the specific error details
+- Generate a corrective prompt explaining the validation issue
+- Request AI to regenerate response with proper format/values
+- Include schema constraints in error feedback
+- Successfully complete update with corrected data
+
+### Technical Requirements
+1. Parse validation error messages to identify:
+   - Failed field path (e.g., `equipment.9.item_type`)
+   - Invalid value provided (e.g., `'consumable'`)
+   - Valid values expected (e.g., `['weapon', 'armor', 'miscellaneous']`)
+
+2. Generate corrective prompt:
+   - Explain what validation failed and why
+   - Provide the correct schema constraints
+   - Request AI to retry with valid values
+
+3. Implement feedback loop:
+   - After validation failure, send error details back to AI
+   - Allow AI to regenerate the update with corrections
+   - Validate the corrected response
+
+### Affected Files
+- `update_character_info.py` (main validation and retry logic)
+- `gpt.py` or AI interaction module (for sending corrective prompts)
+- Schema validation error parsing
+
+### Example Implementation
+```python
+if not is_valid:
+    # Parse validation error
+    error_details = parse_validation_error(error_msg)
+    
+    # Generate corrective prompt
+    correction_prompt = f"""
+    The character update failed validation:
+    - Field: {error_details.field_path}
+    - Invalid value: {error_details.invalid_value}
+    - Valid options: {error_details.valid_options}
+    
+    Please regenerate the update using only valid values from the schema.
+    For equipment items, use only: weapon, armor, or miscellaneous.
+    """
+    
+    # Get corrected response from AI
+    corrected_response = ai_model.request_correction(
+        original_prompt=prompt,
+        error_feedback=correction_prompt,
+        character_data=current_data
+    )
+```
+
+### Benefits
+- Reduces failed updates and user frustration
+- AI learns from validation errors in real-time
+- More robust system that self-corrects
+- Better handling of schema evolution
+- Improved debugging with detailed error tracking
