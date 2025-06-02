@@ -330,3 +330,106 @@ if not is_valid:
 - More robust system that self-corrects
 - Better handling of schema evolution
 - Improved debugging with detailed error tracking
+
+---
+
+## Issue 9: Implement proper Hit Dice tracking for short rests
+**Labels:** `enhancement`, `game-mechanics`, `data-integrity`
+
+### Description
+The game currently lacks a proper system for tracking Hit Dice usage during short rests. When the AI tries to track Hit Dice spent, it attempts to add fields like 'hitDiceRemaining' or 'hitDice' to character data, which fails validation because these fields aren't in the schema. Hit Dice spent during short rests are not being tracked, and there's no mechanism to restore them during long rests according to D&D 5e rules.
+
+### Current Behavior
+- No Hit Dice tracking fields in character schema
+- AI attempts to add hitDiceRemaining/hitDice fail validation
+- Hit Dice usage during short rests is mentioned but not persisted
+- No automatic restoration during long rests
+- No validation to prevent using more Hit Dice than available
+
+### Evidence from Logs
+```
+Warning: Adding new field 'hitDiceRemaining' to character
+Validation failed: Additional properties are not allowed ('hitDiceRemaining' was unexpected)
+Warning: Adding new field 'hitDice' to character  
+Validation failed: Additional properties are not allowed ('hitDice' was unexpected)
+```
+
+### Expected Behavior
+- Track current and maximum Hit Dice in character data
+- Persist Hit Dice usage across sessions
+- Automatically restore half (rounded up) of max Hit Dice on long rest
+- Validate Hit Dice availability before allowing usage
+- Display remaining Hit Dice in character stats
+
+### D&D 5e Rules Reference
+- Characters have Hit Dice equal to their level
+- Hit Die type depends on class (d10 for Fighter, d8 for Rogue, etc.)
+- Short rest: Can spend any number of available Hit Dice
+- Long rest: Regain Hit Dice equal to half character level (minimum 1)
+
+### Technical Requirements
+1. Update character schema to include:
+   ```json
+   "hitDice": {
+     "current": 4,
+     "maximum": 4,
+     "dieType": "d10"
+   }
+   ```
+
+2. Set schema additionalProperties to false to catch these issues
+
+3. Modify short rest handling:
+   - Check available Hit Dice before allowing usage
+   - Update current Hit Dice count after usage
+   - Persist changes to character file
+
+4. Implement long rest mechanics:
+   - Restore hit points to maximum
+   - Restore Hit Dice: current = min(maximum, current + ceil(maximum/2))
+   - Restore spell slots and abilities
+
+### Affected Files
+- `char_schema.json` (add hitDice object)
+- `npc_schema.json` (add hitDice object)
+- `update_character_info.py` (handle Hit Dice updates)
+- `system_prompt.txt` (add Hit Dice tracking instructions)
+- Character creation scripts (initialize Hit Dice based on class/level)
+
+### Implementation Example
+```python
+def handle_short_rest(character_name, hit_dice_spent, roll_results):
+    character = load_character(character_name)
+    
+    # Validate Hit Dice availability
+    if hit_dice_spent > character["hitDice"]["current"]:
+        return {"error": "Not enough Hit Dice available"}
+    
+    # Calculate healing
+    con_modifier = calculate_modifier(character["abilities"]["constitution"])
+    total_healing = sum(roll_results) + (hit_dice_spent * con_modifier)
+    
+    # Update character
+    character["hitPoints"] = min(
+        character["hitPoints"] + total_healing,
+        character["maxHitPoints"]
+    )
+    character["hitDice"]["current"] -= hit_dice_spent
+    
+    save_character(character_name, character)
+```
+
+### Migration Strategy
+1. Add hitDice field to schema with defaults
+2. Update existing characters:
+   - Set maximum = character level
+   - Set current = maximum (assume full Hit Dice)
+   - Set dieType based on class mapping
+3. Update AI prompts to use the proper hitDice structure
+
+### Benefits
+- Accurate D&D 5e mechanics implementation
+- Prevents validation errors when AI tries to track Hit Dice
+- Better resource management gameplay
+- Consistent tracking across sessions
+- Clear display of available resources
