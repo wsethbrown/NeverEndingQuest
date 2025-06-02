@@ -1,44 +1,4 @@
-2:18:17 PMDEBUG: Encounter B02-E1 information updated
-2:18:17 PMDEBUG: Encounter B02-E1 updated successfully
-2:18:17 PMDEBUG: Combat has ended, preparing summary...
-2:18:17 PMUpdating character info for: norn
-2:18:17 PMDetected character role: player
-2:18:17 PMAttempt 1 of 3
-2:18:18 PMSuccessfully updated norn (player)!
-2:18:18 PMUpdated fields: experience_points, exp_required_for_next_level
-2:18:20 PMDEBUG: Raw AI response written to debug_encounter_update.json
-2:18:20 PMDEBUG: Successfully updated and validated encounter info on attempt 1
-2:18:20 PMDEBUG: Changes made:
-2:18:20 PM{}
-2:18:20 PMDEBUG: Encounter B02-E1 information updated
-2:18:20 PMERROR: Failed to save party_tracker.json
-2:18:20 PMDEBUG: Activating the third model...
-2:18:25 PMDEBUG: Current location ID: B02
-2:18:26 PMERROR: Failed to save area file: campaigns/Keep_of_Doom/G001.json
-2:18:26 PMDEBUG: Encounter  added to campaigns/Keep_of_Doom/G001.json.
-2:18:26 PMDEBUG: Attempting to write to file: combat_conversation_history.json
-2:18:26 PMERROR: Failed to save conversation history
-2:18:26 PMConversation history updated with encounter summary.
-2:18:26 PMERROR: Failed to save chat history to combat_logs/B02-E1/combat_chat_20250601_141826.json
-2:18:26 PMCombat chat history updated!
-2:18:26 PMEncounter ID: B02-E1
-2:18:26 PMSystem messages removed: 8
-2:18:26 PMUser messages: 21
-2:18:26 PMAssistant messages: 21
-2:18:26 PMTotal messages (including system): 50
-2:18:26 PMOutput saved to: combat_logs/B02-E1/combat_chat_20250601_141826.json
-2:18:26 PMERROR: Failed to save latest chat history
-2:18:26 PMLatest version also saved to: combat_logs/B02-E1/combat_chat_latest.json
-2:18:26 PMCombat encounter closed. Exiting combat simulation.
-2:18:26 PMDEBUG: Updated player file for norn
-2:18:38 PMWARNING: Unknown action type: updateEncounter
-2:18:38 PMDEBUG: Processing updateCharacterInfo action
-2:18:38 PMDEBUG: Updating character info for Norn
-2:18:38 PMUpdating character info for: Norn
-2:18:38 PMERROR: Failed to update character info: 'bool' object has no attribute 'get'
-2:18:38 PMCurrent Time: 21:20:00, Time Advanced: 5 minutes, New Time: 21:25:00, Days Passed: 0
-2:18:38 PMCurrent Time: 21:25:00, Time Advanced: 2 minutes, New Time: 21:27:00, Days Passed: 0
-2:18:38 PMLightweight chat history updated!
-2:18:38 PMSystem messages removed: 6
-2:18:38 PMUser messages: 33
-2:18:38 PMAssistant messages: 30
+ {
+    "role": "system",
+    "content": "Player Character:\n{\n  \"character_role\": \"player\",\n  \"character_type\": \"player\",\n  \"name\": \"Norn\",\n  \"type\": \"player\",\n  \"size\": \"Medium\",\n  \"level\": 4,\n  \"race\": \"Human\",\n  \"class\": \"Fighter\",\n  \"alignment\": \"lawful good\",\n  \"background\": \"Soldier\",\n  \"status\": \"alive\",\n  \"condition\": \"none\",\n  \"condition_affected\": [],\n  \"hitPoints\": 26,\n  \"maxHitPoints\": 36,\n  \"armorClass\": 16,\n  \"initiative\": 2,\n  \"speed\": 30,\n  \"abilities\": {\n    \"strength\": 17,\n    \"dexterity\": 14,\n    \"constitution\": 16,\n    \"intelligence\": 11,\n    \"wisdom\": 13,\n    \"charisma\": 9\n  },\n  \"savingThrows\": [\n    \"Strength\",\n    \"Constitution\"\n  ],\n  \"skills\": {\n    \"Athletics\": 5,\n    \"Insight\": 3,\n    \"Intimidation\": 1,\n    \"Survival\": 3\n  },\n  \"proficiencyBonus\": 2,\n  \"senses\": {\n    \"passivePerception\": 11\n  },\n  \"languages\": [\n    \"Common\"\n  ],\n  \"proficiencies\": {\n    \"armor\": [\n      \"Light armor\",\n      \"Medium armor\",\n      \"Heavy armor\",\n      \"Shields\"\n    ],\n    \"weapons\": [\n      \"Simple weapons\",\n      \"Martial weapons\"\n    ],\n    \"tools\": []\n  },\n  \"damageVulnerabilities\": [],\n  \"damageResistances\": [],\n  \"damageImmunities\": [],\n  \"conditionImmunities\": [],\n  \"classFeatures\": [\n    {\n      \"name\": \"Second Wind\",\n      \"description\": \"Once per short rest, regain 1d10 + fighter level HP as a bonus action (restored)\",\n      \"source\": \"Fighter feature\"\n    },\n    {\n      \"name\": \"Action Surge\",\n      \"description\": \"Once per short rest, take one additional action on your turn (restored)\",\n      \"source\": \"Fighter feature\"\n    },\n    {\n      \"name\": \"Fighting Style: Defense\",\n      \"description\": \"+1 to AC when wearing armor\",\n      \"source\": \"Fighter feature\"\n    },\n    {\n      \"name\": \"Improved Critical\",\n      \"description\": \"Your weapon attacks score a critical hit on a roll of 19 or 20\",\n      \"source\": \"Fighter feature\"\n    },\n    {\n      \"name\": \"Martial Archetype: Champion\",\n      \"description\": \"Martial Archetype: Champion\",\n      \"source\": \"Fighter feature\"\n    }\n  ],\n  \"equipment\": [\n    {\n      \"item_name\": \"Hemp Rope (50 feet)\",\n      \"item_type\": \"miscellaneous\",\n      \"description\": \"Sturdy rope useful for climbing, tying, and securing items\",\n      \"quantity\": 1\n    },\n    {\n      \"item_name\": \"Torch\",\n      \"item_type\": \"miscellaneous\",\n      \"description\": \"A wooden torch that burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet\",\n      \"quantity\": 3\n    },\n    {\n      \"item_name\": \"Carved Bone Talisman\",\n      \"item_type\": \"miscellaneous\",\n      \"description\": \"A slender, carved bone used as a focus in the Lost Ward Circle ritual\",\n      \"quantity\": 1\n    },\n    {\n      \"item_name\": \"Bundle of Gloamwood Roots\",\n      \"item_type\": \"miscellaneous\",\n      \"description\": \"Dried roots from the Gloamwood, used as a living token in the Lost Ward Circle ritual\",\n      \"quantity\": 1\n    },\n    {\n      \"item_name\": \"Ancient Bronze Key (raven sigil)\",\n      \"item_type\": \"miscellaneous\",\n      \"description\": \"An old bronze key with a raven sigil, given by Elder Mirna\",\n      \"quantity\": 1\n    }\n  ],\n  \"ammunition\": [\n    {\n      \"name\": \"Arrows\",\n      \"quantity\": 31,\n      \"description\": \"Standard arrows for a bow\"\n    }\n  ],\n  \"attacksAndSpellcasting\": [\n    {\n      \"name\": \"Longsword\",\n      \"attackBonus\": 5,\n      \"damageDice\": \"1d8\",\n      \"damageBonus\": 3,\n      \"damageType\": \"slashing\",\n      \"type\": \"melee\",\n      \"description\": \"Standard longsword\"\n    },\n    {\n      \"name\": \"Crude Dagger\",\n      \"attackBonus\": 5,\n      \"damageDice\": \"1d4\",\n      \"damageBonus\": 3,\n      \"damageType\": \"piercing\",\n      \"type\": \"melee\",\n      \"description\": \"A crude dagger\"\n    },\n    {\n      \"name\": \"Sturdy Bow\",\n      \"attackBonus\": 4,\n      \"damageDice\": \"1d6\",\n      \"damageBonus\": 2,\n      \"damageType\": \"piercing\",\n      \"type\": \"ranged\",\n      \"description\": \"A sturdy bow for ranged attacks\"\n    },\n    {\n      \"name\": \"Greatclub\",\n      \"attackBonus\": 5,\n      \"damageDice\": \"1d8\",\n      \"damageBonus\": 3,\n      \"damageType\": \"bludgeoning\",\n      \"type\": \"melee\",\n      \"description\": \"A large, heavy club\"\n    }\n  ],\n  \"spellcasting\": {\n    \"ability\": \"\",\n    \"spellSaveDC\": 0,\n    \"spellAttackBonus\": 0,\n    \"spells\": {\n      \"cantrips\": [],\n      \"level1\": [],\n      \"level2\": [],\n      \"level3\": [],\n      \"level4\": [],\n      \"level5\": [],\n      \"level6\": [],\n      \"level7\": [],\n      \"level8\": [],\n      \"level9\": []\n    }\n  },\n  \"currency\": {\n    \"gold\": 42,\n    \"silver\": 1,\n    \"copper\": 0\n  },\n  \"experience_points\": 5821,\n  \"exp_required_for_next_level\": 6500,\n  \"challengeRating\": 0,\n  \"personality_traits\": \"I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.\",\n  \"ideals\": \"Responsibility. I do what I must and obey just authority.\",\n  \"bonds\": \"I fight for those who cannot fight for themselves.\",\n  \"flaws\": \"I have a hard time hiding my true feelings. My sharp tongue often gets me into trouble.\",\n  \"racialTraits\": [\n    {\n      \"name\": \"Ability Score Increase\",\n      \"description\": \"Your ability scores each increase by 1.\",\n      \"source\": \"Human\"\n    },\n    {\n      \"name\": \"Languages\",\n      \"description\": \"You can speak, read, and write Common and one extra language of your choice.\",\n      \"source\": \"Human\"\n    }\n  ],\n  \"temporaryEffects\": [\n    {\n      \"name\": \"Spiritual Fortitude\",\n      \"description\": \"Advantage on saving throws against enchantment and fear effects.\",\n      \"duration\": \"24 hours\",\n      \"source\": \"Ward Rituals\"\n    },\n    {\n      \"name\": \"Blessing of the Forest Guardian\",\n      \"description\": \"Advantage on saving throws against fear effects.\",\n      \"duration\": \"24 hours\",\n      \"source\": \"Forest Guardian\"\n    },\n    {\n      \"name\": \"Ward's Favor\",\n      \"description\": \"Undead in the Gloamwood have disadvantage on attacks against Norn for 24 hours.\",\n      \"duration\": \"24 hours\",\n      \"source\": \"Lost Ward Circle Ritual\"\n    }\n  ],\n  \"feats\": [],\n  \"backgroundFeature\": {\n    \"name\": \"Military Rank\",\n    \"description\": \"Soldiers loyal to your former military organization still recognize your authority and military rank. They will defer to you if they are of a lower rank, and you can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use.\",\n    \"source\": \"Soldier background\"\n  }\n}"
+  },

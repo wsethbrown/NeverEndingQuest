@@ -217,3 +217,41 @@ Character names with spaces or special characters (e.g., "Sir Reginald", "D'Arta
 - "D'Artagnan" ✗ (contains apostrophe)
 - "Mary Sue" ✗ (contains space)
 - "Fighter #1" ✗ (contains space and #)
+
+---
+
+## Issue 7: Inconsistent text capitalization in game interface
+**Labels:** `bug`, `ui/ux`
+
+### Description
+The game interface displays inconsistent capitalization for character sheet sections and labels, making the UI look unprofessional. Field names and section headers should follow proper title case conventions.
+
+### Current Behavior
+- Mixed capitalization styles across different sections
+- Some fields use lowercase (e.g., "hit points" instead of "Hit Points")
+- Inconsistent formatting between character stats, equipment, and abilities
+- No standard capitalization rules applied
+
+### Expected Behavior
+- All section headers use title case (e.g., "Character Stats", "Equipment", "Class Features")
+- Field labels use consistent capitalization (e.g., "Hit Points", "Armor Class", "Proficiency Bonus")
+- Maintain consistency across all character sheet elements
+- Follow standard UI/UX conventions for RPG character sheets
+
+### Affected Files
+- `templates/game_interface.html` (main UI template)
+- CSS styling files for text formatting
+- Any JavaScript that dynamically generates field labels
+
+### Examples to Fix
+- "hit points" → "Hit Points"
+- "armor class" → "Armor Class" 
+- "class features" → "Class Features"
+- "temporary effects" → "Temporary Effects"
+- "background feature" → "Background Feature"
+
+### Implementation Notes
+- Create a consistent capitalization style guide
+- Apply text-transform CSS rules where appropriate
+- Update HTML templates to use proper casing
+- Consider using CSS classes for consistent styling across similar elements

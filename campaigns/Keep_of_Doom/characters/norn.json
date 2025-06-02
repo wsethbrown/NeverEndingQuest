@@ -92,6 +92,30 @@
       "item_type": "miscellaneous",
       "description": "Sturdy rope useful for climbing, tying, and securing items",
       "quantity": 1
+    },
+    {
+      "item_name": "Torch",
+      "item_type": "miscellaneous",
+      "description": "A wooden torch that burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet",
+      "quantity": 3
+    },
+    {
+      "item_name": "Carved Bone Talisman",
+      "item_type": "miscellaneous",
+      "description": "A slender, carved bone used as a focus in the Lost Ward Circle ritual",
+      "quantity": 1
+    },
+    {
+      "item_name": "Bundle of Gloamwood Roots",
+      "item_type": "miscellaneous",
+      "description": "Dried roots from the Gloamwood, used as a living token in the Lost Ward Circle ritual",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ancient Bronze Key (raven sigil)",
+      "item_type": "miscellaneous",
+      "description": "An old bronze key with a raven sigil, given by Elder Mirna",
+      "quantity": 1
     }
   ],
   "ammunition": [
@@ -161,7 +185,7 @@
     "silver": 0,
     "copper": 0
   },
-  "experience_points": 4971,
+  "experience_points": 6121,
   "exp_required_for_next_level": 6500,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
@@ -192,6 +216,12 @@
       "description": "Advantage on saving throws against fear effects.",
       "duration": "24 hours",
       "source": "Forest Guardian"
+    },
+    {
+      "name": "Ward's Favor",
+      "description": "Undead in the Gloamwood have disadvantage on attacks against Norn for 24 hours.",
+      "duration": "24 hours",
+      "source": "Lost Ward Circle Ritual"
     }
   ],
   "feats": [],
