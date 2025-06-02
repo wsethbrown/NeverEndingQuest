@@ -134,6 +134,24 @@
       "item_type": "miscellaneous",
       "description": "A worn journal with notes about Elen, Sir Garran Vael, warnings about whispers, and the Keeper",
       "quantity": 1
+    },
+    {
+      "item_name": "Pouch of Gold Coins",
+      "item_type": "miscellaneous",
+      "description": "A small pouch containing 15 gold pieces",
+      "quantity": 1
+    },
+    {
+      "item_name": "Potion of Healing",
+      "item_type": "consumable",
+      "description": "A red liquid potion that restores hit points when consumed",
+      "quantity": 1
+    },
+    {
+      "item_name": "Parchment Map Scrap",
+      "item_type": "miscellaneous",
+      "description": "A faded parchment with a diagram marking a secret entrance to the keep at dusk",
+      "quantity": 1
     }
   ],
   "ammunition": [
@@ -199,7 +217,7 @@
     }
   },
   "currency": {
-    "gold": 74,
+    "gold": 89,
     "silver": 0,
     "copper": 0
   },

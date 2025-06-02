@@ -10,7 +10,7 @@
   "map": {
     "mapId": "MAP_SK001",
     "mapName": "Shadowfall Keep Map",
-    "totalRooms": 7,
+    "totalRooms": 8,
     "rooms": [
       {
         "id": "C01",
@@ -18,7 +18,8 @@
         "type": "courtyard",
         "connections": [
           "C02",
-          "C03"
+          "C03",
+          "C08"
         ],
         "coordinates": "X2Y1"
       },
@@ -81,9 +82,23 @@
           "C05"
         ],
         "coordinates": "X3Y3"
+      },
+      {
+        "id": "C08",
+        "name": "Secret Passage",
+        "type": "passage",
+        "connections": [
+          "C01"
+        ],
+        "coordinates": "X1Y0"
       }
     ],
     "layout": [
+      [
+        "C08",
+        "   ",
+        "   "
+      ],
       [
         "C02",
         "C01",
@@ -155,7 +170,8 @@
       "coordinates": "X2Y1",
       "connectivity": [
         "C02",
-        "C03"
+        "C03",
+        "C08"
       ],
       "areaConnectivity": [
         "Keeper's Cottage"
@@ -786,6 +802,84 @@
         {
           "name": "Frozen Clock",
           "description": "A grandfather clock perpetually stopped at midnight, occasionally ticking backward."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "C08",
+      "name": "Secret Passage",
+      "type": "passage",
+      "description": "A narrow, winding tunnel carved through solid rock, barely wide enough for a single person to traverse. The walls are damp with condensation, and ancient roots from the forest above snake through cracks in the stone ceiling. This hidden passage emerges from behind a cleverly concealed stone door in the courtyard wall, its mechanism operated by pressing a specific sequence of weathered stones. The air here is musty and close, carrying the scent of earth and decay from its connection to Gloamwood's depths. Fresh scuff marks on the floor and a torn piece of ranger's cloak caught on a protruding root suggest recent passage—clear evidence of Scout Elen's infiltration of the keep.",
+      "coordinates": "X1Y0",
+      "connectivity": [
+        "C01"
+      ],
+      "areaConnectivity": [
+        "Hidden Keep Entrance"
+      ],
+      "areaConnectivityId": [
+        "G001-B09"
+      ],
+      "npcs": [],
+      "monsters": [],
+      "lootTable": [
+        "Scout Elen's torn cloak piece (provides scent for tracking)",
+        "Small vial of luminescent moss (acts as dim light for 1 hour)",
+        "Weathered map fragment showing other hidden entrances (partially illegible)"
+      ],
+      "plotHooks": [
+        "The stone door mechanism shows signs of recent use, with fresh oil applied to keep it silent.",
+        "Chalk marks on the tunnel walls appear to be Scout Elen's navigation notes, indicating she planned her route carefully.",
+        "A hastily scrawled warning reads: 'Shadows move on their own within—trust nothing that lacks substance.'"
+      ],
+      "dmInstructions": "This passage serves as the secret connection between Gloamwood and Shadowfall Keep. The entrance from the courtyard side is hidden behind ivy and requires a DC 15 Investigation check to locate without prior knowledge. The stone door mechanism requires a DC 13 Intelligence check to operate without instructions. Players following Scout Elen's trail from Gloamwood will emerge here. The passage is too narrow for Medium creatures to fight effectively (disadvantage on melee attacks) and completely blocks Large or larger creatures. Sound echoes strangely here—loud noises might alert creatures in both the courtyard and the Hidden Keep Entrance.",
+      "doors": [
+        {
+          "name": "Secret Stone Door (Courtyard Side)",
+          "description": "A section of the courtyard wall that pivots inward when the correct stones are pressed.",
+          "type": "hidden",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 18,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "Secret Stone Door (Gloamwood Side)",
+          "description": "A moss-covered stone that slides aside to reveal the tunnel entrance.",
+          "type": "hidden",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 18,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 15: Locate the hidden door from the courtyard side without prior knowledge.",
+        "Intelligence DC 13: Figure out the stone door mechanism without instructions.",
+        "Survival DC 12: Follow Scout Elen's trail through the passage.",
+        "Perception DC 14: Hear sounds from either the courtyard or Gloamwood while in the tunnel."
+      ],
+      "accessibility": "Extremely narrow passage requiring single file movement; impassable for Large or larger creatures.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Root Network",
+          "description": "Gnarled tree roots from Gloamwood above penetrate through cracks, creating natural handholds."
+        },
+        {
+          "name": "Stone Door Mechanism",
+          "description": "An ancient but well-maintained system of counterweights and pivots that operates the secret doors."
+        },
+        {
+          "name": "Scout's Marks",
+          "description": "Chalk symbols and notes left by Scout Elen to mark her path and warn of dangers ahead."
         }
       ],
       "encounters": [],

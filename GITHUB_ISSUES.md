@@ -433,3 +433,102 @@ def handle_short_rest(character_name, hit_dice_spent, roll_results):
 - Better resource management gameplay
 - Consistent tracking across sessions
 - Clear display of available resources
+
+---
+
+## Issue 10: AI creates non-existent location paths and connections
+**Labels:** `bug`, `ai-behavior`, `game-consistency`
+
+### Description
+The AI Dungeon Master is creating narrative elements (like secret paths and location connections) that don't exist in the actual campaign structure files. This leads to confusion when players attempt to follow AI-suggested paths that aren't defined in the game's location data, breaking immersion and causing inconsistencies between the narrative and the actual game state.
+
+### Current Behavior
+- AI invents secret passages, hidden doors, and alternate routes not in location files
+- AI describes connections between locations that don't exist in the JSON structure
+- Players get confused when trying to follow AI-described paths
+- Narrative continuity breaks when suggested paths can't be followed
+- No validation that AI responses match actual game structure
+
+### Example Case
+In the Keep of Doom campaign, the AI described:
+- A "secret path" from the Haunted Hall (HH001) to other locations
+- This path didn't exist in the actual HH001.json location file
+- Player attempted to follow the secret path, causing confusion
+- Required manual intervention to clarify actual available exits
+
+### Expected Behavior
+- AI should only reference locations that exist in the campaign files
+- AI should only describe connections defined in location JSON files
+- When describing a room, AI should check actual exits in the location data
+- AI should not invent new paths, doors, or connections
+- Clear error handling when AI tries to reference non-existent locations
+
+### Root Cause
+The system prompt doesn't explicitly instruct the AI to:
+1. Check location files before describing paths/exits
+2. Limit descriptions to actual game structure
+3. Validate that narrative elements match campaign data
+
+### Proposed Solution
+1. Update system prompts to include strict instructions:
+   ```
+   LOCATION COMPLIANCE RULES:
+   - Only describe exits that exist in the location's JSON file
+   - Never invent secret passages, hidden doors, or alternate routes
+   - Always check the actual location data before describing connections
+   - If asked about paths not in the data, respond: "There is no such path here"
+   - Reference only locations that exist in the campaign structure
+   ```
+
+2. Add validation layer:
+   - Before AI response is sent, validate mentioned locations exist
+   - Check that described exits match location JSON data
+   - Flag any discrepancies for correction
+
+3. Provide location context to AI:
+   - Include current location's actual exits in the context
+   - List valid connecting locations
+   - Explicitly state which paths are available
+
+### Affected Files
+- `system_prompt.txt` (add location compliance rules)
+- `dm_wrapper.py` or AI interaction layer (add validation)
+- `location_manager.py` (provide location validation methods)
+- Campaign location JSON files (ensure complete exit definitions)
+
+### Implementation Example
+```python
+def validate_ai_location_response(ai_response, current_location):
+    """Validate that AI response matches actual location data"""
+    location_data = load_location(current_location)
+    valid_exits = location_data.get('exits', [])
+    
+    # Check for invalid exit mentions
+    mentioned_exits = extract_exits_from_narrative(ai_response)
+    invalid_exits = [exit for exit in mentioned_exits if exit not in valid_exits]
+    
+    if invalid_exits:
+        # Request AI to regenerate response with only valid exits
+        correction_prompt = f"""
+        Your response mentioned exits that don't exist: {invalid_exits}
+        The only valid exits from {current_location} are: {valid_exits}
+        Please regenerate your response using only these actual exits.
+        """
+        return get_corrected_response(correction_prompt)
+    
+    return ai_response
+```
+
+### Testing Strategy
+1. Create test scenarios with limited exits
+2. Prompt AI to describe the location
+3. Verify AI only mentions actual exits
+4. Test AI behavior when asked about non-existent paths
+5. Ensure consistent behavior across multiple sessions
+
+### Benefits
+- Maintains consistency between narrative and game structure
+- Reduces player confusion and frustration
+- Ensures game progression follows designed paths
+- Improves overall game reliability
+- Makes debugging easier when issues arise
