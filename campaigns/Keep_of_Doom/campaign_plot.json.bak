@@ -11,7 +11,7 @@
         "PP002"
       ],
       "status": "in progress",
-      "plotImpact": "Norn has shared the latest developments and vision of Scout Elen with Elder Mirna, received the ancient bronze key to the keep, and reassured the villagers, strengthening trust and giving the investigation new momentum.",
+      "plotImpact": "Norn inspires the militia to heightened vigilance, bolstering Harrow's Hollow's defenses and morale as he prepares to confront the curse at the keep.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -44,7 +44,7 @@
         "PP003"
       ],
       "status": "in progress",
-      "plotImpact": "Morvath confirms that Elen most likely fled toward Shadowfall Keep. He warns Norn of the dangers ahead and hints that an old key or forest blessing may be needed to enter the keep, setting the next step of the quest.",
+      "plotImpact": "Norn discovered the rangers' map detailing the approach to the keep and warnings about the Lost Ward Circle and the Keeper, as well as a journal that documents Elen's movement and the growing supernatural threats.",
       "sideQuests": [
         {
           "id": "SQ003",

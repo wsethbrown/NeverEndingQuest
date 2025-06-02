@@ -116,6 +116,24 @@
       "item_type": "miscellaneous",
       "description": "An old bronze key with a raven sigil, given by Elder Mirna",
       "quantity": 1
+    },
+    {
+      "item_name": "Silver Whistle (patrol signal)",
+      "item_type": "miscellaneous",
+      "description": "A small silver whistle used as a patrol signal by rangers",
+      "quantity": 1
+    },
+    {
+      "item_name": "Detailed Forest Map",
+      "item_type": "miscellaneous",
+      "description": "A detailed map marking the Lost Ward Circle, unstable ravine, and approach to the Keep of Doom",
+      "quantity": 1
+    },
+    {
+      "item_name": "Battered Ranger's Journal",
+      "item_type": "miscellaneous",
+      "description": "A worn journal with notes about Elen, Sir Garran Vael, warnings about whispers, and the Keeper",
+      "quantity": 1
     }
   ],
   "ammunition": [

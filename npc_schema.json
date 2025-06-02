@@ -152,7 +152,7 @@
         "type": "object",
         "properties": {
           "item_name": {"type": "string"},
-          "item_type": {"type": "string", "enum": ["weapon", "armor", "miscellaneous"]},
+          "item_type": {"type": "string", "enum": ["weapon", "armor", "miscellaneous", "consumable"]},
           "description": {"type": "string"},
           "quantity": {"type": "integer"}
         },
