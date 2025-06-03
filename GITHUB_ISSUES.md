@@ -532,3 +532,234 @@ def validate_ai_location_response(ai_response, current_location):
 - Ensures game progression follows designed paths
 - Improves overall game reliability
 - Makes debugging easier when issues arise
+
+---
+
+## Issue #18 - Location Transition Bug (Comprehensive Navigation System)
+**Labels:** `bug`, `enhancement`, `critical`
+
+### Description
+This is a critical issue affecting multi-area campaigns. Current transition system has several failure points:
+- Inconsistent connectivity definitions between areas
+- No validation of cross-area connections
+- Missing path validation logic
+- String matching issues between location names and IDs
+
+### Proposed Solution: Comprehensive Navigation Validation System
+
+A multi-component system to handle all location transitions with proper validation:
+
+**Core Components:**
+1. **Campaign Graph Builder** (`campaign_graph_builder.py`)
+   - Build complete connectivity graph of entire campaign
+   - Validate bidirectional connections
+   - Detect orphaned/unreachable locations
+
+2. **Path Finder** (`path_finder.py`) 
+   - Dijkstra/A* pathfinding algorithms
+   - Handle cross-area transitions
+   - Support alternative routes
+
+3. **Navigation Validator** (`navigation_validator.py`)
+   - Main validation engine for transitions
+   - Check for blocking monsters
+   - Verify visited location requirements  
+   - Prevent teleportation cheating
+
+4. **Monster Blocking System** (`monster_blocking.py`)
+   - Track monsters that block specific paths
+   - Handle conditional path availability
+
+**Key Features:**
+- Anti-cheating system (prevent jumping to unconnected locations)
+- Monster blocking detection (enemies can block progress)
+- Visited location tracking (player exploration history)
+- Dynamic path calculation with constraints
+- Integration with combat system and action handler
+
+**Implementation Priority:**
+- Phase 1: Basic graph and validation (fixes current issue)
+- Phase 2: Monster blocking system
+- Phase 3: Anti-cheating validation
+- Phase 4: Advanced features (alternative paths, etc.)
+
+**Benefits:**
+- Prevents cheating/teleportation
+- Enhances immersion through logical movement
+- Supports complex multi-area campaigns
+- Meaningful monster obstacle integration
+- Easy debugging of connectivity issues
+
+This comprehensive solution would completely resolve the location transition failures while adding robust navigation features that enhance gameplay.
+
+---
+
+## Issue #20 - Cannot determine equipped items and accurate AC calculation
+**Labels:** `bug`, `enhancement`, `game-mechanics`, `ui/ux`
+
+### Description
+Players cannot tell which items are equipped vs owned, and Armor Class is displayed as a static number without showing how it's calculated. The current system stores armor, weapons, and equipment in disconnected ways, making it impossible to understand what contributes to a character's AC or combat effectiveness.
+
+### Current Problems
+
+**1. No Equipped vs Owned Distinction**
+- All equipment shows as a flat list with no indication of what's equipped
+- No `equipped` boolean field in equipment schema
+- Players can't tell what armor/weapons they're actually using
+
+**2. Missing Armor Data**
+- Character has AC 16 but no armor pieces listed in equipment
+- Armor Class appears as static number with no source breakdown
+- No way to see what provides the base AC value
+
+**3. Disconnected Equipment Systems**
+- Weapons stored in `attacksAndSpellcasting` array (separate from equipment)
+- Armor not stored anywhere despite contributing to AC
+- Equipment items not linked to combat stats
+
+**4. No AC Calculation Logic**
+- AC shown as static field with no calculation
+- Missing breakdown: Base Armor + DEX mod + Fighting Style + other bonuses
+- Cannot verify if AC is correct for current equipment
+
+### Current Character Data Example (Norn)
+```json
+"armorClass": 16,  // Static number, no source shown
+"equipment": [     // No armor pieces listed
+  {"item_name": "Hemp Rope", "item_type": "miscellaneous"},
+  {"item_name": "Torch", "item_type": "miscellaneous"}
+],
+"attacksAndSpellcasting": [  // Weapons disconnected from equipment
+  {"name": "Longsword", "attackBonus": 5}
+]
+```
+
+### Expected Behavior
+
+**1. Equipment Schema Enhancement**
+```json
+"equipment": [
+  {
+    "item_name": "Chain Mail", 
+    "item_type": "armor", 
+    "equipped": true,
+    "ac_base": 16,
+    "dex_limit": 0
+  },
+  {
+    "item_name": "Shield", 
+    "item_type": "armor", 
+    "equipped": true,
+    "ac_bonus": 2
+  },
+  {
+    "item_name": "Longsword", 
+    "item_type": "weapon", 
+    "equipped": true,
+    "damage": "1d8+3",
+    "attack_bonus": 5
+  },
+  {
+    "item_name": "Backup Sword", 
+    "item_type": "weapon", 
+    "equipped": false
+  }
+]
+```
+
+**2. AC Calculation Display**
+```json
+"ac_calculation": {
+  "base_armor": 16,        // From equipped Chain Mail
+  "dex_modifier": 0,       // Limited by heavy armor
+  "shield_bonus": 2,       // From equipped shield  
+  "fighting_style": 1,     // Defense fighting style
+  "other_bonuses": 0,      // Magical items, spells, etc.
+  "total": 19
+}
+```
+
+**3. UI Improvements**
+- Visual distinction between equipped (highlighted) and unequipped items
+- AC breakdown showing each contributing factor
+- Equipment slots (Head, Chest, Hands, etc.) with drag-and-drop equipping
+- Weapons section showing equipped vs backup weapons
+
+### Technical Requirements
+
+**1. Schema Updates**
+- Add `equipped` boolean field to equipment items
+- Add armor-specific fields: `ac_base`, `ac_bonus`, `dex_limit`
+- Add weapon-specific fields: `damage`, `attack_bonus`, `weapon_type`
+- Add `ac_calculation` object to character data
+
+**2. Data Migration**
+- Add missing armor pieces to existing characters
+- Set appropriate `equipped` flags based on current stats
+- Link weapons from `attacksAndSpellcasting` to `equipment`
+
+**3. AC Calculation Logic**
+```python
+def calculate_armor_class(character_data):
+    equipped_armor = get_equipped_armor(character_data)
+    base_ac = equipped_armor.get('ac_base', 10)  # 10 + DEX if no armor
+    
+    dex_modifier = get_dex_modifier(character_data)
+    if equipped_armor.get('dex_limit') is not None:
+        dex_modifier = min(dex_modifier, equipped_armor['dex_limit'])
+    
+    shield_bonus = get_shield_bonus(character_data)
+    fighting_style_bonus = get_fighting_style_ac_bonus(character_data)
+    other_bonuses = get_magical_ac_bonuses(character_data)
+    
+    return {
+        'base_armor': base_ac,
+        'dex_modifier': dex_modifier,
+        'shield_bonus': shield_bonus,
+        'fighting_style': fighting_style_bonus,
+        'other_bonuses': other_bonuses,
+        'total': base_ac + dex_modifier + shield_bonus + fighting_style_bonus + other_bonuses
+    }
+```
+
+**4. UI Enhancements**
+- Equipment slots interface with equip/unequip functionality
+- AC breakdown tooltip or expandable section
+- Visual indicators for equipped items (bold, different color, checkmark)
+- Weapon loadout section showing primary/secondary weapons
+
+### Affected Files
+- `char_schema.json` - Add equipment fields and AC calculation object
+- `norn.json` and other character files - Data migration
+- `templates/game_interface.html` - UI improvements for equipment display
+- `update_character_info.py` - AC calculation logic
+- `system_prompt.txt` - Instructions for AI to manage equipment properly
+
+### D&D 5e Rules Reference
+- **Base AC**: Armor type determines base AC (Leather 11, Chain Mail 16, Plate 18)
+- **DEX Modifier**: Added to AC, but limited by armor type (Heavy armor: +0, Medium: max +2)
+- **Shield**: +2 AC when equipped
+- **Fighting Styles**: Defense style gives +1 AC when wearing armor
+- **Magical Items**: Can provide additional AC bonuses
+
+### Implementation Priority
+1. **Phase 1**: Add `equipped` field and basic equipment distinction
+2. **Phase 2**: Implement AC calculation logic
+3. **Phase 3**: Enhanced UI with equipment slots
+4. **Phase 4**: Advanced features (equipment sets, automatic optimization)
+
+### Benefits
+- Players can see exactly what equipment they're using
+- AC calculation is transparent and verifiable
+- Equipment decisions become meaningful
+- Better integration between equipment and combat stats
+- Improved character sheet accuracy and usability
+- Easier debugging of character stat issues
+
+### Example Use Case
+A player finds better armor and wants to compare:
+- Current: Chain Mail (AC 16) + Shield (+2) + Defense Style (+1) = 19 AC
+- New: Scale Mail (AC 14 + DEX 2) + Shield (+2) + Defense Style (+1) = 19 AC
+- Decision: Keep Chain Mail for better AC with low DEX, or switch for other benefits
+
+This visibility enables informed equipment choices and better gameplay experience.

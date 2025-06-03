@@ -19,7 +19,8 @@ COMBAT_DIALOGUE_SUMMARY_MODEL = "gpt-4.1-mini-2025-04-14"
 
 # --- Utility and Builder Models ---
 NPC_BUILDER_MODEL = "gpt-4.1-2025-04-14"                # Used in npc_builder.py
-ADVENTURE_SUMMARY_MODEL = "gpt-4.1-mini-2025-04-14"    # Used in adv_summary.py
+ADVENTURE_SUMMARY_MODEL = "gpt-4.1-mini-2025-04-14"
+CHARACTER_VALIDATOR_MODEL = "gpt-4.1-2025-04-14"    # Used in adv_summary.py
 PLOT_UPDATE_MODEL = "gpt-4.1-mini-2025-04-14"          # Used in plot_update.py
 PLAYER_INFO_UPDATE_MODEL = "gpt-4.1-mini-2025-04-14"   # Used in update_player_info.py
 NPC_INFO_UPDATE_MODEL = "gpt-4.1-mini-2025-04-14"      # Used in update_npc_info.py

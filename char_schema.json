@@ -190,7 +190,16 @@
           "item_name": {"type": "string"},
           "item_type": {"type": "string", "enum": ["weapon", "armor", "miscellaneous", "consumable"]},
           "description": {"type": "string"},
-          "quantity": {"type": "integer"}
+          "quantity": {"type": "integer"},
+          "equipped": {"type": "boolean", "default": false},
+          "ac_base": {"type": "integer", "minimum": 10, "maximum": 30},
+          "ac_bonus": {"type": "integer", "minimum": -5, "maximum": 10},
+          "dex_limit": {"type": ["integer", "null"], "minimum": 0, "maximum": 10},
+          "armor_category": {"type": "string", "enum": ["light", "medium", "heavy", "shield", "other"]},
+          "stealth_disadvantage": {"type": "boolean", "default": false},
+          "damage": {"type": "string"},
+          "attack_bonus": {"type": "integer"},
+          "weapon_type": {"type": "string"}
         },
         "required": ["item_name", "item_type", "description", "quantity"]
       }

@@ -8,6 +8,7 @@ import re
 from config import OPENAI_API_KEY, PLAYER_INFO_UPDATE_MODEL, NPC_INFO_UPDATE_MODEL
 from campaign_path_manager import CampaignPathManager
 from file_operations import safe_write_json, safe_read_json
+from character_validator import AICharacterValidator
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -318,6 +319,22 @@ Character Role: {character_role}
                 # Log the changes
                 changed_fields = list(updates.keys())
                 print(f"Updated fields: {', '.join(changed_fields)}")
+                
+                # NEW: AI Character Validation after successful update
+                try:
+                    validator = AICharacterValidator()
+                    validated_data, validation_success = validator.validate_character_file_safe(character_path)
+                    
+                    if validation_success and validator.corrections_made:
+                        print(f"{GREEN}Character auto-validated with corrections: {validator.corrections_made}{RESET}")
+                    elif validation_success:
+                        print(f"{GREEN}Character validated - no corrections needed{RESET}")
+                    else:
+                        print(f"{ORANGE}Warning: Character validation failed, but update completed{RESET}")
+                        
+                except Exception as e:
+                    print(f"{ORANGE}Warning: Character validation error: {str(e)}{RESET}")
+                    # Don't fail the update if validation has issues
                 
                 return True
             else:
