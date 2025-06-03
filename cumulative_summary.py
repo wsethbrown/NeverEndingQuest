@@ -523,3 +523,219 @@ def update_journal_with_summary(adventure_summary, party_tracker_data, location_
     else:
         debug_print("Failed to update journal")
         return False
+
+def check_and_compact_missing_summaries(conversation_history, party_tracker_data):
+    """
+    Scan conversation history for location transitions without summaries and generate them.
+    This function prevents double-compacting by checking for existing summaries.
+    Returns the updated conversation history.
+    """
+    debug_print("Checking for missing location summaries")
+    
+    if not conversation_history or len(conversation_history) < 2:
+        return conversation_history
+    
+    # First, find all location transitions
+    transitions = []
+    for i, msg in enumerate(conversation_history):
+        if msg.get("role") == "user" and "Location transition:" in msg.get("content", ""):
+            transitions.append(i)
+    
+    debug_print(f"Found {len(transitions)} total transitions")
+    
+    # Track locations that need summaries
+    missing_summaries = []
+    
+    # Check each transition
+    for i, trans_idx in enumerate(transitions):
+        msg = conversation_history[trans_idx]
+        debug_print(f"Checking transition at index {trans_idx}: {msg.get('content', '')[:100]}")
+        
+        # Check if next message is already a location summary
+        is_already_summarized = False
+        if trans_idx + 1 < len(conversation_history):
+            next_msg = conversation_history[trans_idx + 1]
+            if next_msg.get("role") == "assistant" and "=== LOCATION SUMMARY ===" in next_msg.get("content", ""):
+                debug_print(f"Transition at index {trans_idx} already has a summary")
+                is_already_summarized = True
+        
+        if not is_already_summarized:
+            # This transition needs a summary  
+            # The content to summarize is AFTER this transition (the location we're arriving at)
+            # We need to find where we LEAVE this location (the next transition FROM this location)
+            
+            # Extract the destination location from this transition
+            try:
+                import re
+                transition_content = msg.get("content", "")
+                
+                # Try new format with IDs first
+                id_pattern = r'Location transition: (.+?) \(([A-Z]\d+)\) to (.+?) \(([A-Z]\d+)\)'
+                id_match = re.match(id_pattern, transition_content)
+                
+                if id_match:
+                    arriving_location_name = id_match.group(3).strip()
+                    arriving_location_id = id_match.group(4)
+                else:
+                    # Fall back to old format
+                    parts = transition_content.split(" to ")
+                    if len(parts) == 2:
+                        arriving_location_name = parts[1].strip()
+                        arriving_location_id = None
+                    else:
+                        debug_print(f"Could not parse transition at index {trans_idx}")
+                        continue
+                
+                # Find the next transition FROM this location
+                next_boundary = None
+                for j in range(i + 1, len(transitions)):
+                    next_trans_idx = transitions[j]
+                    next_trans_msg = conversation_history[next_trans_idx]
+                    next_trans_content = next_trans_msg.get("content", "")
+                    
+                    # Check if this transition is FROM our arriving location
+                    if arriving_location_id:
+                        # Use ID if available
+                        if f" {arriving_location_name} ({arriving_location_id}) to" in next_trans_content:
+                            next_boundary = next_trans_idx
+                            break
+                    else:
+                        # Use name only
+                        if next_trans_content.startswith(f"Location transition: {arriving_location_name} to"):
+                            next_boundary = next_trans_idx
+                            break
+                
+                # If no next transition found, this is the current active location - don't compact it
+                if next_boundary is None:
+                    debug_print(f"No departure transition found for {arriving_location_name} - this is the current active location, skipping")
+                    continue
+                
+                debug_print(f"Location {arriving_location_name}: content from {trans_idx} to {next_boundary}")
+                
+                
+                # Double-check: Make sure there's no summary between trans_idx and next_boundary
+                has_summary_between = False
+                for j in range(trans_idx + 1, next_boundary):
+                    check_msg = conversation_history[j]
+                    if check_msg.get("role") == "assistant" and "=== LOCATION SUMMARY ===" in check_msg.get("content", ""):
+                        debug_print(f"Found existing summary between boundaries at index {j}, skipping")
+                        has_summary_between = True
+                        break
+                
+                if has_summary_between:
+                    continue
+                
+                # Collect messages between boundaries
+                messages_to_summarize = []
+                for j in range(trans_idx + 1, next_boundary):
+                    if conversation_history[j].get("role") != "system":
+                        messages_to_summarize.append(conversation_history[j])
+                
+                if messages_to_summarize:
+                    debug_print(f"Found {len(messages_to_summarize)} messages to summarize for {arriving_location_name}")
+                    missing_summaries.append({
+                        "transition_index": trans_idx,
+                        "location_name": arriving_location_name,
+                        "messages": messages_to_summarize,
+                        "prev_boundary": trans_idx  # The transition itself is the boundary
+                    })
+                else:
+                    debug_print(f"No messages to summarize for {arriving_location_name}")
+                    
+            except Exception as e:
+                debug_print(f"Error processing transition at index {trans_idx}: {str(e)}")
+    
+    # If no missing summaries found, return original history
+    if not missing_summaries:
+        debug_print("No missing summaries found")
+        return conversation_history
+    
+    debug_print(f"Found {len(missing_summaries)} location transitions missing summaries")
+    
+    # Process missing summaries in reverse order to maintain indices
+    for summary_info in reversed(missing_summaries):
+        try:
+            location_name = summary_info["location_name"]
+            messages = summary_info["messages"]
+            transition_index = summary_info["transition_index"]
+            prev_boundary = summary_info["prev_boundary"]
+            
+            debug_print(f"Generating summary for {location_name}")
+            
+            # Generate the summary
+            summary = generate_location_summary(location_name, messages)
+            
+            if summary:
+                # Find where this location content ends (the next transition FROM this location)
+                location_end_boundary = None
+                for j in range(transition_index + 1, len(conversation_history)):
+                    check_msg = conversation_history[j]
+                    if (check_msg.get("role") == "user" and "Location transition:" in check_msg.get("content", "")):
+                        # Check if this transition is FROM our current location
+                        trans_content = check_msg.get("content", "")
+                        if f"{location_name} (" in trans_content or trans_content.startswith(f"Location transition: {location_name} to"):
+                            location_end_boundary = j
+                            break
+                
+                # If no end boundary found, this location goes to the end
+                if location_end_boundary is None:
+                    location_end_boundary = len(conversation_history)
+                
+                # Create new conversation history with summary
+                new_history = []
+                
+                # Keep everything up to and including the transition
+                for j in range(0, transition_index + 1):
+                    new_history.append(conversation_history[j])
+                
+                # Insert the summary (replacing the content between transition and next boundary)
+                summary_message = {
+                    "role": "assistant",
+                    "content": f"=== LOCATION SUMMARY ===\n\n{location_name}:\n{'-' * len(location_name + ':')}\n{summary}"
+                }
+                new_history.append(summary_message)
+                
+                # Add everything from the location end boundary onwards
+                for j in range(location_end_boundary, len(conversation_history)):
+                    new_history.append(conversation_history[j])
+                
+                # Update conversation history for next iteration
+                conversation_history = new_history
+                
+                debug_print(f"Successfully added summary for {location_name}")
+                
+                # Also update journal
+                try:
+                    # Create a mock conversation history for journal entry generation
+                    mock_history = []
+                    if prev_boundary >= 0:
+                        # Include system messages if any
+                        for j in range(0, prev_boundary + 1):
+                            if conversation_history[j].get("role") == "system":
+                                mock_history.append(conversation_history[j])
+                    mock_history.extend(messages)
+                    
+                    enhanced_summary = generate_enhanced_adventure_summary(
+                        mock_history,
+                        party_tracker_data,
+                        location_name
+                    )
+                    if enhanced_summary:
+                        update_journal_with_summary(
+                            enhanced_summary,
+                            party_tracker_data,
+                            location_name
+                        )
+                except Exception as e:
+                    debug_print(f"Failed to update journal: {str(e)}")
+                    
+            else:
+                debug_print(f"Failed to generate summary for {location_name}")
+                
+        except Exception as e:
+            debug_print(f"Error processing missing summary: {str(e)}")
+            import traceback
+            traceback.print_exc()
+    
+    debug_print(f"Finished processing missing summaries")
+    return conversation_history

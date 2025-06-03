@@ -215,6 +215,18 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 # Fallback to original format if we can't get the IDs
                 conversation_history.append({"role": "user", "content": f"Location transition: {sanitize_text(current_location_name)} to {sanitize_text(new_location_name_or_id)}"})
             
+            # Save conversation history immediately after adding transition
+            from main import save_conversation_history
+            save_conversation_history(conversation_history)
+            
+            # Check for any missing summaries after the transition
+            import cumulative_summary
+            conversation_history = cumulative_summary.check_and_compact_missing_summaries(
+                conversation_history, 
+                party_tracker_data
+            )
+            save_conversation_history(conversation_history)
+            
             print("DEBUG: Location transition complete")
             needs_conversation_history_update = True  # Trigger conversation history reload
              # After transition, the current_location_data in the main loop might be stale.

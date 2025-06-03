@@ -516,6 +516,13 @@ def main_game_loop():
     # Use the new order_conversation_messages function
     conversation_history = order_conversation_messages(conversation_history, main_system_prompt_text)
     
+    # Check for missing summaries at game startup
+    print("DEBUG: Checking for missing location summaries at startup")
+    conversation_history = cumulative_summary.check_and_compact_missing_summaries(
+        conversation_history,
+        party_tracker_data
+    )
+    
     save_conversation_history(conversation_history)
 
     initial_ai_response = get_ai_response(conversation_history)
