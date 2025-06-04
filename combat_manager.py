@@ -604,6 +604,12 @@ def sync_active_encounter():
     except Exception as e:
         print(f"ERROR in sync_active_encounter: {str(e)}")
 
+def filter_dynamic_fields(data):
+    """Remove dynamic combat fields from character/monster data for system prompts"""
+    dynamic_fields = ['hitPoints', 'maxHitPoints', 'status', 'condition', 'condition_affected', 
+                     'temporaryEffects', 'currentHitPoints']
+    return {k: v for k, v in data.items() if k not in dynamic_fields}
+
 def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    """Main function to run the combat simulation"""
    print(f"DEBUG: Starting combat simulation for encounter {encounter_id}")
@@ -706,9 +712,9 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
                except Exception as e:
                    print(f"ERROR: Failed to load NPC file {npc_file}: {str(e)}")
    
-   # Populate the system messages with JSON data
-   conversation_history[2]["content"] = f"Player Character:\n{json.dumps({k: v for k, v in player_info.items() if k not in ['hitpoints', 'maxhitpoints']}, indent=2)}"
-   conversation_history[3]["content"] = f"Monster Templates:\n{json.dumps(monster_templates, indent=2)}"
+   # Populate the system messages with JSON data (filtering out dynamic fields)
+   conversation_history[2]["content"] = f"Player Character:\n{json.dumps(filter_dynamic_fields(player_info), indent=2)}"
+   conversation_history[3]["content"] = f"Monster Templates:\n{json.dumps({k: filter_dynamic_fields(v) for k, v in monster_templates.items()}, indent=2)}"
    # Verify that we loaded all necessary data
    if not monster_templates and any(c["type"] == "enemy" for c in encounter_data["creatures"]):
        print("ERROR: No monster templates were loaded!")
@@ -719,7 +725,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
        print(f"  - {k}: {v.get('name', 'Unknown')}")
    
    conversation_history[4]["content"] = f"Location:\n{json.dumps(location_info, indent=2)}"
-   conversation_history.append({"role": "system", "content": f"NPC Templates:\n{json.dumps(npc_templates, indent=2)}"})
+   conversation_history.append({"role": "system", "content": f"NPC Templates:\n{json.dumps({k: filter_dynamic_fields(v) for k, v in npc_templates.items()}, indent=2)}"})
    conversation_history.append({"role": "system", "content": f"Encounter Details:\n{json.dumps(encounter_data, indent=2)}"})
    
    # Log the conversation structure for debugging
@@ -728,17 +734,31 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    # Save the updated conversation history
    save_json_file(conversation_history_file, conversation_history)
    
-   # Prepare initial hitpoints info for all creatures
-   hitpoints_info_parts = []
+   # Prepare initial dynamic state info for all creatures
+   dynamic_state_parts = []
+   
+   # Player info
    player_name_display = player_info["name"]
    current_hp = player_info.get("hitPoints", 0)
    max_hp = player_info.get("maxHitPoints", 0)
-   hitpoints_info_parts.append(f"{player_name_display}'s current hitpoints: {current_hp}/{max_hp}")
+   player_status = player_info.get("status", "alive")
+   player_condition = player_info.get("condition", "none")
+   player_conditions = player_info.get("condition_affected", [])
    
+   dynamic_state_parts.append(f"{player_name_display}:")
+   dynamic_state_parts.append(f"  - HP: {current_hp}/{max_hp}")
+   dynamic_state_parts.append(f"  - Status: {player_status}")
+   dynamic_state_parts.append(f"  - Condition: {player_condition}")
+   if player_conditions:
+       dynamic_state_parts.append(f"  - Active Conditions: {', '.join(player_conditions)}")
+   
+   # Creature info
    for creature in encounter_data["creatures"]:
        if creature["type"] != "player":
            creature_name = creature.get("name", "Unknown Creature")
            creature_hp = creature.get("currentHitPoints", "Unknown")
+           creature_status = creature.get("status", "alive")
+           creature_condition = creature.get("condition", "none")
            
            # Get the actual max HP from the correct source
            if creature["type"] == "npc":
@@ -755,9 +775,13 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
            else:
                # For monsters, use the encounter data
                creature_max_hp = creature.get("maxHitPoints", "Unknown")
-               
-           hitpoints_info_parts.append(f"{creature_name}'s current hitpoints: {creature_hp}/{creature_max_hp}")
-   all_hitpoints_info = "\n".join(hitpoints_info_parts)
+           
+           dynamic_state_parts.append(f"\n{creature_name}:")
+           dynamic_state_parts.append(f"  - HP: {creature_hp}/{creature_max_hp}")
+           dynamic_state_parts.append(f"  - Status: {creature_status}")
+           dynamic_state_parts.append(f"  - Condition: {creature_condition}")
+   
+   all_dynamic_state = "\n".join(dynamic_state_parts)
    
    # Generate prerolls for the initial scene
    preroll_text = generate_prerolls(encounter_data)
@@ -775,8 +799,8 @@ Important Character Field Definitions:
 - NEVER set condition to 'alive' - that goes in the status field
 - NEVER set status to 'none' - use 'alive' for conscious characters
 
-Current hitpoints for all creatures:
-{all_hitpoints_info}
+Current dynamic state for all creatures:
+{all_dynamic_state}
 
 Initiative Order: {initiative_order}
 
@@ -898,8 +922,9 @@ Player: The combat begins. Describe the scene and the enemies we face."""
            player_info = safe_json_load(player_file)
            if not player_info:
                print(f"ERROR: Failed to load player file: {player_file}")
-               # Replace player data in conversation history
-               conversation_history[2]["content"] = f"Player Character:\n{json.dumps(player_info, indent=2)}"
+           else:
+               # Replace player data in conversation history (with dynamic fields filtered)
+               conversation_history[2]["content"] = f"Player Character:\n{json.dumps(filter_dynamic_fields(player_info), indent=2)}"
        except Exception as e:
            print(f"ERROR: Failed to reload player file {player_file}: {str(e)}")
        
@@ -929,10 +954,10 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                except Exception as e:
                    print(f"ERROR: Failed to reload NPC file {npc_file}: {str(e)}")
        
-       # Replace NPC templates in conversation history
+       # Replace NPC templates in conversation history (with dynamic fields filtered)
        for i, msg in enumerate(conversation_history):
            if msg["role"] == "system" and "NPC Templates:" in msg["content"]:
-               conversation_history[i]["content"] = f"NPC Templates:\n{json.dumps(npc_templates, indent=2)}"
+               conversation_history[i]["content"] = f"NPC Templates:\n{json.dumps({k: filter_dynamic_fields(v) for k, v in npc_templates.items()}, indent=2)}"
                break
        
        # Save updated conversation history
@@ -955,16 +980,30 @@ Player: The combat begins. Describe the scene and the enemies we face."""
            print("ERROR in run_combat_simulation: EOF when reading a line")
            break
        
-       # Prepare hitpoints info for all creatures
-       hitpoints_info_parts = []
-       hitpoints_info_parts.append(f"{player_name_display}'s current hitpoints: {current_hp}/{max_hp}")
+       # Prepare dynamic state info for all creatures
+       dynamic_state_parts = []
        
+       # Player info
+       player_status = player_info.get("status", "alive")
+       player_condition = player_info.get("condition", "none")
+       player_conditions = player_info.get("condition_affected", [])
+       
+       dynamic_state_parts.append(f"{player_name_display}:")
+       dynamic_state_parts.append(f"  - HP: {current_hp}/{max_hp}")
+       dynamic_state_parts.append(f"  - Status: {player_status}")
+       dynamic_state_parts.append(f"  - Condition: {player_condition}")
+       if player_conditions:
+           dynamic_state_parts.append(f"  - Active Conditions: {', '.join(player_conditions)}")
+       
+       # Creature info
        for creature in encounter_data["creatures"]:
            if creature["type"] != "player":
                creature_name = creature.get("name", "Unknown Creature")
                creature_hp = creature.get("currentHitPoints", "Unknown")
+               creature_status = creature.get("status", "alive")
+               creature_condition = creature.get("condition", "none")
                
-               # FIX: Get the actual max HP from the correct source
+               # Get the actual max HP from the correct source
                if creature["type"] == "npc":
                    # For NPCs, look up their true max HP from their character file
                    npc_name = creature_name.lower().replace(" ", "_").split('_')[0]
@@ -979,9 +1018,13 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                else:
                    # For monsters, use the encounter data
                    creature_max_hp = creature.get("maxHitPoints", "Unknown")
-                   
-               hitpoints_info_parts.append(f"{creature_name}'s current hitpoints: {creature_hp}/{creature_max_hp}")
-       all_hitpoints_info = "\n".join(hitpoints_info_parts)
+               
+               dynamic_state_parts.append(f"\n{creature_name}:")
+               dynamic_state_parts.append(f"  - HP: {creature_hp}/{creature_max_hp}")
+               dynamic_state_parts.append(f"  - Status: {creature_status}")
+               dynamic_state_parts.append(f"  - Condition: {creature_condition}")
+       
+       all_dynamic_state = "\n".join(dynamic_state_parts)
        
        # Generate fresh prerolls for this combat round
        preroll_text = generate_prerolls(encounter_data)
@@ -1003,8 +1046,8 @@ Critical Rules:
 3. Include the 'exit' action when the encounter ends
 4. All field values must match the expected schema exactly
 
-Current hitpoints for all creatures:
-{all_hitpoints_info}
+Current dynamic state for all creatures:
+{all_dynamic_state}
 
 Initiative Order: {initiative_order}
 
