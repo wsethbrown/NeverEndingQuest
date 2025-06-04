@@ -318,7 +318,7 @@
       "locationId": "B02",
       "name": "Abandoned Ranger Outpost",
       "type": "outpost",
-      "description": "A dilapidated wooden structure built around the massive trunk of an ancient oak. Once a way station for forest patrols, the outpost has fallen into disrepair--its roof partially collapsed and its walls covered in creeping vines. Inside, overturned furniture and scattered supplies suggest a hasty departure or violent struggle. A cold firepit dominates the center of the main room, and faded maps of the forest hang on the walls. Despite the decay, the structure remains largely intact and could provide temporary shelter.",
+      "description": "A dilapidated wooden structure built around the massive trunk of an ancient oak. Once a way station for forest patrols, the outpost has fallen into disrepair--its roof partially collapsed and its walls covered in creeping vines. Inside, overturned furniture and scattered supplies suggest a hasty departure or violent struggle. A cold firepit dominates the center of the main room, and faded maps of the forest hang on the walls. Despite the decay, the structure remains largely intact and could provide temporary shelter. Signs of a recent battle are evident; the rafters now clear of webs after the giant spider was slain, and a small locked chest beneath an overturned cot has been forced open, revealing valuables.",
       "coordinates": "X3Y1",
       "connectivity": [
         "B01",
@@ -328,33 +328,22 @@
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [],
-      "monsters": [
-        {
-          "name": "Giant Spider",
-          "number": 1,
-          "disposition": "territorial",
-          "strategy": "The spider has made its home in the rafters and attacks anyone who disturbs its web-covered nest. It prefers to drop onto unsuspecting prey from above."
-        },
-        {
-          "name": "Swarm of Spiders",
-          "number": 2,
-          "disposition": "neutral",
-          "strategy": "These smaller spiders nest in the darkest corners and only attack if their areas are disturbed."
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Ranger's pack with basic supplies (rations, tinderbox, rope)",
         "Hunting bow with 1d6+4 arrows",
         "Silver whistle on a leather cord (used for patrol signals)",
         "Journal describing increasing forest dangers and the final patrol's plans",
-        "Small locked chest (DC 12) containing potion of healing, 15 gp, and a faded parchment map showing a secret trail to the keep with an X marking a hidden entrance and the word 'Dusk' scrawled in the margin"
+        "Small locked chest (opened) containing potion of healing, 15 gp, and a faded parchment map showing a secret trail to the keep with an X marking a hidden entrance and the word 'Dusk' scrawled in the margin"
       ],
       "plotHooks": [
         "The ranger's journal mentions a 'shadow knight' seen near the keep, matching descriptions of Sir Garran Vael.",
         "A map on the wall has the Lost Ward Circle marked with the annotation 'failing--needs ritual renewal'.",
-        "Scratched into a table is a hurried message: 'The whispers are coming from the cottage. DO NOT TRUST THE KEEPER.'"
+        "Scratched into a table is a hurried message: 'The whispers are coming from the cottage. DO NOT TRUST THE KEEPER.'",
+        "Discovery of Scout Elen's movements and cryptic warnings about the Keeper deepen the mystery surrounding the keep and the Lost Ward Circle.",
+        "A secret path marked 'Dusk' on a recovered map suggests an alternate entrance to the keep."
       ],
-      "dmInstructions": "This outpost offers potential supplies and important plot information. The giant spider attacks when players explore the rafters or disturb its nest. A successful DC 14 Investigation of the journal and maps provides a clearer path to the keep (advantage on navigation checks). If players rest here, roll for random encounters with disadvantage due to the shelter's protection.",
+      "dmInstructions": "This outpost offers potential supplies and important plot information. The giant spider has been slain; its webs cleared from rafters. The small locked chest has been forced open revealing valuables. Players may use the maps and journal to gain advantage on navigating the forest and secret paths. If players rest here, they regain some safety, but remain cautious of lingering threats related to the Keeper and the shadow knight.",
       "doors": [
         {
           "name": "Front Door",
@@ -382,7 +371,7 @@
       "traps": [],
       "dcChecks": [
         "Investigation DC 14: Discover the journal and map details providing navigation advantages.",
-        "Perception DC 13: Notice the giant spider before it attacks.",
+        "Perception DC 13: Notice signs of recent combat and clearing of spider webs.",
         "Survival DC 12: Identify signs that someone (possibly Scout Elen) took supplies recently."
       ],
       "accessibility": "Single-story structure with step up to entrance; interior is cluttered but navigable.",
@@ -402,23 +391,23 @@
         },
         {
           "name": "Small Locked Chest",
-          "description": "A weathered wooden chest bound with iron, tucked beneath a collapsed beam. The lock is rusty but still functional, and inside lies a crucial map that reveals a secret path through the forest."
+          "description": "A weathered wooden chest bound with iron, tucked beneath a collapsed beam. The lock is rusty but has been forced open, revealing a potion of healing, gold, and a secret map."
         }
       ],
       "encounters": [
         {
-          "encounterId": "",
-          "summary": "{\n  \"narration\": \"With a decisive strike, your blade severs the last thread of life from the giant spider. It lets out a final, echoing shriek before collapsing lifeless to the floor. The swarm of spiders you had previously dispatched lies motionless as well. The outpost falls silent once more, the menace eradicated. Your vigilance and skill have seen you through this deadly encounter in the abandoned ranger outpost. You gain 300 experience points for defeating these foes.\",\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"B02-E1\",\n        \"changes\": \"Giant Spider status updated to 'dead'. Swarm of Spiders status already 'dead'.\"\n      }\n    },\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"changes\": \"Norn gains 300 experience points. Current XP: 5821 + 300 = 6121.\"\n      }\n    },\n    {\n      \"action\": \"exit\",\n      \"parameters\": {}\n    }\n  ]\n}",
-          "impact": "To be determined",
+          "encounterId": "B02-E1",
+          "summary": "Under moonlight filtering through dense boughs, Norn detected a giant spider in the rafters accompanied by a swarm of smaller spiders. After tense combat, Norn slew the giant spider and defeated the swarm, earning 300 experience points. The outpost fell silent, and a thorough search uncovered a silver whistle, faded maps marked with warnings about the Lost Ward Circle and unstable ravines, a battered ranger's journal detailing movements of Scout Elen and cryptic cautions about Sir Garran Vael and the Keeper, and a small locked chest forced open revealing 15 gold pieces, a healing potion, and a parchment depicting a secret entrance to the keep labeled 'Dusk'.",
+          "impact": "The giant spider and spider swarm were eliminated, the small locked chest has been opened, and valuable information was recovered. Norn gained 300 experience points and recovered from wounds. The outpost now stands cleared of immediate threats but holds potential for further exploration based on recovered leads.",
           "worldConditions": {
             "year": 1492,
             "month": "Ches",
-            "day": 1,
-            "time": "21:20:00"
+            "day": 2,
+            "time": "00:44:00"
           }
         }
       ],
-      "adventureSummary": "{\n  \"narration\": \"With a decisive strike, your blade severs the last thread of life from the giant spider. It lets out a final, echoing shriek before collapsing lifeless to the floor. The swarm of spiders you had previously dispatched lies motionless as well. The outpost falls silent once more, the menace eradicated. Your vigilance and skill have seen you through this deadly encounter in the abandoned ranger outpost. You gain 300 experience points for defeating these foes.\",\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"B02-E1\",\n        \"changes\": \"Giant Spider status updated to 'dead'. Swarm of Spiders status already 'dead'.\"\n      }\n    },\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"changes\": \"Norn gains 300 experience points. Current XP: 5821 + 300 = 6121.\"\n      }\n    },\n    {\n      \"action\": \"exit\",\n      \"parameters\": {}\n    }\n  ]\n}"
+      "adventureSummary": "In the Abandoned Ranger Outpost, Norn detected and eliminated a giant spider and accompanying spider swarm in the rafters, securing the outpost from immediate danger. Searching the area, he uncovered a silver whistle, faded forest maps with warnings about the Lost Ward Circle and unstable ravines, and a battered ranger's journal detailing movements of Scout Elen and cryptic cautions regarding Sir Garran Vael and the Keeper. He forced open a small locked chest beneath an overturned cot, finding 15 gold pieces, a healing potion, and a scrap of parchment marking a secret entrance to the keep with the word 'Dusk'. After resting and tending his wounds, Norn confirmed Elen's tracks following the secret path to the keep's hidden entrance. The outpost is now cleared, but mysteries deepen, and Norn must decide on his next move."
     },
     {
       "locationId": "B08",
@@ -493,30 +482,39 @@
       "locationId": "B09",
       "name": "Hidden Keep Entrance",
       "type": "entrance",
-      "description": "At the edge of Gloamwood where the trees thin and the shadow of Shadowfall Keep looms overhead, a concealed entrance lies hidden behind a curtain of hanging moss and twisted vines. This ancient servants' entrance, marked on the faded parchment map, consists of a narrow stone archway built into what appears to be a natural rock formation. The entrance is protected by both physical concealment and old magic--runes carved around the doorframe glow faintly when approached, and the air shimmers with barely perceptible wards. The word 'Dusk' must be spoken to safely pass the threshold. Beyond the entrance, worn stone steps descend into darkness, leading to the keep's lower chambers. Fresh mud on the steps and a dropped torch suggest someone entered recently.",
+      "description": "At the edge of Gloamwood where the trees thin and the shadow of Shadowfall Keep looms overhead, a concealed entrance lies hidden behind a curtain of hanging moss and twisted vines. This ancient servants' entrance, marked on the faded parchment map, consists of a narrow stone archway built into what appears to be a natural rock formation. The entrance is protected by both physical concealment and old magic--runes carved around the doorframe glow faintly with a blue-white light, revealing a magical Ward of Fear designed to deter unwelcome intruders. Inside the entrance, worn stone steps descend into darkness, slick with moisture and recent muddy footprints matching Elen's trail. Nearby lie a still-warm dropped torch smeared with mud, an unopened emergency ration packet, and a cracked silver mirror half-buried. An inscription carved inside reads, \"May those who enter with pure intent find what was lost,\" hinting at Elen's hurried passage. The Ward of Fear remains active, pulsing softly, and the passage into Shadowfall Keep's Lower Chambers or the Secret Passage is magically sealed, preventing entry. Only the Secret Forest Path is accessible for retreat or further investigation.",
       "coordinates": "X5Y1",
       "connectivity": [
         "B08"
       ],
       "areaConnectivity": [
-        "Shadowfall Keep Lower Chambers"
+        "Secret Forest Path"
       ],
       "areaConnectivityId": [
-        "SK001"
+        "SF001"
       ],
-      "npcs": [],
+      "npcs": [
+        {
+          "name": "Norn",
+          "description": "An observant adventurer cautiously exploring the Hidden Keep Entrance under the cloak of night.",
+          "attitude": "Neutral"
+        }
+      ],
       "monsters": [],
       "lootTable": [
-        "Dropped torch (still warm, 1 hour of light remaining)",
         "Scout Elen's emergency ration (unopened)",
-        "Small silver mirror (cracked, 5 gp value)"
+        "Small silver mirror (cracked, 5 gp value)",
+        "Dropped torch (still warm, 1 hour of light remaining)"
       ],
       "plotHooks": [
         "The entrance shows signs of recent use--Scout Elen has entered the keep through this secret way.",
         "Ancient runes around the doorframe warn of the curse within but also hint at a way to break it.",
-        "A carved message inside the entrance reads: 'May those who enter with pure intent find what was lost.'"
+        "A carved message inside the entrance reads: 'May those who enter with pure intent find what was lost.'",
+        "The Ward of Fear is active and blocks passage without the password 'Dusk'.",
+        "Magical blockage prevents entry into Shadowfall Keep's Lower Chambers and the Secret Passage.",
+        "The mystery of Elen's hurried escape and the sealed passage remains unresolved."
       ],
-      "dmInstructions": "This hidden entrance bypasses the main keep defenses but has its own protections. Speaking the password 'Dusk' (found on the map) allows safe passage. Without the password, anyone crossing the threshold triggers a fear effect (DC 14 Wisdom save or be frightened for 1 minute). The entrance leads to area SK001 in Shadowfall Keep. Once inside, players can hear distant sounds echoing from the keep's depths--clanking armor, mournful wails, and perhaps Elen's voice calling for help.",
+      "dmInstructions": "This hidden entrance bypasses the main keep defenses but is protected by a magical Ward of Fear that triggers if the password 'Dusk' is not spoken before crossing the threshold. The Ward induces supernatural fear (DC 14 Wisdom save or frightened for 1 minute). The passage into the keep's lower chambers and secret passage is currently sealed by magic, blocking entry attempts. Players may only access the Secret Forest Path for retreat or further investigation until the seal is lifted. The area contains no hostile creatures or mechanical traps at present. Norn has recovered an unopened ration and a cracked silver mirror, both potentially important for future events.",
       "doors": [
         {
           "name": "Hidden Stone Door",
@@ -534,11 +532,10 @@
         {
           "name": "Ward of Fear",
           "description": "Magical ward that induces supernatural fear in those who enter without permission.",
-          "type": "magical",
-          "trigger": "Crossing threshold without speaking password",
-          "trapDC": 14,
-          "trapEffect": "DC 14 Wisdom save or be frightened for 1 minute. Frightened creatures must use their movement to get as far from the entrance as possible.",
-          "disarmNotes": "Automatically bypassed by speaking 'Dusk'. Can be suppressed with dispel magic (DC 14)."
+          "detectDC": 14,
+          "disableDC": 14,
+          "triggerDC": 14,
+          "damage": "DC 14 Wisdom save or be frightened for 1 minute. Frightened creatures must use their movement to get as far from the entrance as possible."
         }
       ],
       "dcChecks": [
@@ -556,19 +553,31 @@
         },
         {
           "name": "Warding Runes",
-          "description": "Ancient protective symbols that glow with a faint blue light when someone approaches, growing brighter if the password is not spoken."
+          "description": "Ancient protective symbols that glow with a faint blue-white light when someone approaches, growing brighter if the password is not spoken."
         },
         {
           "name": "Stone Steps",
-          "description": "Worn stone steps leading down into darkness, slick with moisture and showing recent muddy footprints."
+          "description": "Worn stone steps leading down into darkness, slick with moisture and showing recent muddy footprints matching Elen's trail."
         },
         {
           "name": "Carved Warning",
-          "description": "An inscription just inside the entrance that serves as both warning and hope for those who enter."
+          "description": "An inscription just inside the entrance that serves as both warning and hope for those who enter: 'May those who enter with pure intent find what was lost.'"
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "B09-E1",
+          "summary": "Norn observes the glowing arcane runes and discovers the magical Ward of Fear guarding the entrance.",
+          "impact": "Norn recovers an unopened emergency ration and a cracked silver mirror near the entrance. Speaking the password 'Dusk' suppresses the ward's effect, but attempts to enter the keep's lower chambers or secret passage fail due to magical blockage. The passage remains sealed, and only the Secret Forest Path is accessible.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "01:15:00"
+          }
+        }
+      ],
+      "adventureSummary": "At the Hidden Keep Entrance, Norn crouched amid tangled shadows under a moonlit night, observing the moss-covered stone slab and crumbled stones marking the secret threshold. Arcane runes etched into the stone glowed faintly with a blue-white light, revealing a magical Ward of Fear designed to deter unwelcome intruders. Norn discovered recent signs of passage: fresh boot prints matching Elen's trail, a still-warm dropped torch smeared with mud, an unopened emergency ration packet, and a cracked silver mirror half-buried nearby. An inscription carved inside read, 'May those who enter with pure intent find what was lost,' suggesting Elen had hurried through here. Norn collected the unopened ration and later retrieved the cracked silver mirror, sensing both items might prove important. Speaking the password 'Dusk' caused the Ward of Fear's oppressive glow to wane, allowing safe passage up to the threshold. However, attempts to enter Shadowfall Keep's Lower Chambers or the Secret Passage failed due to magical blockage, indicating the passage remained sealed. Consequently, Norn remained at the entrance with the runes still pulsing softly, and only the Secret Forest Path was accessible for retreat or further investigation. No hostile creatures or mechanical traps were encountered, but the magical ward remained an active supernatural threat. The mystery of Elen's hurried escape and the sealed path into the keep lingered heavily as Norn prepared to decide the next course of action."
     },
     {
       "locationId": "B03",

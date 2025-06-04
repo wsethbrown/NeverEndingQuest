@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 17,
   "maxHitPoints": 36,
-  "armorClass": 16,
+  "armorClass": 19,
   "initiative": 2,
   "speed": 30,
   "abilities": {
@@ -88,6 +88,28 @@
   ],
   "equipment": [
     {
+      "item_name": "Chain Mail",
+      "item_type": "armor",
+      "description": "Heavy armor made of interlocking metal rings",
+      "quantity": 1,
+      "equipped": true,
+      "ac_base": 16,
+      "armor_category": "heavy",
+      "dex_limit": 0,
+      "stealth_disadvantage": true
+    },
+    {
+      "item_name": "Shield",
+      "item_type": "armor",
+      "description": "A wooden shield with metal reinforcement",
+      "quantity": 1,
+      "equipped": true,
+      "ac_bonus": 2,
+      "armor_category": "shield",
+      "dex_limit": null,
+      "stealth_disadvantage": false
+    },
+    {
       "item_name": "Hemp Rope (50 feet)",
       "item_type": "miscellaneous",
       "description": "Sturdy rope useful for climbing, tying, and securing items",
@@ -151,6 +173,18 @@
       "item_name": "Parchment Map Scrap",
       "item_type": "miscellaneous",
       "description": "A faded parchment with a diagram marking a secret entrance to the keep at dusk",
+      "quantity": 1
+    },
+    {
+      "item_name": "Scout Elen's emergency ration (unopened)",
+      "item_type": "miscellaneous",
+      "description": "An unopened emergency ration belonging to Scout Elen, found near the Hidden Keep Entrance",
+      "quantity": 1
+    },
+    {
+      "item_name": "Small silver mirror (cracked, 5 gp value)",
+      "item_type": "miscellaneous",
+      "description": "A small cracked silver mirror, valued at 5 gold pieces",
       "quantity": 1
     }
   ],
@@ -221,7 +255,7 @@
     "silver": 0,
     "copper": 0
   },
-  "experience_points": 6121,
+  "experience_points": 6171,
   "exp_required_for_next_level": 6500,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
