@@ -1,0 +1,348 @@
+#!/usr/bin/env python3
+"""
+Location Path Finder for DungeonMasterAI
+
+This script determines the path between two locations across areas in the campaign.
+It builds a graph of all locations and their connections, then finds the shortest path.
+Uses location IDs (A01, B02, etc.) internally but accepts both IDs and names as input.
+
+Usage:
+    python location_path_finder.py <from_location_id_or_name> <to_location_id_or_name>
+    
+Examples:
+    python location_path_finder.py "A01" "C08"
+    python location_path_finder.py "Harrow's Hollow General Store" "Secret Passage"
+"""
+
+import json
+import os
+import sys
+from collections import deque, defaultdict
+from typing import Dict, List, Tuple, Optional
+from campaign_path_manager import CampaignPathManager
+from file_operations import safe_read_json
+
+
+class LocationGraph:
+    """Graph representation of all locations and their connections"""
+    
+    def __init__(self):
+        self.nodes = {}  # location_id -> {area_id, location_name, data}
+        self.edges = defaultdict(list)  # location_id -> [connected_location_ids]
+        self.area_data = {}  # area_id -> area_data
+        self.id_to_name = {}  # location_id -> location_name
+        self.name_to_id = {}  # location_name -> location_id
+        
+    def load_campaign_data(self):
+        """Load all area data and build the graph"""
+        path_manager = CampaignPathManager()
+        
+        # All area IDs in Keep of Doom campaign
+        area_ids = ["HH001", "G001", "SK001", "TBM001", "TCD001"]
+        
+        print("Loading campaign areas...")
+        for area_id in area_ids:
+            area_file = path_manager.get_area_path(area_id)
+            if os.path.exists(area_file):
+                area_data = safe_read_json(area_file)
+                if area_data:
+                    self.area_data[area_id] = area_data
+                    self._process_area_locations(area_id, area_data)
+                    print(f"  [OK] Loaded {area_id}: {area_data.get('areaName', 'Unknown')}")
+                else:
+                    print(f"  [ERROR] Failed to load {area_file}")
+            else:
+                print(f"  [ERROR] File not found: {area_file}")
+        
+        # Process external connections after all locations are loaded
+        self._process_external_connections()
+        
+        print(f"\nGraph built: {len(self.nodes)} locations, {sum(len(v) for v in self.edges.values())} connections")
+    
+    def _process_area_locations(self, area_id: str, area_data: Dict):
+        """Process all locations in an area and add them to the graph"""
+        locations = area_data.get('locations', [])
+        
+        for location in locations:
+            location_id = location.get('locationId')
+            location_name = location.get('name')
+            
+            if not location_name or not location_id:
+                continue
+                
+            # Add node to graph using location_id as key
+            self.nodes[location_id] = {
+                'area_id': area_id,
+                'location_name': location_name,
+                'data': location
+            }
+            
+            # Build ID <-> name mappings
+            self.id_to_name[location_id] = location_name
+            self.name_to_id[location_name] = location_id
+            
+            # Add internal connections (within same area)
+            internal_connections = location.get('connectivity', [])
+            for connected_id in internal_connections:
+                # connected_id should be a location ID like "B02"
+                self.edges[location_id].append(connected_id)
+    
+    def _process_external_connections(self):
+        """Process external connections between areas after all locations are loaded"""
+        for location_id, node_info in self.nodes.items():
+            location_data = node_info['data']
+            area_connectivity = location_data.get('areaConnectivity', [])
+            
+            for connected_location_name in area_connectivity:
+                # Look up the location ID for this location name
+                if connected_location_name in self.name_to_id:
+                    connected_location_id = self.name_to_id[connected_location_name]
+                    # Add bidirectional connection using IDs
+                    if connected_location_id not in self.edges[location_id]:
+                        self.edges[location_id].append(connected_location_id)
+                    if location_id not in self.edges[connected_location_id]:
+                        self.edges[connected_location_id].append(location_id)
+    
+    def _find_location_by_id(self, area_id: str, location_id: str) -> Optional[Dict]:
+        """Find a location by its ID within a specific area"""
+        area_data = self.area_data.get(area_id)
+        if not area_data:
+            return None
+            
+        for location in area_data.get('locations', []):
+            if location.get('locationId') == location_id:
+                return location
+        return None
+    
+    def find_path(self, from_location_id: str, to_location_id: str) -> Tuple[bool, List[str], str]:
+        """
+        Find the shortest path between two locations using BFS
+        
+        Args:
+            from_location_id: Starting location ID (e.g., "A01")
+            to_location_id: Destination location ID (e.g., "C08")
+        
+        Returns:
+            (success, path_of_location_ids, message)
+        """
+        # Validate input locations
+        if from_location_id not in self.nodes:
+            return False, [], f"Starting location ID '{from_location_id}' not found"
+        
+        if to_location_id not in self.nodes:
+            return False, [], f"Destination location ID '{to_location_id}' not found"
+        
+        if from_location_id == to_location_id:
+            return True, [from_location_id], "Already at destination"
+        
+        # BFS to find shortest path
+        queue = deque([(from_location_id, [from_location_id])])
+        visited = {from_location_id}
+        
+        while queue:
+            current_location_id, path = queue.popleft()
+            
+            # Check all connected locations
+            for neighbor_id in self.edges[current_location_id]:
+                if neighbor_id == to_location_id:
+                    # Found the destination
+                    final_path = path + [neighbor_id]
+                    return True, final_path, f"Path found with {len(final_path)} steps"
+                
+                if neighbor_id not in visited:
+                    visited.add(neighbor_id)
+                    queue.append((neighbor_id, path + [neighbor_id]))
+        
+        return False, [], f"No path exists between '{from_location_id}' and '{to_location_id}'"
+    
+    def get_location_info(self, location_id: str) -> Optional[Dict]:
+        """Get detailed information about a location by ID"""
+        return self.nodes.get(location_id)
+    
+    def get_path_areas(self, path: List[str]) -> List[str]:
+        """Get the areas that a path passes through"""
+        areas = []
+        for location_id in path:
+            location_info = self.get_location_info(location_id)
+            if location_info:
+                area_id = location_info['area_id']
+                area_name = self.area_data[area_id].get('areaName', area_id)
+                if area_name not in areas:
+                    areas.append(area_name)
+        return areas
+    
+    def get_location_name(self, location_id: str) -> str:
+        """Get location name from location ID"""
+        return self.id_to_name.get(location_id, f"Unknown location ({location_id})")
+    
+    def get_location_id(self, location_name: str) -> Optional[str]:
+        """Get location ID from location name"""
+        return self.name_to_id.get(location_name)
+
+
+def format_path_result(success: bool, path: List[str], message: str, graph: LocationGraph) -> str:
+    """Format the path finding result for display"""
+    result = []
+    result.append("=" * 60)
+    result.append("LOCATION PATH FINDER RESULT")
+    result.append("=" * 60)
+    
+    if success and path:
+        result.append(f"[SUCCESS]: {message}")
+        result.append("")
+        result.append("Path Details:")
+        
+        areas_traversed = graph.get_path_areas(path)
+        result.append(f"  Areas traversed: {' -> '.join(areas_traversed)}")
+        result.append(f"  Total steps: {len(path)}")
+        result.append("")
+        
+        result.append("Step-by-step path:")
+        for i, location_id in enumerate(path):
+            location_info = graph.get_location_info(location_id)
+            location_name = graph.get_location_name(location_id)
+            area_name = graph.area_data[location_info['area_id']].get('areaName', 'Unknown')
+            
+            step_marker = "START" if i == 0 else f"Step {i}"
+            if i == len(path) - 1:
+                step_marker = "DEST"
+                
+            result.append(f"  {step_marker:>5}: {location_name} [{area_name}:{location_id}]")
+    else:
+        result.append(f"[FAILURE]: {message}")
+    
+    result.append("=" * 60)
+    return "\n".join(result)
+
+
+def show_available_locations(graph: LocationGraph):
+    """Show all available locations by area for debugging"""
+    print("\n" + "=" * 60)
+    print("AVAILABLE LOCATIONS BY AREA")
+    print("=" * 60)
+    
+    by_area = defaultdict(list)
+    for location_id, info in graph.nodes.items():
+        area_name = graph.area_data[info['area_id']].get('areaName', info['area_id'])
+        location_name = info['location_name']
+        by_area[area_name].append((location_id, location_name))
+    
+    for area_name in sorted(by_area.keys()):
+        print(f"\n{area_name}:")
+        for location_id, location_name in sorted(by_area[area_name]):
+            print(f"  - {location_id}: {location_name}")
+
+def run_tests(graph: LocationGraph):
+    """Run a series of test cases to validate the path finder"""
+    print("\n" + "=" * 60)
+    print("RUNNING PATH FINDER TESTS")
+    print("=" * 60)
+    
+    # Test cases: (from_id, to_id, should_succeed)
+    test_cases = [
+        # Valid paths within same area
+        ("A01", "A02", True),  # General Store to Town Square
+        ("B01", "B02", True),  # Witchlight Trailhead to Abandoned Ranger Outpost
+        ("C01", "C03", True),  # Outer Courtyard to The Ruined Chapel
+        
+        # Valid paths across areas
+        ("A01", "B02", True),  # General Store to Abandoned Ranger Outpost
+        ("A02", "C08", True),  # Town Square to Secret Passage
+        ("A05", "C07", True),  # Wyrd Lantern Inn to Lord's Study
+        ("B01", "D05", True),  # Witchlight Trailhead to Ancient Standing Stones
+        
+        # Cross-area long paths
+        ("A03", "D06", True),  # East Gate to The Cursed Barrow
+        ("A04", "C06", True),  # Militia Barracks to Broken Tower
+        
+        # Invalid paths (should fail)
+        ("XXX", "A01", False),  # Non-existent location ID
+        ("A01", "YYY", False),  # Non-existent destination ID
+        
+        # Edge cases
+        ("A01", "A01", True),  # Same location
+    ]
+    
+    passed = 0
+    failed = 0
+    
+    for i, (from_id, to_id, should_succeed) in enumerate(test_cases, 1):
+        from_name = graph.get_location_name(from_id)
+        to_name = graph.get_location_name(to_id)
+        print(f"\nTest {i}: {from_id} ({from_name}) -> {to_id} ({to_name})")
+        success, path, message = graph.find_path(from_id, to_id)
+        
+        if success == should_succeed:
+            print(f"  [PASS]: Expected {should_succeed}, got {success}")
+            if success and len(path) > 1:
+                areas = graph.get_path_areas(path)
+                print(f"    Path: {' -> '.join(path[:3])}{'...' if len(path) > 3 else ''} ({len(path)} steps)")
+                print(f"    Areas: {' -> '.join(areas)}")
+            passed += 1
+        else:
+            print(f"  [FAIL]: Expected {should_succeed}, got {success}")
+            print(f"    Message: {message}")
+            failed += 1
+    
+    print(f"\n" + "=" * 60)
+    print(f"TEST RESULTS: {passed} passed, {failed} failed")
+    print("=" * 60)
+
+
+def main():
+    """Main function for command line usage"""
+    # Initialize the graph and load campaign data
+    graph = LocationGraph()
+    graph.load_campaign_data()
+    
+    # If command line arguments provided, find specific path
+    if len(sys.argv) == 3:
+        from_input = sys.argv[1]
+        to_input = sys.argv[2]
+        
+        # Try to convert input to location IDs (handle both names and IDs)
+        from_id = from_input if from_input in graph.nodes else graph.get_location_id(from_input)
+        to_id = to_input if to_input in graph.nodes else graph.get_location_id(to_input)
+        
+        if from_id is None:
+            print(f"Error: Could not find location '{from_input}' (tried as both ID and name)")
+            return 1
+        
+        if to_id is None:
+            print(f"Error: Could not find location '{to_input}' (tried as both ID and name)")
+            return 1
+        
+        from_name = graph.get_location_name(from_id)
+        to_name = graph.get_location_name(to_id)
+        
+        print(f"\nFinding path from '{from_id}' ({from_name}) to '{to_id}' ({to_name})...")
+        success, path, message = graph.find_path(from_id, to_id)
+        
+        result = format_path_result(success, path, message, graph)
+        print(result)
+        
+        return 0 if success else 1
+    
+    # If no arguments, run interactive mode or tests
+    elif len(sys.argv) == 1:
+        print("\nNo arguments provided. Showing available locations and running test suite...")
+        show_available_locations(graph)
+        run_tests(graph)
+        
+        print("\nFor specific path finding, use:")
+        print("  python location_path_finder.py \"<from_location_id_or_name>\" \"<to_location_id_or_name>\"")
+        print("\nExamples:")
+        print("  python location_path_finder.py \"A01\" \"C08\"")
+        print("  python location_path_finder.py \"Harrow's Hollow General Store\" \"Secret Passage\"")
+        
+        return 0
+    
+    else:
+        print("Usage: python location_path_finder.py [from_location] [to_location]")
+        print("  Accepts either location IDs (e.g., A01, C08) or location names")
+        print("  If no arguments provided, runs test suite")
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -28,6 +28,7 @@ from update_character_info import update_character_info
 
 # Import new manager modules
 import location_manager
+from location_path_finder import LocationGraph
 import action_handler
 import cumulative_summary
 from status_manager import (
@@ -50,6 +51,10 @@ from config import (
 )
 
 client = OpenAI(api_key=OPENAI_API_KEY)
+
+# Initialize location graph for path validation
+location_graph = LocationGraph()
+location_graph.load_campaign_data()
 
 # Temperature Configuration (remains the same)
 TEMPERATURE = 0.8
@@ -182,6 +187,41 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
         location_details = f"Location Details: {location_data['description']} {location_data.get('dmInstructions', '')}"
     else:
         location_details = "Location Details: Not available."
+    
+    # Check for transitionLocation action and add path validation
+    if '"action": "transitionLocation"' in primary_response:
+        try:
+            # Extract the destination from the AI response
+            destination_match = re.search(r'"newLocation":\s*"([^"]*)"', primary_response)
+            if destination_match:
+                destination = destination_match.group(1).strip()
+                current_origin = current_location_id
+                
+                # Validate we have required data
+                if not destination:
+                    path_info = f"Path Validation ERROR: Empty destination in transitionLocation action."
+                elif not current_origin:
+                    path_info = f"Path Validation ERROR: Current location ID not available in party tracker."
+                elif not location_graph:
+                    path_info = f"Path Validation ERROR: Location graph not initialized."
+                else:
+                    # Validate path using location graph
+                    success, path, message = location_graph.find_path(current_origin, destination)
+                    
+                    if success:
+                        path_info = f"The party is currently at {current_origin} and desires to travel to {destination}. The path of travel is: {' -> '.join(path)}."
+                    else:
+                        path_info = f"The party is currently at {current_origin} and desires to travel to {destination}. WARNING: {message}"
+                
+                # Add path validation to location details
+                location_details += f"\n\nPath Validation: {path_info}"
+            else:
+                # transitionLocation detected but no newLocation parameter found
+                location_details += f"\n\nPath Validation ERROR: transitionLocation action detected but destination could not be extracted."
+                
+        except Exception as e:
+            # Catch any unexpected errors in path validation
+            location_details += f"\n\nPath Validation ERROR: Failed to validate path - {str(e)}"
 
     validation_conversation = [
         {"role": "system", "content": validation_prompt_text},
