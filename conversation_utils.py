@@ -1,3 +1,53 @@
+# ============================================================================
+# CONVERSATION_UTILS.PY - AI CONTEXT MANAGEMENT LAYER
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: AI Integration Layer - Context and History Management
+# 
+# This module manages AI conversation context, history compression, and
+# memory optimization to maintain coherent long-term game sessions while
+# respecting AI model token limitations.
+# 
+# KEY RESPONSIBILITIES:
+# - Conversation history management and persistence
+# - Intelligent context trimming and compression
+# - Game state synchronization with AI context
+# - Memory optimization for long-running sessions
+# - Context rebuilding after session interruptions
+# 
+# CONTEXT MANAGEMENT STRATEGY:
+# - Rolling conversation window with intelligent pruning
+# - Key game state preservation across context reductions
+# - Selective history compression based on importance
+# - Real-time context size monitoring and optimization
+# 
+# COMPRESSION TECHNIQUES:
+# - Adventure summary generation for long-term memory
+# - Character state snapshots for quick context rebuilding
+# - Important event highlighting and preservation
+# - Redundant information removal while preserving continuity
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Core dependency for dm_wrapper.py AI interactions
+# - Integrates with main.py for session management
+# - Uses file_operations.py for conversation persistence
+# - Supports cumulative_summary.py for long-term memory
+# 
+# AI CONTEXT OPTIMIZATION:
+# - Token-aware context management
+# - Model-specific optimization strategies
+# - Intelligent prompt construction with relevant history
+# - Context freshness tracking and stale data removal
+# 
+# DESIGN PATTERNS:
+# - Memento Pattern: Conversation state snapshots
+# - Strategy Pattern: Different compression strategies
+# - Observer Pattern: Context size change notifications
+# 
+# This module ensures AI maintains coherent understanding of ongoing
+# adventures while optimizing performance and token usage.
+# ============================================================================
+
 import json
 from campaign_path_manager import CampaignPathManager
 from encoding_utils import safe_json_load

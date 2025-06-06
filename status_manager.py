@@ -6,6 +6,51 @@ throughout the application, giving users feedback about what the system is doing
 """
 
 import threading
+# ============================================================================
+# STATUS_MANAGER.PY - USER INTERFACE LAYER - REAL-TIME FEEDBACK
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: User Interface Layer - Status and Progress Management
+# 
+# This module implements real-time user feedback and status tracking using
+# the Observer Pattern. It provides immediate visual feedback for all system
+# operations, enhancing user experience during AI processing delays.
+# 
+# KEY RESPONSIBILITIES:
+# - Real-time status updates with colored console output
+# - Progress tracking for long-running operations
+# - Error state visualization and user notifications
+# - Callback-based status reporting from subsystems
+# - Graceful handling of interrupted operations
+# 
+# STATUS CATEGORIES:
+# - Processing: AI model interactions and data processing
+# - Validation: Schema compliance and rule checking
+# - File Operations: Reading, writing, and backup operations
+# - Combat: Turn-based combat state and action resolution
+# - Error States: Detailed error reporting with recovery suggestions
+# 
+# VISUAL FEEDBACK SYSTEM:
+# - Color-coded status messages (Green/Yellow/Red)
+# - Progress indicators for multi-step operations
+# - Contextual error messages with actionable information
+# - Clear completion confirmations
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Used throughout the system for operation feedback
+# - Integrates with all major subsystems (DM, combat, file ops)
+# - Provides consistent user experience across all interactions
+# - Implements our user-centric design philosophy
+# 
+# DESIGN PATTERNS:
+# - Observer Pattern: Status change notifications
+# - Singleton Pattern: Centralized status management
+# - Strategy Pattern: Different feedback for different operation types
+# 
+# This module ensures users always understand system state and progress,
+# maintaining engagement during complex AI-driven operations.
+# ============================================================================
+
 import time
 from typing import Optional, Callable
 

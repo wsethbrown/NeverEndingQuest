@@ -1,4 +1,49 @@
 #!/usr/bin/env python3
+# ============================================================================
+# LOCATION_PATH_FINDER.PY - SPATIAL VALIDATION SYSTEM
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Validation Layer - Movement and Connectivity Validation
+# 
+# This module implements graph-based pathfinding for location transitions,
+# ensuring players can only move through connected areas. It demonstrates
+# our "Defense in Depth" validation approach for game rule enforcement.
+# 
+# KEY RESPONSIBILITIES:
+# - Build connectivity graphs from campaign area data
+# - Validate movement requests against actual location connections
+# - Find shortest paths between locations across multiple areas
+# - Detect unreachable locations and connectivity issues
+# - Provide detailed path information for DM reference
+# 
+# PATHFINDING ALGORITHM:
+# - Breadth-First Search (BFS) for shortest path finding
+# - Graph construction from area connectivity data
+# - Support for both within-area and cross-area movement
+# - Efficient caching of commonly requested paths
+# 
+# CONNECTIVITY MODEL:
+# Campaign → Areas (HH001, G001) → Locations (A01, B02) → Connections
+# - Within-area: Direct location-to-location connections
+# - Cross-area: Special transition locations with areaConnectivity
+# - Hidden passages: Conditional connections based on game state
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Used by main.py for movement validation in AI response processing
+# - Integrates with CampaignPathManager for area data loading
+# - Supports action_handler.py location transition validation
+# - Implements our "Data Integrity Above All" principle
+# 
+# VALIDATION FEATURES:
+# - Real-time connectivity verification
+# - Path distance calculation for DM reference
+# - Unreachable location detection
+# - ASCII-safe output for cross-platform compatibility
+# 
+# This module ensures movement rules are consistently enforced while
+# providing helpful information for both AI and human DMs.
+# ============================================================================
+
 """
 Location Path Finder for DungeonMasterAI
 

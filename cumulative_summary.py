@@ -1,3 +1,49 @@
+# ============================================================================
+# CUMULATIVE_SUMMARY.PY - AI CONTEXT OPTIMIZATION LAYER
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: AI Integration Layer - Long-Term Memory Management
+# 
+# This module implements intelligent conversation compression and long-term
+# memory management for extended D&D sessions. It solves the AI context
+# limitation problem while preserving campaign continuity.
+# 
+# KEY RESPONSIBILITIES:
+# - Compress lengthy conversation histories into coherent summaries
+# - Preserve critical game state information across context reductions
+# - Generate adventure logs for long-term campaign memory
+# - Optimize AI context for better performance and token management
+# - Maintain narrative continuity during session transitions
+# 
+# COMPRESSION STRATEGY:
+# - Event-based summarization preserving key decisions and outcomes
+# - Character development tracking across sessions
+# - Important NPC interaction preservation
+# - Combat outcome summarization with consequences
+# - Plot progression highlights and future hooks
+# 
+# MEMORY OPTIMIZATION:
+# - Rolling window approach for recent events
+# - Hierarchical summarization for older sessions
+# - Key moment extraction and preservation
+# - State snapshot creation for quick context rebuilding
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Used by conversation_utils.py for context management
+# - Integrates with main.py for session continuity
+# - Supports dm_wrapper.py with optimized context
+# - Coordinates with party_tracker.json for state preservation
+# 
+# AI INTEGRATION:
+# - Specialized summarization model for narrative compression
+# - Intelligent event prioritization and selection
+# - Context-aware summary generation
+# - Multi-session continuity maintenance
+# 
+# This module ensures our AI can maintain coherent long-term campaigns
+# while respecting token limitations and performance requirements.
+# ============================================================================
+
 import json
 import os
 from datetime import datetime

@@ -1,4 +1,42 @@
-# config.py
+# ============================================================================
+# CONFIG.PY - SYSTEM CONFIGURATION LAYER
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Configuration Management - Central System Settings
+# 
+# This module centralizes all system configuration including API keys, model
+# selections, file paths, and operational parameters. It implements our
+# "Configurable AI Strategy" by allowing model selection per use case.
+# 
+# KEY RESPONSIBILITIES:
+# - API key and authentication management
+# - AI model configuration for different use cases
+# - File system path configuration
+# - System operational parameters
+# - Environment-specific settings
+# 
+# CONFIGURATION CATEGORIES:
+# - AI Models: Different models for DM, combat, validation, generation
+# - File Paths: Campaign directories and schema locations
+# - API Settings: Keys, timeouts, and retry parameters
+# - System Parameters: Debug modes, logging levels, validation settings
+# 
+# SECURITY CONSIDERATIONS:
+# - API keys should be moved to environment variables in production
+# - Sensitive configuration should not be committed to version control
+# - Use config_template.py for sharing configuration structure
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Used by all modules requiring AI model access
+# - Provides centralized model selection strategy
+# - Enables easy switching between different AI configurations
+# - Supports our multi-model AI architecture
+# 
+# This module enables our flexible, multi-model AI strategy while
+# maintaining centralized configuration management.
+# ============================================================================
+
+# WARNING: Move API keys to environment variables in production
 OPENAI_API_KEY = "sk-proj-YHoOCk08nxYvZss63drnT3BlbkFJa6f5DH7hbOfwkwrAcnGc"
 
 # --- Campaign folder structure ---

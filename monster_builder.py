@@ -1,3 +1,45 @@
+# ============================================================================
+# MONSTER_BUILDER.PY - CONTENT GENERATION LAYER - MONSTERS
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Content Generation Layer - AI-Powered Monster Creation
+# 
+# This module implements our Factory Pattern for monster creation, using
+# AI-powered generation with strict schema validation. It demonstrates our
+# "Schema-Driven Development" approach to content creation.
+# 
+# KEY RESPONSIBILITIES:
+# - Generate D&D 5e compliant monsters using AI
+# - Validate all generated content against monster schema
+# - Handle AI response parsing and cleanup
+# - Provide robust error handling and validation feedback
+# - Save generated monsters to campaign-specific directories
+# 
+# AI GENERATION PIPELINE:
+# Schema Template → AI Prompt → Response Generation → JSON Parsing →
+# Schema Validation → File Persistence → Path Resolution
+# 
+# VALIDATION STRATEGY:
+# - JSON schema compliance checking
+# - Automatic cleanup of AI response artifacts
+# - Nested value field flattening
+# - D&D 5e rule validation through schema constraints
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Uses CampaignPathManager for file operations
+# - Integrates with mon_schema.json for validation
+# - Called by DMs and automated campaign generation
+# - Implements our "Defense in Depth" validation approach
+# 
+# DESIGN PATTERNS:
+# - Factory Pattern: Creates monsters based on specifications
+# - Template Method: Consistent generation and validation pipeline
+# - Strategy Pattern: Configurable AI models for generation
+# 
+# This module exemplifies our approach to AI-powered content generation
+# while maintaining strict data integrity and D&D rule compliance.
+# ============================================================================
+
 import json
 import sys
 import os

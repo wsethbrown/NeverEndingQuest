@@ -1,3 +1,49 @@
+# ============================================================================
+# LOCATION_MANAGER.PY - GAME SYSTEMS LAYER - EXPLORATION
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Game Systems Layer - Location and Movement Management
+# 
+# This module manages D&D exploration mechanics including location transitions,
+# area connectivity, and spatial relationships. It implements our hierarchical
+# campaign organization with ID-based location management.
+# 
+# KEY RESPONSIBILITIES:
+# - Manage location data loading and caching
+# - Handle area-to-area and location-to-location transitions
+# - Validate movement requests against connectivity rules
+# - Coordinate with path finding system for movement validation
+# - Maintain location state and discovery tracking
+# 
+# LOCATION HIERARCHY:
+# Campaign → Areas (HH001, G001) → Locations (A01, B02) → Local Features
+# 
+# ID CONVENTION:
+# - Area IDs: 3-letter prefix + 3-digit number (HH001, G001, TBM001)
+# - Location IDs: Letter + 2-digit number (A01, B02, C15)
+# - Encounter IDs: Location-Encounter format (B02-E1)
+# 
+# CONNECTIVITY SYSTEM:
+# - Within-area connectivity through location connections
+# - Cross-area connectivity through special transition locations
+# - Graph-based pathfinding for movement validation
+# - Support for hidden passages and conditional connections
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Called by action_handler.py for location transitions
+# - Uses CampaignPathManager for area file loading
+# - Integrates with party_tracker.json for current location state
+# - Coordinates with location_path_finder.py for validation
+# 
+# DESIGN PATTERNS:
+# - Facade Pattern: Simplifies complex location operations
+# - Flyweight Pattern: Efficient location data caching
+# - Observer Pattern: Location change notifications
+# 
+# This module demonstrates our approach to complex spatial relationships
+# while maintaining performance and data consistency.
+# ============================================================================
+
 import json
 import subprocess
 import os

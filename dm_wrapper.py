@@ -1,4 +1,39 @@
 #!/usr/bin/env python3
+# ============================================================================
+# DM_WRAPPER.PY - AI INTEGRATION LAYER
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: AI Integration Abstraction Layer
+# 
+# This module abstracts OpenAI API interactions and implements our multi-model
+# AI strategy. It provides a clean interface for AI-driven game management
+# while maintaining strict response validation and error handling.
+# 
+# KEY RESPONSIBILITIES:
+# - Manage OpenAI client instances and model configurations
+# - Construct context-aware prompts with current game state
+# - Handle API rate limiting, retries, and error recovery
+# - Maintain conversation history and context management
+# - Provide model-specific optimizations (temperature, tokens)
+# 
+# AI STRATEGY IMPLEMENTATION:
+# - Primary DM Model: Main narrative and game logic
+# - Validation Model: Response accuracy verification
+# - Combat Model: Specialized turn-based combat management
+# - Content Generation: Specialized builders for game content
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Core dependency for main.py game loop
+# - Integrates with status_manager.py for user feedback
+# - Uses conversation_utils.py for history management
+# - Implements our "AI-First Design with Human Safety Nets" principle
+# 
+# VALIDATION PIPELINE:
+# Prompt Construction → API Call → Response Parsing → Validation → Integration
+# 
+# This module embodies our philosophy of embracing AI capabilities while
+# maintaining rigorous data integrity and error recovery mechanisms.
+# ============================================================================
 """
 DungeonMasterAI Wrapper Script
 

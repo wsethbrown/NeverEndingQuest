@@ -5,6 +5,54 @@ Creates campaign JSON files with detailed content based on schema requirements.
 """
 
 import json
+# ============================================================================
+# CAMPAIGN_GENERATOR.PY - CONTENT GENERATION LAYER - CAMPAIGNS
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Content Generation Layer - Complete Campaign Creation
+# 
+# This module implements large-scale content generation using our multi-model
+# AI strategy to create complete D&D campaigns with full location hierarchies,
+# character rosters, and narrative structures.
+# 
+# KEY RESPONSIBILITIES:
+# - Generate complete campaign structures with multiple areas
+# - Create interconnected location networks with proper connectivity
+# - Generate campaign-appropriate NPCs, monsters, and encounters
+# - Establish overarching narrative and plot progression
+# - Ensure all generated content follows schema compliance
+# 
+# GENERATION PIPELINE:
+# Campaign Concept → Area Generation → Location Creation → NPC/Monster
+# Population → Encounter Placement → Plot Integration → Validation
+# 
+# CONTENT COORDINATION:
+# - Ensures thematic consistency across all generated content
+# - Maintains proper challenge ratings and level progression
+# - Creates meaningful connections between areas and characters
+# - Generates appropriate treasure and item distributions
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Uses all builder modules (monster_builder, npc_builder, etc.)
+# - Leverages CampaignPathManager for file organization
+# - Integrates with campaign schema validation
+# - Demonstrates our "Schema-Driven Development" approach
+# 
+# AI STRATEGY:
+# - Coordinated multi-model generation for different content types
+# - Thematic consistency through shared context prompting
+# - Iterative refinement with validation feedback loops
+# - Modular generation allowing for partial campaign creation
+# 
+# DESIGN PATTERNS:
+# - Builder Pattern: Step-by-step campaign construction
+# - Factory Pattern: Creates appropriate content based on campaign theme
+# - Composite Pattern: Assembles complex campaign hierarchies
+# 
+# This module showcases our approach to large-scale AI-powered content
+# generation while maintaining consistency and quality standards.
+# ============================================================================
+
 import os
 import re
 import glob

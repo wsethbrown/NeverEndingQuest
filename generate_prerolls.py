@@ -1,4 +1,45 @@
-# generate_prerolls.py
+# ============================================================================
+# GENERATE_PREROLLS.PY - COMBAT DICE MANAGEMENT SYSTEM
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Game Systems Layer - Combat Support
+# 
+# This module implements our solution to AI confusion about attack counts in
+# combat by providing pre-rolled dice with explicit attack limitations.
+# It demonstrates our "AI-First Design with Human Safety Nets" principle.
+# 
+# KEY RESPONSIBILITIES:
+# - Generate structured dice pools for flexible combat use
+# - Load actual attack counts from monster/NPC data files
+# - Provide clear formatting to prevent AI misinterpretation
+# - Handle schema differences between monsters and NPCs
+# - Generate appropriate saving throw dice for all creatures
+# 
+# PROBLEM SOLVED:
+# Previously, AI would see multiple dice rolls and assume multiple attacks.
+# Now we explicitly state "X attacks available" with exact counts from
+# creature data files, preventing combat rule violations.
+# 
+# DICE ORGANIZATION:
+# 1. Generic Dice Pool: For spells, abilities, and improvisation
+# 2. Creature-Specific Attacks: Exact number based on actual creature data
+# 3. Saving Throws: Complete set for all creatures in encounter
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Used by combat_manager.py for encounter preparation
+# - Integrates with CampaignPathManager for creature data loading
+# - Supports both monster 'actions' and NPC 'attacksAndSpellcasting' schemas
+# - Implements our "Data Integrity Above All" principle
+# 
+# DESIGN PATTERNS:
+# - Strategy Pattern: Different data loading for monsters vs NPCs
+# - Template Method: Consistent dice generation pipeline
+# - Factory Pattern: Creates appropriate dice structures per creature type
+# 
+# This module exemplifies how we solve AI limitations through structured
+# data presentation while maintaining game rule accuracy.
+# ============================================================================
+
 import random
 import json
 import os

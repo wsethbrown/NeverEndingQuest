@@ -1,3 +1,40 @@
+# ============================================================================
+# ACTION_HANDLER.PY - COMMAND PATTERN IMPLEMENTATION
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Action Processing Layer in Command Pattern
+# 
+# This module implements the Command Pattern for the D&D system, encapsulating
+# all game interactions as discrete, typed actions with specific parameters.
+# It serves as the central dispatcher for all game state modifications.
+# 
+# KEY RESPONSIBILITIES:
+# - Parse and validate action commands from AI responses
+# - Route actions to appropriate subsystem handlers
+# - Ensure atomic execution of compound operations
+# - Maintain consistency across all game state updates
+# - Provide standardized error handling for all actions
+# 
+# SUPPORTED ACTION TYPES:
+# - updateCharacterInfo: Character stat and inventory management
+# - transitionLocation: Movement and exploration actions
+# - createEncounter: Combat encounter initialization
+# - updatePlot: Campaign narrative progression
+# - updateWorldTime: Game time advancement
+# - And extensible action framework for future features
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Called by main.py as part of AI response processing
+# - Coordinates with various managers (combat, location, character)
+# - Uses CampaignPathManager for file operations
+# - Implements our "Data Integrity Above All" principle
+# 
+# DESIGN PATTERNS:
+# - Command Pattern: Actions as first-class objects
+# - Strategy Pattern: Different handlers for different action types
+# - Template Method: Consistent action processing pipeline
+# ============================================================================
+
 import json
 import subprocess
 import os

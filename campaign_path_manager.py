@@ -1,4 +1,44 @@
 import json
+# ============================================================================
+# CAMPAIGN_PATH_MANAGER.PY - FILE SYSTEM ABSTRACTION LAYER
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Data Management Layer - File System Abstraction
+# 
+# This module provides a unified interface for all file operations across the
+# D&D system, implementing our "Campaign-Centric Organization" principle.
+# It abstracts file path resolution and handles legacy migration seamlessly.
+# 
+# KEY RESPONSIBILITIES:
+# - Centralized file path resolution for all campaign resources
+# - Handle legacy vs. unified file structure migration
+# - Ensure consistent naming conventions and directory organization
+# - Provide atomic file operations with backup and recovery
+# - Cross-platform compatibility for file system operations
+# 
+# FILE ORGANIZATION STRATEGY:
+# campaigns/[campaign_name]/
+# ├── areas/              # Location files (HH001.json, G001.json)
+# ├── characters/         # Unified player/NPC storage
+# ├── monsters/           # Campaign-specific creatures
+# ├── encounters/         # Combat encounters
+# └── meta files...       # Campaign plot, party tracker, etc.
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Used by all file operations throughout the system
+# - Enables the Factory Pattern for content builders
+# - Supports the "Data Integrity Above All" principle
+# - Provides backward compatibility for legacy campaigns
+# 
+# DESIGN PATTERNS:
+# - Factory Pattern: Creates proper file paths based on content type
+# - Strategy Pattern: Different path strategies for legacy vs. unified structure
+# - Singleton-like behavior: Shared path resolution across system
+# 
+# This module ensures our file system organization remains consistent
+# and maintainable while supporting seamless legacy migration.
+# ============================================================================
+
 import os
 
 class CampaignPathManager:

@@ -5,6 +5,51 @@ Prevents data corruption by using temporary files and atomic renames.
 Cross-platform compatible (Windows/Unix).
 """
 
+# ============================================================================
+# FILE_OPERATIONS.PY - DATA PERSISTENCE ABSTRACTION LAYER
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Data Management Layer - Atomic File Operations
+# 
+# This module implements our "Data Integrity Above All" principle by providing
+# atomic file operations with comprehensive error handling, backup mechanisms,
+# and cross-platform compatibility for all game data persistence.
+# 
+# KEY RESPONSIBILITIES:
+# - Atomic file read/write operations with locking mechanisms
+# - Automatic backup creation and restoration capabilities
+# - UTF-8 encoding with special character sanitization
+# - Cross-platform file locking (Windows/Unix compatibility)
+# - Graceful error handling with detailed logging
+# 
+# ATOMIC OPERATION STRATEGY:
+# 1. Create temporary file with .tmp extension
+# 2. Write data to temporary file
+# 3. Atomic rename from .tmp to target filename
+# 4. Automatic cleanup on failure
+# 5. Backup creation before overwriting existing files
+# 
+# FILE LOCKING MECHANISM:
+# - .lock files prevent concurrent modification
+# - Automatic stale lock cleanup after timeout
+# - Platform-specific locking strategies
+# - Graceful degradation when locking fails
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Used by all modules requiring file persistence
+# - Integrates with CampaignPathManager for path resolution
+# - Supports the campaign-centric file organization
+# - Enables reliable state management across the system
+# 
+# DESIGN PATTERNS:
+# - Template Method: Consistent file operation pipeline
+# - Strategy Pattern: Platform-specific locking mechanisms
+# - Proxy Pattern: Transparent atomic operations
+# 
+# This module ensures that all file operations maintain data integrity
+# even under failure conditions, supporting our reliability requirements.
+# ============================================================================
+
 import json
 import os
 import shutil

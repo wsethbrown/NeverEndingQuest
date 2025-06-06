@@ -15,6 +15,48 @@ Combat Logging System:
 - Maintains a combined log of all encounters in all_combat_latest.json
 - Filters out system messages for cleaner, more readable logs
 """
+# ============================================================================
+# COMBAT_MANAGER.PY - GAME SYSTEMS LAYER - COMBAT
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Game Systems Layer - Turn-Based Combat Management
+# 
+# This module implements D&D 5e combat mechanics using AI-driven simulation
+# with strict rule validation. It demonstrates our multi-model AI strategy
+# by using specialized models for combat-specific interactions.
+# 
+# KEY RESPONSIBILITIES:
+# - Manage turn-based combat encounters with initiative tracking
+# - Validate combat actions against D&D 5e rules
+# - Coordinate HP tracking, status effects, and combat state
+# - Generate and manage pre-rolled dice to prevent AI confusion
+# - Provide specialized combat AI prompts and validation
+# 
+# COMBAT FLOW:
+# Encounter Start → Initiative Roll → Turn Management → Action Resolution →
+# Validation → State Update → Win/Loss Conditions
+# 
+# AI INTEGRATION:
+# - Specialized combat model for turn-based interactions
+# - Pre-rolled dice system prevents AI attack count confusion
+# - Combat-specific validation model for rule compliance
+# - Real-time HP and status tracking with state synchronization
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Called by action_handler.py for combat-related actions
+# - Uses generate_prerolls.py for dice management
+# - Integrates with party_tracker.json for state persistence
+# - Implements our "Defense in Depth" validation strategy
+# 
+# DESIGN PATTERNS:
+# - State Machine: Combat phases and turn management
+# - Strategy Pattern: Different AI models for different combat aspects
+# - Observer Pattern: Real-time combat state updates
+# 
+# This module exemplifies our approach to complex game system management
+# while maintaining strict D&D rule compliance through AI validation.
+# ============================================================================
+
 import json
 import os
 import time

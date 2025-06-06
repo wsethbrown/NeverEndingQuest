@@ -1,3 +1,34 @@
+# ============================================================================
+# MAIN.PY - GAME LOOP CONTROLLER
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Primary Controller in MVC Pattern
+# 
+# This is the central orchestrator of the D&D Dungeon Master system, implementing
+# the main game loop and coordinating all subsystems. It follows the Command Pattern
+# where every game interaction is processed as a discrete action.
+# 
+# KEY RESPONSIBILITIES:
+# - Game session management and main loop execution
+# - Action parsing and routing to appropriate handlers
+# - AI response validation and state synchronization
+# - Conversation history management and context compression
+# - Real-time user feedback and status reporting
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Coordinates with dm_wrapper.py for AI interactions
+# - Uses action_handler.py for command processing
+# - Manages state through party_tracker.json updates
+# - Validates responses using multiple AI models
+# - Integrates with CampaignPathManager for file operations
+# 
+# DATA FLOW:
+# User Input → Action Processing → AI Response → Validation → State Update
+# 
+# This file embodies our "AI-First Design with Human Safety Nets" principle
+# by combining powerful AI capabilities with rigorous validation layers.
+# ============================================================================
+
 import json
 import subprocess
 import os
