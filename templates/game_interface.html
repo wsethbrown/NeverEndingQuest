@@ -948,6 +948,9 @@
                 content: 'Game started! You can now enter commands.',
                 timestamp: new Date().toISOString()
             });
+            
+            // Load character stats (default tab) when game starts
+            loadCharacterStats();
         });
         
         socket.on('game_output', (message) => {
@@ -1355,7 +1358,7 @@
                 const activeTab = activeTabButton.textContent.toLowerCase();
                 if (activeTab === 'inventory') {
                     loadInventory();
-                } else if (activeTab === 'character stats') {
+                } else if (activeTab === 'character') {
                     loadCharacterStats();
                 } else if (activeTab === 'npcs') {
                     loadNPCs();
@@ -1373,6 +1376,11 @@
             
             // Load initial location data
             loadLocationData();
+            
+            // Load character stats (default tab) on page load if game is already started
+            if (gameStarted) {
+                loadCharacterStats();
+            }
         });
     </script>
 </body>
