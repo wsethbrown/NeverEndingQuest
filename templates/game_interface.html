@@ -853,20 +853,20 @@
         
         <div class="panel debug-panel">
             <div class="tabs">
-                <button class="tab-button active" onclick="switchTab('inventory')">Character</button>
-                <button class="tab-button" onclick="switchTab('stats')">Stats</button>
+                <button class="tab-button active" onclick="switchTab('stats')">Character</button>
+                <button class="tab-button" onclick="switchTab('inventory')">Inventory</button>
                 <button class="tab-button" onclick="switchTab('npcs')">NPCs</button>
                 <button class="tab-button" onclick="switchTab('debug')">Debug</button>
             </div>
             <div class="tab-content" id="debug-tab" style="display: none;">
                 <div class="panel-content" id="debug-output"></div>
             </div>
-            <div class="tab-content" id="inventory-tab" style="display: block;">
+            <div class="tab-content" id="inventory-tab" style="display: none;">
                 <div class="panel-content" id="inventory-content">
                     <div class="loading">Loading inventory...</div>
                 </div>
             </div>
-            <div class="tab-content" id="stats-tab" style="display: none;">
+            <div class="tab-content" id="stats-tab" style="display: block;">
                 <div class="panel-content" id="stats-content">
                     <div class="loading">Loading character stats...</div>
                 </div>
