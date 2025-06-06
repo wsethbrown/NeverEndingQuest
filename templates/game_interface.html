@@ -924,6 +924,9 @@
             connected = true;
             document.getElementById('status-text').textContent = 'Connected';
             document.getElementById('status-indicator').classList.add('connected');
+            
+            // Load character stats (default tab) when connected
+            loadCharacterStats();
         });
         
         socket.on('disconnect', () => {
@@ -1377,8 +1380,9 @@
             // Load initial location data
             loadLocationData();
             
-            // Load character stats (default tab) on page load if game is already started
-            if (gameStarted) {
+            // Load character stats (default tab) on page load
+            // This handles page refreshes when already connected
+            if (connected) {
                 loadCharacterStats();
             }
         });
