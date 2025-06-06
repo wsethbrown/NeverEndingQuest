@@ -464,16 +464,13 @@ def update_json_schema(ai_response, player_info, encounter_data, party_tracker_d
     player_changes = f"Update the character's experience points. XP Awarded: {xp_info}"
     update_success = update_character_info(player_name, player_changes)
     
-    # Reload the updated player data
+    # Return original player info (update_character_info already handles file updates)
     if update_success:
-        player_file = path_manager.get_character_path(player_name)
-        updated_player_info = safe_json_load(player_file)
-        if updated_player_info is None:
-            print(f"ERROR: Failed to reload player data after update")
-            updated_player_info = player_info  # Fallback to original data
+        print(f"DEBUG: Successfully updated player XP")
     else:
         print(f"ERROR: Failed to update player info")
-        updated_player_info = player_info  # Fallback to original data
+    
+    updated_player_info = player_info  # Return original data, file is already updated
 
     # Update encounter information (monsters only, no XP)
     encounter_id = encounter_data['encounterId']
