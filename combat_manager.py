@@ -887,6 +887,10 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
        'preroll_id': f"{round_num}-{random.randint(1000,9999)}"
    }
    
+   # Save the encounter data with initial preroll cache to disk
+   save_json_file(json_file_path, encounter_data)
+   print(f"DEBUG: Saved initial prerolls for round {round_num}")
+   
    # Get initial scene description before first user input
    print("DEBUG: Getting initial scene description...")
    # Generate initiative order for validation context
@@ -1143,10 +1147,16 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                'rolls': preroll_text,
                'preroll_id': f"{current_round}-{random.randint(1000,9999)}"
            }
+           # Save the encounter data with preroll cache to disk
+           save_json_file(json_file_path, encounter_data)
+           print(f"DEBUG: Generated new prerolls for round {current_round}")
        else:
            # Use cached prerolls for current round
            preroll_text = encounter_data.get('preroll_cache', {}).get('rolls', '')
-           if not preroll_text:
+           if preroll_text:
+               preroll_id = encounter_data.get('preroll_cache', {}).get('preroll_id', 'unknown')
+               print(f"DEBUG: Reusing cached prerolls for round {current_round} (ID: {preroll_id})")
+           else:
                # Fallback if cache missing
                preroll_text = generate_prerolls(encounter_data, round_num=current_round)
                encounter_data['preroll_cache'] = {
@@ -1154,6 +1164,9 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                    'rolls': preroll_text,
                    'preroll_id': f"{current_round}-{random.randint(1000,9999)}"
                }
+               # Save the encounter data with preroll cache to disk
+               save_json_file(json_file_path, encounter_data)
+               print(f"DEBUG: Generated fallback prerolls for round {current_round}")
        
        # Generate initiative order for validation context
        initiative_order = get_initiative_order(encounter_data)
@@ -1394,6 +1407,13 @@ Player: {user_input_text}"""
            
            elif action_type == "exit":
                print("DEBUG: Combat has ended, preparing summary...")
+               
+               # Clear the preroll cache when combat ends
+               if 'preroll_cache' in encounter_data:
+                   del encounter_data['preroll_cache']
+                   save_json_file(json_file_path, encounter_data)
+                   print("DEBUG: Cleared preroll cache for ended combat")
+               
                xp_narrative, xp_awarded = calculate_xp()
                # Still record this information in the conversation history, but don't print it to console
                conversation_history.append({"role": "system", "content": f"XP Awarded: {xp_narrative}"})
