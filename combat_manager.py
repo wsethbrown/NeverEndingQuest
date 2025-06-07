@@ -8,6 +8,7 @@ Features:
 - Processes player actions and AI responses
 - Generates combat summaries and experience rewards
 - Maintains combat logs for debugging and analysis
+- Round-based preroll caching to ensure dice consistency
 
 Combat Logging System:
 - Creates per-encounter logs in the combat_logs/{encounter_id}/ directory
@@ -30,6 +31,8 @@ Combat Logging System:
 # - Validate combat actions against D&D 5e rules
 # - Coordinate HP tracking, status effects, and combat state
 # - Generate and manage pre-rolled dice to prevent AI confusion
+# - Cache prerolls per combat round to ensure consistency
+# - Track combat rounds through AI responses
 # - Provide specialized combat AI prompts and validation
 # 
 # COMBAT FLOW:
@@ -61,6 +64,7 @@ import json
 import os
 import time
 import re
+import random
 from xp import main as calculate_xp
 from openai import OpenAI
 # Import model configurations from config.py
@@ -171,6 +175,44 @@ def save_json_file(file_path, data):
         safe_write_json(file_path, data)
     except Exception as e:
         print(f"ERROR: Failed to save {file_path}: {str(e)}")
+
+def clean_old_dm_notes(conversation_history):
+    """
+    Clean up old Dungeon Master Notes from conversation history,
+    keeping only the round information and player's message for all but the most recent one.
+    This reduces token usage and noise in the conversation while preserving round tracking.
+    """
+    # Find the index of the most recent user message with Dungeon Master Note
+    last_dm_note_index = -1
+    for i in range(len(conversation_history) - 1, -1, -1):
+        message = conversation_history[i]
+        if message.get("role") == "user" and "Dungeon Master Note:" in message.get("content", ""):
+            last_dm_note_index = i
+            break
+    
+    # Clean all DM notes except the most recent one
+    for i, message in enumerate(conversation_history):
+        if (message.get("role") == "user" and 
+            "Dungeon Master Note:" in message.get("content", "") and 
+            i < last_dm_note_index):  # Don't clean the most recent one
+            
+            # Extract the round information and player's message
+            content = message["content"]
+            
+            # Try to find the round information
+            round_match = re.search(r"COMBAT ROUND (\d+)", content)
+            round_info = f"Round {round_match.group(1)}" if round_match else ""
+            
+            # Extract just the player's message
+            player_split = content.split("Player:", 1)
+            if len(player_split) == 2:
+                # Keep round info (like time in main.py) and player's actual input
+                if round_info:
+                    message["content"] = f"Dungeon Master Note: {round_info}. Player: {player_split[1].strip()}"
+                else:
+                    message["content"] = player_split[1].strip()
+    
+    return conversation_history
 
 def is_valid_json(json_string):
     try:
@@ -833,21 +875,34 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    
    all_dynamic_state = "\n".join(dynamic_state_parts)
    
-   # Generate prerolls for the initial scene
-   preroll_text = generate_prerolls(encounter_data)
+   # Initialize round tracking and generate prerolls for the initial scene
+   round_num = 1
+   encounter_data['current_round'] = round_num
+   preroll_text = generate_prerolls(encounter_data, round_num=round_num)
+   
+   # Cache the prerolls
+   encounter_data['preroll_cache'] = {
+       'round': round_num,
+       'rolls': preroll_text,
+       'preroll_id': f"{round_num}-{random.randint(1000,9999)}"
+   }
    
    # Get initial scene description before first user input
    print("DEBUG: Getting initial scene description...")
    # Generate initiative order for validation context
    initiative_order = get_initiative_order(encounter_data)
    
-   initial_prompt = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. This is the start of combat, so please describe the scene and set initiative order, but don't take any actions yet. Start off by hooking the player and engaging them for the start of combat the way any world class dungeon master would.
+   initial_prompt = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field, 'combat_round' field, and an 'actions' array. This is the start of combat, so please describe the scene and set initiative order, but don't take any actions yet. Start off by hooking the player and engaging them for the start of combat the way any world class dungeon master would.
 
 Important Character Field Definitions:
 - 'status' field: Overall life/death state - ONLY use 'alive', 'dead', 'unconscious', or 'defeated' (lowercase)
 - 'condition' field: D&D 5e status conditions - use 'none' when no conditions, or valid D&D conditions like 'blinded', 'charmed', 'poisoned', etc.
 - NEVER set condition to 'alive' - that goes in the status field
 - NEVER set status to 'none' - use 'alive' for conscious characters
+
+Combat Round Tracking:
+- Include "combat_round": 1 in your response (this is round 1)
+- Track rounds throughout combat and increment when all creatures have acted
 
 Current dynamic state for all creatures:
 {all_dynamic_state}
@@ -1076,14 +1131,35 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        
        all_dynamic_state = "\n".join(dynamic_state_parts)
        
-       # Generate fresh prerolls for this combat round
-       preroll_text = generate_prerolls(encounter_data)
+       # Check if we need new prerolls based on round progression
+       current_round = encounter_data.get('current_round', 1)
+       cached_round = encounter_data.get('preroll_cache', {}).get('round', 0)
+       
+       if current_round > cached_round:
+           # Generate fresh prerolls for new round
+           preroll_text = generate_prerolls(encounter_data, round_num=current_round)
+           encounter_data['preroll_cache'] = {
+               'round': current_round,
+               'rolls': preroll_text,
+               'preroll_id': f"{current_round}-{random.randint(1000,9999)}"
+           }
+       else:
+           # Use cached prerolls for current round
+           preroll_text = encounter_data.get('preroll_cache', {}).get('rolls', '')
+           if not preroll_text:
+               # Fallback if cache missing
+               preroll_text = generate_prerolls(encounter_data, round_num=current_round)
+               encounter_data['preroll_cache'] = {
+                   'round': current_round,
+                   'rolls': preroll_text,
+                   'preroll_id': f"{current_round}-{random.randint(1000,9999)}"
+               }
        
        # Generate initiative order for validation context
        initiative_order = get_initiative_order(encounter_data)
        
        # Format user input with DM note, hitpoints info, and prerolls
-       user_input_with_note = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field and an 'actions' array. Use 'updateCharacterInfo' (with characterName parameter) and 'updateEncounter' actions to record changes in hit points, status, or conditions for any creature in the encounter. Remember to use separate 'updateCharacterInfo' actions whenever players or NPCs take damage or their status changes. Monster changes should be in 'updateEncounter', but player and NPC changes require their own 'updateCharacterInfo' actions with the specific character name.
+       user_input_with_note = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field, 'combat_round' field, and an 'actions' array. Use 'updateCharacterInfo' (with characterName parameter) and 'updateEncounter' actions to record changes in hit points, status, or conditions for any creature in the encounter. Remember to use separate 'updateCharacterInfo' actions whenever players or NPCs take damage or their status changes. Monster changes should be in 'updateEncounter', but player and NPC changes require their own 'updateCharacterInfo' actions with the specific character name.
 
 Important Character Field Definitions:
 - 'status' field: Overall life/death state - ONLY use 'alive', 'dead', 'unconscious', or 'defeated' (lowercase)
@@ -1095,6 +1171,9 @@ Critical Rules:
 2. NEVER set status to 'none' - use 'alive' for conscious characters
 3. Include the 'exit' action when the encounter ends
 4. All field values must match the expected schema exactly
+5. Track combat rounds: Include "combat_round": X in your response
+6. Increment round number when all alive creatures have taken their turn
+7. During validation corrections, maintain the same round number
 
 Current dynamic state for all creatures:
 {all_dynamic_state}
@@ -1104,6 +1183,9 @@ Initiative Order: {initiative_order}
 {preroll_text}
 
 Player: {user_input_text}"""
+       
+       # Clean old DM notes before adding new user input
+       conversation_history = clean_old_dm_notes(conversation_history)
        
        # Add user input to conversation history
        conversation_history.append({"role": "user", "content": user_input_with_note})
@@ -1202,6 +1284,21 @@ Player: {user_input_text}"""
            parsed_response = json.loads(ai_response)
            narration = parsed_response["narration"]
            actions = parsed_response["actions"]
+           
+           # Extract and update combat round if provided
+           if 'combat_round' in parsed_response:
+               new_round = parsed_response['combat_round']
+               current_round = encounter_data.get('current_round', 1)
+               
+               # Only update if round advances (never go backward)
+               if isinstance(new_round, int) and new_round > current_round:
+                   print(f"DEBUG: Combat advancing from round {current_round} to round {new_round}")
+                   encounter_data['current_round'] = new_round
+                   # Save the updated encounter data
+                   save_json_file(f"encounter_{encounter_id}.json", encounter_data)
+               elif isinstance(new_round, int) and new_round < current_round:
+                   print(f"DEBUG: Ignoring backward round progression from {current_round} to {new_round}")
+               
        except json.JSONDecodeError as e:
            print(f"DEBUG: JSON parsing error: {str(e)}")
            print("DEBUG: Raw AI response:")

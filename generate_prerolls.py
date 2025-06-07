@@ -14,6 +14,8 @@
 # - Provide clear formatting to prevent AI misinterpretation
 # - Handle schema differences between monsters and NPCs
 # - Generate appropriate saving throw dice for all creatures
+# - Track combat rounds and provide unique preroll IDs
+# - Support round-based caching for dice consistency
 # 
 # PROBLEM SOLVED:
 # Previously, AI would see multiple dice rolls and assume multiple attacks.
@@ -127,10 +129,26 @@ def get_npc_attacks(npc_name):
         print(f"Error loading NPC {npc_name}: {e}")
         return [{"name": "weapon attack"}], 1
 
-def generate_prerolls(encounter_data):
-    """Generate organized dice rolls with generic pool and creature-specific attacks."""
+def generate_prerolls(encounter_data, round_num=None):
+    """Generate organized dice rolls with generic pool and creature-specific attacks.
+    
+    Args:
+        encounter_data: The encounter data dictionary
+        round_num: The current combat round number (defaults to 1 if not specified)
+    
+    Returns:
+        str: Formatted preroll text with round tracking
+    """
+    # Determine round number
+    if round_num is None:
+        round_num = encounter_data.get('current_round', 1)
+    
+    # Generate preroll ID for tracking
+    preroll_id = f"{round_num}-{random.randint(1000,9999)}"
+    
     preroll_lines = []
-    preroll_lines.append("DM Note: DICE AVAILABLE THIS ROUND:")
+    preroll_lines.append(f"DM Note: COMBAT ROUND {round_num} - DICE AVAILABLE:")
+    preroll_lines.append(f"Preroll Set ID: {preroll_id} (Generated at round start)")
     preroll_lines.append("")
     
     # Generate generic dice pool
@@ -242,6 +260,10 @@ def generate_prerolls(encounter_data):
     preroll_lines.append("Use generic dice pool for damage rolls, spells, and other abilities.")
     preroll_lines.append("Apply all appropriate modifiers (ability scores, proficiency, weapon bonuses, etc.).")
     preroll_lines.append(f"Note: {player_name} must make their own rolls.")
+    preroll_lines.append("")
+    preroll_lines.append(f"COMBAT TRACKING: You MUST include \"combat_round\": {round_num} in your JSON response.")
+    preroll_lines.append("Increment the round number when all alive creatures have taken their turn.")
+    preroll_lines.append(f"These dice remain constant throughout round {round_num}.")
     
     return "\n".join(preroll_lines)
 
