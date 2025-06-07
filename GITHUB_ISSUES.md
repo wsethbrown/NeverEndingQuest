@@ -763,3 +763,165 @@ A player finds better armor and wants to compare:
 - Decision: Keep Chain Mail for better AC with low DEX, or switch for other benefits
 
 This visibility enables informed equipment choices and better gameplay experience.
+
+---
+
+## Issue 21: Special abilities from equipped items not reflected in character abilities section
+**Labels:** `bug`, `game-mechanics`, `data-integrity`
+
+### Description
+When players equip items with special abilities (like the Knight's Heart-shaped Amulet providing damage resistance), the abilities are correctly added to the equipment inventory with `equipped: true`, but they do not appear in the character's special abilities or class features sections. This creates a disconnect where the player cannot see what special powers they currently have active from their equipped gear.
+
+### Current Behavior
+- Equipment with special abilities is properly added to inventory
+- `equipped` flag is correctly set to `true` by the AI
+- Special abilities from items do not appear in the specialAbilities array
+- Player cannot see what powers they have from equipped gear
+- No indication in abilities section that equipment provides special powers
+
+### Example Case
+The Knight's Heart-shaped Amulet provides:
+- **Equipment**: Correctly shows in inventory as equipped
+- **Special Ability**: Damage resistance to necrotic damage
+- **Problem**: Damage resistance does not appear in character's specialAbilities section
+
+### Expected Behavior
+- When an item with special abilities is equipped, those abilities should be automatically added to the character's specialAbilities array
+- Abilities should be marked as coming from equipment (not innate)
+- When item is unequipped, the abilities should be automatically removed
+- A comprehensive audit pass should ensure all currently equipped items with special abilities are properly reflected
+
+### Technical Requirements
+
+**1. Automatic Ability Synchronization**
+```python
+def sync_equipment_abilities(character_data):
+    """Sync special abilities from equipped items to character abilities"""
+    equipped_items = [item for item in character_data.get('equipment', []) 
+                     if item.get('equipped', False)]
+    
+    equipment_abilities = []
+    for item in equipped_items:
+        if 'special_abilities' in item:
+            for ability in item['special_abilities']:
+                equipment_abilities.append({
+                    'name': ability['name'],
+                    'description': ability['description'],
+                    'source': f"Equipment: {item['item_name']}"
+                })
+    
+    # Remove old equipment abilities and add current ones
+    non_equipment_abilities = [ability for ability in character_data.get('specialAbilities', [])
+                              if not ability.get('source', '').startswith('Equipment:')]
+    
+    character_data['specialAbilities'] = non_equipment_abilities + equipment_abilities
+```
+
+**2. Equipment Schema Enhancement**
+```json
+{
+  "item_name": "Knight's Heart-shaped Amulet",
+  "item_type": "miscellaneous", 
+  "equipped": true,
+  "special_abilities": [
+    {
+      "name": "Necrotic Resistance",
+      "description": "Resistance to necrotic damage",
+      "type": "passive"
+    }
+  ]
+}
+```
+
+**3. Abilities Display Enhancement**
+```json
+"specialAbilities": [
+  {
+    "name": "Necrotic Resistance",
+    "description": "Resistance to necrotic damage", 
+    "source": "Equipment: Knight's Heart-shaped Amulet"
+  },
+  {
+    "name": "Second Wind",
+    "description": "Regain 1d10+level HP once per short rest",
+    "source": "Fighter Class Feature"
+  }
+]
+```
+
+### Implementation Strategy
+
+**Phase 1: Audit Current Equipped Items**
+- Create a script to scan all character files
+- Identify equipped items with special abilities
+- Add missing abilities to specialAbilities arrays
+- Mark abilities with equipment source
+
+**Phase 2: Automatic Synchronization**
+- Implement sync function called whenever equipment changes
+- Hook into equipment equip/unequip actions
+- Update character display to show ability sources
+
+**Phase 3: AI Integration**
+- Update system prompts to instruct AI about equipment abilities
+- Ensure AI considers equipment abilities in combat and decisions
+- Validate that AI properly tracks equipment-based powers
+
+### Affected Files
+- `char_schema.json` - Add special_abilities field to equipment items
+- `norn.json` and other character files - Data migration for equipped items
+- `update_character_info.py` - Add equipment ability synchronization
+- `templates/game_interface.html` - Display ability sources in UI  
+- `system_prompt.txt` - Instructions for AI to consider equipment abilities
+
+### Equipment Items to Audit
+Based on common D&D magic items, check for:
+- **Resistance/Immunity items** (rings, amulets, cloaks)
+- **Stat boost items** (belts, gauntlets, headbands)
+- **Special power items** (boots of speed, cloak of elvenkind)
+- **Combat enhancement items** (weapons with special attacks, armor with abilities)
+
+### Example Equipment with Abilities
+```json
+{
+  "item_name": "Cloak of Elvenkind",
+  "item_type": "miscellaneous",
+  "equipped": true, 
+  "special_abilities": [
+    {
+      "name": "Advantage on Stealth",
+      "description": "You have advantage on Dexterity (Stealth) checks",
+      "type": "passive"
+    }
+  ]
+},
+{
+  "item_name": "Ring of Protection",
+  "item_type": "miscellaneous",
+  "equipped": true,
+  "special_abilities": [
+    {
+      "name": "AC and Saving Throw Bonus", 
+      "description": "+1 bonus to AC and saving throws",
+      "type": "passive"
+    }
+  ]
+}
+```
+
+### Benefits
+- Players can see all their active abilities in one place
+- Equipment choices become more meaningful and visible
+- Easier to track character capabilities during play
+- AI can better utilize equipment abilities in decisions
+- Consistent ability tracking across all sources
+- Better integration between equipment and character mechanics
+
+### Testing Checklist
+- [ ] Equipped items with abilities appear in specialAbilities
+- [ ] Unequipped items remove their abilities
+- [ ] Ability sources are clearly marked
+- [ ] No duplicate abilities from multiple sources
+- [ ] AI considers equipment abilities in combat
+- [ ] UI clearly displays ability sources
+- [ ] All existing equipped items are audited and updated
