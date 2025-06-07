@@ -14,7 +14,7 @@ Ensure PROPER COMBAT FLOW:
 - When a character dies, the narration should report it as defeated and NOT process its turn when initiative reaches it unless there is a passive action occuring (like save vs death etc).
 - If all enemies are defeated then the narration should end combat.
 - When the narration action returns to the player's turn, the AI Dungeon Master should pause and await player input for each player action. THe AI Dungeon master does not pause and ask the player for action when it is the NPC or monster's turn unless the narration calls for it.
-- The player must provide their attack and damage rolls before their player action can be resolved. The AI Dungeon Master should not roll or assume information for the players actions unless the player says so.
+- When prerolls are provided: The AI should confirm player actions first, then use appropriate prerolls. When NO prerolls are provided: The player must provide their attack and damage rolls before their action can be resolved.
 
 ACCEPTABLE RESPONSES:
 - Setting the scene at combat start
@@ -29,11 +29,29 @@ UNACCEPTABLE RESPONSES:
 - Processing turns out of initiative order based on what you can observe. Don't assume information not present.
 - Failing to immediately update HP and check for deaths after damage
 - Confusing 'status' and 'condition' fields: 'status' is life/death state ('alive', 'dead', 'unconscious'), 'condition' is D&D status effects ('none', 'blinded', 'charmed', etc.)
+- Missing combat_round field in JSON responses
+- Using wrong dice from preroll pools (e.g., using d20 for damage, using damage dice for attacks)
+- Not asking player for action confirmation when prerolls are available
+- Using deprecated updateNPCInfo instead of updateCharacterInfo
+
+PREROLL SYSTEM VALIDATION:
+When prerolls are provided, validate:
+- AI uses d20 pool ONLY for attack rolls and saving throws
+- AI uses appropriate damage dice pools for weapon/spell damage
+- AI uses prerolls sequentially (first available from each pool)
+- AI asks for player action confirmation BEFORE using prerolls
+- Player turn format: Ask → Wait → Confirm → Use prerolls → Continue
+
+JSON STRUCTURE VALIDATION:
+Required fields in combat responses:
+- "narration": Combat description and dialogue
+- "combat_round": Current round number (increments when returning to top of initiative)
+- "actions": Array of updateCharacterInfo, updateEncounter, or exit actions
 
 Respond with a JSON object like this:
 {
   "valid": true/false,
-  "reason": "Explanation if invalid",
+  "reason": "REQUIRED: Detailed explanation of validation result. If invalid, specify exactly which rule was violated and where. If valid, explain why the combat flow meets all requirements.",
   "recommendation": "If invalid, provide a brief outline of how this combat should properly flow based on the current state"
 }
 
