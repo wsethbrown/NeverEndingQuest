@@ -591,18 +591,18 @@ def check_and_compact_missing_summaries(conversation_history, party_tracker_data
     
     # Track locations that need summaries
     missing_summaries = []
+    already_summarized_count = 0
     
     # Check each transition
     for i, trans_idx in enumerate(transitions):
         msg = conversation_history[trans_idx]
-        debug_print(f"Checking transition at index {trans_idx}: {msg.get('content', '')[:100]}")
         
         # Check if next message is already a location summary
         is_already_summarized = False
         if trans_idx + 1 < len(conversation_history):
             next_msg = conversation_history[trans_idx + 1]
             if next_msg.get("role") == "assistant" and "=== LOCATION SUMMARY ===" in next_msg.get("content", ""):
-                debug_print(f"Transition at index {trans_idx} already has a summary")
+                already_summarized_count += 1
                 is_already_summarized = True
         
         if not is_already_summarized:
@@ -783,5 +783,6 @@ def check_and_compact_missing_summaries(conversation_history, party_tracker_data
             import traceback
             traceback.print_exc()
     
-    debug_print(f"Finished processing missing summaries")
+    # Consolidated summary of location compression scan
+    debug_print(f"Location compression scan complete: {len(transitions)} transitions checked, {already_summarized_count} already summarized, {len(missing_summaries)} new summaries added")
     return conversation_history
