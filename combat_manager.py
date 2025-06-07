@@ -15,6 +15,7 @@ Combat Logging System:
 - Generates both timestamped and "latest" versions of each log
 - Maintains a combined log of all encounters in all_combat_latest.json
 - Filters out system messages for cleaner, more readable logs
+
 """
 # ============================================================================
 # COMBAT_MANAGER.PY - GAME SYSTEMS LAYER - COMBAT
@@ -106,6 +107,7 @@ os.makedirs("combat_logs", exist_ok=True)
 # Constants for chat history generation
 HISTORY_TIMESTAMP_FORMAT = "%Y%m%d_%H%M%S"
 
+
 def get_current_area_id():
     party_tracker = safe_json_load("party_tracker.json")
     if not party_tracker:
@@ -178,39 +180,58 @@ def save_json_file(file_path, data):
 
 def clean_old_dm_notes(conversation_history):
     """
-    Clean up old Dungeon Master Notes from conversation history,
-    keeping only the round information and player's message for all but the most recent one.
-    This reduces token usage and noise in the conversation while preserving round tracking.
+    Clean up old Dungeon Master Notes from conversation history while preserving critical information.
+    Keeps round tracking, HP status, and basic combat state for the last 3 rounds.
+    This reduces token usage while maintaining enough context for proper combat flow.
     """
-    # Find the index of the most recent user message with Dungeon Master Note
-    last_dm_note_index = -1
-    for i in range(len(conversation_history) - 1, -1, -1):
-        message = conversation_history[i]
+    # Find all DM note indices
+    dm_note_indices = []
+    for i, message in enumerate(conversation_history):
         if message.get("role") == "user" and "Dungeon Master Note:" in message.get("content", ""):
-            last_dm_note_index = i
-            break
+            dm_note_indices.append(i)
     
-    # Clean all DM notes except the most recent one
+    # Keep the last 3 DM notes fully intact, clean older ones
+    keep_full_count = 3
+    
     for i, message in enumerate(conversation_history):
         if (message.get("role") == "user" and 
-            "Dungeon Master Note:" in message.get("content", "") and 
-            i < last_dm_note_index):  # Don't clean the most recent one
+            "Dungeon Master Note:" in message.get("content", "")):
             
-            # Extract the round information and player's message
+            # Check if this is one of the recent DM notes to keep
+            note_index_in_list = dm_note_indices.index(i) if i in dm_note_indices else -1
+            if note_index_in_list >= len(dm_note_indices) - keep_full_count:
+                # Keep this note fully intact
+                continue
+            
+            # Clean older DM notes but preserve essential information
             content = message["content"]
             
-            # Try to find the round information
+            # Extract round information
             round_match = re.search(r"COMBAT ROUND (\d+)", content)
             round_info = f"Round {round_match.group(1)}" if round_match else ""
             
-            # Extract just the player's message
+            # Extract HP state information
+            hp_pattern = r"HP: \d+/\d+"
+            hp_matches = re.findall(hp_pattern, content)
+            hp_info = ", ".join(hp_matches) if hp_matches else ""
+            
+            # Extract player's message
             player_split = content.split("Player:", 1)
-            if len(player_split) == 2:
-                # Keep round info (like time in main.py) and player's actual input
-                if round_info:
-                    message["content"] = f"Dungeon Master Note: {round_info}. Player: {player_split[1].strip()}"
-                else:
-                    message["content"] = player_split[1].strip()
+            player_msg = player_split[1].strip() if len(player_split) == 2 else ""
+            
+            # Construct cleaned message with essential info
+            cleaned_parts = []
+            if round_info:
+                cleaned_parts.append(round_info)
+            if hp_info:
+                cleaned_parts.append(f"HP: {hp_info}")
+            if player_msg:
+                cleaned_parts.append(f"Player: {player_msg}")
+            
+            if cleaned_parts:
+                message["content"] = f"Dungeon Master Note: {'. '.join(cleaned_parts)}"
+            else:
+                message["content"] = "Dungeon Master Note: [Previous turn]"
     
     return conversation_history
 
@@ -404,6 +425,7 @@ def log_conversation_structure(conversation):
     for role, count in roles.items():
         print(f"  {role}: {count}")
     print()
+
 
 def summarize_dialogue(conversation_history_param, location_data, party_tracker_data):
     print("DEBUG: Activating the third model...")
@@ -702,6 +724,27 @@ def filter_dynamic_fields(data):
                      'temporaryEffects', 'currentHitPoints']
     return {k: v for k, v in data.items() if k not in dynamic_fields}
 
+def filter_encounter_for_system_prompt(encounter_data):
+    """Remove preroll cache and other private data from encounter before sharing with AI"""
+    if not encounter_data or not isinstance(encounter_data, dict):
+        return encounter_data
+    
+    # Create a copy to avoid modifying original data
+    filtered_data = encounter_data.copy()
+    
+    # Remove preroll cache - this should never be visible to the AI
+    if 'preroll_cache' in filtered_data:
+        del filtered_data['preroll_cache']
+    
+    # Remove any other internal tracking fields that shouldn't be shared
+    internal_fields = ['turn_tracker', 'debug_info', 'system_notes']
+    for field in internal_fields:
+        if field in filtered_data:
+            del filtered_data[field]
+    
+    print(f"DEBUG: Filtered encounter data for system prompt, removed preroll cache")
+    return filtered_data
+
 def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    """Main function to run the combat simulation"""
    print(f"DEBUG: Starting combat simulation for encounter {encounter_id}")
@@ -818,7 +861,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    
    conversation_history[4]["content"] = f"Location:\n{json.dumps(location_info, indent=2)}"
    conversation_history.append({"role": "system", "content": f"NPC Templates:\n{json.dumps({k: filter_dynamic_fields(v) for k, v in npc_templates.items()}, indent=2)}"})
-   conversation_history.append({"role": "system", "content": f"Encounter Details:\n{json.dumps(encounter_data, indent=2)}"})
+   conversation_history.append({"role": "system", "content": f"Encounter Details:\n{json.dumps(filter_encounter_for_system_prompt(encounter_data), indent=2)}"})
    
    # Log the conversation structure for debugging
    log_conversation_structure(conversation_history)
@@ -905,7 +948,7 @@ Important Character Field Definitions:
 - NEVER set status to 'none' - use 'alive' for conscious characters
 
 Combat Round Tracking:
-- Include "combat_round": 1 in your response (this is round 1)
+- MANDATORY: Include "combat_round": 1 in your response (this is round 1)
 - Track rounds throughout combat and increment when all creatures have acted
 
 Current dynamic state for all creatures:
@@ -1045,7 +1088,7 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                # Find and update the encounter data in conversation history
                for i, msg in enumerate(conversation_history):
                    if msg["role"] == "system" and "Encounter Details:" in msg["content"]:
-                       conversation_history[i]["content"] = f"Encounter Details:\n{json.dumps(encounter_data, indent=2)}"
+                       conversation_history[i]["content"] = f"Encounter Details:\n{json.dumps(filter_encounter_for_system_prompt(encounter_data), indent=2)}"
                        break
        except Exception as e:
            print(f"ERROR: Failed to reload encounter file {json_file_path}: {str(e)}")
@@ -1191,9 +1234,9 @@ Critical Rules:
 2. NEVER set status to 'none' - use 'alive' for conscious characters
 3. Include the 'exit' action when the encounter ends
 4. All field values must match the expected schema exactly
-5. Track combat rounds: Include "combat_round": X in your response
-6. Increment round number when all alive creatures have taken their turn
-7. During validation corrections, maintain the same round number
+5. MANDATORY: Include "combat_round": {current_round} in your response (current round is {current_round})
+6. Only increment round number when ALL alive creatures have completed their turns in initiative order
+7. During validation corrections, maintain the same round number unless explicitly advancing
 
 Current dynamic state for all creatures:
 {all_dynamic_state}
@@ -1224,6 +1267,7 @@ Player: {user_input_text}"""
                    messages=conversation_history
                )
                ai_response = response.choices[0].message.content.strip()
+               
                
                # Write raw response to debug file
                with open("debug_ai_response.json", "w") as debug_file:
@@ -1318,6 +1362,7 @@ Player: {user_input_text}"""
                    save_json_file(f"encounter_{encounter_id}.json", encounter_data)
                elif isinstance(new_round, int) and new_round < current_round:
                    print(f"DEBUG: Ignoring backward round progression from {current_round} to {new_round}")
+           
                
        except json.JSONDecodeError as e:
            print(f"DEBUG: JSON parsing error: {str(e)}")
