@@ -925,3 +925,265 @@ Based on common D&D magic items, check for:
 - [ ] AI considers equipment abilities in combat
 - [ ] UI clearly displays ability sources
 - [ ] All existing equipped items are audited and updated
+
+---
+
+## Issue 26: No comprehensive tracking system for curses, environmental effects, and random events
+**Labels:** `enhancement`, `game-mechanics`, `ai-integration`, `system-design`
+
+### Description
+The game lacks a broad overview process to ensure curses, environmental effects, random encounters, and ongoing events are properly tracked, processed, and trigger appropriate checks. These systems operate in isolation without a centralized AI-driven management system that can coordinate their interactions and ensure nothing is forgotten or overlooked.
+
+### Current Problems
+
+**1. Isolated Effect Systems**
+- Curses exist but no systematic checking or progression
+- Environmental effects (weather, magical areas, etc.) not tracked over time
+- Random encounters happen but don't influence ongoing effects
+- No coordination between different effect types
+
+**2. Missing Oversight Process**
+- No regular "heartbeat" system to check active effects
+- AI doesn't proactively consider ongoing effects in decisions
+- Effects can be forgotten or inconsistently applied
+- No systematic way to trigger condition checks
+
+**3. Limited Random Event Integration**
+- Random encounters exist but aren't tied to environmental state
+- Events don't influence or interact with existing effects
+- No cascading effect system (one event triggering others)
+- Missing narrative continuity between events
+
+**4. No Centralized Effect Management**
+- Effects scattered across different files and systems
+- No unified data structure for tracking ongoing conditions
+- Difficult to query "what effects are currently active?"
+- No priority system for conflicting effects
+
+### Current State Examples
+
+**Curses**: Player might be cursed but it's only mentioned narratively, no systematic checks for:
+- Curse progression over time
+- Saving throw attempts to break free
+- Curse interactions with other effects
+- Environmental factors that worsen/improve curses
+
+**Environmental Effects**: Magical areas, weather, terrain hazards exist but:
+- No regular checks for ongoing exposure
+- Effects don't evolve or change over time
+- No interaction with player actions or story progression
+- Missing environmental storytelling opportunities
+
+**Random Encounters**: Events trigger but:
+- Don't consider current environmental state
+- Miss opportunities for effect synergy
+- Lack narrative connection to ongoing situations
+- No follow-up or consequence tracking
+
+### Proposed Solution: AI-Driven Effect Management System
+
+**Core Components:**
+
+**1. Central Effect Registry** (`effect_registry.py`)
+```json
+{
+  "activeEffects": [
+    {
+      "id": "curse_of_weakness_001",
+      "type": "curse",
+      "name": "Curse of Physical Weakness",
+      "description": "Strength reduced by 2",
+      "severity": "moderate",
+      "duration": "until_removed",
+      "triggers": ["combat_start", "ability_check"],
+      "progression": {
+        "nextCheck": "2024-01-15T14:00:00Z",
+        "checkInterval": "24_hours",
+        "worseningConditions": ["exposure_to_darkness", "failed_saving_throw"]
+      },
+      "source": "Cursed amulet from Ancient Tomb",
+      "removalMethods": ["remove_curse_spell", "holy_water_ritual"]
+    },
+    {
+      "id": "environmental_fog_002", 
+      "type": "environmental",
+      "name": "Mystical Fog",
+      "description": "Heavy fog reduces visibility to 10 feet",
+      "severity": "minor",
+      "duration": "weather_dependent",
+      "triggers": ["movement", "perception_check", "combat"],
+      "areaEffect": "current_location",
+      "interactions": ["amplifies_curse_effects", "blocks_sunlight"]
+    }
+  ]
+}
+```
+
+**2. AI Effect Coordinator** (`ai_effect_coordinator.py`)
+- Regularly queries all active effects
+- Determines when checks or progressions should occur
+- Coordinates effect interactions and synergies
+- Generates prompts for AI to handle complex situations
+- Manages effect priority and conflict resolution
+
+**3. Effect Trigger System** (`effect_triggers.py`)
+- Hooks into action handler, combat system, and time progression
+- Automatically triggers relevant effect checks
+- Handles cascading effects and chain reactions
+- Logs effect history for narrative continuity
+
+**4. Random Event Integration** (`enhanced_random_events.py`)
+- Considers current environmental and curse state
+- Generates contextually appropriate random events
+- Creates synergistic encounters (e.g., fog + ambush)
+- Tracks event consequences and follow-ups
+
+### AI Integration Strategy
+
+**1. Regular Effect Review Prompts**
+```python
+def generate_effect_review_prompt():
+    active_effects = get_all_active_effects()
+    return f"""
+    EFFECT MANAGEMENT REVIEW:
+    
+    Current Active Effects:
+    {format_effects_for_ai(active_effects)}
+    
+    Current Time: {get_game_time()}
+    Current Location: {get_current_location()}
+    Recent Player Actions: {get_recent_actions()}
+    
+    Please review and determine:
+    1. Which effects need checks or progression?
+    2. Are there any effect interactions to consider?
+    3. Should any effects trigger narrative events?
+    4. Are there opportunities for environmental storytelling?
+    5. Should any new effects be introduced based on context?
+    
+    Respond with specific actions to take for each effect.
+    """
+```
+
+**2. Contextual Effect Integration**
+- Before major actions, AI considers all active effects
+- Combat encounters factor in environmental conditions
+- Dialogue and story beats reference ongoing conditions
+- Effect descriptions evolve based on player actions
+
+**3. Proactive Effect Management**
+- AI suggests effect checks during appropriate moments
+- Automatically reminds about forgotten effects
+- Creates narrative opportunities from effect combinations
+- Manages effect timing and pacing
+
+### Implementation Features
+
+**1. Effect Categories**
+- **Curses**: Ongoing negative effects requiring removal
+- **Environmental**: Location-based conditions affecting all creatures
+- **Magical Areas**: Persistent spell effects in specific locations
+- **Weather**: Natural conditions affecting visibility, movement, etc.
+- **Random Events**: One-time or recurring special occurrences
+- **Status Conditions**: Temporary character states (poisoned, blessed, etc.)
+
+**2. Effect Interactions**
+```python
+effect_synergies = {
+    "curse + darkness": "curse_effects_amplified",
+    "fog + undead_encounter": "increased_surprise_chance", 
+    "magical_area + spell_casting": "modified_spell_effects",
+    "weather_storm + outdoor_travel": "navigation_penalties"
+}
+```
+
+**3. Smart Trigger System**
+- **Time-Based**: Daily checks, hourly progressions, seasonal changes
+- **Action-Based**: Combat start, spell casting, ability checks
+- **Location-Based**: Entering/leaving affected areas
+- **Narrative-Based**: Story milestone triggers
+
+**4. Effect Persistence**
+- Save/load effect state between sessions
+- Track effect history for narrative callbacks
+- Maintain effect intensity based on story progression
+- Handle effect removal and recovery narratives
+
+### Use Case Examples
+
+**Scenario 1: Cursed Character in Mystical Fog**
+- Daily curse progression check
+- Fog amplifies curse symptoms
+- Random encounter with will-o'-wisps attracted to cursed aura
+- AI weaves all elements into cohesive narrative
+
+**Scenario 2: Weather Storm During Travel**
+- Storm creates difficult terrain and visibility issues
+- Triggers potential random encounters (bandits, shelter seeking)
+- Affects camping and rest mechanics
+- Creates atmosphere for story developments
+
+**Scenario 3: Magical Area Exploration**
+- Ongoing magical effects modify spell behavior
+- Environmental storytelling through effect descriptions
+- Hidden treasures revealed through effect interactions
+- Potential curse acquisition from magical mishaps
+
+### Technical Requirements
+
+**1. Data Structures**
+- Unified effect schema across all effect types
+- Efficient querying and filtering of active effects
+- Version control for effect definitions and changes
+- Integration with existing character and location data
+
+**2. AI Prompt Integration**
+- System prompts include current effect summaries
+- Context-aware effect considerations in all interactions
+- Automated effect check reminders and triggers
+- Effect-based story prompt generation
+
+**3. Performance Considerations**
+- Efficient effect polling and checking algorithms
+- Minimal overhead for inactive effects
+- Batch processing of multiple effect checks
+- Optimized storage and retrieval systems
+
+### Affected Files
+- **New Files**: `effect_registry.py`, `ai_effect_coordinator.py`, `effect_triggers.py`
+- **Enhanced Files**: `action_handler.py`, `dm_wrapper.py`, `party_tracker.json`
+- **Integration Points**: `combat_manager.py`, `location_manager.py`, `system_prompt.txt`
+
+### Benefits
+
+**1. Immersive Gameplay**
+- Consistent and persistent world state
+- Rich environmental storytelling
+- Meaningful consequences for player actions
+- Dynamic and evolving game world
+
+**2. AI Enhancement**
+- Better context awareness for AI decisions
+- Proactive effect management and storytelling
+- Reduced chance of forgotten or inconsistent effects
+- More sophisticated narrative generation
+
+**3. System Reliability**
+- Comprehensive effect tracking prevents oversight
+- Automated checks ensure consistent application
+- Clear audit trail of effect history
+- Robust save/load functionality
+
+**4. Enhanced Immersion**
+- Effects feel like living parts of the world
+- Natural progression and evolution of conditions
+- Seamless integration between different game systems
+- Rich, interconnected storytelling opportunities
+
+### Implementation Priority
+1. **Phase 1**: Basic effect registry and tracking system
+2. **Phase 2**: AI coordinator and automated checking
+3. **Phase 3**: Advanced interactions and synergies  
+4. **Phase 4**: Full random event integration and environmental storytelling
+
+This comprehensive system would transform isolated effect systems into a cohesive, AI-driven experience that ensures nothing falls through the cracks while creating rich, interconnected storytelling opportunities.
