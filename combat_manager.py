@@ -66,6 +66,7 @@ import os
 import time
 import re
 import random
+import subprocess
 from xp import main as calculate_xp
 from openai import OpenAI
 # Import model configurations from config.py
@@ -84,6 +85,7 @@ from generate_prerolls import generate_prerolls
 # Import safe JSON functions
 from encoding_utils import safe_json_load
 from file_operations import safe_write_json
+import cumulative_summary
 
 # Updated color constants
 SOLID_GREEN = "\033[38;2;0;180;0m"
@@ -1479,6 +1481,38 @@ Player: {user_input_text}"""
                
                # Generate dialogue summary
                dialogue_summary_result = summarize_dialogue(conversation_history, location_info, party_tracker_data)
+               
+               # Run adventure summary process (same as location transitions)
+               try:
+                   print("DEBUG: Running adventure summary after combat encounter...")
+                   current_location_name = party_tracker_data["worldConditions"]["currentLocation"]
+                   current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
+                   
+                   # Save current location info for adv_summary.py
+                   safe_write_json("current_location.json", location_info)
+                   
+                   # Run adventure summary update (same as location transitions)
+                   result = subprocess.run([
+                       "python", "adv_summary.py", 
+                       "conversation_history.json", 
+                       "current_location.json", 
+                       current_location_name, 
+                       current_area_id
+                   ], check=True, capture_output=True, text=True)
+                   print("DEBUG: Adventure summary updated successfully after combat")
+                   
+                   # Compress conversation history (same as location transitions)
+                   main_conversation_history = safe_json_load("conversation_history.json")
+                   if main_conversation_history:
+                       compressed_history = cumulative_summary.check_and_compact_missing_summaries(
+                           main_conversation_history, 
+                           party_tracker_data
+                       )
+                       safe_write_json("conversation_history.json", compressed_history)
+                       print("DEBUG: Conversation history compressed after combat")
+                       
+               except Exception as e:
+                   print(f"ERROR: Failed to run adventure summary after combat: {str(e)}")
                
                # Generate chat history for debugging
                generate_chat_history(conversation_history, encounter_id)

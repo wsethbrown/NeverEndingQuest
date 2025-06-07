@@ -1,4 +1,4 @@
-Provide a plan before startign to modify code to ensure you are aligned with the user's request.
+Always provide a plan before startign to modify code to ensure you are aligned with the user's request.
 
 # Tool Command Names
 When using command line tools, use these specific command names:

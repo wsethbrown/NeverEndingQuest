@@ -43,8 +43,8 @@
       "nextPoints": [
         "PP003"
       ],
-      "status": "in progress",
-      "plotImpact": "Norn follows Elen's tracks along the secret path, arriving at the concealed entrance to the keep. The next decision will shape how the party enters the stronghold and confronts its lurking dangers.",
+      "status": "completed",
+      "plotImpact": "Norn has crossed the Hidden Keep Entrance and descended into Shadowfall Keep, following Elen's trail and passing the ancient ward. The road through the haunted forest is complete; the true test now awaits within the keep.",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -76,8 +76,8 @@
       "nextPoints": [
         "PP004"
       ],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "Norn confirms Elen's passage from the Ruined Chapel to the Outer Courtyard, advancing the investigation and pursuit of the missing scout within Shadowfall Keep.",
       "sideQuests": [
         {
           "id": "SQ005",

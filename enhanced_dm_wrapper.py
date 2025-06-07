@@ -44,7 +44,7 @@ class GameState:
     def reload_state(self):
         """Reload current game state from files"""
         try:
-            with open("party_tracker.json", "r") as f:
+            with open("party_tracker.json", "r", encoding="utf-8") as f:
                 party_data = json.load(f)
                 self.current_location = party_data["worldConditions"]["currentLocation"]
                 self.time = party_data["worldConditions"]["time"]
@@ -53,7 +53,7 @@ class GameState:
                 self.encounter_id = party_data["worldConditions"].get("activeCombatEncounter", "")
             
             player_file = f"{self.player_name.lower().replace(' ', '_')}.json"
-            with open(player_file, "r") as f:
+            with open(player_file, "r", encoding="utf-8") as f:
                 player_data = json.load(f)
                 self.current_hp = player_data["hitPoints"]
                 self.max_hp = player_data["maxHitPoints"]

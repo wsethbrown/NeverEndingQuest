@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 17,
+  "hitPoints": 23,
   "maxHitPoints": 36,
   "armorClass": 19,
   "initiative": 2,
@@ -56,13 +56,16 @@
     "tools": []
   },
   "damageVulnerabilities": [],
-  "damageResistances": [],
+  "damageResistances": [
+    "fear",
+    "necrotic"
+  ],
   "damageImmunities": [],
   "conditionImmunities": [],
   "classFeatures": [
     {
       "name": "Second Wind",
-      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (restored)",
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (used)",
       "source": "Fighter feature"
     },
     {
@@ -164,12 +167,6 @@
       "quantity": 1
     },
     {
-      "item_name": "Potion of Healing",
-      "item_type": "consumable",
-      "description": "A red liquid potion that restores hit points when consumed",
-      "quantity": 1
-    },
-    {
       "item_name": "Parchment Map Scrap",
       "item_type": "miscellaneous",
       "description": "A faded parchment with a diagram marking a secret entrance to the keep at dusk",
@@ -185,6 +182,73 @@
       "item_name": "Small silver mirror (cracked, 5 gp value)",
       "item_type": "miscellaneous",
       "description": "A small cracked silver mirror, valued at 5 gold pieces",
+      "quantity": 1
+    },
+    {
+      "item_name": "Tarnished silver medallion (knight's insignia, 10 gp value)",
+      "item_type": "miscellaneous",
+      "description": "A tarnished silver medallion bearing a knight's insignia, valued at 10 gold pieces",
+      "quantity": 1
+    },
+    {
+      "item_name": "Rusted key ring with 3 ancient keys (fits various doors in the keep)",
+      "item_type": "miscellaneous",
+      "description": "A rusted key ring holding three ancient keys that fit various doors within the keep",
+      "quantity": 1
+    },
+    {
+      "item_name": "Small battered coffer",
+      "item_type": "miscellaneous",
+      "description": "A small battered coffer, possibly containing valuables or important items",
+      "quantity": 1
+    },
+    {
+      "item_name": "Old parchment (coded message/roster)",
+      "item_type": "miscellaneous",
+      "description": "An old parchment containing a coded message or roster, possibly related to the mercenaries or the keep",
+      "quantity": 1
+    },
+    {
+      "item_name": "Small silver key (sunburst)",
+      "item_type": "miscellaneous",
+      "description": "A small silver key with a sunburst design",
+      "quantity": 1
+    },
+    {
+      "item_name": "Chaplain's journal",
+      "item_type": "miscellaneous",
+      "description": "A worn journal belonging to the chapel's chaplain, containing prayers and notes",
+      "quantity": 1
+    },
+    {
+      "item_name": "Vial of blessed water",
+      "item_type": "miscellaneous",
+      "description": "A small vial containing holy water blessed by a cleric",
+      "quantity": 1
+    },
+    {
+      "item_name": "Holy symbol (silver)",
+      "item_type": "miscellaneous",
+      "description": "A silver holy symbol representing the faith of the chapel",
+      "quantity": 1
+    },
+    {
+      "item_name": "Knight's heart amulet",
+      "item_type": "miscellaneous",
+      "description": "An amulet shaped like a heart, said to have belonged to a noble knight",
+      "quantity": 1,
+      "equipped": true
+    },
+    {
+      "item_name": "Torn cloak piece",
+      "item_type": "miscellaneous",
+      "description": "A torn piece of fabric from a cloak, confirming Elen's presence here",
+      "quantity": 1
+    },
+    {
+      "item_name": "Parchment confirming Elen's presence",
+      "item_type": "miscellaneous",
+      "description": "A torn parchment bearing notes that confirm Scout Elen was at this location",
       "quantity": 1
     }
   ],
@@ -251,11 +315,11 @@
     }
   },
   "currency": {
-    "gold": 89,
+    "gold": 112,
     "silver": 0,
     "copper": 0
   },
-  "experience_points": 6171,
+  "experience_points": 6671,
   "exp_required_for_next_level": 6500,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
@@ -292,6 +356,18 @@
       "description": "Undead in the Gloamwood have disadvantage on attacks against Norn for 24 hours.",
       "duration": "24 hours",
       "source": "Lost Ward Circle Ritual"
+    },
+    {
+      "name": "Second Wind",
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (used)",
+      "source": "Fighter feature",
+      "used": true
+    },
+    {
+      "name": "Knight's Heart Amulet",
+      "description": "While equipped, grants resistance to fear and necrotic effects caused by Sir Garran's curse or associated spectral magic.",
+      "duration": "until removed",
+      "source": "Knight's Heart Amulet"
     }
   ],
   "feats": [],

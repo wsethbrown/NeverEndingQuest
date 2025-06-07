@@ -1,10 +1,13 @@
 from datetime import datetime, timedelta
 import json
+from encoding_utils import safe_json_load, safe_json_dump
 
 def update_world_time(time_estimate_str):
-    # Read the party tracker data from the JSON file
-    with open("party_tracker.json", "r") as file:
-        party_tracker_data = json.load(file)
+    # Read the party tracker data from the JSON file with safe encoding
+    party_tracker_data = safe_json_load("party_tracker.json")
+    if party_tracker_data is None:
+        print("Error: Could not load party_tracker.json")
+        return
 
     # Get the current world time and day from the party tracker data
     current_time = datetime.strptime(party_tracker_data["worldConditions"]["time"], "%H:%M:%S")
@@ -27,9 +30,8 @@ def update_world_time(time_estimate_str):
     party_tracker_data["worldConditions"]["time"] = updated_time.strftime("%H:%M:%S")
     party_tracker_data["worldConditions"]["day"] = current_day + days_passed
 
-    # Save the updated party tracker data to the JSON file
-    with open("party_tracker.json", "w") as file:
-        json.dump(party_tracker_data, file, indent=4)
+    # Save the updated party tracker data to the JSON file with safe encoding
+    safe_json_dump(party_tracker_data, "party_tracker.json", indent=4)
 
     # Debug print line in orange color
     print(f"\033[38;5;208mCurrent Time: {current_time.strftime('%H:%M:%S')}, Time Advanced: {time_estimate_minutes} minutes, New Time: {updated_time.strftime('%H:%M:%S')}, Days Passed: {days_passed}\033[0m")

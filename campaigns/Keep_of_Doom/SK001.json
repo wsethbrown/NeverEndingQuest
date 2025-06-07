@@ -166,7 +166,7 @@
       "locationId": "C01",
       "name": "Outer Courtyard",
       "type": "courtyard",
-      "description": "A weed-choked expanse ringed by crumbling walls, with the main keep looming ahead. Fallen statues of knights and nobles lie broken across the cobblestones, their faces eroded by time or deliberately defaced. A dry fountain stands at the center, its basin cracked and filled with dark stagnant water that never seems to evaporate. Mist clings to the ground regardless of weather, and shadows stretch impossibly long. The massive wooden gates that once secured the entrance hang askew from rusted hinges, creaking in the slightest breeze.",
+      "description": "A weed-choked expanse ringed by crumbling walls, with the main keep looming ahead. Fallen statues of knights and nobles lie broken across the cobblestones, their faces eroded by time or deliberately defaced. A dry fountain stands at the center, its basin cracked and filled with dark stagnant water that never seems to evaporate. Mist clings to the ground regardless of weather, and shadows stretch impossibly long. The massive wooden gates that once secured the entrance hang askew from rusted hinges, creaking in the slightest breeze. Recent combat has left the courtyard eerily quiet, with the remains of a dissipated shadow and shattered skeleton marking the spot of a swift and deadly encounter. A small battered coffer, a tarnished silver medallion bearing a knight's insignia, and a rusted key ring with ornate ancient keys were found hidden among the debris, suggesting secrets yet to be uncovered.",
       "coordinates": "X2Y1",
       "connectivity": [
         "C02",
@@ -180,32 +180,21 @@
         "G001-B07"
       ],
       "npcs": [],
-      "monsters": [
-        {
-          "name": "Skeletons",
-          "number": "2d4",
-          "disposition": "hostile",
-          "strategy": "These animated remains of fallen guards rise from beneath the cobblestones when intruders cross the courtyard, attacking with rusty weapons and coordinated tactics."
-        },
-        {
-          "name": "Shadows",
-          "number": 2,
-          "disposition": "ambush",
-          "strategy": "These insubstantial undead hide among the natural shadows cast by the walls and ruins, striking at isolated or weakened party members."
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Tarnished silver medallion (knight's insignia, 10 gp value)",
-        "Rusted key ring with 1d4 keys (fits various doors in the keep)",
-        "Knight's broken sword (can be reforged as a magic weapon with proper materials)",
-        "Small coffer containing 3d10 gp buried under debris"
+        "Rusted key ring with 3 ornate ancient keys (fits various doors in the keep)",
+        "Small battered coffer containing 23 gold coins and an aged parchment with coded message",
+        "Knight's broken sword (can be reforged as a magic weapon with proper materials)"
       ],
       "plotHooks": [
         "One of the fallen statues depicts Sir Garran Vael in his prime, its hand outstretched toward the chapel.",
         "The fountain water, though stagnant, shows reflections of the keep as it once was, pristine and full of life.",
-        "Fresh bootprints suggest Scout Elen passed through recently, heading toward the chapel."
+        "Fresh bootprints suggest Scout Elen passed through recently, heading toward the chapel.",
+        "An aged parchment hints at hidden mechanisms, unfinished oaths, and references Sir Garran Vael, the chapel, a key, a fountain, and a shadow passing at dawn.",
+        "Magical visions at the cracked fountain reveal the keep's restoration and a knight handing a key to a scribe, linking the fountain to the mystery."
       ],
-      "dmInstructions": "This courtyard serves as the introduction to the keep's dangers and atmosphere. The skeletons attack when players reach the central fountain. A DC 13 Perception check reveals Scout Elen's tracks leading toward the chapel. Players who look into the fountain's water (and succeed on a DC 14 Arcana check) glimpse visions of the keep's past glory and Sir Garran's fall, gaining advantage on History checks related to the keep throughout their exploration.",
+      "dmInstructions": "This courtyard serves as the introduction to the keep's dangers and atmosphere. The skeletons and shadows attack when players reach the central fountain, but after their defeat, the courtyard is quieter. A DC 13 Perception check reveals Scout Elen's tracks leading toward the chapel. Players who look into the fountain's water (and succeed on a DC 14 Arcana check) glimpse visions of the keep's past glory and Sir Garran's fall, gaining advantage on History checks related to the keep throughout their exploration. The discovery of hidden items and the coded parchment should encourage investigation and following Elen's trail eastward toward the Ruined Chapel.",
       "doors": [
         {
           "name": "Main Gates",
@@ -221,17 +210,17 @@
       ],
       "traps": [],
       "dcChecks": [
-        "Perception DC 13: Notice Scout Elen's bootprints leading toward the chapel.",
+        "Perception DC 16: Detect fresh bootprints leading eastward toward the Ruined Chapel, marked by scuffs and fragments of blue thread.",
         "History DC 15: Recognize the heraldry and significance of the fallen statues.",
-        "Arcana DC 14: Understand the supernatural properties of the fountain's reflections.",
+        "Arcana DC 15: Understand the supernatural properties and magical visions of the fountain's reflections.",
         "Nature DC 12: Realize the courtyard's vegetation has been twisted by dark magic."
       ],
       "accessibility": "Open area with scattered debris and uneven cobblestones; challenging but navigable.",
-      "dangerLevel": "Medium",
+      "dangerLevel": "Low",
       "features": [
         {
           "name": "Dry Fountain",
-          "description": "A once-ornate stone fountain at the courtyard's center, now cracked and filled with dark, reflective water."
+          "description": "A once-ornate stone fountain at the courtyard's center, now cracked and filled with dark, reflective water that holds magical visions of the keep's history."
         },
         {
           "name": "Fallen Statues",
@@ -242,8 +231,20 @@
           "description": "An unnatural fog that hugs the ground and swirls around movement, never fully dispersing."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "C01-E1",
+          "summary": "Norn faced hostile creatures emerging suddenly from the courtyard's shadows: a skeleton and a shadow. After a swift and precise combat, Norn's decisive slashing attack dealt 9 points of damage against the shadow, causing it to dissipate alongside the already shattered skeleton. The courtyard fell silent, with dangers vanquished.",
+          "impact": "The skeleton and shadow were defeated, removing active threats in the courtyard. Norn earned 150 experience points. Items discovered include a tarnished silver medallion bearing a knight's insignia, a rusted key ring with three ornate ancient keys, and a small battered coffer containing 23 gold coins and an aged parchment with a coded message. A magical vision at the fountain revealed clues tied to the keep's history. Fresh bootprints leading eastward toward the Ruined Chapel were found, setting the next course of action.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "01:52:00"
+          }
+        }
+      ],
+      "adventureSummary": "Upon entering the Outer Courtyard, Norn quickly engaged and defeated a hostile skeleton and shadow that emerged from the gloom. After earning 150 experience points, Norn discovered a tarnished silver medallion bearing a knight's insignia, a rusted key ring with three ornate ancient keys, and a battered coffer containing 23 gold coins and an aged coded parchment referencing Sir Garran Vael, the chapel, a key, a fountain, and a shadow passing at dawn. At the cracked fountain's center, Norn witnessed a magical vision of the keep restored and received clues from a successful Arcana check about hidden mechanisms tied to the keep's past. Following a Perception check, Norn found fresh bootprints leading east toward the Ruined Chapel, marking the next destination in the investigation."
     },
     {
       "locationId": "C02",
@@ -340,17 +341,13 @@
       "adventureSummary": ""
     },
     {
-      "locationId": "C03",
       "name": "The Ruined Chapel",
       "type": "chapel",
-      "description": "Once a place of solemn worship, now a mockery of its former sanctity. The stone altar has been split in two, and the stained glass windows shattered, leaving only jagged colored fragments that cast eerie prismatic patterns when light strikes them. Pews lie toppled and rotting, and religious symbols have been desecrated or inverted. Ghostly hymns echo faintly through the chamber at irregular intervals, and the temperature drops noticeably upon entry. Dark stains form a spiral pattern on the floor leading to the altar, and spectral candles flicker into existence at dusk, burning with cold blue flames that provide no warmth.",
+      "description": "Once a place of solemn worship, now a mockery of its former sanctity. The stone altar has been split in two, and the stained glass windows shattered, leaving only jagged colored fragments that cast eerie prismatic patterns when light strikes them. Pews lie toppled and rotting, and religious symbols have been desecrated or inverted. Ghostly hymns echo faintly through the chamber at irregular intervals, and the temperature drops noticeably upon entry. Dark stains form a spiral pattern on the floor leading to the altar, and spectral candles flicker into existence at dusk, burning with cold blue flames that provide no warmth. The chapel remains a place of reverence yet danger, with the lingering presence of spirits and occasional giant rats.",
+      "dmInstructions": "Father Aldren appears after players defeat the shadows or perform any respectful action in the chapel. He cannot speak directly about the shadow relic (the curse prevents it) but can guide players toward the altar and the hidden knight's heart amulet through pantomime and indirect references. A DC 14 Religion check helps interpret his gestures. The specter attacks anyone who approaches the altar without first bowing to the fallen or making an offering. The heart amulet is crucial for later confronting Sir Garran, offering protection against his strongest powers. Giant rats may attack in groups and should be handled swiftly. The secret exit in the eastern wall can be discovered by following Scout Elen's trail or by careful Investigation checks.",
+      "locationId": "C03",
       "coordinates": "X3Y1",
-      "connectivity": [
-        "C01",
-        "C05"
-      ],
-      "areaConnectivity": [],
-      "areaConnectivityId": [],
+      "accessibility": "Debris-strewn chamber with broken pews and steps up to the altar area. A hidden seam in the eastern wall leads to a secret exit to the Outer Courtyard.",
       "npcs": [
         {
           "name": "Father Aldren",
@@ -360,31 +357,79 @@
       ],
       "monsters": [
         {
-          "name": "Shadows",
-          "number": "1d4",
-          "disposition": "lurking",
-          "strategy": "These shadows hide among the natural darkness cast by broken pews and columns, striking opportunistically at those who disturb holy symbols or approach the altar."
-        },
-        {
-          "name": "Specter",
-          "number": 1,
-          "disposition": "territorial",
-          "strategy": "This is the vengeful spirit of a knight who died defending the chapel. It attacks anyone who approaches the secret compartment beneath the altar unless they first perform a gesture of respect for the fallen."
+          "name": "Giant Rat",
+          "quantity": {
+            "min": 1,
+            "max": 3
+          }
         }
+      ],
+      "plotHooks": [
+        "Father Aldren tries to convey that 'the heart is hidden where light once shone brightest' (beneath the altar).",
+        "The chaplain's journal reveals Sir Garran ordered the creation of a special amulet containing a drop of his blood--a safeguard against corruption.",
+        "Scout Elen's torn cloak piece is found in the chapel, along with a note indicating she learned about the knight's heart and sought it as protection.",
+        "A secret exit in the eastern wall leads to the Outer Courtyard, possibly tracing Scout Elen's path."
       ],
       "lootTable": [
         "Holy symbol (silver, grants advantage on saves against the shadow relic's influence once)",
         "Vial of blessed water (acts as potion of healing against undead damage only)",
         "Chaplain's journal describing the shadow relic's arrival and early influence",
         "Small silver key (opens a secret compartment beneath the altar)",
-        "Knight's heart amulet (artifact connected to Sir Garran's past)"
+        "Knight's heart amulet (artifact connected to Sir Garran's past)",
+        "Heart-shaped amulet (Knight's heart; grants resistance to fear and necrotic effects linked to the curse when worn)"
       ],
-      "plotHooks": [
-        "Father Aldren tries to convey that 'the heart is hidden where light once shone brightest' (beneath the altar).",
-        "The chaplain's journal reveals Sir Garran ordered the creation of a special amulet containing a drop of his blood—a safeguard against corruption.",
-        "Scout Elen's torn cloak piece is found in the chapel, along with a note indicating she learned about the knight's heart and sought it as protection."
+      "dangerLevel": "Medium",
+      "connectivity": [
+        "C01",
+        "C05",
+        "Outer Courtyard"
       ],
-      "dmInstructions": "Father Aldren appears after players defeat the shadows or perform any respectful action in the chapel. He cannot speak directly about the shadow relic (the curse prevents it) but can guide players toward the altar and the hidden knight's heart amulet through pantomime and indirect references. A DC 14 Religion check helps interpret his gestures. The specter attacks anyone who approaches the altar without first bowing to the fallen or making an offering. The heart amulet is crucial for later confronting Sir Garran, offering protection against his strongest powers.",
+      "areaConnectivity": [
+        "Outer Courtyard"
+      ],
+      "areaConnectivityId": [
+        "OC01"
+      ],
+      "traps": [],
+      "features": [
+        {
+          "name": "Broken Altar",
+          "description": "A stone altar split in two, with dark stains forming a spiral pattern leading to it. It hides a secret compartment containing important relics."
+        },
+        {
+          "name": "Shattered Windows",
+          "description": "Once-beautiful stained glass now reduced to jagged fragments that cast disturbing light patterns."
+        },
+        {
+          "name": "Spectral Candles",
+          "description": "Ghostly blue flames that appear at dusk, floating where real candles once stood."
+        },
+        {
+          "name": "Secret Seam",
+          "description": "A hidden seam in the eastern wall, leading to a secret exit to the Outer Courtyard. Traced by faint bootprints and a torn blue cloak fragment."
+        }
+      ],
+      "dcChecks": [
+        "Religion DC 14: Interpret Father Aldren's gestures and cryptic warnings.",
+        "Investigation DC 15: Discover the secret compartment beneath the altar without the key.",
+        "History DC 13: Recognize the significance of the symbols and imagery in the chapel.",
+        "Perception DC 12: Notice the shadows moving independently before they attack.",
+        "Survival DC 16: Follow Scout Elen's trail of bootprints and cloak fragments to the secret exit."
+      ],
+      "encounters": [
+        {
+          "encounterId": "C03-E1",
+          "summary": "Within the shadowed threshold of the Ruined Chapel, Norn lit two rusted sconces, awakening a lurking Shadow which was swiftly defeated. Afterwards, a sorrowful spirit, Father Aldren, appeared, warning silently. Approaching the altar without respect triggered the attack of a vengeful spectral knight, which Norn defeated after tense combat, lifting the chapel's oppressive chill. Norn then discovered a hidden compartment beneath the altar containing a small silver key, a chaplain's journal, blessed water, a silver holy symbol, and the Knight's heart amulet. The amulet provided magical resistance when worn. Shortly thereafter, giant rats attacked twice but were defeated, causing minor injuries. Using Survival, Norn traced Scout Elen's passage to a secret seam in the eastern wall leading outside. Father Aldren's spirit expressed gratitude and hope.",
+          "impact": "The shadow and spectral knight threats were eliminated. Norn acquired key items including the Knight's heart amulet granting resistance to fear and necrotic effects. Giant rat threats remain occasional but manageable. A secret exit to the Outer Courtyard has been discovered, opening new paths for exploration. Father Aldren remains as a helpful spirit.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "02:27:00"
+          }
+        }
+      ],
+      "adventureSummary": "Within the Ruined Chapel, Norn eliminated a lurking Shadow and defeated a vengeful spectral knight after inadvertently provoking it by approaching the altar without proper respect. Norn uncovered a hidden compartment under the altar containing a silver key, chaplain's journal, blessed water, a silver holy symbol, and the Knight's heart amulet, which grants protection against fear and necrotic curse effects. Father Aldren's spirit appeared, offering cryptic guidance. Norn also fended off two attacks by giant rats, sustaining minor injuries. Following subtle clues, Norn discovered a secret seam in the eastern wall leading to the Outer Courtyard. The chapel is now safer, though some dangers remain, and key artifacts have been secured.",
       "doors": [
         {
           "name": "Chapel Doors",
@@ -407,39 +452,25 @@
           "keyname": "Small silver key",
           "trapped": false,
           "trap": ""
-        }
-      ],
-      "traps": [],
-      "dcChecks": [
-        "Religion DC 14: Interpret Father Aldren's gestures and cryptic warnings.",
-        "Investigation DC 15: Discover the secret compartment beneath the altar without the key.",
-        "History DC 13: Recognize the significance of the symbols and imagery in the chapel.",
-        "Perception DC 12: Notice the shadows moving independently before they attack."
-      ],
-      "accessibility": "Debris-strewn chamber with broken pews and steps up to the altar area.",
-      "dangerLevel": "High",
-      "features": [
-        {
-          "name": "Broken Altar",
-          "description": "A stone altar split in two, with dark stains forming a spiral pattern leading to it."
         },
         {
-          "name": "Shattered Windows",
-          "description": "Once-beautiful stained glass now reduced to jagged fragments that cast disturbing light patterns."
-        },
-        {
-          "name": "Spectral Candles",
-          "description": "Ghostly blue flames that appear at dusk, floating where real candles once stood."
+          "name": "Secret Seam in Eastern Wall",
+          "description": "A concealed passageway in the eastern wall leading to the Outer Courtyard, revealed by faint bootprints and a torn blue cloak fragment.",
+          "type": "secret exit",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 0,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
         }
-      ],
-      "encounters": [],
-      "adventureSummary": ""
+      ]
     },
     {
       "locationId": "C04",
       "name": "Fallen Barracks",
       "type": "barracks",
-      "description": "A long, partially collapsed chamber once housing the keep's garrison. Rotted bunk frames line the walls, and rusted weapons and armor pieces litter the floor. The ceiling has caved in at the far end, allowing pale light and occasionally rain to enter. Moldy tapestries depicting military victories hang in tatters from the walls, and a large weapon rack stands empty save for a few corroded blades. The floor is uneven, with flagstones pushed up by tree roots that have somehow grown through the stone. Personal effects of long-dead soldiers—letters, trinkets, gambling dice—remain scattered around, preserved in the unnatural stillness of the keep.",
+      "description": "A long, partially collapsed chamber once housing the keep's garrison. Rotted bunk frames line the walls, and rusted weapons and armor pieces litter the floor. The ceiling has caved in at the far end, allowing pale light and occasionally rain to enter. Moldy tapestries depicting military victories hang in tatters from the walls, and a large weapon rack stands empty save for a few corroded blades. The floor is uneven, with flagstones pushed up by tree roots that have somehow grown through the stone. Personal effects of long-dead soldiers--letters, trinkets, gambling dice--remain scattered around, preserved in the unnatural stillness of the keep.",
       "coordinates": "X1Y2",
       "connectivity": [
         "C02",
@@ -570,7 +601,7 @@
         "The chronicle reveals Sir Garran originally acquired the relic to protect his people from a rival lord's necromancy.",
         "The scribe hints that something in 'the lowest chamber beneath the study' holds the key to Sir Garran's salvation or destruction."
       ],
-      "dmInstructions": "The phantom servants appear when players approach the table, offering food and drink—those who accept must make a DC 14 Constitution save or suffer 2d8 poison damage and the poisoned condition for 1 hour. The mimic attacks only if someone sits in the ornate chair. The Spectral Scribe ignores the party until directly addressed or until combat ends, at which point he offers his knowledge exchange. He knows most of the keep's history and Sir Garran's tragedy but speaks in formal, archaic language and never directly names the shadow relic (always referring to it as 'the artifact' or 'his lordship's burden').",
+      "dmInstructions": "The phantom servants appear when players approach the table, offering food and drink--those who accept must make a DC 14 Constitution save or suffer 2d8 poison damage and the poisoned condition for 1 hour. The mimic attacks only if someone sits in the ornate chair. The Spectral Scribe ignores the party until directly addressed or until combat ends, at which point he offers his knowledge exchange. He knows most of the keep's history and Sir Garran's tragedy but speaks in formal, archaic language and never directly names the shadow relic (always referring to it as 'the artifact' or 'his lordship's burden').",
       "doors": [
         {
           "name": "Study Door",
@@ -660,7 +691,7 @@
         "From the observatory, players can spot an ancient ritual site in the forest that amplifies or diminishes the keep's power at certain lunar phases.",
         "Scout Elen's final journal entry is found here, noting her intention to confront Sir Garran directly after finding 'the heart that remembers love.'"
       ],
-      "dmInstructions": "Climbing the tower requires multiple Acrobatics or Athletics checks (DC 13) to navigate missing steps and unstable sections. Each failure results in 1d6 fall damage and loud noise that attracts shadows. The gargoyles attack when players reach the observatory platform. The celestial map (found in a locked cabinet, DC 14 to pick) reveals optimal times for confronting the shadow relic—if players wait for the right stellar alignment (or create it artificially), they gain advantage on saves against the relic's powers during the final confrontation.",
+      "dmInstructions": "Climbing the tower requires multiple Acrobatics or Athletics checks (DC 13) to navigate missing steps and unstable sections. Each failure results in 1d6 fall damage and loud noise that attracts shadows. The gargoyles attack when players reach the observatory platform. The celestial map (found in a locked cabinet, DC 14 to pick) reveals optimal times for confronting the shadow relic--if players wait for the right stellar alignment (or create it artificially), they gain advantage on saves against the relic's powers during the final confrontation.",
       "doors": [
         {
           "name": "Observatory Cabinet",
@@ -811,7 +842,7 @@
       "locationId": "C08",
       "name": "Secret Passage",
       "type": "passage",
-      "description": "A narrow, winding tunnel carved through solid rock, barely wide enough for a single person to traverse. The walls are damp with condensation, and ancient roots from the forest above snake through cracks in the stone ceiling. This hidden passage emerges from behind a cleverly concealed stone door in the courtyard wall, its mechanism operated by pressing a specific sequence of weathered stones. The air here is musty and close, carrying the scent of earth and decay from its connection to Gloamwood's depths. Fresh scuff marks on the floor and a torn piece of ranger's cloak caught on a protruding root suggest recent passage—clear evidence of Scout Elen's infiltration of the keep.",
+      "description": "A narrow, winding tunnel carved through solid rock, barely wide enough for a single person to traverse. The walls are damp with condensation, and ancient roots from the forest above snake through cracks in the stone ceiling. This hidden passage emerges from behind a cleverly concealed stone door in the courtyard wall, its mechanism operated by pressing a specific sequence of weathered stones. The air here is musty and close, carrying the scent of earth and decay from its connection to Gloamwood's depths. Fresh scuff marks and hastily drawn chalk symbols left by Scout Elen mark the walls and floor. Among these is an arrow pointing toward the secret stone door leading to the Outer Courtyard, a circled stone marked with an 'X,' and a trembling warning: \"Shadows move on their own within--trust nothing that lacks substance.\"",
       "coordinates": "X1Y0",
       "connectivity": [
         "C01"
@@ -832,9 +863,9 @@
       "plotHooks": [
         "The stone door mechanism shows signs of recent use, with fresh oil applied to keep it silent.",
         "Chalk marks on the tunnel walls appear to be Scout Elen's navigation notes, indicating she planned her route carefully.",
-        "A hastily scrawled warning reads: 'Shadows move on their own within—trust nothing that lacks substance.'"
+        "A hastily scrawled warning reads: 'Shadows move on their own within--trust nothing that lacks substance.'"
       ],
-      "dmInstructions": "This passage serves as the secret connection between Gloamwood and Shadowfall Keep. The entrance from the courtyard side is hidden behind ivy and requires a DC 15 Investigation check to locate without prior knowledge. The stone door mechanism requires a DC 13 Intelligence check to operate without instructions. Players following Scout Elen's trail from Gloamwood will emerge here. The passage is too narrow for Medium creatures to fight effectively (disadvantage on melee attacks) and completely blocks Large or larger creatures. Sound echoes strangely here—loud noises might alert creatures in both the courtyard and the Hidden Keep Entrance.",
+      "dmInstructions": "This passage serves as the secret connection between Gloamwood and Shadowfall Keep. The entrance from the courtyard side is hidden behind ivy and requires a DC 15 Investigation check to locate without prior knowledge. The stone door mechanism requires a DC 13 Intelligence check to operate without instructions. Players following Scout Elen's trail from Gloamwood will emerge here. The passage is too narrow for Medium creatures to fight effectively (disadvantage on melee attacks) and completely blocks Large or larger creatures. Sound echoes strangely here--loud noises might alert creatures in both the courtyard and the Hidden Keep Entrance.",
       "doors": [
         {
           "name": "Secret Stone Door (Courtyard Side)",
@@ -882,8 +913,20 @@
           "description": "Chalk symbols and notes left by Scout Elen to mark her path and warn of dangers ahead."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "C08-E1",
+          "summary": "The party cautiously moved through the Secret Passage, with Norn successfully performing an Investigation check (16) revealing no traps but Scout Elen's chalk marks and warnings.",
+          "impact": "The party confirmed the passage was safe to proceed without triggering traps. Norn consumed a healing potion to prepare for upcoming dangers, and the warning about moving shadows hinted at potential spectral threats beyond the passage.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "01:27:00"
+          }
+        }
+      ],
+      "adventureSummary": "The party proceeded cautiously through the narrow and claustrophobic Secret Passage, their torchlight flickering against the damp, root-choked stone walls heavy with the scent of earth and decay. Norn conducted a successful Investigation check (16) for traps or dangers, finding none but noticing fresh scuff marks and chalk symbols left by Scout Elen. These included an arrow toward the secret door, a circled stone marked with an 'X,' and a warning about moving shadows hinting at spectral or magical threats. After ensuring the path was safe, Norn consumed a healing potion, preparing the party to advance into the Outer Courtyard."
     }
   ]
 }

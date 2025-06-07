@@ -33,7 +33,7 @@ def format_type_name(name):
 
 def load_json(file_name):
     try:
-        with open(file_name, 'r') as file:
+        with open(file_name, 'r', encoding='utf-8') as file:
             data = json.load(file)
         logging.debug(f"Successfully loaded JSON from {file_name}")
         return data
@@ -56,15 +56,15 @@ def backup_player_file(player_file):
 
 def save_json(file_name, data):
     try:
-        with open(file_name, 'w') as file:
-            json.dump(data, file, indent=2)
+        with open(file_name, 'w', encoding='utf-8') as file:
+            json.dump(data, file, indent=2, ensure_ascii=False)
         return True
     except Exception as e:
         print(colored(f"Error saving to {file_name}: {str(e)}", "red"))
         return False
 
 def get_current_area_id():
-    with open("party_tracker.json", "r") as file:
+    with open("party_tracker.json", "r", encoding="utf-8") as file:
         party_tracker = json.load(file)
     return party_tracker["worldConditions"]["currentAreaId"]
 
