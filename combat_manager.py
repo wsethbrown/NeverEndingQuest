@@ -1172,7 +1172,14 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        initiative_order = get_initiative_order(encounter_data)
        
        # Format user input with DM note, hitpoints info, and prerolls
-       user_input_with_note = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field, 'combat_round' field, and an 'actions' array. Use 'updateCharacterInfo' (with characterName parameter) and 'updateEncounter' actions to record changes in hit points, status, or conditions for any creature in the encounter. Remember to use separate 'updateCharacterInfo' actions whenever players or NPCs take damage or their status changes. Monster changes should be in 'updateEncounter', but player and NPC changes require their own 'updateCharacterInfo' actions with the specific character name.
+       user_input_with_note = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field, 'combat_round' field, and an 'actions' array. 
+
+CRITICAL UPDATE RULES:
+- For PLAYERS and NPCs: Use 'updateCharacterInfo' with characterName parameter
+- For MONSTERS: Use 'updateEncounter' with a text description in the changes field
+- NEVER use updateCharacterInfo for monsters - it will fail
+- Example for monster: {{"action": "updateEncounter", "parameters": {{"encounterId": "XXX", "changes": "Specter takes 7 damage, HP from 22 to 15"}}}}
+- Example for player/NPC: {{"action": "updateCharacterInfo", "parameters": {{"characterName": "Norn", "changes": "Takes 5 damage from attack"}}}}
 
 Important Character Field Definitions:
 - 'status' field: Overall life/death state - ONLY use 'alive', 'dead', 'unconscious', or 'defeated' (lowercase)

@@ -218,15 +218,17 @@ Example 1: UpdateCharacterInfo Action for an NPC taking damage.
 }
 
 UpdateEncounter Action:
-- Use this action to update the encounter state, including monster stats and conditions.
+- Use this action to update the encounter state, specifically for monsters only
+- IMPORTANT: For individual monster HP/status updates, use a simple text description in the "changes" field
 - Use the following format:
   {
     "action": "updateEncounter",
     "parameters": {
       "encounterId": "<encounter_id>",
-      "changes": "<description_of_changes>"
+      "changes": "<text_description_of_changes>"
     }
   }
+- Example: "changes": "Specter takes 7 damage from longsword attack, HP reduced from 22 to 15"
 
 - When reporting damage dealt to monsters by multiple characters in a single round, include all damage in a single updateEncounter action. Do not use updateNPCInfo actions to report damage dealt by NPCs to monsters. Always show your calculations for clarity. For example:
 

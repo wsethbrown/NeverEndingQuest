@@ -33,6 +33,7 @@ UNACCEPTABLE RESPONSES:
 - Using wrong dice from preroll pools (e.g., using d20 for damage, using damage dice for attacks)
 - Not asking player for action confirmation when prerolls are available
 - Using deprecated updateNPCInfo instead of updateCharacterInfo
+- Using updateCharacterInfo for monsters (should use updateEncounter with text changes)
 
 PREROLL SYSTEM VALIDATION:
 When prerolls are provided, validate:
@@ -47,6 +48,12 @@ Required fields in combat responses:
 - "narration": Combat description and dialogue
 - "combat_round": Current round number (increments when returning to top of initiative)
 - "actions": Array of updateCharacterInfo, updateEncounter, or exit actions
+
+ACTION USAGE VALIDATION:
+- updateCharacterInfo: ONLY for players and NPCs (requires characterName parameter)
+- updateEncounter: ONLY for monsters (uses text description in changes field)
+- NEVER recommend updateCharacterInfo for monsters - it will always fail
+- Example monster update: {"action": "updateEncounter", "parameters": {"encounterId": "XXX", "changes": "Goblin takes 8 damage, HP from 15 to 7"}}
 
 Respond with a JSON object like this:
 {
