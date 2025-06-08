@@ -1187,3 +1187,94 @@ effect_synergies = {
 4. **Phase 4**: Full random event integration and environmental storytelling
 
 This comprehensive system would transform isolated effect systems into a cohesive, AI-driven experience that ensures nothing falls through the cracks while creating rich, interconnected storytelling opportunities.
+
+---
+
+## Issue 27: AI creates non-existent area files when attempting location transitions
+**Labels:** `bug`, `critical`, `ai-behavior`, `data-integrity`
+
+### Description
+The AI Dungeon Master can inadvertently attempt to create transitions to non-existent areas by providing invalid `areaConnectivityId` values in location transitions. When the game tries to load these non-existent area files (like `OC01.json`), it generates "File not found - creating first time" messages and fails the transition, breaking immersion and causing navigation errors.
+
+### Current Behavior
+- AI can specify any `areaConnectivityId` in `transitionLocation` actions
+- System attempts to load area files that don't exist
+- No validation against actual campaign area files
+- Error messages like "File campaigns/Keep_of_Doom/OC01.json not found - creating first time"
+- Failed transitions with cryptic error messages to users
+
+### Root Cause
+The `transitionLocation` action handler in `action_handler.py` doesn't validate that specified area connectivity IDs correspond to actual existing area files before attempting to load them.
+
+### Example Case
+In the Keep of Doom campaign, the AI set:
+```json
+"areaConnectivityId": ["OC01"]
+```
+in The Ruined Chapel (C03), but `OC01.json` doesn't exist in the campaign, causing transition failures when following Scout Elen's trail.
+
+### Expected Behavior
+- Validate `areaConnectivityId` values against existing campaign area files
+- Prevent AI from creating transitions to non-existent areas
+- Provide clear error messages when invalid areas are specified
+- Gracefully handle invalid transitions without breaking game flow
+
+### Proposed Solution: Campaign-Agnostic Area Validation
+
+A simple, elegant validation that works with any campaign:
+
+1. **Dynamic Area Discovery**: Scan the current campaign directory for existing `.json` area files
+2. **Pre-transition Validation**: Check that any specified `areaConnectivityId` corresponds to an actual file
+3. **Graceful Error Handling**: Return meaningful error messages instead of attempting to load non-existent files
+
+### Technical Implementation
+
+**In `action_handler.py`, before processing `transitionLocation`:**
+```python
+def validate_area_connectivity_id(area_connectivity_id, campaign_dir):
+    """Validate that area connectivity ID corresponds to existing area file"""
+    if not area_connectivity_id:
+        return True  # Within-area transitions are always valid
+    
+    # Extract base area ID (handle formats like "G001-B07" -> "G001")
+    base_area_id = area_connectivity_id.split('-')[0]
+    area_file_path = os.path.join(campaign_dir, f"{base_area_id}.json")
+    
+    if not os.path.exists(area_file_path):
+        return False
+    
+    return True
+```
+
+**Error Handling:**
+```python
+if area_connectivity_id and not validate_area_connectivity_id(area_connectivity_id, campaign_dir):
+    return create_return(
+        status="error", 
+        message=f"Cannot transition to area '{area_connectivity_id}' - area file does not exist in campaign"
+    )
+```
+
+### Benefits
+- **Campaign Agnostic**: Works with any campaign structure without hard-coding area IDs
+- **Simple Implementation**: Minimal code change with maximum protection
+- **Clear Error Messages**: Users understand why transitions fail
+- **Data Integrity**: Prevents corruption of campaign data
+- **AI Learning**: Error messages help AI understand valid vs invalid transitions
+
+### Affected Files
+- `action_handler.py` - Add validation logic to `transitionLocation` handler
+- Error handling and user feedback systems
+
+### Alternative Solutions Considered
+1. **Whitelist Validation**: Hard-coded list of valid areas (rejected - not campaign agnostic)
+2. **Complex Graph System**: Full connectivity validation (rejected - over-engineered for this issue)
+3. **AI Prompt Restrictions**: Instruct AI to avoid non-existent areas (rejected - doesn't prevent the underlying issue)
+
+### Test Cases
+1. Valid area transition (e.g., "G001-B07" where G001.json exists) - should succeed
+2. Invalid area transition (e.g., "OC01" where OC01.json doesn't exist) - should fail gracefully
+3. Within-area transition (no areaConnectivityId) - should always succeed
+4. Malformed area ID (e.g., "INVALID") - should fail gracefully
+
+This elegant solution provides robust protection against AI-created invalid area transitions while maintaining campaign flexibility and providing clear feedback when issues occur.

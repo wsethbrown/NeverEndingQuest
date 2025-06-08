@@ -166,7 +166,7 @@
       "locationId": "C01",
       "name": "Outer Courtyard",
       "type": "courtyard",
-      "description": "A weed-choked expanse ringed by crumbling walls, with the main keep looming ahead. Fallen statues of knights and nobles lie broken across the cobblestones, their faces eroded by time or deliberately defaced. A dry fountain stands at the center, its basin cracked and filled with dark stagnant water that never seems to evaporate. Mist clings to the ground regardless of weather, and shadows stretch impossibly long. The massive wooden gates that once secured the entrance hang askew from rusted hinges, creaking in the slightest breeze. Recent combat has left the courtyard eerily quiet, with the remains of a dissipated shadow and shattered skeleton marking the spot of a swift and deadly encounter. A small battered coffer, a tarnished silver medallion bearing a knight's insignia, and a rusted key ring with ornate ancient keys were found hidden among the debris, suggesting secrets yet to be uncovered.",
+      "description": "A weed-choked expanse ringed by crumbling walls, with the main keep looming ahead. Fallen statues of knights and nobles lie broken across the cobblestones, their faces eroded by time or deliberately defaced. A dry fountain stands at the center, its basin cracked and filled with dark stagnant water that never seems to evaporate. Mist clings to the ground regardless of weather, and shadows stretch impossibly long. The massive wooden gates that once secured the entrance hang askew from rusted hinges, creaking in the slightest breeze. The courtyard is now eerily silent, the lingering chill breeze and swirling mists adding to the quiet stillness following the dispersal of spectral threats. Examination of the ground reveals narrow, deep-treaded bootprints flecked with blue thread, evidence of Scout Elen's recent passage eastward from the fountain, skirting a fallen knight's statue, then doubling back toward the Ruined Chapel before vanishing deeper into the keep.",
       "coordinates": "X2Y1",
       "connectivity": [
         "C02",
@@ -190,11 +190,12 @@
       "plotHooks": [
         "One of the fallen statues depicts Sir Garran Vael in his prime, its hand outstretched toward the chapel.",
         "The fountain water, though stagnant, shows reflections of the keep as it once was, pristine and full of life.",
-        "Fresh bootprints suggest Scout Elen passed through recently, heading toward the chapel.",
+        "Fresh bootprints show Scout Elen passed recently, heading toward the chapel and then doubling back deeper into the keep.",
         "An aged parchment hints at hidden mechanisms, unfinished oaths, and references Sir Garran Vael, the chapel, a key, a fountain, and a shadow passing at dawn.",
-        "Magical visions at the cracked fountain reveal the keep's restoration and a knight handing a key to a scribe, linking the fountain to the mystery."
+        "Magical visions at the cracked fountain reveal the keep's restoration and a knight handing a key to a scribe, linking the fountain to the mystery.",
+        "Scout Elen's trail leads eastward from the fountain toward the Ruined Chapel, then doubles back, suggesting urgency or evasion."
       ],
-      "dmInstructions": "This courtyard serves as the introduction to the keep's dangers and atmosphere. The skeletons and shadows attack when players reach the central fountain, but after their defeat, the courtyard is quieter. A DC 13 Perception check reveals Scout Elen's tracks leading toward the chapel. Players who look into the fountain's water (and succeed on a DC 14 Arcana check) glimpse visions of the keep's past glory and Sir Garran's fall, gaining advantage on History checks related to the keep throughout their exploration. The discovery of hidden items and the coded parchment should encourage investigation and following Elen's trail eastward toward the Ruined Chapel.",
+      "dmInstructions": "This courtyard serves as the introduction to the keep's dangers and atmosphere. Following the defeat of hostile creatures, the courtyard is currently quiet with no active threats or traps. A DC 16 Perception check reveals fresh bootprints flecked with blue thread from Scout Elen, tracing a path eastward toward the Ruined Chapel and back deeper into the keep. Players investigating the fountain's water may glimpse magical visions with a successful DC 15 Arcana check. Encourage players to follow Elen's trail eastward to further the investigation.",
       "doors": [
         {
           "name": "Main Gates",
@@ -242,9 +243,20 @@
             "day": 2,
             "time": "01:52:00"
           }
+        },
+        {
+          "encounterId": "C03-E1",
+          "summary": "The party entered the Outer Courtyard and observed a chill breeze with swirling mists clinging to ancient broken statues and the cracked central fountain. They discovered fresh bootprints flecked with blue thread leading eastward from the fountain toward the Ruined Chapel, then doubling back deeper into the keep, indicating Scout Elen's recent passage. No active threats or traps remained in the courtyard.",
+          "impact": "The party's investigation updated the understanding of Scout Elen's route, confirming her movement eastward and back toward the Ruined Chapel, helping advance their investigation into her fate. The courtyard remains safe, allowing the party to plan their next move into the keep.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "02:08:00"
+          }
         }
       ],
-      "adventureSummary": "Upon entering the Outer Courtyard, Norn quickly engaged and defeated a hostile skeleton and shadow that emerged from the gloom. After earning 150 experience points, Norn discovered a tarnished silver medallion bearing a knight's insignia, a rusted key ring with three ornate ancient keys, and a battered coffer containing 23 gold coins and an aged coded parchment referencing Sir Garran Vael, the chapel, a key, a fountain, and a shadow passing at dawn. At the cracked fountain's center, Norn witnessed a magical vision of the keep restored and received clues from a successful Arcana check about hidden mechanisms tied to the keep's past. Following a Perception check, Norn found fresh bootprints leading east toward the Ruined Chapel, marking the next destination in the investigation."
+      "adventureSummary": "Upon leaving the Ruined Chapel, the party entered the Outer Courtyard, met by a chill breeze and swirling mists clinging to broken statues amid the cracked central fountain. Pale moonlight illuminated weathered keep walls casting long shadows in the eerie silence following the dispersal of spectral threats. They found narrow, deep-treaded bootprints flecked with blue thread left by Scout Elen, tracing her path eastward from the fountain toward the Ruined Chapel before doubling back and vanishing deeper into the keep. No tracks led toward the Gatehouse Ruins or Great Hall, confirming Elen's route. With no active threats or traps present, the party chose to return to the Ruined Chapel to follow Elen's trail further."
     },
     {
       "locationId": "C02",
@@ -343,7 +355,7 @@
     {
       "name": "The Ruined Chapel",
       "type": "chapel",
-      "description": "Once a place of solemn worship, now a mockery of its former sanctity. The stone altar has been split in two, and the stained glass windows shattered, leaving only jagged colored fragments that cast eerie prismatic patterns when light strikes them. Pews lie toppled and rotting, and religious symbols have been desecrated or inverted. Ghostly hymns echo faintly through the chamber at irregular intervals, and the temperature drops noticeably upon entry. Dark stains form a spiral pattern on the floor leading to the altar, and spectral candles flicker into existence at dusk, burning with cold blue flames that provide no warmth. The chapel remains a place of reverence yet danger, with the lingering presence of spirits and occasional giant rats.",
+      "description": "Once a place of solemn worship, now a mockery of its former sanctity. The stone altar has been split in two, and the stained glass windows shattered, leaving only jagged colored fragments that cast eerie prismatic patterns when light strikes them. Pews lie toppled and rotting, and religious symbols have been desecrated or inverted. Ghostly hymns echo faintly through the chamber at irregular intervals, and the temperature drops noticeably upon entry. Dark stains form a spiral pattern on the floor leading to the altar, and spectral candles flicker into existence at dusk, burning with cold blue flames that provide no warmth. The chapel remains a place of reverence yet danger, with the lingering presence of spirits and occasional giant rats. The party cautiously tracked the trail left by their companion Elen through the crumbling pews and collapsed altar area, confirming the presence of one to three Giant Rats and preparing to move onward to the Outer Courtyard.",
       "dmInstructions": "Father Aldren appears after players defeat the shadows or perform any respectful action in the chapel. He cannot speak directly about the shadow relic (the curse prevents it) but can guide players toward the altar and the hidden knight's heart amulet through pantomime and indirect references. A DC 14 Religion check helps interpret his gestures. The specter attacks anyone who approaches the altar without first bowing to the fallen or making an offering. The heart amulet is crucial for later confronting Sir Garran, offering protection against his strongest powers. Giant rats may attack in groups and should be handled swiftly. The secret exit in the eastern wall can be discovered by following Scout Elen's trail or by careful Investigation checks.",
       "locationId": "C03",
       "coordinates": "X3Y1",
@@ -387,9 +399,7 @@
       "areaConnectivity": [
         "Outer Courtyard"
       ],
-      "areaConnectivityId": [
-        "OC01"
-      ],
+      "areaConnectivityId": [],
       "traps": [],
       "features": [
         {
@@ -427,9 +437,20 @@
             "day": 2,
             "time": "02:27:00"
           }
+        },
+        {
+          "encounterId": "C03-E2",
+          "summary": "The party cautiously entered The Ruined Chapel, observing the dilapidated structure marked by broken stained-glass windows casting fragmented light on the moss-covered floor. They noted the quiet but tense atmosphere, aware of the presence of one to three Giant Rats posing an immediate threat. Following the elusive trail left by their companion Elen through crumbling pews and the collapsed altar, the party avoided traps and prepared for any signs of spectral guardians or magical defenses. No combat occurred during this tracking, allowing the adventurers to ready themselves for the challenges awaiting in the Outer Courtyard.",
+          "impact": "The party confirmed the presence and number range of Giant Rats and successfully tracked Scout Elen's trail through the chapel without triggering traps or combat. The Ruined Chapel remains tense but temporarily secure, and the secret exit to the Outer Courtyard is ready to be used. The party's readiness for future encounters is improved.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "02:10:00"
+          }
         }
       ],
-      "adventureSummary": "Within the Ruined Chapel, Norn eliminated a lurking Shadow and defeated a vengeful spectral knight after inadvertently provoking it by approaching the altar without proper respect. Norn uncovered a hidden compartment under the altar containing a silver key, chaplain's journal, blessed water, a silver holy symbol, and the Knight's heart amulet, which grants protection against fear and necrotic curse effects. Father Aldren's spirit appeared, offering cryptic guidance. Norn also fended off two attacks by giant rats, sustaining minor injuries. Following subtle clues, Norn discovered a secret seam in the eastern wall leading to the Outer Courtyard. The chapel is now safer, though some dangers remain, and key artifacts have been secured.",
+      "adventureSummary": "Upon entering The Ruined Chapel, the party encountered a dilapidated stone structure marked by time and neglect, with broken stained-glass windows casting fragmented light across the moss-covered floor. The environment was quiet but tense, as the presence of one to three Giant Rats posed an immediate threat to the adventurers. The party proceeded cautiously, tracking the elusive trail left by Elen, their companion, weaving through the crumbling pews and collapsed altar. No traps were triggered during their movement, and the adventurers remained alert for any signs of spectral guardians or magical defenses associated with the Keep of Doom. The party's progress was methodical, with characters relying on skill checks to navigate hazards and gather information, though no new discoveries were made beyond confirming the presence of the vermin threat. The atmosphere was thick with anticipation, as the adventurers understood this location was a crucial threshold leading to the Outer Courtyard, the next area to be explored in their quest to breach the Keep. Throughout their exploration, the party's stats and conditions were closely monitored, including Norn's status as a level 4 character who had recently surpassed the threshold to level up. The encounter in The Ruined Chapel concluded without direct combat, as the party focused on following their trail and preparing for the challenges ahead, ultimately deciding to transition to the adjacent Outer Courtyard to continue their mission.\n\nCurrent Game Time: 1492 Ches 2, 02:10:00",
       "doors": [
         {
           "name": "Chapel Doors",
