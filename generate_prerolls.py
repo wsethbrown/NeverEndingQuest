@@ -262,8 +262,8 @@ def generate_prerolls(encounter_data, round_num=None):
     preroll_lines.append(f"Note: {player_name} must make their own rolls.")
     preroll_lines.append("")
     preroll_lines.append("COMBAT TRACKING: You MUST include \"combat_round\" field in your JSON response.")
-    preroll_lines.append(f"Current round is {round_num} - advance to next round when all alive creatures have taken their turn.")
-    preroll_lines.append(f"These dice remain constant throughout round {round_num}.")
+    preroll_lines.append("Track combat rounds: increment ONLY when ALL alive creatures have completed their turns in initiative order.")
+    preroll_lines.append(f"These dice remain constant throughout the current round.")
     
     return "\n".join(preroll_lines)
 
