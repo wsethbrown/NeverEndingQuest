@@ -1190,7 +1190,7 @@ This comprehensive system would transform isolated effect systems into a cohesiv
 
 ---
 
-## Issue 27: AI creates non-existent area files when attempting location transitions
+## Issue 27: AI creates non-existent area files when attempting location transitions [RESOLVED]
 **Labels:** `bug`, `critical`, `ai-behavior`, `data-integrity`
 
 ### Description
@@ -1278,3 +1278,39 @@ if area_connectivity_id and not validate_area_connectivity_id(area_connectivity_
 4. Malformed area ID (e.g., "INVALID") - should fail gracefully
 
 This elegant solution provides robust protection against AI-created invalid area transitions while maintaining campaign flexibility and providing clear feedback when issues occur.
+
+### RESOLUTION - IMPLEMENTED
+**Date Resolved:** December 2024
+
+**Changes Made:**
+1. **Enhanced System Prompts** (`system_prompt.txt`):
+   - Added CRITICAL AREA RESTRICTION RULES section
+   - Explicit instructions: "NEVER create, invent, or reference area connectivity IDs that don't exist"
+   - Clear guidance: "NEVER add new areaConnectivityId values to location data"
+   - Validation requirements for area references
+
+2. **Area Validation Function** (`action_handler.py`):
+   - Added `validate_area_connectivity_id()` function
+   - Pre-transition validation of area connectivity IDs
+   - Campaign-agnostic validation (works with any campaign structure)
+   - Graceful error handling with clear messages
+
+3. **Transition Protection** (`action_handler.py`):
+   - Added validation call before processing `transitionLocation` actions
+   - Blocks transitions to non-existent areas with clear error messages
+   - Maintains data integrity by preventing bad area IDs from being processed
+
+**Result:** 
+- AI can no longer create invalid area connections
+- System validates area IDs before attempting file operations  
+- Clear error messages guide AI to use only valid areas
+- No more "File not found - creating first time" errors
+- Maintains campaign flexibility while ensuring data integrity
+
+**Test Results:**
+- Valid areas (G001, SK001): ✅ Pass validation
+- Invalid areas (OC01): ❌ Fail with clear error message  
+- Within-area transitions: ✅ Always allowed
+- Empty/null area IDs: ✅ Handled correctly
+
+This implementation successfully prevents the root cause of the issue while providing clear feedback for both AI and users.

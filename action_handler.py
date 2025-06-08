@@ -58,6 +58,43 @@ ACTION_LEVEL_UP = "levelUp"
 ACTION_UPDATE_CHARACTER_INFO = "updateCharacterInfo"
 ACTION_UPDATE_PARTY_NPCS = "updatePartyNPCs"
 
+def validate_area_connectivity_id(area_connectivity_id, current_area_id):
+    """
+    Validate that area connectivity ID corresponds to existing area file.
+    Prevents AI from creating transitions to non-existent areas.
+    
+    Args:
+        area_connectivity_id (str): The area ID to validate (e.g., "G001-B07")
+        current_area_id (str): Current area ID for context
+    
+    Returns:
+        bool: True if valid or no area change, False if invalid
+    """
+    if not area_connectivity_id:
+        return True  # Within-area transitions are always valid
+    
+    try:
+        # Initialize path manager
+        path_manager = CampaignPathManager()
+        
+        # Extract base area ID (handle formats like "G001-B07" -> "G001")
+        base_area_id = area_connectivity_id.split('-')[0]
+        
+        # Get the area file path
+        area_file_path = path_manager.get_area_path(base_area_id)
+        
+        # Check if area file exists
+        if not os.path.exists(area_file_path):
+            print(f"ERROR: Area validation failed - {area_file_path} does not exist")
+            return False
+            
+        print(f"DEBUG: Area validation passed for {base_area_id}")
+        return True
+        
+    except Exception as e:
+        print(f"ERROR: Area validation failed with exception: {str(e)}")
+        return False
+
 def update_party_npcs(party_tracker_data, operation, npc):
     """Update NPC party members (add or remove)"""
     if operation == "add":
@@ -218,11 +255,22 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         status_transitioning_location()
         new_location_name_or_id = parameters["newLocation"] # This could be a name or an ID
         area_connectivity_id = parameters.get("areaConnectivityId")
+        
         # Sanitize location names to prevent encoding issues
         current_location_name = sanitize_text(party_tracker_data["worldConditions"]["currentLocation"])
         current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
         current_area_name = party_tracker_data["worldConditions"]["currentArea"]
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
+        
+        # VALIDATE: Prevent AI from creating transitions to non-existent areas
+        if not validate_area_connectivity_id(area_connectivity_id, current_area_id):
+            error_message = f"Cannot transition to area '{area_connectivity_id}' - area file does not exist in campaign. Only use areas that are explicitly defined in the campaign structure."
+            print(f"ERROR: {error_message}")
+            return create_return(
+                status="error", 
+                message=error_message,
+                needs_update=False
+            )
         
         # Debug the exact string values for easier troubleshooting
         print(f"DEBUG: Transitioning from '{current_location_name}' to '{new_location_name_or_id}'")
