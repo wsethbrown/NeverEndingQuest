@@ -37,8 +37,8 @@ Combat Logging System:
 # - Provide specialized combat AI prompts and validation
 # 
 # COMBAT FLOW:
-# Encounter Start → Initiative Roll → Turn Management → Action Resolution →
-# Validation → State Update → Win/Loss Conditions
+# Encounter Start -> Initiative Roll -> Turn Management -> Action Resolution ->
+# Validation -> State Update -> Win/Loss Conditions
 # 
 # AI INTEGRATION:
 # - Specialized combat model for turn-based interactions
@@ -284,6 +284,33 @@ def parse_json_safely(text):
     # If we still can't parse it, raise an exception
     raise json.JSONDecodeError("Unable to parse JSON from the given text", text, 0)
 
+def sanitize_unicode_for_logging(text):
+    """
+    Replace common Unicode characters with ASCII equivalents for logging compatibility.
+    Prevents UnicodeEncodeError when logging to files on Windows.
+    """
+    if not isinstance(text, str):
+        return text
+    
+    # Replace common Unicode characters with ASCII equivalents
+    replacements = {
+        '\u2192': '->',  # Right arrow
+        '\u2190': '<-',  # Left arrow
+        '\u2194': '<->',  # Left-right arrow
+        '\u2014': '--',  # Em dash
+        '\u2013': '-',   # En dash
+        '\u201c': '"',   # Left double quotation mark
+        '\u201d': '"',   # Right double quotation mark
+        '\u2018': "'",   # Left single quotation mark
+        '\u2019': "'",   # Right single quotation mark
+        '\u2026': '...',  # Horizontal ellipsis
+    }
+    
+    for unicode_char, ascii_replacement in replacements.items():
+        text = text.replace(unicode_char, ascii_replacement)
+    
+    return text
+
 def validate_combat_response(response, encounter_data, user_input, conversation_history=None):
     """
     Validate a combat response for accuracy in HP tracking, combat flow, etc.
@@ -348,9 +375,9 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
                     log_entry = {
                         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
                         "valid": is_valid,
-                        "reason": reason,
-                        "recommendation": recommendation,
-                        "response": response
+                        "reason": sanitize_unicode_for_logging(reason),
+                        "recommendation": sanitize_unicode_for_logging(recommendation),
+                        "response": sanitize_unicode_for_logging(response)
                     }
                     json.dump(log_entry, log_file)
                     log_file.write("\n")
@@ -359,11 +386,11 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
                     print("DEBUG: Combat response validation passed")
                     return True
                 else:
-                    print(f"DEBUG: Combat response validation failed. Reason: {reason}")
+                    print(f"DEBUG: Combat response validation failed. Reason: {sanitize_unicode_for_logging(reason)}")
                     if recommendation:
-                        return {"reason": reason, "recommendation": recommendation}
+                        return {"reason": sanitize_unicode_for_logging(reason), "recommendation": sanitize_unicode_for_logging(recommendation)}
                     else:
-                        return reason
+                        return sanitize_unicode_for_logging(reason)
                     
             except json.JSONDecodeError:
                 print(f"DEBUG: Invalid JSON from validation model (Attempt {attempt + 1}/{max_validation_retries})")
@@ -409,7 +436,7 @@ def get_initiative_order(encounter_data):
         status = creature.get("status", "unknown")
         order_parts.append(f"{name} ({initiative}, {status})")
     
-    return " → ".join(order_parts)
+    return " -> ".join(order_parts)
 
 def log_conversation_structure(conversation):
     """Log the structure of the conversation history for debugging"""
@@ -1045,14 +1072,14 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                if isinstance(validation_result, dict):
                    reason = validation_result["reason"]
                    recommendation = validation_result.get("recommendation", "")
-                   feedback = f"Your previous response had issues with the combat logic: {reason}"
+                   feedback = f"Your previous response had issues with the combat logic: {sanitize_unicode_for_logging(reason)}"
                    if recommendation:
-                       feedback += f"\n\n{recommendation}"
+                       feedback += f"\n\n{sanitize_unicode_for_logging(recommendation)}"
                else:
                    reason = validation_result
-                   feedback = f"Your previous response had issues with the combat logic: {reason}"
+                   feedback = f"Your previous response had issues with the combat logic: {sanitize_unicode_for_logging(reason)}"
                
-               print(f"Reason: {reason}")
+               print(f"Reason: {sanitize_unicode_for_logging(reason)}")
                if attempt < max_retries - 1:
                    # Add error feedback to conversation history
                    conversation_history.append({
@@ -1341,9 +1368,9 @@ Player: {user_input_text}"""
                            feedback += f"\n\n{recommendation}"
                    else:
                        reason = validation_result
-                       feedback = f"Your previous response had issues with the combat logic: {reason}"
+                       feedback = f"Your previous response had issues with the combat logic: {sanitize_unicode_for_logging(reason)}"
                    
-                   print(f"Reason: {reason}")
+                   print(f"Reason: {sanitize_unicode_for_logging(reason)}")
                    if attempt < max_retries - 1:
                        # Add error feedback to conversation history
                        conversation_history.append({
