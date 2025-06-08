@@ -11,6 +11,7 @@ MAJOR ISSUES (always flag):
 4. Player Actions: The AI Dungeon Master should only ask the player or the actions of the player character and in the proper initiative order. The AI Dungeom master handles all other actions for the NPC and monster characters.
 5. ROUND TRACKING ACCURACY: The combat_round field must increment ONLY when all living creatures in initiative order have acted. A round cannot advance if any creature hasn't taken their turn yet.
 6. INITIATIVE CYCLE VALIDATION: Check that the combat_round number accurately reflects how many complete initiative cycles have occurred. Round 2 means ALL creatures completed Round 1.
+7. PLAN VALIDATION: If a "plan" field is present, verify that the AI's understanding of combat state matches the actual situation. Flag discrepancies between the plan's assessment of round number, HP values, initiative order, or who has/hasn't acted versus what actually occurred in the conversation.
 
 Ensure PROPER COMBAT FLOW:
 - Each monster, player, and NPC turn is processed in initiative order. If you don't know the iniative order then assume the AI Dungeon Master is correct but ensure the actions are at least in an order by character that appears logical and is turn based.
@@ -61,6 +62,7 @@ Required fields in combat responses:
 - "narration": Combat description and dialogue
 - "combat_round": Current round number (increments when returning to top of initiative)
 - "actions": Array of updateCharacterInfo, updateEncounter, or exit actions
+- "plan": (Optional) The AI's internal planning thoughts before narrating - validates the AI's understanding of combat state
 
 ACTION USAGE VALIDATION:
 - updateCharacterInfo: ONLY for players and NPCs (requires characterName parameter)
@@ -71,7 +73,7 @@ ACTION USAGE VALIDATION:
 Respond with a JSON object like this:
 {
   "valid": true/false,
-  "reason": "REQUIRED: Detailed explanation of validation result. If invalid, specify exactly which rule was violated and where. If valid, explain why the combat flow meets all requirements.",
+  "reason": "REQUIRED: Detailed explanation of validation result. If invalid, specify exactly which rule was violated and where. If valid, explain why the combat flow meets all requirements. If a plan field was present, comment on whether the AI's planning was accurate or if there were misconceptions.",
   "recommendation": "If invalid, provide a brief outline of how this combat should properly flow based on the current state"
 }
 
@@ -97,5 +99,24 @@ Fix: Process ALL creatures in initiative order: Player -> Elara -> Gilly -> Orc1
 VALID - Proper Round Completion:
 Combat Response: "combat_round": 2 after ALL creatures (Player, Elara, Gilly, Orc1, Orc2) completed their Round 1 actions
 Result: Correct round advancement after complete initiative cycle
+
+PLAN VALIDATION EXAMPLES:
+
+VALID - Accurate Planning:
+Plan: "Round 2 has ended. All creatures acted: Animated Weapon attacked and missed, Norn attacked twice (first missed, second hit for 10 damage). Animated Weapon is now at 3 HP. Moving to round 3."
+Combat Response: "combat_round": 3, narrates round 3 beginning
+Result: Plan accurately reflects combat state and proper round advancement
+
+INVALID - Plan Shows Misconception:
+Plan: "We're still in round 1, Norn hasn't acted yet"
+Combat Response: Shows Norn already acted twice and round should advance
+Issue: Plan shows fundamental misunderstanding of combat progression
+Fix: Correct the AI's understanding of who has acted and current round status
+
+INVALID - Plan HP Tracking Error:
+Plan: "Animated Weapon is at full health"
+Actual State: Weapon has taken 24 damage and is nearly defeated
+Issue: Plan shows incorrect HP tracking, could lead to narrative inconsistencies
+Fix: Ensure plan reflects accurate damage totals from previous actions
 
 Current encounter state:

@@ -247,6 +247,9 @@ def is_valid_json(json_string):
             return False
         if "actions" not in json_object or not isinstance(json_object["actions"], list):
             return False
+        # Optional plan field - if present, must be a string
+        if "plan" in json_object and not isinstance(json_object["plan"], str):
+            return False
         return True
     except json.JSONDecodeError:
         return False

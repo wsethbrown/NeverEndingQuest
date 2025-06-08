@@ -63,6 +63,7 @@ Important Notes about Action Formats:
 Response Format:
 Always structure your responses in the following JSON format:
 {
+  "plan": "Before narrating, write out your plan for this combat response. Consider: What is the current combat round? Who has already acted this round? What is the initiative order? Who should act next? Are there any dead creatures to skip? When should the round increment? What is each creature's current HP? This plan helps you organize your thoughts but will not be shown to players.",
   "narration": "Your descriptive text, dialogue, questions to the player, and narrative responses go here. This includes all descriptions of actions, rolls, and their outcomes.",
   "combat_round": <current_round_number>, // CRITICAL: Increment ONLY when ALL creatures have acted in initiative order and returning to the first creature in the order
   "actions": [
