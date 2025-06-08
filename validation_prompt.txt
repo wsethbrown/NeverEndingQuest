@@ -70,6 +70,10 @@ Important clarifications:
    9. ALWAYS pay close attention to when trading occurs between the player and the party NPCs to ensure all actions are taken to update the player and party inventories.
    10. rollSkillCheck is not a valid action.
    11. RITUAL MATERIALS: When a character performs a ritual that consumes material components, the model MUST use updateCharacterInfo to remove those materials from inventory. If ritual materials are not removed after a ritual is performed, the response is invalid.
+   12. LOCATION vs AREA TRANSITIONS: For transitionLocation action, check that "areaConnectivityId" is used correctly:
+       - WITHIN-AREA moves (e.g., C05 to C07 in same area): Use "newLocation" only, NO "areaConnectivityId"
+       - CROSS-AREA moves (e.g., SK001 to TCD001): Use both "newLocation" and "areaConnectivityId"
+       - If "areaConnectivityId" contains a location ID pattern (C01, C07, etc.) instead of area ID, the response is invalid.
 
 Here are examples of acceptable model assistant responses:
 
