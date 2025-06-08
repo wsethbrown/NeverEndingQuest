@@ -1,0 +1,27 @@
+{
+  "campaign": "Keep_of_Doom",
+  "partyMembers": [
+    "norn"
+  ],
+  "partyNPCs": [],
+  "worldConditions": {
+    "year": 1492,
+    "month": "Ches",
+    "day": 1,
+    "time": "08:00:00",
+    "weather": "Overcast",
+    "season": "Spring",
+    "dayNightCycle": "Morning",
+    "moonPhase": "New Moon",
+    "currentLocation": "Harrow's Hollow General Store",
+    "currentLocationId": "A01",
+    "currentArea": "Harrow's Hollow",
+    "currentAreaId": "HH001",
+    "majorEventsUnderway": [],
+    "politicalClimate": "",
+    "activeEncounter": "",
+    "activeCombatEncounter": "",
+    "weatherConditions": "Overcast with morning mist"
+  },
+  "activeQuests": []
+}
