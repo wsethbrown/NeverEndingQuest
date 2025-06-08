@@ -74,6 +74,13 @@ def validate_area_connectivity_id(area_connectivity_id, current_area_id):
         return True  # Within-area transitions are always valid
     
     try:
+        # Check if this looks like a location ID instead of area ID
+        # Location IDs: C01, C02, etc. Area IDs: SK001, G001-B07, TCD001-E01, etc.
+        import re
+        if re.match(r'^[A-Z]\d+$', area_connectivity_id):
+            print(f"ERROR: '{area_connectivity_id}' appears to be a location ID, not an area ID. Use 'newLocation' parameter for within-area transitions.")
+            return False
+        
         # Initialize path manager
         path_manager = CampaignPathManager()
         
@@ -268,8 +275,8 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
             print(f"ERROR: {error_message}")
             return create_return(
                 status="error", 
-                message=error_message,
-                needs_update=False
+                needs_update=False,
+                response_data={"error_message": error_message}
             )
         
         # Debug the exact string values for easier troubleshooting
