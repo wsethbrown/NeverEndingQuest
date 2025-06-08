@@ -173,33 +173,41 @@ class AreaGenerator:
             name = room.get("name")
             room_type = room.get("type", "room")
             
-            # Generate location data
+            # Generate location data matching Keep of Doom schema
             location = {
                 "locationId": room_id,
                 "name": name,
-                "description": f"A {room_type} in {area_name}.",
                 "type": room_type,
-                "visited": False,
+                "description": f"A {room_type} in {area_name}.",
+                "coordinates": room.get("coordinates", "X0Y0"),
                 "connectivity": room.get("connections", []),
                 "areaConnectivity": [],
                 "areaConnectivityId": [],
                 "npcs": [],
                 "monsters": [],
-                "items": [],
-                "features": self.generate_location_features(room_type),
+                "lootTable": [],
+                "plotHooks": [],
+                "dmInstructions": f"This {room_type} is part of {area_name}. Adjust encounters based on party strength.",
+                "doors": [],
                 "traps": [],
-                "notes": ""
+                "dcChecks": [],
+                "accessibility": "Normal access",
+                "dangerLevel": config.danger_level.capitalize(),
+                "features": self.generate_location_features(room_type),
+                "encounters": [],
+                "adventureSummary": ""
             }
             
             # Add some rare features like traps or hidden items
             if random.random() < 0.2:  # 20% chance
                 if config.area_type == "dungeon":
                     location["traps"].append({
-                        "name": "Simple trap",
-                        "description": "A basic trap that could harm unwary adventurers.",
-                        "detected": False,
-                        "disarmed": False,
-                        "difficulty": "medium"
+                        "name": "Simple Pressure Plate",
+                        "description": "A hidden pressure plate that triggers when stepped on.",
+                        "detectDC": 13,
+                        "disableDC": 15,
+                        "triggerDC": 12,
+                        "damage": "1d6 piercing damage from hidden spikes"
                     })
             
             locations.append(location)
@@ -291,7 +299,7 @@ class AreaGenerator:
         area_features = features.get(config.area_type, ["interesting locations"])
         return random.sample(area_features, min(3, len(area_features)))
     
-    def generate_location_features(self, room_type: str) -> List[str]:
+    def generate_location_features(self, room_type: str) -> List[Dict[str, str]]:
         """Generate features for a specific location type"""
         feature_types = {
             "entrance": ["weathered door", "grand archway", "narrow passage", "hidden opening"],
@@ -318,9 +326,18 @@ class AreaGenerator:
         # Get features for this room type, or use defaults
         room_features = feature_types.get(room_type, default_features)
         
-        # Return 1-3 random features
+        # Return 1-3 random features as objects with name and description
         num_features = random.randint(1, min(3, len(room_features)))
-        return random.sample(room_features, num_features)
+        selected_features = random.sample(room_features, num_features)
+        
+        # Convert to proper format
+        return [
+            {
+                "name": feature.title(),
+                "description": f"A {feature} that adds character to this {room_type}."
+            }
+            for feature in selected_features
+        ]
     
     def generate_dm_notes(self, config: AreaConfig) -> str:
         """Generate helpful DM notes for running the area"""
