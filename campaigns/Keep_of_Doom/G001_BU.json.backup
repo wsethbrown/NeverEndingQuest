@@ -457,11 +457,10 @@
         {
           "name": "Entangling Roots",
           "description": "Animated roots that grasp at ankles when stepped upon.",
-          "type": "magical",
-          "trigger": "Stepping off the marked path",
-          "trapDC": 13,
-          "trapEffect": "Target must make DC 13 Strength save or be restrained. Can repeat save at end of each turn.",
-          "disarmNotes": "Can be detected with DC 14 Perception. Following the map's route avoids the trap entirely."
+          "detectDC": 14,
+          "disableDC": 15,
+          "triggerDC": 13,
+          "damage": "Target must make DC 13 Strength save or be restrained. Can repeat save at end of each turn."
         }
       ],
       "dcChecks": [
@@ -534,11 +533,10 @@
         {
           "name": "Ward of Fear",
           "description": "Magical ward that induces supernatural fear in those who enter without permission.",
-          "type": "magical",
-          "trigger": "Crossing threshold without speaking password",
-          "trapDC": 14,
-          "trapEffect": "DC 14 Wisdom save or be frightened for 1 minute. Frightened creatures must use their movement to get as far from the entrance as possible.",
-          "disarmNotes": "Automatically bypassed by speaking 'Dusk'. Can be suppressed with dispel magic (DC 14)."
+          "detectDC": 14,
+          "disableDC": 16,
+          "triggerDC": 14,
+          "damage": "DC 14 Wisdom save or be frightened for 1 minute. Frightened creatures must use their movement to get as far from the entrance as possible."
         }
       ],
       "dcChecks": [
@@ -769,20 +767,18 @@
         {
           "name": "Quicksand",
           "description": "Patches of seemingly solid ground that swallow creatures stepping on them.",
-          "type": "hazard",
-          "trigger": "Stepping onto disguised quicksand",
-          "trapDC": 14,
-          "trapEffect": "Target begins sinking, requiring DC 13 Athletics check each round to avoid sinking deeper. After three failed saves, target is submerged and begins suffocating.",
-          "disarmNotes": "Cannot be disarmed, but can be spotted with DC 14 Perception or Survival check."
+          "detectDC": 14,
+          "disableDC": 16,
+          "triggerDC": 13,
+          "damage": "Target begins sinking, requiring DC 13 Athletics check each round to avoid sinking deeper. After three failed saves, target is submerged and begins suffocating."
         },
         {
           "name": "Poison Gas Pocket",
           "description": "Bubbles of noxious gas that release when disturbed.",
-          "type": "hazard",
-          "trigger": "Disturbing specific areas of the marsh",
-          "trapDC": 13,
-          "trapEffect": "Gas cloud fills 10-foot radius, requiring DC 13 Constitution save or take 2d6 poison damage and be poisoned for 1 hour.",
-          "disarmNotes": "Can be spotted with DC 15 Perception check and avoided."
+          "detectDC": 15,
+          "disableDC": 17,
+          "triggerDC": 13,
+          "damage": "Gas cloud fills 10-foot radius, requiring DC 13 Constitution save or take 2d6 poison damage and be poisoned for 1 hour."
         }
       ],
       "dcChecks": [

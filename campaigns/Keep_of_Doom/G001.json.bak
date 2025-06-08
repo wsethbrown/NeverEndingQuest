@@ -507,20 +507,18 @@
         {
           "name": "Quicksand",
           "description": "Patches of seemingly solid ground that swallow creatures stepping on them.",
-          "type": "hazard",
-          "trigger": "Stepping onto disguised quicksand",
-          "trapDC": 14,
-          "trapEffect": "Target begins sinking, requiring DC 13 Athletics check each round to avoid sinking deeper. After three failed saves, target is submerged and begins suffocating.",
-          "disarmNotes": "Cannot be disarmed, but can be spotted with DC 14 Perception or Survival check."
+          "detectDC": 14,
+          "disableDC": 16,
+          "triggerDC": 13,
+          "damage": "Target begins sinking, requiring DC 13 Athletics check each round to avoid sinking deeper. After three failed saves, target is submerged and begins suffocating."
         },
         {
           "name": "Poison Gas Pocket",
           "description": "Bubbles of noxious gas that release when disturbed.",
-          "type": "hazard",
-          "trigger": "Disturbing specific areas of the marsh",
-          "trapDC": 13,
-          "trapEffect": "Gas cloud fills 10-foot radius, requiring DC 13 Constitution save or take 2d6 poison damage and be poisoned for 1 hour.",
-          "disarmNotes": "Can be spotted with DC 15 Perception check and avoided."
+          "detectDC": 15,
+          "disableDC": 17,
+          "triggerDC": 13,
+          "damage": "Gas cloud fills 10-foot radius, requiring DC 13 Constitution save or take 2d6 poison damage and be poisoned for 1 hour."
         }
       ],
       "dcChecks": [
@@ -600,11 +598,10 @@
         {
           "name": "Faerie Circle",
           "description": "The mushroom ring at the clearing's center that can trap unwary travelers in time-distorted reverie.",
-          "type": "magical",
-          "trigger": "Stepping inside the circle without protection",
-          "trapDC": 15,
-          "trapEffect": "Target must make DC 15 Wisdom save or enter trance. While entranced, they perceive only one minute passing while one hour passes outside. The trance breaks if they take damage or someone physically pulls them out.",
-          "disarmNotes": "Cannot be disarmed, but effects can be avoided by walking backward into the circle or carrying cold iron."
+          "detectDC": 15,
+          "disableDC": 15,
+          "triggerDC": 15,
+          "damage": "No direct damage; causes trance effect on failed save."
         }
       ],
       "dcChecks": [
