@@ -432,9 +432,31 @@ def log_conversation_structure(conversation):
 def summarize_dialogue(conversation_history_param, location_data, party_tracker_data):
     print("DEBUG: Activating the third model...")
     
+    # Extract clean narrative content from conversation history
+    clean_conversation = []
+    for message in conversation_history_param:
+        if message.get("role") == "system":
+            continue  # Skip system messages
+        elif message.get("role") == "user":
+            clean_conversation.append(f"Player: {message.get('content', '')}")
+        elif message.get("role") == "assistant":
+            content = message.get("content", "")
+            try:
+                # Try to parse JSON and extract narration
+                parsed = json.loads(content)
+                if isinstance(parsed, dict) and "narration" in parsed:
+                    clean_conversation.append(f"Dungeon Master: {parsed['narration']}")
+                else:
+                    clean_conversation.append(f"Dungeon Master: {content}")
+            except json.JSONDecodeError:
+                # If not JSON, use as-is
+                clean_conversation.append(f"Dungeon Master: {content}")
+    
+    clean_text = "\n\n".join(clean_conversation)
+    
     dialogue_summary_prompt = [
         {"role": "system", "content": "Your task is to provide a concise summary of the combat encounter in the world's most popular 5th Edition roleplayign game dialogue between the dungeon master running the combat encounter and the player. Focus on capturing the key events, actions, and outcomes of the encounter. Be sure to include the experience points awarded, which will be provided in the conversation history. The summary should be written in a narrative style suitable for presenting to the main dungeon master. Include in your summary any defeated monsters or corpses left behind after combat."},
-        {"role": "user", "content": json.dumps(conversation_history_param)}
+        {"role": "user", "content": clean_text}
     ]
 
     # Generate dialogue summary
