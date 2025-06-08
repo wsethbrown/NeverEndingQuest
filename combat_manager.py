@@ -1519,7 +1519,7 @@ Player: {user_input_text}"""
                
                xp_narrative, xp_awarded = calculate_xp()
                # Still record this information in the conversation history, but don't print it to console
-               conversation_history.append({"role": "system", "content": f"XP Awarded: {xp_narrative}"})
+               conversation_history.append({"role": "user", "content": f"XP Awarded: {xp_narrative}"})
                save_json_file(conversation_history_file, conversation_history)
                
                # Update XP for player
