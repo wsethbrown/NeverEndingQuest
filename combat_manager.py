@@ -67,6 +67,7 @@ import time
 import re
 import random
 import subprocess
+from datetime import datetime
 from xp import main as calculate_xp
 from openai import OpenAI
 # Import model configurations from config.py
@@ -1018,6 +1019,8 @@ Player: The combat begins. Describe the scene and the enemies we face."""
    max_retries = 3
    valid_response = False
    initial_response = None
+   validation_attempts = []  # Store all validation attempts for logging
+   initial_conversation_length = len(conversation_history)  # Mark where validation started
    
    for attempt in range(max_retries):
        try:
@@ -1032,20 +1035,26 @@ Player: The combat begins. Describe the scene and the enemies we face."""
            with open("debug_initial_response.json", "w") as debug_file:
                json.dump({"raw_initial_response": initial_response}, debug_file, indent=2)
            
-           # Add the AI response to conversation history
+           # Temporarily add AI response for validation context
            conversation_history.append({"role": "assistant", "content": initial_response})
-           save_json_file(conversation_history_file, conversation_history)
            
            # Check if the response is valid JSON
            if not is_valid_json(initial_response):
                print(f"DEBUG: Invalid JSON response for initial scene (Attempt {attempt + 1}/{max_retries})")
                if attempt < max_retries - 1:
-                   # Add error feedback to conversation history
+                   # Add error feedback temporarily for next attempt
+                   error_msg = "Your previous response was not a valid JSON object with 'narration' and 'actions' fields. Please provide a valid JSON response for the initial scene."
                    conversation_history.append({
                        "role": "user",
-                       "content": "Your previous response was not a valid JSON object with 'narration' and 'actions' fields. Please provide a valid JSON response for the initial scene."
+                       "content": error_msg
                    })
-                   save_json_file(conversation_history_file, conversation_history)
+                   # Log this validation attempt
+                   validation_attempts.append({
+                       "attempt": attempt + 1,
+                       "assistant_response": initial_response,
+                       "validation_error": error_msg,
+                       "error_type": "json_format"
+                   })
                    continue
                else:
                    print("DEBUG: Max retries exceeded for JSON validation. Using last response.")
@@ -1081,12 +1090,20 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                
                print(f"Reason: {sanitize_unicode_for_logging(reason)}")
                if attempt < max_retries - 1:
-                   # Add error feedback to conversation history
+                   # Add error feedback temporarily for next attempt
+                   error_msg = f"{feedback}. Please correct these issues and provide a valid initial scene description."
                    conversation_history.append({
                        "role": "user",
-                       "content": f"{feedback}. Please correct these issues and provide a valid initial scene description."
+                       "content": error_msg
                    })
-                   save_json_file(conversation_history_file, conversation_history)
+                   # Log this validation attempt
+                   validation_attempts.append({
+                       "attempt": attempt + 1,
+                       "assistant_response": initial_response,
+                       "validation_error": error_msg,
+                       "error_type": "combat_logic",
+                       "reason": sanitize_unicode_for_logging(reason)
+                   })
                    continue
                else:
                    print("DEBUG: Max retries exceeded for combat validation. Using last response.")
@@ -1098,6 +1115,53 @@ Player: The combat begins. Describe the scene and the enemies we face."""
            else:
                print("DEBUG: Max retries exceeded. Using last response if available.")
                break
+   
+   # Clean up conversation history based on validation outcome
+   if valid_response or initial_response:
+       # Remove all validation attempts from conversation history
+       conversation_history = conversation_history[:initial_conversation_length]
+       
+       # Add only the final assistant response
+       if initial_response:
+           conversation_history.append({"role": "assistant", "content": initial_response})
+       
+       # Log successful validation if it occurred
+       if valid_response and validation_attempts:
+           validation_attempts.append({
+               "attempt": "final",
+               "assistant_response": initial_response,
+               "validation_result": "success"
+           })
+   
+   # Write validation attempts to log file
+   if validation_attempts:
+       validation_log_path = os.path.join(os.path.dirname(conversation_history_file), "combat_validation_log.json")
+       try:
+           # Load existing log or create new one
+           if os.path.exists(validation_log_path):
+               with open(validation_log_path, 'r') as f:
+                   validation_log = json.load(f)
+           else:
+               validation_log = []
+           
+           # Add current validation session
+           validation_log.append({
+               "timestamp": datetime.now().isoformat(),
+               "encounter_id": encounter_data.get("encounter_id", "unknown"),
+               "scene_type": "initial_scene",
+               "validation_attempts": validation_attempts,
+               "final_outcome": "success" if valid_response else "failed_after_retries"
+           })
+           
+           # Write updated log
+           with open(validation_log_path, 'w') as f:
+               json.dump(validation_log, f, indent=2)
+               
+       except Exception as e:
+           print(f"WARNING: Failed to write validation log: {str(e)}")
+   
+   # Save the cleaned conversation history
+   save_json_file(conversation_history_file, conversation_history)
    
    # Display initial scene if we have a response
    if initial_response:
@@ -1309,6 +1373,8 @@ Player: {user_input_text}"""
        max_retries = 3
        valid_response = False
        ai_response = None
+       validation_attempts = []  # Store all validation attempts for logging
+       initial_conversation_length = len(conversation_history)  # Mark where validation started
        
        for attempt in range(max_retries):
            try:
@@ -1324,21 +1390,26 @@ Player: {user_input_text}"""
                with open("debug_ai_response.json", "w") as debug_file:
                    json.dump({"raw_ai_response": ai_response}, debug_file, indent=2)
                
-               # IMPORTANT CHANGE: Always add the AI response to conversation history
-               # even if it fails validation - this ensures the model can learn from mistakes
+               # Temporarily add AI response for validation context
                conversation_history.append({"role": "assistant", "content": ai_response})
-               save_json_file(conversation_history_file, conversation_history)
                
                # Check if the response is valid JSON
                if not is_valid_json(ai_response):
                    print(f"DEBUG: Invalid JSON response from AI (Attempt {attempt + 1}/{max_retries})")
                    if attempt < max_retries - 1:
-                       # Add error feedback to conversation history
+                       # Add error feedback temporarily for next attempt
+                       error_msg = "Your previous response was not a valid JSON object with 'narration' and 'actions' fields. Please provide a valid JSON response."
                        conversation_history.append({
                            "role": "user",
-                           "content": "Your previous response was not a valid JSON object with 'narration' and 'actions' fields. Please provide a valid JSON response."
+                           "content": error_msg
                        })
-                       save_json_file(conversation_history_file, conversation_history)
+                       # Log this validation attempt
+                       validation_attempts.append({
+                           "attempt": attempt + 1,
+                           "assistant_response": ai_response,
+                           "validation_error": error_msg,
+                           "error_type": "json_format"
+                       })
                        continue
                    else:
                        print("DEBUG: Max retries exceeded for JSON validation. Skipping this response.")
@@ -1372,12 +1443,20 @@ Player: {user_input_text}"""
                    
                    print(f"Reason: {sanitize_unicode_for_logging(reason)}")
                    if attempt < max_retries - 1:
-                       # Add error feedback to conversation history
+                       # Add error feedback temporarily for next attempt
+                       error_msg = f"{feedback}. Please correct these issues and try again."
                        conversation_history.append({
                            "role": "user",
-                           "content": f"{feedback}. Please correct these issues and try again."
+                           "content": error_msg
                        })
-                       save_json_file(conversation_history_file, conversation_history)
+                       # Log this validation attempt
+                       validation_attempts.append({
+                           "attempt": attempt + 1,
+                           "assistant_response": ai_response,
+                           "validation_error": error_msg,
+                           "error_type": "combat_logic",
+                           "reason": sanitize_unicode_for_logging(reason)
+                       })
                        continue
                    else:
                        print("DEBUG: Max retries exceeded for combat validation. Using last response.")
@@ -1389,6 +1468,53 @@ Player: {user_input_text}"""
                else:
                    print("DEBUG: Max retries exceeded. Skipping this response.")
                    break
+       
+       # Clean up conversation history based on validation outcome
+       if valid_response or ai_response:
+           # Remove all validation attempts from conversation history
+           conversation_history = conversation_history[:initial_conversation_length]
+           
+           # Add only the final assistant response
+           if ai_response:
+               conversation_history.append({"role": "assistant", "content": ai_response})
+           
+           # Log successful validation if it occurred
+           if valid_response and validation_attempts:
+               validation_attempts.append({
+                   "attempt": "final",
+                   "assistant_response": ai_response,
+                   "validation_result": "success"
+               })
+       
+       # Write validation attempts to log file
+       if validation_attempts:
+           validation_log_path = os.path.join(os.path.dirname(conversation_history_file), "combat_validation_log.json")
+           try:
+               # Load existing log or create new one
+               if os.path.exists(validation_log_path):
+                   with open(validation_log_path, 'r') as f:
+                       validation_log = json.load(f)
+               else:
+                   validation_log = []
+               
+               # Add current validation session
+               validation_log.append({
+                   "timestamp": datetime.now().isoformat(),
+                   "encounter_id": encounter_data.get("encounter_id", "unknown"),
+                   "user_input": user_input_text,
+                   "validation_attempts": validation_attempts,
+                   "final_outcome": "success" if valid_response else "failed_after_retries"
+               })
+               
+               # Write updated log
+               with open(validation_log_path, 'w') as f:
+                   json.dump(validation_log, f, indent=2)
+                   
+           except Exception as e:
+               print(f"WARNING: Failed to write validation log: {str(e)}")
+       
+       # Save the cleaned conversation history
+       save_json_file(conversation_history_file, conversation_history)
        
        if not ai_response:
            print("ERROR: Failed to get a valid AI response after multiple attempts")
