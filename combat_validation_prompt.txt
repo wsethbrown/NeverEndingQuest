@@ -7,6 +7,8 @@ MAJOR ISSUES (always flag):
 2. Death Detection: Any creature that reaches 0 HP or below must be considered dead for narration and actions after that point. For example, if Zunar deals 6 damage to a kobold who has 4 hitpoints left then the narration must include the death of the kobold and any further narrative combat against the kobold or by the kobold should end.
 3. Initiative Order: Characters must act in the established initiative sequence and should not be skipped. All of the NPC and monster character actions, rolls, and narration are handled by the AI Dungeon Master. 
 4. Player Actions: The AI Dungeon Master should only ask the player or the actions of the player character and in the proper initiative order. The AI Dungeom master handles all other actions for the NPC and monster characters.
+5. ROUND TRACKING ACCURACY: The combat_round field must increment ONLY when all living creatures in initiative order have acted. A round cannot advance if any creature hasn't taken their turn yet.
+6. INITIATIVE CYCLE VALIDATION: Check that the combat_round number accurately reflects how many complete initiative cycles have occurred. Round 2 means ALL creatures completed Round 1.
 
 Ensure PROPER COMBAT FLOW:
 - Each monster, player, and NPC turn is processed in initiative order. If you don't know the iniative order then assume the AI Dungeon Master is correct but ensure the actions are at least in an order by character that appears logical and is turn based.
@@ -15,6 +17,12 @@ Ensure PROPER COMBAT FLOW:
 - If all enemies are defeated then the narration should end combat.
 - When the narration action returns to the player's turn, the AI Dungeon Master should pause and await player input for each player action. THe AI Dungeon master does not pause and ask the player for action when it is the NPC or monster's turn unless the narration calls for it.
 - When prerolls are provided: The AI should confirm player actions first, then use appropriate prerolls. When NO prerolls are provided: The player must provide their attack and damage rolls before their action can be resolved.
+
+CRITICAL ROUND VALIDATION CHECKS:
+- ROUND CONSISTENCY: If combat_round is X, verify that (X-1) complete initiative cycles have already occurred
+- PREMATURE ADVANCEMENT: Flag any case where combat_round increments before all living creatures have acted
+- ROUND LOGIC: Round 1 = first time through initiative order, Round 2 = second time through, etc.
+- INITIATIVE COMPLETION: Before incrementing to combat_round N+1, ALL creatures must have completed their turns in round N
 
 ACCEPTABLE RESPONSES:
 - Setting the scene at combat start
@@ -34,6 +42,9 @@ UNACCEPTABLE RESPONSES:
 - Not asking player for action confirmation when prerolls are available
 - Using deprecated updateNPCInfo instead of updateCharacterInfo
 - Using updateCharacterInfo for monsters (should use updateEncounter with text changes)
+- ROUND TRACKING VIOLATIONS: Incrementing combat_round before all creatures have acted
+- PREMATURE ROUND ADVANCEMENT: Moving to Round 2 when some creatures haven't acted in Round 1
+- INCONSISTENT ROUND NUMBERS: Round number not matching the actual number of completed initiative cycles
 
 PREROLL SYSTEM VALIDATION:
 When prerolls are provided, validate:
@@ -67,5 +78,22 @@ For the recommendation field (only if invalid):
 - Include HP calculations, or other math calcualtions, showing exactly when a creature should have died
 - Note whether combat should have ended earlier due to enemy defeat
 - Keep it brief but precise to guide proper combat flow
+- For round tracking errors, specify exactly which creatures still need to act before the round can advance
+
+ROUND TRACKING VALIDATION EXAMPLES:
+
+INVALID - Premature Round Advancement:
+Combat Response: "combat_round": 2 after only Player and Elara have acted
+Issue: Round advanced to 2 before all creatures (Gilly, Orc1, Orc2) completed Round 1
+Fix: Keep combat_round at 1 until ALL creatures act, then advance to 2
+
+INVALID - Skipped Initiative:
+Combat Response: Player acts, then immediately jumps to Orc1, skipping Elara and Gilly
+Issue: Initiative order violated, creatures skipped
+Fix: Process ALL creatures in initiative order: Player → Elara → Gilly → Orc1 → Orc2
+
+VALID - Proper Round Completion:
+Combat Response: "combat_round": 2 after ALL creatures (Player, Elara, Gilly, Orc1, Orc2) completed their Round 1 actions
+Result: Correct round advancement after complete initiative cycle
 
 Current encounter state:
