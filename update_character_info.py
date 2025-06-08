@@ -265,8 +265,7 @@ Character Role: {character_role}
             response = client.chat.completions.create(
                 model=model,
                 messages=messages,
-                temperature=TEMPERATURE,
-                max_tokens=2000
+                temperature=TEMPERATURE
             )
             
             raw_response = response.choices[0].message.content.strip()
