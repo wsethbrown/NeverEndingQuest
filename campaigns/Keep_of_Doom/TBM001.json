@@ -183,11 +183,10 @@
         {
           "name": "Unstable Sections",
           "description": "Portions of the causeway that appear solid but will collapse under weight.",
-          "type": "structural",
-          "trigger": "Stepping onto weakened stones",
-          "trapDC": 14,
-          "trapEffect": "Stones collapse, requiring DC 13 Dexterity save. Failure results in falling into the marsh and becoming restrained in muck, requiring DC 14 Strength check to escape. The marsh water deals 1d4 acid damage per round of contact.",
-          "disarmNotes": "Can be identified with DC 14 Perception or Investigation check; sections have subtle discoloration or cracks."
+          "detectDC": 14,
+          "disableDC": 16,
+          "triggerDC": 13,
+          "damage": "Stones collapse, requiring DC 13 Dexterity save. Failure results in falling into the marsh and becoming restrained in muck, requiring DC 14 Strength check to escape. The marsh water deals 1d4 acid damage per round of contact."
         }
       ],
       "dcChecks": [
@@ -261,20 +260,18 @@
         {
           "name": "Quicksand Pools",
           "description": "Deceptively solid-looking areas that swallow those who step on them.",
-          "type": "environmental",
-          "trigger": "Stepping onto disguised quicksand",
-          "trapDC": 15,
-          "trapEffect": "Character begins sinking, requiring DC 14 Strength save each round to avoid sinking deeper. After three failed saves, the character is submerged and begins suffocating.",
-          "disarmNotes": "Can be detected with DC 15 Survival or Nature check; areas have slightly different coloration or bubble patterns."
+          "detectDC": 15,
+          "disableDC": 17,
+          "triggerDC": 14,
+          "damage": "Character begins sinking, requiring DC 14 Strength save each round to avoid sinking deeper. After three failed saves, the character is submerged and begins suffocating."
         },
         {
           "name": "Echo Snare",
           "description": "Pockets where echoes become overwhelming and disorienting.",
-          "type": "supernatural",
-          "trigger": "Entering areas where multiple echo lines converge",
-          "trapDC": 14,
-          "trapEffect": "Overwhelming cacophony requires DC 14 Wisdom save or become confused for 1d4 rounds, moving in random directions potentially toward danger.",
-          "disarmNotes": "Can be detected with DC 15 Perception check by noticing how sounds interact strangely in these areas."
+          "detectDC": 15,
+          "disableDC": 16,
+          "triggerDC": 14,
+          "damage": "Overwhelming cacophony requires DC 14 Wisdom save or become confused for 1d4 rounds, moving in random directions potentially toward danger."
         }
       ],
       "dcChecks": [
@@ -376,11 +373,10 @@
         {
           "name": "Unstable Flooring",
           "description": "Sections of floor that have rotted or weakened over time.",
-          "type": "structural",
-          "trigger": "Stepping on weakened floor sections",
-          "trapDC": 14,
-          "trapEffect": "Floor collapses, requiring DC 13 Dexterity save. Failure results in falling to the level below for 1d6 bludgeoning damage and landing prone among debris.",
-          "disarmNotes": "Can be identified with DC 14 Perception check by noticing discoloration or slight sagging."
+          "detectDC": 14,
+          "disableDC": 16,
+          "triggerDC": 13,
+          "damage": "Floor collapses, requiring DC 13 Dexterity save. Failure results in falling to the level below for 1d6 bludgeoning damage and landing prone among debris."
         }
       ],
       "dcChecks": [
@@ -487,11 +483,10 @@
         {
           "name": "Perimeter Wards",
           "description": "Magical symbols etched into the ground around the camp's edge.",
-          "type": "magical",
-          "trigger": "Crossing the perimeter without the proper counter-sign",
-          "trapDC": 15,
-          "trapEffect": "Ward flares with dark energy, dealing 2d8 necrotic damage (DC 14 Constitution save for half) and alerting all guards to the intrusion.",
-          "disarmNotes": "Can be identified with DC 14 Arcana check and temporarily disabled by tracing a specific counter-symbol (learned from Acolyte Therin or with DC 16 Arcana)."
+          "detectDC": 14,
+          "disableDC": 16,
+          "triggerDC": 14,
+          "damage": "Ward flares with dark energy, dealing 2d8 necrotic damage (DC 14 Constitution save for half) and alerting all guards to the intrusion."
         }
       ],
       "dcChecks": [
@@ -655,11 +650,10 @@
         {
           "name": "Purification Field",
           "description": "A magical barrier that affects shadow-corrupted beings or items.",
-          "type": "warding",
-          "trigger": "Passing the threshold with shadow corruption",
-          "trapDC": 15,
-          "trapEffect": "Intense pain and 3d8 necrotic damage to corrupted beings (DC 15 Constitution save for half). Shadow-based items must pass a DC 15 check against the barrow's magic or be temporarily suppressed.",
-          "disarmNotes": "Cannot be disarmed, but can be passed safely by those free of shadow corruption or carrying the amulet of the Barrow Guardians."
+          "detectDC": 15,
+          "disableDC": 18,
+          "triggerDC": 15,
+          "damage": "Intense pain and 3d8 necrotic damage to corrupted beings (DC 15 Constitution save for half). Shadow-based items must pass a DC 15 check against the barrow's magic or be temporarily suppressed."
         }
       ],
       "dcChecks": [

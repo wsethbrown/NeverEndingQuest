@@ -223,11 +223,10 @@
         {
           "name": "Shadow Sigil",
           "description": "A nearly invisible magical mark on the floor that activates when stepped upon.",
-          "type": "magical",
-          "trigger": "Stepping on the sigil near the center of the room",
-          "trapDC": 14,
-          "trapEffect": "Activates shadows in the room and causes magical darkness for 1d4 rounds; DC 14 Constitution save or gain one level of exhaustion as shadows drain vitality.",
-          "disarmNotes": "Can be spotted with DC 16 Perception or Arcana check and disabled by smearing blood across the sigil."
+          "detectDC": 16,
+          "disableDC": 17,
+          "triggerDC": 14,
+          "damage": "Activates shadows in the room and causes magical darkness for 1d4 rounds; DC 14 Constitution save or gain one level of exhaustion as shadows drain vitality."
         }
       ],
       "dcChecks": [
@@ -329,11 +328,10 @@
         {
           "name": "Hunger Curse",
           "description": "A magical affliction that triggers when someone enters certain cells.",
-          "type": "curse",
-          "trigger": "Entering cells previously occupied by cannibalistic prisoners",
-          "trapDC": 15,
-          "trapEffect": "DC 15 Wisdom save or be overcome with supernatural hunger, needing to make DC 13 Wisdom save to avoid attacking and attempting to bite nearest creature each round for 1d4 rounds.",
-          "disarmNotes": "Can be detected with DC 16 Arcana check; cells with this curse have subtle teeth marks on the bars."
+          "detectDC": 16,
+          "disableDC": 18,
+          "triggerDC": 15,
+          "damage": "DC 15 Wisdom save or be overcome with supernatural hunger, needing to make DC 13 Wisdom save to avoid attacking and attempting to bite nearest creature each round for 1d4 rounds."
         }
       ],
       "dcChecks": [
@@ -418,11 +416,10 @@
         {
           "name": "Pain Amplifier",
           "description": "A magical field that enhances suffering, centered on the room's focal point.",
-          "type": "magical",
-          "trigger": "Taking damage while in the center of the chamber",
-          "trapDC": 14,
-          "trapEffect": "Any damage taken in the central area is increased by 1d6 psychic damage as the room amplifies pain. DC 14 Wisdom save halves this additional damage.",
-          "disarmNotes": "Can be detected with DC 15 Arcana check and temporarily suppressed by sprinkling holy water on the central drainage grate."
+          "detectDC": 15,
+          "disableDC": 16,
+          "triggerDC": 14,
+          "damage": "Any damage taken in the central area is increased by 1d6 psychic damage as the room amplifies pain. DC 14 Wisdom save halves this additional damage."
         }
       ],
       "dcChecks": [
@@ -608,11 +605,10 @@
         {
           "name": "Poison Gas Vials",
           "description": "Unstable alchemical containers that release toxic fumes when disturbed.",
-          "type": "alchemical",
-          "trigger": "Rough handling of the alchemical equipment shelf",
-          "trapDC": 13,
-          "trapEffect": "Clouds of poison gas fill a 10-foot radius, requiring DC 14 Constitution save or take 2d6 poison damage and be poisoned for 1 hour.",
-          "disarmNotes": "Can be spotted with DC 13 Perception or Investigation check and carefully avoided or neutralized with appropriate tools."
+          "detectDC": 13,
+          "disableDC": 15,
+          "triggerDC": 14,
+          "damage": "Clouds of poison gas fill a 10-foot radius, requiring DC 14 Constitution save or take 2d6 poison damage and be poisoned for 1 hour."
         }
       ],
       "dcChecks": [
@@ -709,11 +705,10 @@
         {
           "name": "Bone Collapse",
           "description": "Sections of the bone walls that can collapse when disturbed.",
-          "type": "mechanical",
-          "trigger": "Removing specific support skulls or climbing the bone walls",
-          "trapDC": 13,
-          "trapEffect": "Avalanche of bones deals 2d6 bludgeoning damage (DC 14 Dexterity save for half) and potentially buries victims requiring DC 15 Strength check to escape.",
-          "disarmNotes": "Can be identified with DC 14 Investigation or Perception check by noting which sections appear less stable."
+          "detectDC": 14,
+          "disableDC": 16,
+          "triggerDC": 13,
+          "damage": "Avalanche of bones deals 2d6 bludgeoning damage (DC 14 Dexterity save for half) and potentially buries victims requiring DC 15 Strength check to escape."
         }
       ],
       "dcChecks": [
@@ -808,11 +803,10 @@
         {
           "name": "Shadow Pools",
           "description": "Areas of concentrated shadow substance that drain life force.",
-          "type": "magical",
-          "trigger": "Stepping into shadowy areas around the dais",
-          "trapDC": 15,
-          "trapEffect": "Shadows grip the victim, requiring DC 15 Strength save to escape and dealing 2d6 necrotic damage per round while trapped.",
-          "disarmNotes": "Can be detected with DC 15 Perception or Arcana check; can be temporarily dispersed with radiant damage or blessed items."
+          "detectDC": 15,
+          "disableDC": 17,
+          "triggerDC": 15,
+          "damage": "Shadows grip the victim, requiring DC 15 Strength save to escape and dealing 2d6 necrotic damage per round while trapped."
         }
       ],
       "dcChecks": [

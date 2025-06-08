@@ -4,7 +4,7 @@
   "name": "Norn",
   "type": "player",
   "size": "Medium",
-  "level": 4,
+  "level": 5,
   "race": "Human",
   "class": "Fighter",
   "alignment": "lawful good",
@@ -12,8 +12,8 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 23,
-  "maxHitPoints": 36,
+  "hitPoints": 25,
+  "maxHitPoints": 47,
   "armorClass": 19,
   "initiative": 2,
   "speed": 30,
@@ -87,6 +87,11 @@
       "name": "Martial Archetype: Champion",
       "description": "Martial Archetype: Champion",
       "source": "Fighter feature"
+    },
+    {
+      "name": "Extra Attack",
+      "description": "Beginning at 5th level, you can attack twice, instead of once, whenever you take the Attack action on your turn.",
+      "source": "Fighter feature"
     }
   ],
   "equipment": [
@@ -158,12 +163,6 @@
       "item_name": "Battered Ranger's Journal",
       "item_type": "miscellaneous",
       "description": "A worn journal with notes about Elen, Sir Garran Vael, warnings about whispers, and the Keeper",
-      "quantity": 1
-    },
-    {
-      "item_name": "Pouch of Gold Coins",
-      "item_type": "miscellaneous",
-      "description": "A small pouch containing 15 gold pieces",
       "quantity": 1
     },
     {
@@ -250,6 +249,78 @@
       "item_type": "miscellaneous",
       "description": "A torn parchment bearing notes that confirm Scout Elen was at this location",
       "quantity": 1
+    },
+    {
+      "item_name": "Well-preserved longbow",
+      "item_type": "weapon",
+      "description": "A well-preserved longbow, suitable for precise ranged attacks",
+      "quantity": 1
+    },
+    {
+      "item_name": "Guard's coinpurse (13 sp, folded love letter)",
+      "item_type": "miscellaneous",
+      "description": "A coinpurse containing 13 silver pieces and a folded love letter",
+      "quantity": 1
+    },
+    {
+      "item_name": "Scroll of Protection from Undead",
+      "item_type": "consumable",
+      "description": "A magical scroll that grants protection from undead creatures when used",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ornate Small Key",
+      "item_type": "miscellaneous",
+      "description": "A small ornate key taken from the skeletal archer",
+      "quantity": 1
+    },
+    {
+      "item_name": "Magical Fragments from Animated Weapon",
+      "item_type": "miscellaneous",
+      "description": "Magical fragments recovered from the defeated animated weapon, potentially useful for crafting or rituals",
+      "quantity": 1
+    },
+    {
+      "item_name": "Historical Letters",
+      "item_type": "miscellaneous",
+      "description": "Collected historical letters providing clues about the curse and hidden horn",
+      "quantity": 1
+    },
+    {
+      "item_name": "Pocket Prayer Book",
+      "item_type": "miscellaneous",
+      "description": "A small prayer book found in the Fallen Barracks",
+      "quantity": 1
+    },
+    {
+      "item_name": "Gambling Dice",
+      "item_type": "miscellaneous",
+      "description": "A set of worn gambling dice",
+      "quantity": 1
+    },
+    {
+      "item_name": "Tarnished Military Medals",
+      "item_type": "miscellaneous",
+      "description": "Old and tarnished military medals from the Fallen Barracks",
+      "quantity": 1
+    },
+    {
+      "item_name": "Weatherproof Cloak",
+      "item_type": "armor",
+      "description": "A sturdy cloak providing advantage on saving throws versus extreme weather",
+      "quantity": 1
+    },
+    {
+      "item_name": "Detailed Keep Map (secret passages)",
+      "item_type": "miscellaneous",
+      "description": "A detailed map of the Keep of Doom showing secret passages, some now collapsed",
+      "quantity": 1
+    },
+    {
+      "item_name": "Silver Signet Ring (keep's sigil)",
+      "item_type": "miscellaneous",
+      "description": "A silver ring stamped with the sigil of the Keep of Doom",
+      "quantity": 1
     }
   ],
   "ammunition": [
@@ -257,6 +328,11 @@
       "name": "Arrows",
       "quantity": 31,
       "description": "Standard arrows for a bow"
+    },
+    {
+      "name": "Ancient Arrows",
+      "quantity": 0,
+      "description": "Arrows recovered from the skeletal archer's quiver"
     }
   ],
   "attacksAndSpellcasting": [
@@ -315,12 +391,12 @@
     }
   },
   "currency": {
-    "gold": 112,
+    "gold": 135,
     "silver": 0,
     "copper": 0
   },
-  "experience_points": 6671,
-  "exp_required_for_next_level": 6500,
+  "experience_points": 7521,
+  "exp_required_for_next_level": 14000,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
   "ideals": "Responsibility. I do what I must and obey just authority.",
@@ -368,6 +444,12 @@
       "description": "While equipped, grants resistance to fear and necrotic effects caused by Sir Garran's curse or associated spectral magic.",
       "duration": "until removed",
       "source": "Knight's Heart Amulet"
+    },
+    {
+      "name": "Piercing Wound",
+      "description": "Took 4 points of piercing damage from giant rat's bite.",
+      "duration": "until healed",
+      "source": "Giant Rat Attack"
     }
   ],
   "feats": [],

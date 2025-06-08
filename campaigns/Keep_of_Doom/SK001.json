@@ -166,7 +166,7 @@
       "locationId": "C01",
       "name": "Outer Courtyard",
       "type": "courtyard",
-      "description": "A weed-choked expanse ringed by crumbling walls, with the main keep looming ahead. Fallen statues of knights and nobles lie broken across the cobblestones, their faces eroded by time or deliberately defaced. A dry fountain stands at the center, its basin cracked and filled with dark stagnant water that never seems to evaporate. Mist clings to the ground regardless of weather, and shadows stretch impossibly long. The massive wooden gates that once secured the entrance hang askew from rusted hinges, creaking in the slightest breeze. The courtyard is now eerily silent, the lingering chill breeze and swirling mists adding to the quiet stillness following the dispersal of spectral threats. Examination of the ground reveals narrow, deep-treaded bootprints flecked with blue thread, evidence of Scout Elen's recent passage eastward from the fountain, skirting a fallen knight's statue, then doubling back toward the Ruined Chapel before vanishing deeper into the keep.",
+      "description": "The Outer Courtyard of Shadowfall Keep is a weed-choked expanse ringed by crumbling walls, with the main keep looming ahead. Fallen statues of knights and nobles lie broken across the cobblestones, their faces eroded by time or deliberately defaced. A cracked fountain filled with dark, reflective water stands at the center, holding magical visions of the keep's history. Mist clings to the ground regardless of weather, swirling softly around the area. Evidence of recent movement is clear: narrow, deep-treaded bootprints flecked with blue thread mark Scout Elen's desperate passage eastward toward the Ruined Chapel before doubling back deeper into the keep. The massive wooden gates that once secured the entrance hang broken from rusted hinges. The courtyard bears scars of past conflicts and lingering curses but is currently quiet and free of immediate threats.",
       "coordinates": "X2Y1",
       "connectivity": [
         "C02",
@@ -180,7 +180,15 @@
         "G001-B07"
       ],
       "npcs": [],
-      "monsters": [],
+      "monsters": [
+        {
+          "name": "Giant Rat",
+          "quantity": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ],
       "lootTable": [
         "Tarnished silver medallion (knight's insignia, 10 gp value)",
         "Rusted key ring with 3 ornate ancient keys (fits various doors in the keep)",
@@ -193,9 +201,10 @@
         "Fresh bootprints show Scout Elen passed recently, heading toward the chapel and then doubling back deeper into the keep.",
         "An aged parchment hints at hidden mechanisms, unfinished oaths, and references Sir Garran Vael, the chapel, a key, a fountain, and a shadow passing at dawn.",
         "Magical visions at the cracked fountain reveal the keep's restoration and a knight handing a key to a scribe, linking the fountain to the mystery.",
-        "Scout Elen's trail leads eastward from the fountain toward the Ruined Chapel, then doubles back, suggesting urgency or evasion."
+        "Scout Elen's trail leads eastward from the fountain toward the Ruined Chapel, then doubles back, suggesting urgency or evasion.",
+        "The Gatehouse Ruins to the west remain unexplored, offering potential clues to Scout Elen's fate and deeper secrets of Shadowfall Keep."
       ],
-      "dmInstructions": "This courtyard serves as the introduction to the keep's dangers and atmosphere. Following the defeat of hostile creatures, the courtyard is currently quiet with no active threats or traps. A DC 16 Perception check reveals fresh bootprints flecked with blue thread from Scout Elen, tracing a path eastward toward the Ruined Chapel and back deeper into the keep. Players investigating the fountain's water may glimpse magical visions with a successful DC 15 Arcana check. Encourage players to follow Elen's trail eastward to further the investigation.",
+      "dmInstructions": "The courtyard is currently calm with no active traps. Recent combat encounters involved lone giant rats emerging from the ruins or rubble and were swiftly defeated. Norn leveled up to 5th level here, gaining Extra Attack and increased hit points. Encourage players to investigate the western Gatehouse Ruins next to continue following Scout Elen's trail. The area remains navigable despite debris and broken structures, with swirling mists adding atmospheric tension.",
       "doors": [
         {
           "name": "Main Gates",
@@ -254,15 +263,26 @@
             "day": 2,
             "time": "02:08:00"
           }
+        },
+        {
+          "encounterId": "C01-E2",
+          "summary": "During the party's time in the Outer Courtyard, Norn engaged multiple lone giant rats emerging from the ruins or rubble. Each encounter was resolved swiftly with precise longsword strikes, resulting in the rats being defeated and the courtyard returning to its eerie silence. Norn earned a total of 75 experience points from these combats and leveled up to 5th level, gaining the Extra Attack feature and increasing maximum hit points by 11. The player restored those additional hit points to current health after confirming hit point recovery mechanics. The party is now poised to explore the Gatehouse Ruins to the west in pursuit of Scout Elen's trail and deeper secrets of Shadowfall Keep.",
+          "impact": "All hostile giant rats in the courtyard have been defeated, removing active combat threats. Norn gained 75 experience points and leveled up, gaining Extra Attack and increased hit points. The courtyard remains free of traps and hazards. The party has secured vital clues from Scout Elen's trail and is prepared to continue their investigation westward. The ambiance retains the swirling mist and lingering ancient watchfulness.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "02:47:00"
+          }
         }
       ],
-      "adventureSummary": "Upon leaving the Ruined Chapel, the party entered the Outer Courtyard, met by a chill breeze and swirling mists clinging to broken statues amid the cracked central fountain. Pale moonlight illuminated weathered keep walls casting long shadows in the eerie silence following the dispersal of spectral threats. They found narrow, deep-treaded bootprints flecked with blue thread left by Scout Elen, tracing her path eastward from the fountain toward the Ruined Chapel before doubling back and vanishing deeper into the keep. No tracks led toward the Gatehouse Ruins or Great Hall, confirming Elen's route. With no active threats or traps present, the party chose to return to the Ruined Chapel to follow Elen's trail further."
+      "adventureSummary": "Upon entering the Outer Courtyard of Shadowfall Keep, the party found themselves amidst toppled statues, a cracked fountain, and swirling mists, the air thick with silence and ancient watchfulness. They reviewed the evidence of Scout Elen's desperate passage--traces of her protective rituals, torn cloak fragments, and cryptic notes had led them here after a harrowing trek through the Gloamwood, spectral clearings, and the Ruined Chapel where the knight's heart amulet was recovered. In the courtyard, no immediate threats or traps were detected, though the environment bore scars of past conflicts and lingering curses. While the secret passage to the north and the Ruined Chapel to the east had been thoroughly explored, the Gatehouse Ruins to the west remained untouched. During their time in the courtyard, the player engaged in several combat encounters, each featuring a lone giant rat emerging from the ruins or rubble. These encounters were swiftly resolved with precise longsword strikes, earning the player successive experience gains totaling 75 points. Between battles, the player took brief respites, stepping away from the game before returning to the same mist-shrouded courtyard. Notably, the player's character, Norn, reached the experience threshold to level up to 5th level while in the courtyard, gaining the Extra Attack feature and increasing maximum hit points by 11 after rolling an 8 on a d10, accompanied by their Constitution modifier. Upon confirming understanding of hit point recovery mechanics, the player chose to restore those additional 11 hit points to their current health. After these developments, with all combat threats subdued and vital clues secured, the party stood poised to continue their investigation, deciding next to venture westward toward the unexplored Gatehouse Ruins in pursuit of Scout Elen's trail and the deeper secrets of Shadowfall Keep."
     },
     {
       "locationId": "C02",
       "name": "Gatehouse Ruins",
       "type": "gatehouse",
-      "description": "A partially collapsed defensive structure that once controlled access to the keep. Stone stairs ascend to a broken walkway where guards patrolled. Arrow slits line the remaining walls, and a rusted portcullis is permanently jammed halfway open. Ancient bloodstains darken the stones around a splintered wooden door, and tattered banners bearing Sir Garran's family crest hang limply from iron brackets. The shadows here are particularly dense, occasionally forming humanoid shapes in peripheral vision. The air smells of rust, mold, and a faint metallic tang that brings to mind spilled blood.",
+      "description": "A partially collapsed defensive structure that once controlled access to the keep. Stone stairs ascend to a broken walkway where guards patrolled. Arrow slits line the remaining walls, and a rusted portcullis is permanently jammed halfway open. Ancient bloodstains darken the stones around a splintered wooden door, and tattered banners bearing Sir Garran's family crest hang limply from iron brackets. The shadows here are particularly dense, occasionally forming humanoid shapes in peripheral vision. The air smells of rust, mold, and a faint metallic tang that brings to mind spilled blood. The oppressive atmosphere has eased following the defeat of the animated armor guardian, and the passage to the Fallen Barracks is now accessible after the magical lock was disengaged by speaking the password.",
       "coordinates": "X1Y1",
       "connectivity": [
         "C01",
@@ -271,33 +291,28 @@
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [],
-      "monsters": [
-        {
-          "name": "Animated Armor",
-          "number": 1,
-          "disposition": "guardian",
-          "strategy": "This empty suit of armor guards the passage to the barracks, attacking anyone who approaches without speaking the old password or bearing a symbol of the keep's authority."
-        }
-      ],
+      "monsters": [],
       "lootTable": [
-        "Captain's Badge (silver with onyx inlay, 15 gp value)",
         "Well-preserved longbow (neglected but functional)",
-        "Guard's coinpurse with 2d10 sp and a folded love letter",
+        "Guard's coinpurse with 13 silver pieces and a folded love letter",
         "Scroll of Protection from Undead",
+        "Captain's Badge (silver with onyx inlay, 15 gp value)",
         "Gatehouse key (unlocks any remaining doors in the gatehouse)"
       ],
       "plotHooks": [
         "A guard's logbook records the last days before the keep's fall, including reports of 'shadows moving against the light' and 'the lord's disturbing new relic.'",
         "Scratched into the wall near the portcullis is a desperate message: 'The heart! The heart is the key!'",
-        "Ghostly whispers can be heard repeating the old challenge password: 'Honor and Shadow are One.'"
+        "Ghostly whispers can be heard repeating the old challenge password: 'Honor and Shadow are One.'",
+        "Speaking the password at the barred door to the Fallen Barracks disengages a magical lock, allowing passage.",
+        "The tattered logbook hints at a key related to 'the heart' and mentions Scout Elen's passage through these ruins."
       ],
-      "dmInstructions": "The animated armor attacks players approaching the door to the barracks unless they speak the password ('Honor and Shadow are One') or display the Captain's Badge or other symbol of authority. The password can be learned from ghostly whispers (Perception DC 14) or deduced from the logbook (Investigation DC 15). The armor fights until destroyed or until the proper password/symbol is presented. If players search the walls carefully (Investigation DC 14), they find a hidden alcove containing supplies and the scroll.",
+      "dmInstructions": "The animated armor previously guarded the passage to the barracks, attacking those who approached without speaking the password ('Honor and Shadow are One') or bearing a symbol of authority such as the Captain's Badge. The password can be discovered from ghostly whispers (Perception DC 14) or deduced from the logbook (Investigation DC 15). The armor was destroyed in combat. The barred door to the Fallen Barracks is now unlocked by speaking the password, allowing access. Players can find a well-preserved longbow, a guard's coinpurse with silver and a love letter, and a scroll of Protection from Undead in the hidden alcove. The logbook provides cryptic hints about the key and the heart. The weakened floor remains a hazard.",
       "doors": [
         {
           "name": "Barracks Door",
-          "description": "A splintered wooden door reinforced with iron bands, leading to the Fallen Barracks.",
+          "description": "A splintered wooden door reinforced with iron bands, leading to the Fallen Barracks. The magical lock has been disengaged by speaking the password, and the door is no longer locked.",
           "type": "damaged",
-          "locked": true,
+          "locked": false,
           "lockDC": 12,
           "breakDC": 10,
           "keyname": "Gatehouse key",
@@ -320,11 +335,10 @@
         {
           "name": "Weakened Floor",
           "description": "A section of the upper walkway that will collapse under significant weight.",
-          "type": "structural",
-          "trigger": "Walking on the weakened section without caution",
-          "trapDC": 14,
-          "trapEffect": "Floor collapses, requiring DC 13 Dexterity save. Failure results in falling 15 feet for 1d6 bludgeoning damage and landing prone among debris.",
-          "disarmNotes": "Can be identified with DC 13 Investigation or Perception check and avoided or safely crossed with caution."
+          "detectDC": 13,
+          "disableDC": 14,
+          "triggerDC": 14,
+          "damage": "1d6 bludgeoning damage and falling 15 feet, prone on failure of Dexterity save"
         }
       ],
       "dcChecks": [
@@ -334,7 +348,7 @@
         "Perception DC 13: Notice the weakened floor before stepping on it."
       ],
       "accessibility": "Partially collapsed structure with stairs, narrow passages, and debris; challenging to navigate.",
-      "dangerLevel": "Medium",
+      "dangerLevel": "Low",
       "features": [
         {
           "name": "Rusted Portcullis",
@@ -347,10 +361,26 @@
         {
           "name": "Watch Post",
           "description": "A raised area containing an old desk with the logbook and evidence of the final guards' presence."
+        },
+        {
+          "name": "Shattered Animated Armor",
+          "description": "A heap of dented metal lies where the animated armor guardian was defeated, its magical animation extinguished."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "C02-E1",
+          "summary": "Norn discovered an animated armor guardian concealed in the Gatehouse Ruins. Upon detection, the armor animated and attacked, blocking passage to the Fallen Barracks. After a fierce battle, Norn dealt decisive blows with a longsword, shattering the armor and ending its threat. The oppressive atmosphere lifted with the guardian's defeat, and valuable items were recovered from the area.",
+          "impact": "The animated armor was destroyed, removing the hostile threat and allowing safe passage. The magical lock on the Barracks Door was disengaged by speaking the password discovered from ghostly whispers and the logbook. Norn was wounded but healed, and several key items were found that aid further exploration.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "02:59:00"
+          }
+        }
+      ],
+      "adventureSummary": "Norn entered the Gatehouse Ruins and detected an animated armor guardian blocking the passage to the Fallen Barracks. After a fierce battle, Norn shattered the armor, defeating it and lifting the oppressive atmosphere. A search uncovered a well-preserved longbow, a guard's coinpurse with 13 silver pieces and a love letter, and a scroll of Protection from Undead. The logbook revealed clues including the phrase, 'The heart! The heart is the key!' Ghostly whispers revealed the password 'Honor and Shadow are One', which, when spoken at the barred door, disengaged the magical lock and allowed passage. Norn, wounded but victorious, tended to injuries and proceeded into the Fallen Barracks to continue the mission."
     },
     {
       "name": "The Ruined Chapel",
@@ -544,11 +574,10 @@
         {
           "name": "Weakened Floor",
           "description": "A section of floor near the collapsed ceiling that will give way under weight.",
-          "type": "structural",
-          "trigger": "Walking on the compromised section",
-          "trapDC": 13,
-          "trapEffect": "Floor collapses, requiring DC 12 Dexterity save. Failure results in falling 10 feet for 1d6 bludgeoning damage and potential injury on debris below.",
-          "disarmNotes": "Can be identified with DC 14 Perception check and safely avoided."
+          "detectDC": 14,
+          "disableDC": 15,
+          "triggerDC": 13,
+          "damage": "Floor collapses, requiring DC 12 Dexterity save. Failure results in falling 10 feet for 1d6 bludgeoning damage and potential injury on debris below."
         }
       ],
       "dcChecks": [
@@ -573,8 +602,20 @@
           "description": "A small private room with a bed, desk, and personal belongings of the garrison leader."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "",
+          "summary": "{\n  \"narration\": \"Norn's initial surprise arrow struck the skeletal archer, dealing 7 piercing damage and reducing its HP from 13 to 6. The combat then proceeded normally: the animated weapon attacked first in round 1 but missed, followed by the wounded skeletal archer, who also missed both attacks. On Norn's turn in round 1, a longsword attack dealt 9 slashing damage to the skeletal archer, dropping it to -3 HP and defeating it. Norn then delivered a critical hit on the animated weapon with a longsword strike for 14 damage, reducing its HP from 27 to 13. The animated weapon missed its attack, ending round 1. Round 2 began with the animated weapon missing again. Norn missed the first attack but landed the second for 10 slashing damage, bringing the animated weapon down to 3 HP. The animated weapon missed its attack in round 3. Norn's next turn included two attacks: the first missed, the second hit with 10 damage, destroying the animated weapon with HP reduced from 3 to -7. Both enemies were defeated, leaving behind the skeletal archer’s brittle bones and the shattered remains of the animated weapon. The combat encounter ends here.\",\n  \"combat_round\": 3,\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"C04-E1\",\n        \"changes\": \"Skeletal Archer takes 7 damage from Norn's initial surprise attack, HP from 13 to 6; later takes 9 slashing damage and is defeated, HP drops from 6 to -3. Animated Weapon takes 14 slashing damage from Norn's critical hit, HP from 27 to 13; then takes 10 slashing damage from Norn, HP from 13 to 3; finally takes 10 slashing damage from Norn, HP from 3 to -7 and is destroyed.\"\n      }\n    },\n    {\n      \"action\": \"exit\",\n      \"parameters\": {}\n    }\n  ]\n}",
+          "impact": "To be determined",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "03:05:00"
+          }
+        }
+      ],
+      "adventureSummary": "{\n  \"narration\": \"Norn's initial surprise arrow struck the skeletal archer, dealing 7 piercing damage and reducing its HP from 13 to 6. The combat then proceeded normally: the animated weapon attacked first in round 1 but missed, followed by the wounded skeletal archer, who also missed both attacks. On Norn's turn in round 1, a longsword attack dealt 9 slashing damage to the skeletal archer, dropping it to -3 HP and defeating it. Norn then delivered a critical hit on the animated weapon with a longsword strike for 14 damage, reducing its HP from 27 to 13. The animated weapon missed its attack, ending round 1. Round 2 began with the animated weapon missing again. Norn missed the first attack but landed the second for 10 slashing damage, bringing the animated weapon down to 3 HP. The animated weapon missed its attack in round 3. Norn's next turn included two attacks: the first missed, the second hit with 10 damage, destroying the animated weapon with HP reduced from 3 to -7. Both enemies were defeated, leaving behind the skeletal archer’s brittle bones and the shattered remains of the animated weapon. The combat encounter ends here.\",\n  \"combat_round\": 3,\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"C04-E1\",\n        \"changes\": \"Skeletal Archer takes 7 damage from Norn's initial surprise attack, HP from 13 to 6; later takes 9 slashing damage and is defeated, HP drops from 6 to -3. Animated Weapon takes 14 slashing damage from Norn's critical hit, HP from 27 to 13; then takes 10 slashing damage from Norn, HP from 13 to 3; finally takes 10 slashing damage from Norn, HP from 3 to -7 and is destroyed.\"\n      }\n    },\n    {\n      \"action\": \"exit\",\n      \"parameters\": {}\n    }\n  ]\n}"
     },
     {
       "locationId": "C05",
@@ -730,11 +771,10 @@
         {
           "name": "Collapsing Stairs",
           "description": "A section of the spiral staircase that gives way when weight is applied.",
-          "type": "structural",
-          "trigger": "Climbing the stairs without testing stability",
-          "trapDC": 14,
-          "trapEffect": "Stairs collapse, requiring DC 14 Dexterity save. Failure results in falling 20 feet for 2d6 bludgeoning damage and being trapped under debris (DC 13 Strength check to escape).",
-          "disarmNotes": "Can be identified with DC 14 Investigation or Perception check and carefully navigated around."
+          "detectDC": 14,
+          "disableDC": 16,
+          "triggerDC": 14,
+          "damage": "Stairs collapse, requiring DC 14 Dexterity save. Failure results in falling 20 feet for 2d6 bludgeoning damage and being trapped under debris (DC 13 Strength check to escape)."
         }
       ],
       "dcChecks": [
@@ -827,11 +867,10 @@
         {
           "name": "Animated Objects",
           "description": "Books and furniture that attack intruders who disturb certain tomes or areas.",
-          "type": "magical",
-          "trigger": "Removing specific books marked with shadow symbols",
-          "trapDC": 14,
-          "trapEffect": "1d4 books animate as tiny constructs, attacking for 1d4 bludgeoning damage each. Heavy furniture might slide to block exits.",
-          "disarmNotes": "Can be identified with DC 15 Arcana check and disabled by reciting lines visible in Sir Garran's journal."
+          "detectDC": 15,
+          "disableDC": 16,
+          "triggerDC": 14,
+          "damage": "1d4 books animate as tiny constructs, attacking for 1d4 bludgeoning damage each. Heavy furniture might slide to block exits."
         }
       ],
       "dcChecks": [
