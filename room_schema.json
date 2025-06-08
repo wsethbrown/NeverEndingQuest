@@ -90,20 +90,20 @@
             "description": {
               "type": "string"
             },
-            "dc": {
-              "type": "integer"
-            },
-            "damage": {
-              "type": "string"
-            },
             "detectDC": {
               "type": "integer"
             },
             "disableDC": {
               "type": "integer"
+            },
+            "triggerDC": {
+              "type": "integer"
+            },
+            "damage": {
+              "type": "string"
             }
           },
-          "required": ["name", "description", "dc", "damage", "detectDC", "disableDC"]
+          "required": ["name", "description", "detectDC", "disableDC", "triggerDC", "damage"]
         }
       },
       "treasures": {
