@@ -1236,9 +1236,9 @@ Critical Rules:
 2. NEVER set status to 'none' - use 'alive' for conscious characters
 3. Include the 'exit' action when the encounter ends
 4. All field values must match the expected schema exactly
-5. MANDATORY: Include "combat_round": {current_round} in your response (current round is {current_round})
-6. Only increment round number when ALL alive creatures have completed their turns in initiative order
-7. During validation corrections, maintain the same round number unless explicitly advancing
+5. MANDATORY: Include "combat_round" field in your response
+6. Track combat rounds: increment ONLY when ALL alive creatures have completed their turns in initiative order
+7. Current round is {current_round} - advance to next round when all creatures have acted
 
 Current dynamic state for all creatures:
 {all_dynamic_state}
@@ -1481,38 +1481,6 @@ Player: {user_input_text}"""
                
                # Generate dialogue summary
                dialogue_summary_result = summarize_dialogue(conversation_history, location_info, party_tracker_data)
-               
-               # Run adventure summary process (same as location transitions)
-               try:
-                   print("DEBUG: Running adventure summary after combat encounter...")
-                   current_location_name = party_tracker_data["worldConditions"]["currentLocation"]
-                   current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
-                   
-                   # Save current location info for adv_summary.py
-                   safe_write_json("current_location.json", location_info)
-                   
-                   # Run adventure summary update (same as location transitions)
-                   result = subprocess.run([
-                       "python", "adv_summary.py", 
-                       "conversation_history.json", 
-                       "current_location.json", 
-                       current_location_name, 
-                       current_area_id
-                   ], check=True, capture_output=True, text=True)
-                   print("DEBUG: Adventure summary updated successfully after combat")
-                   
-                   # Compress conversation history (same as location transitions)
-                   main_conversation_history = safe_json_load("conversation_history.json")
-                   if main_conversation_history:
-                       compressed_history = cumulative_summary.check_and_compact_missing_summaries(
-                           main_conversation_history, 
-                           party_tracker_data
-                       )
-                       safe_write_json("conversation_history.json", compressed_history)
-                       print("DEBUG: Conversation history compressed after combat")
-                       
-               except Exception as e:
-                   print(f"ERROR: Failed to run adventure summary after combat: {str(e)}")
                
                # Generate chat history for debugging
                generate_chat_history(conversation_history, encounter_id)
