@@ -188,11 +188,19 @@ def handle_location_transition(current_location, new_location, current_area, cur
 
         if area_connectivity_id:
             # Handle transition to a new area
-            new_area_file = path_manager.get_area_path(area_connectivity_id)
+            # Parse area connectivity ID format: "AREACODE-LOCATIONID" (e.g., "TCD001-E01")
+            base_area_id = area_connectivity_id.split('-')[0]
+            target_location_id = area_connectivity_id.split('-')[1] if '-' in area_connectivity_id else new_location
+            
+            new_area_file = path_manager.get_area_path(base_area_id)
             new_area_data = load_json_file(new_area_file)
             if new_area_data and "locations" in new_area_data:
-                # Priority 1: Try to match by ID
-                new_location_info = next((loc for loc in new_area_data["locations"] if loc["locationId"] == new_location), None)
+                # Priority 1: Try to match by target location ID from connectivity
+                new_location_info = next((loc for loc in new_area_data["locations"] if loc["locationId"] == target_location_id), None)
+                
+                # Priority 2: Try to match by provided location name/ID
+                if not new_location_info:
+                    new_location_info = next((loc for loc in new_area_data["locations"] if loc["locationId"] == new_location), None)
                 
                 # Priority 2: Try to match by exact name
                 if not new_location_info:
