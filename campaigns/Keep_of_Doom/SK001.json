@@ -605,7 +605,7 @@
       "encounters": [
         {
           "encounterId": "",
-          "summary": "{\n  \"narration\": \"Norn's initial surprise arrow struck the skeletal archer, dealing 7 piercing damage and reducing its HP from 13 to 6. The combat then proceeded normally: the animated weapon attacked first in round 1 but missed, followed by the wounded skeletal archer, who also missed both attacks. On Norn's turn in round 1, a longsword attack dealt 9 slashing damage to the skeletal archer, dropping it to -3 HP and defeating it. Norn then delivered a critical hit on the animated weapon with a longsword strike for 14 damage, reducing its HP from 27 to 13. The animated weapon missed its attack, ending round 1. Round 2 began with the animated weapon missing again. Norn missed the first attack but landed the second for 10 slashing damage, bringing the animated weapon down to 3 HP. The animated weapon missed its attack in round 3. Norn's next turn included two attacks: the first missed, the second hit with 10 damage, destroying the animated weapon with HP reduced from 3 to -7. Both enemies were defeated, leaving behind the skeletal archer’s brittle bones and the shattered remains of the animated weapon. The combat encounter ends here.\",\n  \"combat_round\": 3,\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"C04-E1\",\n        \"changes\": \"Skeletal Archer takes 7 damage from Norn's initial surprise attack, HP from 13 to 6; later takes 9 slashing damage and is defeated, HP drops from 6 to -3. Animated Weapon takes 14 slashing damage from Norn's critical hit, HP from 27 to 13; then takes 10 slashing damage from Norn, HP from 13 to 3; finally takes 10 slashing damage from Norn, HP from 3 to -7 and is destroyed.\"\n      }\n    },\n    {\n      \"action\": \"exit\",\n      \"parameters\": {}\n    }\n  ]\n}",
+          "summary": "{\n  \"narration\": \"Norn's initial surprise arrow struck the skeletal archer, dealing 7 piercing damage and reducing its HP from 13 to 6. The combat then proceeded normally: the animated weapon attacked first in round 1 but missed, followed by the wounded skeletal archer, who also missed both attacks. On Norn's turn in round 1, a longsword attack dealt 9 slashing damage to the skeletal archer, dropping it to -3 HP and defeating it. Norn then delivered a critical hit on the animated weapon with a longsword strike for 14 damage, reducing its HP from 27 to 13. The animated weapon missed its attack, ending round 1. Round 2 began with the animated weapon missing again. Norn missed the first attack but landed the second for 10 slashing damage, bringing the animated weapon down to 3 HP. The animated weapon missed its attack in round 3. Norn's next turn included two attacks: the first missed, the second hit with 10 damage, destroying the animated weapon with HP reduced from 3 to -7. Both enemies were defeated, leaving behind the skeletal archer's brittle bones and the shattered remains of the animated weapon. The combat encounter ends here.\",\n  \"combat_round\": 3,\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"C04-E1\",\n        \"changes\": \"Skeletal Archer takes 7 damage from Norn's initial surprise attack, HP from 13 to 6; later takes 9 slashing damage and is defeated, HP drops from 6 to -3. Animated Weapon takes 14 slashing damage from Norn's critical hit, HP from 27 to 13; then takes 10 slashing damage from Norn, HP from 13 to 3; finally takes 10 slashing damage from Norn, HP from 3 to -7 and is destroyed.\"\n      }\n    },\n    {\n      \"action\": \"exit\",\n      \"parameters\": {}\n    }\n  ]\n}",
           "impact": "To be determined",
           "worldConditions": {
             "year": 1492,
@@ -615,61 +615,62 @@
           }
         }
       ],
-      "adventureSummary": "{\n  \"narration\": \"Norn's initial surprise arrow struck the skeletal archer, dealing 7 piercing damage and reducing its HP from 13 to 6. The combat then proceeded normally: the animated weapon attacked first in round 1 but missed, followed by the wounded skeletal archer, who also missed both attacks. On Norn's turn in round 1, a longsword attack dealt 9 slashing damage to the skeletal archer, dropping it to -3 HP and defeating it. Norn then delivered a critical hit on the animated weapon with a longsword strike for 14 damage, reducing its HP from 27 to 13. The animated weapon missed its attack, ending round 1. Round 2 began with the animated weapon missing again. Norn missed the first attack but landed the second for 10 slashing damage, bringing the animated weapon down to 3 HP. The animated weapon missed its attack in round 3. Norn's next turn included two attacks: the first missed, the second hit with 10 damage, destroying the animated weapon with HP reduced from 3 to -7. Both enemies were defeated, leaving behind the skeletal archer’s brittle bones and the shattered remains of the animated weapon. The combat encounter ends here.\",\n  \"combat_round\": 3,\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"C04-E1\",\n        \"changes\": \"Skeletal Archer takes 7 damage from Norn's initial surprise attack, HP from 13 to 6; later takes 9 slashing damage and is defeated, HP drops from 6 to -3. Animated Weapon takes 14 slashing damage from Norn's critical hit, HP from 27 to 13; then takes 10 slashing damage from Norn, HP from 13 to 3; finally takes 10 slashing damage from Norn, HP from 3 to -7 and is destroyed.\"\n      }\n    },\n    {\n      \"action\": \"exit\",\n      \"parameters\": {}\n    }\n  ]\n}"
+      "adventureSummary": "{\n  \"narration\": \"Norn's initial surprise arrow struck the skeletal archer, dealing 7 piercing damage and reducing its HP from 13 to 6. The combat then proceeded normally: the animated weapon attacked first in round 1 but missed, followed by the wounded skeletal archer, who also missed both attacks. On Norn's turn in round 1, a longsword attack dealt 9 slashing damage to the skeletal archer, dropping it to -3 HP and defeating it. Norn then delivered a critical hit on the animated weapon with a longsword strike for 14 damage, reducing its HP from 27 to 13. The animated weapon missed its attack, ending round 1. Round 2 began with the animated weapon missing again. Norn missed the first attack but landed the second for 10 slashing damage, bringing the animated weapon down to 3 HP. The animated weapon missed its attack in round 3. Norn's next turn included two attacks: the first missed, the second hit with 10 damage, destroying the animated weapon with HP reduced from 3 to -7. Both enemies were defeated, leaving behind the skeletal archer's brittle bones and the shattered remains of the animated weapon. The combat encounter ends here.\",\n  \"combat_round\": 3,\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"C04-E1\",\n        \"changes\": \"Skeletal Archer takes 7 damage from Norn's initial surprise attack, HP from 13 to 6; later takes 9 slashing damage and is defeated, HP drops from 6 to -3. Animated Weapon takes 14 slashing damage from Norn's critical hit, HP from 27 to 13; then takes 10 slashing damage from Norn, HP from 13 to 3; finally takes 10 slashing damage from Norn, HP from 3 to -7 and is destroyed.\"\n      }\n    },\n    {\n      \"action\": \"exit\",\n      \"parameters\": {}\n    }\n  ]\n}"
     },
     {
       "locationId": "C05",
       "name": "Great Hall",
       "type": "hall",
-      "description": "A vast chamber with a soaring ceiling supported by stone columns carved to resemble armored knights. Once the heart of the keep's social life, the hall now stands in eerie stillness. A massive wooden table runs down the center, set for a feast never consumed, with dusty goblets and tarnished silverware laid out precisely. Rotted tapestries depicting the Vael family history hang on the walls, and a large fireplace yawns like a black mouth at the far end, cold ash spilling across the hearth. Broken chandeliers lie shattered on the floor, their candles long melted away. The stones themselves seem to absorb sound, creating an unnatural hush where even whispers die quickly.",
+      "description": "A vast chamber with a soaring ceiling supported by stone columns carved to resemble armored knights. Once the heart of the keep's social life, the hall now stands in eerie stillness. A massive wooden table runs down the center, set for a phantom banquet with dusty goblets, tarnished silverware, and a toppled goblet beneath which lies a recovered journal page. Fallen banners and broken tables litter the floor along with scattered journal pages, a silver coin, a battered coffer containing ancient copper coins, and a coded parchment found during a careful search. The cold stone and dim, flickering blue witchlight cast long shadows, enhancing the oppressive atmosphere filled with sorrow and watchful spirits. Phantom servants silently enact their eerie ritual at a distance, while the defeated mimic's gooey remains lie on the floor near the ornate chair it once disguised as. The heavy door to the Lord's Study now stands unlocked by Lord Vael's signet ring, the threshold cautiously searched and verified free of traps.",
       "coordinates": "X3Y2",
       "connectivity": [
         "C03",
         "C06",
-        "C07"
+        "C07",
+        "Lord's Study"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [
         {
           "name": "The Spectral Scribe",
-          "description": "A translucent figure bent over a phantom writing desk, endlessly documenting the keep's history. Once Sir Garran's trusted chronicler, now cursed to record the unfolding tragedy for eternity. He appears scholarly but worn, with hollow eyes that have witnessed centuries of horror.",
-          "attitude": "Neutral, obsessed with historical accuracy"
+          "description": "A translucent figure bent over a phantom writing desk, endlessly documenting the keep's history. Once Sir Garran's trusted chronicler, now cursed to record the unfolding tragedy for eternity. He appears scholarly but worn, with hollow eyes that have witnessed centuries of horror. He shared crucial knowledge about scout Elen, the intertwining curse, and the need to recover scattered journal pages to lift the haunting.",
+          "attitude": "Neutral, obsessed with historical accuracy and willing to aid those seeking the truth"
         }
       ],
       "monsters": [
         {
           "name": "Phantom Servants",
-          "number": "2d4",
-          "disposition": "hostile",
-          "strategy": "These spectral beings perform a mockery of their former duties, serving poisoned phantom food and attacking those who refuse their hospitality."
-        },
-        {
-          "name": "Mimic",
-          "number": 1,
-          "disposition": "ambush",
-          "strategy": "Disguised as an ornate chair at the head of the table, this creature waits for someone to sit before attacking."
+          "quantity": {
+            "min": 2,
+            "max": 4
+          }
         }
       ],
       "lootTable": [
-        "Lord Vael's signet ring (required for study access, 50 gp value)",
+        "Lord Vael's signet ring (used to unlock the Study door, 50 gp value)",
         "Enchanted goblet (detects poison when liquid is poured into it)",
         "Jeweled dagger (ceremonial, 30 gp value)",
         "Family chronicle detailing the Vael lineage and Sir Garran's early life",
-        "Scribe's incomplete journal pages scattered across the floor"
+        "Scribe's incomplete journal pages scattered across the floor",
+        "Recovered journal pages from beneath a toppled goblet and elsewhere",
+        "Silver coin",
+        "Battered coffer containing ancient copper coins",
+        "Coded parchment"
       ],
       "plotHooks": [
         "The Spectral Scribe offers to share the complete history of the shadow relic if the party can recover his missing journal pages from throughout the keep.",
         "The chronicle reveals Sir Garran originally acquired the relic to protect his people from a rival lord's necromancy.",
-        "The scribe hints that something in 'the lowest chamber beneath the study' holds the key to Sir Garran's salvation or destruction."
+        "The scribe hints that something in 'the lowest chamber beneath the study' holds the key to Sir Garran's salvation or destruction.",
+        "The party must locate the scout Elen, last seen fleeing through the keep, and lift the haunting curse by completing the chronicles."
       ],
-      "dmInstructions": "The phantom servants appear when players approach the table, offering food and drink--those who accept must make a DC 14 Constitution save or suffer 2d8 poison damage and the poisoned condition for 1 hour. The mimic attacks only if someone sits in the ornate chair. The Spectral Scribe ignores the party until directly addressed or until combat ends, at which point he offers his knowledge exchange. He knows most of the keep's history and Sir Garran's tragedy but speaks in formal, archaic language and never directly names the shadow relic (always referring to it as 'the artifact' or 'his lordship's burden').",
+      "dmInstructions": "The phantom servants silently continue their eerie ritual, maintaining a cautious distance from the party now that the mimic threat is eliminated. The mimic is defeated and no longer a threat. The Spectral Scribe is more forthcoming after the party reveals their purpose, providing vital lore and guidance about the scattered journal pages and Elen. The heavy door to the Lord's Study can be unlocked with Lord Vael's signet ring but requires a cautious search to ensure it is trap free, which has been successfully done.",
       "doors": [
         {
           "name": "Study Door",
-          "description": "An ornate door carved with the Vael family crest, leading to Lord's Study.",
+          "description": "An ornate door carved with the Vael family crest, leading to Lord's Study. It was locked but has now been unlocked using Lord Vael's signet ring. The entrance has been carefully checked and found free of traps.",
           "type": "heavy",
-          "locked": true,
+          "locked": false,
           "lockDC": 16,
           "breakDC": 20,
           "keyname": "Lord Vael's signet ring (used as key)",
@@ -693,14 +694,15 @@
         "History DC 15: Interpret the tapestries to understand the Vael family's rise and fall.",
         "Perception DC 14: Notice the mimic's subtle movements before sitting.",
         "Arcana DC 13: Sense the poisonous nature of the phantom food without partaking.",
-        "Investigation DC 16: Find the scattered journal pages within the hall."
+        "Investigation DC 16: Find the scattered journal pages within the hall.",
+        "Perception DC 15: Detect traps at the threshold of the Lord's Study door."
       ],
-      "accessibility": "Grand chamber with some debris but relatively open space; stairs lead up to elevated areas.",
-      "dangerLevel": "High",
+      "accessibility": "Grand chamber with some debris but relatively open space; stairs lead up to elevated areas. The heavy Study door is now unlocked and accessible after a successful trap search.",
+      "dangerLevel": "Medium",
       "features": [
         {
           "name": "Phantom Feast",
-          "description": "The great table set with dusty plates and tarnished silverware, occasionally shimmering with spectral food."
+          "description": "The great table set with dusty plates and tarnished silverware, occasionally shimmering with spectral food. Phantom servants silently perform their ritual at a distance."
         },
         {
           "name": "Knight Columns",
@@ -709,10 +711,30 @@
         {
           "name": "Cold Hearth",
           "description": "A massive fireplace filled with cold ash and the remnants of ancient logs."
+        },
+        {
+          "name": "Defeated Mimic",
+          "description": "The gooey corpse of the mimic lies near the ornate chair it once disguised as, no longer a threat."
+        },
+        {
+          "name": "Recovered Items",
+          "description": "Journal pages, a silver coin, a battered coffer of copper coins, and a coded parchment gathered from the hall floor."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "C05-E1",
+          "summary": "Norn engaged and defeated a mimic disguised as an ornate chair over five intense rounds, sustaining wounds but ultimately securing victory. Key items including Lord Vael's signet ring were recovered from the mimic's remains.",
+          "impact": "The mimic threat in the Great Hall has been eliminated, allowing safe passage and recovery of important artifacts. The Study door has been unlocked using the signet ring, and no traps were detected at its threshold.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "04:09:00"
+          }
+        }
+      ],
+      "adventureSummary": "In the Great Hall of Shadowfall Keep, Norn resumed exploration amid echoes of centuries-old secrets and spectral presences. The Spectral Scribe shared critical knowledge about scout Elen and the curse. Phantom servants enacted their eerie ritual while a mimic disguised as an ornate chair threatened the hall. Norn retrieved a journal page from beneath a toppled goblet and decisively defeated the mimic after a fierce five-round battle, sustaining wounds but victorious. Among the mimic's remains, key artifacts including Lord Vael's signet ring, an enchanted goblet, a jeweled dagger, and the Family Chronicle were recovered. After tending wounds, Norn found a second lost journal page, a silver coin, a battered coffer with ancient copper coins, and a coded parchment. Using the signet ring, Norn unlocked and carefully searched the heavy door to the Lord's Study, finding no traps, and proceeded inside intent on locating Elen. The oppressive atmosphere of sorrow and watchful spirits underscored the gravity of the quest within Shadowfall Keep's haunted Great Hall."
     },
     {
       "locationId": "C06",
@@ -895,8 +917,20 @@
           "description": "A grandfather clock perpetually stopped at midnight, occasionally ticking backward."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "",
+          "summary": "{\n  \"narration\": \"In the shadowed private study of Sir Garran Vael, Norn faced the fearsome Shadow of Sir Garran, a spectral guardian wielding a malevolent blade. The battle began with the ghostly knight attacking, but Norn's wards and armor thwarted each deadly strike. Seizing the opportunity, Norn unleashed a devastating counterattack, scoring multiple critical hits and inflicting heavy damage. Despite the shadow's relentless assaults, including a chilling touch that dealt cold damage to Norn, the fighter's resilience and precise strikes wore down the foe. In the second round, Norn's focused attacks culminated in the Shadow's dissolution, ending the spectral threat and restoring a fragile calm to the arcane-laden chamber. With the Shadow of Sir Garran defeated, Norn earned 2900 experience points for the victory.\",\n  \"combat_round\": 2,\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"LordStudyCombat\",\n        \"changes\": \"Shadow of Sir Garran takes 72 damage, HP reduced from 90 to 18 after first round; further 19 damage in second round reduces HP from 18 to 0, Shadow defeated and dissipated.\"\n      }\n    },\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"changes\": \"HP reduced from 18 to 13 due to 5 cold damage from Shadow's chilling touch; healed earlier with Second Wind to 18 HP; status alive, condition none.\"\n      }\n    },\n    {\n      \"action\": \"exit\"\n    }\n  ]\n}",
+          "impact": "To be determined",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "04:13:00"
+          }
+        }
+      ],
+      "adventureSummary": "{\n  \"narration\": \"In the shadowed private study of Sir Garran Vael, Norn faced the fearsome Shadow of Sir Garran, a spectral guardian wielding a malevolent blade. The battle began with the ghostly knight attacking, but Norn's wards and armor thwarted each deadly strike. Seizing the opportunity, Norn unleashed a devastating counterattack, scoring multiple critical hits and inflicting heavy damage. Despite the shadow's relentless assaults, including a chilling touch that dealt cold damage to Norn, the fighter's resilience and precise strikes wore down the foe. In the second round, Norn's focused attacks culminated in the Shadow's dissolution, ending the spectral threat and restoring a fragile calm to the arcane-laden chamber. With the Shadow of Sir Garran defeated, Norn earned 2900 experience points for the victory.\",\n  \"combat_round\": 2,\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"LordStudyCombat\",\n        \"changes\": \"Shadow of Sir Garran takes 72 damage, HP reduced from 90 to 18 after first round; further 19 damage in second round reduces HP from 18 to 0, Shadow defeated and dissipated.\"\n      }\n    },\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"changes\": \"HP reduced from 18 to 13 due to 5 cold damage from Shadow's chilling touch; healed earlier with Second Wind to 18 HP; status alive, condition none.\"\n      }\n    },\n    {\n      \"action\": \"exit\"\n    }\n  ]\n}"
     },
     {
       "locationId": "C08",

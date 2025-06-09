@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 25,
+  "hitPoints": 13,
   "maxHitPoints": 47,
   "armorClass": 19,
   "initiative": 2,
@@ -198,7 +198,7 @@
     {
       "item_name": "Small battered coffer",
       "item_type": "miscellaneous",
-      "description": "A small battered coffer, possibly containing valuables or important items",
+      "description": "A small battered coffer, possibly containing valuables or important items, including ancient copper coins",
       "quantity": 1
     },
     {
@@ -222,8 +222,8 @@
     {
       "item_name": "Vial of blessed water",
       "item_type": "miscellaneous",
-      "description": "A small vial containing holy water blessed by a cleric",
-      "quantity": 1
+      "description": "A small vial containing holy water blessed by a cleric, used to stabilize acid wounds from the mimic.",
+      "quantity": 0
     },
     {
       "item_name": "Holy symbol (silver)",
@@ -321,6 +321,60 @@
       "item_type": "miscellaneous",
       "description": "A silver ring stamped with the sigil of the Keep of Doom",
       "quantity": 1
+    },
+    {
+      "item_name": "Spectral Scribe's Lost Journal Page",
+      "item_type": "miscellaneous",
+      "description": "A recovered page from the Spectral Scribe's lost journal, found beneath a toppled goblet in the Great Hall.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Spectral Scribe's Second Lost Journal Page",
+      "item_type": "miscellaneous",
+      "description": "A second recovered page from the Spectral Scribe's lost journal, found in the Great Hall among scattered papers.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Silver Coin",
+      "item_type": "miscellaneous",
+      "description": "A shiny silver coin found loose in the Great Hall.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Lord Vael's signet ring",
+      "item_type": "miscellaneous",
+      "description": "A finely crafted signet ring belonging to Lord Vael, bearing his family crest. Upon inspection, the ring emanates faint protective magic and may be a key to unlocking further secrets in the keep.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Enchanted goblet",
+      "item_type": "miscellaneous",
+      "description": "A goblet pulsating with faint magical energy, possibly linked to the spectral servants. Inspection reveals it may be used in rituals or to communicate with the spirits.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Jeweled dagger",
+      "item_type": "weapon",
+      "description": "A small dagger encrusted with precious stones, elegant but deadly. Examination shows it bears enchantments that could aid in breaking magical bindings.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Family Chronicle",
+      "item_type": "miscellaneous",
+      "description": "An old book detailing the history and lineage of Lord Vael's family. Careful study reveals references to the curse and hints at hidden passages within the keep.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ornate iron dungeon key (with shadow-absorbing gems)",
+      "item_type": "miscellaneous",
+      "description": "An ornate iron key studded with shadow-absorbing gems, capable of unlocking arcane-warded doors within the keep.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Sir Garran's leather journal (details his corruption, arcane circle, hidden chamber, and letter to Elara)",
+      "item_type": "miscellaneous",
+      "description": "A worn leather-bound journal belonging to Sir Garran, containing his personal notes on his corruption, the arcane circle, a hidden chamber, and a letter addressed to Elara.",
+      "quantity": 1
     }
   ],
   "ammunition": [
@@ -395,7 +449,7 @@
     "silver": 0,
     "copper": 0
   },
-  "experience_points": 7521,
+  "experience_points": 10871,
   "exp_required_for_next_level": 14000,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
@@ -450,6 +504,18 @@
       "description": "Took 4 points of piercing damage from giant rat's bite.",
       "duration": "until healed",
       "source": "Giant Rat Attack"
+    },
+    {
+      "name": "Acid and Pseudopod Damage",
+      "description": "Acid and pseudopod wounds treated with blessed water; injuries stabilized but not fully healed.",
+      "duration": "until healed",
+      "source": "Mimic attack"
+    },
+    {
+      "name": "Cold Damage from Shadow of Sir Garran",
+      "description": "Took 5 points of cold damage from Shadow of Sir Garran's chilling touch.",
+      "duration": "until healed",
+      "source": "Shadow of Sir Garran"
     }
   ],
   "feats": [],

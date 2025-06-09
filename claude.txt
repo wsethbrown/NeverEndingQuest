@@ -1,14 +1,9 @@
-9:31:34 AMDEBUG: Checking transition at index 19: Location transition: East Gate and Guardhouse (A03) to Witchlight Trailhead (B01)
-9:31:34 AMDEBUG: Transition at index 19 already has a summary
-9:31:34 AMDEBUG: Checking transition at index 21: Location transition: Witchlight Trailhead (B01) to The Withered Shrine (B03)
-9:31:34 AMDEBUG: Transition at index 21 already has a summary
-9:31:34 AMDEBUG: Checking transition at index 23: Location transition: The Withered Shrine (B03) to Spectral Clearing (B06)
-9:31:34 AMDEBUG: Transition at index 23 already has a summary
-9:31:34 AMDEBUG: Checking transition at index 25: Location transition: Spectral Clearing (B06) to Keeper's Cottage (B07)
-9:31:34 AMDEBUG: Transition at index 25 already has a summary
-9:31:34 AMDEBUG: Checking transition at index 27: Location transition: Keeper's Cottage (B07) to Lost Ward Circle (B04)
-9:31:34 AMDEBUG: Transition at index 27 already has a summary
-9:31:34 AMDEBUG: Checking transition at index 29: Location transition: Lost Ward Circle (B04) to Keeper's Cottage (B07)
-9:31:34 AMDEBUG: Transition at index 29 already has a summary
-9:31:34 AMDEBUG: Checking transition at index 31: Location transition: Keeper's Cottage (B07) to Witchlight Trailhead (B01)
-9:31:34 AMDEBUG: Transition at index 31 already has a 
+11:58:54 PMRound 2 begins. Your turn, Norn. What will you do next?
+11:58:54 PMUpdating character info for: norn
+11:58:54 PMDetected character role: player
+11:58:54 PMAttempt 1 of 3
+11:58:54 PMSuccessfully updated norn (player)!
+11:58:54 PMUpdated fields: hitPoints, temporaryEffects
+11:58:54 PMCharacter auto-validated with corrections: ['No corrections needed. Armor Class is already correctly calculated as 19.']
+11:58:55 PMMessage: "Reusing cached prerolls for round 1 (ID: 1-9402)DEBUG: Validating combat response...DEBUG: Combat response validation failed. Reason: The response advances to combat_round 2 before all creatures have acted in round 1. According to the initiative order (Norn → Animated Armor), Norn took their turn, then the Animated Armor attacked. However, the Animated Armor's attack is being processed in round 2, not round 1. The round should only increment after both Norn and the Animated Armor have acted in round 1. This is a premature round advancement and violates round tracking rules.DEBUG: Response validation failed (Attempt 1/3)Reason: The response advances to combat_round 2 before all creatures have acted in round 1. According to the initiative order (Norn → Animated Armor), Norn took their turn, then the Animated Armor attacked. However, the Animated Armor's attack is being processed in round 2, not round 1. The round should only increment after both Norn and the Animated Armor have acted in round 1. This is a premature round advancement and violates round tracking rules.DEBUG: Validating combat response...DEBUG: Combat response validation passedDEBUG: Response validated successfully on attempt 2Dungeon Master: \x1b[38;2;204;102;0mNorn has finished a devastating attack, wounding the Animated Armor severely. The suit of armor, battered but still standing with 8 hit points, retaliates with its heavy multiattack."
+11:58:55 PMArguments: []

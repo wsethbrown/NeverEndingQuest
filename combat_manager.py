@@ -1140,12 +1140,17 @@ Player: The combat begins. Describe the scene and the enemies we face."""
    if validation_attempts:
        validation_log_path = os.path.join(os.path.dirname(conversation_history_file), "combat_validation_log.json")
        try:
-           # Load existing log or create new one
+           # Load existing log or create new one (JSONL format)
+           validation_log = []
            if os.path.exists(validation_log_path):
                with open(validation_log_path, 'r') as f:
-                   validation_log = json.load(f)
-           else:
-               validation_log = []
+                   for line in f:
+                       line = line.strip()
+                       if line:
+                           try:
+                               validation_log.append(json.loads(line))
+                           except json.JSONDecodeError:
+                               continue
            
            # Add current validation session
            validation_log.append({
@@ -1493,12 +1498,17 @@ Player: {user_input_text}"""
        if validation_attempts:
            validation_log_path = os.path.join(os.path.dirname(conversation_history_file), "combat_validation_log.json")
            try:
-               # Load existing log or create new one
+               # Load existing log or create new one (JSONL format)
+               validation_log = []
                if os.path.exists(validation_log_path):
                    with open(validation_log_path, 'r') as f:
-                       validation_log = json.load(f)
-               else:
-                   validation_log = []
+                       for line in f:
+                           line = line.strip()
+                           if line:
+                               try:
+                                   validation_log.append(json.loads(line))
+                               except json.JSONDecodeError:
+                                   continue
                
                # Add current validation session
                validation_log.append({
