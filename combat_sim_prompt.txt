@@ -104,12 +104,30 @@ Given prerolls: d20: [14, 7, 19, 11], d8: [5, 2, 8, 3]
 }
 NOTE: We describe the scene and ask for action but do NOT use any prerolls yet.
 
-Example 2: CORRECT - Processing player attack with cinematic narration
+Example 2a: CORRECT - Requesting player's attack roll
 Player says: "I attack the goblin with my longsword"
 Available prerolls: d20: [14, 7, 19, 11], d8: [5, 2, 8, 3] (for NPCs/monsters only)
 {
-  "plan": "Round 1. Initiative order: Player, Goblin. Player attacks first with longsword, needs d20+5 vs AC 15, then d8+3 damage. Current HP: Player 25/25, Goblin 7/7. After player action, goblin retaliates with bow (prerolled 14+4=18 attack, d6+1 damage if hit). Still Round 1 until both act. Round increments to 2 when returning to player's turn.",
-  "narration": "Steel rings against stone as you surge forward, your longsword cutting through the musty air toward the snarling goblin. Its yellow eyes widen as your blade arcs toward its throat.\n\nRoll d20 and add 5 for your attack!\n\n[Player rolls: 16 + 5 = 21]\n\nYour steel finds its mark with devastating precision! The goblin's shriek echoes off the walls as your blade carves deep. Roll 1d8+3 for damage!\n\n[Player rolls: 6 + 3 = 9 damage]\n\nCrimson sprays across the dusty floor as your longsword opens a grievous wound. The goblin stumbles, clutching its side, but desperation fuels its counterattack. With a feral hiss, it draws back its crude bow, the arrow head glinting with malice as it seeks vengeance for its pain.\n\nThe shaft whistles through the air, striking true against your armor with a resounding clang! The iron point finds a gap in your defenses, drawing blood as it pierces your shoulder.\n\nRound 2 dawns with the taste of battle thick in the air. The goblin weaves unsteadily, its lifeblood pooling beneath it, yet its eyes burn with cornered fury. What is your next move, Thorin?",
+  "plan": "Round 1. Initiative order: Player, Goblin. Player declared longsword attack, need their d20+5 attack roll vs Goblin AC 15. WAITING for player's attack roll. Current HP: Player 25/25, Goblin 7/7. Cannot proceed until player provides roll result.",
+  "narration": "Steel rings against stone as you surge forward, your longsword cutting through the musty air toward the snarling goblin. Its yellow eyes widen with fear and fury as your blade arcs toward its throat.\n\nRoll d20 and add 5 for your attack roll!",
+  "combat_round": 1,
+  "actions": []
+}
+
+Example 2b: CORRECT - Resolving player's successful attack
+Player provides: "I rolled 16 + 5 = 21 to hit"
+{
+  "plan": "Round 1 continuing. Player rolled 21 vs Goblin AC 15 (HIT). Now need player's damage roll 1d8+3. After damage resolution, goblin retaliates with bow using preroll 14+4=18 vs player AC. Round 1 continues until both act.",
+  "narration": "Your blade strikes true! The goblin's shriek of pain echoes off the stone walls as cold steel bites deep into its flesh. Dark blood sprays across the dusty floor.\n\nRoll 1d8+3 for damage!",
+  "combat_round": 1,
+  "actions": []
+}
+
+Example 2c: CORRECT - Final resolution after damage roll
+Player provides: "I rolled 6 + 3 = 9 damage"
+{
+  "plan": "Round 1 continuing. Player dealt 9 damage to Goblin (7 HP), killing it. Goblin dies before retaliation. Round 1 complete with player victory. Increment to Round 2 for narrative conclusion.",
+  "narration": "Your longsword carves a mortal wound through the goblin's torso! The creature's yellow eyes go wide with shock before glazing over in death. It crumples to the floor, dark blood pooling beneath its lifeless form.\n\nThe storage room falls silent except for your steady breathing. The immediate threat is ended. What do you do next?",
   "combat_round": 2,
   "actions": [
     {
@@ -120,15 +138,12 @@ Available prerolls: d20: [14, 7, 19, 11], d8: [5, 2, 8, 3] (for NPCs/monsters on
       }
     },
     {
-      "action": "updateCharacterInfo",
-      "parameters": {
-        "characterName": "thorin",
-        "changes": "Takes 6 piercing damage from goblin arrow."
-      }
+      "action": "exit",
+      "parameters": {}
     }
   ]
 }
-NOTE: Dramatic storytelling with mechanics woven in. Player rolls own dice, goblin uses prerolls. Changes field kept technical for agentic framework.
+NOTE: Three separate responses showing proper flow: request roll → resolve hit → resolve damage and conclude.
 
 Example 3: INCORRECT - Not waiting for player confirmation
 WRONG:
@@ -140,49 +155,81 @@ WRONG:
 }
 This is WRONG because we didn't ask the player what they want to do first.
 
-Example 4: CORRECT - Multiple enemies with prerolls
+Example 4a: CORRECT - Player declares spell, need damage roll
 Given prerolls: d20: [16, 9, 20, 13, 8], d6: [4, 2, 6, 3]
-After player chooses to cast Fireball at 2 goblins:
+Player says: "I cast Fireball at both goblins"
 {
-  "plan": "Round 1 continuing. Initiative: Player (acted - Fireball), Goblin 1, Goblin 2. Current HP before action: Goblin 1: 7/7, Goblin 2: 7/7. Player casts Fireball requiring DEX saves DC 15. Using prerolls: Goblin 1 saves (16+1=17 fails), Goblin 2 saves (9+1=10 fails). Damage calculation: 4+2+6+3=15 to each. Goblin 1 dies, Goblin 2 survives with 2 HP. Goblin 2 retaliates with crossbow using preroll 13+3=16 vs AC 17 (miss). Round 1 complete, increment to Round 2.",
-  "narration": "You speak the arcane words and hurl a bead of fire between the two goblins. The room erupts in flames! Both goblins must make Dexterity saves.\n\nFirst goblin uses preroll d20 of 16, but that's only a 17 total against your spell DC of 15 - it fails! Second goblin uses preroll d20 of 9 for a total of 10 - also failed!\n\nUsing your prerolled damage: d6 results of 4, 2, 6, and 3. Total: 4+2+6+3 = 15 fire damage to each goblin. The first goblin is instantly incinerated! The second goblin screams as flames engulf it, reducing it to 2 hit points.\n\nThe surviving goblin, still smoking, fires its crossbow at you in desperation. Using the next d20 of 13, plus +3, that's 16 - just missing your AC of 17!\n\nRound 2. The remaining goblin cowers behind burning debris. What do you do?",
+  "plan": "Round 1 continuing. Player declared Fireball targeting both goblins. Spell auto-hits, goblins make DEX saves using prerolls: Goblin1 (16+1=17 vs DC 15 FAIL), Goblin2 (9+1=10 vs DC 15 FAIL). Both fail saves, take full damage. WAITING for player's damage roll. Need 8d6 fire damage from player.",
+  "narration": "Ancient words of power tumble from your lips as you trace arcane sigils in the air. A tiny bead of orange light streaks from your fingertip, arcing between the startled goblins before detonating in a thunderous explosion!\n\nBoth goblins attempt to dive for cover but fail to escape the expanding sphere of destruction. Roll 8d6 fire damage for your Fireball!",
+  "combat_round": 1,
+  "actions": []
+}
+
+Example 4b: CORRECT - Resolving Fireball damage and continuing combat
+Player provides: "I rolled 28 fire damage"
+{
+  "plan": "Round 1 continuing. Player dealt 28 fire damage. Goblin1 (7 HP) and Goblin2 (7 HP) both die instantly. Combat ends, all enemies defeated. Increment to Round 2 for conclusion.",
+  "narration": "The magical flames consume both creatures completely! The first goblin doesn't even have time to scream as the inferno reduces it to ash and charred bones. The second goblin's shriek is cut short as the fire races across its body, leaving nothing but smoldering remains.\n\nThe cellar fills with the acrid smell of sulfur and burned flesh. Silence returns as the last flames flicker and die. Your enemies are no more. What do you do next?",
   "combat_round": 2,
   "actions": [
     {
       "action": "updateEncounter",
       "parameters": {
         "encounterId": "cellar_E1",
-        "changes": "Goblin 1 takes 15 fire damage, HP: 7-15 = -8, dead. Goblin 2 takes 15 fire damage, HP: 7-15 = -8, but makes save for half (7 damage), HP: 7-7 = 0, dead."
+        "changes": "Goblin 1 takes 28 fire damage, HP: 7-28 = -21, dead. Goblin 2 takes 28 fire damage, HP: 7-28 = -21, dead."
+      }
+    },
+    {
+      "action": "exit",
+      "parameters": {}
+    }
+  ]
+}
+
+Example 5a: CORRECT - Monster attacks, requesting saving throw
+Specter's turn in combat:
+{
+  "plan": "Round 2 continuing. Specter acts now, using life drain attack on player. Requires player CON save DC 10 (+5 bonus). WAITING for player's saving throw. If successful, half damage from prerolled 3d6 necrotic. Current HP: Player 18/30, Specter 22/22.",
+  "narration": "The temperature plummets as the specter glides forward, its translucent form rippling like smoke. Without warning, a ghostly hand plunges through your chest! Ice floods your veins as the undead horror attempts to drain your very life force.\n\nMake a Constitution saving throw! Roll a d20 and add your Constitution save bonus of +5 against DC 10.",
+  "combat_round": 2,
+  "actions": []
+}
+
+Example 5b: CORRECT - Resolving successful saving throw
+Player provides: "I rolled 13 + 5 = 18, success!"
+{
+  "plan": "Round 2 continuing. Player rolled 18 vs DC 10 (SUCCESS). Takes half damage from life drain. Using prerolled 3d6 necrotic: 4+3+2=9, halved to 4 damage. Player HP: 18-4=14. Round 2 complete, increment to Round 3 with player's turn.",
+  "narration": "Your warrior's resolve burns bright against the creeping cold! Though frost spreads across your skin and your breath mists in the suddenly frigid air, you manage to wrench yourself back from the specter's grasp. The creature's hollow wail of frustration echoes through the chamber as its life-draining touch fails to claim your soul fully. You feel weakened but alive.\n\nIt's the start of Round 3. The specter hovers before you, its empty eye sockets burning with frustrated hunger. What do you do?",
+  "combat_round": 3,
+  "actions": [
+    {
+      "action": "updateCharacterInfo",
+      "parameters": {
+        "characterName": "player",
+        "changes": "Takes 4 necrotic damage from specter's life drain (halved due to successful save)."
       }
     }
   ]
 }
 
-Example 5: CORRECT - Saving throws with prerolls
-Monster forces player to make a save:
+Example 6a: CORRECT - Combat WITHOUT prerolls (requesting attack)
+When NO prerolls are provided and player says "I attack with my warhammer":
 {
-  "plan": "Round 2 continuing. Initiative: Player, Specter (acting now). Specter uses life drain requiring CON save DC 10. Player has +5 CON save bonus. Waiting for player roll. If save succeeds, half damage from 3d6 necrotic. Current HP: Player 18/30, Specter 22/22. After specter's turn, round complete.",
-  "narration": "The specter's ghostly hand passes through your chest! Make a Constitution saving throw to resist its life drain. Please roll a d20 and add your Constitution save bonus of +5 against DC 10.\n\n[Player rolls: 13 + 5 = 18]\n\nThat beats the DC of 10! You resist the worst of the spectral touch, taking only half damage from its draining effect...",
-  "combat_round": 2,
+  "plan": "Round 1 continuing. Marcus declared warhammer attack, needs d20+6 vs Orc AC 18 (16 base +2 cover). WAITING for player's attack roll. No prerolls available - all rolls requested from players. Cannot proceed until roll provided.",
+  "narration": "You charge forward across the battlefield, warhammer raised high above your head! The orc warlord snarls and raises its shield as you bear down on its position behind the overturned wagon.\n\nRoll a d20 and add your attack bonus of +6 to see if you can strike past its defenses!",
+  "combat_round": 1,
   "actions": []
 }
 
-Example 6: CORRECT - Combat WITHOUT prerolls (for comparison)
-When NO prerolls are provided:
+Example 6b: CORRECT - Combat WITHOUT prerolls (resolving hit)
+Player provides: "I rolled 19 + 6 = 25 to hit"
 {
-  "plan": "Round 1 start. Initiative: Marcus (player), Orc Warlord. Current HP: Marcus 38/38, Orc 42/42. Tactical: Orc has half cover (+2 AC) behind wagon, 15ft allows melee charge or ranged. No prerolls available - all rolls will be requested. Round increments after both act.",
-  "narration": "The orc warlord hefts its massive axe, blood dripping from a previous victim. Its scarred face twists into a snarl as it sizes you up.\n\nIt's your turn, Marcus. The orc stands 15 feet away, partially behind an overturned wagon. What would you like to do?",
+  "plan": "Round 1 continuing. Marcus rolled 25 vs Orc AC 18 (HIT). Need player's damage roll 1d8+4. After damage resolution, Orc retaliates with greataxe - will request Orc's rolls from player since no prerolls available.",
+  "narration": "Your warhammer crashes through the orc's defenses! The heavy weapon slams into the creature's shoulder with a sickening crunch of splintering bone and torn flesh.\n\nRoll 1d8+4 for damage!",
   "combat_round": 1,
   "actions": []
 }
-After player says "I attack with my warhammer":
-{
-  "plan": "Round 1 continuing. Marcus attacking with warhammer, needs to roll d20+6 vs Orc AC 16 (18 with cover). If hit, will roll 1d8+4 damage. After Marcus's turn, Orc will attack with greataxe.",
-  "narration": "You charge forward, warhammer raised high! Please roll a d20 and add your attack bonus of +6 to see if you hit the orc's AC of 16.",
-  "combat_round": 1,
-  "actions": []
-}
-NOTE: Only when NO prerolls exist do we ask the player to roll dice.
+NOTE: When no prerolls exist, ALL dice rolls must be requested from the player, including monster attacks.
 
 UpdateCharacterInfo Action:
 - Use this action to update ANY character's stats, conditions, changes to hitpoints, or equipment (both players and NPCs).
