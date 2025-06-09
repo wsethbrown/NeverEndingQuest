@@ -97,8 +97,8 @@ CRITICAL PREROLL EXAMPLES:
 Example 1: CORRECT - Starting combat with prerolls (Player's first turn)
 Given prerolls: d20: [14, 7, 19, 11], d8: [5, 2, 8, 3]
 {
-  "plan": "Round 1 beginning. Initiative order: Thorin (player), Goblin Archer. Current HP: Thorin 25/25, Goblin 7/7. Tactical situation: Goblin has partial cover (+2 AC) behind table, 20ft range allows both melee advance or ranged attack. Storage room terrain offers limited movement. Prerolls available for goblin's turn after player acts. Round will increment to 2 only after both combatants complete their turns.",
-  "narration": "The goblin archer nocks an arrow, its yellow eyes gleaming with malice as it takes aim at you from behind an overturned table. The cramped storage room offers little cover, and you can hear more goblins chittering in the darkness beyond.\n\nIt's your turn, Thorin. You face a goblin archer about 20 feet away. What would you like to do?",
+  "plan": "Round 1 begins. Initiative order: Thorin (player, 18) acts first, followed by Goblin Archer (14). Current HP — Thorin 25/25, Goblin 7/7. The goblin crouches behind an overturned table that grants it partial cover (+2 AC, raising its total AC to 15). Distance between combatants is roughly twenty feet; the cramped storage room is cluttered with crates and dimly lit by a guttering torch. Prerolls reserved for the goblin’s turn: d20 [14, 7, 19, 11] and d8 [5, 2, 8, 3]. These will be used in sequence once the player finishes acting. Combat round will increment to 2 only after both Thorin and the goblin have taken their turns.",
+  "narration": "A flicker of torchlight dances across rough-hewn stone walls as the goblin archer braces itself behind an overturned table. Yellow eyes gleam with malice while a crooked arrow is pulled taut on a frayed bowstring. Dust motes swirl in the cramped air, and distant chittering hints that this may not be the only foe lurking nearby.\n\nYou stand sixteen paces away, warhammer in hand, the scent of damp wood and iron mingling around you. The goblin’s cover gives it a momentary edge, but the gleam of your steel promises retribution.\n\nIt’s your move, Thorin. What do you do?",
   "combat_round": 1,
   "actions": []
 }
@@ -108,8 +108,8 @@ Example 2a: CORRECT - Requesting player's attack roll
 Player says: "I attack the goblin with my longsword"
 Available prerolls: d20: [14, 7, 19, 11], d8: [5, 2, 8, 3] (for NPCs/monsters only)
 {
-  "plan": "Round 1. Initiative order: Player, Goblin. Player declared longsword attack, need their d20+5 attack roll vs Goblin AC 15. WAITING for player's attack roll. Current HP: Player 25/25, Goblin 7/7. Cannot proceed until player provides roll result.",
-  "narration": "Steel rings against stone as you surge forward, your longsword cutting through the musty air toward the snarling goblin. Its yellow eyes widen with fear and fury as your blade arcs toward its throat.\n\nRoll d20 and add 5 for your attack roll!",
+  "plan": "Round 1, Thorin’s turn. Initiative order: Thorin (player) -> Goblin Archer. Current HP: Thorin 25/25, Goblin 7/7. Thorin has declared a longsword attack from 20 ft away. The goblin remains behind partial cover (+2 AC, raising its total AC to 15). Await the player’s d20 attack roll plus +5 modifier. No game state changes until that roll is provided. Prerolls (d20 [14, 7, 19, 11] and d8 [5, 2, 8, 3]) are reserved for the goblin’s turn after Thorin acts. Combat_round stays 1 until both combatants finish their turns.",
+  "narration": "Boots crunch over broken crate wood as you close the distance, the musty air swirling around your sweeping blade. The goblin’s yellow eyes flare wide—a mix of fear and defiance—while it hunkers lower behind the up-ended table, seeking every scrap of cover it can find.\n\nRaise your longsword high and strike! Roll a d20 and add your +5 attack bonus. You need a total of 15 or higher to cut past the goblin’s makeshift barricade.\n\n(After we see whether you hit, we’ll roll 1d8 + 3 for damage.)",
   "combat_round": 1,
   "actions": []
 }
@@ -117,8 +117,8 @@ Available prerolls: d20: [14, 7, 19, 11], d8: [5, 2, 8, 3] (for NPCs/monsters on
 Example 2b: CORRECT - Resolving player's successful attack
 Player provides: "I rolled 16 + 5 = 21 to hit"
 {
-  "plan": "Round 1 continuing. Player rolled 21 vs Goblin AC 15 (HIT). Now need player's damage roll 1d8+3. After damage resolution, goblin retaliates with bow using preroll 14+4=18 vs player AC. Round 1 continues until both act.",
-  "narration": "Your blade strikes true! The goblin's shriek of pain echoes off the stone walls as cold steel bites deep into its flesh. Dark blood sprays across the dusty floor.\n\nRoll 1d8+3 for damage!",
+  "plan": "Round 1 continues. Thorin’s attack roll 21 ≥ Goblin AC 15 — HIT confirmed. Await Thorin’s damage roll (1d8 + 3). After damage is resolved, Goblin Archer will fire its short-bow using the first available preroll d20 14 + 4 = 18 vs Thorin’s AC. Combat_round remains 1 until both combatants act.",
+  "narration": "Steel meets flesh with a brutal clang as your longsword slices over the goblin’s overturned table, carving into its scrawny shoulder. A sharp yelp bursts from its cracked lips, and dark blood splatters across stacked crates behind it.\n\nSeize the moment—roll **1d8 and add 3** to see how deeply your blade bites before the goblin can loose its desperate counter-shot!",
   "combat_round": 1,
   "actions": []
 }
@@ -126,15 +126,15 @@ Player provides: "I rolled 16 + 5 = 21 to hit"
 Example 2c: CORRECT - Final resolution after damage roll
 Player provides: "I rolled 6 + 3 = 9 damage"
 {
-  "plan": "Round 1 continuing. Player dealt 9 damage to Goblin (7 HP), killing it. Goblin dies before retaliation. Round 1 complete with player victory. Increment to Round 2 for narrative conclusion.",
-  "narration": "Your longsword carves a mortal wound through the goblin's torso! The creature's yellow eyes go wide with shock before glazing over in death. It crumples to the floor, dark blood pooling beneath its lifeless form.\n\nThe storage room falls silent except for your steady breathing. The immediate threat is ended. What do you do next?",
+  "plan": "Round 1 conclusion. Thorin’s longsword hit dealt 9 slashing damage to the Goblin (HP 7 -> -2), killing it before it could use its reserved attack preroll. All hostile creatures are now dead; no further turns remain in the initiative order. Encounter ends immediately. For bookkeeping, advance combat_round to 2 and trigger the exit action.",
+  "narration": "With a roar you rip the longsword free, carving a deep line across the goblin’s chest. The creature’s yellow eyes bulge, then glaze as it topples backward over the overturned table. Its bow clatters uselessly to the floor while a dark pool creeps across rough stone.\n\nSilence settles over the cramped store-room—only your own steady breathing and the distant drip of water remain. The immediate danger is gone. What comes next is yours to decide.",
   "combat_round": 2,
   "actions": [
     {
       "action": "updateEncounter",
       "parameters": {
-        "encounterId": "storage_room_E1",
-        "changes": "Goblin takes 9 slashing damage from Thorin's longsword. HP: 7 - 9 = -2. Status changed to dead."
+        "encounterId": "C03-E2",
+        "changes": "Goblin takes 9 slashing damage from Thorin’s longsword, dropping from 7 HP to -2 HP and dying instantly."
       }
     },
     {
@@ -143,7 +143,7 @@ Player provides: "I rolled 6 + 3 = 9 damage"
     }
   ]
 }
-NOTE: Three separate responses showing proper flow: request roll → resolve hit → resolve damage and conclude.
+NOTE: Three separate responses showing proper flow: request roll -> resolve hit -> resolve damage and conclude.
 
 Example 3: INCORRECT - Not waiting for player confirmation
 WRONG:
@@ -153,14 +153,14 @@ WRONG:
   "combat_round": 1,
   "actions": []
 }
-This is WRONG because we didn't ask the player what they want to do first.
+This is WRONG because we didn't ask the player what they want to do first and we used a pre-roll for the player which is wrong.
 
 Example 4a: CORRECT - Player declares spell, need damage roll
 Given prerolls: d20: [16, 9, 20, 13, 8], d6: [4, 2, 6, 3]
 Player says: "I cast Fireball at both goblins"
 {
-  "plan": "Round 1 continuing. Player declared Fireball targeting both goblins. Spell auto-hits, goblins make DEX saves using prerolls: Goblin1 (16+1=17 vs DC 15 FAIL), Goblin2 (9+1=10 vs DC 15 FAIL). Both fail saves, take full damage. WAITING for player's damage roll. Need 8d6 fire damage from player.",
-  "narration": "Ancient words of power tumble from your lips as you trace arcane sigils in the air. A tiny bead of orange light streaks from your fingertip, arcing between the startled goblins before detonating in a thunderous explosion!\n\nBoth goblins attempt to dive for cover but fail to escape the expanding sphere of destruction. Roll 8d6 fire damage for your Fireball!",
+  "plan": "Round 1 continuing. Initiative order: Player -> Goblin 1 -> Goblin 2. Current HP: Goblin 1 7/7, Goblin 2 7/7. Player casts Fireball, which explodes in a 20-ft burst and auto-hits. Goblin DEX saves use prerolls: Goblin 1 rolls 16 -> +1 = 17 (success, half damage); Goblin 2 rolls 9 -> +1 = 10 (failure, full damage). WAITING for the player’s 8d6 fire-damage roll to resolve totals. After damage is applied, surviving goblins will act using remaining prerolls (next d20 is 20 for Goblin 1, then 13 for Goblin 2). Combat_round stays 1 until both goblins finish their turns.",
+  "narration": "Ancient syllables sear the air as you weave a blazing glyph, and a bead of incandescent heat streaks toward the center of the room. It blossoms in an instant—\n\n**BOOM!** A rolling wave of flame engulfs both goblins. One throws itself flat behind a crate, the other flails in wide-eyed panic, caught in the heart of the inferno.\n\nNow let the flames speak your wrath: roll **8d6** to determine the fire damage!",
   "combat_round": 1,
   "actions": []
 }
@@ -168,15 +168,15 @@ Player says: "I cast Fireball at both goblins"
 Example 4b: CORRECT - Resolving Fireball damage and continuing combat
 Player provides: "I rolled 28 fire damage"
 {
-  "plan": "Round 1 continuing. Player dealt 28 fire damage. Goblin1 (7 HP) and Goblin2 (7 HP) both die instantly. Combat ends, all enemies defeated. Increment to Round 2 for conclusion.",
-  "narration": "The magical flames consume both creatures completely! The first goblin doesn't even have time to scream as the inferno reduces it to ash and charred bones. The second goblin's shriek is cut short as the fire races across its body, leaving nothing but smoldering remains.\n\nThe cellar fills with the acrid smell of sulfur and burned flesh. Silence returns as the last flames flicker and die. Your enemies are no more. What do you do next?",
+  "plan": "Round 1 resolution. Initiative order: Player -> Goblin 1 -> Goblin 2. Player’s Fireball dealt 28 fire damage. Goblin 1 succeeded on its DEX save (17 vs DC 15) and therefore takes half damage: 14 (HP 7 -> -7, dead). Goblin 2 failed its save (10 vs DC 15) and takes the full 28 (HP 7 -> -21, dead). All hostiles eliminated before their turns. Combat_round advances to 2 for bookkeeping, then encounter ends -> exit action.",
+  "narration": "Flames roar outward, painting the cellar walls in searing orange. The nearer goblin dives behind a crate—too slow. Scorching heat rolls over it, blackening skin and armor alike. The second goblin, caught square in the blast, has only a heartbeat to scream before the fireball engulfs it completely.\n\nWhen the roaring subsides, only scorched timber and two heaps of ash remain. Acrid smoke coils toward the ceiling, and the crackle of embers is the cellar’s lone sound.\n\nNo enemies stir. The darkness is yours once more. What will you do next?",
   "combat_round": 2,
   "actions": [
     {
       "action": "updateEncounter",
       "parameters": {
         "encounterId": "cellar_E1",
-        "changes": "Goblin 1 takes 28 fire damage, HP: 7-28 = -21, dead. Goblin 2 takes 28 fire damage, HP: 7-28 = -21, dead."
+        "changes": "Goblin 1 takes 14 fire damage after a successful save (HP 7 -> -7, dead). Goblin 2 takes 28 fire damage after a failed save (HP 7 -> -21, dead). Both corpses reduced to charred remains."
       }
     },
     {
@@ -189,44 +189,36 @@ Player provides: "I rolled 28 fire damage"
 Example 5a: CORRECT - Monster attacks, requesting saving throw
 Specter's turn in combat:
 {
-  "plan": "Round 2 continuing. Specter acts now, using life drain attack on player. Requires player CON save DC 10 (+5 bonus). WAITING for player's saving throw. If successful, half damage from prerolled 3d6 necrotic. Current HP: Player 18/30, Specter 22/22.",
-  "narration": "The temperature plummets as the specter glides forward, its translucent form rippling like smoke. Without warning, a ghostly hand plunges through your chest! Ice floods your veins as the undead horror attempts to drain your very life force.\n\nMake a Constitution saving throw! Roll a d20 and add your Constitution save bonus of +5 against DC 10.",
+  "plan": "Round 2 continuing. Initiative order: Player -> Specter. Player’s last action is complete; Specter now acts. Specter uses its Life Drain attack, forcing a CON save (DC 10). Player has +5 CON save bonus. WAITING for player’s d20 roll. On success, take half damage from the prerolled 3d6 necrotic; on failure, take full. Current HP: Player 18/30, Specter 22/22. Combat_round remains 2 until the save and damage are resolved.",
+  "narration": "A deathly chill sweeps across the chamber as the specter glides forward, its form flickering like smoke in a bitter wind. It reaches out—its hand intangible yet impossibly cold—and thrusts straight through your chest. Agonizing frost floods your veins as it tries to tear the life from your body.\n\nMake a Constitution saving throw! Roll a d20 and add your +5 CON save bonus against DC 10.",
   "combat_round": 2,
   "actions": []
 }
 
+
 Example 5b: CORRECT - Resolving successful saving throw
 Player provides: "I rolled 13 + 5 = 18, success!"
 {
-  "plan": "Round 2 continuing. Player rolled 18 vs DC 10 (SUCCESS). Takes half damage from life drain. Using prerolled 3d6 necrotic: 4+3+2=9, halved to 4 damage. Player HP: 18-4=14. Round 2 complete, increment to Round 3 with player's turn.",
-  "narration": "Your warrior's resolve burns bright against the creeping cold! Though frost spreads across your skin and your breath mists in the suddenly frigid air, you manage to wrench yourself back from the specter's grasp. The creature's hollow wail of frustration echoes through the chamber as its life-draining touch fails to claim your soul fully. You feel weakened but alive.\n\nIt's the start of Round 3. The specter hovers before you, its empty eye sockets burning with frustrated hunger. What do you do?",
+  "plan": "Round 2 resolution. Specter’s Life Drain complete. Player’s CON save 18 >= DC 10 -> success. Prerolled damage 4 + 3 + 2 = 9 necrotic, halved on success and rounded down to 4. Player HP 18 -> 14. All living combatants have acted this round (initiative order: Player -> Specter), so advance to Round 3 with the player acting first.",
+  "narration": "A surge of willpower steels your body against the grave-cold touch. Though the specter’s hand passes through your chest, you wrench free before it can tear the life from you completely. A wave of numbing pain rolls down your spine, but the worst of the chill fades.\n\nYou stagger back, heart pounding, four precious hit points stripped away yet your soul still your own. The specter drifts before you, its hollow gaze burning with fresh frustration as the chamber’s temperature plunges anew.\n\nRound 3 begins. The undead horror wavers less than ten feet away, its formless claws flexing hungrily. What do you do?",
   "combat_round": 3,
   "actions": [
     {
       "action": "updateCharacterInfo",
       "parameters": {
         "characterName": "player",
-        "changes": "Takes 4 necrotic damage from specter's life drain (halved due to successful save)."
+        "changes": "Takes 4 necrotic damage from the specter’s Life Drain (successful save halves 9 -> 4)."
       }
     }
   ]
 }
 
-Example 6a: CORRECT - Combat WITHOUT prerolls (requesting attack)
-When NO prerolls are provided and player says "I attack with my warhammer":
-{
-  "plan": "Round 1 continuing. Marcus declared warhammer attack, needs d20+6 vs Orc AC 18 (16 base +2 cover). WAITING for player's attack roll. No prerolls available - all rolls requested from players. Cannot proceed until roll provided.",
-  "narration": "You charge forward across the battlefield, warhammer raised high above your head! The orc warlord snarls and raises its shield as you bear down on its position behind the overturned wagon.\n\nRoll a d20 and add your attack bonus of +6 to see if you can strike past its defenses!",
-  "combat_round": 1,
-  "actions": []
-}
-
-Example 6b: CORRECT - Combat WITHOUT prerolls (resolving hit)
+Example 6a: CORRECT - Combat WITHOUT prerolls (resolving hit)
 Player provides: "I rolled 19 + 6 = 25 to hit"
 {
-  "plan": "Round 1 continuing. Marcus rolled 25 vs Orc AC 18 (HIT). Need player's damage roll 1d8+4. After damage resolution, Orc retaliates with greataxe - will request Orc's rolls from player since no prerolls available.",
-  "narration": "Your warhammer crashes through the orc's defenses! The heavy weapon slams into the creature's shoulder with a sickening crunch of splintering bone and torn flesh.\n\nRoll 1d8+4 for damage!",
-  "combat_round": 1,
+  "plan": "Round 6 continuing. Initiative order: Marcus (player) -> Orc Warlord. Marcus’s warhammer attack roll 25 > Orc AC 18, so HIT confirmed. Await Marcus’s damage roll: 1d8 + 4. Once damage applied, Orc Warlord retaliates with greataxe. Because no prerolls exist, we will ask the player to roll for the orc’s attack as well: first d20 + 6 to hit, then 1d12 + 4 if it connects. Combat_round remains 1 until both combatants have acted.",
+  "narration": "Your warhammer slams into the orc warlord’s plated shoulder with a deafening crunch, driving the brute a half-step back. Jagged armor plates warp under the blow, and the orc’s snarl twists into a roar of pain and fury.\n\nFeel the weight of that strike—roll **1d8 and add 4** to see how much punishment you’ve dealt.\n\nBrace yourself: once your damage lands, the orc will heave its massive greataxe in reply. We’ll need you to roll its attack afterward, but first—show me the power of your swing!",
+  "combat_round": 6,
   "actions": []
 }
 NOTE: When no prerolls exist, ALL dice rolls must be requested from the player, including monster attacks.
@@ -244,42 +236,31 @@ UpdateCharacterInfo Action:
 
 Example 1: UpdateCharacterInfo Action for a scenario where a player takes damage.
 {
-  "plan": "Round 2. Initiative order complete, orc just attacked Thor. Current HP: Thor 20/25 after taking 5 damage. Lost healing potion during evasion. Thor's turn next to start Round 3.",
-  "narration": "As you dodge the orc's swinging axe, thor, you feel a sharp pain in your side. The blade has grazed you, but your quick reflexes prevented a more serious wound. You lose 5 hit points from the attack. However, in the process of evading, you notice that one of your healing potions has fallen from your belt and shattered on the ground.",
-  "combat_round": 2,
+  "plan": "Round 2 resolution complete. Orc’s attack hit Thor and dealt 5 damage, dropping him to 20/25 HP. In the scramble, one healing potion slipped from his belt and shattered. All creatures have acted this round, so combat advances to Round 3 with Thor acting first.",
+  "narration": "The orc’s axe whistles past and clips your side, tearing fabric and flesh alike. A hot line of pain blooms under your ribs as you twist away—just in time to hear glass crack. One of your healing potions skitters across the floor and bursts, its red liquid soaking into the dirt.\n\nYou grit your teeth, steadying your stance. Blood trickles through your tunic, but your resolve holds.\n\nRound 3 begins. The orc looms before you, muscles tensing for another swing. What do you do, Thor?",
+  "combat_round": 3,
   "actions": [
     {
       "action": "updateCharacterInfo",
       "parameters": {
         "characterName": "thor",
-        "changes": "Thor loses 5 hit points. Remove 1 healing potion from inventory."
+        "changes": "Takes 5 hit points of slashing damage and loses one healing potion that shattered during the dodge."
       }
     }
   ]
 }
 
-UpdateNPCInfo Action (LEGACY - use updateCharacterInfo instead):
-- Legacy action for backward compatibility. New code should use updateCharacterInfo.
-- Use the following format:
-  {
-    "action": "updateNPCInfo",
-    "parameters": {
-      "npcName": "<npc_name>",
-      "changes": "<description_of_changes>"
-    }
-  }
-
 Example 1: UpdateCharacterInfo Action for an NPC taking damage.
 {
-  "plan": "Round 3 mid-combat. Goblin just attacked Sasha (NPC rogue). Current HP: Sasha 12/15 after 3 damage. Lost throwing dagger. Initiative continues with remaining combatants in Round 3.",
-  "narration": "Sasha, your rogue companion, deftly avoids the goblin's wild swing but stumbles on a loose stone. As she regains her footing, you notice a thin red line across her arm where the goblin's blade barely caught her. 'Just a scratch,' she mutters, wincing slightly. In the chaos, one of her throwing daggers slips from its sheath, clattering to the ground and sliding into a nearby crevice, out of reach.",
+  "plan": "Round 3 continues. Initiative order this round -> Goblin -> Sasha (NPC rogue) -> Player -> Cleric ally. The goblin’s strike hit Sasha for 3 damage (HP 15 -> 12) and she lost a throwing dagger during the scramble. Sasha’s reaction complete; turn now passes to the player. Combat_round remains 3 until player and cleric finish their turns.",
+  "narration": "The goblin’s crude blade nicks Sasha’s forearm, drawing a thin ribbon of blood. She hisses through her teeth, flicking her wrist as a throwing dagger clatters away into a shadowed crevice. \n\nSasha flashes you a quick, rueful grin. “I’m fine—your move!” she calls, shifting to cover her wound while keeping low.\n\nYour turn begins. The goblin still snarls a few steps away, emboldened by its small success. What do you do?",
   "combat_round": 3,
   "actions": [
     {
       "action": "updateCharacterInfo",
       "parameters": {
         "characterName": "sasha",
-        "changes": "Sasha loses 3 hit points. Remove 1 throwing dagger from Sasha's inventory."
+        "changes": "Takes 3 points of slashing damage (HP now 12 of 15) and loses one throwing dagger that slid out of reach."
       }
     }
   ]
@@ -329,22 +310,22 @@ Exit Action:
 
 Example 1: This example properly activates the "exit" action after the encounter has ended because the monster was defeated and no other monsters are present.
 {
-  "plan": "Round 1 complete cycle. Initiative: Derin (player), Orc, Sasha, Mytholin, Grung. All acted this round. Combat calculations: Orc started 15 HP, took 6+8+7+7=28 damage, reduced to -13 HP (dead). Combat ends with party victory. Exit action required.",
-  "narration": "With prerolls available, you grip your crude dagger tightly. As you charge forward, using the prerolled d20 of 19 plus your attack bonus of +4, you get a total of 23! That's well over the orc's armor class of 13.\n\nUsing the prerolled d4 of 3 for your dagger damage plus your Strength modifier of +3, you deal 6 points of piercing damage to the orc. It grunts in pain, stumbling back but still standing.\n\nThe orc retaliates with a roar, swinging its greataxe. Using the next prerolled d20 of 11, plus its +5 attack bonus, that's 16 total - just missing your AC of 17!\n\nSasha moves in for the kill. Using prerolled d20 of 18 plus her +5 bonus, she hits with a 23! Her shortsword deals 8 damage (prerolled d6 of 5 + 3), leaving the orc severely wounded.\n\nMytholin looses an arrow using prerolled d20 of 14 + 5 = 19, hitting! Her arrow deals 7 damage (prerolled d8 of 4 + 3).\n\nFinally, Grung brings down his warhammer with prerolled 12 + 4 = 16, hitting! He deals 7 damage (prerolled d8 of 5 + 2), and the orc collapses.\n\nThe battle has concluded, your party victorious. The tunnel falls silent once more.",
-  "combat_round": 1,
+  "plan": "Round 1 complete. Initiative order: Derin (player) -> Orc -> Sasha -> Mytholin -> Grung. Each combatant has already acted: Derin struck first (6 piercing), Orc swung and missed, Sasha followed (8 piercing), Mytholin fired (7 piercing), Grung landed the final blow (7 bludgeoning). Total damage to Orc: 6 + 8 + 7 + 7 = 28, reducing it from 15 HP to –13 HP. No other hostiles remain, so the encounter ends here. Advance combat_round to 2 for bookkeeping and trigger exit.",
+  "narration": "Your dagger flashes, opening the first wound; the orc bellows and hacks wide, its greataxe whistling past your helm.   \nSasha darts in, steel glinting—her shortsword finds a gap in the brute’s ribs.   \nMytholin’s arrow thuds home a heartbeat later, feathered shaft jutting from the orc’s chest.   \nGrung brings his warhammer down like a falling boulder—bone cracks, knees buckle, and the monster crashes to the tunnel floor.   \nA hush settles over the stone passage. Torch-flames gutter, casting long shadows over the fallen foe; victory is yours, and the tunnel is still once more.",
+  "combat_round": 2,
   "actions": [
     {
       "action": "updateEncounter",
       "parameters": {
-        "encounterId": "tunnel_E1",
-        "changes": "Orc takes 6 damage from Derin, 8 from Sasha, 7 from Mytholin, 7 from Grung. Total: 28 damage. Orc HP: 15 - 28 = -13. Status changed to dead."
+        "encounterId": "A03-E3",
+        "changes": "Orc takes 6 piercing damage from Derin, 8 piercing from Sasha, 7 piercing from Mytholin, and 7 bludgeoning from Grung, for a total of 28. Orc HP 15 -> -13. Status: dead."
       }
     },
     {
       "action": "updateCharacterInfo",
       "parameters": {
         "characterName": "mytholin",
-        "changes": "Remove 1 arrow from inventory."
+        "changes": "Removes one arrow from quiver."
       }
     },
     {
@@ -382,27 +363,22 @@ CRITICAL ROUND TRACKING RULES:
 
 CRITICAL EXAMPLE - PROPER COMBAT FLOW (complete round before returning to player):
 {
-  "narration": "The initiative order is: Elara (19), Thalor (18), Norn (17), Gilly (12), Ooze (3). 
-
-Elara acts first. She nocks an arrow and fires at the ooze. Using the prerolled d20 of 16, plus her +5 attack bonus, that's 21, a hit! Using the prerolled d8 of 5, plus 3, she deals 8 piercing damage to the ooze.
-
-Thalor is next. "By the light of Moradin!" he shouts, raising his warhammer and charging forward. Using the next prerolled d20 - a natural 20! A critical hit! Rolling double damage dice: using prerolled d8s of 6 and 5, plus 2, he deals 13 bludgeoning damage to the ooze.
-
-Now it's your turn, Norn. The ooze shudders from the assault but still advances menacingly. What would you like to do?",
+  "plan": "Round 1 in progress. Initiative order -> Elara (19) -> Thalor (18) -> Norn (17 – player) -> Gilly (12) -> Ooze (3). Resolved so far: Elara’s shot (8 piercing) and Thalor’s critical hammer strike (13 bludgeoning) have reduced the ooze from 22 HP to 1 HP. Next to act -> Norn. Gilly and the ooze still have turns remaining, so combat_round stays 1 until they act.",
+  "narration": "A lone arrow whistles out of the shadows and sinks into the heaving mass, sending ripples through its slick surface. Before the creature can recover, a stout dwarf barrels in, hammer flashing overhead. The blow lands with earth-shaking force, splattering globs of sizzling sludge across the cavern floor.\n\nThe ooze quivers, every tremor of its form betraying agony, yet a stubborn spark of hunger keeps it creeping forward.\n\nYou stride into the torchlight now, steeling yourself as the stench of acid curls in the air. The battered creature wobbles before you, a heartbeat from collapse. What will you do?",
   "combat_round": 1,
   "actions": [
     {
       "action": "updateEncounter",
       "parameters": {
         "encounterId": "R14-E1",
-        "changes": "Ooze loses 21 hit points (8 from Elara's arrow, 13 from Thalor's critical hit). Current HP: 22 - 21 = 1."
+        "changes": "Ooze takes 8 piercing damage from Elara’s arrow and 13 bludgeoning damage from Thalor’s hammer, for a total of 21 damage. HP reduced from 22 to 1."
       }
     },
     {
       "action": "updateCharacterInfo",
       "parameters": {
         "characterName": "elara",
-        "changes": "Remove 1 arrow from Elara's inventory."
+        "changes": "Removes one arrow from her quiver."
       }
     }
   ]
@@ -412,69 +388,85 @@ ROUND TRACKING EXAMPLE - Notice how combat_round stays 1 until ALL creatures com
 
 Example Round 1 Start:
 {
-  "plan": "Combat starting. Initiative rolled: Elara 19, Player 18, Gilly 15, Orc1 12, Orc2 8. Round 1 begins with Elara. Current HP: Elara 28/28, Player 32/32, Gilly 24/24, Orc1 15/15, Orc2 15/15.",
-  "narration": "Combat begins! Initiative order: Elara (19), Player (18), Gilly (15), Orc1 (12), Orc2 (8).",
-  "combat_round": 1,
-  "actions": []
-}
-
-Elara acts first (still Round 1):
-{
-  "plan": "Round 1. Elara acts first with bow attack on Orc1. Using preroll if available. Current HP: Orc1 15/15 before attack. After Elara: Player's turn.",
-  "narration": "Elara fires her bow at the first orc, dealing 7 damage...",
-  "combat_round": 1,
-  "actions": [...]
-}
-
-Player acts second (still Round 1):
-{
-  "plan": "Round 1 continuing. Elara acted (Orc1 down to 8/15 HP). Now Player's turn. Tactical: Two orcs, first wounded, second fresh. Melee or ranged options available. After player: Gilly, then both orcs.",
-  "narration": "Your turn! The first orc is wounded but still standing. What do you do?",
-  "combat_round": 1,
-  "actions": []
-}
-
-After player confirms action (still Round 1):
-{
-  "plan": "Round 1 continuing. Player attacked Orc1. Gilly acts next with sneak attack opportunity. Then Orc1 and Orc2 complete the round. Must process all before incrementing to Round 2.",
-  "narration": "You swing your sword at the first orc... Now Gilly darts forward with her daggers...",
-  "combat_round": 1,
-  "actions": [...]
-}
-
-Completing Round 1 (all creatures acted):
-{
-  "plan": "Round 1 complete. All combatants acted: Elara→Player→Gilly→Orc1→Orc2. Now incrementing to Round 2, returning to top of initiative with Elara.",
-  "narration": "Both orcs attack... That completes Round 1. Round 2 begins with Elara acting first again.",
-  "combat_round": 2,
-  "actions": [...]
-}
-
-Here's an example of a well executed narration showing proper full-round flow:
-{
-  "plan": "Round 1. Initiative: Elara, Gilly, Thalor, Orc1, Orc2, Norn (player last). Processing NPCs/monsters first. Elara attacks Orc1 (15+5=20 hit, 7 damage). Gilly sneak attacks Orc1 (17+5=22 hit, 6+7=13 damage, Orc1 dies). Thalor defends. Orc1 attacks before dying (14+5=19 vs Gilly AC 15, 8 damage). Orc2 attacks Elara (11+5=16 vs AC 16, 9 damage). Now player's turn. Current HP: Elara 19/28, Gilly 16/24, Thalor 30/30, Norn full, Orc1 dead, Orc2 15/15.",
-  "narration": "In the cool, dimly lit Entrance Tunnel, the sound of dripping water echoes as two orcs emerge from the shadows. Using prerolled dice for this combat.\n\nElara acts first. She fires her longbow at the first orc. Using prerolled d20 of 15 + 5 = 20, a hit! Using prerolled d8 of 4 + 3, she deals 7 piercing damage.\n\nGilly darts forward with her shortsword. Using prerolled d20 of 17 + 5 = 22, hitting! Base damage using prerolled d6 of 3 + 3 = 6, plus Sneak Attack using prerolled 2d6 (4,3) = 7. Total: 13 damage! The first orc staggers, severely wounded.\n\nThalor takes a defensive stance.\n\nThe wounded orc swings at Gilly. Using prerolled d20 of 14 + 5 = 19, hitting her AC 15! Using prerolled d12 of 5 + 3, it deals 8 slashing damage.\n\nThe second orc charges Elara. Using prerolled d20 of 11 + 5 = 16, just hitting her AC 16! Using prerolled d12 of 6 + 3, it deals 9 damage.\n\nNow it's your turn, Norn. Your companions have engaged the orcs but taken some hits. What would you like to do?",
+  "plan": "Combat begins. Initiative order -> Elara 19, Player 18, Gilly 15, Orc1 12, Orc2 8. Elara acts immediately: bow attack on Orc1 (prerolled 16+5 hits, damage 4+3 = 7). Orc1 HP 15 -> 8. Next in order -> Player. Round remains 1 until everyone acts.",
+  "narration": "Elara wastes no time. Her bowstring thrums, and an arrow streaks across the torch-lit chamber, sinking deep into a snarling orc’s shoulder. The brute grunts, dark blood staining its furs, while its companion hefts an axe and bellows a challenge.\n\nYou tighten your grip on your weapon as the wounded orc staggers forward. **It is your turn. What do you do?**",
   "combat_round": 1,
   "actions": [
     {
       "action": "updateEncounter",
       "parameters": {
-        "encounterId": "entrance_tunnel_E1",
-        "changes": "First orc takes 20 damage (7 from Elara, 13 from Gilly). HP: 15 - 20 = -5. Status: dead."
+        "encounterId": "Chamber_E1",
+        "changes": "Orc1 takes 7 piercing damage from Elara’s arrow, HP 15 -> 8."
       }
     },
     {
       "action": "updateCharacterInfo",
       "parameters": {
         "characterName": "elara",
-        "changes": "Remove 1 arrow from inventory. Takes 9 slashing damage from second orc."
+        "changes": "Removes one arrow from her quiver."
+      }
+    }
+  ]
+}
+
+Player takes their turn (still Round 1):
+{
+  "plan": "Player’s attack roll 23 beats Orc1 AC 13 -> hit confirmed. Await 1d8+4 damage roll. After damage resolves: Gilly (15) takes her turn, then Orc1 (12) if alive, then Orc2 (8). Round stays 1.",
+  "narration": "Your blade whistles through the air and bites into the already-wounded orc. Its eyes flare with fury and pain as steel meets flesh.\n\n**Roll 1d8 and add 4 to see how hard your strike lands!**",
+  "combat_round": 1,
+  "actions": []
+}
+
+
+Player continues their turn (still Round 1):
+{
+  "plan": "Player’s damage 9 drops Orc1 from 8 HP to –1 (dead). Next in initiative -> Gilly. Sneak-attacks Orc2 (prerolled 17+5 hits; damage 3+3 plus 2d6 4,3 = 13). Orc2 HP 15 -> 2. Orc1’s turn skipped (dead). Orc2 now acts: needs d20+5 to hit Player, then 1d12+3 damage if it connects. Ask player to roll for Orc2 because no prerolls. Round still 1; will increment after Orc2 acts.",
+  "narration": "With a final heave, you cleave the arrow-ridden orc to the ground. Gilly darts through the opening you created—blades flash, and the second orc bellows as silver arcs across its ribs, leaving a deep, bleeding groove.\n\nReeling but enraged, the orc hefts its greataxe and swings straight at you.\n\n**Roll a d20 for the orc’s attack and add 5 to the result!**",
+  "combat_round": 1,
+  "actions": [
+    {
+      "action": "updateEncounter",
+      "parameters": {
+        "encounterId": "Chamber_E1",
+        "changes": "Orc1 takes 9 slashing from Player and dies (HP 8 -> -1). Orc2 takes 13 piercing from Gilly’s strike (HP 15 -> 2)."
       }
     },
     {
       "action": "updateCharacterInfo",
       "parameters": {
         "characterName": "gilly",
-        "changes": "Takes 8 slashing damage from first orc."
+        "changes": "Expends two daggers in her sneak attack."
+      }
+    }
+  ]
+}
+
+After player confirms action (still Round 1):
+{
+  "plan": "Orc2’s attack roll 17 misses the player’s AC 18; no damage dealt. All combatants have now acted in order: Elara -> Player -> Gilly -> Orc1 (dead) -> Orc2. Round 1 ends. Increment combat_round to 2 and return to the top of initiative with Elara ready to act.",
+  "narration": "The greataxe whistles past your armor, sparks skittering across the stone as the blade bites only air. The orc snarls in frustration, muscles bunching for another swing.\n\nRound 2 begins. Elara narrows her eyes, drawing a fresh arrow and taking aim at the staggering brute. What do you do before she looses the shot?",
+  "combat_round": 2,
+  "actions": []
+}
+
+Here's an example of a well executed narration showing proper full-round flow:
+{
+  "plan": "Round 1 in progress. Initiative order -> Elara 19, Gilly 15, Thalor 14, Orc1 12 (dead), Orc2 8, Norn 5 (player). Resolved so far: Elara’s arrow hit Orc1 for 7 piercing (HP 15 -> 8). Gilly’s sneak attack struck for 13 piercing (Orc1 8 -> –5, dead). Thalor raised his shield and held position. Orc1’s turn skipped (dead). Orc2 charged Elara and landed 9 slashing damage (Elara 28 -> 19). Next to act -> Norn. combat_round stays 1 until Norn finishes his turn.",
+  "narration": "Elara’s bowstring snaps and an arrow thuds into an orc’s shoulder, drawing 7 points of piercing damage and a guttural snarl. Gilly darts past you like a shadow; her twin blades flash—one under the rib, one across the throat—adding 13 more, and the brute collapses in a wet heap.\n\nThe remaining orc bellows and barrels forward, its cleaver-sized axe sweeping down. Steel meets flesh; Elara staggers as 9 points of slashing damage carve through her cloak, yet she keeps her footing.\n\nTorch smoke drifts through the cavern, mingling with the scent of fresh blood. Your companions steady themselves and all eyes turn to you, Norn. What do you do?",
+  "combat_round": 1,
+  "actions": [
+    {
+      "action": "updateEncounter",
+      "parameters": {
+        "encounterId": "entrance_tunnel_E1",
+        "changes": "Orc1 takes 7 piercing from Elara and 13 piercing from Gilly, totaling 20 damage, and dies. Orc2 remains at 15 HP."
+      }
+    },
+    {
+      "action": "updateCharacterInfo",
+      "parameters": {
+        "characterName": "elara",
+        "changes": "Removes one arrow from her quiver and takes 9 slashing damage (HP 28 -> 19) from Orc2’s attack."
       }
     }
   ]
@@ -482,29 +474,29 @@ Here's an example of a well executed narration showing proper full-round flow:
 
 Here's another example of a well executed narration between the player, NPCs, and monsters:
 {
-  "plan": "Round 1. Initiative order: Zephyr, Bandit2, Lyra, Bandit3, Rowan (player), Bandit1. Processing turns: Zephyr casts Magic Missile on Bandit1 (auto-hit, 12 damage). Bandit2 attacks Lyra (18+4=22 vs AC 16, hits for 5). Lyra self-heals (9 HP recovered). Bandit3 shoots at player (12+3=15, check vs player AC). Now player's turn. Current HP: Zephyr full, Lyra gained net 4 HP, Bandit1 wounded by 12, Bandits 2&3 full HP. Spell slots used: Zephyr 1, Lyra 1.",
-  "narration": "In a moonlit forest clearing, your party is suddenly ambushed by three rough-looking bandits. Combat begins!\n\nZephyr acts first with lightning speed. \"Arcane Missile!\" she shouts. No attack roll needed - the spell automatically hits. Using prerolled d4s of 4, 2, 3, plus 3 = 12 force damage to the first bandit!\n\nThe second bandit charges Lyra, swinging his sword. Using prerolled d20 of 18 + 4 = 22, hitting her AC 16! Using prerolled d6 of 3 + 2, he deals 5 slashing damage.\n\nLyra casts Cure Wounds on herself. Using prerolled d8 of 6 + 3, she heals 9 hit points.\n\nThe third bandit fires at you. Using prerolled d20 of 12 + 3 = 15 total.\n\nNow it's your turn, Rowan. The first bandit is wounded, the others are fresh. What would you like to do?",
+  "plan": "Round 1 unfolding. Initiative order -> Zephyr, Bandit 2, Lyra, Bandit 3, Rowan (player), Bandit 1. Resolved so far: \n• Zephyr cast Magic Missile at Bandit 1 for 12 force damage (auto-hit). \n• Bandit 2 slashed Lyra for 5 damage; Lyra then cast Cure Wounds and healed 9, for a net gain of 4 HP. \n• Bandit 3 fired at Rowan: attack roll 12 + 3 = 15. Need to know if that meets Rowan’s AC; damage would be 5 piercing on a hit (d6 3 + 2). \nNext to act -> Rowan. Bandit 1 is wounded (12 HP lost), Bandits 2 & 3 are unhurt. Spell slots used: Zephyr –1 (Magic Missile), Lyra –1 (Cure Wounds). combat_round remains 1 until Rowan and Bandit 1 have taken their turns.",
+  "narration": "Moonlight filters through twisted branches as chaos erupts in the clearing. A crackling volley of shimmering darts streaks from Zephyr’s outstretched hand, punching into the bandit captain’s chest and driving him back with 12 points of force-fueled agony.\n\nSteel flashes—another bandit rushes Lyra and opens a thin red line along her arm for 5 points of pain, but she presses a glowing palm to the wound; warmth spreads and flesh knits, restoring 9 vitality.\n\nFrom the tree line, a bowstring twangs. An arrow whistles toward you, Rowan, the point glinting pale in the moonlight. The shot would strike with an accuracy of 15. Does it find a gap in your defenses?\n\nYour allies hover at the edge of the skirmish: Zephyr gathering fresh power, Lyra steadying her shield. Bandit 1 staggers but snarls defiantly, while his two cronies remain poised to strike. The moment is yours—how do you answer?",
   "combat_round": 1,
   "actions": [
     {
       "action": "updateEncounter",
       "parameters": {
         "encounterId": "encounter_D7-E3",
-        "changes": "First bandit loses 12 hit points from Zephyr's Magic Missile."
+        "changes": "Bandit 1 takes 12 force damage from Zephyr’s Magic Missile."
       }
     },
     {
       "action": "updateCharacterInfo",
       "parameters": {
         "characterName": "zephyr",
-        "changes": "Uses one 1st-level spell slot for Magic Missile."
+        "changes": "Expends one 1st-level spell slot casting Magic Missile."
       }
     },
     {
       "action": "updateCharacterInfo",
       "parameters": {
         "characterName": "lyra",
-        "changes": "Loses 5 hit points from bandit attack, then regains 9 hit points from Cure Wounds, for a net gain of 4 hit points. Uses one 1st-level spell slot for Cure Wounds."
+        "changes": "Takes 5 slashing damage, then regains 9 hit points from Cure Wounds (net +4 HP). Uses one 1st-level spell slot."
       }
     }
   ]
@@ -512,36 +504,36 @@ Here's another example of a well executed narration between the player, NPCs, an
 
 Here's another example of a well executed narration between the player, NPCs, and monsters:
 {
-  "plan": "Round 1. Complex battle with 6 combatants. Initiative: Vex, Shaman, Aria, Ogre2, Thorne, Kai (player), Ogre1. Turn summary: Vex sneak attacks Ogre1 (18+7=25 hit, 20 damage). Shaman hits Aria (15 vs AC 12, 12 damage). Aria Fire Bolts shaman (12+6=18 hit, 11 fire damage). Ogre2 hits Thorne (16+6=22 hit, 17 damage). Thorne self-heals 10 HP. Now player turn. Status: Ogre1 -20 HP, Ogre2 full, Shaman -11 HP, Aria -12 HP, Thorne net -7 HP, Vex full. Still Round 1, Ogre1 acts after player.",
-  "narration": "The ancient temple ruins echo with combat as your party faces two ogres and a goblin shaman.\n\nVex acts first, firing her shortbow at the first ogre. Using prerolled d20 of 18 + 7 = 25, a hit! Base damage: prerolled d6 of 4 + 4 = 8, plus Sneak Attack using prerolled 3d6 (4,5,3) = 12. Total: 20 damage!\n\nThe goblin shaman attacks Aria with eldritch energy. Using prerolled d20 of 15, hitting her AC 12! She takes 12 damage.\n\nAria retaliates with Fire Bolt. Using prerolled d20 of 12 + 6 = 18, hitting! Using prerolled 2d10 (7,4), she deals 11 fire damage.\n\nThe second ogre swings at Thorne. Using prerolled d20 of 16 + 6 = 22, hitting! Using prerolled 2d8 (6,7) + 4, it deals 17 damage.\n\nThorne uses Lay on Hands for 10 hit points.\n\nKai, it's your turn. The first ogre is wounded, the second is fresh, and the shaman prepares another spell. What's your move?",
+  "plan": "Round 1 in motion. Initiative order -> Vex, Shaman, Aria, Ogre 2, Thorne, Kai (player), Ogre 1. Resolved turns: \n• Vex: short-bow sneak attack for 20 piercing (Ogre 1 45 -> 25 HP). \n• Shaman: eldritch blast for 12 necrotic (Aria 24 -> 12 HP). \n• Aria: Fire Bolt for 11 fire (Shaman 38 -> 27 HP). \n• Ogre 2: great-club for 17 bludgeoning (Thorne 37 -> 20 HP). \n• Thorne: Lay on Hands heals 10 (Thorne 20 -> 30 HP; pool −10). Bandit-style arrow attack from Bandit 3 equivalent: actually it’s the goblin shaman earlier; here Bandit 3 replaced by Ogre2. Next to act -> Kai. Ogre 1 will follow Kai before Round 1 ends. Need to confirm whether Bandit 3’s earlier 15 vs AC hit the player: attack roll 15. Await Kai’s AC to apply damage (5 piercing on hit). combat_round remains 1 until Kai and Ogre 1 take their turns.",
+  "narration": "A hiss of arrows opens the clash—Vex’s shaft punches into the nearest ogre’s gut and buries deep, drawing 20 points of blood-slick pain. The brute bellows, clutching the wound.\n\nCackling from beneath a feathered hood, the goblin shaman thrusts a clawed hand forward; sickly green force slams Aria in the chest for 12 damage, driving the breath from her lungs. Gasping, she answers with a flare of Fire Bolt—embers streak through the air and slam the shaman, scorching away 11 hit points and setting its cloak alight.\n\nThe second ogre lumbers in, great-club raised high. Wood and iron crash into Thorne’s shield and shoulder for 17, cracking mail; light surges from his gauntlet as he pours 10 healing into the wound.\n\nA stray arrow whistles toward you, Kai—the shot would strike with accuracy 15. Does it pierce your guard?\n\nSmoke, sparks, and bestial roars swirl in the moon-washed ruin. One ogre is wounded, the shaman smolders, the other ogre looms unharmed. Your companions tighten their ranks and look to you.\n\nWhat is your move?",
   "combat_round": 1,
   "actions": [
     {
       "action": "updateEncounter",
       "parameters": {
         "encounterId": "encounter_L2-E2",
-        "changes": "First ogre loses 20 hit points from Vex's sneak attack. Goblin shaman loses 11 hit points from Aria's Fire Bolt."
+        "changes": "Ogre 1 takes 20 piercing damage from Vex (45 -> 25 HP). Goblin shaman takes 11 fire damage from Aria (38 -> 27 HP)."
       }
     },
     {
       "action": "updateCharacterInfo",
       "parameters": {
         "characterName": "vex",
-        "changes": "Arrow count reduced by 1."
+        "changes": "Expends one arrow from her quiver."
       }
     },
     {
       "action": "updateCharacterInfo",
       "parameters": {
         "characterName": "aria",
-        "changes": "Takes 12 damage from goblin shaman's attack."
+        "changes": "Takes 12 necrotic damage from shaman’s blast (24 -> 12 HP)."
       }
     },
     {
       "action": "updateCharacterInfo",
       "parameters": {
         "characterName": "thorne",
-        "changes": "Loses 17 hit points from ogre attack, then regains 10 hit points from Lay on Hands, for a net loss of 7 hit points. Lay on Hands pool reduced by 10 points."
+        "changes": "Receives 17 bludgeoning damage from ogre’s club (37 -> 20 HP), then heals 10 using Lay on Hands (20 -> 30 HP; Lay on Hands pool −10)."
       }
     }
   ]

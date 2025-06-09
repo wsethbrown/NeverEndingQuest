@@ -18,8 +18,11 @@ Ensure PROPER COMBAT FLOW:
 - IMMEDIATELY after each damaging action the narration should properly account for the results in the narration.
 - When a character dies, the narration should report it as defeated and NOT process its turn when initiative reaches it unless there is a passive action occuring (like save vs death etc).
 - If all enemies are defeated then the narration should end combat.
-- When the narration action returns to the player's turn, the AI Dungeon Master should pause and await player input for each player action. THe AI Dungeon master does not pause and ask the player for action when it is the NPC or monster's turn unless the narration calls for it.
-- When prerolls are provided: The AI should confirm player actions first, then use appropriate prerolls. When NO prerolls are provided: The player must provide their attack and damage rolls before their action can be resolved.
+- When the narration action returns to the player's turn, the AI Dungeon Master should pause and await player input for each player action. The AI Dungeon master does not pause and ask the player for action when it is the NPC or monster's turn unless the narration calls for it.
+- CRITICAL PLAYER INTERACTION FLOW: When a player declares an action requiring dice rolls, the AI must follow a two-step process:
+  Step 1: Request the roll and WAIT (plan should indicate "WAITING for player's roll")
+  Step 2: After receiving the roll result, resolve the action
+- When prerolls are provided: The AI should confirm player actions first, then request dice rolls from player, wait for results, then proceed. When NO prerolls are provided: The player must provide ALL dice rolls before any action can be resolved.
 
 CRITICAL ROUND VALIDATION CHECKS:
 - ROUND CONSISTENCY: If combat_round is X, verify that (X-1) complete initiative cycles have already occurred
@@ -42,27 +45,32 @@ UNACCEPTABLE RESPONSES:
 - Confusing 'status' and 'condition' fields: 'status' is life/death state ('alive', 'dead', 'unconscious'), 'condition' is D&D status effects ('none', 'blinded', 'charmed', etc.)
 - Missing combat_round field in JSON responses
 - Using wrong dice from preroll pools (e.g., using d20 for damage, using damage dice for attacks)
+- Using prerolls for player character actions (players always roll their own dice)
 - Not asking player for action confirmation when prerolls are available
 - Using deprecated updateNPCInfo instead of updateCharacterInfo
 - Using updateCharacterInfo for monsters (should use updateEncounter with text changes)
 - ROUND TRACKING VIOLATIONS: Incrementing combat_round before all creatures have acted
 - PREMATURE ROUND ADVANCEMENT: Moving to Round 2 when some creatures haven't acted in Round 1
 - INCONSISTENT ROUND NUMBERS: Round number not matching the actual number of completed initiative cycles
+- INVALID PLAYER INTERACTION: Resolving player actions before receiving their dice roll results
+- PREMATURE RESOLUTION: Showing "[Player rolls: X]" and action outcome in the same response
 
 PREROLL SYSTEM VALIDATION:
 When prerolls are provided, validate:
-- AI uses d20 pool ONLY for attack rolls and saving throws
-- AI uses appropriate damage dice pools for weapon/spell damage
+- AI uses d20 pool ONLY for NPC/monster attack rolls and saving throws (NEVER for players)
+- AI uses appropriate damage dice pools for NPC/monster weapon/spell damage (NEVER for players)
 - AI uses prerolls sequentially (first available from each pool)
-- AI asks for player action confirmation BEFORE using prerolls
-- Player turn format: Ask -> Wait -> Confirm -> Use prerolls -> Continue
+- CRITICAL: Players ALWAYS roll their own dice, even when prerolls are available
+- Player turn format: Declare Action -> Request Player Roll -> Wait -> Receive Result -> Resolve Action
+- INVALID: Any response that shows "[Player rolls: X]" and immediate resolution in the same response
+- VALID: Separate responses for requesting vs. resolving player actions
 
 JSON STRUCTURE VALIDATION:
 Required fields in combat responses:
-- "narration": Combat description and dialogue
+- "narration": Combat description and dialogue (should be cinematic, not mechanical)
 - "combat_round": Current round number (increments when returning to top of initiative)
 - "actions": Array of updateCharacterInfo, updateEncounter, or exit actions
-- "plan": (Optional) The AI's internal planning thoughts before narrating - validates the AI's understanding of combat state
+- "plan": (Optional but recommended) The AI's tactical planning thoughts - should include round status, initiative order, HP tracking, who has acted, what rolls are needed. CRITICAL: Plan should clearly indicate when "WAITING for player's roll" vs when resolving actions with provided results.
 
 ACTION USAGE VALIDATION:
 - updateCharacterInfo: ONLY for players and NPCs (requires characterName parameter)
@@ -118,5 +126,32 @@ Plan: "Animated Weapon is at full health"
 Actual State: Weapon has taken 24 damage and is nearly defeated
 Issue: Plan shows incorrect HP tracking, could lead to narrative inconsistencies
 Fix: Ensure plan reflects accurate damage totals from previous actions
+
+PLAYER INTERACTION FLOW VALIDATION EXAMPLES:
+
+VALID - Proper Two-Step Flow (Request):
+Plan: "Round 1. Player declared longsword attack. WAITING for player's d20+5 attack roll vs AC 15."
+Narration: "Your blade arcs toward the goblin! Roll d20 and add 5 for your attack."
+Actions: [] (empty, waiting for input)
+Result: Correctly requests roll and waits
+
+VALID - Proper Two-Step Flow (Resolve):
+Plan: "Round 1 continuing. Player rolled 18 vs AC 15 (HIT). Now need damage roll 1d8+3."
+Narration: "Your steel bites deep! Roll 1d8+3 for damage."
+Actions: [] (still waiting for damage)
+Result: Correctly resolves hit, requests damage
+
+INVALID - Premature Resolution:
+Plan: "Player attacks with longsword"
+Narration: "You swing and hit! [Player rolls: 16] You deal 8 damage!"
+Actions: [updateEncounter with damage applied]
+Issue: Shows player roll result and damage without actually receiving it
+Fix: Split into request → wait → resolve sequence
+
+INVALID - Missing Wait State:
+Plan: "Player declared attack, resolving immediately"
+Narration: "You attack and deal damage based on your roll!"
+Issue: Plan doesn't indicate waiting for player input
+Fix: Plan must show "WAITING for player's roll" when input is needed
 
 Current encounter state:
