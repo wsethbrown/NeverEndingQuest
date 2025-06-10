@@ -1379,3 +1379,205 @@ The simplest fix would be Option 1 - modify main.py to not send combat summaries
 - Cleaner combat encounter experience
 - Reduced confusion for players
 - More professional presentation
+
+---
+
+## Issue 29: Add clickable dice icons to web UI for automatic roll insertion
+**Labels:** `enhancement`, `ui/ux`, `web-interface`, `quality-of-life`
+
+### Description
+The web UI should include clickable dice icons (d4, d6, d8, d10, d12, d20, d100) that automatically roll the dice and insert the result at the current cursor position in the input field. This would provide a convenient way for players to generate dice rolls without manually typing roll commands or using external dice tools.
+
+### Current Behavior
+- Players must manually type dice rolls like "I roll a 15" or "d20: 8"
+- No visual dice rolling interface
+- Players often use external dice apps or physical dice
+- Manual entry prone to typos and requires switching between tools
+- No visual feedback for the rolling action
+
+### Proposed Enhancement
+Add a dice toolbar with clickable icons for common dice types that:
+1. Generate random roll results when clicked
+2. Insert the formatted result at cursor position in the input field
+3. Provide visual rolling animation/feedback
+4. Support both individual dice and common combinations
+
+### UI Design Mockup
+```
+Input Field: [Type your action here...                    ]
+Dice Bar:    [d4] [d6] [d8] [d10] [d12] [d20] [d100] [2d6] [3d6] [1d20+5]
+```
+
+### Technical Requirements
+
+**1. Dice Icon Interface**
+- Clickable icons for each die type (d4, d6, d8, d10, d12, d20, d100)
+- Common combinations (2d6, 3d6, 1d20+modifier)
+- Custom dice builder for complex rolls (like 2d8+3)
+
+**2. Roll Generation**
+```javascript
+function rollDice(sides, count = 1, modifier = 0) {
+    let total = 0;
+    let individual_rolls = [];
+    
+    for (let i = 0; i < count; i++) {
+        let roll = Math.floor(Math.random() * sides) + 1;
+        individual_rolls.push(roll);
+        total += roll;
+    }
+    
+    total += modifier;
+    
+    // Format: "d20: 15" or "2d6+3: [4,6]+3 = 13"
+    return formatRollResult(sides, count, modifier, individual_rolls, total);
+}
+```
+
+**3. Cursor Position Insertion**
+```javascript
+function insertAtCursor(inputElement, text) {
+    let cursorPos = inputElement.selectionStart;
+    let currentValue = inputElement.value;
+    
+    let newValue = currentValue.slice(0, cursorPos) + text + currentValue.slice(cursorPos);
+    inputElement.value = newValue;
+    
+    // Move cursor to end of inserted text
+    inputElement.setSelectionRange(cursorPos + text.length, cursorPos + text.length);
+    inputElement.focus();
+}
+```
+
+**4. Visual Feedback**
+- Brief rolling animation when dice are clicked
+- Different colors/styles for different dice types
+- Sound effects (optional, toggle-able)
+- Roll result briefly highlights before insertion
+
+### Roll Format Options
+
+**Simple Format**: `d20: 15`
+**Detailed Format**: `d20: 15` or `2d6+3: [4,6]+3 = 13`
+**Narrative Format**: `I roll a 15 on the d20`
+
+Allow users to choose their preferred format in settings.
+
+### Dice Types and Common Rolls
+
+**Basic Dice**:
+- d4, d6, d8, d10, d12, d20, d100
+
+**Common Combinations**:
+- 2d6 (damage, stats)
+- 3d6 (ability scores)
+- 1d20+5 (common attack/save modifier)
+- 2d8+3 (weapon damage with modifier)
+
+**Custom Builder**:
+- Dropdown for die type
+- Number input for quantity  
+- Number input for modifier
+- "Roll" button to execute
+
+### User Experience Features
+
+**1. Keyboard Shortcuts**
+- Ctrl+D+[number] for quick die access (Ctrl+D+20 for d20)
+- Tab completion for dice expressions
+
+**2. Roll History**
+- Small log of recent rolls below dice bar
+- Click to re-insert previous rolls
+- Clear history button
+
+**3. Settings Panel**
+- Choose roll result format
+- Enable/disable sound effects
+- Show/hide roll animations
+- Customize dice shortcuts
+
+### Mobile Responsiveness
+- Touch-friendly dice buttons on mobile devices
+- Swipe-able dice bar for smaller screens
+- Appropriate button sizing for touch targets
+- Responsive layout that works on tablets and phones
+
+### Implementation Files
+
+**Frontend (HTML/CSS/JavaScript)**:
+- `templates/game_interface.html` - Add dice bar HTML structure
+- `static/css/dice-interface.css` - Styling for dice icons and animations
+- `static/js/dice-roller.js` - Core dice rolling functionality
+- `static/js/cursor-insertion.js` - Text insertion at cursor position
+- `static/images/dice/` - Dice icon assets (SVG recommended)
+
+**Backend Integration**:
+- No backend changes required - purely client-side enhancement
+- Dice results inserted as text, processed normally by existing system
+
+### Example User Workflow
+
+1. **Player types**: "I attack with my sword"
+2. **Player clicks**: [d20] button  
+3. **System rolls**: 17
+4. **Text becomes**: "I attack with my sword d20: 17"
+5. **Player adds**: " and if that hits, I roll damage"
+6. **Player clicks**: [1d8+3] button
+7. **System rolls**: 6+3=9  
+8. **Final text**: "I attack with my sword d20: 17 and if that hits, I roll damage 1d8+3: 9"
+
+### Advanced Features (Future Enhancements)
+
+**1. Advantage/Disadvantage Support**
+- Ctrl+click for advantage (roll twice, take higher)
+- Shift+click for disadvantage (roll twice, take lower)
+- Format: "d20 (advantage): [12,18] = 18"
+
+**2. Dice Pool Support**  
+- Multiple dice with individual results
+- Success counting for systems that use it
+- Exploding dice mechanics
+
+**3. Character Sheet Integration**
+- Pre-configured buttons based on character stats
+- "Attack Roll" button that automatically includes attack bonus
+- "Saving Throw" buttons with character modifiers
+
+**4. Macro System**
+- Save frequently used roll combinations
+- Custom buttons for character-specific rolls
+- Import/export roll macros
+
+### Accessibility Features
+- Screen reader support for dice button labels
+- High contrast mode for dice icons
+- Keyboard navigation through dice options
+- Alt text for all dice imagery
+
+### Benefits
+
+**Player Experience**:
+- Faster, more convenient dice rolling
+- Reduces typing errors and formatting issues
+- Visual feedback makes rolling feel more tactile
+- Eliminates need for external dice tools
+
+**Game Flow**:
+- Faster combat resolution
+- More consistent roll formatting
+- Reduces interruptions for manual dice rolling
+- Maintains immersion within the web interface
+
+**Accessibility**:
+- Helpful for players with motor difficulties
+- Consistent formatting improves readability
+- Visual interface aids players who struggle with text input
+
+### Implementation Priority
+1. **Phase 1**: Basic dice icons (d20, d6, d8, d10, d12) with simple insertion
+2. **Phase 2**: Common combinations (2d6, 3d6) and formatting options  
+3. **Phase 3**: Custom dice builder and roll history
+4. **Phase 4**: Advanced features (advantage/disadvantage, macros)
+
+This enhancement would significantly improve the user experience for the web interface while maintaining compatibility with the existing text-based game system.
