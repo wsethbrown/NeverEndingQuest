@@ -1314,3 +1314,68 @@ This elegant solution provides robust protection against AI-created invalid area
 - Empty/null area IDs: ✅ Handled correctly
 
 This implementation successfully prevents the root cause of the issue while providing clear feedback for both AI and users.
+
+---
+
+## Issue 28: Combat model passes introduction twice breaking immersion
+**Labels:** `bug`, `combat`, `ai-behavior`, `immersion`
+
+### Description
+During combat encounters, the AI receives duplicate introductory information that breaks immersion. The issue occurs because both main.py and combat_manager.py send similar introductory content to the user, resulting in redundant narrative that repeats the same scene setup.
+
+### Current Behavior
+- Main.py sends a combat summary/introduction to the user
+- Combat manager also sends its own initial introduction narrative  
+- Player sees essentially the same information twice
+- Creates redundant, immersion-breaking double exposition
+- Breaks the narrative flow of combat encounters
+
+### Example Flow
+1. **Main.py**: Sends combat context summary describing the scene
+2. **Combat Manager**: Also provides scene introduction with similar details
+3. **Result**: Player reads the same scene setup information twice
+
+### Expected Behavior
+- Single, cohesive introduction to combat
+- No duplicate scene descriptions
+- Smooth transition from exploration to combat
+- Clear narrative flow without repetition
+
+### Root Cause
+The system has two separate components that both attempt to provide combat introductions:
+1. **Main.py**: Provides context summary when combat starts
+2. **Combat Manager**: Generates its own introductory narrative
+
+These operate independently without coordination, leading to redundant content.
+
+### Proposed Solution
+Choose one of these approaches:
+
+**Option 1: Remove Main.py Summary**
+- Have main.py not send a summary/introduction when combat starts
+- Let combat manager handle all introductory narrative
+- Cleaner single source of combat introduction
+
+**Option 2: Remove Combat Manager Introduction**  
+- Have combat manager skip initial scene setup
+- Let main.py handle the introduction
+- Combat manager focuses on action resolution only
+
+**Option 3: Coordinate Introductions**
+- Add flag to indicate if introduction was already provided
+- Skip redundant introductions based on coordination
+
+### Technical Implementation
+The simplest fix would be Option 1 - modify main.py to not send combat summaries when transitioning to combat, allowing combat_manager.py to handle the complete introduction.
+
+### Affected Files
+- `main.py` - Combat transition and summary logic
+- `combat_manager.py` - Combat introduction narrative
+- Combat flow coordination between modules
+
+### Benefits
+- Eliminates redundant narrative content
+- Improves immersion and narrative flow
+- Cleaner combat encounter experience
+- Reduced confusion for players
+- More professional presentation
