@@ -1581,3 +1581,411 @@ Allow users to choose their preferred format in settings.
 4. **Phase 4**: Advanced features (advantage/disadvantage, macros)
 
 This enhancement would significantly improve the user experience for the web interface while maintaining compatibility with the existing text-based game system.
+
+---
+
+## Issue 30: AI Combat Helper for automated modifier and resistance calculation
+**Labels:** `enhancement`, `ai-integration`, `combat`, `game-mechanics`, `automation`
+
+### Description
+Implement an AI-powered combat helper that automatically scans character sheets and calculates all modifiers, resistances, immunities, and special abilities. This helper AI would inject comprehensive combat information into the DM notes passed to the main AI model, ensuring accurate and complete consideration of all character stats during combat encounters.
+
+### Current Problems
+
+**1. Manual Modifier Tracking**
+- DM AI must manually calculate attack bonuses, damage modifiers, and AC
+- Easy to miss temporary effects, equipment bonuses, or special abilities
+- No centralized system for tracking all active modifiers
+- Combat calculations prone to human error
+
+**2. Complex Resistance/Immunity System**
+- Characters may have resistances from multiple sources (equipment, spells, abilities)
+- Conditional resistances (e.g., only vs certain damage types or creatures)
+- Vulnerability calculations often overlooked
+- No systematic checking of damage type interactions
+
+**3. Incomplete Ability Consideration**
+- Special abilities from equipment not always factored into combat
+- Class features with combat implications missed
+- Temporary effects and buffs forgotten during combat
+- Passive abilities not consistently applied
+
+**4. Inconsistent Combat Adjudication**
+- Manual calculations lead to inconsistent results
+- DM may not be aware of all character capabilities
+- Combat balance affected by missed modifiers
+- Player abilities not fully utilized
+
+### Proposed Solution: AI Combat Helper System
+
+**Core Architecture:**
+
+**1. Character Sheet Analyzer** (`combat_character_analyzer.py`)
+```python
+class CombatCharacterAnalyzer:
+    def analyze_character(self, character_data):
+        """Comprehensive analysis of character combat capabilities"""
+        return {
+            'attack_modifiers': self.calculate_attack_modifiers(character_data),
+            'damage_modifiers': self.calculate_damage_modifiers(character_data),
+            'armor_class': self.calculate_ac_breakdown(character_data),
+            'resistances': self.analyze_resistances(character_data),
+            'immunities': self.analyze_immunities(character_data),
+            'vulnerabilities': self.analyze_vulnerabilities(character_data),
+            'special_abilities': self.extract_combat_abilities(character_data),
+            'temporary_effects': self.process_active_effects(character_data),
+            'saving_throws': self.calculate_save_modifiers(character_data)
+        }
+```
+
+**2. Modifier Calculator Engine**
+```python
+def calculate_attack_modifiers(self, character_data):
+    """Calculate all sources of attack bonuses"""
+    modifiers = {
+        'melee_attack': 0,
+        'ranged_attack': 0,
+        'spell_attack': 0,
+        'sources': []
+    }
+    
+    # Base ability modifiers
+    str_mod = get_ability_modifier(character_data['abilities']['strength'])
+    dex_mod = get_ability_modifier(character_data['abilities']['dexterity'])
+    
+    # Proficiency bonus
+    prof_bonus = character_data['proficiencyBonus']
+    
+    # Equipment bonuses
+    for item in character_data.get('equipment', []):
+        if item.get('equipped') and 'attack_bonus' in item:
+            modifiers['sources'].append(f"{item['item_name']}: +{item['attack_bonus']}")
+    
+    # Class features
+    for feature in character_data.get('classFeatures', []):
+        if 'attack' in feature.get('description', '').lower():
+            modifiers['sources'].append(f"Class Feature: {feature['name']}")
+    
+    # Temporary effects
+    for effect in character_data.get('temporaryEffects', []):
+        if 'attack' in effect.get('description', '').lower():
+            modifiers['sources'].append(f"Temporary: {effect['name']}")
+    
+    return modifiers
+```
+
+**3. Resistance/Immunity Processor**
+```python
+def analyze_resistances(self, character_data):
+    """Comprehensive resistance analysis from all sources"""
+    resistances = {
+        'damage_types': [],
+        'conditions': [],
+        'sources': {},
+        'conditional': []
+    }
+    
+    # Check racial traits
+    for trait in character_data.get('racialTraits', []):
+        if 'resistance' in trait.get('description', '').lower():
+            resistances['sources'][trait['name']] = extract_resistance_info(trait)
+    
+    # Check equipped items
+    for item in character_data.get('equipment', []):
+        if item.get('equipped') and 'special_abilities' in item:
+            for ability in item['special_abilities']:
+                if 'resistance' in ability.get('description', '').lower():
+                    resistances['sources'][f"Equipment: {item['item_name']}"] = ability
+    
+    # Check temporary effects
+    for effect in character_data.get('temporaryEffects', []):
+        if 'resistance' in effect.get('description', '').lower():
+            resistances['sources'][f"Temporary: {effect['name']}"] = effect
+    
+    return resistances
+```
+
+**4. DM Note Generator**
+```python
+def generate_combat_summary(self, character_analysis):
+    """Generate comprehensive combat summary for DM AI"""
+    summary = f"""
+    COMBAT HELPER ANALYSIS FOR {character_analysis['name']}:
+    
+    ATTACK CAPABILITIES:
+    - Melee Attack: +{character_analysis['attack_modifiers']['melee_attack']}
+    - Ranged Attack: +{character_analysis['attack_modifiers']['ranged_attack']}
+    - Spell Attack: +{character_analysis['attack_modifiers']['spell_attack']}
+    
+    ARMOR CLASS: {character_analysis['armor_class']['total']}
+    - Base Armor: {character_analysis['armor_class']['base']}
+    - DEX Modifier: +{character_analysis['armor_class']['dex_mod']}
+    - Shield: +{character_analysis['armor_class']['shield']}
+    - Other Bonuses: +{character_analysis['armor_class']['other']}
+    
+    DAMAGE RESISTANCES:
+    {format_resistances(character_analysis['resistances'])}
+    
+    DAMAGE IMMUNITIES:
+    {format_immunities(character_analysis['immunities'])}
+    
+    DAMAGE VULNERABILITIES:
+    {format_vulnerabilities(character_analysis['vulnerabilities'])}
+    
+    ACTIVE SPECIAL ABILITIES:
+    {format_special_abilities(character_analysis['special_abilities'])}
+    
+    TEMPORARY EFFECTS:
+    {format_temporary_effects(character_analysis['temporary_effects'])}
+    
+    SAVING THROW MODIFIERS:
+    {format_saving_throws(character_analysis['saving_throws'])}
+    """
+    return summary
+```
+
+### Integration with Main System
+
+**1. Combat Manager Integration**
+```python
+# In combat_manager.py
+from combat_character_analyzer import CombatCharacterAnalyzer
+
+def initiate_combat(self, participants):
+    analyzer = CombatCharacterAnalyzer()
+    
+    # Analyze all participants
+    combat_analysis = {}
+    for character in participants:
+        combat_analysis[character['name']] = analyzer.analyze_character(character)
+    
+    # Generate DM notes with complete combat information
+    dm_notes = self.generate_enhanced_dm_notes(combat_analysis)
+    
+    # Pass to main AI with comprehensive combat context
+    return self.start_combat_with_analysis(dm_notes, combat_analysis)
+```
+
+**2. Real-time Updates**
+```python
+def update_character_analysis(self, character_name, changes):
+    """Re-analyze character when changes occur during combat"""
+    updated_character = load_character(character_name)
+    new_analysis = self.analyzer.analyze_character(updated_character)
+    
+    # Update DM notes with new information
+    updated_notes = self.generate_updated_dm_notes(new_analysis)
+    
+    return updated_notes
+```
+
+### Advanced Features
+
+**1. Conditional Logic Processing**
+```python
+def process_conditional_abilities(self, character_data, combat_context):
+    """Handle abilities that activate under specific conditions"""
+    conditional_bonuses = []
+    
+    for ability in character_data.get('classFeatures', []):
+        if 'when' in ability.get('description', '').lower():
+            conditions = extract_conditions(ability['description'])
+            if check_conditions(conditions, combat_context):
+                conditional_bonuses.append({
+                    'ability': ability['name'],
+                    'bonus': extract_bonus(ability['description']),
+                    'condition': conditions
+                })
+    
+    return conditional_bonuses
+```
+
+**2. Equipment Synergy Detection**
+```python
+def detect_equipment_synergies(self, equipped_items):
+    """Identify item combinations that provide additional bonuses"""
+    synergies = []
+    
+    # Check for armor + weapon combinations
+    armor_pieces = [item for item in equipped_items if item.get('item_type') == 'armor']
+    weapons = [item for item in equipped_items if item.get('item_type') == 'weapon']
+    
+    for armor in armor_pieces:
+        for weapon in weapons:
+            if check_synergy(armor, weapon):
+                synergies.append(get_synergy_bonus(armor, weapon))
+    
+    return synergies
+```
+
+**3. Smart Damage Calculation**
+```python
+def calculate_damage_after_resistances(self, base_damage, damage_type, target_resistances):
+    """Automatically apply resistances/immunities to damage"""
+    if damage_type in target_resistances['immunities']:
+        return 0
+    elif damage_type in target_resistances['resistances']:
+        return base_damage // 2
+    elif damage_type in target_resistances['vulnerabilities']:
+        return base_damage * 2
+    else:
+        return base_damage
+```
+
+### Enhanced DM Note Examples
+
+**Basic Combat Summary:**
+```
+COMBAT HELPER ANALYSIS FOR NORN:
+
+ATTACK CAPABILITIES:
+- Longsword Attack: +8 (STR +3, Prof +3, Weapon +2)
+- Ranged Attack: +5 (DEX +2, Prof +3)
+
+ARMOR CLASS: 19
+- Chain Mail: 16 (Base)
+- Shield: +2
+- Defense Fighting Style: +1
+
+DAMAGE RESISTANCES:
+- Necrotic (Knight's Heart Amulet)
+
+SPECIAL COMBAT ABILITIES:
+- Second Wind: 1/Short Rest (1d10+5 healing)
+- Action Surge: 1/Short Rest (extra action)
+- Extra Attack: 2 attacks per Attack action
+
+TEMPORARY EFFECTS:
+- Blessing of Protection: +2 AC vs undead (4 hours remaining)
+```
+
+**Conditional Abilities Alert:**
+```
+CONDITIONAL COMBAT BONUSES AVAILABLE:
+- Great Weapon Master: -5 attack/+10 damage (when using heavy weapons)
+- Sentinel: Opportunity attacks stop movement
+- Defense Style: +1 AC only when wearing armor ✓ ACTIVE
+```
+
+### Technical Implementation
+
+**1. Data Structure Requirements**
+```json
+{
+  "combat_analysis": {
+    "character_name": "Norn",
+    "attack_bonuses": {
+      "melee": {
+        "total": 8,
+        "breakdown": {
+          "strength": 3,
+          "proficiency": 3,
+          "weapon_enhancement": 2
+        }
+      }
+    },
+    "damage_resistances": {
+      "necrotic": {
+        "source": "Knight's Heart Amulet",
+        "type": "equipment",
+        "duration": "permanent"
+      }
+    },
+    "active_abilities": [
+      {
+        "name": "Extra Attack",
+        "description": "Make 2 attacks when taking Attack action",
+        "uses_remaining": "unlimited"
+      }
+    ]
+  }
+}
+```
+
+**2. Real-time Monitoring**
+```python
+class CombatEffectMonitor:
+    def monitor_character_changes(self, character_name):
+        """Monitor for changes that affect combat calculations"""
+        previous_state = self.get_cached_analysis(character_name)
+        current_character = load_character(character_name)
+        new_analysis = self.analyzer.analyze_character(current_character)
+        
+        if self.has_significant_changes(previous_state, new_analysis):
+            self.update_dm_notes(character_name, new_analysis)
+            self.cache_analysis(character_name, new_analysis)
+```
+
+### Integration Points
+
+**Affected Files:**
+- **New Files**: `combat_character_analyzer.py`, `modifier_calculator.py`, `resistance_processor.py`
+- **Enhanced Files**: `combat_manager.py`, `dm_wrapper.py`, `system_prompt.txt`
+- **Integration Points**: `action_handler.py`, `update_character_info.py`
+
+**AI Prompt Enhancement:**
+```python
+def enhance_dm_prompt_with_combat_analysis(base_prompt, combat_analysis):
+    """Add detailed combat information to DM prompt"""
+    enhanced_prompt = f"""
+    {base_prompt}
+    
+    COMBAT HELPER ANALYSIS:
+    {format_combat_analysis(combat_analysis)}
+    
+    IMPORTANT: Use this analysis to ensure accurate combat calculations.
+    All attack bonuses, resistances, and special abilities are pre-calculated.
+    """
+    return enhanced_prompt
+```
+
+### Benefits
+
+**1. Accuracy and Consistency**
+- Eliminates manual calculation errors
+- Ensures all character abilities are considered
+- Consistent application of resistances and immunities
+- Comprehensive tracking of temporary effects
+
+**2. Enhanced Combat Experience**
+- Players' abilities are fully utilized
+- Combat encounters are properly balanced
+- Special equipment and abilities have meaningful impact
+- Reduced confusion about character capabilities
+
+**3. DM AI Enhancement**
+- Complete character information available at all times
+- Intelligent damage calculations
+- Automatic consideration of conditional bonuses
+- Real-time updates for character changes
+
+**4. System Reliability**
+- Automated checking prevents oversight
+- Standardized calculation methods
+- Audit trail of all modifiers and sources
+- Easy debugging of combat issues
+
+### Future Enhancements
+
+**1. Predictive Analysis**
+- Suggest optimal actions based on character capabilities
+- Predict damage outcomes with resistance calculations
+- Recommend tactical decisions based on active abilities
+
+**2. Multi-character Synergy**
+- Analyze party-wide bonuses and synergies
+- Detect beneficial spell combinations
+- Optimize group tactics and positioning
+
+**3. Dynamic Encounter Balancing**
+- Adjust encounter difficulty based on party capabilities
+- Suggest monster tactics that counter party strengths
+- Balance action economy considerations
+
+### Implementation Priority
+1. **Phase 1**: Basic modifier calculation and resistance processing
+2. **Phase 2**: Integration with combat manager and DM notes
+3. **Phase 3**: Conditional logic and equipment synergies
+4. **Phase 4**: Advanced prediction and optimization features
+
+This comprehensive combat helper would transform the D&D experience by ensuring every character ability, resistance, and modifier is properly considered in every combat encounter, leading to more accurate, engaging, and fair gameplay.
