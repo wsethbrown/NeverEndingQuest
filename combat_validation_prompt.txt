@@ -154,4 +154,27 @@ Narration: "You attack and deal damage based on your roll!"
 Issue: Plan doesn't indicate waiting for player input
 Fix: Plan must show "WAITING for player's roll" when input is needed
 
+CRITICAL EXAMPLE - PROPER COMBAT FLOW (complete round before returning to player):
+{
+  "plan": "Round 1 in progress. Initiative order -> Elara (19) -> Thalor (18) -> Norn (17 – player) -> Gilly (12) -> Ooze (3). Resolved so far: Elara’s shot (8 piercing) and Thalor’s critical hammer strike (13 bludgeoning) have reduced the ooze from 22 HP to 1 HP. Next to act -> Norn. Gilly and the ooze still have turns remaining, so combat_round stays 1 until they act.",
+  "narration": "A lone arrow whistles out of the shadows and sinks into the heaving mass, sending ripples through its slick surface. Before the creature can recover, a stout dwarf barrels in, hammer flashing overhead. The blow lands with earth-shaking force, splattering globs of sizzling sludge across the cavern floor.\n\nThe ooze quivers, every tremor of its form betraying agony, yet a stubborn spark of hunger keeps it creeping forward.\n\nYou stride into the torchlight now, steeling yourself as the stench of acid curls in the air. The battered creature wobbles before you, a heartbeat from collapse. What will you do?",
+  "combat_round": 1,
+  "actions": [
+    {
+      "action": "updateEncounter",
+      "parameters": {
+        "encounterId": "R14-E1",
+        "changes": "Ooze takes 8 piercing damage from Elara’s arrow and 13 bludgeoning damage from Thalor’s hammer, for a total of 21 damage. HP reduced from 22 to 1."
+      }
+    },
+    {
+      "action": "updateCharacterInfo",
+      "parameters": {
+        "characterName": "elara",
+        "changes": "Removes one arrow from her quiver."
+      }
+    }
+  ]
+}
+
 Current encounter state:

@@ -151,7 +151,7 @@
       "locationId": "E01",
       "name": "Dungeon Entrance",
       "type": "entrance",
-      "description": "A narrow, descending staircase emerging into a dank antechamber lit by sputtering magical sconces that shed minimal blue light. Rusted manacles hang from the walls, and deep gouges in the stone suggest desperate escape attempts. A central processing desk remains intact, its surface covered with moldering ledgers recording prisoner details. Two imposing iron doors lead deeper into the complex, each marked with symbols of doom and punishment. The air is noticeably colder here than in the keep above, with each breath visible as mist, and the steady sound of dripping water creates an unsettling rhythm from unseen sources.",
+      "description": "A narrow, descending staircase emerging into a dank antechamber lit by sputtering magical sconces that shed minimal blue light. Rusted manacles hang from the walls, and deep gouges in the stone suggest desperate escape attempts. A central processing desk remains intact, its surface covered with moldering ledgers recording prisoner details. Faint, smaller-than-Norn's bootprints and a torn fragment of a blue scout's cloak lie tucked beneath the desk, alongside a single silver hair atop the ledgers, confirming Elen's recent hurried passage. After disturbing the desk, a magical Shadow Sigil trap triggered, plunging the room into magical darkness and summoning a hostile Shadow, which was swiftly defeated by Norn. Two imposing iron doors lead deeper into the complex, each marked with symbols of doom and punishment. The air is noticeably colder here than in the keep above, with each breath visible as mist, and the steady sound of dripping water creates an unsettling rhythm from unseen sources.",
       "coordinates": "X2Y1",
       "connectivity": [
         "E02",
@@ -164,26 +164,21 @@
         "SK001-C07"
       ],
       "npcs": [],
-      "monsters": [
-        {
-          "name": "Shadow",
-          "number": "1d6",
-          "disposition": "ambush",
-          "strategy": "These shadows hide in the naturally dark corners of the chamber, attacking when visitors have fully entered and are examining the prisoner ledgers."
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Jailer's key ring (opens cell doors in The Gaol)",
         "Blackened iron dagger (+1 against incorporeal undead)",
         "Moldering prisoner ledger with names of those who disappeared",
-        "Scroll of protection from evil (damaged, 50% chance of failure)"
+        "Scroll of protection from evil (damaged, 50% chance of failure)",
+        "Torn fragment of blue scout's cloak",
+        "Single silver hair"
       ],
       "plotHooks": [
         "The prisoner ledger contains entries for people not yet born, suggesting time flows strangely in the dungeons.",
         "A recent entry notes 'Scout E' being brought in by 'shadows that walk like men' and taken to 'the chamber below all chambers.'",
         "Scratched into the underside of the processing desk is a desperate message: 'The relic feeds on suffering. Do not react to what you see or hear.'"
       ],
-      "dmInstructions": "This area establishes the oppressive atmosphere of the dungeons. The shadows attack after players have entered fully. A DC 13 Investigation of the ledgers reveals unsettling entries including Scout Elen's recent imprisonment. Players who read the scratched warning gain insight into surviving the relic's influence (advantage on first save against fear or madness in the dungeon). The jailer's keys are necessary for freeing any prisoners or accessing locked areas in The Gaol.",
+      "dmInstructions": "This area establishes the oppressive atmosphere of the dungeons. The shadows attack after players have entered fully. A DC 13 Investigation of the ledgers reveals unsettling entries including Scout Elen's recent imprisonment. Players who read the scratched warning gain insight into surviving the relic's influence (advantage on first save against fear or madness in the dungeon). The jailer's keys are necessary for freeing any prisoners or accessing locked areas in The Gaol. After triggering the Shadow Sigil trap, a magical darkness and Shadow apparition are summoned. The Shadow was defeated, restoring light to the chamber.",
       "doors": [
         {
           "name": "Entry Door",
@@ -240,7 +235,7 @@
       "features": [
         {
           "name": "Processing Desk",
-          "description": "A heavy stone desk where new prisoners were recorded, still covered with ledgers and instruments."
+          "description": "A heavy stone desk where new prisoners were recorded, still covered with ledgers and instruments. Contains faint bootprints, a torn scout's cloak fragment, and a single silver hair."
         },
         {
           "name": "Wall Manacles",
@@ -251,14 +246,26 @@
           "description": "Magical light fixtures that sputter and dim periodically, creating shifting shadows."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "E01-E1",
+          "summary": "The Shadow Sigil trap was triggered when Norn disturbed the processing desk, plunging the room into magical darkness and summoning a hostile Shadow. Norn engaged in swift combat, striking powerful blows that defeated the Shadow, dispelling the darkness and restoring light to the chamber.",
+          "impact": "The Shadow was defeated and is no longer a threat in this location. Magical darkness effect from the sigil ended. Norn gained experience from the encounter.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "06:49:00"
+          }
+        }
+      ],
+      "adventureSummary": "As Norn descended into the Dungeon Entrance beneath Shadowfall Keep, she triggered the Shadow Sigil trap inscribed on the floor, plunging the room into magical darkness and summoning a hostile Shadow. After a swift combat, Norn struck down the Shadow, restoring light to the chamber. Examination of the processing desk revealed faint bootprints, a torn fragment of a blue scout's cloak, and a single silver hair, confirming Elen's recent passage. The ledgers contained cryptic entries referencing 'Scout E.' and warnings of 'Shadows that walk like men,' alongside unsettling names suggesting temporal distortions. Norn took a cautious short rest here before proceeding westward into the ancient prison block known as the Gaol."
     },
     {
       "locationId": "E02",
       "name": "The Gaol",
       "type": "prison",
-      "description": "A long corridor flanked by small, barred cells extends into shadow-filled darkness. Most cell doors hang open, their locks long since rusted or broken, while others remain ominously shut. Within some cells, strange distortions warp reality—showing occupants that aren't physically present or replaying scenes of past suffering. The stone floor is worn smooth from countless shuffling steps, and faded bloodstains mark where prisoners or guards met violent ends. A guard station with a simple desk and weapons rack stands near the entrance, while at the far end, a heavy iron door leads deeper into the dungeon complex. The constant sounds of weeping, moaning, and occasionally screaming emanate from the cells, though investigation reveals them to be empty of living occupants.",
+      "description": "A long corridor flanked by small, barred cells extends into shadow-filled darkness. Most cell doors hang open, their locks long since rusted or broken, while others remain ominously shut. Within some cells, strange distortions warp reality--showing occupants that aren't physically present or replaying scenes of past suffering. The stone floor is worn smooth from countless shuffling steps, and faded bloodstains mark where prisoners or guards met violent ends. A guard station with a simple desk and weapons rack stands near the entrance, now searched to reveal a hidden compartment containing a palm-sized echo crystal and a parchment listing prisoner names. At the far end, a heavy iron door leads deeper into the dungeon complex. The constant sounds of weeping, moaning, and occasionally screaming emanate from the cells, though investigation reveals them to be empty of living occupants. The battered guard station desk shows signs of recent disturbance, and cell seven houses the spectral echo of Scout Elen, who relives her fear and offers cryptic warnings about the curse gripping the Gaol.",
       "coordinates": "X1Y1",
       "connectivity": [
         "E01",
@@ -269,41 +276,32 @@
       "npcs": [
         {
           "name": "Prisoner Echo",
-          "description": "Not a true NPC but a phenomenon—cell 7 contains a partially substantial echo of Scout Elen, endlessly reliving her capture and questioning. This echo can provide limited information but cannot be physically freed.",
+          "description": "Not a true NPC but a phenomenon--cell 7 contains a partially substantial echo of Scout Elen, endlessly reliving her capture and questioning. This echo can provide limited information but cannot be physically freed.",
           "attitude": "Confused and frightened, repeating the same sequences"
         }
       ],
-      "monsters": [
-        {
-          "name": "Ghouls",
-          "number": "1d6",
-          "disposition": "hungry",
-          "strategy": "These ghouls were once prisoners who resorted to cannibalism. They hide in cells, springing out to paralyze and drag away isolated targets."
-        },
-        {
-          "name": "Gibbering Mouther",
-          "number": 1,
-          "disposition": "insane",
-          "strategy": "This horrific mass of mouths and eyes was created from prisoners subjected to the shadow relic's worst influences. It hides in the darkest cell, luring victims with whispered pleas for help."
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Rusted but serviceable shortsword (+1 when fighting in the dungeons only)",
         "Prisoner's journal detailing the keep's fall from a different perspective",
-        "Small pouch with 3d10 gp hidden in a loose stone",
+        "Small pouch with 21 gp hidden in a loose stone",
         "Echo crystal (can replay sounds it has absorbed when activated)",
-        "Scout Elen's identification tag torn from her cloak"
+        "Scout Elen's identification tag torn from her cloak",
+        "Tarnished iron key ring with three ancient keys",
+        "Battered journal titled 'Sergeant Ralth's Gaol Log'"
       ],
       "plotHooks": [
         "The Prisoner Echo of Scout Elen repeatedly mentions 'the heart' and 'his lost love' being the key to Sir Garran's salvation.",
         "The echo crystal, when activated, plays a conversation between Shadow Knight Garran and the shadow relic, revealing their conflicted relationship.",
-        "Cell 13 contains temporal distortions showing possible futures—including one where the shadow relic escapes to consume the entire region in darkness."
+        "Cell 13 contains temporal distortions showing possible futures--including one where the shadow relic escapes to consume the entire region in darkness.",
+        "Cryptic map highlighting cell seven points to important story elements.",
+        "Sir Garran awaits beyond the Gaol, past the guards and into the darkness, with the 'heart' as a key to weakening the curse."
       ],
-      "dmInstructions": "This area focuses on psychological horror and information gathering. The ghouls attack from cells when players investigate suspicious sounds. The gibbering mouther emerges only if players respond to cries for help from the last cell. The Prisoner Echo provides cryptic but valuable information if engaged with respectfully (speaking to it as if it were the real Scout Elen). The echo crystal is hidden in the guard station desk (DC 14 Investigation to find) and provides crucial insight into Sir Garran's tragic situation when activated (no check required).",
+      "dmInstructions": "This area focuses on psychological horror and information gathering. The ghouls and gibbering mouther are defeated and no longer active. The Prisoner Echo provides cryptic but valuable information if engaged with respectfully (speaking to it as if it were the real Scout Elen). The echo crystal is found in the guard station desk (already discovered) and provides crucial insight into Sir Garran's tragic situation when activated (no check required). The heavy iron door to the Guard Post remains locked and must be opened with one of the ancient keys found on the key ring. Some traps may still linger and should be handled with caution.",
       "doors": [
         {
           "name": "Cell Doors",
-          "description": "Iron-barred doors to individual cells, most rusted open but some still locked.",
+          "description": "Iron-barred doors to individual cells, most rusted open but some still locked. Some cell doors remain intact but empty of monsters.",
           "type": "barred",
           "locked": true,
           "lockDC": 12,
@@ -314,7 +312,7 @@
         },
         {
           "name": "Guard Post Door",
-          "description": "A sturdy door leading from The Gaol to the Guard Post beyond.",
+          "description": "A sturdy door leading from The Gaol to the Guard Post beyond. It remains locked but can be opened with one of the ancient keys found on the key ring.",
           "type": "heavy",
           "locked": true,
           "lockDC": 14,
@@ -338,10 +336,11 @@
         "Investigation DC 14: Find the hidden echo crystal in the guard station desk.",
         "Arcana DC 16: Detect cells affected by the Hunger Curse before entering them.",
         "Perception DC 13: Notice which cells contain hidden ghouls before they attack.",
-        "Insight DC 15: Interpret the meaning behind the Prisoner Echo's repetitive statements."
+        "Insight DC 15: Interpret the meaning behind the Prisoner Echo's repetitive statements.",
+        "Investigation DC 12: Discover the hidden compartment in the guard station desk containing the echo crystal and prisoner list."
       ],
       "accessibility": "Long corridor with narrow cell entrances; relatively flat but psychologically disorienting.",
-      "dangerLevel": "High",
+      "dangerLevel": "Medium",
       "features": [
         {
           "name": "Spectral Prisoners",
@@ -349,21 +348,33 @@
         },
         {
           "name": "Guard Station",
-          "description": "A small desk and weapons rack where guards monitored the cells, now covered in dust and decay."
+          "description": "A small desk and weapons rack where guards monitored the cells, now searched and revealing a hidden compartment with an echo crystal and prisoner list."
         },
         {
           "name": "Cell 7",
-          "description": "The cell containing the Prisoner Echo of Scout Elen, where temporal distortions are strongest."
+          "description": "The cell containing the Prisoner Echo of Scout Elen, where temporal distortions are strongest. The echo offers cryptic warnings about the curse and 'the heart.'"
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "E02-E1",
+          "summary": "Norn entered a dimly lit corridor lined with rusted cell doors, filled with the stench of decay and marked by dark stains and scattered bones. A gibbering mouther and a ravenous ghoul emerged from their confinement, attacking her with ferocious hunger and madness. After a tense six-round battle, Norn skillfully defeated both monsters, earning 650 experience points and surviving unscathed. She recovered a tarnished iron key ring with three ancient keys, a battered journal titled 'Sergeant Ralth's Gaol Log,' and a pouch containing 21 gold coins.",
+          "impact": "Ghoul and gibbering mouther defeated and removed from the monster list. Key ring and journal added to loot table. Guard station desk marked as searched revealing echo crystal and prisoner list. The Prisoner Echo remains as a cryptic NPC in cell 7. Danger level reduced to Medium given monster threat removed.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "07:11:00"
+          }
+        }
+      ],
+      "adventureSummary": "In the Gaol, Norn entered a dimly lit corridor lined with rusted cell doors, filled with the stench of decay and marked by dark stains and scattered bones. As she advanced, the eerie whispers of lurking horrors became evident when a gibbering mouther and a ravenous ghoul emerged from their confinement, attacking her with ferocious hunger and madness. After a tense six-round battle, Norn skillfully defeated both monsters, earning 650 experience points and surviving unscathed. Searching the remains, she recovered a tarnished iron key ring with three ancient keys, a battered journal titled 'Sergeant Ralth's Gaol Log,' and a pouch containing 21 gold coins. The journal detailed the prison's descent into chaos, prisoners' madness, guards disappearing, and a mysterious 'thing of mouths,' along with a cryptic map highlighting cell seven. Proceeding to search the cells methodically, Norn encountered the spectral echo of Scout Elen in cell seven, who relived her fear and spoke cryptic warnings about 'the heart' and an unfinished promise by Sir Garran that might break the curse haunting the Gaol. At the battered guard station desk, after a successful Investigation check, Norn discovered a hidden compartment containing a palm-sized echo crystal and a parchment listing prisoner names, potentially vital clues for the dungeon's mysteries. Interacting with Elen's echo revealed that Sir Garran awaited beyond the Gaol, past the guards and into the darkness, with the 'heart' as a key to weakening the curse. Guided by the echo's directions, Norn prepared to proceed through the heavy iron door toward the Guard Post, aware of lingering traps and dangers, ready to follow the path toward confronting the source of the curse deeper within the keep."
     },
     {
       "locationId": "E03",
       "name": "Torture Chamber",
       "type": "chamber",
-      "description": "A nightmarish space dominated by instruments of suffering. Iron maidens, stretching racks, cages, and devices of more esoteric purpose line the walls and fill the central area. The stone floor slopes subtly toward central drainage channels still stained rust-brown. Chains hang from the ceiling, occasionally swaying without any breeze. Spectral screams periodically fill the air, and the temperature fluctuates wildly from freezing cold to uncomfortable heat. A large iron brazier stands in one corner, eternally burning with ghostly blue flames that provide minimal illumination but no warmth. The walls bear scratch marks from desperate victims and carefully etched tallies marking unknown counts. A heavy wooden table holds implements of precision cruelty—pliers, blades, and hooks arrayed with disturbing orderliness despite centuries of abandonment.",
+      "description": "A nightmarish space dominated by instruments of suffering. Iron maidens, stretching racks, cages, and devices of more esoteric purpose line the walls and fill the central area. The stone floor slopes subtly toward central drainage channels still stained rust-brown. Chains hang from the ceiling, occasionally swaying without any breeze. Spectral screams periodically fill the air, and the temperature fluctuates wildly from freezing cold to uncomfortable heat. A large iron brazier stands in one corner, eternally burning with ghostly blue flames that provide minimal illumination but no warmth. The walls bear scratch marks from desperate victims and carefully etched tallies marking unknown counts. A heavy wooden table holds implements of precision cruelty--pliers, blades, and hooks arrayed with disturbing orderliness despite centuries of abandonment.",
       "coordinates": "X3Y1",
       "connectivity": [
         "E01",
@@ -383,7 +394,7 @@
           "name": "Animated Torture Devices",
           "number": "1d4",
           "disposition": "hungry",
-          "strategy": "These animate objects—iron maidens, cages, and restraints—attempt to capture and hold victims while the Phantom Torturer works."
+          "strategy": "These animate objects--iron maidens, cages, and restraints--attempt to capture and hold victims while the Phantom Torturer works."
         }
       ],
       "lootTable": [
@@ -395,10 +406,10 @@
       ],
       "plotHooks": [
         "The torturer's journal reveals rebels claiming the real Sir Garran 'trapped his soul in his heart' for safekeeping before the shadow fully claimed him.",
-        "The secret compartment (DC 15 Investigation to find) contains a report about 'Project Umbral Shield'—Sir Garran's attempt to create a defensive weapon against rival necromancers.",
+        "The secret compartment (DC 15 Investigation to find) contains a report about 'Project Umbral Shield'--Sir Garran's attempt to create a defensive weapon against rival necromancers.",
         "A preserved recording crystal in one device contains Scout Elen's voice claiming she found 'the heart amulet' but was ambushed before she could use it."
       ],
-      "dmInstructions": "This area focuses on combat and revelations about Sir Garran's past. The Phantom Torturer and animated devices attack when players disturb any equipment or attempt to leave. The torturer targets spellcasters first, believing them to be 'rebel mages.' The secret compartment is hidden behind a loose stone in the wall (Investigation DC 15) and contains crucial documents about the shadow relic's original purpose—a weapon that turned on its creator. The recording crystal is inside a speaking trumpet device on the torturer's table and activates when touched.",
+      "dmInstructions": "This area focuses on combat and revelations about Sir Garran's past. The Phantom Torturer and animated devices attack when players disturb any equipment or attempt to leave. The torturer targets spellcasters first, believing them to be 'rebel mages.' The secret compartment is hidden behind a loose stone in the wall (Investigation DC 15) and contains crucial documents about the shadow relic's original purpose--a weapon that turned on its creator. The recording crystal is inside a speaking trumpet device on the torturer's table and activates when touched.",
       "doors": [
         {
           "name": "Storage Vault Door",
@@ -451,7 +462,8 @@
       "locationId": "E04",
       "name": "Guard Post",
       "type": "garrison",
-      "description": "A fortified chamber where dungeon guards once monitored prisoner movement and defended against escape attempts. Weapon racks line the walls, most empty but some still holding corroded halberds and crossbows. A heavy wooden table dominates the center, covered with faded duty rosters and stained playing cards. Arrow slits in one wall allowed guards to fire upon trouble in connecting corridors. Several cots remain in various states of decay along the back wall, and a small shrine to forgotten gods of order and justice stands desecrated in one corner. The ceiling is lower here than in other chambers, creating a sense of claustrophobia, and supporting pillars cast distinctive cross-shaped shadows regardless of light source position. A barred gate designed to control access stands partially open, its mechanism long since failed.",
+      "description": "A fortified chamber where dungeon guards once monitored prisoner movement and defended against escape attempts. Weapon racks line the walls, most empty but some still holding corroded halberds and crossbows. A heavy wooden table dominates the center, covered with faded duty rosters, stained playing cards, and a crudely scratched map revealing a secret passage to the Forgotten Ossuary. Arrow slits in one wall allowed guards to fire upon trouble in connecting corridors. Several cots remain in various states of decay along the back wall, and a small shrine to forgotten gods of order and justice stands here, now cleansed and restored, its holy presence dispelling lingering shadows. The ceiling is lower here than in other chambers, creating a sense of claustrophobia, and supporting pillars cast distinctive cross-shaped shadows regardless of light source position. A barred gate designed to control access stands partially open, its mechanism long since failed. The chamber bears signs of recent combat, but the threat has been eliminated.",
+      "dmInstructions": "This area presents tactical challenge and exploration opportunities. The wights and shadow mastiff have been defeated in a recent encounter. Players can find clues such as Scout Elen's bootprints with a scrap of blue thread, a hastily marked duty roster warning about a special prisoner moved below, and a crude map revealing a hidden passage to the Forgotten Ossuary. The desecrated shrine can be restored through appropriate religious rites (Religion DC 13), granting a blessing of +2 AC against undead for 8 hours. Searching the shrine (Investigation DC 14) reveals a potion of heroism and a folded page from the Spectral Scribe's journal. A ring of keys found can open the storage lockers. Encourage players to consider taking the concealed route eastward into the Forgotten Ossuary as a safer travel option.",
       "coordinates": "X1Y2",
       "connectivity": [
         "E02",
@@ -459,34 +471,76 @@
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
-      "npcs": [],
-      "monsters": [
+      "npcs": [
         {
-          "name": "Wights",
-          "number": "1d4",
-          "disposition": "sentinel",
-          "strategy": "These undead former guards still patrol their post, attacking intruders on sight. They coordinate tactically, using crossbows from cover before engaging in melee."
+          "name": "Scout Elen",
+          "description": "A missing scout whose recent passage is evidenced by bootprints with a scrap of blue thread and a marked duty roster indicating a special prisoner moved below.",
+          "attitude": "Unknown"
         },
         {
-          "name": "Shadow Mastiff",
-          "number": 1,
-          "disposition": "loyal",
-          "strategy": "This shadow beast served as the guards' hound in life and now aids the wights, using darkness to hide and ambush from unexpected angles."
+          "name": "Sir Garran",
+          "description": "Former guard captain who left a cryptic letter hinting at a tragic fate and instructions to end him should he lose control.",
+          "attitude": "Unknown"
         }
       ],
+      "monsters": [],
       "lootTable": [
-        "Guard captain's enchanted crossbow (+1 to hit and damage)",
         "Potion of heroism (hidden in a hollow shrine base)",
+        "Folded page from the Spectral Scribe's journal",
         "Duty roster with notes about the 'special prisoner' (the shadow relic) in the lowest chamber",
         "Ring of keys (opens various storage lockers in this room)",
+        "Crude map etched into the table revealing a concealed passage to the Forgotten Ossuary",
+        "Cryptic letter from Sir Garran",
         "Antique silver flask of potent spirits (heals 2d4+2 HP and grants advantage on fear saves for 1 hour)"
       ],
       "plotHooks": [
         "The duty roster reveals guards were rotated frequently to prevent 'the whispering darkness' from affecting them too deeply.",
         "A hidden letter from Sir Garran orders the guard captain to 'end him' should he ever lose control completely, suggesting he feared his own corruption.",
-        "Scratched into the table's surface is a crude map showing a hidden escape tunnel that connects to the Forgotten Ossuary."
+        "Scratched into the table's surface is a crude map showing a hidden escape tunnel that connects to the Forgotten Ossuary.",
+        "Scout Elen fled with hope, possibly carrying important information or items related to the shadow relic.",
+        "The restored shrine now provides a blessing granting +2 AC against undead for 8 hours."
       ],
-      "dmInstructions": "This area presents a tactical combat challenge. The wights begin by firing crossbows from behind cover (arrow slits and pillars), while the shadow mastiff circles to attack from behind. The shrine (DC 14 Investigation) contains the potion and a holy symbol that grants advantage against the shadow relic's mental influence. The scratched map (no check needed if the table is examined) reveals a secret passage to the Forgotten Ossuary that bypasses some of the dungeon's dangers. Players who restore the desecrated shrine (any appropriate religious action) receive a blessing of protection against undead (+2 AC against undead for 8 hours).",
+      "dangerLevel": "Low",
+      "traps": [],
+      "features": [
+        {
+          "name": "Arrow Slits",
+          "description": "Narrow openings in one wall allowing ranged attacks into adjoining corridors."
+        },
+        {
+          "name": "Restored Shrine",
+          "description": "A small altar to gods of order and justice, now cleansed and holy, dispelling shadows and granting divine blessing."
+        },
+        {
+          "name": "Guard Table",
+          "description": "A heavy wooden surface covered with duty rosters, playing cards, a folded journal page, and a scratched map revealing a hidden passage."
+        },
+        {
+          "name": "Concealed Passage",
+          "description": "A hidden tunnel behind a weapons rack leading eastward into the Forgotten Ossuary, discovered from the crude map."
+        }
+      ],
+      "dcChecks": [
+        "Investigation DC 14: Find the potion and holy symbol hidden in the shrine base.",
+        "Perception DC 15: Notice the hidden passage entrance behind a weapons rack.",
+        "Religion DC 13: Understand how to properly restore the desecrated shrine.",
+        "Insight DC 14: Interpret the deeper meaning behind Sir Garran's letter to the guard captain."
+      ],
+      "accessibility": "Low-ceilinged chamber with pillars and obstacles; somewhat difficult to navigate.",
+      "encounters": [
+        {
+          "encounterId": "E04-E1",
+          "summary": "Norn engaged and defeated a wight clad in corroded mail and a shadow mastiff that ambushed from behind pillars in the Guard Post. The wight attacked with a crossbow from cover while the mastiff attempted to flank. After a fierce three-round battle, Norn emerged victorious and nearly unscathed.",
+          "impact": "The hostile undead sentinels were eliminated, allowing safe exploration of the Guard Post. Norn found evidence of Scout Elen's passage, a potion of heroism, a folded journal page, a crude map revealing a hidden passage to the Forgotten Ossuary, a ring of keys for storage lockers, and a cryptic letter from Sir Garran. Restoring the shrine cleansed the area and granted a blessing of +2 AC against undead for eight hours.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "07:34:00"
+          }
+        }
+      ],
+      "adventureSummary": "Upon returning to the Guard Post, Norn faced and defeated hostile undead sentinels: a wight and a shadow mastiff. After victory, he searched the chamber discovering evidence of Scout Elen's passage, a potion of heroism, a folded page from the Spectral Scribe's journal, a crude map revealing a concealed passage to the Forgotten Ossuary, a ring of keys, and a cryptic letter from Sir Garran. Norn restored the desecrated shrine, dispelling lingering shadows and gaining a divine blessing granting +2 AC against undead for eight hours. Choosing prudence, he resolved to take the hidden passage eastward into the Forgotten Ossuary, leaving the Guard Post behind.",
       "doors": [
         {
           "name": "Barred Gate",
@@ -521,38 +575,13 @@
           "trapped": false,
           "trap": ""
         }
-      ],
-      "traps": [],
-      "dcChecks": [
-        "Investigation DC 14: Find the potion and holy symbol hidden in the shrine base.",
-        "Perception DC 15: Notice the hidden passage entrance behind a weapons rack.",
-        "Religion DC 13: Understand how to properly restore the desecrated shrine.",
-        "Insight DC 14: Interpret the deeper meaning behind Sir Garran's letter to the guard captain."
-      ],
-      "accessibility": "Low-ceilinged chamber with pillars and obstacles; somewhat difficult to navigate.",
-      "dangerLevel": "Medium",
-      "features": [
-        {
-          "name": "Arrow Slits",
-          "description": "Narrow openings in one wall allowing ranged attacks into adjoining corridors."
-        },
-        {
-          "name": "Desecrated Shrine",
-          "description": "A small altar to gods of order and justice, now defaced with shadow symbols."
-        },
-        {
-          "name": "Guard Table",
-          "description": "A heavy wooden surface covered with duty rosters, playing cards, and a scratched map."
-        }
-      ],
-      "encounters": [],
-      "adventureSummary": ""
+      ]
     },
     {
       "locationId": "E05",
       "name": "Storage Vaults",
       "type": "storage",
-      "description": "A series of interconnected chambers filled with shelves, crates, and barrels containing supplies for the dungeon's operation. Many containers have rotted or broken over time, spilling their contents across the stone floor. Preserved specimens float in cloudy jars—body parts and stranger things collected for unknown purposes. Alchemical equipment lines one wall, with dried residue suggesting the creation of toxins and truth serums. The air carries a chemical smell overlaid with decay, and bioluminescent fungi growing on the ceiling casts an eerie, pulsing green light throughout. Several wardrobes contain moldering guard uniforms and restraint devices, while locked cabinets hold more sinister implements. A partially collapsed passage in one corner suggests a cave-in from upper levels, with rubble partially blocking access to some storage areas.",
+      "description": "A series of interconnected chambers filled with shelves, crates, and barrels containing supplies for the dungeon's operation. Many containers have rotted or broken over time, spilling their contents across the stone floor. Preserved specimens float in cloudy jars--body parts and stranger things collected for unknown purposes. Alchemical equipment lines one wall, with dried residue suggesting the creation of toxins and truth serums. The air carries a chemical smell overlaid with decay, and bioluminescent fungi growing on the ceiling casts an eerie, pulsing green light throughout. Several wardrobes contain moldering guard uniforms and restraint devices, while locked cabinets hold more sinister implements. A partially collapsed passage in one corner suggests a cave-in from upper levels, with rubble partially blocking access to some storage areas.",
       "coordinates": "X3Y2",
       "connectivity": [
         "E03",
@@ -583,11 +612,11 @@
         "Small box containing 3 doses of rare antitoxin effective against magical poisons"
       ],
       "plotHooks": [
-        "The experimental journal details attempts to harness the shadow relic's power for protection rather than corruption—Sir Garran's original intent gone awry.",
+        "The experimental journal details attempts to harness the shadow relic's power for protection rather than corruption--Sir Garran's original intent gone awry.",
         "A preserved specimen labeled 'Shadow Manifestation' shows a physical sample of the relic's substance, with notes on its vulnerability to certain frequencies of light.",
         "A partially burned letter from Sir Garran to a trusted mage asks for help containing the relic, stating 'It speaks to me now, even in daylight.'"
       ],
-      "dmInstructions": "This area rewards careful exploration but punishes carelessness. The gelatinous cube moves slowly through the main pathways and can be avoided with successful Perception checks (DC 12) to spot its nearly invisible form. The mimic appears as an ornate chest in an alcove, attacking only if directly approached. The experimental journal (found in a locked cabinet, DC 14 to pick) provides crucial information about the shadow relic's vulnerabilities to specific types of light—information that grants advantage during the final confrontation if used tactically. The antitoxin is hidden behind several specimen jars (Investigation DC 13).",
+      "dmInstructions": "This area rewards careful exploration but punishes carelessness. The gelatinous cube moves slowly through the main pathways and can be avoided with successful Perception checks (DC 12) to spot its nearly invisible form. The mimic appears as an ornate chest in an alcove, attacking only if directly approached. The experimental journal (found in a locked cabinet, DC 14 to pick) provides crucial information about the shadow relic's vulnerabilities to specific types of light--information that grants advantage during the final confrontation if used tactically. The antitoxin is hidden behind several specimen jars (Investigation DC 13).",
       "doors": [
         {
           "name": "Secured Cabinet",
@@ -676,7 +705,7 @@
         "The ritual platform contains markings showing how to properly approach and potentially bind the shadow relic using 'the heart's resonance.'",
         "Names inscribed on certain skulls match those of Sir Garran's most trusted knights, suggesting they were sacrificed or corrupted in the relic's early days."
       ],
-      "dmInstructions": "This chamber serves as the final challenge before the Relic Chamber. The Bone Speaker blocks the archway and demands visitors demonstrate their purpose and knowledge of Sir Garran's true story (easily done if players have gathered information throughout the dungeon). It asks three questions about Sir Garran, the shadow relic, and Scout Elen—each correct answer opens the way further, while wrong answers cause skeletons to attack. If players show the Knight's Heart Amulet, the Bone Speaker immediately recognizes it and offers additional guidance, explaining how to use it against the shadow relic. The map is hidden in a specific skull marked with a crown symbol (DC 15 Investigation to find).",
+      "dmInstructions": "This chamber serves as the final challenge before the Relic Chamber. The Bone Speaker blocks the archway and demands visitors demonstrate their purpose and knowledge of Sir Garran's true story (easily done if players have gathered information throughout the dungeon). It asks three questions about Sir Garran, the shadow relic, and Scout Elen--each correct answer opens the way further, while wrong answers cause skeletons to attack. If players show the Knight's Heart Amulet, the Bone Speaker immediately recognizes it and offers additional guidance, explaining how to use it against the shadow relic. The map is hidden in a specific skull marked with a crown symbol (DC 15 Investigation to find).",
       "doors": [
         {
           "name": "Grand Archway",
@@ -740,7 +769,7 @@
       "locationId": "E07",
       "name": "Relic Chamber",
       "type": "ritual",
-      "description": "The heart of darkness beneath the keep—a perfectly circular chamber with a domed ceiling covered in arcane symbols that seem to shift and change when not directly observed. The room's center holds a raised dais upon which floats a pulsating object of pure shadow, vaguely heart-shaped but constantly morphing—the shadow relic itself. Channels carved into the floor form concentric circles around the dais, once filled with blood but now dry and dark. Seven pillars arranged in a circle support the domed ceiling, each carved with scenes depicting the relic's history and power. The air here feels thick and resistant, as if reality itself struggles against dissolution, and shadows cast by any light source move independently and reach toward living creatures. Whispers constantly emanate from the relic, speaking in multiple overlapping voices promising power, revenge, or salvation depending on who listens. At the chamber's far side, a throne-like chair holds the fully manifested form of Sir Garran Vael, now more shadow than man, his armor fused with his corrupted flesh and his eyes burning with conflicted purpose.",
+      "description": "The heart of darkness beneath the keep--a perfectly circular chamber with a domed ceiling covered in arcane symbols that seem to shift and change when not directly observed. The room's center holds a raised dais upon which floats a pulsating object of pure shadow, vaguely heart-shaped but constantly morphing--the shadow relic itself. Channels carved into the floor form concentric circles around the dais, once filled with blood but now dry and dark. Seven pillars arranged in a circle support the domed ceiling, each carved with scenes depicting the relic's history and power. The air here feels thick and resistant, as if reality itself struggles against dissolution, and shadows cast by any light source move independently and reach toward living creatures. Whispers constantly emanate from the relic, speaking in multiple overlapping voices promising power, revenge, or salvation depending on who listens. At the chamber's far side, a throne-like chair holds the fully manifested form of Sir Garran Vael, now more shadow than man, his armor fused with his corrupted flesh and his eyes burning with conflicted purpose.",
       "coordinates": "X2Y3",
       "connectivity": [
         "E06"
@@ -781,11 +810,11 @@
         "Chest containing 5d20 gp, 3d6 gemstones, and a deed to the keep"
       ],
       "plotHooks": [
-        "If redeemed, Sir Garran reveals the shadow relic was originally created to defend the region against necromantic invasion—a protective tool that became corrupted.",
+        "If redeemed, Sir Garran reveals the shadow relic was originally created to defend the region against necromantic invasion--a protective tool that became corrupted.",
         "The pillars show scenes of a rival lord using similar shadow magic against innocent villages, explaining why Sir Garran sought such power in the first place.",
         "Scout Elen made it this far and actually managed to partially awaken Sir Garran's humanity before being captured, explaining his current conflicted state."
       ],
-      "dmInstructions": "This is the campaign's climactic encounter with multiple possible resolutions. Sir Garran attacks when players approach the relic, commanding shadow manifestations to aid him. The Knight's Heart Amulet is crucial—when presented and accompanied by words calling to his humanity (referencing his love, duty, or original purpose), it forces a DC 15 Wisdom save from Sir Garran. Success means he briefly regains control, allowing negotiation or providing advantage against him for 1d4 rounds. The shadow relic attempts to influence party members with whispered offers (DC 14 Wisdom saves to resist). Players can choose to destroy the relic (requiring specific light-based attacks discovered earlier), contain it using the ritual markings (requiring Arcana DC 16), or attempt to cleanse it of corruption (requiring the Knight's Heart and a major sacrifice). Each choice has different consequences for Sir Garran, Scout Elen, and the keep's future. Scout Elen can be freed by destroying her shadow cage (AC 15, 20 HP, vulnerable to radiant damage).",
+      "dmInstructions": "This is the campaign's climactic encounter with multiple possible resolutions. Sir Garran attacks when players approach the relic, commanding shadow manifestations to aid him. The Knight's Heart Amulet is crucial--when presented and accompanied by words calling to his humanity (referencing his love, duty, or original purpose), it forces a DC 15 Wisdom save from Sir Garran. Success means he briefly regains control, allowing negotiation or providing advantage against him for 1d4 rounds. The shadow relic attempts to influence party members with whispered offers (DC 14 Wisdom saves to resist). Players can choose to destroy the relic (requiring specific light-based attacks discovered earlier), contain it using the ritual markings (requiring Arcana DC 16), or attempt to cleanse it of corruption (requiring the Knight's Heart and a major sacrifice). Each choice has different consequences for Sir Garran, Scout Elen, and the keep's future. Scout Elen can be freed by destroying her shadow cage (AC 15, 20 HP, vulnerable to radiant damage).",
       "doors": [
         {
           "name": "Chamber Entrance",

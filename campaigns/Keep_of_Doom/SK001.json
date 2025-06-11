@@ -828,39 +828,71 @@
       "locationId": "C07",
       "name": "Lord's Study",
       "type": "study",
-      "description": "Sir Garran Vael's private sanctuary, remarkably preserved compared to the rest of the keep. Wood-paneled walls lined with bookshelves surround an imposing desk carved from dark wood. A massive fireplace dominates one wall, eternally cold despite logs laid ready. Arcane symbols have been etched into the floor around the central rug, forming a complex containment circle. A portrait of Sir Garran in his prime hangs above the mantle, the eyes seeming to follow any movement in the room. The air here feels charged with potential energy, and whispers at the edge of hearing suggest secrets being shared just beyond comprehension. Scattered parchments cover the desk, the ink still appearing wet despite being centuries old. A grandfather clock stands in one corner, its hands frozen at midnight regardless of attempts to move them.",
+      "description": "Sir Garran Vael's private sanctuary, remarkably preserved compared to the rest of the keep. Wood-paneled walls lined with bookshelves surround an imposing desk carved from dark wood. A massive fireplace dominates one wall, eternally cold despite logs laid ready. Arcane symbols have been etched into the floor around the central rug, forming a complex containment circle. A portrait of Sir Garran in his prime hangs above the mantle, the eyes seeming to follow any movement in the room. The air here feels charged with potential energy, and whispers at the edge of hearing suggest secrets being shared just beyond comprehension. Scattered parchments cover the desk, the ink still appearing wet despite being centuries old. A grandfather clock stands in one corner, its hands frozen at midnight regardless of attempts to move them. Smaller muddy bootprints lead behind the desk past a toppled chair. A blood smear stains the writing table. A half-eaten scout's emergency ration is hidden behind maps, and a torn blue scrap of cloth hangs from a drawer handle. The room is thick with enchantments, and a cold, sorrowful whisper emanates near the far bookshelf, signaling latent dangers. A central rug has been pulled back to reveal a locked trapdoor inscribed with arcane runes matching those in Sir Garran's journal. The trap's necrotic magic is now dormant after the defeat of the spectral guardian. The trapdoor is unlocked and open, revealing stairs descending into darkness below.",
+      "dmInstructions": "The Shadow of Sir Garran appears as a spectral guardian defending this study, using knightly combat techniques and shadow magic. Players who wear or display the Knight's Heart Amulet may gain a chance to ask one question before hostilities or possibly avoid combat. The study holds vital clues about Sir Garran's battle against corruption and the shadow relic. Disturbing tomes may trigger animated objects as guardians. The hidden trapdoor beneath the rug is now unlocked using the ornate key, with its necrotic shadow ward disabled after the guardian's defeat. The descending stairwell leads to the Cursed Dungeons below. The ornate dungeon key's magic was expended upon unlocking and is no longer in the party's inventory.",
       "coordinates": "X3Y3",
       "connectivity": [
         "C05"
       ],
       "areaConnectivity": [
-        "The Cursed Dungeons Entrance"
+        "Dungeon Entrance"
       ],
       "areaConnectivityId": [
         "TCD001-E01"
       ],
       "npcs": [],
-      "monsters": [
-        {
-          "name": "Shadow of Sir Garran",
-          "number": 1,
-          "disposition": "guardian",
-          "strategy": "This is not Sir Garran himself but a powerful shadow aspect that defends his private sanctum. It uses the knight's fighting techniques and can manipulate objects in the room to its advantage."
-        }
-      ],
-      "lootTable": [
-        "Sir Garran's personal journal (details his corruption and attempts to resist)",
-        "Ornate key to the dungeons below (iron with shadow-absorbing black gems)",
-        "Ritual dagger used in shadow magic (corrupt but powerful arcane focus)",
-        "Locket containing portrait of Sir Garran's lost love (provides insight into his humanity)",
-        "Small chest of rare components (value 100 gp, useful for ritual against the relic)"
-      ],
+      "monsters": [],
       "plotHooks": [
         "Sir Garran's journal reveals he was initially a victim, not the cause of the corruption, and still fights the relic's influence from within his cursed form.",
         "Diagrams and notes show a hidden chamber beneath the study where the shadow relic was originally stored and sealed.",
         "A half-written letter begs forgiveness from 'my beloved Elara' and mentions a failsafe he created should the darkness ever claim him completely."
       ],
-      "dmInstructions": "The Shadow of Sir Garran manifests when players attempt to take the journal or dungeon key, attacking with ghostly weapons and shadow magic. If players wear or display the Knight's Heart Amulet from the chapel, the shadow hesitates, allowing one question to be asked before attacking (or possibly yielding entirely if the question shows understanding of Sir Garran's tragedy). The study contains crucial information about Sir Garran's initial good intentions, his corruption, and the shadow relic's nature. A trapdoor beneath the central rug (DC 16 Investigation to find if not mentioned in documents) leads to the dungeons below, but is magically sealed until unlocked with the ornate key.",
+      "lootTable": [
+        "Sir Garran's personal journal (details his corruption and attempts to resist)",
+        "Ritual dagger used in shadow magic (corrupt but powerful arcane focus)",
+        "Locket containing portrait of Sir Garran's lost love (provides insight into his humanity)",
+        "Small chest of rare components (value 100 gp, useful for ritual against the relic)"
+      ],
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Arcane Containment Circle",
+          "description": "Complex symbols etched into the floor around the central rug, designed to contain shadow magic."
+        },
+        {
+          "name": "Tracking Portrait",
+          "description": "A painting of Sir Garran Vael whose eyes seem to follow anyone moving in the room."
+        },
+        {
+          "name": "Frozen Clock",
+          "description": "A grandfather clock perpetually stopped at midnight, occasionally ticking backward."
+        },
+        {
+          "name": "Blood Smear and Bootprints",
+          "description": "Smaller muddy bootprints and a blood smear indicating recent passage and injury in the study."
+        },
+        {
+          "name": "Hidden Trapdoor",
+          "description": "Concealed entrance under the central rug leading to the dungeons below, now unlocked and opened."
+        }
+      ],
+      "dcChecks": [
+        "Investigation DC 16: Find the hidden trapdoor beneath the rug if not mentioned in documents.",
+        "Arcana DC 15: Understand the containment circle's purpose and how it relates to the shadow relic.",
+        "History DC 14: Recognize references in Sir Garran's writings to historical events and figures.",
+        "Perception DC 13: Notice the portrait's eyes tracking movement and the subtle gathering of shadows."
+      ],
+      "accessibility": "Well-preserved room with minimal obstacles; rug conceals trapdoor which is now open and accessible.",
+      "traps": [
+        {
+          "name": "Animated Objects",
+          "description": "Books and furniture that attack intruders who disturb certain tomes or areas.",
+          "detectDC": 15,
+          "disableDC": 16,
+          "triggerDC": 14,
+          "damage": "1d4 books animate as tiny constructs, attacking for 1d4 bludgeoning damage each. Heavy furniture might slide to block exits."
+        }
+      ],
       "doors": [
         {
           "name": "Study Entrance",
@@ -877,60 +909,28 @@
           "name": "Hidden Trapdoor",
           "description": "A concealed entrance in the floor beneath the central rug, leading to the dungeons.",
           "type": "hidden",
-          "locked": true,
+          "locked": false,
           "lockDC": 18,
           "breakDC": 22,
           "keyname": "Ornate dungeon key",
-          "trapped": true,
+          "trapped": false,
           "trap": "Shadow ward that deals 3d8 necrotic damage (DC 15 Constitution save for half) if opened without key"
-        }
-      ],
-      "traps": [
-        {
-          "name": "Animated Objects",
-          "description": "Books and furniture that attack intruders who disturb certain tomes or areas.",
-          "detectDC": 15,
-          "disableDC": 16,
-          "triggerDC": 14,
-          "damage": "1d4 books animate as tiny constructs, attacking for 1d4 bludgeoning damage each. Heavy furniture might slide to block exits."
-        }
-      ],
-      "dcChecks": [
-        "Investigation DC 16: Find the hidden trapdoor beneath the rug if not mentioned in documents.",
-        "Arcana DC 15: Understand the containment circle's purpose and how it relates to the shadow relic.",
-        "History DC 14: Recognize references in Sir Garran's writings to historical events and figures.",
-        "Perception DC 13: Notice the portrait's eyes tracking movement and the subtle gathering of shadows."
-      ],
-      "accessibility": "Well-preserved room with minimal obstacles; rug conceals trapdoor.",
-      "dangerLevel": "High",
-      "features": [
-        {
-          "name": "Arcane Containment Circle",
-          "description": "Complex symbols etched into the floor around the central rug, designed to contain shadow magic."
-        },
-        {
-          "name": "Tracking Portrait",
-          "description": "A painting of Sir Garran Vael whose eyes seem to follow anyone moving in the room."
-        },
-        {
-          "name": "Frozen Clock",
-          "description": "A grandfather clock perpetually stopped at midnight, occasionally ticking backward."
         }
       ],
       "encounters": [
         {
-          "encounterId": "",
-          "summary": "{\n  \"narration\": \"In the shadowed private study of Sir Garran Vael, Norn faced the fearsome Shadow of Sir Garran, a spectral guardian wielding a malevolent blade. The battle began with the ghostly knight attacking, but Norn's wards and armor thwarted each deadly strike. Seizing the opportunity, Norn unleashed a devastating counterattack, scoring multiple critical hits and inflicting heavy damage. Despite the shadow's relentless assaults, including a chilling touch that dealt cold damage to Norn, the fighter's resilience and precise strikes wore down the foe. In the second round, Norn's focused attacks culminated in the Shadow's dissolution, ending the spectral threat and restoring a fragile calm to the arcane-laden chamber. With the Shadow of Sir Garran defeated, Norn earned 2900 experience points for the victory.\",\n  \"combat_round\": 2,\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"LordStudyCombat\",\n        \"changes\": \"Shadow of Sir Garran takes 72 damage, HP reduced from 90 to 18 after first round; further 19 damage in second round reduces HP from 18 to 0, Shadow defeated and dissipated.\"\n      }\n    },\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"changes\": \"HP reduced from 18 to 13 due to 5 cold damage from Shadow's chilling touch; healed earlier with Second Wind to 18 HP; status alive, condition none.\"\n      }\n    },\n    {\n      \"action\": \"exit\"\n    }\n  ]\n}",
-          "impact": "To be determined",
+          "encounterId": "C07-E1",
+          "summary": "Upon entering the Lord's Study, Norn carefully observed signs of Elen's passage and injury: smaller muddy bootprints leading behind the desk, a blood smear on the writing table, a half-eaten emergency scout ration, and a torn scrap of blue cloth caught on a drawer handle. The room was dimly lit by flickering candles, casting shadows over ancient bookshelves and scattered parchment; a cold presence hovered near the far bookshelf, accompanied by faint sorrowful whispers. Calling out for Elen prompted the manifestation of the Shadow of Sir Garran, a spectral armored guardian who declared his intent to prevent further intrusion. A fierce two-round combat ensued, in which Norn withstood the shadow's chilling attacks and delivered critical strikes that ultimately dissolved the apparition, earning 2900 experience points. In the aftermath, the oppressive cold lifted, and Norn discovered a fallen iron key adorned with shadow-absorbing gems and a battered leather journal on the desk. The journal contained Sir Garran's final entries, including details of his struggle against corruption, diagrams of the arcane containment circle, a map of a hidden chamber beneath the study, and a plea to his beloved Elara. Securing both items, Norn noted the study's subtle easing of its oppressive atmosphere. After resuming the game, Norn cautiously searched the study for additional lost journal pages but found none amidst the heavily warded shelves, deciding instead to pull back the heavy rug at the center. This revealed a locked oak trapdoor with runes and scorch marks, matching the ornate key's gems. A careful investigation confirmed that the necrotic magical trap protecting the door was dormant, neutralized by the prior defeat of the Shadow and possession of the key. Norn inserted the key into the lock, unlocking and opening the trapdoor, which released a rush of cold air and revealed a stone staircase descending into darkness. The key, having lost its magic, was removed from inventory. Finally, Norn descended through the trapdoor, stepping down into the Cursed Dungeons beneath the Lord's Study, advancing deeper into the mysteries of Shadowfall Keep.",
+          "impact": "The Shadow of Sir Garran was defeated, the arcane ward on the trapdoor deactivated, and the ornate dungeon key was used to unlock the trapdoor. The dungeon entrance is now accessible, marking significant progress for the party.",
           "worldConditions": {
             "year": 1492,
             "month": "Ches",
             "day": 2,
-            "time": "04:13:00"
+            "time": "04:38:00"
           }
         }
       ],
-      "adventureSummary": "{\n  \"narration\": \"In the shadowed private study of Sir Garran Vael, Norn faced the fearsome Shadow of Sir Garran, a spectral guardian wielding a malevolent blade. The battle began with the ghostly knight attacking, but Norn's wards and armor thwarted each deadly strike. Seizing the opportunity, Norn unleashed a devastating counterattack, scoring multiple critical hits and inflicting heavy damage. Despite the shadow's relentless assaults, including a chilling touch that dealt cold damage to Norn, the fighter's resilience and precise strikes wore down the foe. In the second round, Norn's focused attacks culminated in the Shadow's dissolution, ending the spectral threat and restoring a fragile calm to the arcane-laden chamber. With the Shadow of Sir Garran defeated, Norn earned 2900 experience points for the victory.\",\n  \"combat_round\": 2,\n  \"actions\": [\n    {\n      \"action\": \"updateEncounter\",\n      \"parameters\": {\n        \"encounterId\": \"LordStudyCombat\",\n        \"changes\": \"Shadow of Sir Garran takes 72 damage, HP reduced from 90 to 18 after first round; further 19 damage in second round reduces HP from 18 to 0, Shadow defeated and dissipated.\"\n      }\n    },\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"changes\": \"HP reduced from 18 to 13 due to 5 cold damage from Shadow's chilling touch; healed earlier with Second Wind to 18 HP; status alive, condition none.\"\n      }\n    },\n    {\n      \"action\": \"exit\"\n    }\n  ]\n}"
+      "adventureSummary": "Upon entering the dimly lit Lord's Study, Norn discovered clear evidence of Elen's recent passage and injury: smaller muddy bootprints led behind the desk past a toppled chair, a blood smear stained the writing table, a half-eaten scout's emergency ration was hidden behind maps, and a familiar torn blue scrap of cloth hung from a drawer handle. The room was thick with enchantments, and a cold, sorrowful whisper emanated near the far bookshelf, signaling latent dangers. When Norn called out for Elen, the study's arcane defenses manifested as the spectral Shadow of Sir Garran, who warned of trespassing and attacked. After a brief but fierce combat, Norn's wards and precise strikes overcame the Shadow, which dissolved while leaving behind a fading warning about seeking a key beneath the shadow. In the aftermath, Norn recovered an ornate iron key with shadow-absorbing gems and a battered leather journal detailing Sir Garran's struggle against corruption, the arcane circle, a hidden chamber below, and a letter to his beloved Elara. Careful to avoid triggering animated objects protecting the shelves, Norn refrained from disturbing the tomes but instead pulled back the central rug to reveal a locked trapdoor inscribed with arcane runes matching those in the journal. Through investigation and the possession of the key and after defeating the Shadow, Norn found the trap's necrotic magic dormant and safe to open. Using the ornate key, Norn unlocked the trapdoor, which released stale, chilling air from the stairwell descending into darkness, and the key's magic was spent and removed from the inventory. With the way below now accessible, Norn prepared to descend into the Cursed Dungeons, marking significant progress toward uncovering Elen's fate and the keep's deeper secrets before moving forward."
     },
     {
       "locationId": "C08",

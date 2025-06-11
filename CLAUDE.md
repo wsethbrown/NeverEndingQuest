@@ -6,3 +6,5 @@ When using command line tools, use these specific command names:
 - Use `batcat` instead of `bat` for syntax-highlighted file viewing
 - Use `rg` for ripgrep (fast text search)
 - All other tools use their standard names: `jq`, `tree`, `fzf`, `black`, `flake8`, `pytest`, `mypy`
+
+Use the Github CLI for this repo as your primary source of open and closed issues.

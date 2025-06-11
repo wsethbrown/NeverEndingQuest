@@ -299,7 +299,12 @@ def handle_location_transition(current_location, new_location, current_area, cur
         # Update party tracker with new location information
         if party_tracker and new_location_info:
             area_for_conditions = new_area_data if area_connectivity_id and new_area_data else current_area_data
-            area_id_for_conditions = area_connectivity_id if area_connectivity_id else current_area_id
+            # Extract base area ID from connectivity ID if transitioning to new area
+            if area_connectivity_id:
+                base_area_id = area_connectivity_id.split('-')[0]
+                area_id_for_conditions = base_area_id
+            else:
+                area_id_for_conditions = current_area_id
             
             party_tracker["worldConditions"] = update_world_conditions(
                 party_tracker["worldConditions"],
@@ -314,8 +319,10 @@ def handle_location_transition(current_location, new_location, current_area, cur
             party_tracker["worldConditions"]["currentLocationId"] = new_location_info["locationId"]
 
             if area_connectivity_id and new_area_data:
+                # Extract just the area ID from the connectivity ID (e.g., "TCD001" from "TCD001-E01")
+                base_area_id = area_connectivity_id.split('-')[0]
                 party_tracker["worldConditions"]["currentArea"] = new_area_data.get("areaName", "Unknown Area")
-                party_tracker["worldConditions"]["currentAreaId"] = area_connectivity_id
+                party_tracker["worldConditions"]["currentAreaId"] = base_area_id
 
             try:
                 safe_json_dump(party_tracker, "party_tracker.json")

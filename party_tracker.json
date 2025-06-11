@@ -8,20 +8,19 @@
     "year": 1492,
     "month": "Ches",
     "day": 2,
-    "time": "04:14:00",
+    "time": "07:39:00",
     "weather": "",
     "season": "Spring",
-    "dayNightCycle": "Night",
+    "dayNightCycle": "Day",
     "moonPhase": "New Moon",
-    "currentLocation": "Lord's Study",
-    "currentLocationId": "C07",
-    "currentArea": "Shadowfall Keep",
-    "currentAreaId": "SK001",
+    "currentLocation": "Forgotten Ossuary",
+    "currentLocationId": "E06",
+    "currentArea": "The Cursed Dungeons",
+    "currentAreaId": "TCD001",
     "majorEventsUnderway": [],
     "politicalClimate": "",
     "activeEncounter": "",
-    "activeCombatEncounter": "",
-    "lastCompletedEncounter": "C07-E1"
+    "activeCombatEncounter": ""
   },
   "activeQuests": [
     {
@@ -49,16 +48,16 @@
       "status": "in progress"
     },
     {
-      "id": "PP003",
-      "title": "Breach the Keep",
-      "description": "The party reaches the foreboding Keep of Doom. They must find a way inside, dealing with traps, lingering magical defenses, and spectral guardians. Entry requires cunning, bravery, or the right key perhaps obtained from earlier encounters.",
-      "status": "in progress"
-    },
-    {
       "id": "SQ005",
       "title": "The Black Banner Mercenaries",
       "description": "A band of mercenaries camps near the keep, seeking treasure. They may be allies, rivals, or obstacles depending on party interactions.",
       "status": "not started"
+    },
+    {
+      "id": "PP004",
+      "title": "The Heart of Darkness",
+      "description": "Within the keep's depths lies the source of the curse: the vengeful spirit of Lord Thaddeus Greymont, corrupted by dark magic. The party must confront him, either by combat, exorcism, or fulfilling his final wish to find peace.",
+      "status": "in progress"
     }
   ]
 }

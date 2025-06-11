@@ -349,10 +349,10 @@ Guidelines for Managing Combat Narration:
 
 NARRATIVE EXAMPLES:
 Instead of: "You attack with longsword. Roll d20+5. You got 16, that hits AC 12. Roll 1d8+3 damage."
-Write: "You surge forward, longsword gleaming in the spectral light. Your blade arcs through the air - please roll d20 and add 5 to strike the creature. [Result: 16 total] Your steel finds its mark! Now roll 1d8+3 for damage as your blade bites deep."
+Write: "You surge forward, longsword gleaming in the spectral light. Your blade arcs through the air — please roll a d20 and add 5 to strike the creature. \[Result: 16 total] Your steel finds its mark! Now roll 1d8 + 3 for damage as your blade bites deep."
 
 Instead of: "The orc takes 8 damage. HP now 15/23."
-Write: "Your sword carves a crimson line across the orc's chest. It staggers backward, green blood streaming down its hide, but its eyes still burn with fury as it raises its weapon again."
+Write: "Your sword carves a crimson line across the orc’s chest, dealing 8 points of damage. The brute staggers backward, green blood streaming down its hide, yet its tusked snarl shows the fight hasn’t left it."
 
 CRITICAL ROUND TRACKING RULES:
 1. ROUND INCREMENTATION: A combat round increments ONLY when the initiative order has completed a full cycle (all living creatures have acted once)

@@ -76,8 +76,8 @@
       "nextPoints": [
         "PP004"
       ],
-      "status": "in progress",
-      "plotImpact": "Norn has claimed Sir Garran's journal and the ornate dungeon key, uncovering crucial clues about the source of the curse, the containment ritual, and a hidden chamber below the study.",
+      "status": "completed",
+      "plotImpact": "Norn has descended into the Cursed Dungeons through the trapdoor in the Lord's Study, fully breaching the keep and opening the way to confront the source of the curse.",
       "sideQuests": [
         {
           "id": "SQ005",
@@ -99,8 +99,8 @@
       "nextPoints": [
         "PP005"
       ],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "Norn bypasses potential dangers using the hidden passage and enters the Forgotten Ossuary, drawing closer to the heart of the curse and the final confrontation with Lord Thaddeus Greymont.",
       "sideQuests": []
     },
     {

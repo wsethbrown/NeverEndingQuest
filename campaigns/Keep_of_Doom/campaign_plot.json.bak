@@ -76,8 +76,8 @@
       "nextPoints": [
         "PP004"
       ],
-      "status": "in progress",
-      "plotImpact": "Norn has found clear evidence of Elen's passage and injury in the Lord's Study--her bootprints, a blood smear, an emergency ration, and a torn scrap of cloak. The cold, whispering presence and the enchanted bookshelves suggest more secrets and danger ahead.",
+      "status": "completed",
+      "plotImpact": "Norn has descended into the Cursed Dungeons through the trapdoor in the Lord's Study, fully breaching the keep and opening the way to confront the source of the curse.",
       "sideQuests": [
         {
           "id": "SQ005",
@@ -99,8 +99,8 @@
       "nextPoints": [
         "PP005"
       ],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "Norn has restored the shrine in the Guard Post, weakening the curse here and gaining divine protection for the trials ahead. The way to the Forgotten Ossuary is now less perilous.",
       "sideQuests": []
     },
     {

@@ -536,7 +536,7 @@ CRITICAL DISTINCTION - Two Types of Transitions:
 2. CROSS-AREA TRANSITIONS (moving to different area):
    - Use "newLocation": with new location name
    - Use "areaConnectivityId": with area ID from areaConnectivityId field
-   - Example: Moving from SK001 to TCD001 using "TCD001-E01"
+   - Example: Moving from SK001 to TCD001 using "TCD001"
 
 - Use the following format to activate a transition to a new location:
 
@@ -553,7 +553,7 @@ CROSS-AREA TRANSITION:
   "action": "transitionLocation", 
   "parameters": {
     "newLocation": "Entrance Chamber",
-    "areaConnectivityId": "TCD001-E01"
+    "areaConnectivityId": "TCD001"
   }
 }
 - Include a "narration" element in this JSON.
