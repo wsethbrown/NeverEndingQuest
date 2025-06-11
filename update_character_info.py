@@ -9,6 +9,7 @@ from config import OPENAI_API_KEY, PLAYER_INFO_UPDATE_MODEL, NPC_INFO_UPDATE_MOD
 from campaign_path_manager import CampaignPathManager
 from file_operations import safe_write_json, safe_read_json
 from character_validator import AICharacterValidator
+from character_effects_validator import AICharacterEffectsValidator
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -319,7 +320,7 @@ Character Role: {character_role}
                 changed_fields = list(updates.keys())
                 print(f"Updated fields: {', '.join(changed_fields)}")
                 
-                # NEW: AI Character Validation after successful update
+                # AI Character Validation after successful update
                 try:
                     validator = AICharacterValidator()
                     validated_data, validation_success = validator.validate_character_file_safe(character_path)
@@ -333,6 +334,22 @@ Character Role: {character_role}
                         
                 except Exception as e:
                     print(f"{ORANGE}Warning: Character validation error: {str(e)}{RESET}")
+                    # Don't fail the update if validation has issues
+                
+                # AI Character Effects Validation after AC validation
+                try:
+                    effects_validator = AICharacterEffectsValidator()
+                    effects_validated_data, effects_success = effects_validator.validate_character_effects_safe(character_path)
+                    
+                    if effects_success and effects_validator.corrections_made:
+                        print(f"{GREEN}Character effects auto-validated with corrections: {effects_validator.corrections_made}{RESET}")
+                    elif effects_success:
+                        print(f"{GREEN}Character effects validated - no corrections needed{RESET}")
+                    else:
+                        print(f"{ORANGE}Warning: Character effects validation failed, but update completed{RESET}")
+                        
+                except Exception as e:
+                    print(f"{ORANGE}Warning: Character effects validation error: {str(e)}{RESET}")
                     # Don't fail the update if validation has issues
                 
                 return True

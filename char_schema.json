@@ -131,7 +131,16 @@
         "properties": {
           "name": {"type": "string"},
           "description": {"type": "string"},
-          "source": {"type": "string"}
+          "source": {"type": "string"},
+          "usage": {
+            "type": "object",
+            "properties": {
+              "current": {"type": "integer", "minimum": 0},
+              "max": {"type": "integer", "minimum": 0},
+              "refreshOn": {"type": "string", "enum": ["shortRest", "longRest", "dawn", "turn", "bonus", "action"]}
+            },
+            "required": ["current", "max", "refreshOn"]
+          }
         },
         "required": ["name", "description"]
       }
@@ -165,9 +174,40 @@
           "name": {"type": "string"},
           "description": {"type": "string"},
           "duration": {"type": "string"},
+          "expiration": {"type": "string", "format": "date-time"},
+          "source": {"type": "string"},
+          "effectType": {"type": "string", "enum": ["spell", "potion", "magic", "environmental", "other"]}
+        },
+        "required": ["name", "description", "source"]
+      }
+    },
+    "injuries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string", "enum": ["wound", "poison", "disease", "curse", "other"]},
+          "description": {"type": "string"},
+          "damage": {"type": "integer"},
+          "healingRequired": {"type": "boolean"},
           "source": {"type": "string"}
         },
-        "required": ["name", "description"]
+        "required": ["type", "description", "source"]
+      }
+    },
+    "equipment_effects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "type": {"type": "string", "enum": ["bonus", "resistance", "immunity", "advantage", "disadvantage", "other"]},
+          "target": {"type": "string"},
+          "value": {"type": ["integer", "null"]},
+          "description": {"type": "string"},
+          "source": {"type": "string"}
+        },
+        "required": ["name", "type", "target", "description", "source"]
       }
     },
     "feats": {
@@ -199,7 +239,20 @@
           "stealth_disadvantage": {"type": "boolean", "default": false},
           "damage": {"type": "string"},
           "attack_bonus": {"type": "integer"},
-          "weapon_type": {"type": "string"}
+          "weapon_type": {"type": "string"},
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {"type": "string", "enum": ["bonus", "resistance", "immunity", "advantage", "disadvantage", "other"]},
+                "target": {"type": "string"},
+                "value": {"type": ["integer", "null"]},
+                "description": {"type": "string"}
+              },
+              "required": ["type", "target", "description"]
+            }
+          }
         },
         "required": ["item_name", "item_type", "description", "quantity"]
       }
@@ -292,7 +345,7 @@
     "initiative", "speed", "abilities", "savingThrows", "skills", "proficiencyBonus",
     "senses", "languages", "proficiencies", "damageVulnerabilities", "damageResistances",
     "damageImmunities", "conditionImmunities", "classFeatures", "racialTraits", "backgroundFeature",
-    "temporaryEffects", "feats", "equipment", "attacksAndSpellcasting", "spellcasting", "currency", "experience_points", 
+    "temporaryEffects", "injuries", "equipment_effects", "feats", "equipment", "attacksAndSpellcasting", "spellcasting", "currency", "experience_points", 
     "exp_required_for_next_level", "challengeRating", "personality_traits", "ideals", "bonds", "flaws"
   ],
   "additionalProperties": false

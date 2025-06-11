@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 39,
   "maxHitPoints": 47,
-  "armorClass": 21,
+  "armorClass": 19,
   "initiative": 2,
   "speed": 30,
   "abilities": {
@@ -65,13 +65,23 @@
   "classFeatures": [
     {
       "name": "Second Wind",
-      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (used)",
-      "source": "Fighter feature"
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action",
+      "source": "Fighter feature",
+      "usage": {
+        "current": 0,
+        "max": 1,
+        "refreshOn": "shortRest"
+      }
     },
     {
       "name": "Action Surge",
-      "description": "Once per short rest, take one additional action on your turn (restored)",
-      "source": "Fighter feature"
+      "description": "Once per short rest, take one additional action on your turn",
+      "source": "Fighter feature",
+      "usage": {
+        "current": 1,
+        "max": 1,
+        "refreshOn": "shortRest"
+      }
     },
     {
       "name": "Fighting Style: Defense",
@@ -236,7 +246,21 @@
       "item_type": "miscellaneous",
       "description": "An amulet shaped like a heart, said to have belonged to a noble knight",
       "quantity": 1,
-      "equipped": true
+      "equipped": true,
+      "effects": [
+        {
+          "type": "resistance",
+          "target": "fear",
+          "value": null,
+          "description": "Grants resistance to fear effects caused by Sir Garran's curse"
+        },
+        {
+          "type": "resistance",
+          "target": "necrotic",
+          "value": null,
+          "description": "Grants resistance to necrotic damage from Sir Garran's curse or associated spectral magic"
+        }
+      ]
     },
     {
       "item_name": "Torn cloak piece",
@@ -509,7 +533,7 @@
     "silver": 0,
     "copper": 0
   },
-  "experience_points": 12771,
+  "experience_points": 12781,
   "exp_required_for_next_level": 14000,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
@@ -533,55 +557,68 @@
       "name": "Spiritual Fortitude",
       "description": "Advantage on saving throws against enchantment and fear effects.",
       "duration": "24 hours",
-      "source": "Ward Rituals"
+      "expiration": "1492-03-03T07:39:00",
+      "source": "Ward Rituals",
+      "effectType": "magic"
     },
     {
       "name": "Blessing of the Forest Guardian",
       "description": "Advantage on saving throws against fear effects.",
       "duration": "24 hours",
-      "source": "Forest Guardian"
+      "expiration": "1492-03-03T07:39:00",
+      "source": "Forest Guardian",
+      "effectType": "magic"
     },
     {
       "name": "Ward's Favor",
       "description": "Undead in the Gloamwood have disadvantage on attacks against Norn for 24 hours.",
       "duration": "24 hours",
-      "source": "Lost Ward Circle Ritual"
-    },
-    {
-      "name": "Second Wind",
-      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (used)",
-      "source": "Fighter feature",
-      "used": true
-    },
-    {
-      "name": "Knight's Heart Amulet",
-      "description": "While equipped, grants resistance to fear and necrotic effects caused by Sir Garran's curse or associated spectral magic.",
-      "duration": "until removed",
-      "source": "Knight's Heart Amulet"
-    },
-    {
-      "name": "Piercing Wound",
-      "description": "Took 4 points of piercing damage from giant rat's bite.",
-      "duration": "until healed",
-      "source": "Giant Rat Attack"
-    },
-    {
-      "name": "Acid and Pseudopod Damage",
-      "description": "Acid and pseudopod wounds treated with blessed water; injuries stabilized but not fully healed.",
-      "duration": "until healed",
-      "source": "Mimic attack"
-    },
-    {
-      "name": "Cold Damage from Shadow of Sir Garran",
-      "description": "Took 5 points of cold damage from Shadow of Sir Garran's chilling touch.",
-      "duration": "until healed",
-      "source": "Shadow of Sir Garran"
+      "expiration": "1492-03-03T07:39:00",
+      "source": "Lost Ward Circle Ritual",
+      "effectType": "magic"
     },
     {
       "name": "Blessing of the Restored Shrine",
       "description": "+2 AC against undead.",
       "duration": "8 hours",
-      "source": "Restored Shrine"
+      "expiration": "1492-03-02T15:39:00",
+      "source": "Restored Shrine",
+      "effectType": "magic"
+    }
+  ],
+  "injuries": [],
+  "equipment_effects": [
+    {
+      "name": "Knight's heart amulet - Resistance",
+      "type": "resistance",
+      "target": "fear",
+      "value": null,
+      "description": "Grants resistance to fear effects caused by Sir Garran's curse",
+      "source": "Knight's heart amulet"
+    },
+    {
+      "name": "Knight's heart amulet - Resistance",
+      "type": "resistance",
+      "target": "necrotic",
+      "value": null,
+      "description": "Grants resistance to necrotic damage from Sir Garran's curse or associated spectral magic",
+      "source": "Knight's heart amulet"
+    },
+    {
+      "name": "Fighting Style: Defense",
+      "type": "bonus",
+      "target": "AC",
+      "value": 1,
+      "description": "+1 to AC when wearing armor",
+      "source": "Class Feature"
+    },
+    {
+      "name": "Shield AC Bonus",
+      "type": "bonus",
+      "target": "AC",
+      "value": 2,
+      "description": "Shield provides +2 AC",
+      "source": "Shield"
     }
   ],
   "feats": [],
