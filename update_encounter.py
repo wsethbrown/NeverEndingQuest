@@ -120,18 +120,15 @@ Remember to only update monster information and leave player and NPC data unchan
             validate(instance=encounter_info, schema=schema)
 
             # If we reach here, validation was successful
-            print(f"{GREEN}DEBUG: Successfully updated and validated encounter info on attempt {attempt + 1}{RESET}")
 
-            # Compare original and updated info
+            # Compare original and updated info (but don't print it)
             diff = compare_json(original_info, encounter_info)
-            print(f"{ORANGE}DEBUG: Changes made:{RESET}")
-            print(json.dumps(diff, indent=2))
+            print(f"{GREEN}DEBUG: Encounter update - PASS{RESET}")
 
             # Save the updated encounter info
             with open(f"encounter_{encounter_id}.json", "w") as file:
                 json.dump(encounter_info, file, indent=2)
 
-            print(f"{ORANGE}DEBUG: Encounter {encounter_id} information updated{RESET}")
             return encounter_info
 
         except json.JSONDecodeError as e:
@@ -141,7 +138,7 @@ Remember to only update monster information and leave player and NPC data unchan
 
         # If we've reached the maximum number of retries, return the original encounter info
         if attempt == max_retries - 1:
-            print(f"{RED}ERROR: Failed to update encounter info after {max_retries} attempts. Returning original encounter info.{RESET}")
+            print(f"{RED}DEBUG: Encounter update - FAIL{RESET}")
             return original_info
 
         # Wait for a short time before retrying

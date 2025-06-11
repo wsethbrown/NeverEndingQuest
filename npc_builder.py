@@ -46,7 +46,7 @@ def save_json(file_name, data):
     try:
         with open(file_name, 'w') as file:
             json.dump(data, file, indent=2)
-        print(f"{GREEN}Successfully saved data to {file_name}{RESET}")
+        print(f"{GREEN}DEBUG: NPC save ({file_name}) - PASS{RESET}")
         return True
     except Exception as e:
         print(f"{RED}Error saving to {file_name}: {str(e)}{RESET}")
@@ -154,12 +154,12 @@ def main():
         path_manager = CampaignPathManager()
         full_path = path_manager.get_character_path(npc_name_arg)
         if save_json(full_path, generated_npc_data):
-            print(f"{GREEN}NPC '{npc_name_arg}' created and saved to {full_path}{RESET}")
+            print(f"{GREEN}DEBUG: NPC creation ({npc_name_arg}) - PASS{RESET}")
         else:
-            print(f"{RED}Failed to save NPC data{RESET}")
+            print(f"{RED}DEBUG: NPC save ({npc_name_arg}) - FAIL{RESET}")
             sys.exit(1)
     else:
-        print(f"{RED}Failed to generate NPC data{RESET}")
+        print(f"{RED}DEBUG: NPC creation ({npc_name_arg}) - FAIL{RESET}")
         sys.exit(1)
 
 if __name__ == "__main__":

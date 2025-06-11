@@ -289,7 +289,6 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
                     json.dump(log_entry, log_file)
                     log_file.write("\n")  # Add a newline for better readability
 
-                print(f"DEBUG: Validation failed. Reason: {reason}")
                 return reason  # Return the failure reason
             else:
                 print("DEBUG: Validation passed successfully")
@@ -815,7 +814,7 @@ def main_game_loop():
                 if result == "exit":
                     return
             elif isinstance(validation_result, str):
-                print(f"Validation failed. Reason: {validation_result}")
+                print(f"DEBUG: Validation failed. Reason: {validation_result}")
                 print(f"Retrying... (Attempt {retry_count + 1}/5)")
                 status_retrying(retry_count + 1, 5)
                 conversation_history.append({

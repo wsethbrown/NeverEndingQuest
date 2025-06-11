@@ -85,7 +85,7 @@ def save_json(file_name, data):
         
         with open(file_name, 'w') as file:
             json.dump(data, file, indent=2)
-        print(f"{GREEN}Successfully saved data to {file_name}{RESET}")
+        print(f"{GREEN}DEBUG: Monster save ({file_name}) - PASS{RESET}")
         return True
     except Exception as e:
         print(f"{RED}Error saving to {file_name}: {str(e)}{RESET}")
@@ -153,12 +153,12 @@ def main():
         path_manager = CampaignPathManager()
         full_path = path_manager.get_monster_path(monster_name_arg)
         if save_json(full_path, generated_monster_data):
-            print(f"{GREEN}Monster '{monster_name_arg}' created and saved to {full_path}{RESET}")
+            print(f"{GREEN}DEBUG: Monster creation ({monster_name_arg}) - PASS{RESET}")
         else:
-            print(f"{RED}Failed to save monster data{RESET}")
+            print(f"{RED}DEBUG: Monster save ({monster_name_arg}) - FAIL{RESET}")
             sys.exit(1) # Ensure exit with error code
     else:
-        print(f"{RED}Failed to generate monster data{RESET}")
+        print(f"{RED}DEBUG: Monster creation ({monster_name_arg}) - FAIL{RESET}")
         sys.exit(1)  # Exit with an error code
 
 if __name__ == "__main__":

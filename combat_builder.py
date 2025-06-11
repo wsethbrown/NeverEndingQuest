@@ -112,12 +112,10 @@ def load_or_create_monster(monster_type):
     monster_file = path_manager.get_monster_path(monster_type)
     monster_data = load_json(monster_file)
     if not monster_data:
-        print(colored(f"Monster {monster_type} not found. Attempting to create it...", "yellow"))
+        print(colored(f"DEBUG: Monster loading ({monster_type}) - attempting creation", "yellow"))
         result = subprocess.run(["python", "monster_builder.py", monster_type], capture_output=True, text=True)
-        print(colored(f"monster_builder.py output:\n{result.stdout}", "yellow"))
-        print(colored(f"monster_builder.py error:\n{result.stderr}", "red"))
         if result.returncode == 0:
-            print(colored(f"Successfully ran monster_builder.py for {monster_type}", "green"))
+            print(colored(f"DEBUG: Monster builder ({monster_type}) - PASS", "green"))
             if os.path.exists(monster_file):
                 monster_data = load_json(monster_file)
                 if not monster_data:
@@ -127,7 +125,7 @@ def load_or_create_monster(monster_type):
                 print(colored(f"Error: Monster file {monster_file} was not created", "red"))
                 return None
         else:
-            print(colored(f"Failed to create monster {monster_type}. Error: {result.stderr}", "red"))
+            print(colored(f"DEBUG: Monster builder ({monster_type}) - FAIL", "red"))
             return None
     return monster_data
 
@@ -137,12 +135,10 @@ def load_or_create_npc(npc_name):
     npc_file = path_manager.get_character_path(npc_name)
     npc_data = load_json(npc_file)
     if not npc_data:
-        print(colored(f"NPC {npc_name} not found. Attempting to create it...", "yellow"))
+        print(colored(f"DEBUG: NPC loading ({npc_name}) - attempting creation", "yellow"))
         result = subprocess.run(["python", "npc_builder.py", npc_name], capture_output=True, text=True)
-        print(colored(f"npc_builder.py output:\n{result.stdout}", "yellow"))
-        print(colored(f"npc_builder.py error:\n{result.stderr}", "red"))
         if result.returncode == 0:
-            print(colored(f"Successfully ran npc_builder.py for {npc_name}", "green"))
+            print(colored(f"DEBUG: NPC builder ({npc_name}) - PASS", "green"))
             if os.path.exists(npc_file):
                 npc_data = load_json(npc_file)
                 if not npc_data:
@@ -152,7 +148,7 @@ def load_or_create_npc(npc_name):
                 print(colored(f"Error: NPC file {npc_file} was not created", "red"))
                 return None
         else:
-            print(colored(f"Failed to create NPC {npc_name}. Error: {result.stderr}", "red"))
+            print(colored(f"DEBUG: NPC builder ({npc_name}) - FAIL", "red"))
             return None
     return npc_data
 
