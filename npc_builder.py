@@ -145,14 +145,18 @@ def main():
 
     print(f"DEBUG: Received arguments - Name: {npc_name_arg}, Race: {npc_race_arg}, Class: {npc_class_arg}, Level: {npc_level_arg}, Background: {npc_background_arg}")
 
-    npc_schema_data = load_schema("npc_schema.json") # Renamed variable
+    npc_schema_data = load_schema("char_schema.json") # Use unified character schema
     if not npc_schema_data:
         sys.exit(1)
 
     generated_npc_data = generate_npc(npc_name_arg, npc_schema_data, npc_race_arg, npc_class_arg, npc_level_arg, npc_background_arg) # Renamed variable
     if generated_npc_data:
         path_manager = CampaignPathManager()
-        full_path = path_manager.get_character_path(npc_name_arg)
+        full_path = path_manager.get_character_unified_path(npc_name_arg)  # Force unified path
+        
+        # Ensure characters directory exists
+        characters_dir = os.path.dirname(full_path)
+        os.makedirs(characters_dir, exist_ok=True)
         if save_json(full_path, generated_npc_data):
             print(f"{GREEN}DEBUG: NPC creation ({npc_name_arg}) - PASS{RESET}")
         else:

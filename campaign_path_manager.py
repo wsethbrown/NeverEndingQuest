@@ -172,6 +172,7 @@ class CampaignPathManager:
         """Ensure all necessary campaign directories exist"""
         os.makedirs(f"{self.campaign_dir}/monsters", exist_ok=True)
         os.makedirs(f"{self.campaign_dir}/npcs", exist_ok=True)
+        os.makedirs(f"{self.campaign_dir}/characters", exist_ok=True)  # Unified character storage
     
     # Check if a file exists
     def file_exists(self, path):

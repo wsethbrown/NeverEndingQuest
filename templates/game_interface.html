@@ -787,6 +787,196 @@
             background-color: rgba(255, 165, 0, 0.1);
         }
         
+        /* New Abilities Grid Layout */
+        .abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 5px;
+            margin-top: 3px;
+        }
+        
+        /* Usage Tracking Styles */
+        .feature-item.with-usage {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .feature-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .usage-counter {
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        
+        .usage-counter.exhausted {
+            background-color: #f44336;
+        }
+        
+        .feature-refresh {
+            font-size: 16px;
+            color: #888;
+            font-style: italic;
+            margin-left: 8px;
+        }
+        
+        /* Effect Item Styles */
+        .effect-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 3px 4px;
+            margin: 1px 0;
+            font-size: 14px;
+            line-height: 1.2;
+            cursor: help;
+            transition: background-color 0.2s;
+        }
+        
+        .effect-item:hover {
+            background-color: rgba(255, 165, 0, 0.1);
+        }
+        
+        .effect-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .effect-duration {
+            font-size: 16px;
+            color: #FFA500;
+            font-style: italic;
+            margin-left: 8px;
+        }
+        
+        .effect-duration.expired {
+            color: #f44336;
+        }
+        
+        .effect-type {
+            font-size: 10px;
+            color: #666;
+            margin-top: 2px;
+        }
+        
+        /* Effect Badges */
+        .effect-badge {
+            font-size: 10px;
+            padding: 2px 4px;
+            margin: 1px;
+            border-radius: 3px;
+            background-color: #666;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .effect-badge.resistance {
+            background-color: #2196F3;
+        }
+        
+        .effect-badge.bonus {
+            background-color: #4CAF50;
+        }
+        
+        /* Health & Conditions Section */
+        .health-status-section {
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 8px;
+            margin: 5px 0;
+        }
+        
+        .health-status-section h4 {
+            margin: 0 0 8px 0;
+            color: #FFA500;
+            border-bottom: 1px solid #444;
+            padding-bottom: 4px;
+            text-transform: uppercase;
+            font-size: 18px;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', Georgia, serif;
+        }
+        
+        .conditions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .condition-category h5 {
+            margin: 0 0 4px 0;
+            color: #ccc;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .condition-item {
+            display: flex;
+            align-items: center;
+            padding: 3px 4px;
+            margin: 1px 0;
+            font-size: 13px;
+            line-height: 1.2;
+            cursor: help;
+            transition: background-color 0.2s;
+        }
+        
+        .condition-item:hover {
+            background-color: rgba(255, 165, 0, 0.1);
+        }
+        
+        .condition-badge {
+            font-size: 9px;
+            padding: 1px 3px;
+            margin-right: 4px;
+            border-radius: 2px;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .condition-badge.resistance {
+            background-color: #2196F3;
+        }
+        
+        .condition-badge.immunity {
+            background-color: #4CAF50;
+        }
+        
+        .condition-badge.vulnerability {
+            background-color: #f44336;
+        }
+        
+        .healing-requirement {
+            font-size: 10px;
+            color: #FFA500;
+            font-style: italic;
+            margin-left: 4px;
+        }
+        
+        .condition-item.injury {
+            border-left: 3px solid #f44336;
+            padding-left: 6px;
+        }
+        
+        /* Equipment Effects Styling */
+        .feature-item.equipment-effect {
+            padding: 2px 0;
+        }
+        
         .feature-bullet {
             color: #FFA500;
             margin-right: 6px;
@@ -799,25 +989,111 @@
         }
         
         /* NPC styling */
-        .npc-card {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #333;
-            border-radius: 3px;
-            border-left: 3px solid #4CAF50;
+        .npc-character-sheet {
+            margin-bottom: 20px;
+            padding: 12px;
+            background-color: #2c2c2c;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            font-family: 'Crimson Text', Georgia, serif;
+        }
+        
+        .npc-header {
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #444;
+            padding-bottom: 8px;
         }
         
         .npc-name {
+            font-size: 24px;
             font-weight: bold;
             color: #4CAF50;
-            font-size: 1.1em;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            font-family: 'Cinzel', Georgia, serif;
         }
         
-        .npc-info {
+        .npc-details {
+            font-size: 14px;
             color: #ccc;
-            font-size: 0.9em;
+            font-style: italic;
         }
+        
+        .npc-combat-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+            background-color: #1a1a1a;
+            border-radius: 5px;
+            padding: 8px;
+        }
+        
+        .npc-abilities {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 10px 0;
+            background-color: #1a1a1a;
+            border-radius: 5px;
+            padding: 8px;
+        }
+        
+        .npc-abilities .ability-score {
+            text-align: center;
+            background-color: #333;
+            border-radius: 5px;
+            padding: 4px 8px;
+            min-width: 50px;
+        }
+        
+        .npc-features-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .npc-features-container .stat-group {
+            margin: 0;
+        }
+        
+        .npc-features-container .stat-group h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        
+        .npc-status {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #1a1a1a;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .status-item {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        .status-value.alive {
+            color: #4CAF50;
+        }
+        
+        .status-value.unconscious {
+            color: #FF9800;
+        }
+        
+        .status-value.dead {
+            color: #f44336;
+        }
+        
+        .condition-value {
+            color: #FFA500;
+            font-weight: bold;
+        }
+        
     </style>
 </head>
 <body>
@@ -1204,71 +1480,134 @@
             
             html += '</div>'; // End skills-saves-container
             
-            // Features and Abilities in two columns
-            html += '<div class="features-abilities-container">';
             
-            // Class Features column
+            // Abilities Grid - Organized by Category
+            html += '<div class="abilities-grid">';
+            
+            // Class Features with Usage Tracking
             html += '<div class="stat-group"><h4>Class Features</h4><div class="stat-group-content">';
             if (data.classFeatures && data.classFeatures.length > 0) {
                 data.classFeatures.forEach(feature => {
                     const desc = feature.description || '';
-                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">●</span><span class="feature-name">${feature.name || feature}</span></div>`;
+                    let usageDisplay = '';
+                    let refreshDisplay = '';
+                    let usageClass = '';
+                    
+                    // Add usage tracking if available
+                    if (feature.usage && feature.usage.current !== undefined && feature.usage.max !== undefined) {
+                        usageDisplay = ` <span class="usage-counter ${feature.usage.current === 0 ? 'exhausted' : ''}">${feature.usage.current}/${feature.usage.max}</span>`;
+                        if (feature.usage.refreshOn) {
+                            refreshDisplay = ` <span class="feature-refresh">(${feature.usage.refreshOn})</span>`;
+                        }
+                    }
+                    
+                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
+                        <span class="feature-name">${feature.name}</span>${usageDisplay}${refreshDisplay}
+                    </div>`;
                 });
             } else {
                 html += '<div class="feature-item"><span class="feature-name">No class features</span></div>';
             }
             html += '</div></div>';
             
-            // Temporary Effects & Other Abilities column
-            html += '<div class="stat-group"><h4>Special Abilities</h4><div class="stat-group-content">';
-            
-            // Show racial traits (excluding basic ones)
-            if (data.racialTraits && data.racialTraits.length > 0) {
-                const basicTraits = ['Ability Score Increase', 'Languages', 'Extra Language'];
-                data.racialTraits.forEach(trait => {
-                    // Only show special racial traits, not basic ones
-                    if (!basicTraits.includes(trait.name)) {
-                        const desc = trait.description || '';
-                        html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">◈</span><span class="feature-name">${trait.name}</span></div>`;
-                    }
-                });
-            }
-            
-            // Show background feature
-            if (data.backgroundFeature && data.backgroundFeature.name) {
-                const desc = data.backgroundFeature.description || '';
-                html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">✦</span><span class="feature-name">${data.backgroundFeature.name}</span></div>`;
-            }
-            
-            // Show temporary effects
+            // Active Effects (Temporary Effects with Time Display)
+            html += '<div class="stat-group"><h4>Active Effects</h4><div class="stat-group-content">';
             if (data.temporaryEffects && data.temporaryEffects.length > 0) {
                 data.temporaryEffects.forEach(effect => {
                     const desc = effect.description || '';
-                    const duration = effect.duration ? ` (${effect.duration})` : '';
-                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">◆</span><span class="feature-name">${effect.name}${duration}</span></div>`;
+                    let durationDisplay = '';
+                    
+                    // Calculate time remaining if expiration exists
+                    if (effect.expiration && effect.expiration !== 'until healed' && effect.expiration !== 'until removed') {
+                        try {
+                            const expiration = new Date(effect.expiration);
+                            
+                            // Use in-game time instead of real-world time
+                            // For now, we'll use the game time from the loaded data if available
+                            // Otherwise fall back to showing the duration text
+                            let gameTimeNow;
+                            if (window.currentGameTime) {
+                                gameTimeNow = new Date(window.currentGameTime);
+                            } else {
+                                // Fallback: construct current game time (Year 1492, Month Ches=3, Day 2, Time 07:39:00)
+                                // This should be updated to fetch from server in future
+                                gameTimeNow = new Date('1492-03-02T07:39:00');
+                            }
+                            
+                            if (expiration > gameTimeNow) {
+                                const hoursRemaining = Math.ceil((expiration - gameTimeNow) / (1000 * 60 * 60));
+                                durationDisplay = ` <span class="effect-duration">${hoursRemaining}h remaining</span>`;
+                            } else {
+                                durationDisplay = ' <span class="effect-duration expired">Expired</span>';
+                            }
+                        } catch (e) {
+                            if (effect.duration) {
+                                durationDisplay = ` <span class="effect-duration">${effect.duration}</span>`;
+                            }
+                        }
+                    } else if (effect.duration) {
+                        durationDisplay = ` <span class="effect-duration">${effect.duration}</span>`;
+                    }
+                    
+                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
+                        <div class="feature-header">
+                            <span class="feature-name">${effect.name}</span>${durationDisplay}
+                        </div>
+                    </div>`;
                 });
+            } else {
+                html += '<div class="feature-item"><span class="feature-name">No active effects</span></div>';
             }
+            html += '</div></div>';
             
-            // Show feats
+            // Racial Traits (Permanent Abilities)
+            html += '<div class="stat-group"><h4>Racial Traits</h4><div class="stat-group-content">';
+            if (data.racialTraits && data.racialTraits.length > 0) {
+                const basicTraits = ['Ability Score Increase', 'Languages', 'Extra Language'];
+                const specialTraits = data.racialTraits.filter(trait => !basicTraits.includes(trait.name));
+                
+                if (specialTraits.length > 0) {
+                    specialTraits.forEach(trait => {
+                        const desc = trait.description || '';
+                        html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
+                            <span class="feature-name">${trait.name}</span>
+                        </div>`;
+                    });
+                } else {
+                    html += '<div class="feature-item"><span class="feature-name">No special racial traits</span></div>';
+                }
+            } else {
+                html += '<div class="feature-item"><span class="feature-name">No racial traits</span></div>';
+            }
+            html += '</div></div>';
+            
+            // Background Feature
+            html += '<div class="stat-group"><h4>Background</h4><div class="stat-group-content">';
+            if (data.backgroundFeature && data.backgroundFeature.name) {
+                const desc = data.backgroundFeature.description || '';
+                html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
+                    <span class="feature-name">${data.backgroundFeature.name}</span>
+                </div>`;
+            } else {
+                html += '<div class="feature-item"><span class="feature-name">No background feature</span></div>';
+            }
+            html += '</div></div>';
+            
+            // Feats
+            html += '<div class="stat-group"><h4>Feats</h4><div class="stat-group-content">';
             if (data.feats && data.feats.length > 0) {
                 data.feats.forEach(feat => {
                     const desc = feat.description || '';
-                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">★</span><span class="feature-name">${feat.name}</span></div>`;
+                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
+                        <span class="feature-name">${feat.name}</span>
+                    </div>`;
                 });
+            } else {
+                html += '<div class="feature-item"><span class="feature-name">No feats</span></div>';
             }
-            
-            // Show if no special abilities
-            const hasAnySpecial = (data.racialTraits && data.racialTraits.length > 0) || 
-                                 (data.backgroundFeature && data.backgroundFeature.name) || 
-                                 (data.temporaryEffects && data.temporaryEffects.length > 0) ||
-                                 (data.feats && data.feats.length > 0);
-            if (!hasAnySpecial) {
-                html += '<div class="feature-item"><span class="feature-name">No special abilities</span></div>';
-            }
-            
             html += '</div></div>';
             
-            html += '</div>'; // End features-abilities-container
+            html += '</div>'; // Close abilities-grid
             
             html += '</div>'; // End character-sheet
             
@@ -1286,33 +1625,123 @@
             let html = '';
             
             data.forEach(npc => {
-                html += `
-                    <div class="npc-card">
-                        <div class="npc-name">${npc.name}</div>
-                        <div class="npc-info">
-                            <div class="stat-item">
-                                <span class="stat-name">Race/Class</span>
-                                <span class="stat-value">${npc.race} ${npc.class}</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-name">Level</span>
-                                <span class="stat-value">${npc.level}</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-name">HP</span>
-                                <span class="stat-value">${npc.hitPoints}/${npc.maxHitPoints}</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-name">AC</span>
-                                <span class="stat-value">${npc.armorClass}</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-name">Status</span>
-                                <span class="stat-value">${npc.status}</span>
-                            </div>
-                        </div>
+                // Calculate HP percentage for health bar
+                const hpPercent = Math.max(0, (npc.hitPoints / npc.maxHitPoints) * 100);
+                const hpClass = hpPercent > 75 ? 'healthy' : hpPercent > 50 ? 'injured' : hpPercent > 25 ? 'bloodied' : 'critical';
+                
+                html += `<div class="npc-character-sheet">`;
+                
+                // Header with name and basic info
+                html += `<div class="npc-header">
+                    <div class="npc-name">${npc.name}</div>
+                    <div class="npc-details">${npc.race} ${npc.class} • Level ${npc.level} • ${npc.alignment}</div>
+                </div>`;
+                
+                // Combat Stats
+                html += `<div class="npc-combat-stats">
+                    <div class="combat-stat">
+                        <div class="combat-stat-label">Hit Points</div>
+                        <div class="combat-stat-value">${npc.hitPoints}/${npc.maxHitPoints}</div>
+                        <div class="hp-bar"><div class="hp-fill ${hpClass}" style="width: ${hpPercent}%"></div></div>
                     </div>
-                `;
+                    <div class="combat-stat">
+                        <div class="combat-stat-label">Armor Class</div>
+                        <div class="combat-stat-value">${npc.armorClass}</div>
+                    </div>
+                    <div class="combat-stat">
+                        <div class="combat-stat-label">Initiative</div>
+                        <div class="combat-stat-value">${npc.initiative >= 0 ? '+' : ''}${npc.initiative}</div>
+                    </div>
+                </div>`;
+                
+                // Key Abilities (abbreviated)
+                if (npc.abilities) {
+                    html += '<div class="npc-abilities">';
+                    const keyAbilities = ['strength', 'dexterity', 'constitution', 'wisdom'];
+                    keyAbilities.forEach(ability => {
+                        if (npc.abilities[ability]) {
+                            const score = npc.abilities[ability];
+                            const modifier = Math.floor((score - 10) / 2);
+                            const modStr = modifier >= 0 ? `+${modifier}` : `${modifier}`;
+                            html += `<div class="ability-score">
+                                <div class="ability-name">${ability.substr(0, 3).toUpperCase()}</div>
+                                <div class="ability-value">${score}</div>
+                                <div class="ability-modifier">${modStr}</div>
+                            </div>`;
+                        }
+                    });
+                    html += '</div>';
+                }
+                
+                // Key Features and Abilities
+                html += '<div class="npc-features-container">';
+                
+                // Class Features with usage tracking
+                if (npc.classFeatures && npc.classFeatures.length > 0) {
+                    html += '<div class="stat-group"><h4>Key Abilities</h4><div class="stat-group-content">';
+                    npc.classFeatures.slice(0, 4).forEach(feature => { // Limit to first 4
+                        const desc = feature.description || '';
+                        let usageDisplay = '';
+                        
+                        if (feature.usage && feature.usage.current !== undefined && feature.usage.max !== undefined) {
+                            usageDisplay = ` <span class="usage-counter ${feature.usage.current === 0 ? 'exhausted' : ''}">${feature.usage.current}/${feature.usage.max}</span>`;
+                        }
+                        
+                        html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
+                            <span class="feature-name">${feature.name}</span>${usageDisplay}
+                        </div>`;
+                    });
+                    html += '</div></div>';
+                }
+                
+                // Active Effects
+                if (npc.temporaryEffects && npc.temporaryEffects.length > 0) {
+                    html += '<div class="stat-group"><h4>Active Effects</h4><div class="stat-group-content">';
+                    npc.temporaryEffects.forEach(effect => {
+                        const desc = effect.description || '';
+                        let durationDisplay = '';
+                        
+                        if (effect.duration) {
+                            durationDisplay = ` <span class="effect-duration">${effect.duration}</span>`;
+                        }
+                        
+                        html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
+                            <span class="feature-name">${effect.name}</span>${durationDisplay}
+                        </div>`;
+                    });
+                    html += '</div></div>';
+                }
+                
+                // Special Racial Traits
+                if (npc.racialTraits && npc.racialTraits.length > 0) {
+                    const basicTraits = ['Ability Score Increase', 'Languages', 'Extra Language'];
+                    const specialTraits = npc.racialTraits.filter(trait => !basicTraits.includes(trait.name));
+                    
+                    if (specialTraits.length > 0) {
+                        html += '<div class="stat-group"><h4>Racial Traits</h4><div class="stat-group-content">';
+                        specialTraits.slice(0, 3).forEach(trait => { // Limit to first 3
+                            const desc = trait.description || '';
+                            html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
+                                <span class="feature-name">${trait.name}</span>
+                            </div>`;
+                        });
+                        html += '</div></div>';
+                    }
+                }
+                
+                html += '</div>'; // Close npc-features-container
+                
+                // Status and Condition
+                if (npc.status !== 'alive' || npc.condition !== 'none') {
+                    html += `<div class="npc-status">
+                        <div class="status-item">Status: <span class="status-value ${npc.status}">${npc.status}</span></div>`;
+                    if (npc.condition !== 'none') {
+                        html += `<div class="status-item">Condition: <span class="condition-value">${npc.condition}</span></div>`;
+                    }
+                    html += '</div>';
+                }
+                
+                html += '</div>'; // Close npc-character-sheet
             });
             
             container.innerHTML = html;
