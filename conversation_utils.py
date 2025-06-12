@@ -282,38 +282,39 @@ FLAWS: {member_data['flaws']}
                     if isinstance(bg_feature, dict) and 'name' in bg_feature:
                         bg_feature_name = bg_feature['name']
 
-                    # Format NPC data
+                    # Format NPC data (using same schema as players)
                     formatted_data = f"""
 NPC: {npc_data['name']}
-ROLE: {npc['role']} | SIZE: {npc_data['size']} | TYPE: {npc_data['type']} | RACE: {npc_data['race']} | CLASS: {npc_data['class']} | LVL: {npc_data['level']} | ALIGN: {npc_data['alignment']}
-HP: {npc_data['hitPoints']}/{npc_data['maxHitPoints']} | AC: {npc_data['armorClass']} | SPD: {npc_data['speed']} | INIT: {npc_data['initiative']}
+ROLE: {npc['role']} | TYPE: {npc_data['character_type'].capitalize()} | LVL: {npc_data['level']} | RACE: {npc_data['race']} | CLASS: {npc_data['class']} | ALIGN: {npc_data['alignment'][:2].upper()} | BG: {npc_data['background']}
+HP: {npc_data['hitPoints']}/{npc_data['maxHitPoints']} | AC: {npc_data['armorClass']} | INIT: {npc_data['initiative']} | SPD: {npc_data['speed']}
 STATUS: {npc_data['status']} | CONDITION: {npc_data['condition']} | AFFECTED: {', '.join(npc_data['condition_affected'])}
 STATS: STR {npc_data['abilities']['strength']}, DEX {npc_data['abilities']['dexterity']}, CON {npc_data['abilities']['constitution']}, INT {npc_data['abilities']['intelligence']}, WIS {npc_data['abilities']['wisdom']}, CHA {npc_data['abilities']['charisma']}
 SAVES: {', '.join(npc_data['savingThrows'])}
 SKILLS: {', '.join(f"{skill} +{bonus}" for skill, bonus in npc_data['skills'].items())}
+PROF BONUS: +{npc_data['proficiencyBonus']}
+SENSES: {', '.join(f"{sense} {value}" for sense, value in npc_data['senses'].items())}
+LANGUAGES: {', '.join(npc_data['languages'])}
 PROF: {', '.join([f"{cat}: {', '.join(items)}" for cat, items in npc_data['proficiencies'].items()])}
 VULN: {', '.join(npc_data['damageVulnerabilities'])}
 RES: {', '.join(npc_data['damageResistances'])}
 IMM: {', '.join(npc_data['damageImmunities'])}
 COND IMM: {', '.join(npc_data['conditionImmunities'])}
-SENSES: {', '.join(f"{sense} {value}" for sense, value in npc_data['senses'].items())}
-LANGUAGES: {npc_data['languages']}
-CR: {npc_data['challengeRating']} | PROF BONUS: +{npc_data['proficiencyBonus']}
-SPECIAL: {', '.join([f"{trait['name']}" for trait in npc_data.get('racialTraits', [])] + [f"{feat['name']}" for feat in npc_data.get('feats', [])] + ([bg_feature_name] if bg_feature_name != 'None' else []))}
-ACTIONS: {', '.join(action['name'] for action in npc_data['actions'])}
+CLASS FEAT: {', '.join([f"{feature['name']}" for feature in npc_data['classFeatures']])}
+RACIAL: {', '.join([f"{trait['name']}" for trait in npc_data['racialTraits']])}
+BG FEAT: {bg_feature_name}
+FEATS: {', '.join([f"{feat['name']}" for feat in npc_data.get('feats', [])])}
+TEMP FX: {', '.join([f"{effect['name']}" for effect in npc_data.get('temporaryEffects', [])])}
 EQUIP: {equipment_str}
 AMMO: {', '.join([f"{ammo['name']} x{ammo['quantity']}" for ammo in npc_data['ammunition']])}
-ATK: {', '.join([f"{atk['name']} ({atk['type']}, {atk['damage']})" for atk in npc_data.get('attacksAndSpellcasting', [])])}
+ATK: {', '.join([f"{atk['name']} ({atk['type']}, {atk['damageDice']} {atk['damageType']})" for atk in npc_data['attacksAndSpellcasting']])}
 SPELLCASTING: {npc_data.get('spellcasting', {}).get('ability', 'N/A')} | DC: {npc_data.get('spellcasting', {}).get('spellSaveDC', 'N/A')} | ATK: +{npc_data.get('spellcasting', {}).get('spellAttackBonus', 'N/A')}
 SPELLS: {', '.join([f"{level}: {', '.join(spells)}" for level, spells in npc_data.get('spellcasting', {}).get('spells', {}).items() if spells])}
-FEATURES: {', '.join([feature['name'] for feature in npc_data.get('classFeatures', [])])}
-BG: {npc_data['background']}
-PERSONALITY: {npc_data['personality']}
+CURRENCY: {npc_data['currency']['gold']}G, {npc_data['currency']['silver']}S, {npc_data['currency']['copper']}C
+XP: {npc_data['experience_points']}/{npc_data.get('exp_required_for_next_level', 'N/A')}
+TRAITS: {npc_data['personality_traits']}
 IDEALS: {npc_data['ideals']}
 BONDS: {npc_data['bonds']}
 FLAWS: {npc_data['flaws']}
-XP: {npc_data.get('experience_points', 'N/A')}/{npc_data.get('exp_required_for_next_level', 'N/A')}
-CURRENCY: {npc_data['currency']['gold']}G, {npc_data['currency']['silver']}S, {npc_data['currency']['copper']}C
 """
                     npc_message = f"Here's the NPC data for {npc_data['name']}:\n{formatted_data}\n"
                     character_data.append({"role": "system", "content": npc_message})

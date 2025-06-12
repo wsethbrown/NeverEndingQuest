@@ -649,20 +649,29 @@ def main_game_loop():
                 }
                 party_members_stats.append(stats)
 
-        for npc_info_iter in party_tracker_data["partyNPCs"]:
-            npc_name_iter = npc_info_iter["name"]
-            npc_data_file = path_manager.get_character_path(npc_name_iter)
-            npc_data_iter = load_json_file(npc_data_file)
-            if npc_data_iter:
-                stats = {
-                    "name": npc_info_iter["name"],
-                    "display_name": npc_info_iter["name"].capitalize(),  # For display purposes
-                    "level": npc_data_iter.get("level", npc_info_iter.get("level", "N/A")),
-                    "xp": npc_data_iter.get("experience_points", "N/A"),
-                    "hp": npc_data_iter.get("hitPoints", "N/A"),
-                    "max_hp": npc_data_iter.get("maxHitPoints", "N/A")
-                }
-                party_members_stats.append(stats)
+        try:
+            for npc_info_iter in party_tracker_data["partyNPCs"]:
+                print(f"DEBUG: Processing NPC: {npc_info_iter['name']}")
+                npc_name_iter = npc_info_iter["name"]
+                npc_data_file = path_manager.get_character_path(npc_name_iter)
+                print(f"DEBUG: NPC file path: {npc_data_file}")
+                npc_data_iter = load_json_file(npc_data_file)
+                print(f"DEBUG: NPC data loaded: {npc_data_iter is not None}")
+                if npc_data_iter:
+                    stats = {
+                        "name": npc_info_iter["name"],
+                        "display_name": npc_info_iter["name"].capitalize(),  # For display purposes
+                        "level": npc_data_iter.get("level", npc_info_iter.get("level", "N/A")),
+                        "xp": npc_data_iter.get("experience_points", "N/A"),
+                        "hp": npc_data_iter.get("hitPoints", "N/A"),
+                        "max_hp": npc_data_iter.get("maxHitPoints", "N/A")
+                    }
+                    party_members_stats.append(stats)
+                    print(f"DEBUG: Added NPC stats: {stats}")
+        except Exception as e:
+            print(f"DEBUG: Error processing NPCs: {e}")
+            import traceback
+            traceback.print_exc()
         
         # Reload current location_data for the DM note based on party_tracker
         # This ensures location_data is fresh for each DM note construction

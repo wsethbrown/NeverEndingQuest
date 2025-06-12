@@ -32,6 +32,24 @@ def load_conversation_history():
     data = safe_read_json("conversation_history.json")
     return data if data else []
 
+def normalize_character_name(character_name):
+    """Normalize character names to handle titles and descriptors"""
+    # Remove common titles and descriptors
+    name = character_name.strip()
+    
+    # Handle specific known cases
+    if "Scout Elen" in name or "Elen" in name:
+        return "Elen"
+    
+    # Remove common titles
+    titles_to_remove = ["Scout", "Guard", "Captain", "Sir", "Lady", "Lord", "Master", "Sergeant"]
+    for title in titles_to_remove:
+        if name.startswith(title + " "):
+            name = name[len(title):].strip()
+            break
+    
+    return name
+
 def detect_character_role(character_name):
     """Detect character role from existing data or file location"""
     path_manager = CampaignPathManager()
@@ -188,6 +206,12 @@ def update_character_info(character_name, changes, character_role=None):
     """
     
     print(f"{ORANGE}Updating character info for: {character_name}{RESET}")
+    
+    # Normalize character name to handle titles and descriptors
+    normalized_name = normalize_character_name(character_name)
+    if normalized_name != character_name:
+        print(f"Normalized character name from '{character_name}' to '{normalized_name}'")
+        character_name = normalized_name
     
     # Auto-detect character role if not provided
     if character_role is None:

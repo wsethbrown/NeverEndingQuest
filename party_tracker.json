@@ -1,63 +1,69 @@
 {
-  "campaign": "Keep_of_Doom",
-  "partyMembers": [
-    "norn"
-  ],
-  "partyNPCs": [],
-  "worldConditions": {
-    "year": 1492,
-    "month": "Ches",
-    "day": 2,
-    "time": "07:39:00",
-    "weather": "",
-    "season": "Spring",
-    "dayNightCycle": "Day",
-    "moonPhase": "New Moon",
-    "currentLocation": "Forgotten Ossuary",
-    "currentLocationId": "E06",
-    "currentArea": "The Cursed Dungeons",
-    "currentAreaId": "TCD001",
-    "majorEventsUnderway": [],
-    "politicalClimate": "",
-    "activeEncounter": "",
-    "activeCombatEncounter": ""
-  },
-  "activeQuests": [
-    {
-      "id": "PP001",
-      "title": "Shadows Over Harrow's Hollow",
-      "description": "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run high as rumors of curses, spirits, and the haunted Keep of Doom swirl among the villagers. Players must gather information, win trust, and follow leads to piece together the mystery.",
-      "status": "in progress"
+    "campaign": "Keep_of_Doom",
+    "partyMembers": [
+        "norn"
+    ],
+    "partyNPCs": [
+        {
+            "name": "Elen",
+            "role": "Scout and Ranger"
+        }
+    ],
+    "worldConditions": {
+        "year": 1492,
+        "month": "Ches",
+        "day": 2,
+        "time": "08:01:00",
+        "weather": "",
+        "season": "Spring",
+        "dayNightCycle": "Day",
+        "moonPhase": "New Moon",
+        "currentLocation": "Relic Chamber",
+        "currentLocationId": "E07",
+        "currentArea": "The Cursed Dungeons",
+        "currentAreaId": "TCD001",
+        "majorEventsUnderway": [],
+        "politicalClimate": "",
+        "activeEncounter": "",
+        "activeCombatEncounter": "",
+        "lastCompletedEncounter": "E07-E1"
     },
-    {
-      "id": "SQ001",
-      "title": "Superstition and Shadows",
-      "description": "Old Tommen believes a wandering spirit haunts the village. If the party investigates, they may encounter the Wandering Shade--a restless ghost whose cryptic words offer hints about the keep and the missing villagers.",
-      "status": "not started"
-    },
-    {
-      "id": "SQ002",
-      "title": "Trouble at the Hearth",
-      "description": "Cira the Innkeeper's cellar is plagued by minor poltergeist activity. Calming the spirit earns Cira's gratitude and a helpful clue about Scout Elen's last known movements.",
-      "status": "not started"
-    },
-    {
-      "id": "SQ004",
-      "title": "The Keeper's Warning",
-      "description": "A mysterious hermit known as the Keeper dwells near the forest edge. They possess knowledge about the keep's curse but require assistance or convincing to share it.",
-      "status": "in progress"
-    },
-    {
-      "id": "SQ005",
-      "title": "The Black Banner Mercenaries",
-      "description": "A band of mercenaries camps near the keep, seeking treasure. They may be allies, rivals, or obstacles depending on party interactions.",
-      "status": "not started"
-    },
-    {
-      "id": "PP004",
-      "title": "The Heart of Darkness",
-      "description": "Within the keep's depths lies the source of the curse: the vengeful spirit of Lord Thaddeus Greymont, corrupted by dark magic. The party must confront him, either by combat, exorcism, or fulfilling his final wish to find peace.",
-      "status": "in progress"
-    }
-  ]
+    "activeQuests": [
+        {
+            "id": "PP001",
+            "title": "Shadows Over Harrow's Hollow",
+            "description": "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run high as rumors of curses, spirits, and the haunted Keep of Doom swirl among the villagers. Players must gather information, win trust, and follow leads to piece together the mystery.",
+            "status": "in progress"
+        },
+        {
+            "id": "SQ001",
+            "title": "Superstition and Shadows",
+            "description": "Old Tommen believes a wandering spirit haunts the village. If the party investigates, they may encounter the Wandering Shade--a restless ghost whose cryptic words offer hints about the keep and the missing villagers.",
+            "status": "not started"
+        },
+        {
+            "id": "SQ002",
+            "title": "Trouble at the Hearth",
+            "description": "Cira the Innkeeper's cellar is plagued by minor poltergeist activity. Calming the spirit earns Cira's gratitude and a helpful clue about Scout Elen's last known movements.",
+            "status": "not started"
+        },
+        {
+            "id": "SQ004",
+            "title": "The Keeper's Warning",
+            "description": "A mysterious hermit known as the Keeper dwells near the forest edge. They possess knowledge about the keep's curse but require assistance or convincing to share it.",
+            "status": "in progress"
+        },
+        {
+            "id": "SQ005",
+            "title": "The Black Banner Mercenaries",
+            "description": "A band of mercenaries camps near the keep, seeking treasure. They may be allies, rivals, or obstacles depending on party interactions.",
+            "status": "not started"
+        },
+        {
+            "id": "PP004",
+            "title": "The Heart of Darkness",
+            "description": "Within the keep's depths lies the source of the curse: the vengeful spirit of Lord Thaddeus Greymont, corrupted by dark magic. The party must confront him, either by combat, exorcism, or fulfilling his final wish to find peace.",
+            "status": "in progress"
+        }
+    ]
 }
