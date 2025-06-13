@@ -991,7 +991,7 @@
         /* NPC styling */
         .npc-character-sheet {
             margin-bottom: 20px;
-            padding: 12px;
+            padding: 8px;
             background-color: #2c2c2c;
             border: 2px solid #4CAF50;
             border-radius: 8px;
@@ -1000,23 +1000,26 @@
         
         .npc-header {
             text-align: center;
-            margin-bottom: 10px;
+            margin: 0;
+            padding: 0 0 3px 0;
             border-bottom: 2px solid #444;
-            padding-bottom: 8px;
         }
         
         .npc-name {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             color: #4CAF50;
-            margin-bottom: 4px;
+            margin: 0;
             font-family: 'Cinzel', Georgia, serif;
+            line-height: 1;
         }
         
         .npc-details {
-            font-size: 14px;
+            font-size: 13px;
             color: #ccc;
             font-style: italic;
+            line-height: 1.1;
+            margin: 0;
         }
         
         .npc-combat-stats {
@@ -1029,13 +1032,13 @@
         }
         
         .npc-abilities {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin: 10px 0;
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 6px;
+            margin: 4px 0;
             background-color: #1a1a1a;
             border-radius: 5px;
-            padding: 8px;
+            padding: 6px;
         }
         
         .npc-abilities .ability-score {
@@ -1077,6 +1080,68 @@
             margin: 0 auto;
             background-color: rgba(255, 165, 0, 0.1);
             font-weight: bold;
+        }
+        
+        /* Combat stats in abilities row */
+        .npc-abilities .npc-combat-stat {
+            background-color: #2c2c2c;
+            border: 1px solid #4CAF50;
+        }
+        
+        .npc-abilities .npc-combat-stat .ability-name {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+        
+        .npc-abilities .npc-combat-stat .ability-value {
+            font-size: 14px;
+            color: #4CAF50;
+        }
+        
+        /* Bigger values for AC and INIT */
+        .npc-abilities .npc-combat-stat.npc-no-circle .ability-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        /* HP bar in compact format */
+        .npc-abilities .hp-bar {
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 2px;
+            height: 4px;
+            margin: 2px auto 0 auto;
+            overflow: hidden;
+            width: 90%;
+        }
+        
+        .npc-abilities .hp-fill {
+            background-color: #4CAF50;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .npc-abilities .hp-fill.healthy {
+            background-color: #4CAF50;
+        }
+        
+        .npc-abilities .hp-fill.injured {
+            background-color: #ff9800;
+        }
+        
+        .npc-abilities .hp-fill.bloodied {
+            background-color: #ff5722;
+        }
+        
+        .npc-abilities .hp-fill.critical {
+            background-color: #f44336;
+        }
+        
+        /* Remove circles from AC and INIT */
+        .npc-abilities .npc-no-circle .ability-modifier {
+            display: none;
         }
         
         /* NPC Skills and Saves */
@@ -1434,6 +1499,89 @@
         .condition-value {
             color: #FFA500;
             font-weight: bold;
+        }
+        
+        /* NPC Spell Modal Styling */
+        .npc-spell-info {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 8px;
+            background-color: #1a1a1a;
+            border-radius: 4px;
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .npc-spell-stat {
+            color: #FFA500;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .npc-spell-level {
+            margin-bottom: 12px;
+            background-color: #1a1a1a;
+            border-radius: 4px;
+            padding: 8px;
+        }
+        
+        .npc-spell-level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 4px;
+        }
+        
+        .npc-spell-level-name {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .npc-spell-slots {
+            font-size: 12px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background-color: #333;
+        }
+        
+        .npc-spell-slots.available {
+            color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+        
+        .npc-spell-slots.low {
+            color: #FF9800;
+            background-color: rgba(255, 152, 0, 0.1);
+        }
+        
+        .npc-spell-slots.exhausted {
+            color: #f44336;
+            background-color: rgba(244, 67, 54, 0.1);
+        }
+        
+        .npc-spell-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+        }
+        
+        .npc-spell-item {
+            color: #e0e0e0;
+            font-size: 13px;
+            padding: 2px 4px;
+            background-color: #333;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+        
+        .npc-spell-item:hover {
+            background-color: rgba(255, 165, 0, 0.1);
         }
         
     </style>
@@ -1974,31 +2122,32 @@
                 html += `<div class="npc-character-sheet">`;
                 
                 // Header with name and basic info
-                html += `<div class="npc-header">
-                    <div class="npc-name">${npc.name}</div>
-                    <div class="npc-details">${npc.race} ${npc.class} • Level ${npc.level} • ${npc.alignment}</div>
-                </div>`;
+                html += `<div class="npc-header"><div class="npc-name">${npc.name}</div><div class="npc-details">${npc.race} ${npc.class} • Level ${npc.level} • ${npc.alignment}</div></div>`;
                 
-                // Combat Stats
-                html += `<div class="npc-combat-stats">
-                    <div class="combat-stat">
-                        <div class="combat-stat-label">Hit Points</div>
-                        <div class="combat-stat-value">${npc.hitPoints}/${npc.maxHitPoints}</div>
-                        <div class="hp-bar"><div class="hp-fill ${hpClass}" style="width: ${hpPercent}%"></div></div>
-                    </div>
-                    <div class="combat-stat">
-                        <div class="combat-stat-label">Armor Class</div>
-                        <div class="combat-stat-value">${npc.armorClass}</div>
-                    </div>
-                    <div class="combat-stat">
-                        <div class="combat-stat-label">Initiative</div>
-                        <div class="combat-stat-value">${npc.initiative >= 0 ? '+' : ''}${npc.initiative}</div>
-                    </div>
-                </div>`;
-                
-                // All Ability Scores (compact layout)
+                // All Ability Scores with Combat Stats (compact layout)
                 if (npc.abilities) {
                     html += '<div class="npc-abilities">';
+                    
+                    // Add HP first
+                    html += `<div class="ability-score npc-combat-stat">
+                        <div class="ability-name">HP</div>
+                        <div class="ability-value">${npc.hitPoints}/${npc.maxHitPoints}</div>
+                        <div class="hp-bar"><div class="hp-fill ${hpClass}" style="width: ${hpPercent}%"></div></div>
+                    </div>`;
+                    
+                    // Add AC
+                    html += `<div class="ability-score npc-combat-stat npc-no-circle">
+                        <div class="ability-name">AC</div>
+                        <div class="ability-value">${npc.armorClass}</div>
+                    </div>`;
+                    
+                    // Add Initiative
+                    html += `<div class="ability-score npc-combat-stat npc-no-circle">
+                        <div class="ability-name">INIT</div>
+                        <div class="ability-value">${npc.initiative >= 0 ? '+' : ''}${npc.initiative}</div>
+                    </div>`;
+                    
+                    // Then the six ability scores
                     const allAbilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
                     allAbilities.forEach(ability => {
                         if (npc.abilities[ability]) {
@@ -2012,6 +2161,7 @@
                             </div>`;
                         }
                     });
+                    
                     html += '</div>';
                 }
                 
@@ -2057,42 +2207,52 @@
                     html += `</div>`;
                 }
                 
-                html += '</div>'; // End skills-saves-container
-                
-                // Spellcasting Section
+                // Spellcasting Button
                 if (npc.spellcasting && npc.spellcasting.spells) {
                     const hasSpells = Object.values(npc.spellcasting.spells).some(spellLevel => 
                         Array.isArray(spellLevel) && spellLevel.length > 0
                     );
                     
                     if (hasSpells) {
-                        html += '<div class="npc-spellcasting">';
-                        html += '<h4>Spellcasting</h4>';
-                        html += '<div class="spell-info">';
+                        // Prepare spells data for the popup
+                        let spellsData = {
+                            spellSaveDC: npc.spellcasting.spellSaveDC || null,
+                            spellAttackBonus: npc.spellcasting.spellAttackBonus || null,
+                            spellSlots: npc.spellcasting.spellSlots || {},
+                            spellsByLevel: []
+                        };
                         
-                        if (npc.spellcasting.spellSaveDC) {
-                            html += `<span class="spell-stat">Save DC: ${npc.spellcasting.spellSaveDC}</span>`;
-                        }
-                        if (npc.spellcasting.spellAttackBonus) {
-                            html += `<span class="spell-stat">Attack: +${npc.spellcasting.spellAttackBonus}</span>`;
-                        }
-                        
-                        html += '</div>';
-                        
-                        // Display spells by level
+                        // Organize spells by level
                         Object.entries(npc.spellcasting.spells).forEach(([level, spells]) => {
                             if (Array.isArray(spells) && spells.length > 0) {
                                 const levelName = level === 'cantrips' ? 'Cantrips' : `Level ${level.replace('level', '')}`;
-                                html += `<div class="spell-level">`;
-                                html += `<div class="spell-level-name">${levelName}</div>`;
-                                html += `<div class="spell-list">${spells.join(', ')}</div>`;
-                                html += `</div>`;
+                                const levelNum = level === 'cantrips' ? 0 : parseInt(level.replace('level', ''));
+                                
+                                // Get spell slot information
+                                let slotInfo = null;
+                                if (levelNum > 0 && npc.spellcasting.spellSlots) {
+                                    const slotKey = `level${levelNum}`;
+                                    if (npc.spellcasting.spellSlots[slotKey]) {
+                                        slotInfo = npc.spellcasting.spellSlots[slotKey];
+                                    }
+                                }
+                                
+                                spellsData.spellsByLevel.push({
+                                    level: levelName,
+                                    levelNum: levelNum,
+                                    spells: spells,
+                                    slots: slotInfo
+                                });
                             }
                         });
                         
-                        html += '</div>';
+                        html += `<div class="stat-group">`;
+                        html += `<button class="npc-detail-button" onclick="showNPCSpells('${npc.name}', ${JSON.stringify(spellsData).replace(/"/g, '&quot;')})">Spellcasting</button>`;
+                        html += `</div>`;
                     }
                 }
+                
+                html += '</div>'; // End skills-saves-container
                 
                 // Key Features and Abilities
                 html += '<div class="npc-features-container">';
@@ -2323,6 +2483,60 @@
                 });
             } else {
                 html = '<div class="npc-details-item">No saving throws available.</div>';
+            }
+            
+            body.innerHTML = html;
+            modal.style.display = 'block';
+        }
+        
+        function showNPCSpells(npcName, spellsData) {
+            const modal = document.getElementById('npc-details-modal');
+            const title = document.getElementById('npc-details-title');
+            const body = document.getElementById('npc-details-body');
+            
+            title.textContent = `${npcName}'s Spellcasting`;
+            
+            let html = '';
+            
+            // Add spell save DC and attack bonus if available
+            if (spellsData.spellSaveDC || spellsData.spellAttackBonus) {
+                html += '<div class="npc-spell-info">';
+                if (spellsData.spellSaveDC) {
+                    html += `<span class="npc-spell-stat">Save DC: ${spellsData.spellSaveDC}</span>`;
+                }
+                if (spellsData.spellAttackBonus) {
+                    html += `<span class="npc-spell-stat">Attack: +${spellsData.spellAttackBonus}</span>`;
+                }
+                html += '</div>';
+            }
+            
+            if (spellsData && spellsData.spellsByLevel && spellsData.spellsByLevel.length > 0) {
+                spellsData.spellsByLevel.forEach(levelData => {
+                    html += `<div class="npc-spell-level">`;
+                    html += `<div class="npc-spell-level-header">`;
+                    html += `<span class="npc-spell-level-name">${levelData.level}</span>`;
+                    
+                    // Show spell slots if available (not for cantrips)
+                    if (levelData.levelNum > 0 && levelData.slots) {
+                        const current = levelData.slots.current || 0;
+                        const max = levelData.slots.max || 0;
+                        const slotClass = current === 0 ? 'exhausted' : current <= max * 0.5 ? 'low' : 'available';
+                        html += `<span class="npc-spell-slots ${slotClass}">${current}/${max} slots</span>`;
+                    }
+                    
+                    html += `</div>`;
+                    
+                    // List spells
+                    html += `<div class="npc-spell-list">`;
+                    levelData.spells.forEach(spell => {
+                        html += `<div class="npc-spell-item">${spell}</div>`;
+                    });
+                    html += `</div>`;
+                    
+                    html += `</div>`;
+                });
+            } else {
+                html = '<div class="npc-details-item">No spells available.</div>';
             }
             
             body.innerHTML = html;
