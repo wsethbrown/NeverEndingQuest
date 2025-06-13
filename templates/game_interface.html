@@ -1031,7 +1031,7 @@
         .npc-abilities {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 8px;
             margin: 10px 0;
             background-color: #1a1a1a;
             border-radius: 5px;
@@ -1042,8 +1042,95 @@
             text-align: center;
             background-color: #333;
             border-radius: 5px;
-            padding: 4px 8px;
-            min-width: 50px;
+            padding: 4px 6px;
+            min-width: 45px;
+            font-size: 12px;
+        }
+        
+        .npc-abilities .ability-name {
+            font-size: 10px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .npc-abilities .ability-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e0e0e0;
+            margin: 1px 0;
+            line-height: 0.9;
+        }
+        
+        .npc-abilities .ability-modifier {
+            font-size: 12px;
+            color: #FFA500;
+            border: 1px solid #FFA500;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            background-color: rgba(255, 165, 0, 0.1);
+            font-weight: bold;
+        }
+        
+        /* NPC Skills and Saves */
+        .npc-skills-saves-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        /* NPC Spellcasting Section */
+        .npc-spellcasting {
+            margin: 10px 0;
+            background-color: #1a1a1a;
+            border-radius: 5px;
+            padding: 8px;
+        }
+        
+        .npc-spellcasting h4 {
+            color: #4CAF50;
+            font-size: 16px;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 3px;
+        }
+        
+        .spell-info {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 8px;
+        }
+        
+        .spell-stat {
+            color: #FFA500;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        
+        .spell-level {
+            margin-bottom: 4px;
+        }
+        
+        .spell-level-name {
+            color: #e0e0e0;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+        
+        .spell-list {
+            color: #ccc;
+            font-size: 11px;
+            margin-left: 10px;
+            line-height: 1.3;
         }
         
         .npc-features-container {
@@ -1810,11 +1897,11 @@
                     </div>
                 </div>`;
                 
-                // Key Abilities (abbreviated)
+                // All Ability Scores (compact layout)
                 if (npc.abilities) {
                     html += '<div class="npc-abilities">';
-                    const keyAbilities = ['strength', 'dexterity', 'constitution', 'wisdom'];
-                    keyAbilities.forEach(ability => {
+                    const allAbilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+                    allAbilities.forEach(ability => {
                         if (npc.abilities[ability]) {
                             const score = npc.abilities[ability];
                             const modifier = Math.floor((score - 10) / 2);
@@ -1828,6 +1915,36 @@
                     });
                     html += '</div>';
                 }
+                
+                // Skills and Saves in two columns (similar to player character)
+                html += '<div class="npc-skills-saves-container">';
+                
+                // Saving Throws
+                if (npc.savingThrows && npc.savingThrows.length > 0) {
+                    html += '<div class="stat-group"><h4>Saving Throws</h4><div class="stat-group-content">';
+                    const allSaves = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
+                    allSaves.forEach(save => {
+                        const isProficient = npc.savingThrows.includes(save);
+                        const ability = save.toLowerCase();
+                        const abilityMod = npc.abilities ? Math.floor((npc.abilities[ability] - 10) / 2) : 0;
+                        const bonus = isProficient ? abilityMod + (npc.proficiencyBonus || 3) : abilityMod;
+                        const bonusStr = bonus >= 0 ? `+${bonus}` : `${bonus}`;
+                        html += `<div class="save-item"><span class="save-name">${save} ${isProficient ? '●' : '○'}</span><span class="save-value">${bonusStr}</span></div>`;
+                    });
+                    html += '</div></div>';
+                }
+                
+                // Skills
+                if (npc.skills) {
+                    html += '<div class="stat-group"><h4>Skills</h4><div class="stat-group-content">';
+                    Object.entries(npc.skills).forEach(([skill, value]) => {
+                        const bonus = value >= 0 ? `+${value}` : `${value}`;
+                        html += `<div class="skill-item"><span class="skill-name">${skill}</span><span class="skill-value">${bonus}</span></div>`;
+                    });
+                    html += '</div></div>';
+                }
+                
+                html += '</div>'; // End skills-saves-container
                 
                 // Equipped Armor and Weapons Section
                 const equippedItems = [];
@@ -1852,6 +1969,41 @@
                     html += '</div>';
                     html += `<button class="npc-inventory-button" onclick="showNPCInventory('${npc.name}', ${JSON.stringify(npc.equipment).replace(/"/g, '&quot;')})">View Inventory</button>`;
                     html += '</div>';
+                }
+                
+                // Spellcasting Section
+                if (npc.spellcasting && npc.spellcasting.spells) {
+                    const hasSpells = Object.values(npc.spellcasting.spells).some(spellLevel => 
+                        Array.isArray(spellLevel) && spellLevel.length > 0
+                    );
+                    
+                    if (hasSpells) {
+                        html += '<div class="npc-spellcasting">';
+                        html += '<h4>Spellcasting</h4>';
+                        html += '<div class="spell-info">';
+                        
+                        if (npc.spellcasting.spellSaveDC) {
+                            html += `<span class="spell-stat">Save DC: ${npc.spellcasting.spellSaveDC}</span>`;
+                        }
+                        if (npc.spellcasting.spellAttackBonus) {
+                            html += `<span class="spell-stat">Attack: +${npc.spellcasting.spellAttackBonus}</span>`;
+                        }
+                        
+                        html += '</div>';
+                        
+                        // Display spells by level
+                        Object.entries(npc.spellcasting.spells).forEach(([level, spells]) => {
+                            if (Array.isArray(spells) && spells.length > 0) {
+                                const levelName = level === 'cantrips' ? 'Cantrips' : `Level ${level.replace('level', '')}`;
+                                html += `<div class="spell-level">`;
+                                html += `<div class="spell-level-name">${levelName}</div>`;
+                                html += `<div class="spell-list">${spells.join(', ')}</div>`;
+                                html += `</div>`;
+                            }
+                        });
+                        
+                        html += '</div>';
+                    }
                 }
                 
                 // Key Features and Abilities
@@ -1908,6 +2060,16 @@
                         });
                         html += '</div></div>';
                     }
+                }
+                
+                // Background Feature
+                if (npc.backgroundFeature && npc.backgroundFeature.name) {
+                    html += '<div class="stat-group"><h4>Background</h4><div class="stat-group-content">';
+                    const desc = npc.backgroundFeature.description || '';
+                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
+                        <span class="feature-name">${npc.backgroundFeature.name}</span>
+                    </div>`;
+                    html += '</div></div>';
                 }
                 
                 html += '</div>'; // Close npc-features-container
