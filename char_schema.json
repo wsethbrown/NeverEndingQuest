@@ -229,9 +229,22 @@
         "properties": {
           "item_name": {"type": "string"},
           "item_type": {"type": "string", "enum": ["weapon", "armor", "miscellaneous", "consumable"]},
+          "item_subtype": {"type": "string", "enum": ["scroll", "potion", "wand", "ring", "amulet", "cloak", "boots", "gloves", "helmet", "rod", "staff", "other"]},
           "description": {"type": "string"},
           "quantity": {"type": "integer"},
           "equipped": {"type": "boolean", "default": false},
+          "magical": {"type": "boolean", "default": false},
+          "consumable": {"type": "boolean", "default": false},
+          "spellLevel": {"type": "integer", "minimum": 0, "maximum": 9},
+          "charges": {
+            "type": "object",
+            "properties": {
+              "current": {"type": "integer", "minimum": 0},
+              "max": {"type": "integer", "minimum": 0}
+            },
+            "required": ["current", "max"]
+          },
+          "rechargeRate": {"type": "string", "enum": ["daily", "weekly", "monthly", "never", "dawn", "dusk"]},
           "ac_base": {"type": "integer", "minimum": 10, "maximum": 30},
           "ac_bonus": {"type": "integer", "minimum": -5, "maximum": 10},
           "dex_limit": {"type": ["integer", "null"], "minimum": 0, "maximum": 10},
@@ -305,6 +318,87 @@
             "level8": {"type": "array", "items": {"type": "string"}},
             "level9": {"type": "array", "items": {"type": "string"}}
           }
+        },
+        "spellSlots": {
+          "type": "object",
+          "properties": {
+            "level1": {
+              "type": "object",
+              "properties": {
+                "current": {"type": "integer", "minimum": 0},
+                "max": {"type": "integer", "minimum": 0}
+              },
+              "required": ["current", "max"]
+            },
+            "level2": {
+              "type": "object",
+              "properties": {
+                "current": {"type": "integer", "minimum": 0},
+                "max": {"type": "integer", "minimum": 0}
+              },
+              "required": ["current", "max"]
+            },
+            "level3": {
+              "type": "object",
+              "properties": {
+                "current": {"type": "integer", "minimum": 0},
+                "max": {"type": "integer", "minimum": 0}
+              },
+              "required": ["current", "max"]
+            },
+            "level4": {
+              "type": "object",
+              "properties": {
+                "current": {"type": "integer", "minimum": 0},
+                "max": {"type": "integer", "minimum": 0}
+              },
+              "required": ["current", "max"]
+            },
+            "level5": {
+              "type": "object",
+              "properties": {
+                "current": {"type": "integer", "minimum": 0},
+                "max": {"type": "integer", "minimum": 0}
+              },
+              "required": ["current", "max"]
+            },
+            "level6": {
+              "type": "object",
+              "properties": {
+                "current": {"type": "integer", "minimum": 0},
+                "max": {"type": "integer", "minimum": 0}
+              },
+              "required": ["current", "max"]
+            },
+            "level7": {
+              "type": "object",
+              "properties": {
+                "current": {"type": "integer", "minimum": 0},
+                "max": {"type": "integer", "minimum": 0}
+              },
+              "required": ["current", "max"]
+            },
+            "level8": {
+              "type": "object",
+              "properties": {
+                "current": {"type": "integer", "minimum": 0},
+                "max": {"type": "integer", "minimum": 0}
+              },
+              "required": ["current", "max"]
+            },
+            "level9": {
+              "type": "object",
+              "properties": {
+                "current": {"type": "integer", "minimum": 0},
+                "max": {"type": "integer", "minimum": 0}
+              },
+              "required": ["current", "max"]
+            }
+          }
+        },
+        "preparedSpells": {
+          "type": "array",
+          "items": {"type": "string"}
         }
       }
     },
@@ -346,7 +440,7 @@
     "senses", "languages", "proficiencies", "damageVulnerabilities", "damageResistances",
     "damageImmunities", "conditionImmunities", "classFeatures", "racialTraits", "backgroundFeature",
     "temporaryEffects", "injuries", "equipment_effects", "feats", "equipment", "attacksAndSpellcasting", "spellcasting", "currency", "experience_points", 
-    "exp_required_for_next_level", "challengeRating", "personality_traits", "ideals", "bonds", "flaws"
+    "exp_required_for_next_level", "personality_traits", "ideals", "bonds", "flaws"
   ],
   "additionalProperties": false
 }

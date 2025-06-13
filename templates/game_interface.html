@@ -459,6 +459,240 @@
             white-space: nowrap;
         }
         
+        /* Spells & Magic Items styling */
+        .spells-magic-sheet {
+            padding: 8px;
+            margin: 0;
+            background-color: #1a1a1a;
+            border: 2px solid #444;
+            border-radius: 8px;
+            font-family: 'Crimson Text', Georgia, serif;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 255, 255, 0.01) 10px,
+                    rgba(255, 255, 255, 0.01) 20px
+                );
+        }
+        
+        .spellcasting-section {
+            margin-bottom: 10px;
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 8px;
+        }
+        
+        .spellcasting-section h3 {
+            margin: 0 0 8px 0;
+            color: #FFA500;
+            border-bottom: 1px solid #444;
+            padding-bottom: 4px;
+            text-transform: uppercase;
+            font-size: 18px;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', Georgia, serif;
+        }
+        
+        .spell-stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+            padding: 6px;
+            background-color: #1a1a1a;
+            border-radius: 4px;
+        }
+        
+        .spell-stats span {
+            color: #FFA500;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .spell-level-group {
+            margin-bottom: 8px;
+            background-color: #1a1a1a;
+            border-radius: 4px;
+            padding: 6px;
+        }
+        
+        .spell-level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 2px;
+        }
+        
+        .spell-level-name {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .spell-slots {
+            font-size: 12px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background-color: #333;
+        }
+        
+        .spell-slots.available {
+            color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.2);
+        }
+        
+        .spell-slots.low {
+            color: #FF9800;
+            background-color: rgba(255, 152, 0, 0.2);
+        }
+        
+        .spell-slots.exhausted {
+            color: #f44336;
+            background-color: rgba(244, 67, 54, 0.2);
+        }
+        
+        .spell-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+        }
+        
+        .spell-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2px 4px;
+            background-color: #333;
+            border-radius: 3px;
+            font-size: 13px;
+            transition: background-color 0.2s;
+        }
+        
+        .spell-item:hover {
+            background-color: rgba(255, 165, 0, 0.1);
+        }
+        
+        .spell-name {
+            color: #e0e0e0;
+            flex: 1;
+        }
+        
+        .spell-badges {
+            display: flex;
+            gap: 2px;
+            margin-left: 4px;
+        }
+        
+        .spell-badge {
+            font-size: 9px;
+            padding: 1px 3px;
+            border-radius: 2px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .spell-badge.ritual {
+            background-color: #2196F3;
+        }
+        
+        .spell-badge.concentration {
+            background-color: #FF9800;
+        }
+        
+        .spell-badge.prepared {
+            background-color: #4CAF50;
+        }
+        
+        .magic-items-section {
+            margin-top: 10px;
+        }
+        
+        .magic-items-category {
+            margin-bottom: 8px;
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 6px;
+        }
+        
+        .magic-items-category h4 {
+            margin: 0 0 6px 0;
+            color: #FFA500;
+            border-bottom: 1px solid #444;
+            padding-bottom: 3px;
+            text-transform: uppercase;
+            font-size: 16px;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', Georgia, serif;
+        }
+        
+        .magic-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3px 4px;
+            margin: 2px 0;
+            background-color: #1a1a1a;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+        
+        .magic-item:hover {
+            background-color: rgba(255, 165, 0, 0.1);
+        }
+        
+        .magic-item-name {
+            color: #4CAF50;
+            font-weight: bold;
+            flex: 1;
+        }
+        
+        .magic-item-charges {
+            font-size: 12px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 8px;
+        }
+        
+        .magic-item-charges.available {
+            color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.2);
+        }
+        
+        .magic-item-charges.low {
+            color: #FF9800;
+            background-color: rgba(255, 152, 0, 0.2);
+        }
+        
+        .magic-item-charges.exhausted {
+            color: #f44336;
+            background-color: rgba(244, 67, 54, 0.2);
+        }
+        
+        .magic-item-charges.consumable {
+            color: #fff;
+            background-color: #666;
+        }
+        
+        .no-spellcasting-message {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-style: italic;
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
         /* Character Sheet Styling */
         .character-sheet {
             padding: 8px;
@@ -1621,6 +1855,7 @@
             <div class="tabs">
                 <button class="tab-button active" onclick="switchTab('stats')">Character</button>
                 <button class="tab-button" onclick="switchTab('inventory')">Inventory</button>
+                <button class="tab-button" onclick="switchTab('spells')">Spells & Magic</button>
                 <button class="tab-button" onclick="switchTab('npcs')">NPCs</button>
                 <button class="tab-button" onclick="switchTab('debug')">Debug</button>
             </div>
@@ -1635,6 +1870,11 @@
             <div class="tab-content" id="stats-tab" style="display: block;">
                 <div class="panel-content" id="stats-content">
                     <div class="loading">Loading character stats...</div>
+                </div>
+            </div>
+            <div class="tab-content" id="spells-tab" style="display: none;">
+                <div class="panel-content" id="spells-content">
+                    <div class="loading">Loading spells and magic items...</div>
                 </div>
             </div>
             <div class="tab-content" id="npcs-tab" style="display: none;">
@@ -1805,6 +2045,8 @@
                 loadInventory();
             } else if (tabName === 'stats') {
                 loadCharacterStats();
+            } else if (tabName === 'spells') {
+                loadSpellsAndMagic();
             } else if (tabName === 'npcs') {
                 loadNPCs();
             }
@@ -1818,6 +2060,11 @@
         // Load character stats
         function loadCharacterStats() {
             socket.emit('request_player_data', { dataType: 'stats' });
+        }
+        
+        // Load spells and magic items
+        function loadSpellsAndMagic() {
+            socket.emit('request_player_data', { dataType: 'spells' });
         }
         
         // Load NPC information
@@ -2104,6 +2351,195 @@
             container.innerHTML = html;
         }
         
+        // Display spells and magic items
+        function displaySpellsAndMagic(data) {
+            const container = document.getElementById('spells-content');
+            if (!data) {
+                container.innerHTML = '<div class="loading">No character data available</div>';
+                return;
+            }
+            
+            let html = '<div class="spells-magic-sheet">';
+            
+            // Check if character has spellcasting abilities
+            const hasSpellcasting = data.spellcasting && data.spellcasting.spells && 
+                Object.values(data.spellcasting.spells).some(spellArray => 
+                    Array.isArray(spellArray) && spellArray.length > 0
+                );
+            
+            if (hasSpellcasting) {
+                // Spellcasting Section
+                html += '<div class="spellcasting-section">';
+                html += '<h3>SPELLCASTING</h3>';
+                
+                // Spell Save DC and Attack Bonus
+                if (data.spellcasting.spellSaveDC || data.spellcasting.spellAttackBonus) {
+                    html += '<div class="spell-stats">';
+                    if (data.spellcasting.spellSaveDC) {
+                        html += `<span>Save DC: ${data.spellcasting.spellSaveDC}</span>`;
+                    }
+                    if (data.spellcasting.spellAttackBonus) {
+                        html += `<span>Spell Attack: +${data.spellcasting.spellAttackBonus}</span>`;
+                    }
+                    html += '</div>';
+                }
+                
+                // Display spells by level
+                const spellLevels = ['cantrips', 'level1', 'level2', 'level3', 'level4', 'level5', 'level6', 'level7', 'level8', 'level9'];
+                const spellLevelNames = ['Cantrips', '1st Level', '2nd Level', '3rd Level', '4th Level', '5th Level', '6th Level', '7th Level', '8th Level', '9th Level'];
+                
+                spellLevels.forEach((level, index) => {
+                    const spells = data.spellcasting.spells[level];
+                    if (spells && spells.length > 0) {
+                        const levelNumber = index; // 0 for cantrips, 1-9 for spell levels
+                        const slotKey = `level${levelNumber}`;
+                        
+                        html += '<div class="spell-level-group">';
+                        html += '<div class="spell-level-header">';
+                        html += `<span class="spell-level-name">${spellLevelNames[index]}</span>`;
+                        
+                        // Show spell slots for levels 1-9 (not cantrips)
+                        if (levelNumber > 0 && data.spellcasting.spellSlots && data.spellcasting.spellSlots[slotKey]) {
+                            const slots = data.spellcasting.spellSlots[slotKey];
+                            const current = slots.current || 0;
+                            const max = slots.max || 0;
+                            let slotClass = 'available';
+                            if (current === 0) slotClass = 'exhausted';
+                            else if (current <= max * 0.5) slotClass = 'low';
+                            
+                            html += `<span class="spell-slots ${slotClass}">${current}/${max} slots</span>`;
+                        }
+                        
+                        html += '</div>';
+                        
+                        // List spells
+                        html += '<div class="spell-list">';
+                        spells.forEach(spellName => {
+                            html += '<div class="spell-item">';
+                            html += `<span class="spell-name">${spellName}</span>`;
+                            
+                            // Add badges for spell properties
+                            html += '<div class="spell-badges">';
+                            
+                            // Check if spell is prepared (if preparedSpells array exists)
+                            if (data.spellcasting.preparedSpells && data.spellcasting.preparedSpells.includes(spellName)) {
+                                html += '<span class="spell-badge prepared">P</span>';
+                            }
+                            
+                            // Note: We could add ritual [R] and concentration [C] badges here
+                            // if we had that data in the spell information
+                            
+                            html += '</div>';
+                            html += '</div>';
+                        });
+                        html += '</div>';
+                        html += '</div>';
+                    }
+                });
+                
+                html += '</div>'; // End spellcasting-section
+            } else {
+                // No spellcasting message
+                html += '<div class="no-spellcasting-message">';
+                html += 'This character does not have spellcasting abilities.';
+                html += '</div>';
+            }
+            
+            // Magic Items Section
+            html += '<div class="magic-items-section">';
+            
+            // Filter equipment for magic items
+            const scrolls = data.equipment ? data.equipment.filter(item => item.item_subtype === 'scroll') : [];
+            const potions = data.equipment ? data.equipment.filter(item => item.item_subtype === 'potion') : [];
+            const magicalItems = data.equipment ? data.equipment.filter(item => 
+                item.magical && !['scroll', 'potion'].includes(item.item_subtype)
+            ) : [];
+            
+            // Scrolls Category
+            if (scrolls.length > 0) {
+                html += '<div class="magic-items-category">';
+                html += '<h4>SCROLLS</h4>';
+                scrolls.forEach(scroll => {
+                    html += '<div class="magic-item">';
+                    html += `<span class="magic-item-name">${scroll.item_name}</span>`;
+                    
+                    // Show spell level if available
+                    if (scroll.spellLevel !== undefined) {
+                        html += `<span class="spell-badge">${scroll.spellLevel === 0 ? 'Cantrip' : `Level ${scroll.spellLevel}`}</span>`;
+                    }
+                    
+                    // Show quantity or consumable indicator
+                    if (scroll.consumable) {
+                        html += '<span class="magic-item-charges consumable">[1x]</span>';
+                    } else if (scroll.quantity > 1) {
+                        html += `<span class="magic-item-charges">×${scroll.quantity}</span>`;
+                    }
+                    
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+            
+            // Potions Category
+            if (potions.length > 0) {
+                html += '<div class="magic-items-category">';
+                html += '<h4>POTIONS</h4>';
+                potions.forEach(potion => {
+                    html += '<div class="magic-item">';
+                    html += `<span class="magic-item-name">${potion.item_name}</span>`;
+                    
+                    // Show quantity or consumable indicator
+                    if (potion.consumable) {
+                        html += '<span class="magic-item-charges consumable">[1x]</span>';
+                    } else if (potion.quantity > 1) {
+                        html += `<span class="magic-item-charges">×${potion.quantity}</span>`;
+                    }
+                    
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+            
+            // Other Magical Items Category
+            if (magicalItems.length > 0) {
+                html += '<div class="magic-items-category">';
+                html += '<h4>MAGIC ITEMS</h4>';
+                magicalItems.forEach(item => {
+                    html += '<div class="magic-item">';
+                    html += `<span class="magic-item-name">${item.item_name}</span>`;
+                    
+                    // Show charges if available
+                    if (item.charges) {
+                        const current = item.charges.current || 0;
+                        const max = item.charges.max || 0;
+                        let chargeClass = 'available';
+                        if (current === 0) chargeClass = 'exhausted';
+                        else if (current <= max * 0.5) chargeClass = 'low';
+                        
+                        html += `<span class="magic-item-charges ${chargeClass}">${current}/${max}</span>`;
+                    }
+                    
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+            
+            // Show message if no magic items
+            if (scrolls.length === 0 && potions.length === 0 && magicalItems.length === 0) {
+                html += '<div class="magic-items-category">';
+                html += '<h4>MAGIC ITEMS</h4>';
+                html += '<div class="magic-item">';
+                html += '<span class="magic-item-name">No magical items found</span>';
+                html += '</div>';
+                html += '</div>';
+            }
+            
+            html += '</div>'; // End magic-items-section
+            html += '</div>'; // End spells-magic-sheet
+            
+            container.innerHTML = html;
+        }
+        
         // Display NPC information
         function displayNPCs(data) {
             const container = document.getElementById('npcs-content');
@@ -2364,6 +2800,8 @@
                 displayInventory(response.data);
             } else if (response.dataType === 'stats') {
                 displayCharacterStats(response.data);
+            } else if (response.dataType === 'spells') {
+                displaySpellsAndMagic(response.data);
             } else if (response.dataType === 'npcs') {
                 displayNPCs(response.data);
             }
@@ -2383,6 +2821,8 @@
                     loadInventory();
                 } else if (activeTab === 'character') {
                     loadCharacterStats();
+                } else if (activeTab === 'spells & magic') {
+                    loadSpellsAndMagic();
                 } else if (activeTab === 'npcs') {
                     loadNPCs();
                 }

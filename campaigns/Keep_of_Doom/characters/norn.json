@@ -4,7 +4,7 @@
   "name": "Norn",
   "type": "player",
   "size": "Medium",
-  "level": 5,
+  "level": 6,
   "race": "Human",
   "class": "Fighter",
   "alignment": "lawful good",
@@ -12,13 +12,13 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 39,
+  "hitPoints": 13,
   "maxHitPoints": 47,
   "armorClass": 19,
   "initiative": 2,
   "speed": 30,
   "abilities": {
-    "strength": 17,
+    "strength": 16,
     "dexterity": 14,
     "constitution": 16,
     "intelligence": 11,
@@ -449,15 +449,44 @@
       "quantity": 1
     },
     {
-      "item_name": "Potion of Heroism",
-      "item_type": "consumable",
-      "description": "A potion found at the base of the desecrated shrine, grants temporary heroism effects when consumed.",
+      "item_name": "Sir Garran's sword (+2 weapon)",
+      "item_type": "weapon",
+      "description": "The sword of Sir Garran, now enhanced to a +2 magical weapon.",
+      "quantity": 1,
+      "equipped": false,
+      "magic_bonus": 2
+    },
+    {
+      "item_name": "Vial of Shadow Essence",
+      "item_type": "miscellaneous",
+      "description": "A small vial containing concentrated shadow essence, a residue of the Shadow Relic's corruption.",
       "quantity": 1
     },
     {
-      "item_name": "Antique Silver Flask",
+      "item_name": "Ancient Scroll (Relic's Creation)",
       "item_type": "miscellaneous",
-      "description": "An old silver flask discovered among the scattered cards on the guard table.",
+      "description": "An ancient scroll detailing the creation of the Shadow Relic and its dark magic.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Amulet of Protection Against Shadow Magic",
+      "item_type": "miscellaneous",
+      "description": "An amulet that grants protection against shadow magic effects.",
+      "quantity": 1,
+      "equipped": false,
+      "effects": [
+        {
+          "type": "resistance",
+          "target": "shadow",
+          "value": null,
+          "description": "Grants resistance to shadow magic effects"
+        }
+      ]
+    },
+    {
+      "item_name": "Chest with 58 Gold Coins, 4 Gemstones, and Deed to Shadowfall Keep",
+      "item_type": "miscellaneous",
+      "description": "A sturdy chest containing 58 gold coins, 4 precious gemstones, and the deed to Shadowfall Keep.",
       "quantity": 1
     }
   ],
@@ -529,11 +558,11 @@
     }
   },
   "currency": {
-    "gold": 156,
+    "gold": 214,
     "silver": 0,
     "copper": 0
   },
-  "experience_points": 12781,
+  "experience_points": 16581,
   "exp_required_for_next_level": 14000,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",
@@ -553,14 +582,6 @@
     }
   ],
   "temporaryEffects": [
-    {
-      "name": "Spiritual Fortitude",
-      "description": "Advantage on saving throws against enchantment and fear effects.",
-      "duration": "24 hours",
-      "expiration": "1492-03-03T07:39:00",
-      "source": "Ward Rituals",
-      "effectType": "magic"
-    },
     {
       "name": "Blessing of the Forest Guardian",
       "description": "Advantage on saving throws against fear effects.",
@@ -584,6 +605,17 @@
       "expiration": "1492-03-02T15:39:00",
       "source": "Restored Shrine",
       "effectType": "magic"
+    },
+    {
+      "name": "Potion of Heroism",
+      "description": "Grants 10 temporary hit points and +2 to attack rolls and saving throws.",
+      "duration": "1 hour",
+      "expiration": "1492-03-02T08:45:00",
+      "source": "Potion of Heroism",
+      "effectType": "magic",
+      "temporaryHitPoints": 2,
+      "attackRollBonus": 2,
+      "savingThrowBonus": 2
     }
   ],
   "injuries": [],
