@@ -2064,7 +2064,7 @@
         
         // Load spells and magic items
         function loadSpellsAndMagic() {
-            socket.emit('request_player_data', { dataType: 'spells' });
+            socket.emit('request_player_data', { dataType: 'inventory' });
         }
         
         // Load NPC information
@@ -2797,7 +2797,15 @@
         // Handle data responses from server
         socket.on('player_data_response', (response) => {
             if (response.dataType === 'inventory') {
-                displayInventory(response.data);
+                // Check if we're currently on the spells & magic tab
+                const activeTabButton = document.querySelector('.tab-button.active');
+                const activeTab = activeTabButton ? activeTabButton.textContent.toLowerCase() : '';
+                
+                if (activeTab === 'spells & magic') {
+                    displaySpellsAndMagic(response.data);
+                } else {
+                    displayInventory(response.data);
+                }
             } else if (response.dataType === 'stats') {
                 displayCharacterStats(response.data);
             } else if (response.dataType === 'spells') {
