@@ -212,22 +212,12 @@ def update_character_data(conversation_history, party_tracker_data):
                     if isinstance(bg_feature, dict) and 'name' in bg_feature:
                         bg_feature_name = bg_feature['name']
                     
-                    # Format spell slots information
-                    spell_slots_info = 'None'
-                    if 'spellcasting' in member_data and 'spellSlots' in member_data['spellcasting']:
-                        spell_slots = member_data['spellcasting']['spellSlots']
-                        slot_strings = []
-                        for level, slots in spell_slots.items():
-                            if slots.get('max', 0) > 0:
-                                level_num = level.replace('level', '')
-                                slot_strings.append(f"{level_num}: {slots.get('current', 0)}/{slots.get('max', 0)}")
-                        spell_slots_info = ', '.join(slot_strings) if slot_strings else 'None'
                     
                     # Format character data
                     formatted_data = f"""
 CHAR: {member_data['name']}
 TYPE: {member_data['character_type'].capitalize()} | LVL: {member_data['level']} | RACE: {member_data['race']} | CLASS: {member_data['class']} | ALIGN: {member_data['alignment'][:2].upper()} | BG: {member_data['background']}
-HP: {member_data['hitPoints']}/{member_data['maxHitPoints']} | AC: {member_data['armorClass']} | INIT: {member_data['initiative']} | SPD: {member_data['speed']}
+AC: {member_data['armorClass']} | SPD: {member_data['speed']}
 STATUS: {member_data['status']} | CONDITION: {member_data['condition']} | AFFECTED: {', '.join(member_data['condition_affected'])}
 STATS: STR {member_data['abilities']['strength']}, DEX {member_data['abilities']['dexterity']}, CON {member_data['abilities']['constitution']}, INT {member_data['abilities']['intelligence']}, WIS {member_data['abilities']['wisdom']}, CHA {member_data['abilities']['charisma']}
 SAVES: {', '.join(member_data['savingThrows'])}
@@ -249,7 +239,6 @@ EQUIP: {equipment_str}
 AMMO: {', '.join([f"{ammo['name']} x{ammo['quantity']}" for ammo in member_data['ammunition']])}
 ATK: {', '.join([f"{atk['name']} ({atk['type']}, {atk['damageDice']} {atk['damageType']})" for atk in member_data['attacksAndSpellcasting']])}
 SPELLCASTING: {member_data.get('spellcasting', {}).get('ability', 'N/A')} | DC: {member_data.get('spellcasting', {}).get('spellSaveDC', 'N/A')} | ATK: +{member_data.get('spellcasting', {}).get('spellAttackBonus', 'N/A')}
-SPELL SLOTS: {spell_slots_info}
 SPELLS: {', '.join([f"{level}: {', '.join(spells)}" for level, spells in member_data.get('spellcasting', {}).get('spells', {}).items() if spells])}
 CURRENCY: {member_data['currency']['gold']}G, {member_data['currency']['silver']}S, {member_data['currency']['copper']}C
 XP: {member_data['experience_points']}/{member_data.get('exp_required_for_next_level', 'N/A')}
@@ -294,22 +283,12 @@ FLAWS: {member_data['flaws']}
                     if isinstance(bg_feature, dict) and 'name' in bg_feature:
                         bg_feature_name = bg_feature['name']
 
-                    # Format spell slots information for NPCs
-                    spell_slots_info = 'None'
-                    if 'spellcasting' in npc_data and 'spellSlots' in npc_data['spellcasting']:
-                        spell_slots = npc_data['spellcasting']['spellSlots']
-                        slot_strings = []
-                        for level, slots in spell_slots.items():
-                            if slots.get('max', 0) > 0:
-                                level_num = level.replace('level', '')
-                                slot_strings.append(f"{level_num}: {slots.get('current', 0)}/{slots.get('max', 0)}")
-                        spell_slots_info = ', '.join(slot_strings) if slot_strings else 'None'
 
                     # Format NPC data (using same schema as players)
                     formatted_data = f"""
 NPC: {npc_data['name']}
 ROLE: {npc['role']} | TYPE: {npc_data['character_type'].capitalize()} | LVL: {npc_data['level']} | RACE: {npc_data['race']} | CLASS: {npc_data['class']} | ALIGN: {npc_data['alignment'][:2].upper()} | BG: {npc_data['background']}
-HP: {npc_data['hitPoints']}/{npc_data['maxHitPoints']} | AC: {npc_data['armorClass']} | INIT: {npc_data['initiative']} | SPD: {npc_data['speed']}
+AC: {npc_data['armorClass']} | SPD: {npc_data['speed']}
 STATUS: {npc_data['status']} | CONDITION: {npc_data['condition']} | AFFECTED: {', '.join(npc_data['condition_affected'])}
 STATS: STR {npc_data['abilities']['strength']}, DEX {npc_data['abilities']['dexterity']}, CON {npc_data['abilities']['constitution']}, INT {npc_data['abilities']['intelligence']}, WIS {npc_data['abilities']['wisdom']}, CHA {npc_data['abilities']['charisma']}
 SAVES: {', '.join(npc_data['savingThrows'])}
@@ -331,7 +310,6 @@ EQUIP: {equipment_str}
 AMMO: {', '.join([f"{ammo['name']} x{ammo['quantity']}" for ammo in npc_data['ammunition']])}
 ATK: {', '.join([f"{atk['name']} ({atk['type']}, {atk['damageDice']} {atk['damageType']})" for atk in npc_data['attacksAndSpellcasting']])}
 SPELLCASTING: {npc_data.get('spellcasting', {}).get('ability', 'N/A')} | DC: {npc_data.get('spellcasting', {}).get('spellSaveDC', 'N/A')} | ATK: +{npc_data.get('spellcasting', {}).get('spellAttackBonus', 'N/A')}
-SPELL SLOTS: {spell_slots_info}
 SPELLS: {', '.join([f"{level}: {', '.join(spells)}" for level, spells in npc_data.get('spellcasting', {}).get('spells', {}).items() if spells])}
 CURRENCY: {npc_data['currency']['gold']}G, {npc_data['currency']['silver']}S, {npc_data['currency']['copper']}C
 XP: {npc_data['experience_points']}/{npc_data.get('exp_required_for_next_level', 'N/A')}
