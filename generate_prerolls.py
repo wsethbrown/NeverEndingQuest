@@ -29,7 +29,7 @@
 # 
 # ARCHITECTURAL INTEGRATION:
 # - Used by combat_manager.py for encounter preparation
-# - Integrates with CampaignPathManager for creature data loading
+# - Integrates with ModulePathManager for creature data loading
 # - Supports both monster 'actions' and NPC 'attacksAndSpellcasting' schemas
 # - Implements our "Data Integrity Above All" principle
 # 
@@ -100,8 +100,8 @@ def get_npc_attacks(npc_name):
         return [{"name": "weapon attack"}], 1
         
     try:
-        from module_path_manager import ModulePathManager as CampaignPathManager
-        path_manager = CampaignPathManager()
+        from module_path_manager import ModulePathManager
+        path_manager = ModulePathManager()
         npc_file = path_manager.get_character_path(npc_name)
         
         with open(npc_file, "r") as file:

@@ -119,7 +119,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
                     "Here's the updated party tracker data:",
                     "Here's the current plot data:",
                     "Here's the current map data:",
-                    "Here's the campaign data:"
+                    "Here's the module data:"
                 ]))
     ]
 
@@ -149,7 +149,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
 
     # Load the area-specific JSON file
     if current_area_id:
-        path_manager = CampaignPathManager()
+        path_manager = ModulePathManager()
         area_file = path_manager.get_area_path(current_area_id)
         try:
             location_data = safe_json_load(area_file)
@@ -204,7 +204,7 @@ def update_character_data(conversation_history, party_tracker_data):
 
     if party_tracker_data:
         character_data = []
-        path_manager = CampaignPathManager()
+        path_manager = ModulePathManager()
         
         # Process player characters
         for member in party_tracker_data["partyMembers"]:

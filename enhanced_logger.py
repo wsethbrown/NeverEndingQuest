@@ -33,8 +33,8 @@ class CleanConsoleFormatter(logging.Formatter):
         # Skip certain verbose messages
         msg = record.getMessage()
         
-        # Simplify campaign loading messages
-        if "CampaignPathManager loaded campaign" in msg:
+        # Simplify module loading messages
+        if "ModulePathManager loaded module" in msg:
             return None  # Skip these entirely
             
         # Simplify file operation messages

@@ -413,9 +413,9 @@ def run_tests(graph: LocationGraph):
 
 def main():
     """Main function for command line usage"""
-    # Initialize the graph and load campaign data
+    # Initialize the graph and load module data
     graph = LocationGraph()
-    graph.load_campaign_data()
+    graph.load_module_data()
     
     # If command line arguments provided, find specific path
     if len(sys.argv) == 3:

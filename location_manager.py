@@ -31,7 +31,7 @@
 # 
 # ARCHITECTURAL INTEGRATION:
 # - Called by action_handler.py for location transitions
-# - Uses CampaignPathManager for area file loading
+# - Uses ModulePathManager for area file loading
 # - Integrates with party_tracker.json for current location state
 # - Coordinates with location_path_finder.py for validation
 # 
@@ -110,7 +110,7 @@ def get_location_info(location_name, current_area, current_area_id):
 
 def get_location_data(location_id, area_id):
     """Get location data based on location ID and area ID"""
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     area_file = path_manager.get_area_path(area_id)
     try:
         with open(area_file, "r", encoding="utf-8") as file:
@@ -162,7 +162,7 @@ def handle_location_transition(current_location, new_location, current_area, cur
 
     party_tracker = load_json_file("party_tracker.json")
     if party_tracker:
-        path_manager = CampaignPathManager()
+        path_manager = ModulePathManager()
         current_area_file = path_manager.get_area_path(current_area_id)
         current_area_data = load_json_file(current_area_file)
 

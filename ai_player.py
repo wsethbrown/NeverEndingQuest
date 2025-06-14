@@ -18,11 +18,11 @@ from pathlib import Path
 class AIPlayer:
     """AI player that makes decisions based on test objectives"""
     
-    def __init__(self, test_profile, player_name="TestHero", campaign_path=None):
+    def __init__(self, test_profile, player_name="TestHero", module_path=None):
         self.client = OpenAI(api_key=OPENAI_API_KEY)
         self.test_profile = test_profile
         self.player_name = player_name
-        self.campaign_path = campaign_path
+        self.module_path = module_path
         self.conversation_history = []  # Clean conversation history
         self.raw_output_buffer = []  # Buffer for raw game output
         self.test_log = []
@@ -51,9 +51,9 @@ class AIPlayer:
             f.write("")
     
     def _load_character_data(self):
-        """Load character data from norn.json using party_tracker campaign"""
+        """Load character data from norn.json using party_tracker module"""
         try:
-            # First, get the campaign name from party_tracker.json
+            # First, get the module name from party_tracker.json
             with open("party_tracker.json", 'r', encoding='utf-8') as f:
                 party_data = json.load(f)
                 module_name = party_data.get("module", "Keep_of_Doom")

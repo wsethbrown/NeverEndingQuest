@@ -277,7 +277,7 @@ class LocationPromptGuide:
     
     encounters: str = """
     Pre-planned encounters that occurred or may occur here.
-    Used to track campaign history and planned events.
+    Used to track module history and planned events.
     
     Fields:
     - encounterId: Unique identifier (e.g., "R05-E1")
@@ -433,7 +433,7 @@ For objects, return just the object.
         """Generate all locations for an area in one go for better coherence"""
         
         generation_context = {
-            "campaign": {
+            "module": {
                 "name": module_data.get("moduleName", ""),
                 "description": module_data.get("moduleDescription", ""),
                 "theme": module_data.get("worldSettings", {}).get("era", ""),
@@ -692,9 +692,9 @@ def main():
     print("-" * 50)
     
     # Mock data for testing
-    mock_campaign = {
-        "campaignName": "Echoes of the Elemental Forge",
-        "campaignDescription": "Ancient dwarven magic threatens the realm",
+    mock_module = {
+        "moduleName": "Echoes of the Elemental Forge",
+        "moduleDescription": "Ancient dwarven magic threatens the realm",
         "worldSettings": {
             "era": "Age of Reclamation",
             "magicPrevalence": "uncommon"
@@ -738,7 +738,7 @@ def main():
     
     # Generate locations
     print("\nGenerating locations...")
-    locations = generator.generate_locations(mock_area, mock_plot, mock_campaign)
+    locations = generator.generate_locations(mock_area, mock_plot, mock_module)
     
     # Validate
     errors = generator.validate_locations(locations)

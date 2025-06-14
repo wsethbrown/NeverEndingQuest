@@ -26,7 +26,7 @@
 # ARCHITECTURAL INTEGRATION:
 # - Called by main.py as part of AI response processing
 # - Coordinates with various managers (combat, location, character)
-# - Uses CampaignPathManager for file operations
+# - Uses ModulePathManager for file operations
 # - Implements our "Data Integrity Above All" principle
 # 
 # DESIGN PATTERNS:
@@ -74,7 +74,7 @@ def validate_location_transition(location_graph, current_location_id, destinatio
     try:
         # Validate destination location exists
         if not location_graph.validate_location_id_format(destination_location_id):
-            return False, f"Destination location '{destination_location_id}' does not exist in campaign", None
+            return False, f"Destination location '{destination_location_id}' does not exist in module", None
         
         # Check if this is a cross-area transition
         is_cross_area = location_graph.is_cross_area_transition(current_location_id, destination_location_id)
@@ -200,7 +200,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
 
                 player_name = next((member for member in party_tracker_data["partyMembers"]), None)
                 if player_name and updated_player_info is not None:
-                    path_manager = CampaignPathManager()
+                    path_manager = ModulePathManager()
                     player_file = path_manager.get_character_path(player_name)
                     safe_json_dump(updated_player_info, player_file)
                     print(f"DEBUG: Updated player file for {player_name}")
@@ -243,7 +243,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         plot_point_id = parameters["plotPointId"]
         new_status = parameters["newStatus"]
         plot_impact = parameters.get("plotImpact", "")
-        plot_filename = "campaign_plot.json"  # Now using unified plot file
+        plot_filename = "module_plot.json"  # Now using unified plot file
         updated_plot = update_plot(plot_point_id, new_status, plot_impact, plot_filename)
 
     elif action_type == ACTION_EXIT_GAME:
@@ -265,7 +265,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         
         # Initialize location graph for validation
         location_graph = LocationGraph()
-        location_graph.load_campaign_data()
+        location_graph.load_module_data()
         
         # VALIDATE: Check if location transition is valid
         is_valid, error_message, auto_area_connectivity_id = validate_location_transition(

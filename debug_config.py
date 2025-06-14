@@ -8,8 +8,8 @@ DEBUG_CATEGORIES = {
     # Critical errors only
     "errors": True,
     
-    # Campaign/path management
-    "campaign_loading": False,  # "CampaignPathManager loaded campaign..."
+    # Module/path management
+    "module_loading": False,  # "ModulePathManager loaded module..."
     
     # File operations
     "file_operations": True,    # File read/write errors

@@ -21,9 +21,9 @@ class PlotPromptGuide:
     
     plotTitle: str = """
     The plot title should reflect the main theme or conflict of this specific area/module.
-    It should complement but not duplicate the campaign name.
+    It should complement but not duplicate the module name.
     
-    Examples for an area within a larger campaign:
+    Examples for an area within a larger module:
     - "The Curse of Ember Hollow" (for a haunted mining town)
     - "Secrets of the Sunken Temple" (for an underwater dungeon)
     - "The Baron's Betrayal" (for political intrigue)
@@ -33,10 +33,10 @@ class PlotPromptGuide:
     """
     
     mainObjective: str = """
-    The primary goal for this specific area/module of the campaign.
+    The primary goal for this specific area/module.
     This should be:
     - A concrete, achievable objective
-    - Tied to the campaign's overall goal
+    - Tied to the module's overall goal
     - Specific to this location/area
     
     Examples:

@@ -30,7 +30,7 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
         print(f"{RED}ERROR: Could not read party_tracker.json{RESET}")
         return
 
-    # Use ModulePathManager to get campaign plot path
+    # Use ModulePathManager to get module plot path
     path_manager = ModulePathManager()
     plot_file_path = path_manager.get_plot_path()
 
@@ -81,7 +81,7 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
 
 def update_plot(plot_point_id_param, new_status_param, plot_impact_param, plot_filename_param, max_retries=3): # Renamed params
     try:
-        # Use unified campaign plot file
+        # Use unified module plot file
         path_manager = ModulePathManager()
         plot_file_path = path_manager.get_plot_path()
             

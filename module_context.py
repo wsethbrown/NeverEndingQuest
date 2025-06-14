@@ -168,7 +168,7 @@ VALIDATION REQUIREMENTS - MUST FOLLOW:
 
 5. Critical Consistency Rules:
    - Use exact area names for connectivity (e.g., "Gloamwood" not "Forsaken_Woods")
-   - Place key NPCs from campaign/plot files in actual room locations
+   - Place key NPCs from module/plot files in actual room locations
    - Ensure plot progression matches area progression
    - Maintain consistent naming for all entities
 

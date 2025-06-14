@@ -223,8 +223,8 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
             debug_print(f"Getting area path for ID: {current_area_id_from_main}")
             path_manager = ModulePathManager()
             # Add extra debug for path manager to see if we're getting the right campaign data
-            debug_print(f"CampaignPathManager using campaign: {path_manager.campaign_name}")
-            debug_print(f"CampaignPathManager directory: {path_manager.campaign_dir}")
+            debug_print(f"ModulePathManager using module: {path_manager.module_name}")
+            debug_print(f"ModulePathManager directory: {path_manager.module_dir}")
             
             all_locations_file = path_manager.get_area_path(current_area_id_from_main)
             debug_print(f"Area file path generated: {all_locations_file}")

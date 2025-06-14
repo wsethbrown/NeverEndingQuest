@@ -134,7 +134,7 @@ def detect_character_role(character_name):
 
 def get_character_path(character_name, character_role=None):
     """Get the appropriate file path for a character"""
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     
     # Use the updated path manager that handles unified/legacy fallback
     return path_manager.get_character_path(character_name)

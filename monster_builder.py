@@ -13,7 +13,7 @@
 # - Validate all generated content against monster schema
 # - Handle AI response parsing and cleanup
 # - Provide robust error handling and validation feedback
-# - Save generated monsters to campaign-specific directories
+# - Save generated monsters to module-specific directories
 # 
 # AI GENERATION PIPELINE:
 # Schema Template → AI Prompt → Response Generation → JSON Parsing →
@@ -26,9 +26,9 @@
 # - 5e rule validation through schema constraints
 # 
 # ARCHITECTURAL INTEGRATION:
-# - Uses CampaignPathManager for file operations
+# - Uses ModulePathManager for file operations
 # - Integrates with mon_schema.json for validation
-# - Called by DMs and automated campaign generation
+# - Called by DMs and automated module generation
 # - Implements our "Defense in Depth" validation approach
 # 
 # DESIGN PATTERNS:

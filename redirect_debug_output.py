@@ -60,9 +60,9 @@ class DebugOutputInterceptor:
         """Handle DEBUG lines with intelligent categorization"""
         content = line[6:].strip()  # Remove "DEBUG:" prefix
         
-        # Campaign loading
-        if "CampaignPathManager loaded campaign" in content:
-            game_logger.debug(content, category="campaign_loading")
+        # Module loading
+        if "ModulePathManager loaded module" in content:
+            game_logger.debug(content, category="module_loading")
             
         # File operations
         elif "Successfully updated" in content or "File opened successfully" in content:

@@ -37,8 +37,8 @@ Cross-platform compatible (Windows/Unix).
 # 
 # ARCHITECTURAL INTEGRATION:
 # - Used by all modules requiring file persistence
-# - Integrates with CampaignPathManager for path resolution
-# - Supports the campaign-centric file organization
+# - Integrates with ModulePathManager for path resolution
+# - Supports the module-centric file organization
 # - Enables reliable state management across the system
 # 
 # DESIGN PATTERNS:
