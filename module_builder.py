@@ -301,10 +301,14 @@ class ModuleBuilder:
 ## Overview
 {self.module_data['moduleDescription']}
 
-## World Setting
-- **World**: {self.module_data['worldSettings']['worldName']}
-- **Era**: {self.module_data['worldSettings']['era']}
-- **Magic Level**: {self.module_data['worldSettings']['magicPrevalence']}
+## Module Conflicts
+"""
+        # Add module conflicts if they exist
+        if 'moduleConflicts' in self.module_data:
+            for conflict in self.module_data['moduleConflicts']:
+                summary += f"- **{conflict['conflictName']}** ({conflict['scope']}): {conflict['description']}\n"
+        
+        summary += """
 
 ## Main Plot
 **Objective**: {self.module_data['mainPlot']['mainObjective']}

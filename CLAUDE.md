@@ -1,4 +1,5 @@
 Always provide a plan before startign to modify code to ensure you are aligned with the user's request.
+Beware fo feature creep and don't ad dnew features unless specifically asked or approved. Feature creep is the enemy of shipping software.
 
 # Module-Centric Architecture
 This system follows a **Module-Centric Design Philosophy** instead of campaign-based organization:

@@ -11,7 +11,7 @@
     ],
     "worldConditions": {
         "year": 1492,
-        "month": "Ches",
+        "month": "Springmonth",
         "day": 2,
         "time": "12:20:00",
         "weather": "",
@@ -25,7 +25,8 @@
         "majorEventsUnderway": [],
         "politicalClimate": "",
         "activeEncounter": "",
-        "activeCombatEncounter": ""
+        "activeCombatEncounter": "",
+        "weatherConditions": ""
     },
     "activeQuests": [
         {

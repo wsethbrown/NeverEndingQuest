@@ -114,119 +114,31 @@ class ModulePromptGuide:
     Style: Active voice, present tense
     """
     
-    worldName: str = """
-    World name should be:
-    - Unique and pronounceable
-    - Fitting for a fantasy setting
-    - Single word or compound word
     
-    Examples: "Teloria", "Gravenmark", "Aethermoor"
-    Style: Fantasy naming conventions
-    """
+    moduleConflicts: str = """
+    Generate 1-3 conflicts that directly affect this module's gameplay.
+    Each conflict must be:
+    - LOCAL or REGIONAL in scope (not world-spanning)
+    - Relevant to the module's plot and NPCs
+    - Something that creates gameplay opportunities
     
-    era: str = """
-    Era name should reflect the current age of the world.
-    Examples:
-    - "Age of Resurgence" (post-catastrophe rebuilding)
-    - "The Third Empire" (political reference)
-    - "Dawn of Magic" (magical awakening)
-    
-    Format: "Age of..." or "The ... Era" or similar
-    Style: Evocative, hints at world state
-    """
-    
-    cosmology: str = """
-    Cosmology type (must be one of these):
-    - "Great Wheel": Standard 5e planar system
-    - "World Tree": Norse-inspired connected realms
-    - "World Axis": 4e-style points of light
-    - "Custom": Unique planar arrangement
-    
-    Choose based on module needs for planar travel/influence
-    """
-    
-    planarConnections: str = """
-    List of planes that directly influence or connect to the material plane.
-    For elemental modules, include relevant elemental planes.
-    For demon/devil plots, include Abyss/Nine Hells.
-    
-    Examples: ["Elemental Plane of Fire", "Shadowfell", "Feywild"]
-    Limit: 2-5 planes most relevant to the module
-    """
-    
-    majorDeities: str = """
-    Include 2-6 deities most relevant to the module.
-    Each deity needs:
-    - Name: Use standard 5e deities or create fitting names
-    - Domain: Primary portfolio (War, Nature, Death, etc.)
-    - Alignment: Standard 9-point alignment system
+    Each conflict needs:
+    - conflictName: Short, descriptive name
+    - description: What the conflict is about
+    - scope: "local" or "regional" 
+    - impact: How this affects party gameplay
     
     Example:
     {
-        "name": "Moradin",
-        "domain": "Forge",
-        "alignment": "lawful good"
+        "conflictName": "Merchant Guild Rivalry",
+        "description": "Two merchant guilds compete for control of trade routes",
+        "scope": "regional",
+        "impact": "Creates opportunities for party to choose sides or mediate"
     }
     
-    Consider: Which deities would characters/villains worship?
+    Focus on conflicts that enhance the module's themes and story.
     """
     
-    majorPowers: str = """
-    Political/military powers in the region (2-4 typical).
-    Each needs:
-    - Name: The faction/nation name
-    - Type: "kingdom", "empire", "city-state", "alliance", "other"
-    - Influence: "local", "regional", "continental", "global"
-    
-    Example:
-    {
-        "name": "Kingdom of Ironhold",
-        "type": "kingdom",
-        "influence": "regional"
-    }
-    
-    Include both allied and antagonistic powers
-    """
-    
-    predominantRaces: str = """
-    3-6 races that are most common in the module area.
-    Standard options: Human, Elf, Dwarf, Halfling, Gnome, Half-Elf, Half-Orc, 
-    Dragonborn, Tiefling
-    
-    Consider:
-    - Which races fit the module theme?
-    - Are there any race-specific plot points?
-    - What would be good PC options?
-    
-    Example: ["Human", "Dwarf", "Elf", "Halfling"]
-    """
-    
-    magicPrevalence: str = """
-    How common is magic in the world?
-    Must be one of:
-    - "rare": Magic users are exceptional, items are legendary
-    - "uncommon": Magic exists but isn't everyday
-    - "common": Magic shops exist, many know cantrips
-    - "abundant": Magic is part of daily life
-    
-    Consider: How does this affect the module's tone?
-    """
-    
-    currentConflicts: str = """
-    2-4 ongoing tensions or conflicts in the world.
-    These should:
-    - Relate to the main plot
-    - Provide adventure hooks
-    - Create moral dilemmas
-    
-    Examples:
-    - "Tension between surface dwellers and dwarven clans"
-    - "Rising cult activity in rural areas"
-    - "Trade war between merchant guilds"
-    
-    Length: One sentence each
-    Style: Present tense, active voice
-    """
     
     mainObjective: str = """
     The ultimate goal of the module in one sentence.
@@ -606,17 +518,9 @@ If the field expects an object, return just the object.
         # Generate fields in order of dependencies
         field_order = [
             "moduleName",
-            "moduleDescription",
+            "moduleDescription", 
             "moduleMetadata",
-            "worldSettings.worldName",
-            "worldSettings.era",
-            "worldSettings.cosmology",
-            "worldSettings.planarConnections",
-            "worldSettings.majorDeities",
-            "worldSettings.majorPowers",
-            "worldSettings.predominantRaces",
-            "worldSettings.magicPrevalence",
-            "worldSettings.currentConflicts",
+            "moduleConflicts",
             "mainPlot.mainObjective",
             "mainPlot.antagonist",
             "mainPlot.plotStages",

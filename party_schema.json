@@ -40,11 +40,18 @@
         },
         "month": {
           "type": "string",
-          "description": "The current month in the game world"
+          "enum": [
+            "Firstmonth", "Coldmonth", "Thawmonth", "Springmonth",
+            "Bloommonth", "Sunmonth", "Heatmonth", "Harvestmonth", 
+            "Autumnmonth", "Fademonth", "Frostmonth", "Yearend"
+          ],
+          "description": "Current month using generic fantasy calendar (12 months, 28 days each)"
         },
         "day": {
           "type": "integer",
-          "description": "The current day of the month in the game world"
+          "minimum": 1,
+          "maximum": 28,
+          "description": "Day of month in standardized 28-day calendar"
         },
         "time": {
           "type": "string",
@@ -113,12 +120,21 @@
             "type": "string",
             "description": "Unique identifier for the quest (e.g., 'PP001' for main plot points, 'SQ001' for side quests)"
           },
-          "objective": {
+          "title": {
             "type": "string",
-            "description": "A clear, actionable description of the current goal for this quest. Should include: 1) The specific task to be completed, 2) The location where it needs to be done (if applicable), and 3) Any key items or NPCs involved. Avoid vague terms; use concrete, measurable goals. Update this as the quest progresses. Maximum 50 words."
+            "description": "Brief title for the quest"
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the quest"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["not started", "in progress", "completed"],
+            "description": "Current status of the quest"
           }
         },
-        "required": ["id", "objective"]
+        "required": ["id", "title", "description", "status"]
       },
       "description": "An array of currently active quests for the party"
     }

@@ -12,94 +12,6 @@
     "moduleType": "adventure",
     "_srd_attribution": "Portions derived from SRD 5.2.1, CC BY 4.0"
   },
-  "worldSettings": {
-    "worldName": "Shadowvale",
-    "era": "Late Age of Turmoil: Decades after the collapse of a once-mighty kingdom, Shadowvale is gripped by fear and superstition. Faded glory lingers in crumbling fortresses, trade routes are perilous, and petty nobles struggle for power as old magics stir restlessly beneath the land.",
-    "cosmology": "\"Great Wheel\"",
-    "planarConnections": [
-      "Occasional thin spots between Shadowvale and the Shadowfell, especially near the keep and ancient ruins.",
-      "Rare, unstable rifts to the Ethereal Plane within haunted forests and beneath the keep\u2019s dungeons.",
-      "Faint ley lines connect to the Feywild, allowing for minor magical disturbances and rare fey crossings.",
-      "Local folklore hints at hidden portals to the Nine Hells, sealed since the fall of the old kingdom."
-    ],
-    "majorDeities": [
-      {
-        "name": "Aurethiel, Light of the Dawn",
-        "domain": "Life, Light, Healing",
-        "alignment": "NG"
-      },
-      {
-        "name": "Mournshade",
-        "domain": "Death, Twilight, Shadows",
-        "alignment": "LN"
-      },
-      {
-        "name": "Veyra the Veiled",
-        "domain": "Knowledge, Secrets, Magic",
-        "alignment": "N"
-      },
-      {
-        "name": "Grimholt the Ironhand",
-        "domain": "War, Forge, Protection",
-        "alignment": "LG"
-      },
-      {
-        "name": "Selra of the Wild Heart",
-        "domain": "Nature, Tempest, Animals",
-        "alignment": "CG"
-      },
-      {
-        "name": "The Whispering Queen",
-        "domain": "Trickery, Darkness, Fate",
-        "alignment": "CE"
-      }
-    ],
-    "majorPowers": [
-      {
-        "name": "The Remnant Court",
-        "type": "kingdom",
-        "influence": "regional"
-      },
-      {
-        "name": "The Free Cities of Eldermere",
-        "type": "alliance",
-        "influence": "regional"
-      },
-      {
-        "name": "The Order of the Silver Vigil",
-        "type": "other",
-        "influence": "continental"
-      },
-      {
-        "name": "The Black Banner",
-        "type": "other",
-        "influence": "local"
-      },
-      {
-        "name": "The Duskspire Enclave",
-        "type": "city-state",
-        "influence": "local"
-      }
-    ],
-    "predominantRaces": [
-      "Humans",
-      "Half-Elves",
-      "Dwarves",
-      "Halflings",
-      "Elves",
-      "Tieflings",
-      "Gnomes"
-    ],
-    "magicPrevalence": "uncommon",
-    "currentConflicts": [
-      "The Remnant Court and the Free Cities of Eldermere vie for control over vital borderlands, leading to frequent skirmishes and shifting alliances.",
-      "The Order of the Silver Vigil intensifies its crusade against undead and dark magic, clashing with local lords who resent their interference.",
-      "Shadowy agents of the Black Banner sow chaos in rural villages, exploiting the fear of supernatural threats for their own gain.",
-      "Villagers and petty nobles debate how to address the rising hauntings and disappearances near ancient ruins and the keep, with some advocating appeasement and others demanding armed intervention.",
-      "Rumors of cults devoted to the Whispering Queen spread, fueling paranoia and sporadic witch-hunts.",
-      "Trade along the old roads is threatened by monstrous attacks and banditry, isolating settlements and inflaming rivalries between towns."
-    ]
-  },
   "mainPlot": {
     "mainObjective": "Uncover the truth behind the cursed noble and the malevolent artifact haunting the keep, then decide whether to destroy the artifact\u2014risking catastrophic magical backlash\u2014or bind its power, shaping the fate of Shadowvale and its people.",
     "antagonist": "Sir Garran Vael, the once-honorable lord of the keep, now a tormented undead knight bound by a sentient shadow relic that feeds on despair. Driven mad by centuries of isolation and the artifact\u2019s whispers, Sir Garran seeks to break his curse\u2014even if it means unleashing the relic\u2019s dark power upon Shadowvale.",
@@ -417,6 +329,26 @@
       "eventDescription": "The Order of the Silver Vigil arrives in force, demanding the relic's surrender or destruction. They challenge the party\u2019s decisions and threaten to take control of the keep and village.",
       "triggerCondition": "After the party resolves the artifact\u2019s fate or if word of their actions spreads.",
       "impact": "Power struggles erupt between local factions, with the Order's presence altering political and social dynamics. The party may be hailed as heroes, viewed with suspicion, or forced into hiding, depending on their choices."
+    }
+  ],
+  "moduleConflicts": [
+    {
+      "conflictName": "Order of Silver Vigil vs Local Autonomy",
+      "description": "The Order of the Silver Vigil intensifies its crusade against undead and dark magic, clashing with local lords who resent their interference.",
+      "scope": "regional",
+      "impact": "Affects party relationships with both zealous knights and local authorities"
+    },
+    {
+      "conflictName": "Black Banner Infiltration",
+      "description": "Shadowy agents of the Black Banner sow chaos in rural villages, exploiting the fear of supernatural threats for their own gain.",
+      "scope": "local",
+      "impact": "Creates trust issues and spreads misinformation that the party must navigate"
+    },
+    {
+      "conflictName": "Haunting Crisis Response",
+      "description": "Villagers and petty nobles debate how to address the rising hauntings and disappearances near ancient ruins and the keep, with some advocating appeasement and others demanding armed intervention.",
+      "scope": "local",
+      "impact": "Directly affects module plot progression and NPC reactions to party actions"
     }
   ]
 }

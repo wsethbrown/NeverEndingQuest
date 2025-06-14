@@ -30,67 +30,32 @@
       },
       "required": ["author", "version", "levelRange", "estimatedPlayTime", "moduleType"]
     },
-    "worldSettings": {
-      "type": "object",
-      "properties": {
-        "worldName": {
-          "type": "string"
-        },
-        "era": {
-          "type": "string"
-        },
-        "cosmology": {
-          "type": "string",
-          "enum": ["Great Wheel", "World Tree", "World Axis", "Custom"]
-        },
-        "planarConnections": {
-          "type": "array",
-          "items": {
-            "type": "string"
+    "moduleConflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "conflictName": {
+            "type": "string",
+            "description": "Name of the local conflict"
+          },
+          "description": {
+            "type": "string", 
+            "description": "Detailed description of the conflict"
+          },
+          "scope": {
+            "type": "string",
+            "enum": ["local", "regional"],
+            "description": "Geographic scope of the conflict"
+          },
+          "impact": {
+            "type": "string",
+            "description": "How this conflict affects module gameplay"
           }
         },
-        "majorDeities": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {"type": "string"},
-              "domain": {"type": "string"},
-              "alignment": {"type": "string"}
-            },
-            "required": ["name", "domain", "alignment"]
-          }
-        },
-        "majorPowers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {"type": "string"},
-              "type": {"type": "string", "enum": ["kingdom", "empire", "city-state", "alliance", "other"]},
-              "influence": {"type": "string", "enum": ["local", "regional", "continental", "global"]}
-            },
-            "required": ["name", "type", "influence"]
-          }
-        },
-        "predominantRaces": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "magicPrevalence": {
-          "type": "string",
-          "enum": ["rare", "uncommon", "common", "abundant"]
-        },
-        "currentConflicts": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
+        "required": ["conflictName", "description", "scope", "impact"]
       },
-      "required": ["worldName", "era", "cosmology", "planarConnections", "majorDeities", "majorPowers", "predominantRaces", "magicPrevalence", "currentConflicts"]
+      "description": "Optional array of conflicts affecting this module's gameplay"
     },
     "mainPlot": {
       "type": "object",
@@ -230,5 +195,5 @@
       }
     }
   },
-  "required": ["moduleName", "moduleDescription", "moduleMetadata", "worldSettings", "mainPlot", "factions", "worldMap", "timelineEvents"]
+  "required": ["moduleName", "moduleDescription", "moduleMetadata", "mainPlot", "factions", "worldMap", "timelineEvents"]
 }
