@@ -84,3 +84,9 @@ Thumbs.db
 test_character_sheet*.html
 capture_screenshot.py
 install_gh.sh
+# Documentation files
+CHARACTER_EFFECTS_IMPLEMENTATION_PLAN.md
+NORN_CHARACTER_MIGRATION_SUMMARY.md
+PHASE_2_COMPLETION_SUMMARY.md
+SCHEMA_CHANGES_SUMMARY.md
+VALIDATOR_TEST_RESULTS.md
