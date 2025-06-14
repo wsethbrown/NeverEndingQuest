@@ -35,11 +35,11 @@ DungeonMasterAI uses OpenAI's GPT models to create complete 5th edition campaign
 
 ## Quick Start
 
-### Generate a New Campaign
+### Generate a New Module
 ```
-python campaign_builder.py
+python module_builder.py
 ```
-Follow the prompts to create a complete campaign with areas, locations, and plots.
+Follow the prompts to create a complete module with areas, locations, and plots.
 
 ### Play the Game
 
@@ -47,7 +47,7 @@ Follow the prompts to create a complete campaign with areas, locations, and plot
 ```
 python main.py
 ```
-Load your generated campaign and start playing in the terminal!
+Load your generated module and start playing in the terminal!
 
 **Option 2: Web Interface (Recommended)**
 ```
@@ -76,13 +76,13 @@ Launch the modern web interface with separate panels for game output and debug i
 
 ### Core Systems
 - `main.py` - Main game loop and player interaction
-- `campaign_builder.py` - Automated campaign generation system
-- `campaign_context.py` - Context management for consistent generation
+- `module_builder.py` - Automated module generation system
+- `module_context.py` - Context management for consistent generation
 - `combat_manager.py` - Combat system management
 - `dm.py` & `dm_wrapper.py` - AI Dungeon Master logic
 
 ### Campaign Generation
-- `campaign_generator.py` - Campaign overview generation
+- `module_generator.py` - Module overview generation
 - `area_generator.py` - Area and map generation
 - `location_generator.py` - Detailed location generation
 - `plot_generator.py` - Plot and quest generation
@@ -96,7 +96,7 @@ Launch the modern web interface with separate panels for game output and debug i
 
 ### Data Files
 - `*_schema.json` - JSON schemas for validation
-- `campaigns/` - Generated campaign data
+- `modules/` - Generated module data
 - `*.json` - Character, location, and game state files
 
 ## Configuration
@@ -117,7 +117,7 @@ The system uses OpenAI GPT models configured in `config.py`:
 
 ## Usage Examples
 
-### Generate a Campaign
+### Generate a Module
 ```bash
 python campaign_builder.py
 # Enter campaign name: Keep of Doom

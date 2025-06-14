@@ -1,6 +1,6 @@
 {
-  "campaign_name": "Keep of Doom",
-  "campaign_id": "Keep_of_Doom",
+  "module_name": "Keep of Doom",
+  "module_id": "Keep_of_Doom",
   "areas": {
     "HH001": {
       "name": "Harrow's Hollow",
@@ -170,40 +170,40 @@
   },
   "references": {
     "npc:Elder Mirna Harrow (village elder)": [
-      "campaign:plotStages"
+      "module:plotStages"
     ],
     "npc:Old Tommen (superstitious herdsman)": [
-      "campaign:plotStages"
+      "module:plotStages"
     ],
     "npc:Cira the Innkeeper": [
-      "campaign:plotStages"
+      "module:plotStages"
     ],
     "npc:Wandering Shade (restless spirit)": [
-      "campaign:plotStages"
+      "module:plotStages"
     ],
     "npc:Scout Elen (missing villager, possibly rescued)": [
-      "campaign:plotStages"
+      "module:plotStages"
     ],
     "npc:Sir Garran Vael (cursed knight)": [
-      "campaign:plotStages"
+      "module:plotStages"
     ],
     "npc:Spectral Scribe (ghostly historian)": [
-      "campaign:plotStages"
+      "module:plotStages"
     ],
     "npc:The Shadow Relic (sentient artifact, communicates telepathically)": [
-      "campaign:plotStages"
+      "module:plotStages"
     ],
     "npc:Sir Garran Vael": [
-      "campaign:plotStages"
+      "module:plotStages"
     ],
     "npc:The Shadow Relic": [
-      "campaign:plotStages"
+      "module:plotStages"
     ],
     "npc:Elder Mirna Harrow": [
-      "campaign:plotStages"
+      "module:plotStages"
     ],
     "npc:Agents of the Black Banner (optional future threat)": [
-      "campaign:plotStages"
+      "module:plotStages"
     ],
     "npc:Dame Elira Dawnsworn": [
       "campaign:faction:The Order of the Silver Vigil"
@@ -243,18 +243,18 @@
     ]
   },
   "validation_issues": [
-    "NPC 'Elder Mirna Harrow (village elder)' is referenced in ['campaign:plotStages'] but not placed in any location",
-    "NPC 'Old Tommen (superstitious herdsman)' is referenced in ['campaign:plotStages'] but not placed in any location",
-    "NPC 'Cira the Innkeeper' is referenced in ['campaign:plotStages'] but not placed in any location",
-    "NPC 'Wandering Shade (restless spirit)' is referenced in ['campaign:plotStages'] but not placed in any location",
-    "NPC 'Scout Elen (missing villager, possibly rescued)' is referenced in ['campaign:plotStages'] but not placed in any location",
-    "NPC 'Sir Garran Vael (cursed knight)' is referenced in ['campaign:plotStages'] but not placed in any location",
-    "NPC 'Spectral Scribe (ghostly historian)' is referenced in ['campaign:plotStages'] but not placed in any location",
-    "NPC 'The Shadow Relic (sentient artifact, communicates telepathically)' is referenced in ['campaign:plotStages'] but not placed in any location",
-    "NPC 'Sir Garran Vael' is referenced in ['campaign:plotStages'] but not placed in any location",
-    "NPC 'The Shadow Relic' is referenced in ['campaign:plotStages'] but not placed in any location",
-    "NPC 'Elder Mirna Harrow' is referenced in ['campaign:plotStages'] but not placed in any location",
-    "NPC 'Agents of the Black Banner (optional future threat)' is referenced in ['campaign:plotStages'] but not placed in any location",
+    "NPC 'Elder Mirna Harrow (village elder)' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'Old Tommen (superstitious herdsman)' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'Cira the Innkeeper' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'Wandering Shade (restless spirit)' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'Scout Elen (missing villager, possibly rescued)' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'Sir Garran Vael (cursed knight)' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'Spectral Scribe (ghostly historian)' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'The Shadow Relic (sentient artifact, communicates telepathically)' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'Sir Garran Vael' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'The Shadow Relic' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'Elder Mirna Harrow' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'Agents of the Black Banner (optional future threat)' is referenced in ['module:plotStages'] but not placed in any location",
     "NPC 'Dame Elira Dawnsworn' is referenced in ['campaign:faction:The Order of the Silver Vigil'] but not placed in any location",
     "NPC 'Brother Jorlan' is referenced in ['campaign:faction:The Order of the Silver Vigil'] but not placed in any location",
     "NPC 'Sergeant Mara Feld' is referenced in ['campaign:faction:The Order of the Silver Vigil'] but not placed in any location",
