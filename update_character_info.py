@@ -181,6 +181,56 @@ def normalize_status_and_condition(data, character_role):
     # NPC normalization can be different if needed
     return data
 
+def deep_merge_dict(base_dict, update_dict):
+    """Recursively merge update_dict into base_dict, preserving nested structures"""
+    result = copy.deepcopy(base_dict)
+    
+    for key, value in update_dict.items():
+        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+            # Recursively merge nested dictionaries
+            result[key] = deep_merge_dict(result[key], value)
+        else:
+            # Replace or add the value
+            result[key] = copy.deepcopy(value)
+    
+    return result
+
+def validate_critical_fields_preserved(original_data, updated_data, character_name):
+    """Validate that critical nested fields are not accidentally deleted"""
+    critical_paths = [
+        ('spellcasting', 'ability'),
+        ('spellcasting', 'spellSaveDC'),
+        ('spellcasting', 'spellAttackBonus'),
+        ('spellcasting', 'spells'),
+    ]
+    
+    warnings = []
+    
+    for path in critical_paths:
+        # Check if the field existed in original but is missing in updated
+        original_value = original_data
+        updated_value = updated_data
+        path_exists_in_original = True
+        path_exists_in_updated = True
+        
+        try:
+            for key in path:
+                original_value = original_value[key]
+        except (KeyError, TypeError):
+            path_exists_in_original = False
+        
+        try:
+            for key in path:
+                updated_value = updated_value[key]
+        except (KeyError, TypeError):
+            path_exists_in_updated = False
+        
+        if path_exists_in_original and not path_exists_in_updated:
+            field_path = '.'.join(path)
+            warnings.append(f"Critical field '{field_path}' was deleted from {character_name}")
+    
+    return warnings
+
 def validate_character_data(data, schema, character_name):
     """Validate character data against schema"""
     try:
@@ -260,6 +310,15 @@ CRITICAL INSTRUCTIONS:
 3. Ensure all values match the schema requirements exactly
 4. For arrays, include the complete updated array if any element changes
 5. Maintain data integrity and consistency
+6. IMPORTANT: When updating nested objects like 'spellcasting', include ALL existing subfields to prevent data loss
+7. NEVER return partial nested objects that would delete existing important data
+8. If updating spell slots, always include ability, spellSaveDC, spellAttackBonus, and spells fields
+
+DANGEROUS EXAMPLE (DO NOT DO):
+{{"spellcasting": {{"spellSlots": {{...}}}}}} // This deletes ability, DC, bonus, and spells!
+
+SAFE EXAMPLE:
+{{"spellcasting": {{"ability": "wisdom", "spellSaveDC": 13, "spellAttackBonus": 5, "spells": {{...}}, "spellSlots": {{...}}}}}} // This preserves all data
 
 Character Role: {character_role}
 """
@@ -313,14 +372,33 @@ Character Role: {character_role}
             clean_response = json_match.group()
             updates = json.loads(clean_response)
             
-            # Apply updates to character data
-            updated_data = copy.deepcopy(character_data)
-            for key, value in updates.items():
-                if key in updated_data:
-                    updated_data[key] = value
-                else:
-                    print(f"{ORANGE}Warning: Adding new field '{key}' to character{RESET}")
-                    updated_data[key] = value
+            # Apply updates to character data using deep merge
+            updated_data = deep_merge_dict(character_data, updates)
+            
+            # Validate that critical fields weren't accidentally deleted
+            critical_warnings = validate_critical_fields_preserved(character_data, updated_data, character_name)
+            if critical_warnings:
+                for warning in critical_warnings:
+                    print(f"{RED}CRITICAL WARNING: {warning}{RESET}")
+                print(f"{RED}Aborting update to prevent data loss. AI response may be incomplete.{RESET}")
+                
+                # Log the problematic update for debugging
+                debug_info = {
+                    "character_name": character_name,
+                    "attempt": attempt,
+                    "warnings": critical_warnings,
+                    "original_spellcasting": character_data.get('spellcasting', {}),
+                    "update_data": updates,
+                    "ai_response": raw_response
+                }
+                safe_write_json("debug_critical_field_loss.json", debug_info)
+                print(f"{ORANGE}Debug info saved to debug_critical_field_loss.json{RESET}")
+                
+                if attempt == max_attempts:
+                    print(f"{RED}Max attempts reached. Update failed to preserve critical data.{RESET}")
+                    return False
+                attempt += 1
+                continue
             
             # Role-specific normalization
             updated_data = normalize_status_and_condition(updated_data, character_role)

@@ -1270,6 +1270,22 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        if player_conditions:
            dynamic_state_parts.append(f"  - Active Conditions: {', '.join(player_conditions)}")
        
+       # Add spell slot information for player if they have spellcasting
+       spellcasting = player_info.get("spellcasting", {})
+       if spellcasting and "spellSlots" in spellcasting:
+           spell_slots = spellcasting["spellSlots"]
+           slot_parts = []
+           for level in range(1, 10):  # Spell levels 1-9
+               level_key = f"level{level}"
+               if level_key in spell_slots:
+                   slot_data = spell_slots[level_key]
+                   current_slots = slot_data.get("current", 0)
+                   max_slots = slot_data.get("max", 0)
+                   if max_slots > 0:  # Only show levels with available slots
+                       slot_parts.append(f"L{level}:{current_slots}/{max_slots}")
+           if slot_parts:
+               dynamic_state_parts.append(f"  - Spell Slots: {' '.join(slot_parts)}")
+       
        # Creature info
        for creature in encounter_data["creatures"]:
            if creature["type"] != "player":
@@ -1279,6 +1295,7 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                creature_condition = creature.get("condition", "none")
                
                # Get the actual max HP from the correct source
+               npc_data = None
                if creature["type"] == "npc":
                    # For NPCs, look up their true max HP from their character file
                    npc_name = creature_name.lower().replace(" ", "_").split('_')[0]
@@ -1298,6 +1315,23 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                dynamic_state_parts.append(f"  - HP: {creature_hp}/{creature_max_hp}")
                dynamic_state_parts.append(f"  - Status: {creature_status}")
                dynamic_state_parts.append(f"  - Condition: {creature_condition}")
+               
+               # Add spell slot information for NPCs if they have spellcasting
+               if creature["type"] == "npc" and npc_data:
+                   npc_spellcasting = npc_data.get("spellcasting", {})
+                   if npc_spellcasting and "spellSlots" in npc_spellcasting:
+                       npc_spell_slots = npc_spellcasting["spellSlots"]
+                       npc_slot_parts = []
+                       for level in range(1, 10):  # Spell levels 1-9
+                           level_key = f"level{level}"
+                           if level_key in npc_spell_slots:
+                               slot_data = npc_spell_slots[level_key]
+                               current_slots = slot_data.get("current", 0)
+                               max_slots = slot_data.get("max", 0)
+                               if max_slots > 0:  # Only show levels with available slots
+                                   npc_slot_parts.append(f"L{level}:{current_slots}/{max_slots}")
+                       if npc_slot_parts:
+                           dynamic_state_parts.append(f"  - Spell Slots: {' '.join(npc_slot_parts)}")
        
        all_dynamic_state = "\n".join(dynamic_state_parts)
        

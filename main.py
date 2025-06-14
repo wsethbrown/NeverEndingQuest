@@ -697,7 +697,25 @@ def main_game_loop():
                     ability_str = f"STR:{abilities.get('strength', 'N/A')} DEX:{abilities.get('dexterity', 'N/A')} CON:{abilities.get('constitution', 'N/A')} INT:{abilities.get('intelligence', 'N/A')} WIS:{abilities.get('wisdom', 'N/A')} CHA:{abilities.get('charisma', 'N/A')}"
                     next_level_xp_note = member_data_for_note.get("exp_required_for_next_level", "N/A")
                     display_name = stats_item.get('display_name', stats_item['name'].capitalize())
-                    party_stats_formatted.append(f"{display_name}: Level {stats_item['level']}, XP {stats_item['xp']}/{next_level_xp_note}, HP {stats_item['hp']}/{stats_item['max_hp']}, {ability_str}")
+                    
+                    # Extract spell slot information if character has spellcasting
+                    spell_slots_str = ""
+                    spellcasting = member_data_for_note.get("spellcasting", {})
+                    if spellcasting and "spellSlots" in spellcasting:
+                        spell_slots = spellcasting["spellSlots"]
+                        slot_parts = []
+                        for level in range(1, 10):  # Spell levels 1-9
+                            level_key = f"level{level}"
+                            if level_key in spell_slots:
+                                slot_data = spell_slots[level_key]
+                                current = slot_data.get("current", 0)
+                                maximum = slot_data.get("max", 0)
+                                if maximum > 0:  # Only show levels with available slots
+                                    slot_parts.append(f"L{level}:{current}/{maximum}")
+                        if slot_parts:
+                            spell_slots_str = f", Spell Slots: {' '.join(slot_parts)}"
+                    
+                    party_stats_formatted.append(f"{display_name}: Level {stats_item['level']}, XP {stats_item['xp']}/{next_level_xp_note}, HP {stats_item['hp']}/{stats_item['max_hp']}, {ability_str}{spell_slots_str}")
 
             party_stats_str = "; ".join(party_stats_formatted)
             current_location_name_note = world_conditions["currentLocation"]
