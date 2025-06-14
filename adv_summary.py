@@ -222,7 +222,7 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
 
             debug_print(f"Getting area path for ID: {current_area_id_from_main}")
             path_manager = ModulePathManager()
-            # Add extra debug for path manager to see if we're getting the right campaign data
+            # Add extra debug for path manager to see if we're getting the right module data
             debug_print(f"ModulePathManager using module: {path_manager.module_name}")
             debug_print(f"ModulePathManager directory: {path_manager.module_dir}")
             
@@ -233,7 +233,7 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
             if not os.path.exists(all_locations_file):
                 debug_print(f"ERROR: Area file does not exist: {all_locations_file}")
                 debug_print(f"Current area ID: {current_area_id_from_main}")
-                debug_print(f"Available files in campaign dir: {os.listdir(path_manager.campaign_dir) if os.path.exists(path_manager.campaign_dir) else 'Campaign directory not found'}")
+                debug_print(f"Available files in module dir: {os.listdir(path_manager.module_dir) if os.path.exists(path_manager.module_dir) else 'Module directory not found'}")
                 sys.exit(f"Fatal: Area file not found: {all_locations_file}")
             
             all_locations = load_json_file(all_locations_file)

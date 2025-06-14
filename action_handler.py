@@ -19,7 +19,7 @@
 # - updateCharacterInfo: Character stat and inventory management
 # - transitionLocation: Movement and exploration actions
 # - createEncounter: Combat encounter initialization
-# - updatePlot: Campaign narrative progression
+# - updatePlot: Module narrative progression
 # - updateWorldTime: Game time advancement
 # - And extensible action framework for future features
 # 

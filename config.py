@@ -17,7 +17,7 @@
 # 
 # CONFIGURATION CATEGORIES:
 # - AI Models: Different models for DM, combat, validation, generation
-# - File Paths: Campaign directories and schema locations
+# - File Paths: Module directories and schema locations
 # - API Settings: Keys, timeouts, and retry parameters
 # - System Parameters: Debug modes, logging levels, validation settings
 # 
@@ -39,9 +39,9 @@
 # WARNING: Move API keys to environment variables in production
 OPENAI_API_KEY = "sk-proj-YHoOCk08nxYvZss63drnT3BlbkFJa6f5DH7hbOfwkwrAcnGc"
 
-# --- Campaign folder structure ---
-CAMPAIGNS_DIR = "campaigns"
-DEFAULT_CAMPAIGN = "Echoes_of_the_Elemental_Forge"
+# --- Module folder structure ---
+MODULES_DIR = "modules"
+DEFAULT_MODULE = "Echoes_of_the_Elemental_Forge"
 
 # --- Main Game Logic Models (used in main.py) ---
 DM_MAIN_MODEL = "gpt-4.1-2025-04-14"

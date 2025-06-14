@@ -6,7 +6,7 @@
 # 
 # This module manages 5e exploration mechanics including location transitions,
 # area connectivity, and spatial relationships. It implements our hierarchical
-# campaign organization with ID-based location management.
+# module organization with ID-based location management.
 # 
 # KEY RESPONSIBILITIES:
 # - Manage location data loading and caching
@@ -16,7 +16,7 @@
 # - Maintain location state and discovery tracking
 # 
 # LOCATION HIERARCHY:
-# Campaign → Areas (HH001, G001) → Locations (A01, B02) → Local Features
+# Module → Areas (HH001, G001) → Locations (A01, B02) → Local Features
 # 
 # ID CONVENTION:
 # - Area IDs: 3-letter prefix + 3-digit number (HH001, G001, TBM001)

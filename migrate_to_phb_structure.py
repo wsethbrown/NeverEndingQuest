@@ -408,23 +408,23 @@ def migrate_file(filepath: str, is_npc: bool = False):
         return False
 
 def find_character_files():
-    """Find all character and NPC JSON files in campaigns"""
+    """Find all character and NPC JSON files in modules"""
     character_files = []
     npc_files = []
     
-    campaigns_dir = "campaigns"
-    if not os.path.exists(campaigns_dir):
+    modules_dir = "modules"
+    if not os.path.exists(modules_dir):
         return character_files, npc_files
     
-    for campaign in os.listdir(campaigns_dir):
-        campaign_path = os.path.join(campaigns_dir, campaign)
-        if not os.path.isdir(campaign_path):
+    for module in os.listdir(modules_dir):
+        module_path = os.path.join(modules_dir, module)
+        if not os.path.isdir(module_path):
             continue
         
-        # Look for character files in campaign root
-        for file in os.listdir(campaign_path):
+        # Look for character files in module root
+        for file in os.listdir(module_path):
             if file.endswith(".json"):
-                filepath = os.path.join(campaign_path, file)
+                filepath = os.path.join(module_path, file)
                 data = safe_read_json(filepath)
                 if data:
                     # Check if it's a player character
@@ -432,7 +432,7 @@ def find_character_files():
                         character_files.append(filepath)
         
         # Look for NPCs in npcs folder
-        npcs_dir = os.path.join(campaign_path, "npcs")
+        npcs_dir = os.path.join(module_path, "npcs")
         if os.path.exists(npcs_dir):
             for file in os.listdir(npcs_dir):
                 if file.endswith(".json"):

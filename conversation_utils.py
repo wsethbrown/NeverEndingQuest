@@ -91,7 +91,7 @@ def load_json_data(file_path):
         print(f"{file_path} has an invalid JSON format. Returning None.")
         return None
 
-def update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data):
+def update_conversation_history(conversation_history, party_tracker_data, plot_data, module_data):
     # Read the actual system prompt to get the proper identifier
     with open("system_prompt.txt", "r", encoding="utf-8") as file:
         main_system_prompt_text = file.read().strip()
@@ -109,7 +109,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
     if primary_system_prompt:
         conversation_history.remove(primary_system_prompt)
 
-    # Remove any existing system messages for location, party tracker, plot, map, and campaign data
+    # Remove any existing system messages for location, party tracker, plot, map, and module data
     updated_history = [
         msg for msg in conversation_history 
         if not (msg["role"] == "system" and 

@@ -10,8 +10,8 @@ print(f"Current working directory: {os.getcwd()}")
 
 # Initialize path manager
 path_manager = ModulePathManager()
-print(f"Campaign name: {path_manager.campaign_name}")
-print(f"Campaign dir: {path_manager.campaign_dir}")
+print(f"Module name: {path_manager.module_name}")
+print(f"Module dir: {path_manager.module_dir}")
 
 # Test monster path
 monster_type = "giant_centipede"
@@ -33,11 +33,11 @@ try:
 except Exception as e:
     print(f"Error resolving path: {e}")
 
-# List the actual files in the campaign directory
-if os.path.exists(path_manager.campaign_dir):
-    print(f"\nFiles in {path_manager.campaign_dir}:")
-    for root, dirs, files in os.walk(path_manager.campaign_dir):
-        level = root.replace(path_manager.campaign_dir, '').count(os.sep)
+# List the actual files in the module directory
+if os.path.exists(path_manager.module_dir):
+    print(f"\nFiles in {path_manager.module_dir}:")
+    for root, dirs, files in os.walk(path_manager.module_dir):
+        level = root.replace(path_manager.module_dir, '').count(os.sep)
         indent = ' ' * 2 * level
         print(f"{indent}{os.path.basename(root)}/")
         subindent = ' ' * 2 * (level + 1)

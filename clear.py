@@ -34,14 +34,14 @@ for area_id in area_ids:
     else:
         print(f"No backup found for {area_id}. Using existing file.")
 
-# Restore campaign plot from backup
+# Restore module plot from backup
 original_plot = path_manager.get_plot_path()
 backup_plot = f"{module_dir}/module_plot_BU.json"
 
 if os.path.exists(backup_plot):
     restore_from_backup(original_plot, backup_plot)
 else:
-    print(f"No backup found for campaign plot. Using existing file.")
+    print(f"No backup found for module plot. Using existing file.")
 
 # Restore party tracker from backup if available
 party_tracker_backup = f"{module_dir}/party_tracker_BU.json"
@@ -158,7 +158,7 @@ if os.path.exists(hh001_file):
     except Exception as e:
         print(f"Error resetting current_location.json: {str(e)}")
 
-# Reset any campaign-specific debug files
+# Reset any module-specific debug files
 debug_files = ['combat_validation_log.json', 'debug_ai_response.json', 'dialogue_summary.json']
 for file in debug_files:
     if os.path.exists(file):
@@ -173,7 +173,7 @@ for file in debug_files:
 # Character reset is handled by backup restoration above
 
 # No longer need to clean individual plot files since we use unified plot system
-# The campaign_plot.json is restored from backup above
+# The module_plot.json is restored from backup above
 
 # Also clean up any combat logs
 combat_logs_dir = "combat_logs"

@@ -142,20 +142,20 @@ class ModulePromptGuide:
     - "World Axis": 4e-style points of light
     - "Custom": Unique planar arrangement
     
-    Choose based on campaign needs for planar travel/influence
+    Choose based on module needs for planar travel/influence
     """
     
     planarConnections: str = """
     List of planes that directly influence or connect to the material plane.
-    For elemental campaigns, include relevant elemental planes.
+    For elemental modules, include relevant elemental planes.
     For demon/devil plots, include Abyss/Nine Hells.
     
     Examples: ["Elemental Plane of Fire", "Shadowfell", "Feywild"]
-    Limit: 2-5 planes most relevant to the campaign
+    Limit: 2-5 planes most relevant to the module
     """
     
     majorDeities: str = """
-    Include 2-6 deities most relevant to the campaign.
+    Include 2-6 deities most relevant to the module.
     Each deity needs:
     - Name: Use standard 5e deities or create fitting names
     - Domain: Primary portfolio (War, Nature, Death, etc.)
@@ -189,12 +189,12 @@ class ModulePromptGuide:
     """
     
     predominantRaces: str = """
-    3-6 races that are most common in the campaign area.
+    3-6 races that are most common in the module area.
     Standard options: Human, Elf, Dwarf, Halfling, Gnome, Half-Elf, Half-Orc, 
     Dragonborn, Tiefling
     
     Consider:
-    - Which races fit the campaign theme?
+    - Which races fit the module theme?
     - Are there any race-specific plot points?
     - What would be good PC options?
     
@@ -209,7 +209,7 @@ class ModulePromptGuide:
     - "common": Magic shops exist, many know cantrips
     - "abundant": Magic is part of daily life
     
-    Consider: How does this affect the campaign's tone?
+    Consider: How does this affect the module's tone?
     """
     
     currentConflicts: str = """
@@ -229,7 +229,7 @@ class ModulePromptGuide:
     """
     
     mainObjective: str = """
-    The ultimate goal of the campaign in one sentence.
+    The ultimate goal of the module in one sentence.
     Should be:
     - Clear and specific
     - Achievable but challenging
@@ -252,7 +252,7 @@ class ModulePromptGuide:
     """
     
     plotStages: str = """
-    3-7 major campaign stages/acts.
+    3-7 major module stages/acts.
     Each needs:
     - stageName: Clear identifier ("Act 1: The Awakening")
     - stageDescription: 2-3 sentences of what happens
@@ -302,7 +302,7 @@ class ModulePromptGuide:
     """
     
     worldMap: str = """
-    Define 2-5 major regions/areas for the campaign.
+    Define 2-5 major regions/areas for the module.
     Each needs:
     - regionName: Evocative name
     - regionDescription: 2-3 sentences about the area
@@ -323,7 +323,7 @@ class ModulePromptGuide:
     """
     
     timelineEvents: str = """
-    3-6 events that will occur as the campaign progresses.
+    3-6 events that will occur as the module progresses.
     Each needs:
     - eventName: Clear identifier
     - eventDescription: What happens (2-3 sentences)

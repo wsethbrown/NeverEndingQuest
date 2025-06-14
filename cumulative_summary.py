@@ -6,12 +6,12 @@
 # 
 # This module implements intelligent conversation compression and long-term
 # memory management for extended 5th edition sessions. It solves the AI context
-# limitation problem while preserving campaign continuity.
+# limitation problem while preserving module continuity.
 # 
 # KEY RESPONSIBILITIES:
 # - Compress lengthy conversation histories into coherent summaries
 # - Preserve critical game state information across context reductions
-# - Generate adventure logs for long-term campaign memory
+# - Generate adventure logs for long-term module memory
 # - Optimize AI context for better performance and token management
 # - Maintain narrative continuity during session transitions
 # 
@@ -40,7 +40,7 @@
 # - Context-aware summary generation
 # - Multi-session continuity maintenance
 # 
-# This module ensures our AI can maintain coherent long-term campaigns
+# This module ensures our AI can maintain coherent long-term modules
 # while respecting token limitations and performance requirements.
 # ============================================================================
 
