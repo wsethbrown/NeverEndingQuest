@@ -767,7 +767,7 @@ def main_game_loop():
                     area_connections_formatted = []
                     for i, name in enumerate(area_names):
                         conn_id = area_ids[i] if i < len(area_ids) else "Unknown ID"
-                        area_connections_formatted.append(f"{name} (via Area ID: {conn_id})")
+                        area_connections_formatted.append(f"{name}")
                     
                     if area_connections_formatted:
                         connected_areas_display_str = ". Connects to new areas: " + ", ".join(area_connections_formatted)
