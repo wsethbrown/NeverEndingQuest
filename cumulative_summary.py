@@ -252,6 +252,8 @@ Your summary should capture:
 4. Important conversations or information learned
 5. Items found or resources used
 6. How the visit concluded
+7. Player and NPC interactions involving personal storylines or dynamics (love, anger, jokes, bonding moments)
+8. Events that would shape core memories for NPCs (death of friends, loss of treasured items, life-changing moments they'd never forget)
 
 Write in past tense, third person. Be specific about outcomes and consequences. Keep it focused on what actually happened, not what might happen."""},
         {"role": "user", "content": dialogue}
