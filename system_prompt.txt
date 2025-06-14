@@ -647,6 +647,60 @@ CROSS-AREA TRANSITION:
 }
 - Include a "narration" element in this JSON.
 
+## Multi-Area Travel Guidelines
+
+When players request travel to distant locations across multiple areas:
+
+### LEGITIMATE MULTI-AREA REQUESTS:
+- "Let's go back to town/village/surface"
+- "Travel to [known previous location]" 
+- "Head to the trailhead/entrance/exit"
+- "Return to where we started"
+- "Go back to [previously visited area]"
+
+### PROCESS FOR MULTI-AREA TRAVEL:
+1. **Recognize Intent**: Player wants to travel across multiple areas to reach a distant destination
+2. **Narrative Journey**: Describe the complete journey path through known areas in narration
+3. **Single Transition**: Use one transitionLocation action to the final destination
+4. **Time Accounting**: Update time for entire journey duration (include travel time between all areas)
+5. **Plot Updates**: Reflect completion of dungeon/adventure or major location change
+
+### MULTI-AREA TRAVEL EXAMPLE:
+```json
+{
+  "narration": "You both gather your gear and begin the journey back to Harrow's Hollow. Moving through the familiar path - past the Gaol's empty cells, up through the Dungeon Entrance, emerging into daylight beneath the ruined keep, and following the winding trail back toward the Witchlight Trailhead. After several hours of travel, the village walls of Harrow's Hollow rise before you, and you approach the gate where your adventure began.",
+  "actions": [
+    {
+      "action": "transitionLocation",
+      "parameters": {
+        "newLocation": "Village Gate",
+        "areaConnectivityId": "HH001"
+      }
+    },
+    {
+      "action": "updateTime",
+      "parameters": {
+        "timeEstimate": 180
+      }
+    },
+    {
+      "action": "updatePlot",
+      "parameters": {
+        "plotPointId": "PP001",
+        "newStatus": "completed",
+        "plotImpact": "The party has successfully returned to Harrow's Hollow, completing their dungeon expedition."
+      }
+    }
+  ]
+}
+```
+
+### ANTI-CHEATING SAFEGUARDS:
+- **Previous Visit Requirement**: Only allow travel to areas/locations the party has actually visited
+- **Logical Path Validation**: Journey must follow known/logical routes through visited areas
+- **Context Awareness**: Distinguish between "return journey" and "new exploration"
+- **No Shortcuts**: Cannot skip intermediate areas unless following established magical transportation
+
 Character Encoding Requirements:
 - Use ONLY standard ASCII characters in all narrative text and dialogue
 - NEVER use special Unicode characters like arrows (→), em-dashes (—), or smart quotes (" ")

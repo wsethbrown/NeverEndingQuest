@@ -91,6 +91,32 @@ When characters take a short rest or long rest, the following validation rules M
 - Short rest described but long rest benefits applied
 - Long rest described but missing full recovery
 
+## MULTI-AREA TRAVEL VALIDATION RULES
+
+When characters request travel across multiple areas or distant locations:
+
+### Valid Multi-Area Travel Patterns:
+- VALID: "Return to town/village/surface" requests with narrative journey description
+- VALID: Single transitionLocation to final destination with full journey narrated
+- VALID: Appropriate travel time for entire multi-area journey (updateTime)
+- VALID: Plot updates reflecting major location change or adventure completion
+
+### Invalid Multi-Area Travel Patterns:
+- INVALID: Multiple transitionLocation actions for single journey request
+- INVALID: Travel to unvisited/unknown locations without logical progression
+- INVALID: Missing updateTime for multi-area journey duration
+- INVALID: Direct teleportation without narrative explanation of path
+
+### Multi-Area Travel Validation Requirements:
+- REQUIRED: Single transitionLocation action to final destination
+- REQUIRED: Narrative description of journey through intermediate areas
+- REQUIRED: updateTime reflecting total travel duration across all areas
+- RECOMMENDED: updatePlot for significant location changes
+
+### Example Valid Multi-Area Travel:
+Player requests: "Let's travel to the gate near the trail head"
+VALID Response: Narrative describes journey through Gaol → Entrance → Surface → Trailhead → Gate, single transitionLocation to final gate location, updateTime for full journey
+
 Critical: The model may only take the above actions! If any other action is taken then the model has failed.
 
 Important clarifications:
@@ -380,6 +406,55 @@ Here are examples of acceptable model assistant responses:
   ]
 }
 // INVALID REASON: Rangers do NOT recover spell slots on short rest - only Warlocks do
+
+// Example 16: CORRECT Multi-Area Travel Implementation
+{
+  "narration": "You both gather your gear and begin the journey back to Harrow's Hollow. Moving through the familiar path - past the Gaol's empty cells, up through the Dungeon Entrance, emerging into daylight beneath the ruined keep, and following the winding trail back toward the Witchlight Trailhead. After several hours of travel, the village walls of Harrow's Hollow rise before you, and you approach the gate where your adventure began. The burden of the curse has lifted, and the promise of warmth, food, and fellowship awaits.",
+  "actions": [
+    {
+      "action": "transitionLocation",
+      "parameters": {
+        "newLocation": "Village Gate",
+        "areaConnectivityId": "HH001"
+      }
+    },
+    {
+      "action": "updateTime",
+      "parameters": {
+        "timeEstimate": 180
+      }
+    },
+    {
+      "action": "updatePlot",
+      "parameters": {
+        "plotPointId": "PP001",
+        "newStatus": "completed",
+        "plotImpact": "The party has successfully returned to Harrow's Hollow, completing their dungeon expedition and lifting the curse from Shadowfall Keep."
+      }
+    }
+  ]
+}
+
+// Example 17: INVALID Multi-Area Travel - Multiple transitions for single journey
+{
+  "narration": "You begin the journey back to the village.",
+  "actions": [
+    {
+      "action": "transitionLocation",
+      "parameters": {
+        "newLocation": "Dungeon Entrance"
+      }
+    },
+    {
+      "action": "transitionLocation",
+      "parameters": {
+        "newLocation": "Village Gate",
+        "areaConnectivityId": "HH001"
+      }
+    }
+  ]
+}
+// INVALID REASON: Multiple transitionLocation actions for single journey request - should use one action with narrative journey
 
 // Example 13: Correct transition with updatePlot and transitionLocation
 {
