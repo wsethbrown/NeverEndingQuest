@@ -5,7 +5,7 @@
 # ARCHITECTURE ROLE: AI Integration Layer - Long-Term Memory Management
 # 
 # This module implements intelligent conversation compression and long-term
-# memory management for extended D&D sessions. It solves the AI context
+# memory management for extended 5th edition sessions. It solves the AI context
 # limitation problem while preserving campaign continuity.
 # 
 # KEY RESPONSIBILITIES:
@@ -243,7 +243,7 @@ def generate_location_summary(location_name, messages):
     
     # Create summary prompt
     messages = [
-        {"role": "system", "content": f"""You are a chronicler documenting a D&D adventure. Create a concise but comprehensive summary of what happened in '{location_name}'.
+        {"role": "system", "content": f"""You are a chronicler documenting a 5th edition adventure. Create a concise but comprehensive summary of what happened in '{location_name}'.
 
 Your summary should capture:
 1. What the party did when they arrived

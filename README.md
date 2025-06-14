@@ -1,15 +1,15 @@
 # DungeonMasterAI
 
-An AI-powered Dungeon Master assistant for running D&D 5e campaigns with full campaign generation, interactive gameplay, and comprehensive game management capabilities.
+An AI-powered Dungeon Master assistant for running 5th edition campaigns with full campaign generation, interactive gameplay, and comprehensive game management capabilities.
 
 ## Overview
 
-DungeonMasterAI uses OpenAI's GPT models to create complete D&D campaigns and provide an interactive Dungeon Master experience. The system features:
+DungeonMasterAI uses OpenAI's GPT models to create complete 5th edition campaigns and provide an interactive Dungeon Master experience. The system features:
 
 ### Campaign Generation
 - **Complete Campaign Builder**: Generate entire campaigns with areas, locations, plots, and NPCs
 - **Context-Aware Generation**: Maintains consistency across all generated content
-- **Schema-Compliant Output**: All generated files follow strict D&D 5e schemas
+- **Schema-Compliant Output**: All generated files follow strict 5th edition schemas
 
 ### Game Management
 - Character statistics and inventory tracking
@@ -61,7 +61,7 @@ Launch the modern web interface with separate panels for game output and debug i
 - **Automated Campaign Builder**: Generate complete campaigns with one command
 - **Context Validation**: Ensures consistency across all generated content
 - **Customizable Settings**: Control number of areas, locations per area, and complexity
-- **Schema Compliance**: All files follow strict D&D 5e JSON schemas
+- **Schema Compliance**: All files follow strict 5th edition JSON schemas
 
 ### Gameplay Features
 - **Interactive Storytelling**: Dynamic narratives respond to player actions
@@ -134,7 +134,20 @@ python main.py
 
 ## License
 
-This project is for personal use and experimentation. Based on WOTC Creative Commons content.
+This work is licensed under the Creative Commons Attribution 4.0 International License. 
+See the LICENSE file for details.
+
+### SRD Attribution
+
+Portions of this work are derived from the System Reference Document 5.2.1 ("SRD 5.2.1") 
+by Wizards of the Coast LLC and available at https://dnd.wizards.com/resources/systems-reference-document. 
+
+The SRD 5.2.1 is licensed under the Creative Commons Attribution 4.0 International License 
+available at https://creativecommons.org/licenses/by/4.0/legalcode.
+
+This work is not affiliated with, endorsed, sponsored, or specifically approved by 
+Wizards of the Coast LLC. This is unofficial Fan Content permitted under the 
+Creative Commons Attribution 4.0 International License.
 
 ## Recent Updates
 
