@@ -343,7 +343,7 @@ Context:
 {json.dumps(context.to_dict() if hasattr(context, 'to_dict') else context, indent=2)}
 
 The plot should:
-1. Connect logically to the campaign theme
+1. Connect logically to the module theme
 2. Build tension toward a climactic encounter
 3. Provide meaningful player choices
 4. Include a mix of combat, exploration, and social challenges
@@ -390,7 +390,7 @@ IMPORTANT: Each plot point should have its sideQuests array (can be empty). Side
         
         return json.loads(response.choices[0].message.content)
     
-    def generate_plot(self, campaign_data: Dict[str, Any], 
+    def generate_plot(self, module_data: Dict[str, Any], 
                      area_data: Dict[str, Any],
                      location_data: Dict[str, Any],
                      initial_concept: str = None,
@@ -399,11 +399,11 @@ IMPORTANT: Each plot point should have its sideQuests array (can be empty). Side
         
         # Build generation context from existing data
         generation_context = {
-            "campaign": {
-                "name": campaign_data.get("campaignName", ""),
-                "description": campaign_data.get("campaignDescription", ""),
-                "mainObjective": campaign_data.get("mainPlot", {}).get("mainObjective", ""),
-                "antagonist": campaign_data.get("mainPlot", {}).get("antagonist", "")
+            "module": {
+                "name": module_data.get("moduleName", ""),
+                "description": module_data.get("moduleDescription", ""),
+                "mainObjective": module_data.get("mainPlot", {}).get("mainObjective", ""),
+                "antagonist": module_data.get("mainPlot", {}).get("antagonist", "")
             },
             "area": {
                 "name": area_data.get("regionName", ""),
@@ -529,9 +529,9 @@ def main():
     print("-" * 50)
     
     # For demonstration, create minimal mock data
-    mock_campaign = {
-        "campaignName": "Echoes of the Elemental Forge",
-        "campaignDescription": "A group of adventurers must uncover the secrets of an ancient dwarven artifact to prevent catastrophic elemental chaos.",
+    mock_module = {
+        "moduleName": "Echoes of the Elemental Forge",
+        "moduleDescription": "A group of adventurers must uncover the secrets of an ancient dwarven artifact to prevent catastrophic elemental chaos.",
         "mainPlot": {
             "mainObjective": "Prevent the Ember Enclave from misusing the Elemental Forge",
             "antagonist": "Rurik Emberstone, leader of the Ember Enclave"
@@ -564,7 +564,7 @@ def main():
     print("-" * 50)
     
     # Generate plot
-    plot = generator.generate_plot(mock_campaign, mock_area, mock_locations, concept)
+    plot = generator.generate_plot(mock_module, mock_area, mock_locations, concept)
     
     # Validate
     errors = generator.validate_plot(plot, mock_locations)

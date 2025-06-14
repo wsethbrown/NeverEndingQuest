@@ -64,8 +64,8 @@ def get_monster_attacks(monster_type):
         return [{"name": "monster attack"}], 1
         
     try:
-        from campaign_path_manager import CampaignPathManager
-        path_manager = CampaignPathManager()
+        from module_path_manager import ModulePathManager
+        path_manager = ModulePathManager()
         monster_file = path_manager.get_monster_path(monster_type)
         
         with open(monster_file, "r") as file:
@@ -100,7 +100,7 @@ def get_npc_attacks(npc_name):
         return [{"name": "weapon attack"}], 1
         
     try:
-        from campaign_path_manager import CampaignPathManager
+        from module_path_manager import ModulePathManager as CampaignPathManager
         path_manager = CampaignPathManager()
         npc_file = path_manager.get_character_path(npc_name)
         

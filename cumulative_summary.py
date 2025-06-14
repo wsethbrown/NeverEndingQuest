@@ -49,7 +49,7 @@ import os
 from datetime import datetime
 from openai import OpenAI
 from config import OPENAI_API_KEY, ADVENTURE_SUMMARY_MODEL
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 from file_operations import safe_write_json, safe_read_json
 from encoding_utils import sanitize_text, safe_json_load, safe_json_dump
 from status_manager import status_generating_summary, status_updating_journal, status_compressing_history

@@ -378,4 +378,4 @@ if __name__ == "__main__":
         validate_character_file(file_path)
     else:
         # Test with default character
-        validate_character_file("campaigns/Keep_of_Doom/characters/norn.json")
+        validate_character_file("modules/Keep_of_Doom/characters/norn.json")

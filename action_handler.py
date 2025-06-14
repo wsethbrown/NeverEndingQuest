@@ -39,7 +39,7 @@ import json
 import subprocess
 import os
 from location_manager import get_location_data
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 from plot_update import update_plot
 from encoding_utils import sanitize_text, safe_json_dump, safe_json_load
 from status_manager import (
@@ -100,7 +100,7 @@ def validate_location_transition(location_graph, current_location_id, destinatio
 def update_party_npcs(party_tracker_data, operation, npc):
     """Update NPC party members (add or remove)"""
     if operation == "add":
-        path_manager = CampaignPathManager()
+        path_manager = ModulePathManager()
         npc_file = path_manager.get_character_path(npc['name'])
         if not os.path.exists(npc_file):
             # NPC file doesn't exist, so we need to create it

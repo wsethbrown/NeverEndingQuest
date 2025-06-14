@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Campaign Debugger Tool
-Validates campaign data for compatibility with main.py and all game systems.
-Tests the most recent campaign in the campaigns folder.
+Module Debugger Tool
+Validates module data for compatibility with main.py and all game systems.
+Tests the most recent module in the modules folder.
 """
 
 import json
@@ -15,14 +15,14 @@ from typing import Dict, List, Any, Tuple
 import jsonschema
 from collections import defaultdict
 
-class CampaignDebugger:
+class ModuleDebugger:
     def __init__(self):
         self.errors = []
         self.warnings = []
         self.info = []
         self.schemas = {}
-        self.campaign_data = {}
-        self.campaign_path = None
+        self.module_data = {}
+        self.module_path = None
         
     def log_error(self, message: str):
         """Log an error"""
@@ -43,27 +43,27 @@ class CampaignDebugger:
         """Log success"""
         print(f"✅ SUCCESS: {message}")
     
-    def find_latest_campaign(self) -> str:
-        """Find the most recent campaign folder"""
-        campaigns_dir = Path("campaigns")
-        if not campaigns_dir.exists():
-            self.log_error("No campaigns directory found")
+    def find_latest_module(self) -> str:
+        """Find the most recent module folder"""
+        modules_dir = Path("modules")
+        if not modules_dir.exists():
+            self.log_error("No modules directory found")
             return None
             
-        campaign_folders = [d for d in campaigns_dir.iterdir() if d.is_dir()]
-        if not campaign_folders:
-            self.log_error("No campaign folders found")
+        module_folders = [d for d in modules_dir.iterdir() if d.is_dir()]
+        if not module_folders:
+            self.log_error("No module folders found")
             return None
             
         # Sort by modification time to get the most recent
-        latest = max(campaign_folders, key=lambda d: d.stat().st_mtime)
-        self.log_info(f"Found latest campaign: {latest.name}")
+        latest = max(module_folders, key=lambda d: d.stat().st_mtime)
+        self.log_info(f"Found latest module: {latest.name}")
         return str(latest)
     
     def load_schemas(self) -> bool:
         """Load all JSON schemas"""
         schema_files = [
-            "campaign_schema.json",
+            "module_schema.json",
             "loca_schema.json", 
             "plot_schema.json",
             "party_schema.json",
@@ -88,19 +88,19 @@ class CampaignDebugger:
                 
         return True
     
-    def load_campaign_files(self) -> bool:
-        """Load all files from the campaign directory"""
-        if not self.campaign_path:
+    def load_module_files(self) -> bool:
+        """Load all files from the module directory"""
+        if not self.module_path:
             return False
             
-        campaign_files = list(Path(self.campaign_path).glob("*.json"))
+        module_files = list(Path(self.module_path).glob("*.json"))
         
-        for file_path in campaign_files:
+        for file_path in module_files:
             try:
                 with open(file_path, 'r') as f:
                     data = json.load(f)
                     filename = file_path.name
-                    self.campaign_data[filename] = data
+                    self.module_data[filename] = data
                     self.log_success(f"Loaded: {filename}")
             except json.JSONDecodeError as e:
                 self.log_error(f"Invalid JSON in {filename}: {e}")
@@ -111,16 +111,16 @@ class CampaignDebugger:
     def validate_schema_compliance(self):
         """Validate each file against its schema"""
         schema_mappings = {
-            "*_campaign.json": "campaign_schema.json",
+            "*_module.json": "module_schema.json",
             "party_tracker.json": "party_schema.json",
             "map_*.json": "map_schema.json",
             "plot_*.json": "plot_schema.json",
-            "campaign_context.json": None,  # Internal tracking file
+            "module_context.json": None,  # Internal tracking file
             "validation_report.json": None,  # Generated report
             "debug_report.md": None  # Debug report
         }
         
-        for filename, data in self.campaign_data.items():
+        for filename, data in self.module_data.items():
             schema_name = None
             
             # Find matching schema
@@ -192,7 +192,7 @@ class CampaignDebugger:
         plot_locations = defaultdict(set)  # area_id -> set of plot location_ids
         
         # Extract IDs from files
-        for filename, data in self.campaign_data.items():
+        for filename, data in self.module_data.items():
             if "areaId" in data:
                 area_id = data["areaId"]
                 area_ids.add(area_id)
@@ -236,7 +236,7 @@ class CampaignDebugger:
                             self.log_info(f"Available locations in {area_id}: {', '.join(sorted(area_locs))}")
         
         # Validate connectivity
-        for filename, data in self.campaign_data.items():
+        for filename, data in self.module_data.items():
             if "locations" in data:
                 area_id = data.get("areaId")
                 for location in data["locations"]:
@@ -257,22 +257,22 @@ class CampaignDebugger:
     
     def validate_party_tracker(self):
         """Validate party tracker references"""
-        if "party_tracker.json" not in self.campaign_data:
+        if "party_tracker.json" not in self.module_data:
             self.log_error("No party_tracker.json found")
             return
             
-        tracker = self.campaign_data["party_tracker.json"]
+        tracker = self.module_data["party_tracker.json"]
         
         # Check current location exists
         current_area = tracker.get("worldConditions", {}).get("currentAreaId")
         current_location = tracker.get("worldConditions", {}).get("currentLocationId")
         
-        if current_area and current_area not in [d.get("areaId") for d in self.campaign_data.values() if "areaId" in d]:
+        if current_area and current_area not in [d.get("areaId") for d in self.module_data.values() if "areaId" in d]:
             self.log_error(f"Party tracker references non-existent area: {current_area}")
             
         # Check if location exists in the area
         area_data = None
-        for data in self.campaign_data.values():
+        for data in self.module_data.values():
             if data.get("areaId") == current_area:
                 area_data = data
                 break
@@ -283,7 +283,7 @@ class CampaignDebugger:
                 self.log_error(f"Party tracker references non-existent location: {current_location} in area {current_area}")
     
     def simulate_script_loading(self):
-        """Simulate how various scripts would load the campaign"""
+        """Simulate how various scripts would load the module"""
         print("\n--- Simulating Script Loading ---")
         
         # Check main.py requirements
@@ -308,7 +308,7 @@ class CampaignDebugger:
         self.simulate_dm_systems()
         
     def simulate_main_loading(self):
-        """Simulate how main.py would load the campaign"""
+        """Simulate how main.py would load the module"""
         print("\n[main.py checks]")
         # Check required files for main.py
         required_files = [
@@ -319,19 +319,19 @@ class CampaignDebugger:
         ]
         
         for req_file in required_files:
-            if req_file not in self.campaign_data:
+            if req_file not in self.module_data:
                 if req_file in ["current_location.json", "chat_history.json", "journal.json"]:
                     self.log_info(f"Optional file not found (will be created): {req_file}")
                 else:
                     self.log_error(f"Required file missing: {req_file}")
         
         # Simulate loading party members
-        if "party_tracker.json" in self.campaign_data:
-            tracker = self.campaign_data["party_tracker.json"]
+        if "party_tracker.json" in self.module_data:
+            tracker = self.module_data["party_tracker.json"]
             for member in tracker.get("partyMembers", []):
                 char_file = f"{member.lower()}.json"
-                if char_file not in self.campaign_data:
-                    # Check in parent directory (character files might be outside campaign folder)
+                if char_file not in self.module_data:
+                    # Check in parent directory (character files might be outside module folder)
                     if not os.path.exists(char_file):
                         self.log_warning(f"Character file not found: {char_file}")
                         
@@ -339,7 +339,7 @@ class CampaignDebugger:
             for npc in tracker.get("partyNPCs", []):
                 npc_name = npc.get("name") if isinstance(npc, dict) else npc
                 npc_file = f"{npc_name.lower()}.json"
-                if npc_file not in self.campaign_data:
+                if npc_file not in self.module_data:
                     if not os.path.exists(npc_file):
                         self.log_warning(f"NPC file not found: {npc_file}")
     
@@ -356,7 +356,7 @@ class CampaignDebugger:
                 self.log_info(f"Found encounter file: {enc_file}")
                 
         # Check monster files referenced in locations
-        for filename, data in self.campaign_data.items():
+        for filename, data in self.module_data.items():
             if "locations" in data:
                 for location in data["locations"]:
                     for monster in location.get("monsters", []):
@@ -370,16 +370,16 @@ class CampaignDebugger:
         print("\n[location_manager.py checks]")
         
         # Check current location consistency
-        if "party_tracker.json" in self.campaign_data:
-            tracker = self.campaign_data["party_tracker.json"]
+        if "party_tracker.json" in self.module_data:
+            tracker = self.module_data["party_tracker.json"]
             current_location = tracker.get("worldConditions", {}).get("currentLocationId")
             current_area = tracker.get("worldConditions", {}).get("currentAreaId")
             
             if current_area and current_location:
                 # Find the area file
                 area_file = f"{current_area}.json"
-                if area_file in self.campaign_data:
-                    area_data = self.campaign_data[area_file]
+                if area_file in self.module_data:
+                    area_data = self.module_data[area_file]
                     location_found = False
                     for loc in area_data.get("locations", []):
                         if loc.get("locationId") == current_location:
@@ -394,9 +394,9 @@ class CampaignDebugger:
         print("\n[storyteller.py checks]")
         
         # Check for required plot and quest files
-        if "party_tracker.json" in self.campaign_data:
-            tracker = self.campaign_data["party_tracker.json"]
-            campaign_name = tracker.get("campaign")
+        if "party_tracker.json" in self.module_data:
+            tracker = self.module_data["party_tracker.json"]
+            module_name = tracker.get("module")
             
             # Check for quest progress
             if not os.path.exists("quest_progress.json"):
@@ -414,7 +414,7 @@ class CampaignDebugger:
         area_ids = set()
         plot_ids = set()
         
-        for filename, data in self.campaign_data.items():
+        for filename, data in self.module_data.items():
             if "areaId" in data:
                 area_ids.add(data["areaId"])
             if filename.startswith("plot_"):
@@ -435,21 +435,21 @@ class CampaignDebugger:
         print("\n[update_*.py scripts checks]")
         
         # update_player_info.py
-        if "party_tracker.json" in self.campaign_data:
-            tracker = self.campaign_data["party_tracker.json"]
+        if "party_tracker.json" in self.module_data:
+            tracker = self.module_data["party_tracker.json"]
             for member in tracker.get("partyMembers", []):
                 self.log_info(f"update_player_info.py would update: {member}")
         
         # update_npc_info.py
-        if "party_tracker.json" in self.campaign_data:
-            tracker = self.campaign_data["party_tracker.json"]
+        if "party_tracker.json" in self.module_data:
+            tracker = self.module_data["party_tracker.json"]
             for npc in tracker.get("partyNPCs", []):
                 npc_name = npc.get("name") if isinstance(npc, dict) else npc
                 self.log_info(f"update_npc_info.py would update: {npc_name}")
         
         # update_world_time.py
-        if "party_tracker.json" in self.campaign_data:
-            world_conditions = self.campaign_data["party_tracker.json"].get("worldConditions", {})
+        if "party_tracker.json" in self.module_data:
+            world_conditions = self.module_data["party_tracker.json"].get("worldConditions", {})
             if "time" in world_conditions:
                 self.log_success("World time data present for update_world_time.py")
             else:
@@ -470,15 +470,15 @@ class CampaignDebugger:
         if not os.path.exists("conversation_history.json"):
             self.log_info("conversation_history.json not found (will be created)")
             
-        # Check campaign references in party tracker
-        if "party_tracker.json" in self.campaign_data:
-            tracker = self.campaign_data["party_tracker.json"]
-            campaign_name = tracker.get("campaign")
+        # Check module references in party tracker
+        if "party_tracker.json" in self.module_data:
+            tracker = self.module_data["party_tracker.json"]
+            module_name = tracker.get("module")
             
-            # Check if campaign file exists
-            campaign_file = f"{campaign_name.replace(' ', '_')}_campaign.json"
-            if campaign_file not in self.campaign_data:
-                self.log_warning(f"Campaign file {campaign_file} not found for campaign '{campaign_name}'")
+            # Check if module file exists
+            module_file = f"{module_name.replace(' ', '_')}_module.json"
+            if module_file not in self.module_data:
+                self.log_warning(f"Module file {module_file} not found for module '{module_name}'")
         
         # Check for validation prompt
         if not os.path.exists("validation_prompt.txt"):
@@ -491,15 +491,15 @@ class CampaignDebugger:
         # Check dm_wrapper.py requirements
         print("\n[dm_wrapper.py checks]")
         current_area = None
-        if "party_tracker.json" in self.campaign_data:
-            tracker = self.campaign_data["party_tracker.json"]
+        if "party_tracker.json" in self.module_data:
+            tracker = self.module_data["party_tracker.json"]
             current_area = tracker.get("worldConditions", {}).get("currentAreaId")
             
             if current_area:
                 # Check if the area has NPCs that dm.py would need to voice
                 area_file = f"{current_area}.json"
-                if area_file in self.campaign_data:
-                    area_data = self.campaign_data[area_file]
+                if area_file in self.module_data:
+                    area_data = self.module_data[area_file]
                     for location in area_data.get("locations", []):
                         for npc in location.get("npcs", []):
                             if isinstance(npc, dict):
@@ -510,9 +510,9 @@ class CampaignDebugger:
     def generate_report(self) -> str:
         """Generate a comprehensive report"""
         report = f"""
-# Campaign Debug Report
+# Module Debug Report
 Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-Campaign: {self.campaign_path}
+Module: {self.module_path}
 
 ## Summary
 - Errors: {len(self.errors)}
@@ -521,7 +521,7 @@ Campaign: {self.campaign_path}
 
 ## Files Loaded
 """
-        for filename in sorted(self.campaign_data.keys()):
+        for filename in sorted(self.module_data.keys()):
             report += f"- {filename}\n"
         
         if self.errors:
@@ -536,21 +536,21 @@ Campaign: {self.campaign_path}
                 
         report += f"\n## Status\n"
         if not self.errors:
-            report += "✅ Campaign is compatible with main.py\n"
+            report += "✅ Module is compatible with main.py\n"
         else:
-            report += "❌ Campaign has errors that need to be fixed\n"
+            report += "❌ Module has errors that need to be fixed\n"
             
         return report
     
     def check_structural_issues(self):
-        """Check for common structural issues in campaign files"""
+        """Check for common structural issues in module files"""
         print("\n--- Checking Structural Issues ---")
         
         # Check for area consistency
         area_count = 0
         location_count = 0
         
-        for filename, data in self.campaign_data.items():
+        for filename, data in self.module_data.items():
             if "areaId" in data and "locations" in data:
                 area_count += 1
                 location_count += len(data["locations"])
@@ -567,7 +567,7 @@ Campaign: {self.campaign_path}
         
         # Check plot consistency
         plot_count = 0
-        for filename in self.campaign_data:
+        for filename in self.module_data:
             if filename.startswith("plot_"):
                 plot_count += 1
                 
@@ -577,20 +577,20 @@ Campaign: {self.campaign_path}
     def run_debug(self):
         """Run the complete debug process"""
         print("=" * 50)
-        print("CAMPAIGN DEBUGGER")
+        print("MODULE DEBUGGER")
         print("=" * 50)
         
-        # Find latest campaign
-        self.campaign_path = self.find_latest_campaign()
-        if not self.campaign_path:
+        # Find latest module
+        self.module_path = self.find_latest_module()
+        if not self.module_path:
             return
         
         # Load schemas
         if not self.load_schemas():
             return
             
-        # Load campaign files
-        if not self.load_campaign_files():
+        # Load module files
+        if not self.load_module_files():
             return
             
         print("\n--- Validating Schemas ---")
@@ -612,7 +612,7 @@ Campaign: {self.campaign_path}
         report = self.generate_report()
         
         # Save report
-        report_path = os.path.join(self.campaign_path, "debug_report.md")
+        report_path = os.path.join(self.module_path, "debug_report.md")
         with open(report_path, 'w') as f:
             f.write(report)
             
@@ -622,7 +622,7 @@ Campaign: {self.campaign_path}
 
 
 def main():
-    debugger = CampaignDebugger()
+    debugger = ModuleDebugger()
     debugger.run_debug()
 
 

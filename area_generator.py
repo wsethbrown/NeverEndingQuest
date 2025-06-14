@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Area Generator Script
-Creates area JSON files with map layouts based on campaign requirements.
+Creates area JSON files with map layouts based on module requirements.
 """
 
 import json
@@ -147,7 +147,7 @@ class AreaGenerator:
     def generate_area(self, 
                      area_name: str,
                      area_id: str,
-                     campaign_context: Dict[str, Any],
+                     module_context: Dict[str, Any],
                      config: AreaConfig) -> Dict[str, Any]:
         """Generate a complete area file"""
         
@@ -348,7 +348,7 @@ class AreaGenerator:
             "mixed": "Balance combat, exploration, and social encounters. Transitions between areas should feel natural."
         }
         
-        return notes.get(config.area_type, "Customize this area to fit your campaign's needs.")
+        return notes.get(config.area_type, "Customize this area to fit your module's needs.")
     
     def save_area(self, area_data: Dict[str, Any], filename: str = None):
         """Save area data to file"""
@@ -393,14 +393,14 @@ def main():
         recommended_level=recommended_level
     )
     
-    # Mock campaign context
-    campaign_context = {
-        "campaignName": "Test Campaign",
+    # Mock module context
+    module_context = {
+        "moduleName": "Test Module",
         "theme": "Classic fantasy adventure"
     }
     
     # Generate area
-    area_data = generator.generate_area(area_name, area_id, campaign_context, config)
+    area_data = generator.generate_area(area_name, area_id, module_context, config)
     
     # Save
     generator.save_area(area_data)

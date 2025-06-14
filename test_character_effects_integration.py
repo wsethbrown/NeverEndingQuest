@@ -224,7 +224,7 @@ class TestEquipmentEffectsIntegration(unittest.TestCase):
 
 
 class TestValidatorIntegration(unittest.TestCase):
-    """Test full integration with campaign files"""
+    """Test full integration with module files"""
     
     def setUp(self):
         self.test_dir = tempfile.mkdtemp()

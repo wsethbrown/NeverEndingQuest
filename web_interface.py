@@ -126,7 +126,7 @@ class WebOutputCapture:
                             'Time Advanced:',
                             'New Time:',
                             'Days Passed:',
-                            'Loading campaign areas',
+                            'Loading module areas',
                             'Graph built:',
                             '[OK] Loaded'
                         ]):
@@ -164,7 +164,7 @@ class WebOutputCapture:
                         'Time Advanced:',
                         'New Time:',
                         'Days Passed:',
-                        'Loading campaign areas',
+                        'Loading module areas',
                         'Graph built:',
                         '[OK] Loaded'
                     ]):
@@ -305,9 +305,9 @@ def handle_player_data_request(data):
             if party_tracker.get('partyMembers') and len(party_tracker['partyMembers']) > 0:
                 player_name = party_tracker['partyMembers'][0].lower().replace(' ', '_')
                 
-                # Try campaign-specific path first
-                from campaign_path_manager import CampaignPathManager
-                path_manager = CampaignPathManager()
+                # Try module-specific path first
+                from module_path_manager import ModulePathManager
+                path_manager = ModulePathManager()
                 
                 try:
                     player_file = path_manager.get_character_path(player_name)
@@ -324,8 +324,8 @@ def handle_player_data_request(data):
         elif dataType == 'npcs':
             # Get NPC data from party tracker
             npcs = []
-            from campaign_path_manager import CampaignPathManager
-            path_manager = CampaignPathManager()
+            from module_path_manager import ModulePathManager
+            path_manager = ModulePathManager()
             
             for npc_info in party_tracker.get('partyNPCs', []):
                 npc_name = npc_info['name'].lower().replace(' ', '_').split('_')[0]

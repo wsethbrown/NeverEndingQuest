@@ -42,7 +42,7 @@
 # ARCHITECTURAL INTEGRATION:
 # - Core dependency for main.py character update actions
 # - Integrates with conversation_utils.py for character data display
-# - Uses campaign_path_manager.py for file location resolution
+# - Uses module_path_manager.py for file location resolution
 # - Supports character_validator.py for post-update validation
 # 
 # DESIGN PATTERNS:
@@ -63,7 +63,7 @@ import time
 import re
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, PLAYER_INFO_UPDATE_MODEL, NPC_INFO_UPDATE_MODEL
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 from file_operations import safe_write_json, safe_read_json
 from character_validator import AICharacterValidator
 from character_effects_validator import AICharacterEffectsValidator
@@ -109,7 +109,7 @@ def normalize_character_name(character_name):
 
 def detect_character_role(character_name):
     """Detect character role from existing data or file location"""
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     
     # First try player path
     player_path = path_manager.get_character_path(character_name)

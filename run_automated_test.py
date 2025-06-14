@@ -215,7 +215,7 @@ class AutomatedGameRunner:
         
         # Start with fresh party tracker
         test_party_tracker = {
-            "campaign": "Keep_of_Doom",
+            "module": "Keep_of_Doom",
             "partyMembers": ["norn"],
             "partyNPCs": [],
             "worldConditions": {
@@ -246,7 +246,7 @@ class AutomatedGameRunner:
             os.remove("conversation_history.json")
         
         # Clear journal
-        safe_json_dump({"campaign": "Keep_of_Doom", "entries": []}, "journal.json")
+        safe_json_dump({"module": "Keep_of_Doom", "entries": []}, "journal.json")
         
         game_logger.info(f"Test environment set up in {test_dir}")
 

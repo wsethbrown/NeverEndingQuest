@@ -1,29 +1,29 @@
 #!/usr/bin/env python3
 """
-Campaign Generator Script
-Creates campaign JSON files with detailed content based on schema requirements.
+Module Generator Script
+Creates module JSON files with detailed content based on schema requirements.
 """
 
 import json
 # ============================================================================
-# CAMPAIGN_GENERATOR.PY - CONTENT GENERATION LAYER - CAMPAIGNS
+# MODULE_GENERATOR.PY - CONTENT GENERATION LAYER - MODULES
 # ============================================================================
 # 
-# ARCHITECTURE ROLE: Content Generation Layer - Complete Campaign Creation
+# ARCHITECTURE ROLE: Content Generation Layer - Complete Module Creation
 # 
 # This module implements large-scale content generation using our multi-model
-# AI strategy to create complete 5th edition campaigns with full location hierarchies,
+# AI strategy to create complete 5th edition modules with full location hierarchies,
 # character rosters, and narrative structures.
 # 
 # KEY RESPONSIBILITIES:
-# - Generate complete campaign structures with multiple areas
+# - Generate complete module structures with multiple areas
 # - Create interconnected location networks with proper connectivity
-# - Generate campaign-appropriate NPCs, monsters, and encounters
-# - Establish overarching narrative and plot progression
+# - Generate module-appropriate NPCs, monsters, and encounters
+# - Establish cohesive narrative and plot progression
 # - Ensure all generated content follows schema compliance
 # 
 # GENERATION PIPELINE:
-# Campaign Concept → Area Generation → Location Creation → NPC/Monster
+# Module Concept → Area Generation → Location Creation → NPC/Monster
 # Population → Encounter Placement → Plot Integration → Validation
 # 
 # CONTENT COORDINATION:
@@ -34,20 +34,20 @@ import json
 # 
 # ARCHITECTURAL INTEGRATION:
 # - Uses all builder modules (monster_builder, npc_builder, etc.)
-# - Leverages CampaignPathManager for file organization
-# - Integrates with campaign schema validation
+# - Leverages ModulePathManager for file organization
+# - Integrates with module schema validation
 # - Demonstrates our "Schema-Driven Development" approach
 # 
 # AI STRATEGY:
 # - Coordinated multi-model generation for different content types
 # - Thematic consistency through shared context prompting
 # - Iterative refinement with validation feedback loops
-# - Modular generation allowing for partial campaign creation
+# - Modular generation allowing for partial module creation
 # 
 # DESIGN PATTERNS:
-# - Builder Pattern: Step-by-step campaign construction
-# - Factory Pattern: Creates appropriate content based on campaign theme
-# - Composite Pattern: Assembles complex campaign hierarchies
+# - Builder Pattern: Step-by-step module construction
+# - Factory Pattern: Creates appropriate content based on module theme
+# - Composite Pattern: Assembles complex module hierarchies
 # 
 # This module showcases our approach to large-scale AI-powered content
 # generation while maintaining consistency and quality standards.
@@ -63,8 +63,8 @@ from datetime import datetime
 from openai import OpenAI
 from config import OPENAI_API_KEY, DM_MAIN_MODEL
 import jsonschema
-from campaign_path_manager import CampaignPathManager
-from file_operations import save_json_safely
+from module_path_manager import ModulePathManager
+from file_operations import safe_write_json as save_json_safely
 
 # Initialize OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -87,11 +87,11 @@ def get_location_prefix(area_index: int) -> str:
         return first_letter + second_letter
 
 @dataclass
-class CampaignPromptGuide:
-    """Detailed prompts and examples for each campaign field"""
+class ModulePromptGuide:
+    """Detailed prompts and examples for each module field"""
     
-    campaignName: str = """
-    Campaign name should be evocative and memorable.
+    moduleName: str = """
+    Module name should be evocative and memorable.
     Examples:
     - "Echoes of the Elemental Forge"
     - "Shadows Over Thorndale"
@@ -101,8 +101,8 @@ class CampaignPromptGuide:
     Style: Fantasy-themed, hints at main conflict or theme
     """
     
-    campaignDescription: str = """
-    Campaign description should be a 1-2 sentence elevator pitch that:
+    moduleDescription: str = """
+    Module description should be a 1-2 sentence elevator pitch that:
     - Introduces the main conflict
     - Hints at the stakes
     - Sets the tone
@@ -354,14 +354,14 @@ def validate_location_names(area_data):
             map_room["name"] = matching_location["name"]
             print(f"Updated map room {room_id} name to match location: {matching_location['name']}")
 
-def standardize_location_ids(campaign_name):
+def standardize_location_ids(module_name):
     """Normalize location ID formats across all files"""
     # Mapping of old to new formats
     id_mappings = {}
-    path_manager = CampaignPathManager(campaign_name)
+    # path_manager = ModulePathManager(module_name)
     
     # Get all location IDs from area files
-    for area_file in glob.glob(f"campaigns/{campaign_name}/*.json"):
+    for area_file in glob.glob(f"modules/{module_name}/*.json"):
         if not os.path.basename(area_file).startswith("map_") and not os.path.basename(area_file).startswith("plot_"):
             try:
                 area_data = json.load(open(area_file, 'r'))
@@ -378,7 +378,7 @@ def standardize_location_ids(campaign_name):
     
     # If mappings found, update all references
     if id_mappings:
-        for file_path in glob.glob(f"campaigns/{campaign_name}/**/*.json", recursive=True):
+        for file_path in glob.glob(f"modules/{module_name}/**/*.json", recursive=True):
             update_location_references(file_path, id_mappings)
 
 def update_location_references(file_path, id_mappings):
@@ -435,9 +435,9 @@ def update_location_references(file_path, id_mappings):
     except (json.JSONDecodeError, IOError):
         pass  # Skip invalid or inaccessible files
 
-def ensure_campaign_path_manager_usage(campaign_name):
-    """Validate and fix file paths to use CampaignPathManager patterns"""
-    path_manager = CampaignPathManager(campaign_name)
+def ensure_module_path_manager_usage(module_name):
+    """Validate and fix file paths to use ModulePathManager patterns"""
+    path_manager = ModulePathManager(module_name)
     file_paths = {
         "area": lambda area_id: path_manager.get_area_path(area_id),
         "map": lambda area_id: path_manager.get_map_path(area_id),
@@ -448,7 +448,7 @@ def ensure_campaign_path_manager_usage(campaign_name):
     
     modified_files = []
     
-    # Process Python files to ensure they use CampaignPathManager
+    # Process Python files to ensure they use ModulePathManager
     for py_file in glob.glob("*.py"):
         try:
             with open(py_file, 'r') as f:
@@ -459,35 +459,35 @@ def ensure_campaign_path_manager_usage(campaign_name):
             map_pattern = re.compile(r'(["\'])map_([A-Z]{2}\d{3})\.json(["\'])')
             plot_pattern = re.compile(r'(["\'])plot_([A-Z]{2}\d{3})\.json(["\'])')
             
-            # Skip files that already use CampaignPathManager
-            if "CampaignPathManager" in content and "get_area_path" in content:
+            # Skip files that already use ModulePathManager
+            if "ModulePathManager" in content and "get_area_path" in content:
                 continue
                 
             # Look for direct file references without path manager
             if (area_pattern.search(content) or map_pattern.search(content) or 
                 plot_pattern.search(content)):
                 modified_files.append(py_file)
-                print(f"WARNING: {py_file} should use CampaignPathManager for file paths.")
+                print(f"WARNING: {py_file} should use ModulePathManager for file paths.")
         except IOError:
             pass
     
     return modified_files
 
-def validate_campaign_structure(campaign_name):
-    """Validate the structure of a campaign and return any issues"""
+def validate_module_structure(module_name):
+    """Validate the structure of a module and return any issues"""
     issues = []
-    campaign_dir = f"campaigns/{campaign_name}"
+    module_dir = f"modules/{module_name}"
     
     # Check for required directories
     for required_dir in ["npcs", "monsters"]:
-        if not os.path.exists(f"{campaign_dir}/{required_dir}"):
+        if not os.path.exists(f"{module_dir}/{required_dir}"):
             issues.append(f"Missing required directory: {required_dir}")
     
     # Check area files
     area_files = []
-    for file in os.listdir(campaign_dir):
+    for file in os.listdir(module_dir):
         if file.endswith(".json") and not file.startswith("map_") and not file.startswith("plot_"):
-            if file != f"{campaign_name.replace(' ', '_')}_campaign.json" and file != "party_tracker.json":
+            if file != f"{module_name.replace(' ', '_')}_module.json" and file != "party_tracker.json":
                 area_files.append(file)
     
     if not area_files:
@@ -496,7 +496,7 @@ def validate_campaign_structure(campaign_name):
     # Check each area file
     for area_file in area_files:
         try:
-            with open(f"{campaign_dir}/{area_file}", "r") as f:
+            with open(f"{module_dir}/{area_file}", "r") as f:
                 area_data = json.load(f)
                 
             # Check required fields
@@ -510,11 +510,11 @@ def validate_campaign_structure(campaign_name):
             
             # Check for corresponding map file
             area_id = area_data.get("areaId", "")
-            if area_id and not os.path.exists(f"{campaign_dir}/map_{area_id}.json"):
+            if area_id and not os.path.exists(f"{module_dir}/map_{area_id}.json"):
                 issues.append(f"Missing map file for area: {area_id}")
             
             # Check for corresponding plot file
-            if area_id and not os.path.exists(f"{campaign_dir}/plot_{area_id}.json"):
+            if area_id and not os.path.exists(f"{module_dir}/plot_{area_id}.json"):
                 issues.append(f"Missing plot file for area: {area_id}")
                 
         except json.JSONDecodeError:
@@ -524,19 +524,19 @@ def validate_campaign_structure(campaign_name):
     
     return issues
 
-class CampaignGenerator:
+class ModuleGenerator:
     def __init__(self):
-        self.prompt_guide = CampaignPromptGuide()
+        self.prompt_guide = ModulePromptGuide()
         self.schema = self.load_schema()
     
     def load_schema(self) -> Dict[str, Any]:
-        """Load the campaign schema for validation"""
-        with open("campaign_schema.json", "r") as f:
+        """Load the module schema for validation"""
+        with open("module_schema.json", "r") as f:
             return json.load(f)
     
-    def generate_file_references(self, campaign_name: str) -> Dict:
-        """Generate proper file paths using CampaignPathManager patterns"""
-        path_manager = CampaignPathManager(campaign_name)
+    def generate_file_references(self, module_name: str) -> Dict:
+        """Generate proper file paths using ModulePathManager patterns"""
+        path_manager = ModulePathManager(module_name)
         return {
             "area_pattern": lambda area_id: path_manager.get_area_path(area_id),
             "map_pattern": lambda area_id: path_manager.get_map_path(area_id),
@@ -558,7 +558,7 @@ class CampaignGenerator:
         
         guide_text = getattr(self.prompt_guide, guide_attr, "")
         
-        prompt = f"""Generate content for the '{field_path}' field of a 5e campaign.
+        prompt = f"""Generate content for the '{field_path}' field of a 5e module.
 
 Field Schema:
 {json.dumps(schema_info, indent=2)}
@@ -579,7 +579,7 @@ If the field expects an object, return just the object.
             model=DM_MAIN_MODEL,
             temperature=0.7,
             messages=[
-                {"role": "system", "content": "You are an expert 5e campaign designer. Return only the requested data in the exact format needed."},
+                {"role": "system", "content": "You are an expert 5e module designer. Return only the requested data in the exact format needed."},
                 {"role": "user", "content": prompt}
             ]
         )
@@ -595,18 +595,19 @@ If the field expects an object, return just the object.
         
         return content
     
-    def generate_campaign(self, initial_concept: str, custom_values: Dict[str, Any] = None, context=None) -> Dict[str, Any]:
-        """Generate a complete campaign from an initial concept"""
-        campaign_data = custom_values or {}
+    def generate_module(self, initial_concept: str, custom_values: Dict[str, Any] = None, context=None) -> Dict[str, Any]:
+        """Generate a complete module from an initial concept"""
+        module_data = custom_values or {}
         
         # Add context validation if provided
         if context:
-            campaign_data["campaignName"] = context.campaign_name
+            module_data["moduleName"] = context.module_name
         
         # Generate fields in order of dependencies
         field_order = [
-            "campaignName",
-            "campaignDescription",
+            "moduleName",
+            "moduleDescription",
+            "moduleMetadata",
             "worldSettings.worldName",
             "worldSettings.era",
             "worldSettings.cosmology",
@@ -629,7 +630,7 @@ If the field expects an object, return just the object.
         
         for field_path in field_order:
             # Skip if already provided in custom_values
-            if self.get_nested_value(campaign_data, field_path) is not None:
+            if self.get_nested_value(module_data, field_path) is not None:
                 continue
             
             # Get schema info for this field
@@ -638,37 +639,37 @@ If the field expects an object, return just the object.
             # Generate the field
             value = self.generate_field(field_path, schema_info, context)
             
-            # Set the value in campaign_data
-            self.set_nested_value(campaign_data, field_path, value)
+            # Set the value in module_data
+            self.set_nested_value(module_data, field_path, value)
             
             # Update context with the new field
             self.set_nested_value(context, field_path, value)
             
             print(f"Generated: {field_path}")
         
-        # Get campaign name for file operations
-        campaign_name = campaign_data.get("campaignName", "")
-        if campaign_name:
+        # Get module name for file operations
+        module_name = module_data.get("moduleName", "")
+        if module_name:
             # Post-generation cleanup and validation
             print("\nPerforming post-generation validation and cleanup...")
             # Standardize location IDs
-            standardize_location_ids(campaign_name)
+            standardize_location_ids(module_name)
             
-            # Validate campaign structure
-            issues = validate_campaign_structure(campaign_name)
+            # Validate module structure
+            issues = validate_module_structure(module_name)
             if issues:
                 print("\nValidation issues found:")
                 for issue in issues:
                     print(f"- {issue}")
                 
                 # Create validation report
-                campaign_dir = f"campaigns/{campaign_name}"
-                save_json_safely({"issues": issues}, f"{campaign_dir}/validation_report.json")
-                print(f"Validation report saved to {campaign_dir}/validation_report.json")
+                module_dir = f"modules/{module_name}"
+                save_json_safely({"issues": issues}, f"{module_dir}/validation_report.json")
+                print(f"Validation report saved to {module_dir}/validation_report.json")
             else:
                 print("\nNo validation issues found.")
         
-        return campaign_data
+        return module_data
     
     def get_field_schema(self, field_path: str) -> Dict[str, Any]:
         """Get schema information for a specific field"""
@@ -714,12 +715,12 @@ If the field expects an object, return just the object.
         
         current[parts[-1]] = value
     
-    def validate_campaign(self, campaign_data: Dict[str, Any]) -> List[str]:
-        """Validate campaign data against schema"""
+    def validate_module(self, module_data: Dict[str, Any]) -> List[str]:
+        """Validate module data against schema"""
         errors = []
         
         try:
-            jsonschema.validate(campaign_data, self.schema)
+            jsonschema.validate(module_data, self.schema)
         except jsonschema.ValidationError as e:
             errors.append(f"Validation error: {e.message}")
         except jsonschema.SchemaError as e:
@@ -727,31 +728,31 @@ If the field expects an object, return just the object.
         
         return errors
     
-    def generate_all_areas(self, campaign_data: Dict[str, Any], campaign_name: str) -> Dict[str, Any]:
+    def generate_all_areas(self, module_data: Dict[str, Any], module_name: str) -> Dict[str, Any]:
         """Generate all area files from world_map data"""
-        print("\nGenerating all campaign areas...")
+        print("\nGenerating all module areas...")
         
-        # Create campaign directory if it doesn't exist
-        campaign_dir = f"campaigns/{campaign_name.replace(' ', '_')}"
-        os.makedirs(campaign_dir, exist_ok=True)
-        os.makedirs(f"{campaign_dir}/npcs", exist_ok=True)
-        os.makedirs(f"{campaign_dir}/monsters", exist_ok=True)
+        # Create module directory if it doesn't exist
+        module_dir = f"modules/{module_name.replace(' ', '_')}"
+        os.makedirs(module_dir, exist_ok=True)
+        os.makedirs(f"{module_dir}/npcs", exist_ok=True)
+        os.makedirs(f"{module_dir}/monsters", exist_ok=True)
         
         # Import area generator
         from area_generator import AreaGenerator, AreaConfig
-        from campaign_context import CampaignContext
+        from module_context import ModuleContext
         
         # Initialize area generator and context
         area_gen = AreaGenerator()
-        context = CampaignContext()
-        context.campaign_name = campaign_name
-        context.campaign_id = campaign_name.replace(' ', '_')
+        context = ModuleContext()
+        context.module_name = module_name
+        context.module_id = module_name.replace(' ', '_')
         
         # Create list to track generated areas
         generated_areas = []
         
         # Extract world map data
-        world_map = campaign_data.get("worldMap", [])
+        world_map = module_data.get("worldMap", [])
         
         # Generate each area
         for index, region in enumerate(world_map):
@@ -789,14 +790,14 @@ If the field expects an object, return just the object.
                 loc_name = location.get("name")
                 context.add_location(loc_id, loc_name, area_id)
             
-            # Save area files in campaign directory
-            area_gen.save_area(area_data, f"{campaign_dir}/{area_id}.json")
+            # Save area files in module directory
+            area_gen.save_area(area_data, f"{module_dir}/{area_id}.json")
             generated_areas.append(area_id)
             
             print(f"Generated area: {area_name} ({area_id}) with location prefix '{location_prefix}' and {len(area_data.get('locations', []))} locations")
         
         # Save context file
-        context.save(f"{campaign_dir}/campaign_context.json")
+        context.save(f"{module_dir}/module_context.json")
         
         # Return list of generated areas
         return generated_areas
@@ -860,23 +861,23 @@ If the field expects an object, return just the object.
         
         return area_data
     
-    def generate_area_connections(self, campaign_data: Dict[str, Any], areas: List[str], campaign_name: str):
+    def generate_area_connections(self, module_data: Dict[str, Any], areas: List[str], module_name: str):
         """Create connections between generated areas"""
         print("\nGenerating area connections...")
         
-        campaign_dir = f"campaigns/{campaign_name.replace(' ', '_')}"
+        module_dir = f"modules/{module_name.replace(' ', '_')}"
         
         # Get plot stages to determine progression
-        plot_stages = campaign_data.get("mainPlot", {}).get("plotStages", [])
+        plot_stages = module_data.get("mainPlot", {}).get("plotStages", [])
         
         # Extract world map to find intended connections
-        world_map = campaign_data.get("worldMap", [])
+        world_map = module_data.get("worldMap", [])
         
         # Build connections based on plot progression
         area_files = {}
         for area_id in areas:
             try:
-                with open(f"{campaign_dir}/{area_id}.json", 'r') as f:
+                with open(f"{module_dir}/{area_id}.json", 'r') as f:
                     area_files[area_id] = json.load(f)
             except (IOError, json.JSONDecodeError):
                 print(f"Warning: Could not load area file {area_id}")
@@ -902,7 +903,7 @@ If the field expects an object, return just the object.
         
         # Save updated area files
         for area_id, area_data in area_files.items():
-            save_json_safely(area_data, f"{campaign_dir}/{area_id}.json")
+            save_json_safely(area_data, f"{module_dir}/{area_id}.json")
         
         print("Area connections generated successfully")
         
@@ -941,23 +942,23 @@ If the field expects an object, return just the object.
         entrance_loc["areaConnectivity"].append(exit_loc["name"])
         entrance_loc["areaConnectivityId"].append(from_area)
 
-    def generate_unified_plot_file(self, campaign_data: Dict[str, Any], areas: List[str], campaign_name: str):
-        """Generate unified campaign plot file"""
-        print("\nGenerating unified campaign plot file...")
+    def generate_unified_plot_file(self, module_data: Dict[str, Any], areas: List[str], module_name: str):
+        """Generate unified module plot file"""
+        print("\nGenerating unified module plot file...")
         
-        campaign_dir = f"campaigns/{campaign_name.replace(' ', '_')}"
+        module_dir = f"modules/{module_name.replace(' ', '_')}"
         
         # Get plot stages to determine progression
-        plot_stages = campaign_data.get("mainPlot", {}).get("plotStages", [])
+        plot_stages = module_data.get("mainPlot", {}).get("plotStages", [])
         if not plot_stages:
-            print("Warning: No plot stages found in campaign data")
+            print("Warning: No plot stages found in module data")
             return
         
         # Sort areas by recommended level
         area_files = {}
         for area_id in areas:
             try:
-                with open(f"{campaign_dir}/{area_id}.json", 'r') as f:
+                with open(f"{module_dir}/{area_id}.json", 'r') as f:
                     area_files[area_id] = json.load(f)
             except (IOError, json.JSONDecodeError):
                 print(f"Warning: Could not load area file {area_id}")
@@ -968,9 +969,9 @@ If the field expects an object, return just the object.
         sorted_area_ids = [a[0] for a in sorted_areas]
         
         # Create unified plot structure
-        campaign_plot = {
-            "plotTitle": campaign_data.get("campaignName", "Unknown Campaign"),
-            "mainObjective": campaign_data.get("mainPlot", {}).get("mainObjective", ""),
+        module_plot = {
+            "plotTitle": module_data.get("moduleName", "Unknown Module"),
+            "mainObjective": module_data.get("mainPlot", {}).get("mainObjective", ""),
             "plotPoints": []
         }
         
@@ -1010,45 +1011,45 @@ If the field expects an object, return just the object.
                 plot_point["sideQuests"].append(side_quest)
                 side_quest_counter += 1
             
-            campaign_plot["plotPoints"].append(plot_point)
+            module_plot["plotPoints"].append(plot_point)
         
         # Save unified plot file
-        save_json_safely(campaign_plot, f"{campaign_dir}/campaign_plot.json")
-        print(f"Generated unified campaign plot file with {len(campaign_plot['plotPoints'])} plot points")
+        save_json_safely(module_plot, f"{module_dir}/module_plot.json")
+        print(f"Generated unified module plot file with {len(module_plot['plotPoints'])} plot points")
     
-    def save_campaign(self, campaign_data: Dict[str, Any], filename: str = None):
-        """Save campaign data to file"""
-        # Create campaign_name for directory creation
-        campaign_name = campaign_data['campaignName']
-        campaign_dir = f"campaigns/{campaign_name.replace(' ', '_')}"
+    def save_module(self, module_data: Dict[str, Any], filename: str = None):
+        """Save module data to file"""
+        # Create module_name for directory creation
+        module_name = module_data['moduleName']
+        module_dir = f"modules/{module_name.replace(' ', '_')}"
         
-        # Create campaign directory
-        os.makedirs(campaign_dir, exist_ok=True)
+        # Create module directory
+        os.makedirs(module_dir, exist_ok=True)
         
-        # Save main campaign file
+        # Save main module file
         if filename is None:
-            filename = f"{campaign_dir}/{campaign_name.replace(' ', '_')}_campaign.json"
+            filename = f"{module_dir}/{module_name.replace(' ', '_')}_module.json"
         else:
-            # Ensure filename is in campaign directory
-            if not filename.startswith(campaign_dir):
-                filename = f"{campaign_dir}/{os.path.basename(filename)}"
+            # Ensure filename is in module directory
+            if not filename.startswith(module_dir):
+                filename = f"{module_dir}/{os.path.basename(filename)}"
         
-        save_json_safely(campaign_data, filename)
+        save_json_safely(module_data, filename)
         
-        print(f"Campaign saved to {filename}")
+        print(f"Module saved to {filename}")
         
         # Generate all areas
-        areas = self.generate_all_areas(campaign_data, campaign_name)
+        areas = self.generate_all_areas(module_data, module_name)
         
         # Create area connections
-        self.generate_area_connections(campaign_data, areas, campaign_name)
+        self.generate_area_connections(module_data, areas, module_name)
         
         # Generate unified plot file
-        self.generate_unified_plot_file(campaign_data, areas, campaign_name)
+        self.generate_unified_plot_file(module_data, areas, module_name)
         
         # Create party tracker file
         party_tracker = {
-            "campaign": campaign_name,
+            "module": module_name,
             "partyMembers": [],
             "partyNPCs": [],
             "worldConditions": {
@@ -1066,15 +1067,15 @@ If the field expects an object, return just the object.
             "notes": ""
         }
         
-        save_json_safely(party_tracker, f"{campaign_dir}/party_tracker.json")
+        save_json_safely(party_tracker, f"{module_dir}/party_tracker.json")
         
-        # Run campaign debugger for validation
-        from campaign_debugger import CampaignDebugger
-        print("\nValidating complete campaign structure...")
-        debugger = CampaignDebugger()
-        debugger.campaign_path = campaign_dir
+        # Run module debugger for validation
+        from module_debugger import ModuleDebugger
+        print("\nValidating complete module structure...")
+        debugger = ModuleDebugger()
+        debugger.module_path = module_dir
         debugger.load_schemas()
-        debugger.load_campaign_files()
+        debugger.load_module_files()
         debugger.validate_schema_compliance()
         debugger.validate_references()
         debugger.validate_party_tracker()
@@ -1090,48 +1091,48 @@ If the field expects an object, return just the object.
             "errors": debugger.errors,
             "warnings": debugger.warnings
         }
-        save_json_safely(validation_data, f"{campaign_dir}/validation_report.json")
+        save_json_safely(validation_data, f"{module_dir}/validation_report.json")
         
         print(f"Validation complete - {len(debugger.errors)} errors, {len(debugger.warnings)} warnings")
-        print(f"Validation report saved to {campaign_dir}/validation_report.json")
+        print(f"Validation report saved to {module_dir}/validation_report.json")
 
-        # Create a campaign summary markdown file
-        with open(f"{campaign_dir}/CAMPAIGN_SUMMARY.md", "w") as f:
-            f.write(f"# {campaign_name}\n\n")
-            f.write(f"{campaign_data.get('campaignDescription', '')}\n\n")
+        # Create a module summary markdown file
+        with open(f"{module_dir}/MODULE_SUMMARY.md", "w") as f:
+            f.write(f"# {module_name}\n\n")
+            f.write(f"{module_data.get('moduleDescription', '')}\n\n")
             f.write("## Areas\n\n")
             for area_id in areas:
                 f.write(f"- {area_id}\n")
             f.write("\n## Main Objective\n\n")
-            f.write(f"{campaign_data.get('mainPlot', {}).get('mainObjective', '')}\n\n")
+            f.write(f"{module_data.get('mainPlot', {}).get('mainObjective', '')}\n\n")
             f.write("## Antagonist\n\n")
-            f.write(f"{campaign_data.get('mainPlot', {}).get('antagonist', '')}\n\n")
+            f.write(f"{module_data.get('mainPlot', {}).get('antagonist', '')}\n\n")
         
         return areas
 
 def main():
-    generator = CampaignGenerator()
+    generator = ModuleGenerator()
     
     # Example usage
-    print("Campaign Generator")
+    print("Module Generator")
     print("-" * 50)
     
     # Get initial concept
-    concept = input("Enter your campaign concept (or press Enter for example): ").strip()
+    concept = input("Enter your module concept (or press Enter for example): ").strip()
     if not concept:
         concept = "A haunted coastal town where ancient sea gods are awakening"
     
-    print(f"\nGenerating campaign based on: {concept}")
+    print(f"\nGenerating module based on: {concept}")
     print("-" * 50)
     
     # Optional: provide custom values for specific fields
     custom_values = {}
     
-    # Generate campaign
-    campaign = generator.generate_campaign(concept, custom_values)
+    # Generate module
+    module = generator.generate_module(concept, custom_values)
     
     # Validate
-    errors = generator.validate_campaign(campaign)
+    errors = generator.validate_module(module)
     if errors:
         print("\nValidation errors:")
         for error in errors:
@@ -1140,14 +1141,14 @@ def main():
         print("\nValidation successful!")
         
         # Save
-        generator.save_campaign(campaign)
+        generator.save_module(module)
         
         # Display summary
-        print("\nCampaign Summary:")
-        print(f"Name: {campaign['campaignName']}")
-        print(f"Description: {campaign['campaignDescription']}")
-        print(f"World: {campaign['worldSettings']['worldName']}")
-        print(f"Main Villain: {campaign['mainPlot']['antagonist']}")
+        print("\nModule Summary:")
+        print(f"Name: {module['moduleName']}")
+        print(f"Description: {module['moduleDescription']}")
+        print(f"World: {module['worldSettings']['worldName']}")
+        print(f"Main Villain: {module['mainPlot']['antagonist']}")
 
 if __name__ == "__main__":
     main()

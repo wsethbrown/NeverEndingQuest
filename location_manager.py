@@ -51,7 +51,7 @@ import unicodedata
 import re
 import traceback
 from datetime import datetime
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 import cumulative_summary
 from encoding_utils import (
     sanitize_text,
@@ -93,7 +93,7 @@ def normalize_string(s):
 
 def get_location_info(location_name, current_area, current_area_id):
     """Get location information based on ID first, then name"""
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     area_file = path_manager.get_area_path(current_area_id)
     area_data = load_json_file(area_file)
     if area_data and "locations" in area_data:

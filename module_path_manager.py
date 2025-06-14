@@ -1,34 +1,34 @@
 import json
 # ============================================================================
-# CAMPAIGN_PATH_MANAGER.PY - FILE SYSTEM ABSTRACTION LAYER
+# MODULE_PATH_MANAGER.PY - FILE SYSTEM ABSTRACTION LAYER
 # ============================================================================
 # 
 # ARCHITECTURE ROLE: Data Management Layer - File System Abstraction
 # 
 # This module provides a unified interface for all file operations across the
-# 5e system, implementing our "Campaign-Centric Organization" principle.
+# 5e system, implementing our "Module-Centric Organization" principle.
 # It abstracts file path resolution and handles legacy migration seamlessly.
 # 
 # KEY RESPONSIBILITIES:
-# - Centralized file path resolution for all campaign resources
+# - Centralized file path resolution for all module resources
 # - Handle legacy vs. unified file structure migration
 # - Ensure consistent naming conventions and directory organization
 # - Provide atomic file operations with backup and recovery
 # - Cross-platform compatibility for file system operations
 # 
 # FILE ORGANIZATION STRATEGY:
-# campaigns/[campaign_name]/
+# modules/[module_name]/
 # ├── areas/              # Location files (HH001.json, G001.json)
 # ├── characters/         # Unified player/NPC storage
-# ├── monsters/           # Campaign-specific creatures
+# ├── monsters/           # Module-specific creatures
 # ├── encounters/         # Combat encounters
-# └── meta files...       # Campaign plot, party tracker, etc.
+# └── meta files...       # Module plot, party tracker, etc.
 # 
 # ARCHITECTURAL INTEGRATION:
 # - Used by all file operations throughout the system
 # - Enables the Factory Pattern for content builders
 # - Supports the "Data Integrity Above All" principle
-# - Provides backward compatibility for legacy campaigns
+# - Provides backward compatibility for legacy modules
 # 
 # DESIGN PATTERNS:
 # - Factory Pattern: Creates proper file paths based on content type
@@ -41,33 +41,33 @@ import json
 
 import os
 
-class CampaignPathManager:
-    """Manages file paths for campaign-specific resources"""
+class ModulePathManager:
+    """Manages file paths for module-specific resources"""
     
-    def __init__(self, campaign_name=None):
-        self.campaign_name = campaign_name or self._get_active_campaign()
-        self.campaign_dir = f"campaigns/{self.campaign_name}"
+    def __init__(self, module_name=None):
+        self.module_name = module_name or self._get_active_module()
+        self.module_dir = f"modules/{self.module_name}"
         
-    def _get_active_campaign(self):
-        """Read the active campaign from party_tracker.json"""
+    def _get_active_module(self):
+        """Read the active module from party_tracker.json"""
         try:
             with open("party_tracker.json", 'r', encoding='utf-8') as file:
                 data = json.load(file)
-                campaign = data.get("campaign", "Keep_of_Doom")
+                module = data.get("module", "Keep_of_Doom")
                 # Use logger if available, otherwise print
                 try:
                     from enhanced_logger import debug
-                    debug(f"CampaignPathManager loaded campaign '{campaign}' from party_tracker.json", category="campaign_loading")
+                    debug(f"ModulePathManager loaded module '{module}' from party_tracker.json", category="module_loading")
                 except:
-                    print(f"DEBUG: CampaignPathManager loaded campaign '{campaign}' from party_tracker.json")
-                return campaign
+                    print(f"DEBUG: ModulePathManager loaded module '{module}' from party_tracker.json")
+                return module
         except Exception as e:
             try:
                 from enhanced_logger import error
-                error(f"CampaignPathManager could not load party_tracker.json", exception=e)
+                error(f"ModulePathManager could not load party_tracker.json", exception=e)
             except:
-                print(f"DEBUG: CampaignPathManager could not load party_tracker.json: {e}")
-                print(f"DEBUG: Using default campaign 'Keep_of_Doom'")
+                print(f"DEBUG: ModulePathManager could not load party_tracker.json: {e}")
+                print(f"DEBUG: Using default module 'Keep_of_Doom'")
             return "Keep_of_Doom"  # Default fallback
     
     def format_filename(self, name):
@@ -77,34 +77,68 @@ class CampaignPathManager:
     # Monster and NPC paths
     def get_monster_path(self, monster_name):
         """Get the path to a monster file"""
-        return f"{self.campaign_dir}/monsters/{self.format_filename(monster_name)}.json"
+        return f"{self.module_dir}/monsters/{self.format_filename(monster_name)}.json"
     
     def get_npc_path(self, npc_name):
         """Get the path to an NPC file (legacy support)"""
-        return f"{self.campaign_dir}/npcs/{self.format_filename(npc_name)}.json"
+        return f"{self.module_dir}/npcs/{self.format_filename(npc_name)}.json"
     
     # Area-related paths
     def get_area_path(self, area_id):
         """Get the path to an area file"""
-        return f"{self.campaign_dir}/{area_id}.json"
+        return f"{self.module_dir}/{area_id}.json"
     
     def get_plot_path(self, area_id=None):
-        """Get the path to the campaign plot file (no longer area-specific)"""
-        return f"{self.campaign_dir}/campaign_plot.json"
+        """Get the path to the module plot file (no longer area-specific)"""
+        return f"{self.module_dir}/module_plot.json"
     
     def get_map_path(self, area_id):
         """Get the path to a map file"""
-        return f"{self.campaign_dir}/map_{area_id}.json"
+        return f"{self.module_dir}/map_{area_id}.json"
     
-    # Campaign-specific paths
-    def get_campaign_file_path(self):
-        """Get the path to the main campaign file"""
-        return f"{self.campaign_dir}/{self.campaign_name}_campaign.json"
+    def get_area_ids(self):
+        """Discover all area IDs in the current module by scanning directory"""
+        import re
+        import os
+        
+        area_ids = []
+        
+        if not os.path.exists(self.module_dir):
+            return area_ids
+            
+        # Pattern to match area files: starts with letters, followed by numbers, ends with .json
+        # Examples: HH001.json, G001.json, SK001.json, TBM001.json, TCD001.json
+        area_pattern = re.compile(r'^([A-Z]+[0-9]+)\.json$')
+        
+        for filename in os.listdir(self.module_dir):
+            # Skip backup files
+            if filename.endswith('_BU.json') or filename.endswith('_backup.json'):
+                continue
+                
+            # Skip non-area files
+            if filename in ['party_tracker.json', 'module_plot.json', 'module_context.json']:
+                continue
+            if filename.startswith('map_') or filename.endswith('_module.json'):
+                continue
+                
+            match = area_pattern.match(filename)
+            if match:
+                area_id = match.group(1)
+                area_ids.append(area_id)
+        
+        # Sort for consistent ordering
+        area_ids.sort()
+        return area_ids
+    
+    # Module-specific paths
+    def get_module_file_path(self):
+        """Get the path to the main module file"""
+        return f"{self.module_dir}/{self.module_name}_module.json"
     
     # Player character paths
     def get_player_path(self, player_name):
         """Get the path to a player character file (legacy support)"""
-        return f"{self.campaign_dir}/{self.format_filename(player_name)}.json"
+        return f"{self.module_dir}/{self.format_filename(player_name)}.json"
     
     # Unified character paths with fallback support
     def get_character_path(self, character_name):
@@ -113,7 +147,7 @@ class CampaignPathManager:
         falls back to legacy structure if needed
         """
         # First try unified structure
-        unified_path = f"{self.campaign_dir}/characters/{self.format_filename(character_name)}.json"
+        unified_path = f"{self.module_dir}/characters/{self.format_filename(character_name)}.json"
         if os.path.exists(unified_path):
             return unified_path
         
@@ -145,7 +179,7 @@ class CampaignPathManager:
     
     def get_character_unified_path(self, character_name):
         """Get the unified path (whether file exists or not)"""
-        return f"{self.campaign_dir}/characters/{self.format_filename(character_name)}.json"
+        return f"{self.module_dir}/characters/{self.format_filename(character_name)}.json"
     
     def get_character_legacy_path(self, character_name, character_role=None):
         """Get the legacy path for a character based on role"""
@@ -168,11 +202,11 @@ class CampaignPathManager:
         return "random_encounter.json"
     
     # Directory creation methods
-    def ensure_campaign_dirs(self):
-        """Ensure all necessary campaign directories exist"""
-        os.makedirs(f"{self.campaign_dir}/monsters", exist_ok=True)
-        os.makedirs(f"{self.campaign_dir}/npcs", exist_ok=True)
-        os.makedirs(f"{self.campaign_dir}/characters", exist_ok=True)  # Unified character storage
+    def ensure_module_dirs(self):
+        """Ensure all necessary module directories exist"""
+        os.makedirs(f"{self.module_dir}/monsters", exist_ok=True)
+        os.makedirs(f"{self.module_dir}/npcs", exist_ok=True)
+        os.makedirs(f"{self.module_dir}/characters", exist_ok=True)  # Unified character storage
     
     # Check if a file exists
     def file_exists(self, path):
@@ -181,15 +215,15 @@ class CampaignPathManager:
     
     # Get list of files in a directory
     def list_monsters(self):
-        """List all monster files in the campaign"""
-        monster_dir = f"{self.campaign_dir}/monsters"
+        """List all monster files in the module"""
+        monster_dir = f"{self.module_dir}/monsters"
         if os.path.exists(monster_dir):
             return [f for f in os.listdir(monster_dir) if f.endswith('.json')]
         return []
     
     def list_npcs(self):
-        """List all NPC files in the campaign"""
-        npc_dir = f"{self.campaign_dir}/npcs"
+        """List all NPC files in the module"""
+        npc_dir = f"{self.module_dir}/npcs"
         if os.path.exists(npc_dir):
             return [f for f in os.listdir(npc_dir) if f.endswith('.json')]
         return []

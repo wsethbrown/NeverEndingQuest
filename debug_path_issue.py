@@ -3,13 +3,13 @@
 
 import os
 import json
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 
 # Check current working directory
 print(f"Current working directory: {os.getcwd()}")
 
 # Initialize path manager
-path_manager = CampaignPathManager()
+path_manager = ModulePathManager()
 print(f"Campaign name: {path_manager.campaign_name}")
 print(f"Campaign dir: {path_manager.campaign_dir}")
 

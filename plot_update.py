@@ -5,7 +5,7 @@ import time
 
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, PLOT_UPDATE_MODEL
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 from file_operations import safe_write_json, safe_read_json
 
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -30,8 +30,8 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
         print(f"{RED}ERROR: Could not read party_tracker.json{RESET}")
         return
 
-    # Use CampaignPathManager to get campaign plot path
-    path_manager = CampaignPathManager()
+    # Use ModulePathManager to get campaign plot path
+    path_manager = ModulePathManager()
     plot_file_path = path_manager.get_plot_path()
 
     try:
@@ -82,7 +82,7 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
 def update_plot(plot_point_id_param, new_status_param, plot_impact_param, plot_filename_param, max_retries=3): # Renamed params
     try:
         # Use unified campaign plot file
-        path_manager = CampaignPathManager()
+        path_manager = ModulePathManager()
         plot_file_path = path_manager.get_plot_path()
             
         plot_info_data = safe_read_json(plot_file_path)

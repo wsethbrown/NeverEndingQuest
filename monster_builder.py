@@ -52,7 +52,7 @@ from config import OPENAI_API_KEY # Assuming API key is in config.py
 # You'll need to add MONSTER_BUILDER_MODEL = "gpt-4.1-2025-04-14" (or your preferred model)
 # to your config.py file.
 from config import MONSTER_BUILDER_MODEL # This line will cause an error until you define it in config.py
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 
 GREEN = "\033[32m"
 RED = "\033[31m"
@@ -150,7 +150,7 @@ def main():
 
     generated_monster_data = generate_monster(monster_name_arg, schema_data) # Renamed variable
     if generated_monster_data:
-        path_manager = CampaignPathManager()
+        path_manager = ModulePathManager()
         full_path = path_manager.get_monster_path(monster_name_arg)
         if save_json(full_path, generated_monster_data):
             print(f"{GREEN}DEBUG: Monster creation ({monster_name_arg}) - PASS{RESET}")

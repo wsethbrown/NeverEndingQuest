@@ -8,7 +8,7 @@ Respects party_tracker.json as the single source of truth
 import os
 import shutil
 import json
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 
 def load_party_tracker():
     """Load party tracker to identify characters"""
@@ -31,20 +31,20 @@ def ensure_directory_exists(directory):
 
 def migrate_character_files():
     """Migrate character files to unified structure based on party_tracker.json"""
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     party_data = load_party_tracker()
     
     if not party_data:
         print("Cannot proceed without party_tracker.json")
         return False
     
-    campaign_dir = path_manager.campaign_dir
-    characters_dir = f"{campaign_dir}/characters"
+    module_dir = path_manager.module_dir
+    characters_dir = f"{module_dir}/characters"
     
     # Create unified characters directory
     ensure_directory_exists(characters_dir)
     
-    print(f"\n=== Migrating Characters for Campaign: {party_data.get('campaign', 'Unknown')} ===")
+    print(f"\n=== Migrating Characters for Module: {party_data.get('module', 'Unknown')} ===")
     
     migrated_characters = []
     
@@ -97,7 +97,7 @@ def migrate_character_files():
             print(f"⚠️  NPC character file not found: {legacy_path}")
     
     # Check for any other NPCs in the npcs directory (not in party)
-    npcs_dir = f"{campaign_dir}/npcs"
+    npcs_dir = f"{module_dir}/npcs"
     if os.path.exists(npcs_dir):
         other_npcs = [f.replace('.json', '') for f in os.listdir(npcs_dir) if f.endswith('.json')]
         if other_npcs:
@@ -129,7 +129,7 @@ def migrate_character_files():
 
 def verify_migration():
     """Verify migration was successful and characters are accessible"""
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     party_data = load_party_tracker()
     
     if not party_data:
@@ -170,13 +170,13 @@ def main():
     if not party_data:
         return
     
-    print(f"Campaign: {party_data.get('campaign', 'Unknown')}")
+    print(f"Module: {party_data.get('module', 'Unknown')}")
     print(f"Party Members: {party_data.get('partyMembers', [])}")
     print(f"Party NPCs: {party_data.get('partyNPCs', [])}")
     
     # Check if migration needed
-    path_manager = CampaignPathManager()
-    characters_dir = f"{path_manager.campaign_dir}/characters"
+    path_manager = ModulePathManager()
+    characters_dir = f"{path_manager.module_dir}/characters"
     
     if os.path.exists(characters_dir) and os.listdir(characters_dir):
         print(f"\n⚠️  Characters directory already exists with files:")

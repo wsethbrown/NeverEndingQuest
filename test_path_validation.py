@@ -25,7 +25,7 @@ def test_path_validation_logic():
     # Initialize location graph (same as main.py)
     try:
         location_graph = LocationGraph()
-        location_graph.load_campaign_data()
+        location_graph.load_module_data()
         print("✓ Location graph initialized successfully")
     except Exception as e:
         print(f"✗ Failed to initialize location graph: {e}")

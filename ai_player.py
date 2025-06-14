@@ -56,10 +56,10 @@ class AIPlayer:
             # First, get the campaign name from party_tracker.json
             with open("party_tracker.json", 'r', encoding='utf-8') as f:
                 party_data = json.load(f)
-                campaign_name = party_data.get("campaign", "Keep_of_Doom")
+                module_name = party_data.get("module", "Keep_of_Doom")
                 
-            # Construct the path to norn.json in the campaign folder
-            char_path = Path(f"campaigns/{campaign_name}/norn.json")
+            # Construct the path to norn.json in the module folder
+            char_path = Path(f"modules/{module_name}/characters/norn.json")
             
             if char_path.exists():
                 with open(char_path, 'r', encoding='utf-8') as f:

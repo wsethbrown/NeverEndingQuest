@@ -6,7 +6,7 @@ import subprocess
 from termcolor import colored
 import logging
 import shutil
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 
 logging.basicConfig(filename='combat_builder.log', level=logging.DEBUG)
 
@@ -82,7 +82,7 @@ def get_next_encounter_number(location):
         return 1
     
     current_area_id = get_current_area_id()
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     location_data = load_json(path_manager.get_area_path(current_area_id))
     if not location_data:
         print(colored(f"Error: Failed to load location data for {current_area_id}.", "red"))

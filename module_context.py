@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Campaign Context Manager
-Maintains consistency across all campaign generation by tracking references and relationships.
+Module Context Manager
+Maintains consistency across all module generation by tracking references and relationships.
 """
 
 import json
@@ -10,12 +10,12 @@ from dataclasses import dataclass, field
 from datetime import datetime
 
 @dataclass
-class CampaignContext:
-    """Maintains the master context for campaign generation"""
+class ModuleContext:
+    """Maintains the master context for module generation"""
     
-    # Core campaign info
-    campaign_name: str = ""
-    campaign_id: str = ""
+    # Core module info
+    module_name: str = ""
+    module_id: str = ""
     
     # Area mappings
     areas: Dict[str, Dict[str, Any]] = field(default_factory=dict)
@@ -147,7 +147,7 @@ class CampaignContext:
         return f"""
 VALIDATION REQUIREMENTS - MUST FOLLOW:
 
-1. Campaign Name: {self.campaign_name}
+1. Module Name: {self.module_name}
    - Use this exact name consistently across all files
 
 2. Area IDs and Names:
@@ -187,8 +187,8 @@ VALIDATION REQUIREMENTS - MUST FOLLOW:
     def to_dict(self):
         """Convert context to dictionary for saving"""
         return {
-            "campaign_name": self.campaign_name,
-            "campaign_id": self.campaign_id,
+            "module_name": self.module_name,
+            "module_id": self.module_id,
             "areas": self.areas,
             "npcs": self.npcs,
             "locations": self.locations,
@@ -210,8 +210,8 @@ VALIDATION REQUIREMENTS - MUST FOLLOW:
             data = json.load(f)
         
         context = cls()
-        context.campaign_name = data.get("campaign_name", "")
-        context.campaign_id = data.get("campaign_id", "")
+        context.module_name = data.get("module_name", "")
+        context.module_id = data.get("module_id", "")
         context.areas = data.get("areas", {})
         context.npcs = data.get("npcs", {})
         context.locations = data.get("locations", {})

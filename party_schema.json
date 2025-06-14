@@ -2,9 +2,9 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "campaign": {
+    "module": {
       "type": "string",
-      "description": "The name of the current campaign"
+      "description": "The name of the current module"
     },
     "partyMembers": {
       "type": "array",
@@ -123,5 +123,5 @@
       "description": "An array of currently active quests for the party"
     }
   },
-  "required": ["campaign", "partyMembers", "partyNPCs", "worldConditions", "activeQuests"]
+  "required": ["module", "partyMembers", "partyNPCs", "worldConditions", "activeQuests"]
 }

@@ -39,7 +39,7 @@
 # - Uses action_handler.py for command processing
 # - Manages state through party_tracker.json updates
 # - Validates responses using multiple AI models
-# - Integrates with CampaignPathManager for file operations
+# - Integrates with ModulePathManager for file operations
 # - Provides dynamic data to conversation_utils.py for context management
 # 
 # DATA FLOW:
@@ -92,7 +92,7 @@ from status_manager import (
 
 # Import atomic file operations
 from file_operations import safe_write_json, safe_read_json
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 
 # Import model configurations from config.py
 from config import (
@@ -106,7 +106,7 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Initialize location graph for path validation
 location_graph = LocationGraph()
-location_graph.load_campaign_data()
+location_graph.load_module_data()
 
 # Temperature Configuration (remains the same)
 TEMPERATURE = 0.8
@@ -158,7 +158,7 @@ def exit_game():
 
 def get_npc_stat(npc_name, stat_name, time_estimate):
     print(f"DEBUG: get_npc_stat called for {npc_name}, stat: {stat_name}")
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     npc_file = path_manager.get_character_path(npc_name)
     try:
         with open(npc_file, "r", encoding="utf-8") as file:
@@ -225,7 +225,7 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
     current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
 
     # Load the area data
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     area_file = path_manager.get_area_path(current_area_id)
     try:
         with open(area_file, "r", encoding="utf-8") as file:
@@ -586,7 +586,7 @@ def main_game_loop():
     party_tracker_data = load_json_file("party_tracker.json")
     
     # Initialize path manager after loading party tracker
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     
     current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
     location_data = location_manager.get_location_info( 
@@ -597,11 +597,11 @@ def main_game_loop():
 
     plot_data = load_json_file(path_manager.get_plot_path())
     
-    campaign_name = party_tracker_data.get("campaign", "").replace(" ", "_")
-    campaign_data = load_json_file(path_manager.get_campaign_file_path())
+    module_name = party_tracker_data.get("module", "").replace(" ", "_")
+    module_data = load_json_file(path_manager.get_module_file_path())
 
     conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
-    conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data)
+    conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, module_data)
     conversation_history = update_character_data(conversation_history, party_tracker_data)
     
     # Use the new order_conversation_messages function
@@ -889,10 +889,10 @@ def main_game_loop():
 
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"] 
         plot_data = load_json_file(path_manager.get_plot_path())
-        campaign_name_updated = party_tracker_data.get("campaign", "").replace(" ", "_")
-        campaign_data = load_json_file(path_manager.get_campaign_file_path())
+        module_name_updated = party_tracker_data.get("module", "").replace(" ", "_")
+        module_data = load_json_file(path_manager.get_module_file_path())
 
-        conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, campaign_data)
+        conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, module_data)
         conversation_history = update_character_data(conversation_history, party_tracker_data)
         conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
         

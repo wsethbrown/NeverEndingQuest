@@ -134,8 +134,8 @@ def get_current_area_id():
     return party_tracker["worldConditions"]["currentAreaId"]
 
 def get_location_data(location_id):
-    from campaign_path_manager import CampaignPathManager
-    path_manager = CampaignPathManager()
+    from module_path_manager import ModulePathManager
+    path_manager = ModulePathManager()
     
     current_area_id = get_current_area_id()
     print(f"DEBUG: Current area ID: {current_area_id}")
@@ -172,8 +172,8 @@ def read_prompt_from_file(filename):
 
 def load_monster_stats(monster_name):
     # Import the path manager
-    from campaign_path_manager import CampaignPathManager
-    path_manager = CampaignPathManager()
+    from module_path_manager import ModulePathManager
+    path_manager = ModulePathManager()
     
     # Get the correct path for the monster file
     monster_file = path_manager.get_monster_path(monster_name)
@@ -538,8 +538,8 @@ def summarize_dialogue(conversation_history_param, location_data, party_tracker_
         else:
             location_data["adventureSummary"] += f"\n\n{dialogue_summary}"
 
-        from campaign_path_manager import CampaignPathManager
-        path_manager = CampaignPathManager()
+        from module_path_manager import ModulePathManager
+        path_manager = ModulePathManager()
         current_area_id = get_current_area_id()
         area_file = path_manager.get_area_path(current_area_id)
         area_data = safe_json_load(area_file)
@@ -706,8 +706,8 @@ def generate_chat_history(conversation_history, encounter_id):
 
 def sync_active_encounter():
     """Sync player and NPC data to the active encounter file if one exists"""
-    from campaign_path_manager import CampaignPathManager
-    path_manager = CampaignPathManager()
+    from module_path_manager import ModulePathManager
+    path_manager = ModulePathManager()
     
     # Check if there's an active combat encounter
     try:
@@ -820,8 +820,8 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    print(f"DEBUG: Starting combat simulation for encounter {encounter_id}")
    
    # Initialize path manager
-   from campaign_path_manager import CampaignPathManager
-   path_manager = CampaignPathManager()
+   from module_path_manager import ModulePathManager
+   path_manager = ModulePathManager()
 
    # Initialize conversation history with the original structure
    conversation_history = [
@@ -887,7 +887,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
                    print(f"ERROR: Monster file not found: {monster_file}")
                    print(f"ERROR: {str(e)}")
                    # Check available files for debugging
-                   monster_dir = f"{path_manager.campaign_dir}/monsters"
+                   monster_dir = f"{path_manager.module_dir}/monsters"
                    if os.path.exists(monster_dir):
                        print(f"DEBUG: Available monster files in {monster_dir}:")
                        for f in os.listdir(monster_dir):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Master Campaign Builder
-Orchestrates the generation of a complete 5th edition campaign by calling generators in the proper sequence.
+Master Module Builder
+Orchestrates the generation of a complete 5th edition module by calling generators in the proper sequence.
 """
 
 import json
@@ -11,34 +11,34 @@ from dataclasses import dataclass
 from datetime import datetime
 
 # Import all generators
-from campaign_generator import CampaignGenerator
+from module_generator import ModuleGenerator
 from plot_generator import PlotGenerator
 from location_generator import LocationGenerator
 from area_generator import AreaGenerator, AreaConfig
-from campaign_context import CampaignContext
+from module_context import ModuleContext
 
 @dataclass
 class BuilderConfig:
-    """Configuration for the campaign building process"""
-    campaign_name: str = ""
+    """Configuration for the module building process"""
+    module_name: str = ""
     num_areas: int = 3
     locations_per_area: int = 15
-    output_directory: str = "./campaign_output"
+    output_directory: str = "./modules"
     verbose: bool = True
 
-class CampaignBuilder:
-    """Orchestrates the complete campaign generation process"""
+class ModuleBuilder:
+    """Orchestrates the complete module generation process"""
     
     def __init__(self, config: BuilderConfig):
         self.config = config
-        self.campaign_data = {}
+        self.module_data = {}
         self.areas_data = {}
         self.locations_data = {}
         self.plots_data = {}
-        self.context = CampaignContext()
+        self.context = ModuleContext()
         
         # Initialize generators
-        self.campaign_gen = CampaignGenerator()
+        self.module_gen = ModuleGenerator()
         self.plot_gen = PlotGenerator()
         self.location_gen = LocationGenerator()
         self.area_gen = AreaGenerator()
@@ -59,22 +59,22 @@ class CampaignBuilder:
             json.dump(data, f, indent=2)
         self.log(f"Saved: {filename}")
     
-    def build_campaign(self, initial_concept: str):
-        """Build a complete campaign from an initial concept"""
-        self.log("Starting campaign build process...")
+    def build_module(self, initial_concept: str):
+        """Build a complete module from an initial concept"""
+        self.log("Starting module build process...")
         self.log(f"Initial concept: {initial_concept}")
         
         # Initialize context
-        self.context.campaign_name = self.config.campaign_name.replace("_", " ")
-        self.context.campaign_id = self.config.campaign_name
+        self.context.module_name = self.config.module_name.replace("_", " ")
+        self.context.module_id = self.config.module_name
         
-        # Step 1: Generate campaign overview
-        self.log("Step 1: Generating campaign overview...")
-        self.campaign_data = self.campaign_gen.generate_campaign(initial_concept, context=self.context)
-        self.save_json(self.campaign_data, f"{self.config.campaign_name}_campaign.json")
+        # Step 1: Generate module overview
+        self.log("Step 1: Generating module overview...")
+        self.module_data = self.module_gen.generate_module(initial_concept, context=self.context)
+        self.save_json(self.module_data, f"{self.config.module_name}_module.json")
         
-        # Extract NPCs and factions from campaign data
-        self._extract_campaign_entities()
+        # Extract NPCs and factions from module data
+        self._extract_module_entities()
         
         # Step 2: Generate areas from the world map
         self.log("Step 2: Generating areas...")
@@ -92,20 +92,20 @@ class CampaignBuilder:
         self.log("Step 5: Creating party tracker...")
         self.create_party_tracker()
         
-        # Step 6: Create campaign summary
-        self.log("Step 6: Creating campaign summary...")
-        self.create_campaign_summary()
+        # Step 6: Create module summary
+        self.log("Step 6: Creating module summary...")
+        self.create_module_summary()
         
         # Step 7: Validate and save context
-        self.log("Step 7: Validating campaign consistency...")
-        self.validate_campaign()
+        self.log("Step 7: Validating module consistency...")
+        self.validate_module()
         
-        self.log("Campaign generation complete!")
+        self.log("Module generation complete!")
         self.log(f"Output saved to: {self.config.output_directory}")
     
     def generate_areas(self):
-        """Generate detailed area files from the campaign world map"""
-        world_map = self.campaign_data.get("worldMap", [])
+        """Generate detailed area files from the module world map"""
+        world_map = self.module_data.get("worldMap", [])
         
         for i, region in enumerate(world_map[:self.config.num_areas]):
             area_id = region["mapId"]
@@ -129,7 +129,7 @@ class CampaignBuilder:
             area_data = self.area_gen.generate_area(
                 region["regionName"],
                 area_id,
-                self.campaign_data,
+                self.module_data,
                 config
             )
             
@@ -202,7 +202,7 @@ class CampaignBuilder:
             location_data = self.location_gen.generate_locations(
                 area_data,
                 plot_data,
-                self.campaign_data,
+                self.module_data,
                 context=self.context
             )
             
@@ -224,7 +224,7 @@ class CampaignBuilder:
             location_data = self.locations_data[area_id]
             
             plot_data = self.plot_gen.generate_plot(
-                self.campaign_data,
+                self.module_data,
                 area_data,
                 location_data,
                 f"Adventure in {area_data['areaName']}",
@@ -265,7 +265,7 @@ class CampaignBuilder:
             first_location = locations_list[0]
         
         party_tracker = {
-            "campaign": self.config.campaign_name.replace("_", " "),
+            "module": self.config.module_name.replace("_", " "),
             "partyMembers": [],  # Will be populated when players join
             "partyNPCs": [],
             "worldConditions": {
@@ -294,21 +294,21 @@ class CampaignBuilder:
         self.save_json(party_tracker, "party_tracker.json")
         self.log("Created party tracker")
     
-    def create_campaign_summary(self):
-        """Create a human-readable campaign summary"""
-        summary = f"""# {self.campaign_data['campaignName']} - Campaign Summary
+    def create_module_summary(self):
+        """Create a human-readable module summary"""
+        summary = f"""# {self.module_data['moduleName']} - Module Summary
 
 ## Overview
-{self.campaign_data['campaignDescription']}
+{self.module_data['moduleDescription']}
 
 ## World Setting
-- **World**: {self.campaign_data['worldSettings']['worldName']}
-- **Era**: {self.campaign_data['worldSettings']['era']}
-- **Magic Level**: {self.campaign_data['worldSettings']['magicPrevalence']}
+- **World**: {self.module_data['worldSettings']['worldName']}
+- **Era**: {self.module_data['worldSettings']['era']}
+- **Magic Level**: {self.module_data['worldSettings']['magicPrevalence']}
 
 ## Main Plot
-**Objective**: {self.campaign_data['mainPlot']['mainObjective']}
-**Antagonist**: {self.campaign_data['mainPlot']['antagonist']}
+**Objective**: {self.module_data['mainPlot']['mainObjective']}
+**Antagonist**: {self.module_data['mainPlot']['antagonist']}
 
 ## Areas
 """
@@ -326,7 +326,7 @@ class CampaignBuilder:
 """
         
         summary += f"""
-## Campaign Structure
+## Module Structure
 - **Total Areas**: {len(self.areas_data)}
 - **Total Locations**: {sum(len(area['locations']) for area in self.areas_data.values())}
 
@@ -337,29 +337,29 @@ class CampaignBuilder:
 Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 """
         
-        summary_path = os.path.join(self.config.output_directory, "CAMPAIGN_SUMMARY.md")
+        summary_path = os.path.join(self.config.output_directory, "MODULE_SUMMARY.md")
         with open(summary_path, "w") as f:
             f.write(summary)
         
-        self.log("Created campaign summary")
+        self.log("Created module summary")
     
-    def _extract_campaign_entities(self):
-        """Extract NPCs and other entities from campaign data"""
+    def _extract_module_entities(self):
+        """Extract NPCs and other entities from module data"""
         # Extract NPCs from plot stages
-        for stage in self.campaign_data.get("mainPlot", {}).get("plotStages", []):
+        for stage in self.module_data.get("mainPlot", {}).get("plotStages", []):
             for npc_name in stage.get("keyNPCs", []):
                 self.context.add_npc(npc_name)
-                self.context.add_reference("npc", npc_name, "campaign:plotStages")
+                self.context.add_reference("npc", npc_name, "module:plotStages")
         
         # Extract NPCs from factions
-        for faction in self.campaign_data.get("factions", []):
+        for faction in self.module_data.get("factions", []):
             for member_name in faction.get("keyMembers", []):
                 faction_name = faction.get("factionName", "")
                 self.context.add_npc(member_name, faction=faction_name)
-                self.context.add_reference("npc", member_name, f"campaign:faction:{faction_name}")
+                self.context.add_reference("npc", member_name, f"module:faction:{faction_name}")
     
-    def validate_campaign(self):
-        """Validate campaign consistency and save results"""
+    def validate_module(self):
+        """Validate module consistency and save results"""
         issues = self.context.validate_all()
         
         if issues:
@@ -370,7 +370,7 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             self.log("All validation checks passed!")
         
         # Save context and validation report
-        self.context.save(os.path.join(self.config.output_directory, "campaign_context.json"))
+        self.context.save(os.path.join(self.config.output_directory, "module_context.json"))
         
         # Create validation report
         report = {
@@ -386,16 +386,16 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         self.save_json(report, "validation_report.json")
 
 def main():
-    """Interactive campaign builder"""
-    print("5th Edition Campaign Builder")
+    """Interactive module builder"""
+    print("5th Edition Module Builder")
     print("=" * 50)
     
-    # Get campaign configuration
-    campaign_name = input("Campaign name: ").strip()
-    if not campaign_name:
-        campaign_name = "New_Campaign"
+    # Get module configuration
+    module_name = input("Module name: ").strip()
+    if not module_name:
+        module_name = "New_Module"
     
-    campaign_name = campaign_name.replace(" ", "_")
+    module_name = module_name.replace(" ", "_")
     
     num_areas = input("Number of areas to generate (default 3): ").strip()
     num_areas = int(num_areas) if num_areas else 3
@@ -404,27 +404,27 @@ def main():
     locations_per_area = int(locations_per_area) if locations_per_area else 15
     
     # Get initial concept
-    print("\nDescribe your campaign concept:")
+    print("\nDescribe your module concept:")
     concept = input("> ").strip()
     if not concept:
         concept = "A classic fantasy adventure with dungeons, dragons, and ancient mysteries"
     
     # Configure builder
     config = BuilderConfig(
-        campaign_name=campaign_name,
+        module_name=module_name,
         num_areas=num_areas,
         locations_per_area=locations_per_area,
-        output_directory=f"./campaigns/{campaign_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        output_directory=f"./modules/{module_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     )
     
-    # Build campaign
-    builder = CampaignBuilder(config)
-    builder.build_campaign(concept)
+    # Build module
+    builder = ModuleBuilder(config)
+    builder.build_module(concept)
     
-    print(f"\nCampaign '{campaign_name}' has been generated!")
+    print(f"\nModule '{module_name}' has been generated!")
     print(f"Output directory: {config.output_directory}")
     print("\nYou can now:")
-    print("1. Review the CAMPAIGN_SUMMARY.md file")
+    print("1. Review the MODULE_SUMMARY.md file")
     print("2. Edit any generated files as needed")
     print("3. Start your adventure with main.py")
 

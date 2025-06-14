@@ -427,17 +427,17 @@ For objects, return just the object.
     def generate_location_batch(self, 
                                area_data: Dict[str, Any],
                                plot_data: Dict[str, Any],
-                               campaign_data: Dict[str, Any],
+                               module_data: Dict[str, Any],
                                location_stubs: List[Dict[str, Any]],
                                context=None) -> Dict[str, Any]:
         """Generate all locations for an area in one go for better coherence"""
         
         generation_context = {
             "campaign": {
-                "name": campaign_data.get("campaignName", ""),
-                "description": campaign_data.get("campaignDescription", ""),
-                "theme": campaign_data.get("worldSettings", {}).get("era", ""),
-                "magicLevel": campaign_data.get("worldSettings", {}).get("magicPrevalence", "")
+                "name": module_data.get("moduleName", ""),
+                "description": module_data.get("moduleDescription", ""),
+                "theme": module_data.get("worldSettings", {}).get("era", ""),
+                "magicLevel": module_data.get("worldSettings", {}).get("magicPrevalence", "")
             },
             "area": {
                 "name": area_data.get("areaName", ""),
@@ -528,7 +528,7 @@ Check the location schema carefully for all required fields.
     def generate_locations(self,
                           area_data: Dict[str, Any],
                           plot_data: Dict[str, Any],
-                          campaign_data: Dict[str, Any],
+                          module_data: Dict[str, Any],
                           context=None) -> Dict[str, Any]:
         """Generate all locations for an area"""
         
@@ -556,7 +556,7 @@ Check the location schema carefully for all required fields.
         
         # Generate all locations in batch
         location_data = self.generate_location_batch(
-            area_data, plot_data, campaign_data, location_stubs, context)
+            area_data, plot_data, module_data, location_stubs, context)
         
         # Ensure each location has required fields and connections
         locations = location_data.get("locations", [])

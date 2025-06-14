@@ -22,7 +22,7 @@ from datetime import datetime, timedelta
 from openai import OpenAI
 from config import OPENAI_API_KEY, CHARACTER_VALIDATOR_MODEL
 from file_operations import safe_read_json, safe_write_json
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 
 class AICharacterEffectsValidator:
     def __init__(self):
@@ -30,7 +30,7 @@ class AICharacterEffectsValidator:
         self.logger = logging.getLogger(__name__)
         self.client = OpenAI(api_key=OPENAI_API_KEY)
         self.corrections_made = []
-        self.path_manager = CampaignPathManager()
+        self.path_manager = ModulePathManager()
         
     def validate_and_correct_effects(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -509,4 +509,4 @@ if __name__ == "__main__":
         validate_character_effects(file_path)
     else:
         # Test with Norn
-        validate_character_effects("campaigns/Keep_of_Doom/characters/norn.json")
+        validate_character_effects("modules/Keep_of_Doom/characters/norn.json")

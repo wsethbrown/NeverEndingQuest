@@ -72,7 +72,7 @@
 # ============================================================================
 
 import json
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 from encoding_utils import safe_json_load
 
 def compress_json_data(data):
@@ -139,7 +139,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
 
     # Insert map data
     if current_area_id:
-        path_manager = CampaignPathManager()
+        path_manager = ModulePathManager()
         map_file = path_manager.get_map_path(current_area_id)
         map_data = load_json_data(map_file)
         if map_data:

@@ -10,7 +10,7 @@
 # our "Defense in Depth" validation approach for game rule enforcement.
 # 
 # KEY RESPONSIBILITIES:
-# - Build connectivity graphs from campaign area data
+# - Build connectivity graphs from module area data
 # - Validate movement requests against actual location connections
 # - Find shortest paths between locations across multiple areas
 # - Detect unreachable locations and connectivity issues
@@ -23,14 +23,14 @@
 # - Efficient caching of commonly requested paths
 # 
 # CONNECTIVITY MODEL:
-# Campaign → Areas (HH001, G001) → Locations (A01, B02) → Connections
+# Module → Areas (HH001, G001) → Locations (A01, B02) → Connections
 # - Within-area: Direct location-to-location connections
 # - Cross-area: Special transition locations with areaConnectivity
 # - Hidden passages: Conditional connections based on game state
 # 
 # ARCHITECTURAL INTEGRATION:
 # - Used by main.py for movement validation in AI response processing
-# - Integrates with CampaignPathManager for area data loading
+# - Integrates with ModulePathManager for area data loading
 # - Supports action_handler.py location transition validation
 # - Implements our "Data Integrity Above All" principle
 # 
@@ -47,7 +47,7 @@
 """
 Location Path Finder for DungeonMasterAI
 
-This script determines the path between two locations across areas in the campaign.
+This script determines the path between two locations across areas in the module.
 It builds a graph of all locations and their connections, then finds the shortest path.
 Uses location IDs (A01, B02, etc.) internally but accepts both IDs and names as input.
 
@@ -64,7 +64,7 @@ import os
 import sys
 from collections import deque, defaultdict
 from typing import Dict, List, Tuple, Optional
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 from file_operations import safe_read_json
 
 def write_debug(message: str):
@@ -88,14 +88,18 @@ class LocationGraph:
         self.id_to_name = {}  # location_id -> location_name
         self.name_to_id = {}  # location_name -> location_id
         
-    def load_campaign_data(self):
+    def load_module_data(self):
         """Load all area data and build the graph"""
-        path_manager = CampaignPathManager()
+        path_manager = ModulePathManager()
         
-        # All area IDs in Keep of Doom campaign
-        area_ids = ["HH001", "G001", "SK001", "TBM001", "TCD001"]
+        # Dynamically discover all area IDs in the current module
+        area_ids = path_manager.get_area_ids()
         
-        write_debug("Loading campaign areas...")
+        if not area_ids:
+            write_debug("  [WARNING] No area files found in module")
+            return
+        
+        write_debug(f"Loading module areas... (discovered: {', '.join(area_ids)})")
         for area_id in area_ids:
             area_file = path_manager.get_area_path(area_id)
             if os.path.exists(area_file):
@@ -236,7 +240,7 @@ class LocationGraph:
     
     def get_area_id_from_location_id(self, location_id: str) -> Optional[str]:
         """
-        Get the area ID from a location ID using the loaded campaign data.
+        Get the area ID from a location ID using the loaded module data.
         
         Args:
             location_id (str): Location ID like "A01", "B05", "C03", etc.
@@ -272,13 +276,13 @@ class LocationGraph:
     
     def validate_location_id_format(self, location_id: str) -> bool:
         """
-        Validate that a location ID exists in the loaded campaign data.
+        Validate that a location ID exists in the loaded module data.
         
         Args:
             location_id (str): Location ID to validate
         
         Returns:
-            bool: True if location exists in campaign, False otherwise
+            bool: True if location exists in module, False otherwise
         """
         return location_id in self.nodes
     

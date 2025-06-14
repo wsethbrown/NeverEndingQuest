@@ -6,7 +6,7 @@ from datetime import datetime
 from openai import OpenAI
 from jsonschema import validate, ValidationError
 from config import OPENAI_API_KEY, ADVENTURE_SUMMARY_MODEL
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 from encoding_utils import sanitize_text, safe_json_load, safe_json_dump
 from status_manager import status_generating_summary
 
@@ -221,7 +221,7 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
             validate_location_json(updated_location, loca_single_item_schema)
 
             debug_print(f"Getting area path for ID: {current_area_id_from_main}")
-            path_manager = CampaignPathManager()
+            path_manager = ModulePathManager()
             # Add extra debug for path manager to see if we're getting the right campaign data
             debug_print(f"CampaignPathManager using campaign: {path_manager.campaign_name}")
             debug_print(f"CampaignPathManager directory: {path_manager.campaign_dir}")
@@ -407,10 +407,10 @@ def update_journal(adventure_summary, party_tracker_data, location_name):
         journal_data = safe_json_load("journal.json")
         if not journal_data or not isinstance(journal_data, dict) or "entries" not in journal_data or not isinstance(journal_data["entries"], list):
             debug_print("journal.json has invalid structure, reinitializing.")
-            journal_data = {"campaign": "Keep_of_Doom", "entries": []}
+            journal_data = {"module": "Keep_of_Doom", "entries": []}
     except Exception as e:
         debug_print(f"Error loading journal.json: {e}, creating new journal")
-        journal_data = {"campaign": "Keep_of_Doom", "entries": []}
+        journal_data = {"module": "Keep_of_Doom", "entries": []}
     
     world_conditions = party_tracker_data.get('worldConditions', {}) # Use .get for safety
     new_entry = {
@@ -461,7 +461,7 @@ if __name__ == "__main__":
     update_journal(adventure_summary_text, party_tracker_content, leaving_location_name_arg)
 
     # Load the full data for the area being updated
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     area_file_to_update = path_manager.get_area_path(current_area_id_arg)
     all_locations_in_area = load_json_file(area_file_to_update)
     

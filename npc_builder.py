@@ -6,7 +6,7 @@ from openai import OpenAI
 from jsonschema import validate, ValidationError
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, NPC_BUILDER_MODEL # Assuming API key might also be in config eventually
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 
 GREEN = "\033[32m"
 RED = "\033[31m"
@@ -151,7 +151,7 @@ def main():
 
     generated_npc_data = generate_npc(npc_name_arg, npc_schema_data, npc_race_arg, npc_class_arg, npc_level_arg, npc_background_arg) # Renamed variable
     if generated_npc_data:
-        path_manager = CampaignPathManager()
+        path_manager = ModulePathManager()
         full_path = path_manager.get_character_unified_path(npc_name_arg)  # Force unified path
         
         # Ensure characters directory exists

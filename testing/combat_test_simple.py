@@ -195,7 +195,7 @@ def format_system_prompt(player_stats, npc_stats_list, monster_stats_list, locat
 
 def generate_player_prompt(player_stats, location_info, current_message=None):
     """Generate prompt for the LLM simulating player actions"""
-    prompt = f"""You are roleplaying as a player character in a D&D-style combat scenario. 
+    prompt = f"""You are roleplaying as a player character in a 5e-style combat scenario. 
 Your character is named {player_stats['name']}, a level {player_stats['level']} {player_stats['race']} {player_stats['class']}.
 
 You should respond in-character to the Dungeon Master's description of combat and take appropriate actions.
@@ -253,7 +253,7 @@ def generate_evaluation_prompt(conversation_history, player_stats, npc_stats, mo
             original_prompt = message["content"]
             break
             
-    prompt = f"""You are an expert D&D Dungeon Master evaluating an AI-driven combat system's performance.
+    prompt = f"""You are an expert 5th edition Dungeon Master evaluating an AI-driven combat system's performance.
 You will analyze a 2-turn combat transcript between a combat AI (acting as DM) and a player character AI to determine if the combat AI adhered to its requirements.
 
 Test ID: {test_id}
@@ -261,7 +261,7 @@ Timestamp: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 EVALUATION CRITERIA:
 1. Schema Adherence: Did the combat AI use the correct JSON format for its responses?
-2. Combat Rules: Did the AI follow the D&D-style combat rules (initiative, attack rolls, damage, etc.)?
+2. Combat Rules: Did the AI follow the 5e-style combat rules (initiative, attack rolls, damage, etc.)?
 3. Narration Quality: Did the AI provide vivid, engaging descriptions of the combat?
 4. Tactical Intelligence: Did the AI make logical decisions for NPCs and monsters?
 5. Player Interaction: Did the AI give the player clear options and respond appropriately to their actions?

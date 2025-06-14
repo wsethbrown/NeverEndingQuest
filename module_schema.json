@@ -2,11 +2,33 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "campaignName": {
+    "moduleName": {
       "type": "string"
     },
-    "campaignDescription": {
+    "moduleDescription": {
       "type": "string"
+    },
+    "moduleMetadata": {
+      "type": "object",
+      "properties": {
+        "author": {"type": "string"},
+        "version": {"type": "string"},
+        "levelRange": {
+          "type": "object",
+          "properties": {
+            "min": {"type": "integer"},
+            "max": {"type": "integer"}
+          },
+          "required": ["min", "max"]
+        },
+        "estimatedPlayTime": {"type": "string"},
+        "moduleType": {
+          "type": "string",
+          "enum": ["adventure", "dungeon", "wilderness", "urban", "module_arc"]
+        },
+        "_srd_attribution": {"type": "string"}
+      },
+      "required": ["author", "version", "levelRange", "estimatedPlayTime", "moduleType"]
     },
     "worldSettings": {
       "type": "object",
@@ -208,5 +230,5 @@
       }
     }
   },
-  "required": ["campaignName", "campaignDescription", "worldSettings", "mainPlot", "factions", "worldMap", "timelineEvents"]
+  "required": ["moduleName", "moduleDescription", "moduleMetadata", "worldSettings", "mainPlot", "factions", "worldMap", "timelineEvents"]
 }

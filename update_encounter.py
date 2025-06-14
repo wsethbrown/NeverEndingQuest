@@ -6,7 +6,7 @@ import re
 import copy
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, ENCOUNTER_UPDATE_MODEL
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 
 # ANSI escape codes
 ORANGE = "\033[38;2;255;165;0m"
@@ -25,7 +25,7 @@ def load_encounter_schema():
 
 def update_encounter(encounter_id, changes, max_retries=3):
     # Load the current encounter info and schema
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     with open(f"encounter_{encounter_id}.json", "r") as file:
         encounter_info = json.load(file)
 

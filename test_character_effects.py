@@ -336,13 +336,13 @@ class TestEffectsIntegration(unittest.TestCase):
     
     def setUp(self):
         """Set up integration test environment"""
-        self.test_campaign_dir = tempfile.mkdtemp()
-        self.characters_dir = os.path.join(self.test_campaign_dir, "characters")
+        self.test_module_dir = tempfile.mkdtemp()
+        self.characters_dir = os.path.join(self.test_module_dir, "characters")
         os.makedirs(self.characters_dir)
     
     def tearDown(self):
         """Clean up test environment"""
-        shutil.rmtree(self.test_campaign_dir)
+        shutil.rmtree(self.test_module_dir)
     
     def test_update_character_info_integration(self):
         """Test integration with update_character_info.py"""

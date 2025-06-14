@@ -1,19 +1,19 @@
 import json
 import shutil
 import os
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 
 # Define the file paths
 party_tracker_file = "party_tracker.json"
 
 # Initialize path manager
-path_manager = CampaignPathManager()
+path_manager = ModulePathManager()
 
-# Define all area IDs for Keep of Doom campaign
+# Define all area IDs for Keep of Doom module
 area_ids = ["HH001", "G001", "SK001", "TBM001", "TCD001"]
 
-# Campaign-specific files for Keep of Doom
-campaign_dir = path_manager.campaign_dir
+# Module-specific files for Keep of Doom
+module_dir = path_manager.module_dir
 
 # Function to restore from backup
 def restore_from_backup(original_file, backup_file):
@@ -27,7 +27,7 @@ def restore_from_backup(original_file, backup_file):
 # Restore area files from backups
 for area_id in area_ids:
     original_file = path_manager.get_area_path(area_id)
-    backup_file = f"{campaign_dir}/{area_id}_BU.json"
+    backup_file = f"{module_dir}/{area_id}_BU.json"
     
     if os.path.exists(backup_file):
         restore_from_backup(original_file, backup_file)
@@ -36,7 +36,7 @@ for area_id in area_ids:
 
 # Restore campaign plot from backup
 original_plot = path_manager.get_plot_path()
-backup_plot = f"{campaign_dir}/campaign_plot_BU.json"
+backup_plot = f"{module_dir}/module_plot_BU.json"
 
 if os.path.exists(backup_plot):
     restore_from_backup(original_plot, backup_plot)
@@ -44,14 +44,14 @@ else:
     print(f"No backup found for campaign plot. Using existing file.")
 
 # Restore party tracker from backup if available
-party_tracker_backup = f"{campaign_dir}/party_tracker_BU.json"
+party_tracker_backup = f"{module_dir}/party_tracker_BU.json"
 if os.path.exists(party_tracker_backup):
     restore_from_backup(party_tracker_file, party_tracker_backup)
     print("Restored party tracker from backup")
 
 # Restore norn character from backup
 norn_file = path_manager.get_character_path("norn")
-norn_backup = f"{campaign_dir}/norn_BU.json"
+norn_backup = f"{module_dir}/norn_BU.json"
 
 if os.path.exists(norn_backup):
     restore_from_backup(norn_file, norn_backup)
@@ -133,7 +133,7 @@ for file in files_to_delete:
 journal_file = "journal.json"
 if os.path.exists(journal_file):
     journal_data = {
-        "campaign": "Keep_of_Doom",
+        "module": "Keep_of_Doom",
         "entries": []
     }
     with open(journal_file, 'w', encoding='utf-8') as f:
@@ -190,4 +190,4 @@ if os.path.exists(combat_logs_dir):
                 except Exception as e:
                     print(f"ERROR: Could not delete {file_path} - {str(e)}")
 
-print("\nReset complete. Keep of Doom campaign ready to start fresh!")
+print("\nReset complete. Keep of Doom module ready to start fresh!")

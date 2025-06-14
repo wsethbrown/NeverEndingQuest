@@ -2,9 +2,9 @@
 # Replace with your actual OpenAI API key
 OPENAI_API_KEY = "your_openai_api_key_here"
 
-# --- Campaign folder structure ---
-CAMPAIGNS_DIR = "campaigns"
-DEFAULT_CAMPAIGN = "Echoes_of_the_Elemental_Forge"
+# --- Module folder structure ---
+MODULES_DIR = "modules"
+DEFAULT_MODULE = "Echoes_of_the_Elemental_Forge"
 
 # --- Main Game Logic Models (used in main.py) ---
 DM_MAIN_MODEL = "gpt-4.1-2025-04-14"

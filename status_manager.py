@@ -172,7 +172,7 @@ def status_saving():
 
 def status_loading():
     """Set status for loading data"""
-    status_manager.update_status("Loading campaign data...", True)
+    status_manager.update_status("Loading module data...", True)
 
 def status_ready():
     """Set status to ready"""

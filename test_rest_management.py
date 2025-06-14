@@ -15,7 +15,7 @@ def test_system_prompt_rest_content():
     
     # Check for key rest management sections
     required_sections = [
-        "## Rest Management Rules (D&D 5e)",
+        "## Rest Management Rules (5e)",
         "### Short Rest (1 hour minimum):",
         "### Long Rest (8 hours minimum):",
         "### Class-Specific Rest Recovery Rules:",
@@ -51,7 +51,7 @@ def test_system_prompt_rest_content():
         print(f"  ❌ Missing class rules: {missing_classes}")
         return False
     else:
-        print(f"  ✅ All D&D classes have specific rest rules")
+        print(f"  ✅ All 5e classes have specific rest rules")
     
     return True
 

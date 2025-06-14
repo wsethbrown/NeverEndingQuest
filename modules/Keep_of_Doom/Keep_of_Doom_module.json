@@ -1,6 +1,17 @@
 {
-  "campaignName": "Keep of Doom",
-  "campaignDescription": "Adventurers must brave a haunted keep to confront a cursed knight and a sinister artifact, risking supernatural doom or unleashing darkness upon the land.",
+  "moduleName": "Keep of Doom",
+  "moduleDescription": "Adventurers must brave a haunted keep to confront a cursed knight and a sinister artifact, risking supernatural doom or unleashing darkness upon the land.",
+  "moduleMetadata": {
+    "author": "DM Assistant",
+    "version": "1.0.0",
+    "levelRange": {
+      "min": 1,
+      "max": 3
+    },
+    "estimatedPlayTime": "4-6 sessions",
+    "moduleType": "adventure",
+    "_srd_attribution": "Portions derived from SRD 5.2.1, CC BY 4.0"
+  },
   "worldSettings": {
     "worldName": "Shadowvale",
     "era": "Late Age of Turmoil: Decades after the collapse of a once-mighty kingdom, Shadowvale is gripped by fear and superstition. Faded glory lingers in crumbling fortresses, trade routes are perilous, and petty nobles struggle for power as old magics stir restlessly beneath the land.",

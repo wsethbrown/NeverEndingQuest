@@ -3,7 +3,7 @@
 
 import json
 import sys
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 
 def load_json_file(file_path):
     try:
@@ -17,7 +17,7 @@ def test_location_match(area_id, location_name_or_id, exact_only=False):
     """Test different methods of matching a location in an area"""
     print(f"Testing location match for area '{area_id}', looking for '{location_name_or_id}'")
     
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
     area_file = path_manager.get_area_path(area_id)
     print(f"Using area file: {area_file}")
     

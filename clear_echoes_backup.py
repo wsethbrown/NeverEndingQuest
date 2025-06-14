@@ -1,19 +1,19 @@
 import json
 import shutil
 import os
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 
 # Define the file paths
 party_tracker_file = "party_tracker.json"
 
 # Initialize path manager
-path_manager = CampaignPathManager()
+path_manager = ModulePathManager()
 
-# Campaign-specific files
+# Module-specific files
 original_locations_file = path_manager.get_area_path("EM001")
-backup_locations_file = f"{path_manager.campaign_dir}/EM001_BU.json"
+backup_locations_file = f"{path_manager.module_dir}/EM001_BU.json"
 original_plot_file = path_manager.get_plot_path("EM001")
-backup_plot_file = f"{path_manager.campaign_dir}/plot_EM001_BU.json"
+backup_plot_file = f"{path_manager.module_dir}/plot_EM001_BU.json"
 
 # Function to restore from backup
 def restore_from_backup(original_file, backup_file):

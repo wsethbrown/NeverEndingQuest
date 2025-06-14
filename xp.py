@@ -1,6 +1,6 @@
 import json
 import os
-from campaign_path_manager import CampaignPathManager
+from module_path_manager import ModulePathManager
 
 # CR to XP mapping (updated to include fractional CRs)
 cr_to_xp = {
@@ -32,7 +32,7 @@ def calculate_xp(encounter, party_tracker):
     defeated_count = 0
     monster_cache = {}
     xp_breakdown = []
-    path_manager = CampaignPathManager()
+    path_manager = ModulePathManager()
 
     for creature in encounter['creatures']:
         if creature['type'] == 'enemy' and is_defeated(creature['status']):
