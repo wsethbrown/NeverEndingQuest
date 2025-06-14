@@ -1,3 +1,6 @@
+# SRD 5.2.1 Leveling Information
+# Portions of this content derived from SRD 5.2.1, licensed under CC BY 4.0
+
 Use the following information for for guidance leveling up characters:
 
 Experience Points by Level:
