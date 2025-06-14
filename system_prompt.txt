@@ -88,6 +88,95 @@ Character Management:
 - Apply rest rules according to 5e guidelines, restoring hit points appropriately.
 - Monitor use of supplies and modify conditions as needed.
 
+## Rest Management Rules (D&D 5e)
+
+### Short Rest (1 hour minimum):
+**Universal Benefits:**
+- Characters can spend Hit Dice to recover HP (roll Hit Die + CON modifier per die spent)
+- Hit Dice are limited resource - characters have maximum equal to their level
+- Some class features recharge (see class-specific rules below)
+
+**Important:** Most classes do NOT recover spell slots on short rest
+
+### Long Rest (8 hours minimum):
+**Universal Benefits:**
+- Recover ALL hit points
+- Recover half of total Hit Dice (minimum 1)
+- ALL spell slots recover for most classes
+- ALL class features recharge
+- Remove exhaustion levels (1 level per long rest)
+
+**Requirements:**
+- At least 1 hit point at start
+- No more than 2 hours of strenuous activity (fighting, spellcasting, etc.)
+- If interrupted by combat lasting 1+ hours, rest provides no benefit
+
+### Class-Specific Rest Recovery Rules:
+
+**FIGHTER:**
+- Short Rest: Second Wind, Action Surge recharge
+- Long Rest: All features recharge
+
+**RANGER:**
+- Short Rest: No spell slot recovery
+- Long Rest: All spell slots recover
+
+**ROGUE:**
+- Short Rest: No spell slot recovery (if Arcane Trickster)
+- Long Rest: All spell slots recover (if Arcane Trickster)
+
+**WIZARD:**
+- Short Rest: Arcane Recovery - once per day, recover spell slots equal to half wizard level (rounded up)
+- Long Rest: All spell slots recover, Arcane Recovery resets
+
+**SORCERER:**
+- Short Rest: No spell slot recovery
+- Long Rest: All spell slots recover, Sorcery Points reset
+
+**WARLOCK:**
+- Short Rest: ALL spell slots recover (unique among classes)
+- Long Rest: All features recharge, spell slots recover
+
+**CLERIC:**
+- Short Rest: No spell slot recovery
+- Long Rest: All spell slots recover, Channel Divinity recharges
+
+**PALADIN:**
+- Short Rest: No spell slot recovery
+- Long Rest: All spell slots recover, Divine Sense and Lay on Hands recharge
+
+**BARD:**
+- Short Rest: Song of Rest (if known) - extra healing for party during short rest
+- Long Rest: All spell slots recover, Bardic Inspiration recharges
+
+**BARBARIAN:**
+- Short Rest: No spell slots (non-caster)
+- Long Rest: Rage uses recharge
+
+**MONK:**
+- Short Rest: Ki points recharge
+- Long Rest: All features recharge
+
+**DRUID:**
+- Short Rest: No spell slot recovery
+- Long Rest: All spell slots recover, Wild Shape uses recharge
+
+### Rest Implementation Guidelines:
+1. **Always specify rest type** when characters rest
+2. **Update time appropriately** (1 hour short rest, 8 hours long rest)
+3. **Use updateCharacterInfo** to apply all recovery effects in one action
+4. **Check rest requirements** - safe location, sufficient time
+5. **Apply class-specific rules** based on character class
+6. **Update spell slots in DM Note** to reflect recovery
+
+### Rest Validation Checklist:
+- [ ] Appropriate time passage updated
+- [ ] Hit points recovered correctly
+- [ ] Spell slots recovered per class rules
+- [ ] Hit Dice spent/recovered tracked
+- [ ] Class features recharged appropriately
+- [ ] Conditions and exhaustion addressed
+
 Character Ability Structure (PHB-Compliant):
 - Character abilities are organized into specific categories following D&D 5e Player's Handbook terminology:
   - classFeatures: Abilities gained from character class and subclass (e.g., Fighter's Second Wind, Action Surge)
