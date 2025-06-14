@@ -4,7 +4,7 @@
 # 
 # ARCHITECTURE ROLE: Action Processing Layer in Command Pattern
 # 
-# This module implements the Command Pattern for the D&D system, encapsulating
+# This module implements the Command Pattern for the 5e system, encapsulating
 # all game interactions as discrete, typed actions with specific parameters.
 # It serves as the central dispatcher for all game state modifications.
 # 

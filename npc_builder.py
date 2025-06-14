@@ -57,17 +57,17 @@ def generate_npc(npc_name, schema, npc_race=None, npc_class=None, npc_level=None
     if not system_prompt_text:
         return None
 
-    system_message = f"""You are an assistant that creates NPC schema JSON files from a master NPC schema template for a D&D 5e game. Given an NPC name and optional details, create a JSON representation of the NPC's stats and abilities according to D&D 5e rules following the NPC schema template exactly. Ensure your new NPC JSON adheres to the provided schema template. Do not include any additional properties or nested 'type' and 'value' fields. Return only the JSON content without any markdown formatting.
+    system_message = f"""You are an assistant that creates NPC schema JSON files from a master NPC schema template for a 5e game. Given an NPC name and optional details, create a JSON representation of the NPC's stats and abilities according to 5e rules following the NPC schema template exactly. Ensure your new NPC JSON adheres to the provided schema template. Do not include any additional properties or nested 'type' and 'value' fields. Return only the JSON content without any markdown formatting.
 
 Use the following rules information when creating the NPC:
 
 {system_prompt_text}
 
-Adhere strictly to D&D 5e rules and the provided schema."""
+Adhere strictly to 5e rules and the provided schema."""
 
     prompt_messages = [ # Renamed variable
         {"role": "system", "content": system_message},
-        {"role": "user", "content": f"Create an NPC named '{npc_name}' using D&D 5e rules. Race: {npc_race or 'Any'}, Class: {npc_class or 'Any'}, Level: {npc_level or 'Any'}, Background: {npc_background or 'Any'}. Schema: {json.dumps(schema)}"}
+        {"role": "user", "content": f"Create an NPC named '{npc_name}' using 5e rules. Race: {npc_race or 'Any'}, Class: {npc_class or 'Any'}, Level: {npc_level or 'Any'}, Background: {npc_background or 'Any'}. Schema: {json.dumps(schema)}"}
     ]
 
     try:

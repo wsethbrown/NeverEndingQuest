@@ -385,7 +385,7 @@ def validate_player_update(original_info, proposed_updates, change_description, 
     
     # Create validation prompt
     validation_prompt = [
-        {"role": "system", "content": """You are a validation assistant for a D&D 5e game system. 
+        {"role": "system", "content": """You are a validation assistant for a 5e game system. 
 Your job is to verify if the proposed JSON updates correctly implement the requested changes.
 
 Analyze:

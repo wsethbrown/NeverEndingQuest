@@ -117,7 +117,7 @@ class AIPlayer:
             skill_text.append(f"  - {skill}: +{bonus}")
         
         # Create base character info
-        base_info = f"""You are an AI tester validating a D&D 5e game system while playing as {char['name']}, a level {char['level']} {char['race']} {char['class']}.
+        base_info = f"""You are an AI tester validating a 5e game system while playing as {char['name']}, a level {char['level']} {char['race']} {char['class']}.
 
 PRIMARY ROLE: Game System Tester
 Your main purpose is to systematically test game functionality, find issues, and validate that all systems work correctly.

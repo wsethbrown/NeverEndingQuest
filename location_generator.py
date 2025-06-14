@@ -387,7 +387,7 @@ class LocationGenerator:
         
         guide_text = getattr(self.prompt_guide, guide_attr, "")
         
-        prompt = f"""Generate content for the '{field_path}' field of a D&D 5e location.
+        prompt = f"""Generate content for the '{field_path}' field of a 5e location.
 
 Field Schema:
 {json.dumps(schema_info, indent=2)}
@@ -408,7 +408,7 @@ For objects, return just the object.
             model=DM_MAIN_MODEL,
             temperature=0.7,
             messages=[
-                {"role": "system", "content": "You are an expert D&D 5e location designer. Return only the requested data in the exact format needed."},
+                {"role": "system", "content": "You are an expert 5e location designer. Return only the requested data in the exact format needed."},
                 {"role": "user", "content": prompt}
             ]
         )
@@ -460,7 +460,7 @@ For objects, return just the object.
             validation_prompt = context.get_validation_prompt()
         
         # Generate all locations with a single comprehensive prompt
-        batch_prompt = f"""Generate detailed D&D 5e locations for {area_data.get('areaName', 'this area')}.
+        batch_prompt = f"""Generate detailed 5e locations for {area_data.get('areaName', 'this area')}.
 
 Context:
 {json.dumps(generation_context, indent=2)}
@@ -517,7 +517,7 @@ Check the location schema carefully for all required fields.
             model=DM_MAIN_MODEL,
             temperature=0.8,
             messages=[
-                {"role": "system", "content": "You are an expert D&D dungeon designer creating cohesive, interconnected locations."},
+                {"role": "system", "content": "You are an expert 5e dungeon designer creating cohesive, interconnected locations."},
                 {"role": "user", "content": batch_prompt}
             ],
             response_format={"type": "json_object"}

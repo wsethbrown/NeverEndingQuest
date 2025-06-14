@@ -295,7 +295,7 @@ class PlotGenerator:
         
         guide_text = getattr(self.prompt_guide, guide_attr, "")
         
-        prompt = f"""Generate content for the '{field_path}' field of a D&D 5e adventure plot.
+        prompt = f"""Generate content for the '{field_path}' field of a 5e adventure plot.
 
 Field Schema:
 {json.dumps(schema_info, indent=2)}
@@ -316,7 +316,7 @@ For objects, return just the object.
             model=DM_MAIN_MODEL,
             temperature=0.7,
             messages=[
-                {"role": "system", "content": "You are an expert D&D 5e adventure designer. Return only the requested data in the exact format needed."},
+                {"role": "system", "content": "You are an expert 5e adventure designer. Return only the requested data in the exact format needed."},
                 {"role": "user", "content": prompt}
             ]
         )
@@ -337,7 +337,7 @@ For objects, return just the object.
         """Generate the complete plot structure"""
         
         # Generate a full plot structure in one go for better coherence
-        prompt = f"""Create a complete plot structure for a D&D 5e adventure with {num_plot_points} main plot points.
+        prompt = f"""Create a complete plot structure for a 5e adventure with {num_plot_points} main plot points.
 
 Context:
 {json.dumps(context.to_dict() if hasattr(context, 'to_dict') else context, indent=2)}
@@ -382,7 +382,7 @@ IMPORTANT: Each plot point should have its sideQuests array (can be empty). Side
             model=DM_MAIN_MODEL,
             temperature=0.8,
             messages=[
-                {"role": "system", "content": "You are an expert D&D 5e adventure designer."},
+                {"role": "system", "content": "You are an expert 5e adventure designer."},
                 {"role": "user", "content": prompt}
             ],
             response_format={"type": "json_object"}

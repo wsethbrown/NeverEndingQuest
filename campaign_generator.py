@@ -12,7 +12,7 @@ import json
 # ARCHITECTURE ROLE: Content Generation Layer - Complete Campaign Creation
 # 
 # This module implements large-scale content generation using our multi-model
-# AI strategy to create complete D&D campaigns with full location hierarchies,
+# AI strategy to create complete 5th edition campaigns with full location hierarchies,
 # character rosters, and narrative structures.
 # 
 # KEY RESPONSIBILITIES:
@@ -137,7 +137,7 @@ class CampaignPromptGuide:
     
     cosmology: str = """
     Cosmology type (must be one of these):
-    - "Great Wheel": Standard D&D planar system
+    - "Great Wheel": Standard 5e planar system
     - "World Tree": Norse-inspired connected realms
     - "World Axis": 4e-style points of light
     - "Custom": Unique planar arrangement
@@ -157,7 +157,7 @@ class CampaignPromptGuide:
     majorDeities: str = """
     Include 2-6 deities most relevant to the campaign.
     Each deity needs:
-    - Name: Use standard D&D deities or create fitting names
+    - Name: Use standard 5e deities or create fitting names
     - Domain: Primary portfolio (War, Nature, Death, etc.)
     - Alignment: Standard 9-point alignment system
     
@@ -558,7 +558,7 @@ class CampaignGenerator:
         
         guide_text = getattr(self.prompt_guide, guide_attr, "")
         
-        prompt = f"""Generate content for the '{field_path}' field of a D&D 5e campaign.
+        prompt = f"""Generate content for the '{field_path}' field of a 5e campaign.
 
 Field Schema:
 {json.dumps(schema_info, indent=2)}
@@ -579,7 +579,7 @@ If the field expects an object, return just the object.
             model=DM_MAIN_MODEL,
             temperature=0.7,
             messages=[
-                {"role": "system", "content": "You are an expert D&D 5e campaign designer. Return only the requested data in the exact format needed."},
+                {"role": "system", "content": "You are an expert 5e campaign designer. Return only the requested data in the exact format needed."},
                 {"role": "user", "content": prompt}
             ]
         )

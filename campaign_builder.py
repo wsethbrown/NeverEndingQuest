@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Master Campaign Builder
-Orchestrates the generation of a complete D&D campaign by calling generators in the proper sequence.
+Orchestrates the generation of a complete 5th edition campaign by calling generators in the proper sequence.
 """
 
 import json
@@ -387,7 +387,7 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
 def main():
     """Interactive campaign builder"""
-    print("D&D Campaign Builder")
+    print("5th Edition Campaign Builder")
     print("=" * 50)
     
     # Get campaign configuration

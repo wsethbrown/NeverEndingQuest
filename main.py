@@ -4,7 +4,7 @@
 # 
 # ARCHITECTURE ROLE: Primary Controller in MVC Pattern
 # 
-# This is the central orchestrator of the D&D Dungeon Master system, implementing
+# This is the central orchestrator of the 5th edition Dungeon Master system, implementing
 # the main game loop and coordinating all subsystems. It follows the Command Pattern
 # where every game interaction is processed as a discrete action.
 # 

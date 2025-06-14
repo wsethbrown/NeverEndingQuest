@@ -6,7 +6,7 @@ import json
 # ARCHITECTURE ROLE: Data Management Layer - File System Abstraction
 # 
 # This module provides a unified interface for all file operations across the
-# D&D system, implementing our "Campaign-Centric Organization" principle.
+# 5e system, implementing our "Campaign-Centric Organization" principle.
 # It abstracts file path resolution and handles legacy migration seamlessly.
 # 
 # KEY RESPONSIBILITIES:

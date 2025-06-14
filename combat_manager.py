@@ -24,13 +24,13 @@ Combat Logging System:
 # 
 # ARCHITECTURE ROLE: Game Systems Layer - Turn-Based Combat Management
 # 
-# This module implements D&D 5e combat mechanics using AI-driven simulation
+# This module implements 5e combat mechanics using AI-driven simulation
 # with strict rule validation. It demonstrates our multi-model AI strategy
 # by using specialized models for combat-specific interactions.
 # 
 # KEY RESPONSIBILITIES:
 # - Manage turn-based combat encounters with initiative tracking
-# - Validate combat actions against D&D 5e rules
+# - Validate combat actions against 5e rules
 # - Coordinate HP tracking, status effects, and combat state
 # - Generate and manage pre-rolled dice to prevent AI confusion
 # - Cache prerolls per combat round to ensure consistency
@@ -73,7 +73,7 @@ Combat Logging System:
 # - Observer Pattern: Real-time combat state updates
 # 
 # This module exemplifies our approach to complex game system management
-# while maintaining strict D&D rule compliance through AI validation.
+# while maintaining strict 5e rule compliance through AI validation.
 # ============================================================================
 
 import json
@@ -1013,7 +1013,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
 
 Important Character Field Definitions:
 - 'status' field: Overall life/death state - ONLY use 'alive', 'dead', 'unconscious', or 'defeated' (lowercase)
-- 'condition' field: D&D 5e status conditions - use 'none' when no conditions, or valid D&D conditions like 'blinded', 'charmed', 'poisoned', etc.
+- 'condition' field: 5e status conditions - use 'none' when no conditions, or valid 5e conditions like 'blinded', 'charmed', 'poisoned', etc.
 - NEVER set condition to 'alive' - that goes in the status field
 - NEVER set status to 'none' - use 'alive' for conscious characters
 
@@ -1398,8 +1398,8 @@ CRITICAL UPDATE RULES:
 
 Important Character Field Definitions:
 - 'status' field: Overall life/death state - ONLY use 'alive', 'dead', 'unconscious', or 'defeated' (lowercase)
-- 'condition' field: D&D 5e status conditions - use 'none' when no conditions, or valid D&D conditions like 'blinded', 'charmed', 'poisoned', etc.
-- 'condition_affected' array: List of active D&D conditions affecting the character
+- 'condition' field: 5e status conditions - use 'none' when no conditions, or valid 5e conditions like 'blinded', 'charmed', 'poisoned', etc.
+- 'condition_affected' array: List of active 5e conditions affecting the character
 
 Critical Rules:
 1. NEVER set condition to 'alive' - that goes in the status field

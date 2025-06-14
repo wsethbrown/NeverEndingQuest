@@ -4,7 +4,7 @@
 # 
 # ARCHITECTURE ROLE: Game Systems Layer - Location and Movement Management
 # 
-# This module manages D&D exploration mechanics including location transitions,
+# This module manages 5e exploration mechanics including location transitions,
 # area connectivity, and spatial relationships. It implements our hierarchical
 # campaign organization with ID-based location management.
 # 

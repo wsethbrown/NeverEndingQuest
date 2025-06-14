@@ -212,7 +212,7 @@ Equipment Array Example:
 
 AttacksAndSpellcasting vs Actions:
 - Use attacksAndSpellcasting for standard attack format
-- Actions array is for D&D standard format (optional)
+- Actions array is for 5e standard format (optional)
 
 Combat Damage Note:
 When NPCs deal damage in combat, do NOT update their action arrays. Only update when the NPC gains new abilities or equipment.

@@ -78,7 +78,7 @@ def format_schema_for_prompt(schema):
     # Add specific examples for the problematic fields
     schema_info += """IMPORTANT: Two different attack array formats:
 
-1. Actions array format (use for D&D standard attacks):
+1. Actions array format (use for 5e standard attacks):
 {
   "name": "string",
   "attackBonus": integer,
@@ -141,7 +141,7 @@ def validate_npc_update(original_info, proposed_updates, change_description, att
     
     # Create validation prompt
     validation_prompt = [
-        {"role": "system", "content": """You are a validation assistant for a D&D 5e game system. 
+        {"role": "system", "content": """You are a validation assistant for a 5e game system. 
 Your job is to verify if the proposed JSON updates correctly implement the requested changes for an NPC.
 
 Analyze:
@@ -324,7 +324,7 @@ Examples of inputs requiring updates to the JSON:
      }}
    }}
 
-5. Input: Add a new Throwing Axe to Grunk's actions (D&D format).
+5. Input: Add a new Throwing Axe to Grunk's actions (5e format).
    Output: {{
      "actions": [
        {{

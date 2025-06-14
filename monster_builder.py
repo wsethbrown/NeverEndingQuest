@@ -9,7 +9,7 @@
 # "Schema-Driven Development" approach to content creation.
 # 
 # KEY RESPONSIBILITIES:
-# - Generate D&D 5e compliant monsters using AI
+# - Generate 5e compliant monsters using AI
 # - Validate all generated content against monster schema
 # - Handle AI response parsing and cleanup
 # - Provide robust error handling and validation feedback
@@ -23,7 +23,7 @@
 # - JSON schema compliance checking
 # - Automatic cleanup of AI response artifacts
 # - Nested value field flattening
-# - D&D 5e rule validation through schema constraints
+# - 5e rule validation through schema constraints
 # 
 # ARCHITECTURAL INTEGRATION:
 # - Uses CampaignPathManager for file operations
@@ -37,7 +37,7 @@
 # - Strategy Pattern: Configurable AI models for generation
 # 
 # This module exemplifies our approach to AI-powered content generation
-# while maintaining strict data integrity and D&D rule compliance.
+# while maintaining strict data integrity and 5e rule compliance.
 # ============================================================================
 
 import json
@@ -93,8 +93,8 @@ def save_json(file_name, data):
 
 def generate_monster(monster_name, schema):
     prompt = [
-        {"role": "system", "content": "You are an assistant that creates monster schema JSON files from a master monster schema template for a D&D 5e game. Given a monster name, create a JSON representation of the monster's stats and abilities according to D&D 5e rules following the monster schema template exactly. Be sure to follow the monster bestiary for naming normal monsters based on the name provided. For example, if the name is Orc_1, then your monster name is an Orc. If you are given a named monster or boss then you can create a unique monster schema with that name as it will be unique. Ensure your new monster JSON adheres to the provided schema template. Do not include any additional properties or nested 'type' and 'value' fields. Return only the JSON content without any markdown formatting."},
-        {"role": "user", "content": f"Create a monster named '{monster_name}' using D&D 5e rules. Schema: {json.dumps(schema)}"}
+        {"role": "system", "content": "You are an assistant that creates monster schema JSON files from a master monster schema template for a 5e game. Given a monster name, create a JSON representation of the monster's stats and abilities according to 5e rules following the monster schema template exactly. Be sure to follow the monster bestiary for naming normal monsters based on the name provided. For example, if the name is Orc_1, then your monster name is an Orc. If you are given a named monster or boss then you can create a unique monster schema with that name as it will be unique. Ensure your new monster JSON adheres to the provided schema template. Do not include any additional properties or nested 'type' and 'value' fields. Return only the JSON content without any markdown formatting."},
+        {"role": "user", "content": f"Create a monster named '{monster_name}' using 5e rules. Schema: {json.dumps(schema)}"}
     ]
 
     try:
