@@ -46,6 +46,7 @@ from status_manager import (
     status_transitioning_location, status_updating_character, status_updating_party,
     status_updating_plot, status_advancing_time, status_processing_levelup
 )
+from location_path_finder import LocationGraph
 
 # Action type constants
 ACTION_CREATE_ENCOUNTER = "createEncounter"
@@ -58,49 +59,43 @@ ACTION_LEVEL_UP = "levelUp"
 ACTION_UPDATE_CHARACTER_INFO = "updateCharacterInfo"
 ACTION_UPDATE_PARTY_NPCS = "updatePartyNPCs"
 
-def validate_area_connectivity_id(area_connectivity_id, current_area_id):
+def validate_location_transition(location_graph, current_location_id, destination_location_id):
     """
-    Validate that area connectivity ID corresponds to existing area file.
-    Prevents AI from creating transitions to non-existent areas.
+    Validate that a location transition is possible using the location graph.
     
     Args:
-        area_connectivity_id (str): The area ID to validate (e.g., "G001-B07")
-        current_area_id (str): Current area ID for context
+        location_graph (LocationGraph): Initialized location graph
+        current_location_id (str): Current location ID (e.g., "E02")
+        destination_location_id (str): Destination location ID (e.g., "B01")
     
     Returns:
-        bool: True if valid or no area change, False if invalid
+        tuple: (bool, str, str) - (is_valid, error_message, area_connectivity_id)
     """
-    if not area_connectivity_id:
-        return True  # Within-area transitions are always valid
-    
     try:
-        # Check if this looks like a location ID instead of area ID
-        # Location IDs: C01, C02, etc. Area IDs: SK001, G001-B07, TCD001-E01, etc.
-        import re
-        if re.match(r'^[A-Z]\d+$', area_connectivity_id):
-            print(f"ERROR: '{area_connectivity_id}' appears to be a location ID, not an area ID. Use 'newLocation' parameter for within-area transitions.")
-            return False
+        # Validate destination location exists
+        if not location_graph.validate_location_id_format(destination_location_id):
+            return False, f"Destination location '{destination_location_id}' does not exist in campaign", None
         
-        # Initialize path manager
-        path_manager = CampaignPathManager()
+        # Check if this is a cross-area transition
+        is_cross_area = location_graph.is_cross_area_transition(current_location_id, destination_location_id)
+        if is_cross_area is None:
+            return False, f"Invalid location ID format: current='{current_location_id}', destination='{destination_location_id}'", None
         
-        # Extract base area ID (handle formats like "G001-B07" -> "G001")
-        base_area_id = area_connectivity_id.split('-')[0]
+        # Generate area connectivity ID if needed (for backward compatibility with location_manager)
+        area_connectivity_id = None
+        if is_cross_area:
+            dest_area_id = location_graph.get_area_id_from_location_id(destination_location_id)
+            area_connectivity_id = f"{dest_area_id}-{destination_location_id}"
         
-        # Get the area file path
-        area_file_path = path_manager.get_area_path(base_area_id)
+        print(f"DEBUG: Location transition validation passed")
+        print(f"DEBUG: Cross-area transition: {is_cross_area}")
+        if area_connectivity_id:
+            print(f"DEBUG: Generated area connectivity ID: {area_connectivity_id}")
         
-        # Check if area file exists
-        if not os.path.exists(area_file_path):
-            print(f"ERROR: Area validation failed - {area_file_path} does not exist")
-            return False
-            
-        print(f"DEBUG: Area validation passed for {base_area_id}")
-        return True
+        return True, "", area_connectivity_id
         
     except Exception as e:
-        print(f"ERROR: Area validation failed with exception: {str(e)}")
-        return False
+        return False, f"Location validation failed with exception: {str(e)}", None
 
 def update_party_npcs(party_tracker_data, operation, npc):
     """Update NPC party members (add or remove)"""
@@ -260,8 +255,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
 
     elif action_type == ACTION_TRANSITION_LOCATION:
         status_transitioning_location()
-        new_location_name_or_id = parameters["newLocation"] # This could be a name or an ID
-        area_connectivity_id = parameters.get("areaConnectivityId")
+        new_location_name_or_id = parameters["newLocation"] # This should be a location ID now
         
         # Sanitize location names to prevent encoding issues
         current_location_name = sanitize_text(party_tracker_data["worldConditions"]["currentLocation"])
@@ -269,9 +263,16 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         current_area_name = party_tracker_data["worldConditions"]["currentArea"]
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
         
-        # VALIDATE: Prevent AI from creating transitions to non-existent areas
-        if not validate_area_connectivity_id(area_connectivity_id, current_area_id):
-            error_message = f"Cannot transition to area '{area_connectivity_id}' - area file does not exist in campaign. Only use areas that are explicitly defined in the campaign structure."
+        # Initialize location graph for validation
+        location_graph = LocationGraph()
+        location_graph.load_campaign_data()
+        
+        # VALIDATE: Check if location transition is valid
+        is_valid, error_message, auto_area_connectivity_id = validate_location_transition(
+            location_graph, current_location_id, new_location_name_or_id
+        )
+        
+        if not is_valid:
             print(f"ERROR: {error_message}")
             return create_return(
                 status="error", 
@@ -284,13 +285,13 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         print(f"DEBUG: Current location string (hex): {current_location_name.encode('utf-8').hex()}")
         print(f"DEBUG: New location string (hex): {new_location_name_or_id.encode('utf-8').hex()}")
         
-        # Use enhanced location manager with robust string matching
+        # Use enhanced location manager with auto-generated area connectivity ID
         transition_prompt = location_manager.handle_location_transition(
             current_location_name, 
             new_location_name_or_id, 
             current_area_name, 
             current_area_id, 
-            area_connectivity_id
+            auto_area_connectivity_id
         )
 
         if transition_prompt:

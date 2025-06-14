@@ -223,6 +223,69 @@ class LocationGraph:
     def get_location_id(self, location_name: str) -> Optional[str]:
         """Get location ID from location name"""
         return self.name_to_id.get(location_name)
+    
+    def get_area_id_from_location_id(self, location_id: str) -> Optional[str]:
+        """
+        Get the area ID from a location ID using the loaded campaign data.
+        
+        Args:
+            location_id (str): Location ID like "A01", "B05", "C03", etc.
+        
+        Returns:
+            str: Area ID like "HH001", "G001", "SK001", etc.
+            None: If location ID not found in any area
+        """
+        location_info = self.get_location_info(location_id)
+        if location_info:
+            return location_info['area_id']
+        return None
+    
+    def is_cross_area_transition(self, from_location_id: str, to_location_id: str) -> Optional[bool]:
+        """
+        Determine if a transition between two location IDs crosses area boundaries.
+        
+        Args:
+            from_location_id (str): Starting location ID
+            to_location_id (str): Destination location ID
+        
+        Returns:
+            bool: True if transition crosses areas, False if within same area
+            None: If either location ID is invalid
+        """
+        from_area = self.get_area_id_from_location_id(from_location_id)
+        to_area = self.get_area_id_from_location_id(to_location_id)
+        
+        if from_area is None or to_area is None:
+            return None
+        
+        return from_area != to_area
+    
+    def validate_location_id_format(self, location_id: str) -> bool:
+        """
+        Validate that a location ID exists in the loaded campaign data.
+        
+        Args:
+            location_id (str): Location ID to validate
+        
+        Returns:
+            bool: True if location exists in campaign, False otherwise
+        """
+        return location_id in self.nodes
+    
+    def get_area_name_from_location_id(self, location_id: str) -> str:
+        """
+        Get the area name from a location ID (for debugging/logging).
+        
+        Args:
+            location_id (str): Location ID like "A01", "B05", etc.
+        
+        Returns:
+            str: Area name or "Unknown Area" if not found
+        """
+        area_id = self.get_area_id_from_location_id(location_id)
+        if area_id and area_id in self.area_data:
+            return self.area_data[area_id].get('areaName', 'Unknown Area')
+        return 'Unknown Area'
 
 
 def format_path_result(success: bool, path: List[str], message: str, graph: LocationGraph) -> str:

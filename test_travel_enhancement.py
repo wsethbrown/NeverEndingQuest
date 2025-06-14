@@ -115,7 +115,7 @@ def test_travel_examples():
         "// Example 16: CORRECT Multi-Area Travel Implementation",
         "journey back to Harrow's Hollow",
         "past the Gaol's empty cells, up through the Dungeon Entrance",
-        '"areaConnectivityId": "HH001"'
+        '"newLocation": "A03"'
     ]
     
     # Test for invalid multi-area travel example  

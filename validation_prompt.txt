@@ -131,10 +131,10 @@ Important clarifications:
    9. ALWAYS pay close attention to when trading occurs between the player and the party NPCs to ensure all actions are taken to update the player and party inventories.
    10. rollSkillCheck is not a valid action.
    11. RITUAL MATERIALS: When a character performs a ritual that consumes material components, the model MUST use updateCharacterInfo to remove those materials from inventory. If ritual materials are not removed after a ritual is performed, the response is invalid.
-   12. LOCATION vs AREA TRANSITIONS: For transitionLocation action, check that "areaConnectivityId" is used correctly:
-       - WITHIN-AREA moves (e.g., C05 to C07 in same area): Use "newLocation" only, NO "areaConnectivityId"
-       - CROSS-AREA moves (e.g., SK001 to TCD001): Use both "newLocation" and "areaConnectivityId"
-       - If "areaConnectivityId" contains a location ID pattern (C01, C07, etc.) instead of area ID, the response is invalid.
+   12. LOCATION TRANSITIONS: For transitionLocation action, only use "newLocation" parameter with location ID:
+       - ALL moves use location ID only (e.g., "newLocation": "C07", "newLocation": "B01")
+       - NO "areaConnectivityId" parameter needed - system auto-detects area changes
+       - Location ID must be valid format (letter + 2 digits like A01, B05, C03, etc.)
 
 Here are examples of acceptable model assistant responses:
 
@@ -414,8 +414,7 @@ Here are examples of acceptable model assistant responses:
     {
       "action": "transitionLocation",
       "parameters": {
-        "newLocation": "Village Gate",
-        "areaConnectivityId": "HH001"
+        "newLocation": "A03"
       }
     },
     {
@@ -442,14 +441,13 @@ Here are examples of acceptable model assistant responses:
     {
       "action": "transitionLocation",
       "parameters": {
-        "newLocation": "Dungeon Entrance"
+        "newLocation": "E01"
       }
     },
     {
       "action": "transitionLocation",
       "parameters": {
-        "newLocation": "Village Gate",
-        "areaConnectivityId": "HH001"
+        "newLocation": "A03"
       }
     }
   ]
@@ -512,7 +510,7 @@ Here are examples of acceptable model assistant responses:
 
 //Example 15 - Party transitioning between locations and areas after the player character has declared moving to the new location.
 
-{"role": "user", "content": "Dungeon Master Note: Current date and time: 1492 Ches 21 13:10:54. Party stats: Player Character: Norn: Level 4, XP 4248/6500, HP 16/36, STR:17 DEX:14 CON:16 INT:11 WIS:13 CHA:9; Party NPCs: Gilly: Level 4, XP 3180/3700, HP 3/31, STR:8 DEX:16 CON:14 INT:12 WIS:10 CHA:14; Elara: Level 4, XP 3180/3900, HP 22/22, STR:13 DEX:16 CON:14 INT:12 WIS:15 CHA:10; Thalor: Level 3, XP 2006/2700, HP 24/24, STR:14 DEX:10 CON:16 INT:10 WIS:15 CHA:11. Current location: Hidden Entrance to Dwarven Complex (R14). Active plot points for this location:\n\nActive side quests for this location:\n\nTraps in this location:\n\nupdatePlayerInfo for the player's inventory, updateTime for time passage, updatePlot for story progression, discovers, and new information, updateNPCInfo for party NPC changes, updatePartyNPCs for party composition changes to the party tracker, levelUp for advancement, and exitGame for ending sessions. transitionLocation should always be used when the player expresses a desire to movde to an adjacent location to their current location, Always roleplay the NPC and NPC party rolls without asking the player. Always ask the player character to roll for skill checks and other actions. Proactively narrate location NPCs, start conversations, and weave plot elements into the adventure. Use party NPCs to narrate if possible instead of always narrating from the DM's perspective, but don't overdo it. Maintain immersive and engaging storytelling similar to an adventure novel while accurately managing game mechanics. Update all relevant information immediately and confirm with the player before major actions. Consider whether the party's action trigger traps in this location. Consider updating the plot elements on every action the player and NPCs take. Player: Yes, we venture in!"}, {"role": "assistant", "content": "{\n  \"narration\": \"With a determined nod, you and your companions step through the now-open stone door, entering the Dwarven Complex. The air is cool and still, carrying a faint scent of aged stone and something more primal, almost electric. Dim light flickers from the veins of crystal embedded in the walls, illuminating intricate carvings that depict ancient dwarven warriors engaged in epic battles.\\n\\nAs you step inside, you can feel the weight of history pressing down upon you, and the atmosphere is thick with anticipation. The hall stretches before you, revealing two paths: one leads deeper into the heart of the complex, while the other veers off to the left, into what appears to be an old storage area.\\n\\nElara, ever vigilant, whispers, 'We should be cautious. I sense something might be watching us.' Gilly, still recovering from her earlier ordeal, glances around with wide eyes, her fingers twitching with the urge to explore. Thalor moves to the front, his demeanor calm and steady, ready to offer guidance and healing if needed.\\n\\nWhat do you wish to do now? Will you proceed down the main hall, investigate the storage area, or perhaps take a moment to prepare and discuss your next steps with your companions?\",\n  \"actions\": [\n    {\n      \"action\": \"transitionLocation\",\n      \"parameters\": {\n        \"newLocation\": \"Dwarven Complex - First Floor\",\n        \"areaConnectivityId\": \"DS001\"\n      }\n    },\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 2\n      }\n    },\n    {\n      \"action\": \"updatePlot\",\n      \"parameters\": {\n        \"plotPointId\": \"PP014\",\n        \"newStatus\": \"in progress\",\n        \"plotImpact\": \"The party has ventured into the Dwarven Complex, facing new mysteries and potential dangers within.\"\n      }\n    }\n  ]\n}"}
+{"role": "user", "content": "Dungeon Master Note: Current date and time: 1492 Ches 21 13:10:54. Party stats: Player Character: Norn: Level 4, XP 4248/6500, HP 16/36, STR:17 DEX:14 CON:16 INT:11 WIS:13 CHA:9; Party NPCs: Gilly: Level 4, XP 3180/3700, HP 3/31, STR:8 DEX:16 CON:14 INT:12 WIS:10 CHA:14; Elara: Level 4, XP 3180/3900, HP 22/22, STR:13 DEX:16 CON:14 INT:12 WIS:15 CHA:10; Thalor: Level 3, XP 2006/2700, HP 24/24, STR:14 DEX:10 CON:16 INT:10 WIS:15 CHA:11. Current location: Hidden Entrance to Dwarven Complex (R14). Active plot points for this location:\n\nActive side quests for this location:\n\nTraps in this location:\n\nupdatePlayerInfo for the player's inventory, updateTime for time passage, updatePlot for story progression, discovers, and new information, updateNPCInfo for party NPC changes, updatePartyNPCs for party composition changes to the party tracker, levelUp for advancement, and exitGame for ending sessions. transitionLocation should always be used when the player expresses a desire to movde to an adjacent location to their current location, Always roleplay the NPC and NPC party rolls without asking the player. Always ask the player character to roll for skill checks and other actions. Proactively narrate location NPCs, start conversations, and weave plot elements into the adventure. Use party NPCs to narrate if possible instead of always narrating from the DM's perspective, but don't overdo it. Maintain immersive and engaging storytelling similar to an adventure novel while accurately managing game mechanics. Update all relevant information immediately and confirm with the player before major actions. Consider whether the party's action trigger traps in this location. Consider updating the plot elements on every action the player and NPCs take. Player: Yes, we venture in!"}, {"role": "assistant", "content": "{\n  \"narration\": \"With a determined nod, you and your companions step through the now-open stone door, entering the Dwarven Complex. The air is cool and still, carrying a faint scent of aged stone and something more primal, almost electric. Dim light flickers from the veins of crystal embedded in the walls, illuminating intricate carvings that depict ancient dwarven warriors engaged in epic battles.\\n\\nAs you step inside, you can feel the weight of history pressing down upon you, and the atmosphere is thick with anticipation. The hall stretches before you, revealing two paths: one leads deeper into the heart of the complex, while the other veers off to the left, into what appears to be an old storage area.\\n\\nElara, ever vigilant, whispers, 'We should be cautious. I sense something might be watching us.' Gilly, still recovering from her earlier ordeal, glances around with wide eyes, her fingers twitching with the urge to explore. Thalor moves to the front, his demeanor calm and steady, ready to offer guidance and healing if needed.\\n\\nWhat do you wish to do now? Will you proceed down the main hall, investigate the storage area, or perhaps take a moment to prepare and discuss your next steps with your companions?\",\n  \"actions\": [\n    {\n      \"action\": \"transitionLocation\",\n      \"parameters\": {\n        \"newLocation\": \"D01\"\n      }\n    },\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 2\n      }\n    },\n    {\n      \"action\": \"updatePlot\",\n      \"parameters\": {\n        \"plotPointId\": \"PP014\",\n        \"newStatus\": \"in progress\",\n        \"plotImpact\": \"The party has ventured into the Dwarven Complex, facing new mysteries and potential dangers within.\"\n      }\n    }\n  ]\n}"}
 
 {
   "valid": true,

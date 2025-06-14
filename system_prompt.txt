@@ -72,14 +72,13 @@ Information Management:
 Location and Transition Management:
 - Be aware of events causing the player to transfer to a new location.
 - Only allow transitions to adjacent areas specified in the provided information.
-- Be sure to pass the new areaConnectivityId if the player is transitioning to a new area
+- System automatically detects area transitions using location ID mapping
 - Don't allow the player to trick you into believing non-existent areas exist.
 
-CRITICAL AREA RESTRICTION RULES:
-- NEVER create, invent, or reference area connectivity IDs that don't exist in the campaign
-- NEVER add new areaConnectivityId values to location data - only use what already exists
-- NEVER suggest transitions to areas not explicitly listed in location connectivity
-- If you need to reference an area connection, it MUST already exist in the provided location JSON
+CRITICAL LOCATION RESTRICTION RULES:
+- ONLY use location IDs that exist in the campaign (A01, B05, C03, etc.)
+- NEVER create or reference location IDs that don't exist
+- System automatically handles area transitions - you only specify destination location ID
 - When narrating exits or paths, only describe connections that are actually defined in location data
 - If a player asks about paths not in the location data, respond: "There is no such path available from here"
 
@@ -613,23 +612,18 @@ Location Transition:
 - Update the Plot accordingly when the location transition updates a plot element.
 - Always use the names of the adjacent areas provided on the map and location JSON information.
 - Never modify the names of locations or create new locations not specifically listed in the map and location JSON information.
-- VALIDATE: Before using any areaConnectivityId, ensure it exists in the actual campaign structure
-- RESTRICT: Only reference area connections that are explicitly defined in the provided location data
+- VALIDATE: Only use location IDs that exist in the campaign structure
+- RESTRICT: Only reference locations that are explicitly defined in the provided location data
 
-CRITICAL DISTINCTION - Two Types of Transitions:
-1. WITHIN-AREA TRANSITIONS (moving between locations in same area):
-   - Use "newLocation": with location ID (e.g., "C07")
-   - DO NOT use "areaConnectivityId" (leave empty/null)
-   - Example: Moving from Great Hall (C05) to Lord's Study (C07) within SK001
-
-2. CROSS-AREA TRANSITIONS (moving to different area):
-   - Use "newLocation": with new location name
-   - Use "areaConnectivityId": with area ID from areaConnectivityId field
-   - Example: Moving from SK001 to TCD001 using "TCD001"
+SIMPLIFIED LOCATION TRANSITIONS:
+ALL transitions use the same format:
+- Use "newLocation" parameter with location ID only (e.g., "C07", "B01", "A03")
+- System automatically detects if this is within-area or cross-area transition
+- Examples: "C07" (same area), "B01" (different area), "A03" (different area)
 
 - Use the following format to activate a transition to a new location:
 
-WITHIN-AREA TRANSITION:
+LOCATION TRANSITION (SIMPLIFIED):
 {
   "action": "transitionLocation",
   "parameters": {
@@ -637,12 +631,11 @@ WITHIN-AREA TRANSITION:
   }
 }
 
-CROSS-AREA TRANSITION:
+MULTI-AREA TRANSITION EXAMPLE:
 {
   "action": "transitionLocation", 
   "parameters": {
-    "newLocation": "Entrance Chamber",
-    "areaConnectivityId": "TCD001"
+    "newLocation": "B01"
   }
 }
 - Include a "narration" element in this JSON.
@@ -661,7 +654,7 @@ When players request travel to distant locations across multiple areas:
 ### PROCESS FOR MULTI-AREA TRAVEL:
 1. **Recognize Intent**: Player wants to travel across multiple areas to reach a distant destination
 2. **Narrative Journey**: Describe the complete journey path through known areas in narration
-3. **Single Transition**: Use one transitionLocation action to the final destination
+3. **Single Transition**: Use one transitionLocation action with destination location ID only
 4. **Time Accounting**: Update time for entire journey duration (include travel time between all areas)
 5. **Plot Updates**: Reflect completion of dungeon/adventure or major location change
 
@@ -673,8 +666,7 @@ When players request travel to distant locations across multiple areas:
     {
       "action": "transitionLocation",
       "parameters": {
-        "newLocation": "Village Gate",
-        "areaConnectivityId": "HH001"
+        "newLocation": "A03"
       }
     },
     {
@@ -718,8 +710,7 @@ Character Encoding Requirements:
     {
       "action": "transitionLocation",
       "parameters": {
-        "newLocation": "Grand Entrance Hall",
-        "areaConnectivityId": "DS001"
+        "newLocation": "D01"
       }
     },
     {
