@@ -206,40 +206,40 @@
       "module:plotStages"
     ],
     "npc:Dame Elira Dawnsworn": [
-      "campaign:faction:The Order of the Silver Vigil"
+      "module:faction:The Order of the Silver Vigil"
     ],
     "npc:Brother Jorlan": [
-      "campaign:faction:The Order of the Silver Vigil"
+      "module:faction:The Order of the Silver Vigil"
     ],
     "npc:Sergeant Mara Feld": [
-      "campaign:faction:The Order of the Silver Vigil"
+      "module:faction:The Order of the Silver Vigil"
     ],
     "npc:Varek the Shade": [
-      "campaign:faction:The Black Banner"
+      "module:faction:The Black Banner"
     ],
     "npc:Mistress Ilyra": [
-      "campaign:faction:The Black Banner"
+      "module:faction:The Black Banner"
     ],
     "npc:Garrik Two-Fingers": [
-      "campaign:faction:The Black Banner"
+      "module:faction:The Black Banner"
     ],
     "npc:Magister Corvin Leth": [
-      "campaign:faction:Council of Eldermere"
+      "module:faction:Council of Eldermere"
     ],
     "npc:Lady Mirielle d'Ashe": [
-      "campaign:faction:Council of Eldermere"
+      "module:faction:Council of Eldermere"
     ],
     "npc:Envoy Torric": [
-      "campaign:faction:Council of Eldermere"
+      "module:faction:Council of Eldermere"
     ],
     "npc:Druidess Halwen": [
-      "campaign:faction:Circle of the Wild Heart"
+      "module:faction:Circle of the Wild Heart"
     ],
     "npc:Ranger Branik": [
-      "campaign:faction:Circle of the Wild Heart"
+      "module:faction:Circle of the Wild Heart"
     ],
     "npc:Feyfriend Lirael": [
-      "campaign:faction:Circle of the Wild Heart"
+      "module:faction:Circle of the Wild Heart"
     ]
   },
   "validation_issues": [
@@ -255,18 +255,18 @@
     "NPC 'The Shadow Relic' is referenced in ['module:plotStages'] but not placed in any location",
     "NPC 'Elder Mirna Harrow' is referenced in ['module:plotStages'] but not placed in any location",
     "NPC 'Agents of the Black Banner (optional future threat)' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'Dame Elira Dawnsworn' is referenced in ['campaign:faction:The Order of the Silver Vigil'] but not placed in any location",
-    "NPC 'Brother Jorlan' is referenced in ['campaign:faction:The Order of the Silver Vigil'] but not placed in any location",
-    "NPC 'Sergeant Mara Feld' is referenced in ['campaign:faction:The Order of the Silver Vigil'] but not placed in any location",
-    "NPC 'Varek the Shade' is referenced in ['campaign:faction:The Black Banner'] but not placed in any location",
-    "NPC 'Mistress Ilyra' is referenced in ['campaign:faction:The Black Banner'] but not placed in any location",
-    "NPC 'Garrik Two-Fingers' is referenced in ['campaign:faction:The Black Banner'] but not placed in any location",
-    "NPC 'Magister Corvin Leth' is referenced in ['campaign:faction:Council of Eldermere'] but not placed in any location",
-    "NPC 'Lady Mirielle d'Ashe' is referenced in ['campaign:faction:Council of Eldermere'] but not placed in any location",
-    "NPC 'Envoy Torric' is referenced in ['campaign:faction:Council of Eldermere'] but not placed in any location",
-    "NPC 'Druidess Halwen' is referenced in ['campaign:faction:Circle of the Wild Heart'] but not placed in any location",
-    "NPC 'Ranger Branik' is referenced in ['campaign:faction:Circle of the Wild Heart'] but not placed in any location",
-    "NPC 'Feyfriend Lirael' is referenced in ['campaign:faction:Circle of the Wild Heart'] but not placed in any location"
+    "NPC 'Dame Elira Dawnsworn' is referenced in ['module:faction:The Order of the Silver Vigil'] but not placed in any location",
+    "NPC 'Brother Jorlan' is referenced in ['module:faction:The Order of the Silver Vigil'] but not placed in any location",
+    "NPC 'Sergeant Mara Feld' is referenced in ['module:faction:The Order of the Silver Vigil'] but not placed in any location",
+    "NPC 'Varek the Shade' is referenced in ['module:faction:The Black Banner'] but not placed in any location",
+    "NPC 'Mistress Ilyra' is referenced in ['module:faction:The Black Banner'] but not placed in any location",
+    "NPC 'Garrik Two-Fingers' is referenced in ['module:faction:The Black Banner'] but not placed in any location",
+    "NPC 'Magister Corvin Leth' is referenced in ['module:faction:Council of Eldermere'] but not placed in any location",
+    "NPC 'Lady Mirielle d'Ashe' is referenced in ['module:faction:Council of Eldermere'] but not placed in any location",
+    "NPC 'Envoy Torric' is referenced in ['module:faction:Council of Eldermere'] but not placed in any location",
+    "NPC 'Druidess Halwen' is referenced in ['module:faction:Circle of the Wild Heart'] but not placed in any location",
+    "NPC 'Ranger Branik' is referenced in ['module:faction:Circle of the Wild Heart'] but not placed in any location",
+    "NPC 'Feyfriend Lirael' is referenced in ['module:faction:Circle of the Wild Heart'] but not placed in any location"
   ],
   "generated_at": "2025-05-16T00:56:54.735718"
 }
