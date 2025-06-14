@@ -1051,7 +1051,7 @@ def main():
         print("\nModule Summary:")
         print(f"Name: {module['moduleName']}")
         print(f"Description: {module['moduleDescription']}")
-        print(f"World: {module['worldSettings']['worldName']}")
+        print(f"Level Range: {module['moduleMetadata']['levelRange']['min']}-{module['moduleMetadata']['levelRange']['max']}")
         print(f"Main Villain: {module['mainPlot']['antagonist']}")
 
 if __name__ == "__main__":
