@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DungeonMasterAI</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background-color: #2c2c2c;
+            padding: 10px 20px;
+            border-bottom: 2px solid #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            color: #4CAF50;
+            font-size: 24px;
+        }
+        
+        .location-info {
+            color: #FFA500;
+            font-size: 14px;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            flex: 1;
+            margin: 0 20px;
+        }
+        
+        .location-name {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        
+        .location-details {
+            color: #888;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #555;
+        }
+        
+        .status-indicator.connected {
+            background-color: #4CAF50;
+        }
+        
+        .main-container {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 60px);
+        }
+        
+        .panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #444;
+            margin: 10px;
+            background-color: #2c2c2c;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            background-color: #333;
+            padding: 10px;
+            font-weight: bold;
+            border-bottom: 1px solid #444;
+        }
+        
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .game-panel {
+            flex: 2;
+        }
+        
+        .debug-panel {
+            flex: 1;
+            max-width: 500px;
+        }
+        
+        .input-container {
+            display: flex;
+            padding: 10px;
+            background-color: #333;
+            border-top: 1px solid #444;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 8px 12px;
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            color: #e0e0e0;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        .send-button {
+            margin-left: 10px;
+            padding: 8px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .send-button:hover {
+            background-color: #45a049;
+        }
+        
+        .send-button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+        
+        .start-button {
+            padding: 8px 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .start-button:hover {
+            background-color: #1976D2;
+        }
+        
+        .message {
+            margin-bottom: 5px;
+            padding: 3px 0;
+        }
+        
+        .message.narration {
+            color: #FFA500;
+            font-style: italic;
+        }
+        
+        .message.user-input {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .message.error {
+            color: #f44336;
+        }
+        
+        .message.debug {
+            color: #888;
+            font-size: 0.9em;
+        }
+        
+        .message.debug.error {
+            color: #ff6b6b;
+        }
+        
+        .timestamp {
+            color: #666;
+            font-size: 0.8em;
+            margin-right: 10px;
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #666;
+        }
+        
+        /* Tab styling */
+        .tabs {
+            display: flex;
+            background-color: #333;
+            border-bottom: 1px solid #444;
+        }
+        
+        .tab-button {
+            flex: 1;
+            padding: 10px;
+            background-color: #333;
+            color: #888;
+            border: none;
+            border-right: 1px solid #444;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .tab-button:last-child {
+            border-right: none;
+        }
+        
+        .tab-button:hover {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+        }
+        
+        .tab-button.active {
+            background-color: #2c2c2c;
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
+        }
+        
+        .tab-content {
+            height: calc(100% - 41px);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            background-color: #1a1a1a;
+        }
+        
+        /* MODIFIED */
+        #stats-content {
+            padding: 0 !important; /* Ensure no top padding */
+            background-color: #0a0a0a;
+            overflow: hidden;
+            display: block; /* Ensure block display to prevent flex centering of child */
+        }
+        
+        /* MODIFIED */
+        .character-sheet-wrapper {
+            transform-origin: top left;
+            transition: transform 0.3s ease;
+            display: block; /* Explicitly set display type */
+            margin: 0;      /* Remove any potential default margins */
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-style: italic;
+        }
+        
+        /* Inventory styling - modern design matching character sheet */
+        .inventory-sheet {
+            padding: 8px;
+            margin: 0;
+            background-color: #1a1a1a;
+            border: 2px solid #444;
+            border-radius: 8px;
+            font-family: 'Crimson Text', Georgia, serif;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 255, 255, 0.01) 10px,
+                    rgba(255, 255, 255, 0.01) 20px
+                );
+        }
+        
+        .inventory-header {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #666;
+        }
+        
+        .currency-display {
+            text-align: center;
+        }
+        
+        .currency-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #FFA500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Cinzel', Georgia, serif;
+            margin-bottom: 8px;
+        }
+        
+        .currency-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        
+        .currency-item {
+            background-color: #2c2c2c;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 4px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .currency-amount {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4CAF50;
+            line-height: 1;
+        }
+        
+        .currency-type {
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .currency-total {
+            font-size: 16px;
+            color: #FFA500;
+            font-style: italic;
+            margin-top: 4px;
+        }
+        
+        .inventory-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .equipment-section {
+            grid-column: 1 / -1; /* Full width */
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 6px;
+            margin-bottom: 8px;
+        }
+        
+        .inventory-section {
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 6px;
+            margin: 0;
+        }
+        
+        .inventory-section h4 {
+            margin: 0 0 6px 0;
+            color: #FFA500;
+            border-bottom: 1px solid #444;
+            padding-bottom: 3px;
+            text-transform: uppercase;
+            font-size: 16px;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', Georgia, serif;
+        }
+        
+        .inventory-item {
+            padding: 3px 0;
+            border-bottom: 1px solid #222;
+            font-size: 14px;
+        }
+        
+        .inventory-item:last-child {
+            border-bottom: none;
+        }
+        
+        .inventory-item:hover {
+            background-color: rgba(255, 165, 0, 0.1);
+        }
+        
+        .item-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+        
+        .item-name {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 17px;
+        }
+        
+        .item-qty {
+            color: #999;
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        .weapon-bonus {
+            color: #ff8c00;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .item-details {
+            font-size: 12px;
+            color: #bbb;
+            line-height: 1.3;
+        }
+        
+        .item-type {
+            color: #777;
+            font-style: italic;
+            text-transform: capitalize;
+        }
+        
+        .weapon-damage {
+            color: #ff8c00;
+            font-weight: bold;
+            font-size: 15px;
+        }
+        
+        .item-desc {
+            color: #ccc;
+            margin-top: 1px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        /* Character Sheet Styling */
+        .character-sheet {
+            padding: 8px;
+            margin: 0;
+            background-color: #1a1a1a;
+            border: 2px solid #444;
+            border-radius: 8px;
+            font-family: 'Crimson Text', Georgia, serif;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 255, 255, 0.01) 10px,
+                    rgba(255, 255, 255, 0.01) 20px
+                );
+        }
+        
+        /* MODIFIED */
+        .character-header {
+            margin: 0;
+            padding: 0 0 3px 0;
+            border-bottom: 2px solid #666;
+        }
+        
+        /* MODIFIED */
+        .character-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            color: #ccc;
+            font-size: 16px;
+            line-height: 1.2;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* ADDED */
+        .character-details > .detail-left > div,
+        .character-details > .detail-right > div {
+            margin-bottom: 2px; /* Small gap between lines in each column */
+            min-height: 1.3em; /* Ensure lines take up similar space for better cross-alignment */
+        }
+        
+        /* ADDED */
+        .character-details > .detail-left > div:last-child,
+        .character-details > .detail-right > div:last-child {
+            margin-bottom: 0; /* No margin for the last line in each column */
+        }
+        
+        .detail-left {
+            flex: 1;
+        }
+        
+        .detail-right {
+            text-align: right;
+        }
+        
+        .orange {
+            color: #FFA500;
+            font-weight: bold;
+        }
+        
+        /* MODIFIED */
+        .character-name {
+            font-size: 32px;
+            font-weight: 600;
+            color: #FFA500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Cinzel', Georgia, serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: 0;
+            outline: 0;
+            vertical-align: baseline;
+            background: transparent;
+        }
+        
+        /* Ability Scores */
+        /* MODIFIED */
+        .abilities-row {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2px;
+            margin-top: 3px; /* Ensure it's not too far from details */
+            margin-bottom: 3px; /* Reduced */
+        }
+        
+        .ability-score {
+            background-color: #2c2c2c;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 2px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .ability-score:hover {
+            border-color: #FFA500;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 165, 0, 0.2);
+        }
+        
+        .ability-name {
+            font-size: 18px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .ability-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #e0e0e0;
+            margin: 0;
+            line-height: 0.9;
+        }
+        
+        .ability-modifier {
+            font-size: 20px;
+            color: #FFA500;
+            border: 1px solid #FFA500;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            background-color: rgba(255, 165, 0, 0.1);
+            font-weight: bold;
+        }
+        
+        /* Combat Stats */
+        .combat-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            margin-bottom: 0;
+        }
+        
+        .combat-stat {
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 3px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .combat-stat::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #FFA500, #444);
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+        
+        .combat-stat:hover::before {
+            opacity: 0.1;
+        }
+        
+        .combat-stat-label {
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .combat-stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4CAF50;
+            line-height: 1;
+            margin: 2px 0;
+        }
+        
+        .hp-bar {
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 3px;
+            height: 6px;
+            margin-top: 1px;
+            overflow: hidden;
+        }
+        
+        .hp-fill {
+            background-color: #4CAF50;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .hp-fill.low {
+            background-color: #f44336;
+        }
+        
+        .hp-fill.medium {
+            background-color: #ff9800;
+        }
+        
+        /* Skills and Saves */
+        .skills-saves-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-top: 0;
+            margin-bottom: 3px;
+        }
+        
+        .stat-group {
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 2px;
+            margin: 0;
+        }
+        
+        .stat-group h4 {
+            margin: 0 0 2px 0;
+            color: #FFA500;
+            border-bottom: 1px solid #444;
+            padding: 2px 0 2px 0;
+            text-transform: uppercase;
+            font-size: 18px;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', Georgia, serif;
+        }
+        
+        .save-item, .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1px 2px;
+            margin: 0;
+            font-size: 21px;
+            line-height: 1;
+        }
+        
+        .save-item:hover, .skill-item:hover {
+            background-color: rgba(255, 165, 0, 0.1);
+        }
+        
+        .save-name, .skill-name {
+            color: #aaa;
+            font-size: 21px;
+        }
+        
+        .save-value, .skill-value {
+            color: #e0e0e0;
+            font-weight: bold;
+            font-size: 21px;
+        }
+        
+        .stat-group-content {
+            padding-right: 0;
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        
+        
+        
+        /* Features and Abilities */
+        .features-section {
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 3px;
+            margin-bottom: 3px;
+        }
+        
+        .features-section h4 {
+            margin: 0 0 2px 0;
+            color: #FFA500;
+            border-bottom: 1px solid #444;
+            padding-bottom: 2px;
+            text-transform: uppercase;
+            font-size: 24px;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', Georgia, serif;
+        }
+        
+        .features-abilities-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-top: 3px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            padding: 2px 4px;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.2;
+            cursor: help;
+            transition: background-color 0.2s;
+        }
+        
+        .feature-item:hover {
+            background-color: rgba(255, 165, 0, 0.1);
+        }
+        
+        .feature-bullet {
+            color: #FFA500;
+            margin-right: 6px;
+            font-size: 14px;
+        }
+        
+        .feature-name {
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+        
+        /* NPC styling */
+        .npc-card {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #333;
+            border-radius: 3px;
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .npc-name {
+            font-weight: bold;
+            color: #4CAF50;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .npc-info {
+            color: #ccc;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>DungeonMasterAI</h1>
+        <div class="location-info" id="location-info">
+            <div class="location-name" id="location-name">Loading location...</div>
+            <div class="location-details" id="location-details"></div>
+        </div>
+        <div class="status">
+            <span id="status-text">Disconnected</span>
+            <div class="status-indicator" id="status-indicator"></div>
+            <button class="start-button" id="start-button" onclick="startGame()">Start Game</button>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="panel game-panel">
+            <div class="panel-header">Game Output</div>
+            <div class="panel-content" id="game-output"></div>
+            <div class="input-container">
+                <input 
+                    type="text" 
+                    class="input-field" 
+                    id="user-input" 
+                    placeholder="Enter your command..."
+                    disabled
+                    onkeypress="handleKeyPress(event)"
+                />
+                <button class="send-button" id="send-button" onclick="sendInput()" disabled>Send</button>
+            </div>
+        </div>
+        
+        <div class="panel debug-panel">
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('stats')">Character</button>
+                <button class="tab-button" onclick="switchTab('inventory')">Inventory</button>
+                <button class="tab-button" onclick="switchTab('npcs')">NPCs</button>
+                <button class="tab-button" onclick="switchTab('debug')">Debug</button>
+            </div>
+            <div class="tab-content" id="debug-tab" style="display: none;">
+                <div class="panel-content" id="debug-output"></div>
+            </div>
+            <div class="tab-content" id="inventory-tab" style="display: none;">
+                <div class="panel-content" id="inventory-content">
+                    <div class="loading">Loading inventory...</div>
+                </div>
+            </div>
+            <div class="tab-content" id="stats-tab" style="display: block;">
+                <div class="panel-content" id="stats-content">
+                    <div class="loading">Loading character stats...</div>
+                </div>
+            </div>
+            <div class="tab-content" id="npcs-tab" style="display: none;">
+                <div class="panel-content" id="npcs-content">
+                    <div class="loading">Loading NPC information...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const socket = io();
+        let connected = false;
+        let gameStarted = false;
+        
+        // Auto-scroll to bottom function
+        function scrollToBottom(elementId) {
+            const element = document.getElementById(elementId);
+            element.scrollTop = element.scrollHeight;
+        }
+        
+        // Format timestamp
+        function formatTimestamp(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleTimeString();
+        }
+        
+        // Add message to output
+        function addMessage(outputId, message) {
+            const output = document.getElementById(outputId);
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${message.type}`;
+            
+            // Add timestamp if available
+            if (message.timestamp) {
+                const timestamp = document.createElement('span');
+                timestamp.className = 'timestamp';
+                timestamp.textContent = formatTimestamp(message.timestamp);
+                messageDiv.appendChild(timestamp);
+            }
+            
+            // Add content
+            const content = document.createElement('span');
+            content.textContent = message.content;
+            messageDiv.appendChild(content);
+            
+            output.appendChild(messageDiv);
+            scrollToBottom(outputId);
+        }
+        
+        // Socket event handlers
+        socket.on('connect', () => {
+            connected = true;
+            document.getElementById('status-text').textContent = 'Connected';
+            document.getElementById('status-indicator').classList.add('connected');
+            
+            // Load character stats (default tab) when connected
+            loadCharacterStats();
+        });
+        
+        socket.on('disconnect', () => {
+            connected = false;
+            gameStarted = false;
+            document.getElementById('status-text').textContent = 'Disconnected';
+            document.getElementById('status-indicator').classList.remove('connected');
+            document.getElementById('user-input').disabled = true;
+            document.getElementById('send-button').disabled = true;
+        });
+        
+        socket.on('game_started', (data) => {
+            gameStarted = true;
+            document.getElementById('start-button').textContent = 'Game Running';
+            document.getElementById('start-button').disabled = true;
+            document.getElementById('user-input').disabled = false;
+            document.getElementById('send-button').disabled = false;
+            document.getElementById('user-input').focus();
+            
+            addMessage('game-output', {
+                type: 'system',
+                content: 'Game started! You can now enter commands.',
+                timestamp: new Date().toISOString()
+            });
+            
+            // Load character stats (default tab) when game starts
+            loadCharacterStats();
+        });
+        
+        socket.on('game_output', (message) => {
+            addMessage('game-output', message);
+        });
+        
+        socket.on('debug_output', (message) => {
+            addMessage('debug-output', message);
+        });
+        
+        socket.on('error', (error) => {
+            addMessage('game-output', {
+                type: 'error',
+                content: error.message,
+                timestamp: new Date().toISOString()
+            });
+        });
+        
+        socket.on('status_update', (data) => {
+            const input = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            
+            if (data.is_processing) {
+                // Show status message and disable input
+                input.placeholder = data.message;
+                input.disabled = true;
+                sendButton.disabled = true;
+            } else {
+                // Clear status and enable input
+                input.placeholder = "Enter your command...";
+                input.disabled = false;
+                sendButton.disabled = false;
+                input.focus();
+            }
+        });
+        
+        // User interaction functions
+        function startGame() {
+            if (connected && !gameStarted) {
+                socket.emit('start_game');
+            }
+        }
+        
+        function sendInput() {
+            const input = document.getElementById('user-input');
+            const value = input.value.trim();
+            
+            if (value && connected && gameStarted) {
+                socket.emit('user_input', { input: value });
+                input.value = '';
+                input.focus();
+            }
+        }
+        
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendInput();
+            }
+        }
+        
+        // Tab switching function
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => {
+                tab.style.display = 'none';
+            });
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(`${tabName}-tab`).style.display = 'block';
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Load data for the selected tab
+            if (tabName === 'inventory') {
+                loadInventory();
+            } else if (tabName === 'stats') {
+                loadCharacterStats();
+            } else if (tabName === 'npcs') {
+                loadNPCs();
+            }
+        }
+        
+        // Load player inventory
+        function loadInventory() {
+            socket.emit('request_player_data', { dataType: 'inventory' });
+        }
+        
+        // Load character stats
+        function loadCharacterStats() {
+            socket.emit('request_player_data', { dataType: 'stats' });
+        }
+        
+        // Load NPC information
+        function loadNPCs() {
+            socket.emit('request_player_data', { dataType: 'npcs' });
+        }
+        
+        // Load current location data
+        function loadLocationData() {
+            socket.emit('request_location_data');
+        }
+        
+        // Display inventory data
+        function displayInventory(data) {
+            const container = document.getElementById('inventory-content');
+            if (!data) {
+                container.innerHTML = '<div class="loading">No inventory data available</div>';
+                return;
+            }
+            
+            let html = '<div class="inventory-sheet">';
+            if (data.currency) {
+                const gold = data.currency.gold || 0;
+                const silver = data.currency.silver || 0;
+                const copper = data.currency.copper || 0;
+                const total = gold + (silver * 0.1) + (copper * 0.01);
+                
+                html += `<div class="inventory-header"><div class="currency-display"><div class="currency-title">Currency</div><div class="currency-grid"><div class="currency-item"><span class="currency-amount">${gold}</span><span class="currency-type">GP</span></div><div class="currency-item"><span class="currency-amount">${silver}</span><span class="currency-type">SP</span></div><div class="currency-item"><span class="currency-amount">${copper}</span><span class="currency-type">CP</span></div></div><div class="currency-total">Total: ${total.toFixed(2)} GP</div></div></div>`;
+            }
+            
+            // Equipment section - always show
+            html += '<div class="equipment-section"><h4>Equipment</h4>';
+            if (data.equipment && data.equipment.length > 0) {
+                data.equipment.forEach(item => {
+                    const qty = item.quantity || 1;
+                    const qtyStr = qty > 1 ? ` ×${qty}` : '';
+                    const type = (item.item_type || 'misc').toLowerCase();
+                    const desc = (item.description || '').substr(0, 80);
+                    html += `<div class="inventory-item" title="${desc}"><span class="feature-bullet">●</span><span class="item-name">${item.item_name}${qtyStr}</span><span class="item-type"> (${type})</span></div>`;
+                });
+            } else {
+                html += '<div class="inventory-item"><span class="feature-bullet">●</span><span class="item-name">No equipment</span></div>';
+            }
+            html += '</div>';
+            
+            // Main inventory sections in grid layout
+            html += '<div class="inventory-sections">';
+            
+            // Weapons and attacks
+            if (data.attacksAndSpellcasting && data.attacksAndSpellcasting.length > 0) {
+                html += '<div class="inventory-section"><h4>Weapons & Attacks</h4>';
+                data.attacksAndSpellcasting.forEach(weapon => {
+                    const damage = weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`;
+                    const attack = weapon.attackBonus >= 0 ? `+${weapon.attackBonus}` : weapon.attackBonus;
+                    const damageInfo = `Damage: ${damage} (${weapon.damageType || 'damage'})`;
+                    const fullDesc = weapon.description || '';
+                    html += `<div class="inventory-item" title="${fullDesc}"><div class="item-main"><span class="item-name">${weapon.name}</span><span class="weapon-bonus">${attack}</span></div><div class="item-details"><span class="weapon-damage">${damageInfo}</span></div></div>`;
+                });
+                html += '</div>';
+            }
+            
+            // Ammunition
+            if (data.ammunition && data.ammunition.length > 0) {
+                html += '<div class="inventory-section"><h4>Ammunition</h4>';
+                data.ammunition.forEach(ammo => {
+                    const desc = (ammo.description || '');
+                    html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${ammo.name}</span><span class="item-qty">×${ammo.quantity}</span></div></div>`;
+                });
+                html += '</div>';
+            }
+            
+            html += '</div>'; // End inventory-sections
+            html += '</div>'; // End inventory-sheet
+            container.innerHTML = html;
+        }
+        
+        // Display character stats
+        function displayCharacterStats(data) {
+            const container = document.getElementById('stats-content');
+            if (!data) {
+                container.innerHTML = '<div class="loading">No character data available</div>';
+                return;
+            }
+            
+            // Calculate ability modifiers
+            function getModifier(score) {
+                const mod = Math.floor((score - 10) / 2);
+                return mod >= 0 ? `+${mod}` : `${mod}`;
+            }
+            
+            // Calculate HP percentage
+            const hpPercent = (data.hitPoints / data.maxHitPoints) * 100;
+            let hpClass = '';
+            if (hpPercent <= 25) hpClass = 'low';
+            else if (hpPercent <= 50) hpClass = 'medium';
+            
+            let html = '<div class="character-sheet">';
+            
+            // Character Header
+            html += `<div class="character-header"><div class="character-name">${data.name}</div><div class="character-details"><div class="detail-left"><div><span class="orange">Level ${data.level}</span> ${data.race} ${data.class}</div><div><span class="orange">Profession:</span> ${data.background || 'Adventurer'} • <span class="orange">Alignment:</span> ${data.alignment || 'Neutral'}</div></div><div class="detail-right"><div><span class="orange">XP:</span> ${data.experience_points} / ${data.exp_required_for_next_level}</div><div><span class="orange">Status:</span> ${data.status || 'Alive'} • <span class="orange">Prof:</span> +${data.proficiencyBonus || 2}</div></div></div></div>`;
+            
+            // Ability Scores
+            if (data.abilities) {
+                html += '<div class="abilities-row">';
+                const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+                abilities.forEach(ability => {
+                    const score = data.abilities[ability] || 10;
+                    const modifier = getModifier(score);
+                    html += `
+                        <div class="ability-score">
+                            <div class="ability-name">${ability.substr(0, 3).toUpperCase()}</div>
+                            <div class="ability-value">${score}</div>
+                            <div class="ability-modifier">${modifier}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // Combat Stats
+            html += `<div class="combat-stats"><div class="combat-stat"><div class="combat-stat-label">Hit Points</div><div class="combat-stat-value">${data.hitPoints}/${data.maxHitPoints}</div><div class="hp-bar"><div class="hp-fill ${hpClass}" style="width: ${hpPercent}%"></div></div></div><div class="combat-stat"><div class="combat-stat-label">Armor Class</div><div class="combat-stat-value">${data.armorClass}</div></div><div class="combat-stat"><div class="combat-stat-label">Initiative</div><div class="combat-stat-value">${data.initiative >= 0 ? '+' : ''}${data.initiative}</div></div></div>`;
+            
+            // Skills and Saves in two columns
+            html += '<div class="skills-saves-container">';
+            
+            // Saving Throws
+            if (data.savingThrows && data.savingThrows.length > 0) {
+                html += '<div class="stat-group"><h4>Saving Throws</h4><div class="stat-group-content">';
+                const allSaves = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
+                allSaves.forEach(save => {
+                    const isProficient = data.savingThrows.includes(save);
+                    const ability = save.toLowerCase();
+                    const abilityMod = data.abilities ? Math.floor((data.abilities[ability] - 10) / 2) : 0;
+                    const bonus = isProficient ? abilityMod + (data.proficiencyBonus || 2) : abilityMod;
+                    const bonusStr = bonus >= 0 ? `+${bonus}` : `${bonus}`;
+                    html += `<div class="save-item"><span class="save-name">${save} ${isProficient ? '●' : '○'}</span><span class="save-value">${bonusStr}</span></div>`;
+                });
+                html += '</div></div>';
+            }
+            
+            // Skills
+            if (data.skills) {
+                html += '<div class="stat-group"><h4>Skills</h4><div class="stat-group-content">';
+                Object.entries(data.skills).forEach(([skill, value]) => {
+                    const bonus = value >= 0 ? `+${value}` : `${value}`;
+                    html += `<div class="skill-item"><span class="skill-name">${skill}</span><span class="skill-value">${bonus}</span></div>`;
+                });
+                html += '</div></div>';
+            }
+            
+            html += '</div>'; // End skills-saves-container
+            
+            // Features and Abilities in two columns
+            html += '<div class="features-abilities-container">';
+            
+            // Class Features column
+            html += '<div class="stat-group"><h4>Class Features</h4><div class="stat-group-content">';
+            if (data.classFeatures && data.classFeatures.length > 0) {
+                data.classFeatures.forEach(feature => {
+                    const desc = feature.description || '';
+                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">●</span><span class="feature-name">${feature.name || feature}</span></div>`;
+                });
+            } else {
+                html += '<div class="feature-item"><span class="feature-name">No class features</span></div>';
+            }
+            html += '</div></div>';
+            
+            // Temporary Effects & Other Abilities column
+            html += '<div class="stat-group"><h4>Special Abilities</h4><div class="stat-group-content">';
+            
+            // Show racial traits (excluding basic ones)
+            if (data.racialTraits && data.racialTraits.length > 0) {
+                const basicTraits = ['Ability Score Increase', 'Languages', 'Extra Language'];
+                data.racialTraits.forEach(trait => {
+                    // Only show special racial traits, not basic ones
+                    if (!basicTraits.includes(trait.name)) {
+                        const desc = trait.description || '';
+                        html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">◈</span><span class="feature-name">${trait.name}</span></div>`;
+                    }
+                });
+            }
+            
+            // Show background feature
+            if (data.backgroundFeature && data.backgroundFeature.name) {
+                const desc = data.backgroundFeature.description || '';
+                html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">✦</span><span class="feature-name">${data.backgroundFeature.name}</span></div>`;
+            }
+            
+            // Show temporary effects
+            if (data.temporaryEffects && data.temporaryEffects.length > 0) {
+                data.temporaryEffects.forEach(effect => {
+                    const desc = effect.description || '';
+                    const duration = effect.duration ? ` (${effect.duration})` : '';
+                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">◆</span><span class="feature-name">${effect.name}${duration}</span></div>`;
+                });
+            }
+            
+            // Show feats
+            if (data.feats && data.feats.length > 0) {
+                data.feats.forEach(feat => {
+                    const desc = feat.description || '';
+                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}"><span class="feature-bullet">★</span><span class="feature-name">${feat.name}</span></div>`;
+                });
+            }
+            
+            // Show if no special abilities
+            const hasAnySpecial = (data.racialTraits && data.racialTraits.length > 0) || 
+                                 (data.backgroundFeature && data.backgroundFeature.name) || 
+                                 (data.temporaryEffects && data.temporaryEffects.length > 0) ||
+                                 (data.feats && data.feats.length > 0);
+            if (!hasAnySpecial) {
+                html += '<div class="feature-item"><span class="feature-name">No special abilities</span></div>';
+            }
+            
+            html += '</div></div>';
+            
+            html += '</div>'; // End features-abilities-container
+            
+            html += '</div>'; // End character-sheet
+            
+            container.innerHTML = html;
+        }
+        
+        // Display NPC information
+        function displayNPCs(data) {
+            const container = document.getElementById('npcs-content');
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="loading">No NPC data available</div>';
+                return;
+            }
+            
+            let html = '';
+            
+            data.forEach(npc => {
+                html += `
+                    <div class="npc-card">
+                        <div class="npc-name">${npc.name}</div>
+                        <div class="npc-info">
+                            <div class="stat-item">
+                                <span class="stat-name">Race/Class</span>
+                                <span class="stat-value">${npc.race} ${npc.class}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">Level</span>
+                                <span class="stat-value">${npc.level}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">HP</span>
+                                <span class="stat-value">${npc.hitPoints}/${npc.maxHitPoints}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">AC</span>
+                                <span class="stat-value">${npc.armorClass}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">Status</span>
+                                <span class="stat-value">${npc.status}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // Display location data
+        function displayLocationData(data) {
+            const locationName = document.getElementById('location-name');
+            const locationDetails = document.getElementById('location-details');
+            
+            if (!data) {
+                locationName.textContent = 'Location Unknown';
+                locationDetails.textContent = '';
+                return;
+            }
+            
+            // Display current location and area
+            locationName.textContent = `${data.currentLocation} (${data.currentArea})`;
+            
+            // Display time and location IDs for debugging
+            const timeStr = data.time ? `${data.day} ${data.month} ${data.year} - ${data.time}` : 'Time Unknown';
+            const idStr = data.currentLocationId ? `[${data.currentAreaId}:${data.currentLocationId}]` : '';
+            locationDetails.textContent = `${timeStr} ${idStr}`;
+        }
+        
+        // Handle data responses from server
+        socket.on('player_data_response', (response) => {
+            if (response.dataType === 'inventory') {
+                displayInventory(response.data);
+            } else if (response.dataType === 'stats') {
+                displayCharacterStats(response.data);
+            } else if (response.dataType === 'npcs') {
+                displayNPCs(response.data);
+            }
+        });
+        
+        // Handle location data response
+        socket.on('location_data_response', (response) => {
+            displayLocationData(response.data);
+        });
+        
+        // Auto-refresh data every 5 seconds when tab is active
+        setInterval(() => {
+            const activeTabButton = document.querySelector('.tab-button.active');
+            if (activeTabButton) {
+                const activeTab = activeTabButton.textContent.toLowerCase();
+                if (activeTab === 'inventory') {
+                    loadInventory();
+                } else if (activeTab === 'character') {
+                    loadCharacterStats();
+                } else if (activeTab === 'npcs') {
+                    loadNPCs();
+                }
+            }
+            // Always refresh location data for debugging
+            loadLocationData();
+        }, 5000);
+        
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', () => {
+            // Focus on input field when page loads
+            const inputField = document.getElementById('user-input');
+            inputField.focus();
+            
+            // Load initial location data
+            loadLocationData();
+            
+            // Load character stats (default tab) on page load
+            // This handles page refreshes when already connected
+            if (connected) {
+                loadCharacterStats();
+            }
+        });
+    </script>
+</body>
+</html>

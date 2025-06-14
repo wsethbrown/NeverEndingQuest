@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 42,
   "maxHitPoints": 42,
-  "armorClass": 15,
+  "armorClass": 16,
   "initiative": 3,
   "speed": 35,
   "abilities": {
@@ -159,8 +159,7 @@
       "description": "Light armor made of tough but flexible leather with metal studs.",
       "quantity": 1,
       "armor_class": 12,
-      "armor_type": "light",
-      "equipped": true
+      "armor_type": "light"
     },
     {
       "item_name": "Longbow",
@@ -174,7 +173,7 @@
     },
     {
       "item_name": "Arrows",
-      "item_type": "miscellaneous",
+      "item_type": "ammunition",
       "description": "Standard arrows for a longbow.",
       "quantity": 60
     },
@@ -216,7 +215,7 @@
     },
     {
       "item_name": "Traveler's clothes",
-      "item_type": "miscellaneous",
+      "item_type": "clothing",
       "description": "Sturdy clothes suitable for travel.",
       "quantity": 1
     },
@@ -231,7 +230,7 @@
     {
       "name": "Arrows",
       "quantity": 60,
-      "description": "Standard arrows for longbow"
+      "type": "arrow"
     }
   ],
   "attacksAndSpellcasting": [
@@ -286,44 +285,6 @@
       "level7": [],
       "level8": [],
       "level9": []
-    },
-    "spellSlots": {
-      "level1": {
-        "current": 1,
-        "max": 4
-      },
-      "level2": {
-        "current": 2,
-        "max": 2
-      },
-      "level3": {
-        "current": 0,
-        "max": 0
-      },
-      "level4": {
-        "current": 0,
-        "max": 0
-      },
-      "level5": {
-        "current": 0,
-        "max": 0
-      },
-      "level6": {
-        "current": 0,
-        "max": 0
-      },
-      "level7": {
-        "current": 0,
-        "max": 0
-      },
-      "level8": {
-        "current": 0,
-        "max": 0
-      },
-      "level9": {
-        "current": 0,
-        "max": 0
-      }
     }
   },
   "currency": {

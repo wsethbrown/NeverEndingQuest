@@ -1,20 +1,132 @@
 {
+    "role": "user",
+    "content": "Dungeon Master Note: Current date and time: 1492 Ches 2 07:55:00. Player: What time is it?"
+  },
+  {
     "role": "assistant",
-    "content": "{\n  \"plan\": \"Combat round 1 begins. Initiative order is Wight (18), then Norn (5), then Shadow Mastiff (5). All creatures are alive and at full HP. The Wight will begin the fight by attacking from cover, followed by Norn's turn, then the Shadow Mastiff will circle to flank. Awaiting player input on actions for Norn after Wight's attack resolution.\",\n  \"narration\": \"The dim light of the Guard Post flickers against cracked stone walls, casting long cross-shaped shadows from the towering pillars. Before you, a corroded figure clad in ancient mail steps forward—a Wight, its eyes burning with a cold, relentless hunger. From the darkness, a shadow mastiff slinks silently, its form wreathed in ethereal gloom as it stalks to flank. The wight looses a dark, rasping chuckle as it draws a rusted longbow, aiming from the safety of the pillar's cover.\\n\\nThe stale scent of neglect and old battles hangs thick in the air. The heavy wooden table, faded duty rosters, and the desecrated shrine stand as witnesses to this grim confrontation.\\n\\nThe Wight acts first, poised to strike. Then it will be your moment, Norn. Brace yourself: the shadow mastiff is circling—its bite will be swift and unforgiving. What is your first move in this deadly dance?\",\n  \"combat_round\": 1,\n  \"actions\": []\n}"
+    "content": "{\n  \"narration\": \"You take a steadying breath, glancing up at the faint, rune-lit arch of the Relic Chamber. Though the air here seems frozen in the hush of aftermath, you recall the rhythm of your journey, the distant light seeping through cracks in the keep above. By your reckoning, it is now just before the eighth bell of morning--nearly 8 o'clock. Judging by your own hunger and weariness, dawn has fully broken outside, and the world beyond these stones awaits your return.\",\n  \"actions\": [\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 2\n      }\n    }\n  ]\n}"
   },
   {
     "role": "user",
-    "content": "Dungeon Master Note: Respond with valid JSON containing a 'narration' field, 'combat_round' field, and an 'actions' array. \n\nCRITICAL UPDATE RULES:\n- For PLAYERS and NPCs: Use 'updateCharacterInfo' with characterName parameter\n- For MONSTERS: Use 'updateEncounter' with a text description in the changes field\n- NEVER use updateCharacterInfo for monsters - it will fail\n- Example for monster: {\"action\": \"updateEncounter\", \"parameters\": {\"encounterId\": \"XXX\", \"changes\": \"Specter takes 7 damage, HP from 22 to 15\"}}\n- Example for player/NPC: {\"action\": \"updateCharacterInfo\", \"parameters\": {\"characterName\": \"Norn\", \"changes\": \"Takes 5 damage from attack\"}}\n\nImportant Character Field Definitions:\n- 'status' field: Overall life/death state - ONLY use 'alive', 'dead', 'unconscious', or 'defeated' (lowercase)\n- 'condition' field: D&D 5e status conditions - use 'none' when no conditions, or valid D&D conditions like 'blinded', 'charmed', 'poisoned', etc.\n- 'condition_affected' array: List of active D&D conditions affecting the character\n\nCritical Rules:\n1. NEVER set condition to 'alive' - that goes in the status field\n2. NEVER set status to 'none' - use 'alive' for conscious characters\n3. Include the 'exit' action when the encounter ends\n4. All field values must match the expected schema exactly\n5. MANDATORY: Include \"combat_round\" field in your response\n6. Track combat rounds: increment ONLY when ALL alive creatures have completed their turns in initiative order\n7. Current round is 1 - advance to next round when all creatures have acted\n\nCurrent dynamic state for all creatures:\nNorn:\n  - HP: 39/47\n  - Status: alive\n  - Condition: none\n\nWight:\n  - HP: 45/45\n  - Status: alive\n  - Condition: none\n\nShadow Mastiff:\n  - HP: 33/33\n  - Status: alive\n  - Condition: none\n\nInitiative Order: Wight (18, alive) -> Norn (5, alive) -> Shadow Mastiff (5, alive)\n\nDM Note: COMBAT ROUND 1 - DICE AVAILABLE:\nPreroll Set ID: 1-7635 (Generated at round start)\n\n=== GENERIC DICE (use for spells, abilities, improvisation) ===\nd4: [4,4,2,2,4,1,3,1] | d6: [4,1,3,4,5,5,2,3] | d8: [6,8,1,4,4,4] | d10: [4,6,2,9,1,9] | d12: [1,11,6,11] | d20: [1,19,13,2,2,18,19,11,15,9]\n\n=== CREATURE ATTACKS (exact number per creature) ===\n[PLAYER: Norn] Must make own rolls\nWight: Attack[17], Attack[19], Attack[8] (3 attacks available: Longsword (Melee), Longsword (Versatile), Longbow)\nShadow Mastiff: Attack[2] (1 attack available: Bite)\n\n=== SAVING THROWS ===\nWight: STR:12, DEX:5, CON:17, INT:16, WIS:7, CHA:3\nShadow Mastiff: STR:8, DEX:18, CON:14, INT:12, WIS:19, CHA:14\n\nIMPORTANT: Each creature can only make the number of attacks listed above.\nUse generic dice pool for damage rolls, spells, and other abilities.\nApply all appropriate modifiers (ability scores, proficiency, weapon bonuses, etc.).\nNote: Norn must make their own rolls.\n\nCOMBAT TRACKING: You MUST include \"combat_round\" field in your JSON response.\nTrack combat rounds: increment ONLY when ALL alive creatures have completed their turns in initiative order.\nThese dice remain constant throughout the current round.\n\nPlayer: I'll attack the mastiff with my longsword"
-  },
-  {
-    "role": "assistant",
-    "content": "{\n  \"plan\": \"Round 1 continuing. Initiative order: Wight (acted), Norn (current turn), Shadow Mastiff (next in order). Norn declared a longsword attack on the Shadow Mastiff. Awaiting player’s d20 attack roll plus +5 modifier. Once hit is confirmed, wait for 1d8 + 3 damage roll. Combat_round remains 1 until all creatures have acted.\",\n  \"narration\": \"Your longsword gleams faintly in the low light of the Guard Post as you pivot to face the shadow mastiff, its glowing eyes fixed on you and jaws curled back in a snarl. The beast moves swiftly, seeking to flank, but you meet its challenge head-on. Steel sings as your blade arcs toward the mastiff’s form.\\n\\nRoll a d20 and add +5 to hit the shadow mastiff. If your strike lands, you'll roll 1d8 and add 3 for damage. Show me your strike, Norn!\",\n  \"combat_round\": 1,\n  \"actions\": []\n}"
+    "content": "Dungeon Master Note: Current date and time: 1492 Ches 2 07:59:00. Player: Does Elen have any life threatenign unries I can see?"
   },
   {
     "role": "user",
-    "content": "Dungeon Master Note: Respond with valid JSON containing a 'narration' field, 'combat_round' field, and an 'actions' array. \n\nCRITICAL UPDATE RULES:\n- For PLAYERS and NPCs: Use 'updateCharacterInfo' with characterName parameter\n- For MONSTERS: Use 'updateEncounter' with a text description in the changes field\n- NEVER use updateCharacterInfo for monsters - it will fail\n- Example for monster: {\"action\": \"updateEncounter\", \"parameters\": {\"encounterId\": \"XXX\", \"changes\": \"Specter takes 7 damage, HP from 22 to 15\"}}\n- Example for player/NPC: {\"action\": \"updateCharacterInfo\", \"parameters\": {\"characterName\": \"Norn\", \"changes\": \"Takes 5 damage from attack\"}}\n\nImportant Character Field Definitions:\n- 'status' field: Overall life/death state - ONLY use 'alive', 'dead', 'unconscious', or 'defeated' (lowercase)\n- 'condition' field: D&D 5e status conditions - use 'none' when no conditions, or valid D&D conditions like 'blinded', 'charmed', 'poisoned', etc.\n- 'condition_affected' array: List of active D&D conditions affecting the character\n\nCritical Rules:\n1. NEVER set condition to 'alive' - that goes in the status field\n2. NEVER set status to 'none' - use 'alive' for conscious characters\n3. Include the 'exit' action when the encounter ends\n4. All field values must match the expected schema exactly\n5. MANDATORY: Include \"combat_round\" field in your response\n6. Track combat rounds: increment ONLY when ALL alive creatures have completed their turns in initiative order\n7. Current round is 1 - advance to next round when all creatures have acted\n\nCurrent dynamic state for all creatures:\nNorn:\n  - HP: 39/47\n  - Status: alive\n  - Condition: none\n\nWight:\n  - HP: 45/45\n  - Status: alive\n  - Condition: none\n\nShadow Mastiff:\n  - HP: 33/33\n  - Status: alive\n  - Condition: none\n\nInitiative Order: Wight (18, alive) -> Norn (5, alive) -> Shadow Mastiff (5, alive)\n\nDM Note: COMBAT ROUND 1 - DICE AVAILABLE:\nPreroll Set ID: 1-7635 (Generated at round start)\n\n=== GENERIC DICE (use for spells, abilities, improvisation) ===\nd4: [4,4,2,2,4,1,3,1] | d6: [4,1,3,4,5,5,2,3] | d8: [6,8,1,4,4,4] | d10: [4,6,2,9,1,9] | d12: [1,11,6,11] | d20: [1,19,13,2,2,18,19,11,15,9]\n\n=== CREATURE ATTACKS (exact number per creature) ===\n[PLAYER: Norn] Must make own rolls\nWight: Attack[17], Attack[19], Attack[8] (3 attacks available: Longsword (Melee), Longsword (Versatile), Longbow)\nShadow Mastiff: Attack[2] (1 attack available: Bite)\n\n=== SAVING THROWS ===\nWight: STR:12, DEX:5, CON:17, INT:16, WIS:7, CHA:3\nShadow Mastiff: STR:8, DEX:18, CON:14, INT:12, WIS:19, CHA:14\n\nIMPORTANT: Each creature can only make the number of attacks listed above.\nUse generic dice pool for damage rolls, spells, and other abilities.\nApply all appropriate modifiers (ability scores, proficiency, weapon bonuses, etc.).\nNote: Norn must make their own rolls.\n\nCOMBAT TRACKING: You MUST include \"combat_round\" field in your JSON response.\nTrack combat rounds: increment ONLY when ALL alive creatures have completed their turns in initiative order.\nThese dice remain constant throughout the current round.\n\nPlayer: Did the wight already make it's attack?"
+    "content": "Error Note: Your previous response failed validation. Reason: The assistant's response describes visually checking Elen for life-threatening injuries but fails to take any action to update Elen's status or condition with 'updateCharacterInfo'. Since Elen's physical and magical injuries are observed and her status is clarified (shadow's touch receding), the model should have used 'updateCharacterInfo' to reflect her current condition and recovery from shadow affliction. Try again and include the appropriate 'updateCharacterInfo' action for Elen.. Please adjust your response accordingly."
   },
   {
     "role": "assistant",
-    "content": "{\n  \"plan\": \"Wight has not yet acted this round; it will take the first turn in initiative order. Current round is 1, and after Wight's actions, it will be Norn's turn to attack the Shadow Mastiff. Combat round remains 1 until all creatures have acted.\",\n  \"narration\": \"The wight, lurking behind a pillar for cover, draws its rusted longbow and takes careful aim through the narrow arrow slit. Its glowing eyes narrow with deadly focus as the heavy wood creaks against the ancient stone.\\n\\nBefore you can step forward, the wight releases a sharp arrow aimed straight at you.\\n\\nBe prepared: the shadow mastiff waits to seize its moment after your strike. The combat is far from over.\",\n  \"combat_round\": 1,\n  \"actions\": []\n}"
+    "content": "{\n  \"narration\": \"You kneel beside Elen, worry tightening your chest as you scan her for wounds. Her skin is pale and clammy, and dark bruises crawl up her arms where the shadows had once taken hold. But as you watch, you see the eerie blackness receding, leaving only fading, harmless marks behind. Elen breathes with effort but is lucid, her eyes bright with relief, and you spot no bleeding or mortal injuries. The curse's grip is broken, and although she is exhausted and battered, she is no longer in immediate danger.\\n\\nElen manages a weak smile, sensing your concern. \\\"I'll live, Norn,\\\" she whispers hoarsely. \\\"The darkest part is over. Just help me home.\\\"\",\n  \"actions\": [\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Scout Elen\",\n        \"changes\": \"Status: alive, condition: recovering from exhaustion and minor injuries, shadow affliction lifted, no life-threatening wounds present.\"\n      }\n    },\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 1\n      }\n    }\n  ]\n}"
   }
+][2025-06-13 23:29:15] Loading campaign areas...
+[2025-06-13 23:29:15]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-13 23:29:15]   [OK] Loaded G001: Gloamwood
+[2025-06-13 23:29:15]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-13 23:29:15]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-13 23:29:15]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-13 23:29:15] Graph built: 35 locations, 84 connections
+[2025-06-13 23:44:12] Loading campaign areas...
+[2025-06-13 23:44:12]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-13 23:44:12]   [OK] Loaded G001: Gloamwood
+[2025-06-13 23:44:12]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-13 23:44:12]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-13 23:44:12]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-13 23:44:12] Graph built: 35 locations, 84 connections
+[2025-06-13 23:44:56] Loading campaign areas...
+[2025-06-13 23:44:56]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-13 23:44:56]   [OK] Loaded G001: Gloamwood
+[2025-06-13 23:44:56]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-13 23:44:56]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-13 23:44:56]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-13 23:44:56] Graph built: 35 locations, 84 connections
+[2025-06-13 23:49:43] Loading campaign areas...
+[2025-06-13 23:49:43]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-13 23:49:43]   [OK] Loaded G001: Gloamwood
+[2025-06-13 23:49:43]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-13 23:49:43]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-13 23:49:43]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-13 23:49:43] Graph built: 35 locations, 84 connections
+[2025-06-13 23:50:21] Loading campaign areas...
+[2025-06-13 23:50:21]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-13 23:50:21]   [OK] Loaded G001: Gloamwood
+[2025-06-13 23:50:21]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-13 23:50:21]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-13 23:50:21]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-13 23:50:21] Graph built: 35 locations, 84 connections
+[2025-06-13 23:58:25] Loading campaign areas...
+[2025-06-13 23:58:25]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-13 23:58:25]   [OK] Loaded G001: Gloamwood
+[2025-06-13 23:58:25]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-13 23:58:25]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-13 23:58:25]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-13 23:58:25] Graph built: 35 locations, 84 connections
+[2025-06-13 23:59:26] Loading campaign areas...
+[2025-06-13 23:59:26]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-13 23:59:26]   [OK] Loaded G001: Gloamwood
+[2025-06-13 23:59:26]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-13 23:59:26]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-13 23:59:26]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-13 23:59:26] Graph built: 35 locations, 84 connections
+[2025-06-14 00:06:30] Loading campaign areas...
+[2025-06-14 00:06:30]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-14 00:06:30]   [OK] Loaded G001: Gloamwood
+[2025-06-14 00:06:30]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-14 00:06:30]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-14 00:06:30]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-14 00:06:30] Graph built: 35 locations, 84 connections
+[2025-06-14 00:07:17] Loading campaign areas...
+[2025-06-14 00:07:17]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-14 00:07:17]   [OK] Loaded G001: Gloamwood
+[2025-06-14 00:07:17]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-14 00:07:17]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-14 00:07:17]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-14 00:07:17] Graph built: 35 locations, 84 connections
+[2025-06-14 00:13:09] Loading campaign areas...
+[2025-06-14 00:13:09]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-14 00:13:09]   [OK] Loaded G001: Gloamwood
+[2025-06-14 00:13:09]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-14 00:13:09]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-14 00:13:09]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-14 00:13:09] Graph built: 35 locations, 84 connections
+[2025-06-14 00:14:33] Loading campaign areas...
+[2025-06-14 00:14:33]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-14 00:14:33]   [OK] Loaded G001: Gloamwood
+[2025-06-14 00:14:33]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-14 00:14:33]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-14 00:14:33]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-14 00:14:33] Graph built: 35 locations, 84 connections
+[2025-06-14 00:16:53] Loading campaign areas...
+[2025-06-14 00:16:53]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-14 00:16:53]   [OK] Loaded G001: Gloamwood
+[2025-06-14 00:16:53]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-14 00:16:53]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-14 00:16:53]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-14 00:16:53] Graph built: 35 locations, 84 connections
+[2025-06-14 00:19:39] Loading campaign areas...
+[2025-06-14 00:19:39]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-14 00:19:39]   [OK] Loaded G001: Gloamwood
+[2025-06-14 00:19:39]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-14 00:19:39]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-14 00:19:39]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-14 00:19:39] Graph built: 35 locations, 84 connections
+[2025-06-14 00:20:27] Loading campaign areas...
+[2025-06-14 00:20:27]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-14 00:20:27]   [OK] Loaded G001: Gloamwood
+[2025-06-14 00:20:27]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-14 00:20:27]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-14 00:20:27]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-14 00:20:27] Graph built: 35 locations, 84 connections
+[2025-06-14 00:23:47] Loading campaign areas...
+[2025-06-14 00:23:47]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-14 00:23:47]   [OK] Loaded G001: Gloamwood
+[2025-06-14 00:23:47]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-14 00:23:47]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-14 00:23:47]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-14 00:23:47] Graph built: 35 locations, 84 connections
+[2025-06-14 00:24:21] Loading campaign areas...
+[2025-06-14 00:24:21]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-14 00:24:21]   [OK] Loaded G001: Gloamwood
+[2025-06-14 00:24:21]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-14 00:24:21]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-14 00:24:21]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-14 00:24:21] Graph built: 35 locations, 84 connections

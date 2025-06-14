@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Sheet Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #ccc;
+            font-family: 'Crimson Text', Georgia, serif;
+            margin: 20px;
+        }
+        
+        .container {
+            width: 600px;
+            background-color: #1f1f1f;
+            padding: 20px;
+            border: 1px solid #333;
+            margin: 0 auto;
+        }
+        
+        /* Character Sheet Styling - EXACT COPY FROM game_interface.html */
+        .character-sheet {
+            padding: 4px;
+            background-color: #1a1a1a;
+            border: 2px solid #444;
+            border-radius: 8px;
+            font-family: 'Crimson Text', Georgia, serif;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 255, 255, 0.01) 10px,
+                    rgba(255, 255, 255, 0.01) 20px
+                );
+        }
+        
+        .character-header {
+            margin-bottom: 3px;
+            padding-bottom: 3px;
+            border-bottom: 2px solid #666;
+        }
+        
+        .character-details {
+            display: flex;
+            justify-content: space-between;
+            color: #ccc;
+            font-size: 18px;
+            line-height: 1.2;
+            margin-top: 2px;
+        }
+        
+        .detail-left {
+            flex: 1;
+        }
+        
+        .detail-right {
+            text-align: right;
+        }
+        
+        .orange {
+            color: #FFA500;
+            font-weight: bold;
+        }
+        
+        .character-name {
+            font-size: 40px;
+            font-weight: 600;
+            color: #FFA500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Cinzel', Georgia, serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 0.9;
+            margin: 0;
+        }
+        
+        /* Ability Scores */
+        .abilities-row {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2px;
+            margin-bottom: 3px;
+            margin-top: 3px;
+        }
+        
+        .ability-score {
+            background-color: #2c2c2c;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 2px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .ability-score:hover {
+            border-color: #FFA500;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 165, 0, 0.2);
+        }
+        
+        .ability-name {
+            font-size: 18px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .ability-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #e0e0e0;
+            margin: 0;
+            line-height: 0.9;
+        }
+        
+        .ability-modifier {
+            font-size: 20px;
+            color: #FFA500;
+            border: 1px solid #FFA500;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            background-color: rgba(255, 165, 0, 0.1);
+            font-weight: bold;
+        }
+        
+        /* Combat Stats */
+        .combat-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            margin-bottom: 3px;
+        }
+        
+        .combat-stat {
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 3px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .combat-stat-label {
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .combat-stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4CAF50;
+            line-height: 1;
+            margin: 2px 0;
+        }
+        
+        .hp-bar {
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 3px;
+            height: 6px;
+            margin-top: 1px;
+            overflow: hidden;
+        }
+        
+        .hp-fill {
+            background-color: #4CAF50;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        /* Skills and Saves */
+        .skills-saves-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-bottom: 3px;
+        }
+        
+        .stat-group {
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 4px;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .stat-group h4 {
+            margin: 0 0 3px 0;
+            color: #FFA500;
+            border-bottom: 1px solid #444;
+            padding-bottom: 3px;
+            text-transform: uppercase;
+            font-size: 20px;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', Georgia, serif;
+            flex-shrink: 0;
+        }
+        
+        .save-item, .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 4px;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.1;
+            border-radius: 2px;
+        }
+        
+        .save-item:hover, .skill-item:hover {
+            background-color: rgba(255, 165, 0, 0.1);
+        }
+        
+        .save-name, .skill-name {
+            color: #aaa;
+            font-size: 16px;
+        }
+        
+        .save-value, .skill-value {
+            color: #e0e0e0;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .stat-group-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="color: #4CAF50; margin-bottom: 20px;">Character Stats Tab Test</h2>
+        
+        <div class="character-sheet">
+            <!-- Character Header -->
+            <div class="character-header">
+                <div class="character-name">NORN</div>
+                <div class="character-details">
+                    <div class="detail-left">
+                        <div><span class="orange">Level 4</span> Human Fighter</div>
+                        <div>Soldier • lawful good</div>
+                    </div>
+                    <div class="detail-right">
+                        <div><span class="orange">XP:</span> 4971 / 6500</div>
+                        <div><span class="orange">Status:</span> alive • <span class="orange">Prof:</span> +2</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ability Scores -->
+            <div class="abilities-row">
+                <div class="ability-score">
+                    <div class="ability-name">STR</div>
+                    <div class="ability-value">17</div>
+                    <div class="ability-modifier">+3</div>
+                </div>
+                <div class="ability-score">
+                    <div class="ability-name">DEX</div>
+                    <div class="ability-value">14</div>
+                    <div class="ability-modifier">+2</div>
+                </div>
+                <div class="ability-score">
+                    <div class="ability-name">CON</div>
+                    <div class="ability-value">16</div>
+                    <div class="ability-modifier">+3</div>
+                </div>
+                <div class="ability-score">
+                    <div class="ability-name">INT</div>
+                    <div class="ability-value">11</div>
+                    <div class="ability-modifier">+0</div>
+                </div>
+                <div class="ability-score">
+                    <div class="ability-name">WIS</div>
+                    <div class="ability-value">13</div>
+                    <div class="ability-modifier">+1</div>
+                </div>
+                <div class="ability-score">
+                    <div class="ability-name">CHA</div>
+                    <div class="ability-value">9</div>
+                    <div class="ability-modifier">-1</div>
+                </div>
+            </div>
+            
+            <!-- Combat Stats -->
+            <div class="combat-stats">
+                <div class="combat-stat">
+                    <div class="combat-stat-label">Hit Points</div>
+                    <div class="combat-stat-value">22/36</div>
+                    <div class="hp-bar">
+                        <div class="hp-fill" style="width: 61%;"></div>
+                    </div>
+                </div>
+                <div class="combat-stat">
+                    <div class="combat-stat-label">Armor Class</div>
+                    <div class="combat-stat-value">16</div>
+                </div>
+                <div class="combat-stat">
+                    <div class="combat-stat-label">Initiative</div>
+                    <div class="combat-stat-value">+2</div>
+                </div>
+            </div>
+            
+            <!-- Skills and Saves -->
+            <div class="skills-saves-container">
+                <div class="stat-group">
+                    <h4>Saving Throws</h4>
+                    <div class="stat-group-content">
+                        <div class="save-item">
+                            <span class="save-name">Strength ●</span>
+                            <span class="save-value">+5</span>
+                        </div>
+                        <div class="save-item">
+                            <span class="save-name">Dexterity ○</span>
+                            <span class="save-value">+2</span>
+                        </div>
+                        <div class="save-item">
+                            <span class="save-name">Constitution ●</span>
+                            <span class="save-value">+5</span>
+                        </div>
+                        <div class="save-item">
+                            <span class="save-name">Intelligence ○</span>
+                            <span class="save-value">+0</span>
+                        </div>
+                        <div class="save-item">
+                            <span class="save-name">Wisdom ○</span>
+                            <span class="save-value">+1</span>
+                        </div>
+                        <div class="save-item">
+                            <span class="save-name">Charisma ○</span>
+                            <span class="save-value">-1</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-group">
+                    <h4>Skills</h4>
+                    <div class="stat-group-content">
+                        <div class="skill-item">
+                            <span class="skill-name">Athletics</span>
+                            <span class="skill-value">+5</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Insight</span>
+                            <span class="skill-value">+3</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Intimidation</span>
+                            <span class="skill-value">+1</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Survival</span>
+                            <span class="skill-value">+3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

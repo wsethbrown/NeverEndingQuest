@@ -13,28 +13,21 @@
         "year": 1492,
         "month": "Ches",
         "day": 2,
-        "time": "08:01:00",
+        "time": "12:20:00",
         "weather": "",
         "season": "Spring",
         "dayNightCycle": "Day",
         "moonPhase": "New Moon",
-        "currentLocation": "Relic Chamber",
-        "currentLocationId": "E07",
-        "currentArea": "The Cursed Dungeons",
-        "currentAreaId": "TCD001",
+        "currentLocation": "East Gate and Guardhouse",
+        "currentLocationId": "A03",
+        "currentArea": "Harrow's Hollow",
+        "currentAreaId": "HH001",
         "majorEventsUnderway": [],
         "politicalClimate": "",
         "activeEncounter": "",
-        "activeCombatEncounter": "",
-        "lastCompletedEncounter": "E07-E1"
+        "activeCombatEncounter": ""
     },
     "activeQuests": [
-        {
-            "id": "PP001",
-            "title": "Shadows Over Harrow's Hollow",
-            "description": "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run high as rumors of curses, spirits, and the haunted Keep of Doom swirl among the villagers. Players must gather information, win trust, and follow leads to piece together the mystery.",
-            "status": "in progress"
-        },
         {
             "id": "SQ001",
             "title": "Superstition and Shadows",
@@ -60,9 +53,9 @@
             "status": "not started"
         },
         {
-            "id": "PP004",
-            "title": "The Heart of Darkness",
-            "description": "Within the keep's depths lies the source of the curse: the vengeful spirit of Lord Thaddeus Greymont, corrupted by dark magic. The party must confront him, either by combat, exorcism, or fulfilling his final wish to find peace.",
+            "id": "PP005",
+            "title": "Resolution and Rewards",
+            "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
             "status": "in progress"
         }
     ]

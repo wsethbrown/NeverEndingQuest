@@ -67,6 +67,16 @@ from typing import Dict, List, Tuple, Optional
 from campaign_path_manager import CampaignPathManager
 from file_operations import safe_read_json
 
+def write_debug(message: str):
+    """Write debug message to debug.txt file"""
+    try:
+        with open("debug.txt", "a", encoding="utf-8") as f:
+            from datetime import datetime
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            f.write(f"[{timestamp}] {message}\n")
+    except Exception:
+        pass  # Silently fail if debug file can't be written
+
 
 class LocationGraph:
     """Graph representation of all locations and their connections"""
@@ -85,7 +95,7 @@ class LocationGraph:
         # All area IDs in Keep of Doom campaign
         area_ids = ["HH001", "G001", "SK001", "TBM001", "TCD001"]
         
-        print("Loading campaign areas...")
+        write_debug("Loading campaign areas...")
         for area_id in area_ids:
             area_file = path_manager.get_area_path(area_id)
             if os.path.exists(area_file):
@@ -93,16 +103,16 @@ class LocationGraph:
                 if area_data:
                     self.area_data[area_id] = area_data
                     self._process_area_locations(area_id, area_data)
-                    print(f"  [OK] Loaded {area_id}: {area_data.get('areaName', 'Unknown')}")
+                    write_debug(f"  [OK] Loaded {area_id}: {area_data.get('areaName', 'Unknown')}")
                 else:
-                    print(f"  [ERROR] Failed to load {area_file}")
+                    write_debug(f"  [ERROR] Failed to load {area_file}")
             else:
-                print(f"  [ERROR] File not found: {area_file}")
+                write_debug(f"  [ERROR] File not found: {area_file}")
         
         # Process external connections after all locations are loaded
         self._process_external_connections()
         
-        print(f"\nGraph built: {len(self.nodes)} locations, {sum(len(v) for v in self.edges.values())} connections")
+        write_debug(f"Graph built: {len(self.nodes)} locations, {sum(len(v) for v in self.edges.values())} connections")
     
     def _process_area_locations(self, area_id: str, area_data: Dict):
         """Process all locations in an area and add them to the graph"""

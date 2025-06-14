@@ -93,13 +93,15 @@ class WebOutputCapture:
                     elif any(marker in clean_line for marker in ['DEBUG:', 'ERROR:', 'WARNING:']) or \
                          clean_line.startswith('[') and ('HP:' in clean_line or 'XP:' in clean_line) or \
                          clean_line.startswith('>'):
-                        # This ends the DM section - send accumulated DM content
+                        # This ends the DM section - send accumulated DM content as single message
                         if self.dm_buffer:
-                            for dm_line in self.dm_buffer:
+                            combined_content = '\n'.join(self.dm_buffer)
+                            # Remove "Dungeon Master:" prefix from the beginning if present
+                            combined_content = combined_content.replace('Dungeon Master:', '', 1).strip()
+                            if combined_content.strip():  # Only send if there's actual content
                                 game_output_queue.put({
                                     'type': 'narration',
-                                    'content': dm_line,
-                                    'timestamp': datetime.now().isoformat()
+                                    'content': combined_content
                                 })
                         self.in_dm_section = False
                         self.dm_buffer = []
@@ -111,8 +113,43 @@ class WebOutputCapture:
                             'is_error': self.is_error or 'ERROR:' in clean_line
                         })
                     else:
-                        # Still in DM section - add to buffer
-                        self.dm_buffer.append(clean_line)
+                        # Still in DM section - check if it's a debug message
+                        if any(marker in clean_line for marker in [
+                            'Lightweight chat history updated',
+                            'System messages removed:',
+                            'User messages:',
+                            'Assistant messages:',
+                            'not found. Skipping',
+                            'not found. Returning None',
+                            'has an invalid JSON format',
+                            'Current Time:',
+                            'Time Advanced:',
+                            'New Time:',
+                            'Days Passed:',
+                            'Loading campaign areas',
+                            'Graph built:',
+                            '[OK] Loaded'
+                        ]):
+                            # This is a debug message - send to debug output instead
+                            debug_output_queue.put({
+                                'type': 'debug',
+                                'content': clean_line,
+                                'timestamp': datetime.now().isoformat()
+                            })
+                            # End the DM section and send what we have so far
+                            if self.dm_buffer:
+                                combined_content = '\n'.join(self.dm_buffer)
+                                combined_content = combined_content.replace('Dungeon Master:', '', 1).strip()
+                                if combined_content.strip():
+                                    game_output_queue.put({
+                                        'type': 'narration',
+                                        'content': combined_content
+                                    })
+                            self.in_dm_section = False
+                            self.dm_buffer = []
+                        else:
+                            # Not a debug message - add to buffer
+                            self.dm_buffer.append(clean_line)
                 else:
                     # Not in DM section - check if it's a debug message that should be filtered
                     if any(marker in clean_line for marker in [
@@ -122,7 +159,14 @@ class WebOutputCapture:
                         'Assistant messages:',
                         'not found. Skipping',
                         'not found. Returning None',
-                        'has an invalid JSON format'
+                        'has an invalid JSON format',
+                        'Current Time:',
+                        'Time Advanced:',
+                        'New Time:',
+                        'Days Passed:',
+                        'Loading campaign areas',
+                        'Graph built:',
+                        '[OK] Loaded'
                     ]):
                         # These are debug messages - send to debug output
                         debug_output_queue.put({
@@ -147,13 +191,15 @@ class WebOutputCapture:
         return ansi_escape.sub('', text)
     
     def flush(self):
-        # If we're in a DM section, flush it
+        # If we're in a DM section, flush it as single message
         if self.in_dm_section and self.dm_buffer:
-            for dm_line in self.dm_buffer:
+            combined_content = '\n'.join(self.dm_buffer)
+            # Remove "Dungeon Master:" prefix from the beginning if present
+            combined_content = combined_content.replace('Dungeon Master:', '', 1).strip()
+            if combined_content.strip():  # Only send if there's actual content
                 game_output_queue.put({
                     'type': 'narration',
-                    'content': dm_line,
-                    'timestamp': datetime.now().isoformat()
+                    'content': combined_content
                 })
             self.in_dm_section = False
             self.dm_buffer = []
@@ -185,6 +231,13 @@ def index():
     """Serve the main game interface"""
     return render_template('game_interface.html')
 
+@app.route('/static/dm_logo.png')
+def serve_dm_logo():
+    """Serve the DM logo image"""
+    import mimetypes
+    from flask import send_file
+    return send_file('dm_logo.png', mimetype='image/png')
+
 @socketio.on('connect')
 def handle_connect():
     """Handle client connection"""
@@ -207,9 +260,8 @@ def handle_user_input(data):
     
     # Echo the input back to the game output
     emit('game_output', {
-        'type': 'user_input',
-        'content': f"> {user_input}",
-        'timestamp': datetime.now().isoformat()
+        'type': 'user-input',
+        'content': user_input
     })
 
 @socketio.on('start_game')

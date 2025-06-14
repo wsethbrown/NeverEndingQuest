@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 37,
+  "hitPoints": 13,
   "maxHitPoints": 47,
   "armorClass": 19,
   "initiative": 2,
@@ -244,11 +244,9 @@
     {
       "item_name": "Knight's heart amulet",
       "item_type": "miscellaneous",
-      "item_subtype": "amulet",
       "description": "An amulet shaped like a heart, said to have belonged to a noble knight",
       "quantity": 1,
       "equipped": true,
-      "magical": true,
       "effects": [
         {
           "type": "resistance",
@@ -456,7 +454,6 @@
       "description": "The sword of Sir Garran, now enhanced to a +2 magical weapon.",
       "quantity": 1,
       "equipped": false,
-      "magical": true,
       "magic_bonus": 2
     },
     {
@@ -474,11 +471,9 @@
     {
       "item_name": "Amulet of Protection Against Shadow Magic",
       "item_type": "miscellaneous",
-      "item_subtype": "amulet",
       "description": "An amulet that grants protection against shadow magic effects.",
       "quantity": 1,
       "equipped": false,
-      "magical": true,
       "effects": [
         {
           "type": "resistance",
@@ -493,62 +488,6 @@
       "item_type": "miscellaneous",
       "description": "A sturdy chest containing 58 gold coins, 4 precious gemstones, and the deed to Shadowfall Keep.",
       "quantity": 1
-    },
-    {
-      "item_name": "Scroll of Cure Wounds",
-      "item_type": "consumable",
-      "item_subtype": "scroll",
-      "description": "A magical scroll containing a 1st-level Cure Wounds spell that can be cast once.",
-      "quantity": 1,
-      "magical": true,
-      "consumable": true,
-      "spellLevel": 1
-    },
-    {
-      "item_name": "Potion of Greater Healing",
-      "item_type": "consumable",
-      "item_subtype": "potion",
-      "description": "A magical potion that restores 4d4+4 hit points when consumed.",
-      "quantity": 2,
-      "magical": true,
-      "consumable": true
-    },
-    {
-      "item_name": "Ring of Protection",
-      "item_type": "miscellaneous",
-      "item_subtype": "ring",
-      "description": "A magical ring that grants a +1 bonus to AC and saving throws while worn.",
-      "quantity": 1,
-      "magical": true,
-      "equipped": false,
-      "effects": [
-        {
-          "type": "bonus",
-          "target": "AC",
-          "value": 1,
-          "description": "Grants +1 bonus to AC"
-        },
-        {
-          "type": "bonus",
-          "target": "saving_throws",
-          "value": 1,
-          "description": "Grants +1 bonus to all saving throws"
-        }
-      ]
-    },
-    {
-      "item_name": "Wand of Magic Missiles",
-      "item_type": "miscellaneous",
-      "item_subtype": "wand",
-      "description": "A magical wand that can cast Magic Missile. Has 7 charges and regains 1d6+1 charges daily at dawn.",
-      "quantity": 1,
-      "magical": true,
-      "charges": {
-        "current": 5,
-        "max": 7
-      },
-      "rechargeRate": "daily",
-      "spellLevel": 1
     }
   ],
   "ammunition": [
@@ -623,7 +562,7 @@
     "silver": 0,
     "copper": 0
   },
-  "experience_points": 16581,
+  "experience_points": 16381,
   "exp_required_for_next_level": 14000,
   "challengeRating": 0,
   "personality_traits": "I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.",

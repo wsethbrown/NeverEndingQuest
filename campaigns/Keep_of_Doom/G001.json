@@ -178,10 +178,10 @@
       "locationId": "B01",
       "name": "Witchlight Trailhead",
       "type": "trail",
-      "description": "The Witchlight Trailhead is enveloped in a cold mist curling around the muddy earth and pale grass beneath the party's feet. Ancient standing stones loom close, their runes flickering faintly as ethereal blue witchlights hover softly above, guiding the way through the shadowed forest. Disturbed ground with fallen twigs, scuffed earth, and a scrap of blue fabric caught on a thorny bush mark the hurried passage of Scout Elen northward. Beneath twisted boughs, the air holds a heavy anticipation, touched by faint fluttering whispers carried on a chill breeze. The area remains free of monsters and traps, but the lingering dread of the haunted woods presses ever onward. The trail continues north toward the Withered Shrine, while paths back to Harrow's Hollow East Gate and nearby locations like the Abandoned Ranger Outpost remain accessible.",
-      "dmInstructions": "This location marks the party's cautious advance along the Witchlight Trailhead, retracing Scout Elen's desperate flight through the ancient forest. The runes on standing stones flicker faintly, functioning as ethereal guides toward their ritual vision destination. The party finds clear signs of Elen's passage including disturbed earth, snapped twigs, and a scrap of blue fabric. A chill breeze carries faint whispering sounds, enhancing the tense atmosphere. No monsters or traps are present here currently. The party remains vigilant and prepared to pursue the trail northward toward the Withered Shrine or to explore adjacent locations such as the Abandoned Ranger Outpost or Harrow's Hollow East Gate. Watch for environmental cues and mysterious influences during travel.",
+      "description": "The Witchlight Trailhead breathes with relief under the steady blue witchlights, the oppressive darkness that once clung to the ancient trees now lifted. The cold mist has thinned, revealing the muddy earth and pale grass beneath, with ancient standing stones standing quiet and watchful. The disturbed ground, fallen twigs, and a scrap of blue fabric caught on a thorny bush remain as silent testaments to Scout Elen's desperate flight through these woods. The trail west to Harrow's Hollow is clear and inviting, illuminated by gentle lantern light. The forest feels lighter, the air carrying a renewed hope as the party departs toward the stout palisade of Harrow's Hollow East Gate, where welcoming voices and warm lantern glows await.",
+      "dmInstructions": "The darkness that once haunted the Witchlight Trailhead has been lifted with the defeat of the Shadows and the safe return of Scout Elen. The atmosphere is now one of cautious hope and restoration. The blue witchlights cast a gentler glow, and the trail leading west to Harrow's Hollow is clear for travel. The party has successfully escaped the cursed woods and brought new life to the area. NPCs such as the Harrow's Hollow East Gate Guards remain vigilant but welcoming. No monsters or traps linger here. This location serves as a transition point out of danger and back into civilization. The DM should emphasize the change in mood, the party's need for rest and recovery, and the welcoming presence of the village militia at the gate.",
       "coordinates": "X2Y1",
-      "accessibility": "Narrow trail with occasional rough terrain; reasonable for most travelers.",
+      "accessibility": "Clear and safe trail, easily navigated now that the dark forces have lifted.",
       "npcs": [
         {
           "name": "The Keeper",
@@ -190,20 +190,18 @@
         },
         {
           "name": "Harrow's Hollow East Gate Guards",
-          "description": "The guards stationed at the east gate of Harrow's Hollow, assessed by the party for condition and information. Currently alert and holding position.",
-          "attitude": "Neutral"
+          "description": "The guards stationed at the east gate of Harrow's Hollow, alert and welcoming the party after their ordeal in the forest.",
+          "attitude": "Friendly"
         }
       ],
       "monsters": [],
       "plotHooks": [
-        "An inscription on one of the markers reads: 'Walk with light, for shadows hunger in the wood.'",
-        "Fresh footprints indicate someone recently entered the forest, possibly Scout Elen.",
-        "A tattered journal page pinned to a tree describes hearing 'whispers that know your name' deeper in the woods.",
-        "Trail of smaller, purposeful footprints heading north toward the Withered Shrine, with snapped twigs and disturbed moss indicating a brief pause.",
-        "The party's quest to find Scout Elen and uncover the keep's secrets is in progress.",
-        "Vigilant for encounters with the Keeper, who may provide vital information about the keep's curse.",
-        "The party seeks to navigate the haunted forest towards the Keep of Doom, contending with spectral ambushes and magical wards.",
-        "The side quest 'The Keeper's Warning' centers on persuading a mysterious hermit near the forest edge holding secrets of the keep's curse."
+        "The party has lifted the darkness hanging over Witchlight Trailhead and Scout Elen has returned safely.",
+        "The trail west to Harrow's Hollow is now clear and safe for travel.",
+        "The village militia at Harrow's Hollow East Gate is aware of recent events and welcomes the party.",
+        "The party can rest and recover here before continuing their journey.",
+        "New hope arises for the village as the curse over Shadowfall Keep wanes.",
+        "Potential future interactions with The Keeper remain possible along the trail."
       ],
       "lootTable": [
         "Silver pendant (protection charm, 5 gp value)",
@@ -260,7 +258,7 @@
       ],
       "dcChecks": [
         "Perception DC 12: Notice fresh bootprints and signs of recent passage, likely Scout Elen's.",
-        "Religion DC 14: Recognize the markers as ancient wards against spirits, now weakened.",
+        "Religion DC 14: Recognize the markers as ancient wards against spirits, now strengthened after the Shadows' defeat.",
         "Survival DC 15: Track the smaller footprints toward the Withered Shrine and interpret disturbed foliage as signs of a brief stop.",
         "Investigation DC 16: Identify ritual offerings and differentiate between tokens of protection and items dropped in haste.",
         "Insight DC 13: Assess the condition and morale of the guards at Harrow's Hollow East Gate."
@@ -309,9 +307,20 @@
             "day": 1,
             "time": "21:03:00"
           }
+        },
+        {
+          "encounterId": "B01-E5",
+          "summary": "Scout Elen emerged from the shadows of the cursed keep, weary but relieved, as the oppressive presence lifted from the Witchlight Trailhead. She shared her pain and haunting memories with Norn, expressing gratitude for being found in time. The trail west to Harrow's Hollow was clear, and together they departed along the illuminated path, passing familiar landmarks as the gloom of the Gloamwood faded. Approaching Harrow's Hollow East Gate, the village militia greeted them warmly, marking the successful escape from the cursed dungeons and the restoration of hope to the village.",
+          "impact": "The oppressive darkness over the Witchlight Trailhead has been lifted, allowing safe travel west to Harrow's Hollow. The party's successful escape restores hope to the village. The area remains free of monsters and traps, and the party moves onward toward Harrow's Hollow East Gate.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Ches",
+            "day": 2,
+            "time": "11:25:00"
+          }
         }
       ],
-      "adventureSummary": "The party advanced cautiously along the Witchlight Trailhead, enveloped by a cold mist curling around their boots, retracing Scout Elen's desperate flight through the ancient, looming forest. The runes on standing stones flickered faintly as ethereal guides. At a shallow hollow's edge, disturbed ground with fallen twigs, scuffed earth, and a scrap of blue fabric caught on a thorny bush provided clear evidence of Elen's passage. Beneath twisted boughs and ghostly witchlight, the air was heavy with dread and anticipation. A chill breeze brought faint fluttering whispers, indistinct but suggestive of distant words or something stranger. No monsters or traps were present. Nearby lay the Abandoned Ranger Outpost and the Withered Shrine, with onward progress toward Harrow's Hollow East Gate awaiting. The party remained vigilant and prepared for the challenges ahead. Current time recorded as 1492 Ches 1, 21:03.",
+      "adventureSummary": "Scout Elen has emerged from the cursed keep's shadows, weary but relieved as the oppressive darkness lifted from the Witchlight Trailhead. Grateful for being found in time, she longs for food, rest, and familiar faces. The trail west to Harrow's Hollow is clear, illuminated by gentle blue witchlights. The party departs along the path, passing familiar landmarks as the gloom fades. Approaching Harrow's Hollow East Gate, the militia greets them warmly, marking their successful escape and the lifting of the darkness over Shadowfall Keep. Hope is restored to the village as the party proceeds eastward beyond the gate. Current time recorded as 1492 Ches 2, 11:25.",
       "doors": []
     },
     {

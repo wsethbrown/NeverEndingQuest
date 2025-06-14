@@ -10,8 +10,8 @@
       "nextPoints": [
         "PP002"
       ],
-      "status": "in progress",
-      "plotImpact": "Norn inspires the militia to heightened vigilance, bolstering Harrow's Hollow's defenses and morale as he prepares to confront the curse at the keep.",
+      "status": "completed",
+      "plotImpact": "Norn publicly credits Elen for her heroism, inspiring the village to celebrate her bravery and marking a new era of hope for Harrow's Hollow. The townsfolk embrace Elen, while Elder Mirna acknowledges both Norn and Elen's vital roles in lifting the curse.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -99,8 +99,8 @@
       "nextPoints": [
         "PP005"
       ],
-      "status": "in progress",
-      "plotImpact": "Norn has restored the shrine in the Guard Post, weakening the curse here and gaining divine protection for the trials ahead. The way to the Forgotten Ossuary is now less perilous.",
+      "status": "completed",
+      "plotImpact": "Norn and Elen have emerged safely from the Gloamwood at Harrow's Hollow East Gate. The curse over Shadowfall Keep is broken, and the village awaits news of their triumph and Elen's return.",
       "sideQuests": []
     },
     {

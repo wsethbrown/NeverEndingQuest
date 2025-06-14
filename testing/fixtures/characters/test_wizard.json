@@ -1,0 +1,60 @@
+{
+  "name": "Test Wizard",
+  "class": "Wizard",
+  "level": 3,
+  "hit_points": {
+    "current": 15,
+    "maximum": 18
+  },
+  "equipment": [
+    {
+      "item_name": "Quarterstaff",
+      "item_type": "weapon",
+      "equipped": true
+    },
+    {
+      "item_name": "Amulet of Health",
+      "item_type": "miscellaneous",
+      "equipped": true,
+      "effects": [
+        {
+          "type": "set",
+          "target": "constitution",
+          "value": 19,
+          "description": "Sets Constitution to 19"
+        }
+      ]
+    },
+    {
+      "item_name": "Ring of Spell Storing",
+      "item_type": "miscellaneous",
+      "equipped": true,
+      "effects": []
+    }
+  ],
+  "classFeatures": [
+    {
+      "name": "Arcane Recovery",
+      "description": "Recover spell slots during short rest"
+    }
+  ],
+  "temporaryEffects": [
+    {
+      "name": "Mage Armor",
+      "description": "AC becomes 13 + Dex modifier",
+      "duration": "8 hours"
+    },
+    {
+      "name": "Arcane Recovery",
+      "description": "Already used today"
+    },
+    {
+      "name": "Exhausted",
+      "description": "One level of exhaustion"
+    },
+    {
+      "name": "Amulet Protection",
+      "description": "Constitution set to 19"
+    }
+  ]
+}
