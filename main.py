@@ -14,6 +14,25 @@
 # - AI response validation and state synchronization
 # - Conversation history management and context compression
 # - Real-time user feedback and status reporting
+# - DM Note generation for authoritative current game state
+# 
+# DM NOTE DESIGN PHILOSOPHY:
+# - AUTHORITATIVE SOURCE: DM Note contains current, dynamic game state
+# - REAL-TIME DATA: Always reflects most up-to-date character information
+# - AI CLARITY: Single source of truth prevents conflicting information
+# - DYNAMIC FOCUS: HP, spell slots, conditions, and active effects
+# 
+# DM NOTE CONTENT STRATEGY:
+# Generated content includes:
+#   - Current party status (HP, level, XP, spell slots)
+#   - Active location and environmental conditions
+#   - Time, date, and world state information
+#   - Dynamic character states (not static reference data)
+# 
+# INFORMATION ARCHITECTURE:
+# - DM NOTES: Current state, real-time data, authoritative information
+# - SYSTEM MESSAGES: Static character reference (conversation_utils.py)
+# - SEPARATION PRINCIPLE: Prevents AI confusion from version conflicts
 # 
 # ARCHITECTURAL INTEGRATION:
 # - Coordinates with dm_wrapper.py for AI interactions
@@ -21,12 +40,14 @@
 # - Manages state through party_tracker.json updates
 # - Validates responses using multiple AI models
 # - Integrates with CampaignPathManager for file operations
+# - Provides dynamic data to conversation_utils.py for context management
 # 
 # DATA FLOW:
-# User Input → Action Processing → AI Response → Validation → State Update
+# User Input → Action Processing → AI Response → Validation → State Update → DM Note Refresh
 # 
 # This file embodies our "AI-First Design with Human Safety Nets" principle
-# by combining powerful AI capabilities with rigorous validation layers.
+# by combining powerful AI capabilities with rigorous validation layers and
+# clear information architecture that prevents AI confusion.
 # ============================================================================
 
 import json

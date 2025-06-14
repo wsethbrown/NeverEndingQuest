@@ -1,3 +1,60 @@
+# ============================================================================
+# UPDATE_CHARACTER_INFO.PY - CHARACTER DATA MANAGEMENT LAYER
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Character State Management - AI-Driven Updates with Validation
+# 
+# This module provides secure, validated character data updates using AI to
+# interpret natural language change requests while preventing data corruption
+# through intelligent merging and validation strategies.
+# 
+# KEY RESPONSIBILITIES:
+# - AI-driven character data interpretation and updates
+# - Deep merge functionality to prevent data loss
+# - Critical field validation and corruption prevention  
+# - Schema validation and data integrity enforcement
+# - Character backup and rollback capabilities
+# 
+# DATA INTEGRITY DESIGN:
+# - DEEP MERGE STRATEGY: Preserves nested object data during partial updates
+# - CRITICAL FIELD PROTECTION: Validates essential fields aren't deleted
+# - CORRUPTION PREVENTION: Blocks updates that would destroy important data
+# - ROLLBACK CAPABILITY: Maintains original data for recovery if needed
+# 
+# AI INTEGRATION ARCHITECTURE:
+# - Natural language change processing via OpenAI models
+# - Model-specific optimization (different models for players vs NPCs)
+# - Intelligent prompt engineering to prevent partial object replacement
+# - Multi-attempt processing with validation between attempts
+# 
+# VALIDATION LAYERS:
+# 1. Schema Validation: Ensures data structure compliance
+# 2. Critical Field Validation: Prevents accidental deletion of key data
+# 3. AI Character Validation: Post-update character sheet validation
+# 4. Character Effects Validation: Equipment and ability effects validation
+# 
+# DATA CORRUPTION PREVENTION:
+# - Problem: AI returning partial objects that replace entire nested structures
+# - Solution: Deep merge + critical field validation + enhanced prompting
+# - Example: Spell slot updates preserve spellcasting ability, DC, spells list
+# - Debugging: Comprehensive logging of problematic updates for analysis
+# 
+# ARCHITECTURAL INTEGRATION:
+# - Core dependency for main.py character update actions
+# - Integrates with conversation_utils.py for character data display
+# - Uses campaign_path_manager.py for file location resolution
+# - Supports character_validator.py for post-update validation
+# 
+# DESIGN PATTERNS:
+# - Command Pattern: Encapsulated character update operations
+# - Template Method: Standardized update workflow with role-specific variations
+# - Strategy Pattern: Different AI models for different character types
+# - Guard Pattern: Multiple validation layers preventing corruption
+# 
+# This module ensures character data integrity while providing flexible,
+# AI-driven updates that understand natural language change requests.
+# ============================================================================
+
 import json
 import copy
 from jsonschema import validate, ValidationError

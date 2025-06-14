@@ -9,6 +9,7 @@ Features:
 - Generates combat summaries and experience rewards
 - Maintains combat logs for debugging and analysis
 - Round-based preroll caching to ensure dice consistency
+- Real-time combat state display with dynamic resource tracking
 
 Combat Logging System:
 - Creates per-encounter logs in the combat_logs/{encounter_id}/ directory
@@ -35,16 +36,30 @@ Combat Logging System:
 # - Cache prerolls per combat round to ensure consistency
 # - Track combat rounds through AI responses
 # - Provide specialized combat AI prompts and validation
+# - Real-time dynamic state display for combat awareness
+# 
+# COMBAT STATE DISPLAY PHILOSOPHY:
+# - REAL-TIME AWARENESS: Shows current HP, spell slots, conditions during combat
+# - RESOURCE TRACKING: Displays available spell slots for tactical decisions
+# - DYNAMIC UPDATES: Reflects changes immediately as they occur
+# - AI CLARITY: Provides authoritative current state to prevent confusion
+# 
+# COMBAT INFORMATION ARCHITECTURE:
+# - DYNAMIC STATE DISPLAY: Current HP, spell slots, active conditions
+# - STATIC REFERENCE: Character abilities remain in system messages
+# - SEPARATION PRINCIPLE: Combat state vs character capabilities
+# - TACTICAL FOCUS: Information relevant to immediate combat decisions
 # 
 # COMBAT FLOW:
 # Encounter Start -> Initiative Roll -> Turn Management -> Action Resolution ->
-# Validation -> State Update -> Win/Loss Conditions
+# Validation -> State Update -> Dynamic State Display -> Win/Loss Conditions
 # 
 # AI INTEGRATION:
 # - Specialized combat model for turn-based interactions
 # - Pre-rolled dice system prevents AI attack count confusion
 # - Combat-specific validation model for rule compliance
 # - Real-time HP and status tracking with state synchronization
+# - Dynamic spell slot tracking for spellcaster resource management
 # 
 # ARCHITECTURAL INTEGRATION:
 # - Called by action_handler.py for combat-related actions

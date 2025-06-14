@@ -14,12 +14,32 @@
 # - Game state synchronization with AI context
 # - Memory optimization for long-running sessions
 # - Context rebuilding after session interruptions
+# - Character data formatting for AI consumption
 # 
 # CONTEXT MANAGEMENT STRATEGY:
 # - Rolling conversation window with intelligent pruning
 # - Key game state preservation across context reductions
 # - Selective history compression based on importance
 # - Real-time context size monitoring and optimization
+# 
+# INFORMATION ARCHITECTURE DESIGN:
+# - SYSTEM MESSAGES: Static character reference data (stats, abilities, spells)
+# - DM NOTES: Dynamic, frequently-changing data (HP, spell slots, status)
+# - SEPARATION PRINCIPLE: Prevents AI confusion from conflicting data versions
+# - SINGLE SOURCE OF TRUTH: DM Note is authoritative for current character state
+# 
+# DATA SEPARATION STRATEGY:
+# System Messages (Static Reference):
+#   - Ability scores, skills, proficiencies
+#   - Class features, racial traits, equipment lists
+#   - Spellcasting ability/DC/bonus, known spells
+#   - Personality traits, background information
+# 
+# DM Notes (Dynamic Current State):
+#   - Current/max hit points
+#   - Current/max spell slots
+#   - Active conditions and temporary effects
+#   - Real-time combat status
 # 
 # COMPRESSION TECHNIQUES:
 # - Adventure summary generation for long-term memory
@@ -38,14 +58,17 @@
 # - Model-specific optimization strategies
 # - Intelligent prompt construction with relevant history
 # - Context freshness tracking and stale data removal
+# - Conflict prevention through data source separation
 # 
 # DESIGN PATTERNS:
 # - Memento Pattern: Conversation state snapshots
 # - Strategy Pattern: Different compression strategies
 # - Observer Pattern: Context size change notifications
+# - Single Source of Truth: Dynamic data authority separation
 # 
 # This module ensures AI maintains coherent understanding of ongoing
-# adventures while optimizing performance and token usage.
+# adventures while optimizing performance and token usage, and prevents
+# confusion through clear separation of static vs dynamic character data.
 # ============================================================================
 
 import json
