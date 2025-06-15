@@ -12,6 +12,7 @@ DungeonMasterAI uses OpenAI's GPT models to create complete 5th edition campaign
 - **Living World Continuity**: Return to any visited module with full accumulated adventure history
 - **Chronicle Generation**: Elegant prose summaries of completed adventures using elevated fantasy language
 - **Hub-and-Spoke Design**: Central hub locations accessible from multiple adventure modules
+- **AI Autonomous Module Creation**: When all adventures are complete, the AI DM can create new modules based on party history
 
 ### Campaign Generation
 - **Complete Module Builder**: Generate entire adventure modules with areas, locations, plots, and NPCs
@@ -94,6 +95,7 @@ The AI analyzes area descriptions and themes to suggest natural narrative bridge
 - **Community Modules**: Download and integrate player-created adventures automatically
 - **Safety Protocols**: All community modules undergo content safety validation and conflict resolution
 - **Organic Integration**: New modules connect naturally to your existing world without manual configuration
+- **AI-Driven Module Creation**: AI DM autonomously creates contextually appropriate modules when adventures conclude
 
 ## Key Features
 
@@ -110,6 +112,8 @@ The AI analyzes area descriptions and themes to suggest natural narrative bridge
 - **Schema Compliance**: All files follow strict 5th edition JSON schemas
 - **Community Module Support**: Framework for sharing and auto-integrating downloaded adventures
 - **Safety Validation**: Automatic content review and conflict resolution for community modules
+- **AI Autonomous Creation**: When current adventures conclude, AI analyzes party history to craft new contextual modules
+- **Narrative-Driven Generation**: AI parses rich narrative descriptions to extract module parameters automatically
 
 ### Gameplay Features
 - **Interactive Storytelling**: Dynamic narratives respond to accumulated player decisions across modules

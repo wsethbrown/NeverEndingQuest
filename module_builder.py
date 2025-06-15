@@ -431,5 +431,182 @@ def main():
     print("2. Edit any generated files as needed")
     print("3. Start your adventure with main.py")
 
+def parse_narrative_to_module_params(narrative: str) -> Dict[str, Any]:
+    """Use AI to parse a narrative description into module parameters
+    
+    Args:
+        narrative: The rich narrative description of the new module
+        
+    Returns:
+        Dict containing parsed module parameters
+    """
+    from openai import OpenAI
+    import config
+    
+    client = OpenAI(api_key=config.OPENAI_API_KEY)
+    
+    parsing_prompt = """You are a module configuration parser. Given a narrative description of a D&D adventure module, extract the key parameters needed for module generation.
+
+The narrative may contain embedded parameters in this format:
+- **Module Name**: _Name_With_Underscores_
+- **Adventure Type**: Type description
+- **Level Range**: X-Y
+- **Number of Areas**: N
+- **Locations per Area**: X-Y
+- **Plot Themes**: Listed themes or goals
+
+Extract these values and return a JSON object with these fields:
+- module_name: The title with underscores (e.g., "Bell_of_the_Tidegrave")
+- num_areas: Number of distinct areas (extract from "Number of Areas")
+- locations_per_area: Average of the range given (e.g., "6-7" becomes 6 or 7)
+- level_range: {"min": X, "max": Y} from the Level Range
+- adventure_type: Extract type, lowercase ("dungeon", "wilderness", "urban", or "mixed")
+- plot_themes: Extract the core themes or goals as comma-separated values
+
+If values are ranges (like "6-7"), use the average or higher value.
+For plot themes, extract the essential goals/themes, not the full descriptions.
+
+Return ONLY the JSON object, no explanation."""
+    
+    try:
+        response = client.chat.completions.create(
+            model=config.DM_SUMMARIZATION_MODEL,
+            temperature=0.3,
+            messages=[
+                {"role": "system", "content": parsing_prompt},
+                {"role": "user", "content": f"Parse this module narrative:\n\n{narrative}"}
+            ]
+        )
+        
+        result = response.choices[0].message.content.strip()
+        # Clean up potential code blocks
+        if "```json" in result:
+            result = result.split("```json")[1].split("```")[0].strip()
+        elif "```" in result:
+            result = result.split("```")[1].split("```")[0].strip()
+            
+        parsed = json.loads(result)
+        print(f"DEBUG: AI parsed narrative into: {json.dumps(parsed, indent=2)}")
+        return parsed
+        
+    except Exception as e:
+        print(f"ERROR: Failed to parse narrative with AI: {e}")
+        # Return sensible defaults
+        return {
+            "module_name": "New_Adventure",
+            "num_areas": 2,
+            "locations_per_area": 12,
+            "level_range": {"min": 3, "max": 5},
+            "adventure_type": "mixed",
+            "plot_themes": "adventure,mystery"
+        }
+
+def ai_driven_module_creation(params: Dict[str, Any]) -> bool:
+    """AI-driven module creation that accepts a narrative and autonomously creates a module
+    
+    This function is fully agentic - it can work with just a narrative description
+    or accept explicit parameters from the AI DM.
+    
+    Args:
+        params: Dictionary that can contain either:
+            - concept: Adventure narrative (required)
+            - module_name: If provided, will override AI parsing
+            - Other optional params that override AI parsing
+            OR just:
+            - narrative: Full narrative description (AI will parse all params)
+    
+    Returns:
+        bool: True if module was created successfully, False otherwise
+    """
+    try:
+        # Check if we have a narrative to parse
+        narrative = params.get("narrative") or params.get("concept")
+        if not narrative:
+            print(f"ERROR: No narrative or concept provided")
+            return False
+        
+        # Parse narrative with AI to get module parameters
+        parsed_params = parse_narrative_to_module_params(narrative)
+        
+        # Allow explicit parameters to override AI parsing
+        module_name = params.get("module_name") or parsed_params.get("module_name")
+        num_areas = params.get("num_areas") or parsed_params.get("num_areas", 2)
+        locations_per_area = params.get("locations_per_area") or parsed_params.get("locations_per_area", 12)
+        level_range = params.get("level_range") or parsed_params.get("level_range", {"min": 3, "max": 5})
+        adventure_type = params.get("adventure_type") or parsed_params.get("adventure_type", "mixed")
+        plot_themes = params.get("plot_themes") or parsed_params.get("plot_themes", "")
+        
+        # Clean module name (replace spaces with underscores)
+        module_name = module_name.replace(" ", "_")
+        
+        # Enhance the concept with AI-provided context
+        enhanced_concept = f"{narrative}"
+        if adventure_type:
+            enhanced_concept += f" This is primarily a {adventure_type} adventure."
+        if level_range:
+            enhanced_concept += f" Designed for characters level {level_range.get('min', 3)} to {level_range.get('max', 5)}."
+        if plot_themes:
+            enhanced_concept += f" Key themes include: {plot_themes}."
+        
+        print(f"DEBUG: AI-driven module creation starting for '{module_name}'")
+        print(f"DEBUG: Concept: {enhanced_concept}")
+        print(f"DEBUG: Areas: {num_areas}, Locations per area: {locations_per_area}")
+        
+        # Configure builder with AI parameters
+        config = BuilderConfig(
+            module_name=module_name,
+            num_areas=int(num_areas),
+            locations_per_area=int(locations_per_area),
+            output_directory=f"./modules/{module_name}",
+            verbose=True
+        )
+        
+        # Create and run the builder
+        builder = ModuleBuilder(config)
+        
+        # Inject AI context into the builder's context
+        if plot_themes:
+            # Store themes in context for generators to use
+            builder.context.metadata["plot_themes"] = plot_themes.split(",")
+            builder.context.metadata["adventure_type"] = adventure_type
+            builder.context.metadata["level_range"] = level_range
+        
+        # Build the module
+        builder.build_module(enhanced_concept)
+        
+        print(f"DEBUG: Module '{module_name}' created successfully at {config.output_directory}")
+        
+        # Create a module_plot.json file for the new module (required by the system)
+        plot_file_path = os.path.join(config.output_directory, "module_plot.json")
+        if not os.path.exists(plot_file_path):
+            # Create a unified plot file from area plots
+            unified_plot = {
+                "plotTitle": builder.module_data.get("moduleName", module_name.replace("_", " ")),
+                "mainObjective": builder.module_data.get("mainPlot", {}).get("mainObjective", "Complete the adventure"),
+                "plotPoints": []
+            }
+            
+            # Aggregate plot points from all areas
+            plot_id_counter = 1
+            for area_id, plot_data in builder.plots_data.items():
+                for plot_point in plot_data.get("plotPoints", []):
+                    # Renumber plot points for unified file
+                    plot_point["id"] = f"PP{plot_id_counter:03d}"
+                    plot_point["areaId"] = area_id
+                    unified_plot["plotPoints"].append(plot_point)
+                    plot_id_counter += 1
+            
+            with open(plot_file_path, "w") as f:
+                json.dump(unified_plot, f, indent=2)
+            print(f"DEBUG: Created unified module_plot.json with {len(unified_plot['plotPoints'])} plot points")
+        
+        return True
+        
+    except Exception as e:
+        print(f"ERROR: AI-driven module creation failed: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return False
+
 if __name__ == "__main__":
     main()

@@ -824,6 +824,32 @@ def main_game_loop():
                         monster_list.append(f"- {name} ({qty_str})")
                     monsters_str = "\n".join(monster_list)
 
+            # Check if current module is complete and no other modules available
+            module_creation_prompt = ""
+            try:
+                # Check if all plot points are completed
+                all_plot_completed = True
+                if plot_data_for_note and "plotPoints" in plot_data_for_note:
+                    for plot_point in plot_data_for_note["plotPoints"]:
+                        if plot_point.get("status") != "completed":
+                            all_plot_completed = False
+                            break
+                
+                # Check if other modules are available
+                campaign_manager = CampaignManager()
+                available_modules = campaign_manager.campaign_data.get('availableModules', [])
+                current_module = party_tracker_data.get('module', '').replace(' ', '_')
+                other_modules_available = len([m for m in available_modules if m != current_module]) > 0
+                
+                # If module is complete and no other modules, inject creation prompt
+                if all_plot_completed and not other_modules_available:
+                    # Load the module creation prompt
+                    if os.path.exists("module_creation_prompt.txt"):
+                        with open("module_creation_prompt.txt", "r", encoding="utf-8") as f:
+                            module_creation_prompt = "\n\n" + f.read()
+            except Exception as e:
+                print(f"DEBUG: Module completion check failed: {e}")
+            
             # Sanitize location name before using in DM note
             current_location_name_note = sanitize_text(current_location_name_note)
             dm_note = (f"Dungeon Master Note: Current date and time: {date_time_str}. "
@@ -850,7 +876,8 @@ def main_game_loop():
                 "Maintain immersive and engaging storytelling similar to an adventure novel while accurately managing game mechanics. "
                 "Update all relevant information immediately and confirm with the player before major actions. "
                 "Consider whether the party's action trigger traps in this location. "
-                "Consider updating the plot elements on every action the player and NPCs take.")
+                "Consider updating the plot elements on every action the player and NPCs take."
+                f"{module_creation_prompt}")
         else:
             dm_note = "Dungeon Master Note: Remember to take actions if necessary such as updating the plot, time, character sheets, and location if changes occur."
 

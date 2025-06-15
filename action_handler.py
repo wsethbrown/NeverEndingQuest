@@ -58,6 +58,7 @@ ACTION_TRANSITION_LOCATION = "transitionLocation"
 ACTION_LEVEL_UP = "levelUp"
 ACTION_UPDATE_CHARACTER_INFO = "updateCharacterInfo"
 ACTION_UPDATE_PARTY_NPCS = "updatePartyNPCs"
+ACTION_CREATE_NEW_MODULE = "createNewModule"
 
 def validate_location_transition(location_graph, current_location_id, destination_location_id):
     """
@@ -463,6 +464,56 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 traceback.print_exc()
         else:
             print(f"ERROR: Missing required parameters for updateEncounter. encounterId: {encounter_id}, changes: {changes}")
+
+    elif action_type == ACTION_CREATE_NEW_MODULE:
+        print(f"DEBUG: Processing createNewModule action")
+        try:
+            # Pass ALL parameters directly from AI to module builder
+            # The AI is fully in control of module creation
+            from module_builder import ai_driven_module_creation
+            
+            # Check if this is a single narrative parameter (new format)
+            # or multiple parameters (old format)
+            if len(parameters) == 1 and isinstance(list(parameters.values())[0], str):
+                # Single narrative parameter - new format
+                narrative = list(parameters.values())[0]
+                parameters = {"narrative": narrative}
+            
+            # Let the module builder handle ALL parameter validation
+            # This makes the system fully agentic - AI decides everything
+            success = ai_driven_module_creation(parameters)
+            
+            if success:
+                # Module name will be extracted from the narrative by the AI parser
+                print(f"DEBUG: Module created successfully")
+                
+                # Auto-integrate with module stitcher
+                try:
+                    from module_stitcher import ModuleStitcher
+                    stitcher = ModuleStitcher()
+                    # Run stitcher in fully autonomous mode
+                    integrated_modules = stitcher.scan_and_integrate_new_modules()
+                    print(f"DEBUG: Module '{module_name}' integrated into world registry")
+                    print(f"DEBUG: Integration summary: {integrated_modules}")
+                except Exception as e:
+                    print(f"WARNING: Module created but stitching failed: {e}")
+                
+                # Signal module creation complete
+                dm_note = f"Dungeon Master Note: New module '{module_name}' has been successfully created and integrated into the world. You may now guide the party to this new adventure."
+                conversation_history.append({"role": "user", "content": dm_note})
+                
+                # Save conversation history
+                from main import save_conversation_history
+                save_conversation_history(conversation_history)
+                
+                needs_conversation_history_update = True
+            else:
+                print(f"ERROR: Failed to create module")
+                
+        except Exception as e:
+            print(f"ERROR: Exception while creating module: {str(e)}")
+            import traceback
+            traceback.print_exc()
 
     else:
         print(f"WARNING: Unknown action type: {action_type}")

@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2025-01-17
 
 ### Added
+- AI Autonomous Module Creation system:
+  - AI DM can create new modules when current adventures are complete
+  - Narrative-driven module generation from rich text descriptions
+  - AI parsing of embedded parameters (areas, locations, level ranges)
+  - Fully agentic system - AI controls all aspects of module creation
+  - Conditional prompt injection only when module completion detected
+- New `createNewModule` action for AI DM
+- Enhanced `module_builder.py` with `ai_driven_module_creation` function
+- AI narrative parser for extracting module parameters from prose
+- Module creation prompt that guides contextual adventure generation
 - Interactive tabs in the web interface for viewing player data:
   - Inventory tab showing equipment, weapons, and currency
   - Character Stats tab displaying basic info, combat stats, and abilities
