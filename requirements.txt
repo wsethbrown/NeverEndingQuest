@@ -1,6 +1,40 @@
+# DungeonMasterAI Requirements
+# Core dependencies for running the 5th edition AI dungeon master system
+
+# OpenAI API for AI model interactions
 openai>=1.0.0
-termcolor>=2.0.0
-jsonschema>=4.0.0
-flask>=2.0.0
-flask-socketio>=5.0.0
-python-socketio>=5.0.0
+
+# Web interface framework
+Flask>=2.3.0
+Flask-SocketIO>=5.3.0
+
+# JSON schema validation for game data
+jsonschema>=4.17.0
+
+# Terminal output coloring
+termcolor>=2.3.0
+
+# Python standard library extensions (usually included)
+# pathlib - included in Python 3.4+
+# datetime - standard library
+# json - standard library
+# os - standard library
+# sys - standard library
+# re - standard library
+# subprocess - standard library
+# threading - standard library
+# queue - standard library
+# time - standard library
+# io - standard library
+# contextlib - standard library
+# shutil - standard library
+# codecs - standard library
+
+# Optional: For enhanced development experience
+# black>=23.0.0          # Code formatting
+# flake8>=6.0.0          # Code linting
+# pytest>=7.0.0          # Testing framework
+# mypy>=1.0.0            # Type checking
+
+# Note: Make sure you have Python 3.8+ installed
+# Install with: pip install -r requirements.txt
