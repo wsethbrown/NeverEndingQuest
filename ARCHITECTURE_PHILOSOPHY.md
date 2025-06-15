@@ -11,8 +11,8 @@ While AI drives the narrative and game logic, multiple validation layers ensure 
 ### 3. **Data Integrity Above All**
 Every data operation is atomic, validated, and recoverable. We use JSON schemas, backup mechanisms, file locking, and multi-layer validation to ensure game state consistency even under failure conditions.
 
-### 4. **Campaign-Centric Organization**
-The file system mirrors D&D's natural hierarchy: campaigns contain areas, areas contain locations, and all game elements are organized around the campaign structure for intuitive navigation and management.
+### 4. **Location-Based Hub-and-Spoke Module Architecture**
+Our revolutionary module system uses geographic boundaries rather than narrative chapters. Each area network forms a self-contained module, with automatic cross-module transitions based on location IDs. This creates a living, interconnected world where players can revisit any area while maintaining full context through accumulated adventure summaries.
 
 ### 5. **Unified Character Management**
 All characters (players, NPCs, monsters) use consistent schemas and processing patterns while allowing for role-specific behavior. This simplifies maintenance and ensures consistent game mechanics.
@@ -91,6 +91,29 @@ campaigns/[campaign_name]/
 3. **AI Validation**: Separate model verifies response accuracy
 4. **State Validation**: Game state consistency checks
 5. **Reference Validation**: Cross-file integrity verification
+
+## Campaign Continuity System
+
+### **Location-Based Module Boundaries**
+Our hub-and-spoke campaign architecture revolutionizes multi-module play:
+- **Geographic Modules**: Each area network (locations sharing prefixes) forms one module
+- **Automatic Detection**: System detects cross-module transitions via location IDs
+- **Seamless Integration**: No player prompts needed - transitions are organic and AI-driven
+- **Context Preservation**: Full conversation history archived before module summarization
+
+### **Summary Accumulation Strategy**
+```
+Visit 1: Module_A → [Chronicle A]
+Visit 2: Module_B → [Chronicle B] 
+Visit 3: Return to Module_A → [Chronicle A + Chronicle B + new events]
+Visit 4: Back to Module_B → [All accumulated chronicles + latest adventure]
+```
+
+### **Campaign Context Injection**
+- **Pre-Transition**: Archive full conversation history with timestamps
+- **During Transition**: Auto-generate elevated prose chronicle of completed module
+- **Post-Transition**: Inject accumulated adventure summaries as conversation context
+- **Living World**: Each module retains state and continues evolving with new visits
 
 ## Error Handling Philosophy
 

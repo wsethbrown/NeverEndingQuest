@@ -1,34 +1,54 @@
 # ============================================================================
-# CAMPAIGN_MANAGER.PY - MULTI-MODULE CAMPAIGN ORCHESTRATION
+# CAMPAIGN_MANAGER.PY - LOCATION-BASED HUB-AND-SPOKE CAMPAIGN ORCHESTRATION
 # ============================================================================
 # 
-# ARCHITECTURE ROLE: Campaign Layer - Module Continuity Management
+# ARCHITECTURE ROLE: Campaign Layer - Location-Based Module Continuity
 # 
-# This module handles campaign-level state management, module transitions,
-# and inter-module continuity for extended campaigns. It implements the
-# hub-and-spoke model where completed modules affect future adventures.
+# This module implements a revolutionary location-based hub-and-spoke campaign
+# system where module boundaries are geographic rather than narrative. Players
+# seamlessly transition between modules based on location, with automatic
+# context preservation and summary generation.
+# 
+# CORE DESIGN PHILOSOPHY - LOCATION-BASED MODULES:
+# - Each geographic area network = one module (Shadowmere_Valley, Crystal_Peaks, etc.)
+# - Module context automatically loads based on current location ID
+# - Cross-module travel triggers automatic summarization of previous module
+# - Multiple visits to same module accumulate summaries for rich context
+# - No player prompts needed - transitions are organic and AI-driven
+# 
+# HUB-AND-SPOKE MODEL:
+# - Central hub locations (Thornwick Village) accessible from multiple modules
+# - Players can return to any visited module through natural travel
+# - Each module retains its state and continues to evolve with new visits
+# - Adventure summaries accumulate, creating living world history
 # 
 # KEY RESPONSIBILITIES:
-# - Manage campaign state across multiple modules
-# - Generate and store module completion summaries
-# - Track cross-module relationships and consequences
-# - Handle module transitions and unlocking
-# - Maintain campaign context for AI conversations
+# - Detect cross-module transitions via location IDs
+# - Auto-generate module summaries when leaving module areas
+# - Accumulate and inject relevant module summaries as conversation context
+# - Maintain module visit history and state continuity
+# - Support unlimited module revisiting with full context preservation
 # 
-# DESIGN PHILOSOPHY:
-# - Minimal overhead: Only essential campaign data
-# - Token-efficient: Compress completed modules to summaries
-# - Continuity-focused: Track decisions that matter across modules
-# - Hub-centric: Support Keep of Doom as central base
+# LOCATION-TO-MODULE MAPPING EXAMPLE:
+# - TV001, TV002, TV003 → Thornwick_Village module (hub)
+# - SM001, SM002, SM003 → Shadowmere_Valley module  
+# - CP001, CP002, CP003 → Crystal_Peaks module
+# - Module detection via location ID prefixes or area mappings
+# 
+# SUMMARY ACCUMULATION STRATEGY:
+# Visit 1: Shadowmere_Valley → [Chronicle of the Cursed Marshlands]
+# Visit 2: Crystal_Peaks → [Tale of the Frozen Spires] 
+# Visit 3: Return to Shadowmere_Valley → [Previous chronicles + new events]
+# Visit 4: Back to Crystal_Peaks → [All accumulated chronicles + latest adventure]
 # 
 # ARCHITECTURAL INTEGRATION:
-# - Works with existing ModulePathManager for file operations
-# - Extends conversation_utils.py with campaign context
-# - Integrates with party_tracker.json for state persistence
-# - Uses existing AI summarization for module compression
+# - Enhanced transitionLocation detection for cross-module movement
+# - Automatic conversation context injection with accumulated summaries
+# - Seamless integration with existing ModulePathManager architecture
+# - Maintains backward compatibility with single-module adventures
 # 
-# This module enables rich multi-module campaigns while preserving
-# the self-contained nature of individual adventure modules.
+# This system creates a living, interconnected world where every adventure
+# builds upon previous experiences while maintaining the modular architecture.
 # ============================================================================
 
 import json
@@ -39,7 +59,7 @@ from typing import Dict, List, Any, Optional
 from openai import OpenAI
 import config
 from encoding_utils import safe_json_load, safe_json_dump
-from token_estimator import TokenEstimator
+from module_path_manager import ModulePathManager
 
 class CampaignManager:
     """Manages campaign state and inter-module continuity"""
@@ -48,14 +68,18 @@ class CampaignManager:
         """Initialize campaign manager"""
         self.campaign_file = "modules/campaign.json"
         self.summaries_dir = "modules/campaign_summaries"
-        self.token_estimator = TokenEstimator()
         self.client = OpenAI(api_key=config.OPENAI_API_KEY)
         
         # Ensure directories exist
         os.makedirs(self.summaries_dir, exist_ok=True)
+        self.archives_dir = "modules/campaign_archives"
+        os.makedirs(self.archives_dir, exist_ok=True)
         
         # Load or create campaign state
         self.campaign_data = self._load_campaign_data()
+        
+        # Scan for new modules on startup (delayed import to avoid circular imports)
+        self._scan_for_new_modules()
     
     def _load_campaign_data(self) -> Dict[str, Any]:
         """Load campaign data or create default"""
@@ -82,7 +106,32 @@ class CampaignManager:
             safe_json_dump(default_campaign, self.campaign_file)
             return default_campaign
     
-    def get_campaign_context(self, max_tokens: int = 5000) -> str:
+    def _scan_for_new_modules(self):
+        """Scan for new modules using module stitcher and update available modules"""
+        try:
+            # Delayed import to avoid circular imports
+            from module_stitcher import get_module_stitcher
+            
+            # Get module stitcher and scan for new modules
+            stitcher = get_module_stitcher()
+            newly_integrated = stitcher.scan_and_integrate_new_modules()
+            
+            if newly_integrated:
+                # Update available modules in campaign data
+                current_available = set(self.campaign_data.get('availableModules', []))
+                current_available.update(newly_integrated)
+                self.campaign_data['availableModules'] = list(current_available)
+                
+                # Save updated campaign data
+                self.campaign_data['lastUpdated'] = datetime.now().isoformat()
+                safe_json_dump(self.campaign_data, self.campaign_file)
+                
+                print(f"Campaign Manager: Integrated {len(newly_integrated)} new modules: {', '.join(newly_integrated)}")
+            
+        except Exception as e:
+            print(f"Warning: Failed to scan for new modules: {e}")
+    
+    def get_campaign_context(self) -> str:
         """Get campaign context for AI conversations"""
         context_parts = []
         
@@ -124,38 +173,123 @@ class CampaignManager:
         
         # Build context string
         context = "\n".join(context_parts)
-        
-        # Ensure we stay within token budget
-        tokens = self.token_estimator.estimate_tokens_from_text(context)
-        if tokens > max_tokens:
-            # Truncate if necessary (shouldn't happen with proper summary generation)
-            context = self._truncate_to_tokens(context, max_tokens)
-        
         return context
     
-    def _load_module_summary(self, module_name: str) -> Optional[Dict[str, Any]]:
-        """Load a module summary if it exists"""
-        summary_file = os.path.join(self.summaries_dir, f"{module_name}_summary.json")
-        if os.path.exists(summary_file):
-            return safe_json_load(summary_file)
-        return None
+    def _load_module_summaries(self, module_name: str) -> List[Dict[str, Any]]:
+        """Load ALL module summaries for a given module (supports multiple visits)"""
+        import glob
+        
+        summaries = []
+        pattern = os.path.join(self.summaries_dir, f"{module_name}_summary_*.json")
+        summary_files = glob.glob(pattern)
+        
+        # Sort by sequence number
+        summary_files.sort(key=lambda x: self._extract_sequence_number(x))
+        
+        for summary_file in summary_files:
+            try:
+                summary = safe_json_load(summary_file)
+                if summary:
+                    summaries.append(summary)
+            except Exception as e:
+                print(f"Warning: Failed to load summary {summary_file}: {e}")
+        
+        return summaries
     
-    def check_module_completion(self, party_tracker_data: Dict[str, Any]) -> bool:
-        """Check if current module is complete based on quest status"""
-        # Simple heuristic: All major quests completed or main plot stage reached
-        active_quests = party_tracker_data.get('activeQuests', [])
-        
-        # Check for resolution quest (typically the final quest)
-        for quest in active_quests:
-            if 'resolution' in quest.get('title', '').lower() and quest.get('status') == 'completed':
-                return True
-        
-        # Alternative: Check if all major quests are completed
-        major_quest_statuses = [q['status'] for q in active_quests if 'SQ' not in q.get('id', '')]
-        if major_quest_statuses and all(status == 'completed' for status in major_quest_statuses):
-            return True
-        
-        return False
+    def _extract_sequence_number(self, file_path: str) -> int:
+        """Extract sequence number from filename"""
+        import re
+        filename = os.path.basename(file_path)
+        match = re.search(r'_(\d+)\.json$', filename)
+        return int(match.group(1)) if match else 0
+    
+    def check_module_completion(self, module_name: str) -> bool:
+        """Check if module is complete based on module_plot.json"""
+        try:
+            # Get module plot file
+            path_manager = ModulePathManager(module_name)
+            plot_file = os.path.join(path_manager.module_dir, "module_plot.json")
+            
+            if not os.path.exists(plot_file):
+                print(f"No module_plot.json found for {module_name}")
+                return False
+            
+            plot_data = safe_json_load(plot_file)
+            plot_points = plot_data.get('plotPoints', [])
+            
+            if not plot_points:
+                return False
+            
+            # Find the final plot point (one with empty nextPoints)
+            final_plot_point = None
+            for point in plot_points:
+                if not point.get('nextPoints', []):
+                    final_plot_point = point
+                    break
+            
+            if final_plot_point:
+                return final_plot_point.get('status') == 'completed'
+            
+            # Fallback: Check if all plot points are completed
+            return all(point.get('status') == 'completed' for point in plot_points)
+            
+        except Exception as e:
+            print(f"Error checking module completion for {module_name}: {e}")
+            return False
+    
+    def sync_party_tracker_with_plot(self, module_name: str) -> bool:
+        """Sync party_tracker.json quest statuses with module_plot.json"""
+        try:
+            # Load module plot data
+            path_manager = ModulePathManager(module_name)
+            plot_file = os.path.join(path_manager.module_dir, "module_plot.json")
+            party_file = "party_tracker.json"
+            
+            if not os.path.exists(plot_file):
+                print(f"No module_plot.json found for {module_name}")
+                return False
+            
+            plot_data = safe_json_load(plot_file)
+            party_data = safe_json_load(party_file)
+            
+            # Create a mapping of quest IDs to their plot statuses
+            quest_statuses = {}
+            
+            # Get statuses from main plot points
+            for point in plot_data.get('plotPoints', []):
+                quest_id = point.get('id')
+                status = point.get('status')
+                if quest_id and status:
+                    quest_statuses[quest_id] = status
+                
+                # Also get side quest statuses
+                for side_quest in point.get('sideQuests', []):
+                    sq_id = side_quest.get('id')
+                    sq_status = side_quest.get('status')
+                    if sq_id and sq_status:
+                        quest_statuses[sq_id] = sq_status
+            
+            # Update party tracker quests
+            updated = False
+            for quest in party_data.get('activeQuests', []):
+                quest_id = quest.get('id')
+                if quest_id in quest_statuses:
+                    new_status = quest_statuses[quest_id]
+                    if quest.get('status') != new_status:
+                        print(f"Syncing {quest_id}: {quest.get('status')} -> {new_status}")
+                        quest['status'] = new_status
+                        updated = True
+            
+            # Save updated party tracker if changes were made
+            if updated:
+                safe_json_dump(party_data, party_file)
+                print(f"Party tracker synced with module plot for {module_name}")
+            
+            return updated
+            
+        except Exception as e:
+            print(f"Error syncing party tracker with plot for {module_name}: {e}")
+            return False
     
     def complete_module(self, module_name: str, party_tracker_data: Dict[str, Any], 
                        conversation_history: List[Dict[str, Any]]) -> Dict[str, Any]:
@@ -165,8 +299,12 @@ class CampaignManager:
         # Generate module summary
         summary = self._generate_module_summary(module_name, party_tracker_data, conversation_history)
         
-        # Save summary
-        summary_file = os.path.join(self.summaries_dir, f"{module_name}_summary.json")
+        # Save summary with sequential numbering
+        sequence_num = self._get_next_sequence_number(self.summaries_dir, f"{module_name}_summary", ".json")
+        summary_file = os.path.join(self.summaries_dir, f"{module_name}_summary_{sequence_num:03d}.json")
+        
+        # Add sequence number to summary data
+        summary["sequenceNumber"] = sequence_num
         safe_json_dump(summary, summary_file)
         
         # Update campaign state
@@ -188,36 +326,76 @@ class CampaignManager:
     def _generate_module_summary(self, module_name: str, party_tracker_data: Dict[str, Any],
                                 conversation_history: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Generate AI-powered module summary"""
+        # Archive full conversation history before summarization
+        self._archive_conversation_history(module_name, conversation_history)
+        
+        # Load module plot data for structured information
+        plot_data = self._load_module_plot_data(module_name)
+        
         # Extract key information from party tracker
         party_npcs = party_tracker_data.get('partyNPCs', [])
         active_quests = party_tracker_data.get('activeQuests', [])
         
-        # Build prompt for AI
-        system_prompt = """You are a campaign chronicler summarizing a completed adventure module. 
-        Create a concise but comprehensive summary (500-1000 tokens) that captures:
-        1. The main story arc and how it was resolved
-        2. Key decisions made by the party
-        3. Important NPCs and their fates
-        4. Consequences that will affect future modules
-        5. Items, allies, or abilities gained"""
+        # Build enhanced prompt for AI using plot data and conversation history
+        system_prompt = """You are a chronicler and narrative designer for a fantasy TTRPG setting. Your job is to synthesize a full-length adventure arc into a single, elegant, elevated prose summary, based on structured location summaries and plot notes provided to you. Your writing should sound like a campaign journal, codex scroll, or in-world historical chronicle.
+
+You MUST:
+1. Work in past tense, third person, using immersive and elevated fantasy prose.
+2. Combine multiple location summaries, character actions, player interactions, and module-level plot points into a **single narrative**.
+3. Maintain **chronological flow**, but do not structure it like a bullet-pointed travel log.
+4. Highlight:
+   - The main story arc and how it resolved
+   - Key player actions, sacrifices, and moments of bravery or failure
+   - Consequences of rituals, combat, negotiations, and discoveries
+   - Character relationships: loyalty, bonding, disagreements, confessions, moments of vulnerability or humor
+   - Romantic developments or emotional subplots if present
+   - NPCs who changed because of the party's actions (e.g. gained hope, suffered loss, forged bonds)
+   - Side quests and how they connected (if relevant)
+   - Emotional turning points and events that would form lasting memories for PCs or NPCs
+   - Items of symbolic or magical value, and their narrative weight
+   - Thematic closure: what changed, who grew, what lingers unresolved
+5. Avoid game mechanics (no mention of rolls, stats, XP, or abilities).
+6. Do NOT list locations like a log. Weave them naturally into the story.
+7. Focus on **emotional stakes and character consequence**, not raw action alone.
+
+Your final output should be a self-contained summary of the complete adventure arc — fitting for a codex, character-facing epilogue, or in-world retelling of their legend."""
         
-        user_prompt = f"""Summarize the completed module '{module_name}' based on this information:
+        # Prepare plot data summary
+        plot_summary = ""
+        if plot_data:
+            plot_summary = f"Plot Structure: {json.dumps(plot_data.get('plotPoints', []), indent=2)}"
         
-        Party NPCs: {json.dumps(party_npcs, indent=2)}
-        Quest Status: {json.dumps(active_quests, indent=2)}
+        # Filter out system messages from conversation history and include everything else
+        filtered_conversation = []
+        if conversation_history:
+            for message in conversation_history:
+                if message.get('role') != 'system':
+                    filtered_conversation.append(message)
         
-        Focus on story outcomes and decisions that will matter in future adventures.
-        Keep the summary under 1000 tokens."""
+        conversation_data = f"Complete Conversation History: {json.dumps(filtered_conversation, indent=2)}"
+        
+        user_prompt = f"""Please generate a complete narrative summary of this adventure arc using the location summaries and plot file provided below:
+
+STRUCTURED PLOT DATA:
+{plot_summary}
+
+PARTY STATUS:
+Party NPCs: {json.dumps(party_npcs, indent=2)}
+Quest Status: {json.dumps(active_quests, indent=2)}
+
+CONVERSATION CONTEXT:
+{conversation_data}
+
+Focus on story outcomes, character development, and decisions that will matter in future adventures."""
         
         try:
             response = self.client.chat.completions.create(
-                model=config.DM_SUMMARY_MODEL,
+                model=config.DM_SUMMARIZATION_MODEL,
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
                 ],
-                temperature=0.7,
-                max_tokens=1500
+                temperature=0.7
             )
             
             summary_text = response.choices[0].message.content
@@ -303,6 +481,67 @@ class CampaignManager:
             if module not in self.campaign_data['availableModules']:
                 self.campaign_data['availableModules'].append(module)
     
+    def _archive_conversation_history(self, module_name: str, conversation_history: List[Dict[str, Any]]):
+        """Archive the full conversation history for a module before summarization"""
+        try:
+            # Find next available sequence number
+            sequence_num = self._get_next_sequence_number(self.archives_dir, f"{module_name}_conversation", ".json")
+            archive_file = os.path.join(self.archives_dir, f"{module_name}_conversation_{sequence_num:03d}.json")
+            
+            archive_data = {
+                "moduleName": module_name,
+                "sequenceNumber": sequence_num,
+                "archiveDate": datetime.now().isoformat(),
+                "conversationHistory": conversation_history,
+                "totalMessages": len(conversation_history)
+            }
+            safe_json_dump(archive_data, archive_file)
+            print(f"Archived {len(conversation_history)} conversation messages for {module_name} (sequence {sequence_num:03d})")
+        except Exception as e:
+            print(f"Warning: Failed to archive conversation history for {module_name}: {e}")
+    
+    def _load_module_plot_data(self, module_name: str) -> Optional[Dict[str, Any]]:
+        """Load module plot data for structured information"""
+        try:
+            path_manager = ModulePathManager(module_name)
+            plot_file = os.path.join(path_manager.module_dir, "module_plot.json")
+            
+            if os.path.exists(plot_file):
+                return safe_json_load(plot_file)
+            else:
+                print(f"No module_plot.json found for {module_name}")
+                return None
+        except Exception as e:
+            print(f"Error loading plot data for {module_name}: {e}")
+            return None
+    
+    def _get_next_sequence_number(self, directory: str, base_filename: str, extension: str) -> int:
+        """Find the next available sequence number for a file series"""
+        import glob
+        import re
+        
+        # Create directory if it doesn't exist
+        os.makedirs(directory, exist_ok=True)
+        
+        # Find all existing files with the pattern
+        pattern = os.path.join(directory, f"{base_filename}_*.{extension.lstrip('.')}")
+        existing_files = glob.glob(pattern)
+        
+        if not existing_files:
+            return 1
+        
+        # Extract sequence numbers from existing files
+        sequence_numbers = []
+        for file_path in existing_files:
+            filename = os.path.basename(file_path)
+            # Match pattern: base_filename_XXX.extension
+            match = re.search(rf"{re.escape(base_filename)}_(\d+)\.{re.escape(extension.lstrip('.'))}", filename)
+            if match:
+                sequence_numbers.append(int(match.group(1)))
+        
+        # Return next available number
+        return max(sequence_numbers) + 1 if sequence_numbers else 1
+    
     def _process_module_summary_for_export(self, summary_text: str, party_tracker_data: Dict[str, Any]) -> Dict[str, Any]:
         """Let AI extract exportable data from module completion"""
         # This method would use AI to extract key data agnostically
@@ -315,16 +554,6 @@ class CampaignManager:
             "unlockedModules": []
         }
     
-    def _truncate_to_tokens(self, text: str, max_tokens: int) -> str:
-        """Truncate text to fit within token limit"""
-        # Simple truncation - in production would use proper tokenizer
-        tokens = self.token_estimator.estimate_tokens_from_text(text)
-        if tokens <= max_tokens:
-            return text
-        
-        # Rough estimate: 4 chars per token
-        char_limit = max_tokens * 4
-        return text[:char_limit] + "..."
     
     def transition_module(self, from_module: str, to_module: str):
         """Handle transition between modules"""
@@ -341,6 +570,139 @@ class CampaignManager:
         """Check if a module can be started"""
         # Simple check - is it in available modules?
         return module_name in self.campaign_data.get('availableModules', [])
+    
+    def get_module_from_location(self, location_id: str) -> str:
+        """Determine module name from location ID - FULLY AGNOSTIC"""
+        if not location_id:
+            return None
+            
+        # Use existing ModulePathManager to scan all modules
+        modules_dir = "modules"
+        if not os.path.exists(modules_dir):
+            return None
+            
+        for module_name in os.listdir(modules_dir):
+            module_path = os.path.join(modules_dir, module_name)
+            if os.path.isdir(module_path) and not module_name.startswith('.'):
+                try:
+                    path_manager = ModulePathManager(module_name)
+                    # Check if location exists in this module
+                    if self._location_exists_in_module(location_id, path_manager):
+                        return module_name
+                except:
+                    continue
+        
+        return None
+    
+    def _location_exists_in_module(self, location_id: str, path_manager: ModulePathManager) -> bool:
+        """Check if location ID exists in the given module"""
+        import glob
+        
+        # Scan all area files in the module
+        module_dir = path_manager.module_dir
+        if not os.path.exists(module_dir):
+            return False
+            
+        for area_file in glob.glob(f"{module_dir}/*.json"):
+            # Skip module metadata and plot files
+            filename = os.path.basename(area_file)
+            if (filename.endswith("_module.json") or 
+                filename.endswith("_plot.json") or 
+                filename.startswith("module_") or
+                filename.startswith("party_")):
+                continue
+                
+            try:
+                area_data = safe_json_load(area_file)
+                if area_data and "locations" in area_data:
+                    locations = area_data["locations"]
+                    
+                    # Handle both dict and list formats
+                    if isinstance(locations, dict):
+                        if location_id in locations:
+                            return True
+                    elif isinstance(locations, list):
+                        for location in locations:
+                            if isinstance(location, dict) and location.get("locationId") == location_id:
+                                return True
+            except:
+                continue
+        return False
+    
+    def detect_module_transition(self, from_location: str, to_location: str) -> tuple:
+        """Detect if transition crosses module boundaries"""
+        from_module = self.get_module_from_location(from_location)
+        to_module = self.get_module_from_location(to_location)
+        
+        # Return (is_transition, from_module, to_module)
+        if from_module and to_module and from_module != to_module:
+            return (True, from_module, to_module)
+        return (False, from_module, to_module)
+    
+    def handle_cross_module_transition(self, from_module: str, to_module: str, 
+                                     party_tracker_data: Dict[str, Any], 
+                                     conversation_history: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Handle automatic summarization when crossing module boundaries"""
+        print(f"\nDEBUG: Cross-module transition detected: {from_module} -> {to_module}")
+        
+        # Auto-summarize the module being left
+        if from_module and from_module not in self.campaign_data.get('completedModules', []):
+            print(f"DEBUG: Auto-generating summary for {from_module}...")
+            
+            summary = self._generate_module_summary(from_module, party_tracker_data, conversation_history)
+            
+            # Save summary with sequential numbering
+            sequence_num = self._get_next_sequence_number(self.summaries_dir, f"{from_module}_summary", ".json")
+            summary_file = os.path.join(self.summaries_dir, f"{from_module}_summary_{sequence_num:03d}.json")
+            
+            # Add sequence number to summary data
+            summary["sequenceNumber"] = sequence_num
+            safe_json_dump(summary, summary_file)
+            
+            # Update campaign state
+            if from_module not in self.campaign_data['completedModules']:
+                self.campaign_data['completedModules'].append(from_module)
+            
+            # Handle module completion export
+            self._handle_module_completion_export(from_module, summary)
+            
+            # Save campaign state
+            self.campaign_data['lastUpdated'] = datetime.now().isoformat()
+            safe_json_dump(self.campaign_data, self.campaign_file)
+            
+            print(f"DEBUG: {from_module} summarized and archived")
+            return summary
+        
+        return None
+    
+    def get_accumulated_summaries_context(self, current_module: str) -> str:
+        """Get all relevant module summaries for current module context"""
+        context_parts = []
+        
+        # Add campaign overview
+        context_parts.append(f"CAMPAIGN: {self.campaign_data['campaignName']}")
+        context_parts.append(f"Current Module: {current_module}")
+        
+        # Add all completed module summaries (multiple visits per module)
+        if self.campaign_data['completedModules']:
+            context_parts.append("\\nPREVIOUS ADVENTURES:")
+            for module in self.campaign_data['completedModules']:
+                summaries = self._load_module_summaries(module)
+                if summaries:
+                    context_parts.append(f"\\n=== CHRONICLES OF {module.upper()} ===")
+                    for i, summary in enumerate(summaries):
+                        visit_num = i + 1
+                        seq_num = summary.get('sequenceNumber', visit_num)
+                        context_parts.append(f"\\n--- Visit {visit_num} (Chronicle {seq_num:03d}) ---")
+                        context_parts.append(summary.get('summary', 'No summary available'))
+        
+        # Add current world state
+        if self.campaign_data.get('worldState'):
+            context_parts.append("\\nWORLD STATE:")
+            for key, value in self.campaign_data['worldState'].items():
+                context_parts.append(f"- {key}: {value}")
+        
+        return "\\n".join(context_parts)
 
 
 # Utility functions for integration

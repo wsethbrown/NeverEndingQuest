@@ -1,10 +1,10 @@
 {
   "module": "Keep_of_Doom",
-  "timestamp": "2025-06-14T21:01:13.013987",
+  "timestamp": "2025-06-15T09:46:17.094932",
   "summary": {
-    "total_files": 36,
-    "total_passed": 36,
-    "total_failed": 0
+    "total_files": 38,
+    "total_passed": 37,
+    "total_failed": 1
   },
   "results": {
     "module": {
@@ -30,13 +30,17 @@
     "character": {
       "files": [
         "elen.json",
+        "laura.json",
         "norn.json",
         "norn_test.json",
-        "testnpc.json"
+        "testnpc.json",
+        "test_laura.json"
       ],
-      "passed": 4,
-      "failed": 0,
-      "errors": []
+      "passed": 5,
+      "failed": 1,
+      "errors": [
+        "test_laura.json: root: 'type' is a required property; root: 'size' is a required property; root: 'race' is a required property"
+      ]
     },
     "monster": {
       "files": [

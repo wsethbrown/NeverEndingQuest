@@ -93,6 +93,7 @@ from status_manager import (
 # Import atomic file operations
 from file_operations import safe_write_json, safe_read_json
 from module_path_manager import ModulePathManager
+from campaign_manager import CampaignManager
 
 # Import model configurations from config.py
 from config import (

@@ -320,6 +320,45 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
             )
             save_conversation_history(conversation_history)
             
+            # CAMPAIGN INTEGRATION: Check for cross-module transitions
+            try:
+                from campaign_manager import CampaignManager
+                campaign_manager = CampaignManager()
+                
+                # Detect if this is a cross-module transition
+                is_cross_module, from_module, to_module = campaign_manager.detect_module_transition(
+                    current_location_id, new_location_id
+                )
+                
+                if is_cross_module:
+                    print(f"DEBUG: Cross-module transition detected: {from_module} -> {to_module}")
+                    
+                    # Auto-summarize the module being left and update campaign state
+                    summary = campaign_manager.handle_cross_module_transition(
+                        from_module, to_module, updated_party_tracker, conversation_history
+                    )
+                    
+                    # Update party tracker module field
+                    updated_party_tracker["module"] = to_module
+                    safe_json_dump(updated_party_tracker, "party_tracker.json")
+                    
+                    # Inject accumulated campaign context
+                    campaign_context = campaign_manager.get_accumulated_summaries_context(to_module)
+                    if campaign_context:
+                        conversation_history.append({
+                            "role": "system", 
+                            "content": f"=== CAMPAIGN CONTEXT ===\n{campaign_context}"
+                        })
+                        save_conversation_history(conversation_history)
+                        print(f"DEBUG: Campaign context injected for {to_module}")
+                    
+                else:
+                    print(f"DEBUG: Within-module transition: {current_location_id} -> {new_location_id}")
+                    
+            except Exception as e:
+                print(f"Warning: Campaign transition check failed: {e}")
+                # Don't let campaign system errors break location transitions
+            
             print("DEBUG: Location transition complete")
             needs_conversation_history_update = True  # Trigger conversation history reload
              # After transition, the current_location_data in the main loop might be stale.

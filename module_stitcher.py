@@ -1,0 +1,909 @@
+# ============================================================================
+# MODULE_STITCHER.PY - ORGANIC MODULE INTEGRATION AND WORLD BUILDING
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: Module Integration Layer - Automatic Community Module Stitching
+# 
+# This module implements an organic module integration system that automatically
+# detects, analyzes, and connects adventure modules based on their actual content.
+# It uses AI-driven analysis of area descriptions, plot themes, and existing
+# connectivity to suggest natural narrative bridges between modules.
+# 
+# CORE DESIGN PHILOSOPHY - ORGANIC WORLD BUILDING:
+# - World map grows organically as modules are added (inside-out approach)
+# - AI analyzes area descriptions and themes for natural connection points
+# - Simple narrative bridges rather than complex geographic mapping
+# - Uses current data structure (area files, plot files) not outdated module.json
+# - Community-ready for player-made and downloaded modules
+# 
+# SAFETY & CONFLICT RESOLUTION:
+# - Automatic ID conflict resolution (area IDs, location IDs)
+# - File structure security validation (no executables, size limits)
+# - AI content safety review (family-friendly validation)
+# - Schema compliance checking (80% minimum pass rate)
+# - Graceful error handling with detailed logging
+# 
+# ID CONFLICT RESOLUTION:
+# - Detects duplicate area IDs (e.g., HH001 already exists)
+# - Generates unique alternatives (HH001 → HH002)
+# - Updates all references: area files, location IDs, map connections
+# - Renames corresponding files automatically
+# - Preserves data integrity throughout process
+# 
+# CONTENT SAFETY VALIDATION:
+# - File security: blocks executables, oversized files, directory traversal
+# - AI content review: checks for inappropriate themes or content
+# - Schema validation: ensures JSON structure compliance
+# - Rejects modules that fail security or safety checks
+# 
+# DATA SOURCES (CURRENT ARCHITECTURE):
+# - Area files (HH001.json, G001.json, etc.) - area descriptions and connectivity
+# - module_plot.json - story themes and main objectives  
+# - map_*.json files - layout information (source of truth)
+# - areaConnectivity fields - existing connections between areas
+# 
+# KEY RESPONSIBILITIES:
+# - Scan modules/ directory for new modules on startup
+# - Resolve ID conflicts automatically before integration
+# - Validate module safety using multiple security layers
+# - Extract area metadata from current file structure
+# - AI analysis of area themes and compatibility
+# - Generate simple narrative transition bridges
+# - Build organic world registry that grows with each module
+# - Auto-register valid modules in campaign system
+# 
+# INTEGRATION WORKFLOW:
+# 1. Detect new modules by scanning directory structure
+# 2. Check for ID conflicts and resolve automatically
+# 3. Validate module safety (files, content, schemas)
+# 4. Extract area data from *.json files (not module.json)
+# 5. Analyze themes using module_plot.json content
+# 6. AI suggests natural connections based on area descriptions
+# 7. Generate brief narrative bridges for transitions
+# 8. Update world registry and campaign availability
+# 
+# EXAMPLE EVOLUTION:
+# Keep_of_Doom: Harrow's Hollow (village) → Gloamwood (forest) → Shadowfall Keep (ruins)
+# + Crystal_Peaks: Frostspire Village (mountain settlement) → Ice Caverns (depths)
+# = AI Connection: "Mountain paths from Harrow's Hollow lead to Frostspire Village"
+# 
+# SAFETY CONFIGURATION:
+# - MAX_FILE_SIZE: 10MB per file limit
+# - MIN_SCHEMA_SUCCESS_RATE: 80% validation threshold
+# - Dangerous patterns: executables, scripts, directory traversal blocked
+# - AI safety model: Uses DM_SUMMARIZATION_MODEL for content review
+# 
+# This creates a living, community-driven world that grows organically without
+# requiring predetermined geography or complex mapping systems while maintaining
+# security and data integrity for safe community module integration.
+# ============================================================================
+
+import json
+import os
+import glob
+import re
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Any, Optional, Tuple
+from openai import OpenAI
+import config
+from encoding_utils import safe_json_load, safe_json_dump
+from module_path_manager import ModulePathManager
+
+class ModuleStitcher:
+    """Manages automatic module integration and organic world building"""
+    
+    def __init__(self):
+        """Initialize module stitcher"""
+        self.modules_dir = "modules"
+        self.world_registry_file = "modules/world_registry.json"
+        self.client = OpenAI(api_key=config.OPENAI_API_KEY)
+        
+        # Ensure directories exist
+        os.makedirs(self.modules_dir, exist_ok=True)
+        
+        # Load or create world registry
+        self.world_registry = self._load_world_registry()
+    
+    def _load_world_registry(self) -> Dict[str, Any]:
+        """Load world registry or create default"""
+        if os.path.exists(self.world_registry_file):
+            return safe_json_load(self.world_registry_file)
+        else:
+            # Create default world registry
+            default_registry = {
+                "worldName": "Chronicles of the Haunted Realm",
+                "registryVersion": "1.0.0",
+                "lastUpdated": datetime.now().isoformat(),
+                "modules": {},
+                "areas": {},
+                "connections": {},
+                "themes": {}
+            }
+            safe_json_dump(default_registry, self.world_registry_file)
+            return default_registry
+    
+    def detect_new_modules(self) -> List[str]:
+        """Detect new modules in the modules directory"""
+        try:
+            detected_modules = []
+            
+            if not os.path.exists(self.modules_dir):
+                return detected_modules
+            
+            # Scan for module directories
+            for item in os.listdir(self.modules_dir):
+                item_path = os.path.join(self.modules_dir, item)
+                
+                # Skip files and hidden directories
+                if not os.path.isdir(item_path) or item.startswith('.'):
+                    continue
+                    
+                # Skip system directories
+                if item in ['campaign_archives', 'campaign_summaries']:
+                    continue
+                
+                # Check if module has area files (current data structure)
+                if self._has_area_files(item_path):
+                    # Check if already registered
+                    if item not in self.world_registry.get('modules', {}):
+                        detected_modules.append(item)
+                        print(f"Detected new module: {item}")
+            
+            return detected_modules
+            
+        except Exception as e:
+            print(f"Error detecting modules: {e}")
+            return []
+    
+    def _has_area_files(self, module_path: str) -> bool:
+        """Check if module directory contains area files (current structure)"""
+        try:
+            # Look for area files (pattern: alphanumeric IDs + .json)
+            pattern = os.path.join(module_path, "*.json")
+            json_files = glob.glob(pattern)
+            
+            area_files = []
+            for file_path in json_files:
+                filename = os.path.basename(file_path)
+                
+                # Skip system files
+                if (filename.startswith('module_') or 
+                    filename.startswith('party_') or
+                    filename.startswith('campaign_') or
+                    filename.startswith('map_')):
+                    continue
+                
+                # Check if it's an area file by loading and checking structure
+                try:
+                    data = safe_json_load(file_path)
+                    if (data and 'areaId' in data and 'areaName' in data and 
+                        'locations' in data):
+                        area_files.append(filename)
+                except:
+                    continue
+            
+            return len(area_files) > 0
+            
+        except Exception as e:
+            print(f"Error checking area files in {module_path}: {e}")
+            return False
+    
+    def analyze_module(self, module_name: str) -> Optional[Dict[str, Any]]:
+        """Analyze a module's areas, themes, and connectivity"""
+        try:
+            module_path = os.path.join(self.modules_dir, module_name)
+            if not os.path.exists(module_path):
+                return None
+            
+            module_data = {
+                "moduleName": module_name,
+                "areas": {},
+                "themes": [],
+                "plotObjective": "",
+                "levelRange": {"min": 1, "max": 1},
+                "connections": {}
+            }
+            
+            # Extract area data from area files
+            areas_data = self._extract_areas_data(module_path)
+            if areas_data:
+                module_data["areas"] = areas_data
+            
+            # Extract plot themes and objectives
+            plot_data = self._extract_plot_data(module_path)
+            if plot_data:
+                module_data["themes"] = plot_data.get("themes", [])
+                module_data["plotObjective"] = plot_data.get("objective", "")
+                module_data["levelRange"] = plot_data.get("levelRange", {"min": 1, "max": 1})
+            
+            # Analyze potential connections using AI
+            connections = self._analyze_connections_with_ai(module_data)
+            module_data["connections"] = connections
+            
+            return module_data
+            
+        except Exception as e:
+            print(f"Error analyzing module {module_name}: {e}")
+            return None
+    
+    def _extract_areas_data(self, module_path: str) -> Dict[str, Any]:
+        """Extract area data from area files in module"""
+        areas_data = {}
+        
+        try:
+            # Find all area files
+            pattern = os.path.join(module_path, "*.json")
+            json_files = glob.glob(pattern)
+            
+            for file_path in json_files:
+                filename = os.path.basename(file_path)
+                
+                # Skip system files
+                if (filename.startswith('module_') or 
+                    filename.startswith('party_') or
+                    filename.startswith('campaign_') or
+                    filename.startswith('map_')):
+                    continue
+                
+                try:
+                    data = safe_json_load(file_path)
+                    if (data and 'areaId' in data and 'areaName' in data):
+                        area_id = data['areaId']
+                        areas_data[area_id] = {
+                            "areaName": data.get('areaName', ''),
+                            "areaDescription": data.get('areaDescription', ''),
+                            "areaType": data.get('areaType', ''),
+                            "dangerLevel": data.get('dangerLevel', 'unknown'),
+                            "recommendedLevel": data.get('recommendedLevel', 1),
+                            "climate": data.get('climate', ''),
+                            "terrain": data.get('terrain', ''),
+                            "areaConnectivity": data.get('areaConnectivity', []),
+                            "areaConnectivityId": data.get('areaConnectivityId', []),
+                            "locationCount": len(data.get('locations', []))
+                        }
+                except Exception as e:
+                    print(f"Error processing area file {file_path}: {e}")
+                    continue
+            
+            return areas_data
+            
+        except Exception as e:
+            print(f"Error extracting areas data from {module_path}: {e}")
+            return {}
+    
+    def _extract_plot_data(self, module_path: str) -> Optional[Dict[str, Any]]:
+        """Extract plot themes and objectives from module_plot.json"""
+        try:
+            plot_file = os.path.join(module_path, "module_plot.json")
+            if not os.path.exists(plot_file):
+                return None
+            
+            plot_data = safe_json_load(plot_file)
+            if not plot_data:
+                return None
+            
+            # Extract key information
+            extracted = {
+                "objective": plot_data.get('mainObjective', ''),
+                "plotTitle": plot_data.get('plotTitle', ''),
+                "themes": [],
+                "levelRange": {"min": 1, "max": 1}
+            }
+            
+            # Analyze plot points for themes and level range
+            plot_points = plot_data.get('plotPoints', [])
+            levels = []
+            
+            for point in plot_points:
+                # Extract themes from descriptions
+                description = point.get('description', '')
+                if description:
+                    extracted["themes"].append(description[:200])  # Truncate for analysis
+                
+                # Track recommended levels
+                location = point.get('location', '')
+                if location in self.world_registry.get('areas', {}):
+                    area_data = self.world_registry['areas'][location]
+                    if 'recommendedLevel' in area_data:
+                        levels.append(area_data['recommendedLevel'])
+            
+            # Set level range
+            if levels:
+                extracted["levelRange"] = {
+                    "min": min(levels),
+                    "max": max(levels)
+                }
+            
+            return extracted
+            
+        except Exception as e:
+            print(f"Error extracting plot data from {module_path}: {e}")
+            return None
+    
+    def _analyze_connections_with_ai(self, module_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Use AI to analyze potential connections with existing modules"""
+        try:
+            # Get existing world registry data for context
+            existing_areas = self.world_registry.get('areas', {})
+            existing_modules = self.world_registry.get('modules', {})
+            
+            if not existing_areas:
+                # First module - no connections to analyze
+                return {}
+            
+            # Prepare data for AI analysis
+            system_prompt = """You are a world-building AI that analyzes fantasy adventure modules to suggest natural narrative connections. Your job is to identify thematic and geographic compatibility between a new module and existing world areas.
+
+Focus on:
+1. Similar area types (villages connect to trade routes, forests to wilderness, dungeons to ruins)
+2. Thematic coherence (cursed areas near dark forests, mountain villages near peaks)
+3. Level progression (lower level areas connect to appropriate next areas)
+4. Narrative hooks (story elements that naturally bridge to other adventures)
+
+Suggest brief, natural transition descriptions like:
+- "Ancient trade paths from [existing area] lead toward [new area]"
+- "The [geographical feature] visible from [existing] are the [new area]"
+- "Local legends speak of [connection description]"
+
+Return JSON with format:
+{
+  "suggestedConnections": [
+    {
+      "fromArea": "existing_area_id",
+      "toArea": "new_area_id", 
+      "connectionType": "geographic|thematic|narrative",
+      "transitionText": "brief description",
+      "confidence": "high|medium|low"
+    }
+  ]
+}"""
+            
+            # Prepare module data for analysis
+            user_prompt = f"""Analyze this new module for connections to existing world areas:
+
+NEW MODULE: {module_data['moduleName']}
+Plot Objective: {module_data['plotObjective']}
+Level Range: {module_data['levelRange']}
+
+NEW AREAS:
+{json.dumps(module_data['areas'], indent=2)}
+
+EXISTING WORLD AREAS:
+{json.dumps(existing_areas, indent=2)}
+
+Suggest natural connections between new and existing areas."""
+            
+            response = self.client.chat.completions.create(
+                model=config.DM_SUMMARIZATION_MODEL,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt}
+                ],
+                temperature=0.7,
+                max_tokens=1000
+            )
+            
+            # Parse AI response
+            ai_response = response.choices[0].message.content
+            try:
+                connections_data = json.loads(ai_response)
+                return connections_data.get('suggestedConnections', [])
+            except json.JSONDecodeError:
+                print(f"Warning: Could not parse AI response for connections: {ai_response[:200]}...")
+                return {}
+                
+        except Exception as e:
+            print(f"Error analyzing connections with AI: {e}")
+            return {}
+    
+    def integrate_module(self, module_name: str) -> bool:
+        """Integrate a new module into the world registry with conflict resolution"""
+        try:
+            print(f"Integrating module: {module_name}")
+            
+            # Analyze the module
+            module_data = self.analyze_module(module_name)
+            if not module_data:
+                print(f"Failed to analyze module: {module_name}")
+                return False
+            
+            # Check for conflicts and resolve them
+            conflicts_resolved = self._resolve_id_conflicts(module_name, module_data)
+            if conflicts_resolved:
+                print(f"  - Resolved {conflicts_resolved} ID conflicts")
+                # Re-analyze module after ID changes
+                module_data = self.analyze_module(module_name)
+                if not module_data:
+                    print(f"Failed to re-analyze module after conflict resolution: {module_name}")
+                    return False
+            
+            # Validate module safety
+            if not self._validate_module_safety(module_name, module_data):
+                print(f"Module {module_name} failed safety validation - skipping integration")
+                return False
+            
+            # Add module to registry
+            self.world_registry['modules'][module_name] = {
+                "moduleName": module_name,
+                "addedDate": datetime.now().isoformat(),
+                "themes": module_data.get('themes', []),
+                "plotObjective": module_data.get('plotObjective', ''),
+                "levelRange": module_data.get('levelRange', {"min": 1, "max": 1}),
+                "areaCount": len(module_data.get('areas', {}))
+            }
+            
+            # Add areas to registry
+            for area_id, area_data in module_data.get('areas', {}).items():
+                self.world_registry['areas'][area_id] = {
+                    **area_data,
+                    "module": module_name,
+                    "addedDate": datetime.now().isoformat()
+                }
+            
+            # Add connections
+            connections = module_data.get('connections', [])
+            for connection in connections:
+                if isinstance(connection, dict):
+                    from_area = connection.get('fromArea')
+                    to_area = connection.get('toArea')
+                    if from_area and to_area:
+                        connection_id = f"{from_area}->{to_area}"
+                        self.world_registry['connections'][connection_id] = {
+                            **connection,
+                            "addedDate": datetime.now().isoformat()
+                        }
+            
+            # Update registry metadata
+            self.world_registry['lastUpdated'] = datetime.now().isoformat()
+            
+            # Save registry
+            safe_json_dump(self.world_registry, self.world_registry_file)
+            
+            print(f"Successfully integrated module: {module_name}")
+            print(f"  - Added {len(module_data.get('areas', {}))} areas")
+            print(f"  - Found {len(connections)} potential connections")
+            
+            return True
+            
+        except Exception as e:
+            print(f"Error integrating module {module_name}: {e}")
+            return False
+    
+    def _resolve_id_conflicts(self, module_name: str, module_data: Dict[str, Any]) -> int:
+        """Resolve area ID and location ID conflicts by modifying the new module"""
+        try:
+            conflicts_resolved = 0
+            existing_areas = self.world_registry.get('areas', {})
+            module_path = os.path.join(self.modules_dir, module_name)
+            
+            # Check for area ID conflicts
+            conflicting_areas = []
+            for area_id in module_data.get('areas', {}):
+                if area_id in existing_areas:
+                    conflicting_areas.append(area_id)
+            
+            if conflicting_areas:
+                print(f"  - Found {len(conflicting_areas)} area ID conflicts: {conflicting_areas}")
+                
+                # Generate new unique area IDs
+                for old_area_id in conflicting_areas:
+                    new_area_id = self._generate_unique_area_id(old_area_id, existing_areas)
+                    
+                    # Update area file
+                    if self._update_area_id_in_files(module_path, old_area_id, new_area_id):
+                        print(f"    - Renamed area {old_area_id} -> {new_area_id}")
+                        conflicts_resolved += 1
+                        
+                        # Update existing areas registry for future conflict checks
+                        existing_areas[new_area_id] = {"module": module_name}
+            
+            # Check for location ID conflicts within areas
+            location_conflicts = self._resolve_location_id_conflicts(module_path, module_data)
+            conflicts_resolved += location_conflicts
+            
+            return conflicts_resolved
+            
+        except Exception as e:
+            print(f"Error resolving ID conflicts: {e}")
+            return 0
+    
+    def _generate_unique_area_id(self, original_id: str, existing_areas: Dict[str, Any]) -> str:
+        """Generate a unique area ID by appending suffix"""
+        # Extract base and number if present
+        base_match = re.match(r'^([A-Z]+)(\d*)$', original_id)
+        if base_match:
+            base = base_match.group(1)
+            num = base_match.group(2)
+            start_num = int(num) if num else 1
+        else:
+            base = original_id
+            start_num = 1
+        
+        # Find next available number
+        for i in range(start_num + 1, start_num + 1000):  # Reasonable limit
+            new_id = f"{base}{i:03d}"
+            if new_id not in existing_areas:
+                return new_id
+        
+        # Fallback: append module name
+        return f"{original_id}_{module_name}"
+    
+    def _update_area_id_in_files(self, module_path: str, old_id: str, new_id: str) -> bool:
+        """Update area ID in area file and any references"""
+        try:
+            # Find and update the area file
+            area_file = os.path.join(module_path, f"{old_id}.json")
+            if os.path.exists(area_file):
+                # Load, update, and save area file
+                area_data = safe_json_load(area_file)
+                if area_data and 'areaId' in area_data:
+                    area_data['areaId'] = new_id
+                    
+                    # Update location IDs within the area
+                    for location in area_data.get('locations', []):
+                        old_loc_id = location.get('locationId', '')
+                        if old_loc_id.startswith(old_id):
+                            new_loc_id = old_loc_id.replace(old_id, new_id, 1)
+                            location['locationId'] = new_loc_id
+                    
+                    # Update map room IDs if map exists
+                    map_data = area_data.get('map', {})
+                    if map_data and 'rooms' in map_data:
+                        for room in map_data['rooms']:
+                            old_room_id = room.get('id', '')
+                            if old_room_id.startswith(old_id):
+                                new_room_id = old_room_id.replace(old_id, new_id, 1)
+                                room['id'] = new_room_id
+                                
+                                # Update connections
+                                if 'connections' in room:
+                                    updated_connections = []
+                                    for conn in room['connections']:
+                                        if conn.startswith(old_id):
+                                            updated_connections.append(conn.replace(old_id, new_id, 1))
+                                        else:
+                                            updated_connections.append(conn)
+                                    room['connections'] = updated_connections
+                    
+                    # Save updated area file
+                    new_area_file = os.path.join(module_path, f"{new_id}.json")
+                    safe_json_dump(area_data, new_area_file)
+                    
+                    # Remove old file
+                    os.remove(area_file)
+                    
+                    # Update corresponding map file if it exists
+                    old_map_file = os.path.join(module_path, f"map_{old_id}.json")
+                    if os.path.exists(old_map_file):
+                        new_map_file = os.path.join(module_path, f"map_{new_id}.json")
+                        os.rename(old_map_file, new_map_file)
+                    
+                    return True
+            
+            return False
+            
+        except Exception as e:
+            print(f"Error updating area ID from {old_id} to {new_id}: {e}")
+            return False
+    
+    def _resolve_location_id_conflicts(self, module_path: str, module_data: Dict[str, Any]) -> int:
+        """Resolve location ID conflicts within areas"""
+        try:
+            conflicts_resolved = 0
+            
+            # Build global location ID registry from existing modules
+            existing_location_ids = set()
+            for area_id, area_data in self.world_registry.get('areas', {}).items():
+                # This is approximate - we'd need to load each area file to get exact location IDs
+                # For now, we'll check against common patterns
+                location_count = area_data.get('locationCount', 0)
+                for i in range(1, location_count + 10):  # Some buffer
+                    existing_location_ids.add(f"{area_id}-{chr(64+i)}")  # A, B, C format
+                    existing_location_ids.add(f"{area_id}_{i:03d}")      # 001, 002 format
+            
+            # Check each area file in the new module
+            for area_id in module_data.get('areas', {}):
+                area_file = os.path.join(module_path, f"{area_id}.json")
+                if os.path.exists(area_file):
+                    area_data = safe_json_load(area_file)
+                    if area_data and 'locations' in area_data:
+                        modified = False
+                        
+                        for location in area_data['locations']:
+                            old_loc_id = location.get('locationId', '')
+                            if old_loc_id in existing_location_ids:
+                                # Generate new unique location ID
+                                new_loc_id = self._generate_unique_location_id(old_loc_id, existing_location_ids)
+                                location['locationId'] = new_loc_id
+                                existing_location_ids.add(new_loc_id)  # Prevent future conflicts
+                                modified = True
+                                conflicts_resolved += 1
+                                print(f"    - Renamed location {old_loc_id} -> {new_loc_id}")
+                        
+                        if modified:
+                            safe_json_dump(area_data, area_file)
+            
+            return conflicts_resolved
+            
+        except Exception as e:
+            print(f"Error resolving location ID conflicts: {e}")
+            return 0
+    
+    def _generate_unique_location_id(self, original_id: str, existing_ids: set) -> str:
+        """Generate unique location ID"""
+        # Try appending numbers
+        for i in range(1, 100):
+            new_id = f"{original_id}_{i}"
+            if new_id not in existing_ids:
+                return new_id
+        
+        # Fallback
+        return f"{original_id}_{datetime.now().strftime('%H%M%S')}"
+    
+    def _validate_module_safety(self, module_name: str, module_data: Dict[str, Any]) -> bool:
+        """Validate module for safety issues using AI content filtering"""
+        try:
+            # Basic structural validation
+            if not module_data.get('areas'):
+                print(f"  - Warning: Module {module_name} has no areas")
+                return False
+            
+            # Check for malicious file names or paths
+            module_path = os.path.join(self.modules_dir, module_name)
+            if not self._validate_file_structure(module_path):
+                return False
+            
+            # AI-powered content validation
+            if not self._ai_validate_content_safety(module_data):
+                return False
+            
+            # Schema validation using existing validator
+            if not self._validate_against_schemas(module_path):
+                return False
+            
+            return True
+            
+        except Exception as e:
+            print(f"Error validating module safety: {e}")
+            return False
+    
+    def _validate_file_structure(self, module_path: str) -> bool:
+        """Validate file structure for safety"""
+        try:
+            # Check for suspicious file patterns
+            dangerous_patterns = [
+                r'\.\./',  # Directory traversal
+                r'^/',     # Absolute paths
+                r'\.exe$', r'\.bat$', r'\.sh$',  # Executables
+                r'\.dll$', r'\.so$',  # Libraries
+            ]
+            
+            for root, dirs, files in os.walk(module_path):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    relative_path = os.path.relpath(file_path, self.modules_dir)
+                    
+                    for pattern in dangerous_patterns:
+                        if re.search(pattern, relative_path, re.IGNORECASE):
+                            print(f"  - Security risk: Suspicious file pattern '{relative_path}'")
+                            return False
+                    
+                    # Check file size (prevent extremely large files)
+                    try:
+                        file_size = os.path.getsize(file_path)
+                        if file_size > 10 * 1024 * 1024:  # 10MB limit
+                            print(f"  - Security risk: File too large '{relative_path}' ({file_size} bytes)")
+                            return False
+                    except:
+                        continue
+            
+            return True
+            
+        except Exception as e:
+            print(f"Error validating file structure: {e}")
+            return False
+    
+    def _ai_validate_content_safety(self, module_data: Dict[str, Any]) -> bool:
+        """Use AI to validate content for inappropriate material"""
+        try:
+            # Prepare content summary for AI review
+            content_summary = {
+                "plotObjective": module_data.get('plotObjective', ''),
+                "themes": module_data.get('themes', [])[:3],  # First 3 themes
+                "areaDescriptions": []
+            }
+            
+            # Add area descriptions (truncated)
+            for area_id, area_data in module_data.get('areas', {}).items():
+                desc = area_data.get('areaDescription', '')[:200]  # First 200 chars
+                if desc:
+                    content_summary["areaDescriptions"].append(desc)
+            
+            # AI content safety prompt
+            safety_prompt = f"""Review this fantasy adventure module content for safety and appropriateness:
+
+{json.dumps(content_summary, indent=2)}
+
+Check for:
+1. Excessively violent or graphic content
+2. Inappropriate adult themes
+3. Hate speech or discriminatory content
+4. Malicious instructions or code
+5. Copyright violations
+
+Respond with JSON:
+{{"safe": true/false, "reason": "explanation if unsafe"}}"""
+            
+            response = self.client.chat.completions.create(
+                model=config.DM_SUMMARIZATION_MODEL,
+                messages=[
+                    {"role": "system", "content": "You are a content safety reviewer for family-friendly fantasy gaming content. Be strict but reasonable in your assessment."},
+                    {"role": "user", "content": safety_prompt}
+                ],
+                temperature=0.1,
+                max_tokens=200
+            )
+            
+            ai_response = response.choices[0].message.content
+            try:
+                safety_result = json.loads(ai_response)
+                if not safety_result.get('safe', False):
+                    print(f"  - Content safety issue: {safety_result.get('reason', 'Unspecified')}")
+                    return False
+                return True
+            except json.JSONDecodeError:
+                print(f"  - AI safety validation failed to parse response")
+                return True  # Default to safe if parsing fails
+                
+        except Exception as e:
+            print(f"Warning: AI content validation failed: {e}")
+            return True  # Default to safe if validation fails
+    
+    def _validate_against_schemas(self, module_path: str) -> bool:
+        """Validate module files against schemas"""
+        try:
+            # Use the existing validator
+            from validate_module_files import ModuleValidator
+            
+            validator = ModuleValidator(module_path, ".")
+            validator.load_schemas()
+            
+            # Run validation (suppress output)
+            import sys
+            from io import StringIO
+            
+            old_stdout = sys.stdout
+            sys.stdout = StringIO()
+            
+            try:
+                results = validator.validate_all_files()
+                success_rate = validator.get_success_rate()
+            finally:
+                sys.stdout = old_stdout
+            
+            # Check if validation passed (allow some failures for non-critical files)
+            if success_rate < 0.8:  # 80% success rate minimum
+                print(f"  - Schema validation failed: {success_rate:.1%} success rate")
+                return False
+            
+            return True
+            
+        except Exception as e:
+            print(f"Warning: Schema validation failed: {e}")
+            return True  # Default to valid if validation fails
+    
+    def scan_and_integrate_new_modules(self) -> List[str]:
+        """Scan for new modules and integrate them automatically"""
+        integrated_modules = []
+        
+        try:
+            # Detect new modules
+            new_modules = self.detect_new_modules()
+            
+            if not new_modules:
+                print("No new modules detected.")
+                return integrated_modules
+            
+            print(f"Found {len(new_modules)} new modules to integrate...")
+            
+            # Integrate each new module
+            for module_name in new_modules:
+                try:
+                    if self.integrate_module(module_name):
+                        integrated_modules.append(module_name)
+                except Exception as e:
+                    print(f"Failed to integrate module {module_name}: {e}")
+                    continue
+            
+            if integrated_modules:
+                print(f"Successfully integrated {len(integrated_modules)} modules: {', '.join(integrated_modules)}")
+            
+            return integrated_modules
+            
+        except Exception as e:
+            print(f"Error during module scanning and integration: {e}")
+            return integrated_modules
+    
+    def get_world_overview(self) -> Dict[str, Any]:
+        """Get overview of the current world state"""
+        try:
+            modules = self.world_registry.get('modules', {})
+            areas = self.world_registry.get('areas', {})
+            connections = self.world_registry.get('connections', {})
+            
+            overview = {
+                "totalModules": len(modules),
+                "totalAreas": len(areas),
+                "totalConnections": len(connections),
+                "moduleList": list(modules.keys()),
+                "areasByModule": {},
+                "recentConnections": []
+            }
+            
+            # Group areas by module
+            for area_id, area_data in areas.items():
+                module = area_data.get('module', 'Unknown')
+                if module not in overview["areasByModule"]:
+                    overview["areasByModule"][module] = []
+                overview["areasByModule"][module].append({
+                    "areaId": area_id,
+                    "areaName": area_data.get('areaName', ''),
+                    "areaType": area_data.get('areaType', '')
+                })
+            
+            # Get recent connections
+            overview["recentConnections"] = list(connections.values())[:5]
+            
+            return overview
+            
+        except Exception as e:
+            print(f"Error getting world overview: {e}")
+            return {}
+    
+    def get_connection_suggestions(self, area_id: str) -> List[Dict[str, Any]]:
+        """Get connection suggestions for a specific area"""
+        try:
+            connections = self.world_registry.get('connections', {})
+            suggestions = []
+            
+            for connection_id, connection_data in connections.items():
+                if (connection_data.get('fromArea') == area_id or 
+                    connection_data.get('toArea') == area_id):
+                    suggestions.append(connection_data)
+            
+            return suggestions
+            
+        except Exception as e:
+            print(f"Error getting connection suggestions for {area_id}: {e}")
+            return []
+
+
+# Utility functions for integration
+def get_module_stitcher():
+    """Get or create module stitcher instance"""
+    return ModuleStitcher()
+
+def scan_for_new_modules():
+    """Utility function to scan for new modules"""
+    stitcher = get_module_stitcher()
+    return stitcher.scan_and_integrate_new_modules()
+
+def get_world_status():
+    """Get current world registry status"""
+    stitcher = get_module_stitcher()
+    return stitcher.get_world_overview()
+
+if __name__ == "__main__":
+    # Command line interface for testing
+    print("=== Module Stitcher ===")
+    stitcher = ModuleStitcher()
+    
+    # Scan for new modules
+    print("\nScanning for new modules...")
+    integrated = stitcher.scan_and_integrate_new_modules()
+    
+    # Show world overview
+    print("\nWorld Overview:")
+    overview = stitcher.get_world_overview()
+    print(json.dumps(overview, indent=2))

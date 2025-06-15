@@ -1,5 +1,7 @@
 Always provide a plan before startign to modify code to ensure you are aligned with the user's request.
-Beware fo feature creep and don't ad dnew features unless specifically asked or approved. Feature creep is the enemy of shipping software.
+Beware of feature creep and don't ad dnew features unless specifically asked or approved. Feature creep is the enemy of shipping software.
+
+Don't add emojis or special characters anywhere in the game code.
 
 # Schema Validation
 Use `python validate_module_files.py` to check schema compatibility after making changes to JSON files or schemas. This ensures all game files remain compatible with their schemas and prevents runtime errors. Aim for 100% validation pass rate.

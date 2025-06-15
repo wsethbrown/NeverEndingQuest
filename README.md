@@ -4,21 +4,29 @@ An AI-powered Dungeon Master assistant for running 5th edition campaigns with fu
 
 ## Overview
 
-DungeonMasterAI uses OpenAI's GPT models to create complete 5th edition campaigns and provide an interactive Dungeon Master experience. The system features:
+DungeonMasterAI uses OpenAI's GPT models to create complete 5th edition campaigns and provide an interactive Dungeon Master experience. The system features a revolutionary **Location-Based Hub-and-Spoke Campaign Architecture** that enables seamless multi-module adventures.
+
+### Revolutionary Campaign System
+- **Location-Based Modules**: Each geographic area network forms a self-contained adventure module
+- **Automatic Module Transitions**: AI-driven cross-module travel with seamless context preservation
+- **Living World Continuity**: Return to any visited module with full accumulated adventure history
+- **Chronicle Generation**: Elegant prose summaries of completed adventures using elevated fantasy language
+- **Hub-and-Spoke Design**: Central hub locations accessible from multiple adventure modules
 
 ### Campaign Generation
-- **Complete Campaign Builder**: Generate entire campaigns with areas, locations, plots, and NPCs
+- **Complete Module Builder**: Generate entire adventure modules with areas, locations, plots, and NPCs
 - **Context-Aware Generation**: Maintains consistency across all generated content
 - **Schema-Compliant Output**: All generated files follow strict 5th edition schemas
+- **Community Module Support**: Framework for sharing and auto-stitching downloaded adventure modules
 
 ### Game Management
-- Character statistics and inventory tracking
-- NPC interactions with personality and goals
-- Turn-based combat system with validation
-- Location exploration with detailed descriptions
-- Plot progression and quest tracking
-- Time and world condition management
-- Dynamic storytelling based on player actions
+- Character statistics and inventory tracking with unified character architecture
+- NPC interactions with personality and goals across multiple modules
+- Turn-based combat system with validation and AI simulation
+- Location exploration with detailed descriptions and dynamic state
+- Plot progression and quest tracking with authoritative module_plot.json
+- Time and world condition management with realistic progression
+- Dynamic storytelling that evolves based on accumulated player decisions
 
 ## Setup
 
