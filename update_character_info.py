@@ -57,6 +57,9 @@
 
 import json
 import copy
+import shutil
+import os
+from datetime import datetime
 from jsonschema import validate, ValidationError
 from openai import OpenAI
 import time
@@ -346,6 +349,136 @@ def validate_character_data(data, schema, character_name):
             error_msg += f" at path: {'.'.join(map(str, e.path))}"
         return False, error_msg
 
+def create_character_backup(character_path, backup_reason="update"):
+    """
+    Create a timestamped backup of a character file before making changes
+    
+    Args:
+        character_path (str): Path to the character file
+        backup_reason (str): Reason for backup (for naming)
+    
+    Returns:
+        str: Path to the backup file, or None if backup failed
+    """
+    if not os.path.exists(character_path):
+        print(f"{RED}Cannot backup: Character file does not exist: {character_path}{RESET}")
+        return None
+    
+    try:
+        # Generate timestamp for unique backup naming
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        # Create backup filename
+        base_name = os.path.basename(character_path)
+        name_without_ext = os.path.splitext(base_name)[0]
+        backup_filename = f"{name_without_ext}.backup_{backup_reason}_{timestamp}.json"
+        backup_path = os.path.join(os.path.dirname(character_path), backup_filename)
+        
+        # Copy the file
+        shutil.copy2(character_path, backup_path)
+        print(f"{GREEN}Created backup: {backup_filename}{RESET}")
+        
+        # Also create a "latest" backup that's easier to find
+        latest_backup_path = character_path + ".backup_latest"
+        shutil.copy2(character_path, latest_backup_path)
+        
+        return backup_path
+        
+    except Exception as e:
+        print(f"{RED}Failed to create backup: {str(e)}{RESET}")
+        return None
+
+def cleanup_old_backups(character_path, max_backups=5):
+    """
+    Clean up old backup files, keeping only the most recent ones
+    
+    Args:
+        character_path (str): Path to the character file
+        max_backups (int): Maximum number of backup files to keep
+    """
+    try:
+        directory = os.path.dirname(character_path)
+        base_name = os.path.basename(character_path)
+        name_without_ext = os.path.splitext(base_name)[0]
+        
+        # Find all backup files for this character
+        backup_files = []
+        for file in os.listdir(directory):
+            if file.startswith(f"{name_without_ext}.backup_") and file.endswith(".json"):
+                # Skip the "latest" backup file
+                if not file.endswith(".backup_latest"):
+                    backup_path = os.path.join(directory, file)
+                    # Get file modification time for sorting
+                    mtime = os.path.getmtime(backup_path)
+                    backup_files.append((mtime, backup_path))
+        
+        # Sort by modification time (newest first)
+        backup_files.sort(reverse=True)
+        
+        # Remove old backups if we have too many
+        if len(backup_files) > max_backups:
+            files_to_remove = backup_files[max_backups:]
+            for _, file_path in files_to_remove:
+                try:
+                    os.remove(file_path)
+                    print(f"Removed old backup: {os.path.basename(file_path)}")
+                except Exception as e:
+                    print(f"{ORANGE}Warning: Could not remove old backup {file_path}: {str(e)}{RESET}")
+                    
+    except Exception as e:
+        print(f"{ORANGE}Warning: Backup cleanup failed: {str(e)}{RESET}")
+
+def restore_character_from_backup(character_name, backup_type="latest", character_role=None):
+    """
+    Restore a character from a backup file
+    
+    Args:
+        character_name (str): Name of the character to restore
+        backup_type (str): Type of backup to restore ("latest", or specific timestamp)
+        character_role (str, optional): Character role, auto-detected if None
+    
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    print(f"{ORANGE}Restoring character: {character_name}{RESET}")
+    
+    # Auto-detect character role if not provided
+    if character_role is None:
+        character_role = detect_character_role(character_name)
+        print(f"Detected character role: {character_role}")
+    
+    character_path = get_character_path(character_name, character_role)
+    
+    if backup_type == "latest":
+        backup_path = character_path + ".backup_latest"
+    else:
+        # Look for specific backup file
+        directory = os.path.dirname(character_path)
+        base_name = os.path.basename(character_path)
+        name_without_ext = os.path.splitext(base_name)[0]
+        backup_path = os.path.join(directory, f"{name_without_ext}.backup_{backup_type}.json")
+    
+    if not os.path.exists(backup_path):
+        print(f"{RED}Error: Backup file not found: {backup_path}{RESET}")
+        return False
+    
+    try:
+        # Create a backup of current state before restoration
+        restoration_backup = create_character_backup(character_path, "pre_restoration")
+        
+        # Copy backup to main file
+        shutil.copy2(backup_path, character_path)
+        print(f"{GREEN}Successfully restored {character_name} from backup{RESET}")
+        
+        if restoration_backup:
+            print(f"Previous state backed up as: {os.path.basename(restoration_backup)}")
+        
+        return True
+        
+    except Exception as e:
+        print(f"{RED}Error restoring from backup: {str(e)}{RESET}")
+        return False
+
 def update_character_info(character_name, changes, character_role=None):
     """
     Unified function to update character information for both players and NPCs
@@ -392,7 +525,15 @@ def update_character_info(character_name, changes, character_role=None):
         print(f"{RED}Error loading character data: {str(e)}{RESET}")
         return False
     
-    # Create backup
+    # Create file backup before any changes
+    backup_path = create_character_backup(character_path, "update")
+    if backup_path is None:
+        print(f"{ORANGE}Warning: Could not create backup, but proceeding with update{RESET}")
+    else:
+        # Clean up old backups to prevent accumulation
+        cleanup_old_backups(character_path)
+    
+    # Create in-memory backup
     original_data = copy.deepcopy(character_data)
     
     # Load and process conversation history
@@ -591,6 +732,47 @@ def updatePlayerInfo(player_name, changes):
 def updateNPCInfo(npc_name, changes):
     """Backward compatibility wrapper for NPC updates"""
     return update_character_info(npc_name, changes, character_role='npc')
+
+# Utility functions for backup management
+def list_character_backups(character_name, character_role=None):
+    """
+    List all available backups for a character
+    
+    Args:
+        character_name (str): Name of the character
+        character_role (str, optional): Character role, auto-detected if None
+    
+    Returns:
+        list: List of backup file information
+    """
+    if character_role is None:
+        character_role = detect_character_role(character_name)
+    
+    character_path = get_character_path(character_name, character_role)
+    directory = os.path.dirname(character_path)
+    base_name = os.path.basename(character_path)
+    name_without_ext = os.path.splitext(base_name)[0]
+    
+    backups = []
+    try:
+        for file in os.listdir(directory):
+            if file.startswith(f"{name_without_ext}.backup_") and file.endswith(".json"):
+                backup_path = os.path.join(directory, file)
+                mtime = os.path.getmtime(backup_path)
+                backups.append({
+                    'filename': file,
+                    'path': backup_path,
+                    'modified': datetime.fromtimestamp(mtime).strftime("%Y-%m-%d %H:%M:%S"),
+                    'size': os.path.getsize(backup_path)
+                })
+        
+        # Sort by modification time (newest first)
+        backups.sort(key=lambda x: x['modified'], reverse=True)
+        
+    except Exception as e:
+        print(f"{RED}Error listing backups: {str(e)}{RESET}")
+    
+    return backups
 
 if __name__ == "__main__":
     # Test the unified system
