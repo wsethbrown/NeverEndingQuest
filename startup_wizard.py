@@ -4,6 +4,9 @@ Character Creation & Module Selection Startup Wizard
 
 Handles first-time setup when no player character or module is configured.
 Provides AI-powered character creation and module selection in a single file.
+
+Uses module-centric architecture for self-contained adventures.
+Portions derived from SRD 5.2.1, licensed under CC BY 4.0.
 """
 
 import json
@@ -16,6 +19,7 @@ from jsonschema import validate, ValidationError
 
 import config
 from encoding_utils import safe_json_load, safe_json_dump
+from module_path_manager import ModulePathManager
 
 # Initialize OpenAI client
 client = OpenAI(api_key=config.OPENAI_API_KEY)
@@ -27,7 +31,7 @@ STARTUP_CONVERSATION_FILE = "startup_conversation.json"
 
 def run_startup_sequence():
     """Main entry point for startup wizard"""
-    print("\n🎲 Welcome to your D&D Adventure! 🎲")
+    print("\nWelcome to your 5th Edition Adventure!")
     print("Let's set up your character and choose your adventure...\n")
     
     try:
@@ -40,7 +44,7 @@ def run_startup_sequence():
             print("Setup cancelled. Exiting...")
             return False
         
-        print(f"\n📚 Great choice! You've selected: {selected_module['display_name']}")
+        print(f"\nGreat choice! You've selected: {selected_module['display_name']}")
         
         # Step 2: Character selection/creation
         character_name = select_or_create_character(conversation, selected_module)
@@ -54,13 +58,13 @@ def run_startup_sequence():
         # Cleanup
         cleanup_startup_conversation()
         
-        print(f"\n🎉 Setup complete! Welcome, {character_name}!")
+        print(f"\nSetup complete! Welcome, {character_name}!")
         print(f"Your adventure in {selected_module['display_name']} is about to begin...\n")
         
         return True
         
     except Exception as e:
-        print(f"❌ Error during setup: {e}")
+        print(f"Error: Error during setup: {e}")
         cleanup_startup_conversation()
         return False
 
@@ -84,7 +88,8 @@ def startup_required(party_file="party_tracker.json"):
         # Check if the player character file actually exists
         if party_members:
             player_name = party_members[0]
-            char_path = f"modules/{module}/characters/{player_name}.json"
+            path_manager = ModulePathManager(module)
+            char_path = path_manager.get_character_unified_path(player_name)
             if not os.path.exists(char_path):
                 return True
         
@@ -100,7 +105,7 @@ def scan_available_modules():
     modules = []
     
     if not os.path.exists("modules"):
-        print("❌ No modules directory found!")
+        print("Error: No modules directory found!")
         return modules
     
     for item in os.listdir("modules"):
@@ -121,14 +126,14 @@ def scan_available_modules():
                             'path': module_path
                         })
                 except Exception as e:
-                    print(f"⚠️  Warning: Could not load module {item}: {e}")
+                    print(f"Warning: Warning: Could not load module {item}: {e}")
     
     return modules
 
 def present_module_options(conversation, modules):
     """Show available modules to player using AI"""
     if not modules:
-        print("❌ No valid modules found!")
+        print("Error: No valid modules found!")
         return None
     
     # Build module list for AI
@@ -144,7 +149,7 @@ def present_module_options(conversation, modules):
     modules_text = "\n\n".join(module_list)
     
     # AI prompt for module selection
-    ai_prompt = f"""You are helping a new player choose their first D&D adventure module. Present the available modules in an engaging way and ask them to choose one.
+    ai_prompt = f"""You are helping a new player choose their first 5th edition adventure module. Present the available modules in an engaging way and ask them to choose one.
 
 Available Modules:
 {modules_text}
@@ -155,7 +160,7 @@ Ask the player which module they'd like to play, and explain that they can just 
     
     # Get AI response
     response = get_ai_response(conversation)
-    print(f"🤖 {response}")
+    print(f"AI: {response}")
     
     return modules
 
@@ -164,11 +169,11 @@ def select_module(conversation):
     modules = scan_available_modules()
     
     if not modules:
-        print("❌ No modules available. Please add modules to the modules/ directory.")
+        print("Error: No modules available. Please add modules to the modules/ directory.")
         return None
     
     if len(modules) == 1:
-        print(f"📚 Only one module available: {modules[0]['display_name']}")
+        print(f"Only one module available: {modules[0]['display_name']}")
         print(f"   {modules[0]['description']}")
         return modules[0]
     
@@ -180,7 +185,7 @@ def select_module(conversation):
     # Get player choice
     while True:
         try:
-            user_input = input("\n👤 Your choice: ").strip()
+            user_input = input("\nYour choice: ").strip()
             conversation.append({"role": "user", "content": user_input})
             
             # Try to parse as number
@@ -189,7 +194,7 @@ def select_module(conversation):
                 if 1 <= choice_num <= len(modules):
                     return modules[choice_num - 1]
                 else:
-                    print(f"❌ Please choose a number between 1 and {len(modules)}")
+                    print(f"Error: Please choose a number between 1 and {len(modules)}")
                     continue
             except ValueError:
                 pass
@@ -201,7 +206,7 @@ def select_module(conversation):
                     user_lower in module['name'].lower()):
                     return module
             
-            print("❌ I didn't understand that. Please enter the number (1, 2, etc.) or name of the module.")
+            print("Error: I didn't understand that. Please enter the number (1, 2, etc.) or name of the module.")
             
         except KeyboardInterrupt:
             return None
@@ -211,7 +216,8 @@ def select_module(conversation):
 def scan_existing_characters(module_name):
     """Find existing player characters in module"""
     characters = []
-    char_dir = f"modules/{module_name}/characters"
+    path_manager = ModulePathManager(module_name)
+    char_dir = os.path.join(path_manager.module_dir, "characters")
     
     if not os.path.exists(char_dir):
         return characters
@@ -231,7 +237,7 @@ def scan_existing_characters(module_name):
                         'path': char_path
                     })
             except Exception as e:
-                print(f"⚠️  Warning: Could not load character {filename}: {e}")
+                print(f"Warning: Warning: Could not load character {filename}: {e}")
     
     return characters
 
@@ -243,7 +249,7 @@ def present_character_options(conversation, characters, module_name):
         
         conversation.append({"role": "system", "content": ai_prompt})
         response = get_ai_response(conversation)
-        print(f"🤖 {response}")
+        print(f"AI: {response}")
         return "create_new"
     
     # Build character list
@@ -268,7 +274,7 @@ Be helpful and explain that they can type the character number, character name, 
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"🤖 {response}")
+    print(f"AI: {response}")
     
     return characters
 
@@ -287,7 +293,7 @@ def select_or_create_character(conversation, module):
     # Get player choice
     while True:
         try:
-            user_input = input("\n👤 Your choice: ").strip()
+            user_input = input("\nYour choice: ").strip()
             conversation.append({"role": "user", "content": user_input})
             
             # Check for new character creation
@@ -299,10 +305,10 @@ def select_or_create_character(conversation, module):
                 choice_num = int(user_input)
                 if 1 <= choice_num <= len(characters):
                     selected_char = characters[choice_num - 1]
-                    print(f"✅ You've selected {selected_char['name']}!")
+                    print(f"Success: You've selected {selected_char['name']}!")
                     return selected_char['filename']
                 else:
-                    print(f"❌ Please choose a number between 1 and {len(characters)}, or 'new' to create a character")
+                    print(f"Error: Please choose a number between 1 and {len(characters)}, or 'new' to create a character")
                     continue
             except ValueError:
                 pass
@@ -311,10 +317,10 @@ def select_or_create_character(conversation, module):
             user_lower = user_input.lower()
             for char in characters:
                 if user_lower in char['name'].lower():
-                    print(f"✅ You've selected {char['name']}!")
+                    print(f"Success: You've selected {char['name']}!")
                     return char['filename']
             
-            print("❌ I didn't understand that. Please enter the character number, character name, or 'new' to create a new character.")
+            print("Error: I didn't understand that. Please enter the character number, character name, or 'new' to create a new character.")
             
         except KeyboardInterrupt:
             return None
@@ -323,7 +329,7 @@ def select_or_create_character(conversation, module):
 
 def create_new_character(conversation, module):
     """Main character creation flow using AI interview"""
-    print("\n🎭 Let's create your character!")
+    print("\nLet's create your character!")
     
     # AI-powered character creation interview
     character_data = ai_character_interview(conversation, module)
@@ -334,7 +340,7 @@ def create_new_character(conversation, module):
     # Validate character data
     valid, error = validate_character(character_data)
     if not valid:
-        print(f"❌ Character validation failed: {error}")
+        print(f"Error: Character validation failed: {error}")
         return None
     
     # Save character to module
@@ -342,10 +348,10 @@ def create_new_character(conversation, module):
     success = save_character_to_module(character_data, module['name'])
     
     if success:
-        print(f"✅ Character {character_name} created successfully!")
+        print(f"Success: Character {character_name} created successfully!")
         return character_name.lower().replace(" ", "_")
     else:
-        print(f"❌ Failed to save character {character_name}")
+        print(f"Error: Failed to save character {character_name}")
         return None
 
 def ai_character_interview(conversation, module):
@@ -355,20 +361,24 @@ def ai_character_interview(conversation, module):
         # Load schema and rules information
         schema = safe_json_load("char_schema.json")
         if not schema:
-            print("❌ Could not load character schema")
+            print("Error: Could not load character schema")
             return None
         
         leveling_info = load_text_file("leveling_info.txt")
         npc_rules = load_text_file("npc_builder_prompt.txt")
         
-        # Load the character creation prompt from claude.txt  
-        char_creation_messages = safe_json_load("claude.txt")
-        if not char_creation_messages:
-            print("❌ Could not load character creation prompt")
-            return None
-        
-        # Build the enhanced system prompt with rules information
-        base_system_content = char_creation_messages[0]["content"]
+        # Build the character creation system prompt
+        base_system_content = """You are a friendly and knowledgeable character creation guide for 5th edition fantasy adventures, using only SRD 5.2.1-compliant rules. You help players build their 1st-level characters step by step by asking questions, offering helpful choices, and reflecting their answers clearly. You do not assume anything without asking. You do not create the character sheet until the player explicitly confirms their choices.
+
+You will eventually output a finalized character sheet in a JSON format matching the provided schema, but ONLY after the player says they are ready.
+
+You MUST:
+1. Engage the player in a brief conversation to learn what kind of character they want to play (fantasy archetype, theme, race, class, personality, etc).
+2. Ask targeted follow-up questions to flesh out their background, class, abilities, race, and goals.
+3. Present summaries of each part of the character as it becomes clear, so the player can confirm or revise.
+4. Once the player explicitly confirms all choices and says they are ready, then and ONLY then, proceed to create the character using the provided JSON schema.
+
+NEVER output the final JSON unless the player says they are ready. If you're unsure of a choice, ask. Focus on helping the player make decisions they're excited about. Encourage fun, story-driven, rules-compliant choices. Keep it immersive, but not overwhelming."""
         enhanced_system_prompt = f"""{base_system_content}
 
 IMPORTANT FORMATTING RULES:
@@ -407,10 +417,10 @@ CHARACTER SCHEMA:
         # Start the character creation conversation
         creation_conversation = [
             {"role": "system", "content": enhanced_system_prompt},
-            {"role": "user", "content": f"I'm a new adventurer who has never played before! I want to create my very first character for the {module['display_name']} adventure. Please be my Dungeon Master and guide me through creating an exciting character with enthusiasm and storytelling flair! Help me understand what makes each choice special and fun."}
+            {"role": "user", "content": f"You are helping a new player create their first level 1 character for the {module['display_name']} adventure. Welcome them to the adventure, set an immersive tone that brings them into the game world, and begin the character creation process. Start by finding out what kind of hero they want to become. Use phrases like 'Let's get you started by finding out a little bit about you' to engage them in the process."}
         ]
         
-        print("\n🤖 Starting character creation with AI assistant...")
+        print("\nAI: Starting character creation with AI assistant...")
         print("=" * 50)
         
         # Interactive conversation loop
@@ -418,7 +428,7 @@ CHARACTER SCHEMA:
             try:
                 # Get AI response
                 response = get_ai_response(creation_conversation)
-                print(f"\n🤖 {response}")
+                print(f"\nAI: {response}")
                 
                 # Check if response looks like JSON (character finalization)
                 if response.strip().startswith('{') and response.strip().endswith('}'):
@@ -435,25 +445,25 @@ CHARACTER SCHEMA:
                         # Further sanitize the loaded character data
                         character_data = sanitize_character_data(character_data)
                         
-                        print("\n✅ Character data received!")
+                        print("\nSuccess: Character data received!")
                         return character_data
                     except json.JSONDecodeError as e:
-                        print(f"\n❌ Invalid JSON received: {e}")
+                        print(f"\nError: Invalid JSON received: {e}")
                         print("Asking AI to try again...")
                         creation_conversation.append({"role": "assistant", "content": response})
                         creation_conversation.append({"role": "user", "content": "That didn't look like valid JSON. Please provide the character as a properly formatted JSON object with only standard ASCII characters and no emojis or special symbols."})
                         continue
                     except Exception as e:
-                        print(f"\n❌ Error processing character data: {e}")
+                        print(f"\nError: Error processing character data: {e}")
                         creation_conversation.append({"role": "assistant", "content": response})
                         creation_conversation.append({"role": "user", "content": "There was an error processing the character data. Please provide a clean JSON object with only standard ASCII characters."})
                         continue
                 
                 # Get user input
-                user_input = input("\n👤 Your response: ").strip()
+                user_input = input("\nYour response: ").strip()
                 
                 if user_input.lower() in ['quit', 'exit', 'cancel']:
-                    print("❌ Character creation cancelled.")
+                    print("Error: Character creation cancelled.")
                     return None
                 
                 # Add to conversation
@@ -461,11 +471,11 @@ CHARACTER SCHEMA:
                 creation_conversation.append({"role": "user", "content": user_input})
                 
             except KeyboardInterrupt:
-                print("\n❌ Character creation cancelled.")
+                print("\nError: Character creation cancelled.")
                 return None
                 
     except Exception as e:
-        print(f"❌ Error during character creation: {e}")
+        print(f"Error: Error during character creation: {e}")
         return None
 
 def load_text_file(filename):
@@ -474,10 +484,10 @@ def load_text_file(filename):
         with open(filename, 'r', encoding='utf-8') as file:
             return file.read().strip()
     except FileNotFoundError:
-        print(f"⚠️  Could not find {filename}")
+        print(f"Warning: Could not find {filename}")
         return ""
     except Exception as e:
-        print(f"⚠️  Error reading {filename}: {e}")
+        print(f"Warning: Error reading {filename}: {e}")
         return ""
 
 def sanitize_json_string(json_str):
@@ -548,21 +558,21 @@ def sanitize_character_data(data):
 
 def get_character_name(conversation):
     """Get character name from player"""
-    ai_prompt = """Ask the player what they'd like to name their character. Be encouraging and mention that they can choose any fantasy name they like. You can suggest that good D&D character names are often simple and memorable."""
+    ai_prompt = """Ask the player what they'd like to name their character. Be encouraging and mention that they can choose any fantasy name they like. You can suggest that good 5th edition character names are often simple and memorable."""
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"🤖 {response}")
+    print(f"AI: {response}")
     
     while True:
         try:
-            name = input("\n👤 Character name: ").strip()
+            name = input("\nCharacter name: ").strip()
             conversation.append({"role": "user", "content": name})
             
             if len(name) >= 2 and name.replace(" ", "").isalpha():
                 return name.title()
             else:
-                print("❌ Please enter a valid name (letters only, at least 2 characters)")
+                print("Error: Please enter a valid name (letters only, at least 2 characters)")
                 
         except KeyboardInterrupt:
             return None
@@ -592,11 +602,11 @@ Ask them to choose by number (1-9) or race name. Be enthusiastic about whichever
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"🤖 {response}")
+    print(f"AI: {response}")
     
     while True:
         try:
-            choice = input("\n👤 Choose your race: ").strip()
+            choice = input("\nChoose your race: ").strip()
             conversation.append({"role": "user", "content": choice})
             
             # Try number selection
@@ -604,10 +614,10 @@ Ask them to choose by number (1-9) or race name. Be enthusiastic about whichever
                 num = int(choice)
                 if num in races:
                     race_name = races[num][0]
-                    print(f"✅ Great choice! You've chosen {race_name}.")
+                    print(f"Success: Great choice! You've chosen {race_name}.")
                     return race_name
                 else:
-                    print(f"❌ Please choose a number between 1 and {len(races)}")
+                    print(f"Error: Please choose a number between 1 and {len(races)}")
                     continue
             except ValueError:
                 pass
@@ -616,10 +626,10 @@ Ask them to choose by number (1-9) or race name. Be enthusiastic about whichever
             choice_lower = choice.lower()
             for num, (race, desc) in races.items():
                 if choice_lower in race.lower():
-                    print(f"✅ Great choice! You've chosen {race}.")
+                    print(f"Success: Great choice! You've chosen {race}.")
                     return race
             
-            print("❌ I didn't recognize that race. Please choose a number (1-9) or race name from the list.")
+            print("Error: I didn't recognize that race. Please choose a number (1-9) or race name from the list.")
             
         except KeyboardInterrupt:
             return None
@@ -653,11 +663,11 @@ Ask them to choose by number (1-10) or class name. Mention that they can't go wr
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"🤖 {response}")
+    print(f"AI: {response}")
     
     while True:
         try:
-            choice = input("\n👤 Choose your class: ").strip()
+            choice = input("\nChoose your class: ").strip()
             conversation.append({"role": "user", "content": choice})
             
             # Try number selection
@@ -665,10 +675,10 @@ Ask them to choose by number (1-10) or class name. Mention that they can't go wr
                 num = int(choice)
                 if num in classes:
                     class_name = classes[num][0]
-                    print(f"✅ Excellent! You've chosen {class_name}.")
+                    print(f"Success: Excellent! You've chosen {class_name}.")
                     return class_name
                 else:
-                    print(f"❌ Please choose a number between 1 and {len(classes)}")
+                    print(f"Error: Please choose a number between 1 and {len(classes)}")
                     continue
             except ValueError:
                 pass
@@ -677,10 +687,10 @@ Ask them to choose by number (1-10) or class name. Mention that they can't go wr
             choice_lower = choice.lower()
             for num, (cls, desc) in classes.items():
                 if choice_lower in cls.lower():
-                    print(f"✅ Excellent! You've chosen {cls}.")
+                    print(f"Success: Excellent! You've chosen {cls}.")
                     return cls
             
-            print("❌ I didn't recognize that class. Please choose a number (1-10) or class name from the list.")
+            print("Error: I didn't recognize that class. Please choose a number (1-10) or class name from the list.")
             
         except KeyboardInterrupt:
             return None
@@ -711,11 +721,11 @@ Ask them to choose by number (1-10) or background name. Emphasize that this help
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"🤖 {response}")
+    print(f"AI: {response}")
     
     while True:
         try:
-            choice = input("\n👤 Choose your background: ").strip()
+            choice = input("\nChoose your background: ").strip()
             conversation.append({"role": "user", "content": choice})
             
             # Try number selection
@@ -723,10 +733,10 @@ Ask them to choose by number (1-10) or background name. Emphasize that this help
                 num = int(choice)
                 if num in backgrounds:
                     bg_name = backgrounds[num][0]
-                    print(f"✅ Perfect! You've chosen {bg_name}.")
+                    print(f"Success: Perfect! You've chosen {bg_name}.")
                     return bg_name
                 else:
-                    print(f"❌ Please choose a number between 1 and {len(backgrounds)}")
+                    print(f"Error: Please choose a number between 1 and {len(backgrounds)}")
                     continue
             except ValueError:
                 pass
@@ -735,10 +745,10 @@ Ask them to choose by number (1-10) or background name. Emphasize that this help
             choice_lower = choice.lower()
             for num, (bg, desc) in backgrounds.items():
                 if choice_lower in bg.lower() or choice_lower in bg.replace(" ", "").lower():
-                    print(f"✅ Perfect! You've chosen {bg}.")
+                    print(f"Success: Perfect! You've chosen {bg}.")
                     return bg
             
-            print("❌ I didn't recognize that background. Please choose a number (1-10) or background name from the list.")
+            print("Error: I didn't recognize that background. Please choose a number (1-10) or background name from the list.")
             
         except KeyboardInterrupt:
             return None
@@ -748,7 +758,7 @@ def get_ability_scores(conversation):
     standard_array = [15, 14, 13, 12, 10, 8]
     abilities = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']
     
-    ai_prompt = f"""Now we'll assign your character's ability scores! In D&D, characters have six abilities that determine what they're good at:
+    ai_prompt = f"""Now we'll assign your character's ability scores! In 5th edition, characters have six abilities that determine what they're good at:
 
 - **Strength** - Physical power (melee attacks, carrying capacity)
 - **Dexterity** - Agility and reflexes (ranged attacks, stealth, initiative)  
@@ -769,7 +779,7 @@ We'll go through each ability and you can tell me which score (from the remainin
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"🤖 {response}")
+    print(f"AI: {response}")
     
     remaining_scores = standard_array.copy()
     assigned_abilities = {}
@@ -777,8 +787,8 @@ We'll go through each ability and you can tell me which score (from the remainin
     for ability in abilities:
         while True:
             try:
-                print(f"\n📊 Remaining scores: {', '.join(map(str, remaining_scores))}")
-                score_input = input(f"👤 Assign score to {ability}: ").strip()
+                print(f"\nRemaining scores: {', '.join(map(str, remaining_scores))}")
+                score_input = input(f"Assign score to {ability}: ").strip()
                 conversation.append({"role": "user", "content": f"{ability}: {score_input}"})
                 
                 try:
@@ -786,12 +796,12 @@ We'll go through each ability and you can tell me which score (from the remainin
                     if score in remaining_scores:
                         assigned_abilities[ability.lower()] = score
                         remaining_scores.remove(score)
-                        print(f"✅ {ability}: {score}")
+                        print(f"Success: {ability}: {score}")
                         break
                     else:
-                        print(f"❌ Score {score} not available. Choose from: {', '.join(map(str, remaining_scores))}")
+                        print(f"Error: Score {score} not available. Choose from: {', '.join(map(str, remaining_scores))}")
                 except ValueError:
-                    print(f"❌ Please enter a number from: {', '.join(map(str, remaining_scores))}")
+                    print(f"Error: Please enter a number from: {', '.join(map(str, remaining_scores))}")
                     
             except KeyboardInterrupt:
                 return None
@@ -812,7 +822,7 @@ Ask for each one separately, and suggest they can keep it short and simple - jus
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"🤖 {response}")
+    print(f"AI: {response}")
     
     # Get each personality aspect
     aspects = [
@@ -824,7 +834,7 @@ Ask for each one separately, and suggest they can keep it short and simple - jus
     
     for key, name in aspects:
         try:
-            user_input = input(f"\n👤 Your character's {name}: ").strip()
+            user_input = input(f"\nYour character's {name}: ").strip()
             conversation.append({"role": "user", "content": user_input})
             character_data[key] = user_input if user_input else f"To be developed (new {name.replace('_', ' ')})"
         except KeyboardInterrupt:
@@ -939,11 +949,11 @@ def final_character_review(conversation, character_data):
     """Show final character for player review and confirmation"""
     # Build character summary
     char_summary = f"""
-🎭 **{character_data['name']}**
-📜 Level {character_data['level']} {character_data['race']} {character_data['class']}
-🏛️ Background: {character_data['background']}
+**{character_data['name']}**
+Level {character_data['level']} {character_data['race']} {character_data['class']}
+Background: {character_data['background']}
 
-💪 **Abilities:**
+**Abilities:**
   • Strength: {character_data['abilities']['strength']}
   • Dexterity: {character_data['abilities']['dexterity']} 
   • Constitution: {character_data['abilities']['constitution']}
@@ -968,21 +978,21 @@ Ask if they want to confirm this character and start their adventure, or if they
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"🤖 {response}")
+    print(f"AI: {response}")
     
     while True:
         try:
-            user_input = input("\n👤 Your decision: ").strip().lower()
+            user_input = input("\nYour decision: ").strip().lower()
             conversation.append({"role": "user", "content": user_input})
             
             if any(word in user_input for word in ['yes', 'confirm', 'looks good', 'perfect', 'great', 'ready']):
-                print("🎉 Excellent! Your character is ready for adventure!")
+                print("Excellent! Your character is ready for adventure!")
                 return True
             elif any(word in user_input for word in ['no', 'change', 'different', 'redo']):
-                print("🔄 Character creation would restart here - for now, let's proceed with this character.")
+                print("Character creation would restart here - for now, let's proceed with this character.")
                 return True  # For now, just proceed
             else:
-                print("❌ Please say 'yes' to confirm your character or 'no' if you'd like to make changes.")
+                print("Error: Please say 'yes' to confirm your character or 'no' if you'd like to make changes.")
                 
         except KeyboardInterrupt:
             return False
@@ -1007,13 +1017,14 @@ def validate_character(character_data):
 def save_character_to_module(character_data, module_name):
     """Save character file to module directory"""
     try:
-        # Create character directory if it doesn't exist
-        char_dir = f"modules/{module_name}/characters"
-        os.makedirs(char_dir, exist_ok=True)
-        
-        # Create filename
+        # Use ModulePathManager for proper path handling
+        path_manager = ModulePathManager(module_name)
         char_name = character_data['name'].lower().replace(" ", "_")
-        char_file = f"{char_dir}/{char_name}.json"
+        char_file = path_manager.get_character_unified_path(char_name)
+        
+        # Create character directory if it doesn't exist
+        char_dir = os.path.dirname(char_file)
+        os.makedirs(char_dir, exist_ok=True)
         
         # Save character file
         safe_json_dump(character_data, char_file)
@@ -1025,7 +1036,7 @@ def save_character_to_module(character_data, module_name):
             return False
         
     except Exception as e:
-        print(f"❌ Error saving character: {e}")
+        print(f"Error: Error saving character: {e}")
         return False
 
 def update_party_tracker(module_name, character_name):
@@ -1073,7 +1084,7 @@ def update_party_tracker(module_name, character_name):
         return success
         
     except Exception as e:
-        print(f"❌ Error updating party tracker: {e}")
+        print(f"Error: Error updating party tracker: {e}")
         return False
 
 # ===== CONVERSATION MANAGEMENT =====
@@ -1083,7 +1094,7 @@ def initialize_startup_conversation():
     conversation = [
         {
             "role": "system",
-            "content": "You are a helpful D&D assistant guiding a new player through character creation and module selection. Be friendly, encouraging, and clear in your explanations. Keep responses concise but informative."
+            "content": "You are a helpful 5th edition assistant guiding a new player through character creation and module selection. Be friendly, encouraging, and clear in your explanations. Keep responses concise but informative. Do not use emojis or special characters in your responses."
         }
     ]
     
@@ -1108,7 +1119,7 @@ def get_ai_response(conversation):
         return content
         
     except Exception as e:
-        print(f"❌ Error getting AI response: {e}")
+        print(f"Error: Error getting AI response: {e}")
         return "I'm having trouble right now. Please try again."
 
 def save_startup_conversation(conversation):
@@ -1133,8 +1144,8 @@ if __name__ == "__main__":
     if startup_required():
         success = run_startup_sequence()
         if success:
-            print("🎉 Startup wizard completed successfully!")
+            print("Startup wizard completed successfully!")
         else:
-            print("❌ Startup wizard failed or was cancelled.")
+            print("Error: Startup wizard failed or was cancelled.")
     else:
-        print("ℹ️  Character and module already configured. No setup needed.")
+        print("Character and module already configured. No setup needed.")

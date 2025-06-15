@@ -4,6 +4,9 @@ Comprehensive Module File Validation Script
 
 This script validates all game files in a module directory against their corresponding schemas.
 It provides detailed reporting on validation passes, failures, and missing schemas.
+
+Supports module-centric architecture for 5th edition content validation.
+Portions derived from SRD 5.2.1, licensed under CC BY 4.0.
 """
 
 import json

@@ -920,7 +920,7 @@ def main():
         from startup_wizard import startup_required, run_startup_sequence
         
         if startup_required():
-            print("🎲 Welcome to your D&D Adventure! 🎲")
+            print("🎲 Welcome to your 5th Edition Adventure! 🎲")
             print("It looks like this is your first time, or you need to set up a character.")
             print("Let's get you ready for adventure!\n")
             
