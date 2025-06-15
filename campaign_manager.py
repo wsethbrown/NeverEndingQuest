@@ -93,6 +93,9 @@ class CampaignManager:
                 "hubModule": None,
                 "completedModules": [],
                 "availableModules": [],
+                "hubs": {},
+                "relationships": {},
+                "artifacts": {},
                 "worldState": {
                     "keepOwnership": False,
                     "majorDecisions": [],
@@ -554,6 +557,38 @@ Focus on story outcomes, character development, and decisions that will matter i
             "unlockedModules": []
         }
     
+    
+    def establish_hub(self, hub_name: str, hub_data: Dict[str, Any]):
+        """Establish a new hub location"""
+        self.campaign_data['hubs'][hub_name] = {
+            "establishedDate": datetime.now().isoformat(),
+            "hubType": hub_data.get("hubType", "settlement"),
+            "description": hub_data.get("description", ""),
+            "services": hub_data.get("services", []),
+            "connectedModules": hub_data.get("connectedModules", []),
+            "ownership": hub_data.get("ownership", "party")
+        }
+        
+        # Mark hub as established
+        self.campaign_data['worldState']['hubEstablished'] = True
+        
+        # Set as primary hub if it's the first one
+        if not self.campaign_data['hubModule']:
+            self.campaign_data['hubModule'] = hub_name
+        
+        # Save state
+        self.campaign_data['lastUpdated'] = datetime.now().isoformat()
+        safe_json_dump(self.campaign_data, self.campaign_file)
+        
+        print(f"Hub established: {hub_name}")
+    
+    def get_available_hubs(self) -> List[str]:
+        """Get list of available hub locations"""
+        return list(self.campaign_data.get('hubs', {}).keys())
+    
+    def can_return_to_hub(self, hub_name: str) -> bool:
+        """Check if party can return to a specific hub"""
+        return hub_name in self.campaign_data.get('hubs', {})
     
     def transition_module(self, from_module: str, to_module: str):
         """Handle transition between modules"""

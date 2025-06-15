@@ -59,6 +59,7 @@ ACTION_LEVEL_UP = "levelUp"
 ACTION_UPDATE_CHARACTER_INFO = "updateCharacterInfo"
 ACTION_UPDATE_PARTY_NPCS = "updatePartyNPCs"
 ACTION_CREATE_NEW_MODULE = "createNewModule"
+ACTION_ESTABLISH_HUB = "establishHub"
 
 def validate_location_transition(location_graph, current_location_id, destination_location_id):
     """
@@ -512,6 +513,46 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 
         except Exception as e:
             print(f"ERROR: Exception while creating module: {str(e)}")
+            import traceback
+            traceback.print_exc()
+
+    elif action_type == ACTION_ESTABLISH_HUB:
+        print(f"DEBUG: Processing establishHub action")
+        try:
+            # Extract hub parameters
+            hub_name = parameters.get('hubName')
+            hub_type = parameters.get('hubType', 'settlement')
+            description = parameters.get('description', '')
+            services = parameters.get('services', [])
+            ownership = parameters.get('ownership', 'party')
+            
+            if hub_name:
+                # Import campaign manager
+                from campaign_manager import CampaignManager
+                campaign_manager = CampaignManager()
+                
+                # Establish the hub
+                hub_data = {
+                    "hubType": hub_type,
+                    "description": description, 
+                    "services": services,
+                    "ownership": ownership
+                }
+                
+                campaign_manager.establish_hub(hub_name, hub_data)
+                
+                print(f"DEBUG: Hub '{hub_name}' established successfully")
+                
+                # Add DM note about hub establishment
+                dm_note = f"Dungeon Master Note: '{hub_name}' has been established as a hub location. The party can now return here from other adventures."
+                conversation_history.append({"role": "user", "content": dm_note})
+                
+                needs_conversation_history_update = True
+            else:
+                print(f"ERROR: Missing required parameter 'hubName' for establishHub action")
+                
+        except Exception as e:
+            print(f"ERROR: Exception while establishing hub: {str(e)}")
             import traceback
             traceback.print_exc()
 
