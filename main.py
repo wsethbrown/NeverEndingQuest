@@ -784,7 +784,13 @@ def main_game_loop():
                         connected_areas_display_str = ". Connects to new areas: " + ", ".join(area_connections_formatted)
             # --- END OF CONNECTIVITY SECTION ---
             
-            plot_data_for_note = load_json_file(path_manager.get_plot_path()) 
+            plot_data_for_note = load_json_file(path_manager.get_plot_path())
+            print(f"DEBUG: Plot file path: {path_manager.get_plot_path()}")
+            print(f"DEBUG: Plot data loaded: {plot_data_for_note is not None}")
+            if plot_data_for_note:
+                print(f"DEBUG: Plot data keys: {list(plot_data_for_note.keys())}")
+            else:
+                print("DEBUG: No plot data loaded - plot_data_for_note is None") 
             current_plot_points = []
             if plot_data_for_note and "plotPoints" in plot_data_for_note:
                  current_plot_points = [
@@ -827,28 +833,56 @@ def main_game_loop():
             # Check if current module is complete and no other modules available
             module_creation_prompt = ""
             try:
+                # Debug current module detection
+                current_module = party_tracker_data.get('module', '').replace(' ', '_')
+                print(f"DEBUG: Current module from party tracker: '{current_module}'")
+                
                 # Check if all plot points are completed
                 all_plot_completed = True
+                completed_count = 0
+                total_count = 0
+                
                 if plot_data_for_note and "plotPoints" in plot_data_for_note:
+                    total_count = len(plot_data_for_note["plotPoints"])
                     for plot_point in plot_data_for_note["plotPoints"]:
-                        if plot_point.get("status") != "completed":
+                        status = plot_point.get("status", "unknown")
+                        plot_id = plot_point.get("id", "unknown")
+                        print(f"DEBUG: Plot point {plot_id}: status = '{status}'")
+                        if status == "completed":
+                            completed_count += 1
+                        else:
                             all_plot_completed = False
-                            break
+                else:
+                    print("DEBUG: No plot data or plotPoints found")
+                
+                print(f"DEBUG: Plot completion: {completed_count}/{total_count} completed, all_plot_completed = {all_plot_completed}")
                 
                 # Check if other modules are available
                 campaign_manager = CampaignManager()
                 available_modules = campaign_manager.campaign_data.get('availableModules', [])
-                current_module = party_tracker_data.get('module', '').replace(' ', '_')
                 other_modules_available = len([m for m in available_modules if m != current_module]) > 0
+                
+                print(f"DEBUG: Available modules: {available_modules}")
+                print(f"DEBUG: Other modules available (excluding current): {other_modules_available}")
+                print(f"DEBUG: Should inject module creation prompt: {all_plot_completed and not other_modules_available}")
                 
                 # If module is complete and no other modules, inject creation prompt
                 if all_plot_completed and not other_modules_available:
+                    print("DEBUG: *** MODULE CREATION PROMPT INJECTION TRIGGERED ***")
                     # Load the module creation prompt
                     if os.path.exists("module_creation_prompt.txt"):
                         with open("module_creation_prompt.txt", "r", encoding="utf-8") as f:
                             module_creation_prompt = "\n\n" + f.read()
+                        print(f"DEBUG: Module creation prompt loaded ({len(module_creation_prompt)} characters)")
+                    else:
+                        print("DEBUG: module_creation_prompt.txt not found!")
+                else:
+                    print(f"DEBUG: Module creation prompt NOT injected - all_plot_completed:{all_plot_completed}, other_modules_available:{other_modules_available}")
+                    
             except Exception as e:
                 print(f"DEBUG: Module completion check failed: {e}")
+                import traceback
+                traceback.print_exc()
             
             # Sanitize location name before using in DM note
             current_location_name_note = sanitize_text(current_location_name_note)
