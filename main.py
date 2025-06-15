@@ -444,6 +444,16 @@ def check_and_process_location_transitions(conversation_history, party_tracker_d
                 leaving_location_name
             )
             
+            # Check if chunked compression is needed after creating the location summary
+            try:
+                from chunked_compression_integration import check_and_perform_chunked_compression
+                if check_and_perform_chunked_compression():
+                    print("DEBUG: Chunked compression performed after location transition")
+                    # Reload the compressed history
+                    compressed_history = load_json_file(json_file) or compressed_history
+            except Exception as e:
+                print(f"DEBUG: Chunked compression check failed: {e}")
+            
             print("DEBUG: Location summary and compression completed")
             return compressed_history
         else:
