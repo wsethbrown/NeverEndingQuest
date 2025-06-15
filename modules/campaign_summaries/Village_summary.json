@@ -1,0 +1,13 @@
+{
+  "moduleName": "Village",
+  "completionDate": "2025-06-01",
+  "summary": "The party arrived in a peaceful village seeking adventure. They met a scout at the local tavern who shared troubling news about disappearances near an old keep. After helping the village with minor troubles and gaining their trust, the party learned of the keep's dark history. The scout attempted to investigate alone but left word for the party to follow.",
+  "exportedData": {
+    "relationships": {
+      "Scout Elen": "met_and_befriended",
+      "Village Elder": "earned_trust"
+    },
+    "questHooks": ["investigate_haunted_keep"],
+    "unlockedModules": ["Keep_of_Doom"]
+  }
+}

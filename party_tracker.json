@@ -1,5 +1,7 @@
 {
   "module": "Keep_of_Doom",
+  "campaign": "Chronicles_of_the_Haunted_Realm",
+  "campaignData": {},
   "partyMembers": [
     "norn"
   ],
