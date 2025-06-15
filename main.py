@@ -868,7 +868,7 @@ def main_game_loop():
                 "updatePlot for story progression, discovers, and new information, "
                 "updatePartyNPCs for party composition changes to the party tracker, "
                 "levelUp for advancement, "
-                "establishHub when the party gains ownership or control of a location that could serve as a base of operations (stronghold, tavern, keep, etc.), "
+                "establishHub when the party gains ownership or control of a location that could serve as a base of operations (stronghold, tavern, keep, etc.) - example: establishHub('The Silver Swan Inn', {hubType: 'tavern', description: 'Our permanent base of operations', services: ['rest', 'information'], ownership: 'party'}), "
                 "exitGame for ending sessions, and "
                 "transitionLocation should always be used when the player expresses a desire to move to an adjacent location to their current location, "
                 "Always roleplay the NPC and NPC party rolls without asking the player. "

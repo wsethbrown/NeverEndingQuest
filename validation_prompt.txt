@@ -54,6 +54,8 @@ Here's the strict list of specific actions that the model should take when the s
 "updatePlot": For any plot developments and discoveries that impact the story
 "transitionLocation": Used to transition the party to a new location when the party and/or DM explicitly requests or states the party is moving to a new location.
 "levelUp": Only after the player explicitly agrees to level up or when an NPC levels up. If the player is asked whether they want to level up but has not confirmed yet, no action is required.
+"establishHub": Used when the party gains ownership or control of a location that could serve as a base of operations. Requires "hubName" parameter (string), optional parameters: "hubType" (settlement/tavern/stronghold/keep), "description" (string), "services" (array), "ownership" (party/shared/arrangement).
+"createNewModule": Used only when current module is complete and no other modules are available. Requires "narrative" parameter containing rich story description with embedded module parameters (name, type, level range, areas, themes).
 "exitGame": Must be taken and only taken when the player requests to exit the play session.
 
 ## REST MANAGEMENT VALIDATION RULES
