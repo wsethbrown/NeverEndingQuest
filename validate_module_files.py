@@ -102,20 +102,37 @@ class ModuleValidator:
                 
     def validate_area_files(self):
         """Validate area/location files"""
-        # Area files are the JSON files in the root that match location patterns
-        area_patterns = ["G001.json", "HH001.json", "SK001.json", "TBM001.json", "TCD001.json"]
+        # Find area files dynamically - any JSON file that contains areaId and areaName
+        import glob
+        import os
         
-        for pattern in area_patterns:
-            file_path = self.module_path / pattern
-            if file_path.exists() and not any(part in str(file_path) for part in ["_BU", ".bak", ".backup", ".tmp"]):
-                success, error = self.validate_file(file_path, "area")
-                self.results["area"]["files"].append(pattern)
+        json_files = glob.glob(os.path.join(str(self.module_path), "*.json"))
+        
+        for file_path in json_files:
+            # Skip backup, module, and system files
+            filename = os.path.basename(file_path)
+            if any(part in filename for part in ["_BU", ".bak", ".backup", ".tmp", "module_", "party_", "campaign_", "map_"]):
+                continue
+            
+            # Check if it's an area file by loading and checking structure
+            try:
+                import json
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
                 
-                if success:
-                    self.results["area"]["passed"] += 1
-                else:
-                    self.results["area"]["failed"] += 1
-                    self.results["area"]["errors"].append(f"{pattern}: {error}")
+                if data and 'areaId' in data and 'areaName' in data and 'locations' in data:
+                    # This is an area file
+                    success, error = self.validate_file(Path(file_path), "area")
+                    self.results["area"]["files"].append(filename)
+                    
+                    if success:
+                        self.results["area"]["passed"] += 1
+                    else:
+                        self.results["area"]["failed"] += 1
+                        self.results["area"]["errors"].append(f"{filename}: {error}")
+            except Exception as e:
+                # Not a valid JSON file, skip it
+                continue
                     
     def validate_character_files(self):
         """Validate character files"""

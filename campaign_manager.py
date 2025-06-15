@@ -88,11 +88,11 @@ class CampaignManager:
         else:
             # Create default campaign
             default_campaign = {
-                "campaignName": "Chronicles of the Haunted Realm",
+                "campaignName": "Fantasy Adventure Campaign",
                 "currentModule": None,
                 "hubModule": None,
                 "completedModules": [],
-                "availableModules": ["Village", "Keep_of_Doom"],
+                "availableModules": [],
                 "worldState": {
                     "keepOwnership": False,
                     "majorDecisions": [],

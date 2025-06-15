@@ -1,20 +1,12 @@
 {
   "module": "Keep_of_Doom",
-  "timestamp": "2025-06-15T09:46:17.094932",
+  "timestamp": "2025-06-15T10:36:24.350505",
   "summary": {
-    "total_files": 38,
-    "total_passed": 37,
+    "total_files": 37,
+    "total_passed": 36,
     "total_failed": 1
   },
   "results": {
-    "module": {
-      "files": [
-        "Keep_of_Doom_module.json"
-      ],
-      "passed": 1,
-      "failed": 0,
-      "errors": []
-    },
     "area": {
       "files": [
         "G001.json",

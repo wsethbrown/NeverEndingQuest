@@ -112,7 +112,7 @@ class ModuleStitcher:
         else:
             # Create default world registry
             default_registry = {
-                "worldName": "Chronicles of the Haunted Realm",
+                "worldName": "Fantasy Adventure World",
                 "registryVersion": "1.0.0",
                 "lastUpdated": datetime.now().isoformat(),
                 "modules": {},
@@ -209,13 +209,27 @@ class ModuleStitcher:
             areas_data = self._extract_areas_data(module_path)
             if areas_data:
                 module_data["areas"] = areas_data
+                
+                # Calculate level range from actual area data
+                levels = []
+                for area_data in areas_data.values():
+                    if 'recommendedLevel' in area_data:
+                        levels.append(area_data['recommendedLevel'])
+                
+                if levels:
+                    module_data["levelRange"] = {
+                        "min": min(levels),
+                        "max": max(levels)
+                    }
             
             # Extract plot themes and objectives
             plot_data = self._extract_plot_data(module_path)
             if plot_data:
                 module_data["themes"] = plot_data.get("themes", [])
                 module_data["plotObjective"] = plot_data.get("objective", "")
-                module_data["levelRange"] = plot_data.get("levelRange", {"min": 1, "max": 1})
+                # Override with plot level range if provided, otherwise keep calculated range
+                if "levelRange" in plot_data:
+                    module_data["levelRange"] = plot_data["levelRange"]
             
             # Analyze potential connections using AI
             connections = self._analyze_connections_with_ai(module_data)
@@ -287,33 +301,20 @@ class ModuleStitcher:
             extracted = {
                 "objective": plot_data.get('mainObjective', ''),
                 "plotTitle": plot_data.get('plotTitle', ''),
-                "themes": [],
-                "levelRange": {"min": 1, "max": 1}
+                "themes": []
             }
             
-            # Analyze plot points for themes and level range
+            # Analyze plot points for themes
             plot_points = plot_data.get('plotPoints', [])
-            levels = []
             
             for point in plot_points:
                 # Extract themes from descriptions
                 description = point.get('description', '')
                 if description:
                     extracted["themes"].append(description[:200])  # Truncate for analysis
-                
-                # Track recommended levels
-                location = point.get('location', '')
-                if location in self.world_registry.get('areas', {}):
-                    area_data = self.world_registry['areas'][location]
-                    if 'recommendedLevel' in area_data:
-                        levels.append(area_data['recommendedLevel'])
             
-            # Set level range
-            if levels:
-                extracted["levelRange"] = {
-                    "min": min(levels),
-                    "max": max(levels)
-                }
+            # Level range should be calculated from actual area data, not from plot points
+            # This function no longer sets levelRange - it's calculated from areas in analyze_module()
             
             return extracted
             

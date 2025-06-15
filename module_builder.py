@@ -71,7 +71,6 @@ class ModuleBuilder:
         # Step 1: Generate module overview
         self.log("Step 1: Generating module overview...")
         self.module_data = self.module_gen.generate_module(initial_concept, context=self.context)
-        self.save_json(self.module_data, f"{self.config.module_name}_module.json")
         
         # Extract NPCs and factions from module data
         self._extract_module_entities()
