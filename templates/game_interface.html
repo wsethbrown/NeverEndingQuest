@@ -95,6 +95,81 @@
             padding: 10px;
             font-weight: bold;
             border-bottom: 1px solid #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        /* Dice Rolling Strip - Inline with header */
+        .dice-strip-inline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .dice-label {
+            color: #FFA500;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+        
+        .dice-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            min-width: 50px;
+        }
+        
+        .dice-button:hover {
+            background-color: #45a049;
+        }
+        
+        .dice-clear-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+        }
+        
+        .dice-clear-button:hover {
+            background-color: #da190b;
+        }
+        
+        .dice-results {
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #444;
+            padding: 8px 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+        
+        .dice-result-item {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 3px;
+        }
+        
+        .dice-total {
+            color: #FFA500;
+            font-weight: bold;
+            margin-left: 10px;
         }
         
         .panel-content {
@@ -1957,7 +2032,23 @@
     
     <div class="main-container">
         <div class="panel game-panel">
-            <div class="panel-header">Game Output</div>
+            <div class="panel-header">
+                <span>Game Output</span>
+                <!-- Dice Rolling Strip -->
+                <div class="dice-strip-inline">
+                    <span class="dice-label">Quick Rolls:</span>
+                    <button class="dice-button" onclick="rollDice(20)" title="Roll D20">D20</button>
+                    <button class="dice-button" onclick="rollDice(12)" title="Roll D12">D12</button>
+                    <button class="dice-button" onclick="rollDice(10)" title="Roll D10">D10</button>
+                    <button class="dice-button" onclick="rollDice(8)" title="Roll D8">D8</button>
+                    <button class="dice-button" onclick="rollDice(6)" title="Roll D6">D6</button>
+                    <button class="dice-clear-button" onclick="clearDiceResults()" title="Clear results">Clear</button>
+                </div>
+            </div>
+            
+            <!-- Dice Results Area -->
+            <div class="dice-results" id="dice-results" style="display: none;"></div>
+            
             <div class="panel-content" id="game-output"></div>
             <div class="input-container">
                 <input 
@@ -3202,6 +3293,61 @@
         function closeNPCDetails() {
             const modal = document.getElementById('npc-details-modal');
             modal.style.display = 'none';
+        }
+        
+        // Dice Rolling Functions
+        let diceRolls = {
+            d20: [],
+            damage: []
+        };
+        
+        function rollDice(sides) {
+            // Use crypto.getRandomValues for true randomness
+            const array = new Uint32Array(1);
+            crypto.getRandomValues(array);
+            const result = (array[0] % sides) + 1;
+            
+            // Store the roll
+            if (sides === 20) {
+                diceRolls.d20.push(result);
+            } else {
+                diceRolls.damage.push({sides: sides, result: result});
+            }
+            
+            updateDiceDisplay();
+        }
+        
+        function updateDiceDisplay() {
+            const resultsDiv = document.getElementById('dice-results');
+            let html = '';
+            
+            // Show d20 rolls
+            if (diceRolls.d20.length > 0) {
+                html += '<span class="dice-result-item">d20: ' + diceRolls.d20.join(', d20: ') + '</span>';
+            }
+            
+            // Show damage rolls with total
+            if (diceRolls.damage.length > 0) {
+                const damageStrings = diceRolls.damage.map(roll => `d${roll.sides}: ${roll.result}`);
+                const damageTotal = diceRolls.damage.reduce((sum, roll) => sum + roll.result, 0);
+                
+                if (html) html += ' | ';
+                html += '<span class="dice-result-item">' + damageStrings.join(', ') + '</span>';
+                html += '<span class="dice-total">Total: ' + damageTotal + '</span>';
+            }
+            
+            if (html) {
+                resultsDiv.innerHTML = html;
+                resultsDiv.style.display = 'block';
+            } else {
+                resultsDiv.style.display = 'none';
+            }
+        }
+        
+        function clearDiceResults() {
+            diceRolls.d20 = [];
+            diceRolls.damage = [];
+            updateDiceDisplay();
         }
         
         // Close modal when clicking outside of it
