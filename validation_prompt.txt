@@ -93,6 +93,38 @@ When characters take a short rest or long rest, the following validation rules M
 - Short rest described but long rest benefits applied
 - Long rest described but missing full recovery
 
+## LOCATION AND NPC REFERENCE VALIDATION RULES
+
+### Valid Reference Requirements:
+The AI MUST NOT reference locations, NPCs, or places that do not exist in the current module's data files. All narrative content must stay within the established world boundaries.
+
+### Location Reference Validation:
+- ONLY reference locations that exist in current area JSON files
+- NEVER invent new locations (villages, buildings, districts) not in the module
+- NEVER reference places "down the road" or "nearby" unless they exist in area connectivity
+- CHECK: All location names mentioned must have corresponding location IDs in area files
+
+### NPC Reference Validation:
+- ONLY reference NPCs that exist in the current module's character files
+- NEVER create new NPCs in dialogue without proper updateCharacterInfo actions
+- NEVER reference NPCs "in town" or "at the tavern" unless they exist in character data
+- CHECK: All NPC names mentioned must have corresponding character JSON files
+
+### Common Validation Failures:
+- **Invalid Location Reference**: "the sage down by the millhouse" when no millhouse location exists
+- **Invalid NPC Reference**: "talk to the blacksmith" when no blacksmith character exists  
+- **Invented Geography**: "the temple district" when area only has 5 defined locations
+- **Non-existent Services**: "visit the apothecary" when no apothecary location/NPC exists
+
+### Required Response for Invalid References:
+If AI creates invalid location/NPC references, respond with:
+```json
+{
+  "valid": false,
+  "reason": "The response references [location/NPC name] which does not exist in the current module data. Only reference locations and NPCs that exist in the module's area and character files. Rewrite the response using only established locations and characters."
+}
+```
+
 ## MULTI-AREA TRAVEL VALIDATION RULES
 
 When characters request travel across multiple areas or distant locations:
