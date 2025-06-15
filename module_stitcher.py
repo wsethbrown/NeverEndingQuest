@@ -398,10 +398,71 @@ Suggest natural connections between new and existing areas."""
             print(f"Error analyzing connections with AI: {e}")
             return {}
     
+    def _create_module_backup(self, module_name: str) -> bool:
+        """Create backup of all module files before integration"""
+        try:
+            module_path = os.path.join(self.modules_dir, module_name)
+            if not os.path.exists(module_path):
+                return False
+            
+            # Create backup directory with timestamp
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            backup_dir = os.path.join(module_path, f"backup_pre_integration_{timestamp}")
+            os.makedirs(backup_dir, exist_ok=True)
+            
+            # List all files to backup
+            files_backed_up = 0
+            
+            # Backup all JSON files in module root
+            for filename in os.listdir(module_path):
+                file_path = os.path.join(module_path, filename)
+                
+                # Skip directories and non-JSON files, but backup everything else for safety
+                if os.path.isfile(file_path) and filename.endswith('.json'):
+                    backup_path = os.path.join(backup_dir, filename)
+                    
+                    try:
+                        import shutil
+                        shutil.copy2(file_path, backup_path)
+                        files_backed_up += 1
+                    except Exception as e:
+                        print(f"    - Warning: Could not backup {filename}: {e}")
+            
+            # Backup subdirectories (characters, monsters, etc.)
+            for subdir in ['characters', 'monsters', 'encounters']:
+                subdir_path = os.path.join(module_path, subdir)
+                if os.path.exists(subdir_path) and os.path.isdir(subdir_path):
+                    backup_subdir = os.path.join(backup_dir, subdir)
+                    os.makedirs(backup_subdir, exist_ok=True)
+                    
+                    for filename in os.listdir(subdir_path):
+                        if filename.endswith('.json'):
+                            src_file = os.path.join(subdir_path, filename)
+                            dst_file = os.path.join(backup_subdir, filename)
+                            
+                            try:
+                                import shutil
+                                shutil.copy2(src_file, dst_file)
+                                files_backed_up += 1
+                            except Exception as e:
+                                print(f"    - Warning: Could not backup {subdir}/{filename}: {e}")
+            
+            print(f"    - Backed up {files_backed_up} files to {backup_dir}")
+            return files_backed_up > 0
+            
+        except Exception as e:
+            print(f"Error creating module backup: {e}")
+            return False
+    
     def integrate_module(self, module_name: str) -> bool:
         """Integrate a new module into the world registry with conflict resolution"""
         try:
             print(f"Integrating module: {module_name}")
+            
+            # Create backup of all module files before any modifications
+            backup_created = self._create_module_backup(module_name)
+            if backup_created:
+                print(f"  - Created backup for module {module_name}")
             
             # Analyze the module
             module_data = self.analyze_module(module_name)

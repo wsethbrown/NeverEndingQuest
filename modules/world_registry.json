@@ -1,9 +1,98 @@
 {
   "worldName": "Chronicles of the Haunted Realm",
   "registryVersion": "1.0.0",
-  "lastUpdated": "2025-06-15T10:28:15.996274",
-  "modules": {},
-  "areas": {},
+  "lastUpdated": "2025-06-15T11:08:34.020989",
+  "modules": {
+    "Keep_of_Doom": {
+      "moduleName": "Keep_of_Doom",
+      "addedDate": "2025-06-15T11:08:34.020947",
+      "themes": [
+        "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run ",
+        "Tracking clues and rumors, the party must brave the haunted forest and reach the Keep of Doom. Along the way, they navigate treacherous terrain, spectral ambushes, and lingering wards. The forest is a",
+        "The party reaches the foreboding Keep of Doom. They must find a way inside, dealing with traps, lingering magical defenses, and spectral guardians. Entry requires cunning, bravery, or the right key--p",
+        "Within the keep's depths lies the source of the curse: the vengeful spirit of Lord Thaddeus Greymont, corrupted by dark magic. The party must confront him, either by combat, exorcism, or fulfilling hi",
+        "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures"
+      ],
+      "plotObjective": "Investigate the mysterious disappearances in Harrow's Hollow and discover the fate of Scout Elen.",
+      "levelRange": {
+        "min": 1,
+        "max": 5
+      },
+      "areaCount": 5
+    }
+  },
+  "areas": {
+    "G001": {
+      "areaName": "Gloamwood",
+      "areaDescription": "A dense, brooding forest where sunlight rarely pierces the canopy. Ethereal mists swirl between ancient oaks, and spirits of the restless dead prowl the trails. Travelers risk losing both their way and their lives among the twisted paths and shadowed groves.",
+      "areaType": "forest",
+      "dangerLevel": "medium",
+      "recommendedLevel": 1,
+      "climate": "temperate",
+      "terrain": "dense forest, misty trails, marshy clearings",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 9,
+      "module": "Keep_of_Doom",
+      "addedDate": "2025-06-15T11:08:34.020972"
+    },
+    "HH001": {
+      "areaName": "Harrow's Hollow",
+      "areaDescription": "Harrow's Hollow is a medium settlement where civilization meets the frontier. Politics and intrigue mix with everyday commerce.",
+      "areaType": "town",
+      "dangerLevel": "low",
+      "recommendedLevel": 1,
+      "climate": "temperate",
+      "terrain": "urban streets and buildings",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 5,
+      "module": "Keep_of_Doom",
+      "addedDate": "2025-06-15T11:08:34.020977"
+    },
+    "SK001": {
+      "areaName": "Shadowfall Keep",
+      "areaDescription": "A crumbling fortress perched atop a rocky hill, its towers broken and battlements thick with creeping ivy. Within, restless spirits and deadly traps await all who enter, and the cursed knight's presence warps reality itself. The very stones seem to absorb light, casting the keep in perpetual shadow regardless of the time of day.",
+      "areaType": "ruins",
+      "dangerLevel": "high",
+      "recommendedLevel": 2,
+      "climate": "temperate",
+      "terrain": "rocky hill, stone fortress, crumbling architecture",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 8,
+      "module": "Keep_of_Doom",
+      "addedDate": "2025-06-15T11:08:34.020980"
+    },
+    "TBM001": {
+      "areaName": "The Blighted Marches",
+      "areaDescription": "A desolate moor stretching beyond the keep, scarred by ancient battles and lingering curses. Strange lights drift over the bogs at night, and only the desperate or foolhardy dare to cross these lands. The soil itself seems poisoned, growing only twisted vegetation, while miasmic mists obscure vision and disorient travelers. Time and space bend unpredictably here, where the shadow relic's influence has seeped into the very landscape over centuries.",
+      "areaType": "wilderness",
+      "dangerLevel": "extreme",
+      "recommendedLevel": 5,
+      "climate": "cold and foggy",
+      "terrain": "moors, bogs, rocky outcroppings, and blasted plains",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 6,
+      "module": "Keep_of_Doom",
+      "addedDate": "2025-06-15T11:08:34.020983"
+    },
+    "TCD001": {
+      "areaName": "The Cursed Dungeons",
+      "areaDescription": "Beneath the keep, these ancient catacombs twist into darkness, suffused with the shadow relic's malevolent power. Echoes of suffering and the undead linger in every shadowed cell and hidden chamber. The very stones pulse with corrupted energy, and the air is thick with the taste of fear and ancient despair. Time and space seem to warp within these depths, with passages that shouldn't connect somehow leading into one another.",
+      "areaType": "dungeon",
+      "dangerLevel": "high",
+      "recommendedLevel": 3,
+      "climate": "cold and damp",
+      "terrain": "underground stone passages, cells, and chambers",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 7,
+      "module": "Keep_of_Doom",
+      "addedDate": "2025-06-15T11:08:34.020986"
+    }
+  },
   "connections": {},
   "themes": {}
 }
