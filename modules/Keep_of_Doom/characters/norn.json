@@ -585,6 +585,17 @@
       "source": "Restored Shrine"
     }
   ],
+  "injuries": [],
+  "equipment_effects": [
+    {
+      "name": "Fighting Style: Defense",
+      "type": "bonus",
+      "target": "AC",
+      "value": 1,
+      "description": "+1 to AC when wearing armor",
+      "source": "Class Feature"
+    }
+  ],
   "feats": [],
   "backgroundFeature": {
     "name": "Military Rank",

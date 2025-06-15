@@ -584,7 +584,7 @@
       "locationId": "A05",
       "name": "The Wyrd Lantern Inn",
       "type": "tavern",
-      "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew, fresh bread, and herbal tea fills the air. Lanterns flicker warmly, casting golden light on the worn timber beams. Villagers gather quietly around tables, their voices low yet friendly, while the innkeeper, Cira, offers comforting hospitality.",
+      "description": "The Wyrd Lantern Inn exudes a warm and hopeful atmosphere, its cozy interior filled with the aromas of baking bread and woodsmoke. Mismatched chairs circle a roaring hearth, while charms and trinkets hang from the timber beams, warding off evil. Lanterns cast a comforting glow that chases away shadows. The inn serves as a hub of camaraderie, where villagers quietly share in celebrations and listen eagerly to tales of adventure. The innkeeper, Cira, continues to provide warm hospitality, offering hearty stew and fresh bread to guests and villagers alike.",
       "coordinates": "X1Y2",
       "connectivity": [
         "A01"
@@ -594,8 +594,18 @@
       "npcs": [
         {
           "name": "Cira the Innkeeper",
-          "description": "A warm, quick-witted woman with a knack for remembering faces and secrets. She runs the Wyrd Lantern with a firm but friendly hand. Recently shared concerns about Scout Elen's strange behavior before her disappearance and advised the party to seek Old Tommen for more information.",
-          "attitude": "Welcoming to all, especially guests. Protective of her staff and regulars, and cautious about the recent unsettling events."
+          "description": "A warm, quick-witted woman with a knack for remembering faces and secrets. She runs the Wyrd Lantern with a firm but friendly hand. She is proud and grateful for the party's heroic deeds, welcoming villagers and adventurers alike with open arms.",
+          "attitude": "Warm, appreciative, and protective of the party and her community. Encourages festivity but remains watchful."
+        },
+        {
+          "name": "Norn",
+          "description": "A seasoned adventurer and protector of Harrow's Hollow, recently returned from a perilous journey to lift the curse from Shadowfall Keep. Holds the deed to the keep and is respected by the villagers.",
+          "attitude": "Honored and quietly enjoying a moment of peace. Open to sharing stories and planning new quests."
+        },
+        {
+          "name": "Elen",
+          "description": "A scout and brave companion to Norn, recently celebrated for her role in overcoming threats in the Gloamwood. Engages warmly with villagers and children, inspiring hope and admiration.",
+          "attitude": "Cheerful and approachable, eager to enjoy the village's hospitality but ready for future adventures."
         }
       ],
       "monsters": [],
@@ -603,14 +613,16 @@
         "Free meal and ale (at Cira's discretion)",
         "Set of bone dice (left in a booth)",
         "Silver earring (lost under a table)",
-        "Charm against the evil eye (hanging near the bar)"
+        "Charm against the evil eye (hanging near the bar)",
+        "Small chest containing gold and gemstones (given to Elen)"
       ],
       "plotHooks": [
-        "Scout Elen disappeared after acting restless and fearful about failing wards near the shrine and boundary stones.",
-        "Cira suggests speaking with Old Tommen in the village square for more information about recent strange occurrences.",
-        "The village's mysteries and hopes rest on the party's investigation."
+        "Seek out Elder Mirna for guidance on what awaits after lifting the curse of Shadowfall Keep.",
+        "The party's deeds have inspired the villagers; potential new quests arise from their rising reputation.",
+        "Investigate further mysteries hinted at by villagers during the celebration.",
+        "The mimic disguised as a chair suggests hidden dangers may still lurk nearby."
       ],
-      "dmInstructions": "Cira is the party's best source for rumors and local color. She can direct them to Elder Mirna, Sergeant Feld, or Old Tommen for more official or local matters. A DC 10 Persuasion check gets her to share stories about recent events, including Scout Elen's odd behavior and disappearance. If trouble starts, Cira expects the party to help keep peace.",
+      "dmInstructions": "This location is now a bustling hub of camaraderie and planning. Use Cira to provide updates and rumors. Norn and Elen are notable NPCs present and can serve as quest givers or sources of information. The inn is a place for rest, recovery, and gathering allies or information before the next adventure phase. Maintain the warm and hopeful tone, but hint at future challenges. Encourage roleplay and interaction with villagers and children eager to hear tales of heroism.",
       "doors": [
         {
           "name": "Inn Door",
@@ -639,7 +651,8 @@
       "dcChecks": [
         "Persuasion DC 10: Convince Cira to share confidential rumors or grant a favor.",
         "Insight DC 12: Detect if a patron is hiding something about recent ghost sightings.",
-        "Perception DC 14: Notice Scout Elen's map or signs of her recent presence in the inn."
+        "Perception DC 14: Notice Scout Elen's map or signs of her recent presence in the inn.",
+        "Performance DC 15: Captivate the villagers with tales of adventure and heroism."
       ],
       "accessibility": "Easily reached from the square, step-free entrance, welcoming to all.",
       "dangerLevel": "Low",
@@ -650,17 +663,21 @@
         },
         {
           "name": "Hearth and Common Room",
-          "description": "A crackling fire and mismatched armchairs make this a favorite gathering spot."
+          "description": "A crackling fire and mismatched armchairs make this a favorite gathering spot for villagers and adventurers alike."
         },
         {
           "name": "Guest Rooms",
-          "description": "Modest but clean rooms available for travelers."
+          "description": "Modest but clean rooms available for travelers, currently hosting Norn and Elen."
+        },
+        {
+          "name": "Lanterns and Charms",
+          "description": "Lanterns flicker warmly throughout the inn, and charms hang from timber beams, believed to ward off evil."
         }
       ],
       "encounters": [
         {
           "encounterId": "A05-E1",
-          "summary": "Party arrives at The Wyrd Lantern Inn and is warmly welcomed by Cira. Norn rests and recovers hit points. Cira shares concerning news about Scout Elen's recent behavior and disappearance, advises seeking Old Tommen in the village square, and warns to stay vigilant.",
+          "summary": "Party arrives at The Wyrd Lantern Inn and is warmly welcomed by Cira. Norn rests and recovers hit points. Cira shares concerning news about Scout Elen's recent behavior and disappearance, advises seeking Old Tommen in the village square for more information, and warns to stay vigilant.",
           "impact": "The party gains valuable local information about Scout Elen and a new lead for their investigation. Norn rejuvenates for the journey ahead. Cira promises to keep a lantern burning until their return.",
           "worldConditions": {
             "year": 1492,
@@ -668,9 +685,20 @@
             "day": 1,
             "time": "14:55:00"
           }
+        },
+        {
+          "encounterId": "A05-E2",
+          "summary": "Norn and Elen return to The Wyrd Lantern Inn after lifting the curse from Shadowfall Keep. They are greeted with warmth and celebration by villagers. Elen receives a small chest of gold and gemstones from Norn, accepted to aid the village. Stories of their adventures, including narrowly escaping a mimic disguised as a chair, captivate the community. The inn buzzes with hope and inspiration as children and villagers listen eagerly.",
+          "impact": "The party's reputation as protectors of Harrow's Hollow is firmly established. The inn becomes a hub for rest, camaraderie, and future planning. Elen and Norn strengthen bonds with the villagers, setting the stage for upcoming quests.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 2,
+            "time": "14:00:00"
+          }
         }
       ],
-      "adventureSummary": "Upon arriving at The Wyrd Lantern Inn, the party was met with a warm and inviting atmosphere, where flickering lanterns cast golden light upon worn timber beams and the comforting scents of roasting meat and fresh bread filled the air. Villagers gathered quietly around tables, their voices low yet friendly, while Cira, the innkeeper, offered a welcoming nod and a steaming mug of herbal tea. The party settled into a corner seat, allowing the inn's gentle bustle to soothe their weariness. Norn took the opportunity to rest for an hour, recovering hit points and rejuvenating for the journey ahead. As they prepared to depart, Cira shared concerning news about Scout Elen, who had been in the inn the night before her disappearance, acting restless and repeatedly checking a map while expressing fears about failing wards and strange occurrences near the shrine and boundary stones. She advised the party to seek out Old Tommen in the village square for further information and cautioned Norn to remain vigilant. After bidding farewell to Cira, who promised to keep a lantern burning until their return, the party left the comforting warmth of The Wyrd Lantern Inn and headed back toward the trailhead, carrying with them the weight of the village's mysteries and hopes."
+      "adventureSummary": "After crossing the cobbled lane from the East Gate, Norn and Elen entered the Wyrd Lantern Inn, greeted by the comforting aromas of baking bread and woodsmoke, and the warm glow of lanterns chasing away the shadows. The inn's cozy interior featured mismatched chairs around a hearth and charms hanging from the beams. Innkeeper Cira welcomed them warmly, offering stew and fresh bread in gratitude for their heroic efforts in lifting the curse from Shadowfall Keep. Villagers quietly saluted the pair as they settled by the fire, signaling a moment of rest and celebration. Norn and Elen shared stories of their harrowing journey through the Gloamwood--the broken relic, encounters with the Bone Speaker, and a narrow escape from a mimic disguised as a chair--strengthening their bond and inspiring the gathered villagers. Norn presented Elen with a small chest containing gold and gemstones as a reward, which she accepted with heartfelt thanks and a promise to aid the village with its contents, while Norn retained the deed to Shadowfall Keep. Throughout their time in the inn, villagers expressed admiration and hope, with children eagerly listening to tales of their exploits. The atmosphere remained warm and hopeful; though Norn periodically stepped away from the game, the inn staff and villagers maintained their welcoming spirit. Upon returning, Norn found Elen engaging with villagers and children, laughter filling the room as stories of their adventure, especially the mimic encounter, continued to captivate the community. Elen expressed a desire to enjoy peace but remained open to further adventures, inviting Norn to consider their next steps. The party's reputations as protectors of Harrow's Hollow were firmly established, with the inn serving as a hub for rest, camaraderie, and planning future endeavors before they decided to seek out Elder Mirna for what awaited them next."
     }
   ]
 }

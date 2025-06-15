@@ -246,9 +246,39 @@ def deep_merge_dict(base_dict, update_dict):
         if key in result and isinstance(result[key], dict) and isinstance(value, dict):
             # Recursively merge nested dictionaries
             result[key] = deep_merge_dict(result[key], value)
+        elif key == 'equipment' and isinstance(result.get(key), list) and isinstance(value, list):
+            # Special handling for equipment arrays - merge items by name
+            result[key] = merge_equipment_arrays(result[key], value)
         else:
             # Replace or add the value
             result[key] = copy.deepcopy(value)
+    
+    return result
+
+def merge_equipment_arrays(base_equipment, update_equipment):
+    """Merge equipment arrays by item name, preserving existing items"""
+    result = copy.deepcopy(base_equipment)
+    
+    # Create a mapping of item names to indices in the base equipment
+    item_name_to_index = {}
+    for i, item in enumerate(result):
+        item_name = item.get('item_name', '')
+        if item_name:
+            item_name_to_index[item_name] = i
+    
+    # Process updates
+    for update_item in update_equipment:
+        update_item_name = update_item.get('item_name', '')
+        if not update_item_name:
+            continue
+            
+        if update_item_name in item_name_to_index:
+            # Update existing item by merging dictionaries
+            index = item_name_to_index[update_item_name]
+            result[index] = deep_merge_dict(result[index], update_item)
+        else:
+            # Add new item if it doesn't exist
+            result.append(copy.deepcopy(update_item))
     
     return result
 
@@ -260,6 +290,9 @@ def validate_critical_fields_preserved(original_data, updated_data, character_na
         ('spellcasting', 'spellAttackBonus'),
         ('spellcasting', 'spells'),
     ]
+    
+    # Also check for equipment array preservation
+    critical_arrays = ['equipment', 'ammunition']
     
     warnings = []
     
@@ -285,6 +318,20 @@ def validate_critical_fields_preserved(original_data, updated_data, character_na
         if path_exists_in_original and not path_exists_in_updated:
             field_path = '.'.join(path)
             warnings.append(f"Critical field '{field_path}' was deleted from {character_name}")
+    
+    # Check for massive array reductions (potential data loss)
+    for array_name in critical_arrays:
+        if array_name in original_data and array_name in updated_data:
+            original_array = original_data[array_name]
+            updated_array = updated_data[array_name]
+            
+            if isinstance(original_array, list) and isinstance(updated_array, list):
+                original_count = len(original_array)
+                updated_count = len(updated_array)
+                
+                # Warn if we lost more than 80% of items (likely indicates replacement instead of merge)
+                if original_count > 5 and updated_count < (original_count * 0.2):
+                    warnings.append(f"Critical array reduction: {array_name} went from {original_count} to {updated_count} items in {character_name}")
     
     return warnings
 
@@ -365,11 +412,15 @@ CRITICAL INSTRUCTIONS:
 1. Return ONLY a JSON object with the fields that need to be updated
 2. Do not include unchanged fields
 3. Ensure all values match the schema requirements exactly
-4. For arrays, include the complete updated array if any element changes
+4. IMPORTANT: For equipment arrays, return ONLY the specific items being modified, NOT the entire array
 5. Maintain data integrity and consistency
 6. IMPORTANT: When updating nested objects like 'spellcasting', include ALL existing subfields to prevent data loss
 7. NEVER return partial nested objects that would delete existing important data
 8. If updating spell slots, always include ability, spellSaveDC, spellAttackBonus, and spells fields
+
+EQUIPMENT UPDATE EXAMPLES:
+CORRECT (updating one item): {{"equipment": [{{"item_name": "Jeweled dagger", "description": "updated description", "magical": true}}]}}
+WRONG (would delete all other items): {{"equipment": [...]}} with multiple items
 
 DANGEROUS EXAMPLE (DO NOT DO):
 {{"spellcasting": {{"spellSlots": {{...}}}}}} // This deletes ability, DC, bonus, and spells!

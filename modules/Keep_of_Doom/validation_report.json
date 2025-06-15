@@ -1,10 +1,10 @@
 {
   "module": "Keep_of_Doom",
-  "timestamp": "2025-06-15T10:36:24.350505",
+  "timestamp": "2025-06-15T16:31:06.503836",
   "summary": {
     "total_files": 37,
-    "total_passed": 36,
-    "total_failed": 1
+    "total_passed": 35,
+    "total_failed": 2
   },
   "results": {
     "area": {
@@ -28,9 +28,10 @@
         "testnpc.json",
         "test_laura.json"
       ],
-      "passed": 5,
-      "failed": 1,
+      "passed": 4,
+      "failed": 2,
       "errors": [
+        "norn.json: root: 'injuries' is a required property; root: 'equipment_effects' is a required property",
         "test_laura.json: root: 'type' is a required property; root: 'size' is a required property; root: 'race' is a required property"
       ]
     },

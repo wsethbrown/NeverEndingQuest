@@ -200,3 +200,24 @@
 [2025-06-14 23:09:57]   [OK] Loaded TBM001: The Blighted Marches
 [2025-06-14 23:09:57]   [OK] Loaded TCD001: The Cursed Dungeons
 [2025-06-14 23:09:57] Graph built: 35 locations, 84 connections
+[2025-06-15 14:55:20] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-15 14:55:20]   [OK] Loaded G001: Gloamwood
+[2025-06-15 14:55:20]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-15 14:55:20]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-15 14:55:20]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-15 14:55:20]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-15 14:55:20] Graph built: 35 locations, 84 connections
+[2025-06-15 15:11:03] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-15 15:11:03]   [OK] Loaded G001: Gloamwood
+[2025-06-15 15:11:03]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-15 15:11:03]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-15 15:11:03]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-15 15:11:03]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-15 15:11:03] Graph built: 35 locations, 84 connections
+[2025-06-15 15:13:51] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-15 15:13:51]   [OK] Loaded G001: Gloamwood
+[2025-06-15 15:13:51]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-15 15:13:51]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-15 15:13:51]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-15 15:13:51]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-15 15:13:51] Graph built: 35 locations, 84 connections

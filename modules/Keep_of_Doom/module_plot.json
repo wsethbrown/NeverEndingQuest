@@ -109,8 +109,8 @@
       "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
       "location": "HH001",
       "nextPoints": [],
-      "status": "in progress",
-      "plotImpact": "Norn gifts Elen the chest of gold and gems as a reward for her bravery, keeping the deed to Shadowfall Keep. Elen pledges to use the treasure to aid the village, strengthening her role in the community and deepening the bond between the heroes.",
+      "status": "completed",
+      "plotImpact": "Norn and Elen are rewarded by Elder Mirna and the villagers: a coffer of coins, gems, and a deed to land, cementing their roles as heroes and closing the tale of the keep's curse.",
       "sideQuests": []
     }
   ],
