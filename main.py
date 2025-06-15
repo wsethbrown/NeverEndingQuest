@@ -338,6 +338,10 @@ def process_conversation_history(history):
     for message in history:
         if message["role"] == "user" and message["content"].startswith("Leveling Dungeon Master Guidance"):
             message["content"] = "DM Guidance: Proceed with leveling up the player character or the party NPC given the 5th Edition role playing game rules. Only level the player character or party NPC one level at a time to ensure no mistakes are made. If you are leveling up a party NPC then pass all changes at once using the 'updateCharacterInfo' action. If you are leveling up a player character then you must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updateCharacterInfo' to pass all changes to the players character sheet and include the experience goal for the next level. Do not update the player's information in segements."
+    
+    # Apply DM note truncation to clean up bloated messages
+    history = truncate_dm_notes(history)
+    
     print(f"DEBUG: Conversation history processing complete")
     return history
 
