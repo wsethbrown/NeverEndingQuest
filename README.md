@@ -63,29 +63,70 @@ python run_web.py
 ```
 Launch the modern web interface with separate panels for game output and debug information. The browser will open automatically.
 
+## How the Campaign World Works
+
+### Location-Based Module System
+The game uses a revolutionary **geographic boundary system** instead of traditional campaign chapters:
+
+- **Modules as Geographic Regions**: Each adventure module represents a geographic area network (village + forest + dungeon)
+- **Organic World Growth**: The world map expands naturally as you add new modules - no predetermined geography needed
+- **Automatic Transitions**: When you travel to a new area, the system automatically detects if you're entering a different module
+- **Living World Memory**: Every location remembers your visits and the world evolves based on accumulated decisions
+
+### How Modules Connect
+```
+Example World Evolution:
+Keep_of_Doom: Harrow's Hollow (village) → Gloamwood (forest) → Shadowfall Keep (ruins)
++ Crystal_Peaks: Frostspire Village (mountain town) → Ice Caverns (frozen depths)
+= AI Connection: "Mountain paths from Harrow's Hollow lead to Frostspire Village"
+```
+
+The AI analyzes area descriptions and themes to suggest natural narrative bridges between modules.
+
+### Adventure Continuity
+- **Chronicle System**: When you leave a module, the system generates a beautiful prose summary of your adventure
+- **Context Accumulation**: Return visits include full history of previous adventures in that region
+- **Character Relationships**: NPCs remember you across modules and adventures continue to evolve
+- **Consequence Tracking**: Major decisions affect future adventures and available story paths
+
+### Module Creation & Community
+- **Module Builder**: Create new adventure modules with integrated areas, plots, and NPCs
+- **Community Modules**: Download and integrate player-created adventures automatically
+- **Safety Protocols**: All community modules undergo content safety validation and conflict resolution
+- **Organic Integration**: New modules connect naturally to your existing world without manual configuration
+
 ## Key Features
 
-### Campaign Generation
-- **Automated Campaign Builder**: Generate complete campaigns with one command
-- **Context Validation**: Ensures consistency across all generated content
-- **Customizable Settings**: Control number of areas, locations per area, and complexity
+### Revolutionary Campaign System
+- **Location-Based Transitions**: Cross-module travel happens naturally through AI-driven exploration
+- **Automatic Module Detection**: System scans for new modules and integrates them seamlessly
+- **Living World Continuity**: Return to any area with full memory of previous adventures
+- **Chronicle Generation**: Beautiful elevated fantasy prose summaries of completed adventures
+- **Hub-and-Spoke Design**: Central locations become accessible from multiple adventure modules
+
+### Module Generation & Management
+- **Complete Module Builder**: Generate entire adventure modules with areas, locations, plots, and NPCs
+- **Context-Aware Generation**: Maintains consistency across all generated content
 - **Schema Compliance**: All files follow strict 5th edition JSON schemas
+- **Community Module Support**: Framework for sharing and auto-integrating downloaded adventures
+- **Safety Validation**: Automatic content review and conflict resolution for community modules
 
 ### Gameplay Features
-- **Interactive Storytelling**: Dynamic narratives respond to player actions
-- **Combat System**: Turn-based combat with validation and logging
-- **Character Management**: Track stats, inventory, and progression
-- **World Exploration**: Navigate detailed locations with connections
-- **Plot Management**: Main quests, side quests, and dynamic plot evolution
-- **NPC System**: Persistent NPCs with personalities, goals, and attitudes
-- **Time Tracking**: Complete world time and condition management
+- **Interactive Storytelling**: Dynamic narratives respond to accumulated player decisions across modules
+- **Combat System**: Turn-based combat with validation and AI simulation
+- **Character Management**: Unified character system supporting players, NPCs, and monsters
+- **World Exploration**: Navigate detailed locations with dynamic state and cross-module connections
+- **Plot Management**: Authoritative module_plot.json tracks main quests, side quests, and progression
+- **NPC System**: Persistent NPCs with personalities, goals, and cross-module relationship tracking
+- **Time Tracking**: Complete world time and condition management with realistic progression
 
 ## Project Structure
 
 ### Core Systems
 - `main.py` - Main game loop and player interaction
 - `module_builder.py` - Automated module generation system
-- `module_context.py` - Context management for consistent generation
+- `module_stitcher.py` - Organic module integration with safety protocols
+- `campaign_manager.py` - Location-based hub-and-spoke campaign orchestration
 - `combat_manager.py` - Combat system management
 - `dm.py` & `dm_wrapper.py` - AI Dungeon Master logic
 
@@ -123,21 +164,54 @@ The system uses OpenAI GPT models configured in `config.py`:
 - OpenAI API key
 - Required packages listed in `requirements.txt`
 
+## Community Module Safety
+
+The module stitcher includes comprehensive safety protocols for community-created content:
+
+### Automatic Safety Validation
+- **Content Review**: AI analyzes all module content for family-friendly appropriateness
+- **File Security**: Blocks executable files, oversized content, and malicious patterns
+- **Schema Compliance**: Validates JSON structure against 5th edition schemas
+- **ID Conflict Resolution**: Automatically resolves duplicate area/location identifiers
+
+### How It Works
+```
+New module detected → Security scan → Content safety check → Schema validation → Conflict resolution → Integration
+```
+
+### For Module Creators
+- Use unique area IDs to avoid conflicts (avoid common patterns like HH001)
+- Keep files under 10MB and use only JSON/text formats
+- Create family-friendly content appropriate for all ages
+- Follow provided JSON schemas for compatibility
+
+### For Players
+- Download modules from trusted sources
+- System provides multiple safety layers automatically
+- All community modules undergo validation before integration
+- Backup saves before adding new modules as good practice
+
 ## Usage Examples
 
 ### Generate a Module
 ```bash
-python campaign_builder.py
-# Enter campaign name: Keep of Doom
-# Number of areas: 3
-# Locations per area: 15
-# Describe your campaign concept: A dark fantasy adventure...
+python module_builder.py
+# Follow prompts to create areas, locations, plots, and NPCs
+# System ensures consistency and schema compliance
 ```
 
 ### Start Playing
 ```bash
 python main.py
-# The system will load party_tracker.json and begin the adventure
+# System automatically detects and integrates any new modules
+# Begin adventure in your generated or downloaded module
+```
+
+### Add Community Modules
+```bash
+# Simply place module folder in modules/ directory
+# System automatically detects, validates, and integrates on next startup
+# AI generates narrative connections to existing world
 ```
 
 ## License
