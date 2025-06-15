@@ -2889,6 +2889,13 @@
                     }
                 }
                 
+                // Inventory Button
+                if (npc.equipment && npc.equipment.length > 0) {
+                    html += `<div class="stat-group">`;
+                    html += `<button class="npc-detail-button" onclick="showNPCInventory('${npc.name}', ${JSON.stringify(npc.equipment).replace(/"/g, '&quot;')})">Inventory</button>`;
+                    html += `</div>`;
+                }
+                
                 html += '</div>'; // End skills-saves-container
                 
                 // Key Features and Abilities

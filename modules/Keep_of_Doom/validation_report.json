@@ -1,35 +1,96 @@
 {
-  "validation_date": "2025-05-16T00:56:54.736723",
-  "issues": [
-    "NPC 'Elder Mirna Harrow (village elder)' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'Old Tommen (superstitious herdsman)' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'Cira the Innkeeper' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'Wandering Shade (restless spirit)' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'Scout Elen (missing villager, possibly rescued)' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'Sir Garran Vael (cursed knight)' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'Spectral Scribe (ghostly historian)' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'The Shadow Relic (sentient artifact, communicates telepathically)' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'Sir Garran Vael' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'The Shadow Relic' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'Elder Mirna Harrow' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'Agents of the Black Banner (optional future threat)' is referenced in ['module:plotStages'] but not placed in any location",
-    "NPC 'Dame Elira Dawnsworn' is referenced in ['module:faction:The Order of the Silver Vigil'] but not placed in any location",
-    "NPC 'Brother Jorlan' is referenced in ['module:faction:The Order of the Silver Vigil'] but not placed in any location",
-    "NPC 'Sergeant Mara Feld' is referenced in ['module:faction:The Order of the Silver Vigil'] but not placed in any location",
-    "NPC 'Varek the Shade' is referenced in ['module:faction:The Black Banner'] but not placed in any location",
-    "NPC 'Mistress Ilyra' is referenced in ['module:faction:The Black Banner'] but not placed in any location",
-    "NPC 'Garrik Two-Fingers' is referenced in ['module:faction:The Black Banner'] but not placed in any location",
-    "NPC 'Magister Corvin Leth' is referenced in ['module:faction:Council of Eldermere'] but not placed in any location",
-    "NPC 'Lady Mirielle d'Ashe' is referenced in ['module:faction:Council of Eldermere'] but not placed in any location",
-    "NPC 'Envoy Torric' is referenced in ['module:faction:Council of Eldermere'] but not placed in any location",
-    "NPC 'Druidess Halwen' is referenced in ['module:faction:Circle of the Wild Heart'] but not placed in any location",
-    "NPC 'Ranger Branik' is referenced in ['module:faction:Circle of the Wild Heart'] but not placed in any location",
-    "NPC 'Feyfriend Lirael' is referenced in ['module:faction:Circle of the Wild Heart'] but not placed in any location"
-  ],
-  "context_summary": {
-    "areas": 1,
-    "npcs": 24,
-    "locations": 0,
-    "plot_points": 4
+  "module": "Keep_of_Doom",
+  "timestamp": "2025-06-14T21:01:13.013987",
+  "summary": {
+    "total_files": 36,
+    "total_passed": 36,
+    "total_failed": 0
+  },
+  "results": {
+    "module": {
+      "files": [
+        "Keep_of_Doom_module.json"
+      ],
+      "passed": 1,
+      "failed": 0,
+      "errors": []
+    },
+    "area": {
+      "files": [
+        "G001.json",
+        "HH001.json",
+        "SK001.json",
+        "TBM001.json",
+        "TCD001.json"
+      ],
+      "passed": 5,
+      "failed": 0,
+      "errors": []
+    },
+    "character": {
+      "files": [
+        "elen.json",
+        "norn.json",
+        "norn_test.json",
+        "testnpc.json"
+      ],
+      "passed": 4,
+      "failed": 0,
+      "errors": []
+    },
+    "monster": {
+      "files": [
+        "animated_armor.json",
+        "animated_weapon.json",
+        "ghoul.json",
+        "giant_rat.json",
+        "giant_spider.json",
+        "gibbering_mouther.json",
+        "mimic.json",
+        "shadow.json",
+        "shadow_manifestations.json",
+        "shadow_mastiff.json",
+        "shadow_of_sir_garran.json",
+        "shadow_relic.json",
+        "skeletal_archer.json",
+        "skeleton.json",
+        "specter.json",
+        "swarm_of_spiders.json",
+        "twig_blight.json",
+        "wight.json",
+        "will-o'-wisp.json"
+      ],
+      "passed": 19,
+      "failed": 0,
+      "errors": []
+    },
+    "map": {
+      "files": [
+        "map_G001.json",
+        "map_HH001.json",
+        "map_SK001.json",
+        "map_TBM001.json",
+        "map_TCD001.json"
+      ],
+      "passed": 5,
+      "failed": 0,
+      "errors": []
+    },
+    "plot": {
+      "files": [
+        "module_plot.json"
+      ],
+      "passed": 1,
+      "failed": 0,
+      "errors": []
+    },
+    "module_context": {
+      "files": [
+        "module_context.json"
+      ],
+      "passed": 1,
+      "failed": 0,
+      "errors": []
+    }
   }
 }

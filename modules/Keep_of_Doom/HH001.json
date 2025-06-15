@@ -331,34 +331,44 @@
       "locationId": "A03",
       "name": "East Gate and Guardhouse",
       "type": "gate",
-      "description": "A pair of heavy wooden gates, iron-banded and weathered, mark the town's eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond. The gate area now carries a sense of renewed hope and determination among the defenders after Norn shared a message of hope concerning the missing Scout Elen. The young woman holding a lantern and the broad-shouldered guard visibly lift their spirits, and villagers nearby exchange hopeful glances, easing the previous tension and anxiety.",
+      "description": "The East Gate stands proudly at the town's edge, its heavy wooden gates reinforced with iron bands now symbolizing hope rather than mere defense. The adjacent stone guardhouse, once tense with worry, now buzzes with warmth and gratitude as villagers and defenders gather to celebrate the breaking of the curse. The air carries the laughter and applause of grateful townsfolk, with Elder Mirna Harrow hosting the party inside to discuss rewards and future plans. Lanterns glow softly against the dusk, illuminating faces lifted from fear to joy, while children listen intently to tales of courage and sacrifice. The atmosphere is suffused with renewal and promise, marking a pivotal moment of peace and unity in Harrow's Hollow.",
       "coordinates": "X2Y3",
-      "accessibility": "Easily accessible by road, but guarded and locked at night.",
+      "accessibility": "Easily accessible by road, well-guarded by a now-relaxed militia, and open for honored guests and villagers celebrating the recent victory.",
       "npcs": [
         {
           "name": "Young Guard",
-          "description": "A young woman holding a faintly glowing lantern. She is more hopeful after hearing about Scout Elen and is eager to support the party's investigation.",
-          "attitude": "Encouraged and cooperative; more confident about the village's defense."
+          "description": "A young woman holding a faintly glowing lantern, her eyes bright with hope and pride after witnessing Elen's bravery and the party's success.",
+          "attitude": "Grateful, warm, and eager to support the party and the village's future."
         },
         {
           "name": "Broad-Shouldered Guard",
-          "description": "A broad-shouldered man carrying a battered spear. He is visibly grateful for the reassuring message and remains watchful for any threats.",
-          "attitude": "Grateful and determined; focused on protecting the town."
+          "description": "A broad-shouldered man bearing a spear, his stance relaxed yet vigilant, sharing in the communal sense of relief and renewed determination.",
+          "attitude": "Respectful, thankful, and resolved to protect the village with newfound confidence."
+        },
+        {
+          "name": "Elder Mirna Harrow",
+          "description": "The venerable village elder who acknowledges the party's critical role in lifting the curse and invites them to discuss rewards and plans within the guardhouse.",
+          "attitude": "Gracious, wise, and hopeful for the village's future."
+        },
+        {
+          "name": "Scout Elen",
+          "description": "The courageous scout who faced the darkness and helped restore the protective wards; she shares her tale with eager children and grateful villagers.",
+          "attitude": "Brave, humble, and warmly received by the community."
         }
       ],
       "monsters": [],
       "plotHooks": [
-        "The young guard shares that Scout Elen went missing two days ago while patrolling the Witchlight Trail.",
-        "The broad-shouldered guard warns of mysterious lights, shadows, and missing livestock in the nearby woods.",
-        "Both guards urge the party to report any findings about Elen or unusual occurrences to help the strained village defenses.",
-        "Mysterious phenomena along the Witchlight Trail suggest dangers beyond natural predators.",
-        "Elder Mirna Harrow tasks the party with investigating the recent disappearances and curse rumors haunting Harrow's Hollow."
+        "Elder Mirna offers the party rewards and tasks them with future protective duties.",
+        "The village celebrates the lifting of the curse and looks to the party for guidance on remaining threats.",
+        "Scout Elen's story inspires young villagers and may reveal lingering mysteries about the darkness once more.",
+        "Renewed village morale opens opportunities for alliances and exploration beyond Harrow's Hollow.",
+        "Potential threats remain beyond the Witchlight Trail and the haunted keep, warranting further investigation."
       ],
       "lootTable": [
-        "Town gate key (kept on Sergeant Feld's belt)",
-        "Guard's whistle",
-        "Small pouch with 12 cp",
-        "Town patrol schedule (handwritten, with notes about recent disturbances near the keep)"
+        "Gifts from grateful villagers including minor magical trinkets and useful supplies",
+        "Tokens of thanks such as crafted amulets and fresh provisions",
+        "Elen's scout gear, enhanced by her recent experiences",
+        "Written commendations from Elder Mirna acknowledging the party's valor"
       ],
       "dangerLevel": "Low",
       "connectivity": [
@@ -375,20 +385,25 @@
       "features": [
         {
           "name": "Watch Bell",
-          "description": "A large bronze bell used to sound alarms; can be heard across town."
+          "description": "A large bronze bell used to sound alarms; currently silent except for joyous celebration."
         },
         {
           "name": "Patrol Roster",
-          "description": "A chalkboard inside the guardhouse listing names and shifts, with Scout Elen's name circled in chalk."
+          "description": "A chalkboard inside the guardhouse listing names and shifts; Scout Elen's name is now honored for her heroism."
         },
         {
           "name": "Gate Mechanism",
-          "description": "A stout bar and iron lock securing the gates, requiring a key or brute force to bypass."
+          "description": "The sturdy iron lock and bar securing the gates, symbolizing the village's resilience and safety."
+        },
+        {
+          "name": "Celebration Square",
+          "description": "The area around the gate crowded with villagers offering thanks, gifts, and listening to tales of bravery."
         }
       ],
       "dcChecks": [
-        "Investigation DC 14: Discover faint footprints and broken brush leading toward the haunted keep.",
-        "Persuasion DC 13: Convince Sergeant Feld to share information or allow after-hours travel."
+        "Persuasion DC 15: Convince Elder Mirna to grant extra rewards or information about future threats.",
+        "Insight DC 14: Sense the true mood and concerns of the villagers during the celebration.",
+        "Investigation DC 12: Notice subtle signs of lingering magical residue from the curse on the gate area."
       ],
       "encounters": [
         {
@@ -445,9 +460,20 @@
             "day": 1,
             "time": "20:50:00"
           }
+        },
+        {
+          "encounterId": "A03-E6",
+          "summary": "Upon arriving at the East Gate and Guardhouse of Harrow's Hollow, the party was met with a scene of communal relief and celebration. The villagers, their anxiety waned and hope rekindled, gathered in the square, turning their eager and grateful gazes toward Norn and Elen. Recognizing Elen's bravery and sacrifice in confronting the darkness and restoring the protective wards, Norn publicly credited her, inspiring the crowd to overcome their lingering fear and erupt into heartfelt applause and offerings of thanks. Elder Mirna acknowledged the vital roles both heroes played in breaking the curse and invited them inside the guardhouse to discuss rewards and future plans. The atmosphere was suffused with warmth and renewal as villagers pressed gifts into the party's hands and children eagerly listened to Elen recount her courageous tale. Norn took moments to savor this rare peace, resting amidst the laughter and gratitude that filled the air, while Elder Mirna patiently awaited the heroes' readiness to proceed. After a time of celebration and reflection, with the village fully healed of its dread, the party prepared to move forward from the East Gate and Guardhouse, carrying with them the respect of Harrow's Hollow and the promise of new opportunities ahead.",
+          "impact": "The village's morale and hope are fully restored, with no threats present. The party gains respect, gratitude, and potential new quests or alliances. The East Gate serves as a place of safe rest and celebration before continuing their journey.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 2,
+            "time": "12:25:00"
+          }
         }
       ],
-      "adventureSummary": "Upon arriving at the East Gate and Guardhouse of Harrow's Hollow, the party found a small but resolute militia on watch, their torchlight flickering against the night. Norn addressed the two guards stationed there--a younger woman bearing a crest-stitched cloak and an older, broad-shouldered man wielding a spear--instilling a renewed sense of vigilance and determination. The younger guard promised heightened attentiveness to any suspicious activity, while the older guard vowed to alert and rally the villagers at the first sign of danger, prepared to support the party's stand against the looming curse at the Keep of Doom. This interaction not only bolstered the morale and readiness of the militia but also infused the village with cautious hope, as passing villagers acknowledged this newfound courage with nods and blessings. The party's presence and words strengthened the collective resolve of Harrow's Hollow, setting the stage for the forthcoming confrontation. With no immediate threats or traps detected, the party, now supported by the watchful militia, prepared to move forward, and Norn soon chose to proceed toward the Witchlight Trailhead, leaving the East Gate and Guardhouse behind. (Game Time: 1492 Ches 1, 20:50:00)",
+      "adventureSummary": "Upon arriving at the East Gate and Guardhouse of Harrow's Hollow, the party was met with a scene of communal relief and celebration. The villagers, their anxiety waned and hope rekindled, gathered in the square, turning their eager and grateful gazes toward Norn and Elen. Recognizing Elen's bravery and sacrifice in confronting the darkness and restoring the protective wards, Norn publicly credited her, inspiring the crowd to overcome their lingering fear and erupt into heartfelt applause and offerings of thanks. Elder Mirna acknowledged the vital roles both heroes played in breaking the curse and invited them inside the guardhouse to discuss rewards and future plans. The atmosphere was suffused with warmth and renewal as villagers pressed gifts into the party's hands and children eagerly listened to Elen recount her courageous tale. Norn took moments to savor this rare peace, resting amidst the laughter and gratitude that filled the air, while Elder Mirna patiently awaited the heroes' readiness to proceed. After a time of celebration and reflection, with the village fully healed of its dread, the party prepared to move forward from the East Gate and Guardhouse, carrying with them the respect of Harrow's Hollow and the promise of new opportunities ahead. (Game Time: 1492 Springmonth 2, 12:25:00)",
       "doors": [
         {
           "name": "Main Gate",
@@ -472,7 +498,7 @@
           "trap": ""
         }
       ],
-      "dmInstructions": "Two militia members remain on duty: the young woman with a glowing lantern and the broad-shouldered man with a spear. They are encouraged by Norn's message of hope regarding Scout Elen, which has lifted morale. Provide roleplay opportunities reflecting this improved atmosphere as the party prepares to move toward the Harrow's Hollow General Store. There are no hostile creatures or traps encountered here currently."
+      "dmInstructions": "The village defenders and residents now celebrate the lifting of the curse at the East Gate and Guardhouse. Roleplay opportunities abound with Elder Mirna, Scout Elen, and the guards who are grateful and hopeful. The gate is secure and morale high, with no threats present. Allow the party to rest, receive rewards, and plan future quests. The area serves as a safe haven and hub for the party's next steps in the adventure."
     },
     {
       "locationId": "A04",

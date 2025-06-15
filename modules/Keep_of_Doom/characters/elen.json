@@ -225,6 +225,12 @@
       "item_type": "miscellaneous",
       "description": "A small pouch worn on the belt.",
       "quantity": 1
+    },
+    {
+      "item_name": "Chest with 58 Gold Coins and 4 Gemstones",
+      "item_type": "miscellaneous",
+      "description": "A small chest containing 58 gold coins and 4 gemstones.",
+      "quantity": 1
     }
   ],
   "ammunition": [

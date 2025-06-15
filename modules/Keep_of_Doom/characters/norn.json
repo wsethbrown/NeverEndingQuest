@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 37,
+  "hitPoints": 44,
   "maxHitPoints": 47,
   "armorClass": 19,
   "initiative": 2,
@@ -68,7 +68,7 @@
       "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action",
       "source": "Fighter feature",
       "usage": {
-        "current": 0,
+        "current": 1,
         "max": 1,
         "refreshOn": "shortRest"
       }
@@ -489,9 +489,9 @@
       ]
     },
     {
-      "item_name": "Chest with 58 Gold Coins, 4 Gemstones, and Deed to Shadowfall Keep",
+      "item_name": "Deed to Shadowfall Keep",
       "item_type": "miscellaneous",
-      "description": "A sturdy chest containing 58 gold coins, 4 precious gemstones, and the deed to Shadowfall Keep.",
+      "description": "The deed to Shadowfall Keep, a valuable document granting ownership rights.",
       "quantity": 1
     },
     {
@@ -666,17 +666,6 @@
       "expiration": "1492-03-02T15:39:00",
       "source": "Restored Shrine",
       "effectType": "magic"
-    },
-    {
-      "name": "Potion of Heroism",
-      "description": "Grants 10 temporary hit points and +2 to attack rolls and saving throws.",
-      "duration": "1 hour",
-      "expiration": "1492-03-02T08:45:00",
-      "source": "Potion of Heroism",
-      "effectType": "magic",
-      "temporaryHitPoints": 2,
-      "attackRollBonus": 2,
-      "savingThrowBonus": 2
     }
   ],
   "injuries": [],

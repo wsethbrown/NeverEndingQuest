@@ -243,19 +243,20 @@ def generate_location_summary(location_name, messages):
     
     # Create summary prompt
     messages = [
-        {"role": "system", "content": f"""You are a chronicler documenting a 5th edition adventure. Create a concise but comprehensive summary of what happened in '{location_name}'.
+        {"role": "system", "content": f"""You are a chronicler documenting a 5th edition campaign using only information provided in this location scene. Your task is to write a concise yet vivid summary of what occurred in '{location_name}', formatted as a single narrative entry for a campaign journal or codex.
 
-Your summary should capture:
-1. What the party did when they arrived
-2. Who they encountered (NPCs, monsters)
-3. Any combat or challenges faced
-4. Important conversations or information learned
-5. Items found or resources used
-6. How the visit concluded
-7. Player and NPC interactions involving personal storylines or dynamics (love, anger, jokes, bonding moments)
-8. Events that would shape core memories for NPCs (death of friends, loss of treasured items, life-changing moments they'd never forget)
+Your summary should capture the following, as specifically as possible:
+1. What the party did upon arrival
+2. Who they encountered (NPCs, monsters, groups)
+3. Any combat or challenges faced, including tactical choices or emotional stakes
+4. Significant conversations, confessions, or discoveries
+5. Items found, resources used, or abilities expended
+6. How the visit ended or transitioned
+7. Interpersonal moments—conflict, bonding, romantic tension, loyalty shifts, leadership, etc.
+8. Any event that would leave a lasting memory for a character or NPC (such as a heroic act, death, reconciliation, or symbolic gesture)
 
-Write in past tense, third person. Be specific about outcomes and consequences. Keep it focused on what actually happened, not what might happen."""},
+Use past tense and third person. Be vivid, specific, and emotional where appropriate. Focus on what actually happened—not what might happen. Avoid generic phrases. Prioritize character-driven consequences and story-critical developments. Include emotional tone, narrative closure, and forward momentum for what might come next."""
+},
         {"role": "user", "content": dialogue}
     ]
     

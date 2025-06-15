@@ -2,32 +2,30 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
-      "name": { "type": "string" },
+      "areaName": { "type": "string" },
       "areaId": { "type": "string" },
-      "description": { "type": "string" },
-      "rooms": {
+      "areaDescription": { "type": "string" },
+      "areaType": { "type": "string" },
+      "dangerLevel": { "type": "string" },
+      "recommendedLevel": { "type": "integer" },
+      "locations": {
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
-            "roomId": { "type": "string" },
+            "locationId": { "type": "string" },
             "name": { "type": "string" },
+            "type": { "type": "string" },
             "description": { "type": "string" },
-            "connections": {
+            "coordinates": { "type": "string" },
+            "connectivity": {
               "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "targetId": { "type": "string" },
-                  "accessType": { "type": "string", "enum": ["normal", "hidden", "locked", "magical"] }
-                },
-                "required": ["targetId", "accessType"]
-              }
+              "items": { "type": "string" }
             }
           },
-          "required": ["roomId", "name", "description", "connections"]
+          "required": ["locationId", "name", "description"]
         }
       }
     },
-    "required": ["name", "areaId", "rooms"]
+    "required": ["areaName", "areaId", "locations"]
   }
