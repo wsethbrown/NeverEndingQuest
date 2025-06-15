@@ -96,3 +96,16 @@ NORN_CHARACTER_MIGRATION_SUMMARY.md
 PHASE_2_COMPLETION_SUMMARY.md
 SCHEMA_CHANGES_SUMMARY.md
 VALIDATOR_TEST_RESULTS.md
+CLAUDE.md
+CONVERSATION_TRUNCATION_PLAN.md
+
+# Compression test files and outputs
+*compression*.json
+*compression*.md
+conversation_analysis.json
+conversation_history_chunked_*.json
+conversation_history_backup*.json
+chunked_compression_summary_*.md
+simple_compression_summary.md
+compression_test_*.md
+validation_*_report.md
