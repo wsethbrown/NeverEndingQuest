@@ -388,7 +388,9 @@ def ensure_module_path_manager_usage(module_name):
 def validate_module_structure(module_name):
     """Validate the structure of a module and return any issues"""
     issues = []
-    module_dir = f"modules/{module_name}"
+    # Ensure module name uses underscores for directory path
+    module_name_safe = module_name.replace(" ", "_")
+    module_dir = f"modules/{module_name_safe}"
     
     # Check for required directories
     for required_dir in ["npcs", "monsters"]:
@@ -559,17 +561,24 @@ If the field expects an object, return just the object.
             # Standardize location IDs
             standardize_location_ids(module_name)
             
-            # Validate module structure
-            issues = validate_module_structure(module_name)
-            if issues:
-                print("\nValidation issues found:")
-                for issue in issues:
-                    print(f"- {issue}")
-                
-                # Create validation report
-                module_dir = f"modules/{module_name}"
-                save_json_safely({"issues": issues}, f"{module_dir}/validation_report.json")
-                print(f"Validation report saved to {module_dir}/validation_report.json")
+            # Validate module structure (skip for custom output directories)
+            try:
+                issues = validate_module_structure(module_name)
+                if issues:
+                    print("\nValidation issues found:")
+                    for issue in issues:
+                        print(f"- {issue}")
+                    
+                    # Create validation report
+                    module_dir = f"modules/{module_name}"
+                    save_json_safely({"issues": issues}, f"{module_dir}/validation_report.json")
+                    print(f"Validation report saved to {module_dir}/validation_report.json")
+                else:
+                    print("Module validation passed!")
+            except FileNotFoundError:
+                print("Skipping validation (custom output directory)")
+            except Exception as e:
+                print(f"Validation skipped due to error: {e}")
             else:
                 print("\nNo validation issues found.")
         

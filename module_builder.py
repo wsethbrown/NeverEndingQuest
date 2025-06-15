@@ -564,12 +564,8 @@ def ai_driven_module_creation(params: Dict[str, Any]) -> bool:
         # Create and run the builder
         builder = ModuleBuilder(config)
         
-        # Inject AI context into the builder's context
-        if plot_themes:
-            # Store themes in context for generators to use
-            builder.context.metadata["plot_themes"] = plot_themes.split(",")
-            builder.context.metadata["adventure_type"] = adventure_type
-            builder.context.metadata["level_range"] = level_range
+        # Store AI context for generators to use
+        # The generators will pick up these values from the enhanced_concept text
         
         # Build the module
         builder.build_module(enhanced_concept)
