@@ -66,22 +66,12 @@
     {
       "name": "Second Wind",
       "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (used)",
-      "source": "Fighter feature",
-      "usage": {
-        "current": 1,
-        "max": 1,
-        "refreshOn": "shortRest"
-      }
+      "source": "Fighter feature"
     },
     {
       "name": "Action Surge",
       "description": "Once per short rest, take one additional action on your turn (restored)",
-      "source": "Fighter feature",
-      "usage": {
-        "current": 1,
-        "max": 1,
-        "refreshOn": "shortRest"
-      }
+      "source": "Fighter feature"
     },
     {
       "name": "Fighting Style: Defense",
@@ -275,19 +265,8 @@
     {
       "item_name": "Scroll of Protection from Undead",
       "item_type": "consumable",
-      "item_subtype": "scroll",
       "description": "A magical scroll that grants protection from undead creatures when used",
-      "quantity": 1,
-      "magical": true,
-      "consumable": true,
-      "spellLevel": 1,
-      "effects": [
-        {
-          "type": "advantage",
-          "target": "saving_throws_vs_undead",
-          "description": "Advantage on saving throws against undead for 10 minutes"
-        }
-      ]
+      "quantity": 1
     },
     {
       "item_name": "Ornate Small Key",
@@ -364,32 +343,14 @@
     {
       "item_name": "Lord Vael's signet ring",
       "item_type": "miscellaneous",
-      "item_subtype": "ring",
       "description": "A finely crafted signet ring belonging to Lord Vael, bearing his family crest. Upon inspection, the ring emanates faint protective magic and may be a key to unlocking further secrets in the keep.",
-      "quantity": 1,
-      "magical": true,
-      "effects": [
-        {
-          "type": "other",
-          "target": "secrets",
-          "description": "May unlock secrets in the keep"
-        }
-      ]
+      "quantity": 1
     },
     {
       "item_name": "Enchanted goblet",
       "item_type": "miscellaneous",
-      "item_subtype": "other",
       "description": "A goblet pulsating with faint magical energy, possibly linked to the spectral servants. Inspection reveals it may be used in rituals or to communicate with the spirits.",
-      "quantity": 1,
-      "magical": true,
-      "effects": [
-        {
-          "type": "other",
-          "target": "communication",
-          "description": "May be used to communicate with spirits"
-        }
-      ]
+      "quantity": 1
     },
     {
       "item_name": "Jeweled dagger",
@@ -467,127 +428,14 @@
     {
       "item_name": "Potion of Heroism",
       "item_type": "consumable",
-      "item_subtype": "potion",
       "description": "A potion found at the base of the desecrated shrine, grants temporary heroism effects when consumed.",
-      "quantity": 1,
-      "magical": true,
-      "consumable": true,
-      "spellLevel": 3,
-      "effects": [
-        {
-          "type": "bonus",
-          "target": "temporary_hp",
-          "value": 10,
-          "description": "Grants 10 temporary hit points and advantage on attack rolls for 1 hour"
-        }
-      ]
+      "quantity": 1
     },
     {
       "item_name": "Antique Silver Flask",
       "item_type": "miscellaneous",
       "description": "An old silver flask discovered among the scattered cards on the guard table.",
       "quantity": 1
-    },
-    {
-      "item_name": "Reward Coffer from Harrow's Hollow",
-      "item_type": "miscellaneous",
-      "description": "A coffer containing 150 gold coins, 2 gemstones worth 50 gp each, and a deed to a plot of land west of the village",
-      "quantity": 1
-    },
-    {
-      "item_name": "Wand of Magic Missiles",
-      "item_type": "miscellaneous",
-      "item_subtype": "wand",
-      "description": "A slender wand crafted from polished oak, topped with a crystal that glows with arcane energy. Contains charges of Magic Missile spells.",
-      "quantity": 1,
-      "magical": true,
-      "spellLevel": 1,
-      "charges": {
-        "current": 5,
-        "max": 7
-      },
-      "rechargeRate": "daily",
-      "effects": [
-        {
-          "type": "other",
-          "target": "spell_casting",
-          "description": "Cast Magic Missile (1st level) using charges"
-        }
-      ]
-    },
-    {
-      "item_name": "Ring of Protection",
-      "item_type": "miscellaneous",
-      "item_subtype": "ring",
-      "description": "A silver ring inscribed with protective runes that shimmer with a faint blue light. Grants a +1 bonus to AC and saving throws.",
-      "quantity": 1,
-      "magical": true,
-      "equipped": false,
-      "effects": [
-        {
-          "type": "bonus",
-          "target": "AC",
-          "value": 1,
-          "description": "+1 bonus to AC"
-        },
-        {
-          "type": "bonus",
-          "target": "saving_throws",
-          "value": 1,
-          "description": "+1 bonus to all saving throws"
-        }
-      ]
-    },
-    {
-      "item_name": "Cloak of Elvenkind",
-      "item_type": "armor",
-      "item_subtype": "cloak",
-      "description": "A flowing cloak woven from ethereal fabric that seems to shift between shades of green and brown. Grants advantage on Stealth checks.",
-      "quantity": 1,
-      "magical": true,
-      "equipped": false,
-      "armor_category": "other",
-      "effects": [
-        {
-          "type": "advantage",
-          "target": "stealth_checks",
-          "description": "Advantage on Dexterity (Stealth) checks"
-        }
-      ]
-    },
-    {
-      "item_name": "Scroll of Cure Light Wounds",
-      "item_type": "consumable",
-      "item_subtype": "scroll",
-      "description": "A pristine scroll inscribed with healing magic. When read, it restores hit points to the target.",
-      "quantity": 2,
-      "magical": true,
-      "consumable": true,
-      "spellLevel": 1,
-      "effects": [
-        {
-          "type": "other",
-          "target": "healing",
-          "description": "Restores 1d8+1 hit points when used"
-        }
-      ]
-    },
-    {
-      "item_name": "Amulet of Natural Armor",
-      "item_type": "miscellaneous",
-      "item_subtype": "amulet",
-      "description": "A wooden amulet carved in the shape of a bear, imbued with protective nature magic. Enhances natural defenses.",
-      "quantity": 1,
-      "magical": true,
-      "equipped": false,
-      "effects": [
-        {
-          "type": "bonus",
-          "target": "AC",
-          "value": 1,
-          "description": "+1 natural armor bonus to AC"
-        }
-      ]
     }
   ],
   "ammunition": [
@@ -681,7 +529,62 @@
       "source": "Human"
     }
   ],
-  "temporaryEffects": [],
+  "temporaryEffects": [
+    {
+      "name": "Spiritual Fortitude",
+      "description": "Advantage on saving throws against enchantment and fear effects.",
+      "duration": "24 hours",
+      "source": "Ward Rituals"
+    },
+    {
+      "name": "Blessing of the Forest Guardian",
+      "description": "Advantage on saving throws against fear effects.",
+      "duration": "24 hours",
+      "source": "Forest Guardian"
+    },
+    {
+      "name": "Ward's Favor",
+      "description": "Undead in the Gloamwood have disadvantage on attacks against Norn for 24 hours.",
+      "duration": "24 hours",
+      "source": "Lost Ward Circle Ritual"
+    },
+    {
+      "name": "Second Wind",
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (used)",
+      "source": "Fighter feature",
+      "used": true
+    },
+    {
+      "name": "Knight's Heart Amulet",
+      "description": "While equipped, grants resistance to fear and necrotic effects caused by Sir Garran's curse or associated spectral magic.",
+      "duration": "until removed",
+      "source": "Knight's Heart Amulet"
+    },
+    {
+      "name": "Piercing Wound",
+      "description": "Took 4 points of piercing damage from giant rat's bite.",
+      "duration": "until healed",
+      "source": "Giant Rat Attack"
+    },
+    {
+      "name": "Acid and Pseudopod Damage",
+      "description": "Acid and pseudopod wounds treated with blessed water; injuries stabilized but not fully healed.",
+      "duration": "until healed",
+      "source": "Mimic attack"
+    },
+    {
+      "name": "Cold Damage from Shadow of Sir Garran",
+      "description": "Took 5 points of cold damage from Shadow of Sir Garran's chilling touch.",
+      "duration": "until healed",
+      "source": "Shadow of Sir Garran"
+    },
+    {
+      "name": "Blessing of the Restored Shrine",
+      "description": "+2 AC against undead.",
+      "duration": "8 hours",
+      "source": "Restored Shrine"
+    }
+  ],
   "injuries": [],
   "equipment_effects": [
     {
@@ -691,14 +594,6 @@
       "value": 1,
       "description": "+1 to AC when wearing armor",
       "source": "Class Feature"
-    },
-    {
-      "name": "Shield AC Bonus",
-      "type": "bonus",
-      "target": "AC",
-      "value": 2,
-      "description": "Shield provides +2 AC",
-      "source": "Shield"
     }
   ],
   "feats": [],
