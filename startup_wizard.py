@@ -1,0 +1,1140 @@
+#!/usr/bin/env python3
+"""
+Character Creation & Module Selection Startup Wizard
+
+Handles first-time setup when no player character or module is configured.
+Provides AI-powered character creation and module selection in a single file.
+"""
+
+import json
+import os
+import shutil
+from datetime import datetime
+from pathlib import Path
+from openai import OpenAI
+from jsonschema import validate, ValidationError
+
+import config
+from encoding_utils import safe_json_load, safe_json_dump
+
+# Initialize OpenAI client
+client = OpenAI(api_key=config.OPENAI_API_KEY)
+
+# Conversation file for character creation (separate from main game)
+STARTUP_CONVERSATION_FILE = "startup_conversation.json"
+
+# ===== MAIN ORCHESTRATION =====
+
+def run_startup_sequence():
+    """Main entry point for startup wizard"""
+    print("\n🎲 Welcome to your D&D Adventure! 🎲")
+    print("Let's set up your character and choose your adventure...\n")
+    
+    try:
+        # Initialize startup conversation
+        conversation = initialize_startup_conversation()
+        
+        # Step 1: Select module
+        selected_module = select_module(conversation)
+        if not selected_module:
+            print("Setup cancelled. Exiting...")
+            return False
+        
+        print(f"\n📚 Great choice! You've selected: {selected_module['display_name']}")
+        
+        # Step 2: Character selection/creation
+        character_name = select_or_create_character(conversation, selected_module)
+        if not character_name:
+            print("Character setup cancelled. Exiting...")
+            return False
+        
+        # Step 3: Update party tracker
+        update_party_tracker(selected_module['name'], character_name)
+        
+        # Cleanup
+        cleanup_startup_conversation()
+        
+        print(f"\n🎉 Setup complete! Welcome, {character_name}!")
+        print(f"Your adventure in {selected_module['display_name']} is about to begin...\n")
+        
+        return True
+        
+    except Exception as e:
+        print(f"❌ Error during setup: {e}")
+        cleanup_startup_conversation()
+        return False
+
+def startup_required(party_file="party_tracker.json"):
+    """Check if player character or module is missing"""
+    try:
+        party_data = safe_json_load(party_file)
+        if not party_data:
+            return True
+        
+        # Check if module is missing or empty
+        module = party_data.get("module", "").strip()
+        if not module:
+            return True
+        
+        # Check if partyMembers is missing or empty
+        party_members = party_data.get("partyMembers", [])
+        if not party_members:
+            return True
+        
+        # Check if the player character file actually exists
+        if party_members:
+            player_name = party_members[0]
+            char_path = f"modules/{module}/characters/{player_name}.json"
+            if not os.path.exists(char_path):
+                return True
+        
+        return False
+        
+    except Exception:
+        return True  # If anything fails, assume setup needed
+
+# ===== MODULE MANAGEMENT =====
+
+def scan_available_modules():
+    """Find all available modules in modules/ directory"""
+    modules = []
+    
+    if not os.path.exists("modules"):
+        print("❌ No modules directory found!")
+        return modules
+    
+    for item in os.listdir("modules"):
+        module_path = f"modules/{item}"
+        if os.path.isdir(module_path):
+            # Look for {module_name}_module.json
+            module_file = f"{module_path}/{item}_module.json"
+            if os.path.exists(module_file):
+                try:
+                    module_data = safe_json_load(module_file)
+                    if module_data:
+                        modules.append({
+                            'name': item,
+                            'display_name': module_data.get('moduleName', item),
+                            'description': module_data.get('moduleDescription', 'No description available'),
+                            'level_range': module_data.get('moduleMetadata', {}).get('levelRange', {'min': 1, 'max': 3}),
+                            'play_time': module_data.get('moduleMetadata', {}).get('estimatedPlayTime', 'Unknown'),
+                            'path': module_path
+                        })
+                except Exception as e:
+                    print(f"⚠️  Warning: Could not load module {item}: {e}")
+    
+    return modules
+
+def present_module_options(conversation, modules):
+    """Show available modules to player using AI"""
+    if not modules:
+        print("❌ No valid modules found!")
+        return None
+    
+    # Build module list for AI
+    module_list = []
+    for i, module in enumerate(modules, 1):
+        level_range = module['level_range']
+        module_list.append(
+            f"{i}. **{module['display_name']}** (Levels {level_range.get('min', 1)}-{level_range.get('max', 3)})\n"
+            f"   {module['description']}\n"
+            f"   Estimated play time: {module['play_time']}"
+        )
+    
+    modules_text = "\n\n".join(module_list)
+    
+    # AI prompt for module selection
+    ai_prompt = f"""You are helping a new player choose their first D&D adventure module. Present the available modules in an engaging way and ask them to choose one.
+
+Available Modules:
+{modules_text}
+
+Ask the player which module they'd like to play, and explain that they can just tell you the number (1, 2, etc.) or the name of the module they prefer. Be encouraging and helpful!"""
+    
+    conversation.append({"role": "system", "content": ai_prompt})
+    
+    # Get AI response
+    response = get_ai_response(conversation)
+    print(f"🤖 {response}")
+    
+    return modules
+
+def select_module(conversation):
+    """Handle module selection with player input"""
+    modules = scan_available_modules()
+    
+    if not modules:
+        print("❌ No modules available. Please add modules to the modules/ directory.")
+        return None
+    
+    if len(modules) == 1:
+        print(f"📚 Only one module available: {modules[0]['display_name']}")
+        print(f"   {modules[0]['description']}")
+        return modules[0]
+    
+    # Present options to player
+    presented_modules = present_module_options(conversation, modules)
+    if not presented_modules:
+        return None
+    
+    # Get player choice
+    while True:
+        try:
+            user_input = input("\n👤 Your choice: ").strip()
+            conversation.append({"role": "user", "content": user_input})
+            
+            # Try to parse as number
+            try:
+                choice_num = int(user_input)
+                if 1 <= choice_num <= len(modules):
+                    return modules[choice_num - 1]
+                else:
+                    print(f"❌ Please choose a number between 1 and {len(modules)}")
+                    continue
+            except ValueError:
+                pass
+            
+            # Try to match by name
+            user_lower = user_input.lower()
+            for module in modules:
+                if (user_lower in module['display_name'].lower() or 
+                    user_lower in module['name'].lower()):
+                    return module
+            
+            print("❌ I didn't understand that. Please enter the number (1, 2, etc.) or name of the module.")
+            
+        except KeyboardInterrupt:
+            return None
+
+# ===== CHARACTER MANAGEMENT =====
+
+def scan_existing_characters(module_name):
+    """Find existing player characters in module"""
+    characters = []
+    char_dir = f"modules/{module_name}/characters"
+    
+    if not os.path.exists(char_dir):
+        return characters
+    
+    for filename in os.listdir(char_dir):
+        if filename.endswith('.json') and not filename.endswith('.bak'):
+            char_path = f"{char_dir}/{filename}"
+            try:
+                char_data = safe_json_load(char_path)
+                if char_data and char_data.get('character_role') == 'player':
+                    characters.append({
+                        'name': char_data.get('name', filename[:-5]),
+                        'level': char_data.get('level', 1),
+                        'race': char_data.get('race', 'Unknown'),
+                        'class': char_data.get('class', 'Unknown'),
+                        'filename': filename[:-5],  # Remove .json
+                        'path': char_path
+                    })
+            except Exception as e:
+                print(f"⚠️  Warning: Could not load character {filename}: {e}")
+    
+    return characters
+
+def present_character_options(conversation, characters, module_name):
+    """Show existing characters and option to create new one"""
+    if not characters:
+        # No existing characters
+        ai_prompt = f"""The player has chosen a module but there are no existing player characters. Let them know they'll need to create a new character for this adventure. Be encouraging and exciting about the character creation process!"""
+        
+        conversation.append({"role": "system", "content": ai_prompt})
+        response = get_ai_response(conversation)
+        print(f"🤖 {response}")
+        return "create_new"
+    
+    # Build character list
+    char_list = []
+    for i, char in enumerate(characters, 1):
+        char_list.append(
+            f"{i}. **{char['name']}** - Level {char['level']} {char['race']} {char['class']}"
+        )
+    
+    chars_text = "\n".join(char_list)
+    
+    ai_prompt = f"""The player has chosen a module and there are some existing player characters available. Present the options and let them choose to either:
+1. Play as one of the existing characters
+2. Create a brand new character
+
+Existing Characters:
+{chars_text}
+
+You can also mention option: "new" or "create" to make a new character.
+
+Be helpful and explain that they can type the character number, character name, or "new" to create a fresh character."""
+    
+    conversation.append({"role": "system", "content": ai_prompt})
+    response = get_ai_response(conversation)
+    print(f"🤖 {response}")
+    
+    return characters
+
+def select_or_create_character(conversation, module):
+    """Choose existing character or create new one"""
+    module_name = module['name']
+    characters = scan_existing_characters(module_name)
+    
+    # Present options
+    result = present_character_options(conversation, characters, module_name)
+    
+    if result == "create_new":
+        # No existing characters, must create new
+        return create_new_character(conversation, module)
+    
+    # Get player choice
+    while True:
+        try:
+            user_input = input("\n👤 Your choice: ").strip()
+            conversation.append({"role": "user", "content": user_input})
+            
+            # Check for new character creation
+            if user_input.lower() in ['new', 'create', 'create new', 'make new']:
+                return create_new_character(conversation, module)
+            
+            # Try to parse as number
+            try:
+                choice_num = int(user_input)
+                if 1 <= choice_num <= len(characters):
+                    selected_char = characters[choice_num - 1]
+                    print(f"✅ You've selected {selected_char['name']}!")
+                    return selected_char['filename']
+                else:
+                    print(f"❌ Please choose a number between 1 and {len(characters)}, or 'new' to create a character")
+                    continue
+            except ValueError:
+                pass
+            
+            # Try to match by character name
+            user_lower = user_input.lower()
+            for char in characters:
+                if user_lower in char['name'].lower():
+                    print(f"✅ You've selected {char['name']}!")
+                    return char['filename']
+            
+            print("❌ I didn't understand that. Please enter the character number, character name, or 'new' to create a new character.")
+            
+        except KeyboardInterrupt:
+            return None
+
+# ===== CHARACTER CREATION =====
+
+def create_new_character(conversation, module):
+    """Main character creation flow using AI interview"""
+    print("\n🎭 Let's create your character!")
+    
+    # AI-powered character creation interview
+    character_data = ai_character_interview(conversation, module)
+    
+    if not character_data:
+        return None
+    
+    # Validate character data
+    valid, error = validate_character(character_data)
+    if not valid:
+        print(f"❌ Character validation failed: {error}")
+        return None
+    
+    # Save character to module
+    character_name = character_data['name']
+    success = save_character_to_module(character_data, module['name'])
+    
+    if success:
+        print(f"✅ Character {character_name} created successfully!")
+        return character_name.lower().replace(" ", "_")
+    else:
+        print(f"❌ Failed to save character {character_name}")
+        return None
+
+def ai_character_interview(conversation, module):
+    """AI-powered character creation interview using agentic approach"""
+    
+    try:
+        # Load schema and rules information
+        schema = safe_json_load("char_schema.json")
+        if not schema:
+            print("❌ Could not load character schema")
+            return None
+        
+        leveling_info = load_text_file("leveling_info.txt")
+        npc_rules = load_text_file("npc_builder_prompt.txt")
+        
+        # Load the character creation prompt from claude.txt  
+        char_creation_messages = safe_json_load("claude.txt")
+        if not char_creation_messages:
+            print("❌ Could not load character creation prompt")
+            return None
+        
+        # Build the enhanced system prompt with rules information
+        base_system_content = char_creation_messages[0]["content"]
+        enhanced_system_prompt = f"""{base_system_content}
+
+IMPORTANT FORMATTING RULES:
+- Do NOT use emojis or special characters in any responses
+- Write in plain text only
+- When generating the final JSON, use ONLY standard ASCII characters
+- Do NOT include any Unicode characters, emojis, or special symbols
+- Keep all text responses clean and readable without special formatting
+
+Use the following SRD 5.2.1 rules information when helping create the character:
+
+LEVELING INFORMATION:
+{leveling_info}
+
+RACE AND CLASS RULES:
+{npc_rules}
+
+JSON OUTPUT REQUIREMENTS:
+When the player confirms they are ready to finalize their character, you MUST respond with ONLY a valid JSON object that matches the provided character schema exactly. 
+
+CRITICAL JSON FORMATTING RULES:
+- Use ONLY standard ASCII characters in the JSON
+- No emojis, Unicode symbols, or special characters anywhere in the JSON
+- No markdown formatting or additional text - just the raw JSON
+- All string values must use only plain text
+- Ensure all required schema fields are populated
+- Use proper JSON syntax with correct quotes and brackets
+
+The character must be level 1 and have experience_points set to 0.
+The character should be marked as character_role: "player" and character_type: "player".
+All required schema fields must be populated appropriately.
+
+CHARACTER SCHEMA:
+{json.dumps(schema, indent=2)}"""
+
+        # Start the character creation conversation
+        creation_conversation = [
+            {"role": "system", "content": enhanced_system_prompt},
+            {"role": "user", "content": f"I'm a new adventurer who has never played before! I want to create my very first character for the {module['display_name']} adventure. Please be my Dungeon Master and guide me through creating an exciting character with enthusiasm and storytelling flair! Help me understand what makes each choice special and fun."}
+        ]
+        
+        print("\n🤖 Starting character creation with AI assistant...")
+        print("=" * 50)
+        
+        # Interactive conversation loop
+        while True:
+            try:
+                # Get AI response
+                response = get_ai_response(creation_conversation)
+                print(f"\n🤖 {response}")
+                
+                # Check if response looks like JSON (character finalization)
+                if response.strip().startswith('{') and response.strip().endswith('}'):
+                    try:
+                        import re
+                        # Clean up any markdown formatting
+                        cleaned_response = re.sub(r'^```json\s*|\s*```$', '', response.strip(), flags=re.MULTILINE)
+                        
+                        # Additional JSON sanitization for safe character data
+                        cleaned_response = sanitize_json_string(cleaned_response)
+                        
+                        character_data = json.loads(cleaned_response)
+                        
+                        # Further sanitize the loaded character data
+                        character_data = sanitize_character_data(character_data)
+                        
+                        print("\n✅ Character data received!")
+                        return character_data
+                    except json.JSONDecodeError as e:
+                        print(f"\n❌ Invalid JSON received: {e}")
+                        print("Asking AI to try again...")
+                        creation_conversation.append({"role": "assistant", "content": response})
+                        creation_conversation.append({"role": "user", "content": "That didn't look like valid JSON. Please provide the character as a properly formatted JSON object with only standard ASCII characters and no emojis or special symbols."})
+                        continue
+                    except Exception as e:
+                        print(f"\n❌ Error processing character data: {e}")
+                        creation_conversation.append({"role": "assistant", "content": response})
+                        creation_conversation.append({"role": "user", "content": "There was an error processing the character data. Please provide a clean JSON object with only standard ASCII characters."})
+                        continue
+                
+                # Get user input
+                user_input = input("\n👤 Your response: ").strip()
+                
+                if user_input.lower() in ['quit', 'exit', 'cancel']:
+                    print("❌ Character creation cancelled.")
+                    return None
+                
+                # Add to conversation
+                creation_conversation.append({"role": "assistant", "content": response})
+                creation_conversation.append({"role": "user", "content": user_input})
+                
+            except KeyboardInterrupt:
+                print("\n❌ Character creation cancelled.")
+                return None
+                
+    except Exception as e:
+        print(f"❌ Error during character creation: {e}")
+        return None
+
+def load_text_file(filename):
+    """Load text file content"""
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            return file.read().strip()
+    except FileNotFoundError:
+        print(f"⚠️  Could not find {filename}")
+        return ""
+    except Exception as e:
+        print(f"⚠️  Error reading {filename}: {e}")
+        return ""
+
+def sanitize_json_string(json_str):
+    """Remove potentially problematic characters from JSON string"""
+    import re
+    
+    # Remove zero-width characters and other problematic Unicode
+    json_str = re.sub(r'[\u200b-\u200f\u2028-\u202f\ufeff]', '', json_str)
+    
+    # Remove emojis and other non-ASCII characters from string values
+    # This regex matches emojis and other problematic Unicode ranges
+    emoji_pattern = re.compile(
+        "["
+        "\U0001F600-\U0001F64F"  # emoticons
+        "\U0001F300-\U0001F5FF"  # symbols & pictographs
+        "\U0001F680-\U0001F6FF"  # transport & map symbols
+        "\U0001F1E0-\U0001F1FF"  # flags (iOS)
+        "\U00002702-\U000027B0"  # Dingbats
+        "\U000024C2-\U0001F251"
+        "\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
+        "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
+        "\U00002600-\U000026FF"  # Miscellaneous Symbols
+        "\U00002700-\U000027BF"  # Miscellaneous Symbols
+        "]+", flags=re.UNICODE
+    )
+    
+    # Replace emojis with empty string
+    json_str = emoji_pattern.sub('', json_str)
+    
+    return json_str
+
+def sanitize_character_data(data):
+    """Recursively sanitize character data to ensure safe JSON"""
+    import re
+    
+    if isinstance(data, dict):
+        # Recursively sanitize dictionary values
+        sanitized = {}
+        for key, value in data.items():
+            sanitized[str(key)] = sanitize_character_data(value)
+        return sanitized
+    elif isinstance(data, list):
+        return [sanitize_character_data(item) for item in data]
+    elif isinstance(data, str):
+        # Remove emojis and problematic Unicode
+        emoji_pattern = re.compile(
+            "["
+            "\U0001F600-\U0001F64F"  # emoticons
+            "\U0001F300-\U0001F5FF"  # symbols & pictographs
+            "\U0001F680-\U0001F6FF"  # transport & map symbols
+            "\U0001F1E0-\U0001F1FF"  # flags (iOS)
+            "\U00002702-\U000027B0"  # Dingbats
+            "\U000024C2-\U0001F251"
+            "\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
+            "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
+            "\U00002600-\U000026FF"  # Miscellaneous Symbols
+            "\U00002700-\U000027BF"  # Miscellaneous Symbols
+            "]+", flags=re.UNICODE
+        )
+        data = emoji_pattern.sub('', data)
+        
+        # Remove zero-width characters
+        data = re.sub(r'[\u200b-\u200f\u2028-\u202f\ufeff]', '', data)
+        
+        return data.strip()
+    else:
+        return data
+
+def get_character_name(conversation):
+    """Get character name from player"""
+    ai_prompt = """Ask the player what they'd like to name their character. Be encouraging and mention that they can choose any fantasy name they like. You can suggest that good D&D character names are often simple and memorable."""
+    
+    conversation.append({"role": "system", "content": ai_prompt})
+    response = get_ai_response(conversation)
+    print(f"🤖 {response}")
+    
+    while True:
+        try:
+            name = input("\n👤 Character name: ").strip()
+            conversation.append({"role": "user", "content": name})
+            
+            if len(name) >= 2 and name.replace(" ", "").isalpha():
+                return name.title()
+            else:
+                print("❌ Please enter a valid name (letters only, at least 2 characters)")
+                
+        except KeyboardInterrupt:
+            return None
+
+def get_character_race(conversation):
+    """Get character race selection"""
+    races = {
+        1: ("Human", "Versatile and ambitious, humans adapt quickly to any situation."),
+        2: ("Elf", "Graceful and long-lived, with keen senses and natural magic."),
+        3: ("Dwarf", "Hardy and resilient, masters of stone and metal."), 
+        4: ("Halfling", "Small but brave, lucky and good-natured."),
+        5: ("Dragonborn", "Proud dragon-descended folk with breath weapons."),
+        6: ("Gnome", "Small and clever, with natural curiosity and magic."),
+        7: ("Half-Elf", "Walking between two worlds, charismatic and adaptable."),
+        8: ("Half-Orc", "Strong and fierce, struggling with their dual nature."),
+        9: ("Tiefling", "Bearing infernal heritage, often misunderstood but determined.")
+    }
+    
+    race_list = "\n".join([f"{num}. **{race}** - {desc}" for num, (race, desc) in races.items()])
+    
+    ai_prompt = f"""Present the available character races to the player and ask them to choose one. Explain that each race has unique traits and abilities.
+
+Available Races:
+{race_list}
+
+Ask them to choose by number (1-9) or race name. Be enthusiastic about whichever they choose!"""
+    
+    conversation.append({"role": "system", "content": ai_prompt})
+    response = get_ai_response(conversation)
+    print(f"🤖 {response}")
+    
+    while True:
+        try:
+            choice = input("\n👤 Choose your race: ").strip()
+            conversation.append({"role": "user", "content": choice})
+            
+            # Try number selection
+            try:
+                num = int(choice)
+                if num in races:
+                    race_name = races[num][0]
+                    print(f"✅ Great choice! You've chosen {race_name}.")
+                    return race_name
+                else:
+                    print(f"❌ Please choose a number between 1 and {len(races)}")
+                    continue
+            except ValueError:
+                pass
+            
+            # Try name matching
+            choice_lower = choice.lower()
+            for num, (race, desc) in races.items():
+                if choice_lower in race.lower():
+                    print(f"✅ Great choice! You've chosen {race}.")
+                    return race
+            
+            print("❌ I didn't recognize that race. Please choose a number (1-9) or race name from the list.")
+            
+        except KeyboardInterrupt:
+            return None
+
+def get_character_class(conversation, module):
+    """Get character class selection"""
+    classes = {
+        1: ("Fighter", "Masters of weapons and armor, versatile warriors."),
+        2: ("Wizard", "Scholars of magic, wielding arcane power through study."),
+        3: ("Rogue", "Skilled in stealth and trickery, masters of precision."),
+        4: ("Cleric", "Divine spellcasters, healers and champions of their gods."),
+        5: ("Ranger", "Wilderness warriors, trackers and beast masters."),
+        6: ("Barbarian", "Fierce warriors who channel primal rage in battle."),
+        7: ("Bard", "Magical performers who inspire allies and confound foes."),
+        8: ("Paladin", "Holy warriors bound by sacred oaths."),
+        9: ("Warlock", "Those who made a pact with otherworldly beings for power."),
+        10: ("Sorcerer", "Born with innate magical power flowing through their veins.")
+    }
+    
+    # Get module level range for recommendation
+    level_range = module.get('level_range', {'min': 1, 'max': 3})
+    
+    class_list = "\n".join([f"{num}. **{cls}** - {desc}" for num, (cls, desc) in classes.items()])
+    
+    ai_prompt = f"""Present the available character classes to the player. This adventure is designed for levels {level_range.get('min', 1)}-{level_range.get('max', 3)}, so all classes will work well. Explain that classes determine what abilities and skills they'll have.
+
+Available Classes:
+{class_list}
+
+Ask them to choose by number (1-10) or class name. Mention that they can't go wrong with any choice!"""
+    
+    conversation.append({"role": "system", "content": ai_prompt})
+    response = get_ai_response(conversation)
+    print(f"🤖 {response}")
+    
+    while True:
+        try:
+            choice = input("\n👤 Choose your class: ").strip()
+            conversation.append({"role": "user", "content": choice})
+            
+            # Try number selection
+            try:
+                num = int(choice)
+                if num in classes:
+                    class_name = classes[num][0]
+                    print(f"✅ Excellent! You've chosen {class_name}.")
+                    return class_name
+                else:
+                    print(f"❌ Please choose a number between 1 and {len(classes)}")
+                    continue
+            except ValueError:
+                pass
+            
+            # Try name matching
+            choice_lower = choice.lower()
+            for num, (cls, desc) in classes.items():
+                if choice_lower in cls.lower():
+                    print(f"✅ Excellent! You've chosen {cls}.")
+                    return cls
+            
+            print("❌ I didn't recognize that class. Please choose a number (1-10) or class name from the list.")
+            
+        except KeyboardInterrupt:
+            return None
+
+def get_character_background(conversation):
+    """Get character background selection"""
+    backgrounds = {
+        1: ("Acolyte", "You spent your life in service to a temple or religious order."),
+        2: ("Criminal", "You have experience in the criminal underworld."),
+        3: ("Folk Hero", "You're a champion of the common people."),
+        4: ("Noble", "You were born into wealth and privilege."),
+        5: ("Sage", "You spent years learning the lore of the multiverse."),
+        6: ("Soldier", "You had a military career before becoming an adventurer."),
+        7: ("Charlatan", "You lived by your wits, using deception and tricks."),
+        8: ("Entertainer", "You thrived in front of audiences with your performances."),
+        9: ("Guild Artisan", "You learned a trade and belonged to a guild."),
+        10: ("Hermit", "You lived in seclusion, seeking enlightenment or answers.")
+    }
+    
+    bg_list = "\n".join([f"{num}. **{bg}** - {desc}" for num, (bg, desc) in backgrounds.items()])
+    
+    ai_prompt = f"""Present the available character backgrounds to the player. Explain that backgrounds represent what their character did before becoming an adventurer and provide additional skills and equipment.
+
+Available Backgrounds:
+{bg_list}
+
+Ask them to choose by number (1-10) or background name. Emphasize that this helps define their character's past and personality!"""
+    
+    conversation.append({"role": "system", "content": ai_prompt})
+    response = get_ai_response(conversation)
+    print(f"🤖 {response}")
+    
+    while True:
+        try:
+            choice = input("\n👤 Choose your background: ").strip()
+            conversation.append({"role": "user", "content": choice})
+            
+            # Try number selection
+            try:
+                num = int(choice)
+                if num in backgrounds:
+                    bg_name = backgrounds[num][0]
+                    print(f"✅ Perfect! You've chosen {bg_name}.")
+                    return bg_name
+                else:
+                    print(f"❌ Please choose a number between 1 and {len(backgrounds)}")
+                    continue
+            except ValueError:
+                pass
+            
+            # Try name matching
+            choice_lower = choice.lower()
+            for num, (bg, desc) in backgrounds.items():
+                if choice_lower in bg.lower() or choice_lower in bg.replace(" ", "").lower():
+                    print(f"✅ Perfect! You've chosen {bg}.")
+                    return bg
+            
+            print("❌ I didn't recognize that background. Please choose a number (1-10) or background name from the list.")
+            
+        except KeyboardInterrupt:
+            return None
+
+def get_ability_scores(conversation):
+    """Get ability score assignments using standard array"""
+    standard_array = [15, 14, 13, 12, 10, 8]
+    abilities = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']
+    
+    ai_prompt = f"""Now we'll assign your character's ability scores! In D&D, characters have six abilities that determine what they're good at:
+
+- **Strength** - Physical power (melee attacks, carrying capacity)
+- **Dexterity** - Agility and reflexes (ranged attacks, stealth, initiative)  
+- **Constitution** - Health and stamina (hit points, endurance)
+- **Intelligence** - Reasoning and memory (knowledge, investigation)
+- **Wisdom** - Awareness and insight (perception, survival, willpower)
+- **Charisma** - Force of personality (persuasion, deception, leadership)
+
+We'll use the "standard array" which gives you these scores to assign: {', '.join(map(str, standard_array))}
+
+You'll assign each score to one ability. Think about what fits your character concept! For example:
+- Fighters often want high Strength or Dexterity
+- Wizards need high Intelligence  
+- Clerics benefit from high Wisdom
+- Rogues want high Dexterity
+
+We'll go through each ability and you can tell me which score (from the remaining ones) you want to assign to it."""
+    
+    conversation.append({"role": "system", "content": ai_prompt})
+    response = get_ai_response(conversation)
+    print(f"🤖 {response}")
+    
+    remaining_scores = standard_array.copy()
+    assigned_abilities = {}
+    
+    for ability in abilities:
+        while True:
+            try:
+                print(f"\n📊 Remaining scores: {', '.join(map(str, remaining_scores))}")
+                score_input = input(f"👤 Assign score to {ability}: ").strip()
+                conversation.append({"role": "user", "content": f"{ability}: {score_input}"})
+                
+                try:
+                    score = int(score_input)
+                    if score in remaining_scores:
+                        assigned_abilities[ability.lower()] = score
+                        remaining_scores.remove(score)
+                        print(f"✅ {ability}: {score}")
+                        break
+                    else:
+                        print(f"❌ Score {score} not available. Choose from: {', '.join(map(str, remaining_scores))}")
+                except ValueError:
+                    print(f"❌ Please enter a number from: {', '.join(map(str, remaining_scores))}")
+                    
+            except KeyboardInterrupt:
+                return None
+    
+    return assigned_abilities
+
+def get_character_personality(conversation, character_data):
+    """Get character personality traits, ideals, bonds, and flaws (simplified)"""
+    ai_prompt = """Now let's add some personality to your character! We'll keep this simple - just ask for a brief description of each aspect. Don't worry about making it perfect, you can always develop your character more during play.
+
+We need four things:
+1. **Personality Traits** - How does your character act? What are their mannerisms?
+2. **Ideals** - What principles or goals drive your character?  
+3. **Bonds** - What connections does your character have? (people, places, things they care about)
+4. **Flaws** - What weaknesses or vices does your character have?
+
+Ask for each one separately, and suggest they can keep it short and simple - just a sentence or two for each."""
+    
+    conversation.append({"role": "system", "content": ai_prompt})
+    response = get_ai_response(conversation)
+    print(f"🤖 {response}")
+    
+    # Get each personality aspect
+    aspects = [
+        ("personality_traits", "personality traits"),
+        ("ideals", "ideals"),  
+        ("bonds", "bonds"),
+        ("flaws", "flaws")
+    ]
+    
+    for key, name in aspects:
+        try:
+            user_input = input(f"\n👤 Your character's {name}: ").strip()
+            conversation.append({"role": "user", "content": user_input})
+            character_data[key] = user_input if user_input else f"To be developed (new {name.replace('_', ' ')})"
+        except KeyboardInterrupt:
+            character_data[key] = f"To be developed (new {name.replace('_', ' ')})"
+
+def set_background_feature(character_data):
+    """Set background feature based on selected background"""
+    background = character_data.get('background', '').lower()
+    
+    # Background features from SRD 5.2.1
+    background_features = {
+        'acolyte': {
+            'name': 'Shelter of the Faithful',
+            'description': 'You command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You can expect to receive free healing and care at a temple, shrine, or other established presence of your faith.',
+            'source': 'Acolyte background'
+        },
+        'criminal': {
+            'name': 'Criminal Contact',
+            'description': 'You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances.',
+            'source': 'Criminal background'
+        },
+        'folk hero': {
+            'name': 'Rustic Hospitality',
+            'description': 'Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners, unless you have shown yourself to be a danger to them.',
+            'source': 'Folk Hero background'
+        },
+        'noble': {
+            'name': 'Position of Privilege',
+            'description': 'Thanks to your noble birth, people are inclined to think the best of you. You are welcome in high society, and people assume you have the right to be wherever you are.',
+            'source': 'Noble background'
+        },
+        'sage': {
+            'name': 'Researcher',
+            'description': 'When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it.',
+            'source': 'Sage background'
+        },
+        'soldier': {
+            'name': 'Military Rank',
+            'description': 'Soldiers loyal to your former military organization still recognize your authority and military rank. They will defer to you if they are of a lower rank, and you can invoke your rank to exert influence over other soldiers.',
+            'source': 'Soldier background'
+        }
+    }
+    
+    # Set background feature
+    if background in background_features:
+        character_data['backgroundFeature'] = background_features[background]
+    else:
+        # Default background feature for unrecognized backgrounds
+        character_data['backgroundFeature'] = {
+            'name': f'{character_data.get("background", "Unknown")} Feature',
+            'description': 'A unique feature from your background that provides social connections or specialized knowledge.',
+            'source': f'{character_data.get("background", "Unknown")} background'
+        }
+
+def calculate_derived_stats(character_data):
+    """Calculate HP, AC, and other derived statistics"""
+    # Get ability modifiers
+    abilities = character_data['abilities']
+    con_mod = (abilities.get('constitution', 10) - 10) // 2
+    dex_mod = (abilities.get('dexterity', 10) - 10) // 2
+    wis_mod = (abilities.get('wisdom', 10) - 10) // 2
+    
+    # Calculate HP based on class
+    class_name = character_data['class'].lower()
+    class_hp = {
+        'barbarian': 12, 'fighter': 10, 'paladin': 10, 'ranger': 10,
+        'bard': 8, 'cleric': 8, 'druid': 8, 'monk': 8, 'rogue': 8, 'warlock': 8,
+        'sorcerer': 6, 'wizard': 6
+    }
+    
+    base_hp = class_hp.get(class_name, 8)  # Default to 8 if class not found
+    max_hp = base_hp + con_mod
+    character_data['maxHitPoints'] = max(1, max_hp)  # Minimum 1 HP
+    character_data['hitPoints'] = character_data['maxHitPoints']
+    
+    # Calculate AC (10 + Dex mod, will be higher with armor)
+    character_data['armorClass'] = 10 + dex_mod
+    
+    # Calculate initiative
+    character_data['initiative'] = dex_mod
+    
+    # Calculate passive perception
+    character_data['senses']['passivePerception'] = 10 + wis_mod
+    
+    # Set basic skills (this is simplified - real implementation would be more complex)
+    character_data['skills'] = {}
+    
+    # Add basic class features (simplified)
+    if class_name == 'fighter':
+        character_data['classFeatures'].append({
+            "name": "Second Wind",
+            "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action",
+            "source": "Fighter feature"
+        })
+        character_data['savingThrows'] = ["Strength", "Constitution"]
+    elif class_name == 'wizard':
+        character_data['savingThrows'] = ["Intelligence", "Wisdom"]
+        character_data['spellSlots'] = {"1": {"current": 2, "max": 2}}
+    elif class_name == 'rogue':
+        character_data['classFeatures'].append({
+            "name": "Sneak Attack",
+            "description": "Deal extra 1d6 damage when you have advantage or an ally is within 5 feet of target",
+            "source": "Rogue feature"
+        })
+        character_data['savingThrows'] = ["Dexterity", "Intelligence"]
+    # Add more classes as needed...
+    
+    # Set alignment to neutral good by default
+    character_data['alignment'] = "neutral good"
+
+def final_character_review(conversation, character_data):
+    """Show final character for player review and confirmation"""
+    # Build character summary
+    char_summary = f"""
+🎭 **{character_data['name']}**
+📜 Level {character_data['level']} {character_data['race']} {character_data['class']}
+🏛️ Background: {character_data['background']}
+
+💪 **Abilities:**
+  • Strength: {character_data['abilities']['strength']}
+  • Dexterity: {character_data['abilities']['dexterity']} 
+  • Constitution: {character_data['abilities']['constitution']}
+  • Intelligence: {character_data['abilities']['intelligence']}
+  • Wisdom: {character_data['abilities']['wisdom']}
+  • Charisma: {character_data['abilities']['charisma']}
+
+⚔️ **Combat Stats:**
+  • Hit Points: {character_data['hitPoints']}/{character_data['maxHitPoints']}
+  • Armor Class: {character_data['armorClass']}
+  • Initiative: +{character_data['initiative']}
+"""
+    
+    print(char_summary)
+    
+    ai_prompt = f"""The player has finished creating their character. Show them this summary and ask if they're happy with their character or if they'd like to make any changes. Be encouraging about their choices!
+
+Character Summary:
+{char_summary}
+
+Ask if they want to confirm this character and start their adventure, or if they'd like to make changes. They can say "yes", "confirm", "looks good" to proceed, or mention specific things they want to change."""
+    
+    conversation.append({"role": "system", "content": ai_prompt})
+    response = get_ai_response(conversation)
+    print(f"🤖 {response}")
+    
+    while True:
+        try:
+            user_input = input("\n👤 Your decision: ").strip().lower()
+            conversation.append({"role": "user", "content": user_input})
+            
+            if any(word in user_input for word in ['yes', 'confirm', 'looks good', 'perfect', 'great', 'ready']):
+                print("🎉 Excellent! Your character is ready for adventure!")
+                return True
+            elif any(word in user_input for word in ['no', 'change', 'different', 'redo']):
+                print("🔄 Character creation would restart here - for now, let's proceed with this character.")
+                return True  # For now, just proceed
+            else:
+                print("❌ Please say 'yes' to confirm your character or 'no' if you'd like to make changes.")
+                
+        except KeyboardInterrupt:
+            return False
+
+def validate_character(character_data):
+    """Validate character against char_schema.json"""
+    try:
+        schema = safe_json_load("char_schema.json")
+        if not schema:
+            return False, "Could not load character schema"
+        
+        validate(character_data, schema)
+        return True, None
+        
+    except ValidationError as e:
+        return False, f"Schema validation error: {e.message}"
+    except Exception as e:
+        return False, f"Validation error: {str(e)}"
+
+# ===== FILE OPERATIONS =====
+
+def save_character_to_module(character_data, module_name):
+    """Save character file to module directory"""
+    try:
+        # Create character directory if it doesn't exist
+        char_dir = f"modules/{module_name}/characters"
+        os.makedirs(char_dir, exist_ok=True)
+        
+        # Create filename
+        char_name = character_data['name'].lower().replace(" ", "_")
+        char_file = f"{char_dir}/{char_name}.json"
+        
+        # Save character file
+        safe_json_dump(character_data, char_file)
+        
+        # Check if file was created successfully
+        if os.path.exists(char_file):
+            return True
+        else:
+            return False
+        
+    except Exception as e:
+        print(f"❌ Error saving character: {e}")
+        return False
+
+def update_party_tracker(module_name, character_name):
+    """Update party_tracker.json with module and character selections"""
+    try:
+        # Load existing party tracker or create new one
+        party_data = safe_json_load("party_tracker.json") or {}
+        
+        # Update module
+        party_data["module"] = module_name
+        
+        # Update party members
+        char_filename = character_name.lower().replace(" ", "_")
+        party_data["partyMembers"] = [char_filename]
+        
+        # Initialize other required fields if they don't exist
+        if "partyNPCs" not in party_data:
+            party_data["partyNPCs"] = []
+        
+        if "worldConditions" not in party_data:
+            party_data["worldConditions"] = {
+                "year": 1492,
+                "month": "Springmonth", 
+                "day": 1,
+                "time": "09:00:00",
+                "weather": "",
+                "season": "Spring",
+                "dayNightCycle": "Day",
+                "moonPhase": "New Moon",
+                "currentLocation": "",
+                "currentLocationId": "",
+                "currentArea": "",
+                "currentAreaId": "",
+                "majorEventsUnderway": [],
+                "politicalClimate": "",
+                "activeEncounter": "",
+                "activeCombatEncounter": ""
+            }
+        
+        if "activeQuests" not in party_data:
+            party_data["activeQuests"] = []
+        
+        # Save updated party tracker
+        success = safe_json_dump(party_data, "party_tracker.json")
+        return success
+        
+    except Exception as e:
+        print(f"❌ Error updating party tracker: {e}")
+        return False
+
+# ===== CONVERSATION MANAGEMENT =====
+
+def initialize_startup_conversation():
+    """Create startup conversation file"""
+    conversation = [
+        {
+            "role": "system",
+            "content": "You are a helpful D&D assistant guiding a new player through character creation and module selection. Be friendly, encouraging, and clear in your explanations. Keep responses concise but informative."
+        }
+    ]
+    
+    safe_json_dump(conversation, STARTUP_CONVERSATION_FILE)
+    return conversation
+
+def get_ai_response(conversation):
+    """Get AI response for character creation"""
+    try:
+        response = client.chat.completions.create(
+            model=config.DM_MAIN_MODEL,
+            temperature=0.7,
+            messages=conversation
+        )
+        
+        content = response.choices[0].message.content.strip()
+        conversation.append({"role": "assistant", "content": content})
+        
+        # Save conversation
+        safe_json_dump(conversation, STARTUP_CONVERSATION_FILE)
+        
+        return content
+        
+    except Exception as e:
+        print(f"❌ Error getting AI response: {e}")
+        return "I'm having trouble right now. Please try again."
+
+def save_startup_conversation(conversation):
+    """Save startup conversation to file"""
+    safe_json_dump(conversation, STARTUP_CONVERSATION_FILE)
+
+def cleanup_startup_conversation():
+    """Remove startup conversation file after completion"""
+    try:
+        if os.path.exists(STARTUP_CONVERSATION_FILE):
+            # Archive it instead of deleting (for debugging)
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            archive_name = f"startup_conversation_archive_{timestamp}.json"
+            shutil.move(STARTUP_CONVERSATION_FILE, archive_name)
+    except Exception:
+        pass  # Don't fail startup if cleanup fails
+
+# ===== MAIN EXECUTION =====
+
+if __name__ == "__main__":
+    # Test the startup wizard
+    if startup_required():
+        success = run_startup_sequence()
+        if success:
+            print("🎉 Startup wizard completed successfully!")
+        else:
+            print("❌ Startup wizard failed or was cancelled.")
+    else:
+        print("ℹ️  Character and module already configured. No setup needed.")

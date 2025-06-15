@@ -911,6 +911,32 @@ def main_game_loop():
         
         save_conversation_history(conversation_history)
 
-if __name__ == "__main__":
+def main():
+    """Main entry point with startup wizard integration"""
     setup_utf8_console()
+    
+    # Check if first-time setup is needed
+    try:
+        from startup_wizard import startup_required, run_startup_sequence
+        
+        if startup_required():
+            print("🎲 Welcome to your D&D Adventure! 🎲")
+            print("It looks like this is your first time, or you need to set up a character.")
+            print("Let's get you ready for adventure!\n")
+            
+            success = run_startup_sequence()
+            if not success:
+                print("❌ Setup was cancelled or failed. Exiting...")
+                return
+            
+            print("🎉 Setup complete! Your adventure begins now...\n")
+    
+    except Exception as e:
+        print(f"⚠️  Startup wizard had an issue: {e}")
+        print("Continuing with main game (assuming setup is complete)...\n")
+    
+    # Continue with normal game loop
     main_game_loop()
+
+if __name__ == "__main__":
+    main()

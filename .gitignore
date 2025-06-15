@@ -109,3 +109,7 @@ chunked_compression_summary_*.md
 simple_compression_summary.md
 compression_test_*.md
 validation_*_report.md
+
+# Startup wizard temporary files
+startup_conversation.json
+startup_conversation_archive_*.json
