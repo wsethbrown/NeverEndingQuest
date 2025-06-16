@@ -429,7 +429,8 @@ For objects, return just the object.
                                plot_data: Dict[str, Any],
                                module_data: Dict[str, Any],
                                location_stubs: List[Dict[str, Any]],
-                               context=None) -> Dict[str, Any]:
+                               context=None,
+                               excluded_names=None) -> Dict[str, Any]:
         """Generate all locations for an area in one go for better coherence"""
         
         generation_context = {
@@ -459,8 +460,19 @@ For objects, return just the object.
         if context:
             validation_prompt = context.get_validation_prompt()
         
+        # Add party name exclusion to prompt
+        party_exclusion_prompt = ""
+        if excluded_names:
+            party_exclusion_prompt = f"""
+CRITICAL: Do NOT use these names for NPCs as they are existing party members: {', '.join(excluded_names)}
+Create entirely different names that don't conflict with or resemble these party member names.
+Avoid any variations, surnames, or titles using these names.
+"""
+        
         # Generate all locations with a single comprehensive prompt
         batch_prompt = f"""Generate detailed 5e locations for {area_data.get('areaName', 'this area')}.
+
+{party_exclusion_prompt}
 
 Context:
 {json.dumps(generation_context, indent=2)}
@@ -529,7 +541,8 @@ Check the location schema carefully for all required fields.
                           area_data: Dict[str, Any],
                           plot_data: Dict[str, Any],
                           module_data: Dict[str, Any],
-                          context=None) -> Dict[str, Any]:
+                          context=None,
+                          excluded_names=None) -> Dict[str, Any]:
         """Generate all locations for an area"""
         
         # Get location stubs from area data or create from map
@@ -556,7 +569,7 @@ Check the location schema carefully for all required fields.
         
         # Generate all locations in batch
         location_data = self.generate_location_batch(
-            area_data, plot_data, module_data, location_stubs, context)
+            area_data, plot_data, module_data, location_stubs, context, excluded_names)
         
         # Ensure each location has required fields and connections
         locations = location_data.get("locations", [])
@@ -582,6 +595,17 @@ Check the location schema carefully for all required fields.
                         validated_connectivity.append(conn["locationId"])
             
             location["connectivity"] = validated_connectivity
+            
+            # CRITICAL FIX: Update context with actual NPC placements
+            if context:
+                area_id = area_data.get("areaId")
+                location_id = location.get("locationId")
+                for npc in location.get("npcs", []):
+                    npc_name = npc.get("name")
+                    if npc_name and area_id and location_id:
+                        # Update context with actual placement
+                        context.add_npc(npc_name, area_id, location_id)
+                        print(f"Updated context: {npc_name} placed in {area_id}:{location_id}")
             
             # Ensure plot-critical locations have appropriate content
             location_id = location["locationId"]

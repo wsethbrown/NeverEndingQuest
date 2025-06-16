@@ -64,6 +64,9 @@ class ModuleBuilder:
         self.log("Starting module build process...")
         self.log(f"Initial concept: {initial_concept}")
         
+        # Create required directory structure first
+        self.create_module_directories()
+        
         # Initialize context
         self.context.module_name = self.config.module_name.replace("_", " ")
         self.context.module_id = self.config.module_name
@@ -132,6 +135,9 @@ class ModuleBuilder:
                 config
             )
             
+            # Validate area consistency after generation
+            self.validate_area_consistency(area_data, self.module_data)
+            
             self.areas_data[area_id] = area_data
             self.save_json(area_data, f"{area_id}.json")
             
@@ -145,18 +151,83 @@ class ModuleBuilder:
             self.log(f"Generated area: {region['regionName']} ({area_id})")
     
     def determine_area_type(self, region: Dict[str, Any]) -> str:
-        """Determine area type based on region description"""
+        """Determine area type based on region description with better pattern matching"""
         description = region.get("regionDescription", "").lower()
         name = region.get("regionName", "").lower()
         
-        if any(word in description + name for word in ["mine", "cave", "dungeon", "ruins", "tomb"]):
+        # Enhanced pattern matching
+        if any(word in description + name for word in ["mine", "cave", "dungeon", "ruins", "tomb", "underground", "depths"]):
             return "dungeon"
-        elif any(word in description + name for word in ["town", "city", "village", "settlement"]):
+        elif any(word in description + name for word in ["town", "city", "village", "settlement", "hollow", "borough"]):
             return "town"
-        elif any(word in description + name for word in ["forest", "mountain", "plains", "wilderness"]):
+        elif any(word in description + name for word in ["forest", "woods", "wilds", "grove", "emerald", "woodland"]):
+            return "wilderness"
+        elif any(word in description + name for word in ["mountain", "peaks", "marches", "highlands", "cliffs"]):
+            return "wilderness" 
+        elif any(word in description + name for word in ["swamp", "marsh", "bog", "mire"]):
             return "wilderness"
         else:
             return "mixed"
+    
+    def validate_area_consistency(self, area_data: Dict[str, Any], module_data: Dict[str, Any]):
+        """Validate area descriptions match their names and themes"""
+        area_name = area_data.get("areaName", "").lower()
+        climate = area_data.get("climate", "")
+        terrain = area_data.get("terrain", "")
+        
+        # Fix obvious mismatches
+        if any(word in area_name for word in ["emerald", "wilds", "forest", "woods"]):
+            if climate == "desert" or "desert" in terrain:
+                self.log(f"WARNING: Fixed climate mismatch for {area_data['areaName']}")
+                area_data["climate"] = "temperate"
+                area_data["terrain"] = "dense forest with clearings and groves"
+        
+        if any(word in area_name for word in ["frostward", "marches", "winter", "ice"]):
+            if climate == "temperate":
+                self.log(f"WARNING: Fixed climate mismatch for {area_data['areaName']}")
+                area_data["climate"] = "cold"
+                area_data["terrain"] = "frozen tundra and icy peaks"
+    
+    def get_existing_party_names(self):
+        """Get list of existing party member names to avoid conflicts"""
+        party_names = []
+        
+        # Try to read from existing character files
+        try:
+            import glob
+            char_files = glob.glob("modules/*/characters/*.json")
+            for char_file in char_files:
+                try:
+                    with open(char_file, 'r') as f:
+                        char_data = json.load(f)
+                        if char_data.get('character_role') == 'player':
+                            party_names.append(char_data.get('name', ''))
+                except Exception:
+                    continue
+        except Exception:
+            pass
+        
+        # Fallback to known party members if no files found
+        if not party_names:
+            party_names = ["Norn", "Elen"]
+        
+        return [name for name in party_names if name]
+    
+    def create_module_directories(self):
+        """Create all required module directories"""
+        required_dirs = ["characters", "monsters", "encounters", "areas"]
+        
+        for dir_name in required_dirs:
+            dir_path = os.path.join(self.config.output_directory, dir_name)
+            os.makedirs(dir_path, exist_ok=True)
+            self.log(f"Created directory: {dir_name}/")
+        
+        # Create empty .gitkeep files to preserve directory structure
+        for dir_name in required_dirs:
+            gitkeep_path = os.path.join(self.config.output_directory, dir_name, ".gitkeep")
+            if not os.path.exists(gitkeep_path):
+                with open(gitkeep_path, 'w') as f:
+                    f.write("# Keep this directory in git\n")
     
     def generate_area_map(self, area_id: str) -> Dict[str, Any]:
         """Generate a map layout for an area"""
@@ -191,6 +262,10 @@ class ModuleBuilder:
     
     def generate_locations(self):
         """Generate detailed locations for each area"""
+        # Get existing party names to avoid conflicts
+        party_names = self.get_existing_party_names()
+        self.log(f"Avoiding party name conflicts with: {', '.join(party_names)}")
+        
         for area_id, area_data in self.areas_data.items():
             self.log(f"Generating locations for area {area_id}...")
             
@@ -202,7 +277,8 @@ class ModuleBuilder:
                 area_data,
                 plot_data,
                 self.module_data,
-                context=self.context
+                context=self.context,
+                excluded_names=party_names
             )
             
             # Store locations data
@@ -501,7 +577,7 @@ Return ONLY the JSON object, no explanation."""
             "plot_themes": "adventure,mystery"
         }
 
-def ai_driven_module_creation(params: Dict[str, Any]) -> bool:
+def ai_driven_module_creation(params: Dict[str, Any]) -> tuple[bool, Optional[str]]:
     """AI-driven module creation that accepts a narrative and autonomously creates a module
     
     This function is fully agentic - it can work with just a narrative description
@@ -516,14 +592,16 @@ def ai_driven_module_creation(params: Dict[str, Any]) -> bool:
             - narrative: Full narrative description (AI will parse all params)
     
     Returns:
-        bool: True if module was created successfully, False otherwise
+        tuple[bool, Optional[str]]: (success_status, module_name)
+            - success_status: True if module was created successfully, False otherwise
+            - module_name: Name of the created module if successful, None if failed
     """
     try:
         # Check if we have a narrative to parse
         narrative = params.get("narrative") or params.get("concept")
         if not narrative:
             print(f"ERROR: No narrative or concept provided")
-            return False
+            return False, None
         
         # Parse narrative with AI to get module parameters
         parsed_params = parse_narrative_to_module_params(narrative)
@@ -596,13 +674,13 @@ def ai_driven_module_creation(params: Dict[str, Any]) -> bool:
                 json.dump(unified_plot, f, indent=2)
             print(f"DEBUG: Created unified module_plot.json with {len(unified_plot['plotPoints'])} plot points")
         
-        return True
+        return True, module_name
         
     except Exception as e:
         print(f"ERROR: AI-driven module creation failed: {str(e)}")
         import traceback
         traceback.print_exc()
-        return False
+        return False, None
 
 if __name__ == "__main__":
     main()

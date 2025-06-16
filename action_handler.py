@@ -482,11 +482,11 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             
             # Let the module builder handle ALL parameter validation
             # This makes the system fully agentic - AI decides everything
-            success = ai_driven_module_creation(parameters)
+            success, module_name = ai_driven_module_creation(parameters)
             
             if success:
-                # Module name will be extracted from the narrative by the AI parser
-                print(f"DEBUG: Module created successfully")
+                # Module name is now returned from the AI parser
+                print(f"DEBUG: Module '{module_name}' created successfully")
                 
                 # Auto-integrate with module stitcher
                 try:
