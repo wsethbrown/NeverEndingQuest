@@ -627,8 +627,6 @@ def ai_driven_module_creation(params: Dict[str, Any]) -> tuple[bool, Optional[st
             enhanced_concept += f" Key themes include: {plot_themes}."
         
         print(f"DEBUG: AI-driven module creation starting for '{module_name}'")
-        print(f"DEBUG: Concept: {enhanced_concept}")
-        print(f"DEBUG: Areas: {num_areas}, Locations per area: {locations_per_area}")
         
         # Configure builder with AI parameters
         config = BuilderConfig(

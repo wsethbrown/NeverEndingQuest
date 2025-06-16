@@ -63,3 +63,20 @@ After module creation completed, if the subsequent AI response generation failed
 - Added `status_ready()` call at the end of main game loop
 - Ensures UI is always reset to ready state regardless of validation outcomes
 - Prevents UI from getting stuck in processing/validating states
+
+## CRITICAL ROOT CAUSE DISCOVERED
+
+### Real Issue: Module Creation Prompt Override
+The validation system was working correctly, but the **module_creation_prompt.txt** was explicitly instructing the AI to use createNewModule regardless of user input, creating a conflict with validation rules.
+
+### Additional Fixes Applied:
+
+#### 5. Fixed Module Creation Prompt (module_creation_prompt.txt:25-34)
+- Added ROLEPLAY TRANSITION PROTOCOL section
+- Instructs AI to present hooks first for vague questions
+- Only use createNewModule after explicit player commitment
+- Aligns system prompt with validation rules
+
+#### 6. Removed Concept Debug Spam (module_builder.py:630)
+- Removed debug print that dumped concept text to logs
+- Eliminates immersion-breaking text in game output
