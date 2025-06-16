@@ -874,9 +874,27 @@ def main_game_loop():
                 
                 print(f"DEBUG: Plot completion: {completed_count}/{total_count} completed, all_plot_completed = {all_plot_completed}")
                 
-                # Check if other modules are available
-                campaign_manager = CampaignManager()
-                available_modules = campaign_manager.campaign_data.get('availableModules', [])
+                # Check if other modules are available (filesystem-based detection)
+                import os
+                modules_dir = "modules"
+                available_modules = []
+                if os.path.exists(modules_dir):
+                    for item in os.listdir(modules_dir):
+                        module_path = os.path.join(modules_dir, item)
+                        if os.path.isdir(module_path) and not item.startswith('.') and item not in ['campaign_archives', 'campaign_summaries']:
+                            # Check if this directory has area JSON files (pattern: 2-3 letter area codes + numbers)
+                            area_files = [f for f in os.listdir(module_path) 
+                                        if os.path.isfile(os.path.join(module_path, f)) 
+                                        and f.endswith('.json') 
+                                        and len(f.split('.')[0]) <= 7  # Area codes like HH001, G001, SR001, etc.
+                                        and not f.startswith('map_') 
+                                        and not f.startswith('plot_')
+                                        and not f.startswith('party_')
+                                        and not f.startswith('module_')
+                                        and f not in ['campaign.json', 'world_registry.json', 'module_context.json']]
+                            if area_files:
+                                available_modules.append(item)
+                
                 other_modules_available = len([m for m in available_modules if m != current_module]) > 0
                 
                 print(f"DEBUG: Available modules: {available_modules}")
