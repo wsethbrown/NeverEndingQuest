@@ -52,3 +52,14 @@ Player asks "What next?" → Validation rejects createNewModule → DM provides 
 - Input: "What next, Elen?" → Validation: REJECT createNewModule
 - Input: "Yes, let's investigate that dungeon" → Validation: ALLOW createNewModule
 - Proper roleplay transition flow restored
+- Web UI properly returns control to player after module creation
+
+## Additional Fix: UI Status Reset
+
+### Issue Found
+After module creation completed, if the subsequent AI response generation failed validation repeatedly, the game would get stuck in "validating response format" state and never return control to the player.
+
+### Additional Fix Applied (main.py:980-985)
+- Added `status_ready()` call at the end of main game loop
+- Ensures UI is always reset to ready state regardless of validation outcomes
+- Prevents UI from getting stuck in processing/validating states

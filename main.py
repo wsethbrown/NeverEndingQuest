@@ -976,6 +976,13 @@ def main_game_loop():
                 print("ERROR: No AI response was generated after retries.")
                 conversation_history.append({"role": "assistant", "content": "I seem to be having trouble formulating a response. Could you try rephrasing your action or query?"})
                 save_conversation_history(conversation_history)
+        
+        # Always ensure status is reset to ready at end of main game loop
+        try:
+            status_ready()
+            print("DEBUG: Status reset to ready at end of main game loop")
+        except Exception as e:
+            print(f"DEBUG: Error resetting status at end of main game loop: {e}")
 
 
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"] 
