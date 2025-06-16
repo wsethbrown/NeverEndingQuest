@@ -3,6 +3,14 @@ Beware of feature creep and don't ad dnew features unless specifically asked or 
 
 Don't add emojis or special characters anywhere in the game code.
 
+# Unicode and Special Characters
+NEVER use Unicode symbols (✓, ✗, →, ●, etc.) in print statements or logging. Windows console (cp1252) cannot display these characters and will cause UnicodeEncodeError crashes. Always use ASCII-safe alternatives:
+- Use [OK] instead of ✓
+- Use [ERROR] instead of ✗  
+- Use -> instead of →
+- Use * instead of ●
+This prevents encoding crashes during module integration and gameplay.
+
 # Schema Validation
 Use `python validate_module_files.py` to check schema compatibility after making changes to JSON files or schemas. This ensures all game files remain compatible with their schemas and prevents runtime errors. Aim for 100% validation pass rate.
 
