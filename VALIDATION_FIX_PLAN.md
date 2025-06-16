@@ -80,3 +80,9 @@ The validation system was working correctly, but the **module_creation_prompt.tx
 #### 6. Removed Concept Debug Spam (module_builder.py:630)
 - Removed debug print that dumped concept text to logs
 - Eliminates immersion-breaking text in game output
+
+#### 7. Removed Splash Screen Code (action_handler.py, web_interface.py, templates/game_interface.html)
+- Complete removal of module building splash screen functionality
+- Splash screen was preventing cursor return to player after module creation
+- Removed WebSocket events, CSS, HTML overlay, and JavaScript functions
+- Fixes UI getting stuck without player input capability
