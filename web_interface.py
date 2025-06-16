@@ -49,6 +49,17 @@ def emit_status_update(status_message, is_processing):
 # Set the status callback
 set_status_callback(emit_status_update)
 
+# Module building splash screen functions
+def emit_show_module_splash(custom_text=None):
+    """Emit event to show module building splash screen"""
+    socketio.emit('show_module_splash', {
+        'custom_text': custom_text
+    })
+
+def emit_hide_module_splash():
+    """Emit event to hide module building splash screen"""
+    socketio.emit('hide_module_splash')
+
 class WebOutputCapture:
     """Captures output and routes it to appropriate queues"""
     def __init__(self, queue, original_stream, is_error=False):

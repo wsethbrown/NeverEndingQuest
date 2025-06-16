@@ -2014,9 +2014,101 @@
             background-color: rgba(255, 165, 0, 0.1);
         }
         
+        /* Module Building Splash Screen */
+        .module-building-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(44, 44, 44, 0.95));
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+        
+        .module-building-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #e0e0e0;
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(44, 44, 44, 0.9);
+            border: 2px solid #4CAF50;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
+        }
+        
+        .module-building-title {
+            font-family: 'Cinzel', Georgia, serif;
+            font-size: 32px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(76, 175, 80, 0.5); }
+            to { text-shadow: 0 0 20px rgba(76, 175, 80, 0.8), 0 0 30px rgba(76, 175, 80, 0.6); }
+        }
+        
+        .module-building-text {
+            font-family: 'Crimson Text', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .module-building-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(76, 175, 80, 0.3);
+            border-radius: 50%;
+            border-top-color: #4CAF50;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .module-building-progress {
+            font-size: 14px;
+            color: #FFA500;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
     </style>
 </head>
 <body>
+    <!-- Module Building Splash Screen -->
+    <div class="module-building-overlay" id="module-building-overlay">
+        <div class="module-building-content">
+            <div class="module-building-title">Weaving New Adventures</div>
+            <div class="module-building-text" id="module-building-text">
+                The threads of fate are being spun into a new tapestry of adventure. Ancient magics stir as your next quest takes shape in the ethereal realms beyond mortal perception...
+            </div>
+            <div class="module-building-spinner"></div>
+            <div class="module-building-progress" id="module-building-progress">Crafting Your Destiny</div>
+        </div>
+    </div>
+
     <div class="header">
         <h1>DungeonMasterAI</h1>
         <div class="location-info" id="location-info">
@@ -2101,6 +2193,45 @@
         const socket = io();
         let connected = false;
         let gameStarted = false;
+        
+        // Module Building Splash Screen Functions
+        function showModuleBuildingSplash(customText = null) {
+            const overlay = document.getElementById('module-building-overlay');
+            const textElement = document.getElementById('module-building-text');
+            const progressElement = document.getElementById('module-building-progress');
+            
+            // Randomize the narrative text for variety
+            const narrativeTexts = [
+                "The threads of fate are being spun into a new tapestry of adventure. Ancient magics stir as your next quest takes shape in the ethereal realms beyond mortal perception...",
+                "In the vast libraries of destiny, new chapters are being written. The cosmic quill dances across parchment as your next adventure unfolds from the dreams of sleeping gods...",
+                "The wheel of fortune turns, revealing glimpses of paths yet untaken. Mystical energies gather to forge new trials and triumphs for brave souls willing to answer destiny's call...",
+                "Somewhere beyond the veil of reality, arcane architects craft new realms of wonder and peril. The very essence of adventure crystallizes into form, awaiting your footsteps...",
+                "Ancient seers gaze into swirling mists of possibility, weaving together fragments of legend into a grand new saga. Your destiny awaits as new lands emerge from the void..."
+            ];
+            
+            const progressTexts = [
+                "Crafting Your Destiny",
+                "Weaving Ancient Mysteries", 
+                "Forging New Legends",
+                "Awakening Lost Realms",
+                "Binding Fate's Threads"
+            ];
+            
+            // Use custom text or random selection
+            if (customText) {
+                textElement.textContent = customText;
+            } else {
+                textElement.textContent = narrativeTexts[Math.floor(Math.random() * narrativeTexts.length)];
+            }
+            
+            progressElement.textContent = progressTexts[Math.floor(Math.random() * progressTexts.length)];
+            overlay.style.display = 'block';
+        }
+        
+        function hideModuleBuildingSplash() {
+            const overlay = document.getElementById('module-building-overlay');
+            overlay.style.display = 'none';
+        }
         
         // Auto-scroll to bottom function
         function scrollToBottom(elementId) {
@@ -2286,6 +2417,15 @@
                 sendButton.disabled = false;
                 input.focus();
             }
+        });
+        
+        // Module building splash screen events
+        socket.on('show_module_splash', (data) => {
+            showModuleBuildingSplash(data.custom_text);
+        });
+        
+        socket.on('hide_module_splash', () => {
+            hideModuleBuildingSplash();
         });
         
         // User interaction functions

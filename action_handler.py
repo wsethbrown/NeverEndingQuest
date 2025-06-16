@@ -469,6 +469,14 @@ Please use a valid location that exists in the current area ({current_area_id}) 
     elif action_type == ACTION_CREATE_NEW_MODULE:
         print(f"DEBUG: Processing createNewModule action")
         try:
+            # Show module building splash screen
+            try:
+                from web_interface import emit_show_module_splash
+                emit_show_module_splash("The cosmic architects have heard your call to adventure. New realms of mystery and danger are being forged in the ethereal fires of creation...")
+            except ImportError:
+                # Web interface not available in console mode
+                pass
+            
             # Pass ALL parameters directly from AI to module builder
             # The AI is fully in control of module creation
             from module_builder import ai_driven_module_creation
@@ -499,6 +507,14 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 except Exception as e:
                     print(f"WARNING: Module created but stitching failed: {e}")
                 
+                # Hide module building splash screen
+                try:
+                    from web_interface import emit_hide_module_splash
+                    emit_hide_module_splash()
+                except ImportError:
+                    # Web interface not available in console mode
+                    pass
+                
                 # Signal module creation complete
                 dm_note = f"Dungeon Master Note: New module '{module_name}' has been successfully created and integrated into the world. You may now guide the party to this new adventure."
                 conversation_history.append({"role": "user", "content": dm_note})
@@ -511,10 +527,24 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             else:
                 print(f"ERROR: Failed to create module")
                 
+                # Hide splash screen even on failure
+                try:
+                    from web_interface import emit_hide_module_splash
+                    emit_hide_module_splash()
+                except ImportError:
+                    pass
+                
         except Exception as e:
             print(f"ERROR: Exception while creating module: {str(e)}")
             import traceback
             traceback.print_exc()
+            
+            # Hide splash screen on exception
+            try:
+                from web_interface import emit_hide_module_splash
+                emit_hide_module_splash()
+            except ImportError:
+                pass
 
     elif action_type == ACTION_ESTABLISH_HUB:
         print(f"DEBUG: Processing establishHub action")
