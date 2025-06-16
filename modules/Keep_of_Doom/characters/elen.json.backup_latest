@@ -231,23 +231,6 @@
       "item_type": "miscellaneous",
       "description": "A small chest containing 58 gold coins and 4 gemstones.",
       "quantity": 1
-    },
-    {
-      "item_name": "Cloak of Elvenkind",
-      "item_type": "armor",
-      "item_subtype": "cloak",
-      "description": "A flowing cloak woven from ethereal fabric that seems to shift between shades of green and brown. Grants advantage on Stealth checks. A gift from Norn.",
-      "quantity": 1,
-      "magical": true,
-      "equipped": true,
-      "armor_category": "other",
-      "effects": [
-        {
-          "type": "advantage",
-          "target": "stealth_checks",
-          "description": "Advantage on Dexterity (Stealth) checks"
-        }
-      ]
     }
   ],
   "ammunition": [

@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 44,
   "maxHitPoints": 47,
-  "armorClass": 21,
+  "armorClass": 19,
   "initiative": 2,
   "speed": 30,
   "abilities": {
@@ -535,23 +535,6 @@
           "target": "saving_throws",
           "value": 1,
           "description": "+1 bonus to all saving throws"
-        }
-      ]
-    },
-    {
-      "item_name": "Cloak of Elvenkind",
-      "item_type": "armor",
-      "item_subtype": "cloak",
-      "description": "A flowing cloak woven from ethereal fabric that seems to shift between shades of green and brown. Grants advantage on Stealth checks.",
-      "quantity": 1,
-      "magical": true,
-      "equipped": false,
-      "armor_category": "other",
-      "effects": [
-        {
-          "type": "advantage",
-          "target": "stealth_checks",
-          "description": "Advantage on Dexterity (Stealth) checks"
         }
       ]
     },
