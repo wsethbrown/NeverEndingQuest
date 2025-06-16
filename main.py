@@ -276,13 +276,26 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
             # Catch any unexpected errors in path validation
             location_details += f"\n\nPath Validation ERROR: Failed to validate path - {str(e)}"
 
+    # Create user input context for validation
+    user_input_context = f"VALIDATION CONTEXT: The user input that triggered this assistant response was: '{user_input}'"
+    
     validation_conversation = [
         {"role": "system", "content": validation_prompt_text},
         {"role": "system", "content": location_details},
+        {"role": "system", "content": user_input_context},
         last_two_messages[0],
         last_two_messages[1],
         {"role": "assistant", "content": primary_response}
     ]
+    
+    # DEBUG: Log what validation AI sees for createNewModule actions
+    if '"action": "createNewModule"' in primary_response:
+        print("DEBUG: *** VALIDATION DEBUG - createNewModule detected ***")
+        print(f"DEBUG: User input that triggered this: {user_input}")
+        print(f"DEBUG: Last two messages validation AI sees:")
+        for i, msg in enumerate(last_two_messages):
+            print(f"DEBUG: Message {i+1}: {msg['role']}: {msg['content'][:100]}...")
+        print("DEBUG: *** END VALIDATION DEBUG ***")
 
     max_validation_retries = 3
     for attempt in range(max_validation_retries):
