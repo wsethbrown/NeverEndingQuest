@@ -50,9 +50,9 @@ class ModuleValidator:
                 try:
                     with open(schema_path, 'r') as f:
                         self.schemas[file_type] = json.load(f)
-                    print(f"  ✓ Loaded {file_type} schema from {schema_file}")
+                    print(f"  [OK] Loaded {file_type} schema from {schema_file}")
                 except Exception as e:
-                    print(f"  ✗ Failed to load {file_type} schema: {e}")
+                    print(f"  [ERROR] Failed to load {file_type} schema: {e}")
             else:
                 print(f"  - Schema not found: {schema_file}")
                 
@@ -283,8 +283,8 @@ class ModuleValidator:
         total_files = total_passed + total_failed
         
         print(f"SUMMARY: {total_files} files validated")
-        print(f"  ✓ Passed: {total_passed}")
-        print(f"  ✗ Failed: {total_failed}")
+        print(f"  [OK] Passed: {total_passed}")
+        print(f"  [ERROR] Failed: {total_failed}")
         if total_files > 0:
             print(f"  Success Rate: {(total_passed/total_files)*100:.1f}%")
         print("\n")
@@ -304,7 +304,7 @@ class ModuleValidator:
             total = result["passed"] + result["failed"]
             
             print(f"\n{file_type.upper()} FILES ({total} files)")
-            print(f"  Status: {'✓ ALL PASSED' if result['failed'] == 0 else '✗ FAILURES DETECTED'}")
+            print(f"  Status: {'[OK] ALL PASSED' if result['failed'] == 0 else '[ERROR] FAILURES DETECTED'}")
             print(f"  Passed: {result['passed']}/{total}")
             
             if result["failed"] > 0:
@@ -347,7 +347,7 @@ class ModuleValidator:
                 print(f"  - {schema_name} ({file_type} files)")
                 
         if not missing_schemas and not needs_refactoring:
-            print("\n  ✓ All required schemas are present and functioning well")
+            print("\n  [OK] All required schemas are present and functioning well")
             
         print("\n" + "=" * 80)
         
