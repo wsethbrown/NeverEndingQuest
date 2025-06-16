@@ -469,14 +469,6 @@ Please use a valid location that exists in the current area ({current_area_id}) 
     elif action_type == ACTION_CREATE_NEW_MODULE:
         print(f"DEBUG: Processing createNewModule action")
         try:
-            # Show module building splash screen
-            try:
-                from web_interface import emit_show_module_splash
-                emit_show_module_splash("The cosmic architects have heard your call to adventure. New realms of mystery and danger are being forged in the ethereal fires of creation...")
-            except ImportError:
-                # Web interface not available in console mode
-                pass
-            
             # Pass ALL parameters directly from AI to module builder
             # The AI is fully in control of module creation
             from module_builder import ai_driven_module_creation
@@ -507,16 +499,6 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 except Exception as e:
                     print(f"WARNING: Module created but stitching failed: {e}")
                 
-                # Hide module building splash screen
-                try:
-                    from web_interface import emit_hide_module_splash
-                    emit_hide_module_splash()
-                    print("DEBUG: Hide splash screen event sent")
-                except ImportError:
-                    print("DEBUG: Web interface not available in console mode")
-                except Exception as e:
-                    print(f"DEBUG: Error hiding splash screen: {e}")
-                
                 # Reset processing status to ready
                 try:
                     from status_manager import status_ready
@@ -537,16 +519,6 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             else:
                 print(f"ERROR: Failed to create module")
                 
-                # Hide splash screen even on failure
-                try:
-                    from web_interface import emit_hide_module_splash
-                    emit_hide_module_splash()
-                    print("DEBUG: Hide splash screen after failure")
-                except ImportError:
-                    print("DEBUG: Web interface not available after failure")
-                except Exception as e:
-                    print(f"DEBUG: Error hiding splash screen after failure: {e}")
-                
                 # Reset status even on failure  
                 try:
                     from status_manager import status_ready
@@ -559,16 +531,6 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             print(f"ERROR: Exception while creating module: {str(e)}")
             import traceback
             traceback.print_exc()
-            
-            # Hide splash screen on exception
-            try:
-                from web_interface import emit_hide_module_splash
-                emit_hide_module_splash()
-                print("DEBUG: Hide splash screen after exception")
-            except ImportError:
-                print("DEBUG: Web interface not available after exception")
-            except Exception as hide_e:
-                print(f"DEBUG: Error hiding splash screen after exception: {hide_e}")
             
             # Reset status on exception
             try:
