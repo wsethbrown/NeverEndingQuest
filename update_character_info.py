@@ -197,6 +197,24 @@ def format_schema_for_prompt(schema, character_role):
         schema_info += "Object Fields:\n" + "\n".join(object_fields) + "\n\n"
     
     # Add role-specific examples
+    # Add common item type guidance
+    schema_info += """
+CRITICAL - Valid item_type values (MUST use one of these EXACTLY):
+- "weapon" - swords, bows, daggers, etc.
+- "armor" - armor, shields, cloaks, boots, gloves, etc.
+- "miscellaneous" - rings, amulets, wands, potions (if not consumable), general items
+- "consumable" - potions, scrolls, food, anything that gets used up
+
+NEVER use: "wondrous item", "magic item", "magical", "equipment", or any other value!
+
+Common Item Type Mappings:
+- Cloak of Elvenkind → item_type: "armor", item_subtype: "cloak"
+- Ring of Protection → item_type: "miscellaneous", item_subtype: "ring"
+- Wand of Magic Missiles → item_type: "miscellaneous", item_subtype: "wand"
+- Potion of Healing → item_type: "consumable", item_subtype: "potion"
+- Scroll of Fireball → item_type: "consumable", item_subtype: "scroll"
+"""
+    
     if character_role == 'player':
         schema_info += """
 Equipment Array Example:
@@ -284,6 +302,38 @@ def merge_equipment_arrays(base_equipment, update_equipment):
             result.append(copy.deepcopy(update_item))
     
     return result
+
+def fix_item_types(updates):
+    """Fix common item_type mistakes before validation"""
+    # Map of common wrong values to correct values
+    item_type_fixes = {
+        "wondrous item": "miscellaneous",
+        "wondrous": "miscellaneous",
+        "magic item": "miscellaneous",
+        "magical item": "miscellaneous",
+        "magical": "miscellaneous",
+        "equipment": "miscellaneous",
+        "potion": "consumable",
+        "scroll": "consumable",
+        "cloak": "armor",
+        "ring": "miscellaneous",
+        "amulet": "miscellaneous",
+        "wand": "miscellaneous",
+        "rod": "miscellaneous",
+        "staff": "weapon"
+    }
+    
+    # Fix equipment array if present
+    if 'equipment' in updates and isinstance(updates['equipment'], list):
+        for item in updates['equipment']:
+            if 'item_type' in item and isinstance(item['item_type'], str):
+                item_type_lower = item['item_type'].lower()
+                if item_type_lower in item_type_fixes:
+                    old_type = item['item_type']
+                    item['item_type'] = item_type_fixes[item_type_lower]
+                    print(f"{ORANGE}Auto-corrected item_type: '{old_type}' → '{item['item_type']}' for {item.get('item_name', 'unknown item')}{RESET}")
+    
+    return updates
 
 def validate_critical_fields_preserved(original_data, updated_data, character_name):
     """Validate that critical nested fields are not accidentally deleted"""
@@ -620,6 +670,9 @@ Character Role: {character_role}
             
             clean_response = json_match.group()
             updates = json.loads(clean_response)
+            
+            # Fix common item_type mistakes before applying updates
+            updates = fix_item_types(updates)
             
             # Apply updates to character data using deep merge
             updated_data = deep_merge_dict(character_data, updates)
