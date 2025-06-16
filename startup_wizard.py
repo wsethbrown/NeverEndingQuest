@@ -115,42 +115,32 @@ def scan_available_modules():
             if item in ['campaign_archives', 'campaign_summaries']:
                 continue
             
-            # First try loading from {module_name}_module.json (legacy support)
-            module_file = f"{module_path}/{item}_module.json"
+            # Use module_stitcher detection method (current architecture)
             module_data = None
-            
-            if os.path.exists(module_file):
-                try:
-                    module_data = safe_json_load(module_file)
-                except Exception as e:
-                    print(f"Warning: Could not load module file {module_file}: {e}")
-            
-            # Fallback: Use module_stitcher detection method (current architecture)
-            if not module_data:
-                try:
-                    from module_stitcher import ModuleStitcher
-                    stitcher = ModuleStitcher()
-                    detected_data = stitcher.analyze_module(item)
+            try:
+                from module_stitcher import ModuleStitcher
+                stitcher = ModuleStitcher()
+                detected_data = stitcher.analyze_module(item)
+                
+                if detected_data and detected_data.get('areas'):
+                    # Calculate actual level range from area data
+                    levels = []
+                    for area_data in detected_data['areas'].values():
+                        if 'recommendedLevel' in area_data:
+                            levels.append(area_data['recommendedLevel'])
                     
-                    if detected_data and detected_data.get('areas'):
-                        # Calculate actual level range from area data
-                        levels = []
-                        for area_data in detected_data['areas'].values():
-                            if 'recommendedLevel' in area_data:
-                                levels.append(area_data['recommendedLevel'])
-                        
-                        level_range = {'min': 1, 'max': 1}
-                        if levels:
-                            level_range = {'min': min(levels), 'max': max(levels)}
-                        
-                        module_data = {
-                            'moduleName': item.replace('_', ' ').title(),
-                            'moduleDescription': f"Adventure module with {len(detected_data['areas'])} areas",
-                            'moduleMetadata': {
-                                'levelRange': level_range,
-                                'estimatedPlayTime': 'Unknown'
-                            }
+                    level_range = {'min': 1, 'max': 1}
+                    if levels:
+                        level_range = {'min': min(levels), 'max': max(levels)}
+                    
+                    module_data = {
+                        'moduleName': item.replace('_', ' ').title(),
+                        'moduleDescription': f"Adventure module with {len(detected_data['areas'])} areas",
+                        'moduleMetadata': {
+                            'levelRange': level_range,
+                            'estimatedPlayTime': 'Unknown'
                         }
+                    }
                 except Exception as e:
                     print(f"Warning: Could not analyze module {item}: {e}")
                     continue

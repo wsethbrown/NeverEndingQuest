@@ -114,7 +114,6 @@ def safe_json_load(filepath: str) -> Any:
             # Sanitize the loaded data
             return sanitize_dict(data)
     except FileNotFoundError:
-        print(f"DEBUG: File {filepath} not found - creating first time")
         return None
     except UnicodeDecodeError:
         # Try with different encoding if UTF-8 fails

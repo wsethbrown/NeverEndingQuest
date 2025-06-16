@@ -939,17 +939,8 @@ If the field expects an object, return just the object.
         # Create module directory
         os.makedirs(module_dir, exist_ok=True)
         
-        # Save main module file
-        if filename is None:
-            filename = f"{module_dir}/{module_name.replace(' ', '_')}_module.json"
-        else:
-            # Ensure filename is in module directory
-            if not filename.startswith(module_dir):
-                filename = f"{module_dir}/{os.path.basename(filename)}"
-        
-        save_json_safely(module_data, filename)
-        
-        print(f"Module saved to {filename}")
+        # Note: *_module.json files are not used in current architecture
+        # Module data is now stored in individual component files and world registry
         
         # Generate all areas
         areas = self.generate_all_areas(module_data, module_name)

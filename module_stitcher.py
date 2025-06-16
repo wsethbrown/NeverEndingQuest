@@ -504,6 +504,9 @@ Suggest natural connections between new and existing areas."""
                 }
             
             # Add connections
+            if 'connections' not in self.world_registry:
+                self.world_registry['connections'] = {}
+                
             connections = module_data.get('connections', [])
             for connection in connections:
                 if isinstance(connection, dict):

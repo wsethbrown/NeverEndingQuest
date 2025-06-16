@@ -126,6 +126,36 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
     # Create a new list starting with the primary system prompt
     new_history = [primary_system_prompt] if primary_system_prompt else []
 
+    # Insert world state information
+    try:
+        from campaign_manager import CampaignManager
+        campaign_manager = CampaignManager()
+        available_modules = campaign_manager.campaign_data.get('availableModules', [])
+        current_module = party_tracker_data.get('currentModule', 'Unknown') if party_tracker_data else 'Unknown'
+        
+        world_state_parts = []
+        if available_modules:
+            other_modules = [m for m in available_modules if m != current_module]
+            if other_modules:
+                world_state_parts.append(f"Available modules for travel: {', '.join(other_modules)}")
+            world_state_parts.append(f"Current module: {current_module}")
+        else:
+            world_state_parts.append(f"Current module: {current_module} (no other modules detected)")
+            
+        # Add hub information if available
+        hubs = campaign_manager.campaign_data.get('hubs', {})
+        if hubs:
+            hub_names = list(hubs.keys())
+            world_state_parts.append(f"Established hubs: {', '.join(hub_names)}")
+            
+        if world_state_parts:
+            world_state_message = "WORLD STATE CONTEXT:\n" + "\n".join(world_state_parts)
+            new_history.append({"role": "system", "content": world_state_message})
+            
+    except Exception as e:
+        # Don't let world state errors break the conversation system
+        pass
+
     # Insert plot data
     if plot_data:
         plot_message = "Here's the current plot data:\n"

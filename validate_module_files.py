@@ -84,21 +84,10 @@ class ModuleValidator:
             return False, f"Error: {str(e)}"
             
     def validate_module_files(self):
-        """Validate the main module file"""
-        module_files = list(self.module_path.glob("*_module.json"))
-        
-        for file_path in module_files:
-            if any(part in str(file_path) for part in ["_BU", ".bak", ".backup", ".tmp"]):
-                continue
-                
-            success, error = self.validate_file(file_path, "module")
-            self.results["module"]["files"].append(str(file_path.name))
-            
-            if success:
-                self.results["module"]["passed"] += 1
-            else:
-                self.results["module"]["failed"] += 1
-                self.results["module"]["errors"].append(f"{file_path.name}: {error}")
+        """Validate the main module file - DISABLED: *_module.json files not used in current architecture"""
+        # *_module.json files are not used in the current architecture
+        # The system uses individual JSON files (areas, plots, etc.) instead
+        pass
                 
     def validate_area_files(self):
         """Validate area/location files"""
@@ -248,6 +237,34 @@ class ModuleValidator:
             else:
                 self.results["encounter"]["failed"] += 1
                 self.results["encounter"]["errors"].append(f"{file_path.name}: {error}")
+
+    def validate_all_files(self):
+        """Validate all files and return results (required by module_stitcher)"""
+        self.run_all_validations()
+        return self.results
+    
+    def get_success_rate(self):
+        """Get overall validation success rate"""
+        total_passed = sum(r["passed"] for r in self.results.values())
+        total_failed = sum(r["failed"] for r in self.results.values())
+        total_files = total_passed + total_failed
+        
+        if total_files == 0:
+            return 1.0  # 100% if no files to validate
+        
+        return total_passed / total_files
+
+    def run_all_validations(self):
+        """Run all validation checks"""
+        self.validate_module_files()
+        self.validate_area_files()
+        self.validate_character_files()
+        self.validate_monster_files()
+        self.validate_map_files()
+        self.validate_plot_files()
+        self.validate_party_tracker()
+        self.validate_module_context()
+        self.validate_encounter_files()
                 
     def run_validation(self):
         """Run all validations"""

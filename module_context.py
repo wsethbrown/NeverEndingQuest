@@ -103,13 +103,40 @@ class ModuleContext:
         """Check that all referenced NPCs are placed in locations"""
         issues = []
         
+        # Helper function to extract base name (without parenthetical descriptions)
+        def get_base_name(name):
+            # Remove anything in parentheses and strip whitespace
+            import re
+            return re.sub(r'\s*\([^)]*\)\s*$', '', name).strip()
+        
+        # Create a mapping of base names to full NPC entries
+        base_name_to_npcs = {}
+        for npc_key, npc_data in self.npcs.items():
+            base_name = get_base_name(npc_data['name']).lower()
+            if base_name not in base_name_to_npcs:
+                base_name_to_npcs[base_name] = []
+            base_name_to_npcs[base_name].append((npc_key, npc_data))
+        
+        # Check each NPC
         for npc_key, npc_data in self.npcs.items():
             if not npc_data["appears_in"]:
                 # Check if this NPC is referenced anywhere
                 ref_key = f"npc:{npc_data['name']}"
                 if ref_key in self.references and self.references[ref_key]:
-                    referenced_in = list(self.references[ref_key])
-                    issues.append(f"NPC '{npc_data['name']}' is referenced in {referenced_in} but not placed in any location")
+                    # Before reporting as missing, check if there's a matching NPC by base name
+                    base_name = get_base_name(npc_data['name']).lower()
+                    
+                    # Look for any NPC with the same base name that HAS been placed
+                    found_placement = False
+                    for _, other_npc_data in base_name_to_npcs.get(base_name, []):
+                        if other_npc_data["appears_in"]:
+                            found_placement = True
+                            break
+                    
+                    # Only report as issue if no NPC with this base name was placed
+                    if not found_placement:
+                        referenced_in = list(self.references[ref_key])
+                        issues.append(f"NPC '{npc_data['name']}' is referenced in {referenced_in} but not placed in any location")
         
         return issues
     
