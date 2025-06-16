@@ -2761,10 +2761,10 @@
                     }
                     
                     // Show quantity or consumable indicator
-                    if (scroll.consumable) {
-                        html += '<span class="magic-item-charges consumable">[1x]</span>';
-                    } else if (scroll.quantity > 1) {
+                    if (scroll.quantity > 1) {
                         html += `<span class="magic-item-charges">×${scroll.quantity}</span>`;
+                    } else if (scroll.consumable) {
+                        html += '<span class="magic-item-charges consumable">[1x]</span>';
                     }
                     
                     html += '</div>';
@@ -2781,10 +2781,10 @@
                     html += `<span class="magic-item-name">${potion.item_name}</span>`;
                     
                     // Show quantity or consumable indicator
-                    if (potion.consumable) {
-                        html += '<span class="magic-item-charges consumable">[1x]</span>';
-                    } else if (potion.quantity > 1) {
+                    if (potion.quantity > 1) {
                         html += `<span class="magic-item-charges">×${potion.quantity}</span>`;
+                    } else if (potion.consumable) {
+                        html += '<span class="magic-item-charges consumable">[1x]</span>';
                     }
                     
                     html += '</div>';
