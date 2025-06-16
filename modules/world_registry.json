@@ -1,11 +1,11 @@
 {
-  "worldName": "Chronicles of the Haunted Realm",
+  "worldName": "Fantasy Adventure World",
   "registryVersion": "1.0.0",
-  "lastUpdated": "2025-06-15T11:08:34.020989",
+  "lastUpdated": "2025-06-15T20:48:15.716403",
   "modules": {
     "Keep_of_Doom": {
       "moduleName": "Keep_of_Doom",
-      "addedDate": "2025-06-15T11:08:34.020947",
+      "addedDate": "2025-06-15T20:04:48.773150",
       "themes": [
         "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run ",
         "Tracking clues and rumors, the party must brave the haunted forest and reach the Keep of Doom. Along the way, they navigate treacherous terrain, spectral ambushes, and lingering wards. The forest is a",
@@ -34,7 +34,7 @@
       "areaConnectivityId": [],
       "locationCount": 9,
       "module": "Keep_of_Doom",
-      "addedDate": "2025-06-15T11:08:34.020972"
+      "addedDate": "2025-06-15T20:04:48.773150"
     },
     "HH001": {
       "areaName": "Harrow's Hollow",
@@ -48,7 +48,7 @@
       "areaConnectivityId": [],
       "locationCount": 5,
       "module": "Keep_of_Doom",
-      "addedDate": "2025-06-15T11:08:34.020977"
+      "addedDate": "2025-06-15T20:04:48.773150"
     },
     "SK001": {
       "areaName": "Shadowfall Keep",
@@ -62,7 +62,7 @@
       "areaConnectivityId": [],
       "locationCount": 8,
       "module": "Keep_of_Doom",
-      "addedDate": "2025-06-15T11:08:34.020980"
+      "addedDate": "2025-06-15T20:04:48.773150"
     },
     "TBM001": {
       "areaName": "The Blighted Marches",
@@ -76,7 +76,7 @@
       "areaConnectivityId": [],
       "locationCount": 6,
       "module": "Keep_of_Doom",
-      "addedDate": "2025-06-15T11:08:34.020983"
+      "addedDate": "2025-06-15T20:04:48.773150"
     },
     "TCD001": {
       "areaName": "The Cursed Dungeons",
@@ -90,9 +90,8 @@
       "areaConnectivityId": [],
       "locationCount": 7,
       "module": "Keep_of_Doom",
-      "addedDate": "2025-06-15T11:08:34.020986"
+      "addedDate": "2025-06-15T20:04:48.773150"
     }
   },
-  "connections": {},
   "themes": {}
 }

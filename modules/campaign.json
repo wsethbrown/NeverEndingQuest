@@ -3,7 +3,9 @@
   "currentModule": null,
   "hubModule": "Shadowfall Keep",
   "completedModules": [],
-  "availableModules": [],
+  "availableModules": [
+    "Keep_of_Doom"
+  ],
   "hubs": {
     "Shadowfall Keep": {
       "establishedDate": "2025-06-15T15:29:21.950041",
@@ -29,6 +31,6 @@
     "unlockedAreas": [],
     "hubEstablished": true
   },
-  "lastUpdated": "2025-06-15T15:29:21.950041",
+  "lastUpdated": "2025-06-15T20:04:48.779140",
   "version": "1.0.0"
 }
