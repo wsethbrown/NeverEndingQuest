@@ -511,9 +511,19 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 try:
                     from web_interface import emit_hide_module_splash
                     emit_hide_module_splash()
+                    print("DEBUG: Hide splash screen event sent")
                 except ImportError:
-                    # Web interface not available in console mode
-                    pass
+                    print("DEBUG: Web interface not available in console mode")
+                except Exception as e:
+                    print(f"DEBUG: Error hiding splash screen: {e}")
+                
+                # Reset processing status to ready
+                try:
+                    from status_manager import status_ready
+                    status_ready()
+                    print("DEBUG: Status reset to ready")
+                except Exception as e:
+                    print(f"DEBUG: Error resetting status: {e}")
                 
                 # Signal module creation complete
                 dm_note = f"Dungeon Master Note: New module '{module_name}' has been successfully created and integrated into the world. You may now guide the party to this new adventure."
@@ -531,8 +541,19 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 try:
                     from web_interface import emit_hide_module_splash
                     emit_hide_module_splash()
+                    print("DEBUG: Hide splash screen after failure")
                 except ImportError:
-                    pass
+                    print("DEBUG: Web interface not available after failure")
+                except Exception as e:
+                    print(f"DEBUG: Error hiding splash screen after failure: {e}")
+                
+                # Reset status even on failure  
+                try:
+                    from status_manager import status_ready
+                    status_ready()
+                    print("DEBUG: Status reset after failure")
+                except Exception as e:
+                    print(f"DEBUG: Error resetting status after failure: {e}")
                 
         except Exception as e:
             print(f"ERROR: Exception while creating module: {str(e)}")
@@ -543,8 +564,19 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             try:
                 from web_interface import emit_hide_module_splash
                 emit_hide_module_splash()
+                print("DEBUG: Hide splash screen after exception")
             except ImportError:
-                pass
+                print("DEBUG: Web interface not available after exception")
+            except Exception as hide_e:
+                print(f"DEBUG: Error hiding splash screen after exception: {hide_e}")
+            
+            # Reset status on exception
+            try:
+                from status_manager import status_ready  
+                status_ready()
+                print("DEBUG: Status reset after exception")
+            except Exception as status_e:
+                print(f"DEBUG: Error resetting status after exception: {status_e}")
 
     elif action_type == ACTION_ESTABLISH_HUB:
         print(f"DEBUG: Processing establishHub action")

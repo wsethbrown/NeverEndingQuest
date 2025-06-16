@@ -52,13 +52,21 @@ set_status_callback(emit_status_update)
 # Module building splash screen functions
 def emit_show_module_splash(custom_text=None):
     """Emit event to show module building splash screen"""
-    socketio.emit('show_module_splash', {
-        'custom_text': custom_text
-    })
+    try:
+        socketio.emit('show_module_splash', {
+            'custom_text': custom_text
+        })
+        print(f"DEBUG: Emitted show_module_splash event with text: {custom_text[:50] if custom_text else 'None'}...")
+    except Exception as e:
+        print(f"ERROR: Failed to emit show_module_splash: {e}")
 
 def emit_hide_module_splash():
     """Emit event to hide module building splash screen"""
-    socketio.emit('hide_module_splash')
+    try:
+        socketio.emit('hide_module_splash')
+        print("DEBUG: Emitted hide_module_splash event")
+    except Exception as e:
+        print(f"ERROR: Failed to emit hide_module_splash: {e}")
 
 class WebOutputCapture:
     """Captures output and routes it to appropriate queues"""

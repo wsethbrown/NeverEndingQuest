@@ -2421,10 +2421,12 @@
         
         // Module building splash screen events
         socket.on('show_module_splash', (data) => {
+            console.log('Received show_module_splash event:', data);
             showModuleBuildingSplash(data.custom_text);
         });
         
         socket.on('hide_module_splash', () => {
+            console.log('Received hide_module_splash event');
             hideModuleBuildingSplash();
         });
         
