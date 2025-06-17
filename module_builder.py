@@ -226,16 +226,26 @@ MODULE INDEPENDENCE RULES:
         """Get list of existing party member names to avoid conflicts"""
         party_names = []
         
-        # Try to read from existing character files
+        # Try to read from current module's character files first
         try:
             import glob
-            char_files = glob.glob("modules/*/characters/*.json")
+            # Check current module directory first
+            current_module_chars = glob.glob(f"{self.config.output_directory}/characters/*.json")
+            
+            # If no characters in current module, check all modules
+            if not current_module_chars:
+                char_files = glob.glob("modules/*/characters/*.json")
+            else:
+                char_files = current_module_chars
+                
             for char_file in char_files:
                 try:
                     with open(char_file, 'r') as f:
                         char_data = json.load(f)
                         if char_data.get('character_role') == 'player':
-                            party_names.append(char_data.get('name', ''))
+                            name = char_data.get('name', '').strip()
+                            if name and name not in party_names:  # Avoid duplicates
+                                party_names.append(name)
                 except Exception:
                     continue
         except Exception:
@@ -246,7 +256,7 @@ MODULE INDEPENDENCE RULES:
             party_names = []
             self.log("No party members detected - module will use generic references")
         
-        return [name for name in party_names if name]
+        return party_names
     
     def create_module_directories(self):
         """Create all required module directories"""
