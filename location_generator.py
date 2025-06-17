@@ -430,7 +430,8 @@ For objects, return just the object.
                                module_data: Dict[str, Any],
                                location_stubs: List[Dict[str, Any]],
                                context=None,
-                               excluded_names=None) -> Dict[str, Any]:
+                               excluded_names=None,
+                               context_header: str = "") -> Dict[str, Any]:
         """Generate all locations for an area in one go for better coherence"""
         
         generation_context = {
@@ -470,7 +471,7 @@ Avoid any variations, surnames, or titles using these names.
 """
         
         # Generate all locations with a single comprehensive prompt
-        batch_prompt = f"""Generate detailed 5e locations for {area_data.get('areaName', 'this area')}.
+        batch_prompt = f"""{context_header}Generate detailed 5e locations for {area_data.get('areaName', 'this area')}.
 
 {party_exclusion_prompt}
 
@@ -542,7 +543,8 @@ Check the location schema carefully for all required fields.
                           plot_data: Dict[str, Any],
                           module_data: Dict[str, Any],
                           context=None,
-                          excluded_names=None) -> Dict[str, Any]:
+                          excluded_names=None,
+                          context_header: str = "") -> Dict[str, Any]:
         """Generate all locations for an area"""
         
         # Get location stubs from area data or create from map
@@ -569,7 +571,7 @@ Check the location schema carefully for all required fields.
         
         # Generate all locations in batch
         location_data = self.generate_location_batch(
-            area_data, plot_data, module_data, location_stubs, context, excluded_names)
+            area_data, plot_data, module_data, location_stubs, context, excluded_names, context_header)
         
         # Ensure each location has required fields and connections
         locations = location_data.get("locations", [])

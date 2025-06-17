@@ -59,10 +59,43 @@ class ModuleBuilder:
             json.dump(data, f, indent=2)
         self.log(f"Saved: {filename}")
     
+    def create_context_header(self, party_members: List[str]) -> str:
+        """Create a context header to prepend to all generator prompts"""
+        header = """
+CRITICAL CONTEXT INFORMATION:
+===========================
+"""
+        if party_members:
+            header += f"""PARTY MEMBERS (Heroes who will PLAY this adventure): {', '.join(party_members)}
+- These are the PLAYER CHARACTERS, not NPCs
+- Do NOT create NPCs with these names
+- They are the protagonists traveling TO your locations
+
+"""
+        header += """LOCATION CONTEXT:
+- The party is CURRENTLY elsewhere (not in your module)
+- Create a NEW location they will TRAVEL TO
+- This should be a completely different place from their current location
+- Give it a unique name and identity
+
+MODULE INDEPENDENCE RULES:
+1. This module represents a NEW DESTINATION
+2. Party members listed above are PLAYERS, not NPCs
+3. Create all-new locations, not variations of existing ones
+4. Never reuse character names from the party as NPCs
+===========================
+
+"""
+        return header
+    
     def build_module(self, initial_concept: str):
         """Build a complete module from an initial concept"""
         self.log("Starting module build process...")
         self.log(f"Initial concept: {initial_concept}")
+        
+        # Get party members for context
+        party_members = self.get_party_members()
+        self.context_header = self.create_context_header(party_members)
         
         # Create required directory structure first
         self.create_module_directories()
@@ -71,9 +104,10 @@ class ModuleBuilder:
         self.context.module_name = self.config.module_name.replace("_", " ")
         self.context.module_id = self.config.module_name
         
-        # Step 1: Generate module overview
+        # Step 1: Generate module overview with context
         self.log("Step 1: Generating module overview...")
-        self.module_data = self.module_gen.generate_module(initial_concept, context=self.context)
+        contextualized_concept = self.context_header + initial_concept
+        self.module_data = self.module_gen.generate_module(contextualized_concept, context=self.context)
         
         # Extract NPCs and factions from module data
         self._extract_module_entities()
@@ -188,7 +222,7 @@ class ModuleBuilder:
                 area_data["climate"] = "cold"
                 area_data["terrain"] = "frozen tundra and icy peaks"
     
-    def get_existing_party_names(self):
+    def get_party_members(self):
         """Get list of existing party member names to avoid conflicts"""
         party_names = []
         
@@ -207,9 +241,10 @@ class ModuleBuilder:
         except Exception:
             pass
         
-        # Fallback to known party members if no files found
+        # No fallback - let each module work with actual party or none
         if not party_names:
-            party_names = ["Norn", "Elen"]
+            party_names = []
+            self.log("No party members detected - module will use generic references")
         
         return [name for name in party_names if name]
     
@@ -263,7 +298,7 @@ class ModuleBuilder:
     def generate_locations(self):
         """Generate detailed locations for each area"""
         # Get existing party names to avoid conflicts
-        party_names = self.get_existing_party_names()
+        party_names = self.get_party_members()
         self.log(f"Avoiding party name conflicts with: {', '.join(party_names)}")
         
         for area_id, area_data in self.areas_data.items():
@@ -278,7 +313,8 @@ class ModuleBuilder:
                 plot_data,
                 self.module_data,
                 context=self.context,
-                excluded_names=party_names
+                excluded_names=party_names,
+                context_header=self.context_header
             )
             
             # Store locations data
@@ -303,7 +339,8 @@ class ModuleBuilder:
                 area_data,
                 location_data,
                 f"Adventure in {area_data['areaName']}",
-                context=self.context
+                context=self.context,
+                context_header=self.context_header
             )
             
             self.plots_data[area_id] = plot_data

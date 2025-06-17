@@ -333,11 +333,12 @@ For objects, return just the object.
         return content
     
     def generate_plot_structure(self, num_plot_points: int, 
-                                context: Dict[str, Any]) -> Dict[str, Any]:
+                                context: Dict[str, Any],
+                                context_header: str = "") -> Dict[str, Any]:
         """Generate the complete plot structure"""
         
         # Generate a full plot structure in one go for better coherence
-        prompt = f"""Create a complete plot structure for a 5e adventure with {num_plot_points} main plot points.
+        prompt = f"""{context_header}Create a complete plot structure for a 5e adventure with {num_plot_points} main plot points.
 
 Context:
 {json.dumps(context.to_dict() if hasattr(context, 'to_dict') else context, indent=2)}
@@ -394,7 +395,8 @@ IMPORTANT: Each plot point should have its sideQuests array (can be empty). Side
                      area_data: Dict[str, Any],
                      location_data: Dict[str, Any],
                      initial_concept: str = None,
-                     context=None) -> Dict[str, Any]:
+                     context=None,
+                     context_header: str = "") -> Dict[str, Any]:
         """Generate a complete plot file for an area"""
         
         # Build generation context from existing data
@@ -452,7 +454,7 @@ IMPORTANT: Each plot point should have its sideQuests array (can be empty). Side
         # Generate complete plot structure
         num_plot_points = min(8, max(4, len(location_data.get("locations", [])) // 3))
         
-        plot_structure = self.generate_plot_structure(num_plot_points, field_context)
+        plot_structure = self.generate_plot_structure(num_plot_points, field_context, context_header)
         
         plot_data["plotPoints"] = plot_structure["plotPoints"]
         
