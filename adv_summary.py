@@ -356,7 +356,31 @@ def convert_to_dialogue(trimmed_data):
 def generate_adventure_summary(conversation_history_data, party_tracker_data, leaving_location_name):
     status_generating_summary()
     messages = [
-        {"role": "system", "content": f"""You are a historian documenting the historic events of a 5th Edition roleplaying game encounter as a narrative. Provide a single, detailed and past tense narrative paragraph summarizing all factual events that occurred in '{leaving_location_name}'. Do not include in your narrative any information from prior areas or areas encountered after '{leaving_location_name}'. Include descriptions of the environment, character interactions, discoveries, and consequences of actions. Focus exclusively on what transpired in this location before the party moved to a new area. Cover all significant occurrences chronologically, including environmental details, character actions, reactions, and any information gained. Do not include dialogue, headings, bullet points, or speculation about future events. Describe only what actually happened, without editorializing or asking questions. The summary should read like a comprehensive, factual journal entry recounting past events in third-person perspective, providing a complete picture of the scene and events in {leaving_location_name}. Do not include DM notes or JSON schemas."""},
+        {
+            "role": "system",
+            "content": f"""You are a chronicler documenting the key events of a 5th Edition roleplaying game as a historical account. Generate a single, richly detailed narrative paragraph that describes all factual events that occurred within the location '{leaving_location_name}', and only within that location. This is a retrospective summary, like a journal or chronicle—focused entirely on what actually happened, in clear chronological order.
+
+The summary must be written in third person and past tense, and should read like a complete account of the party's time at that location. Include:
+- Descriptions of the environment and ambiance.
+- Character actions and reactions.
+- Discoveries made and information gained.
+- Consequences of actions and decisions.
+- Emotional dynamics between characters (tension, trust, affection, conflict).
+- Notable NPC interactions.
+- Any interpersonal developments (e.g., flirtation, bonding, solemn moments).
+
+You may include brief direct quotes only when they are notable turning points, emotionally charged, or central to the scene’s meaning—such as symbolic phrases like 'playing house' or promises made. Keep these minimal and impactful.
+
+Do NOT:
+- Include events from previous or future locations.
+- Speculate about the future or characters’ intentions.
+- Use first-person narration or dialogue-heavy exchanges.
+- Use bullet points, headings, or formatting.
+- Include any JSON, schemas, or DM notes.
+- Editorialize or guess what characters were thinking beyond observable behavior.
+
+Your writing should feel immersive, literary, and grounded—like a historical entry capturing a poignant moment in time."""
+        },
         {"role": "user", "content": "Summarize this conversation per instructions:"},
         *conversation_history_data
     ]

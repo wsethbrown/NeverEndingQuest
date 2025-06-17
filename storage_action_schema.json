@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Storage Action Schema",
+  "description": "Schema for validating player storage operations",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create_storage", "store_item", "retrieve_item", "view_storage"],
+      "description": "Type of storage operation to perform"
+    },
+    "character": {
+      "type": "string",
+      "description": "Character performing the action"
+    },
+    "storage_id": {
+      "type": "string",
+      "description": "Existing storage ID (for retrieve/view operations)"
+    },
+    "storage_type": {
+      "type": "string", 
+      "enum": ["chest", "lockbox", "barrel", "crate", "strongbox"],
+      "description": "Type of storage container"
+    },
+    "storage_name": {
+      "type": "string",
+      "description": "Custom name for the storage container"
+    },
+    "location_id": {
+      "type": "string",
+      "description": "Location ID where storage is placed"
+    },
+    "location_description": {
+      "type": "string",
+      "description": "Natural language description of location"
+    },
+    "item_name": {
+      "type": "string",
+      "description": "Name of item to store/retrieve"
+    },
+    "quantity": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Quantity to store/retrieve"
+    }
+  },
+  "required": ["action", "character"],
+  "allOf": [
+    {
+      "if": {"properties": {"action": {"const": "create_storage"}}},
+      "then": {"required": ["storage_type", "location_description"]}
+    },
+    {
+      "if": {"properties": {"action": {"const": "store_item"}}}, 
+      "then": {"required": ["item_name", "quantity"]}
+    },
+    {
+      "if": {"properties": {"action": {"const": "retrieve_item"}}},
+      "then": {"required": ["storage_id", "item_name", "quantity"]}
+    }
+  ]
+}

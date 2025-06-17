@@ -60,6 +60,7 @@ ACTION_UPDATE_CHARACTER_INFO = "updateCharacterInfo"
 ACTION_UPDATE_PARTY_NPCS = "updatePartyNPCs"
 ACTION_CREATE_NEW_MODULE = "createNewModule"
 ACTION_ESTABLISH_HUB = "establishHub"
+ACTION_STORAGE_INTERACTION = "storageInteraction"
 
 def validate_location_transition(location_graph, current_location_id, destination_location_id):
     """
@@ -579,6 +580,75 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             print(f"ERROR: Exception while establishing hub: {str(e)}")
             import traceback
             traceback.print_exc()
+
+    elif action_type == ACTION_STORAGE_INTERACTION:
+        print(f"DEBUG: Processing storageInteraction action")
+        try:
+            # Import storage modules
+            from storage_processor import process_storage_request
+            from storage_manager import execute_storage_operation
+            
+            # Get storage description from parameters
+            storage_description = parameters.get("description", "")
+            character_name = parameters.get("characterName", "")
+            
+            # Fallback to party member if no character specified
+            if not character_name:
+                character_name = next((member for member in party_tracker_data["partyMembers"]), None)
+                
+            if not character_name:
+                print(f"ERROR: No character name provided for storage interaction")
+                return create_return(status="continue", needs_update=False)
+                
+            if not storage_description:
+                print(f"ERROR: No storage description provided")
+                return create_return(status="continue", needs_update=False)
+                
+            print(f"DEBUG: Processing storage request for {character_name}: '{storage_description}'")
+            
+            # Process natural language description into operation
+            processor_result = process_storage_request(storage_description, character_name)
+            
+            if not processor_result.get("success"):
+                print(f"ERROR: Storage processor failed: {processor_result.get('error')}")
+                
+                # Add error message to conversation
+                error_message = f"Storage Error: {processor_result.get('error', 'Unknown error processing storage request')}"
+                conversation_history.append({"role": "user", "content": error_message})
+                needs_conversation_history_update = True
+                return create_return(status="needs_response", needs_update=True)
+                
+            # Execute the validated storage operation
+            operation = processor_result["operation"]
+            print(f"DEBUG: Executing storage operation: {operation}")
+            
+            execution_result = execute_storage_operation(operation)
+            
+            if execution_result.get("success"):
+                print(f"DEBUG: Storage operation successful: {execution_result.get('message')}")
+                
+                # Add success message to conversation
+                success_message = f"Storage: {execution_result.get('message')}"
+                conversation_history.append({"role": "user", "content": success_message})
+                needs_conversation_history_update = True
+                
+            else:
+                print(f"ERROR: Storage operation failed: {execution_result.get('error')}")
+                
+                # Add error message to conversation
+                error_message = f"Storage Error: {execution_result.get('error', 'Unknown error executing storage operation')}"
+                conversation_history.append({"role": "user", "content": error_message})
+                needs_conversation_history_update = True
+                
+        except Exception as e:
+            print(f"ERROR: Exception while processing storage interaction: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            
+            # Add error message to conversation
+            error_message = f"Storage System Error: An unexpected error occurred while processing your storage request."
+            conversation_history.append({"role": "user", "content": error_message})
+            needs_conversation_history_update = True
 
     else:
         print(f"WARNING: Unknown action type: {action_type}")

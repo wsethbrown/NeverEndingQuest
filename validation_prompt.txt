@@ -91,6 +91,12 @@ Here's the strict list of specific actions that the model should take when the s
 
 Requires "narrative" parameter containing rich story description with embedded module parameters (name, type, level range, areas, themes).
 "exitGame": Must be taken and only taken when the player requests to exit the play session.
+"storageInteraction": Used when players want to store, retrieve, or manage items in containers at locations. This action processes natural language storage requests and handles inventory transfers automatically. Should be used when players express intent to:
+   - Store items in containers ("I put my gold in a chest", "I store extra gear here")
+   - Retrieve items from storage ("I get my arrows from the chest", "I take my potions")
+   - Create new storage ("I make a lockbox for valuables")
+   - View storage contents ("What's in our storage?", "Check the chest")
+   Requires "description" parameter with natural language description and "characterName" for the character performing the action.
 
 ## REST MANAGEMENT VALIDATION RULES
 

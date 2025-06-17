@@ -61,6 +61,37 @@ from encoding_utils import (
     fix_corrupted_location_name
 )
 
+def get_storage_at_location(location_id):
+    """Get all player storage containers at a specific location"""
+    try:
+        from storage_manager import get_storage_manager
+        manager = get_storage_manager()
+        return manager.get_storage_at_location(location_id)
+    except Exception as e:
+        print(f"DEBUG: Could not load storage at location {location_id}: {e}")
+        return []
+
+def format_storage_description(storage_containers):
+    """Format storage containers for location description"""
+    if not storage_containers:
+        return ""
+    
+    descriptions = []
+    for storage in storage_containers:
+        name = storage.get("deviceName", "Storage Container")
+        storage_type = storage.get("deviceType", "container")
+        contents_count = len(storage.get("contents", []))
+        
+        if contents_count > 0:
+            descriptions.append(f"A {storage_type} named '{name}' containing {contents_count} item{'s' if contents_count != 1 else ''}")
+        else:
+            descriptions.append(f"An empty {storage_type} named '{name}'")
+    
+    if descriptions:
+        return f"\n\nPLAYER STORAGE: {'; '.join(descriptions)}."
+    
+    return ""
+
 def load_json_file(file_path):
     """Load a JSON file, with error handling"""
     try:
@@ -330,7 +361,13 @@ def handle_location_transition(current_location, new_location, current_area, cur
             except Exception as e:
                 print(f"ERROR: Failed to update party_tracker.json. Error: {str(e)}")
 
-        return f"Describe the immediate surroundings and any notable features or encounters in {new_location_info['name']}, based on its recent history and current state."
+        # Get storage information for the new location
+        storage_containers = get_storage_at_location(new_location_info["locationId"])
+        storage_description = format_storage_description(storage_containers)
+        
+        base_prompt = f"Describe the immediate surroundings and any notable features or encounters in {new_location_info['name']}, based on its recent history and current state."
+        
+        return base_prompt + storage_description
     else:
         print(f"ERROR: Could not find information for current location: {current_location}")
         return None

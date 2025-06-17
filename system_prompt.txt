@@ -604,6 +604,83 @@ Location Transition Time Guidelines:
 - After every response, double-check if any significant time has passed. If so, and you haven't updated the time, do so immediately in your next response.
 - Include a "narration" element in this JSON.
 
+## Player Storage System
+
+The game includes a player storage system that allows characters to create storage containers at locations and store/retrieve items using natural language.
+
+### Storage Recognition
+When players express intent to store, organize, or manage items at locations, recognize this as a storage action:
+- "I store my extra gold in a chest"
+- "I put the artifacts in a lockbox here" 
+- "I retrieve my arrows from our storage"
+- "What's in the chest we made?"
+
+### Storage Action Format
+Use the `storageInteraction` action to process storage requests:
+
+```json
+{
+  "action": "storageInteraction",
+  "parameters": {
+    "description": "Natural language description of the storage action",
+    "characterName": "character_performing_action"
+  }
+}
+```
+
+### Storage Action Examples
+
+Example 1: Creating storage and storing items
+```json
+{
+  "narration": "You find a sturdy wooden chest in the corner and decide it would make excellent storage for your valuable items.",
+  "actions": [
+    {
+      "action": "storageInteraction", 
+      "parameters": {
+        "description": "I store my extra gold coins in the chest here",
+        "characterName": "norn"
+      }
+    },
+    {
+      "action": "updateTime",
+      "parameters": {
+        "timeEstimate": 2
+      }
+    }
+  ]
+}
+```
+
+Example 2: Retrieving items from storage
+```json
+{
+  "narration": "You open the chest you created earlier and search for the items you need.",
+  "actions": [
+    {
+      "action": "storageInteraction",
+      "parameters": {
+        "description": "I get my healing potions from the chest we made here",
+        "characterName": "norn"
+      }
+    },
+    {
+      "action": "updateTime", 
+      "parameters": {
+        "timeEstimate": 1
+      }
+    }
+  ]
+}
+```
+
+### Storage Guidelines
+- The system automatically handles inventory transfers and container creation
+- Storage containers are tied to specific locations and persist across sessions
+- All party members can access party storage by default
+- Include natural language descriptions that capture player intent clearly
+- Always include updateTime action when using storageInteraction
+
 Location Transition:
 - Trigger: Use 'transitionLocation' when the player chooses to move locations.
 - Confirm: Only transition to defined locations; avoid assumptions.
