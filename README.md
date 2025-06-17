@@ -124,6 +124,52 @@ The AI analyzes area descriptions and themes to suggest natural narrative bridge
 - **NPC System**: Persistent NPCs with personalities, goals, and cross-module relationship tracking
 - **Time Tracking**: Complete world time and condition management with realistic progression
 
+### Advanced Player Systems
+
+#### **🏠 Player Housing & Hub System**
+- **Establish Hubs**: Transform any location into a permanent base of operations
+- **Hub Services**: Rest, storage, gathering, training, research facilities automatically available
+- **Ownership Types**: Party-owned, shared arrangements, or individual strongholds
+- **Hub Persistence**: Return from any adventure to your established bases
+- **Multi-Hub Support**: Maintain multiple bases across different regions and modules
+
+**Hub Types Available:**
+- **Strongholds**: Fortified keeps and castles for defensive operations
+- **Settlements**: Villages and towns for commerce and community building
+- **Taverns**: Social hubs for information gathering and party meetings
+- **Specialized Facilities**: Wizard towers, temples, guildhalls with unique services
+
+#### **📦 Player Storage System**
+- **Natural Language Storage**: Use intuitive commands like "I store my gold in a chest here"
+- **Location-Based Containers**: Create storage at any location using available containers
+- **Persistent Storage**: Items remain safely stored across sessions and module transitions
+- **Party Accessibility**: All party members can access shared storage by default
+- **Automatic Inventory Management**: System handles all inventory transfers with full safety protocols
+
+**Storage Features:**
+- **Container Types**: Chests, lockboxes, barrels, crates, strongboxes
+- **Smart Organization**: AI helps organize items by type and importance
+- **Secure Storage**: Containers tied to specific locations for security
+- **Visual Integration**: Storage automatically appears in location descriptions
+
+#### **🎲 AI-Driven Module Auto-Generation**
+- **Contextual Adventures**: AI analyzes party history to create personalized modules
+- **Seamless Integration**: New modules connect naturally to existing world geography
+- **Dynamic Scaling**: Adventures adjust to party level and accumulated experience
+- **Narrative Continuity**: References previous adventures and established relationships
+
+**Auto-Generation Triggers:**
+- **Adventure Completion**: New modules generated when current adventures conclude
+- **Player Interest**: AI detects story hooks and creates relevant content
+- **World Events**: Major decisions trigger consequences in new regions
+- **Party Progression**: Level advancement unlocks higher-tier adventure options
+
+#### **🌍 Living Campaign World Integration**
+- **Isolated Module Architecture**: Each module operates independently while maintaining world coherence
+- **AI Travel Narration**: Seamless transitions between modules with atmospheric descriptions
+- **World Registry**: Central tracking of all modules, areas, and their relationships
+- **Cross-Module Consequences**: Actions in one module affect opportunities in others
+
 ## Project Structure
 
 ### Core Systems
@@ -133,6 +179,12 @@ The AI analyzes area descriptions and themes to suggest natural narrative bridge
 - `campaign_manager.py` - Location-based hub-and-spoke campaign orchestration
 - `combat_manager.py` - Combat system management
 - `dm.py` & `dm_wrapper.py` - AI Dungeon Master logic
+
+### Player Systems
+- `storage_manager.py` - Player storage system with atomic file protection
+- `storage_processor.py` - AI-powered natural language storage processing
+- `action_handler.py` - Command processing and system integration
+- `location_manager.py` - Location-based features and storage display
 
 ### Campaign Generation
 - `module_generator.py` - Module overview generation
@@ -151,6 +203,8 @@ The AI analyzes area descriptions and themes to suggest natural narrative bridge
 - `*_schema.json` - JSON schemas for validation
 - `modules/` - Generated module data
 - `*.json` - Character, location, and game state files
+- `player_storage.json` - Central player storage repository
+- `storage_action_schema.json` - Storage operation validation schema
 
 ## Configuration
 
@@ -218,6 +272,51 @@ python main.py
 # AI generates narrative connections to existing world
 ```
 
+### Player Housing & Storage Examples
+
+#### **Establish a Hub**
+```
+Player: "I want to claim this keep as our base of operations"
+AI: *Establishes Shadowfall Keep as a party stronghold with full services*
+```
+
+#### **Natural Language Storage**
+```
+Player: "I store my extra gold in a chest in the treasury"
+AI: *Creates storage container and transfers 500 gold coins*
+
+Player: "What's in our storage here?"
+AI: *Lists all containers and contents at current location*
+
+Player: "I get my healing potions from the chest we made"
+AI: *Retrieves potions and updates inventory automatically*
+```
+
+#### **Hub Services**
+```
+Player: "I want to rest at our stronghold"
+AI: *Provides full rest benefits and hub-specific services*
+
+Player: "Let's gather at the tavern we established"
+AI: *Transitions party to hub location with full context*
+```
+
+### AI Module Generation Examples
+
+#### **Contextual Adventure Creation**
+```
+AI: *Analyzes party completed Keep_of_Doom module*
+AI: *Detects themes: undead, curses, heroic rescue*
+AI: *Generates "Whispers of the Shadowlands" - related but escalated adventure*
+```
+
+#### **Dynamic World Building**
+```
+Player: "We've heard rumors of trouble in the northern mountains"
+AI: *Creates mountain-themed module tied to established lore*
+AI: *Connects via travel narration from current location*
+```
+
 ## License
 
 This work is licensed under the Creative Commons Attribution 4.0 International License. 
@@ -237,12 +336,26 @@ Creative Commons Attribution 4.0 International License.
 
 ## Recent Updates
 
+### **🎉 Major Features Added**
+- **Player Storage System**: Complete natural language storage with atomic file protection
+- **Enhanced Location Summaries**: Richer, more literary narrative generation for better storytelling
+- **Hub & Housing System**: Transform any location into a permanent base with full services
+- **AI Auto-Generation**: Contextual module creation based on party history and preferences
+- **Isolated Module Architecture**: Clean module separation with AI travel narration
+
+### **🔧 Technical Improvements**
 - **Campaign Path Management**: Implemented `CampaignPathManager` for centralized file path handling
 - **Combat System Fixes**: Fixed monster file loading in combat to use campaign directories
 - **Directory Structure**: All campaign-specific files now stored in organized campaign folders
 - **Legacy Cleanup**: Moved old files to legacy folder, cleaning up root directory
 - **Validation System**: Relaxed combat validation to focus on major errors only
 - **Equipment Syncing**: Verified arrow transfer sync between character files
+
+### **🛡️ Safety & Protection**
+- **Atomic File Operations**: Backup/restore functionality prevents data corruption
+- **Schema Validation**: All operations validated against JSON schemas
+- **Context Contamination Prevention**: AI prompts prevent module creation conflicts
+- **Character File Protection**: Inventory changes safely backed up before modification
 
 ## Future Development
 
