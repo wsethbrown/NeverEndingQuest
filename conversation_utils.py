@@ -72,6 +72,7 @@
 # ============================================================================
 
 import json
+import os
 from module_path_manager import ModulePathManager
 from encoding_utils import safe_json_load
 
@@ -109,7 +110,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
     if primary_system_prompt:
         conversation_history.remove(primary_system_prompt)
 
-    # Remove any existing system messages for location, party tracker, plot, map, and module data
+    # Remove any existing system messages for location, party tracker, plot, map, module data, and world state
     updated_history = [
         msg for msg in conversation_history 
         if not (msg["role"] == "system" and 
@@ -119,7 +120,8 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
                     "Here's the updated party tracker data:",
                     "Here's the current plot data:",
                     "Here's the current map data:",
-                    "Here's the module data:"
+                    "Here's the module data:",
+                    "WORLD STATE CONTEXT:"
                 ]))
     ]
 
@@ -131,7 +133,18 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
         from campaign_manager import CampaignManager
         campaign_manager = CampaignManager()
         available_modules = campaign_manager.campaign_data.get('availableModules', [])
-        current_module = party_tracker_data.get('currentModule', 'Unknown') if party_tracker_data else 'Unknown'
+        
+        # Get current module from actual party_tracker.json file
+        current_module = 'Unknown'
+        party_tracker_file = "party_tracker.json"
+        try:
+            if os.path.exists(party_tracker_file):
+                party_data = safe_json_load(party_tracker_file)
+                if party_data:
+                    current_module = party_data.get('module', 'Unknown')
+        except:
+            # Fallback to parameter if file reading fails
+            current_module = party_tracker_data.get('module', 'Unknown') if party_tracker_data else 'Unknown'
         
         world_state_parts = []
         if available_modules:
