@@ -1,7 +1,7 @@
 {
   "worldName": "Fantasy Adventure World",
   "registryVersion": "1.0.0",
-  "lastUpdated": "2025-06-15T22:42:21.171376",
+  "lastUpdated": "2025-06-16T21:10:00.000000",
   "modules": {
     "Keep_of_Doom": {
       "moduleName": "Keep_of_Doom",
@@ -19,30 +19,6 @@
         "max": 5
       },
       "areaCount": 5
-    },
-    "Shadows_on_Silverwater": {
-      "moduleName": "Shadows_on_Silverwater",
-      "addedDate": "2025-06-15T22:42:21.171376",
-      "themes": [
-        "The characters arrive in Harrow's Hollow, where frightened villagers and a desperate reeve, Norn, beg for help investigating disappearances and strange happenings along the Silverwater. Initial clues ",
-        "Following leads, the characters investigate the Silverwater riverbanks. Ominous omens, spectral sightings, and sabotage from rival relic seekers complicate their search for clues. They must navigate t",
-        "The characters descend into the Old Barrow, facing undead guardians, shifting passages, and the echoing presence of ancient royalty. The relic sought by many is tightly bound to the curse afflicting t",
-        "At the barrow's heart, the party confronts King Halric the Drowned--his wrath fueled by ancient betrayal and bound to the relic. The PCs must choose: confrontation, negotiation, or ritual. Success mea",
-        "The adventurers arrive in Harrow's Hollow, a riverside town plagued by nightly disappearances and whispered superstitions. As the villagers grow fearful and tensions rise, the party must investigate t",
-        "Following the clues and local legends, the party explores the Silverwater Riverbanks. They encounter spectral guardians, ancient relic hunters, and the spirit of Queen Alisane, who offers cryptic warn",
-        "The party ventures beneath the withered eaves of the Old Barrow. They must overcome ancient traps, undead guardians, and the haunting presence of Queen Alisane's spirit. Navigating the crypt's twistin",
-        "In a tense and climactic confrontation, the party faces King Halric the Drowned and his chosen guardian. The outcome hinges on the alliances and knowledge gained throughout the adventure. The adventur",
-        "Mysterious disappearances and strange events have unsettled the people of Harrow's Hollow. The party is approached by Norn, the village reeve, and Mira, a worried merchant, to investigate. Rumors poin",
-        "Tracks, strange lights, and local testimony point south to the Silverwater Riverbanks. Here, the party meets Elen the river guide and encounters both threats and allies among the willows. Ghostly appa",
-        "Guided by clues and spectral signs, the party enters the Old Barrow. Inside, they must face deadly guardians, spectral traps, and the restless dead. The truth of King Halric the Drowned and Queen Alis",
-        "The climax: King Halric rises, the spirits clash, and the party must make their stand. Choices made throughout the adventure affect who stands with or against them--Serik, the spirits, or the villager"
-      ],
-      "plotObjective": "Uncover the cause of the Silverwater River's spectral hauntings and blight, recover the three lost riverwarden relics, and lay the Old Barrow's restless dead to rightful rest to break the ancient curse threatening Harrow's Hollow.",
-      "levelRange": {
-        "min": 6,
-        "max": 7
-      },
-      "areaCount": 3
     }
   },
   "areas": {
@@ -115,99 +91,8 @@
       "locationCount": 7,
       "module": "Keep_of_Doom",
       "addedDate": "2025-06-15T20:04:48.773150"
-    },
-    "HH002": {
-      "areaName": "Harrow's Hollow",
-      "areaDescription": "Harrow's Hollow is a medium settlement where civilization meets the frontier. Politics and intrigue mix with everyday commerce.",
-      "areaType": "town",
-      "dangerLevel": "low",
-      "recommendedLevel": 6,
-      "climate": "temperate",
-      "terrain": "urban streets and buildings",
-      "areaConnectivity": [],
-      "areaConnectivityId": [],
-      "locationCount": 6,
-      "module": "Shadows_on_Silverwater",
-      "addedDate": "2025-06-15T22:42:21.171376"
-    },
-    "SR001": {
-      "areaName": "Silverwater Riverbanks",
-      "areaDescription": "Silverwater Riverbanks spans a medium region of untamed nature. Wildlife and natural hazards make travel treacherous for the unprepared.",
-      "areaType": "wilderness",
-      "dangerLevel": "medium",
-      "recommendedLevel": 7,
-      "climate": "temperate",
-      "terrain": "forest",
-      "areaConnectivity": [],
-      "areaConnectivityId": [],
-      "locationCount": 6,
-      "module": "Shadows_on_Silverwater",
-      "addedDate": "2025-06-15T22:42:21.171376"
-    },
-    "TOB001": {
-      "areaName": "The Old Barrow",
-      "areaDescription": "The Old Barrow combines both natural and constructed elements, creating a unique environment where wilderness and civilization intersect.",
-      "areaType": "mixed",
-      "dangerLevel": "high",
-      "recommendedLevel": 7,
-      "climate": "varied",
-      "terrain": "varied terrain",
-      "areaConnectivity": [],
-      "areaConnectivityId": [],
-      "locationCount": 6,
-      "module": "Shadows_on_Silverwater",
-      "addedDate": "2025-06-15T22:42:21.171376"
     }
   },
   "themes": {},
-  "connections": {
-    "TBM001->SR001": {
-      "fromArea": "TBM001",
-      "toArea": "SR001",
-      "connectionType": "geographic|thematic",
-      "transitionText": "The tainted waters draining from The Blighted Marches are said to feed into the Silverwater River, spreading blight along its banks.",
-      "confidence": "high",
-      "addedDate": "2025-06-15T22:42:21.171376"
-    },
-    "G001->SR001": {
-      "fromArea": "G001",
-      "toArea": "SR001",
-      "connectionType": "thematic|narrative",
-      "transitionText": "Local legends claim that the spirits haunting Gloamwood sometimes drift downriver, emerging along the Silverwater Riverbanks when the mists are thick.",
-      "confidence": "medium",
-      "addedDate": "2025-06-15T22:42:21.171376"
-    },
-    "HH001->HH002": {
-      "fromArea": "HH001",
-      "toArea": "HH002",
-      "connectionType": "geographic|narrative",
-      "transitionText": "Merchants and travelers along ancient trade roads recognize Harrow's Hollow as the gateway between the markets of old (HH001) and the troubled frontier of Silverwater (HH002).",
-      "confidence": "high",
-      "addedDate": "2025-06-15T22:42:21.171376"
-    },
-    "SK001->TOB001": {
-      "fromArea": "SK001",
-      "toArea": "TOB001",
-      "connectionType": "thematic|narrative",
-      "transitionText": "Whispers in Shadowfall Keep tell of an ancient barrow (The Old Barrow) where the rest of the dead cannot be found, linked by a web of curses stretching across the land.",
-      "confidence": "medium",
-      "addedDate": "2025-06-15T22:42:21.171376"
-    },
-    "TCD001->TOB001": {
-      "fromArea": "TCD001",
-      "toArea": "TOB001",
-      "connectionType": "thematic",
-      "transitionText": "The corruption within The Cursed Dungeons is rumored to have roots in the same ancient magic that disturbs The Old Barrow.",
-      "confidence": "medium",
-      "addedDate": "2025-06-15T22:42:21.171376"
-    },
-    "SR001->TOB001": {
-      "fromArea": "SR001",
-      "toArea": "TOB001",
-      "connectionType": "geographic|narrative",
-      "transitionText": "Upstream explorers following the Silverwater River stumble upon the telltale mounds and ominous stones of The Old Barrow.",
-      "confidence": "high",
-      "addedDate": "2025-06-15T22:42:21.171376"
-    }
-  }
+  "isolatedModules": true
 }
