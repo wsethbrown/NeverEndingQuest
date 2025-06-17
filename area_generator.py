@@ -8,6 +8,11 @@ import json
 import random
 from typing import Dict, List, Any, Tuple
 from dataclasses import dataclass
+from openai import OpenAI
+from config import OPENAI_API_KEY, DM_MAIN_MODEL
+
+# Initialize OpenAI client
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 @dataclass
 class AreaConfig:
@@ -232,15 +237,56 @@ class AreaGenerator:
         return area_data
     
     def generate_area_description(self, area_name: str, config: AreaConfig) -> str:
-        """Generate a thematic area description"""
-        templates = {
-            "dungeon": f"{area_name} is a {config.complexity} network of underground passages and chambers. The air is thick with age and mystery, and danger lurks in every shadow.",
-            "wilderness": f"{area_name} spans a {config.size} region of untamed nature. Wildlife and natural hazards make travel treacherous for the unprepared.",
-            "town": f"{area_name} is a {config.size} settlement where civilization meets the frontier. Politics and intrigue mix with everyday commerce.",
-            "mixed": f"{area_name} combines both natural and constructed elements, creating a unique environment where wilderness and civilization intersect."
-        }
-        
-        return templates.get(config.area_type, f"{area_name} is a mysterious location waiting to be explored.")
+        """Generate a thematic area description using AI"""        
+        prompt = f"""Generate a unique, atmospheric description for a 5th edition area named "{area_name}".
+
+Area Details:
+- Type: {config.area_type}
+- Size: {config.size}
+- Complexity: {config.complexity}
+- Danger Level: {config.danger_level}
+- Recommended Level: {config.recommended_level}
+
+Requirements:
+- Write 1-2 sentences that capture the area's atmosphere and character
+- Make it unique and evocative, not generic
+- Include sensory details appropriate to the area type
+- Avoid using the exact phrase "where civilization meets the frontier"
+- Match the danger level and complexity in the description
+
+Return ONLY the area description text, no additional formatting or labels."""
+
+        try:
+            response = client.chat.completions.create(
+                model=DM_MAIN_MODEL,
+                temperature=0.8,  # Higher temperature for more creative variety
+                messages=[
+                    {"role": "system", "content": "You are an expert fantasy world builder. Create unique, atmospheric descriptions for D&D 5e areas that avoid cliches and generic phrases."},
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            
+            description = response.choices[0].message.content.strip()
+            
+            # Ensure we have a description
+            if description and len(description) > 10:
+                return description
+            else:
+                # Fallback to a simple but unique description
+                return f"{area_name} presents unique challenges and opportunities for adventurers."
+                
+        except Exception as e:
+            print(f"Warning: Failed to generate area description via AI: {e}")
+            # Fallback to basic description without hardcoded templates
+            area_adjectives = {
+                "dungeon": ["ancient", "forgotten", "mysterious", "treacherous"],
+                "wilderness": ["untamed", "wild", "dangerous", "pristine"], 
+                "town": ["bustling", "quiet", "prosperous", "troubled"],
+                "mixed": ["unique", "varied", "complex", "intriguing"]
+            }
+            
+            adjective = random.choice(area_adjectives.get(config.area_type, ["mysterious"]))
+            return f"{area_name} is a {adjective} {config.area_type} area with {config.complexity} challenges suitable for level {config.recommended_level} adventurers."
     
     def determine_climate(self, area_type: str) -> str:
         """Determine appropriate climate for area type"""

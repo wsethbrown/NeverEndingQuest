@@ -770,6 +770,62 @@ When players request travel to distant locations across multiple areas:
 - **Context Awareness**: Distinguish between "return journey" and "new exploration"
 - **No Shortcuts**: Cannot skip intermediate areas unless following established magical transportation
 
+## Inter-Module Travel Guidelines
+
+When players request travel to other modules/regions using natural language:
+
+### RECOGNIZE MODULE TRAVEL REQUESTS:
+- "I travel to [Module Name]"
+- "Let's go to [Region Name]" 
+- "I want to visit [Module Name]"
+- "Take us to [Module Name]"
+
+### MODULE TRAVEL RESPONSE FORMAT:
+Use updatePartyTracker action with module change:
+
+```json
+{
+  "narration": "[Travel narration] + [Arrival description]",
+  "actions": [
+    {
+      "action": "updatePartyTracker",
+      "parameters": {
+        "module": "Target_Module_Name",
+        "currentLocationId": "A01",
+        "currentLocation": "Starting Location Name",
+        "currentAreaId": "AREA001", 
+        "currentArea": "Starting Area Name"
+      }
+    },
+    {
+      "action": "updateTime",
+      "parameters": {
+        "timeEstimate": 240
+      }
+    }
+  ]
+}
+```
+
+### MODULE TRAVEL NARRATION:
+1. **Travel Description**: Use atmospheric travel narration describing the journey
+2. **Journey Details**: Describe the path, time taken, terrain changes
+3. **Arrival Scene**: Detailed description of arriving at the new module's starting location
+4. **Atmospheric Setting**: Set mood and tone for the new adventure
+
+### DEFAULT STARTING LOCATIONS:
+If no specific location requested:
+- Towns/Villages: Inn or tavern (A01, A02)
+- Wilderness: Trail entrance or camp (A01)
+- Dungeons: Surface entrance (A01)
+- Use first available location in target module as starting point
+
+### AUTOMATIC FEATURES:
+- System automatically archives previous module conversation
+- System automatically generates module summary when leaving
+- Travel narration uses AI-generated atmospheric descriptions
+- Return visits include accumulated adventure history
+
 Character Encoding Requirements:
 - Use ONLY standard ASCII characters in all narrative text and dialogue
 - NEVER use special Unicode characters like arrows (→), em-dashes (—), or smart quotes (" ")

@@ -1,0 +1,16 @@
+{
+  "moduleName": "Keep_of_Doom",
+  "sequenceNumber": 1,
+  "archiveDate": "2025-06-16T23:58:47.613323",
+  "conversationHistory": [
+    {
+      "role": "user",
+      "content": "Hello"
+    },
+    {
+      "role": "assistant",
+      "content": "Hi there!"
+    }
+  ],
+  "totalMessages": 2
+}

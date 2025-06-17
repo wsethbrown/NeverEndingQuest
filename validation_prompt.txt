@@ -97,6 +97,11 @@ Requires "narrative" parameter containing rich story description with embedded m
    - Create new storage ("I make a lockbox for valuables")
    - View storage contents ("What's in our storage?", "Check the chest")
    Requires "description" parameter with natural language description and "characterName" for the character performing the action.
+"updatePartyTracker": Used when party module or location information needs updating. This action can trigger automatic conversation archiving and module summarization when module changes are detected. Required for inter-module travel. Should be used when players express intent to:
+   - Travel to other modules ("I travel to [Module Name]", "Let's go to [Region]")
+   - Change current module or location information
+   - Update party tracking data
+   Requires parameters for the specific updates (module, currentLocationId, currentLocation, currentAreaId, currentArea, etc.).
 
 ## REST MANAGEMENT VALIDATION RULES
 

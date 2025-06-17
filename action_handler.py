@@ -61,6 +61,7 @@ ACTION_UPDATE_PARTY_NPCS = "updatePartyNPCs"
 ACTION_CREATE_NEW_MODULE = "createNewModule"
 ACTION_ESTABLISH_HUB = "establishHub"
 ACTION_STORAGE_INTERACTION = "storageInteraction"
+ACTION_UPDATE_PARTY_TRACKER = "updatePartyTracker"
 
 def validate_location_transition(location_graph, current_location_id, destination_location_id):
     """
@@ -137,6 +138,49 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_data):
     # Import here to avoid circular imports
     from combat_manager import run_combat_simulation as run_combat
     return run_combat(encounter_id, party_tracker_data, location_data)
+
+def get_module_starting_location(module_name: str) -> tuple:
+    """Get the default starting location for a module"""
+    try:
+        path_manager = ModulePathManager(module_name)
+        area_ids = path_manager.get_area_ids()
+        
+        if not area_ids:
+            return ("A01", "Unknown Location", "AREA001", "Unknown Area")
+        
+        # Get first area file
+        first_area_id = area_ids[0]
+        area_file = path_manager.get_area_path(first_area_id)
+        area_data = safe_json_load(area_file)
+        
+        if area_data and "locations" in area_data:
+            locations = area_data["locations"]
+            if isinstance(locations, list) and locations:
+                first_location = locations[0]
+                return (
+                    first_location.get("locationId", "A01"),
+                    first_location.get("name", "Unknown Location"),
+                    first_area_id,
+                    area_data.get("areaName", "Unknown Area")
+                )
+        
+        return ("A01", "Unknown Location", first_area_id, "Unknown Area")
+        
+    except Exception as e:
+        print(f"Warning: Could not get starting location for {module_name}: {e}")
+        return ("A01", "Unknown Location", "AREA001", "Unknown Area")
+
+def get_travel_narration(target_module: str) -> str:
+    """Get AI-generated travel narration for module transition"""
+    try:
+        world_registry = safe_json_load("modules/world_registry.json")
+        if world_registry and "modules" in world_registry:
+            module_data = world_registry["modules"].get(target_module, {})
+            travel_data = module_data.get("travelNarration", {})
+            return travel_data.get("travelNarration", 
+                f"The party travels to the {target_module} region, where new adventures await.")
+    except:
+        return f"The party travels to the {target_module} region, where new adventures await."
 
 def process_action(action, party_tracker_data, location_data, conversation_history):
     """Process an action based on its type
@@ -649,6 +693,58 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             error_message = f"Storage System Error: An unexpected error occurred while processing your storage request."
             conversation_history.append({"role": "user", "content": error_message})
             needs_conversation_history_update = True
+
+    elif action_type == ACTION_UPDATE_PARTY_TRACKER:
+        print(f"DEBUG: Processing updatePartyTracker action")
+        try:
+            # Load current party tracker
+            current_party_data = safe_json_load("party_tracker.json")
+            if not current_party_data:
+                current_party_data = party_tracker_data.copy()
+            
+            current_module = current_party_data.get("module", "Unknown")
+            
+            # Check if module is being changed
+            new_module = parameters.get("module")
+            if new_module and new_module != current_module:
+                print(f"DEBUG: Module change detected: {current_module} -> {new_module}")
+                
+                # Import campaign manager for auto-archiving
+                from campaign_manager import CampaignManager
+                campaign_manager = CampaignManager()
+                
+                # Auto-archive and summarize previous module
+                if current_module != "Unknown":
+                    print(f"DEBUG: Auto-archiving conversation and generating summary for {current_module}")
+                    summary = campaign_manager.handle_cross_module_transition(
+                        current_module, new_module, current_party_data, conversation_history
+                    )
+                    if summary:
+                        print(f"DEBUG: Successfully archived conversation and generated summary for {current_module}")
+                    else:
+                        print(f"DEBUG: No summary generated for {current_module}")
+            
+            # Update party tracker with all provided parameters
+            for key, value in parameters.items():
+                if key in ["currentLocationId", "currentLocation", "currentAreaId", "currentArea"]:
+                    if "worldConditions" not in current_party_data:
+                        current_party_data["worldConditions"] = {}
+                    current_party_data["worldConditions"][key] = value
+                elif key == "module":
+                    current_party_data["module"] = value
+                else:
+                    # Handle any other party tracker fields
+                    current_party_data[key] = value
+            
+            # Save updated party tracker
+            safe_json_dump(current_party_data, "party_tracker.json")
+            print(f"DEBUG: Party tracker updated successfully")
+            needs_conversation_history_update = True
+            
+        except Exception as e:
+            print(f"ERROR: Exception while updating party tracker: {str(e)}")
+            import traceback
+            traceback.print_exc()
 
     else:
         print(f"WARNING: Unknown action type: {action_type}")

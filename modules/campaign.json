@@ -2,7 +2,9 @@
   "campaignName": "Fantasy Adventure Campaign",
   "currentModule": null,
   "hubModule": "Shadowfall Keep",
-  "completedModules": [],
+  "completedModules": [
+    "Keep_of_Doom"
+  ],
   "availableModules": [
     "Keep_of_Doom"
   ],
@@ -31,6 +33,6 @@
     "unlockedAreas": [],
     "hubEstablished": true
   },
-  "lastUpdated": "2025-06-15T20:04:48.779140",
+  "lastUpdated": "2025-06-16T23:59:08.750597",
   "version": "1.0.0"
 }

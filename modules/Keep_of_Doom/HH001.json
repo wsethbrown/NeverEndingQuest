@@ -142,7 +142,7 @@
       "locationId": "A01",
       "name": "Harrow's Hollow General Store",
       "type": "shop",
-      "description": "Within the dimly lit general store at the village heart, Elder Mirna attentively listens as Norn recounts harrowing recent events, including Scout Elen's bravery, the incomplete ritual, and her flight toward the cursed keep. The lanternlight flickers over Mirna's anxious features as she absorbs warnings of Keeper Morvath and the mention of an essential old key. Mirna retrieves a heavy iron box behind the counter and produces a tarnished bronze key etched with a raven, which she solemnly entrusts to Norn, cautioning that it will open the oldest gate of the keep and that darkness awaits beyond. The few villagers present stand silently, expressions mixing hope and fear, as Mirna urges Norn to return with Elen or news of her fate and offers supplies at a fair price, affirming the village's support. The atmosphere is tense but hopeful, marked by renewed trust and purpose.",
+      "description": "Harrow's Hollow General Store bustled with warmth and celebration as Elder Mirna Harrow greeted Norn and Elen with pride and gratitude. Shelves were stocked with village goods, herbs, and lamp oil, filling the air with familiar scents. Mirna warmly welcomed the heroes, rewarding their bravery with a battered coffer containing 150 gold coins, two gleaming gemstones, and a sealed deed to land west of the village, officially marking their stake in the community. The gathered villagers applauded, their relief palpable as the ancient curse lifted. The atmosphere was now one of hope and camaraderie, with talk of reclaiming the haunted keep as a home and efforts to study magical relics connected to the Vael family. Mirna offered provisions and blessings for the party's next steps, including investigations into local mysteries at the river and haunted barrow. The general store remained a vital hub of support, friendship, and preparation for adventures ahead.",
       "coordinates": "X2Y2",
       "connectivity": [
         "A02",
@@ -155,41 +155,36 @@
       "npcs": [
         {
           "name": "Elder Mirna Harrow",
-          "description": "The wise and solemn matriarch of Harrow's Hollow, deeply concerned by the intensifying curse of the ancient keep. She is cautious but supportive, offering old remedies, supplies, and crucial relics like the bronze raven key to aid the party. Her demeanor is now marked by resolute hope sparked by Norn's bravery and the shared urgency of current threats.",
-          "attitude": "Respectful and supportive toward allies confronting the village's dark threats; cautious but cooperative with outsiders."
+          "description": "The wise and warm matriarch of Harrow's Hollow, now openly proud and supportive of the party's heroic deeds. She offers friendship, rewards, and village aid to the heroes, including magical knowledge and provisions. Mirna encourages rebuilding the haunted keep and studying its history.",
+          "attitude": "Warm, proud, and supportive toward the party; openly trusts and celebrates their valor."
         },
         {
           "name": "Villagers",
-          "description": "A small group of silent villagers present in the store, their expressions a mix of hope and fear concerning recent events and the fate of Scout Elen.",
-          "attitude": "Quietly hopeful and supportive of the party's efforts."
+          "description": "A joyful group of villagers gathered in the store, expressing relief and gratitude for the party's success in lifting the curse. Their faces show hope and renewed spirit for the future of the Hollow.",
+          "attitude": "Grateful, hopeful, and supportive of the heroes."
         }
       ],
-      "monsters": [
-        {
-          "name": "Shadow Creature",
-          "quantity": {
-            "min": 3,
-            "max": 3
-          }
-        }
+      "monsters": [],
+      "plotHooks": [
+        "Explore the newly acquired plot of land west of the village and consider rebuilding the haunted keep.",
+        "Investigate strange happenings at the Silverwater River.",
+        "Look into a mysterious visitor's inquiries about the keep.",
+        "Study the enchanted ceremonial dagger with a village sage to uncover its secrets.",
+        "Delve into local mysteries presented by Elen, including the haunted barrow nearby."
       ],
       "lootTable": [
+        "Battered coffer containing 150 gold coins",
+        "Two gleaming gemstones",
+        "Sealed deed to a plot of land west of the village",
+        "Jeweled ceremonial dagger tied to the Vael family (magical relic)",
         "Adventurer's pack (1 gp)",
         "Lantern, hooded (5 gp)",
         "10 days' rations (5 sp per)",
         "Cured leather pouch (8 sp)",
         "Handwritten map of local trails (contains a clue about a haunted ruin)",
-        "Old bronze key marked with a faded raven sigil",
         "Herbal salves and bandages (used for healing wounds)"
       ],
-      "plotHooks": [
-        "Elder Mirna entrusts the party with a bronze key relic and a quest to investigate the ancient keep on the hill.",
-        "A worried villager asks if the party has news of Scout Elen, who vanished while patrolling near the East Gate.",
-        "The village faces a lurking dark influence tied to the keep and ongoing disappearances.",
-        "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts.",
-        "Elder Mirna warns of older, crueler dangers lurking in the Gloamwood and offers aid and supplies to brave adventurers."
-      ],
-      "dmInstructions": "Elder Mirna now entrusts the party with the old bronze raven key, providing cautious but hopeful guidance about the increasing supernatural threats and the ancient keep. Use her to foster roleplay involving the key, the villagers' fears, and the growing darkness. The villagers express renewed hope and support, offering supplies and encouraging the party. The general store remains a hub for healing, news, and preparations for the journey ahead.",
+      "dmInstructions": "Elder Mirna now warmly celebrates the party's triumphs, rewarding them with gold, gemstones, and a deed to land, fostering a stronger bond with the village. Use her to introduce new quest opportunities tied to local mysteries and rebuilding efforts. The general store is a lively hub of gratitude, provision, and planning for future adventures. Ensure the party receives their full rewards and acknowledge the gifts exchanged among party members, reinforcing character relationships.",
       "doors": [
         {
           "name": "Front Door",
@@ -206,7 +201,7 @@
           "name": "Back Storeroom Door",
           "description": "A smaller, iron-banded door leading to a cramped storeroom containing supplies and herbal remedies.",
           "type": "regular",
-          "locked": true,
+          "locked": false,
           "lockDC": 13,
           "breakDC": 15,
           "keyname": "Old bronze key",
@@ -216,23 +211,29 @@
       ],
       "traps": [],
       "dcChecks": [
-        "Insight DC 12: Discern Elder Mirna is cautious but trusting in entrusting the party with the bronze key and knowledge of the keep.",
-        "Investigation DC 14: Spot a small, faded crest on the bronze key matching that of a family tied to the ancient keep."
+        "Insight DC 15: Sense the genuine warmth and gratitude from Elder Mirna toward the party.",
+        "Arcana DC 14: Detect minor magical enchantments on the jeweled ceremonial dagger tied to the Vael family.",
+        "Persuasion DC 12: Convince villagers to support restoration efforts for the haunted keep.",
+        "Investigation DC 13: Examine the sealed deed for authenticity and details about the land west of the village."
       ],
-      "accessibility": "Easily accessible from the main square, wide doorways and step-free entry.",
-      "dangerLevel": "Medium",
+      "accessibility": "Easily accessible from the main square, wide doorways and step-free entry; now bustling with villagers celebrating the party's success.",
+      "dangerLevel": "Low",
       "features": [
         {
           "name": "Notice Board",
-          "description": "A cluttered board filled with handwritten notices, missing pet posters, cryptic local warnings, and a fresh plea regarding the disappearance of Scout Elen near the East Gate."
+          "description": "A cluttered board filled with handwritten notices, local warnings, and fresh pleas regarding ongoing village mysteries and calls for aid."
         },
         {
           "name": "Counter and Ledger",
-          "description": "A sturdy wooden counter with a thick ledger book, used for tracking trades and gossip alike. Elder Mirna stands here, now entrusting the party with a key and supplies."
+          "description": "A sturdy wooden counter with a thick ledger book, now opened to record the party's rewards and land deed. Elder Mirna stands here, warmly celebrating the heroes."
         },
         {
           "name": "Back Storeroom",
-          "description": "A cramped room packed with crates and burlap sacks, some marked with old noble crests. Supplies and herbal remedies are here and may be offered to aid the party."
+          "description": "A cramped room packed with crates and burlap sacks containing supplies and herbal remedies, offered freely to the party for their journey."
+        },
+        {
+          "name": "Reward Coffer",
+          "description": "A battered wooden chest unlocked and presented by Mirna, containing gold, gemstones, and a sealed land deed, symbolizing the party's new status in the village."
         }
       ],
       "encounters": [
@@ -268,9 +269,20 @@
             "day": 1,
             "time": "20:42:00"
           }
+        },
+        {
+          "encounterId": "A01-E4",
+          "summary": "The party was warmly celebrated by Elder Mirna and the villagers upon returning to the general store, rewarded with 150 gold coins, two gemstones, and a sealed deed to land west of the village. Mirna identified a jeweled dagger as a magical relic tied to the Vael family, and the party shared moments of camaraderie and friendship. Plans were made to explore local mysteries including the river and haunted barrow, with provisions and blessings given for upcoming adventures.",
+          "impact": "The curse over Harrow's Hollow was lifted, the party's status as heroes cemented with tangible rewards and land ownership. The village's mood shifted to hopeful and supportive, opening new avenues for exploration and roleplay opportunities centered on restoration and investigation.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 2,
+            "time": "14:05:00"
+          }
         }
       ],
-      "adventureSummary": "Within the dimly lit Harrow's Hollow General Store, Elder Mirna attentively listened as Norn recounted the harrowing events witnessed, including Scout Elen's bravery, the incomplete ritual, and the vision of her flight toward the cursed keep. Mirna solemnly entrusted Norn with a tarnished bronze raven key to the oldest gate of the keep, warning of darkness beyond. Villagers stood silently with mixed hope and fear as Mirna urged Norn to return with Elen or news of her fate and offered supplies at a fair price, affirming the village's support. This exchange strengthened trust and marked a significant advancement in their investigation. After this crucial encounter, Norn prepared to move toward the gate."
+      "adventureSummary": "The party entered Harrow's Hollow General Store, greeted by the comforting scents of dried herbs and lamp oil mingling with the bright afternoon sun filtering through dust motes. Elder Mirna Harrow stood behind the counter, arranging lanterns with calm authority, and warmly welcomed Norn and Elen as the village's heroes. As Norn recounted their recent harrowing exploits--the dark corridors, spectral battles, and Elen's steadfast courage--Mirna listened with solemn pride. She praised their bravery and then presented them with a heavy, battered coffer unlocked before them, revealing 150 gold coins, two sparkling gemstones, and a deed to a plot of land west of the village, symbolizing the community's deep gratitude and trust. The villagers gathered, breaking into cheers that lifted the shadow that had long hung over Harrow's Hollow. With the rewards secured, Mirna confirmed that the deed was officially in Norn's possession, signed and sealed by the village council. A lively discussion ensued about the possibility of settling the old cursed keep nearby as a new stronghold. Elen's hopeful laughter and Mirna's supportive nod set the stage for this new endeavor, envisioning the keep as a bastion for renewal amid lingering ghosts. Norn then presented a jeweled dagger found in the keep to Mirna, who identified it as an enchanted ceremonial weapon from the ancient Vael family, safe and of minor magical nature, with potential secrets yet to be revealed by the village sage. After an inventory glitch was resolved with Mirna's help, Norn generously gifted Elen the cloak of elvenkind, which she accepted with heartfelt gratitude, promising to wield its magic well. Their quiet moment of shared affection was met with warm approval from Elder Mirna, as the general store's atmosphere brimmed with hope, camaraderie, and the promise of new beginnings before the party prepared to move on from Harrow's Hollow."
     },
     {
       "locationId": "A02",
