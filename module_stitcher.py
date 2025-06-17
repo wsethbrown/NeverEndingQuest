@@ -9,10 +9,10 @@
 # It uses AI-driven analysis of area descriptions, plot themes, and existing
 # connectivity to suggest natural narrative bridges between modules.
 # 
-# CORE DESIGN PHILOSOPHY - ORGANIC WORLD BUILDING:
-# - World map grows organically as modules are added (inside-out approach)
-# - AI analyzes area descriptions and themes for natural connection points
-# - Simple narrative bridges rather than complex geographic mapping
+# CORE DESIGN PHILOSOPHY - ISOLATED MODULE ARCHITECTURE:
+# - Each module is self-contained and independent
+# - AI generates travel narration for clean transitions between modules
+# - No cross-module area connections to prevent state management issues
 # - Uses current data structure (area files, plot files) not outdated module.json
 # - Community-ready for player-made and downloaded modules
 # 
@@ -58,14 +58,14 @@
 # 3. Validate module safety (files, content, schemas)
 # 4. Extract area data from *.json files (not module.json)
 # 5. Analyze themes using module_plot.json content
-# 6. AI suggests natural connections based on area descriptions
-# 7. Generate brief narrative bridges for transitions
-# 8. Update world registry and campaign availability
+# 6. Generate AI travel narration for clean module transitions
+# 7. Update world registry with isolated modules
+# 8. Store travel narration for seamless switching
 # 
-# EXAMPLE EVOLUTION:
-# Keep_of_Doom: Harrow's Hollow (village) → Gloamwood (forest) → Shadowfall Keep (ruins)
-# + Crystal_Peaks: Frostspire Village (mountain settlement) → Ice Caverns (depths)
-# = AI Connection: "Mountain paths from Harrow's Hollow lead to Frostspire Village"
+# EXAMPLE ISOLATED MODULES:
+# Keep_of_Doom: Harrow's Hollow → Gloamwood → Shadowfall Keep (self-contained)
+# + Crystal_Peaks: Frostspire Village → Ice Caverns (independent module)
+# = AI Travel Narration: "The party travels through mountain passes to reach the frozen peaks where new dangers await..."
 # 
 # SAFETY CONFIGURATION:
 # - MAX_FILE_SIZE: 10MB per file limit
@@ -73,9 +73,9 @@
 # - Dangerous patterns: executables, scripts, directory traversal blocked
 # - AI safety model: Uses DM_SUMMARIZATION_MODEL for content review
 # 
-# This creates a living, community-driven world that grows organically without
-# requiring predetermined geography or complex mapping systems while maintaining
-# security and data integrity for safe community module integration.
+# This creates a safe, modular adventure system where each module is independent
+# but connected through AI-generated travel narration, maintaining security and
+# data integrity while preventing cross-module state management issues.
 # ============================================================================
 
 import json
@@ -104,6 +104,13 @@ class ModuleStitcher:
         
         # Load or create world registry
         self.world_registry = self._load_world_registry()
+        
+        # Clean up old connections if they exist (migration to isolated modules)
+        if 'connections' in self.world_registry:
+            print("Migrating to isolated module architecture - removing cross-module connections")
+            del self.world_registry['connections']
+            self.world_registry['isolatedModules'] = True
+            safe_json_dump(self.world_registry, self.world_registry_file)
     
     def _load_world_registry(self) -> Dict[str, Any]:
         """Load world registry or create default"""
@@ -117,8 +124,8 @@ class ModuleStitcher:
                 "lastUpdated": datetime.now().isoformat(),
                 "modules": {},
                 "areas": {},
-                "connections": {},
-                "themes": {}
+                "themes": {},
+                "isolatedModules": True
             }
             safe_json_dump(default_registry, self.world_registry_file)
             return default_registry
@@ -231,9 +238,9 @@ class ModuleStitcher:
                 if "levelRange" in plot_data:
                     module_data["levelRange"] = plot_data["levelRange"]
             
-            # Analyze potential connections using AI
-            connections = self._analyze_connections_with_ai(module_data)
-            module_data["connections"] = connections
+            # Generate travel narration for this module (instead of connections)
+            travel_narration = self._generate_travel_narration(module_data)
+            module_data["travelNarration"] = travel_narration
             
             return module_data
             
@@ -322,58 +329,49 @@ class ModuleStitcher:
             print(f"Error extracting plot data from {module_path}: {e}")
             return None
     
-    def _analyze_connections_with_ai(self, module_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Use AI to analyze potential connections with existing modules"""
+    def _generate_travel_narration(self, module_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Generate AI travel narration for transitioning to this module"""
         try:
-            # Get existing world registry data for context
-            existing_areas = self.world_registry.get('areas', {})
-            existing_modules = self.world_registry.get('modules', {})
-            
-            if not existing_areas:
-                # First module - no connections to analyze
-                return {}
-            
-            # Prepare data for AI analysis
-            system_prompt = """You are a world-building AI that analyzes fantasy adventure modules to suggest natural narrative connections. Your job is to identify thematic and geographic compatibility between a new module and existing world areas.
+            # Generate travel narration for this module
+            system_prompt = """You are a fantasy adventure narrator. Generate brief, atmospheric travel narration for when a party transitions to a new adventure module. This should be 2-3 sentences that:
 
-Focus on:
-1. Similar area types (villages connect to trade routes, forests to wilderness, dungeons to ruins)
-2. Thematic coherence (cursed areas near dark forests, mountain villages near peaks)
-3. Level progression (lower level areas connect to appropriate next areas)
-4. Narrative hooks (story elements that naturally bridge to other adventures)
+1. Describe the journey/travel to the new region
+2. Set the mood and atmosphere for the new adventure
+3. Provide DM guidance for presenting the transition
+4. Keep it generic enough to work from any previous location
 
-Suggest brief, natural transition descriptions like:
-- "Ancient trade paths from [existing area] lead toward [new area]"
-- "The [geographical feature] visible from [existing] are the [new area]"
-- "Local legends speak of [connection description]"
+Examples:
+- "The party travels for several days through winding country roads, eventually reaching the mist-shrouded village of..."
+- "Word of strange happenings draws the adventurers northward, where rumors speak of..."
+- "Following ancient trade routes, the party arrives at a region where..."
 
-Return JSON with format:
+Return JSON with:
 {
-  "suggestedConnections": [
-    {
-      "fromArea": "existing_area_id",
-      "toArea": "new_area_id", 
-      "connectionType": "geographic|thematic|narrative",
-      "transitionText": "brief description",
-      "confidence": "high|medium|low"
-    }
-  ]
+  "travelNarration": "atmospheric description for players",
+  "dmGuidance": "instructions for DM on presenting the transition"
 }"""
             
-            # Prepare module data for analysis
-            user_prompt = f"""Analyze this new module for connections to existing world areas:
+            # Prepare module data for narration
+            module_name = module_data.get('moduleName', '')
+            plot_objective = module_data.get('plotObjective', '')
+            level_range = module_data.get('levelRange', {})
+            
+            # Get first area for setting context
+            first_area_name = ""
+            first_area_type = ""
+            if module_data.get('areas'):
+                first_area = list(module_data['areas'].values())[0]
+                first_area_name = first_area.get('areaName', '')
+                first_area_type = first_area.get('areaType', '')
+            
+            user_prompt = f"""Generate travel narration for transitioning to this module:
 
-NEW MODULE: {module_data['moduleName']}
-Plot Objective: {module_data['plotObjective']}
-Level Range: {module_data['levelRange']}
+MODULE: {module_name}
+OBJECTIVE: {plot_objective}
+LEVEL RANGE: {level_range.get('min', 1)}-{level_range.get('max', 5)}
+FIRST AREA: {first_area_name} ({first_area_type})
 
-NEW AREAS:
-{json.dumps(module_data['areas'], indent=2)}
-
-EXISTING WORLD AREAS:
-{json.dumps(existing_areas, indent=2)}
-
-Suggest natural connections between new and existing areas."""
+Create atmospheric travel narration that leads into this adventure."""
             
             response = self.client.chat.completions.create(
                 model=config.DM_SUMMARIZATION_MODEL,
@@ -381,22 +379,34 @@ Suggest natural connections between new and existing areas."""
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
                 ],
-                temperature=0.7,
-                max_tokens=1000
+                temperature=0.8,
+                max_tokens=300
             )
             
             # Parse AI response
             ai_response = response.choices[0].message.content
             try:
-                connections_data = json.loads(ai_response)
-                return connections_data.get('suggestedConnections', [])
+                narration_data = json.loads(ai_response)
+                return {
+                    "travelNarration": narration_data.get('travelNarration', ''),
+                    "dmGuidance": narration_data.get('dmGuidance', ''),
+                    "generatedDate": datetime.now().isoformat()
+                }
             except json.JSONDecodeError:
-                print(f"Warning: Could not parse AI response for connections: {ai_response[:200]}...")
-                return {}
+                print(f"Warning: Could not parse AI travel narration: {ai_response[:200]}...")
+                return {
+                    "travelNarration": f"The party travels to the {first_area_name} region, where new adventures await.",
+                    "dmGuidance": "Present this as a clean transition to the new module.",
+                    "generatedDate": datetime.now().isoformat()
+                }
                 
         except Exception as e:
-            print(f"Error analyzing connections with AI: {e}")
-            return {}
+            print(f"Error generating travel narration: {e}")
+            return {
+                "travelNarration": "The party travels to a new region where fresh adventures await.",
+                "dmGuidance": "Present this as a transition to the new module.",
+                "generatedDate": datetime.now().isoformat()
+            }
     
     def _create_module_backup(self, module_name: str) -> bool:
         """Create backup of all module files before integration"""
@@ -492,7 +502,8 @@ Suggest natural connections between new and existing areas."""
                 "themes": module_data.get('themes', []),
                 "plotObjective": module_data.get('plotObjective', ''),
                 "levelRange": module_data.get('levelRange', {"min": 1, "max": 1}),
-                "areaCount": len(module_data.get('areas', {}))
+                "areaCount": len(module_data.get('areas', {})),
+                "travelNarration": module_data.get('travelNarration', {})
             }
             
             # Add areas to registry
@@ -503,21 +514,8 @@ Suggest natural connections between new and existing areas."""
                     "addedDate": datetime.now().isoformat()
                 }
             
-            # Add connections
-            if 'connections' not in self.world_registry:
-                self.world_registry['connections'] = {}
-                
-            connections = module_data.get('connections', [])
-            for connection in connections:
-                if isinstance(connection, dict):
-                    from_area = connection.get('fromArea')
-                    to_area = connection.get('toArea')
-                    if from_area and to_area:
-                        connection_id = f"{from_area}->{to_area}"
-                        self.world_registry['connections'][connection_id] = {
-                            **connection,
-                            "addedDate": datetime.now().isoformat()
-                        }
+            # Note: Cross-module connections disabled for clean module isolation
+            # Each module is self-contained and transitions are handled by AI narration
             
             # Update registry metadata
             self.world_registry['lastUpdated'] = datetime.now().isoformat()
@@ -527,7 +525,9 @@ Suggest natural connections between new and existing areas."""
             
             print(f"Successfully integrated module: {module_name}")
             print(f"  - Added {len(module_data.get('areas', {}))} areas")
-            print(f"  - Found {len(connections)} potential connections")
+            travel_text = module_data.get('travelNarration', {}).get('travelNarration', '')
+            if travel_text:
+                print(f"  - Generated travel narration: {travel_text[:60]}...")
             
             return True
             
@@ -895,15 +895,14 @@ Respond with JSON:
         try:
             modules = self.world_registry.get('modules', {})
             areas = self.world_registry.get('areas', {})
-            connections = self.world_registry.get('connections', {})
             
             overview = {
                 "totalModules": len(modules),
                 "totalAreas": len(areas),
-                "totalConnections": len(connections),
                 "moduleList": list(modules.keys()),
                 "areasByModule": {},
-                "recentConnections": []
+                "moduleDetails": {},
+                "isolatedModules": True  # Flag indicating modules are isolated
             }
             
             # Group areas by module
@@ -917,8 +916,14 @@ Respond with JSON:
                     "areaType": area_data.get('areaType', '')
                 })
             
-            # Get recent connections
-            overview["recentConnections"] = list(connections.values())[:5]
+            # Add module details with travel narration
+            for module_name, module_data in modules.items():
+                overview["moduleDetails"][module_name] = {
+                    "plotObjective": module_data.get('plotObjective', ''),
+                    "levelRange": module_data.get('levelRange', {}),
+                    "areaCount": module_data.get('areaCount', 0),
+                    "travelNarration": module_data.get('travelNarration', {}).get('travelNarration', '')
+                }
             
             return overview
             
@@ -926,21 +931,47 @@ Respond with JSON:
             print(f"Error getting world overview: {e}")
             return {}
     
-    def get_connection_suggestions(self, area_id: str) -> List[Dict[str, Any]]:
-        """Get connection suggestions for a specific area"""
+    def get_module_travel_narration(self, module_name: str) -> Dict[str, Any]:
+        """Get travel narration for a specific module"""
         try:
-            connections = self.world_registry.get('connections', {})
-            suggestions = []
+            modules = self.world_registry.get('modules', {})
+            module_data = modules.get(module_name, {})
             
-            for connection_id, connection_data in connections.items():
-                if (connection_data.get('fromArea') == area_id or 
-                    connection_data.get('toArea') == area_id):
-                    suggestions.append(connection_data)
+            travel_narration = module_data.get('travelNarration', {})
+            if not travel_narration:
+                # Generate fallback narration
+                return {
+                    "travelNarration": f"The party travels to the {module_name.replace('_', ' ')} region, where new adventures await.",
+                    "dmGuidance": "Present this as a clean transition to the new module.",
+                    "generatedDate": datetime.now().isoformat()
+                }
             
-            return suggestions
+            return travel_narration
             
         except Exception as e:
-            print(f"Error getting connection suggestions for {area_id}: {e}")
+            print(f"Error getting travel narration for {module_name}: {e}")
+            return {}
+    
+    def get_available_modules(self) -> List[Dict[str, Any]]:
+        """Get list of all available modules with basic info"""
+        try:
+            modules = self.world_registry.get('modules', {})
+            module_list = []
+            
+            for module_name, module_data in modules.items():
+                module_list.append({
+                    "moduleName": module_name,
+                    "plotObjective": module_data.get('plotObjective', ''),
+                    "levelRange": module_data.get('levelRange', {}),
+                    "areaCount": module_data.get('areaCount', 0),
+                    "addedDate": module_data.get('addedDate', ''),
+                    "hasTravel": bool(module_data.get('travelNarration'))
+                })
+            
+            return sorted(module_list, key=lambda x: x['addedDate'])
+            
+        except Exception as e:
+            print(f"Error getting available modules: {e}")
             return []
 
 
@@ -958,6 +989,16 @@ def get_world_status():
     """Get current world registry status"""
     stitcher = get_module_stitcher()
     return stitcher.get_world_overview()
+
+def get_module_travel_info(module_name: str):
+    """Get travel narration for a specific module"""
+    stitcher = get_module_stitcher()
+    return stitcher.get_module_travel_narration(module_name)
+
+def list_available_modules():
+    """Get list of all available modules"""
+    stitcher = get_module_stitcher()
+    return stitcher.get_available_modules()
 
 if __name__ == "__main__":
     # Command line interface for testing
