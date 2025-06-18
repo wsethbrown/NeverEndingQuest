@@ -12,6 +12,7 @@ from openai import OpenAI
 from config import OPENAI_API_KEY, DM_MAIN_MODEL
 import jsonschema
 import random
+from module_path_manager import ModulePathManager
 
 # Initialize OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -688,9 +689,15 @@ Check the location schema carefully for all required fields.
         
         return errors
     
-    def save_locations(self, location_data: Dict[str, Any], area_id: str):
-        """Save location data to file"""
-        filename = f"{area_id}.json"
+    def save_locations(self, location_data: Dict[str, Any], area_id: str, module_name: str = None):
+        """Save location data to file using ModulePathManager"""
+        path_manager = ModulePathManager(module_name)
+        
+        # Ensure areas directory exists
+        path_manager.ensure_areas_directory()
+        
+        # Get the proper area file path
+        filename = path_manager.get_area_path(area_id)
         
         # Update the area file with full location data if it exists
         if os.path.exists(filename):

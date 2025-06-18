@@ -86,7 +86,18 @@ class ModulePathManager:
     # Area-related paths
     def get_area_path(self, area_id):
         """Get the path to an area file"""
-        return f"{self.module_dir}/{area_id}.json"
+        # First try the new areas/ subdirectory structure
+        areas_path = f"{self.module_dir}/areas/{area_id}.json"
+        if os.path.exists(areas_path):
+            return areas_path
+        
+        # Fall back to legacy root directory structure during migration
+        legacy_path = f"{self.module_dir}/{area_id}.json"
+        if os.path.exists(legacy_path):
+            return legacy_path
+        
+        # Return the preferred path for new files
+        return areas_path
     
     def get_plot_path(self, area_id=None):
         """Get the path to the module plot file (no longer area-specific)"""
@@ -110,6 +121,20 @@ class ModulePathManager:
         # Examples: HH001.json, G001.json, SK001.json, TBM001.json, TCD001.json
         area_pattern = re.compile(r'^([A-Z]+[0-9]+)\.json$')
         
+        # First check the new areas/ subdirectory structure
+        areas_dir = f"{self.module_dir}/areas"
+        if os.path.exists(areas_dir):
+            for filename in os.listdir(areas_dir):
+                # Skip backup files
+                if filename.endswith('_BU.json') or filename.endswith('_backup.json'):
+                    continue
+                    
+                match = area_pattern.match(filename)
+                if match:
+                    area_id = match.group(1)
+                    area_ids.append(area_id)
+        
+        # Also check legacy root directory structure during migration
         for filename in os.listdir(self.module_dir):
             # Skip backup files
             if filename.endswith('_BU.json') or filename.endswith('_backup.json'):
@@ -124,7 +149,9 @@ class ModulePathManager:
             match = area_pattern.match(filename)
             if match:
                 area_id = match.group(1)
-                area_ids.append(area_id)
+                # Only add if not already found in areas/ directory
+                if area_id not in area_ids:
+                    area_ids.append(area_id)
         
         # Sort for consistent ordering
         area_ids.sort()
@@ -204,9 +231,16 @@ class ModulePathManager:
     # Directory creation methods
     def ensure_module_dirs(self):
         """Ensure all necessary module directories exist"""
+        os.makedirs(f"{self.module_dir}/areas", exist_ok=True)  # Area files
         os.makedirs(f"{self.module_dir}/monsters", exist_ok=True)
         os.makedirs(f"{self.module_dir}/npcs", exist_ok=True)
         os.makedirs(f"{self.module_dir}/characters", exist_ok=True)  # Unified character storage
+    
+    def ensure_areas_directory(self):
+        """Ensure the areas/ subdirectory exists for the current module"""
+        areas_dir = f"{self.module_dir}/areas"
+        os.makedirs(areas_dir, exist_ok=True)
+        return areas_dir
     
     # Check if a file exists
     def file_exists(self, path):

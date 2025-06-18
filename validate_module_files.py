@@ -91,13 +91,21 @@ class ModuleValidator:
                 
     def validate_area_files(self):
         """Validate area/location files"""
-        # Find area files dynamically - any JSON file that contains areaId and areaName
+        # Find area files dynamically - check both areas/ subdirectory and root
         import glob
         import os
         
-        json_files = glob.glob(os.path.join(str(self.module_path), "*.json"))
+        # First check the new areas/ subdirectory structure
+        areas_dir = self.module_path / "areas"
+        json_files = []
         
-        for file_path in json_files:
+        if areas_dir.exists():
+            json_files.extend(glob.glob(os.path.join(str(areas_dir), "*.json")))
+        
+        # Also check legacy root directory structure during migration
+        root_json_files = glob.glob(os.path.join(str(self.module_path), "*.json"))
+        
+        for file_path in root_json_files:
             # Skip backup, module, and system files
             filename = os.path.basename(file_path)
             if any(part in filename for part in ["_BU", ".bak", ".backup", ".tmp", "module_", "party_", "campaign_", "map_"]):
@@ -110,15 +118,39 @@ class ModuleValidator:
                     data = json.load(f)
                 
                 if data and 'areaId' in data and 'areaName' in data and 'locations' in data:
+                    # This is an area file, add it to the list if not already found in areas/
+                    area_filename = f"{data['areaId']}.json"
+                    areas_path = areas_dir / area_filename if areas_dir.exists() else None
+                    
+                    # Only add legacy file if not already found in areas/ directory
+                    if not areas_path or not areas_path.exists():
+                        json_files.append(file_path)
+            except Exception as e:
+                # Not a valid JSON file, skip it
+                continue
+        
+        # Validate all found area files
+        for file_path in json_files:
+            filename = os.path.basename(file_path)
+            
+            # Check if it's an area file by loading and checking structure
+            try:
+                import json
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                
+                if data and 'areaId' in data and 'areaName' in data and 'locations' in data:
                     # This is an area file
                     success, error = self.validate_file(Path(file_path), "area")
-                    self.results["area"]["files"].append(filename)
+                    # Include path info for areas/ vs root location
+                    path_info = "(areas/)" if "areas/" in str(file_path) else "(root)"
+                    self.results["area"]["files"].append(f"{filename} {path_info}")
                     
                     if success:
                         self.results["area"]["passed"] += 1
                     else:
                         self.results["area"]["failed"] += 1
-                        self.results["area"]["errors"].append(f"{filename}: {error}")
+                        self.results["area"]["errors"].append(f"{filename} {path_info}: {error}")
             except Exception as e:
                 # Not a valid JSON file, skip it
                 continue

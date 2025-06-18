@@ -3,6 +3,8 @@ Beware of feature creep and don't ad dnew features unless specifically asked or 
 
 Don't add emojis or special characters anywhere in the game code.
 
+When planning, always add creating a plan md file in case you get disconnected to the first step of the plan
+
 # Unicode and Special Characters
 NEVER use Unicode symbols (✓, ✗, →, ●, etc.) in print statements or logging. Windows console (cp1252) cannot display these characters and will cause UnicodeEncodeError crashes. Always use ASCII-safe alternatives:
 - Use [OK] instead of ✓

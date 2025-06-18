@@ -1,19 +1,19 @@
 {
   "module": "Keep_of_Doom",
-  "timestamp": "2025-06-16T20:17:45.845293",
+  "timestamp": "2025-06-17T21:11:13.743401",
   "summary": {
-    "total_files": 37,
+    "total_files": 36,
     "total_passed": 36,
-    "total_failed": 1
+    "total_failed": 0
   },
   "results": {
     "area": {
       "files": [
-        "G001.json",
-        "HH001.json",
-        "SK001.json",
-        "TBM001.json",
-        "TCD001.json"
+        "G001.json (areas/)",
+        "HH001.json (areas/)",
+        "SK001.json (areas/)",
+        "TBM001.json (areas/)",
+        "TCD001.json (areas/)"
       ],
       "passed": 5,
       "failed": 0,
@@ -25,14 +25,11 @@
         "laura.json",
         "norn.json",
         "norn_test.json",
-        "testnpc.json",
-        "test_laura.json"
+        "testnpc.json"
       ],
       "passed": 5,
-      "failed": 1,
-      "errors": [
-        "test_laura.json: root: 'type' is a required property; root: 'size' is a required property; root: 'race' is a required property"
-      ]
+      "failed": 0,
+      "errors": []
     },
     "monster": {
       "files": [

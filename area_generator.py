@@ -10,6 +10,7 @@ from typing import Dict, List, Any, Tuple
 from dataclasses import dataclass
 from openai import OpenAI
 from config import OPENAI_API_KEY, DM_MAIN_MODEL
+from module_path_manager import ModulePathManager
 
 # Initialize OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -396,14 +397,20 @@ Return ONLY the area description text, no additional formatting or labels."""
         
         return notes.get(config.area_type, "Customize this area to fit your module's needs.")
     
-    def save_area(self, area_data: Dict[str, Any], filename: str = None):
-        """Save area data to file"""
-        if filename is None:
-            filename = f"{area_data['areaId']}.json"
+    def save_area(self, area_data: Dict[str, Any], filename: str = None, module_name: str = None):
+        """Save area data to file using ModulePathManager"""
+        path_manager = ModulePathManager(module_name)
         
-        # Also save a separate map file
+        # Ensure areas directory exists
+        path_manager.ensure_areas_directory()
+        
+        if filename is None:
+            # Use ModulePathManager to get the proper area file path
+            filename = path_manager.get_area_path(area_data['areaId'])
+        
+        # Also save a separate map file (maps stay in root for now)
         map_data = area_data["map"]
-        map_filename = f"map_{area_data['areaId']}.json"
+        map_filename = path_manager.get_map_path(area_data['areaId'])
         
         with open(filename, "w") as f:
             json.dump(area_data, f, indent=2)
