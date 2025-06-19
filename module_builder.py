@@ -93,9 +93,9 @@ MODULE INDEPENDENCE RULES:
         self.log("Starting module build process...")
         self.log(f"Initial concept: {initial_concept}")
         
-        # Get party members for context
-        party_members = self.get_party_members()
-        self.context_header = self.create_context_header(party_members)
+        # Get existing characters for context
+        existing_characters = self.get_party_members()
+        self.context_header = self.create_context_header(existing_characters)
         
         # Create required directory structure first
         self.create_module_directories()
@@ -223,8 +223,8 @@ MODULE INDEPENDENCE RULES:
                 area_data["terrain"] = "frozen tundra and icy peaks"
     
     def get_party_members(self):
-        """Get list of existing party member names to avoid conflicts"""
-        party_names = []
+        """Get list of existing character names to avoid conflicts"""
+        character_names = []
         
         # Try to read from current module's character files first
         try:
@@ -242,21 +242,23 @@ MODULE INDEPENDENCE RULES:
                 try:
                     with open(char_file, 'r') as f:
                         char_data = json.load(f)
-                        if char_data.get('character_role') == 'player':
+                        # Include both player characters and NPCs to avoid naming conflicts
+                        char_role = char_data.get('character_role', '')
+                        if char_role in ['player', 'npc']:
                             name = char_data.get('name', '').strip()
-                            if name and name not in party_names:  # Avoid duplicates
-                                party_names.append(name)
+                            if name and name not in character_names:  # Avoid duplicates
+                                character_names.append(name)
                 except Exception:
                     continue
         except Exception:
             pass
         
-        # No fallback - let each module work with actual party or none
-        if not party_names:
-            party_names = []
-            self.log("No party members detected - module will use generic references")
+        # No fallback - let each module work with actual characters or none
+        if not character_names:
+            character_names = []
+            self.log("No existing characters detected - module will use generic references")
         
-        return party_names
+        return character_names
     
     def create_module_directories(self):
         """Create all required module directories"""
@@ -307,9 +309,9 @@ MODULE INDEPENDENCE RULES:
     
     def generate_locations(self):
         """Generate detailed locations for each area"""
-        # Get existing party names to avoid conflicts
-        party_names = self.get_party_members()
-        self.log(f"Avoiding party name conflicts with: {', '.join(party_names)}")
+        # Get existing character names to avoid conflicts
+        existing_characters = self.get_party_members()
+        self.log(f"Avoiding character name conflicts with: {', '.join(existing_characters)}")
         
         for area_id, area_data in self.areas_data.items():
             self.log(f"Generating locations for area {area_id}...")
@@ -323,7 +325,7 @@ MODULE INDEPENDENCE RULES:
                 plot_data,
                 self.module_data,
                 context=self.context,
-                excluded_names=party_names,
+                excluded_names=existing_characters,
                 context_header=self.context_header
             )
             
@@ -344,13 +346,28 @@ MODULE INDEPENDENCE RULES:
             area_data = self.areas_data[area_id]
             location_data = self.locations_data[area_id]
             
+            # Create area-specific context for plot generation
+            area_specific_context = f"""
+PLOT GENERATION FOR SPECIFIC AREA:
+===================================
+AREA NAME: {area_data['areaName']}
+AREA TYPE: {area_data.get('areaType', 'unknown')}
+AREA DESCRIPTION: {area_data.get('areaDescription', '')}
+TERRAIN: {area_data.get('terrain', 'unknown')}
+
+IMPORTANT: This plot must be specific to the {area_data['areaName']} area.
+The plot title should reference this specific area, not other locations.
+===================================
+
+{self.context_header}"""
+            
             plot_data = self.plot_gen.generate_plot(
                 self.module_data,
                 area_data,
                 location_data,
-                f"Adventure in {area_data['areaName']}",
+                f"Create a plot specifically for {area_data['areaName']}, a {area_data.get('areaType', 'region')} area",
                 context=self.context,
-                context_header=self.context_header
+                context_header=area_specific_context
             )
             
             self.plots_data[area_id] = plot_data
@@ -477,12 +494,7 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
                 self.context.add_npc(npc_name)
                 self.context.add_reference("npc", npc_name, "module:plotStages")
         
-        # Extract NPCs from factions
-        for faction in self.module_data.get("factions", []):
-            for member_name in faction.get("keyMembers", []):
-                faction_name = faction.get("factionName", "")
-                self.context.add_npc(member_name, faction=faction_name)
-                self.context.add_reference("npc", member_name, f"module:faction:{faction_name}")
+        # Note: Faction NPCs removed - location-generated NPCs are sufficient
     
     def validate_module(self):
         """Validate module consistency and save results"""

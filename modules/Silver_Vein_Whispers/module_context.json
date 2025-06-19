@@ -1,0 +1,316 @@
+{
+  "module_name": "Silver Vein Whispers",
+  "module_id": "Silver_Vein_Whispers",
+  "areas": {
+    "SR001": {
+      "name": "Sablemoor Reaches",
+      "type": "wilderness",
+      "locations": [],
+      "npcs": [
+        "Mira the Moorwise (enigmatic guide)",
+        "Old Fenrick (superstitious hermit)",
+        "Rilith the Riverbound (tormented spirit)"
+      ],
+      "plot_points": [
+        "PP001",
+        "PP002",
+        "PP003",
+        "PP004"
+      ]
+    },
+    "WR001": {
+      "name": "Whispering Riverbanks",
+      "type": "dungeon",
+      "locations": [],
+      "npcs": [
+        "Sister Amara",
+        "Dren of the Blue Flame",
+        "Professor Halvane",
+        "Queen Seralyth"
+      ],
+      "plot_points": [
+        "PP001",
+        "PP002",
+        "PP003",
+        "PP004"
+      ]
+    },
+    "RC001": {
+      "name": "Ruins of Calamyr",
+      "type": "dungeon",
+      "locations": [],
+      "npcs": [
+        "Archivist Lareth",
+        "Captain Veylan"
+      ],
+      "plot_points": [
+        "PP001",
+        "PP002",
+        "PP003",
+        "PP004"
+      ]
+    }
+  },
+  "npcs": {
+    "mira_the_moorwise_(enigmatic_guide)": {
+      "name": "Mira the Moorwise (enigmatic guide)",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "SR001",
+          "location": "R01"
+        }
+      ]
+    },
+    "professor_halvane_(rival_expedition_leader)": {
+      "name": "Professor Halvane (rival expedition leader)",
+      "role": "",
+      "faction": "",
+      "appears_in": []
+    },
+    "old_fenrick_(superstitious_hermit)": {
+      "name": "Old Fenrick (superstitious hermit)",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "SR001",
+          "location": "R03"
+        }
+      ]
+    },
+    "rilith_the_riverbound_(tormented_spirit)": {
+      "name": "Rilith the Riverbound (tormented spirit)",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "SR001",
+          "location": "R05"
+        }
+      ]
+    },
+    "sister_amara_(river_priestess)": {
+      "name": "Sister Amara (river priestess)",
+      "role": "",
+      "faction": "",
+      "appears_in": []
+    },
+    "dren_of_the_blue_flame_(mysterious_wanderer)": {
+      "name": "Dren of the Blue Flame (mysterious wanderer)",
+      "role": "",
+      "faction": "",
+      "appears_in": []
+    },
+    "queen_seralyth_(cursed_spirit_and_antagonist)": {
+      "name": "Queen Seralyth (cursed spirit and antagonist)",
+      "role": "",
+      "faction": "",
+      "appears_in": []
+    },
+    "archivist_lareth_(keeper_of_lost_knowledge)": {
+      "name": "Archivist Lareth (keeper of lost knowledge)",
+      "role": "",
+      "faction": "",
+      "appears_in": []
+    },
+    "captain_veylan_(rival_mercenary_leader)": {
+      "name": "Captain Veylan (rival mercenary leader)",
+      "role": "",
+      "faction": "",
+      "appears_in": []
+    },
+    "mira_the_moorwise_(druidic_guide)": {
+      "name": "Mira the Moorwise (druidic guide)",
+      "role": "",
+      "faction": "The Riverbound Circle",
+      "appears_in": []
+    },
+    "elder_brioc": {
+      "name": "Elder Brioc",
+      "role": "",
+      "faction": "The Riverbound Circle",
+      "appears_in": []
+    },
+    "queen_seralyth_(cursed_spirit)": {
+      "name": "Queen Seralyth (cursed spirit)",
+      "role": "",
+      "faction": "The Calamyr Remnant",
+      "appears_in": []
+    },
+    "rilith_the_riverbound": {
+      "name": "Rilith the Riverbound",
+      "role": "",
+      "faction": "The Calamyr Remnant",
+      "appears_in": []
+    },
+    "archivist_lareth": {
+      "name": "Archivist Lareth",
+      "role": "",
+      "faction": "The Calamyr Remnant",
+      "appears_in": [
+        {
+          "area": "RC001",
+          "location": "R01"
+        }
+      ]
+    },
+    "professor_halvane": {
+      "name": "Professor Halvane",
+      "role": "",
+      "faction": "The Argent Reliquary",
+      "appears_in": [
+        {
+          "area": "WR001",
+          "location": "R04"
+        }
+      ]
+    },
+    "captain_veylan_(mercenary_leader)": {
+      "name": "Captain Veylan (mercenary leader)",
+      "role": "",
+      "faction": "The Argent Reliquary",
+      "appears_in": []
+    },
+    "scribe_miri": {
+      "name": "Scribe Miri",
+      "role": "",
+      "faction": "The Argent Reliquary",
+      "appears_in": []
+    },
+    "dren_of_the_blue_flame": {
+      "name": "Dren of the Blue Flame",
+      "role": "",
+      "faction": "The Hollow Host",
+      "appears_in": [
+        {
+          "area": "WR001",
+          "location": "R03"
+        }
+      ]
+    },
+    "mistress_veyra": {
+      "name": "Mistress Veyra",
+      "role": "",
+      "faction": "The Hollow Host",
+      "appears_in": []
+    },
+    "brother_kelm": {
+      "name": "Brother Kelm",
+      "role": "",
+      "faction": "The Hollow Host",
+      "appears_in": []
+    },
+    "sister_amara": {
+      "name": "Sister Amara",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "WR001",
+          "location": "R01"
+        }
+      ]
+    },
+    "queen_seralyth": {
+      "name": "Queen Seralyth",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "WR001",
+          "location": "R06"
+        }
+      ]
+    },
+    "captain_veylan": {
+      "name": "Captain Veylan",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "RC001",
+          "location": "R06"
+        }
+      ]
+    }
+  },
+  "locations": {},
+  "plot_scopes": {
+    "PP001": "RC001",
+    "PP002": "RC001",
+    "PP003": "RC001",
+    "PP004": "RC001"
+  },
+  "references": {
+    "npc:Mira the Moorwise (enigmatic guide)": [
+      "module:plotStages"
+    ],
+    "npc:Professor Halvane (rival expedition leader)": [
+      "module:plotStages"
+    ],
+    "npc:Old Fenrick (superstitious hermit)": [
+      "module:plotStages"
+    ],
+    "npc:Rilith the Riverbound (tormented spirit)": [
+      "module:plotStages"
+    ],
+    "npc:Sister Amara (river priestess)": [
+      "module:faction:The Riverbound Circle",
+      "module:plotStages"
+    ],
+    "npc:Dren of the Blue Flame (mysterious wanderer)": [
+      "module:plotStages"
+    ],
+    "npc:Queen Seralyth (cursed spirit and antagonist)": [
+      "module:plotStages"
+    ],
+    "npc:Archivist Lareth (keeper of lost knowledge)": [
+      "module:plotStages"
+    ],
+    "npc:Captain Veylan (rival mercenary leader)": [
+      "module:plotStages"
+    ],
+    "npc:Mira the Moorwise (druidic guide)": [
+      "module:faction:The Riverbound Circle"
+    ],
+    "npc:Elder Brioc": [
+      "module:faction:The Riverbound Circle"
+    ],
+    "npc:Queen Seralyth (cursed spirit)": [
+      "module:faction:The Calamyr Remnant"
+    ],
+    "npc:Rilith the Riverbound": [
+      "module:faction:The Calamyr Remnant"
+    ],
+    "npc:Archivist Lareth": [
+      "module:faction:The Calamyr Remnant"
+    ],
+    "npc:Professor Halvane": [
+      "module:faction:The Argent Reliquary"
+    ],
+    "npc:Captain Veylan (mercenary leader)": [
+      "module:faction:The Argent Reliquary"
+    ],
+    "npc:Scribe Miri": [
+      "module:faction:The Argent Reliquary"
+    ],
+    "npc:Dren of the Blue Flame": [
+      "module:faction:The Hollow Host"
+    ],
+    "npc:Mistress Veyra": [
+      "module:faction:The Hollow Host"
+    ],
+    "npc:Brother Kelm": [
+      "module:faction:The Hollow Host"
+    ]
+  },
+  "validation_issues": [
+    "NPC 'Elder Brioc' is referenced in ['module:faction:The Riverbound Circle'] but not placed in any location",
+    "NPC 'Scribe Miri' is referenced in ['module:faction:The Argent Reliquary'] but not placed in any location",
+    "NPC 'Mistress Veyra' is referenced in ['module:faction:The Hollow Host'] but not placed in any location",
+    "NPC 'Brother Kelm' is referenced in ['module:faction:The Hollow Host'] but not placed in any location"
+  ],
+  "generated_at": "2025-06-18T21:59:17.890844"
+}

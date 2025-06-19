@@ -1,0 +1,83 @@
+{
+  "mapId": "MAP_6",
+  "mapName": "Dungeon Map",
+  "totalRooms": 6,
+  "rooms": [
+    {
+      "id": "R01",
+      "name": "Shrine R01",
+      "type": "shrine",
+      "connections": [
+        "R02",
+        "R03"
+      ],
+      "coordinates": "X2Y2"
+    },
+    {
+      "id": "R02",
+      "name": "Vault R02",
+      "type": "vault",
+      "connections": [
+        "R01",
+        "R04"
+      ],
+      "coordinates": "X2Y3"
+    },
+    {
+      "id": "R03",
+      "name": "Chamber R03",
+      "type": "chamber",
+      "connections": [
+        "R01",
+        "R05"
+      ],
+      "coordinates": "X1Y2"
+    },
+    {
+      "id": "R04",
+      "name": "Laboratory R04",
+      "type": "laboratory",
+      "connections": [
+        "R02",
+        "R06"
+      ],
+      "coordinates": "X2Y4"
+    },
+    {
+      "id": "R05",
+      "name": "Corridor R05",
+      "type": "corridor",
+      "connections": [
+        "R03"
+      ],
+      "coordinates": "X1Y1"
+    },
+    {
+      "id": "R06",
+      "name": "Chamber R06",
+      "type": "chamber",
+      "connections": [
+        "R04"
+      ],
+      "coordinates": "X1Y4"
+    }
+  ],
+  "layout": [
+    [
+      "R05",
+      "   "
+    ],
+    [
+      "R03",
+      "R01"
+    ],
+    [
+      "   ",
+      "R02"
+    ],
+    [
+      "R06",
+      "R04"
+    ]
+  ]
+}

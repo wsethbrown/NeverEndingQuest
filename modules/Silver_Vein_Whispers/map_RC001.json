@@ -1,0 +1,85 @@
+{
+  "mapId": "MAP_6",
+  "mapName": "Dungeon Map",
+  "totalRooms": 6,
+  "rooms": [
+    {
+      "id": "R01",
+      "name": "Throne Room R01",
+      "type": "throne room",
+      "connections": [
+        "R02",
+        "R05"
+      ],
+      "coordinates": "X2Y2"
+    },
+    {
+      "id": "R02",
+      "name": "Hall R02",
+      "type": "hall",
+      "connections": [
+        "R01",
+        "R03",
+        "R04"
+      ],
+      "coordinates": "X3Y2"
+    },
+    {
+      "id": "R03",
+      "name": "Corridor R03",
+      "type": "corridor",
+      "connections": [
+        "R02"
+      ],
+      "coordinates": "X3Y1"
+    },
+    {
+      "id": "R04",
+      "name": "Corridor R04",
+      "type": "corridor",
+      "connections": [
+        "R02"
+      ],
+      "coordinates": "X3Y3"
+    },
+    {
+      "id": "R05",
+      "name": "Hall R05",
+      "type": "hall",
+      "connections": [
+        "R01",
+        "R06"
+      ],
+      "coordinates": "X1Y2"
+    },
+    {
+      "id": "R06",
+      "name": "Chamber R06",
+      "type": "chamber",
+      "connections": [
+        "R05"
+      ],
+      "coordinates": "X0Y2"
+    }
+  ],
+  "layout": [
+    [
+      "   ",
+      "   ",
+      "   ",
+      "R03"
+    ],
+    [
+      "R06",
+      "R05",
+      "R01",
+      "R02"
+    ],
+    [
+      "   ",
+      "   ",
+      "   ",
+      "R04"
+    ]
+  ]
+}

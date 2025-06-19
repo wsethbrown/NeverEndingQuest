@@ -1,0 +1,391 @@
+{
+  "plotTitle": "Silver Vein Whispers",
+  "mainObjective": "Uncover the origin and purpose of the Silver Vein River\u2019s unnatural magic by exploring the haunted moorlands, confronting the regret-bound queen\u2019s spirit, and recovering ancient relics from the ruined city of Calamyr before the river\u2019s curse reshapes the fate of all who dwell nearby.",
+  "plotPoints": [
+    {
+      "id": "PP001",
+      "title": "Arrival in the Sablemoor Reaches",
+      "description": "Laura and Norn arrive at the edge of the Sablemoor Reaches, a mist-wreathed expanse notorious for haunting whispers and unnatural mists. Locals warn travelers away, but the party seeks the tormented spirit, Rilith the Riverbound, to uncover the source of the moor\u2019s unrest. Their first challenge is to navigate the treacherous terrain and gain the trust of the wary inhabitants.",
+      "location": "SR001",
+      "nextPoints": [
+        "PP002"
+      ],
+      "status": "not started",
+      "plotImpact": "Establishes the moor's dangers, introduces key NPCs (Mira the Moorwise, Old Fenrick), and presents the first clues about the haunting whispers.",
+      "sideQuests": [
+        {
+          "id": "SQ001",
+          "title": "The Hermit's Warning",
+          "description": "Old Fenrick, a reclusive hermit, claims to know safe paths through the moor but demands a favor: retrieve his lost family brooch from a nearby sinkhole haunted by will-o'-wisps.",
+          "involvedLocations": [
+            "SR001"
+          ],
+          "status": "not started",
+          "plotImpact": "Completing this task grants the party a moor map and protective talisman, making navigation easier."
+        },
+        {
+          "id": "SQ002",
+          "title": "Moorwise\u2019s Riddle",
+          "description": "Mira the Moorwise offers cryptic guidance\u2014if the party can solve her riddle about the land\u2019s history, she\u2019ll reveal a hidden shortcut to the riverbanks.",
+          "involvedLocations": [
+            "SR001"
+          ],
+          "status": "not started",
+          "plotImpact": "Solving the riddle reduces travel time and gives the party insight into the ancient tragedy of Calamyr."
+        }
+      ],
+      "areaId": "SR001"
+    },
+    {
+      "id": "PP002",
+      "title": "The Whispering Riverbanks",
+      "description": "The party descends into the fog-laden riverbanks, where spectral voices grow louder and strange phenomena threaten to overwhelm the senses. They must investigate the source of the voices, interacting with the ghostly Sister Amara and the enigmatic Dren of the Blue Flame, while fending off physical and spiritual dangers.",
+      "location": "WR001",
+      "nextPoints": [
+        "PP003"
+      ],
+      "status": "not started",
+      "plotImpact": "Reveals that the haunting is tied to a curse placed by Queen Seralyth. Sets up a rivalry with Professor Halvane, whose expedition has its own motives.",
+      "sideQuests": [
+        {
+          "id": "SQ003",
+          "title": "Blue Flame Bargain",
+          "description": "Dren of the Blue Flame offers rare knowledge in exchange for help retrieving a lost relic from a sunken shrine, but warns of vengeful river spirits.",
+          "involvedLocations": [
+            "WR001"
+          ],
+          "status": "not started",
+          "plotImpact": "Aids in understanding the curse's origin; may grant the party an ally or draw the ire of the Hollow Host."
+        },
+        {
+          "id": "SQ004",
+          "title": "Rival Expeditions",
+          "description": "Professor Halvane\u2019s mercenaries set traps and spread misinformation. The party can sabotage their efforts or attempt an uneasy truce.",
+          "involvedLocations": [
+            "WR001"
+          ],
+          "status": "not started",
+          "plotImpact": "Influences later confrontations with Halvane and resource availability in the ruins."
+        }
+      ],
+      "areaId": "SR001"
+    },
+    {
+      "id": "PP003",
+      "title": "Ruins of Calamyr",
+      "description": "Deep in the river-concealed ruins, the party uncovers remnants of the lost city of Calamyr. Here, they must navigate ancient traps, decipher forgotten lore with Archivist Lareth, and contend with Captain Veylan\u2019s mercenaries. The true nature of Rilith\u2019s torment is revealed, forcing the party to make difficult choices about breaking or upholding the curse.",
+      "location": "RC001",
+      "nextPoints": [
+        "PP004"
+      ],
+      "status": "not started",
+      "plotImpact": "The party secures the means to commune with Rilith, but their actions may awaken Queen Seralyth or trigger conflict with rival factions.",
+      "sideQuests": [
+        {
+          "id": "SQ005",
+          "title": "The Lost Chronicle",
+          "description": "Archivist Lareth seeks help recovering the Calamyr Chronicle, a tome hidden in a trapped vault. He\u2019ll offer crucial lore about Rilith and Seralyth if aided.",
+          "involvedLocations": [
+            "RC001"
+          ],
+          "status": "not started",
+          "plotImpact": "Provides ritual components and options for communicating with spirits; opens up peaceful or combative solutions."
+        },
+        {
+          "id": "SQ006",
+          "title": "Mercenary Standoff",
+          "description": "Captain Veylan\u2019s band corners the party. The heroes can negotiate, bribe, fight, or trick the mercenaries to proceed.",
+          "involvedLocations": [
+            "RC001"
+          ],
+          "status": "not started",
+          "plotImpact": "Affects access to certain ruin chambers and sets up possible reinforcements for the final confrontation."
+        }
+      ],
+      "areaId": "SR001"
+    },
+    {
+      "id": "PP004",
+      "title": "Shadows Unbound: The Riverbound\u2019s Fate",
+      "description": "With the means to commune with Rilith, the party enacts the ritual, confronting both the tormented spirit and the vengeful Queen Seralyth. Their choices\u2014appeasement, cleansing, bargaining, or combat\u2014determine the fate of the moor and its spirits. The outcome reshapes relationships with rival factions and the supernatural balance of the region.",
+      "location": "RC001",
+      "nextPoints": [],
+      "status": "not started",
+      "plotImpact": "Concludes the main story. The party\u2019s decisions can free, redeem, or doom Rilith and the moor, with lasting campaign consequences.",
+      "sideQuests": [
+        {
+          "id": "SQ007",
+          "title": "Queen\u2019s Judgment",
+          "description": "Before the ritual, Queen Seralyth offers a dangerous pact: serve her cause and she will lift the curse from Rilith, but at a dread cost.",
+          "involvedLocations": [
+            "RC001"
+          ],
+          "status": "not started",
+          "plotImpact": "Allying or opposing Seralyth drastically alters the ending and future plot hooks."
+        }
+      ],
+      "areaId": "SR001"
+    },
+    {
+      "id": "PP005",
+      "title": "Beneath the Moor's Veil",
+      "description": "Upon arrival in the Sablemoor Reaches, Laura and Norn are greeted by Mira the Moorwise, a cryptic guide who warns them of ethereal whispers and spectral sightings along the ancient riverbanks. The party must investigate the source of these disturbances, navigating treacherous bogs, uncovering cairns, and seeking the wisdom of the local hermit, Old Fenrick. Their initial discoveries hint at a deeper, ancient curse linked to the vanished kingdom of Calamyr.",
+      "location": "R01",
+      "nextPoints": [
+        "PP002"
+      ],
+      "status": "not started",
+      "plotImpact": "Sets the scene, introduces the central mystery and objectives, and establishes key NPCs. Player choices in who to trust (Mira vs. Fenrick), and what clues to pursue, will affect future alliances and information available.",
+      "sideQuests": [
+        {
+          "id": "SQ001",
+          "title": "The Hermit's Folly",
+          "description": "Old Fenrick believes a relic he once unearthed is the source of the whispers. Recover his lost amulet from the sunken Cairn of Scriven, avoiding (or appeasing) the hostile marsh spirits within.",
+          "involvedLocations": [
+            "R02"
+          ],
+          "status": "not started",
+          "plotImpact": "Securing the amulet provides insight into the Calamyr curse and earns Fenrick's trust, offering an additional clue for the main quest."
+        },
+        {
+          "id": "SQ002",
+          "title": "Spectral Watchers",
+          "description": "Local trappers are plagued by pale, watching figures at dusk. Investigate the phenomenon, which may lead to an early encounter with Rilith the Riverbound, hinting at the spirits' true nature.",
+          "involvedLocations": [
+            "R05"
+          ],
+          "status": "not started",
+          "plotImpact": "Successful investigation provides a vision or direct communication from Rilith, revealing part of the curse\u2019s origin."
+        }
+      ],
+      "areaId": "WR001"
+    },
+    {
+      "id": "PP006",
+      "title": "The Riverbound Pact",
+      "description": "Guided by clues and visions, Laura and Norn follow the haunting whispers to the Whispering Riverbanks, where lingering spirits are trapped by an ancient pact. Here, the party must negotiate or confront Rilith the Riverbound, whose torment holds the key to unraveling the curse. The river itself is restless\u2014crossing requires skill, diplomacy, or force, as the spirits attempt to communicate their sorrow and unfinished business.",
+      "location": "R05",
+      "nextPoints": [
+        "PP003"
+      ],
+      "status": "not started",
+      "plotImpact": "Choices made here (combat, negotiation, or ritual) impact how the spirits will react in the climax. Rilith\u2019s fate determines whether the spirits become allies, obstacles, or tragic bystanders.",
+      "sideQuests": [
+        {
+          "id": "SQ003",
+          "title": "Offerings at the Weir",
+          "description": "A local river priestess, Sister Amara, begs for help sanctifying a defiled shrine. Restoring the weir calms the river\u2019s wrath, making future travel safer and winning spiritual favor.",
+          "involvedLocations": [
+            "R06"
+          ],
+          "status": "not started",
+          "plotImpact": "Completing the ritual offers the party divine boons or information. Refusal or failure may strengthen river-based hazards."
+        },
+        {
+          "id": "SQ004",
+          "title": "The Rival's Claim",
+          "description": "Professor Halvane\u2019s expedition scours the river for relics, risking calamity by disturbing ancient wards. Intervene to prevent them from releasing hostile spirits or losing vital artifacts.",
+          "involvedLocations": [
+            "R04"
+          ],
+          "status": "not started",
+          "plotImpact": "Negotiation or confrontation affects future encounters with Halvane and the flow of magical energies during the climax."
+        }
+      ],
+      "areaId": "WR001"
+    },
+    {
+      "id": "PP007",
+      "title": "Secrets of the Silver Veins",
+      "description": "With the spirits' guidance\u2014or wrath\u2014Laura and Norn discover the entrance to the Ruins of Calamyr. Within the labyrinthine halls, they must uncover records protected by Archivist Lareth and outwit rival mercenaries led by Captain Veylan. The truth emerges: Queen Seralyth\u2019s ancient pact with river spirits split the land, dooming her people to restless undeath unless her crown is reclaimed and her regrets addressed.",
+      "location": "R01",
+      "nextPoints": [
+        "PP004"
+      ],
+      "status": "not started",
+      "plotImpact": "Securing the crown and learning the true tale of Queen Seralyth sets the narrative for the final confrontation\u2014potentially offering peaceful resolution, dreadful battle, or tragic sacrifice.",
+      "sideQuests": [
+        {
+          "id": "SQ005",
+          "title": "The Silver Ledger",
+          "description": "Archivist Lareth seeks the lost Silver Ledger, a tome that details the downfall of Calamyr. Recover it from a trapped chamber, facing animated remnants of the past.",
+          "involvedLocations": [
+            "R03"
+          ],
+          "status": "not started",
+          "plotImpact": "Provides critical historical details and potential leverage in the final negotiation with Seralyth."
+        },
+        {
+          "id": "SQ006",
+          "title": "Mercenary Intrigue",
+          "description": "Captain Veylan\u2019s mercenaries are split\u2014some wish to aid the party, others to betray them. Persuade or expose the traitors to gain allies or avoid an ambush.",
+          "involvedLocations": [
+            "R06"
+          ],
+          "status": "not started",
+          "plotImpact": "The party\u2019s actions impact the climactic encounter's difficulty and available support."
+        }
+      ],
+      "areaId": "WR001"
+    },
+    {
+      "id": "PP008",
+      "title": "The Queen's Lament",
+      "description": "At the heart of the ruins, Laura and Norn confront Queen Seralyth\u2019s anguished spirit. The final confrontation can play out as battle, negotiation, or a complex ritual of atonement\u2014depending on the party\u2019s choices and alliances. The fate of the Sablemoor Reaches, its spirits, and the ancient curse is decided here.",
+      "location": "R06",
+      "nextPoints": [],
+      "status": "not started",
+      "plotImpact": "Resolution echoes throughout Sablemoor. Peace may return, the spirits may be set free, or a new curse may take root\u2014based on the party's actions and accumulated boons or grudges.",
+      "sideQuests": [
+        {
+          "id": "SQ007",
+          "title": "The Riverbound's Vow",
+          "description": "If Rilith was aided earlier, she offers a final blessing\u2014or if spurned, seeks vengeance. Help her complete her vow to the Queen, altering the balance of power in the spirit realm.",
+          "involvedLocations": [
+            "R05",
+            "R06"
+          ],
+          "status": "not started",
+          "plotImpact": "Determines the spirits\u2019 involvement and may sway the Queen\u2019s decision in the climax."
+        },
+        {
+          "id": "SQ008",
+          "title": "The Flames Below",
+          "description": "Dren of the Blue Flame appears, offering forbidden knowledge to twist the curse for personal gain. Accept or reject this power, with far-reaching consequences.",
+          "involvedLocations": [
+            "R04",
+            "R06"
+          ],
+          "status": "not started",
+          "plotImpact": "Choosing Dren\u2019s aid can change the nature of the curse and the party\u2019s reputation."
+        }
+      ],
+      "areaId": "WR001"
+    },
+    {
+      "id": "PP009",
+      "title": "Murmurs in the Moor",
+      "description": "The party arrives at the Sablemoor Reaches, where rumors swirl of strange lights and haunting whispers along the Whispering Riverbanks. Mira the Moorwise, an enigmatic guide, offers to lead the party through the treacherous moors, but warns of restless spirits and rival treasure seekers. Old Fenrick, a superstitious hermit, may provide cryptic insight about a hidden shrine if convinced to trust the party.",
+      "location": "R01",
+      "nextPoints": [
+        "PP002"
+      ],
+      "status": "not started",
+      "plotImpact": "Introduces the location and key NPCs. Player choices in gaining Fenrick\u2019s trust or negotiating with Mira influence the information and advantages available for later encounters.",
+      "sideQuests": [
+        {
+          "id": "SQ001",
+          "title": "The Hermit's Secret",
+          "description": "Old Fenrick is haunted by visions of the Riverbound spirit, Rilith. If convinced to trust the party, Fenrick will reveal the existence of a pathway to the hidden shrine and warn of spectral dangers.",
+          "involvedLocations": [
+            "R03"
+          ],
+          "status": "not started",
+          "plotImpact": "Unlocks a safer route through the moors, reducing hazards in the next plot point."
+        },
+        {
+          "id": "SQ002",
+          "title": "The Moorwise\u2019s Bargain",
+          "description": "Mira the Moorwise offers to guide the party in exchange for help cleansing a corrupted willow grove. Completing this task earns her favor and local knowledge.",
+          "involvedLocations": [
+            "R02"
+          ],
+          "status": "not started",
+          "plotImpact": "Provides a magical token for use against moor spirits or rival explorers."
+        }
+      ],
+      "areaId": "RC001"
+    },
+    {
+      "id": "PP010",
+      "title": "The Whispering Riverbanks",
+      "description": "Guided by clues and the local guides, the party navigates the Whispering Riverbanks. They must contend with supernatural phenomena \u2013 ethereal whispers, illusions, and vengeful spirits. A rival expedition led by Professor Halvane is also searching for the shrine, setting up tense encounters or possible alliances.",
+      "location": "R02",
+      "nextPoints": [
+        "PP003"
+      ],
+      "status": "not started",
+      "plotImpact": "Choices in dealing with rivals and spirits affect future enemy strength, available allies, and potential complications.",
+      "sideQuests": [
+        {
+          "id": "SQ003",
+          "title": "Echoes of Regret",
+          "description": "The tormented spirit Rilith haunts the banks, seeking resolution for past wrongs. Helping Rilith find peace can lessen the river\u2019s supernatural dangers.",
+          "involvedLocations": [
+            "R05"
+          ],
+          "status": "not started",
+          "plotImpact": "Reduces the number or severity of spirit encounters in the shrine."
+        },
+        {
+          "id": "SQ004",
+          "title": "Rivalry or Alliance",
+          "description": "Professor Halvane and his mercenaries offer the chance for uneasy alliance or competition. Negotiation, sabotage, or cooperation each have consequences for the race to the shrine.",
+          "involvedLocations": [
+            "R04"
+          ],
+          "status": "not started",
+          "plotImpact": "Potentially gains an ally or creates an additional adversary in the shrine area."
+        }
+      ],
+      "areaId": "RC001"
+    },
+    {
+      "id": "PP011",
+      "title": "The Shrine\u2019s Threshold",
+      "description": "The party reaches the hidden shrine, a half-submerged ruin overgrown with willows. Powerful wards and puzzles bar entry, left by the Riverbound Circle. Inside, ancient spirits and magical traps guard the relic. The approach may be contested by Halvane\u2019s group or haunted by the spirit of Rilith if left unresolved.",
+      "location": "R05",
+      "nextPoints": [
+        "PP004"
+      ],
+      "status": "not started",
+      "plotImpact": "Player choices in exploration, puzzle-solving, and handling hostile presences determine their preparedness for the final confrontation.",
+      "sideQuests": [
+        {
+          "id": "SQ005",
+          "title": "Riverbound Rituals",
+          "description": "Sister Amara requests the party perform a cleansing ritual to appease the ancient guardians within the shrine. Success may calm the spirits and weaken Queen Seralyth\u2019s influence.",
+          "involvedLocations": [
+            "R01",
+            "R06"
+          ],
+          "status": "not started",
+          "plotImpact": "Lowers the difficulty of the final battle or grants a boon."
+        },
+        {
+          "id": "SQ006",
+          "title": "The Blue Flame\u2019s Secret",
+          "description": "Dren of the Blue Flame offers hidden knowledge in exchange for assistance escaping from the Hollow Host\u2019s pursuit. Freeing Dren uncovers a hidden passage or vital secret within the shrine.",
+          "involvedLocations": [
+            "R03"
+          ],
+          "status": "not started",
+          "plotImpact": "Provides a shortcut or secret information about the relic\u2019s defenses."
+        }
+      ],
+      "areaId": "RC001"
+    },
+    {
+      "id": "PP012",
+      "title": "Queen Seralyth\u2019s Judgment",
+      "description": "Within the heart of the shrine, the party faces Queen Seralyth\u2019s cursed spirit. Seralyth challenges them through a mix of combat, negotiation, and trials of will, testing their intentions and the choices made throughout the adventure. The outcome will shape the fate of the relic and the spirits bound to the river.",
+      "location": "R06",
+      "nextPoints": [],
+      "status": "not started",
+      "plotImpact": "The players\u2019 actions determine whether Seralyth is appeased, banished, or remains a vengeful force, and who ultimately claims the relic. Choices ripple out to the wider region.",
+      "sideQuests": [
+        {
+          "id": "SQ007",
+          "title": "The Cursed Coronation",
+          "description": "A hidden chamber reveals Seralyth\u2019s crown, the key to freeing or binding her spirit. Deciding the crown\u2019s fate dramatically alters the endgame.",
+          "involvedLocations": [
+            "R06"
+          ],
+          "status": "not started",
+          "plotImpact": "Can end the confrontation peacefully or grant access to unique rewards."
+        }
+      ],
+      "areaId": "RC001"
+    }
+  ]
+}

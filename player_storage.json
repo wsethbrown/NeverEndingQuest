@@ -1,5 +1,131 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2025-06-17T10:00:00.000000",
-  "playerStorage": []
+  "lastUpdated": "2025-06-18T22:08:51.909412",
+  "playerStorage": [
+    {
+      "id": "storage_bf32305c",
+      "deviceType": "chest",
+      "deviceName": "Inn Storage Chest",
+      "locationId": "A05",
+      "locationName": "The Wyrd Lantern Inn",
+      "areaId": "HH001",
+      "areaName": "Harrow's Hollow",
+      "contents": [
+        {
+          "item_name": "Chain Mail",
+          "item_type": "armor",
+          "description": "Heavy armor made of interlocking metal rings",
+          "quantity": 1,
+          "equipped": false,
+          "ac_base": 16,
+          "armor_category": "heavy",
+          "dex_limit": 0,
+          "stealth_disadvantage": true
+        },
+        {
+          "item_name": "Shield",
+          "item_type": "armor",
+          "description": "A wooden shield with metal reinforcement",
+          "quantity": 1,
+          "equipped": false,
+          "ac_bonus": 2,
+          "armor_category": "shield",
+          "dex_limit": null,
+          "stealth_disadvantage": false
+        },
+        {
+          "item_name": "Ancient Bronze Key (raven sigil)",
+          "item_type": "miscellaneous",
+          "description": "An old bronze key with a raven sigil, given by Elder Mirna",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Silver Whistle (patrol signal)",
+          "item_type": "miscellaneous",
+          "description": "A small silver whistle used as a patrol signal by rangers",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Detailed Forest Map",
+          "item_type": "miscellaneous",
+          "description": "A detailed map marking the Lost Ward Circle, unstable ravine, and approach to the Keep of Doom",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Scout Elen's emergency ration (unopened)",
+          "item_type": "miscellaneous",
+          "description": "An unopened emergency ration belonging to Scout Elen, found near the Hidden Keep Entrance",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Small silver mirror (cracked, 5 gp value)",
+          "item_type": "miscellaneous",
+          "description": "A small cracked silver mirror, valued at 5 gold pieces",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Tarnished silver medallion (knight's insignia, 10 gp value)",
+          "item_type": "miscellaneous",
+          "description": "A tarnished silver medallion bearing a knight's insignia, valued at 10 gold pieces",
+          "quantity": 1,
+          "equipped": false
+        }
+      ],
+      "createdBy": "Norn",
+      "createdDate": "2025-06-18T22:08:51.909412",
+      "accessibility": "party",
+      "lastAccessed": "2025-06-18T22:08:51.956697",
+      "accessLog": [
+        {
+          "character": "Norn",
+          "action": "create",
+          "timestamp": "2025-06-18T22:08:51.909412"
+        },
+        {
+          "character": "Norn",
+          "action": "store_items",
+          "items": [
+            {
+              "item": "Chain Mail",
+              "quantity": 1
+            },
+            {
+              "item": "Shield",
+              "quantity": 1
+            },
+            {
+              "item": "Ancient Bronze Key (raven sigil)",
+              "quantity": 1
+            },
+            {
+              "item": "Silver Whistle (patrol signal)",
+              "quantity": 1
+            },
+            {
+              "item": "Detailed Forest Map",
+              "quantity": 1
+            },
+            {
+              "item": "Scout Elen's emergency ration (unopened)",
+              "quantity": 1
+            },
+            {
+              "item": "Small silver mirror (cracked, 5 gp value)",
+              "quantity": 1
+            },
+            {
+              "item": "Tarnished silver medallion (knight's insignia, 10 gp value)",
+              "quantity": 1
+            }
+          ],
+          "timestamp": "2025-06-18T22:08:51.956697"
+        }
+      ]
+    }
+  ]
 }
