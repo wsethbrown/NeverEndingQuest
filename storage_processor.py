@@ -228,7 +228,7 @@ For "What's in our storage here?":
                 operation["location_id"] = context["location"]["id"]
                 
         # Handle existing storage references
-        if operation.get("action") in ["retrieve_item", "view_storage"]:
+        if operation.get("action") in ["retrieve_item", "view_storage", "store_item"]:
             if not operation.get("storage_id") and context.get("existing_storage"):
                 # Try to match storage by type or name
                 storage_type = operation.get("storage_type", "").lower()
@@ -241,7 +241,7 @@ For "What's in our storage here?":
                 if not operation.get("storage_id") and context["existing_storage"]:
                     operation["storage_id"] = context["existing_storage"][0]["id"]
                     
-        # Handle combined create/store operations
+        # Handle combined create/store operations (only if no existing storage found)
         if operation.get("action") == "store_item" and not operation.get("storage_id"):
             # This will trigger storage creation in storage_manager
             if not operation.get("storage_type"):

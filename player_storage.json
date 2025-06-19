@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2025-06-18T22:08:51.909412",
+  "lastUpdated": "2025-06-18T23:20:57.343696",
   "playerStorage": [
     {
       "id": "storage_bf32305c",
@@ -11,28 +11,6 @@
       "areaId": "HH001",
       "areaName": "Harrow's Hollow",
       "contents": [
-        {
-          "item_name": "Chain Mail",
-          "item_type": "armor",
-          "description": "Heavy armor made of interlocking metal rings",
-          "quantity": 1,
-          "equipped": false,
-          "ac_base": 16,
-          "armor_category": "heavy",
-          "dex_limit": 0,
-          "stealth_disadvantage": true
-        },
-        {
-          "item_name": "Shield",
-          "item_type": "armor",
-          "description": "A wooden shield with metal reinforcement",
-          "quantity": 1,
-          "equipped": false,
-          "ac_bonus": 2,
-          "armor_category": "shield",
-          "dex_limit": null,
-          "stealth_disadvantage": false
-        },
         {
           "item_name": "Ancient Bronze Key (raven sigil)",
           "item_type": "miscellaneous",
@@ -74,12 +52,47 @@
           "description": "A tarnished silver medallion bearing a knight's insignia, valued at 10 gold pieces",
           "quantity": 1,
           "equipped": false
+        },
+        {
+          "item_name": "Rusted key ring with 3 ancient keys (fits various doors in the keep)",
+          "item_type": "miscellaneous",
+          "description": "A rusted key ring holding three ancient keys that fit various doors within the keep",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Small battered coffer",
+          "item_type": "miscellaneous",
+          "description": "A small battered coffer, possibly containing valuables or important items, including ancient copper coins",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Old parchment (coded message/roster)",
+          "item_type": "miscellaneous",
+          "description": "An old parchment containing a coded message or roster, possibly related to the mercenaries or the keep",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Small silver key (sunburst)",
+          "item_type": "miscellaneous",
+          "description": "A small silver key with a sunburst design",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Chaplain's journal",
+          "item_type": "miscellaneous",
+          "description": "A worn journal belonging to the chapel's chaplain, containing prayers and notes",
+          "quantity": 1,
+          "equipped": false
         }
       ],
       "createdBy": "Norn",
       "createdDate": "2025-06-18T22:08:51.909412",
       "accessibility": "party",
-      "lastAccessed": "2025-06-18T22:08:51.956697",
+      "lastAccessed": "2025-06-18T23:17:48.155768",
       "accessLog": [
         {
           "character": "Norn",
@@ -124,6 +137,179 @@
             }
           ],
           "timestamp": "2025-06-18T22:08:51.956697"
+        },
+        {
+          "character": "Norn",
+          "action": "store_items",
+          "items": [
+            {
+              "item": "Ancient Bronze Key (raven sigil)",
+              "quantity": 1
+            },
+            {
+              "item": "Silver Whistle (patrol signal)",
+              "quantity": 1
+            },
+            {
+              "item": "Detailed Forest Map",
+              "quantity": 1
+            },
+            {
+              "item": "Scout Elen's emergency ration (unopened)",
+              "quantity": 1
+            },
+            {
+              "item": "Small silver mirror (cracked, 5 gp value)",
+              "quantity": 1
+            },
+            {
+              "item": "Tarnished silver medallion (knight's insignia, 10 gp value)",
+              "quantity": 1
+            }
+          ],
+          "timestamp": "2025-06-18T23:09:12.946851"
+        },
+        {
+          "character": "Norn",
+          "action": "store_items",
+          "items": [
+            {
+              "item": "Ancient Bronze Key (raven sigil)",
+              "quantity": 1
+            },
+            {
+              "item": "Silver Whistle (patrol signal)",
+              "quantity": 1
+            },
+            {
+              "item": "Detailed Forest Map",
+              "quantity": 1
+            },
+            {
+              "item": "Scout Elen's emergency ration (unopened)",
+              "quantity": 1
+            },
+            {
+              "item": "Small silver mirror (cracked, 5 gp value)",
+              "quantity": 1
+            },
+            {
+              "item": "Tarnished silver medallion (knight's insignia, 10 gp value)",
+              "quantity": 1
+            }
+          ],
+          "timestamp": "2025-06-18T23:15:28.261521"
+        },
+        {
+          "character": "Norn",
+          "action": "store_items",
+          "items": [
+            {
+              "item": "Rusted key ring with 3 ancient keys (fits various doors in the keep)",
+              "quantity": 1
+            },
+            {
+              "item": "Small battered coffer",
+              "quantity": 1
+            },
+            {
+              "item": "Old parchment (coded message/roster)",
+              "quantity": 1
+            },
+            {
+              "item": "Small silver key (sunburst)",
+              "quantity": 1
+            },
+            {
+              "item": "Chaplain's journal",
+              "quantity": 1
+            }
+          ],
+          "timestamp": "2025-06-18T23:17:48.155768"
+        }
+      ]
+    },
+    {
+      "id": "storage_b847c766",
+      "deviceType": "chest",
+      "deviceName": "Inn Storage Chest",
+      "locationId": "A05",
+      "locationName": "The Wyrd Lantern Inn",
+      "areaId": "HH001",
+      "areaName": "Harrow's Hollow",
+      "contents": [
+        {
+          "item_name": "Holy symbol (silver)",
+          "item_type": "miscellaneous",
+          "description": "A silver holy symbol representing the faith of the chapel",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Knight's heart amulet",
+          "item_type": "miscellaneous",
+          "description": "An amulet shaped like a heart, said to have belonged to a noble knight",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Torn cloak piece",
+          "item_type": "miscellaneous",
+          "description": "A torn piece of fabric from a cloak, confirming Elen's presence here",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Parchment confirming Elen's presence",
+          "item_type": "miscellaneous",
+          "description": "A torn parchment bearing notes that confirm Scout Elen was at this location",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Guard's coinpurse (13 sp, folded love letter)",
+          "item_type": "miscellaneous",
+          "description": "A coinpurse containing 13 silver pieces and a folded love letter",
+          "quantity": 1,
+          "equipped": false
+        }
+      ],
+      "createdBy": "Norn",
+      "createdDate": "2025-06-18T23:20:57.343696",
+      "accessibility": "party",
+      "lastAccessed": "2025-06-18T23:20:57.391250",
+      "accessLog": [
+        {
+          "character": "Norn",
+          "action": "create",
+          "timestamp": "2025-06-18T23:20:57.343696"
+        },
+        {
+          "character": "Norn",
+          "action": "store_items",
+          "items": [
+            {
+              "item": "Holy symbol (silver)",
+              "quantity": 1
+            },
+            {
+              "item": "Knight's heart amulet",
+              "quantity": 1
+            },
+            {
+              "item": "Torn cloak piece",
+              "quantity": 1
+            },
+            {
+              "item": "Parchment confirming Elen's presence",
+              "quantity": 1
+            },
+            {
+              "item": "Guard's coinpurse (13 sp, folded love letter)",
+              "quantity": 1
+            }
+          ],
+          "timestamp": "2025-06-18T23:20:57.391250"
         }
       ]
     }
