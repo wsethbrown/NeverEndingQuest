@@ -50,6 +50,79 @@ class AIPlayer:
         with open(self.llm_debug_file, 'w') as f:
             f.write("")
     
+    def _create_character_summary(self, char):
+        """Create a comprehensive character summary from JSON data"""
+        summary_parts = []
+        
+        # Basic info
+        summary_parts.append(f"NAME: {char.get('name', 'Unknown')}")
+        summary_parts.append(f"LEVEL: {char.get('level', 1)} {char.get('race', 'Unknown')} {char.get('class', 'Unknown')}")
+        summary_parts.append(f"BACKGROUND: {char.get('background', 'Unknown')}")
+        summary_parts.append(f"ALIGNMENT: {char.get('alignment', 'Unknown')}")
+        
+        # Health and defenses
+        summary_parts.append(f"HIT POINTS: {char.get('hitPoints', 0)}/{char.get('maxHitPoints', 0)}")
+        summary_parts.append(f"ARMOR CLASS: {char.get('armorClass', 10)}")
+        summary_parts.append(f"SPEED: {char.get('speed', 30)} feet")
+        
+        # Ability scores
+        abilities = char.get('abilities', {})
+        if abilities:
+            summary_parts.append("ABILITY SCORES:")
+            for ability, score in abilities.items():
+                modifier = (score - 10) // 2
+                modifier_str = f"+{modifier}" if modifier >= 0 else str(modifier)
+                summary_parts.append(f"  {ability.capitalize()}: {score} ({modifier_str})")
+        
+        # Skills
+        skills = char.get('skills', {})
+        if skills:
+            summary_parts.append("SKILLS:")
+            for skill, bonus in skills.items():
+                bonus_str = f"+{bonus}" if bonus >= 0 else str(bonus)
+                summary_parts.append(f"  {skill}: {bonus_str}")
+        
+        # Equipment/Inventory - Only show items with quantity > 0
+        equipment = char.get('equipment', [])
+        if equipment:
+            # Filter out items with zero quantity
+            available_items = [item for item in equipment if item.get('quantity', 1) > 0]
+            if available_items:
+                summary_parts.append("CURRENT EQUIPMENT:")
+                for item in available_items[:10]:  # Show first 10 available items
+                    item_name = item.get('item_name', 'Unknown item')
+                    quantity = item.get('quantity', 1)
+                    if quantity > 1:
+                        summary_parts.append(f"  {item_name} x{quantity}")
+                    else:
+                        summary_parts.append(f"  {item_name}")
+                if len(available_items) > 10:
+                    summary_parts.append(f"  ... and {len(available_items) - 10} more items")
+        
+        # Spell info if applicable
+        spells = char.get('spells', {})
+        if spells:
+            spell_slots = spells.get('spellSlots', {})
+            if spell_slots:
+                summary_parts.append("SPELL SLOTS:")
+                for level, slots in spell_slots.items():
+                    if slots.get('max', 0) > 0:
+                        current = slots.get('current', 0)
+                        maximum = slots.get('max', 0)
+                        summary_parts.append(f"  Level {level}: {current}/{maximum}")
+        
+        # Special abilities
+        features = char.get('features', [])
+        if features:
+            summary_parts.append("CLASS FEATURES:")
+            for feature in features[:5]:  # Show first 5 features
+                name = feature.get('name', 'Unknown feature')
+                summary_parts.append(f"  {name}")
+            if len(features) > 5:
+                summary_parts.append(f"  ... and {len(features) - 5} more features")
+        
+        return "\n".join(summary_parts)
+    
     def _load_character_data(self):
         """Load character data from norn.json using party_tracker module"""
         try:
@@ -98,7 +171,7 @@ class AIPlayer:
             f.write(json.dumps(api_payload, indent=2))
         
     def create_system_prompt(self):
-        """Create the system prompt for the AI player"""
+        """Create the system prompt for the AI player with complete character data"""
         current_objective = self.get_current_objective()
         char = self.character_data
         # Check if we have a speedrun profile by looking at constraints
@@ -110,26 +183,31 @@ class AIPlayer:
                       constraints.get('minimize_side_content', False))
         is_combat_test = 'combat' in profile_name.lower()
         
-        # Extract key skills with modifiers
-        skills = char.get('skills', {})
-        skill_text = []
-        for skill, bonus in skills.items():
-            skill_text.append(f"  - {skill}: +{bonus}")
+        # Create complete character summary from JSON data
+        char_summary = self._create_character_summary(char)
         
-        # Create base character info
+        # Create base character info with full data
         base_info = f"""You are an AI tester validating a 5e game system while playing as {char['name']}, a level {char['level']} {char['race']} {char['class']}.
 
 PRIMARY ROLE: Game System Tester
 Your main purpose is to systematically test game functionality, find issues, and validate that all systems work correctly.
 
-TESTING PROFILE: {self.test_profile['name']}
-Description: {self.test_profile['description']}
+TESTING PROFILE: {self.test_profile.get('name', 'Custom Test')}
+Description: {self.test_profile.get('description', 'Automated testing profile')}
 
 CURRENT OBJECTIVE: {current_objective}
 
-CHARACTER ABILITIES (for testing purposes):
-{chr(10).join(skill_text)}
-HP: {char.get('hitPoints', 0)}/{char.get('maxHitPoints', 0)}, AC: {char.get('armorClass', 10)}"""
+COMPLETE CHARACTER DATA:
+{char_summary}
+
+ONGOING CONVERSATION CONTEXT:
+This is a CONTINUOUS conversation with the Dungeon Master. You have full access to all previous interactions below and should reference them when making decisions. The DM remembers everything that has happened, so you can:
+- Refer to previous events, conversations, and locations visited
+- Reference items you've stored, NPCs you've talked to, or actions you've taken
+- Build upon previous decisions and conversations naturally
+- Ask follow-up questions or revisit previous topics
+
+IMPORTANT: Use your complete character data above to make informed decisions about what you can do, what equipment you have, and what your capabilities are. Don't ask about things you can see in your character sheet."""
 
         # Profile-specific prompts
         if is_speedrun:
@@ -262,13 +340,37 @@ DECISION MAKING:
 - Focus on your current objective but note other issues found
 - After each action, verify the game responded appropriately
 
-RESPONSE FORMAT:
-- State your intended action clearly
-- Note expected vs actual results when relevant
-- Report issues immediately when found
-- Continue testing even after encountering errors
+RESPONSE GUIDELINES:
+1. NATURAL LANGUAGE: Use normal conversational responses (aim for ~20-35 words)
+2. ACTION-FOCUSED: State your action clearly, brief context is fine
+3. VALID ACTIONS ONLY: Choose from these tested action types:
+   - Look/examine [object/area]
+   - Go/move [direction/location]
+   - Talk to [character name]
+   - Attack [target]
+   - Use [item] or Cast [spell]
+   - Take/get [item]
+   - Store/retrieve items (storage system)
+   - Open/close [door/container]
+   - Search [area]
+   - Help (when stuck)
 
-Remember: You're testing the game, not just playing it. Be thorough, systematic, and report everything unusual."""
+NATURAL SPEECH GUIDELINES:
+- Use conversational tone like a real player would
+- Brief context or reasoning is fine ("I'll check the chest for loot")
+- Avoid multi-paragraph backstories or elaborate character histories
+- Don't ask meta-questions like "what would my character do"
+
+EXAMPLE NATURAL RESPONSES: 
+- "I'll go north to see what's there"
+- "Let me talk to the shopkeeper about what they're selling"
+- "I want to examine that chest carefully for any traps"
+- "I should store some of my gear here before moving on"
+
+ISSUE REPORTING: Only when you encounter actual bugs/errors:
+"ISSUE DETECTED: [Type] - [Brief description]"
+
+Remember: You are a TESTER, not a creative writer. Be concise, direct, and systematic."""
         
         return prompt
     
@@ -398,19 +500,24 @@ Remember: You're testing the game, not just playing it. Be thorough, systematic,
         # Check for issues
         self.check_for_issues(filtered_output)
         
-        # Build messages for AI
+        # Build messages for AI with system prompt and full conversation history
         messages = [
             {"role": "system", "content": self.create_system_prompt()}
         ]
         
-        # Add conversation history with correct roles
-        # DM outputs are "user" messages (telling the AI what happened)
-        # AI actions are "assistant" messages (the AI's responses)
+        # Add complete conversation history with proper context
+        # Each exchange: DM message (user) -> AI response (assistant)
         for msg in self.conversation_history:
             messages.append(msg)
             
         # Add current DM output as a user message
         messages.append({"role": "user", "content": filtered_output})
+        
+        # Manage message history length to prevent token overflow
+        # Keep system prompt + last 20 exchanges (40 messages)
+        if len(messages) > 41:  # system + 40 messages
+            # Keep system prompt and last 20 exchanges
+            messages = [messages[0]] + messages[-40:]
         
         # Log the exact API payload before making the call
         self._log_llm_interaction(messages, None)
@@ -426,6 +533,12 @@ Remember: You're testing the game, not just playing it. Be thorough, systematic,
             # Sanitize AI response to prevent encoding issues
             action = sanitize_text(action)
             
+            # Validate and constrain the response
+            action = self.validate_and_constrain_response(action)
+            
+            # Track the current action for error reporting
+            self._last_action = action
+            
             # Log the decision
             self.log_action(filtered_output, action)
             
@@ -434,6 +547,11 @@ Remember: You're testing the game, not just playing it. Be thorough, systematic,
             # AI action is "assistant" (how the AI responded)
             self.conversation_history.append({"role": "user", "content": filtered_output})
             self.conversation_history.append({"role": "assistant", "content": action})
+            
+            # Keep conversation history manageable (last 30 exchanges = 60 messages)
+            if len(self.conversation_history) > 60:
+                # Remove oldest exchanges but keep recent context
+                self.conversation_history = self.conversation_history[-60:]
             
             return action
             
@@ -463,35 +581,165 @@ Remember: You're testing the game, not just playing it. Be thorough, systematic,
                 if any(indicator in output_lower for indicator in indicators):
                     self.mark_objective_progress(current_objective, "possible_completion")
     
+    def validate_and_constrain_response(self, action):
+        """Validate and constrain AI response to prevent verbosity and invalid actions"""
+        
+        # Valid action verbs that the game system supports
+        valid_actions = [
+            'look', 'examine', 'inspect', 'go', 'move', 'walk', 'run', 'travel',
+            'talk', 'speak', 'ask', 'tell', 'say', 'greet',
+            'attack', 'fight', 'strike', 'hit', 'defend',
+            'use', 'cast', 'activate', 'consume', 'drink', 'eat',
+            'take', 'get', 'pick', 'grab', 'drop', 'give',
+            'store', 'retrieve', 'put', 'place',
+            'open', 'close', 'unlock', 'lock',
+            'search', 'find', 'seek',
+            'help', 'commands', 'inventory', 'status',
+            'wait', 'rest', 'sleep'
+        ]
+        
+        # No artificial word limits - let natural language flow
+        # Only remove completely invalid or problematic content
+        
+        # Only remove extremely problematic verbose phrases
+        overly_verbose_phrases = [
+            "As a seasoned adventurer with years of experience, I think",
+            "Given my extensive background as a seasoned",
+            "Considering all the factors and my character's motivations, I believe",
+            "After careful deliberation about my character's personality and background, I decide"
+        ]
+        
+        for phrase in overly_verbose_phrases:
+            if phrase.lower() in action.lower():
+                # Remove only the problematic phrase, keep the rest
+                action = action.replace(phrase, "").strip()
+                # Clean up any double spaces
+                action = ' '.join(action.split())
+                break
+        
+        # Remove issue reporting unless it's a real issue
+        if action.startswith("ISSUE DETECTED:") and not any(keyword in action.lower() for keyword in ['error', 'bug', 'fail', 'crash', 'broken']):
+            action = "look around"  # Default safe action
+            
+        # Only validate action if it's clearly invalid - allow natural speech patterns
+        words = action.split()
+        if words:
+            first_word = words[0].lower()
+            # Allow common natural language starters  
+            natural_starters = valid_actions + ["i", "i'll", "let", "maybe", "perhaps", "i'd", "i'd", "let's"]
+            
+            if first_word not in natural_starters:
+                # Try to find a valid action in the response
+                found_action = False
+                for word in words:
+                    if word.lower() in valid_actions:
+                        # Reconstruct starting with the action verb
+                        idx = words.index(word)
+                        action = ' '.join(words[idx:])
+                        found_action = True
+                        break
+                
+                if not found_action:
+                    # Only default if completely invalid
+                    action = "look around"
+                    game_logger.warning(f"No valid action found in AI response, defaulting to: {action}")
+        
+        # Remove quotes if the entire action is quoted
+        if action.startswith('"') and action.endswith('"'):
+            action = action[1:-1]
+        if action.startswith("'") and action.endswith("'"):
+            action = action[1:-1]
+            
+        # Clean up common formatting issues
+        action = action.replace('  ', ' ').strip()
+        
+        # Ensure it's not empty
+        if not action:
+            action = "look around"
+            
+        return action
+
     def check_for_issues(self, game_output):
-        """Check for potential issues in game output"""
+        """Check for potential issues in game output with enhanced detection"""
         issue_patterns = [
-            (r"error|exception", "Error message detected"),
-            (r"undefined|null|none.*error", "Null reference detected"),
-            (r"cannot find|not found|doesn't exist", "Missing content detected"),
-            (r"[{][^}]*[}]", "Raw JSON in output"),
-            (r"DEBUG:|FIXME:|TODO:", "Debug message in output"),
-            (r"<.*>", "HTML/XML tags in output"),
-            (r"\\n|\\t", "Escaped characters in output")
+            # Critical errors
+            (r"error|exception|traceback|failed.*to", "CRITICAL_ERROR"),
+            (r"validation.*failed|schema.*error", "VALIDATION_ERROR"),
+            (r"file.*not.*found|directory.*not.*exist", "FILE_MISSING"),
+            
+            # Content issues
+            (r"undefined|null.*reference|none.*error", "NULL_REFERENCE"),
+            (r"cannot find|not found|doesn't exist", "MISSING_CONTENT"),
+            (r"no.*response|empty.*response", "EMPTY_RESPONSE"),
+            
+            # System issues
+            (r"[{][^}]*[}]", "RAW_JSON_OUTPUT"),
+            (r"DEBUG:|FIXME:|TODO:", "DEBUG_LEAK"),
+            (r"<.*>", "HTML_XML_TAGS"),
+            (r"\\n|\\t", "ESCAPED_CHARS"),
+            
+            # Storage system issues
+            (r"gold.*coin.*not.*found|item.*not.*in.*inventory", "STORAGE_INVENTORY_MISMATCH"),
+            (r"storage.*operation.*failed", "STORAGE_OPERATION_FAILED"),
+            
+            # Combat issues
+            (r"combat.*error|turn.*order.*failed", "COMBAT_ERROR"),
+            (r"damage.*calculation.*error", "DAMAGE_CALCULATION_ERROR")
         ]
         
         for pattern, issue_type in issue_patterns:
-            if re.search(pattern, game_output, re.IGNORECASE):
-                self.report_issue(issue_type, game_output)
+            match = re.search(pattern, game_output, re.IGNORECASE)
+            if match:
+                # Extract the specific error context
+                error_context = self._extract_error_context(game_output, match)
+                self.report_issue(issue_type, game_output, error_context)
     
-    def report_issue(self, issue_type, context):
-        """Report a detected issue"""
+    def _extract_error_context(self, game_output, match):
+        """Extract specific error context around the matched pattern"""
+        start = max(0, match.start() - 100)
+        end = min(len(game_output), match.end() + 100)
+        context = game_output[start:end].strip()
+        
+        # Try to get the specific error line
+        lines = game_output.split('\n')
+        for i, line in enumerate(lines):
+            if match.group(0).lower() in line.lower():
+                # Get surrounding lines for context
+                context_start = max(0, i - 2)
+                context_end = min(len(lines), i + 3)
+                return '\n'.join(lines[context_start:context_end])
+        
+        return context
+    
+    def report_issue(self, issue_type, full_context, error_context=None):
+        """Report a detected issue with enhanced details"""
+        # Get current action for better context
+        current_action = getattr(self, '_last_action', 'Unknown action')
+        
         issue = {
             "type": issue_type,
             "timestamp": datetime.now().isoformat(),
             "objective": self.get_current_objective(),
-            "location": self.game_state['location'],
-            "context": context[:500]  # Limit context length
+            "location": self.game_state.get('location', 'Unknown'),
+            "current_action": current_action,
+            "error_context": error_context[:300] if error_context else None,
+            "full_context": full_context[:500],  # Limit full context length
+            "action_count": getattr(self, 'actions_taken', 0)
         }
         
         self.issues_found.append(issue)
-        game_logger.warning(f"Issue detected: {issue_type} at {self.game_state['location']}")
-        game_event("issue_detected", {"type": issue_type, "location": self.game_state['location']})
+        
+        # Enhanced logging with more details
+        location = self.game_state.get('location', 'Unknown')
+        game_logger.warning(f"ISSUE DETECTED [{issue_type}] at {location} during '{current_action}'")
+        if error_context:
+            game_logger.warning(f"Error context: {error_context[:150]}...")
+        
+        game_event("issue_detected", {
+            "type": issue_type, 
+            "location": location,
+            "action": current_action
+        })
     
     def mark_objective_progress(self, objective, status):
         """Mark progress on an objective"""

@@ -36,12 +36,31 @@
     },
     "item_name": {
       "type": "string",
-      "description": "Name of item to store/retrieve"
+      "description": "Name of item to store/retrieve (for single item operations)"
     },
     "quantity": {
       "type": "integer",
       "minimum": 1,
-      "description": "Quantity to store/retrieve"
+      "description": "Quantity to store/retrieve (for single item operations)"
+    },
+    "items": {
+      "type": "array",
+      "description": "Array of items for multi-item operations",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_name": {
+            "type": "string",
+            "description": "Name of the item"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Quantity of the item"
+          }
+        },
+        "required": ["item_name", "quantity"]
+      }
     }
   },
   "required": ["action", "character"],
@@ -52,11 +71,21 @@
     },
     {
       "if": {"properties": {"action": {"const": "store_item"}}}, 
-      "then": {"required": ["item_name", "quantity"]}
+      "then": {
+        "anyOf": [
+          {"required": ["item_name", "quantity"]},
+          {"required": ["items"]}
+        ]
+      }
     },
     {
       "if": {"properties": {"action": {"const": "retrieve_item"}}},
-      "then": {"required": ["storage_id", "item_name", "quantity"]}
+      "then": {
+        "anyOf": [
+          {"required": ["storage_id", "item_name", "quantity"]},
+          {"required": ["storage_id", "items"]}
+        ]
+      }
     }
   ]
 }

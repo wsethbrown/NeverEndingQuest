@@ -5,13 +5,53 @@ Don't add emojis or special characters anywhere in the game code.
 
 When planning, always add creating a plan md file in case you get disconnected to the first step of the plan
 
-# Unicode and Special Characters
-NEVER use Unicode symbols (✓, ✗, →, ●, etc.) in print statements or logging. Windows console (cp1252) cannot display these characters and will cause UnicodeEncodeError crashes. Always use ASCII-safe alternatives:
-- Use [OK] instead of ✓
-- Use [ERROR] instead of ✗  
-- Use -> instead of →
-- Use * instead of ●
-This prevents encoding crashes during module integration and gameplay.
+# Unicode and Special Characters - CRITICAL WARNING
+## NEVER USE UNICODE CHARACTERS IN ANY PYTHON CODE
+Windows console (cp1252) cannot display Unicode characters and will cause UnicodeEncodeError crashes that break the entire game. This is a CRITICAL requirement.
+
+### BANNED CHARACTERS (NEVER USE THESE):
+- ✓ ✗ ✔ ✘ ❌ ✅ (checkmarks/crosses) 
+- → ← ↑ ↓ ➜ ⇒ (arrows)
+- ● ○ ◆ ◇ ■ □ • ▪ (bullets/shapes)
+- 📊 📈 📉 🎉 ⚠️ 🔧 💡 (emojis)
+- « » „ " " ' ' (fancy quotes)
+- — – (em/en dashes)
+- … (ellipsis)
+- ANY other non-ASCII character
+
+### REQUIRED ASCII REPLACEMENTS:
+- Use [OK] or [PASS] instead of ✓ ✅
+- Use [ERROR] or [FAIL] instead of ✗ ❌  
+- Use -> or => instead of → ➜
+- Use * or - instead of ● •
+- Use standard quotes " and ' only
+- Use -- instead of — or –
+- Use ... instead of …
+- Use [WARNING] instead of ⚠️
+- Use [INFO] instead of 💡
+- Use regular text descriptions instead of ANY emoji
+
+### WHERE THIS APPLIES:
+- ALL print() statements
+- ALL logging statements (logger.info, logger.debug, etc.)
+- ALL string literals that might be displayed
+- Test output and debug messages
+- Comments can use Unicode but code CANNOT
+
+### EXAMPLES:
+```python
+# BAD - WILL CRASH:
+print("✅ Test passed!")
+logger.info("→ Processing file")
+print("🎉 Success!")
+
+# GOOD - SAFE:
+print("[OK] Test passed!")
+logger.info("-> Processing file")
+print("Success!")
+```
+
+This is not optional - Unicode characters WILL cause the game to crash with encoding errors.
 
 # Schema Validation
 Use `python validate_module_files.py` to check schema compatibility after making changes to JSON files or schemas. This ensures all game files remain compatible with their schemas and prevents runtime errors. Aim for 100% validation pass rate.

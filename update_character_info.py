@@ -208,11 +208,11 @@ CRITICAL - Valid item_type values (MUST use one of these EXACTLY):
 NEVER use: "wondrous item", "magic item", "magical", "equipment", or any other value!
 
 Common Item Type Mappings:
-- Cloak of Elvenkind → item_type: "armor", item_subtype: "cloak"
-- Ring of Protection → item_type: "miscellaneous", item_subtype: "ring"
-- Wand of Magic Missiles → item_type: "miscellaneous", item_subtype: "wand"
-- Potion of Healing → item_type: "consumable", item_subtype: "potion"
-- Scroll of Fireball → item_type: "consumable", item_subtype: "scroll"
+- Cloak of Elvenkind -> item_type: "armor", item_subtype: "cloak"
+- Ring of Protection -> item_type: "miscellaneous", item_subtype: "ring"
+- Wand of Magic Missiles -> item_type: "miscellaneous", item_subtype: "wand"
+- Potion of Healing -> item_type: "consumable", item_subtype: "potion"
+- Scroll of Fireball -> item_type: "consumable", item_subtype: "scroll"
 """
     
     if character_role == 'player':
@@ -277,7 +277,7 @@ def deep_merge_dict(base_dict, update_dict):
     return result
 
 def merge_equipment_arrays(base_equipment, update_equipment):
-    """Merge equipment arrays by item name, preserving existing items"""
+    """Merge equipment arrays by item name, preserving existing items and removing zero-quantity items"""
     result = copy.deepcopy(base_equipment)
     
     # Create a mapping of item names to indices in the base equipment
@@ -300,6 +300,9 @@ def merge_equipment_arrays(base_equipment, update_equipment):
         else:
             # Add new item if it doesn't exist
             result.append(copy.deepcopy(update_item))
+    
+    # Remove items with zero or negative quantity
+    result = [item for item in result if item.get('quantity', 1) > 0]
     
     return result
 
@@ -331,7 +334,7 @@ def fix_item_types(updates):
                 if item_type_lower in item_type_fixes:
                     old_type = item['item_type']
                     item['item_type'] = item_type_fixes[item_type_lower]
-                    print(f"{ORANGE}Auto-corrected item_type: '{old_type}' → '{item['item_type']}' for {item.get('item_name', 'unknown item')}{RESET}")
+                    print(f"{ORANGE}Auto-corrected item_type: '{old_type}' -> '{item['item_type']}' for {item.get('item_name', 'unknown item')}{RESET}")
     
     return updates
 

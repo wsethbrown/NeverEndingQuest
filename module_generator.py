@@ -23,8 +23,8 @@ import json
 # - Ensure all generated content follows schema compliance
 # 
 # GENERATION PIPELINE:
-# Module Concept → Area Generation → Location Creation → NPC/Monster
-# Population → Encounter Placement → Plot Integration → Validation
+# Module Concept -> Area Generation -> Location Creation -> NPC/Monster
+# Population -> Encounter Placement -> Plot Integration -> Validation
 # 
 # CONTENT COORDINATION:
 # - Ensures thematic consistency across all generated content

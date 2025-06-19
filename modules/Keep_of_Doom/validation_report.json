@@ -1,6 +1,6 @@
 {
   "module": "Keep_of_Doom",
-  "timestamp": "2025-06-17T21:11:13.743401",
+  "timestamp": "2025-06-18T20:44:27.471991",
   "summary": {
     "total_files": 36,
     "total_passed": 36,
@@ -23,7 +23,7 @@
       "files": [
         "elen.json",
         "laura.json",
-        "norn.json",
+        "norn..json",
         "norn_test.json",
         "testnpc.json"
       ],

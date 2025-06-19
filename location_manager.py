@@ -16,7 +16,7 @@
 # - Maintain location state and discovery tracking
 # 
 # LOCATION HIERARCHY:
-# Module → Areas (HH001, G001) → Locations (A01, B02) → Local Features
+# Module -> Areas (HH001, G001) -> Locations (A01, B02) -> Local Features
 # 
 # ID CONVENTION:
 # - Area IDs: 3-letter prefix + 3-digit number (HH001, G001, TBM001)

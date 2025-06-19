@@ -140,18 +140,6 @@
       "quantity": 3
     },
     {
-      "item_name": "Carved Bone Talisman",
-      "item_type": "miscellaneous",
-      "description": "A slender, carved bone used as a focus in the Lost Ward Circle ritual",
-      "quantity": 1
-    },
-    {
-      "item_name": "Bundle of Gloamwood Roots",
-      "item_type": "miscellaneous",
-      "description": "Dried roots from the Gloamwood, used as a living token in the Lost Ward Circle ritual",
-      "quantity": 1
-    },
-    {
       "item_name": "Ancient Bronze Key (raven sigil)",
       "item_type": "miscellaneous",
       "description": "An old bronze key with a raven sigil, given by Elder Mirna",
@@ -167,18 +155,6 @@
       "item_name": "Detailed Forest Map",
       "item_type": "miscellaneous",
       "description": "A detailed map marking the Lost Ward Circle, unstable ravine, and approach to the Keep of Doom",
-      "quantity": 1
-    },
-    {
-      "item_name": "Battered Ranger's Journal",
-      "item_type": "miscellaneous",
-      "description": "A worn journal with notes about Elen, Sir Garran Vael, warnings about whispers, and the Keeper",
-      "quantity": 1
-    },
-    {
-      "item_name": "Parchment Map Scrap",
-      "item_type": "miscellaneous",
-      "description": "A faded parchment with a diagram marking a secret entrance to the keep at dusk",
       "quantity": 1
     },
     {
@@ -228,12 +204,6 @@
       "item_type": "miscellaneous",
       "description": "A worn journal belonging to the chapel's chaplain, containing prayers and notes",
       "quantity": 1
-    },
-    {
-      "item_name": "Vial of blessed water",
-      "item_type": "miscellaneous",
-      "description": "A small vial containing holy water blessed by a cleric, used to stabilize acid wounds from the mimic.",
-      "quantity": 0
     },
     {
       "item_name": "Holy symbol (silver)",
@@ -491,7 +461,7 @@
     {
       "item_name": "Reward Coffer from Harrow's Hollow",
       "item_type": "miscellaneous",
-      "description": "A coffer containing 150 gold coins, 2 gemstones worth 50 gp each, and a deed to a plot of land west of the village",
+      "description": "A coffer containing several velvet pouches with gold and silver coins, two small gemstones, and a deed to a plot of land west of the village. All items are in good condition.",
       "quantity": 1
     },
     {
@@ -539,23 +509,6 @@
       ]
     },
     {
-      "item_name": "Cloak of Elvenkind",
-      "item_type": "armor",
-      "item_subtype": "cloak",
-      "description": "A flowing cloak woven from ethereal fabric that seems to shift between shades of green and brown. Grants advantage on Stealth checks.",
-      "quantity": 1,
-      "magical": true,
-      "equipped": false,
-      "armor_category": "other",
-      "effects": [
-        {
-          "type": "advantage",
-          "target": "stealth_checks",
-          "description": "Advantage on Dexterity (Stealth) checks"
-        }
-      ]
-    },
-    {
       "item_name": "Scroll of Cure Light Wounds",
       "item_type": "consumable",
       "item_subtype": "scroll",
@@ -588,6 +541,18 @@
           "description": "+1 natural armor bonus to AC"
         }
       ]
+    },
+    {
+      "item_name": "Travel Ration",
+      "item_type": "miscellaneous",
+      "description": "A compact meal suitable for travel, providing nourishment for one day",
+      "quantity": 1
+    },
+    {
+      "item_name": "Vial of Lamp Oil",
+      "item_type": "miscellaneous",
+      "description": "A small vial of lamp oil used to fuel lanterns and lamps",
+      "quantity": 1
     }
   ],
   "ammunition": [
@@ -658,7 +623,7 @@
     }
   },
   "currency": {
-    "gold": 156,
+    "gold": 154,
     "silver": 0,
     "copper": 0
   },

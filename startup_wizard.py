@@ -982,17 +982,17 @@ Level {character_data['level']} {character_data['race']} {character_data['class'
 Background: {character_data['background']}
 
 **Abilities:**
-  • Strength: {character_data['abilities']['strength']}
-  • Dexterity: {character_data['abilities']['dexterity']} 
-  • Constitution: {character_data['abilities']['constitution']}
-  • Intelligence: {character_data['abilities']['intelligence']}
-  • Wisdom: {character_data['abilities']['wisdom']}
-  • Charisma: {character_data['abilities']['charisma']}
+  * Strength: {character_data['abilities']['strength']}
+  * Dexterity: {character_data['abilities']['dexterity']} 
+  * Constitution: {character_data['abilities']['constitution']}
+  * Intelligence: {character_data['abilities']['intelligence']}
+  * Wisdom: {character_data['abilities']['wisdom']}
+  * Charisma: {character_data['abilities']['charisma']}
 
-⚔️ **Combat Stats:**
-  • Hit Points: {character_data['hitPoints']}/{character_data['maxHitPoints']}
-  • Armor Class: {character_data['armorClass']}
-  • Initiative: +{character_data['initiative']}
+**Combat Stats:**
+  * Hit Points: {character_data['hitPoints']}/{character_data['maxHitPoints']}
+  * Armor Class: {character_data['armorClass']}
+  * Initiative: +{character_data['initiative']}
 """
     
     print(char_summary)

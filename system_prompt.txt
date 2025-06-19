@@ -681,6 +681,49 @@ Example 2: Retrieving items from storage
 - Include natural language descriptions that capture player intent clearly
 - Always include updateTime action when using storageInteraction
 
+### Storage With Fees Protocol
+When players want to store items for a fee, you MUST output TWO separate actions in this exact order:
+
+1. FIRST: updateCharacterInfo - Handle currency payment (with proper gold/silver conversion)
+2. SECOND: storageInteraction - Handle the actual item storage
+
+#### Currency Conversion Rules
+- 1 gold = 10 silver = 100 copper
+- Always check DM Note for exact currency amounts
+- Convert gold to silver automatically if needed
+- Show the conversion math in the changes description
+
+#### Example - Player pays 2 silver for storage:
+Character has: 156 gold, 0 silver, 0 copper
+
+Action 1:
+```json
+{
+  "action": "updateCharacterInfo", 
+  "parameters": {
+    "characterName": "norn",
+    "changes": "Pay 2 silver coins for storage fee. Convert 1 gold to 10 silver (156 gold becomes 155 gold + 10 silver), then deduct 2 silver (final: 155 gold, 8 silver, 0 copper)."
+  }
+}
+```
+
+Action 2:
+```json
+{
+  "action": "storageInteraction",
+  "parameters": {
+    "description": "Store torches and hemp rope in cupboard at general store",
+    "characterName": "norn"
+  }
+}
+```
+
+#### Validation Requirements
+- Always verify character has sufficient total currency value before any transaction
+- Show your currency math clearly in the changes description
+- Never deduct currency without sufficient funds (including conversions)
+- Currency payment must always come before storage action when fees are involved
+
 Location Transition:
 - Trigger: Use 'transitionLocation' when the player chooses to move locations.
 - Confirm: Only transition to defined locations; avoid assumptions.

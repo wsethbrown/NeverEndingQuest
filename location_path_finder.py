@@ -23,7 +23,7 @@
 # - Efficient caching of commonly requested paths
 # 
 # CONNECTIVITY MODEL:
-# Module → Areas (HH001, G001) → Locations (A01, B02) → Connections
+# Module -> Areas (HH001, G001) -> Locations (A01, B02) -> Connections
 # - Within-area: Direct location-to-location connections
 # - Cross-area: Special transition locations with areaConnectivity
 # - Hidden passages: Conditional connections based on game state

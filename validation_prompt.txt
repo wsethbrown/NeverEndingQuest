@@ -595,3 +595,47 @@ Here are examples of acceptable model assistant responses:
   "valid": true,
   "reason": "The assistant's response correctly uses the 'transitionLocation' action to move the party into the Dwarven Complex, the 'updateTime' action to account for the time spent entering the new area, and the 'updatePlot' action to reflect the progression of the story as they enter this significant location. The narration provides a vivid description of the new environment and sets up potential paths for exploration, while also incorporating input from the party NPCs to maintain engagement."
 }
+
+STORAGE TRANSACTION VALIDATION:
+
+When you see storage operations with fees, validate:
+
+1. CURRENCY MATH ACCURACY:
+   - Check if character has sufficient total currency value
+   - Verify gold/silver/copper conversion math (1 gold = 10 silver = 100 copper)
+   - Confirm final currency amounts are correct
+   - Ensure no negative balances
+
+2. ACTION SEQUENCE CORRECTNESS:
+   - Currency payment (updateCharacterInfo) MUST come before storage (storageInteraction)
+   - Both actions must reference the same character
+   - Currency changes must show clear conversion math
+
+3. ITEM VALIDATION:
+   - Verify character actually possesses the items being stored
+   - Check item quantities are sufficient
+
+EXAMPLE VALIDATION:
+Player has 156 gold, 0 silver, wants to pay 2 silver:
+VALID: "Convert 1 gold to 10 silver (155 gold + 10 silver), then pay 2 silver (final: 155 gold, 8 silver)"
+INVALID: "Deduct 2 silver" (would create negative silver)
+
+COMMON STORAGE TRANSACTION ERRORS TO CATCH:
+
+1. "Currency deduction without conversion": 
+   - REJECT if trying to deduct silver when character has 0 silver but has gold
+   - REQUIRE proper gold-to-silver conversion math
+
+2. "Wrong action order":
+   - REJECT if storageInteraction comes before updateCharacterInfo for paid storage
+   - REQUIRE currency payment first
+
+3. "Missing currency math":
+   - REJECT if changes don't show conversion calculations
+   - REQUIRE explicit "X gold becomes Y gold + Z silver" format
+
+4. "Insufficient funds":
+   - REJECT if total currency value insufficient for cost
+   - CALCULATE: (gold times 10) + silver + (copper divided by 10) must be greater than or equal to cost
+
+If currency math is wrong or sequence is incorrect, REJECT the response and explain the proper format with correct calculations.

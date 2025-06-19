@@ -98,10 +98,11 @@ class StorageProcessor:
         
         schema = self._get_storage_schema()
         
-        # Format character inventory for context
+        # Format character inventory for context - Only include items with quantity > 0
         character_inventory = []
         if context.get("character") and context["character"].get("equipment"):
-            for item in context["character"]["equipment"][:10]:  # Limit for prompt size
+            available_items = [item for item in context["character"]["equipment"] if item.get("quantity", 1) > 0]
+            for item in available_items[:10]:  # Limit for prompt size
                 character_inventory.append({
                     "name": item.get("item_name", "Unknown"),
                     "quantity": item.get("quantity", 1),
@@ -143,34 +144,51 @@ INSTRUCTIONS:
 6. Ensure all required fields are present according to the schema
 7. Use the current location information provided in context
 8. Validate item names against the character's inventory for store operations
+9. For multiple items, use the "items" array format instead of single item_name/quantity
+10. NEVER return action "error" - always use a valid action type from the enum
 
 OUTPUT REQUIREMENTS:
 - Return ONLY valid JSON that matches the storage action schema
 - Include all required fields for the detected action type
-- Use exact item names from character inventory
+- Use EXACT item names from character inventory (never modify or assume item names)
+- Extract the specific item name mentioned in the player's request
+- Use the exact quantity requested, or 1 if not specified
 - Reference existing storage IDs when applicable
-- If the request is unclear or impossible, return an error action
+- If the request is unclear, default to store_item action with the specific item mentioned
 
 EXAMPLE OUTPUTS:
 
-For "I store my gold in a chest here":
+For "I store my rope in a chest here":
 {{
   "action": "store_item",
   "character": "Norn",
   "storage_type": "chest",
-  "storage_name": "Treasure Chest",
+  "storage_name": "Storage Chest",
   "location_description": "current location",
-  "item_name": "Gold Coins",
-  "quantity": 100
+  "item_name": "Hemp Rope (50 feet)",
+  "quantity": 1
 }}
 
-For "I get my arrows from the chest we made":
+For "I store my torch and dagger in the chest":
+{{
+  "action": "store_item",
+  "character": "Norn",
+  "storage_type": "chest",
+  "storage_name": "Equipment Chest",
+  "location_description": "current location", 
+  "items": [
+    {{"item_name": "Torch", "quantity": 1}},
+    {{"item_name": "Dagger", "quantity": 1}}
+  ]
+}}
+
+For "I get my torch from the chest we made":
 {{
   "action": "retrieve_item",
   "character": "Norn", 
   "storage_id": "storage_12345678",
-  "item_name": "Ancient Arrows",
-  "quantity": 10
+  "item_name": "Torch",
+  "quantity": 1
 }}
 
 For "What's in our storage here?":

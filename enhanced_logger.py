@@ -57,7 +57,7 @@ class CleanConsoleFormatter(logging.Formatter):
         if "Transitioning from" in msg:
             parts = msg.split("'")
             if len(parts) >= 4:
-                return f"📍 {parts[1]} → {parts[3]}"
+                return f"[LOCATION] {parts[1]} -> {parts[3]}"
                 
         # Format errors with color
         levelname = record.levelname
@@ -66,9 +66,9 @@ class CleanConsoleFormatter(logging.Formatter):
             
             # Special formatting for errors
             if levelname == 'ERROR':
-                return f"{color}❌ {msg}{self.RESET}"
+                return f"{color}[ERROR] {msg}{self.RESET}"
             elif levelname == 'WARNING':
-                return f"{color}⚠️  {msg}{self.RESET}"
+                return f"{color}[WARNING] {msg}{self.RESET}"
             else:
                 return msg
                 
@@ -146,15 +146,15 @@ class GameLogger:
     def game_event(self, event_type, details):
         """Log a game event in a structured way"""
         if event_type == "location_transition":
-            self.info(f"📍 {details['from']} → {details['to']}", category="location_transitions")
+            self.info(f"[LOCATION] {details['from']} -> {details['to']}", category="location_transitions")
         elif event_type == "plot_update":
-            self.info(f"📖 Plot: {details['plot_id']} - {details['status']}", category="plot_updates")
+            self.info(f"[PLOT] {details['plot_id']} - {details['status']}", category="plot_updates")
         elif event_type == "inventory_change":
-            self.info(f"🎒 {details['action']}: {details['item']}", category="inventory_changes")
+            self.info(f"[INVENTORY] {details['action']}: {details['item']}", category="inventory_changes")
         elif event_type == "character_update":
-            self.info(f"👤 {details['character']}: {details['change']}", category="character_updates")
+            self.info(f"[CHARACTER] {details['character']}: {details['change']}", category="character_updates")
         elif event_type == "combat_start":
-            self.info(f"⚔️ Combat: {details['enemies']}", category="combat_events")
+            self.info(f"[COMBAT] {details['enemies']}", category="combat_events")
         else:
             self.info(f"{event_type}: {details}")
 

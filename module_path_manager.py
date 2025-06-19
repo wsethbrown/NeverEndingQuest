@@ -44,6 +44,9 @@ import os
 class ModulePathManager:
     """Manages file paths for module-specific resources"""
     
+    # Class-level variable to track last logged module across all instances
+    _last_module_logged = None
+    
     def __init__(self, module_name=None):
         self.module_name = module_name or self._get_active_module()
         self.module_dir = f"modules/{self.module_name}"
@@ -54,12 +57,14 @@ class ModulePathManager:
             with open("party_tracker.json", 'r', encoding='utf-8') as file:
                 data = json.load(file)
                 module = data.get("module", "Keep_of_Doom")
-                # Use logger if available, otherwise print
-                try:
-                    from enhanced_logger import debug
-                    debug(f"ModulePathManager loaded module '{module}' from party_tracker.json", category="module_loading")
-                except:
-                    print(f"DEBUG: ModulePathManager loaded module '{module}' from party_tracker.json")
+                # Only log if module changes or on first load
+                if ModulePathManager._last_module_logged != module:
+                    try:
+                        from enhanced_logger import debug
+                        debug(f"ModulePathManager switched to module '{module}'", category="module_loading")
+                    except:
+                        pass  # Suppress debug output unless there's an actual change
+                    ModulePathManager._last_module_logged = module
                 return module
         except Exception as e:
             try:

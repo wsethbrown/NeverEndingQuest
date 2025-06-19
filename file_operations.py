@@ -288,16 +288,16 @@ if __name__ == "__main__":
     
     # Write test
     if safe_write_json("test_atomic.json", test_data):
-        print("✓ Write successful")
+        print("[OK] Write successful")
     else:
-        print("✗ Write failed")
+        print("[ERROR] Write failed")
     
     # Read test
     read_data = safe_read_json("test_atomic.json")
     if read_data == test_data:
-        print("✓ Read successful")
+        print("[OK] Read successful")
     else:
-        print("✗ Read failed")
+        print("[ERROR] Read failed")
     
     # Cleanup test file
     if os.path.exists("test_atomic.json"):

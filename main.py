@@ -43,7 +43,7 @@
 # - Provides dynamic data to conversation_utils.py for context management
 # 
 # DATA FLOW:
-# User Input → Action Processing → AI Response → Validation → State Update → DM Note Refresh
+# User Input -> Action Processing -> AI Response -> Validation -> State Update -> DM Note Refresh
 # 
 # This file embodies our "AI-First Design with Human Safety Nets" principle
 # by combining powerful AI capabilities with rigorous validation layers and
@@ -94,6 +94,9 @@ from status_manager import (
 from file_operations import safe_write_json, safe_read_json
 from module_path_manager import ModulePathManager
 from campaign_manager import CampaignManager
+
+# Import training data collection
+from simple_training_collector import log_complete_interaction
 
 # Import model configurations from config.py
 from config import (
@@ -555,6 +558,12 @@ def get_ai_response(conversation_history):
     
     # Use the encoding utility to sanitize the AI response
     content = sanitize_text(content)
+    
+    # Log training data - complete conversation history and AI response
+    try:
+        log_complete_interaction(conversation_history, content)
+    except Exception as e:
+        print(f"Warning: Could not log training data: {e}")
     
     return content
 
@@ -1032,13 +1041,13 @@ def main():
             
             success = run_startup_sequence()
             if not success:
-                print("❌ Setup was cancelled or failed. Exiting...")
+                print("[ERROR] Setup was cancelled or failed. Exiting...")
                 return
             
-            print("🎉 Setup complete! Your adventure begins now...\n")
+            print("Setup complete! Your adventure begins now...\n")
     
     except Exception as e:
-        print(f"⚠️  Startup wizard had an issue: {e}")
+        print(f"[WARNING] Startup wizard had an issue: {e}")
         print("Continuing with main game (assuming setup is complete)...\n")
     
     # Continue with normal game loop
