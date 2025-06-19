@@ -364,6 +364,10 @@ class StorageManager:
                     "timestamp": datetime.now().isoformat()
                 })
             
+            # Save updated character data
+            if not safe_write_json(character_file, character_data):
+                raise Exception("Failed to save character data")
+            
             # Validate and save character data with AI validation
             validated_character_data, validation_success = self.character_validator.validate_character_file_safe(character_file)
             if not validation_success:
@@ -463,6 +467,10 @@ class StorageManager:
                 "quantity": operation["quantity"],
                 "timestamp": datetime.now().isoformat()
             })
+            
+            # Save updated character data
+            if not safe_write_json(character_file, character_data):
+                raise Exception("Failed to save character data")
             
             # Validate and save character data with AI validation
             validated_character_data, validation_success = self.character_validator.validate_character_file_safe(character_file)

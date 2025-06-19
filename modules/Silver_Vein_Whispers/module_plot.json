@@ -5,7 +5,7 @@
     {
       "id": "PP001",
       "title": "Arrival in the Sablemoor Reaches",
-      "description": "Laura and Norn arrive at the edge of the Sablemoor Reaches, a mist-wreathed expanse notorious for haunting whispers and unnatural mists. Locals warn travelers away, but the party seeks the tormented spirit, Rilith the Riverbound, to uncover the source of the moor\u2019s unrest. Their first challenge is to navigate the treacherous terrain and gain the trust of the wary inhabitants.",
+      "description": "the party arrive at the edge of the Sablemoor Reaches, a mist-wreathed expanse notorious for haunting whispers and unnatural mists. Locals warn travelers away, but the party seeks the tormented spirit, Rilith the Riverbound, to uncover the source of the moor\u2019s unrest. Their first challenge is to navigate the treacherous terrain and gain the trust of the wary inhabitants.",
       "location": "SR001",
       "nextPoints": [
         "PP002"
@@ -129,7 +129,7 @@
     {
       "id": "PP005",
       "title": "Beneath the Moor's Veil",
-      "description": "Upon arrival in the Sablemoor Reaches, Laura and Norn are greeted by Mira the Moorwise, a cryptic guide who warns them of ethereal whispers and spectral sightings along the ancient riverbanks. The party must investigate the source of these disturbances, navigating treacherous bogs, uncovering cairns, and seeking the wisdom of the local hermit, Old Fenrick. Their initial discoveries hint at a deeper, ancient curse linked to the vanished kingdom of Calamyr.",
+      "description": "Upon arrival in the Sablemoor Reaches, the party are greeted by Mira the Moorwise, a cryptic guide who warns them of ethereal whispers and spectral sightings along the ancient riverbanks. The party must investigate the source of these disturbances, navigating treacherous bogs, uncovering cairns, and seeking the wisdom of the local hermit, Old Fenrick. Their initial discoveries hint at a deeper, ancient curse linked to the vanished kingdom of Calamyr.",
       "location": "R01",
       "nextPoints": [
         "PP002"
@@ -163,7 +163,7 @@
     {
       "id": "PP006",
       "title": "The Riverbound Pact",
-      "description": "Guided by clues and visions, Laura and Norn follow the haunting whispers to the Whispering Riverbanks, where lingering spirits are trapped by an ancient pact. Here, the party must negotiate or confront Rilith the Riverbound, whose torment holds the key to unraveling the curse. The river itself is restless\u2014crossing requires skill, diplomacy, or force, as the spirits attempt to communicate their sorrow and unfinished business.",
+      "description": "Guided by clues and visions, the party follow the haunting whispers to the Whispering Riverbanks, where lingering spirits are trapped by an ancient pact. Here, the party must negotiate or confront Rilith the Riverbound, whose torment holds the key to unraveling the curse. The river itself is restless\u2014crossing requires skill, diplomacy, or force, as the spirits attempt to communicate their sorrow and unfinished business.",
       "location": "R05",
       "nextPoints": [
         "PP003"
@@ -197,7 +197,7 @@
     {
       "id": "PP007",
       "title": "Secrets of the Silver Veins",
-      "description": "With the spirits' guidance\u2014or wrath\u2014Laura and Norn discover the entrance to the Ruins of Calamyr. Within the labyrinthine halls, they must uncover records protected by Archivist Lareth and outwit rival mercenaries led by Captain Veylan. The truth emerges: Queen Seralyth\u2019s ancient pact with river spirits split the land, dooming her people to restless undeath unless her crown is reclaimed and her regrets addressed.",
+      "description": "With the spirits' guidance\u2014or wrath\u2014the party discover the entrance to the Ruins of Calamyr. Within the labyrinthine halls, they must uncover records protected by Archivist Lareth and outwit rival mercenaries led by Captain Veylan. The truth emerges: Queen Seralyth\u2019s ancient pact with river spirits split the land, dooming her people to restless undeath unless her crown is reclaimed and her regrets addressed.",
       "location": "R01",
       "nextPoints": [
         "PP004"
@@ -231,7 +231,7 @@
     {
       "id": "PP008",
       "title": "The Queen's Lament",
-      "description": "At the heart of the ruins, Laura and Norn confront Queen Seralyth\u2019s anguished spirit. The final confrontation can play out as battle, negotiation, or a complex ritual of atonement\u2014depending on the party\u2019s choices and alliances. The fate of the Sablemoor Reaches, its spirits, and the ancient curse is decided here.",
+      "description": "At the heart of the ruins, the party confront Queen Seralyth\u2019s anguished spirit. The final confrontation can play out as battle, negotiation, or a complex ritual of atonement\u2014depending on the party\u2019s choices and alliances. The fate of the Sablemoor Reaches, its spirits, and the ancient curse is decided here.",
       "location": "R06",
       "nextPoints": [],
       "status": "not started",

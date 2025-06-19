@@ -5,7 +5,7 @@
     {
       "id": "PP001",
       "title": "Arrival in the Sablemoor Reaches",
-      "description": "Laura and Norn arrive at the edge of the Sablemoor Reaches, a mist-wreathed expanse notorious for haunting whispers and unnatural mists. Locals warn travelers away, but the party seeks the tormented spirit, Rilith the Riverbound, to uncover the source of the moor\u2019s unrest. Their first challenge is to navigate the treacherous terrain and gain the trust of the wary inhabitants.",
+      "description": "the party arrive at the edge of the Sablemoor Reaches, a mist-wreathed expanse notorious for haunting whispers and unnatural mists. Locals warn travelers away, but the party seeks the tormented spirit, Rilith the Riverbound, to uncover the source of the moor\u2019s unrest. Their first challenge is to navigate the treacherous terrain and gain the trust of the wary inhabitants.",
       "location": "SR001",
       "nextPoints": [
         "PP002"

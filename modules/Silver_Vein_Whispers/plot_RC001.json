@@ -1,11 +1,11 @@
 {
-  "plotTitle": "Echoes Beneath the Willows",
-  "mainObjective": "Uncover the hidden shrine along the Whispering Riverbanks and recover the relic guarded by Queen Seralyth\u2019s spirit.",
+  "plotTitle": "Ruins of Calamyr Revealed",
+  "mainObjective": "Uncover the hidden shrine within the Ruins of Calamyr and recover the relic guarded by Queen Seralyth\u2019s spirit.",
   "plotPoints": [
     {
       "id": "PP001",
       "title": "Murmurs in the Moor",
-      "description": "The party arrives at the Sablemoor Reaches, where rumors swirl of strange lights and haunting whispers along the Whispering Riverbanks. Mira the Moorwise, an enigmatic guide, offers to lead the party through the treacherous moors, but warns of restless spirits and rival treasure seekers. Old Fenrick, a superstitious hermit, may provide cryptic insight about a hidden shrine if convinced to trust the party.",
+      "description": "The party arrives at the Ruins of Calamyr, where rumors swirl of strange lights and haunting whispers within the Ruins of Calamyr. Mira the Moorwise, an enigmatic guide, offers to lead the party through the treacherous moors, but warns of restless spirits and rival treasure seekers. Old Fenrick, a superstitious hermit, may provide cryptic insight about a hidden shrine if convinced to trust the party.",
       "location": "R01",
       "nextPoints": [
         "PP002"
