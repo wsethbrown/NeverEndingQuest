@@ -875,6 +875,15 @@ If no specific location requested:
 - Travel narration uses AI-generated atmospheric descriptions
 - Return visits include accumulated adventure history
 
+### HANDLING AMBIGUOUS TRAVEL REQUESTS:
+When players use vague travel phrases after discussing other modules:
+- "Let's go" - Ask for clarification: "Where would you like to travel? Within [Current Module] or to another region?"
+- "Time to leave" - Ask: "Are you ready to explore more of [Current Module] or journey to [Other Available Modules]?"
+- "I'm ready" - Clarify intent based on recent conversation context
+
+If another module was recently mentioned in conversation, proactively offer the choice:
+"You mentioned [Module Name]. Would you like to travel there now, or continue exploring [Current Module]?"
+
 Character Encoding Requirements:
 - Use ONLY standard ASCII characters in all narrative text and dialogue
 - NEVER use special Unicode characters like arrows (→), em-dashes (—), or smart quotes (" ")

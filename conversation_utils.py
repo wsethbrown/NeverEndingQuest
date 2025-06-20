@@ -151,6 +151,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
             other_modules = [m for m in available_modules if m != current_module]
             if other_modules:
                 world_state_parts.append(f"Available modules for travel: {', '.join(other_modules)}")
+                world_state_parts.append(f"To travel to another module, use: 'I travel to [module name]' or similar explicit phrasing")
             world_state_parts.append(f"Current module: {current_module}")
         else:
             world_state_parts.append(f"Current module: {current_module} (no other modules detected)")
