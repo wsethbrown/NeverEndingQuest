@@ -84,20 +84,20 @@ Here's the strict list of specific actions that the model should take when the s
 ### CRITICAL createNewModule VALIDATION EXAMPLES:
 
 **INVALID USER INPUTS (must reject createNewModule):**
-- "What next, Elen?" ❌
-- "What's next for us?" ❌  
-- "Where should we go?" ❌
-- "Any ideas?" ❌
-- "What should we do now?" ❌
-- "What happens next?" ❌
-- "What's our next move?" ❌
+- "What next, Elen?" [INVALID]
+- "What's next for us?" [INVALID]  
+- "Where should we go?" [INVALID]
+- "Any ideas?" [INVALID]
+- "What should we do now?" [INVALID]
+- "What happens next?" [INVALID]
+- "What's our next move?" [INVALID]
 
 **VALID USER INPUTS (may allow createNewModule):**
-- "Yes, let's investigate the haunted barrow" ✓
-- "We'll help those villagers" ✓
-- "Count us in" ✓
-- "Let's go to the Frostward Marches" ✓
-- "I want to explore that dungeon you mentioned" ✓
+- "Yes, let's investigate the haunted barrow" [VALID]
+- "We'll help those villagers" [VALID]
+- "Count us in" [VALID]
+- "Let's go to the Frostward Marches" [VALID]
+- "I want to explore that dungeon you mentioned" [VALID]
 
 **VALIDATION RULE:** If user input is a vague question without specific commitment, createNewModule is INVALID regardless of what the AI response contains.
 
@@ -116,15 +116,15 @@ Requires "narrative" parameter containing rich story description with embedded m
    
    ### CRITICAL MODULE TRAVEL VALIDATION:
    **VALID for updatePartyTracker with module change:**
-   - "I travel to Silver_Vein_Whispers" ✓
-   - "Take us to the Desert Crown module" ✓
-   - "Let's journey to [specific module name]" ✓
+   - "I travel to Silver_Vein_Whispers" [VALID]
+   - "Take us to the Desert Crown module" [VALID]
+   - "Let's journey to [specific module name]" [VALID]
    
    **INVALID - Use transitionLocation instead:**
-   - "Let's go" (within same module) ❌
-   - "I leave the inn" ❌
-   - "We travel to the forest" (same module location) ❌
-   - Vague travel without module name ❌
+   - "Let's go" (within same module) [INVALID]
+   - "I leave the inn" [INVALID]
+   - "We travel to the forest" (same module location) [INVALID]
+   - Vague travel without module name [INVALID]
    
    If player mentions a location from the current module, use transitionLocation.
    If player mentions another module by name, use updatePartyTracker with module parameter.
@@ -222,7 +222,7 @@ When characters request travel across multiple areas or distant locations:
 
 ### Example Valid Multi-Area Travel:
 Player requests: "Let's travel to the gate near the trail head"
-VALID Response: Narrative describes journey through Gaol → Entrance → Surface → Trailhead → Gate, single transitionLocation to final gate location, updateTime for full journey
+VALID Response: Narrative describes journey through Gaol -> Entrance -> Surface -> Trailhead -> Gate, single transitionLocation to final gate location, updateTime for full journey
 
 Critical: The model may only take the above actions! If any other action is taken then the model has failed.
 
