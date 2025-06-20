@@ -435,38 +435,78 @@ class StorageManager:
             if not storage_container:
                 raise Exception(f"Storage container {operation['storage_id']} not found")
                 
-            # Find item in storage
-            stored_item = None
-            for item in storage_container["contents"]:
-                if item["item_name"] == operation["item_name"]:
-                    stored_item = item
-                    break
-                    
-            if not stored_item:
-                raise Exception(f"{operation['item_name']} not found in storage")
-                
-            available_quantity = stored_item.get("quantity", 1)
-            if available_quantity < operation["quantity"]:
-                raise Exception(f"Storage only has {available_quantity} {operation['item_name']}, requested {operation['quantity']}")
-                
-            # Remove item from storage
-            if available_quantity == operation["quantity"]:
-                storage_container["contents"].remove(stored_item)
+            # Handle both single item and multi-item operations
+            items_to_retrieve = []
+            if "items" in operation:
+                # Multi-item operation
+                for item_info in operation["items"]:
+                    # Find item in storage and validate availability
+                    stored_item = None
+                    for item in storage_container["contents"]:
+                        if item["item_name"] == item_info["item_name"]:
+                            stored_item = item
+                            break
+                            
+                    if not stored_item:
+                        raise Exception(f"{item_info['item_name']} not found in storage")
+                        
+                    available_quantity = stored_item.get("quantity", 1)
+                    if available_quantity < item_info["quantity"]:
+                        raise Exception(f"Storage only has {available_quantity} {item_info['item_name']}, requested {item_info['quantity']}")
+                        
+                    items_to_retrieve.append((item_info["item_name"], item_info["quantity"], stored_item))
             else:
-                stored_item["quantity"] = available_quantity - operation["quantity"]
+                # Single item operation
+                stored_item = None
+                for item in storage_container["contents"]:
+                    if item["item_name"] == operation["item_name"]:
+                        stored_item = item
+                        break
+                        
+                if not stored_item:
+                    raise Exception(f"{operation['item_name']} not found in storage")
+                    
+                available_quantity = stored_item.get("quantity", 1)
+                if available_quantity < operation["quantity"]:
+                    raise Exception(f"Storage only has {available_quantity} {operation['item_name']}, requested {operation['quantity']}")
+                    
+                items_to_retrieve.append((operation["item_name"], operation["quantity"], stored_item))
+            
+            # Process all items for retrieval
+            retrieved_item_names = []
+            
+            for item_name, quantity, stored_item in items_to_retrieve:
+                # Remove item from storage
+                available_quantity = stored_item.get("quantity", 1)
+                if available_quantity == quantity:
+                    storage_container["contents"].remove(stored_item)
+                else:
+                    stored_item["quantity"] = available_quantity - quantity
+                    
+                # Add item to character
+                self._add_item_to_character(character_data, stored_item, quantity)
                 
-            # Add item to character
-            self._add_item_to_character(character_data, stored_item, operation["quantity"])
+                retrieved_item_names.append(f"{quantity} {item_name}")
             
             # Update access log
             storage_container["lastAccessed"] = datetime.now().isoformat()
-            storage_container["accessLog"].append({
-                "character": operation["character"],
-                "action": "retrieve_item",
-                "item": operation["item_name"],
-                "quantity": operation["quantity"],
-                "timestamp": datetime.now().isoformat()
-            })
+            if "items" in operation:
+                # Multi-item log entry
+                storage_container["accessLog"].append({
+                    "character": operation["character"],
+                    "action": "retrieve_items",
+                    "items": [{"item": name, "quantity": qty} for name, qty, _ in items_to_retrieve],
+                    "timestamp": datetime.now().isoformat()
+                })
+            else:
+                # Single item log entry
+                storage_container["accessLog"].append({
+                    "character": operation["character"],
+                    "action": "retrieve_item",
+                    "item": operation["item_name"],
+                    "quantity": operation["quantity"],
+                    "timestamp": datetime.now().isoformat()
+                })
             
             # Save updated character data
             if not safe_write_json(character_file, character_data):
@@ -485,9 +525,15 @@ class StorageManager:
             self._cleanup_backup(character_backup)
             self._cleanup_backup(storage_backup)
             
+            # Generate success message
+            if "items" in operation:
+                message = f"Retrieved {', '.join(retrieved_item_names)} from {storage_container['deviceName']}"
+            else:
+                message = f"Retrieved {operation['quantity']} {operation['item_name']} from {storage_container['deviceName']}"
+            
             return {
                 "success": True,
-                "message": f"Retrieved {operation['quantity']} {operation['item_name']} from {storage_container['deviceName']}"
+                "message": message
             }
             
         except Exception as e:
