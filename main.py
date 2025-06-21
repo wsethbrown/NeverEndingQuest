@@ -852,7 +852,9 @@ def main_game_loop():
     module_data = load_json_file(current_path_manager.get_module_file_path())
 
     conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
+    print(f"DEBUG: Before update_conversation_history - history has {len(conversation_history)} messages")
     conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, module_data)
+    print(f"DEBUG: After update_conversation_history - history has {len(conversation_history)} messages")
     conversation_history = update_character_data(conversation_history, party_tracker_data)
     
     # Use the new order_conversation_messages function
@@ -1287,7 +1289,9 @@ def main_game_loop():
         module_data = load_json_file(updated_path_manager.get_module_file_path())
         print(f"DEBUG: Updated plot file path: {updated_path_manager.get_plot_path()}")
 
+        print(f"DEBUG: Before AI response update_conversation_history - history has {len(conversation_history)} messages")
         conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, module_data)
+        print(f"DEBUG: After AI response update_conversation_history - history has {len(conversation_history)} messages")
         conversation_history = update_character_data(conversation_history, party_tracker_data)
         conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
         
