@@ -470,7 +470,14 @@ def handle_npc_saves_request(data):
         
         # Load the NPC file
         from module_path_manager import ModulePathManager
-        path_manager = ModulePathManager()
+        from encoding_utils import safe_json_load
+        # Get current module from party tracker for consistent path resolution
+        try:
+            party_tracker = safe_json_load("party_tracker.json")
+            current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+            path_manager = ModulePathManager(current_module)
+        except:
+            path_manager = ModulePathManager()  # Fallback to reading from file
         
         npc_file = path_manager.get_character_path(npc_name.lower())
         if os.path.exists(npc_file):
@@ -492,7 +499,14 @@ def handle_npc_skills_request(data):
         
         # Load the NPC file
         from module_path_manager import ModulePathManager
-        path_manager = ModulePathManager()
+        from encoding_utils import safe_json_load
+        # Get current module from party tracker for consistent path resolution
+        try:
+            party_tracker = safe_json_load("party_tracker.json")
+            current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+            path_manager = ModulePathManager(current_module)
+        except:
+            path_manager = ModulePathManager()  # Fallback to reading from file
         
         npc_file = path_manager.get_character_path(npc_name.lower())
         if os.path.exists(npc_file):
@@ -514,7 +528,14 @@ def handle_npc_spells_request(data):
         
         # Load the NPC file
         from module_path_manager import ModulePathManager
-        path_manager = ModulePathManager()
+        from encoding_utils import safe_json_load
+        # Get current module from party tracker for consistent path resolution
+        try:
+            party_tracker = safe_json_load("party_tracker.json")
+            current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+            path_manager = ModulePathManager(current_module)
+        except:
+            path_manager = ModulePathManager()  # Fallback to reading from file
         
         npc_file = path_manager.get_character_path(npc_name.lower())
         if os.path.exists(npc_file):
@@ -536,7 +557,14 @@ def handle_npc_inventory_request(data):
         
         # Load the NPC file
         from module_path_manager import ModulePathManager
-        path_manager = ModulePathManager()
+        from encoding_utils import safe_json_load
+        # Get current module from party tracker for consistent path resolution
+        try:
+            party_tracker = safe_json_load("party_tracker.json")
+            current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+            path_manager = ModulePathManager(current_module)
+        except:
+            path_manager = ModulePathManager()  # Fallback to reading from file
         
         npc_file = path_manager.get_character_path(npc_name.lower())
         if os.path.exists(npc_file):

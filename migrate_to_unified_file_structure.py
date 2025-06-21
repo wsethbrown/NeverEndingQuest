@@ -131,8 +131,10 @@ def migrate_character_files():
 
 def verify_migration():
     """Verify migration was successful and characters are accessible"""
-    path_manager = ModulePathManager()
     party_data = load_party_tracker()
+    # Get current module from party tracker for consistent path resolution
+    current_module = party_data.get("module", "").replace(" ", "_") if party_data else None
+    path_manager = ModulePathManager(current_module)
     
     if not party_data:
         return False
@@ -177,7 +179,9 @@ def main():
     print(f"Party NPCs: {party_data.get('partyNPCs', [])}")
     
     # Check if migration needed
-    path_manager = ModulePathManager()
+    # Get current module from party tracker for consistent path resolution
+    current_module = party_data.get("module", "").replace(" ", "_")
+    path_manager = ModulePathManager(current_module)
     characters_dir = f"{path_manager.module_dir}/characters"
     
     if os.path.exists(characters_dir) and os.listdir(characters_dir):

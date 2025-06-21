@@ -110,7 +110,14 @@ def update_party_tracker(encounter_id):
 
 def load_or_create_monster(monster_type):
     formatted_monster_type = format_type_name(monster_type)
-    path_manager = ModulePathManager()
+    # Get current module from party tracker for consistent path resolution
+    try:
+        from encoding_utils import safe_json_load
+        party_tracker = safe_json_load("party_tracker.json")
+        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+        path_manager = ModulePathManager(current_module)
+    except:
+        path_manager = ModulePathManager()  # Fallback to reading from file
     monster_file = path_manager.get_monster_path(monster_type)
     monster_data = load_json(monster_file)
     if not monster_data:
@@ -133,7 +140,14 @@ def load_or_create_monster(monster_type):
 
 def load_or_create_npc(npc_name):
     formatted_npc_name = format_type_name(npc_name)
-    path_manager = ModulePathManager()
+    # Get current module from party tracker for consistent path resolution
+    try:
+        from encoding_utils import safe_json_load
+        party_tracker = safe_json_load("party_tracker.json")
+        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+        path_manager = ModulePathManager(current_module)
+    except:
+        path_manager = ModulePathManager()  # Fallback to reading from file
     npc_file = path_manager.get_character_path(npc_name)
     npc_data = load_json(npc_file)
     if not npc_data:
@@ -171,7 +185,14 @@ def generate_encounter(encounter_data):
         encounter["encounterSummary"] = encounter_data["encounterSummary"]
 
     # Add player
-    path_manager = ModulePathManager()
+    # Get current module from party tracker for consistent path resolution
+    try:
+        from encoding_utils import safe_json_load
+        party_tracker = safe_json_load("party_tracker.json")
+        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+        path_manager = ModulePathManager(current_module)
+    except:
+        path_manager = ModulePathManager()  # Fallback to reading from file
     player_file = path_manager.get_character_path(encounter_data['player'])
     logging.debug(f"Attempting to load player data from {player_file}")
     

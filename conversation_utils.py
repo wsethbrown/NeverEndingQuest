@@ -252,7 +252,9 @@ def update_character_data(conversation_history, party_tracker_data):
 
     if party_tracker_data:
         character_data = []
-        path_manager = ModulePathManager()
+        # Get current module from party tracker for consistent path resolution
+        current_module = party_tracker_data.get("module", "").replace(" ", "_")
+        path_manager = ModulePathManager(current_module)
         
         # Process player characters
         for member in party_tracker_data["partyMembers"]:
