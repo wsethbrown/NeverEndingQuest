@@ -686,6 +686,138 @@ def order_conversation_messages(conversation_history, main_system_prompt_text):
     
     return ordered_history
 
+def check_all_modules_plot_completion():
+    """
+    Check plot completion status for ALL available modules, not just the current one.
+    Returns a dictionary with completion data for all modules.
+    """
+    import os
+    import glob
+    
+    print("DEBUG: Starting comprehensive module plot completion check")
+    
+    modules_dir = "modules"
+    all_modules_data = {
+        "modules_checked": [],
+        "all_complete": True,
+        "completion_summary": {}
+    }
+    
+    if not os.path.exists(modules_dir):
+        print("DEBUG: No modules directory found")
+        return all_modules_data
+    
+    # Find all valid module directories
+    available_modules = []
+    for item in os.listdir(modules_dir):
+        module_path = os.path.join(modules_dir, item)
+        if os.path.isdir(module_path) and not item.startswith('.') and item not in ['campaign_archives', 'campaign_summaries']:
+            # Check if this directory has area JSON files (indicating it's a valid module)
+            area_files = []
+            
+            # Check root directory (legacy structure)
+            try:
+                root_area_files = [f for f in os.listdir(module_path) 
+                                 if os.path.isfile(os.path.join(module_path, f)) 
+                                 and f.endswith('.json') 
+                                 and len(f.split('.')[0]) <= 7  # Area codes like HH001, G001, SR001
+                                 and not f.startswith('map_') 
+                                 and not f.startswith('plot_')
+                                 and not f.startswith('party_')
+                                 and not f.startswith('module_')
+                                 and f not in ['campaign.json', 'world_registry.json', 'module_context.json']]
+                area_files.extend(root_area_files)
+            except Exception as e:
+                print(f"DEBUG: Error checking root area files for {item}: {e}")
+            
+            # Check areas/ subdirectory (new structure)
+            areas_subdir = os.path.join(module_path, 'areas')
+            if os.path.exists(areas_subdir) and os.path.isdir(areas_subdir):
+                try:
+                    subdir_area_files = [f for f in os.listdir(areas_subdir) 
+                                       if os.path.isfile(os.path.join(areas_subdir, f)) 
+                                       and f.endswith('.json') 
+                                       and len(f.split('.')[0]) <= 7  # Area codes
+                                       and not f.startswith('map_') 
+                                       and not f.startswith('plot_')
+                                       and not f.startswith('party_')
+                                       and not f.startswith('module_')]
+                    area_files.extend(subdir_area_files)
+                except Exception as e:
+                    print(f"DEBUG: Error checking areas subdirectory for {item}: {e}")
+            
+            if area_files:
+                available_modules.append(item)
+                print(f"DEBUG: Found valid module: {item} (has {len(area_files)} area files)")
+    
+    print(f"DEBUG: Found {len(available_modules)} valid modules: {available_modules}")
+    
+    # Check plot completion for each module
+    for module_name in available_modules:
+        module_path_manager = ModulePathManager(module_name)
+        plot_file_path = module_path_manager.get_plot_path()
+        
+        print(f"DEBUG: Checking plot completion for module '{module_name}'")
+        print(f"DEBUG: Plot file path: {plot_file_path}")
+        
+        try:
+            plot_data = load_json_file(plot_file_path)
+            
+            if plot_data and "plotPoints" in plot_data:
+                total_plots = len(plot_data["plotPoints"])
+                completed_plots = 0
+                
+                for plot_point in plot_data["plotPoints"]:
+                    status = plot_point.get("status", "unknown")
+                    plot_id = plot_point.get("id", "unknown")
+                    print(f"DEBUG: Module {module_name} - Plot point {plot_id}: status = '{status}'")
+                    
+                    if status == "completed":
+                        completed_plots += 1
+                
+                module_complete = completed_plots == total_plots and total_plots > 0
+                
+                all_modules_data["completion_summary"][module_name] = {
+                    "total_plots": total_plots,
+                    "completed_plots": completed_plots,
+                    "is_complete": module_complete,
+                    "plot_file_exists": True
+                }
+                
+                if not module_complete:
+                    all_modules_data["all_complete"] = False
+                
+                print(f"DEBUG: Module {module_name} completion: {completed_plots}/{total_plots} ({module_complete})")
+                
+            else:
+                print(f"DEBUG: Module {module_name} has no plot data or plotPoints")
+                all_modules_data["completion_summary"][module_name] = {
+                    "total_plots": 0,
+                    "completed_plots": 0,
+                    "is_complete": False,
+                    "plot_file_exists": False
+                }
+                all_modules_data["all_complete"] = False
+                
+        except Exception as e:
+            print(f"DEBUG: Error loading plot data for module {module_name}: {e}")
+            all_modules_data["completion_summary"][module_name] = {
+                "total_plots": 0,
+                "completed_plots": 0,
+                "is_complete": False,
+                "plot_file_exists": False,
+                "error": str(e)
+            }
+            all_modules_data["all_complete"] = False
+    
+    all_modules_data["modules_checked"] = available_modules
+    
+    print(f"DEBUG: All modules plot completion check complete")
+    print(f"DEBUG: Total modules checked: {len(available_modules)}")
+    print(f"DEBUG: All modules complete: {all_modules_data['all_complete']}")
+    
+    return all_modules_data
+
 def main_game_loop():
     global needs_conversation_history_update
 
@@ -699,9 +831,11 @@ def main_game_loop():
     
     # Extract module name from party tracker data first
     module_name = party_tracker_data.get("module", "").replace(" ", "_")
+    print(f"DEBUG: Initializing path_manager with module: '{module_name}'")
     
     # Initialize path manager with the correct module name
     path_manager = ModulePathManager(module_name)
+    print(f"DEBUG: Path manager initialized - module_name: '{path_manager.module_name}', module_dir: '{path_manager.module_dir}'")
     
     current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
     location_data = location_manager.get_location_info( 
@@ -710,9 +844,13 @@ def main_game_loop():
         current_area_id
     )
 
-    plot_data = load_json_file(path_manager.get_plot_path())
+    # Use current module from party tracker for plot data  
+    current_module_name = party_tracker_data.get("module", "").replace(" ", "_")
+    current_path_manager = ModulePathManager(current_module_name)
+    plot_data = load_json_file(current_path_manager.get_plot_path())
+    print(f"DEBUG: Plot file path: {current_path_manager.get_plot_path()}")
     
-    module_data = load_json_file(path_manager.get_module_file_path())
+    module_data = load_json_file(current_path_manager.get_module_file_path())
 
     conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
     conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, module_data)
@@ -936,8 +1074,11 @@ def main_game_loop():
             # --- END OF INTER-MODULE CONNECTIVITY SECTION ---
             # --- END OF CONNECTIVITY SECTION ---
             
-            plot_data_for_note = load_json_file(path_manager.get_plot_path())
-            print(f"DEBUG: Plot file path: {path_manager.get_plot_path()}")
+            # Use current module from party tracker for plot data
+            current_module_for_plot = party_tracker_data.get("module", "").replace(" ", "_")
+            current_plot_manager = ModulePathManager(current_module_for_plot)
+            plot_data_for_note = load_json_file(current_plot_manager.get_plot_path())
+            print(f"DEBUG: Plot file path: {current_plot_manager.get_plot_path()}")
             print(f"DEBUG: Plot data loaded: {plot_data_for_note is not None}")
             if plot_data_for_note:
                 print(f"DEBUG: Plot data keys: {list(plot_data_for_note.keys())}")
@@ -982,83 +1123,41 @@ def main_game_loop():
                         monster_list.append(f"- {name} ({qty_str})")
                     monsters_str = "\n".join(monster_list)
 
-            # Check if current module is complete and no other modules available
+            # Check ALL modules for plot completion before suggesting module creation
             module_creation_prompt = ""
             try:
                 # Debug current module detection
                 current_module = party_tracker_data.get('module', '').replace(' ', '_')
                 print(f"DEBUG: Current module from party tracker: '{current_module}'")
                 
-                # Check if all plot points are completed
-                all_plot_completed = True
-                completed_count = 0
-                total_count = 0
+                # Use new comprehensive module completion checker
+                all_modules_completion = check_all_modules_plot_completion()
                 
-                if plot_data_for_note and "plotPoints" in plot_data_for_note:
-                    total_count = len(plot_data_for_note["plotPoints"])
-                    for plot_point in plot_data_for_note["plotPoints"]:
-                        status = plot_point.get("status", "unknown")
-                        plot_id = plot_point.get("id", "unknown")
-                        print(f"DEBUG: Plot point {plot_id}: status = '{status}'")
-                        if status == "completed":
-                            completed_count += 1
-                        else:
-                            all_plot_completed = False
-                else:
-                    print("DEBUG: No plot data or plotPoints found")
+                # Extract results
+                all_modules_complete = all_modules_completion["all_complete"]
+                modules_checked = all_modules_completion["modules_checked"]
+                completion_summary = all_modules_completion["completion_summary"]
                 
-                print(f"DEBUG: Plot completion: {completed_count}/{total_count} completed, all_plot_completed = {all_plot_completed}")
+                # Print summary of all modules
+                print(f"DEBUG: === ALL MODULES COMPLETION SUMMARY ===")
+                for module_name, summary in completion_summary.items():
+                    status = "COMPLETE" if summary["is_complete"] else "INCOMPLETE"
+                    print(f"DEBUG: {module_name}: {summary['completed_plots']}/{summary['total_plots']} plots - {status}")
+                print(f"DEBUG: === END SUMMARY ===")
                 
-                # Check if other modules are available (filesystem-based detection)
-                import os
-                modules_dir = "modules"
-                available_modules = []
-                if os.path.exists(modules_dir):
-                    for item in os.listdir(modules_dir):
-                        module_path = os.path.join(modules_dir, item)
-                        if os.path.isdir(module_path) and not item.startswith('.') and item not in ['campaign_archives', 'campaign_summaries']:
-                            # Check if this directory has area JSON files (pattern: 2-3 letter area codes + numbers)
-                            # Check both legacy (root) and new (areas/) directory structures
-                            area_files = []
-                            
-                            # Check root directory (legacy structure)
-                            root_area_files = [f for f in os.listdir(module_path) 
-                                             if os.path.isfile(os.path.join(module_path, f)) 
-                                             and f.endswith('.json') 
-                                             and len(f.split('.')[0]) <= 7  # Area codes like HH001, G001, SR001, etc.
-                                             and not f.startswith('map_') 
-                                             and not f.startswith('plot_')
-                                             and not f.startswith('party_')
-                                             and not f.startswith('module_')
-                                             and f not in ['campaign.json', 'world_registry.json', 'module_context.json']]
-                            area_files.extend(root_area_files)
-                            
-                            # Check areas/ subdirectory (new structure)
-                            areas_subdir = os.path.join(module_path, 'areas')
-                            if os.path.exists(areas_subdir) and os.path.isdir(areas_subdir):
-                                subdir_area_files = [f for f in os.listdir(areas_subdir) 
-                                                   if os.path.isfile(os.path.join(areas_subdir, f)) 
-                                                   and f.endswith('.json') 
-                                                   and len(f.split('.')[0]) <= 7  # Area codes like HH001, G001, SR001, etc.
-                                                   and not f.startswith('map_') 
-                                                   and not f.startswith('plot_')
-                                                   and not f.startswith('party_')
-                                                   and not f.startswith('module_')]
-                                area_files.extend(subdir_area_files)
-                            
-                            if area_files:
-                                available_modules.append(item)
+                # Determine if we should inject module creation prompt
+                # Only suggest module creation if ALL modules are complete
+                should_inject_creation_prompt = all_modules_complete and len(modules_checked) > 0
                 
-                other_modules_available = len([m for m in available_modules if m != current_module]) > 0
+                print(f"DEBUG: All modules complete: {all_modules_complete}")
+                print(f"DEBUG: Should inject module creation prompt: {should_inject_creation_prompt}")
                 
-                print(f"DEBUG: Available modules: {available_modules}")
-                print(f"DEBUG: Other modules available (excluding current): {other_modules_available}")
-                print(f"DEBUG: Should inject module creation prompt: {all_plot_completed and not other_modules_available}")
-                
-                # If module is complete and no other modules, inject creation prompt
-                if all_plot_completed and not other_modules_available:
+                # If ALL modules are complete, inject creation prompt
+                if should_inject_creation_prompt:
                     print("DEBUG: *** MODULE CREATION PROMPT INJECTION TRIGGERED ***")
+                    print("DEBUG: All available modules have completed plots - suggesting new module creation")
                     # Load the module creation prompt
+                    import os
                     if os.path.exists("module_creation_prompt.txt"):
                         with open("module_creation_prompt.txt", "r", encoding="utf-8") as f:
                             module_creation_prompt = "\n\n" + f.read()
@@ -1066,7 +1165,11 @@ def main_game_loop():
                     else:
                         print("DEBUG: module_creation_prompt.txt not found!")
                 else:
-                    print(f"DEBUG: Module creation prompt NOT injected - all_plot_completed:{all_plot_completed}, other_modules_available:{other_modules_available}")
+                    incomplete_modules = [name for name, summary in completion_summary.items() if not summary["is_complete"]]
+                    if incomplete_modules:
+                        print(f"DEBUG: Module creation prompt NOT injected - incomplete modules: {incomplete_modules}")
+                    else:
+                        print(f"DEBUG: Module creation prompt NOT injected - no modules found to check")
                     
             except Exception as e:
                 print(f"DEBUG: Module completion check failed: {e}")
