@@ -862,8 +862,8 @@ Use updatePartyTracker action with module change:
 - Each module has its own unique area and location IDs
 - Look for "Starting location:" information in the DM Notes for the exact IDs to use
 - Examples:
-  - Keep_of_Doom starts at "A01" in "HH001" (Harrow's Hollow General Store)
-  - Silver_Vein_Whispers starts at "R01" in "SR001" (Riverside R01)
+  - ExampleModule_Alpha starts at "X01" in "EX001" (Sample Starting Location)
+  - ExampleModule_Beta starts at "Y01" in "EX002" (Another Sample Location)
 
 ### MODULE TRAVEL NARRATION:
 1. **Travel Description**: Use atmospheric travel narration describing the journey
