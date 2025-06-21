@@ -770,7 +770,6 @@ def check_all_modules_plot_completion():
                 for plot_point in plot_data["plotPoints"]:
                     status = plot_point.get("status", "unknown")
                     plot_id = plot_point.get("id", "unknown")
-                    print(f"DEBUG: Module {module_name} - Plot point {plot_id}: status = '{status}'")
                     
                     if status == "completed":
                         completed_plots += 1

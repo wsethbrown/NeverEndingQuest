@@ -129,6 +129,9 @@ def insert_module_summary_and_transition(conversation_history, summary_text, tra
     conversation_history.insert(insertion_index, summary_message)
     conversation_history.insert(insertion_index + 1, transition_message)
     
+    print(f"DEBUG: Inserted module summary and transition at index {insertion_index}")
+    print(f"DEBUG: Module transition message: '{transition_text}'")
+    
     return conversation_history
 
 def handle_module_conversation_segmentation(conversation_history, from_module, to_module):
