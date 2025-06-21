@@ -90,28 +90,82 @@ class LocationGraph:
         
     def load_module_data(self):
         """Load all area data and build the graph"""
-        path_manager = ModulePathManager()
+        # Load world registry to get all available modules
+        world_registry_path = "modules/world_registry.json"
+        world_registry = safe_read_json(world_registry_path)
         
-        # Dynamically discover all area IDs in the current module
-        area_ids = path_manager.get_area_ids()
-        
-        if not area_ids:
-            write_debug("  [WARNING] No area files found in module")
-            return
-        
-        write_debug(f"Loading module areas... (discovered: {', '.join(area_ids)})")
-        for area_id in area_ids:
-            area_file = path_manager.get_area_path(area_id)
-            if os.path.exists(area_file):
-                area_data = safe_read_json(area_file)
-                if area_data:
-                    self.area_data[area_id] = area_data
-                    self._process_area_locations(area_id, area_data)
-                    write_debug(f"  [OK] Loaded {area_id}: {area_data.get('areaName', 'Unknown')}")
-                else:
-                    write_debug(f"  [ERROR] Failed to load {area_file}")
-            else:
-                write_debug(f"  [ERROR] File not found: {area_file}")
+        if not world_registry or 'modules' not in world_registry:
+            write_debug("  [ERROR] Could not load world registry")
+            # Fallback to current module only
+            path_manager = ModulePathManager()
+            area_ids = path_manager.get_area_ids()
+            if not area_ids:
+                write_debug("  [WARNING] No area files found in module")
+                return
+            write_debug(f"Loading module areas... (discovered: {', '.join(area_ids)})")
+            for area_id in area_ids:
+                area_file = path_manager.get_area_path(area_id)
+                if os.path.exists(area_file):
+                    area_data = safe_read_json(area_file)
+                    if area_data:
+                        self.area_data[area_id] = area_data
+                        self._process_area_locations(area_id, area_data)
+                        write_debug(f"  [OK] Loaded {area_id}: {area_data.get('areaName', 'Unknown')}")
+        else:
+            # Load areas from ALL modules in the world registry
+            all_areas_by_module = {}
+            
+            # Get current module for priority loading
+            current_path_manager = ModulePathManager()
+            current_module = current_path_manager.module_name
+            
+            # Process all modules in world registry
+            for module_name in world_registry['modules']:
+                module_path_manager = ModulePathManager(module_name)
+                module_area_ids = module_path_manager.get_area_ids()
+                
+                if module_area_ids:
+                    all_areas_by_module[module_name] = module_area_ids
+            
+            # Create discovery string with module attribution
+            discovery_parts = []
+            for module_name, area_ids in sorted(all_areas_by_module.items()):
+                discovery_parts.append(f"{module_name}({','.join(sorted(area_ids))})")
+            
+            write_debug(f"Loading all module areas... (discovered: {'; '.join(discovery_parts)})")
+            
+            # Load current module areas first (for priority)
+            if current_module in all_areas_by_module:
+                for area_id in all_areas_by_module[current_module]:
+                    module_path_manager = ModulePathManager(current_module)
+                    area_file = module_path_manager.get_area_path(area_id)
+                    if os.path.exists(area_file):
+                        area_data = safe_read_json(area_file)
+                        if area_data:
+                            self.area_data[area_id] = area_data
+                            self._process_area_locations(area_id, area_data)
+                            write_debug(f"  [OK] Loaded {area_id}: {area_data.get('areaName', 'Unknown')} [{current_module}]")
+                        else:
+                            write_debug(f"  [ERROR] Failed to load {area_file}")
+                    else:
+                        write_debug(f"  [ERROR] File not found: {area_file}")
+            
+            # Load other module areas
+            for module_name, area_ids in sorted(all_areas_by_module.items()):
+                if module_name != current_module:
+                    for area_id in area_ids:
+                        module_path_manager = ModulePathManager(module_name)
+                        area_file = module_path_manager.get_area_path(area_id)
+                        if os.path.exists(area_file):
+                            area_data = safe_read_json(area_file)
+                            if area_data:
+                                self.area_data[area_id] = area_data
+                                self._process_area_locations(area_id, area_data)
+                                write_debug(f"  [OK] Loaded {area_id}: {area_data.get('areaName', 'Unknown')} [{module_name}]")
+                            else:
+                                write_debug(f"  [ERROR] Failed to load {area_file}")
+                        else:
+                            write_debug(f"  [ERROR] File not found: {area_file}")
         
         # Process external connections after all locations are loaded
         self._process_external_connections()

@@ -877,6 +877,41 @@ def main_game_loop():
                     
                     if area_connections_formatted:
                         connected_areas_display_str = ". Connects to new areas: " + ", ".join(area_connections_formatted)
+            
+            # --- INTER-MODULE CONNECTIVITY SECTION ---
+            available_modules_str = ""
+            try:
+                # Load world registry to get all available modules
+                world_registry_path = "modules/world_registry.json"
+                world_registry = safe_read_json(world_registry_path)
+                
+                if world_registry and 'modules' in world_registry:
+                    current_module = party_tracker_data.get('module', '').replace(' ', '_')
+                    all_modules = list(world_registry['modules'].keys())
+                    other_modules = [m for m in all_modules if m != current_module]
+                    
+                    if other_modules:
+                        # Get areas from other modules
+                        other_module_areas = []
+                        for module_name in other_modules:
+                            module_info = world_registry['modules'][module_name]
+                            # Get the areas for this module from the areas section
+                            module_areas = []
+                            for area_id, area_info in world_registry.get('areas', {}).items():
+                                if area_info.get('module') == module_name:
+                                    area_name = area_info.get('areaName', area_id)
+                                    module_areas.append(f"{area_name} ({area_id})")
+                            
+                            if module_areas:
+                                level_range = module_info.get('levelRange', {})
+                                level_str = f"Level {level_range.get('min', '?')}-{level_range.get('max', '?')}"
+                                other_module_areas.append(f"{module_name} [{level_str}]: {', '.join(module_areas[:3])}")  # Show first 3 areas
+                        
+                        if other_module_areas:
+                            available_modules_str = ". Available modules for travel: " + "; ".join(other_module_areas)
+            except Exception as e:
+                print(f"DEBUG: Failed to load inter-module connectivity: {e}")
+            # --- END OF INTER-MODULE CONNECTIVITY SECTION ---
             # --- END OF CONNECTIVITY SECTION ---
             
             plot_data_for_note = load_json_file(path_manager.get_plot_path())
@@ -1022,7 +1057,7 @@ def main_game_loop():
                 f"Party stats: {party_stats_str}. "
                 f"Current location: {current_location_name_note} ({current_location_id_note}). "
                 # --- MODIFIED LINE TO INCLUDE CONNECTIVITY ---
-                f"Adjacent locations in this area: {connected_locations_display_str}{connected_areas_display_str}.\n"
+                f"Adjacent locations in this area: {connected_locations_display_str}{connected_areas_display_str}{available_modules_str}.\n"
                 # --- END OF MODIFIED LINE ---
                 f"Active plot points for this location:\n{plot_points_str}\n"
                 f"Active side quests for this location:\n{side_quests_str}\n"
