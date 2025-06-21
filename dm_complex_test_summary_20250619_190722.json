@@ -1,0 +1,13 @@
+{
+  "test_timestamp": "2025-06-19T19:07:22.214002",
+  "test_prompt": "Dungeon Master Note: Current date and time: 1492 Springmonth 2 15:13:00. Player: I want to give Elen a potion of healing and 50 gold, then have her cast a spell to detect magic on my sword. While she's doing that, I'll update my journal about finding a mysterious symbol in the ruins. Also, we found a hidden compartment with a magical tome that teaches the Shield spell - I want to learn it. Oh, and 2 hours pass during all this. Update the plot to reflect we discovered clues about an ancient curse affecting the village. Finally, I think I've earned enough XP to level up!",
+  "test_file": "dm_complex_test_conversation_20250619_190722.json",
+  "response_file": "dm_test_response_20250619_190722.json",
+  "validation_passed": true,
+  "functions_tested": [
+    "updateCharacterInfo (multiple)",
+    "updateTime",
+    "updatePlot",
+    "levelUp"
+  ]
+}

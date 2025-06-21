@@ -1,0 +1,90 @@
+ Module Travel Investigation - Root Cause Analysis & Fix Plan                                       │
+     │                                                                                                    │
+     │ 🔍 Root Cause Analysis                                                                             │
+     │                                                                                                    │
+     │ The Core Problem                                                                                   │
+     │                                                                                                    │
+     │ Module travel isn't working because the AI doesn't know how to trigger cross-module transitions.   │
+     │ Here's what I discovered:                                                                          │
+     │                                                                                                    │
+     │ Current System Architecture                                                                        │
+     │                                                                                                    │
+     │ ✅ All Infrastructure Exists:                                                                       │
+     │ - ✅ Module Stitcher: AI travel narration generation                                                │
+     │ - ✅ Campaign Manager: Cross-module transition detection and auto-archiving                         │
+     │ - ✅ World Registry: Two modules available (Keep_of_Doom, Silver_Vein_Whispers)                     │
+     │ - ✅ Location validation: Works correctly for within-module transitions                             │
+     │                                                                                                    │
+     │ What's Missing                                                                                     │
+     │                                                                                                    │
+     │ ❌ AI doesn't know about cross-module travel actions                                                │
+     │ - The system prompt doesn't mention how to travel between modules                                  │
+     │ - No updatePartyTracker action with module changes in prompts                                      │
+     │ - AI defaults to transitionLocation which only works within modules                                │
+     │                                                                                                    │
+     │ Current User Scenario                                                                              │
+     │                                                                                                    │
+     │ - User is in Keep_of_Doom module (A01 - Harrow's Hollow General Store)                             │
+     │ - Requested travel to new module but AI interpreted as within-module movement                      │
+     │ - Debug shows: "Cross-area transition: False" (A05 -> A01 both in Keep_of_Doom)                    │
+     │                                                                                                    │
+     │ 🛠️ Fix Plan                                                                                       │
+     │                                                                                                    │
+     │ Step 1: Update System Prompt                                                                       │
+     │                                                                                                    │
+     │ Add inter-module travel instructions to system_prompt.txt:                                         │
+     │ ## INTER-MODULE TRAVEL                                                                             │
+     │ When players request travel to different adventure modules/regions:                                │
+     │                                                                                                    │
+     │ RECOGNIZE MODULE TRAVEL:                                                                           │
+     │ - "I travel to [Module Name]"                                                                      │
+     │ - "Let's go to [Region Name]"                                                                      │
+     │ - "Take us to [Module Name]"                                                                       │
+     │                                                                                                    │
+     │ AVAILABLE MODULES:                                                                                 │
+     │ - Keep_of_Doom: Starting village and haunted keep (levels 1-5)                                     │
+     │ - Silver_Vein_Whispers: Cursed riverlands and ruins (levels 6-8)                                   │
+     │                                                                                                    │
+     │ USE updatePartyTracker ACTION for module changes:                                                  │
+     │ {                                                                                                  │
+     │   "action": "updatePartyTracker",                                                                  │
+     │   "parameters": {                                                                                  │
+     │     "module": "Target_Module_Name",                                                                │
+     │     "currentLocationId": "A01",                                                                    │
+     │     "currentLocation": "Starting Location",                                                        │
+     │     "currentAreaId": "AREA001",                                                                    │
+     │     "currentArea": "Starting Area"                                                                 │
+     │   }                                                                                                │
+     │ }                                                                                                  │
+     │                                                                                                    │
+     │ Step 2: Enhance Action Handler                                                                     │
+     │                                                                                                    │
+     │ Modify action_handler.py to add the missing updatePartyTracker handler that:                       │
+     │ - Detects module changes                                                                           │
+     │ - Triggers auto-archiving via campaign manager                                                     │
+     │ - Updates party tracker with new module location                                                   │
+     │                                                                                                    │
+     │ Step 3: Add Module Context                                                                         │
+     │                                                                                                    │
+     │ Update system prompt to inject available modules and their travel narration from world registry.   │
+     │                                                                                                    │
+     │ Step 4: Test Implementation                                                                        │
+     │                                                                                                    │
+     │ - Test "I travel to Silver_Vein_Whispers" command                                                  │
+     │ - Verify auto-archiving and summary generation                                                     │
+     │ - Confirm travel narration is used                                                                 │
+     │                                                                                                    │
+     │ 🎯 Expected Outcome                                                                                │
+     │                                                                                                    │
+     │ After fixes, when user says "I travel to Silver_Vein_Whispers":                                    │
+     │ 1. AI recognizes module travel request                                                             │
+     │ 2. Uses updatePartyTracker with module change                                                      │
+     │ 3. Campaign manager auto-archives current conversation                                             │
+     │ 4. Generates Keep_of_Doom summary                                                                  │
+     │ 5. Transitions to Silver_Vein_Whispers starting location                                           │
+     │ 6. Uses rich AI travel narration from world registry                                               │
+     │                                                                                                    │
+     │ 🔧 Implementation Priority                                                                         │
+     │                                                                                                    │
+     │ Critical Fix - The core issue is AI knowledge, not system capability. The infrastructure works     │
+     │ perfectly, we just need to teach the AI how to use it.  

@@ -1,0 +1,22 @@
+{
+  "validation_passed": true,
+  "error_count": 0,
+  "warning_count": 1,
+  "errors": [],
+  "warnings": [
+    "Narration should mention leveling up or growth (keyword: 'level')"
+  ],
+  "expected_functions": [
+    "updateCharacterInfo",
+    "updateTime",
+    "updatePlot",
+    "levelUp"
+  ],
+  "validation_criteria": [
+    "All required actions present",
+    "Proper parameter structure",
+    "No Unicode characters",
+    "Narrative covers all elements",
+    "Inventory changes tracked properly"
+  ]
+}

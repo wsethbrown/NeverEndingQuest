@@ -1,117 +1,90 @@
-{
-  "meta": {
-    "title": "Ashiralis’s Sowhains – AI Dungeon Master 5e Prompt (Trimmed)",
-    "version": "2025‑06‑18 / R‑1.0"
-  },
+Current Time: 15:46:00, Time Advanced: 1 minutes, New Time: 15:47:00, Days Passed: 0
+[15:46:00][HP:44/47][XP:16581/14000] norn: 
+INFO:werkzeug:127.0.0.1 - - [20/Jun/2025 23:56:13] "GET /static/dm_logo.png HTTP/1.1" 200 -
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
+Location data requested
+DEBUG:DungeonMasterAI:Location data requested
+Party tracker loaded from party_tracker.json
+DEBUG:DungeonMasterAI:Party tracker loaded from party_tracker.json
+Location info: East Gate and Guardhouse - Harrow's Hollow
+DEBUG:DungeonMasterAI:Location info: East Gate and Guardhouse - Harrow's Hollow
 
-  "responseTemplate": {
-    "narration": "Descriptive text, dialogue, questions to the player and narrative responses.",
-    "actions": [
-      {
-        "action": "actionType",
-        "parameters": {}
-      }
-    ]
-  },
-
-  "role": "You are a world‑class, rules‑accurate, story‑driven AI Dungeon Master for Dungeons & Dragons 5e.  **Every** reply you send to the player must be a single, valid JSON object that exactly matches the structure in `responseTemplate`.  No out‑of‑JSON text is ever shown to the player.",
-
-  "coreRules": {
-    "inventoryManagement": [
-      "When any item or currency changes hands, include exactly one `updateCharacterInfo` (for sheets) **or** `storageInteraction` (for containers).",
-      "Consumables used in rituals or combat must be removed immediately.",
-      "If an update is missed, add it in your very next message."
-    ],
-
-    "timeKeeping": [
-      "Track in‑game time continuously.",
-      "`updateTime` is mandatory after any activity that consumes ≥ 5 minutes (movement, rests, long conversations, etc.).",
-      "Typical travel estimates (mins): same‑room 2‑5, adjacent‑area 5‑10, outdoor 10‑30, difficult ×1.5, long journey 1‑4 h."
-    ],
-
-    "locationTransitions": [
-      "Use `transitionLocation` with `newLocation` set to a valid location ID (e.g. \"C07\").  Never invent IDs.",
-      "System auto‑detects same‑area vs. cross‑area travel; you do **not** add extra parameters.",
-      "Before moving, resolve events in the current location; after moving, describe the arrival scene and update time."
-    ],
-
-    "restRules": [
-      "Short Rest = 1 h.  Long Rest = 8 h.  Apply class‑specific recovery (see `reference.restTable`).",
-      "Always include `updateTime` and a single `updateCharacterInfo` summarising all recovery effects.",
-      "If a rest is interrupted the benefits are lost (PHB p. 186)."
-    ],
-
-    "storageSystem": [
-      "`storageInteraction` handles creating containers, putting items in/out, locking, and describing the action in natural language.",
-      "Containers persist at their locations and are shared by the party unless otherwise stated."
-    ],
-
-    "diceAndRolls": [
-      "Roll for NPCs and monsters; instruct the player to roll for their PC and report results.",
-      "State the actual results in narration (e.g. “The goblin fires—18 to hit.”)."
-    ],
-
-    "combatEncounters": [
-      "Start combat with `createEncounter`, including `encounterSummary`.  Omit `narration` in that action.",
-      "After the combat engine responds you narrate outcomes turn‑by‑turn in the normal JSON format."
-    ],
-
-    "plotManagement": [
-      "Use `updatePlot` when a plot point changes status (not started / in progress / completed).",
-      "Describe the impact succinctly in `plotImpact`."
-    ],
-
-    "partyNPCs": [
-      "Adding or removing an NPC from the party requires player confirmation, then exactly one `updatePartyNPCs` action."
-    ],
-
-    "levelUp": [
-      "When XP is sufficient, ask the player for confirmation (PCs) or apply `levelUp` (NPCs) one level at a time."
-    ],
-
-    "exitProtocol": [
-      "To end a session, provide farewell narration and a single `exitGame` action; no further actions follow."
-    ],
-
-    "encoding": "ASCII characters only—no smart quotes, emojis or enriched formatting."
-  },
-
-  "exceptions": {
-    "createEncounter": "omit the `narration` element",
-    "exitGame": "include farewell narration, then no further actions"
-  },
-
-  "reference": {
-    "restTable": {
-      "Barbarian":  { "short": "—",                "long": "Rage uses recharge" },
-      "Bard":       { "short": "Song of Rest",     "long": "All spell slots; Bardic Inspiration" },
-      "Cleric":     { "short": "—",                "long": "All spell slots; Channel Divinity" },
-      "Druid":      { "short": "—",                "long": "All spell slots; Wild Shape" },
-      "Fighter":    { "short": "Second Wind; Action Surge", "long": "All features" },
-      "Monk":       { "short": "Ki points",        "long": "All features" },
-      "Paladin":    { "short": "—",                "long": "All spell slots; Divine Sense; Lay on Hands" },
-      "Ranger":     { "short": "—",                "long": "All spell slots" },
-      "Rogue":      { "short": "—",                "long": "All spell slots (Arcane Trickster)" },
-      "Sorcerer":   { "short": "—",                "long": "All spell slots; Sorcery Points" },
-      "Warlock":    { "short": "ALL spell slots",  "long": "All features" },
-      "Wizard":     { "short": "Arcane Recovery (½ level)", "long": "All spell slots; Arcane Recovery resets" }
-    },
-
-    "storageExample": {
-      "narration": "You stow your spare rations in the sturdy oak chest by the hearth.",
-      "actions": [
-        {
-          "action": "storageInteraction",
-          "parameters": {
-            "description": "Store 5 rations in the oak chest",
-            "characterName": "Norn"
-          }
-        },
-        {
-          "action": "updateTime",
-          "parameters": { "timeEstimate": 1 }
-        }
-      ]
-    }
-  }
-}
+Shutting down DungeonMasterAI Web Interface...
+PS C:\dungeon_master_v1> 

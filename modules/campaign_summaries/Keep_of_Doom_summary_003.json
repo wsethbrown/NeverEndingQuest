@@ -1,0 +1,63 @@
+{
+  "moduleName": "Keep_of_Doom",
+  "completionDate": "2025-06-20T22:27:17.329185",
+  "summary": "In the spring of the year 1492, the tale of Shadows Over Harrow's Hollow came to its hard-won close--a chapter in the annals of the realm that would echo in the hearts of its people for generations.\n\nIt began as so many legends do, with a shadow on the land and a plea for aid. Harrow's Hollow, a village hunched like a wounded bird beneath the ruined silhouette of Shadowfall Keep, suffered the slow encroachment of fear. Elder Mirna Harrow, her voice brittle yet stubborn as old oak, entreated the aid of passing adventurers when their own beloved scout, Elen, vanished amidst rumors of curses, haunted woods, and a keep whose name alone chilled the marrow. The party, led by the stalwart Norn, found themselves drawn into a web of dread and mystery, their resolve tested from the moment they crossed the threshold of the anxious hamlet.\n\nThe earliest days in Harrow's Hollow were marked by suspicion and sorrow. Norn's determination--tempered by compassion--won the trust of the villagers, and earned him the confidence of Mirna, who pressed into his hand a bronze key marked with a raven: a symbol of secrets yet to be unlocked. In the warmth of the Wyrd Lantern Inn, among whispers and flickering firelight, they learned of Elen's courage, of the failing wards, and of the terrors that stalked the borderland between village and wild.\n\nThe journey into the Gloamwood was fraught with peril. At the standing stones of the Witchlight Trail, the party faced the first of many trials--shadows born of malice that sought to sap courage and life alike. The battle left scars, both visible and unseen, but also revealed the desperate breadcrumbs of Elen's passage: torn cloth, broken branches, a silent plea for help scattered across the haunted earth. Each omen, each relic carried emotional weight, for they spoke not only of danger but of the indomitable will of the missing scout.\n\nIn the moss-draped hush of the Withered Shrine, the party's bravery was tested anew by twig blights--forest-spawned terrors--whose defeat brought a fleeting grace. Here, the unfinished ritual Elen had begun was pieced together and completed, and the grateful spirit of the shrine bestowed a boon of courage. The journey pressed ever deeper: to the faerie ring of the Spectral Clearing, where the party, through compassion and keen wit, freed a sorrowing ghost by mending a broken ward. Each rite completed, each shadow banished, dulled the curse's edge upon the land, but left the party wearied and sobered by the cost of their victories.\n\nTheir path led to the ancient Keeper Morvath, a fey-touched hermit whose warnings unveiled the true gravity of the keep's curse. By accepting his pact and restoring the Lost Ward Circle, Norn weakened the spectral blight that gnawed at Harrow's Hollow, at cost of blood and gold--a sacrifice that bound him and his companions ever more tightly to the fate of the village. Morvath's grave approval and the healing draughts he administered could not wholly mend the party's wounds, but lent them the strength to press on.\n\nArmed with Mirna's key and the Keeper's lore, they breached Shadowfall Keep. There, amidst shattered statuary and moonless courtyards, the past pressed close. The company read the desperate warnings of those who had come before, pieced together the fate of Sir Garran Vael, and gathered relics heavy with memory: a knight's amulet, a signet ring, and a chaplain's journal whose coded words hinted at the heart of the curse. Each chamber demanded courage--whether in the flash of steel against shadow, the gentle comfort of a consecrated shrine, or the refusal to yield to despair. The echoing footsteps of Elen, always just ahead, became both guide and goad.\n\nIn the depths--down secret stair and through the bones of the Gaol--the party faced horrors unbound by death: gibbering mouthers, wights, and the lingering echoes of Elen herself, trapped by the curse's cruel hunger. Yet, through resolve and wisdom, they gleaned the truths necessary to proceed. The amulet of the knight's heart, now bright with purified purpose, became not only a shield against darkness but a symbol of the party's growing bond--a talisman passed from hand to hand, each touch an unspoken promise: we will not abandon you.\n\nThe journey's crescendo came at last in the Relic Chamber, where Lord Thaddeus Greymont's spirit, torn by rage and regret, confronted Norn and Elen. The battle was desperate, the chamber itself a crucible of shadow and memory. Yet, in that crucible, the party's courage proved greater than the sum of its wounds. The shadow relic was shattered, the curse unraveled; Lord Greymont, at last at peace, gave thanks as his torment faded. Elen, battered but alive, was freed from the shadow's grasp--her spirit unbroken. The relics left behind--a purified sword, a silver amulet, the deed to the keep--were not merely treasures, but testaments to the ordeal and its cost.\n\nTheir return to Harrow's Hollow was met with jubilation. Norn, in a moment of humility and grace, credited Elen for her heroism before all the gathered villagers. The square rang with laughter and relief, the village's fear transmuted into admiration. Elder Mirna bestowed gifts of coin, gems, and land; yet these were overshadowed by the invisible rewards: Elen's newfound stature, the gratitude etched in every handshake and tearful embrace, and the indelible bond forged between the heroes. In the warmth of the Wyrd Lantern Inn, their camaraderie deepened into something more--laughter at old perils, confessions spoken in the hush between songs, and the beginnings of a love both fierce and gentle.\n\nThe adventure's end was not simply a victory over darkness, but a transformation: of Elen from overlooked scout to champion, of Norn from stranger to steadfast friend and perhaps more, of a village reclaimed from fear to hope. The keep, once a symbol of dread, now stood as a promise--a home to be restored, a beacon for future tales. Yet not all wounds were visible, nor all stories finished; the memory of those lost lingered in the stones, and the world beyond the Witchlight Trail beckoned with new mysteries and old dangers.\n\nThus concluded the legend of Harrow's Hollow's deliverance: a tale of courage, sacrifice, and the unyielding light of friendship. And as Norn and Elen shouldered their packs and stepped out once more into the wider world, the promise of further adventures shimmered on the horizon--proof that even in the deepest shadows, hope endures, and new legends are always waiting to be written.",
+  "exportedData": {
+    "relationships": [
+      {
+        "name": "Elder Mirna Harrow",
+        "status": "Befriended; trusted the party, especially Norn"
+      },
+      {
+        "name": "Elen (Scout)",
+        "status": "Rescued; bond of friendship and potential romance with Norn; now a village hero"
+      },
+      {
+        "name": "Keeper Morvath",
+        "status": "Pact formed; provided aid and lore, relationship of mutual respect"
+      },
+      {
+        "name": "Lord Thaddeus Greymont (Spirit)",
+        "status": "Enemy turned to peaceful after curse broken"
+      },
+      {
+        "name": "Villagers of Harrow's Hollow",
+        "status": "Earned trust and gratitude; party seen as heroes"
+      }
+    ],
+    "artifacts": [
+      "Bronze key marked with a raven (from Mirna)",
+      "Knight's amulet (purified, now a protective talisman)",
+      "Signet ring (from Shadowfall Keep)",
+      "Chaplain's coded journal (contains lore on the curse)",
+      "Purified sword (relic, possibly magical)",
+      "Silver amulet (relic)",
+      "Deed to Shadowfall Keep"
+    ],
+    "hubs": [
+      {
+        "name": "Shadowfall Keep",
+        "status": "Ownership granted to party; potential base of operations"
+      },
+      {
+        "name": "Harrow's Hollow",
+        "status": "Strong positive ties; possible safe haven"
+      }
+    ],
+    "worldState": [
+      "Curse over Harrow's Hollow and Shadowfall Keep lifted",
+      "Elen elevated to hero status among villagers",
+      "Party awarded land, coin, and gems by Elder Mirna",
+      "Shadowfall Keep no longer a source of fear; potential for restoration",
+      "Village morale significantly improved; fear replaced by hope"
+    ],
+    "unlockedModules": [
+      "Restoration and management of Shadowfall Keep",
+      "Political intrigue or threats targeting the newly restored keep",
+      "Further mysteries beyond the Witchlight Trail",
+      "Deeper exploration of fey and Gloamwood influences",
+      "Personal quests for Elen and Norn (romance, legacy, etc.)"
+    ]
+  },
+  "sequenceNumber": 3
+}

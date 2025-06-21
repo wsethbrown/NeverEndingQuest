@@ -755,6 +755,10 @@ def main_game_loop():
         else:
             user_input_text = input("User: ")
 
+        # Skip processing if input is empty or only whitespace
+        if not user_input_text or not user_input_text.strip():
+            continue
+
         party_tracker_data = load_json_file("party_tracker.json") 
 
         party_members_stats = []

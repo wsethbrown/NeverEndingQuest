@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DungeonMasterAI</title>
+    
+    <!-- External Dependencies -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Modular CSS Architecture -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-dark.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/character-sheet.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>DungeonMaster AI</h1>
+        <div class="location-info">
+            <div class="location-name" data-location="name">Adventure Awaits</div>
+            <div class="location-details" data-location="details">Ready to begin your journey</div>
+        </div>
+        <div class="status">
+            <span class="connection-status">Connecting...</span>
+            <div class="status-indicator" data-connection="indicator"></div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Game Content Area -->
+        <main class="game-content">
+            <!-- Game Panel -->
+            <section class="game-panel">
+                <div id="game-messages" class="game-messages" data-messages="container">
+                    <div class="message system-message">
+                        <span class="timestamp">[System]</span> Welcome to DungeonMaster AI! Click Start to begin your adventure.
+                    </div>
+                </div>
+                
+                <div class="game-input-area">
+                    <div class="input-group">
+                        <textarea 
+                            id="game-input" 
+                            class="game-input" 
+                            placeholder="Describe your action..." 
+                            rows="2"
+                            data-input="game">
+                        </textarea>
+                        <button id="send-button" class="send-button" data-action="send">Send</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Control Buttons -->
+            <section class="control-buttons">
+                <button id="start-button" class="btn btn-primary start-button" data-action="start">Start Adventure</button>
+                <button id="help-button" class="btn" data-action="help">Help</button>
+                <button id="save-button" class="btn" data-action="save">Save Game</button>
+                <button id="load-button" class="btn" data-action="load">Load Game</button>
+            </section>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Dice Rolling Section -->
+            <section class="panel dice-section">
+                <h3 class="panel-header">Dice Roller</h3>
+                
+                <div class="dice-controls">
+                    <button id="roll-d4" class="dice-button" data-dice="d4">d4</button>
+                    <button id="roll-d6" class="dice-button" data-dice="d6">d6</button>
+                    <button id="roll-d8" class="dice-button" data-dice="d8">d8</button>
+                    <button id="roll-d10" class="dice-button" data-dice="d10">d10</button>
+                    <button id="roll-d12" class="dice-button" data-dice="d12">d12</button>
+                    <button id="roll-d20" class="dice-button" data-dice="d20">d20</button>
+                    <button id="roll-d100" class="dice-button" data-dice="d100">d100</button>
+                </div>
+                
+                <div class="dice-controls">
+                    <button id="roll-advantage" class="dice-button" data-dice="advantage">Advantage</button>
+                    <button id="roll-disadvantage" class="dice-button" data-dice="disadvantage">Disadvantage</button>
+                    <button id="clear-dice" class="dice-button dice-clear" data-dice="clear">Clear</button>
+                </div>
+                
+                <div id="dice-results" class="dice-results" data-dice="results">
+                    <!-- Dice results will be displayed here -->
+                </div>
+            </section>
+
+            <!-- Tabs Container -->
+            <section class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button" data-tab="character">Character</button>
+                    <button class="tab-button" data-tab="inventory">Inventory</button>
+                    <button class="tab-button" data-tab="spells">Spells</button>
+                    <button class="tab-button" data-tab="notes">Notes</button>
+                </div>
+
+                <!-- Character Tab -->
+                <div class="tab-content" data-tab-content="character">
+                    <div class="character-sheet-container">
+                        <div class="character-header">
+                            <div class="character-name" data-char="name">Character Name</div>
+                            <div class="character-level" data-char="level">Level 1</div>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-block" data-stat="strength">
+                                <div class="stat-name">STR</div>
+                                <div class="stat-value" data-stat-value="strength">10</div>
+                                <div class="stat-modifier" data-stat-mod="strength">+0</div>
+                            </div>
+                            <div class="stat-block" data-stat="dexterity">
+                                <div class="stat-name">DEX</div>
+                                <div class="stat-value" data-stat-value="dexterity">10</div>
+                                <div class="stat-modifier" data-stat-mod="dexterity">+0</div>
+                            </div>
+                            <div class="stat-block" data-stat="constitution">
+                                <div class="stat-name">CON</div>
+                                <div class="stat-value" data-stat-value="constitution">10</div>
+                                <div class="stat-modifier" data-stat-mod="constitution">+0</div>
+                            </div>
+                            <div class="stat-block" data-stat="intelligence">
+                                <div class="stat-name">INT</div>
+                                <div class="stat-value" data-stat-value="intelligence">10</div>
+                                <div class="stat-modifier" data-stat-mod="intelligence">+0</div>
+                            </div>
+                            <div class="stat-block" data-stat="wisdom">
+                                <div class="stat-name">WIS</div>
+                                <div class="stat-value" data-stat-value="wisdom">10</div>
+                                <div class="stat-modifier" data-stat-mod="wisdom">+0</div>
+                            </div>
+                            <div class="stat-block" data-stat="charisma">
+                                <div class="stat-name">CHA</div>
+                                <div class="stat-value" data-stat-value="charisma">10</div>
+                                <div class="stat-modifier" data-stat-mod="charisma">+0</div>
+                            </div>
+                        </div>
+                        
+                        <div class="vitals">
+                            <div class="vital-stat">
+                                <div class="vital-label">Hit Points</div>
+                                <div class="vital-value">
+                                    <span class="hp-current" data-hp="current">25</span> / 
+                                    <span class="hp-max" data-hp="max">25</span>
+                                </div>
+                            </div>
+                            <div class="vital-stat">
+                                <div class="vital-label">Armor Class</div>
+                                <div class="vital-value" data-ac="value">12</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inventory Tab -->
+                <div class="tab-content" data-tab-content="inventory">
+                    <div class="inventory-section">
+                        <h4>Equipment</h4>
+                        <div class="inventory-grid" data-inventory="equipment">
+                            <div class="inventory-item">
+                                <div class="item-name">Starting Equipment</div>
+                                <div class="item-description">Your adventure begins here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spells Tab -->
+                <div class="tab-content" data-tab-content="spells">
+                    <div class="spells-section">
+                        <h4>Spell Slots</h4>
+                        <div class="spell-slots" data-spells="slots">
+                            <!-- Spell slot information will be displayed here -->
+                        </div>
+                        
+                        <h4>Known Spells</h4>
+                        <div class="spells-list" data-spells="list">
+                            <!-- Known spells will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes Tab -->
+                <div class="tab-content" data-tab-content="notes">
+                    <div class="panel-content">
+                        <h4>Adventure Notes</h4>
+                        <textarea 
+                            class="form-control" 
+                            rows="10" 
+                            placeholder="Keep track of important information, NPCs, and quest details..."
+                            data-notes="content">
+                        </textarea>
+                        <button class="btn btn-primary mt-2" data-notes="save">Save Notes</button>
+                    </div>
+                </div>
+            </section>
+        </aside>
+    </div>
+
+    <!-- Modular JavaScript Architecture -->
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dice.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/socket-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tab-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/game-interface.js') }}"></script>
+</body>
+</html>

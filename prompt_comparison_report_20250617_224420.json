@@ -1,0 +1,482 @@
+{
+  "test_info": {
+    "timestamp": "2025-06-17T22:44:20.915528",
+    "total_scenarios": 10,
+    "model_used": "gpt-4.1-2025-04-14"
+  },
+  "prompt_comparison": {
+    "current_prompt_chars": 64638,
+    "new_prompt_chars": 4882,
+    "size_reduction_percent": 92.44716730096847
+  },
+  "current_prompt_results": {
+    "analysis": {
+      "total_tests": 10,
+      "valid_json_responses": 10,
+      "json_success_rate": 100.0,
+      "failed_tests": []
+    },
+    "detailed_results": [
+      {
+        "scenario_id": 1,
+        "scenario_name": "Basic JSON Structure",
+        "input": "What do I see around me?",
+        "raw_response": "{\n  \"narration\": \"You take in the welcoming scene around you within The Wyrd Lantern Inn. The warm amber light from dozens of lanterns casts a gentle glow over polished wooden tables, some crowded with laughing locals and a few travelers swapping tales. The scent of roasting meats and fresh bread fills the air, mingling with the sharp tang of spiced cider. Behind the bar, a broad-shouldered human woman wipes down mugs, flashing a cheerful smile at patrons. To your left, an old dwarf with a bushy beard recounts a story to a pair of wide-eyed children. Elen, your stalwart companion, sits nearby, quietly nursing a mug and watching the room with a thoughtful expression. The fire crackles in the hearth, and you notice a bard tuning a lute in the corner, preparing for the afternoon's entertainment. The atmosphere is one of comfort and camaraderie, with just a hint of anticipation, as if this place is a crossroads for many stories waiting to unfold.\\n\\nIs there anything in particular you'd like to focus on or anyone you'd like to approach?\",\n  \"actions\": []\n}",
+        "parsed_response": {
+          "narration": "You take in the welcoming scene around you within The Wyrd Lantern Inn. The warm amber light from dozens of lanterns casts a gentle glow over polished wooden tables, some crowded with laughing locals and a few travelers swapping tales. The scent of roasting meats and fresh bread fills the air, mingling with the sharp tang of spiced cider. Behind the bar, a broad-shouldered human woman wipes down mugs, flashing a cheerful smile at patrons. To your left, an old dwarf with a bushy beard recounts a story to a pair of wide-eyed children. Elen, your stalwart companion, sits nearby, quietly nursing a mug and watching the room with a thoughtful expression. The fire crackles in the hearth, and you notice a bard tuning a lute in the corner, preparing for the afternoon's entertainment. The atmosphere is one of comfort and camaraderie, with just a hint of anticipation, as if this place is a crossroads for many stories waiting to unfold.\n\nIs there anything in particular you'd like to focus on or anyone you'd like to approach?",
+          "actions": []
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:42:55.367738"
+      },
+      {
+        "scenario_id": 2,
+        "scenario_name": "Multiple Actions",
+        "input": "I take a short rest and then move to the next room",
+        "raw_response": "{\n  \"narration\": \"You settle into a comfortable chair near the hearth of the Wyrd Lantern Inn. The gentle crackle of the fire and the soft murmur of conversation create a peaceful backdrop as you catch your breath. Elen sits nearby, quietly polishing her dagger and humming a familiar tune. After an hour of rest, you feel your strength returning, ready for whatever lies ahead.\\n\\nOnce you're ready, you rise and make your way toward the door leading to the next room. The wood creaks softly beneath your boots as you step away from the inviting warmth of the common area.\",\n  \"actions\": [\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"changes\": \"Completed a short rest. Norn may spend Hit Dice to recover HP and regains Second Wind and Action Surge. All current HP restored to 25/25.\"\n      }\n    },\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 60\n      }\n    },\n    {\n      \"action\": \"transitionLocation\",\n      \"parameters\": {\n        \"newLocation\": \"A06\"\n      }\n    }\n  ]\n}",
+        "parsed_response": {
+          "narration": "You settle into a comfortable chair near the hearth of the Wyrd Lantern Inn. The gentle crackle of the fire and the soft murmur of conversation create a peaceful backdrop as you catch your breath. Elen sits nearby, quietly polishing her dagger and humming a familiar tune. After an hour of rest, you feel your strength returning, ready for whatever lies ahead.\n\nOnce you're ready, you rise and make your way toward the door leading to the next room. The wood creaks softly beneath your boots as you step away from the inviting warmth of the common area.",
+          "actions": [
+            {
+              "action": "updateCharacterInfo",
+              "parameters": {
+                "characterName": "Norn",
+                "changes": "Completed a short rest. Norn may spend Hit Dice to recover HP and regains Second Wind and Action Surge. All current HP restored to 25/25."
+              }
+            },
+            {
+              "action": "updateTime",
+              "parameters": {
+                "timeEstimate": 60
+              }
+            },
+            {
+              "action": "transitionLocation",
+              "parameters": {
+                "newLocation": "A06"
+              }
+            }
+          ]
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:43:00.577707"
+      },
+      {
+        "scenario_id": 3,
+        "scenario_name": "Combat Initiation",
+        "input": "I attack the goblin with my sword",
+        "raw_response": "{\n  \"narration\": \"You draw your sword, its blade catching the amber glow of the Wyrd Lantern Inn's hearth, and prepare to strike at the goblin. The creature snarls, baring crooked yellow teeth as it darts toward you, upending a stool in its haste. Elen ducks behind a table, her eyes wide with alarm as the inn's patrons scatter for cover, mugs and plates clattering to the floor.\\n\\nSteel flashes as you lunge forward, the commotion of the tavern fading into the background. The goblin raises a battered shield and screeches a challenge, ready to meet your attack.\\n\\nCombat begins!\",\n  \"actions\": [\n    {\n      \"action\": \"createEncounter\",\n      \"parameters\": {\n        \"player\": \"Norn\",\n        \"npcs\": [\"Elen\"],\n        \"monsters\": [\"Goblin\"],\n        \"encounterSummary\": \"A goblin has burst into the Wyrd Lantern Inn, and Norn draws his sword to attack. The inn erupts into chaos as combat is about to begin.\"\n      }\n    }\n  ]\n}",
+        "parsed_response": {
+          "narration": "You draw your sword, its blade catching the amber glow of the Wyrd Lantern Inn's hearth, and prepare to strike at the goblin. The creature snarls, baring crooked yellow teeth as it darts toward you, upending a stool in its haste. Elen ducks behind a table, her eyes wide with alarm as the inn's patrons scatter for cover, mugs and plates clattering to the floor.\n\nSteel flashes as you lunge forward, the commotion of the tavern fading into the background. The goblin raises a battered shield and screeches a challenge, ready to meet your attack.\n\nCombat begins!",
+          "actions": [
+            {
+              "action": "createEncounter",
+              "parameters": {
+                "player": "Norn",
+                "npcs": [
+                  "Elen"
+                ],
+                "monsters": [
+                  "Goblin"
+                ],
+                "encounterSummary": "A goblin has burst into the Wyrd Lantern Inn, and Norn draws his sword to attack. The inn erupts into chaos as combat is about to begin."
+              }
+            }
+          ]
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:43:05.751215"
+      },
+      {
+        "scenario_id": 4,
+        "scenario_name": "Inventory Management",
+        "input": "I pick up the gold coins and healing potion",
+        "raw_response": "{\n  \"narration\": \"You lean over the polished oak table, gathering the scattered gold coins and the small glass vial of healing potion left behind by the departing patron. The coins clink pleasantly as you pocket them, and the potion feels cool and reassuring in your hand. Elen glances at you with a wry smile, raising an eyebrow but saying nothing.\\n\\nThe inn's gentle bustle continues around you, the scent of roasting meat and fresh bread filling the air.\",\n  \"actions\": [\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"changes\": \"Added 12 gold coins and 1 Healing Potion to inventory\"\n      }\n    },\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 1\n      }\n    }\n  ]\n}",
+        "parsed_response": {
+          "narration": "You lean over the polished oak table, gathering the scattered gold coins and the small glass vial of healing potion left behind by the departing patron. The coins clink pleasantly as you pocket them, and the potion feels cool and reassuring in your hand. Elen glances at you with a wry smile, raising an eyebrow but saying nothing.\n\nThe inn's gentle bustle continues around you, the scent of roasting meat and fresh bread filling the air.",
+          "actions": [
+            {
+              "action": "updateCharacterInfo",
+              "parameters": {
+                "characterName": "Norn",
+                "changes": "Added 12 gold coins and 1 Healing Potion to inventory"
+              }
+            },
+            {
+              "action": "updateTime",
+              "parameters": {
+                "timeEstimate": 1
+              }
+            }
+          ]
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:43:09.827883"
+      },
+      {
+        "scenario_id": 5,
+        "scenario_name": "Storage Interaction",
+        "input": "I store my extra arrows in the chest",
+        "raw_response": "{\n  \"narration\": \"You approach the sturdy wooden chest tucked behind the bar in the Wyrd Lantern Inn. The scent of old cedar rises as you open the lid. Carefully, you place your extra arrows inside, ensuring they are neatly arranged and within easy reach for the next time you need them. The inn's gentle bustle continues around you, unnoticed by most as you manage your supplies.\",\n  \"actions\": [\n    {\n      \"action\": \"storageInteraction\",\n      \"parameters\": {\n        \"description\": \"I store my extra arrows in the chest here\",\n        \"characterName\": \"Norn\"\n      }\n    },\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 2\n      }\n    }\n  ]\n}",
+        "parsed_response": {
+          "narration": "You approach the sturdy wooden chest tucked behind the bar in the Wyrd Lantern Inn. The scent of old cedar rises as you open the lid. Carefully, you place your extra arrows inside, ensuring they are neatly arranged and within easy reach for the next time you need them. The inn's gentle bustle continues around you, unnoticed by most as you manage your supplies.",
+          "actions": [
+            {
+              "action": "storageInteraction",
+              "parameters": {
+                "description": "I store my extra arrows in the chest here",
+                "characterName": "Norn"
+              }
+            },
+            {
+              "action": "updateTime",
+              "parameters": {
+                "timeEstimate": 2
+              }
+            }
+          ]
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:43:13.699188"
+      },
+      {
+        "scenario_id": 6,
+        "scenario_name": "Time Management",
+        "input": "I carefully examine the room for traps",
+        "raw_response": "{\n  \"narration\": \"You take a careful look around the common room of the Wyrd Lantern Inn, letting your gaze linger on the fireplace, the sturdy wooden beams, and the various tables and alcoves. The air is filled with the sound of friendly chatter and the aroma of roasting meat. Nothing immediately stands out as dangerous, but to be sure, you focus on looking for anything out of the ordinary\u2014loose floorboards, suspicious gaps in the walls, or unusual patterns in the decor.\\n\\nPlease make a Perception check. Roll a d20 and add your Perception modifier, then let me know the result.\"\n}",
+        "parsed_response": {
+          "narration": "You take a careful look around the common room of the Wyrd Lantern Inn, letting your gaze linger on the fireplace, the sturdy wooden beams, and the various tables and alcoves. The air is filled with the sound of friendly chatter and the aroma of roasting meat. Nothing immediately stands out as dangerous, but to be sure, you focus on looking for anything out of the ordinary\u2014loose floorboards, suspicious gaps in the walls, or unusual patterns in the decor.\n\nPlease make a Perception check. Roll a d20 and add your Perception modifier, then let me know the result."
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:43:16.744828"
+      },
+      {
+        "scenario_id": 7,
+        "scenario_name": "Location Transition",
+        "input": "I go through the door to the north",
+        "raw_response": "{\n  \"narration\": \"You rise from your seat in the inviting glow of the Wyrd Lantern Inn, the gentle clatter of tankards and low conversation fading behind you as you cross to the sturdy oak door on the northern side. The wood feels cool beneath your hand, and as you push it open, the sounds and scents of the tavern are replaced by the bustling activity of the village square. Sunlight spills across cobbled stones, merchants hawk their wares from colorful stalls, and the air is alive with the chatter of townsfolk. You step outside, the inn's comforting warmth at your back, and survey the busy heart of the village.\",\n  \"actions\": [\n    {\n      \"action\": \"transitionLocation\",\n      \"parameters\": {\n        \"newLocation\": \"A06\"\n      }\n    },\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 2\n      }\n    }\n  ]\n}",
+        "parsed_response": {
+          "narration": "You rise from your seat in the inviting glow of the Wyrd Lantern Inn, the gentle clatter of tankards and low conversation fading behind you as you cross to the sturdy oak door on the northern side. The wood feels cool beneath your hand, and as you push it open, the sounds and scents of the tavern are replaced by the bustling activity of the village square. Sunlight spills across cobbled stones, merchants hawk their wares from colorful stalls, and the air is alive with the chatter of townsfolk. You step outside, the inn's comforting warmth at your back, and survey the busy heart of the village.",
+          "actions": [
+            {
+              "action": "transitionLocation",
+              "parameters": {
+                "newLocation": "A06"
+              }
+            },
+            {
+              "action": "updateTime",
+              "parameters": {
+                "timeEstimate": 2
+              }
+            }
+          ]
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:43:20.372884"
+      },
+      {
+        "scenario_id": 8,
+        "scenario_name": "Repetition Test A",
+        "input": "Describe the tavern",
+        "raw_response": "{\n  \"narration\": \"You find yourself in The Wyrd Lantern Inn, a haven of warmth and camaraderie nestled within the bustle of town. The wooden beams overhead creak softly, framing a ceiling hung with glowing lanterns of stained glass in every hue. The gentle light from these lanterns bathes the room in a golden glow, giving the polished oak tables and bar a welcoming gleam. \\n\\nThe air is rich with the aroma of roasting meats, fresh bread, and spiced cider. Patrons\u2014locals and travelers alike\u2014gather at tables, sharing stories over hearty fare. Behind the bar, a stout human woman polishes mugs, her laughter ringing out as she exchanges jokes with a pair of dwarves.\\n\\nA crackling hearth dominates one wall, its flames casting dancing shadows. Against another wall, a bard plucks a cheerful tune on a lute, drawing appreciative nods from the crowd. Elen, your companion, sits nearby, eyes bright as she surveys the room. \\\"Feels good to relax for a change, doesn't it?\\\" she says with a contented sigh.\\n\\nThe atmosphere is alive but unhurried\u2014a perfect place to rest, gather information, or simply enjoy a moment's peace. What would you like to do?\",\n  \"actions\": []\n}",
+        "parsed_response": {
+          "narration": "You find yourself in The Wyrd Lantern Inn, a haven of warmth and camaraderie nestled within the bustle of town. The wooden beams overhead creak softly, framing a ceiling hung with glowing lanterns of stained glass in every hue. The gentle light from these lanterns bathes the room in a golden glow, giving the polished oak tables and bar a welcoming gleam. \n\nThe air is rich with the aroma of roasting meats, fresh bread, and spiced cider. Patrons\u2014locals and travelers alike\u2014gather at tables, sharing stories over hearty fare. Behind the bar, a stout human woman polishes mugs, her laughter ringing out as she exchanges jokes with a pair of dwarves.\n\nA crackling hearth dominates one wall, its flames casting dancing shadows. Against another wall, a bard plucks a cheerful tune on a lute, drawing appreciative nods from the crowd. Elen, your companion, sits nearby, eyes bright as she surveys the room. \"Feels good to relax for a change, doesn't it?\" she says with a contented sigh.\n\nThe atmosphere is alive but unhurried\u2014a perfect place to rest, gather information, or simply enjoy a moment's peace. What would you like to do?",
+          "actions": []
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:43:26.290689"
+      },
+      {
+        "scenario_id": 9,
+        "scenario_name": "Repetition Test B",
+        "input": "Describe the tavern",
+        "raw_response": "{\n  \"narration\": \"You find yourself in the Wyrd Lantern Inn, a haven of warmth and comfort nestled at the heart of the village. The glow of lanterns\u2014each with colored glass panes\u2014casts a patchwork of gold, crimson, and emerald light across the polished wooden tables. The air is scented with roasting meat, fresh bread, and the faintest hint of pipe smoke. Laughter and the gentle strum of a lute drift from a corner where a bard entertains a small crowd.\\n\\nBehind the bar, a round-cheeked innkeeper polishes tankards with practiced ease, chatting amiably with a pair of locals. The fire in the stone hearth crackles merrily, its warmth warding off any chill from outside. Elen sits beside you, her gaze wandering contentedly over the scene. The room hums with the sort of easy camaraderie that makes even strangers feel at home.\",\n  \"actions\": []\n}",
+        "parsed_response": {
+          "narration": "You find yourself in the Wyrd Lantern Inn, a haven of warmth and comfort nestled at the heart of the village. The glow of lanterns\u2014each with colored glass panes\u2014casts a patchwork of gold, crimson, and emerald light across the polished wooden tables. The air is scented with roasting meat, fresh bread, and the faintest hint of pipe smoke. Laughter and the gentle strum of a lute drift from a corner where a bard entertains a small crowd.\n\nBehind the bar, a round-cheeked innkeeper polishes tankards with practiced ease, chatting amiably with a pair of locals. The fire in the stone hearth crackles merrily, its warmth warding off any chill from outside. Elen sits beside you, her gaze wandering contentedly over the scene. The room hums with the sort of easy camaraderie that makes even strangers feel at home.",
+          "actions": []
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:43:35.401378"
+      },
+      {
+        "scenario_id": 10,
+        "scenario_name": "Complex Scenario",
+        "input": "I ask the innkeeper about rumors while ordering food and ale",
+        "raw_response": "{\n  \"narration\": \"You make your way to the polished bar, where the innkeeper, a burly half-elf with a neatly trimmed beard and twinkling eyes, greets you with a nod. As you order a hearty meal and a mug of ale, the innkeeper slides the drink your way with practiced ease.\\n\\n\\\"Always happy to see a new face,\\\" he says, pouring a foamy measure into your mug. \\\"Rumors, you say? Well, there's always talk around here. Some folks have been whisperin' about strange lights near the old mill by the river after dark. Others claim to have seen shadowy figures slipping through the woods -- too quiet for bandits, if you ask me.\\\" He leans in, lowering his voice. \\\"And if you believe the stories, Old Marta swears she heard chanting coming from the ruins on the hill last full moon. Spooked her good and proper.\\\"\\n\\nAs the savory aroma of roasted meat drifts up from the kitchen, Elen settles onto the stool beside you, listening intently. The innkeeper gives you a wink. \\\"If you're lookin' for excitement, friend, there's no shortage of it around these parts.\\\"\\n\\nYour food arrives, steaming and delicious. The inn is abuzz with quiet conversation, and you sense that, with the right questions, you might learn even more. Is there anything you'd like to ask the innkeeper about these rumors, or would you rather enjoy your meal and observe the crowd?\",\n  \"actions\": [\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 15\n      }\n    }\n  ]\n}",
+        "parsed_response": {
+          "narration": "You make your way to the polished bar, where the innkeeper, a burly half-elf with a neatly trimmed beard and twinkling eyes, greets you with a nod. As you order a hearty meal and a mug of ale, the innkeeper slides the drink your way with practiced ease.\n\n\"Always happy to see a new face,\" he says, pouring a foamy measure into your mug. \"Rumors, you say? Well, there's always talk around here. Some folks have been whisperin' about strange lights near the old mill by the river after dark. Others claim to have seen shadowy figures slipping through the woods -- too quiet for bandits, if you ask me.\" He leans in, lowering his voice. \"And if you believe the stories, Old Marta swears she heard chanting coming from the ruins on the hill last full moon. Spooked her good and proper.\"\n\nAs the savory aroma of roasted meat drifts up from the kitchen, Elen settles onto the stool beside you, listening intently. The innkeeper gives you a wink. \"If you're lookin' for excitement, friend, there's no shortage of it around these parts.\"\n\nYour food arrives, steaming and delicious. The inn is abuzz with quiet conversation, and you sense that, with the right questions, you might learn even more. Is there anything you'd like to ask the innkeeper about these rumors, or would you rather enjoy your meal and observe the crowd?",
+          "actions": [
+            {
+              "action": "updateTime",
+              "parameters": {
+                "timeEstimate": 15
+              }
+            }
+          ]
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:43:43.716372"
+      }
+    ]
+  },
+  "new_prompt_results": {
+    "analysis": {
+      "total_tests": 10,
+      "valid_json_responses": 10,
+      "json_success_rate": 100.0,
+      "failed_tests": []
+    },
+    "detailed_results": [
+      {
+        "scenario_id": 1,
+        "scenario_name": "Basic JSON Structure",
+        "input": "What do I see around me?",
+        "raw_response": "{\n  \"narration\": \"You take a look around the Wyrd Lantern Inn. The main room is filled with round wooden tables, their surfaces worn smooth by years of use. A cheery fire crackles in a large stone hearth, filling the space with warmth and the faint aroma of roasting meat. Behind the bar, a stout halfling polishes glasses and chats with a pair of locals. A bard strums a gentle tune in the corner, providing a pleasant backdrop to the quiet afternoon. Elen, your companion, sits across from you, sipping a mug of cider. Patrons of various sorts\u2014travelers, townsfolk, and a few weathered adventurers\u2014relax and converse in clusters. The innkeeper nods as you scan the room, ready to offer assistance should you need anything. What would you like to do?\",\n  \"actions\": []\n}",
+        "parsed_response": {
+          "narration": "You take a look around the Wyrd Lantern Inn. The main room is filled with round wooden tables, their surfaces worn smooth by years of use. A cheery fire crackles in a large stone hearth, filling the space with warmth and the faint aroma of roasting meat. Behind the bar, a stout halfling polishes glasses and chats with a pair of locals. A bard strums a gentle tune in the corner, providing a pleasant backdrop to the quiet afternoon. Elen, your companion, sits across from you, sipping a mug of cider. Patrons of various sorts\u2014travelers, townsfolk, and a few weathered adventurers\u2014relax and converse in clusters. The innkeeper nods as you scan the room, ready to offer assistance should you need anything. What would you like to do?",
+          "actions": []
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:43:50.349130"
+      },
+      {
+        "scenario_id": 2,
+        "scenario_name": "Multiple Actions",
+        "input": "I take a short rest and then move to the next room",
+        "raw_response": "{\n  \"narration\": \"You and Elen settle into a quiet corner of The Wyrd Lantern Inn. The gentle murmur of conversation and the scent of roasting meat provide a soothing backdrop as you rest for an hour. You feel your strength returning. Once the rest is over, you gather your gear and head toward the adjoining room. As you step through the door, the lighting changes\u2014the next room is a private dining area, quieter and more refined, with polished tables and a view of the bustling street outside.\",\n  \"actions\": [\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 65\n      }\n    },\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"recoveredFeatures\": [\"Second Wind\", \"Action Surge\"]\n      }\n    },\n    {\n      \"action\": \"transitionLocation\",\n      \"parameters\": {\n        \"newLocation\": \"A06\"\n      }\n    }\n  ]\n}",
+        "parsed_response": {
+          "narration": "You and Elen settle into a quiet corner of The Wyrd Lantern Inn. The gentle murmur of conversation and the scent of roasting meat provide a soothing backdrop as you rest for an hour. You feel your strength returning. Once the rest is over, you gather your gear and head toward the adjoining room. As you step through the door, the lighting changes\u2014the next room is a private dining area, quieter and more refined, with polished tables and a view of the bustling street outside.",
+          "actions": [
+            {
+              "action": "updateTime",
+              "parameters": {
+                "timeEstimate": 65
+              }
+            },
+            {
+              "action": "updateCharacterInfo",
+              "parameters": {
+                "characterName": "Norn",
+                "recoveredFeatures": [
+                  "Second Wind",
+                  "Action Surge"
+                ]
+              }
+            },
+            {
+              "action": "transitionLocation",
+              "parameters": {
+                "newLocation": "A06"
+              }
+            }
+          ]
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:43:54.135987"
+      },
+      {
+        "scenario_id": 3,
+        "scenario_name": "Combat Initiation",
+        "input": "I attack the goblin with my sword",
+        "raw_response": "{\n  \"narration\": \"You draw your sword and charge at the goblin, steel glinting in the warm light of the Wyrd Lantern Inn. The startled goblin bares jagged teeth, clutching a rusty dagger. Roll to hit and let me know your result.\",\n  \"actions\": [\n    {\n      \"action\": \"createEncounter\",\n      \"parameters\": {\n        \"encounterSummary\": \"Norn and Elen face a goblin attacker inside the Wyrd Lantern Inn.\"\n      }\n    }\n  ]\n}",
+        "parsed_response": {
+          "narration": "You draw your sword and charge at the goblin, steel glinting in the warm light of the Wyrd Lantern Inn. The startled goblin bares jagged teeth, clutching a rusty dagger. Roll to hit and let me know your result.",
+          "actions": [
+            {
+              "action": "createEncounter",
+              "parameters": {
+                "encounterSummary": "Norn and Elen face a goblin attacker inside the Wyrd Lantern Inn."
+              }
+            }
+          ]
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:43:56.147656"
+      },
+      {
+        "scenario_id": 4,
+        "scenario_name": "Inventory Management",
+        "input": "I pick up the gold coins and healing potion",
+        "raw_response": "{\n  \"narration\": \"You lean down beside the hearth and retrieve a small leather pouch jingling with gold coins, as well as a glass vial filled with a softly glowing red liquid\u2014the telltale sign of a healing potion. The innkeeper glances over with a raised brow, but seeing your intent, simply nods approval. The pouch feels reassuringly heavy in your hand. What would you like to do next?\",\n  \"actions\": [\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"addItems\": [\n          {\n            \"item\": \"Gold Coins\",\n            \"quantity\": \"pouch (specify amount if known)\"\n          },\n          {\n            \"item\": \"Potion of Healing\",\n            \"quantity\": 1\n          }\n        ]\n      }\n    }\n  ]\n}",
+        "parsed_response": {
+          "narration": "You lean down beside the hearth and retrieve a small leather pouch jingling with gold coins, as well as a glass vial filled with a softly glowing red liquid\u2014the telltale sign of a healing potion. The innkeeper glances over with a raised brow, but seeing your intent, simply nods approval. The pouch feels reassuringly heavy in your hand. What would you like to do next?",
+          "actions": [
+            {
+              "action": "updateCharacterInfo",
+              "parameters": {
+                "characterName": "Norn",
+                "addItems": [
+                  {
+                    "item": "Gold Coins",
+                    "quantity": "pouch (specify amount if known)"
+                  },
+                  {
+                    "item": "Potion of Healing",
+                    "quantity": 1
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:44:00.723538"
+      },
+      {
+        "scenario_id": 5,
+        "scenario_name": "Storage Interaction",
+        "input": "I store my extra arrows in the chest",
+        "raw_response": "{\n  \"narration\": \"You cross the common room to the sturdy oak chest tucked beside the hearth. Lifting the lid, you carefully place your extra arrows inside, ensuring they are neatly bundled and secure. The warmth from the fire glints off the arrowheads as you close the chest once more.\",\n  \"actions\": [\n    {\n      \"action\": \"storageInteraction\",\n      \"parameters\": {\n        \"description\": \"Store extra arrows in the oak chest\",\n        \"characterName\": \"Norn\"\n      }\n    },\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 1\n      }\n    }\n  ]\n}",
+        "parsed_response": {
+          "narration": "You cross the common room to the sturdy oak chest tucked beside the hearth. Lifting the lid, you carefully place your extra arrows inside, ensuring they are neatly bundled and secure. The warmth from the fire glints off the arrowheads as you close the chest once more.",
+          "actions": [
+            {
+              "action": "storageInteraction",
+              "parameters": {
+                "description": "Store extra arrows in the oak chest",
+                "characterName": "Norn"
+              }
+            },
+            {
+              "action": "updateTime",
+              "parameters": {
+                "timeEstimate": 1
+              }
+            }
+          ]
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:44:03.418593"
+      },
+      {
+        "scenario_id": 6,
+        "scenario_name": "Time Management",
+        "input": "I carefully examine the room for traps",
+        "raw_response": "{\n  \"narration\": \"You scan the common room of The Wyrd Lantern Inn, eyes lingering on the hearth, the floorboards, and beneath the tables. The inn is bustling with patrons, laughter and conversation muffling any subtle sounds. You notice nothing out of the ordinary\u2014no suspicious wires, pressure plates, or hidden mechanisms are visible. If you wish to inspect a specific area more closely or search another room, specify where to look.\",\n  \"actions\": []\n}",
+        "parsed_response": {
+          "narration": "You scan the common room of The Wyrd Lantern Inn, eyes lingering on the hearth, the floorboards, and beneath the tables. The inn is bustling with patrons, laughter and conversation muffling any subtle sounds. You notice nothing out of the ordinary\u2014no suspicious wires, pressure plates, or hidden mechanisms are visible. If you wish to inspect a specific area more closely or search another room, specify where to look.",
+          "actions": []
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:44:05.625477"
+      },
+      {
+        "scenario_id": 7,
+        "scenario_name": "Location Transition",
+        "input": "I go through the door to the north",
+        "raw_response": "{\n  \"narration\": \"You make your way through the cozy common room of The Wyrd Lantern Inn, approaching the sturdy wooden door to the north. As you push it open, a rush of cooler air greets you. You step into a quieter hallway lined with lanterns, their gentle glow illuminating a row of doors to guest rooms and a staircase leading upward. The sounds of the tavern fade behind you, replaced by soft footfalls and hushed voices.\",\n  \"actions\": [\n    {\n      \"action\": \"transitionLocation\",\n      \"parameters\": {\n        \"newLocation\": \"A06\"\n      }\n    },\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 5\n      }\n    }\n  ]\n}",
+        "parsed_response": {
+          "narration": "You make your way through the cozy common room of The Wyrd Lantern Inn, approaching the sturdy wooden door to the north. As you push it open, a rush of cooler air greets you. You step into a quieter hallway lined with lanterns, their gentle glow illuminating a row of doors to guest rooms and a staircase leading upward. The sounds of the tavern fade behind you, replaced by soft footfalls and hushed voices.",
+          "actions": [
+            {
+              "action": "transitionLocation",
+              "parameters": {
+                "newLocation": "A06"
+              }
+            },
+            {
+              "action": "updateTime",
+              "parameters": {
+                "timeEstimate": 5
+              }
+            }
+          ]
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:44:08.631334"
+      },
+      {
+        "scenario_id": 8,
+        "scenario_name": "Repetition Test A",
+        "input": "Describe the tavern",
+        "raw_response": "{\n  \"narration\": \"The Wyrd Lantern Inn is a cozy haven nestled in the heart of the town. Warm, golden light spills from lanterns strung along wooden beams, casting a welcoming glow over polished tables and cushioned chairs. The scent of baked bread and roasting meat mingles with the faint aroma of ale. A cheerful fire crackles in the hearth, while the innkeeper chats with regulars at the bar. Patrons\u2014farmers, travelers, a few cloaked strangers\u2014enjoy hearty fare and laughter. Elen sits nearby, sipping tea. What would you like to do next?\",\n  \"actions\": []\n}",
+        "parsed_response": {
+          "narration": "The Wyrd Lantern Inn is a cozy haven nestled in the heart of the town. Warm, golden light spills from lanterns strung along wooden beams, casting a welcoming glow over polished tables and cushioned chairs. The scent of baked bread and roasting meat mingles with the faint aroma of ale. A cheerful fire crackles in the hearth, while the innkeeper chats with regulars at the bar. Patrons\u2014farmers, travelers, a few cloaked strangers\u2014enjoy hearty fare and laughter. Elen sits nearby, sipping tea. What would you like to do next?",
+          "actions": []
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:44:10.871087"
+      },
+      {
+        "scenario_id": 9,
+        "scenario_name": "Repetition Test B",
+        "input": "Describe the tavern",
+        "raw_response": "{\n  \"narration\": \"You look around The Wyrd Lantern Inn, a cozy tavern where golden lamplight flickers across polished oak beams and thick, woven rugs. The air is scented with roasting meats and fresh bread. Locals and travelers fill the tables, sharing stories and laughter. A sturdy bar lines the back wall, manned by a genial innkeeper who greets each guest with a nod. Quiet alcoves offer privacy for those who seek it, while a crackling hearth invites patrons to warm themselves. The overall mood is welcoming, with the gentle hum of conversation and the occasional clink of mugs.\",\n  \"actions\": []\n}",
+        "parsed_response": {
+          "narration": "You look around The Wyrd Lantern Inn, a cozy tavern where golden lamplight flickers across polished oak beams and thick, woven rugs. The air is scented with roasting meats and fresh bread. Locals and travelers fill the tables, sharing stories and laughter. A sturdy bar lines the back wall, manned by a genial innkeeper who greets each guest with a nod. Quiet alcoves offer privacy for those who seek it, while a crackling hearth invites patrons to warm themselves. The overall mood is welcoming, with the gentle hum of conversation and the occasional clink of mugs.",
+          "actions": []
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:44:15.390231"
+      },
+      {
+        "scenario_id": 10,
+        "scenario_name": "Complex Scenario",
+        "input": "I ask the innkeeper about rumors while ordering food and ale",
+        "raw_response": "{\n  \"narration\": \"You approach the bar, where the innkeeper\u2014a stout woman with laughing eyes\u2014wipes down a mug and greets you cheerfully. \\\"What can I get you, love?\\\" As you order a hearty meal and a mug of ale, you lean in and ask if she's heard any rumors lately. She glances around, then lowers her voice. \\\"Folk say the old mill by the creek\u2019s haunted\u2014lights at night, strange noises, and Yoren the miller\u2019s gone missing. Some say it\u2019s goblins; others, worse. And there\u2019s talk of a merchant caravan overdue from the west\u2014bandits, mayhap. But you didn\u2019t hear it from me!\\\" She winks as she sets your food and drink before you. The tavern\u2019s warmth and chatter continue around you. Elen listens, raising an eyebrow at the mention of the haunted mill. What do you wish to do next?\",\n  \"actions\": [\n    {\n      \"action\": \"updateCharacterInfo\",\n      \"parameters\": {\n        \"characterName\": \"Norn\",\n        \"inventoryChanges\": [\n          {\n            \"item\": \"Hearty meal\",\n            \"quantity\": 1,\n            \"added\": true\n          },\n          {\n            \"item\": \"Ale (mug)\",\n            \"quantity\": 1,\n            \"added\": true\n          }\n        ],\n        \"currencyChanges\": [\n          {\n            \"currency\": \"silver\",\n            \"amount\": -3\n          }\n        ]\n      }\n    },\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 10\n      }\n    }\n  ]\n}",
+        "parsed_response": {
+          "narration": "You approach the bar, where the innkeeper\u2014a stout woman with laughing eyes\u2014wipes down a mug and greets you cheerfully. \"What can I get you, love?\" As you order a hearty meal and a mug of ale, you lean in and ask if she's heard any rumors lately. She glances around, then lowers her voice. \"Folk say the old mill by the creek\u2019s haunted\u2014lights at night, strange noises, and Yoren the miller\u2019s gone missing. Some say it\u2019s goblins; others, worse. And there\u2019s talk of a merchant caravan overdue from the west\u2014bandits, mayhap. But you didn\u2019t hear it from me!\" She winks as she sets your food and drink before you. The tavern\u2019s warmth and chatter continue around you. Elen listens, raising an eyebrow at the mention of the haunted mill. What do you wish to do next?",
+          "actions": [
+            {
+              "action": "updateCharacterInfo",
+              "parameters": {
+                "characterName": "Norn",
+                "inventoryChanges": [
+                  {
+                    "item": "Hearty meal",
+                    "quantity": 1,
+                    "added": true
+                  },
+                  {
+                    "item": "Ale (mug)",
+                    "quantity": 1,
+                    "added": true
+                  }
+                ],
+                "currencyChanges": [
+                  {
+                    "currency": "silver",
+                    "amount": -3
+                  }
+                ]
+              }
+            },
+            {
+              "action": "updateTime",
+              "parameters": {
+                "timeEstimate": 10
+              }
+            }
+          ]
+        },
+        "json_valid": true,
+        "parse_error": null,
+        "timestamp": "2025-06-17T22:44:20.915483"
+      }
+    ]
+  },
+  "comparison": {
+    "json_success_rate_diff": 0.0,
+    "winner": "tie"
+  }
+}

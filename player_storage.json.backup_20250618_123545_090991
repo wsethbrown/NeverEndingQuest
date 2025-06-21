@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-06-18T12:35:30.465455",
+  "playerStorage": [
+    {
+      "id": "storage_d4b5fb1f",
+      "deviceType": "chest",
+      "deviceName": "Cira's Sturdy Chest",
+      "locationId": "A05",
+      "locationName": "The Wyrd Lantern Inn",
+      "areaId": "HH001",
+      "areaName": "Harrow's Hollow",
+      "contents": [
+        {
+          "item_name": "Battered Ranger's Journal",
+          "item_type": "miscellaneous",
+          "quantity": 1,
+          "description": "A worn journal with notes about Elen, Sir Garran Vael, warnings about whispers, and the Keeper"
+        }
+      ],
+      "createdBy": "Norn",
+      "createdDate": "2025-06-17T23:17:48.564720",
+      "accessibility": "party",
+      "lastAccessed": "2025-06-17T23:22:37.924519",
+      "accessLog": [
+        {
+          "character": "Norn",
+          "action": "create",
+          "timestamp": "2025-06-17T23:17:48.564720"
+        },
+        {
+          "character": "Norn",
+          "action": "store_item",
+          "item": "Battered Ranger's Journal",
+          "quantity": 1,
+          "timestamp": "2025-06-17T23:22:37.924519"
+        }
+      ]
+    },
+    {
+      "id": "storage_dfc39d52",
+      "deviceType": "strongbox",
+      "deviceName": "Iron Strongbox",
+      "locationId": "R01",
+      "locationName": "Harrow's Hollow General Store",
+      "areaId": "HH001",
+      "areaName": "Harrow's Hollow",
+      "contents": [],
+      "createdBy": "Norn",
+      "createdDate": "2025-06-18T12:35:30.465435",
+      "accessibility": "party",
+      "lastAccessed": "2025-06-18T12:35:30.465448",
+      "accessLog": [
+        {
+          "character": "Norn",
+          "action": "create",
+          "timestamp": "2025-06-18T12:35:30.465450"
+        }
+      ]
+    }
+  ]
+}

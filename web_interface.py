@@ -18,7 +18,7 @@ import io
 from contextlib import redirect_stdout, redirect_stderr
 
 # Install debug interceptor before importing main
-from redirect_debug_output import install_debug_interceptor
+from redirect_debug_output import install_debug_interceptor, uninstall_debug_interceptor
 install_debug_interceptor()
 
 # Import the main game module
@@ -62,9 +62,19 @@ class WebOutputCapture:
     def write(self, text):
         # Write to original stream for console visibility (with error handling)
         try:
+            # Ensure text is a string and handle encoding issues
+            if isinstance(text, bytes):
+                text = text.decode('utf-8', errors='replace')
+            elif not isinstance(text, str):
+                text = str(text)
+            
             self.original_stream.write(text)
-        except (BrokenPipeError, OSError):
-            # Ignore broken pipe errors during output capture
+            self.original_stream.flush()
+        except (BrokenPipeError, OSError, UnicodeEncodeError, AttributeError):
+            # Ignore broken pipe errors, encoding errors, and attribute errors during output capture
+            pass
+        except Exception:
+            # Catch any other unexpected errors and continue
             pass
         
         # Buffer text until we have a complete line
@@ -251,8 +261,11 @@ class WebOutputCapture:
             self.buffer += '\n'
         try:
             self.original_stream.flush()
-        except (BrokenPipeError, OSError):
-            # Ignore broken pipe errors during flush
+        except (BrokenPipeError, OSError, UnicodeEncodeError, AttributeError):
+            # Ignore broken pipe errors, encoding errors, and attribute errors during flush
+            pass
+        except Exception:
+            # Catch any other unexpected errors and continue
             pass
 
 class WebInput:
@@ -298,7 +311,7 @@ class WebInput:
 @app.route('/')
 def index():
     """Serve the main game interface"""
-    return render_template('game_interface_original_refactored.html')
+    return render_template('game_interface.html')
 
 @app.route('/static/dm_logo.png')
 def serve_dm_logo():
@@ -341,6 +354,9 @@ def handle_start_game():
     if game_thread and game_thread.is_alive():
         emit('error', {'message': 'Game is already running'})
         return
+    
+    # Uninstall debug interceptor to prevent competing stdout redirections
+    uninstall_debug_interceptor()
     
     # Set up output capture - both go to debug by default, filtering happens in write()
     sys.stdout = WebOutputCapture(debug_output_queue, original_stdout)
@@ -420,13 +436,11 @@ def handle_player_data_request(data):
 def handle_location_data_request():
     """Handle requests for current location information"""
     try:
-        print("DEBUG: Location data requested")
         # Load party tracker to get current location
         party_tracker_path = 'party_tracker.json'
         if os.path.exists(party_tracker_path):
             with open(party_tracker_path, 'r', encoding='utf-8') as f:
                 party_tracker = json.load(f)
-            print(f"DEBUG: Party tracker loaded from {party_tracker_path}")
             
             world_conditions = party_tracker.get('worldConditions', {})
             location_info = {
@@ -439,15 +453,12 @@ def handle_location_data_request():
                 'month': world_conditions.get('month', ''),
                 'year': world_conditions.get('year', '')
             }
-            print(f"DEBUG: Location info: {location_info['currentLocation']} - {location_info['currentArea']}")
             
             emit('location_data_response', {'data': location_info})
         else:
-            print(f"DEBUG: Party tracker not found at {party_tracker_path}")
             emit('location_data_response', {'data': None, 'error': 'Party tracker not found'})
     
     except Exception as e:
-        print(f"DEBUG: Location data error: {e}")
         emit('location_data_response', {'data': None, 'error': str(e)})
 
 @socketio.on('request_npc_saves')
@@ -555,49 +566,88 @@ def run_game_loop():
         dm_main.main_game_loop()
     except (BrokenPipeError, OSError) as e:
         # Handle broken pipe errors specifically
-        print(f"Stream error detected: {e}")
+        try:
+            print(f"Stream error detected: {e}")
+        except Exception:
+            pass  # If even this fails, continue silently
+        
         try:
             # Attempt to reset streams
             sys.stdout = WebOutputCapture(debug_output_queue, original_stdout)
             sys.stderr = WebOutputCapture(debug_output_queue, original_stderr, is_error=True)
             sys.stdin = WebInput(user_input_queue)
-            print("Stream recovery attempted")
+            try:
+                print("Stream recovery attempted")
+            except Exception:
+                pass
         except Exception:
-            print("Stream recovery failed")
+            try:
+                print("Stream recovery failed")
+            except Exception:
+                pass
         
         # Send a user-friendly message
-        game_output_queue.put({
-            'type': 'info',
-            'content': 'Connection restored. You may continue playing.',
-            'timestamp': datetime.now().isoformat()
-        })
+        try:
+            game_output_queue.put({
+                'type': 'info',
+                'content': 'Connection restored. You may continue playing.',
+                'timestamp': datetime.now().isoformat()
+            })
+        except Exception:
+            pass
     except Exception as e:
         # Handle other errors
         error_msg = f"Game error: {str(e)}"
-        print(f"Game loop error: {error_msg}")
-        game_output_queue.put({
-            'type': 'error',
-            'content': error_msg,
-            'timestamp': datetime.now().isoformat()
-        })
+        try:
+            print(f"Game loop error: {error_msg}")
+        except Exception:
+            pass
+        
+        try:
+            game_output_queue.put({
+                'type': 'error',
+                'content': error_msg,
+                'timestamp': datetime.now().isoformat()
+            })
+        except Exception:
+            pass
     finally:
-        # Restore original streams
-        sys.stdout = original_stdout
-        sys.stderr = original_stderr
-        sys.stdin = original_stdin
+        # Restore original streams safely
+        try:
+            sys.stdout = original_stdout
+            sys.stderr = original_stderr
+            sys.stdin = original_stdin
+        except Exception:
+            # If restoration fails, try to at least restore stdout
+            try:
+                sys.stdout = original_stdout
+            except Exception:
+                pass
 
 def send_output_to_clients():
     """Send queued output to all connected clients"""
     while True:
-        # Send game output
-        while not game_output_queue.empty():
-            msg = game_output_queue.get()
-            socketio.emit('game_output', msg)
-        
-        # Send debug output
-        while not debug_output_queue.empty():
-            msg = debug_output_queue.get()
-            socketio.emit('debug_output', msg)
+        try:
+            # Send game output
+            while not game_output_queue.empty():
+                try:
+                    msg = game_output_queue.get()
+                    socketio.emit('game_output', msg)
+                except Exception:
+                    # If queue operation or emit fails, just continue
+                    break
+            
+            # Send debug output
+            while not debug_output_queue.empty():
+                try:
+                    msg = debug_output_queue.get()
+                    socketio.emit('debug_output', msg)
+                except Exception:
+                    # If queue operation or emit fails, just continue
+                    break
+        except Exception:
+            # If any other error occurs, just continue
+            pass
         
         time.sleep(0.1)  # Small delay to prevent CPU spinning
 

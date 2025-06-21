@@ -704,7 +704,7 @@ If the field expects an object, return just the object.
                 context.add_location(loc_id, loc_name, area_id)
             
             # Save area files in module directory
-            area_gen.save_area(area_data, f"{module_dir}/{area_id}.json")
+            area_gen.save_area(area_data, module_name=module_name)
             generated_areas.append(area_id)
             
             print(f"Generated area: {area_name} ({area_id}) with location prefix '{location_prefix}' and {len(area_data.get('locations', []))} locations")

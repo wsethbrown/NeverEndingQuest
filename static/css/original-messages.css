@@ -1,0 +1,150 @@
+/* Message styling extracted from original game_interface.html */
+
+/* Clean Tavern AI Style Messages */
+.message {
+    display: flex;
+    align-items: flex-start;
+    margin: 20px 0;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: white;
+    overflow: hidden;
+}
+
+.message-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.message-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.message-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.message-author {
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+.message-badge {
+    background: #4a90e2;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.message-text {
+    line-height: 1.6;
+    white-space: pre-wrap;
+    font-size: 17px;
+}
+
+/* DM Messages */
+.message.narration .message-avatar {
+    background: #8b4513;
+}
+
+.message.narration .message-author {
+    color: #ffb347;
+}
+
+.message.narration .message-text {
+    color: #ffa500;
+}
+
+/* Player Messages */
+.message.user-input .message-avatar {
+    background: #4a90e2;
+}
+
+.message.user-input .message-author {
+    color: #4a90e2;
+}
+
+.message.user-input .message-text {
+    color: #e8e8e8;
+}
+
+/* System Messages */
+.message.system {
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.message.system .message-content {
+    background: #2a2a2a;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    text-align: center;
+    max-width: 500px;
+}
+
+.message.system .message-text {
+    color: #aaa;
+    font-style: italic;
+    font-size: 13px;
+}
+
+/* Error Messages */
+.message.error {
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.message.error .message-content {
+    background: #5a2d2d;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #8b3333;
+    text-align: center;
+    max-width: 500px;
+}
+
+.message.error .message-text {
+    color: #ffaaaa;
+    font-size: 13px;
+}
+
+/* Debug Messages (only in debug panel) */
+.message.debug {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.message.debug .message-content {
+    background: #1a1a1a;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #333;
+}
+
+.message.debug .message-text {
+    color: #888;
+}
+
+.message.debug.error .message-text {
+    color: #ff6b6b;
+}

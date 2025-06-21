@@ -1,0 +1,542 @@
+/* Character Sheet Styling extracted from original game_interface.html */
+
+.character-sheet {
+    padding: 8px;
+    margin: 0;
+    background-color: #1a1a1a;
+    border: 2px solid #444;
+    border-radius: 8px;
+    font-family: 'Crimson Text', Georgia, serif;
+    background-image: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(255, 255, 255, 0.01) 10px,
+            rgba(255, 255, 255, 0.01) 20px
+        );
+}
+
+/* MODIFIED */
+.character-header {
+    margin: 0;
+    padding: 0 0 3px 0;
+    border-bottom: 2px solid #666;
+}
+
+/* MODIFIED */
+.character-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: #ccc;
+    font-size: 16px;
+    line-height: 1.2;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ADDED */
+.character-details > .detail-left > div,
+.character-details > .detail-right > div {
+    margin-bottom: 2px; /* Small gap between lines in each column */
+    min-height: 1.3em; /* Ensure lines take up similar space for better cross-alignment */
+}
+
+/* ADDED */
+.character-details > .detail-left > div:last-child,
+.character-details > .detail-right > div:last-child {
+    margin-bottom: 0; /* No margin for the last line in each column */
+}
+
+.detail-left {
+    flex: 1;
+}
+
+.detail-right {
+    text-align: right;
+}
+
+.orange {
+    color: #FFA500;
+    font-weight: bold;
+}
+
+/* MODIFIED */
+.character-name {
+    font-size: 32px;
+    font-weight: 600;
+    color: #FFA500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Cinzel', Georgia, serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+/* Ability Scores */
+/* MODIFIED */
+.abilities-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2px;
+    margin-top: 3px; /* Ensure it's not too far from details */
+    margin-bottom: 3px; /* Reduced */
+}
+
+.ability-score {
+    background-color: #2c2c2c;
+    border: 2px solid #444;
+    border-radius: 8px;
+    padding: 2px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ability-score:hover {
+    border-color: #FFA500;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 165, 0, 0.2);
+}
+
+.ability-name {
+    font-size: 18px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+    line-height: 1;
+}
+
+.ability-value {
+    font-size: 36px;
+    font-weight: bold;
+    color: #e0e0e0;
+    margin: 0;
+    line-height: 0.9;
+}
+
+.ability-modifier {
+    font-size: 20px;
+    color: #FFA500;
+    border: 1px solid #FFA500;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    background-color: rgba(255, 165, 0, 0.1);
+    font-weight: bold;
+}
+
+/* Combat Stats */
+.combat-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    margin-bottom: 0;
+}
+
+.combat-stat {
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 3px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.combat-stat::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #FFA500, #444);
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
+}
+
+.combat-stat:hover::before {
+    opacity: 0.1;
+}
+
+.combat-stat-label {
+    font-size: 14px;
+    color: #888;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1;
+}
+
+.combat-stat-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: #4CAF50;
+    line-height: 1;
+    margin: 2px 0;
+}
+
+.hp-bar {
+    background-color: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 3px;
+    height: 6px;
+    margin-top: 1px;
+    overflow: hidden;
+}
+
+.hp-fill {
+    background-color: #4CAF50;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.hp-fill.low {
+    background-color: #f44336;
+}
+
+.hp-fill.medium {
+    background-color: #ff9800;
+}
+
+/* Skills and Saves */
+.skills-saves-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-top: 0;
+    margin-bottom: 3px;
+}
+
+.stat-group {
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 2px;
+    margin: 0;
+}
+
+.stat-group h4 {
+    margin: 0 0 2px 0;
+    color: #FFA500;
+    border-bottom: 1px solid #444;
+    padding: 2px 0 2px 0;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-family: 'Cinzel', Georgia, serif;
+}
+
+.save-item, .skill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1px 2px;
+    margin: 0;
+    font-size: 21px;
+    line-height: 1;
+}
+
+.save-item:hover, .skill-item:hover {
+    background-color: rgba(255, 165, 0, 0.1);
+}
+
+.save-name, .skill-name {
+    color: #aaa;
+    font-size: 21px;
+}
+
+.save-value, .skill-value {
+    color: #e0e0e0;
+    font-weight: bold;
+    font-size: 21px;
+}
+
+.stat-group-content {
+    padding-right: 0;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+/* Features and Abilities */
+.features-section {
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 3px;
+    margin-bottom: 3px;
+}
+
+.features-section h4 {
+    margin: 0 0 2px 0;
+    color: #FFA500;
+    border-bottom: 1px solid #444;
+    padding-bottom: 2px;
+    text-transform: uppercase;
+    font-size: 24px;
+    letter-spacing: 1px;
+    font-family: 'Cinzel', Georgia, serif;
+}
+
+.features-abilities-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-top: 3px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    padding: 2px 4px;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.2;
+    cursor: help;
+    transition: background-color 0.2s;
+}
+
+.feature-item:hover {
+    background-color: rgba(255, 165, 0, 0.1);
+}
+
+/* New Abilities Grid Layout */
+.abilities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 5px;
+    margin-top: 3px;
+}
+
+/* Usage Tracking Styles */
+.feature-item.with-usage {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.feature-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.usage-counter {
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.usage-counter.exhausted {
+    background-color: #f44336;
+}
+
+.usage-circles {
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-left: 8px;
+    color: #FFA500;
+}
+
+.usage-circles .filled {
+    color: #4CAF50;
+}
+
+.usage-circles .empty {
+    color: #666;
+}
+
+.feature-refresh {
+    font-size: 16px;
+    color: #888;
+    font-style: italic;
+    margin-left: 8px;
+}
+
+/* Effect Item Styles */
+.effect-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 3px 4px;
+    margin: 1px 0;
+    font-size: 14px;
+    line-height: 1.2;
+    cursor: help;
+    transition: background-color 0.2s;
+}
+
+.effect-item:hover {
+    background-color: rgba(255, 165, 0, 0.1);
+}
+
+.effect-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.effect-duration {
+    font-size: 16px;
+    color: #FFA500;
+    font-style: italic;
+    margin-left: 8px;
+}
+
+.effect-duration.expired {
+    color: #f44336;
+}
+
+.effect-type {
+    font-size: 10px;
+    color: #666;
+    margin-top: 2px;
+}
+
+/* Effect Badges */
+.effect-badge {
+    font-size: 10px;
+    padding: 2px 4px;
+    margin: 1px;
+    border-radius: 3px;
+    background-color: #666;
+    color: white;
+    font-weight: bold;
+}
+
+.effect-badge.resistance {
+    background-color: #2196F3;
+}
+
+.effect-badge.bonus {
+    background-color: #4CAF50;
+}
+
+/* Health & Conditions Section */
+.health-status-section {
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 5px 0;
+}
+
+.health-status-section h4 {
+    margin: 0 0 8px 0;
+    color: #FFA500;
+    border-bottom: 1px solid #444;
+    padding-bottom: 4px;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-family: 'Cinzel', Georgia, serif;
+}
+
+.conditions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.condition-category h5 {
+    margin: 0 0 4px 0;
+    color: #ccc;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.condition-item {
+    display: flex;
+    align-items: center;
+    padding: 3px 4px;
+    margin: 1px 0;
+    font-size: 13px;
+    line-height: 1.2;
+    cursor: help;
+    transition: background-color 0.2s;
+}
+
+.condition-item:hover {
+    background-color: rgba(255, 165, 0, 0.1);
+}
+
+.condition-badge {
+    font-size: 9px;
+    padding: 1px 3px;
+    margin-right: 4px;
+    border-radius: 2px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.condition-badge.resistance {
+    background-color: #2196F3;
+}
+
+.condition-badge.immunity {
+    background-color: #4CAF50;
+}
+
+.condition-badge.vulnerability {
+    background-color: #f44336;
+}
+
+.healing-requirement {
+    font-size: 10px;
+    color: #FFA500;
+    font-style: italic;
+    margin-left: 4px;
+}
+
+.condition-item.injury {
+    border-left: 3px solid #f44336;
+    padding-left: 6px;
+}
+
+/* Equipment Effects Styling */
+.feature-item.equipment-effect {
+    padding: 2px 0;
+}
+
+.feature-bullet {
+    color: #FFA500;
+    margin-right: 6px;
+    font-size: 14px;
+}
+
+.feature-name {
+    color: #e0e0e0;
+    font-size: 16px;
+}

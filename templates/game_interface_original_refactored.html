@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DungeonMasterAI</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Modular CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/original-base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/original-layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/original-dice.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/original-messages.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/original-tabs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/original-inventory.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/original-character-sheet.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/original-character-sheet-enhanced.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/original-spells.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/original-npcs-modals.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>DungeonMasterAI</h1>
+        <div class="location-info" id="location-info">
+            <div class="location-name" id="location-name">Loading location...</div>
+            <div class="location-details" id="location-details"></div>
+        </div>
+        <div class="status">
+            <span id="status-text">Disconnected</span>
+            <div class="status-indicator" id="status-indicator"></div>
+            <button class="start-button" id="start-button" onclick="startGame()">Start Game</button>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="panel game-panel">
+            <div class="panel-header">
+                <span>Game Output</span>
+                <!-- Dice Rolling Strip -->
+                <div class="dice-strip-inline">
+                    <span class="dice-label">Quick Rolls:</span>
+                    <button class="dice-button" onclick="rollDice(20)" title="Roll D20">D20</button>
+                    <button class="dice-button" onclick="rollDice(12)" title="Roll D12">D12</button>
+                    <button class="dice-button" onclick="rollDice(10)" title="Roll D10">D10</button>
+                    <button class="dice-button" onclick="rollDice(8)" title="Roll D8">D8</button>
+                    <button class="dice-button" onclick="rollDice(6)" title="Roll D6">D6</button>
+                    <button class="dice-clear-button" onclick="clearDiceResults()" title="Clear results">Clear</button>
+                </div>
+            </div>
+            
+            <!-- Dice Results Area -->
+            <div class="dice-results" id="dice-results" style="display: none;"></div>
+            
+            <div class="panel-content" id="game-output"></div>
+            <div class="input-container">
+                <input 
+                    type="text" 
+                    class="input-field" 
+                    id="user-input" 
+                    placeholder="Enter your command..."
+                    disabled
+                    onkeypress="handleKeyPress(event)"
+                />
+                <button class="send-button" id="send-button" onclick="sendInput()" disabled>Send</button>
+            </div>
+        </div>
+        
+        <div class="panel debug-panel">
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('stats')">Character</button>
+                <button class="tab-button" onclick="switchTab('inventory')">Inventory</button>
+                <button class="tab-button" onclick="switchTab('spells')">Spells & Magic</button>
+                <button class="tab-button" onclick="switchTab('npcs')">NPCs</button>
+                <button class="tab-button" onclick="switchTab('debug')">Debug</button>
+            </div>
+            <div class="tab-content" id="debug-tab" style="display: none;">
+                <div class="panel-content" id="debug-output"></div>
+            </div>
+            <div class="tab-content" id="inventory-tab" style="display: none;">
+                <div class="panel-content" id="inventory-content">
+                    <div class="loading">Loading inventory...</div>
+                </div>
+            </div>
+            <div class="tab-content" id="stats-tab" style="display: block;">
+                <div class="panel-content" id="stats-content">
+                    <div class="loading">Loading character stats...</div>
+                </div>
+            </div>
+            <div class="tab-content" id="spells-tab" style="display: none;">
+                <div class="panel-content" id="spells-content">
+                    <div class="loading">Loading spells and magic items...</div>
+                </div>
+            </div>
+            <div class="tab-content" id="npcs-tab" style="display: none;">
+                <div class="panel-content" id="npcs-content">
+                    <div class="loading">Loading NPC information...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modular JavaScript Files -->
+    <script src="{{ url_for('static', filename='js/original-socket-handler.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/original-ui-controller.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/original-dice-roller.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/original-character-data.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/original-modals.js') }}"></script>
+    
+    <!-- NPC Inventory Modal -->
+    <div id="npc-inventory-modal" class="npc-inventory-modal">
+        <div class="npc-inventory-modal-content">
+            <div class="npc-inventory-header">
+                <div id="npc-inventory-title" class="npc-inventory-title">NPC Inventory</div>
+                <span class="npc-inventory-close" onclick="closeNPCInventory()">&times;</span>
+            </div>
+            <div id="npc-inventory-body" class="npc-inventory-body">
+                Loading inventory...
+            </div>
+        </div>
+    </div>
+    
+    <!-- NPC Details Modal -->
+    <div id="npc-details-modal" class="npc-details-modal">
+        <div class="npc-details-modal-content">
+            <div class="npc-details-header">
+                <div id="npc-details-title" class="npc-details-title">NPC Details</div>
+                <span class="npc-details-close" onclick="closeNPCDetails()">&times;</span>
+            </div>
+            <div id="npc-details-body" class="npc-details-body">
+                Loading details...
+            </div>
+        </div>
+    </div>
+    
+    <!-- Search Popup Modal -->
+    <div id="search-popup" class="search-popup">
+        <div class="search-popup-content">
+            <div class="search-popup-header">
+                <div class="search-popup-title">Search Inventory</div>
+                <span class="search-popup-close" onclick="closeSearchPopup()">&times;</span>
+            </div>
+            <div class="search-popup-body">
+                <input type="text" id="search-popup-input" class="search-popup-input" placeholder="Search items..." onkeypress="if(event.key==='Enter') performSearch()">
+                <button onclick="performSearch()" style="margin-top: 10px; padding: 6px 12px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">Search</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
