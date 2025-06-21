@@ -894,7 +894,7 @@ def main_game_loop():
         status_ready()
 
         # Check if stdin is available (prevent infinite loops in non-interactive environments)
-        if not sys.stdin.isatty():
+        if hasattr(sys.stdin, 'isatty') and not sys.stdin.isatty():
             print("WARNING: Running in non-interactive environment. Stdin is not a terminal.")
             print("Game loop stopped to prevent infinite empty input cycle.")
             print("To run interactively, ensure the program is run from a proper terminal.")
