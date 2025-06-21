@@ -258,6 +258,41 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
     # Create a new list starting with the primary system prompt
     new_history = [primary_system_prompt] if primary_system_prompt else []
 
+    # ============================================================================
+    # MODULE TRANSITION DETECTION (BEFORE WORLD STATE UPDATE)
+    # ============================================================================
+    # Check if there has been a module transition by comparing current module
+    # with the module from previous conversation state BEFORE updating world state
+    current_module = party_tracker_data.get('module', 'Unknown') if party_tracker_data else 'Unknown'
+    previous_module = get_previous_module_from_history(updated_history)
+    
+    print(f"DEBUG: Module transition check - previous: '{previous_module}', current: '{current_module}'")
+    
+    # If we detected a module change and it's not the first module (previous_module exists)
+    if previous_module and previous_module != current_module and previous_module != 'Unknown':
+        print(f"DEBUG: Module transition detected in conversation_utils: {previous_module} -> {current_module}")
+        
+        # Handle the module conversation segmentation
+        updated_history = handle_module_conversation_segmentation(
+            updated_history, previous_module, current_module
+        )
+        
+        # Auto-archive and summarize previous module
+        try:
+            from campaign_manager import CampaignManager
+            campaign_manager = CampaignManager()
+            if previous_module != "Unknown":
+                print(f"DEBUG: Auto-archiving conversation and generating summary for {previous_module}")
+                summary = campaign_manager.handle_cross_module_transition(
+                    previous_module, current_module, party_tracker_data, updated_history
+                )
+                if summary:
+                    print(f"DEBUG: Successfully archived conversation and generated summary for {previous_module}")
+                else:
+                    print(f"DEBUG: No summary generated for {previous_module}")
+        except Exception as e:
+            print(f"WARNING: Could not auto-archive module: {e}")
+
     # Insert world state information
     try:
         from campaign_manager import CampaignManager
@@ -300,52 +335,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
         # Don't let world state errors break the conversation system
         pass
     
-    # ============================================================================
-    # MODULE TRANSITION DETECTION
-    # ============================================================================
-    # Check if there has been a module transition by comparing current module
-    # with the module from previous conversation state
-    current_module = party_tracker_data.get('module', 'Unknown') if party_tracker_data else 'Unknown'
-    previous_module = get_previous_module_from_history(updated_history)
-    
-    # If we detected a module change and it's not the first module (previous_module exists)
-    if previous_module and previous_module != current_module and previous_module != 'Unknown':
-        print(f"DEBUG: Module transition detected in conversation_utils: {previous_module} -> {current_module}")
-        
-        # Handle the module conversation segmentation
-        updated_history = handle_module_conversation_segmentation(
-            updated_history, previous_module, current_module
-        )
-        
-        # Save the conversation history with module transition marker
-        # We need to temporarily reconstruct the full history to save it
-        temp_history = [primary_system_prompt] if primary_system_prompt else []
-        temp_history.extend(new_history[1:] if len(new_history) > 1 else [])  # Skip duplicate primary prompt
-        temp_history.extend(updated_history)
-        
-        # Import and use save function
-        try:
-            from main import save_conversation_history
-            save_conversation_history(temp_history)
-            print(f"DEBUG: Saved conversation history with module transition marker")
-        except ImportError:
-            print(f"WARNING: Could not import save_conversation_history")
-        
-        # Auto-archive and summarize previous module
-        try:
-            from campaign_manager import CampaignManager
-            campaign_manager = CampaignManager()
-            if previous_module != "Unknown":
-                print(f"DEBUG: Auto-archiving conversation and generating summary for {previous_module}")
-                summary = campaign_manager.handle_cross_module_transition(
-                    previous_module, current_module, party_tracker_data, updated_history
-                )
-                if summary:
-                    print(f"DEBUG: Successfully archived conversation and generated summary for {previous_module}")
-                else:
-                    print(f"DEBUG: No summary generated for {previous_module}")
-        except Exception as e:
-            print(f"WARNING: Could not auto-archive module: {e}")
+    # Module transition detection has been moved to before world state insertion above
 
     # Insert plot data
     if plot_data:
