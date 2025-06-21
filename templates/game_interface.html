@@ -2372,8 +2372,9 @@
                 content: 'Game started! You can now enter commands.'
             });
             
-            // Load character stats (default tab) when game starts
+            // Load character stats (default tab) and location data when game starts
             loadCharacterStats();
+            loadLocationData();
         });
         
         socket.on('game_output', (message) => {
@@ -3289,6 +3290,9 @@
         
         // Auto-refresh data every 5 seconds when tab is active
         setInterval(() => {
+            // Always refresh location data regardless of active tab
+            loadLocationData();
+            
             const activeTabButton = document.querySelector('.tab-button.active');
             if (activeTabButton) {
                 const activeTab = activeTabButton.textContent.toLowerCase();
