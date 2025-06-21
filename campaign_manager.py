@@ -692,8 +692,8 @@ Focus on story outcomes, character development, and decisions that will matter i
         """Handle automatic summarization when crossing module boundaries"""
         print(f"\nDEBUG: Cross-module transition detected: {from_module} -> {to_module}")
         
-        # Auto-summarize the module being left
-        if from_module and from_module not in self.campaign_data.get('completedModules', []):
+        # Auto-summarize the module being left (allow multiple visits to same module)
+        if from_module:
             print(f"DEBUG: Auto-generating summary for {from_module}...")
             
             summary = self._generate_module_summary(from_module, party_tracker_data, conversation_history)
@@ -706,7 +706,7 @@ Focus on story outcomes, character development, and decisions that will matter i
             summary["sequenceNumber"] = sequence_num
             safe_json_dump(summary, summary_file)
             
-            # Update campaign state
+            # Update campaign state (track completion but allow revisits)
             if from_module not in self.campaign_data['completedModules']:
                 self.campaign_data['completedModules'].append(from_module)
             
@@ -717,13 +717,15 @@ Focus on story outcomes, character development, and decisions that will matter i
             self.campaign_data['lastUpdated'] = datetime.now().isoformat()
             safe_json_dump(self.campaign_data, self.campaign_file)
             
-            print(f"DEBUG: {from_module} summarized and archived")
+            print(f"DEBUG: {from_module} summarized and archived (visit #{sequence_num})")
             return summary
         
+        print(f"DEBUG: No summary generated - no source module specified")
         return None
     
     def get_accumulated_summaries_context(self, current_module: str) -> str:
         """Get all relevant module summaries for current module context"""
+        print(f"DEBUG: get_accumulated_summaries_context called for module: {current_module}")
         context_parts = []
         
         # Add campaign overview
@@ -731,17 +733,22 @@ Focus on story outcomes, character development, and decisions that will matter i
         context_parts.append(f"Current Module: {current_module}")
         
         # Add all completed module summaries (multiple visits per module)
+        print(f"DEBUG: Completed modules: {self.campaign_data.get('completedModules', [])}")
         if self.campaign_data['completedModules']:
             context_parts.append("\\nPREVIOUS ADVENTURES:")
             for module in self.campaign_data['completedModules']:
+                print(f"DEBUG: Loading summaries for module: {module}")
                 summaries = self._load_module_summaries(module)
+                print(f"DEBUG: Found {len(summaries)} summaries for {module}")
                 if summaries:
                     context_parts.append(f"\\n=== CHRONICLES OF {module.upper()} ===")
                     for i, summary in enumerate(summaries):
                         visit_num = i + 1
                         seq_num = summary.get('sequenceNumber', visit_num)
                         context_parts.append(f"\\n--- Visit {visit_num} (Chronicle {seq_num:03d}) ---")
-                        context_parts.append(summary.get('summary', 'No summary available'))
+                        summary_text = summary.get('summary', 'No summary available')
+                        context_parts.append(summary_text)
+                        print(f"DEBUG: Added summary {seq_num} ({len(summary_text)} chars)")
         
         # Add current world state
         if self.campaign_data.get('worldState'):
@@ -749,7 +756,9 @@ Focus on story outcomes, character development, and decisions that will matter i
             for key, value in self.campaign_data['worldState'].items():
                 context_parts.append(f"- {key}: {value}")
         
-        return "\\n".join(context_parts)
+        final_context = "\\n".join(context_parts)
+        print(f"DEBUG: Final context length: {len(final_context)} characters")
+        return final_context
 
 
 # Utility functions for integration

@@ -579,7 +579,9 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                     safe_json_dump(updated_party_tracker, "party_tracker.json")
                     
                     # Inject accumulated campaign context
+                    print(f"DEBUG: Requesting campaign context for module: {to_module}")
                     campaign_context = campaign_manager.get_accumulated_summaries_context(to_module)
+                    print(f"DEBUG: Campaign context received - Length: {len(campaign_context) if campaign_context else 0} characters")
                     if campaign_context:
                         conversation_history.append({
                             "role": "system", 
@@ -587,7 +589,8 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                         })
                         save_conversation_history(conversation_history)
                         print(f"DEBUG: Campaign context injected for {to_module}")
-                    
+                    else:
+                        print(f"DEBUG: No campaign context to inject for {to_module} - context was empty")
                 else:
                     print(f"DEBUG: Within-module transition: {current_location_id} -> {new_location_id}")
                     
