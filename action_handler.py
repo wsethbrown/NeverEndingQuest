@@ -919,6 +919,21 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                         print(f"DEBUG: Successfully archived conversation and generated summary for {current_module}")
                     else:
                         print(f"DEBUG: No summary generated for {current_module}")
+                
+                # Auto-update to starting location if not explicitly provided
+                if ("currentAreaId" not in parameters and 
+                    "currentLocationId" not in parameters):
+                    try:
+                        location_id, location_name, area_id, area_name = get_module_starting_location(new_module)
+                        print(f"DEBUG: Auto-setting starting location for {new_module}: {location_name} [{location_id}] in {area_name} [{area_id}]")
+                        
+                        # Add starting location to parameters for processing below
+                        parameters["currentLocationId"] = location_id
+                        parameters["currentLocation"] = location_name
+                        parameters["currentAreaId"] = area_id
+                        parameters["currentArea"] = area_name
+                    except Exception as e:
+                        print(f"WARNING: Could not auto-set starting location for {new_module}: {e}")
             
             # Update party tracker with all provided parameters
             for key, value in parameters.items():
