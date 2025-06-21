@@ -107,7 +107,9 @@ def validate_location_transition(location_graph, current_location_id, destinatio
 def update_party_npcs(party_tracker_data, operation, npc):
     """Update NPC party members (add or remove)"""
     if operation == "add":
-        path_manager = ModulePathManager()
+        # Get the correct module from party tracker
+        module_name = party_tracker_data.get("module", "").replace(" ", "_")
+        path_manager = ModulePathManager(module_name)
         npc_file = path_manager.get_character_path(npc['name'])
         if not os.path.exists(npc_file):
             # NPC file doesn't exist, so we need to create it
@@ -432,7 +434,9 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
 
                 player_name = next((member for member in party_tracker_data["partyMembers"]), None)
                 if player_name and updated_player_info is not None:
-                    path_manager = ModulePathManager()
+                    # Get the correct module from party tracker
+                    module_name = party_tracker_data.get("module", "").replace(" ", "_")
+                    path_manager = ModulePathManager(module_name)
                     player_file = path_manager.get_character_path(player_name)
                     safe_json_dump(updated_player_info, player_file)
                     print(f"DEBUG: Updated player file for {player_name}")
@@ -885,7 +889,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             # Load current party tracker
             current_party_data = safe_json_load("party_tracker.json")
             if not current_party_data:
-                current_party_data = party_tracker_data.copy()
+                current_party_data = party_tracker_data.copy() if party_tracker_data else {}
             
             current_module = current_party_data.get("module", "Unknown")
             

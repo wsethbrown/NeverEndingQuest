@@ -162,7 +162,10 @@ def exit_game():
 
 def get_npc_stat(npc_name, stat_name, time_estimate):
     print(f"DEBUG: get_npc_stat called for {npc_name}, stat: {stat_name}")
-    path_manager = ModulePathManager()
+    # Load party tracker to get correct module
+    party_data = load_json_file("party_tracker.json")
+    module_name = party_data.get("module", "").replace(" ", "_")
+    path_manager = ModulePathManager(module_name)
     npc_file = path_manager.get_character_path(npc_name)
     try:
         with open(npc_file, "r", encoding="utf-8") as file:
@@ -289,8 +292,9 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
     current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
     current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
 
-    # Load the area data
-    path_manager = ModulePathManager()
+    # Load the area data with correct module
+    module_name = party_tracker_data.get("module", "").replace(" ", "_")
+    path_manager = ModulePathManager(module_name)
     area_file = path_manager.get_area_path(current_area_id)
     try:
         with open(area_file, "r", encoding="utf-8") as file:
@@ -573,9 +577,11 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
         conversation_history.append({"role": "assistant", "content": response})
 
         actions = parsed_response.get("actions", [])
+        actions_processed = False
         for action in actions:
             # Call action_handler to process each action
             result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
+            actions_processed = True
             
             # Handle new dictionary return format
             if isinstance(result, dict):
@@ -592,6 +598,10 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
                 return "exit"
             elif isinstance(result, bool) and result:
                 needs_conversation_history_update = True
+
+        # Reload party tracker data if any actions were processed
+        if actions_processed:
+            party_tracker_data = load_json_file("party_tracker.json")
 
         save_conversation_history(conversation_history)
 
@@ -687,8 +697,11 @@ def main_game_loop():
     conversation_history = load_json_file(json_file) or []
     party_tracker_data = load_json_file("party_tracker.json")
     
-    # Initialize path manager after loading party tracker
-    path_manager = ModulePathManager()
+    # Extract module name from party tracker data first
+    module_name = party_tracker_data.get("module", "").replace(" ", "_")
+    
+    # Initialize path manager with the correct module name
+    path_manager = ModulePathManager(module_name)
     
     current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
     location_data = location_manager.get_location_info( 
@@ -699,7 +712,6 @@ def main_game_loop():
 
     plot_data = load_json_file(path_manager.get_plot_path())
     
-    module_name = party_tracker_data.get("module", "").replace(" ", "_")
     module_data = load_json_file(path_manager.get_module_file_path())
 
     conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
