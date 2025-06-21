@@ -66,6 +66,108 @@ ACTION_ESTABLISH_HUB = "establishHub"
 ACTION_STORAGE_INTERACTION = "storageInteraction"
 ACTION_UPDATE_PARTY_TRACKER = "updatePartyTracker"
 
+# ============================================================================
+# MODULE CONVERSATION SEGMENTATION FUNCTIONS
+# ============================================================================
+
+def find_last_system_message_index(conversation_history):
+    """Find the index of the last system message to use as boundary marker"""
+    for i in range(len(conversation_history) - 1, -1, -1):
+        if conversation_history[i].get("role") == "system":
+            return i
+    return 0  # If no system message found, start from beginning
+
+def extract_conversation_segment(conversation_history, start_index):
+    """Extract conversation segment from start_index to end"""
+    if start_index >= len(conversation_history):
+        return []
+    return conversation_history[start_index:]
+
+def find_last_module_transition_index(conversation_history):
+    """Find the index of the last module transition marker"""
+    for i in range(len(conversation_history) - 1, -1, -1):
+        message = conversation_history[i]
+        if (message.get("role") == "user" and 
+            message.get("content", "").startswith("Module transition:")):
+            return i
+    return -1  # No previous module transition found
+
+def generate_conversation_summary(conversation_segment, module_name):
+    """Generate a concise summary of the conversation segment for a module"""
+    if not conversation_segment:
+        return f"Brief activities in {module_name}."
+    
+    # Count meaningful interactions (exclude system messages and transitions)
+    meaningful_messages = [
+        msg for msg in conversation_segment 
+        if msg.get("role") in ["user", "assistant"] and 
+        not msg.get("content", "").startswith(("Location transition:", "Module transition:"))
+    ]
+    
+    if len(meaningful_messages) <= 2:
+        return f"Brief activities in {module_name}."
+    elif len(meaningful_messages) <= 5:
+        return f"Short adventure in {module_name} with several interactions."
+    else:
+        return f"Extended adventure in {module_name} with multiple significant events and discoveries."
+
+def insert_module_summary_and_transition(conversation_history, summary_text, transition_text, insertion_index):
+    """Insert module summary and transition marker at specified index"""
+    # Create summary message
+    summary_message = {
+        "role": "user",
+        "content": f"Module summary: {summary_text}"
+    }
+    
+    # Create transition message  
+    transition_message = {
+        "role": "user",
+        "content": transition_text
+    }
+    
+    # Insert both messages at the specified index
+    conversation_history.insert(insertion_index, summary_message)
+    conversation_history.insert(insertion_index + 1, transition_message)
+    
+    return conversation_history
+
+def handle_module_conversation_segmentation(conversation_history, from_module, to_module):
+    """Main function to handle conversation segmentation during module transitions"""
+    print(f"DEBUG: Starting conversation segmentation for {from_module} -> {to_module}")
+    
+    # Find the last module transition to determine where current module's conversation starts
+    last_transition_index = find_last_module_transition_index(conversation_history)
+    
+    if last_transition_index == -1:
+        # This is the first module transition - use last system message as boundary
+        boundary_index = find_last_system_message_index(conversation_history)
+        print(f"DEBUG: First module transition - using last system message at index {boundary_index}")
+    else:
+        # Use the index after the last module transition
+        boundary_index = last_transition_index + 1
+        print(f"DEBUG: Previous module transition found at index {last_transition_index}, using {boundary_index} as boundary")
+    
+    # Extract current module's conversation segment
+    current_module_conversation = extract_conversation_segment(conversation_history, boundary_index)
+    print(f"DEBUG: Extracted {len(current_module_conversation)} messages for current module conversation")
+    
+    # Generate summary of current module's activities
+    summary_text = generate_conversation_summary(current_module_conversation, from_module)
+    print(f"DEBUG: Generated summary: {summary_text}")
+    
+    # Remove the extracted conversation (it will be replaced by summary)
+    conversation_history = conversation_history[:boundary_index]
+    print(f"DEBUG: Truncated conversation history to {len(conversation_history)} messages")
+    
+    # Insert summary and transition marker at the end
+    transition_text = f"Module transition: {from_module} to {to_module}"
+    conversation_history = insert_module_summary_and_transition(
+        conversation_history, summary_text, transition_text, len(conversation_history)
+    )
+    
+    print(f"DEBUG: Conversation segmentation complete - history now has {len(conversation_history)} messages")
+    return conversation_history
+
 def validate_location_transition(location_graph, current_location_id, destination_location_id):
     """
     Validate that a location transition is possible using the location graph.
@@ -569,13 +671,12 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 if is_cross_module:
                     print(f"DEBUG: Cross-module transition detected: {from_module} -> {to_module}")
                     
-                    # Add module transition marker (consistent with location transition format)
-                    conversation_history.append({
-                        "role": "user", 
-                        "content": f"Module transition: {from_module} to {to_module}"
-                    })
+                    # Handle conversation segmentation - summarize current module and add transition marker
+                    conversation_history = handle_module_conversation_segmentation(
+                        conversation_history, from_module, to_module
+                    )
                     save_conversation_history(conversation_history)
-                    print(f"DEBUG: Module transition marker added: {from_module} -> {to_module}")
+                    print(f"DEBUG: Module conversation segmentation complete")
                     
                     # Auto-summarize the module being left and update campaign state
                     summary = campaign_manager.handle_cross_module_transition(
@@ -909,12 +1010,11 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             if new_module and new_module != current_module:
                 print(f"DEBUG: Module change detected: {current_module} -> {new_module}")
                 
-                # Add module transition marker (consistent with location transition format)
-                conversation_history.append({
-                    "role": "user", 
-                    "content": f"Module transition: {current_module} to {new_module}"
-                })
-                print(f"DEBUG: Module transition marker added: {current_module} -> {new_module}")
+                # Handle conversation segmentation - summarize current module and add transition marker
+                conversation_history = handle_module_conversation_segmentation(
+                    conversation_history, current_module, new_module
+                )
+                print(f"DEBUG: Module conversation segmentation complete")
                 
                 # Get travel narration for the new module
                 travel_narration = get_travel_narration(new_module)
