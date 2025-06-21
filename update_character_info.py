@@ -112,7 +112,13 @@ def normalize_character_name(character_name):
 
 def detect_character_role(character_name):
     """Detect character role from existing data or file location"""
-    path_manager = ModulePathManager()
+    # Get current module from party tracker for consistent path resolution
+    try:
+        party_tracker_data = safe_json_load("party_tracker.json")
+        current_module = party_tracker_data.get("module", "").replace(" ", "_") if party_tracker_data else None
+        path_manager = ModulePathManager(current_module)
+    except:
+        path_manager = ModulePathManager()  # Fallback to reading from file
     
     # First try player path
     player_path = path_manager.get_character_path(character_name)
@@ -137,7 +143,13 @@ def detect_character_role(character_name):
 
 def get_character_path(character_name, character_role=None):
     """Get the appropriate file path for a character"""
-    path_manager = ModulePathManager()
+    # Get current module from party tracker for consistent path resolution
+    try:
+        party_tracker_data = safe_json_load("party_tracker.json")
+        current_module = party_tracker_data.get("module", "").replace(" ", "_") if party_tracker_data else None
+        path_manager = ModulePathManager(current_module)
+    except:
+        path_manager = ModulePathManager()  # Fallback to reading from file
     
     # Use the updated path manager that handles unified/legacy fallback
     return path_manager.get_character_path(character_name)

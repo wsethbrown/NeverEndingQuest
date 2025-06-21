@@ -124,7 +124,13 @@ def normalize_string(s):
 
 def get_location_info(location_name, current_area, current_area_id):
     """Get location information based on ID first, then name"""
-    path_manager = ModulePathManager()
+    # Get current module from party tracker for consistent path resolution
+    try:
+        party_tracker = load_json_file("party_tracker.json")
+        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+        path_manager = ModulePathManager(current_module)
+    except:
+        path_manager = ModulePathManager()  # Fallback to reading from file
     area_file = path_manager.get_area_path(current_area_id)
     area_data = load_json_file(area_file)
     if area_data and "locations" in area_data:
@@ -141,7 +147,13 @@ def get_location_info(location_name, current_area, current_area_id):
 
 def get_location_data(location_id, area_id):
     """Get location data based on location ID and area ID"""
-    path_manager = ModulePathManager()
+    # Get current module from party tracker for consistent path resolution
+    try:
+        party_tracker = load_json_file("party_tracker.json")
+        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+        path_manager = ModulePathManager(current_module)
+    except:
+        path_manager = ModulePathManager()  # Fallback to reading from file
     area_file = path_manager.get_area_path(area_id)
     try:
         with open(area_file, "r", encoding="utf-8") as file:
@@ -193,7 +205,9 @@ def handle_location_transition(current_location, new_location, current_area, cur
 
     party_tracker = load_json_file("party_tracker.json")
     if party_tracker:
-        path_manager = ModulePathManager()
+        # Get current module from party tracker for consistent path resolution
+        current_module = party_tracker.get("module", "").replace(" ", "_")
+        path_manager = ModulePathManager(current_module)
         current_area_file = path_manager.get_area_path(current_area_id)
         current_area_data = load_json_file(current_area_file)
 

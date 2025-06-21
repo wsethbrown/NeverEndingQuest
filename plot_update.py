@@ -30,8 +30,9 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
         print(f"{RED}ERROR: Could not read party_tracker.json{RESET}")
         return
 
-    # Use ModulePathManager to get module plot path
-    path_manager = ModulePathManager()
+    # Use ModulePathManager to get module plot path with current module
+    current_module = party_tracker.get("module", "").replace(" ", "_")
+    path_manager = ModulePathManager(current_module)
     plot_file_path = path_manager.get_plot_path()
 
     try:
@@ -81,8 +82,10 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
 
 def update_plot(plot_point_id_param, new_status_param, plot_impact_param, plot_filename_param, max_retries=3): # Renamed params
     try:
-        # Use unified module plot file
-        path_manager = ModulePathManager()
+        # Use unified module plot file with current module from party tracker
+        party_tracker = safe_read_json("party_tracker.json")
+        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+        path_manager = ModulePathManager(current_module)
         plot_file_path = path_manager.get_plot_path()
             
         plot_info_data = safe_read_json(plot_file_path)
