@@ -240,6 +240,14 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
     if primary_system_prompt:
         conversation_history.remove(primary_system_prompt)
 
+    # ============================================================================
+    # MODULE TRANSITION DETECTION (BEFORE SYSTEM MESSAGE REMOVAL)
+    # ============================================================================
+    # Check if there has been a module transition by comparing current module
+    # with the module from previous conversation state BEFORE removing system messages
+    current_module = party_tracker_data.get('module', 'Unknown') if party_tracker_data else 'Unknown'
+    previous_module = get_previous_module_from_history(conversation_history)
+
     # Remove any existing system messages for location, party tracker, plot, map, module data, and world state
     updated_history = [
         msg for msg in conversation_history 
@@ -257,14 +265,6 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
 
     # Create a new list starting with the primary system prompt
     new_history = [primary_system_prompt] if primary_system_prompt else []
-
-    # ============================================================================
-    # MODULE TRANSITION DETECTION (BEFORE WORLD STATE UPDATE)
-    # ============================================================================
-    # Check if there has been a module transition by comparing current module
-    # with the module from previous conversation state BEFORE updating world state
-    current_module = party_tracker_data.get('module', 'Unknown') if party_tracker_data else 'Unknown'
-    previous_module = get_previous_module_from_history(updated_history)
     
     print(f"DEBUG: Module transition check - previous: '{previous_module}', current: '{current_module}'")
     
@@ -335,7 +335,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
         # Don't let world state errors break the conversation system
         pass
     
-    # Module transition detection has been moved to before world state insertion above
+# Module transition detection now happens before system message removal above
 
     # Insert plot data
     if plot_data:
