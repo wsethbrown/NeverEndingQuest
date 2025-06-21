@@ -221,7 +221,14 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
             validate_location_json(updated_location, loca_single_item_schema)
 
             debug_print(f"Getting area path for ID: {current_area_id_from_main}")
-            path_manager = ModulePathManager()
+            # Get current module from party tracker for consistent path resolution
+            try:
+                from encoding_utils import safe_json_load
+                party_tracker = safe_json_load("party_tracker.json")
+                current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+                path_manager = ModulePathManager(current_module)
+            except:
+                path_manager = ModulePathManager()  # Fallback to reading from file
             # Add extra debug for path manager to see if we're getting the right module data
             debug_print(f"ModulePathManager using module: {path_manager.module_name}")
             debug_print(f"ModulePathManager directory: {path_manager.module_dir}")
@@ -485,7 +492,14 @@ if __name__ == "__main__":
     update_journal(adventure_summary_text, party_tracker_content, leaving_location_name_arg)
 
     # Load the full data for the area being updated
-    path_manager = ModulePathManager()
+    # Get current module from party tracker for consistent path resolution
+    try:
+        from encoding_utils import safe_json_load
+        party_tracker = safe_json_load("party_tracker.json")
+        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+        path_manager = ModulePathManager(current_module)
+    except:
+        path_manager = ModulePathManager()  # Fallback to reading from file
     area_file_to_update = path_manager.get_area_path(current_area_id_arg)
     all_locations_in_area = load_json_file(area_file_to_update)
     

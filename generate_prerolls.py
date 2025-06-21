@@ -65,7 +65,14 @@ def get_monster_attacks(monster_type):
         
     try:
         from module_path_manager import ModulePathManager
-        path_manager = ModulePathManager()
+        from encoding_utils import safe_json_load
+        # Get current module from party tracker for consistent path resolution
+        try:
+            party_tracker = safe_json_load("party_tracker.json")
+            current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+            path_manager = ModulePathManager(current_module)
+        except:
+            path_manager = ModulePathManager()  # Fallback to reading from file
         monster_file = path_manager.get_monster_path(monster_type)
         
         with open(monster_file, "r") as file:

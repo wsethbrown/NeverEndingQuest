@@ -82,7 +82,9 @@ def get_next_encounter_number(location):
         return 1
     
     current_area_id = get_current_area_id()
-    path_manager = ModulePathManager()
+    # Get current module from party tracker for consistent path resolution
+    current_module = party_tracker.get("module", "").replace(" ", "_")
+    path_manager = ModulePathManager(current_module)
     location_data = load_json(path_manager.get_area_path(current_area_id))
     if not location_data:
         print(colored(f"Error: Failed to load location data for {current_area_id}.", "red"))

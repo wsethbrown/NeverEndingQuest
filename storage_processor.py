@@ -42,7 +42,13 @@ class StorageProcessor:
         self.client = OpenAI(api_key=config.OPENAI_API_KEY)
         self.model = config.DM_MAIN_MODEL  # Use full model, not mini
         self.schema_file = "storage_action_schema.json"
-        self.path_manager = ModulePathManager()
+        # Get current module from party tracker for consistent path resolution
+        try:
+            party_tracker = safe_json_load("party_tracker.json")
+            current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+            self.path_manager = ModulePathManager(current_module)
+        except:
+            self.path_manager = ModulePathManager()  # Fallback to reading from file
         
     def _get_storage_schema(self) -> Dict[str, Any]:
         """Load storage action schema"""

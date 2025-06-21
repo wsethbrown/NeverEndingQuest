@@ -32,7 +32,9 @@ def calculate_xp(encounter, party_tracker):
     defeated_count = 0
     monster_cache = {}
     xp_breakdown = []
-    path_manager = ModulePathManager()
+    # Get current module from party tracker for consistent path resolution
+    current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+    path_manager = ModulePathManager(current_module)
 
     for creature in encounter['creatures']:
         if creature['type'] == 'enemy' and is_defeated(creature['status']):

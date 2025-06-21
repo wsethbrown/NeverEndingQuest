@@ -97,7 +97,13 @@ class LocationGraph:
         if not world_registry or 'modules' not in world_registry:
             write_debug("  [ERROR] Could not load world registry")
             # Fallback to current module only
-            path_manager = ModulePathManager()
+            # Get current module from party tracker for consistent path resolution
+            try:
+                party_tracker = safe_read_json("party_tracker.json")
+                current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+                path_manager = ModulePathManager(current_module)
+            except:
+                path_manager = ModulePathManager()  # Fallback to reading from file
             area_ids = path_manager.get_area_ids()
             if not area_ids:
                 write_debug("  [WARNING] No area files found in module")
@@ -116,8 +122,15 @@ class LocationGraph:
             all_areas_by_module = {}
             
             # Get current module for priority loading
-            current_path_manager = ModulePathManager()
-            current_module = current_path_manager.module_name
+            try:
+                party_tracker = safe_read_json("party_tracker.json")
+                current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+                current_path_manager = ModulePathManager(current_module)
+                if not current_module:
+                    current_module = current_path_manager.module_name
+            except:
+                current_path_manager = ModulePathManager()  # Fallback to reading from file
+                current_module = current_path_manager.module_name
             
             # Process all modules in world registry
             for module_name in world_registry['modules']:

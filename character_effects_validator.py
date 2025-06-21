@@ -30,7 +30,14 @@ class AICharacterEffectsValidator:
         self.logger = logging.getLogger(__name__)
         self.client = OpenAI(api_key=OPENAI_API_KEY)
         self.corrections_made = []
-        self.path_manager = ModulePathManager()
+        # Get current module from party tracker for consistent path resolution
+        try:
+            from encoding_utils import safe_json_load
+            party_tracker = safe_json_load("party_tracker.json")
+            current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+            self.path_manager = ModulePathManager(current_module)
+        except:
+            self.path_manager = ModulePathManager()  # Fallback to reading from file
         
     def validate_and_correct_effects(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
         """

@@ -25,7 +25,14 @@ def load_encounter_schema():
 
 def update_encounter(encounter_id, changes, max_retries=3):
     # Load the current encounter info and schema
-    path_manager = ModulePathManager()
+    # Get current module from party tracker for consistent path resolution
+    try:
+        from encoding_utils import safe_json_load
+        party_tracker = safe_json_load("party_tracker.json")
+        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+        path_manager = ModulePathManager(current_module)
+    except:
+        path_manager = ModulePathManager()  # Fallback to reading from file
     with open(f"encounter_{encounter_id}.json", "r") as file:
         encounter_info = json.load(file)
 

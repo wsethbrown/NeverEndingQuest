@@ -49,7 +49,13 @@ class StorageManager:
         """Initialize storage manager"""
         self.storage_file = "player_storage.json"
         self.schema_file = "storage_action_schema.json"
-        self.path_manager = ModulePathManager()
+        # Get current module from party tracker for consistent path resolution
+        try:
+            party_tracker = safe_json_load("party_tracker.json")
+            current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+            self.path_manager = ModulePathManager(current_module)
+        except:
+            self.path_manager = ModulePathManager()  # Fallback to reading from file
         self.character_validator = AICharacterValidator()
         self._ensure_storage_file_exists()
         
