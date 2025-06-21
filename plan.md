@@ -1,3 +1,35 @@
+# Investigation Plan for Infinite Loop Issue
+
+## Problem
+The system is continuously generating empty prompts with just player status information like:
+`[20:08:00][HP:44/47][XP:16581/14000] norn:`
+
+This suggests an infinite loop where the game loop is running without proper user input handling.
+
+## Investigation Steps
+
+1. **Examine main game loop** - Check main.py for the primary game loop and any while True loops
+2. **Search for status generation code** - Find where the player status line is generated
+3. **Check for auto-refresh mechanisms** - Look for timers, threading, or automatic refresh code
+4. **Review recent changes** - Examine modified files (action_handler.py, etc.) for changes that might cause loops
+5. **Analyze prompt generation logic** - Find where empty prompts might be generated
+6. **Check for exit conditions** - Verify all loops have proper termination conditions
+
+## Files to Examine
+- main.py (main game loop)
+- action_handler.py (recently modified)
+- Any files handling player status display
+- Input handling mechanisms
+- Prompt generation code
+
+## Expected Root Causes
+- Missing input() call or user input handling
+- Loop without proper exit condition
+- Auto-refresh mechanism gone wrong
+- Recent changes breaking the input flow
+
+---
+
 # DungeonMasterAI Debugging and Improvement Plan
 
 ## Executive Summary

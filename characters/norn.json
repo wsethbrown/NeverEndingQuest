@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 44,
+  "hitPoints": 47,
   "maxHitPoints": 47,
   "armorClass": 19,
   "initiative": 2,
@@ -65,7 +65,7 @@
   "classFeatures": [
     {
       "name": "Second Wind",
-      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (used)",
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (restored)",
       "source": "Fighter feature",
       "usage": {
         "current": 1,

@@ -15,12 +15,12 @@
         "year": 1492,
         "month": "Springmonth",
         "day": 2,
-        "time": "20:18:00",
+        "time": "20:08:00",
         "weather": "",
         "season": "Spring",
         "dayNightCycle": "Day",
         "moonPhase": "New Moon",
-        "currentLocation": "Riverside Outpost",
+        "currentLocation": "Riverside Welcome",
         "currentLocationId": "R01",
         "currentArea": "Sablemoor Reaches",
         "currentAreaId": "SR001",
@@ -52,12 +52,6 @@
             "id": "SQ005",
             "title": "The Black Banner Mercenaries",
             "description": "A band of mercenaries camps near the keep, seeking treasure. They may be allies, rivals, or obstacles depending on party interactions.",
-            "status": "not started"
-        },
-        {
-            "id": "PP001",
-            "title": "Arrival in the Sablemoor Reaches",
-            "description": "the party arrive at the edge of the Sablemoor Reaches, a mist-wreathed expanse notorious for haunting whispers and unnatural mists. Locals warn travelers away, but the party seeks the tormented spirit, Rilith the Riverbound, to uncover the source of the moor's unrest. Their first challenge is to navigate the treacherous terrain and gain the trust of the wary inhabitants.",
             "status": "not started"
         }
     ]

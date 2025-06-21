@@ -1,25 +1,164 @@
-Assistant messages: 33
-11:32:24 AM
-[20:08:00][HP:44/47][XP:16581/14000] norn: 
-11:34:15 AM
-[20:08:00][HP:44/47][XP:16581/14000] norn: 
-11:36:06 AM
-[20:08:00][HP:44/47][XP:16581/14000] norn: 
-11:37:57 AM
-[20:08:00][HP:44/47][XP:16581/14000] norn: 
-11:39:49 AM
-[20:08:00][HP:44/47][XP:16581/14000] norn: 
-11:41:40 AM
-[20:08:00][HP:44/47][XP:16581/14000] norn: 
-11:43:31 AM
-[20:08:00][HP:44/47][XP:16581/14000] norn: 
-11:45:23 AM
-[20:08:00][HP:44/47][XP:16581/14000] norn: 
-11:47:14 AM
-[20:08:00][HP:44/47][XP:16581/14000] norn: 
-11:49:06 AM
-[20:08:00][HP:44/47][XP:16581/14000] norn: 
-11:50:57 AM
-[20:08:00][HP:44/47][XP:16581/14000] norn: 
-11:52:49 AM
-[20:08:00][HP:44/47][XP:16581/14000] norn: 
+2:38:10 PM
+DEBUG: Initializing path_manager with module: 'Keep_of_Doom'
+2:38:10 PM
+DEBUG: Path manager initialized - module_name: 'Keep_of_Doom', module_dir: 'modules/Keep_of_Doom'
+2:38:10 PM
+DEBUG: Plot file path: modules/Keep_of_Doom/module_plot.json
+2:38:10 PM
+DEBUG: Before update_conversation_history - history has 69 messages
+2:38:13 PM
+No new modules detected.
+2:38:13 PM
+Lightweight chat history updated!
+2:38:13 PM
+System messages removed: 8
+2:38:13 PM
+User messages: 31
+2:38:13 PM
+Assistant messages: 30
+2:38:13 PM
+DEBUG: After update_conversation_history - history has 69 messages
+2:38:13 PM
+DEBUG: Checking for missing location summaries at startup
+2:38:13 PM
+DEBUG: Checking for missing location summaries
+2:38:13 PM
+DEBUG: Found 24 total transitions
+2:38:13 PM
+DEBUG: No departure transition found for East Gate and Guardhouse - this is the current active location, skipping
+2:38:13 PM
+DEBUG: No missing summaries found
+2:38:21 PM
+[LOGGED] Training example #285
+2:38:21 PM
+DEBUG: Processing updatePartyTracker action
+2:38:21 PM
+DEBUG: Module change detected: Keep_of_Doom -> Silver_Vein_Whispers
+2:38:21 PM
+DEBUG: Starting conversation segmentation for Keep_of_Doom -> Silver_Vein_Whispers
+2:38:22 PM
+DEBUG: First module transition - using last system message at index 7
+2:38:22 PM
+DEBUG: Extracted 63 messages for current module conversation
+2:38:22 PM
+DEBUG: Generated summary: Extended adventure in Keep_of_Doom with multiple significant events and discoveries.
+2:38:22 PM
+DEBUG: Truncated conversation history to 7 messages
+2:38:22 PM
+DEBUG: Inserted module summary and transition at index 7
+2:38:22 PM
+DEBUG: Module transition message: 'Module transition: Keep_of_Doom to Silver_Vein_Whispers'
+2:38:22 PM
+DEBUG: Conversation segmentation complete - history now has 9 messages
+2:38:22 PM
+DEBUG: Module conversation segmentation complete
+2:38:22 PM
+DEBUG: Conversation history now has 9 messages after segmentation
+2:38:22 PM
+DEBUG: Adding travel narration for Silver_Vein_Whispers: Leaving familiar lands behind, the party journeys ...
+2:38:24 PM
+No new modules detected.
+2:38:24 PM
+DEBUG: Auto-archiving conversation and generating summary for Keep_of_Doom
+2:38:24 PM
+DEBUG: Cross-module transition detected: Keep_of_Doom -> Silver_Vein_Whispers
+2:38:24 PM
+DEBUG: Auto-generating summary for Keep_of_Doom...
+2:38:24 PM
+Archived 10 conversation messages for Keep_of_Doom (sequence 009)
+2:38:34 PM
+DEBUG: Keep_of_Doom summarized and archived (visit #9)
+2:38:34 PM
+DEBUG: Successfully archived conversation and generated summary for Keep_of_Doom
+2:38:34 PM
+DEBUG: Party tracker updated successfully
+2:38:34 PM
+DEBUG: Skipping conversation history reload - module transition was handled
+2:38:35 PM
+Current Time: 15:58:00, Time Advanced: 240 minutes, New Time: 19:58:00, Days Passed: 0
+2:39:03 PM
+[15:58:00][HP:47/47][XP:16581/14000] norn: 
+2:39:03 PM
+DEBUG: Processing NPC: Elen
+2:39:03 PM
+DEBUG: NPC file path: characters/elen.json
+2:39:03 PM
+DEBUG: NPC data loaded: True
+2:39:03 PM
+DEBUG: Added NPC stats: {'name': 'Elen', 'display_name': 'Elen', 'level': 5, 'xp': 6500, 'hp': 42, 'max_hp': 42}
+2:39:03 PM
+DEBUG: Using cached starting location for Keep_of_Doom
+2:39:03 PM
+DEBUG: Plot file path: modules/Silver_Vein_Whispers/module_plot.json
+2:39:03 PM
+DEBUG: Plot data loaded: True
+2:39:03 PM
+DEBUG: Plot data keys: ['plotTitle', 'mainObjective', 'plotPoints']
+2:39:03 PM
+DEBUG: Current module from party tracker: 'Silver_Vein_Whispers'
+2:39:03 PM
+DEBUG: Starting comprehensive module plot completion check
+2:39:03 PM
+DEBUG: Found valid module: Keep_of_Doom (has 7 area files)
+2:39:03 PM
+DEBUG: Found valid module: Silver_Vein_Whispers (has 3 area files)
+2:39:03 PM
+DEBUG: Found 2 valid modules: ['Keep_of_Doom', 'Silver_Vein_Whispers']
+2:39:03 PM
+DEBUG: Checking plot completion for module 'Keep_of_Doom'
+2:39:03 PM
+DEBUG: Plot file path: modules/Keep_of_Doom/module_plot.json
+2:39:03 PM
+DEBUG: Module Keep_of_Doom completion: 5/5 (True)
+2:39:03 PM
+DEBUG: Checking plot completion for module 'Silver_Vein_Whispers'
+2:39:03 PM
+DEBUG: Plot file path: modules/Silver_Vein_Whispers/module_plot.json
+2:39:03 PM
+DEBUG: Module Silver_Vein_Whispers completion: 0/12 (False)
+2:39:03 PM
+DEBUG: All modules plot completion check complete
+2:39:03 PM
+DEBUG: Total modules checked: 2
+2:39:03 PM
+DEBUG: All modules complete: False
+2:39:03 PM
+DEBUG: === ALL MODULES COMPLETION SUMMARY ===
+2:39:03 PM
+DEBUG: Keep_of_Doom: 5/5 plots - COMPLETE
+2:39:03 PM
+DEBUG: Silver_Vein_Whispers: 0/12 plots - INCOMPLETE
+2:39:03 PM
+DEBUG: === END SUMMARY ===
+2:39:03 PM
+DEBUG: All modules complete: False
+2:39:03 PM
+DEBUG: Should inject module creation prompt: False
+2:39:03 PM
+DEBUG: Module creation prompt NOT injected - incomplete modules: ['Silver_Vein_Whispers']
+2:39:10 PM
+[LOGGED] Training example #286
+2:39:12 PM
+DEBUG: Validation passed successfully
+2:39:12 PM
+DEBUG: Valid response generated on attempt 1
+2:39:12 PM
+Current Time: 19:58:00, Time Advanced: 10 minutes, New Time: 20:08:00, Days Passed: 0
+2:39:12 PM
+DEBUG: Status reset to ready at end of main game loop
+2:39:12 PM
+DEBUG: Updated plot file path: modules/Silver_Vein_Whispers/module_plot.json
+2:39:12 PM
+DEBUG: Before AI response update_conversation_history - history has 72 messages
+2:39:15 PM
+No new modules detected.
+2:39:15 PM
+Lightweight chat history updated!
+2:39:15 PM
+System messages removed: 8
+2:39:15 PM
+User messages: 32
+2:39:15 PM
+Assistant messages: 32
+2:39:15 PM
+DEBUG: After AI response update_conversation_history - history has 72 messages

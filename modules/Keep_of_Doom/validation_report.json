@@ -1,9 +1,9 @@
 {
   "module": "Keep_of_Doom",
-  "timestamp": "2025-06-18T20:44:27.471991",
+  "timestamp": "2025-06-21T16:07:35.246060",
   "summary": {
-    "total_files": 36,
-    "total_passed": 36,
+    "total_files": 37,
+    "total_passed": 37,
     "total_failed": 0
   },
   "results": {
@@ -23,11 +23,12 @@
       "files": [
         "elen.json",
         "laura.json",
-        "norn..json",
+        "mikes_magical_minion.json",
+        "norn.json",
         "norn_test.json",
         "testnpc.json"
       ],
-      "passed": 5,
+      "passed": 6,
       "failed": 0,
       "errors": []
     },

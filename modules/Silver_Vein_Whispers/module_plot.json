@@ -10,8 +10,8 @@
       "nextPoints": [
         "PP002"
       ],
-      "status": "not started",
-      "plotImpact": "The party has left Harrow's Hollow and arrived at the Riverside Outpost in the Sablemoor Reaches, beginning the Silver Vein Whispers adventure.",
+      "status": "in progress",
+      "plotImpact": "The party establishes a campfire at the Riverside Outpost, drawing subtle attention from nearby denizens of the Sablemoor and preparing for their first night in the mists.",
       "sideQuests": [
         {
           "id": "SQ001",

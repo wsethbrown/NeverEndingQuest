@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 42,
   "maxHitPoints": 42,
-  "armorClass": 18,
+  "armorClass": 17,
   "initiative": 3,
   "speed": 35,
   "abilities": {
@@ -419,7 +419,7 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 1,
+        "current": 4,
         "max": 4
       },
       "level2": {

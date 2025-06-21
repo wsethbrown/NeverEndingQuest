@@ -76,6 +76,136 @@ import os
 from module_path_manager import ModulePathManager
 from encoding_utils import safe_json_load
 
+# ============================================================================
+# MODULE TRANSITION DETECTION AND HANDLING
+# ============================================================================
+
+def find_last_module_transition_index(conversation_history):
+    """Find the index of the last module transition marker"""
+    for i in range(len(conversation_history) - 1, -1, -1):
+        message = conversation_history[i]
+        if (message.get("role") == "user" and 
+            message.get("content", "").startswith("Module transition:")):
+            return i
+    return -1  # No previous module transition found
+
+def find_last_system_message_index(conversation_history):
+    """Find the index of the last system message to use as boundary marker"""
+    for i in range(len(conversation_history) - 1, -1, -1):
+        if conversation_history[i].get("role") == "system":
+            return i
+    return 0  # If no system message found, start from beginning
+
+def extract_conversation_segment(conversation_history, start_index):
+    """Extract conversation segment from start_index to end"""
+    if start_index >= len(conversation_history):
+        return []
+    return conversation_history[start_index:]
+
+def generate_conversation_summary(conversation_segment, module_name):
+    """Generate a concise summary of the conversation segment for a module"""
+    if not conversation_segment:
+        return f"Brief activities in {module_name}."
+    
+    # Count meaningful interactions (exclude system messages and transitions)
+    meaningful_messages = [
+        msg for msg in conversation_segment 
+        if msg.get("role") in ["user", "assistant"] and 
+        not msg.get("content", "").startswith(("Location transition:", "Module transition:"))
+    ]
+    
+    if len(meaningful_messages) <= 2:
+        return f"Brief activities in {module_name}."
+    elif len(meaningful_messages) <= 5:
+        return f"Short adventure in {module_name} with several interactions."
+    else:
+        return f"Extended adventure in {module_name} with multiple significant events and discoveries."
+
+def insert_module_summary_and_transition(conversation_history, summary_text, transition_text, insertion_index):
+    """Insert module summary and transition marker at specified index"""
+    # Create summary message
+    summary_message = {
+        "role": "user",
+        "content": f"Module summary: {summary_text}"
+    }
+    
+    # Create transition message  
+    transition_message = {
+        "role": "user",
+        "content": transition_text
+    }
+    
+    # Insert both messages at the specified index
+    conversation_history.insert(insertion_index, summary_message)
+    conversation_history.insert(insertion_index + 1, transition_message)
+    
+    print(f"DEBUG: Inserted module summary and transition at index {insertion_index}")
+    print(f"DEBUG: Module transition message: '{transition_text}'")
+    
+    return conversation_history
+
+def handle_module_conversation_segmentation(conversation_history, from_module, to_module):
+    """Main function to handle conversation segmentation during module transitions"""
+    print(f"DEBUG: Starting conversation segmentation for {from_module} -> {to_module}")
+    
+    # Find the last module transition to determine where current module's conversation starts
+    last_transition_index = find_last_module_transition_index(conversation_history)
+    
+    if last_transition_index == -1:
+        # This is the first module transition - use last system message as boundary
+        boundary_index = find_last_system_message_index(conversation_history)
+        print(f"DEBUG: First module transition - using last system message at index {boundary_index}")
+    else:
+        # Use the index after the last module transition
+        boundary_index = last_transition_index + 1
+        print(f"DEBUG: Previous module transition found at index {last_transition_index}, using {boundary_index} as boundary")
+    
+    # Extract current module's conversation segment
+    current_module_conversation = extract_conversation_segment(conversation_history, boundary_index)
+    print(f"DEBUG: Extracted {len(current_module_conversation)} messages for current module conversation")
+    
+    # Generate summary of current module's activities
+    summary_text = generate_conversation_summary(current_module_conversation, from_module)
+    print(f"DEBUG: Generated summary: {summary_text}")
+    
+    # Remove the extracted conversation (it will be replaced by summary)
+    conversation_history = conversation_history[:boundary_index]
+    print(f"DEBUG: Truncated conversation history to {len(conversation_history)} messages")
+    
+    # Insert summary and transition marker at the end
+    transition_text = f"Module transition: {from_module} to {to_module}"
+    conversation_history = insert_module_summary_and_transition(
+        conversation_history, summary_text, transition_text, len(conversation_history)
+    )
+    
+    print(f"DEBUG: Conversation segmentation complete - history now has {len(conversation_history)} messages")
+    return conversation_history
+
+def get_previous_module_from_history(conversation_history):
+    """Extract the previous module from conversation history"""
+    # Look for the most recent module transition marker
+    last_transition_index = find_last_module_transition_index(conversation_history)
+    if last_transition_index != -1:
+        # Parse the transition message to get the "to" module
+        transition_msg = conversation_history[last_transition_index].get("content", "")
+        # Format: "Module transition: from_module to to_module"
+        parts = transition_msg.split(" to ")
+        if len(parts) == 2:
+            return parts[1].strip()
+    
+    # If no transition found, look for module info in system messages
+    for msg in reversed(conversation_history):
+        if msg.get("role") == "system":
+            content = msg.get("content", "")
+            if "Current module:" in content:
+                # Extract module name from world state context
+                import re
+                match = re.search(r"Current module: ([^\n(]+)", content)
+                if match:
+                    return match.group(1).strip()
+    
+    return None
+
 def compress_json_data(data):
     """Compress JSON data by removing unnecessary whitespace."""
     return json.dumps(data, separators=(',', ':'))
@@ -169,6 +299,53 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
     except Exception as e:
         # Don't let world state errors break the conversation system
         pass
+    
+    # ============================================================================
+    # MODULE TRANSITION DETECTION
+    # ============================================================================
+    # Check if there has been a module transition by comparing current module
+    # with the module from previous conversation state
+    current_module = party_tracker_data.get('module', 'Unknown') if party_tracker_data else 'Unknown'
+    previous_module = get_previous_module_from_history(updated_history)
+    
+    # If we detected a module change and it's not the first module (previous_module exists)
+    if previous_module and previous_module != current_module and previous_module != 'Unknown':
+        print(f"DEBUG: Module transition detected in conversation_utils: {previous_module} -> {current_module}")
+        
+        # Handle the module conversation segmentation
+        updated_history = handle_module_conversation_segmentation(
+            updated_history, previous_module, current_module
+        )
+        
+        # Save the conversation history with module transition marker
+        # We need to temporarily reconstruct the full history to save it
+        temp_history = [primary_system_prompt] if primary_system_prompt else []
+        temp_history.extend(new_history[1:] if len(new_history) > 1 else [])  # Skip duplicate primary prompt
+        temp_history.extend(updated_history)
+        
+        # Import and use save function
+        try:
+            from main import save_conversation_history
+            save_conversation_history(temp_history)
+            print(f"DEBUG: Saved conversation history with module transition marker")
+        except ImportError:
+            print(f"WARNING: Could not import save_conversation_history")
+        
+        # Auto-archive and summarize previous module
+        try:
+            from campaign_manager import CampaignManager
+            campaign_manager = CampaignManager()
+            if previous_module != "Unknown":
+                print(f"DEBUG: Auto-archiving conversation and generating summary for {previous_module}")
+                summary = campaign_manager.handle_cross_module_transition(
+                    previous_module, current_module, party_tracker_data, updated_history
+                )
+                if summary:
+                    print(f"DEBUG: Successfully archived conversation and generated summary for {previous_module}")
+                else:
+                    print(f"DEBUG: No summary generated for {previous_module}")
+        except Exception as e:
+            print(f"WARNING: Could not auto-archive module: {e}")
 
     # Insert plot data
     if plot_data:
@@ -229,6 +406,13 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
         new_history.append({"role": "system", "content": party_tracker_message})
 
     # Add the rest of the conversation history
+    print(f"DEBUG: update_conversation_history preserving {len(updated_history)} messages")
+    # Check for module transition messages
+    module_transitions = [msg for msg in updated_history if msg.get("role") == "user" and "Module transition:" in msg.get("content", "")]
+    if module_transitions:
+        print(f"DEBUG: Found {len(module_transitions)} module transition messages in preserved history")
+    else:
+        print(f"DEBUG: No module transition messages found in preserved history")
     new_history.extend(updated_history)
 
     # Generate lightweight chat history for debugging
