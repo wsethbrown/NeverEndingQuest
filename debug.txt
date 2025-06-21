@@ -383,3 +383,64 @@
 [2025-06-21 00:04:25]   [OK] Loaded TBM001: The Blighted Marches
 [2025-06-21 00:04:25]   [OK] Loaded TCD001: The Cursed Dungeons
 [2025-06-21 00:04:25] Graph built: 35 locations, 84 connections
+[2025-06-21 00:18:48] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-21 00:18:48]   [OK] Loaded G001: Gloamwood
+[2025-06-21 00:18:48]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-21 00:18:48]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-21 00:18:48]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-21 00:18:48]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-21 00:18:48] Graph built: 35 locations, 84 connections
+[2025-06-21 00:51:04] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-21 00:51:04]   [OK] Loaded G001: Gloamwood
+[2025-06-21 00:51:04]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-21 00:51:04]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-21 00:51:04]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-21 00:51:04]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-21 00:51:04] Graph built: 35 locations, 84 connections
+[2025-06-21 00:52:33] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-21 00:52:33]   [OK] Loaded G001: Gloamwood
+[2025-06-21 00:52:33]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-21 00:52:33]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-21 00:52:33]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-21 00:52:33]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-21 00:52:33] Graph built: 35 locations, 84 connections
+[2025-06-21 01:04:50] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001))
+[2025-06-21 01:04:50]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-21 01:04:50]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-21 01:04:50]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-21 01:04:50]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-21 01:04:50]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-21 01:04:50]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-21 01:04:50]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-21 01:04:50]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-21 01:04:50] Graph built: 41 locations, 116 connections
+[2025-06-21 01:07:04] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001))
+[2025-06-21 01:07:04]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-21 01:07:04]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-21 01:07:04]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-21 01:07:04]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-21 01:07:04]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-21 01:07:04]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-21 01:07:04]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-21 01:07:04]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-21 01:07:04] Graph built: 41 locations, 116 connections
+[2025-06-21 01:20:52] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001))
+[2025-06-21 01:20:52]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-21 01:20:52]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-21 01:20:52]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-21 01:20:52]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-21 01:20:52]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-21 01:20:52]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-21 01:20:52]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-21 01:20:52]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-21 01:20:52] Graph built: 41 locations, 116 connections
+[2025-06-21 02:27:07] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001))
+[2025-06-21 02:27:07]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-21 02:27:07]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-21 02:27:07]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-21 02:27:07]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-21 02:27:07]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-21 02:27:07]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-21 02:27:07]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-21 02:27:07]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-21 02:27:07] Graph built: 41 locations, 116 connections

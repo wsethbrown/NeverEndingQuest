@@ -894,6 +894,17 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             if new_module and new_module != current_module:
                 print(f"DEBUG: Module change detected: {current_module} -> {new_module}")
                 
+                # Get travel narration for the new module
+                travel_narration = get_travel_narration(new_module)
+                print(f"DEBUG: Adding travel narration for {new_module}: {travel_narration[:50]}...")
+                
+                # Add travel narration as a system message to guide the AI
+                travel_message = {
+                    "role": "system",
+                    "content": f"TRAVEL NARRATION: {travel_narration}"
+                }
+                conversation_history.append(travel_message)
+                
                 # Import campaign manager for auto-archiving
                 from campaign_manager import CampaignManager
                 campaign_manager = CampaignManager()

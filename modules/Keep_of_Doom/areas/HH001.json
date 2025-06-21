@@ -343,9 +343,9 @@
       "locationId": "A03",
       "name": "East Gate and Guardhouse",
       "type": "gate",
-      "description": "The East Gate stands proudly at the town's edge, its heavy wooden gates reinforced with iron bands now symbolizing hope rather than mere defense. The adjacent stone guardhouse, once tense with worry, now buzzes with warmth and gratitude as villagers and defenders gather to celebrate the breaking of the curse. The air carries the laughter and applause of grateful townsfolk, with Elder Mirna Harrow hosting the party inside to discuss rewards and future plans. Lanterns glow softly against the dusk, illuminating faces lifted from fear to joy, while children listen intently to tales of courage and sacrifice. The atmosphere is suffused with renewal and promise, marking a pivotal moment of peace and unity in Harrow's Hollow.",
+      "description": "The East Gate stands proudly at the town's edge, its heavy wooden gates reinforced with iron bands now symbolizing hope rather than mere defense. The adjacent stone guardhouse, once tense with worry, now buzzes with warmth and gratitude as villagers and defenders gather to celebrate their recent victory. The air carries the laughter and applause of grateful townsfolk, with Elder Mirna Harrow hosting the party inside to discuss rewards and future plans. Lanterns glow softly against the dusk, illuminating faces lifted from fear to joy, while children listen intently to tales of courage and sacrifice. The atmosphere is suffused with renewal and promise, marking a pivotal moment of peace and unity in Harrow's Hollow. As the afternoon sun casts long shadows, the villagers gather to bid farewell to the party, who prepare to step beyond the gate onto the Witchlight Trail, embarking on new adventures beyond the village.",
       "coordinates": "X2Y3",
-      "accessibility": "Easily accessible by road, well-guarded by a now-relaxed militia, and open for honored guests and villagers celebrating the recent victory.",
+      "accessibility": "Easily accessible by road, well-guarded by a now-relaxed militia, and open for honored guests and villagers celebrating the recent victory. The main gate stands open, welcoming the party's departure into the wider world.",
       "npcs": [
         {
           "name": "Young Guard",
@@ -405,7 +405,7 @@
         },
         {
           "name": "Gate Mechanism",
-          "description": "The sturdy iron lock and bar securing the gates, symbolizing the village's resilience and safety."
+          "description": "The sturdy iron lock and bar securing the gates, symbolizing the village's resilience and safety. Currently unbarred to allow the party's departure."
         },
         {
           "name": "Celebration Square",
@@ -483,15 +483,26 @@
             "day": 2,
             "time": "12:25:00"
           }
+        },
+        {
+          "encounterId": "A03-E7",
+          "summary": "At the East Gate and Guardhouse, the party emerged from the keep into the crisp spring air, greeted by the sounds of villagers celebrating their recent victory. The atmosphere was steeped in relief and hopeful anticipation, as Elen's eyes flickered with excitement while she spoke quietly of the wider world beyond Harrow's Hollow, hinting at new adventures that now felt possible with the curse lifted and the keep restored. Elder Mirna approached them with pride and wistfulness, offering both encouragement and a small token of luck, acknowledging the party's profound impact on the village while inviting them to consider whether to remain or journey onward. Elen placed a steadying hand on Norn's arm, signaling her readiness to venture forth together, and upon the party's decision to pursue new horizons, the villagers gathered to bid farewell with blessings and fond farewells. As the afternoon sun cast long shadows, Norn and Elen passed beneath the open gates, stepping onto the Witchlight Trail that wound away from the familiar safety of Harrow's Hollow into the untamed wilderness beyond. Their arrival at a rustic, lantern-lit outpost marked the beginning of their new chapter, where the quiet evening air held the promise of both opportunity and danger. Together, they took stock of their condition and surroundings, sharing a solemn yet hopeful moment in this strange new land, ready to face whatever awaited them as their legend continued to unfold. Throughout their time at the East Gate and Guardhouse, the ambiance shifted from celebratory warmth to the charged stillness of departure, underscoring the deepening bond between the companions as they moved forward with resolve and mutual trust.",
+          "impact": "The party's departure marks a pivotal transition from safety to the uncertainties of the wider world. The villagers' blessings and gifts strengthen the party's spirits as they embark on new adventures. The East Gate now serves as a threshold from which the party steps boldly into the unknown.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 2,
+            "time": "15:58:00"
+          }
         }
       ],
-      "adventureSummary": "Upon arriving at the East Gate and Guardhouse of Harrow's Hollow, the party was met with a scene of communal relief and celebration. The villagers, their anxiety waned and hope rekindled, gathered in the square, turning their eager and grateful gazes toward Norn and Elen. Recognizing Elen's bravery and sacrifice in confronting the darkness and restoring the protective wards, Norn publicly credited her, inspiring the crowd to overcome their lingering fear and erupt into heartfelt applause and offerings of thanks. Elder Mirna acknowledged the vital roles both heroes played in breaking the curse and invited them inside the guardhouse to discuss rewards and future plans. The atmosphere was suffused with warmth and renewal as villagers pressed gifts into the party's hands and children eagerly listened to Elen recount her courageous tale. Norn took moments to savor this rare peace, resting amidst the laughter and gratitude that filled the air, while Elder Mirna patiently awaited the heroes' readiness to proceed. After a time of celebration and reflection, with the village fully healed of its dread, the party prepared to move forward from the East Gate and Guardhouse, carrying with them the respect of Harrow's Hollow and the promise of new opportunities ahead. (Game Time: 1492 Springmonth 2, 12:25:00)",
+      "adventureSummary": "At the East Gate and Guardhouse, the party emerged from the keep into the crisp spring air, greeted by the sounds of villagers celebrating their recent victory. The atmosphere was steeped in relief and hopeful anticipation, as Elen's eyes flickered with excitement while she spoke quietly of the wider world beyond Harrow's Hollow, hinting at new adventures that now felt possible with the curse lifted and the keep restored. Elder Mirna approached them with pride and wistfulness, offering both encouragement and a small token of luck, acknowledging the party's profound impact on the village while inviting them to consider whether to remain or journey onward. Elen placed a steadying hand on Norn's arm, signaling her readiness to venture forth together, and upon the party's decision to pursue new horizons, the villagers gathered to bid farewell with blessings and fond farewells. As the afternoon sun cast long shadows, Norn and Elen passed beneath the open gates, stepping onto the Witchlight Trail that wound away from the familiar safety of Harrow's Hollow into the untamed wilderness beyond. Their arrival at a rustic, lantern-lit outpost marked the beginning of their new chapter, where the quiet evening air held the promise of both opportunity and danger. Together, they took stock of their condition and surroundings, sharing a solemn yet hopeful moment in this strange new land, ready to face whatever awaited them as their legend continued to unfold. Throughout their time at the East Gate and Guardhouse, the ambiance shifted from celebratory warmth to the charged stillness of departure, underscoring the deepening bond between the companions as they moved forward with resolve and mutual trust. (Game Time: 1492 Springmonth 2, 15:58:00)",
       "doors": [
         {
           "name": "Main Gate",
-          "description": "Double doors of heavy oak and iron, barred at night.",
+          "description": "Double doors of heavy oak and iron, barred at night but currently open to allow the party's departure.",
           "type": "heavy",
-          "locked": true,
+          "locked": false,
           "lockDC": 15,
           "breakDC": 18,
           "keyname": "Town gate key",
@@ -500,7 +511,7 @@
         },
         {
           "name": "Guardhouse Door",
-          "description": "A narrow, iron-banded door set into the stone guardhouse.",
+          "description": "A narrow, iron-banded door set into the stone guardhouse, currently unlocked and welcoming visitors.",
           "type": "regular",
           "locked": false,
           "lockDC": 0,
@@ -510,7 +521,7 @@
           "trap": ""
         }
       ],
-      "dmInstructions": "The village defenders and residents now celebrate the lifting of the curse at the East Gate and Guardhouse. Roleplay opportunities abound with Elder Mirna, Scout Elen, and the guards who are grateful and hopeful. The gate is secure and morale high, with no threats present. Allow the party to rest, receive rewards, and plan future quests. The area serves as a safe haven and hub for the party's next steps in the adventure."
+      "dmInstructions": "The village is now fully healed and celebrating the lifting of the curse at the East Gate and Guardhouse. The party has garnered respect, gratitude, and potential new quests or alliances. The gate stands open as the party decides to journey beyond Harrow's Hollow along the Witchlight Trail. Roleplay opportunities include farewells with villagers and Elder Mirna, and preparations for the next chapter. The area offers a safe haven for rest and reflection before venturing into the wilds."
     },
     {
       "locationId": "A04",
