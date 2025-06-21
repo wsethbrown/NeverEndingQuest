@@ -374,7 +374,6 @@ def handle_player_data_request(data):
     """Handle requests for player data (inventory, stats, NPCs)"""
     try:
         dataType = data.get('dataType', 'stats')
-        print(f"DEBUG: Player data requested - type: {dataType}")
         response_data = None
         
         # Load party tracker to get player name and NPCs
@@ -466,7 +465,6 @@ def handle_npc_saves_request(data):
     """Handle requests for NPC saving throws"""
     try:
         npc_name = data.get('npcName', '')
-        print(f"DEBUG: NPC saves requested for: {npc_name}")
         
         # Load the NPC file
         from module_path_manager import ModulePathManager
@@ -489,7 +487,6 @@ def handle_npc_skills_request(data):
     """Handle requests for NPC skills"""
     try:
         npc_name = data.get('npcName', '')
-        print(f"DEBUG: NPC skills requested for: {npc_name}")
         
         # Load the NPC file
         from module_path_manager import ModulePathManager
@@ -512,7 +509,6 @@ def handle_npc_spells_request(data):
     """Handle requests for NPC spellcasting"""
     try:
         npc_name = data.get('npcName', '')
-        print(f"DEBUG: NPC spells requested for: {npc_name}")
         
         # Load the NPC file
         from module_path_manager import ModulePathManager
@@ -535,7 +531,6 @@ def handle_npc_inventory_request(data):
     """Handle requests for NPC inventory"""
     try:
         npc_name = data.get('npcName', '')
-        print(f"DEBUG: NPC inventory requested for: {npc_name}")
         
         # Load the NPC file
         from module_path_manager import ModulePathManager
