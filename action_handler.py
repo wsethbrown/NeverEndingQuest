@@ -569,6 +569,14 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 if is_cross_module:
                     print(f"DEBUG: Cross-module transition detected: {from_module} -> {to_module}")
                     
+                    # Add module transition marker (consistent with location transition format)
+                    conversation_history.append({
+                        "role": "user", 
+                        "content": f"Module transition: {from_module} to {to_module}"
+                    })
+                    save_conversation_history(conversation_history)
+                    print(f"DEBUG: Module transition marker added: {from_module} -> {to_module}")
+                    
                     # Auto-summarize the module being left and update campaign state
                     summary = campaign_manager.handle_cross_module_transition(
                         from_module, to_module, updated_party_tracker, conversation_history
@@ -901,14 +909,21 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             if new_module and new_module != current_module:
                 print(f"DEBUG: Module change detected: {current_module} -> {new_module}")
                 
+                # Add module transition marker (consistent with location transition format)
+                conversation_history.append({
+                    "role": "user", 
+                    "content": f"Module transition: {current_module} to {new_module}"
+                })
+                print(f"DEBUG: Module transition marker added: {current_module} -> {new_module}")
+                
                 # Get travel narration for the new module
                 travel_narration = get_travel_narration(new_module)
                 print(f"DEBUG: Adding travel narration for {new_module}: {travel_narration[:50]}...")
                 
-                # Add travel narration as a system message to guide the AI
+                # Add travel narration as a user message (not system) to provide context
                 travel_message = {
-                    "role": "system",
-                    "content": f"TRAVEL NARRATION: {travel_narration}"
+                    "role": "user",
+                    "content": f"Travel narration: {travel_narration}"
                 }
                 conversation_history.append(travel_message)
                 
