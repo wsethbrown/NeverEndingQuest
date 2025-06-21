@@ -1021,6 +1021,8 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 from main import save_conversation_history
                 save_conversation_history(conversation_history)
                 print(f"DEBUG: Module conversation segmentation complete")
+                # Don't reload conversation history since we just saved it with our changes
+                needs_conversation_history_update = False
                 
                 # Get travel narration for the new module
                 travel_narration = get_travel_narration(new_module)

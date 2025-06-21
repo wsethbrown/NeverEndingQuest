@@ -879,6 +879,7 @@ def main_game_loop():
         conversation_history = truncate_dm_notes(conversation_history)
 
         if needs_conversation_history_update:
+            print("DEBUG: Reloading conversation history from disk due to needs_conversation_history_update flag")
             # Reload conversation history from disk to get any changes made during actions
             conversation_history = load_json_file("conversation_history.json") or []
             conversation_history = process_conversation_history(conversation_history)
