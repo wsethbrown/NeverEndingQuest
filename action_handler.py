@@ -1010,6 +1010,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             
             # Check if module is being changed
             new_module = parameters.get("module")
+            module_transition_handled = False
             if new_module and new_module != current_module:
                 print(f"DEBUG: Module change detected: {current_module} -> {new_module}")
                 
@@ -1024,6 +1025,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 print(f"DEBUG: Conversation history now has {len(conversation_history)} messages after segmentation")
                 # Don't reload conversation history since we just saved it with our changes
                 needs_conversation_history_update = False
+                module_transition_handled = True
                 
                 # Get travel narration for the new module
                 travel_narration = get_travel_narration(new_module)
@@ -1081,7 +1083,11 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             # Save updated party tracker
             safe_json_dump(current_party_data, "party_tracker.json")
             print(f"DEBUG: Party tracker updated successfully")
-            needs_conversation_history_update = True
+            # Only reload conversation history if we didn't handle a module transition
+            if not module_transition_handled:
+                needs_conversation_history_update = True
+            else:
+                print(f"DEBUG: Skipping conversation history reload - module transition was handled")
             
         except Exception as e:
             print(f"ERROR: Exception while updating party tracker: {str(e)}")
