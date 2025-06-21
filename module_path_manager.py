@@ -76,8 +76,42 @@ class ModulePathManager:
             return "Keep_of_Doom"  # Default fallback
     
     def format_filename(self, name):
-        """Convert a name to a valid filename format"""
-        return name.lower().replace(' ', '_')
+        """Convert a name to a filesystem-safe filename format
+        
+        Preserves the original character name in JSON files while creating
+        safe filenames for the filesystem. Handles special characters,
+        apostrophes, spaces, and other problematic characters.
+        
+        Examples:
+        - "Mike's Magical Minion" -> "mikes_magical_minion"
+        - "Sir Big-Bellied Night" -> "sir_big_bellied_night"  
+        - "D'Artagnan the Bold" -> "dartagnan_the_bold"
+        """
+        import re
+        
+        # Convert to lowercase
+        safe_name = name.lower()
+        
+        # Replace apostrophes and other punctuation with nothing
+        safe_name = re.sub(r"['\"\.,!?;:]", "", safe_name)
+        
+        # Replace spaces, hyphens, and other separators with underscores
+        safe_name = re.sub(r"[\s\-]+", "_", safe_name)
+        
+        # Remove any remaining non-alphanumeric characters except underscores
+        safe_name = re.sub(r"[^a-z0-9_]", "", safe_name)
+        
+        # Remove multiple consecutive underscores
+        safe_name = re.sub(r"_+", "_", safe_name)
+        
+        # Remove leading/trailing underscores
+        safe_name = safe_name.strip("_")
+        
+        # Ensure we have at least something (fallback for edge cases)
+        if not safe_name:
+            safe_name = "character"
+            
+        return safe_name
     
     # Monster and NPC paths
     def get_monster_path(self, monster_name):
@@ -175,20 +209,10 @@ class ModulePathManager:
     # Unified character paths with fallback support
     def get_character_path(self, character_name):
         """
-        Get the path to a character file - tries unified structure first, 
-        falls back to legacy structure if needed
+        Get the path to a character file - now using root characters directory for all characters
         """
-        # First try unified structure
-        unified_path = f"{self.module_dir}/characters/{self.format_filename(character_name)}.json"
-        if os.path.exists(unified_path):
-            return unified_path
-        
-        # Fall back to legacy structure based on party_tracker.json
-        character_role = self._determine_character_role(character_name)
-        if character_role == 'player':
-            return self.get_player_path(character_name)
-        else:
-            return self.get_npc_path(character_name)
+        # All characters are now stored in the root characters directory
+        return f"characters/{self.format_filename(character_name)}.json"
     
     def _determine_character_role(self, character_name):
         """Determine character role from party_tracker.json"""
@@ -210,8 +234,8 @@ class ModulePathManager:
             return 'npc'
     
     def get_character_unified_path(self, character_name):
-        """Get the unified path (whether file exists or not)"""
-        return f"{self.module_dir}/characters/{self.format_filename(character_name)}.json"
+        """Get the unified path (whether file exists or not) - now using root characters directory"""
+        return f"characters/{self.format_filename(character_name)}.json"
     
     def get_character_legacy_path(self, character_name, character_role=None):
         """Get the legacy path for a character based on role"""
@@ -239,7 +263,7 @@ class ModulePathManager:
         os.makedirs(f"{self.module_dir}/areas", exist_ok=True)  # Area files
         os.makedirs(f"{self.module_dir}/monsters", exist_ok=True)
         os.makedirs(f"{self.module_dir}/npcs", exist_ok=True)
-        os.makedirs(f"{self.module_dir}/characters", exist_ok=True)  # Unified character storage
+        # Note: Characters are now stored in root characters/ directory
     
     def ensure_areas_directory(self):
         """Ensure the areas/ subdirectory exists for the current module"""

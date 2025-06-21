@@ -41,17 +41,17 @@ class CleanConsoleFormatter(logging.Formatter):
         if "Successfully updated" in msg and "attempt" in msg:
             # Extract just the important part
             parts = msg.split(" on attempt")
-            return f"✓ {parts[0]}"
+            return f"[OK] {parts[0]}"
             
         # Format time updates more concisely
         if "Current Time:" in msg and "Time Advanced:" in msg:
             parts = msg.split(", ")
             new_time = parts[2].split(": ")[1] if len(parts) > 2 else "Unknown"
-            return f"⏰ {new_time}"
+            return f"[TIME] {new_time}"
             
         # Simplify validation messages
         if "Validation passed successfully" in msg:
-            return "✓ Response validated"
+            return "[OK] Response validated"
             
         # Format location transitions
         if "Transitioning from" in msg:

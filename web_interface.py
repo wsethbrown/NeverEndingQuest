@@ -60,8 +60,12 @@ class WebOutputCapture:
         self.dm_buffer = []
     
     def write(self, text):
-        # Write to original stream for console visibility
-        self.original_stream.write(text)
+        # Write to original stream for console visibility (with error handling)
+        try:
+            self.original_stream.write(text)
+        except (BrokenPipeError, OSError):
+            # Ignore broken pipe errors during output capture
+            pass
         
         # Buffer text until we have a complete line
         self.buffer += text
@@ -82,36 +86,65 @@ class WebOutputCapture:
                     })
                 # Check if this starts a Dungeon Master section
                 elif "Dungeon Master:" in clean_line:
-                    # Start capturing DM content
-                    self.in_dm_section = True
-                    self.dm_buffer = [clean_line]
+                    try:
+                        # Start capturing DM content
+                        self.in_dm_section = True
+                        self.dm_buffer = [clean_line]
+                    except Exception:
+                        # If DM section initialization fails, send to debug instead
+                        debug_output_queue.put({
+                            'type': 'debug',
+                            'content': clean_line,
+                            'timestamp': datetime.now().isoformat()
+                        })
                 elif self.in_dm_section:
                     # Check if we're still in DM section
                     if line.strip() == "":
-                        # Empty line - still part of DM section, add to buffer
-                        self.dm_buffer.append("")
+                        try:
+                            # Empty line - still part of DM section, add to buffer
+                            self.dm_buffer.append("")
+                        except Exception:
+                            # If buffer append fails, reset DM section
+                            self.in_dm_section = False
+                            self.dm_buffer = []
                     elif any(marker in clean_line for marker in ['DEBUG:', 'ERROR:', 'WARNING:']) or \
                          clean_line.startswith('[') and ('HP:' in clean_line or 'XP:' in clean_line) or \
                          clean_line.startswith('>'):
                         # This ends the DM section - send accumulated DM content as single message
                         if self.dm_buffer:
-                            combined_content = '\n'.join(self.dm_buffer)
-                            # Remove "Dungeon Master:" prefix from the beginning if present
-                            combined_content = combined_content.replace('Dungeon Master:', '', 1).strip()
-                            if combined_content.strip():  # Only send if there's actual content
-                                game_output_queue.put({
-                                    'type': 'narration',
-                                    'content': combined_content
-                                })
+                            try:
+                                combined_content = '\n'.join(self.dm_buffer)
+                                # Remove "Dungeon Master:" prefix from the beginning if present
+                                combined_content = combined_content.replace('Dungeon Master:', '', 1).strip()
+                                if combined_content.strip():  # Only send if there's actual content
+                                    game_output_queue.put({
+                                        'type': 'narration',
+                                        'content': combined_content
+                                    })
+                            except Exception:
+                                # If DM content processing fails, send raw content to debug
+                                try:
+                                    debug_output_queue.put({
+                                        'type': 'debug',
+                                        'content': f"DM content error: {str(self.dm_buffer)}",
+                                        'timestamp': datetime.now().isoformat()
+                                    })
+                                except Exception:
+                                    # If even debug fails, just continue
+                                    pass
                         self.in_dm_section = False
                         self.dm_buffer = []
                         # Send this line to debug
-                        debug_output_queue.put({
-                            'type': 'debug',
-                            'content': clean_line,
-                            'timestamp': datetime.now().isoformat(),
-                            'is_error': self.is_error or 'ERROR:' in clean_line
-                        })
+                        try:
+                            debug_output_queue.put({
+                                'type': 'debug',
+                                'content': clean_line,
+                                'timestamp': datetime.now().isoformat(),
+                                'is_error': self.is_error or 'ERROR:' in clean_line
+                            })
+                        except Exception:
+                            # If debug queue fails, just continue
+                            pass
                     else:
                         # Still in DM section - check if it's a debug message
                         if any(marker in clean_line for marker in [
@@ -138,18 +171,27 @@ class WebOutputCapture:
                             })
                             # End the DM section and send what we have so far
                             if self.dm_buffer:
-                                combined_content = '\n'.join(self.dm_buffer)
-                                combined_content = combined_content.replace('Dungeon Master:', '', 1).strip()
-                                if combined_content.strip():
-                                    game_output_queue.put({
-                                        'type': 'narration',
-                                        'content': combined_content
-                                    })
+                                try:
+                                    combined_content = '\n'.join(self.dm_buffer)
+                                    combined_content = combined_content.replace('Dungeon Master:', '', 1).strip()
+                                    if combined_content.strip():
+                                        game_output_queue.put({
+                                            'type': 'narration',
+                                            'content': combined_content
+                                        })
+                                except Exception:
+                                    # If DM content processing fails, just continue
+                                    pass
                             self.in_dm_section = False
                             self.dm_buffer = []
                         else:
-                            # Not a debug message - add to buffer
-                            self.dm_buffer.append(clean_line)
+                            try:
+                                # Not a debug message - add to buffer
+                                self.dm_buffer.append(clean_line)
+                            except Exception:
+                                # If buffer append fails, reset DM section
+                                self.in_dm_section = False
+                                self.dm_buffer = []
                 else:
                     # Not in DM section - check if it's a debug message that should be filtered
                     if any(marker in clean_line for marker in [
@@ -205,8 +247,13 @@ class WebOutputCapture:
             self.dm_buffer = []
         
         if self.buffer:
-            self.write('\n')
-        self.original_stream.flush()
+            # Don't recursively call write() - just add newline to buffer
+            self.buffer += '\n'
+        try:
+            self.original_stream.flush()
+        except (BrokenPipeError, OSError):
+            # Ignore broken pipe errors during flush
+            pass
 
 class WebInput:
     """Handles input from the web interface"""
@@ -214,22 +261,44 @@ class WebInput:
         self.queue = queue
     
     def readline(self):
-        # Signal that we're ready for input
-        from status_manager import status_ready
-        status_ready()
+        # Signal that we're ready for input (with error handling)
+        try:
+            from status_manager import status_ready
+            status_ready()
+        except Exception:
+            # If status_ready fails, continue without it
+            pass
         
         # Wait for input from the web interface
-        while True:
+        retry_count = 0
+        max_retries = 1000  # Prevent infinite loops
+        
+        while retry_count < max_retries:
             try:
                 user_input = self.queue.get(timeout=0.1)
-                return user_input + '\n'
+                # Ensure input is a string and handle encoding issues
+                if isinstance(user_input, str):
+                    return user_input + '\n'
+                else:
+                    # Convert to string if needed
+                    return str(user_input) + '\n'
             except queue.Empty:
+                retry_count += 1
                 continue
+            except (BrokenPipeError, OSError, IOError):
+                # Handle pipe errors gracefully
+                return '\n'  # Return empty input to keep game running
+            except Exception:
+                # Handle any other unexpected errors
+                return '\n'
+        
+        # If we've retried too many times, return empty input
+        return '\n'
 
 @app.route('/')
 def index():
     """Serve the main game interface"""
-    return render_template('game_interface.html')
+    return render_template('game_interface_original_refactored.html')
 
 @app.route('/static/dm_logo.png')
 def serve_dm_logo():
@@ -289,6 +358,7 @@ def handle_player_data_request(data):
     """Handle requests for player data (inventory, stats, NPCs)"""
     try:
         dataType = data.get('dataType', 'stats')
+        print(f"DEBUG: Player data requested - type: {dataType}")
         response_data = None
         
         # Load party tracker to get player name and NPCs
@@ -300,7 +370,7 @@ def handle_player_data_request(data):
             emit('player_data_response', {'dataType': dataType, 'data': None, 'error': 'Party tracker not found'})
             return
         
-        if dataType == 'stats' or dataType == 'inventory':
+        if dataType == 'stats' or dataType == 'inventory' or dataType == 'spells':
             # Get player name from party tracker
             if party_tracker.get('partyMembers') and len(party_tracker['partyMembers']) > 0:
                 player_name = party_tracker['partyMembers'][0].lower().replace(' ', '_')
@@ -315,8 +385,8 @@ def handle_player_data_request(data):
                         with open(player_file, 'r', encoding='utf-8') as f:
                             response_data = json.load(f)
                 except:
-                    # Fallback to root directory
-                    player_file = f'{player_name}.json'
+                    # Fallback to characters directory
+                    player_file = f'characters/{player_name}.json'
                     if os.path.exists(player_file):
                         with open(player_file, 'r', encoding='utf-8') as f:
                             response_data = json.load(f)
@@ -350,11 +420,13 @@ def handle_player_data_request(data):
 def handle_location_data_request():
     """Handle requests for current location information"""
     try:
+        print("DEBUG: Location data requested")
         # Load party tracker to get current location
         party_tracker_path = 'party_tracker.json'
         if os.path.exists(party_tracker_path):
             with open(party_tracker_path, 'r', encoding='utf-8') as f:
                 party_tracker = json.load(f)
+            print(f"DEBUG: Party tracker loaded from {party_tracker_path}")
             
             world_conditions = party_tracker.get('worldConditions', {})
             location_info = {
@@ -367,16 +439,113 @@ def handle_location_data_request():
                 'month': world_conditions.get('month', ''),
                 'year': world_conditions.get('year', '')
             }
+            print(f"DEBUG: Location info: {location_info['currentLocation']} - {location_info['currentArea']}")
             
             emit('location_data_response', {'data': location_info})
         else:
+            print(f"DEBUG: Party tracker not found at {party_tracker_path}")
             emit('location_data_response', {'data': None, 'error': 'Party tracker not found'})
     
     except Exception as e:
+        print(f"DEBUG: Location data error: {e}")
         emit('location_data_response', {'data': None, 'error': str(e)})
 
+@socketio.on('request_npc_saves')
+def handle_npc_saves_request(data):
+    """Handle requests for NPC saving throws"""
+    try:
+        npc_name = data.get('npcName', '')
+        print(f"DEBUG: NPC saves requested for: {npc_name}")
+        
+        # Load the NPC file
+        from module_path_manager import ModulePathManager
+        path_manager = ModulePathManager()
+        
+        npc_file = path_manager.get_character_path(npc_name.lower())
+        if os.path.exists(npc_file):
+            with open(npc_file, 'r', encoding='utf-8') as f:
+                npc_data = json.load(f)
+            
+            emit('npc_details_response', {'npcName': npc_name, 'data': npc_data, 'modalType': 'saves'})
+        else:
+            emit('npc_details_response', {'npcName': npc_name, 'data': None, 'error': 'NPC file not found'})
+            
+    except Exception as e:
+        emit('npc_details_response', {'npcName': npc_name, 'data': None, 'error': str(e)})
+
+@socketio.on('request_npc_skills')
+def handle_npc_skills_request(data):
+    """Handle requests for NPC skills"""
+    try:
+        npc_name = data.get('npcName', '')
+        print(f"DEBUG: NPC skills requested for: {npc_name}")
+        
+        # Load the NPC file
+        from module_path_manager import ModulePathManager
+        path_manager = ModulePathManager()
+        
+        npc_file = path_manager.get_character_path(npc_name.lower())
+        if os.path.exists(npc_file):
+            with open(npc_file, 'r', encoding='utf-8') as f:
+                npc_data = json.load(f)
+            
+            emit('npc_details_response', {'npcName': npc_name, 'data': npc_data, 'modalType': 'skills'})
+        else:
+            emit('npc_details_response', {'npcName': npc_name, 'data': None, 'error': 'NPC file not found'})
+            
+    except Exception as e:
+        emit('npc_details_response', {'npcName': npc_name, 'data': None, 'error': str(e)})
+
+@socketio.on('request_npc_spells')
+def handle_npc_spells_request(data):
+    """Handle requests for NPC spellcasting"""
+    try:
+        npc_name = data.get('npcName', '')
+        print(f"DEBUG: NPC spells requested for: {npc_name}")
+        
+        # Load the NPC file
+        from module_path_manager import ModulePathManager
+        path_manager = ModulePathManager()
+        
+        npc_file = path_manager.get_character_path(npc_name.lower())
+        if os.path.exists(npc_file):
+            with open(npc_file, 'r', encoding='utf-8') as f:
+                npc_data = json.load(f)
+            
+            emit('npc_details_response', {'npcName': npc_name, 'data': npc_data, 'modalType': 'spells'})
+        else:
+            emit('npc_details_response', {'npcName': npc_name, 'data': None, 'error': 'NPC file not found'})
+            
+    except Exception as e:
+        emit('npc_details_response', {'npcName': npc_name, 'data': None, 'error': str(e)})
+
+@socketio.on('request_npc_inventory')
+def handle_npc_inventory_request(data):
+    """Handle requests for NPC inventory"""
+    try:
+        npc_name = data.get('npcName', '')
+        print(f"DEBUG: NPC inventory requested for: {npc_name}")
+        
+        # Load the NPC file
+        from module_path_manager import ModulePathManager
+        path_manager = ModulePathManager()
+        
+        npc_file = path_manager.get_character_path(npc_name.lower())
+        if os.path.exists(npc_file):
+            with open(npc_file, 'r', encoding='utf-8') as f:
+                npc_data = json.load(f)
+            
+            # Extract equipment for inventory display
+            equipment = npc_data.get('equipment', [])
+            emit('npc_inventory_response', {'npcName': npc_name, 'data': equipment})
+        else:
+            emit('npc_inventory_response', {'npcName': npc_name, 'data': None, 'error': 'NPC file not found'})
+            
+    except Exception as e:
+        emit('npc_inventory_response', {'npcName': npc_name, 'data': None, 'error': str(e)})
+
 def run_game_loop():
-    """Run the main game loop"""
+    """Run the main game loop with enhanced error handling"""
     try:
         # Start the output sender thread
         output_thread = threading.Thread(target=send_output_to_clients, daemon=True)
@@ -384,8 +553,28 @@ def run_game_loop():
         
         # Run the main game
         dm_main.main_game_loop()
+    except (BrokenPipeError, OSError) as e:
+        # Handle broken pipe errors specifically
+        print(f"Stream error detected: {e}")
+        try:
+            # Attempt to reset streams
+            sys.stdout = WebOutputCapture(debug_output_queue, original_stdout)
+            sys.stderr = WebOutputCapture(debug_output_queue, original_stderr, is_error=True)
+            sys.stdin = WebInput(user_input_queue)
+            print("Stream recovery attempted")
+        except Exception:
+            print("Stream recovery failed")
+        
+        # Send a user-friendly message
+        game_output_queue.put({
+            'type': 'info',
+            'content': 'Connection restored. You may continue playing.',
+            'timestamp': datetime.now().isoformat()
+        })
     except Exception as e:
+        # Handle other errors
         error_msg = f"Game error: {str(e)}"
+        print(f"Game loop error: {error_msg}")
         game_output_queue.put({
             'type': 'error',
             'content': error_msg,

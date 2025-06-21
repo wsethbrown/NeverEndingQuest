@@ -215,6 +215,67 @@ def parse_json_safely(text):
     # If we still can't parse it, raise an exception
     raise json.JSONDecodeError("Unable to parse JSON from the given text", text, 0)
 
+def create_module_validation_context(party_tracker_data, path_manager):
+    """Create module data context for validation system to check location/NPC references"""
+    try:
+        current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
+        current_module = party_tracker_data.get("module", "Unknown")
+        
+        validation_context = f"MODULE VALIDATION DATA:\nCurrent Module: {current_module}\nCurrent Area: {current_area_id}\n\n"
+        
+        # Get all valid locations in current area
+        area_file = path_manager.get_area_path(current_area_id)
+        try:
+            with open(area_file, "r", encoding="utf-8") as file:
+                area_data = json.load(file)
+            
+            valid_locations = []
+            for location in area_data.get("locations", []):
+                loc_id = location.get("locationId", "")
+                loc_name = location.get("name", "")
+                if loc_id and loc_name:
+                    valid_locations.append(f"{loc_id} ({loc_name})")
+            
+            validation_context += f"VALID LOCATIONS in {current_area_id}:\n"
+            if valid_locations:
+                validation_context += "\n".join([f"- {loc}" for loc in valid_locations])
+            else:
+                validation_context += "- No locations found"
+            validation_context += "\n\n"
+                
+        except (FileNotFoundError, json.JSONDecodeError):
+            validation_context += f"ERROR: Could not load area data for {current_area_id}\n\n"
+        
+        # Get all valid NPCs in current module
+        import os
+        import glob
+        character_files = glob.glob(f"{path_manager.module_dir}/characters/*.json")
+        
+        valid_npcs = []
+        for char_file in character_files:
+            try:
+                with open(char_file, "r", encoding="utf-8") as file:
+                    char_data = json.load(file)
+                char_name = char_data.get("name", "")
+                char_type = char_data.get("character_type", "unknown")
+                if char_name:
+                    valid_npcs.append(f"{char_name} ({char_type})")
+            except (json.JSONDecodeError, KeyError):
+                continue
+        
+        validation_context += "VALID CHARACTERS in module:\n"
+        if valid_npcs:
+            validation_context += "\n".join([f"- {npc}" for npc in valid_npcs])
+        else:
+            validation_context += "- No character files found"
+        
+        validation_context += "\n\nVALIDATION RULE: AI responses MUST ONLY reference locations and NPCs from the above lists. Any reference to non-existent locations or NPCs should be flagged as invalid."
+        
+        return validation_context
+        
+    except Exception as e:
+        return f"MODULE VALIDATION DATA: Error loading module data - {str(e)}"
+
 def validate_ai_response(primary_response, user_input, validation_prompt_text, conversation_history, party_tracker_data):
     status_validating()
     # Get the last two messages from the conversation history
@@ -282,10 +343,14 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
     # Create user input context for validation
     user_input_context = f"VALIDATION CONTEXT: The user input that triggered this assistant response was: '{user_input}'"
     
+    # Create module data context for location/NPC validation
+    module_data_context = create_module_validation_context(party_tracker_data, path_manager)
+    
     validation_conversation = [
         {"role": "system", "content": validation_prompt_text},
         {"role": "system", "content": location_details},
         {"role": "system", "content": user_input_context},
+        {"role": "system", "content": module_data_context},
         last_two_messages[0],
         last_two_messages[1],
         {"role": "assistant", "content": primary_response}
@@ -1035,7 +1100,7 @@ def main():
         from startup_wizard import startup_required, run_startup_sequence
         
         if startup_required():
-            print("🎲 Welcome to your 5th Edition Adventure! 🎲")
+            print("[D20] Welcome to your 5th Edition Adventure! [D20]")
             print("It looks like this is your first time, or you need to set up a character.")
             print("Let's get you ready for adventure!\n")
             
