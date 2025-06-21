@@ -872,6 +872,10 @@ def main_game_loop():
     # Ensure location_data passed here is the one loaded for the initial state
     process_ai_response(initial_ai_response, party_tracker_data, location_data, conversation_history) 
 
+    # Add safeguard against infinite loops in non-interactive environments
+    empty_input_count = 0
+    max_empty_inputs = 5
+    
     while True:
         conversation_history = truncate_dm_notes(conversation_history)
 
@@ -889,6 +893,13 @@ def main_game_loop():
         # Set status to ready before accepting input
         status_ready()
 
+        # Check if stdin is available (prevent infinite loops in non-interactive environments)
+        if not sys.stdin.isatty():
+            print("WARNING: Running in non-interactive environment. Stdin is not a terminal.")
+            print("Game loop stopped to prevent infinite empty input cycle.")
+            print("To run interactively, ensure the program is run from a proper terminal.")
+            break
+
         player_name_actual = party_tracker_data["partyMembers"][0]
         player_data_file = path_manager.get_character_path(player_name_actual)
         player_data_current = load_json_file(player_data_file)
@@ -905,9 +916,17 @@ def main_game_loop():
         else:
             user_input_text = input("User: ")
 
-        # Skip processing if input is empty or only whitespace
+        # Skip processing if input is empty or only whitespace, but track consecutive empty inputs
         if not user_input_text or not user_input_text.strip():
+            empty_input_count += 1
+            if empty_input_count >= max_empty_inputs:
+                print("WARNING: Detected multiple consecutive empty inputs. This may indicate a non-interactive environment.")
+                print("Stopping game loop to prevent infinite cycle.")
+                break
             continue
+        else:
+            # Reset counter on valid input
+            empty_input_count = 0
 
         party_tracker_data = load_json_file("party_tracker.json") 
 
