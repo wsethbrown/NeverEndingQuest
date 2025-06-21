@@ -961,15 +961,34 @@ def main_game_loop():
                         module_path = os.path.join(modules_dir, item)
                         if os.path.isdir(module_path) and not item.startswith('.') and item not in ['campaign_archives', 'campaign_summaries']:
                             # Check if this directory has area JSON files (pattern: 2-3 letter area codes + numbers)
-                            area_files = [f for f in os.listdir(module_path) 
-                                        if os.path.isfile(os.path.join(module_path, f)) 
-                                        and f.endswith('.json') 
-                                        and len(f.split('.')[0]) <= 7  # Area codes like HH001, G001, SR001, etc.
-                                        and not f.startswith('map_') 
-                                        and not f.startswith('plot_')
-                                        and not f.startswith('party_')
-                                        and not f.startswith('module_')
-                                        and f not in ['campaign.json', 'world_registry.json', 'module_context.json']]
+                            # Check both legacy (root) and new (areas/) directory structures
+                            area_files = []
+                            
+                            # Check root directory (legacy structure)
+                            root_area_files = [f for f in os.listdir(module_path) 
+                                             if os.path.isfile(os.path.join(module_path, f)) 
+                                             and f.endswith('.json') 
+                                             and len(f.split('.')[0]) <= 7  # Area codes like HH001, G001, SR001, etc.
+                                             and not f.startswith('map_') 
+                                             and not f.startswith('plot_')
+                                             and not f.startswith('party_')
+                                             and not f.startswith('module_')
+                                             and f not in ['campaign.json', 'world_registry.json', 'module_context.json']]
+                            area_files.extend(root_area_files)
+                            
+                            # Check areas/ subdirectory (new structure)
+                            areas_subdir = os.path.join(module_path, 'areas')
+                            if os.path.exists(areas_subdir) and os.path.isdir(areas_subdir):
+                                subdir_area_files = [f for f in os.listdir(areas_subdir) 
+                                                   if os.path.isfile(os.path.join(areas_subdir, f)) 
+                                                   and f.endswith('.json') 
+                                                   and len(f.split('.')[0]) <= 7  # Area codes like HH001, G001, SR001, etc.
+                                                   and not f.startswith('map_') 
+                                                   and not f.startswith('plot_')
+                                                   and not f.startswith('party_')
+                                                   and not f.startswith('module_')]
+                                area_files.extend(subdir_area_files)
+                            
                             if area_files:
                                 available_modules.append(item)
                 
