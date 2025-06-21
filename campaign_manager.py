@@ -110,7 +110,7 @@ class CampaignManager:
             return default_campaign
     
     def _scan_for_new_modules(self):
-        """Scan for new modules using module stitcher and update available modules"""
+        """Scan for new modules using module stitcher and sync with world registry"""
         try:
             # Delayed import to avoid circular imports
             from module_stitcher import get_module_stitcher
@@ -119,17 +119,29 @@ class CampaignManager:
             stitcher = get_module_stitcher()
             newly_integrated = stitcher.scan_and_integrate_new_modules()
             
-            if newly_integrated:
-                # Update available modules in campaign data
+            # Also sync with existing modules in world registry
+            world_registry = stitcher.world_registry
+            if world_registry and 'modules' in world_registry:
+                world_modules = set(world_registry['modules'].keys())
                 current_available = set(self.campaign_data.get('availableModules', []))
-                current_available.update(newly_integrated)
-                self.campaign_data['availableModules'] = list(current_available)
                 
-                # Save updated campaign data
-                self.campaign_data['lastUpdated'] = datetime.now().isoformat()
-                safe_json_dump(self.campaign_data, self.campaign_file)
+                # Find any modules that exist in world registry but not in campaign
+                missing_modules = world_modules - current_available
                 
-                print(f"Campaign Manager: Integrated {len(newly_integrated)} new modules: {', '.join(newly_integrated)}")
+                if newly_integrated or missing_modules:
+                    # Update available modules with both newly integrated and previously missing
+                    all_updates = set(newly_integrated) | missing_modules
+                    current_available.update(all_updates)
+                    self.campaign_data['availableModules'] = list(current_available)
+                    
+                    # Save updated campaign data
+                    self.campaign_data['lastUpdated'] = datetime.now().isoformat()
+                    safe_json_dump(self.campaign_data, self.campaign_file)
+                    
+                    if newly_integrated:
+                        print(f"Campaign Manager: Integrated {len(newly_integrated)} new modules: {', '.join(newly_integrated)}")
+                    if missing_modules:
+                        print(f"Campaign Manager: Synced {len(missing_modules)} existing modules: {', '.join(missing_modules)}")
             
         except Exception as e:
             print(f"Warning: Failed to scan for new modules: {e}")

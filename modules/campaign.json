@@ -6,6 +6,7 @@
     "Keep_of_Doom"
   ],
   "availableModules": [
+    "Silver_Vein_Whispers",
     "Keep_of_Doom"
   ],
   "hubs": {
@@ -33,6 +34,6 @@
     "unlockedAreas": [],
     "hubEstablished": true
   },
-  "lastUpdated": "2025-06-16T23:59:08.750597",
+  "lastUpdated": "2025-06-21T02:24:39.513920",
   "version": "1.0.0"
 }
