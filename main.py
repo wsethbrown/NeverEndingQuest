@@ -1280,9 +1280,12 @@ def main_game_loop():
 
 
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"] 
-        plot_data = load_json_file(path_manager.get_plot_path())
+        # Use current module from party tracker for plot data  
         module_name_updated = party_tracker_data.get("module", "").replace(" ", "_")
-        module_data = load_json_file(path_manager.get_module_file_path())
+        updated_path_manager = ModulePathManager(module_name_updated)
+        plot_data = load_json_file(updated_path_manager.get_plot_path())
+        module_data = load_json_file(updated_path_manager.get_module_file_path())
+        print(f"DEBUG: Updated plot file path: {updated_path_manager.get_plot_path()}")
 
         conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, module_data)
         conversation_history = update_character_data(conversation_history, party_tracker_data)
