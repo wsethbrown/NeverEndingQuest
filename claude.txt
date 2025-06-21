@@ -1,219 +1,114 @@
+1:00:28 AM
 No new modules detected.
-2:27:23 AM
+11:00:28 AM
 Lightweight chat history updated!
-2:27:23 AM
-System messages removed: 14
-2:27:23 AM
-User messages: 28
-2:27:23 AM
-Assistant messages: 27
-2:27:23 AM
-DEBUG: Checking for missing location summaries at startup
-2:27:23 AM
-DEBUG: Checking for missing location summaries
-2:27:23 AM
-DEBUG: Found 24 total transitions
-2:27:23 AM
-DEBUG: No departure transition found for East Gate and Guardhouse - this is the current active location, skipping
-2:27:23 AM
-DEBUG: No missing summaries found
-2:27:30 AM
-[LOGGED] Training example #253
-2:28:44 AM
-[15:58:00][HP:44/47][XP:16581/14000] norn: 
-2:28:44 AM
-DEBUG: Processing NPC: Elen
-2:28:44 AM
-DEBUG: NPC file path: characters/elen.json
-2:28:44 AM
-DEBUG: NPC data loaded: True
-2:28:44 AM
-DEBUG: Added NPC stats: {'name': 'Elen', 'display_name': 'Elen', 'level': 5, 'xp': 6500, 'hp': 42, 'max_hp': 42}
-2:28:44 AM
-DEBUG: Using cached starting location for Silver_Vein_Whispers
-2:28:44 AM
-DEBUG: Plot file path: modules/Keep_of_Doom/module_plot.json
-2:28:44 AM
-DEBUG: Plot data loaded: True
-2:28:44 AM
-DEBUG: Plot data keys: ['plotTitle', 'mainObjective', 'plotPoints', 'activeQuests', 'completedQuests', 'failedQuests', 'worldEvents', 'dmNotes']
-2:28:44 AM
-DEBUG: Current module from party tracker: 'Keep_of_Doom'
-2:28:44 AM
-DEBUG: Plot point PP001: status = 'completed'
-2:28:44 AM
-DEBUG: Plot point PP002: status = 'completed'
-2:28:44 AM
-DEBUG: Plot point PP003: status = 'completed'
-2:28:44 AM
-DEBUG: Plot point PP004: status = 'completed'
-2:28:44 AM
-DEBUG: Plot point PP005: status = 'completed'
-2:28:44 AM
-DEBUG: Plot completion: 5/5 completed, all_plot_completed = True
-2:28:44 AM
-DEBUG: Available modules: ['Keep_of_Doom', 'Silver_Vein_Whispers']
-2:28:44 AM
-DEBUG: Other modules available (excluding current): True
-2:28:44 AM
-DEBUG: Should inject module creation prompt: False
-2:28:44 AM
-DEBUG: Module creation prompt NOT injected - all_plot_completed:True, other_modules_available:True
-2:28:50 AM
-[LOGGED] Training example #254
-2:28:52 AM
-DEBUG: Validation passed successfully
-2:28:52 AM
-DEBUG: Valid response generated on attempt 1
-2:28:52 AM
-DEBUG: Status reset to ready at end of main game loop
-2:28:55 AM
-No new modules detected.
-2:28:55 AM
-Lightweight chat history updated!
-2:28:55 AM
-System messages removed: 14
-2:28:55 AM
-User messages: 29
-2:28:55 AM
-Assistant messages: 29
-2:30:22 AM
-[15:58:00][HP:44/47][XP:16581/14000] norn: 
-2:30:22 AM
-DEBUG: Processing NPC: Elen
-2:30:22 AM
-DEBUG: NPC file path: characters/elen.json
-2:30:22 AM
-DEBUG: NPC data loaded: True
-2:30:22 AM
-DEBUG: Added NPC stats: {'name': 'Elen', 'display_name': 'Elen', 'level': 5, 'xp': 6500, 'hp': 42, 'max_hp': 42}
-2:30:22 AM
-DEBUG: Using cached starting location for Silver_Vein_Whispers
-2:30:22 AM
-DEBUG: Plot file path: modules/Keep_of_Doom/module_plot.json
-2:30:22 AM
-DEBUG: Plot data loaded: True
-2:30:22 AM
-DEBUG: Plot data keys: ['plotTitle', 'mainObjective', 'plotPoints', 'activeQuests', 'completedQuests', 'failedQuests', 'worldEvents', 'dmNotes']
-2:30:22 AM
-DEBUG: Current module from party tracker: 'Keep_of_Doom'
-2:30:22 AM
-DEBUG: Plot point PP001: status = 'completed'
-2:30:22 AM
-DEBUG: Plot point PP002: status = 'completed'
-2:30:22 AM
-DEBUG: Plot point PP003: status = 'completed'
-2:30:22 AM
-DEBUG: Plot point PP004: status = 'completed'
-2:30:22 AM
-DEBUG: Plot point PP005: status = 'completed'
-2:30:22 AM
-DEBUG: Plot completion: 5/5 completed, all_plot_completed = True
-2:30:22 AM
-DEBUG: Available modules: ['Keep_of_Doom', 'Silver_Vein_Whispers']
-2:30:22 AM
-DEBUG: Other modules available (excluding current): True
-2:30:22 AM
-DEBUG: Should inject module creation prompt: False
-2:30:22 AM
-DEBUG: Module creation prompt NOT injected - all_plot_completed:True, other_modules_available:True
-2:30:26 AM
-[LOGGED] Training example #255
-2:30:29 AM
-DEBUG: Validation passed successfully
-2:30:29 AM
-DEBUG: Valid response generated on attempt 1
-2:30:29 AM
-DEBUG: Status reset to ready at end of main game loop
-2:30:30 AM
-No new modules detected.
-2:30:30 AM
-Lightweight chat history updated!
-2:30:30 AM
-System messages removed: 14
-2:30:30 AM
-User messages: 30
-2:30:30 AM
-Assistant messages: 30
-2:30:57 AM
-[15:58:00][HP:44/47][XP:16581/14000] norn: 
-2:30:57 AM
-DEBUG: Processing NPC: Elen
-2:30:57 AM
-DEBUG: NPC file path: characters/elen.json
-2:30:57 AM
-DEBUG: NPC data loaded: True
-2:30:57 AM
-DEBUG: Added NPC stats: {'name': 'Elen', 'display_name': 'Elen', 'level': 5, 'xp': 6500, 'hp': 42, 'max_hp': 42}
-2:30:57 AM
-DEBUG: Using cached starting location for Silver_Vein_Whispers
-2:30:57 AM
-DEBUG: Plot file path: modules/Keep_of_Doom/module_plot.json
-2:30:57 AM
-DEBUG: Plot data loaded: True
-2:30:57 AM
-DEBUG: Plot data keys: ['plotTitle', 'mainObjective', 'plotPoints', 'activeQuests', 'completedQuests', 'failedQuests', 'worldEvents', 'dmNotes']
-2:30:57 AM
-DEBUG: Current module from party tracker: 'Keep_of_Doom'
-2:30:57 AM
-DEBUG: Plot point PP001: status = 'completed'
-2:30:57 AM
-DEBUG: Plot point PP002: status = 'completed'
-2:30:57 AM
-DEBUG: Plot point PP003: status = 'completed'
-2:30:57 AM
-DEBUG: Plot point PP004: status = 'completed'
-2:30:57 AM
-DEBUG: Plot point PP005: status = 'completed'
-2:30:57 AM
-DEBUG: Plot completion: 5/5 completed, all_plot_completed = True
-2:30:57 AM
-DEBUG: Available modules: ['Keep_of_Doom', 'Silver_Vein_Whispers']
-2:30:57 AM
-DEBUG: Other modules available (excluding current): True
-2:30:57 AM
-DEBUG: Should inject module creation prompt: False
-2:30:57 AM
-DEBUG: Module creation prompt NOT injected - all_plot_completed:True, other_modules_available:True
-2:31:04 AM
-[LOGGED] Training example #256
-2:31:07 AM
-DEBUG: Validation passed successfully
-2:31:07 AM
-DEBUG: Valid response generated on attempt 1
-2:31:07 AM
-DEBUG: Processing updatePartyTracker action
-2:31:07 AM
-DEBUG: Module change detected: Keep_of_Doom -> Silver_Vein_Whispers
-2:31:10 AM
-No new modules detected.
-2:31:10 AM
-DEBUG: Auto-archiving conversation and generating summary for Keep_of_Doom
-2:31:10 AM
-DEBUG: Cross-module transition detected: Keep_of_Doom -> Silver_Vein_Whispers
-2:31:10 AM
-DEBUG: No summary generated for Keep_of_Doom
-2:31:10 AM
-DEBUG: Party tracker updated successfully
-2:31:10 AM
-Current Time: 15:58:00, Time Advanced: 240 minutes, New Time: 19:58:00, Days Passed: 0
-2:31:10 AM
-DEBUG: Status reset to ready at end of main game loop
-2:31:13 AM
-No new modules detected.
-2:31:13 AM
-modules/Silver_Vein_Whispers/map_HH001.json not found. Returning None.
-2:31:13 AM
-modules/Silver_Vein_Whispers/areas/HH001.json not found. Skipping location data.
-2:31:13 AM
-Lightweight chat history updated!
-2:31:13 AM
-System messages removed: 12
-2:31:13 AM
+11:00:28 AM
+System messages removed: 8
+11:00:28 AM
 User messages: 31
-2:31:13 AM
-Assistant messages: 31
-2:31:13 AM
+11:00:28 AM
+Assistant messages: 30
+11:00:28 AM
+DEBUG: Checking for missing location summaries at startup
+11:00:28 AM
+DEBUG: Checking for missing location summaries
+11:00:28 AM
+DEBUG: Found 24 total transitions
+11:00:28 AM
+DEBUG: No departure transition found for East Gate and Guardhouse - this is the current active location, skipping
+11:00:28 AM
+DEBUG: No missing summaries found
+11:00:51 AM
+[LOGGED] Training example #265
+11:00:51 AM
+DEBUG: Processing updatePartyTracker action
+11:00:51 AM
+DEBUG: Module change detected: Keep_of_Doom -> Silver_Vein_Whispers
+11:00:51 AM
+DEBUG: Adding travel narration for Silver_Vein_Whispers: Leaving familiar lands behind, the party journeys ...
+11:00:54 AM
+No new modules detected.
+11:00:54 AM
+DEBUG: Auto-archiving conversation and generating summary for Keep_of_Doom
+11:00:54 AM
+DEBUG: Cross-module transition detected: Keep_of_Doom -> Silver_Vein_Whispers
+11:00:54 AM
+DEBUG: Auto-generating summary for Keep_of_Doom...
+11:00:54 AM
+Archived 71 conversation messages for Keep_of_Doom (sequence 004)
+11:01:12 AM
+DEBUG: Keep_of_Doom summarized and archived (visit #4)
+11:01:12 AM
+DEBUG: Successfully archived conversation and generated summary for Keep_of_Doom
+11:01:12 AM
+DEBUG: Party tracker updated successfully
+11:01:12 AM
+Current Time: 15:58:00, Time Advanced: 240 minutes, New Time: 19:58:00, Days Passed: 0
+11:01:13 AM
 DEBUG: Processing conversation history
-2:31:13 AM
+11:01:13 AM
 DEBUG: Conversation history processing complete
+11:03:03 AM
+[15:58:00][HP:44/47][XP:16581/14000] norn: 
+11:04:54 AM
+[15:58:00][HP:44/47][XP:16581/14000] norn: 
+11:05:44 AM
+[15:58:00][HP:44/47][XP:16581/14000] norn: 
+11:05:44 AM
+DEBUG: Processing NPC: Elen
+11:05:44 AM
+DEBUG: NPC file path: characters/elen.json
+11:05:44 AM
+DEBUG: NPC data loaded: True
+11:05:44 AM
+DEBUG: Added NPC stats: {'name': 'Elen', 'display_name': 'Elen', 'level': 5, 'xp': 6500, 'hp': 42, 'max_hp': 42}
+11:05:44 AM
+DEBUG: Using cached starting location for Keep_of_Doom
+11:05:44 AM
+DEBUG: Plot file path: modules/Keep_of_Doom/module_plot.json
+11:05:44 AM
+DEBUG: Plot data loaded: True
+11:05:44 AM
+DEBUG: Plot data keys: ['plotTitle', 'mainObjective', 'plotPoints', 'activeQuests', 'completedQuests', 'failedQuests', 'worldEvents', 'dmNotes']
+11:05:44 AM
+DEBUG: Current module from party tracker: 'Silver_Vein_Whispers'
+11:05:44 AM
+DEBUG: Plot point PP001: status = 'completed'
+11:05:44 AM
+DEBUG: Plot point PP002: status = 'completed'
+11:05:44 AM
+DEBUG: Plot point PP003: status = 'completed'
+11:05:44 AM
+DEBUG: Plot point PP004: status = 'completed'
+11:05:44 AM
+DEBUG: Plot point PP005: status = 'completed'
+11:05:44 AM
+DEBUG: Plot completion: 5/5 completed, all_plot_completed = True
+11:05:44 AM
+DEBUG: Available modules: ['Keep_of_Doom', 'Silver_Vein_Whispers']
+11:05:44 AM
+DEBUG: Other modules available (excluding current): True
+11:05:44 AM
+DEBUG: Should inject module creation prompt: False
+11:05:44 AM
+DEBUG: Module creation prompt NOT injected - all_plot_completed:True, other_modules_available:True
+11:05:52 AM
+[LOGGED] Training example #266
+11:05:54 AM
+DEBUG: Validation passed successfully
+11:05:54 AM
+DEBUG: Valid response generated on attempt 1
+11:05:55 AM
+Current Time: 19:58:00, Time Advanced: 13 minutes, New Time: 20:11:00, Days Passed: 0
+11:05:55 AM
+DEBUG: Status reset to ready at end of main game loop
+11:05:57 AM
+No new modules detected.
+11:05:58 AM
+Lightweight chat history updated!
+11:05:58 AM
+System messages removed: 9
+11:05:58 AM
+User messages: 32
+11:05:58 AM
+Assistant messages: 32

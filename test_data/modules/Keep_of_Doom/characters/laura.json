@@ -1,0 +1,264 @@
+{
+  "character_role": "player",
+  "character_type": "player",
+  "name": "Laura",
+  "type": "player",
+  "size": "Medium",
+  "level": 1,
+  "race": "Tiefling",
+  "class": "Wizard",
+  "alignment": "neutral good",
+  "background": "Sage",
+  "status": "alive",
+  "condition": "none",
+  "condition_affected": [],
+  "hitPoints": 7,
+  "maxHitPoints": 7,
+  "armorClass": 12,
+  "initiative": 2,
+  "speed": 30,
+  "abilities": {
+    "strength": 8,
+    "dexterity": 14,
+    "constitution": 13,
+    "intelligence": 16,
+    "wisdom": 10,
+    "charisma": 14
+  },
+  "savingThrows": [
+    "intelligence",
+    "wisdom"
+  ],
+  "skills": {
+    "arcana": 5,
+    "history": 5,
+    "investigation": 3,
+    "insight": 0
+  },
+  "proficiencyBonus": 2,
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 10
+  },
+  "languages": [
+    "Common",
+    "Infernal",
+    "Elvish",
+    "Draconic"
+  ],
+  "proficiencies": {
+    "armor": [],
+    "weapons": [
+      "dagger",
+      "dart",
+      "sling",
+      "quarterstaff",
+      "light crossbow"
+    ],
+    "tools": []
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [
+    "fire"
+  ],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "classFeatures": [
+    {
+      "name": "Spellcasting",
+      "description": "You have a spellbook containing spells that show the first glimmerings of your true power.",
+      "source": "Wizard"
+    },
+    {
+      "name": "Arcane Recovery",
+      "description": "Once per day when you finish a short rest, you can recover a number of spell slots up to half your wizard level (rounded up).",
+      "source": "Wizard"
+    }
+  ],
+  "racialTraits": [
+    {
+      "name": "Darkvision",
+      "description": "You can see in darkness (shades of gray) up to 60 feet.",
+      "source": "Tiefling"
+    },
+    {
+      "name": "Hellish Resistance",
+      "description": "You have resistance to fire damage.",
+      "source": "Tiefling"
+    },
+    {
+      "name": "Infernal Legacy",
+      "description": "You know the thaumaturgy cantrip. At 3rd level, you can cast hellish rebuke as a 2nd-level spell once per long rest. At 5th level, you can cast darkness once per long rest.",
+      "source": "Tiefling"
+    }
+  ],
+  "backgroundFeature": {
+    "name": "Researcher",
+    "description": "When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it.",
+    "source": "Sage"
+  },
+  "temporaryEffects": [],
+  "injuries": [],
+  "equipment_effects": [],
+  "feats": [],
+  "equipment": [
+    {
+      "item_name": "Quarterstaff",
+      "item_type": "weapon",
+      "item_subtype": "other",
+      "description": "A simple melee weapon used as a walking stick or arcane focus.",
+      "quantity": 1,
+      "equipped": true,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Component pouch",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "A small pouch used to carry spell components.",
+      "quantity": 1,
+      "equipped": true,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Scholar's pack",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "Includes a book of lore, bottle of ink, ink pen, 10 sheets of parchment, little bag of sand, and a small knife.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Spellbook",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "Contains your wizard spells.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Dagger",
+      "item_type": "weapon",
+      "item_subtype": "other",
+      "description": "A simple melee or thrown weapon.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    }
+  ],
+  "ammunition": [],
+  "attacksAndSpellcasting": [
+    {
+      "name": "Quarterstaff",
+      "attackBonus": 0,
+      "damageDice": "1d6",
+      "damageBonus": -1,
+      "damageType": "bludgeoning",
+      "type": "melee",
+      "description": "Versatile (1d8 two-handed)."
+    },
+    {
+      "name": "Dagger",
+      "attackBonus": 4,
+      "damageDice": "1d4",
+      "damageBonus": 2,
+      "damageType": "piercing",
+      "type": "melee",
+      "description": "Finesse, light, thrown (range 20/60)."
+    }
+  ],
+  "spellcasting": {
+    "ability": "intelligence",
+    "spellSaveDC": 13,
+    "spellAttackBonus": 5,
+    "spells": {
+      "cantrips": [
+        "fire bolt",
+        "prestidigitation",
+        "mage hand",
+        "thaumaturgy"
+      ],
+      "level1": [
+        "mage armor",
+        "magic missile",
+        "sleep",
+        "detect magic",
+        "shield",
+        "find familiar"
+      ],
+      "level2": [],
+      "level3": [],
+      "level4": [],
+      "level5": [],
+      "level6": [],
+      "level7": [],
+      "level8": [],
+      "level9": []
+    },
+    "spellSlots": {
+      "level1": {
+        "current": 2,
+        "max": 2
+      },
+      "level2": {
+        "current": 0,
+        "max": 0
+      },
+      "level3": {
+        "current": 0,
+        "max": 0
+      },
+      "level4": {
+        "current": 0,
+        "max": 0
+      },
+      "level5": {
+        "current": 0,
+        "max": 0
+      },
+      "level6": {
+        "current": 0,
+        "max": 0
+      },
+      "level7": {
+        "current": 0,
+        "max": 0
+      },
+      "level8": {
+        "current": 0,
+        "max": 0
+      },
+      "level9": {
+        "current": 0,
+        "max": 0
+      }
+    },
+    "preparedSpells": [
+      "mage armor",
+      "magic missile",
+      "sleep",
+      "detect magic",
+      "shield",
+      "find familiar"
+    ]
+  },
+  "currency": {
+    "gold": 10,
+    "silver": 0,
+    "copper": 0
+  },
+  "experience_points": 0,
+  "exp_required_for_next_level": 300,
+  "challengeRating": 0.125,
+  "personality_traits": "Curious and quick-witted, always eager to learn new things and experiment with magic.",
+  "ideals": "Knowledge. The path to power and self-improvement is through knowledge.",
+  "bonds": "I must find the answer to a mysterious magical riddle I discovered in my studies.",
+  "flaws": "I can be too eager to test new spells, sometimes ignoring risks in the pursuit of arcane secrets."
+}

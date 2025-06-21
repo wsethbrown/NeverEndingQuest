@@ -1,0 +1,126 @@
+{
+  "plotTitle": "Shadows Over Sablemoor",
+  "mainObjective": "Locate and commune with Rilith the Riverbound to uncover the truth behind the moor\u2019s haunting whispers.",
+  "plotPoints": [
+    {
+      "id": "PP001",
+      "title": "Arrival in the Sablemoor Reaches",
+      "description": "the party arrive at the edge of the Sablemoor Reaches, a mist-wreathed expanse notorious for haunting whispers and unnatural mists. Locals warn travelers away, but the party seeks the tormented spirit, Rilith the Riverbound, to uncover the source of the moor\u2019s unrest. Their first challenge is to navigate the treacherous terrain and gain the trust of the wary inhabitants.",
+      "location": "SR001",
+      "nextPoints": [
+        "PP002"
+      ],
+      "status": "not started",
+      "plotImpact": "Establishes the moor's dangers, introduces key NPCs (Mira the Moorwise, Old Fenrick), and presents the first clues about the haunting whispers.",
+      "sideQuests": [
+        {
+          "id": "SQ001",
+          "title": "The Hermit's Warning",
+          "description": "Old Fenrick, a reclusive hermit, claims to know safe paths through the moor but demands a favor: retrieve his lost family brooch from a nearby sinkhole haunted by will-o'-wisps.",
+          "involvedLocations": [
+            "SR001"
+          ],
+          "status": "not started",
+          "plotImpact": "Completing this task grants the party a moor map and protective talisman, making navigation easier."
+        },
+        {
+          "id": "SQ002",
+          "title": "Moorwise\u2019s Riddle",
+          "description": "Mira the Moorwise offers cryptic guidance\u2014if the party can solve her riddle about the land\u2019s history, she\u2019ll reveal a hidden shortcut to the riverbanks.",
+          "involvedLocations": [
+            "SR001"
+          ],
+          "status": "not started",
+          "plotImpact": "Solving the riddle reduces travel time and gives the party insight into the ancient tragedy of Calamyr."
+        }
+      ]
+    },
+    {
+      "id": "PP002",
+      "title": "The Whispering Riverbanks",
+      "description": "The party descends into the fog-laden riverbanks, where spectral voices grow louder and strange phenomena threaten to overwhelm the senses. They must investigate the source of the voices, interacting with the ghostly Sister Amara and the enigmatic Dren of the Blue Flame, while fending off physical and spiritual dangers.",
+      "location": "WR001",
+      "nextPoints": [
+        "PP003"
+      ],
+      "status": "not started",
+      "plotImpact": "Reveals that the haunting is tied to a curse placed by Queen Seralyth. Sets up a rivalry with Professor Halvane, whose expedition has its own motives.",
+      "sideQuests": [
+        {
+          "id": "SQ003",
+          "title": "Blue Flame Bargain",
+          "description": "Dren of the Blue Flame offers rare knowledge in exchange for help retrieving a lost relic from a sunken shrine, but warns of vengeful river spirits.",
+          "involvedLocations": [
+            "WR001"
+          ],
+          "status": "not started",
+          "plotImpact": "Aids in understanding the curse's origin; may grant the party an ally or draw the ire of the Hollow Host."
+        },
+        {
+          "id": "SQ004",
+          "title": "Rival Expeditions",
+          "description": "Professor Halvane\u2019s mercenaries set traps and spread misinformation. The party can sabotage their efforts or attempt an uneasy truce.",
+          "involvedLocations": [
+            "WR001"
+          ],
+          "status": "not started",
+          "plotImpact": "Influences later confrontations with Halvane and resource availability in the ruins."
+        }
+      ]
+    },
+    {
+      "id": "PP003",
+      "title": "Ruins of Calamyr",
+      "description": "Deep in the river-concealed ruins, the party uncovers remnants of the lost city of Calamyr. Here, they must navigate ancient traps, decipher forgotten lore with Archivist Lareth, and contend with Captain Veylan\u2019s mercenaries. The true nature of Rilith\u2019s torment is revealed, forcing the party to make difficult choices about breaking or upholding the curse.",
+      "location": "RC001",
+      "nextPoints": [
+        "PP004"
+      ],
+      "status": "not started",
+      "plotImpact": "The party secures the means to commune with Rilith, but their actions may awaken Queen Seralyth or trigger conflict with rival factions.",
+      "sideQuests": [
+        {
+          "id": "SQ005",
+          "title": "The Lost Chronicle",
+          "description": "Archivist Lareth seeks help recovering the Calamyr Chronicle, a tome hidden in a trapped vault. He\u2019ll offer crucial lore about Rilith and Seralyth if aided.",
+          "involvedLocations": [
+            "RC001"
+          ],
+          "status": "not started",
+          "plotImpact": "Provides ritual components and options for communicating with spirits; opens up peaceful or combative solutions."
+        },
+        {
+          "id": "SQ006",
+          "title": "Mercenary Standoff",
+          "description": "Captain Veylan\u2019s band corners the party. The heroes can negotiate, bribe, fight, or trick the mercenaries to proceed.",
+          "involvedLocations": [
+            "RC001"
+          ],
+          "status": "not started",
+          "plotImpact": "Affects access to certain ruin chambers and sets up possible reinforcements for the final confrontation."
+        }
+      ]
+    },
+    {
+      "id": "PP004",
+      "title": "Shadows Unbound: The Riverbound\u2019s Fate",
+      "description": "With the means to commune with Rilith, the party enacts the ritual, confronting both the tormented spirit and the vengeful Queen Seralyth. Their choices\u2014appeasement, cleansing, bargaining, or combat\u2014determine the fate of the moor and its spirits. The outcome reshapes relationships with rival factions and the supernatural balance of the region.",
+      "location": "RC001",
+      "nextPoints": [],
+      "status": "not started",
+      "plotImpact": "Concludes the main story. The party\u2019s decisions can free, redeem, or doom Rilith and the moor, with lasting campaign consequences.",
+      "sideQuests": [
+        {
+          "id": "SQ007",
+          "title": "Queen\u2019s Judgment",
+          "description": "Before the ritual, Queen Seralyth offers a dangerous pact: serve her cause and she will lift the curse from Rilith, but at a dread cost.",
+          "involvedLocations": [
+            "RC001"
+          ],
+          "status": "not started",
+          "plotImpact": "Allying or opposing Seralyth drastically alters the ending and future plot hooks."
+        }
+      ]
+    }
+  ]
+}

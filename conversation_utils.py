@@ -183,7 +183,9 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
 
     # Insert map data
     if current_area_id:
-        path_manager = ModulePathManager()
+        # Use current module from party tracker for consistent path resolution
+        current_module_name = party_tracker_data.get("module", "").replace(" ", "_") if party_tracker_data else None
+        path_manager = ModulePathManager(current_module_name)
         map_file = path_manager.get_map_path(current_area_id)
         map_data = load_json_data(map_file)
         if map_data:
@@ -193,7 +195,9 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
 
     # Load the area-specific JSON file
     if current_area_id:
-        path_manager = ModulePathManager()
+        # Use current module from party tracker for consistent path resolution
+        current_module_name = party_tracker_data.get("module", "").replace(" ", "_") if party_tracker_data else None
+        path_manager = ModulePathManager(current_module_name)
         area_file = path_manager.get_area_path(current_area_id)
         try:
             location_data = safe_json_load(area_file)

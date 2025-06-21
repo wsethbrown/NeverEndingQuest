@@ -1,0 +1,24 @@
+{
+  "campaignName": "Fantasy Adventure Campaign",
+  "currentModule": null,
+  "hubModule": null,
+  "completedModules": [
+    "Keep_of_Doom"
+  ],
+  "availableModules": [
+    "Silver_Vein_Whispers",
+    "Keep_of_Doom"
+  ],
+  "hubs": {},
+  "relationships": {},
+  "artifacts": {},
+  "worldState": {
+    "keepOwnership": false,
+    "majorDecisions": [],
+    "crossModuleRelationships": {},
+    "unlockedAreas": [],
+    "hubEstablished": false
+  },
+  "lastUpdated": "2025-06-21T09:00:46.658619",
+  "version": "1.0.0"
+}

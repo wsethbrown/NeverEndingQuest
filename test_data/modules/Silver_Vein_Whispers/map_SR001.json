@@ -1,0 +1,84 @@
+{
+  "mapId": "MAP_6",
+  "mapName": "Wilderness Map",
+  "totalRooms": 6,
+  "rooms": [
+    {
+      "id": "R01",
+      "name": "Riverside R01",
+      "type": "riverside",
+      "connections": [
+        "R02",
+        "R03",
+        "R06"
+      ],
+      "coordinates": "X2Y2"
+    },
+    {
+      "id": "R02",
+      "name": "Ravine R02",
+      "type": "ravine",
+      "connections": [
+        "R01",
+        "R05"
+      ],
+      "coordinates": "X1Y2"
+    },
+    {
+      "id": "R03",
+      "name": "Campsite R03",
+      "type": "campsite",
+      "connections": [
+        "R01",
+        "R04",
+        "R05"
+      ],
+      "coordinates": "X2Y1"
+    },
+    {
+      "id": "R04",
+      "name": "Crossroads R04",
+      "type": "crossroads",
+      "connections": [
+        "R03"
+      ],
+      "coordinates": "X2Y0"
+    },
+    {
+      "id": "R05",
+      "name": "Landmark R05",
+      "type": "landmark",
+      "connections": [
+        "R02",
+        "R03"
+      ],
+      "coordinates": "X1Y1"
+    },
+    {
+      "id": "R06",
+      "name": "Crossroads R06",
+      "type": "crossroads",
+      "connections": [
+        "R01"
+      ],
+      "coordinates": "X3Y2"
+    }
+  ],
+  "layout": [
+    [
+      "   ",
+      "R04",
+      "   "
+    ],
+    [
+      "R05",
+      "R03",
+      "   "
+    ],
+    [
+      "R02",
+      "R01",
+      "R06"
+    ]
+  ]
+}

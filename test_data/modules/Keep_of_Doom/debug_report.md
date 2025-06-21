@@ -1,0 +1,172 @@
+
+# Module Debug Report
+Generated: 2025-06-14 10:16:25
+Module: modules/Keep_of_Doom
+
+## Summary
+- Errors: 9
+- Warnings: 121
+- Info: 23
+
+## Files Loaded
+- G001.json
+- G001_BU.json
+- HH001.json
+- HH001_BU.json
+- Keep_of_Doom_module.json
+- SK001.json
+- SK001_BU.json
+- TBM001.json
+- TBM001_BU.json
+- TCD001.json
+- TCD001_BU.json
+- map_G001.json
+- map_HH001.json
+- map_SK001.json
+- map_TBM001.json
+- map_TCD001.json
+- module_context.json
+- module_context_BU.json
+- module_plot.json
+- module_plot_BU.json
+- norn_BU.json
+- party_tracker_BU.json
+- plot_HH001_BU.json
+- validation_report.json
+
+## Errors
+- ERROR: Schema validation failed for Keep_of_Doom_module.json: '"Great Wheel"' is not one of ['Great Wheel', 'World Tree', 'World Axis', 'Custom']
+- ERROR: Plot references non-existent location: G001 in area HH001_BU
+- ERROR: Plot references non-existent location: HH001 in area HH001_BU
+- ERROR: Plot references non-existent location: SK001 in area HH001_BU
+- ERROR: Plot references non-existent location: TCD001 in area HH001_BU
+- ERROR: Invalid connection Outer Courtyard in location C03 of SK001
+- ERROR: Invalid connection Lord's Study in location C05 of SK001
+- ERROR: No party_tracker.json found
+- ERROR: Required file missing: party_tracker.json
+
+## Warnings
+- WARNING: No schema mapping for: G001.json
+- WARNING: No schema mapping for: G001_BU.json
+- WARNING: No schema mapping for: HH001_BU.json
+- WARNING: No schema mapping for: map_G001.json
+- WARNING: No schema mapping for: map_HH001.json
+- WARNING: No schema mapping for: map_SK001.json
+- WARNING: No schema mapping for: map_TBM001.json
+- WARNING: No schema mapping for: map_TCD001.json
+- WARNING: No schema mapping for: module_context.json
+- WARNING: No schema mapping for: module_context_BU.json
+- WARNING: No schema mapping for: module_plot.json
+- WARNING: No schema mapping for: module_plot_BU.json
+- WARNING: No schema mapping for: norn_BU.json
+- WARNING: No schema mapping for: party_tracker_BU.json
+- WARNING: No schema mapping for: plot_HH001_BU.json
+- WARNING: No schema mapping for: SK001.json
+- WARNING: No schema mapping for: SK001_BU.json
+- WARNING: No schema mapping for: TBM001.json
+- WARNING: No schema mapping for: TBM001_BU.json
+- WARNING: No schema mapping for: TCD001.json
+- WARNING: No schema mapping for: TCD001_BU.json
+- WARNING: No schema mapping for: validation_report.json
+- WARNING: Location B09 references unknown area SF001
+- WARNING: Location B07 references unknown area SK001-C01
+- WARNING: Location B07 references unknown area TBM001-D01
+- WARNING: Location B09 references unknown area SF001
+- WARNING: Location B07 references unknown area SK001-C01
+- WARNING: Location B07 references unknown area TBM001-D01
+- WARNING: Location C01 references unknown area G001-B07
+- WARNING: Location C07 references unknown area TCD001-E01
+- WARNING: Location C08 references unknown area G001-B09
+- WARNING: Location C01 references unknown area G001-B07
+- WARNING: Location C07 references unknown area TCD001-E01
+- WARNING: Location C08 references unknown area G001-B09
+- WARNING: Location D01 references unknown area G001-B07
+- WARNING: Location D01 references unknown area G001-B07
+- WARNING: Location E01 references unknown area SK001-C07
+- WARNING: Location E01 references unknown area SK001-C07
+- WARNING: Area ID G001 doesn't match filename G001_BU.json
+- WARNING: Area ID HH001 doesn't match filename HH001_BU.json
+- WARNING: Area ID SK001 doesn't match filename SK001_BU.json
+- WARNING: Area ID TBM001 doesn't match filename TBM001_BU.json
+- WARNING: Area ID TCD001 doesn't match filename TCD001_BU.json
+- WARNING: Mismatch: 10 areas but 1 plot files
+- WARNING: Monster file not found: shadow.json (referenced in G001.json)
+- WARNING: Monster file not found: will-o'-wisps.json (referenced in G001.json)
+- WARNING: Monster file not found: shambling_mound.json (referenced in G001.json)
+- WARNING: Monster file not found: awakened_shrubs.json (referenced in G001.json)
+- WARNING: Monster file not found: giant_spider.json (referenced in G001_BU.json)
+- WARNING: Monster file not found: swarm_of_spiders.json (referenced in G001_BU.json)
+- WARNING: Monster file not found: shadow.json (referenced in G001_BU.json)
+- WARNING: Monster file not found: will-o'-wisps.json (referenced in G001_BU.json)
+- WARNING: Monster file not found: shambling_mound.json (referenced in G001_BU.json)
+- WARNING: Monster file not found: awakened_shrubs.json (referenced in G001_BU.json)
+- WARNING: Monster file not found: shadow_creature.json (referenced in HH001.json)
+- WARNING: Monster file not found: giant_rat.json (referenced in SK001.json)
+- WARNING: Monster file not found: giant_rat.json (referenced in SK001.json)
+- WARNING: Monster file not found: animated_weapons.json (referenced in SK001.json)
+- WARNING: Monster file not found: skeletal_archers.json (referenced in SK001.json)
+- WARNING: Monster file not found: phantom_servants.json (referenced in SK001.json)
+- WARNING: Monster file not found: gargoyles.json (referenced in SK001.json)
+- WARNING: Monster file not found: shadow.json (referenced in SK001.json)
+- WARNING: Monster file not found: skeletons.json (referenced in SK001_BU.json)
+- WARNING: Monster file not found: shadows.json (referenced in SK001_BU.json)
+- WARNING: Monster file not found: animated_armor.json (referenced in SK001_BU.json)
+- WARNING: Monster file not found: shadows.json (referenced in SK001_BU.json)
+- WARNING: Monster file not found: specter.json (referenced in SK001_BU.json)
+- WARNING: Monster file not found: animated_weapons.json (referenced in SK001_BU.json)
+- WARNING: Monster file not found: skeletal_archers.json (referenced in SK001_BU.json)
+- WARNING: Monster file not found: phantom_servants.json (referenced in SK001_BU.json)
+- WARNING: Monster file not found: mimic.json (referenced in SK001_BU.json)
+- WARNING: Monster file not found: gargoyles.json (referenced in SK001_BU.json)
+- WARNING: Monster file not found: shadow.json (referenced in SK001_BU.json)
+- WARNING: Monster file not found: shadow_of_sir_garran.json (referenced in SK001_BU.json)
+- WARNING: Monster file not found: spectral_soldiers.json (referenced in TBM001.json)
+- WARNING: Monster file not found: corrupted_vine_blights.json (referenced in TBM001.json)
+- WARNING: Monster file not found: will-o'-wisps.json (referenced in TBM001.json)
+- WARNING: Monster file not found: bog_mummy.json (referenced in TBM001.json)
+- WARNING: Monster file not found: animated_armor.json (referenced in TBM001.json)
+- WARNING: Monster file not found: shadows.json (referenced in TBM001.json)
+- WARNING: Monster file not found: black_banner_guards.json (referenced in TBM001.json)
+- WARNING: Monster file not found: shadow_hound.json (referenced in TBM001.json)
+- WARNING: Monster file not found: stone_guardians.json (referenced in TBM001.json)
+- WARNING: Monster file not found: wisps_of_memory.json (referenced in TBM001.json)
+- WARNING: Monster file not found: barrow_guardians.json (referenced in TBM001.json)
+- WARNING: Monster file not found: the_entity.json (referenced in TBM001.json)
+- WARNING: Monster file not found: spectral_soldiers.json (referenced in TBM001_BU.json)
+- WARNING: Monster file not found: corrupted_vine_blights.json (referenced in TBM001_BU.json)
+- WARNING: Monster file not found: will-o'-wisps.json (referenced in TBM001_BU.json)
+- WARNING: Monster file not found: bog_mummy.json (referenced in TBM001_BU.json)
+- WARNING: Monster file not found: animated_armor.json (referenced in TBM001_BU.json)
+- WARNING: Monster file not found: shadows.json (referenced in TBM001_BU.json)
+- WARNING: Monster file not found: black_banner_guards.json (referenced in TBM001_BU.json)
+- WARNING: Monster file not found: shadow_hound.json (referenced in TBM001_BU.json)
+- WARNING: Monster file not found: stone_guardians.json (referenced in TBM001_BU.json)
+- WARNING: Monster file not found: wisps_of_memory.json (referenced in TBM001_BU.json)
+- WARNING: Monster file not found: barrow_guardians.json (referenced in TBM001_BU.json)
+- WARNING: Monster file not found: the_entity.json (referenced in TBM001_BU.json)
+- WARNING: Monster file not found: phantom_torturer.json (referenced in TCD001.json)
+- WARNING: Monster file not found: animated_torture_devices.json (referenced in TCD001.json)
+- WARNING: Monster file not found: gelatinous_cube.json (referenced in TCD001.json)
+- WARNING: Monster file not found: mimic.json (referenced in TCD001.json)
+- WARNING: Monster file not found: skeletons.json (referenced in TCD001.json)
+- WARNING: Monster file not found: shadow.json (referenced in TCD001_BU.json)
+- WARNING: Monster file not found: ghouls.json (referenced in TCD001_BU.json)
+- WARNING: Monster file not found: gibbering_mouther.json (referenced in TCD001_BU.json)
+- WARNING: Monster file not found: phantom_torturer.json (referenced in TCD001_BU.json)
+- WARNING: Monster file not found: animated_torture_devices.json (referenced in TCD001_BU.json)
+- WARNING: Monster file not found: wights.json (referenced in TCD001_BU.json)
+- WARNING: Monster file not found: shadow_mastiff.json (referenced in TCD001_BU.json)
+- WARNING: Monster file not found: gelatinous_cube.json (referenced in TCD001_BU.json)
+- WARNING: Monster file not found: mimic.json (referenced in TCD001_BU.json)
+- WARNING: Monster file not found: skeletons.json (referenced in TCD001_BU.json)
+- WARNING: Monster file not found: shadow_relic.json (referenced in TCD001_BU.json)
+- WARNING: Monster file not found: shadow_manifestations.json (referenced in TCD001_BU.json)
+- WARNING: No plot file found for area HH001
+- WARNING: No plot file found for area SK001
+- WARNING: No plot file found for area TCD001
+- WARNING: No plot file found for area G001
+- WARNING: No plot file found for area TBM001
+- WARNING: Plot file HH001_BU has no matching area
+
+## Status
+❌ Module has errors that need to be fixed

@@ -645,35 +645,42 @@ Focus on story outcomes, character development, and decisions that will matter i
         """Check if location ID exists in the given module"""
         import glob
         
-        # Scan all area files in the module
+        # Scan all area files in the module (both root and areas/ subdirectory)
         module_dir = path_manager.module_dir
         if not os.path.exists(module_dir):
             return False
             
-        for area_file in glob.glob(f"{module_dir}/*.json"):
-            # Skip module metadata and plot files
-            filename = os.path.basename(area_file)
-            if (filename.endswith("_module.json") or 
-                filename.endswith("_plot.json") or 
-                filename.startswith("module_") or
-                filename.startswith("party_")):
-                continue
-                
-            try:
-                area_data = safe_json_load(area_file)
-                if area_data and "locations" in area_data:
-                    locations = area_data["locations"]
+        # Check both root directory and areas/ subdirectory
+        search_patterns = [
+            f"{module_dir}/*.json",          # Legacy root directory
+            f"{module_dir}/areas/*.json"     # New areas/ subdirectory
+        ]
+        
+        for pattern in search_patterns:
+            for area_file in glob.glob(pattern):
+                # Skip module metadata and plot files
+                filename = os.path.basename(area_file)
+                if (filename.endswith("_module.json") or 
+                    filename.endswith("_plot.json") or 
+                    filename.startswith("module_") or
+                    filename.startswith("party_")):
+                    continue
                     
-                    # Handle both dict and list formats
-                    if isinstance(locations, dict):
-                        if location_id in locations:
-                            return True
-                    elif isinstance(locations, list):
-                        for location in locations:
-                            if isinstance(location, dict) and location.get("locationId") == location_id:
+                try:
+                    area_data = safe_json_load(area_file)
+                    if area_data and "locations" in area_data:
+                        locations = area_data["locations"]
+                        
+                        # Handle both dict and list formats
+                        if isinstance(locations, dict):
+                            if location_id in locations:
                                 return True
-            except:
-                continue
+                        elif isinstance(locations, list):
+                            for location in locations:
+                                if isinstance(location, dict) and location.get("locationId") == location_id:
+                                    return True
+                except:
+                    continue
         return False
     
     def detect_module_transition(self, from_location: str, to_location: str) -> tuple:

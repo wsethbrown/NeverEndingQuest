@@ -1,0 +1,254 @@
+{
+  "character_role": "npc",
+  "character_type": "npc",
+  "name": "Mike's Magical Minion",
+  "type": "npc",
+  "size": "Medium",
+  "level": 3,
+  "race": "Human",
+  "class": "Wizard",
+  "alignment": "neutral",
+  "background": "Noble",
+  "status": "alive",
+  "condition": "none",
+  "condition_affected": [],
+  "hitPoints": 16,
+  "maxHitPoints": 16,
+  "armorClass": 12,
+  "initiative": 2,
+  "speed": 30,
+  "abilities": {
+    "strength": 10,
+    "dexterity": 14,
+    "constitution": 13,
+    "intelligence": 16,
+    "wisdom": 11,
+    "charisma": 11
+  },
+  "savingThrows": [
+    "Intelligence",
+    "Wisdom"
+  ],
+  "skills": {
+    "Arcana": 5,
+    "History": 5,
+    "Persuasion": 4,
+    "Deception": 2
+  },
+  "proficiencyBonus": 2,
+  "senses": {
+    "darkvision": 0,
+    "passivePerception": 12
+  },
+  "languages": [
+    "Common",
+    "Draconic",
+    "Elvish"
+  ],
+  "proficiencies": {
+    "armor": [],
+    "weapons": [
+      "dagger",
+      "dart",
+      "sling",
+      "quarterstaff",
+      "light crossbow"
+    ],
+    "tools": []
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "classFeatures": [
+    {
+      "name": "Spellcasting",
+      "description": "Can cast prepared wizard spells using Intelligence as spellcasting ability.",
+      "source": "Wizard"
+    },
+    {
+      "name": "Arcane Recovery",
+      "description": "Once per day when you finish a short rest, you can recover expended spell slots up to a combined level of 1 (half your wizard level, rounded up).",
+      "source": "Wizard"
+    }
+  ],
+  "racialTraits": [
+    {
+      "name": "Ability Score Increase",
+      "description": "+1 to all ability scores.",
+      "source": "Human"
+    },
+    {
+      "name": "Extra Language",
+      "description": "You can speak, read, and write one extra language of your choice.",
+      "source": "Human"
+    }
+  ],
+  "backgroundFeature": {
+    "name": "Position of Privilege",
+    "description": "Thanks to your noble birth, people are inclined to think the best of you. You are welcome in high society, and people assume you have the right to be wherever you are.",
+    "source": "Noble"
+  },
+  "temporaryEffects": [],
+  "injuries": [],
+  "equipment_effects": [],
+  "feats": [],
+  "equipment": [
+    {
+      "item_name": "Quarterstaff",
+      "item_type": "weapon",
+      "item_subtype": "other",
+      "description": "A simple melee weapon.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Component pouch",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "Used to hold spell components.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Scholar\u2019s pack",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "A pack containing useful items for scholars.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Spellbook",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "Contains wizard spells.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Fine clothes",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "Elegant set of noble clothing.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Signet ring",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "A signet ring from noble family.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Scroll of pedigree",
+      "item_type": "miscellaneous",
+      "item_subtype": "scroll",
+      "description": "Proves noble status.",
+      "quantity": 1
+    }
+  ],
+  "ammunition": [],
+  "attacksAndSpellcasting": [
+    {
+      "name": "Quarterstaff",
+      "attackBonus": 2,
+      "damageDice": "1d6",
+      "damageBonus": 0,
+      "damageType": "bludgeoning",
+      "type": "melee",
+      "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 1d6 bludgeoning damage."
+    },
+    {
+      "name": "Fire Bolt",
+      "attackBonus": 5,
+      "damageDice": "1d10",
+      "damageBonus": 0,
+      "damageType": "fire",
+      "type": "spell",
+      "description": "Ranged Spell Attack: +5 to hit, range 120 ft., one target. Hit: 1d10 fire damage."
+    }
+  ],
+  "spellcasting": {
+    "ability": "Intelligence",
+    "spellSaveDC": 13,
+    "spellAttackBonus": 5,
+    "spells": {
+      "cantrips": [
+        "Fire Bolt",
+        "Mage Hand",
+        "Prestidigitation"
+      ],
+      "level1": [
+        "Mage Armor",
+        "Magic Missile",
+        "Shield",
+        "Sleep"
+      ],
+      "level2": [
+        "Mirror Image",
+        "Misty Step"
+      ],
+      "level3": [],
+      "level4": [],
+      "level5": [],
+      "level6": [],
+      "level7": [],
+      "level8": [],
+      "level9": []
+    },
+    "spellSlots": {
+      "level1": {
+        "current": 4,
+        "max": 4
+      },
+      "level2": {
+        "current": 2,
+        "max": 2
+      },
+      "level3": {
+        "current": 0,
+        "max": 0
+      },
+      "level4": {
+        "current": 0,
+        "max": 0
+      },
+      "level5": {
+        "current": 0,
+        "max": 0
+      },
+      "level6": {
+        "current": 0,
+        "max": 0
+      },
+      "level7": {
+        "current": 0,
+        "max": 0
+      },
+      "level8": {
+        "current": 0,
+        "max": 0
+      },
+      "level9": {
+        "current": 0,
+        "max": 0
+      }
+    },
+    "preparedSpells": [
+      "Mage Armor",
+      "Magic Missile",
+      "Shield",
+      "Sleep",
+      "Mirror Image"
+    ]
+  },
+  "currency": {
+    "gold": 25,
+    "silver": 0,
+    "copper": 0
+  },
+  "experience_points": 900,
+  "exp_required_for_next_level": 2700,
+  "challengeRating": 1,
+  "personality_traits": "My eloquent speech and manners disguise my humble origins.",
+  "ideals": "Responsibility. It is my duty to respect the authority of those above me.",
+  "bonds": "My loyalty to my family is unwavering.",
+  "flaws": "I secretly believe that everyone is beneath me."
+}

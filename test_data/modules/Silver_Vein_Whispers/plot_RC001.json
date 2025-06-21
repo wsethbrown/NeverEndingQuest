@@ -1,0 +1,127 @@
+{
+  "plotTitle": "Ruins of Calamyr Revealed",
+  "mainObjective": "Uncover the hidden shrine within the Ruins of Calamyr and recover the relic guarded by Queen Seralyth\u2019s spirit.",
+  "plotPoints": [
+    {
+      "id": "PP001",
+      "title": "Murmurs in the Moor",
+      "description": "The party arrives at the Ruins of Calamyr, where rumors swirl of strange lights and haunting whispers within the Ruins of Calamyr. Mira the Moorwise, an enigmatic guide, offers to lead the party through the treacherous moors, but warns of restless spirits and rival treasure seekers. Old Fenrick, a superstitious hermit, may provide cryptic insight about a hidden shrine if convinced to trust the party.",
+      "location": "R01",
+      "nextPoints": [
+        "PP002"
+      ],
+      "status": "not started",
+      "plotImpact": "Introduces the location and key NPCs. Player choices in gaining Fenrick\u2019s trust or negotiating with Mira influence the information and advantages available for later encounters.",
+      "sideQuests": [
+        {
+          "id": "SQ001",
+          "title": "The Hermit's Secret",
+          "description": "Old Fenrick is haunted by visions of the Riverbound spirit, Rilith. If convinced to trust the party, Fenrick will reveal the existence of a pathway to the hidden shrine and warn of spectral dangers.",
+          "involvedLocations": [
+            "R03"
+          ],
+          "status": "not started",
+          "plotImpact": "Unlocks a safer route through the moors, reducing hazards in the next plot point."
+        },
+        {
+          "id": "SQ002",
+          "title": "The Moorwise\u2019s Bargain",
+          "description": "Mira the Moorwise offers to guide the party in exchange for help cleansing a corrupted willow grove. Completing this task earns her favor and local knowledge.",
+          "involvedLocations": [
+            "R02"
+          ],
+          "status": "not started",
+          "plotImpact": "Provides a magical token for use against moor spirits or rival explorers."
+        }
+      ]
+    },
+    {
+      "id": "PP002",
+      "title": "The Whispering Riverbanks",
+      "description": "Guided by clues and the local guides, the party navigates the Whispering Riverbanks. They must contend with supernatural phenomena \u2013 ethereal whispers, illusions, and vengeful spirits. A rival expedition led by Professor Halvane is also searching for the shrine, setting up tense encounters or possible alliances.",
+      "location": "R02",
+      "nextPoints": [
+        "PP003"
+      ],
+      "status": "not started",
+      "plotImpact": "Choices in dealing with rivals and spirits affect future enemy strength, available allies, and potential complications.",
+      "sideQuests": [
+        {
+          "id": "SQ003",
+          "title": "Echoes of Regret",
+          "description": "The tormented spirit Rilith haunts the banks, seeking resolution for past wrongs. Helping Rilith find peace can lessen the river\u2019s supernatural dangers.",
+          "involvedLocations": [
+            "R05"
+          ],
+          "status": "not started",
+          "plotImpact": "Reduces the number or severity of spirit encounters in the shrine."
+        },
+        {
+          "id": "SQ004",
+          "title": "Rivalry or Alliance",
+          "description": "Professor Halvane and his mercenaries offer the chance for uneasy alliance or competition. Negotiation, sabotage, or cooperation each have consequences for the race to the shrine.",
+          "involvedLocations": [
+            "R04"
+          ],
+          "status": "not started",
+          "plotImpact": "Potentially gains an ally or creates an additional adversary in the shrine area."
+        }
+      ]
+    },
+    {
+      "id": "PP003",
+      "title": "The Shrine\u2019s Threshold",
+      "description": "The party reaches the hidden shrine, a half-submerged ruin overgrown with willows. Powerful wards and puzzles bar entry, left by the Riverbound Circle. Inside, ancient spirits and magical traps guard the relic. The approach may be contested by Halvane\u2019s group or haunted by the spirit of Rilith if left unresolved.",
+      "location": "R05",
+      "nextPoints": [
+        "PP004"
+      ],
+      "status": "not started",
+      "plotImpact": "Player choices in exploration, puzzle-solving, and handling hostile presences determine their preparedness for the final confrontation.",
+      "sideQuests": [
+        {
+          "id": "SQ005",
+          "title": "Riverbound Rituals",
+          "description": "Sister Amara requests the party perform a cleansing ritual to appease the ancient guardians within the shrine. Success may calm the spirits and weaken Queen Seralyth\u2019s influence.",
+          "involvedLocations": [
+            "R01",
+            "R06"
+          ],
+          "status": "not started",
+          "plotImpact": "Lowers the difficulty of the final battle or grants a boon."
+        },
+        {
+          "id": "SQ006",
+          "title": "The Blue Flame\u2019s Secret",
+          "description": "Dren of the Blue Flame offers hidden knowledge in exchange for assistance escaping from the Hollow Host\u2019s pursuit. Freeing Dren uncovers a hidden passage or vital secret within the shrine.",
+          "involvedLocations": [
+            "R03"
+          ],
+          "status": "not started",
+          "plotImpact": "Provides a shortcut or secret information about the relic\u2019s defenses."
+        }
+      ]
+    },
+    {
+      "id": "PP004",
+      "title": "Queen Seralyth\u2019s Judgment",
+      "description": "Within the heart of the shrine, the party faces Queen Seralyth\u2019s cursed spirit. Seralyth challenges them through a mix of combat, negotiation, and trials of will, testing their intentions and the choices made throughout the adventure. The outcome will shape the fate of the relic and the spirits bound to the river.",
+      "location": "R06",
+      "nextPoints": [],
+      "status": "not started",
+      "plotImpact": "The players\u2019 actions determine whether Seralyth is appeased, banished, or remains a vengeful force, and who ultimately claims the relic. Choices ripple out to the wider region.",
+      "sideQuests": [
+        {
+          "id": "SQ007",
+          "title": "The Cursed Coronation",
+          "description": "A hidden chamber reveals Seralyth\u2019s crown, the key to freeing or binding her spirit. Deciding the crown\u2019s fate dramatically alters the endgame.",
+          "involvedLocations": [
+            "R06"
+          ],
+          "status": "not started",
+          "plotImpact": "Can end the confrontation peacefully or grant access to unique rewards."
+        }
+      ]
+    }
+  ]
+}
