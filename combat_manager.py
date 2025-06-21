@@ -135,7 +135,14 @@ def get_current_area_id():
 
 def get_location_data(location_id):
     from module_path_manager import ModulePathManager
-    path_manager = ModulePathManager()
+    from encoding_utils import safe_json_load
+    # Get current module from party tracker for consistent path resolution
+    try:
+        party_tracker = safe_json_load("party_tracker.json")
+        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+        path_manager = ModulePathManager(current_module)
+    except:
+        path_manager = ModulePathManager()  # Fallback to reading from file
     
     current_area_id = get_current_area_id()
     print(f"DEBUG: Current area ID: {current_area_id}")
@@ -173,7 +180,14 @@ def read_prompt_from_file(filename):
 def load_monster_stats(monster_name):
     # Import the path manager
     from module_path_manager import ModulePathManager
-    path_manager = ModulePathManager()
+    from encoding_utils import safe_json_load
+    # Get current module from party tracker for consistent path resolution
+    try:
+        party_tracker = safe_json_load("party_tracker.json")
+        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+        path_manager = ModulePathManager(current_module)
+    except:
+        path_manager = ModulePathManager()  # Fallback to reading from file
     
     # Get the correct path for the monster file
     monster_file = path_manager.get_monster_path(monster_name)
@@ -539,7 +553,14 @@ def summarize_dialogue(conversation_history_param, location_data, party_tracker_
             location_data["adventureSummary"] += f"\n\n{dialogue_summary}"
 
         from module_path_manager import ModulePathManager
-        path_manager = ModulePathManager()
+        from encoding_utils import safe_json_load
+        # Get current module from party tracker for consistent path resolution
+        try:
+            party_tracker = safe_json_load("party_tracker.json")
+            current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+            path_manager = ModulePathManager(current_module)
+        except:
+            path_manager = ModulePathManager()  # Fallback to reading from file
         current_area_id = get_current_area_id()
         area_file = path_manager.get_area_path(current_area_id)
         area_data = safe_json_load(area_file)
@@ -707,7 +728,14 @@ def generate_chat_history(conversation_history, encounter_id):
 def sync_active_encounter():
     """Sync player and NPC data to the active encounter file if one exists"""
     from module_path_manager import ModulePathManager
-    path_manager = ModulePathManager()
+    from encoding_utils import safe_json_load
+    # Get current module from party tracker for consistent path resolution
+    try:
+        party_tracker = safe_json_load("party_tracker.json")
+        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+        path_manager = ModulePathManager(current_module)
+    except:
+        path_manager = ModulePathManager()  # Fallback to reading from file
     
     # Check if there's an active combat encounter
     try:
@@ -821,7 +849,14 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    
    # Initialize path manager
    from module_path_manager import ModulePathManager
-   path_manager = ModulePathManager()
+   from encoding_utils import safe_json_load
+   # Get current module from party tracker for consistent path resolution
+   try:
+       party_tracker = safe_json_load("party_tracker.json")
+       current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+       path_manager = ModulePathManager(current_module)
+   except:
+       path_manager = ModulePathManager()  # Fallback to reading from file
 
    # Initialize conversation history with the original structure
    conversation_history = [

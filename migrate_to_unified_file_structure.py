@@ -31,8 +31,10 @@ def ensure_directory_exists(directory):
 
 def migrate_character_files():
     """Migrate character files to unified structure based on party_tracker.json"""
-    path_manager = ModulePathManager()
     party_data = load_party_tracker()
+    # Get current module from party tracker for consistent path resolution
+    current_module = party_data.get("module", "").replace(" ", "_") if party_data else None
+    path_manager = ModulePathManager(current_module)
     
     if not party_data:
         print("Cannot proceed without party_tracker.json")

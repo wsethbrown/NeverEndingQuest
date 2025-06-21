@@ -8,8 +8,14 @@ from module_path_manager import ModulePathManager
 # Check current working directory
 print(f"Current working directory: {os.getcwd()}")
 
-# Initialize path manager
-path_manager = ModulePathManager()
+# Initialize path manager with current module for consistent path resolution
+try:
+    from encoding_utils import safe_json_load
+    party_tracker = safe_json_load("party_tracker.json")
+    current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+    path_manager = ModulePathManager(current_module)
+except:
+    path_manager = ModulePathManager()  # Fallback to reading from file
 print(f"Module name: {path_manager.module_name}")
 print(f"Module dir: {path_manager.module_dir}")
 

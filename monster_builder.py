@@ -150,7 +150,14 @@ def main():
 
     generated_monster_data = generate_monster(monster_name_arg, schema_data) # Renamed variable
     if generated_monster_data:
-        path_manager = ModulePathManager()
+        # Get current module from party tracker for consistent path resolution
+        try:
+            from encoding_utils import safe_json_load
+            party_tracker = safe_json_load("party_tracker.json")
+            current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+            path_manager = ModulePathManager(current_module)
+        except:
+            path_manager = ModulePathManager()  # Fallback to reading from file
         full_path = path_manager.get_monster_path(monster_name_arg)
         if save_json(full_path, generated_monster_data):
             print(f"{GREEN}DEBUG: Monster creation ({monster_name_arg}) - PASS{RESET}")

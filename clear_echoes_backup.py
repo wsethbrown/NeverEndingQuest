@@ -6,8 +6,14 @@ from module_path_manager import ModulePathManager
 # Define the file paths
 party_tracker_file = "party_tracker.json"
 
-# Initialize path manager
-path_manager = ModulePathManager()
+# Initialize path manager with current module for consistent path resolution
+try:
+    from encoding_utils import safe_json_load
+    party_tracker = safe_json_load("party_tracker.json")
+    current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+    path_manager = ModulePathManager(current_module)
+except:
+    path_manager = ModulePathManager()  # Fallback to reading from file
 
 # Module-specific files
 original_locations_file = path_manager.get_area_path("EM001")

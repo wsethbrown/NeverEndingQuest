@@ -151,7 +151,14 @@ def main():
 
     generated_npc_data = generate_npc(npc_name_arg, npc_schema_data, npc_race_arg, npc_class_arg, npc_level_arg, npc_background_arg) # Renamed variable
     if generated_npc_data:
-        path_manager = ModulePathManager()
+        # Get current module from party tracker for consistent path resolution
+        try:
+            from encoding_utils import safe_json_load
+            party_tracker = safe_json_load("party_tracker.json")
+            current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
+            path_manager = ModulePathManager(current_module)
+        except:
+            path_manager = ModulePathManager()  # Fallback to reading from file
         full_path = path_manager.get_character_unified_path(npc_name_arg)  # Force unified path
         
         # Ensure characters directory exists
