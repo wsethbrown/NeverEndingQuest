@@ -905,7 +905,17 @@ def main_game_loop():
                             if module_areas:
                                 level_range = module_info.get('levelRange', {})
                                 level_str = f"Level {level_range.get('min', '?')}-{level_range.get('max', '?')}"
-                                other_module_areas.append(f"{module_name} [{level_str}]: {', '.join(module_areas[:3])}")  # Show first 3 areas
+                                
+                                # Get starting location for this module
+                                try:
+                                    start_location_id, start_location_name, start_area_id, start_area_name = action_handler.get_module_starting_location(module_name)
+                                    starting_info = f" (Starting location: {start_location_name} [{start_location_id}] in {start_area_name} [{start_area_id}])"
+                                except Exception as e:
+                                    print(f"Warning: Could not get starting location for {module_name}: {e}")
+                                    starting_info = ""
+                                
+                                module_description = f"{module_name} [{level_str}]: {', '.join(module_areas[:3])}{starting_info}"
+                                other_module_areas.append(module_description)
                         
                         if other_module_areas:
                             available_modules_str = ". Available modules for travel: " + "; ".join(other_module_areas)

@@ -38,6 +38,9 @@
 import json
 import subprocess
 import os
+from datetime import datetime
+from openai import OpenAI
+import config
 from location_manager import get_location_data
 from module_path_manager import ModulePathManager
 from plot_update import update_plot
@@ -140,34 +143,216 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_data):
     return run_combat(encounter_id, party_tracker_data, location_data)
 
 def get_module_starting_location(module_name: str) -> tuple:
-    """Get the default starting location for a module"""
+    """Get the starting location for a module using AI analysis with caching"""
     try:
+        # Check world registry for cached starting location
+        world_registry_path = "modules/world_registry.json"
+        world_registry = safe_json_load(world_registry_path)
+        
+        if world_registry and 'modules' in world_registry:
+            module_data = world_registry['modules'].get(module_name, {})
+            cached_start = module_data.get('startingLocation')
+            
+            if cached_start:
+                print(f"DEBUG: Using cached starting location for {module_name}")
+                return (
+                    cached_start.get('locationId', 'A01'),
+                    cached_start.get('locationName', 'Unknown Location'),
+                    cached_start.get('areaId', 'AREA001'),
+                    cached_start.get('areaName', 'Unknown Area')
+                )
+        
+        # No cached result, use AI to analyze module
+        print(f"DEBUG: No cached starting location found, analyzing {module_name} with AI")
+        
         path_manager = ModulePathManager(module_name)
         area_ids = path_manager.get_area_ids()
         
         if not area_ids:
             return ("A01", "Unknown Location", "AREA001", "Unknown Area")
         
-        # Get first area file
-        first_area_id = area_ids[0]
-        area_file = path_manager.get_area_path(first_area_id)
-        area_data = safe_json_load(area_file)
+        # Gather all module data for AI analysis
+        module_analysis_data = {
+            "moduleName": module_name,
+            "areas": {},
+            "plotData": None
+        }
         
-        if area_data and "locations" in area_data:
-            locations = area_data["locations"]
-            if isinstance(locations, list) and locations:
-                first_location = locations[0]
-                return (
-                    first_location.get("locationId", "A01"),
-                    first_location.get("name", "Unknown Location"),
-                    first_area_id,
-                    area_data.get("areaName", "Unknown Area")
-                )
+        # Load all area files
+        for area_id in area_ids:
+            try:
+                area_file = path_manager.get_area_path(area_id)
+                area_data = safe_json_load(area_file)
+                if area_data:
+                    # Include key information for AI analysis
+                    module_analysis_data["areas"][area_id] = {
+                        "areaName": area_data.get("areaName", ""),
+                        "areaType": area_data.get("areaType", ""),
+                        "areaDescription": area_data.get("areaDescription", ""),
+                        "recommendedLevel": area_data.get("recommendedLevel", 1),
+                        "dangerLevel": area_data.get("dangerLevel", "unknown"),
+                        "locations": area_data.get("locations", [])[:3]  # First 3 locations for analysis
+                    }
+            except Exception as e:
+                print(f"Warning: Could not load area {area_id}: {e}")
+                continue
         
-        return ("A01", "Unknown Location", first_area_id, "Unknown Area")
+        # Load plot data
+        try:
+            plot_file = path_manager.get_plot_path()
+            plot_data = safe_json_load(plot_file)
+            if plot_data:
+                # Include key plot information
+                module_analysis_data["plotData"] = {
+                    "mainObjective": plot_data.get("mainObjective", ""),
+                    "plotPoints": plot_data.get("plotPoints", [])[:3]  # First 3 plot points
+                }
+        except Exception as e:
+            print(f"Warning: Could not load plot data: {e}")
+        
+        # Use AI to determine starting location
+        starting_location = _ai_analyze_starting_location(module_analysis_data)
+        
+        # Cache the result in world registry
+        if starting_location and world_registry:
+            if module_name not in world_registry['modules']:
+                world_registry['modules'][module_name] = {}
+            
+            world_registry['modules'][module_name]['startingLocation'] = {
+                'locationId': starting_location[0],
+                'locationName': starting_location[1], 
+                'areaId': starting_location[2],
+                'areaName': starting_location[3],
+                'determinedBy': 'AI',
+                'timestamp': datetime.now().isoformat()
+            }
+            
+            safe_json_dump(world_registry, world_registry_path)
+            print(f"DEBUG: Cached AI-determined starting location for {module_name}")
+        
+        return starting_location
         
     except Exception as e:
         print(f"Warning: Could not get starting location for {module_name}: {e}")
+        return ("A01", "Unknown Location", "AREA001", "Unknown Area")
+
+def _ai_analyze_starting_location(module_data: dict) -> tuple:
+    """Use AI to analyze module data and determine the best starting location"""
+    try:
+        client = OpenAI(api_key=config.OPENAI_API_KEY)
+        
+        system_prompt = """You are an expert D&D adventure module analyst. Analyze the provided module data to determine the most logical starting location for player characters entering this adventure module.
+
+ANALYSIS CRITERIA:
+1. **Adventure Flow**: Look at plot points (PP001 usually indicates starting area)
+2. **Area Types**: Towns/settlements are typical starting points, dungeons/ruins typically aren't
+3. **NPCs**: Areas with guides, quest-givers, or friendly NPCs often indicate starting locations
+4. **Danger Level**: Lower danger areas are more suitable for arrivals
+5. **Logical Narrative**: Where would adventurers most likely arrive or be directed to begin?
+
+RETURN FORMAT:
+Respond with ONLY a JSON object in this exact format:
+{
+  "locationId": "R01",
+  "locationName": "Specific Location Name", 
+  "areaId": "SR001",
+  "areaName": "Area Name",
+  "reasoning": "Brief explanation of why this is the starting location"
+}
+
+Use the EXACT locationId and areaId from the provided data. Do not create new IDs."""
+
+        user_prompt = f"""Analyze this D&D adventure module to determine the starting location:
+
+MODULE DATA:
+{json.dumps(module_data, indent=2)}
+
+Determine the most logical starting location based on adventure flow, area types, NPCs, and narrative logic."""
+
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            temperature=0.1,
+            max_tokens=300
+        )
+        
+        ai_response = response.choices[0].message.content.strip()
+        print(f"DEBUG: AI starting location analysis response: {ai_response}")
+        
+        # Parse AI response - handle markdown code blocks
+        json_content = ai_response
+        if ai_response.startswith('```json'):
+            # Extract JSON from markdown code block
+            lines = ai_response.split('\n')
+            json_lines = []
+            in_json_block = False
+            for line in lines:
+                if line.strip() == '```json':
+                    in_json_block = True
+                    continue
+                elif line.strip() == '```' and in_json_block:
+                    break
+                elif in_json_block:
+                    json_lines.append(line)
+            json_content = '\n'.join(json_lines)
+            print(f"DEBUG: Extracted JSON from code block: {json_content}")
+        
+        try:
+            result = json.loads(json_content)
+            
+            # Validate required fields
+            required_fields = ['locationId', 'locationName', 'areaId', 'areaName']
+            if all(field in result for field in required_fields):
+                print(f"DEBUG: AI determined starting location: {result['areaId']}/{result['locationId']} - {result['locationName']}")
+                print(f"DEBUG: AI reasoning: {result.get('reasoning', 'No reasoning provided')}")
+                
+                return (
+                    result['locationId'],
+                    result['locationName'],
+                    result['areaId'], 
+                    result['areaName']
+                )
+            else:
+                print(f"ERROR: AI response missing required fields: {result}")
+                
+        except json.JSONDecodeError as e:
+            print(f"ERROR: Could not parse AI response as JSON: {e}")
+            print(f"AI response was: {ai_response}")
+        
+        # Fallback to first area/location if AI analysis fails
+        print("WARNING: AI analysis failed, falling back to first available location")
+        return _get_fallback_starting_location(module_data)
+        
+    except Exception as e:
+        print(f"ERROR: AI starting location analysis failed: {e}")
+        return _get_fallback_starting_location(module_data)
+
+def _get_fallback_starting_location(module_data: dict) -> tuple:
+    """Fallback method to get first available location if AI analysis fails"""
+    try:
+        areas = module_data.get('areas', {})
+        if areas:
+            # Get first area
+            first_area_id = next(iter(areas.keys()))
+            first_area = areas[first_area_id]
+            
+            locations = first_area.get('locations', [])
+            if locations:
+                first_location = locations[0]
+                return (
+                    first_location.get('locationId', 'A01'),
+                    first_location.get('name', 'Unknown Location'),
+                    first_area_id,
+                    first_area.get('areaName', 'Unknown Area')
+                )
+        
+        return ("A01", "Unknown Location", "AREA001", "Unknown Area")
+        
+    except Exception as e:
+        print(f"WARNING: Fallback location detection failed: {e}")
         return ("A01", "Unknown Location", "AREA001", "Unknown Area")
 
 def get_travel_narration(target_module: str) -> str:

@@ -1,7 +1,7 @@
 {
   "worldName": "Fantasy Adventure World",
   "registryVersion": "1.0.0",
-  "lastUpdated": "2025-06-18T21:59:24.337151",
+  "lastUpdated": "2025-06-21T00:25:07.050542",
   "modules": {
     "Keep_of_Doom": {
       "moduleName": "Keep_of_Doom",
@@ -18,7 +18,15 @@
         "min": 1,
         "max": 5
       },
-      "areaCount": 5
+      "areaCount": 5,
+      "startingLocation": {
+        "locationId": "A01",
+        "locationName": "Harrow's Hollow General Store",
+        "areaId": "HH001",
+        "areaName": "Harrow's Hollow",
+        "determinedBy": "AI",
+        "timestamp": "2025-06-21T02:09:04.743665"
+      }
     },
     "Silver_Vein_Whispers": {
       "moduleName": "Silver_Vein_Whispers",
@@ -47,6 +55,14 @@
         "travelNarration": "Leaving familiar lands behind, the party journeys across bleak highlands and wind-swept moors, where the air grows thick with a silvery mist rising from the mysterious river below. The landscape is heavy with a sense of sorrow, and even the birdsong is drowned by the whispering of the Silver Vein, guiding you toward the forgotten spires of Calamyr rising from the fog.",
         "dmGuidance": "As you narrate the journey, emphasize the growing unnatural atmosphere: the shimmer of the river, the chill in the wind, and an ever-present sense of loss. Let the players feel the weight of the river's curse even before they reach the ruins, hinting at ghostly figures glimpsed through the mist and the oppressive silence that welcomes them to Calamyr's shattered gates.",
         "generatedDate": "2025-06-18T21:59:22.840018"
+      },
+      "startingLocation": {
+        "locationId": "R01",
+        "locationName": "Riverside R01",
+        "areaId": "SR001",
+        "areaName": "Sablemoor Reaches",
+        "determinedBy": "AI",
+        "timestamp": "2025-06-21T02:09:07.928407"
       }
     }
   },

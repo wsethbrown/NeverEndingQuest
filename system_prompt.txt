@@ -840,10 +840,10 @@ Use updatePartyTracker action with module change:
       "action": "updatePartyTracker",
       "parameters": {
         "module": "Target_Module_Name",
-        "currentLocationId": "A01",
-        "currentLocation": "Starting Location Name",
-        "currentAreaId": "AREA001", 
-        "currentArea": "Starting Area Name"
+        "currentLocationId": "[Use EXACT starting location ID from DM Notes]",
+        "currentLocation": "[Use EXACT starting location name from DM Notes]",
+        "currentAreaId": "[Use EXACT starting area ID from DM Notes]", 
+        "currentArea": "[Use EXACT starting area name from DM Notes]"
       }
     },
     {
@@ -856,18 +856,20 @@ Use updatePartyTracker action with module change:
 }
 ```
 
+### CRITICAL: STARTING LOCATION IDS
+**NEVER use generic placeholder IDs like "A01" or "AREA001"**
+- ALWAYS use the specific starting location information provided in the DM Notes
+- Each module has its own unique area and location IDs
+- Look for "Starting location:" information in the DM Notes for the exact IDs to use
+- Examples:
+  - Keep_of_Doom starts at "A01" in "HH001" (Harrow's Hollow General Store)
+  - Silver_Vein_Whispers starts at "R01" in "SR001" (Riverside R01)
+
 ### MODULE TRAVEL NARRATION:
 1. **Travel Description**: Use atmospheric travel narration describing the journey
 2. **Journey Details**: Describe the path, time taken, terrain changes
 3. **Arrival Scene**: Detailed description of arriving at the new module's starting location
 4. **Atmospheric Setting**: Set mood and tone for the new adventure
-
-### DEFAULT STARTING LOCATIONS:
-If no specific location requested:
-- Towns/Villages: Inn or tavern (A01, A02)
-- Wilderness: Trail entrance or camp (A01)
-- Dungeons: Surface entrance (A01)
-- Use first available location in target module as starting point
 
 ### AUTOMATIC FEATURES:
 - System automatically archives previous module conversation
