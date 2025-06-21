@@ -1017,6 +1017,9 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 conversation_history = handle_module_conversation_segmentation(
                     conversation_history, current_module, new_module
                 )
+                # Save the segmented conversation history with module transition marker
+                from main import save_conversation_history
+                save_conversation_history(conversation_history)
                 print(f"DEBUG: Module conversation segmentation complete")
                 
                 # Get travel narration for the new module
