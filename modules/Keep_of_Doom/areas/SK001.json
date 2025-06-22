@@ -4,7 +4,7 @@
   "areaType": "ruins",
   "areaDescription": "A crumbling fortress perched atop a rocky hill, its towers broken and battlements thick with creeping ivy. Within, restless spirits and deadly traps await all who enter, and the cursed knight's presence warps reality itself. The very stones seem to absorb light, casting the keep in perpetual shadow regardless of the time of day.",
   "dangerLevel": "high",
-  "recommendedLevel": 2,
+  "recommendedLevel": 4,
   "climate": "temperate",
   "terrain": "rocky hill, stone fortress, crumbling architecture",
   "map": {

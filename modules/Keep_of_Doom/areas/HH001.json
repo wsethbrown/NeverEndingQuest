@@ -4,7 +4,7 @@
   "areaType": "town",
   "areaDescription": "Harrow's Hollow is a medium settlement where civilization meets the frontier. Politics and intrigue mix with everyday commerce.",
   "dangerLevel": "low",
-  "recommendedLevel": 1,
+  "recommendedLevel": 3,
   "climate": "temperate",
   "terrain": "urban streets and buildings",
   "map": {

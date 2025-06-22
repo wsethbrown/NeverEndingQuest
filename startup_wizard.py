@@ -16,6 +16,7 @@ from datetime import datetime
 from pathlib import Path
 from openai import OpenAI
 from jsonschema import validate, ValidationError
+from module_stitcher import ModuleStitcher
 
 import config
 from encoding_utils import safe_json_load, safe_json_dump
@@ -141,9 +142,9 @@ def scan_available_modules():
                             'estimatedPlayTime': 'Unknown'
                         }
                     }
-                except Exception as e:
-                    print(f"Warning: Could not analyze module {item}: {e}")
-                    continue
+            except Exception as e:
+                print(f"Warning: Could not analyze module {item}: {e}")
+                continue
             
             # Add module if we have valid data
             if module_data:
@@ -204,6 +205,18 @@ def select_module(conversation):
         print(f"Only one module available: {modules[0]['display_name']}")
         print(f"   {modules[0]['description']}")
         return modules[0]
+    
+    # For fresh installations, auto-select lowest level module
+    lowest_level_module = find_lowest_level_module()
+    if lowest_level_module:
+        module_name = lowest_level_module.get('moduleName')
+        # Find matching module in scanned modules
+        for module in modules:
+            if module['name'] == module_name:
+                print(f"Auto-selected starting module: {module['display_name']}")
+                print(f"   {module['description']}")
+                print(f"   Level Range: {lowest_level_module.get('levelRange', {})}")
+                return module
     
     # Present options to player
     presented_modules = present_module_options(conversation, modules)
@@ -1085,21 +1098,24 @@ def update_party_tracker(module_name, character_name):
             party_data["partyNPCs"] = []
         
         if "worldConditions" not in party_data:
+            # Get AI-determined starting location for the selected module
+            starting_location = get_ai_starting_location(module)
+            
             party_data["worldConditions"] = {
                 "year": 1492,
                 "month": "Springmonth", 
                 "day": 1,
                 "time": "09:00:00",
-                "weather": "",
+                "weather": starting_location.get("weather", "Clear skies"),
                 "season": "Spring",
                 "dayNightCycle": "Day",
                 "moonPhase": "New Moon",
-                "currentLocation": "",
-                "currentLocationId": "",
-                "currentArea": "",
-                "currentAreaId": "",
+                "currentLocation": starting_location.get("locationName", ""),
+                "currentLocationId": starting_location.get("locationId", ""),
+                "currentArea": starting_location.get("areaName", ""),
+                "currentAreaId": starting_location.get("areaId", ""),
                 "majorEventsUnderway": [],
-                "politicalClimate": "",
+                "politicalClimate": starting_location.get("politicalClimate", ""),
                 "activeEncounter": "",
                 "activeCombatEncounter": ""
             }
@@ -1164,6 +1180,133 @@ def cleanup_startup_conversation():
             shutil.move(STARTUP_CONVERSATION_FILE, archive_name)
     except Exception:
         pass  # Don't fail startup if cleanup fails
+
+# ===== AI STARTING LOCATION DETECTION =====
+
+def get_ai_starting_location(module):
+    """Use AI to determine the best starting location for a module"""
+    try:
+        # Load module data
+        module_data = load_module_for_ai_analysis(module['moduleName'])
+        
+        if not module_data:
+            return get_fallback_starting_location()
+        
+        # Prepare AI prompt
+        prompt = f"""You are a D&D campaign assistant. Analyze this module and determine the best starting location for new players.
+
+MODULE DATA:
+{json.dumps(module_data, indent=2)}
+
+Please analyze the module's plot, areas, and locations to determine:
+1. The most logical starting area (usually level 1, town type)
+2. The best starting location within that area (tavern, shop, or quest-giving location)
+3. Appropriate initial weather and political climate
+
+Respond with ONLY a JSON object in this exact format:
+{{
+  "areaId": "area_id",
+  "areaName": "area_name", 
+  "locationId": "location_id",
+  "locationName": "location_name",
+  "weather": "brief weather description",
+  "politicalClimate": "brief political situation"
+}}"""
+
+        client = OpenAI(api_key=config.OPENAI_API_KEY)
+        response = client.chat.completions.create(
+            model=config.DM_MINI_MODEL,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.7
+        )
+        
+        # Parse AI response
+        ai_response = response.choices[0].message.content.strip()
+        print(f"DEBUG: Raw AI response: {ai_response}")
+        
+        # Extract JSON from response
+        import re
+        json_match = re.search(r'\{.*\}', ai_response, re.DOTALL)
+        if json_match:
+            json_text = json_match.group()
+            print(f"DEBUG: Extracted JSON: {json_text}")
+            starting_location = json.loads(json_text)
+            print(f"DEBUG: Parsed object: {starting_location}")
+            print(f"AI selected starting location: {starting_location.get('areaName')} - {starting_location.get('locationName')}")
+            return starting_location
+        else:
+            print("Warning: Could not parse AI response, using fallback")
+            print(f"DEBUG: Full AI response: {ai_response}")
+            return get_fallback_starting_location()
+            
+    except Exception as e:
+        print(f"Warning: AI starting location failed ({e}), using fallback")
+        return get_fallback_starting_location()
+
+def load_module_for_ai_analysis(module_name):
+    """Load module data for AI analysis"""
+    try:
+        module_data = {"module_name": module_name, "areas": {}, "plot": {}}
+        module_path = f"modules/{module_name}"
+        
+        # Load module plot
+        plot_file = f"{module_path}/module_plot.json"
+        if os.path.exists(plot_file):
+            module_data["plot"] = safe_json_load(plot_file)
+        
+        # Load all area files
+        areas_path = f"{module_path}/areas"
+        if os.path.exists(areas_path):
+            for area_file in os.listdir(areas_path):
+                if area_file.endswith('.json') and not area_file.endswith('_BU.json'):
+                    area_path = f"{areas_path}/{area_file}"
+                    area_data = safe_json_load(area_path)
+                    if area_data:
+                        area_id = area_data.get('areaId', area_file.replace('.json', ''))
+                        module_data["areas"][area_id] = area_data
+        
+        return module_data
+        
+    except Exception as e:
+        print(f"Error loading module for AI analysis: {e}")
+        return None
+
+def get_fallback_starting_location():
+    """Fallback starting location if AI analysis fails"""
+    return {
+        "areaId": "UNKNOWN", 
+        "areaName": "Starting Area",
+        "locationId": "START",
+        "locationName": "Starting Location", 
+        "weather": "Clear skies",
+        "politicalClimate": "Peaceful"
+    }
+
+def find_lowest_level_module():
+    """Find the module with the lowest minimum level requirement"""
+    try:
+        stitcher = ModuleStitcher()
+        available_modules = stitcher.get_available_modules()
+        
+        if not available_modules:
+            return None
+        
+        lowest_level_module = None
+        lowest_min_level = float('inf')
+        
+        for module in available_modules:
+            level_range = module.get('levelRange', {})
+            min_level = level_range.get('min', 1)
+            
+            if min_level < lowest_min_level:
+                lowest_min_level = min_level
+                lowest_level_module = module
+        
+        return lowest_level_module
+        
+    except Exception as e:
+        print(f"Error finding lowest level module: {e}")
+        return None
 
 # ===== MAIN EXECUTION =====
 

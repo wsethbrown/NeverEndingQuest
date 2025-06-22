@@ -4,7 +4,7 @@
   "areaType": "forest",
   "areaDescription": "A dense, brooding forest where sunlight rarely pierces the canopy. Ethereal mists swirl between ancient oaks, and spirits of the restless dead prowl the trails. Travelers risk losing both their way and their lives among the twisted paths and shadowed groves.",
   "dangerLevel": "medium",
-  "recommendedLevel": 1,
+  "recommendedLevel": 3,
   "climate": "temperate",
   "terrain": "dense forest, misty trails, marshy clearings",
   "map": {

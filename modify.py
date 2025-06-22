@@ -1,10 +1,10 @@
 import json
 import sys
 from openai import OpenAI
-from config import OPENAI_API_KEY
+from config import OPENAI_API_KEY, DM_MINI_MODEL
 
 # Models
-SCHEMA_UPDATER_MODEL = "gpt-4o-mini"
+SCHEMA_UPDATER_MODEL = DM_MINI_MODEL
 
 # Temperature
 TEMPERATURE = 0.8

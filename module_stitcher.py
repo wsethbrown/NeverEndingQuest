@@ -166,19 +166,25 @@ class ModuleStitcher:
     def _has_area_files(self, module_path: str) -> bool:
         """Check if module directory contains area files (current structure)"""
         try:
-            # Look for area files (pattern: alphanumeric IDs + .json)
-            pattern = os.path.join(module_path, "*.json")
+            # Look for area files in areas/ subdirectory
+            areas_folder = os.path.join(module_path, "areas")
+            if not os.path.exists(areas_folder):
+                return False
+            
+            pattern = os.path.join(areas_folder, "*.json")
             json_files = glob.glob(pattern)
             
             area_files = []
             for file_path in json_files:
                 filename = os.path.basename(file_path)
                 
-                # Skip system files
+                # Skip system files and backup files
                 if (filename.startswith('module_') or 
                     filename.startswith('party_') or
                     filename.startswith('campaign_') or
-                    filename.startswith('map_')):
+                    filename.startswith('map_') or
+                    filename.startswith('plot_') or
+                    filename.endswith('_BU.json')):
                     continue
                 
                 # Check if it's an area file by loading and checking structure
@@ -253,18 +259,25 @@ class ModuleStitcher:
         areas_data = {}
         
         try:
-            # Find all area files
-            pattern = os.path.join(module_path, "*.json")
+            # Find all area files in the areas/ subdirectory
+            areas_folder = os.path.join(module_path, "areas")
+            if not os.path.exists(areas_folder):
+                print(f"Warning: No areas/ folder found in {module_path}")
+                return {}
+            
+            pattern = os.path.join(areas_folder, "*.json")
             json_files = glob.glob(pattern)
             
             for file_path in json_files:
                 filename = os.path.basename(file_path)
                 
-                # Skip system files
+                # Skip system files and backup files
                 if (filename.startswith('module_') or 
                     filename.startswith('party_') or
                     filename.startswith('campaign_') or
-                    filename.startswith('map_')):
+                    filename.startswith('map_') or
+                    filename.startswith('plot_') or
+                    filename.endswith('_BU.json')):
                     continue
                 
                 try:

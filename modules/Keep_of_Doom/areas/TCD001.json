@@ -4,7 +4,7 @@
   "areaType": "dungeon",
   "areaDescription": "Beneath the keep, these ancient catacombs twist into darkness, suffused with the shadow relic's malevolent power. Echoes of suffering and the undead linger in every shadowed cell and hidden chamber. The very stones pulse with corrupted energy, and the air is thick with the taste of fear and ancient despair. Time and space seem to warp within these depths, with passages that shouldn't connect somehow leading into one another.",
   "dangerLevel": "high",
-  "recommendedLevel": 3,
+  "recommendedLevel": 4,
   "climate": "cold and damp",
   "terrain": "underground stone passages, cells, and chambers",
   "map": {

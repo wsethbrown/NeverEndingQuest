@@ -276,7 +276,7 @@ MODULE DATA:
 Determine the most logical starting location based on adventure flow, area types, NPCs, and narrative logic."""
 
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=config.DM_MINI_MODEL,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
