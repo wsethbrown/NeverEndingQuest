@@ -250,28 +250,69 @@ def create_module_validation_context(party_tracker_data, path_manager):
         except (FileNotFoundError, json.JSONDecodeError):
             validation_context += f"ERROR: Could not load area data for {current_area_id}\n\n"
         
-        # Get all valid NPCs in current module
-        import os
-        import glob
-        character_files = glob.glob(f"{path_manager.module_dir}/characters/*.json")
+        # Get all valid NPCs in current module using NPC codex
+        from npc_codex_generator import get_or_create_npc_codex
         
-        valid_npcs = []
-        for char_file in character_files:
-            try:
-                with open(char_file, "r", encoding="utf-8") as file:
-                    char_data = json.load(file)
-                char_name = char_data.get("name", "")
-                char_type = char_data.get("character_type", "unknown")
-                if char_name:
-                    valid_npcs.append(f"{char_name} ({char_type})")
-            except (json.JSONDecodeError, KeyError):
-                continue
-        
-        validation_context += "VALID CHARACTERS in module:\n"
-        if valid_npcs:
-            validation_context += "\n".join([f"- {npc}" for npc in valid_npcs])
-        else:
-            validation_context += "- No character files found"
+        try:
+            # Get comprehensive NPC list from codex (includes plot, area, and character file NPCs)
+            codex = get_or_create_npc_codex(current_module)
+            valid_npcs = []
+            
+            # Add NPCs from codex with source information
+            for npc_entry in codex.get("npcs", []):
+                if isinstance(npc_entry, dict) and "name" in npc_entry and "source" in npc_entry:
+                    npc_name = npc_entry["name"]
+                    npc_source = npc_entry["source"]
+                    valid_npcs.append(f"{npc_name} ({npc_source})")
+            
+            # Also add NPCs with full character files for completeness
+            import os
+            import glob
+            character_files = glob.glob(f"{path_manager.module_dir}/characters/*.json")
+            for char_file in character_files:
+                try:
+                    with open(char_file, "r", encoding="utf-8") as file:
+                        char_data = json.load(file)
+                    char_name = char_data.get("name", "")
+                    char_type = char_data.get("character_type", "unknown")
+                    if char_name:
+                        # Check if already in codex, if not add with character file source
+                        already_listed = any(npc_name in npc for npc in valid_npcs if char_name in npc)
+                        if not already_listed:
+                            valid_npcs.append(f"{char_name} (character file - {char_type})")
+                except (json.JSONDecodeError, KeyError):
+                    continue
+            
+            validation_context += "VALID CHARACTERS in module:\n"
+            if valid_npcs:
+                validation_context += "\n".join([f"- {npc}" for npc in valid_npcs])
+            else:
+                validation_context += "- No characters found in module files"
+                
+        except Exception as e:
+            # Fallback to original character file method if codex fails
+            print(f"Warning: NPC codex failed, falling back to character files: {e}")
+            import os
+            import glob
+            character_files = glob.glob(f"{path_manager.module_dir}/characters/*.json")
+            
+            valid_npcs = []
+            for char_file in character_files:
+                try:
+                    with open(char_file, "r", encoding="utf-8") as file:
+                        char_data = json.load(file)
+                    char_name = char_data.get("name", "")
+                    char_type = char_data.get("character_type", "unknown")
+                    if char_name:
+                        valid_npcs.append(f"{char_name} ({char_type})")
+                except (json.JSONDecodeError, KeyError):
+                    continue
+            
+            validation_context += "VALID CHARACTERS in module:\n"
+            if valid_npcs:
+                validation_context += "\n".join([f"- {npc}" for npc in valid_npcs])
+            else:
+                validation_context += "- No character files found"
         
         validation_context += "\n\nVALIDATION RULE: AI responses MUST ONLY reference locations and NPCs from the above lists. Any reference to non-existent locations or NPCs should be flagged as invalid."
         
