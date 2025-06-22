@@ -173,7 +173,7 @@ MODULE INDEPENDENCE RULES:
             self.validate_area_consistency(area_data, self.module_data)
             
             self.areas_data[area_id] = area_data
-            self.save_json(area_data, f"{area_id}.json")
+            self.save_json(area_data, f"areas/{area_id}.json")
             
             # Save the map separately
             if "map" in area_data:
