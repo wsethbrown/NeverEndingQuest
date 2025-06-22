@@ -14,7 +14,7 @@
     "rooms": [
       {
         "id": "R01",
-        "name": "Riverside R01",
+        "name": "Riverside Outpost",
         "type": "riverside",
         "connections": [
           "R02",
@@ -25,7 +25,7 @@
       },
       {
         "id": "R02",
-        "name": "Ravine R02",
+        "name": "Misty Ravine",
         "type": "ravine",
         "connections": [
           "R01",
@@ -35,7 +35,7 @@
       },
       {
         "id": "R03",
-        "name": "Campsite R03",
+        "name": "Forgotten Campsite",
         "type": "campsite",
         "connections": [
           "R01",
@@ -46,7 +46,7 @@
       },
       {
         "id": "R04",
-        "name": "Crossroads R04",
+        "name": "Ancient Crossroads",
         "type": "crossroads",
         "connections": [
           "R03"
@@ -55,7 +55,7 @@
       },
       {
         "id": "R05",
-        "name": "Landmark R05",
+        "name": "Fallen Monument",
         "type": "landmark",
         "connections": [
           "R02",
@@ -65,7 +65,7 @@
       },
       {
         "id": "R06",
-        "name": "Crossroads R06",
+        "name": "Offering Cairn",
         "type": "crossroads",
         "connections": [
           "R01"
@@ -94,7 +94,7 @@
   "locations": [
     {
       "locationId": "R01",
-      "name": "Riverside R01",
+      "name": "Riverside Outpost",
       "type": "riverside",
       "description": "Along the fog-draped banks of the Silver Vein River, reeds bow over silvery water and lanternflies swirl in constellations above the shallows. Here, half-sunken stone pillars bear the spiral motifs of a forgotten culture, weathered by centuries and veiled in moss. The faint chime of river stones carries on the current.",
       "coordinates": "X2Y2",
@@ -178,7 +178,7 @@
     },
     {
       "locationId": "R02",
-      "name": "Ravine R02",
+      "name": "Misty Ravine",
       "type": "ravine",
       "description": "A narrow, steep-sided gash in the earth, the ravine is cloaked in perpetual mist. Thorny brambles cling to the walls, and rickety rope bridges span the gloom. Carved into the stone is a narrow stair, worn but passable, leading down to a trickle of water.",
       "coordinates": "X1Y2",
@@ -259,7 +259,7 @@
     },
     {
       "locationId": "R03",
-      "name": "Campsite R03",
+      "name": "Forgotten Campsite",
       "type": "campsite",
       "description": "A forgotten campsite rests atop a low, dry rise, ringed by toppled standing stones and charred firepits. The remnants of canvas tents and rusted cookware suggest it has been many seasons since anyone lingered here.",
       "coordinates": "X2Y1",
@@ -328,7 +328,7 @@
     },
     {
       "locationId": "R04",
-      "name": "Crossroads R04",
+      "name": "Ancient Crossroads",
       "type": "crossroads",
       "description": "A four-way convergence of moor paths, marked by a leaning milestone encoded with ancient glyphs. The crossroads are surrounded by shallow pools that reflect the sky in silvery patches, and the air feels electrically charged.",
       "coordinates": "X2Y0",
@@ -389,7 +389,7 @@
     },
     {
       "locationId": "R05",
-      "name": "Landmark R05",
+      "name": "Fallen Monument",
       "type": "landmark",
       "description": "Atop a windswept knoll rises a toppled monument: a stone arch partially covered in creeping ivy and etched with faded imagery of river queens and crowned serpents. The grass here grows in silvery tufts, and the air seems to hum with ancient power.",
       "coordinates": "X1Y1",
@@ -447,7 +447,7 @@
     },
     {
       "locationId": "R06",
-      "name": "Crossroads R06",
+      "name": "Offering Cairn",
       "type": "crossroads",
       "description": "A lonely fork where a mossy cairn stands, heaped with small offerings: smooth stones, feathers, and lengths of braided grass. Wisps of fog curl around the cairn, and the air carries the faint scent of wild mint.",
       "coordinates": "X3Y2",

@@ -14,7 +14,7 @@
     "rooms": [
       {
         "id": "R01",
-        "name": "Throne Room R01",
+        "name": "Shattered Throne Chamber",
         "type": "throne room",
         "connections": [
           "R02",
@@ -24,7 +24,7 @@
       },
       {
         "id": "R02",
-        "name": "Hall R02",
+        "name": "Grand Gallery",
         "type": "hall",
         "connections": [
           "R01",
@@ -35,7 +35,7 @@
       },
       {
         "id": "R03",
-        "name": "Corridor R03",
+        "name": "Weeping Corridor",
         "type": "corridor",
         "connections": [
           "R02"
@@ -44,7 +44,7 @@
       },
       {
         "id": "R04",
-        "name": "Corridor R04",
+        "name": "Mosaic Corridor",
         "type": "corridor",
         "connections": [
           "R02"
@@ -53,7 +53,7 @@
       },
       {
         "id": "R05",
-        "name": "Hall R05",
+        "name": "Ceremonial Hall",
         "type": "hall",
         "connections": [
           "R01",
@@ -63,7 +63,7 @@
       },
       {
         "id": "R06",
-        "name": "Chamber R06",
+        "name": "Sanctum of Last Resort",
         "type": "chamber",
         "connections": [
           "R05"
@@ -95,7 +95,7 @@
   "locations": [
     {
       "locationId": "R01",
-      "name": "Throne Room R01",
+      "name": "Shattered Throne Chamber",
       "type": "throne room",
       "description": "A vast, echoing chamber with fractured obsidian arches rising over a shattered mosaic floor. Each tessera glints with a faint, pulsing violet gleam, and condensation weeps from the stone. The air is thick with ancient whispers, and a fractured throne of black stone sits atop a dais, its back etched with cryptic runes and scorched by wild magic. Crumbling statuary and tattered banners hint at the doomed city's lost grandeur.",
       "coordinates": "X2Y2",
@@ -189,7 +189,7 @@
     },
     {
       "locationId": "R02",
-      "name": "Hall R02",
+      "name": "Grand Gallery",
       "type": "hall",
       "description": "A grand, high-ceilinged gallery lined with obsidian columns. Shattered banners hang limply, their sigils nearly lost to mold and time. The air pulses with a faint, nauseating thrum, and footsteps echo with unnatural clarity. Fine cracks run up and down the walls, seeping faint violet light. The hall feels like it is waiting to be disturbed.",
       "coordinates": "X3Y2",
@@ -284,7 +284,7 @@
     },
     {
       "locationId": "R03",
-      "name": "Corridor R03",
+      "name": "Weeping Corridor",
       "type": "corridor",
       "description": "A narrow, dim corridor lined with cracked obsidian tiles and flickering sconces. The air is humid; water drips steadily from the ceiling, forming shallow puddles. Shallow grooves cut across the floor, and the ever-present whispers grow more insistent here.",
       "coordinates": "X3Y1",
@@ -359,7 +359,7 @@
     },
     {
       "locationId": "R04",
-      "name": "Corridor R04",
+      "name": "Mosaic Corridor",
       "type": "corridor",
       "description": "A broad corridor with mosaic fragments embedded in the floor and walls. Faded tapestries drip from rusted hooks, their scenes distorted. The walls are veined with thin cracks, and the air is heavy with the scent of damp stone. Echoes seem to linger too long here, sometimes overlapping with words the party didn't speak.",
       "coordinates": "X3Y3",
@@ -425,7 +425,7 @@
     },
     {
       "locationId": "R05",
-      "name": "Hall R05",
+      "name": "Ceremonial Hall",
       "type": "hall",
       "description": "A majestic hallway illuminated by crooked chandeliers that emit violet-tinted light. The walls are lined with faded banners showing Calamyr's lost heraldry. The floor is slick with condensation, and the air pulses with the memory of ancient ceremonies. The end of the hall bears a mural scorched by magical backlash.",
       "coordinates": "X1Y2",
@@ -508,7 +508,7 @@
     },
     {
       "locationId": "R06",
-      "name": "Chamber R06",
+      "name": "Sanctum of Last Resort",
       "type": "chamber",
       "description": "An ominous chamber lined with intricate wall engravings and decorated with grim relics. The floor is damp, and subtle magical runes trace the periphery. The air here is heavier, as if thick with regret. This chamber once served as a sanctum of last resort.",
       "coordinates": "X0Y2",

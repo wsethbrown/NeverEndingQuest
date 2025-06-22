@@ -5,7 +5,7 @@
   "rooms": [
     {
       "id": "R01",
-      "name": "Riverside R01",
+      "name": "Riverside Outpost",
       "type": "riverside",
       "connections": [
         "R02",
@@ -16,7 +16,7 @@
     },
     {
       "id": "R02",
-      "name": "Ravine R02",
+      "name": "Misty Ravine",
       "type": "ravine",
       "connections": [
         "R01",
@@ -26,7 +26,7 @@
     },
     {
       "id": "R03",
-      "name": "Campsite R03",
+      "name": "Forgotten Campsite",
       "type": "campsite",
       "connections": [
         "R01",
@@ -37,7 +37,7 @@
     },
     {
       "id": "R04",
-      "name": "Crossroads R04",
+      "name": "Ancient Crossroads",
       "type": "crossroads",
       "connections": [
         "R03"
@@ -46,7 +46,7 @@
     },
     {
       "id": "R05",
-      "name": "Landmark R05",
+      "name": "Fallen Monument",
       "type": "landmark",
       "connections": [
         "R02",
@@ -56,7 +56,7 @@
     },
     {
       "id": "R06",
-      "name": "Crossroads R06",
+      "name": "Offering Cairn",
       "type": "crossroads",
       "connections": [
         "R01"

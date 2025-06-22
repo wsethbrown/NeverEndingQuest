@@ -1,0 +1,49 @@
+{
+  "module_name": "Silver_Vein_Whispers",
+  "generated_timestamp": "2025-06-22T00:49:42.501178",
+  "generation_method": "AI_extraction_GPT4",
+  "npcs": [
+    {
+      "name": "Rilith the Riverbound",
+      "source": "plot_character"
+    },
+    {
+      "name": "Old Fenrick",
+      "source": "plot_character"
+    },
+    {
+      "name": "Mira the Moorwise",
+      "source": "plot_character"
+    },
+    {
+      "name": "Sister Amara",
+      "source": "plot_character"
+    },
+    {
+      "name": "Dren of the Blue Flame",
+      "source": "plot_character"
+    },
+    {
+      "name": "Professor Halvane",
+      "source": "plot_character"
+    },
+    {
+      "name": "Archivist Lareth",
+      "source": "plot_character"
+    },
+    {
+      "name": "Captain Veylan",
+      "source": "plot_character"
+    },
+    {
+      "name": "Queen Seralyth",
+      "source": "plot_character"
+    }
+  ],
+  "total_npcs": 9,
+  "content_stats": {
+    "plot_content_length": 21105,
+    "area_content_length": 71345,
+    "existing_character_files": 0
+  }
+}
