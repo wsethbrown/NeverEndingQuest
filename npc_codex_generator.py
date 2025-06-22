@@ -1,12 +1,37 @@
 #!/usr/bin/env python3
 """
-NPC Codex Generator
-
-This module uses GPT-4 to intelligently extract NPC names from module plot and area files,
-creating a comprehensive list of valid NPCs for validation purposes.
-
-Avoids hardcoded regex patterns that might confuse locations with NPCs by using AI
-to understand context and distinguish between character names and place names.
+# ============================================================================
+# NPC_CODEX_GENERATOR.PY - AI-POWERED CHARACTER VALIDATION SYSTEM
+# ============================================================================
+# 
+# ARCHITECTURE ROLE: AI-Powered Content Analysis and Validation
+# 
+# This module solves the critical problem of AI narrative validation by automatically
+# generating comprehensive NPC registries for each module using GPT-4 analysis.
+# It prevents AI hallucination of non-existent characters during gameplay.
+# 
+# KEY RESPONSIBILITIES:
+# - AI-powered extraction of legitimate NPCs from plot and area content
+# - Context-aware analysis distinguishing NPCs from locations and monsters
+# - Atomic file operations with concurrent access protection
+# - Source attribution and categorization of character origins
+# - Integration with module validation pipeline
+# 
+# DESIGN PHILOSOPHY:
+# - AI-FIRST APPROACH: Uses GPT-4 context understanding vs rigid regex patterns
+# - BULLETPROOF VALIDATION: Prevents AI from inventing non-existent characters
+# - ATOMIC OPERATIONS: Concurrent-safe file operations with locking and backups
+# - CACHING STRATEGY: Reuses existing codex until module content changes
+# 
+# INTEGRATION POINTS:
+# - Called by main.py during module validation context creation
+# - Integrates with ModulePathManager for consistent file access
+# - Uses atomic file operations for concurrent safety
+# - Provides NPC lists to validation prompt generation
+# 
+# DATA FLOW:
+# Module Content -> AI Analysis -> NPC Extraction -> Atomic Save -> Validation Cache
+# ============================================================================
 
 Features atomic file operations, UTF-8 encoding safety, and comprehensive error handling.
 """

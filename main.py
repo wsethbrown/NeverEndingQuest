@@ -11,11 +11,12 @@
 # KEY RESPONSIBILITIES:
 # - Game session management and main loop execution
 # - Action parsing and routing to appropriate handlers
-# - AI response validation and state synchronization
+# - AI response validation with NPC codex integration
 # - Conversation history management and context compression
 # - Module transition processing with timeline preservation
 # - Real-time user feedback and status reporting
 # - DM Note generation for authoritative current game state
+# - AI-powered NPC validation system coordination
 # 
 # DM NOTE DESIGN PHILOSOPHY:
 # - AUTHORITATIVE SOURCE: DM Note contains current, dynamic game state
@@ -39,12 +40,13 @@
 # - Coordinates with dm_wrapper.py for AI interactions
 # - Uses action_handler.py for command processing
 # - Manages state through party_tracker.json updates
-# - Validates responses using multiple AI models
+# - Validates responses using multiple AI models with NPC codex verification
 # - Integrates with ModulePathManager for file operations
 # - Provides dynamic data to conversation_utils.py for context management
+# - Leverages npc_codex_generator.py for AI-powered character validation
 # 
 # DATA FLOW:
-# User Input -> Action Processing -> AI Response -> Validation -> State Update -> DM Note Refresh
+# User Input -> Action Processing -> AI Response -> NPC Codex Validation -> State Update -> DM Note Refresh
 # 
 # This file embodies our "AI-First Design with Human Safety Nets" principle
 # by combining powerful AI capabilities with rigorous validation layers and

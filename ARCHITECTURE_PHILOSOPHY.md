@@ -66,7 +66,8 @@ modules/[module_name]/
 ├── monsters/           # Module-specific creatures
 ├── encounters/         # Combat encounters
 ├── module_plot.json    # Module plot progression
-└── party_tracker.json  # Current game state
+├── party_tracker.json  # Current game state
+└── npc_codex.json      # AI-generated NPC validation registry
 
 modules/campaign_archives/   # Chronological conversation history
 ├── [Module]_conversation_001.json
@@ -129,6 +130,57 @@ Condition 2: No Previous Module Transition
 - **AI Chronicle Generation**: Detailed adventure summaries created in campaign_summaries/
 - **Sequential Numbering**: Automatic sequence tracking for chronological timeline
 - **Context Restoration**: Complete adventure context available for return visits
+
+## AI-Powered NPC Validation System
+
+### **Intelligent Character Registry**
+Our NPC Codex system solves the critical problem of AI narrative validation by automatically generating comprehensive NPC registries for each module using GPT-4 analysis:
+
+- **AI-Powered Extraction**: Scans plot files and area descriptions to identify all legitimate NPCs
+- **Context-Aware Analysis**: Distinguishes NPCs from locations, monsters, and generic titles
+- **Source Attribution**: Tracks whether NPCs come from plot, locations, or character files
+- **Bulletproof Validation**: Prevents AI from inventing non-existent characters during gameplay
+
+### **NPC Codex Architecture**
+```
+npc_codex.json Structure:
+{
+  "module_name": "Keep_of_Doom",
+  "generated_timestamp": "2025-06-22T00:21:37.820175",
+  "generation_method": "AI_extraction_GPT4",
+  "npcs": [
+    {
+      "name": "Elder Mirna Harrow",
+      "source": "plot_character|location_character|character_file"
+    }
+  ],
+  "total_npcs": 23,
+  "content_stats": {
+    "plot_content_length": 6468,
+    "area_content_length": 286135,
+    "existing_character_files": 21
+  }
+}
+```
+
+### **Validation Integration Pipeline**
+1. **Automatic Generation**: NPC codex created on-demand using AI analysis
+2. **Atomic File Operations**: Concurrent-safe writing with backup and locking
+3. **Module Validation**: NPCs verified against codex during AI response validation
+4. **Caching Strategy**: Existing codex files reused until module content changes
+5. **Error Recovery**: Graceful fallback to regeneration if codex corruption detected
+
+### **AI Extraction Logic**
+- **Character Identification**: Distinguishes people with names from places and creatures
+- **Title Preservation**: Maintains full names including titles ("Old Fenrick", "Mira the Moorwise")
+- **Context Sensitivity**: Understands narrative context to identify legitimate story characters
+- **Source Classification**: Categorizes NPCs by their primary source in module files
+
+### **File Locking and Concurrency**
+- **Dual Locking System**: NPC generator uses manual locks, atomic writer handles internal locking
+- **Conflict Resolution**: Prevents interference between concurrent access patterns
+- **Lock File Management**: Automatic cleanup with timeout mechanisms
+- **Atomic Operations**: Write verification with rollback on failure
 
 ## Error Handling Philosophy
 
