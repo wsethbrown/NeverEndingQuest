@@ -1,164 +1,32 @@
-2:38:10 PM
-DEBUG: Initializing path_manager with module: 'Keep_of_Doom'
-2:38:10 PM
-DEBUG: Path manager initialized - module_name: 'Keep_of_Doom', module_dir: 'modules/Keep_of_Doom'
-2:38:10 PM
-DEBUG: Plot file path: modules/Keep_of_Doom/module_plot.json
-2:38:10 PM
-DEBUG: Before update_conversation_history - history has 69 messages
-2:38:13 PM
-No new modules detected.
-2:38:13 PM
-Lightweight chat history updated!
-2:38:13 PM
-System messages removed: 8
-2:38:13 PM
-User messages: 31
-2:38:13 PM
-Assistant messages: 30
-2:38:13 PM
-DEBUG: After update_conversation_history - history has 69 messages
-2:38:13 PM
-DEBUG: Checking for missing location summaries at startup
-2:38:13 PM
-DEBUG: Checking for missing location summaries
-2:38:13 PM
-DEBUG: Found 24 total transitions
-2:38:13 PM
-DEBUG: No departure transition found for East Gate and Guardhouse - this is the current active location, skipping
-2:38:13 PM
-DEBUG: No missing summaries found
-2:38:21 PM
-[LOGGED] Training example #285
-2:38:21 PM
-DEBUG: Processing updatePartyTracker action
-2:38:21 PM
-DEBUG: Module change detected: Keep_of_Doom -> Silver_Vein_Whispers
-2:38:21 PM
-DEBUG: Starting conversation segmentation for Keep_of_Doom -> Silver_Vein_Whispers
-2:38:22 PM
-DEBUG: First module transition - using last system message at index 7
-2:38:22 PM
-DEBUG: Extracted 63 messages for current module conversation
-2:38:22 PM
-DEBUG: Generated summary: Extended adventure in Keep_of_Doom with multiple significant events and discoveries.
-2:38:22 PM
-DEBUG: Truncated conversation history to 7 messages
-2:38:22 PM
-DEBUG: Inserted module summary and transition at index 7
-2:38:22 PM
-DEBUG: Module transition message: 'Module transition: Keep_of_Doom to Silver_Vein_Whispers'
-2:38:22 PM
-DEBUG: Conversation segmentation complete - history now has 9 messages
-2:38:22 PM
-DEBUG: Module conversation segmentation complete
-2:38:22 PM
-DEBUG: Conversation history now has 9 messages after segmentation
-2:38:22 PM
-DEBUG: Adding travel narration for Silver_Vein_Whispers: Leaving familiar lands behind, the party journeys ...
-2:38:24 PM
-No new modules detected.
-2:38:24 PM
-DEBUG: Auto-archiving conversation and generating summary for Keep_of_Doom
-2:38:24 PM
-DEBUG: Cross-module transition detected: Keep_of_Doom -> Silver_Vein_Whispers
-2:38:24 PM
-DEBUG: Auto-generating summary for Keep_of_Doom...
-2:38:24 PM
-Archived 10 conversation messages for Keep_of_Doom (sequence 009)
-2:38:34 PM
-DEBUG: Keep_of_Doom summarized and archived (visit #9)
-2:38:34 PM
-DEBUG: Successfully archived conversation and generated summary for Keep_of_Doom
-2:38:34 PM
-DEBUG: Party tracker updated successfully
-2:38:34 PM
-DEBUG: Skipping conversation history reload - module transition was handled
-2:38:35 PM
-Current Time: 15:58:00, Time Advanced: 240 minutes, New Time: 19:58:00, Days Passed: 0
-2:39:03 PM
-[15:58:00][HP:47/47][XP:16581/14000] norn: 
-2:39:03 PM
-DEBUG: Processing NPC: Elen
-2:39:03 PM
-DEBUG: NPC file path: characters/elen.json
-2:39:03 PM
-DEBUG: NPC data loaded: True
-2:39:03 PM
-DEBUG: Added NPC stats: {'name': 'Elen', 'display_name': 'Elen', 'level': 5, 'xp': 6500, 'hp': 42, 'max_hp': 42}
-2:39:03 PM
-DEBUG: Using cached starting location for Keep_of_Doom
-2:39:03 PM
-DEBUG: Plot file path: modules/Silver_Vein_Whispers/module_plot.json
-2:39:03 PM
-DEBUG: Plot data loaded: True
-2:39:03 PM
-DEBUG: Plot data keys: ['plotTitle', 'mainObjective', 'plotPoints']
-2:39:03 PM
-DEBUG: Current module from party tracker: 'Silver_Vein_Whispers'
-2:39:03 PM
-DEBUG: Starting comprehensive module plot completion check
-2:39:03 PM
-DEBUG: Found valid module: Keep_of_Doom (has 7 area files)
-2:39:03 PM
-DEBUG: Found valid module: Silver_Vein_Whispers (has 3 area files)
-2:39:03 PM
-DEBUG: Found 2 valid modules: ['Keep_of_Doom', 'Silver_Vein_Whispers']
-2:39:03 PM
-DEBUG: Checking plot completion for module 'Keep_of_Doom'
-2:39:03 PM
-DEBUG: Plot file path: modules/Keep_of_Doom/module_plot.json
-2:39:03 PM
-DEBUG: Module Keep_of_Doom completion: 5/5 (True)
-2:39:03 PM
-DEBUG: Checking plot completion for module 'Silver_Vein_Whispers'
-2:39:03 PM
-DEBUG: Plot file path: modules/Silver_Vein_Whispers/module_plot.json
-2:39:03 PM
-DEBUG: Module Silver_Vein_Whispers completion: 0/12 (False)
-2:39:03 PM
-DEBUG: All modules plot completion check complete
-2:39:03 PM
-DEBUG: Total modules checked: 2
-2:39:03 PM
-DEBUG: All modules complete: False
-2:39:03 PM
-DEBUG: === ALL MODULES COMPLETION SUMMARY ===
-2:39:03 PM
-DEBUG: Keep_of_Doom: 5/5 plots - COMPLETE
-2:39:03 PM
-DEBUG: Silver_Vein_Whispers: 0/12 plots - INCOMPLETE
-2:39:03 PM
-DEBUG: === END SUMMARY ===
-2:39:03 PM
-DEBUG: All modules complete: False
-2:39:03 PM
-DEBUG: Should inject module creation prompt: False
-2:39:03 PM
-DEBUG: Module creation prompt NOT injected - incomplete modules: ['Silver_Vein_Whispers']
-2:39:10 PM
-[LOGGED] Training example #286
-2:39:12 PM
-DEBUG: Validation passed successfully
-2:39:12 PM
-DEBUG: Valid response generated on attempt 1
-2:39:12 PM
-Current Time: 19:58:00, Time Advanced: 10 minutes, New Time: 20:08:00, Days Passed: 0
-2:39:12 PM
-DEBUG: Status reset to ready at end of main game loop
-2:39:12 PM
-DEBUG: Updated plot file path: modules/Silver_Vein_Whispers/module_plot.json
-2:39:12 PM
-DEBUG: Before AI response update_conversation_history - history has 72 messages
-2:39:15 PM
-No new modules detected.
-2:39:15 PM
-Lightweight chat history updated!
-2:39:15 PM
-System messages removed: 8
-2:39:15 PM
-User messages: 32
-2:39:15 PM
-Assistant messages: 32
-2:39:15 PM
-DEBUG: After AI response update_conversation_history - history has 72 messages
+let's go help them.\"\n\nSTEP 5 - Create Module:\nUse createNewModule action with full narrative in parameters (not in narration field).\n\nThis is the end of Ashiralis's Sowhains' game rules for the most excellent Dungeon Master."
+  },
+  {
+    "role": "user",
+    "content": "Module summary: === MODULE SUMMARY ===\n\nKeep_of_Doom:\n------------------------------\n### The Chronicle of Shadows Over Harrow's Hollow\n\nIn the gentle season of Springmonth, fate delivered a weary but resolute band to the mist-bound village of Harrow's Hollow, where dread had become as common as the morning fog. Elder Mirna Harrow, matron of the people, greeted them not with the pride of hospitality but with the desperate candor of one who has seen kin vanish into darkness. Her trembling hands revealed a fading bronze key, marked by a raven sigil--a symbol of locks unopened and secrets too long shrouded.\n\nAt the heart of the village's unrest lay the disappearance of Scout Elen, a ranger whose courage had once been the talk of firesides but who now was spoken of only in anxious whispers. The villagers, beset by tales of curses and the haunted Keep of Doom, watched the newcomers with hope and suspicion. Norn, whose steadfastness would become legend, accepted Mirna's charge to seek Elen and unravel the mystery that gnawed at the Hollow's soul.\n\nTheir first steps led them through the Witchlight Trail, a haunted corridor where ancient stones pulsed with the memory of forgotten pacts and where the air itself seemed to mourn. Here, the party faced the first of many trials: shadows made manifest, icy and relentless, sapped their strength and hope. Yet steel and resolve prevailed, the last shadow slain beneath a blade ablaze with eldritch fire. The victory came at a cost, carving exhaustion and fear deep into the hearts of the companions.\n\nIn the Wyrd Lantern Inn, the warmth of Cira's hearth and the comfort of camaraderie offered brief respite. It was here that the first bonds of trust and affection took root--between Norn and Elen, between the party and the folk they had come to defend. The inn's laughter, tinged with relief, was a balm that stitched wounds invisible to the eye.\n\nThe search led northward, through the Gloamwood's deepening gloom. At the Withered Shrine, the party confronted twisted blights and the sorrow of the woods, discovering evidence of Elen's flight and a ritual left unfinished. By completing the rite and offering a token of memory, they earned the shrine's blessing--courage that would steel them against the darkness yet to come. The faerie circle in the Spectral Clearing bore further traces of Elen's desperate struggle: there, the party finished what she had begun, strengthening the forest's failing wards and weakening the keep's malignant grasp.\n\nThe enigmatic Keeper Morvath, guardian of old magics, offered wisdom in exchange for the restoration of the Lost Ward Circle. In a rite of sacrifice and remembrance, Norn sealed the circle's power, earning the Keeper's trust and a vision of Elen pressed ever deeper into the forest's heart. These acts--small and great--became the lifeblood of hope for Harrow's Hollow, rekindling the villagers' resolve and forging a legend in the making.\n\nAt last, armed with Mirna's bronze key and the Keeper's counsel, the party traced Elen's path to Shadowfall Keep itself--a ruin steeped in curses and the restless dead. The journey through its shattered halls and haunted courtyards was a crucible. Specters and skeletal guardians rose to bar their way, their hatred the echo of oaths broken and wrongs unrighted. Norn's courage and the party's unity proved sufficient, though wounds--both physical and spiritual--were many.\n\nIn the Ruined Chapel, the party uncovered a heart-shaped amulet, the \"Knight's Heart,\" and learned of Sir Garran, a noble knight undone by betrayal and a shadowed relic. The amulet's warmth shielded them against the keep's blight, and its story became entwined with their own: a symbol of redemption and the power of promises kept.\n\nDeeper still, they found the Lord's Study, its arcane wards and sorrowful whispers guarding a trapdoor to the dungeons below. Here, the record of Elen's ordeal grew clearer--her hasty scrawls, her bloodied passage, her desperate warnings. The descent into the Cursed Dungeons was a journey into the past's darkest corners, where the boundaries of time blurred and the names of the lost mingled with the unborn.\n\nThe gaol's haunted cells yielded up both terrors and truths: spectral echoes of Elen, the tragic journal of a doomed sergeant, and the knowledge that the \"heart\" and a knight's unfulfilled vow were keys to the curse's undoing. In the Guard Post, the party restored a defiled shrine, earning a protective blessing that turned the tide as they pressed into the Forgotten Ossuary--a crypt where the Bone Speaker tested their resolve. Here, the party's grasp of history and honor was weighed, and Norn's oath to restore broken promises won them passage to the keep's true heart.\n\nIn the Relic Chamber, they faced the vengeful spirit of Lord Thaddeus Greymont, corrupted by shadow and regret. Elen, half-consumed by the curse, became the living embodiment of the village's hope. The struggle was fierce--against shadow manifestations, spectral chains, and the relic itself. In the end, it was not violence alone but memory and mercy, the power of the Knight's Heart amulet, and the will to redeem that shattered the relic and dispelled the darkness.\n\nThe curse broken, Lord Greymont found peace at last, and Elen's chains dissolved. Together, battered but alive, Norn and Elen retraced their steps through sunlit corridors now free of shadows, emerging into the morning light of Harrow's Hollow. Their return was met with jubilation and tears, with children pressing lucky coins into Elen's hands and elders offering embraces and thanks.\n\nNorn, in a moment of rare humility, declared Elen the village's true hero, and Elder Mirna confirmed it, honoring both with gifts of gold, gemstones, and a deed to the land that was once the keep's curse and would now be its hope. The villagers' celebration forged new bonds--of gratitude, trust, and perhaps something gentler, as Elen and Norn exchanged vows in quiet moments beneath the hearth's glow, promising always to bring each other home from darkness.\n\nThe story did not end in the Hollow. At the Wyrd Lantern Inn, plans were laid for future journeys along the Silver Vein River and beyond, their packs lightened but their hearts burdened with purpose and affection. Magical tokens--an amulet, a cloak, a ring--became more than relics: they were the emblems of trials survived, of love kindled in adversity, and of a legend still unfolding.\n\nSo it was that the tale of Harrow's Hollow closed not with the defeat of darkness, but with the dawning of hope. The keep, once a monument to sorrow, stood ready for restoration. Elen, once a lone scout, became a leader and symbol of courage; Norn, her steadfast companion, found in her a reason to press onward. The villagers, once cowed by superstition, now stood together in laughter and song.\n\nYet in the embers of their triumph, old wounds and new questions lingered. The shadows had receded, but the world beyond the Gloamwood called with the promise of further adventure--and the certainty that legends are not born of endings, but of the brave who choose to seek the next dawn.\n\nThus ends the chronicle of Shadows Over Harrow's Hollow: a tale of courage, sacrifice, and the enduring light of hope found, against all odds, in the heart of darkness."
+  },
+  {
+    "role": "user",
+    "content": "Module transition: Keep_of_Doom to Silver_Vein_Whispers"
+  },
+  {
+    "role": "user",
+    "content": "Dungeon Master Note: Current date and time: 1492 Springmonth 2 19:58:00. Player: I light a fire"
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"narration\": \"As dusk slips into night at the edge of the Sablemoor Reaches, you and Elen kneel beside a sheltered hollow behind the Riverside Outpost's palisade. The air is thick with mist, carrying the faint, unsettling echoes for which the moor is famed. Elen glances around, her elven eyes sharp in the gathering gloom. \\\"Here should be safe enough for a small fire--let's hope the locals don't mind the smoke.\\\"\\n\\nYou gather driftwood and dry grass from the outpost's edge, stacking them with practiced care. The click of flint echoes softly, then a spark catches and flames bloom, casting golden light into the swirling mist. The warmth settles over you, a small island of comfort against the vast, haunted wild.\\n\\nElen sits cross-legged, rolling her shoulders and relaxing for the first time since the long journey began. \\\"Not so bad, is it?\\\" she says with a gentle smile. \\\"We should keep watch, but for now, let's enjoy this moment. The fire keeps the worst of the chill away--maybe even the spirits.\\\"\\n\\nAs the fire crackles and shadows dance on the outpost wall, you sense cautious movement nearby: a hunched figure with a tangle of moss in his beard lingers at the edge of the light. Old Fenrick, the hermit, reveals himself with a wary grunt, eyeing your camp. \\\"A fire, eh? Not many dare light one here. Smoke brings stories... and sometimes, visitors. Might be you need a warning, or a favor--or both.\\\"\\n\\nElen glances sideways at you, her eyebrows raised in silent question. Will you greet Fenrick and hear his warning? Or focus on your own preparations, trusting the fire to keep you safe?\",\n  \"actions\": [\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 15\n      }\n    }\n  ]\n}"
+  }
+]
+
+The other propblem:
+
+Module summary and compression completed
+DEBUG:DungeonMasterAI:Module summary and compression completed
+[19:58:00][HP:47/47][XP:16581/14000] norn: 
+[19:58:00][HP:47/47][XP:16581/14000] norn: 
+[19:58:00][HP:47/47][XP:16581/14000] norn: 
+[19:58:00][HP:47/47][XP:16581/14000] norn: 
+[19:58:00][HP:47/47][XP:16581/14000] norn: 
+[WARNING] Detected multiple consecutive empty inputs. This may indicate a non-interactive environment.
+WARNING:DungeonMasterAI:Detected multiple consecutive empty inputs. This may indicate a non-interactive environment.
+Stopping game loop to prevent infinite cycle.

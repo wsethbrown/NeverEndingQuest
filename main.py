@@ -556,6 +556,202 @@ def check_and_process_location_transitions(conversation_history, party_tracker_d
         traceback.print_exc()
         return conversation_history
 
+def check_and_process_module_transitions(conversation_history, party_tracker_data):
+    """
+    Check if there are any unprocessed module transitions in the conversation history
+    and process them to create summaries and compress the history.
+    Mirrors the logic of check_and_process_location_transitions().
+    """
+    # Find the most recent transition that hasn't been processed yet
+    last_transition_index = None
+    last_transition_content = None
+    
+    for i in range(len(conversation_history) - 1, -1, -1):
+        msg = conversation_history[i]
+        if msg.get("role") == "user" and "Module transition:" in msg.get("content", ""):
+            last_transition_index = i
+            last_transition_content = msg.get("content", "")
+            break
+    
+    if last_transition_index is None:
+        # No module transitions found
+        return conversation_history
+    
+    # Check if this transition has already been processed (has a summary right before it)
+    if last_transition_index > 0:
+        prev_msg = conversation_history[last_transition_index - 1]
+        if prev_msg.get("role") == "user" and prev_msg.get("content", "").startswith("Module summary:"):
+            # This transition has already been processed
+            return conversation_history
+    
+    # Check if there's already conversation after this transition
+    # If there are regular conversation messages after the transition, we should process it
+    has_conversation_after = False
+    for i in range(last_transition_index + 1, len(conversation_history)):
+        msg = conversation_history[i]
+        # Skip system messages and DM notes
+        if msg.get("role") == "assistant" or (msg.get("role") == "user" and "Dungeon Master Note:" not in msg.get("content", "")):
+            has_conversation_after = True
+            break
+    
+    if not has_conversation_after:
+        # No conversation after the transition yet, wait for next round
+        return conversation_history
+    
+    # Extract the leaving module from the transition message
+    # Format: "Module transition: [from_module] to [to_module]"
+    try:
+        import re
+        pattern = r'Module transition: (.+?) to (.+?)$'
+        match = re.match(pattern, last_transition_content)
+        
+        if match:
+            leaving_module_name = match.group(1)
+            arriving_module_name = match.group(2)
+            print(f"DEBUG: Extracted module transition - From: {leaving_module_name}, To: {arriving_module_name}")
+        else:
+            print("DEBUG: Could not parse module transition message format")
+            return conversation_history
+    except Exception as e:
+        print(f"DEBUG: Error parsing module transition message: {str(e)}")
+        return conversation_history
+    
+    print(f"DEBUG: Processing module transition from {leaving_module_name}")
+    
+    try:
+        # Generate module summary using similar logic to location summaries
+        module_summary = generate_module_summary(
+            conversation_history,
+            party_tracker_data,
+            leaving_module_name,
+            last_transition_index
+        )
+        
+        if module_summary:
+            # Compress conversation history for module transition
+            compressed_history = compress_conversation_history_on_module_transition(
+                conversation_history,
+                leaving_module_name,
+                module_summary,
+                last_transition_index
+            )
+            
+            print("DEBUG: Module summary and compression completed")
+            return compressed_history
+        else:
+            print("DEBUG: No module summary generated")
+            return conversation_history
+            
+    except Exception as e:
+        print(f"ERROR: Failed to process module transition: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return conversation_history
+
+def generate_module_summary(conversation_history, party_tracker_data, module_name, transition_index):
+    """Generate a summary for a module transition"""
+    
+    # Condition 1: Look for previous module transition first
+    boundary_index = None
+    
+    for i in range(transition_index - 1, -1, -1):
+        msg = conversation_history[i]
+        if msg.get("role") == "user" and "Module transition:" in msg.get("content", ""):
+            boundary_index = i + 1  # Start after previous transition
+            print(f"DEBUG: CONDITION 1 - Found previous module transition at index {i}, boundary at {boundary_index}")
+            break
+    
+    # Condition 2: If no previous module transition, find last system message
+    if boundary_index is None:
+        for i in range(transition_index - 1, -1, -1):
+            msg = conversation_history[i]
+            if msg.get("role") == "system":
+                boundary_index = i + 1  # Start after last system message
+                print(f"DEBUG: CONDITION 2 - Found last system message at index {i}, boundary at {boundary_index}")
+                break
+        
+        # Fallback if no system message found (shouldn't happen)
+        if boundary_index is None:
+            boundary_index = 0
+            print(f"DEBUG: FALLBACK - No system message found, using boundary at {boundary_index}")
+    
+    # Extract ALL conversation from boundary to transition (this will all be compressed)
+    module_conversation = conversation_history[boundary_index:transition_index]
+    print(f"DEBUG: Extracting {len(module_conversation)} messages from index {boundary_index} to {transition_index} for summary")
+    
+    # Load the most recent AI-generated summary from campaign_summaries folder
+    try:
+        import glob
+        import json
+        
+        # Find the most recent summary file for this module
+        summary_pattern = f"modules/campaign_summaries/{module_name}_summary_*.json"
+        summary_files = glob.glob(summary_pattern)
+        
+        if summary_files:
+            # Get the most recent summary file by sequence number
+            latest_file = max(summary_files, key=lambda x: int(x.split('_')[-1].split('.')[0]))
+            print(f"DEBUG: Loading module summary from {latest_file}")
+            
+            with open(latest_file, 'r', encoding='utf-8') as f:
+                summary_data = json.load(f)
+                full_summary = summary_data.get('summary', '')
+                
+                if full_summary:
+                    # Use exact same format as location summaries
+                    formatted_summary = f"=== MODULE SUMMARY ===\n\n{module_name}:\n------------------------------\n{full_summary}"
+                    print(f"DEBUG: Using full AI-generated summary for {module_name}")
+                    return formatted_summary
+        
+        print(f"DEBUG: No summary file found for {module_name}, using fallback")
+        
+    except Exception as e:
+        print(f"DEBUG: Error loading module summary: {e}, using fallback")
+    
+    # Fallback to simple summary if no AI summary available
+    meaningful_messages = [
+        msg for msg in module_conversation 
+        if msg.get("role") in ["user", "assistant"] and 
+        not msg.get("content", "").startswith(("Location transition:", "Module transition:", "Module summary:"))
+    ]
+    
+    if len(meaningful_messages) < 2:
+        return f"Brief activities in {module_name}."
+    elif len(meaningful_messages) <= 5:
+        return f"Short adventure in {module_name} with several interactions."
+    else:
+        return f"Extended adventure in {module_name} with multiple significant events and discoveries."
+
+def compress_conversation_history_on_module_transition(conversation_history, module_name, summary_text, transition_index):
+    """Compress conversation history by replacing ALL conversation before transition with summary only"""
+    
+    # Find the first system message (main game rules) - this is the ONLY thing we keep
+    main_system_message = None
+    for i, msg in enumerate(conversation_history):
+        if msg.get("role") == "system":
+            main_system_message = msg
+            print(f"DEBUG: Found main system message at index {i}")
+            break
+    
+    # Create summary message
+    summary_message = {
+        "role": "user",
+        "content": f"Module summary: {summary_text}"
+    }
+    
+    # Build compressed history: ONLY main system message + summary + transition + everything after
+    compressed_history = []
+    
+    if main_system_message:
+        compressed_history.append(main_system_message)
+    
+    compressed_history.append(summary_message)  # Module summary
+    compressed_history.extend(conversation_history[transition_index:])  # Transition marker and everything after
+    
+    print(f"DEBUG: Compressed module conversation from {len(conversation_history)} to {len(compressed_history)} messages")
+    print(f"DEBUG: Result structure: main system message + module summary + transition + new conversation")
+    return compressed_history
+
 def extract_json_from_codeblock(text):
     match = re.search(r'```json\n(.*?)```', text, re.DOTALL)
     if match:
@@ -891,6 +1087,10 @@ def main_game_loop():
         # Check for and process any location transitions
         conversation_history = check_and_process_location_transitions(conversation_history, party_tracker_data, path_manager)
         save_conversation_history(conversation_history)
+        
+        # Check for and process any module transitions
+        conversation_history = check_and_process_module_transitions(conversation_history, party_tracker_data)
+        save_conversation_history(conversation_history)
 
         # Set status to ready before accepting input
         status_ready()
@@ -918,13 +1118,8 @@ def main_game_loop():
         else:
             user_input_text = input("User: ")
 
-        # Skip processing if input is empty or only whitespace, but track consecutive empty inputs
+        # Skip processing if input is empty or only whitespace
         if not user_input_text or not user_input_text.strip():
-            empty_input_count += 1
-            if empty_input_count >= max_empty_inputs:
-                print("WARNING: Detected multiple consecutive empty inputs. This may indicate a non-interactive environment.")
-                print("Stopping game loop to prevent infinite cycle.")
-                break
             continue
         else:
             # Reset counter on valid input

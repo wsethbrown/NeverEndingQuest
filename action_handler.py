@@ -911,16 +911,14 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             if new_module and new_module != current_module:
                 print(f"DEBUG: Module change detected: {current_module} -> {new_module}")
                 
-                # Get travel narration for the new module
-                travel_narration = get_travel_narration(new_module)
-                print(f"DEBUG: Adding travel narration for {new_module}: {travel_narration[:50]}...")
-                
-                # Add travel narration as a user message (not system) to provide context
-                travel_message = {
+                # Insert module transition marker immediately when module change is detected
+                transition_text = f"Module transition: {current_module} to {new_module}"
+                transition_message = {
                     "role": "user",
-                    "content": f"Travel narration: {travel_narration}"
+                    "content": transition_text
                 }
-                conversation_history.append(travel_message)
+                conversation_history.append(transition_message)
+                print(f"DEBUG: Inserted module transition marker: '{transition_text}'")
                 
                 # Import campaign manager for auto-archiving
                 from campaign_manager import CampaignManager

@@ -1,0 +1,20 @@
+{
+  "moduleName": "Keep_of_Doom",
+  "sequenceNumber": 13,
+  "archiveDate": "2025-06-21T16:58:10.737768",
+  "conversationHistory": [
+    {
+      "role": "system",
+      "content": "Here's the updated character data for norn:\n\nCHAR: Norn\nTYPE: Player | LVL: 6 | RACE: Human | CLASS: Fighter | ALIGN: LA | BG: Soldier\nAC: 19 | SPD: 30\nSTATUS: alive | CONDITION: none | AFFECTED: \nSTATS: STR 17, DEX 14, CON 16, INT 11, WIS 13, CHA 9\nSAVES: Strength, Constitution\nSKILLS: Athletics +5, Insight +3, Intimidation +1, Survival +3\nPROF BONUS: +2\nSENSES: passivePerception 11\nLANGUAGES: Common\nPROF: armor: Light armor, Medium armor, Heavy armor, Shields, weapons: Simple weapons, Martial weapons, tools: \nVULN: \nRES: fear, necrotic\nIMM: \nCOND IMM: \nCLASS FEAT: Second Wind, Action Surge, Fighting Style: Defense, Improved Critical, Martial Archetype: Champion, Extra Attack\nRACIAL: Ability Score Increase, Languages\nBG FEAT: Military Rank\nFEATS: \nTEMP FX: \nEQUIP: Chain Mail (armor), Shield (armor), Well-preserved longbow (weapon), Scroll of Protection from Undead (consumable), Gambling Dice (miscellaneous), Tarnished Military Medals (miscellaneous), Weatherproof Cloak (armor), Detailed Keep Map (secret passages) (miscellaneous), Silver Signet Ring (keep's sigil) (miscellaneous), Spectral Scribe's Lost Journal Page (miscellaneous), Spectral Scribe's Second Lost Journal Page (miscellaneous), Silver Coin (miscellaneous), Lord Vael's signet ring (miscellaneous), Jeweled dagger (weapon), Family Chronicle (miscellaneous), Sir Garran's leather journal (details his corruption, arcane circle, hidden chamber, and letter to Elara) (miscellaneous), Tarnished Key Ring with 3 Ancient Keys (miscellaneous), Sergeant Ralth's Journal (Gaol Log) (miscellaneous), Echo Crystal (miscellaneous), Prisoner List Parchment (miscellaneous), Evidence of Elen's Passage (bootprints, blue thread) (miscellaneous), Duty Roster (note about special prisoner) (miscellaneous), Crude Map to Forgotten Ossuary (secret passage) (miscellaneous), Ring of Keys (storage lockers) (miscellaneous), Potion of Heroism (consumable), Reward Coffer from Harrow's Hollow (miscellaneous), Wand of Magic Missiles (miscellaneous), Scroll of Cure Light Wounds (consumable) x2, Travel Ration (miscellaneous) x7, Vial of Lamp Oil (miscellaneous), Bedroll (miscellaneous), Waterskin (miscellaneous), Hemp Rope (50 feet) (miscellaneous), Torch (miscellaneous) x3\nAMMO: Arrows x31, Ancient Arrows x0\nATK: Longsword (melee, 1d8 slashing), Crude Dagger (melee, 1d4 piercing), Sturdy Bow (ranged, 1d6 piercing), Greatclub (melee, 1d8 bludgeoning)\nSPELLCASTING:  | DC: 0 | ATK: +0\nSPELLS: \nCURRENCY: 0G, 0S, 0C\nXP: 16581/14000\nTRAITS: I'm always polite and respectful. I don't trust my gut feelings, so I tend to hesitate even when I should act quickly.\nIDEALS: Responsibility. I do what I must and obey just authority.\nBONDS: I fight for those who cannot fight for themselves.\nFLAWS: I have a hard time hiding my true feelings. My sharp tongue often gets me into trouble.\n\n"
+    },
+    {
+      "role": "user",
+      "content": "Module summary: Extended adventure in Keep_of_Doom with multiple significant events and discoveries."
+    },
+    {
+      "role": "user",
+      "content": "Module transition: Keep_of_Doom to Silver_Vein_Whispers"
+    }
+  ],
+  "totalMessages": 3
+}

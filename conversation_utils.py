@@ -145,40 +145,27 @@ def insert_module_summary_and_transition(conversation_history, summary_text, tra
     return conversation_history
 
 def handle_module_conversation_segmentation(conversation_history, from_module, to_module):
-    """Main function to handle conversation segmentation during module transitions"""
-    print(f"DEBUG: Starting conversation segmentation for {from_module} -> {to_module}")
+    """Insert module transition marker - compression handled later by check_and_process_module_transitions()
     
-    # Find the last module transition to determine where current module's conversation starts
-    last_transition_index = find_last_module_transition_index(conversation_history)
+    This function now only inserts the transition marker. The actual conversation
+    compression is handled separately by check_and_process_module_transitions() 
+    which mirrors the location transition processing logic.
+    """
+    print(f"DEBUG: Inserting module transition marker for {from_module} -> {to_module}")
     
-    if last_transition_index == -1:
-        # This is the first module transition - use last system message as boundary
-        boundary_index = find_last_system_message_index(conversation_history)
-        print(f"DEBUG: First module transition - using last system message at index {boundary_index}")
-    else:
-        # Use the index after the last module transition
-        boundary_index = last_transition_index + 1
-        print(f"DEBUG: Previous module transition found at index {last_transition_index}, using {boundary_index} as boundary")
-    
-    # Extract current module's conversation segment
-    current_module_conversation = extract_conversation_segment(conversation_history, boundary_index)
-    print(f"DEBUG: Extracted {len(current_module_conversation)} messages for current module conversation")
-    
-    # Generate summary of current module's activities
-    summary_text = generate_conversation_summary(current_module_conversation, from_module)
-    print(f"DEBUG: Generated summary: {summary_text}")
-    
-    # Remove the extracted conversation (it will be replaced by summary)
-    conversation_history = conversation_history[:boundary_index]
-    print(f"DEBUG: Truncated conversation history to {len(conversation_history)} messages")
-    
-    # Insert summary and transition marker at the end
+    # Simply insert the module transition marker at the end (matching location transition format)
     transition_text = f"Module transition: {from_module} to {to_module}"
-    conversation_history = insert_module_summary_and_transition(
-        conversation_history, summary_text, transition_text, len(conversation_history)
-    )
+    transition_message = {
+        "role": "user",
+        "content": transition_text
+    }
     
-    print(f"DEBUG: Conversation segmentation complete - history now has {len(conversation_history)} messages")
+    # Add transition marker to conversation history
+    conversation_history.append(transition_message)
+    
+    print(f"DEBUG: Module transition marker inserted: '{transition_text}'")
+    print(f"DEBUG: Conversation history now has {len(conversation_history)} messages")
+    
     return conversation_history
 
 def get_previous_module_from_history(conversation_history):
@@ -268,30 +255,8 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
     
     print(f"DEBUG: Module transition check - previous: '{previous_module}', current: '{current_module}'")
     
-    # If we detected a module change and it's not the first module (previous_module exists)
-    if previous_module and previous_module != current_module and previous_module != 'Unknown':
-        print(f"DEBUG: Module transition detected in conversation_utils: {previous_module} -> {current_module}")
-        
-        # Handle the module conversation segmentation
-        updated_history = handle_module_conversation_segmentation(
-            updated_history, previous_module, current_module
-        )
-        
-        # Auto-archive and summarize previous module
-        try:
-            from campaign_manager import CampaignManager
-            campaign_manager = CampaignManager()
-            if previous_module != "Unknown":
-                print(f"DEBUG: Auto-archiving conversation and generating summary for {previous_module}")
-                summary = campaign_manager.handle_cross_module_transition(
-                    previous_module, current_module, party_tracker_data, updated_history
-                )
-                if summary:
-                    print(f"DEBUG: Successfully archived conversation and generated summary for {previous_module}")
-                else:
-                    print(f"DEBUG: No summary generated for {previous_module}")
-        except Exception as e:
-            print(f"WARNING: Could not auto-archive module: {e}")
+    # Module transition detection and marker insertion now happens in action_handler.py
+    # This section is preserved for any future module transition logic
 
     # Insert world state information
     try:
