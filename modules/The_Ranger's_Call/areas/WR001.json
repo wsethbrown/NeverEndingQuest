@@ -1,0 +1,472 @@
+{
+  "areaId": "WR001",
+  "areaName": "Watcher's Rise",
+  "areaType": "dungeon",
+  "areaDescription": "Stale, coppery air clings to the spiraling stairwells of Watcher\u2019s Rise, where cyclopean statues peer from alcoves with unblinking gemstone eyes, casting flickering reflections across cracked mosaics underfoot. Every footstep echoes too long in the gloom, hinting at movements just beyond torchlight\u2014a vigilance that neither sleeps nor forgives the trespass of the curious.",
+  "dangerLevel": "medium",
+  "recommendedLevel": 2,
+  "climate": "controlled - cool and damp",
+  "terrain": "stone corridors and chambers",
+  "map": {
+    "mapId": "MAP_4",
+    "mapName": "Dungeon Map",
+    "totalRooms": 4,
+    "rooms": [
+      {
+        "id": "R01",
+        "type": "laboratory",
+        "connections": [
+          "R02",
+          "R03",
+          "R04"
+        ],
+        "coordinates": "X2Y2",
+        "name": "Warden\u2019s Alchemy Cloister"
+      },
+      {
+        "id": "R02",
+        "type": "vault",
+        "connections": [
+          "R01"
+        ],
+        "coordinates": "X1Y2",
+        "name": "Sealed Hunter\u2019s Cache"
+      },
+      {
+        "id": "R03",
+        "type": "hall",
+        "connections": [
+          "R01"
+        ],
+        "coordinates": "X2Y1",
+        "name": "Sentinel\u2019s Stonewalk"
+      },
+      {
+        "id": "R04",
+        "type": "vault",
+        "connections": [
+          "R01"
+        ],
+        "coordinates": "X3Y2",
+        "name": "Hallowed Relics Vault"
+      }
+    ],
+    "layout": [
+      [
+        "   ",
+        "R03",
+        "   "
+      ],
+      [
+        "R02",
+        "R01",
+        "R04"
+      ]
+    ]
+  },
+  "locations": [
+    {
+      "locationId": "R01",
+      "name": "Warden\u2019s Alchemy Cloister",
+      "type": "laboratory",
+      "description": "The stale, coppery air of Watcher\u2019s Rise thickens in this cramped laboratory. Ancient workbenches line the walls, cluttered with glass vials, mortar-stained journals, and scattered powders. The faint scent of drying herbs mixes with something acrid and metallic. Along one curved wall, shelves are crowded with jars containing preserved eyes, exotic fungi, and shimmering minerals. Above, a heavy chandelier of iron and bone flickers with blue alchemical flame. Cyclopean statues peer from alcoves, their gemstone eyes glinting with suspicion. The space feels watched, every movement echoed by unseen scrutiny.",
+      "coordinates": "X2Y2",
+      "connectivity": [
+        "R02",
+        "R03",
+        "R04"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Sereth Dolen",
+          "description": "A gaunt, sharp-eyed scholar draped in a moth-eaten cloak, Sereth is a reclusive alchemist obsessed with the study of ancient preservation techniques. Their hands are ink-stained and tremble slightly from long hours of work. They are wary but will speak to those who approach with genuine scholarly interest.",
+          "attitude": "Cautious but potentially helpful; values knowledge over gold."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Animated Alchemical Homunculus",
+          "description": "A squat, clay-bodied construct with glowing runes and spindly arms, created to assist in experiments but prone to defensive outbursts if startled.",
+          "quantity": 1
+        }
+      ],
+      "lootTable": [
+        "Vial of Emberroot Essence (Potion of Fire Resistance, 1 use)",
+        "Alchemist's Journal (clues about glyph keys in other rooms)",
+        "3x Healing Salve (Heals 1d4+1 HP)",
+        "Emerald Powder (component worth 25gp)"
+      ],
+      "plotHooks": [
+        "Sereth hints at disturbances in the preservation wards, urging the party to check the 'Hallowed Relics Vault'.",
+        "The alchemist's journal references a 'hunter\u2019s legacy' locked away nearby."
+      ],
+      "dmInstructions": "Sereth may share clues about the dungeon\u2019s history or offer to trade minor potions. Adjust the Homunculus's aggression based on party approach: it defends Sereth but will not pursue if calmed. Useful information about traps and glyph keys can be gleaned here.",
+      "doors": [
+        {
+          "name": "West Door",
+          "description": "A sturdy iron-bound wooden door with a brass handle, faint scorch marks at the base.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 13,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "North Door",
+          "description": "A reinforced oak door engraved with chemical symbols; faint green residue lingers around the keyhole.",
+          "type": "regular",
+          "locked": true,
+          "lockDC": 12,
+          "breakDC": 15,
+          "keyname": "Hunter\u2019s Cache Key",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "East Door",
+          "description": "A heavy stone door inlaid with copper sigils, humming softly with magical energy.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 13,
+          "breakDC": 16,
+          "keyname": "Relics Vault Sigil",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Arcana DC 13: Identify the blue flames as magical and harmless.",
+        "Investigation DC 12: Find hidden compartments in workbenches with extra supplies.",
+        "Persuasion DC 14: Convince Sereth to share details about the dungeon\u2019s magical wards."
+      ],
+      "accessibility": "Normal access via stairwell; doors may be locked and require keys or checks.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Strange Ingredients",
+          "description": "Shelves groan under jars of pickled organs, dried roots, and shimmering minerals\u2014each labeled in an archaic script."
+        },
+        {
+          "name": "Workbenches",
+          "description": "Sturdy, pitted benches covered in old stains and alchemical debris, with embedded drawer compartments."
+        },
+        {
+          "name": "Cyclopean Statues",
+          "description": "Statues with gemstone eyes watch over the room, creating the unnerving sensation of being observed."
+        }
+      ],
+      "encounters": [
+        {
+          "trigger": "Entering while Sereth is present or disturbing ingredients",
+          "details": "Sereth confronts the party, possibly with the Homunculus's aid. If approached peacefully, they offer information and minor healing salves. If hostile, the Homunculus attacks."
+        }
+      ],
+      "adventureSummary": "The party meets Sereth, uncovers alchemical lore, and may gain key items for other dungeon rooms."
+    },
+    {
+      "locationId": "R02",
+      "name": "Sealed Hunter\u2019s Cache",
+      "type": "vault",
+      "description": "This low, stone-walled chamber is colder than the rest. Iron-banded chests line the walls, many bearing ancient sigils of warding. Some are sealed with heavy locks while others are encased in glassy stasis fields. The floor is littered with spent bolts and broken trap components. Empty weapon racks and old hunting trophies hint at the room\u2019s original purpose: a store for relics and munitions of old wardens.",
+      "coordinates": "X1Y2",
+      "connectivity": [
+        "R01"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Animated Trap Mechanism",
+          "description": "Part mechanical, part magical, this defensive device resembles a multi-limbed bronze spider that leaps from inside a locked chest when disturbed.",
+          "quantity": 1
+        }
+      ],
+      "lootTable": [
+        "Hunter\u2019s Cache Key (Opens North Door in Cloister)",
+        "Quiver of Silvered Arrows (10 arrows)",
+        "Potion of Animal Friendship",
+        "Warden\u2019s Medallion (worth 15gp; can be used to bypass some statues)",
+        "Bundle of Snares"
+      ],
+      "plotHooks": [
+        "An old logbook details recent attempts to breach the Hallowed Relics Vault\u2014mentioning a missing 'Relics Vault Sigil'.",
+        "Some containers are shielded by magical glyphs. The glyph sequence is partially documented on a scrap of parchment."
+      ],
+      "dmInstructions": "The trap mechanism animates if a chest is tampered with without the proper key or passphrase. The room contains clues about the Relics Vault and alternate ways to bypass magical locks.",
+      "doors": [
+        {
+          "name": "South Door",
+          "description": "A thick metal door set flush with the wall, pitted with rust but still sturdy.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 12,
+          "breakDC": 16,
+          "keyname": "Hunter\u2019s Cache Key",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [
+        {
+          "name": "Spring-Loaded Bolt Trap",
+          "description": "A concealed mechanism in the lid of one chest fires a bolt when the lock is tampered with.",
+          "detectDC": 13,
+          "disableDC": 15,
+          "triggerDC": 12,
+          "damage": "1d8 piercing damage"
+        }
+      ],
+      "dcChecks": [
+        "Perception DC 13: Spot glimmering runes on the most valuable chest.",
+        "Thieves\u2019 Tools DC 12: Open a locked chest without triggering the mechanism.",
+        "Arcana DC 11: Dispel the stasis field on a glass-encased box."
+      ],
+      "accessibility": "Accessible via the North Door from the Cloister; requires key or successful skill checks.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Locked Chests",
+          "description": "Heavy, iron-banded containers\u2014some with false bottoms, others enchanted against tampering."
+        },
+        {
+          "name": "Strange Containers",
+          "description": "Oddly-shaped glass boxes and rune-marked cylinders, several emitting a faint humming sound."
+        },
+        {
+          "name": "Shelves",
+          "description": "Dusty stone shelves stacked with old hunting trophies and empty quivers."
+        }
+      ],
+      "encounters": [
+        {
+          "trigger": "Attempt to open a central chest without the proper key or passphrase",
+          "details": "Trap mechanism animates and attacks. If the trap is disabled, the party may recover bonus loot."
+        }
+      ],
+      "adventureSummary": "The party discovers old hunting gear, key clues for further exploration, and must overcome a trap or animated defense."
+    },
+    {
+      "locationId": "R03",
+      "name": "Sentinel\u2019s Stonewalk",
+      "type": "hall",
+      "description": "A long corridor lined with looming cyclopean statues, their gazes fixed on a cracked mosaic floor. The torchlight dances in their gemstone eyes, casting shifting reflections that create the illusion of movement. The air is thick and heavy, punctuated by the long echo of footsteps. Hidden mechanisms beneath the tiles make every step a risk.",
+      "coordinates": "X2Y1",
+      "connectivity": [
+        "R01"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Stonewatch Gargoyle",
+          "description": "A squat, mossy gargoyle perched between two statues. It animates if the pressure plate trap is triggered.",
+          "quantity": 1
+        }
+      ],
+      "lootTable": [
+        "Fragmented Sentinel Gem (can be used to placate statues or as spell component, worth 10gp)",
+        "Faded Map Segment (shows a hidden door in the Relics Vault)"
+      ],
+      "plotHooks": [
+        "A faint inscription carved into the base of a statue hints at the use of relics to bypass magical guardians.",
+        "The mosaic floor subtly highlights a path that avoids most traps."
+      ],
+      "dmInstructions": "If the trap is triggered, the gargoyle attacks. Observant players can spot the safe path or glean clues about the dungeon\u2019s defenses from inscriptions.",
+      "doors": [
+        {
+          "name": "South Door",
+          "description": "A narrow stone archway with a sliding door carved with vigilant eyes.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 10,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [
+        {
+          "name": "Simple Pressure Plate",
+          "description": "A hidden pressure plate that triggers when stepped on.",
+          "detectDC": 13,
+          "disableDC": 15,
+          "triggerDC": 12,
+          "damage": "1d6 piercing damage from hidden spikes"
+        }
+      ],
+      "dcChecks": [
+        "Perception DC 12: Notice the mosaic\u2019s subtle path.",
+        "Arcana DC 13: Sense the latent magic in the statues\u2019 gemstone eyes.",
+        "Investigation DC 14: Uncover the faint inscription at the statue\u2019s base."
+      ],
+      "accessibility": "Normal access, but progress is impeded by traps and the risk of ambush.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Support Columns",
+          "description": "Thick, carved columns inlaid with faded runes, supporting the arched ceiling."
+        },
+        {
+          "name": "Gem-Eyed Statues",
+          "description": "Cyclopean figures with unblinking gemstone eyes, appearing to follow intruders\u2019 every move."
+        }
+      ],
+      "encounters": [
+        {
+          "trigger": "Triggering the pressure plate trap",
+          "details": "The Stonewatch Gargoyle animates and attacks intruders until destroyed or deactivated."
+        }
+      ],
+      "adventureSummary": "A trapped corridor with hidden clues, a dangerous construct, and opportunities for clever navigation."
+    },
+    {
+      "locationId": "R04",
+      "name": "Hallowed Relics Vault",
+      "type": "vault",
+      "description": "Behind a heavy, rune-etched door lies a chill chamber, its floor lined with intricate mosaics and the air thrumming with preservation magic. Glass-fronted niches display ancient relics\u2014blades, scrolls, and charms\u2014bathed in a faint blue glow. Shelves are packed with containers sealed by arcane sigils. The overwhelming sense of vigilance is enhanced by the presence of preservation wards, which flicker like cold fire along the walls.",
+      "coordinates": "X3Y2",
+      "connectivity": [
+        "R01"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Caretaker Voss",
+          "description": "A spectral, translucent figure in ancient armor, Voss is the vault\u2019s guardian spirit. Bound to the relics, they speak in cryptic warnings and test the worthiness of visitors.",
+          "attitude": "Guarded, but may be cooperative if shown respect and relic medallions."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Vault Wisp",
+          "description": "A tiny will-o'-wisp bound to the arcane wards, it zips between relics, animating traps and interfering with thieves.",
+          "quantity": 1
+        }
+      ],
+      "lootTable": [
+        "Relics Vault Sigil (key to East Door in Cloister)",
+        "Charm of Watchful Rest (once per long rest, grants advantage on Perception checks for 1 hour)",
+        "Ancient Ranger\u2019s Blade (shortsword, +1 vs. aberrations)",
+        "Preserved Scroll: Detect Magic (1 use)"
+      ],
+      "plotHooks": [
+        "Caretaker Voss implores the party to seek out the source of the disturbance corrupting the preservation wards\u2014hinting it originates deeper within Watcher\u2019s Rise.",
+        "A hidden compartment contains a faded map marking a passage to a rumored lower level."
+      ],
+      "dmInstructions": "Voss tests the party with riddles or requests a demonstration of respect for the relics. If disrespected, the Vault Wisp becomes hostile and activates defensive wards. The Relics Vault Sigil is required to access other secure chambers.",
+      "doors": [
+        {
+          "name": "West Door",
+          "description": "A massive stone door inlaid with glowing runes, sealed by an arcane sigil.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 13,
+          "breakDC": 18,
+          "keyname": "Relics Vault Sigil",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [
+        {
+          "name": "Simple Pressure Plate",
+          "description": "A hidden pressure plate that triggers when stepped on.",
+          "detectDC": 13,
+          "disableDC": 15,
+          "triggerDC": 12,
+          "damage": "1d6 piercing damage from hidden spikes"
+        }
+      ],
+      "dcChecks": [
+        "Religion DC 12: Recognize the preservation wards\u2019 function and avoid accidental disruption.",
+        "Insight DC 13: Discern Caretaker Voss\u2019s intentions.",
+        "Investigation DC 14: Locate the hidden compartment with the lower level map."
+      ],
+      "accessibility": "Access restricted by heavy, locked doors and magical wards. Entry requires the correct sigil or creative bypassing.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Shelves",
+          "description": "Stone and wood shelves laden with relics, each protected by a faint magical field."
+        },
+        {
+          "name": "Preservation Magic",
+          "description": "Blue-tinged magical wards swirl along the walls, sparking at signs of intrusion."
+        },
+        {
+          "name": "Niche Displays",
+          "description": "Recesses in the walls showcase ancient artifacts under glass and shimmering glyphs."
+        }
+      ],
+      "encounters": [
+        {
+          "trigger": "Interacting with relics without Caretaker Voss\u2019s consent or failing the riddle/test",
+          "details": "Vault Wisp attacks, activating magical wards (treat as faerie fire or shocking grasp effects)."
+        }
+      ],
+      "adventureSummary": "The party negotiates with the spectral caretaker, locates vital keys, and learns of deeper threats within Watcher\u2019s Rise."
+    }
+  ],
+  "randomEncounters": [
+    {
+      "roll": "1-10",
+      "encounter": "bandit patrol",
+      "description": "A bandit patrol appropriate for level 2 parties"
+    },
+    {
+      "roll": "11-20",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 2 parties"
+    },
+    {
+      "roll": "21-30",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 2 parties"
+    },
+    {
+      "roll": "31-40",
+      "encounter": "hostile creature",
+      "description": "A hostile creature appropriate for level 2 parties"
+    },
+    {
+      "roll": "41-50",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 2 parties"
+    },
+    {
+      "roll": "51-60",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 2 parties"
+    },
+    {
+      "roll": "61-70",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 2 parties"
+    },
+    {
+      "roll": "71-80",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 2 parties"
+    },
+    {
+      "roll": "81-90",
+      "encounter": "hostile creature",
+      "description": "A hostile creature appropriate for level 2 parties"
+    }
+  ],
+  "areaFeatures": [
+    "ancient murals",
+    "forgotten shrines",
+    "mysterious mechanisms"
+  ],
+  "notes": "Consider lighting sources and trap placement. Underground areas may have limited resources."
+}

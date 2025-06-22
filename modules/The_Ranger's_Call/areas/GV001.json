@@ -1,0 +1,389 @@
+{
+  "areaId": "GV001",
+  "areaName": "Greenwatch Village",
+  "areaType": "town",
+  "areaDescription": "Greenwatch Village breathes with the pulse of orderly gardens and moss-crowned rooftops, the air dappled by sunlight filtering through arching willow limbs and always tinged with the sweet tang of fresh-gathered herbs. Early risers pass beneath banners woven with river-grass threads, their footsteps softened by carpets of clover, while the rhythmic clang of the communal bell marks each gentle shift in the village\u2019s easy, communal rhythm.",
+  "dangerLevel": "low",
+  "recommendedLevel": 1,
+  "climate": "temperate",
+  "terrain": "urban streets and buildings",
+  "map": {
+    "mapId": "MAP_4",
+    "mapName": "Town Map",
+    "totalRooms": 4,
+    "rooms": [
+      {
+        "id": "R01",
+        "type": "barracks",
+        "connections": [
+          "R02",
+          "R04"
+        ],
+        "coordinates": "X2Y2",
+        "name": "Wardens' Vigil Hall"
+      },
+      {
+        "id": "R02",
+        "type": "tavern",
+        "connections": [
+          "R01",
+          "R03"
+        ],
+        "coordinates": "X2Y3",
+        "name": "The Restful Quiver"
+      },
+      {
+        "id": "R03",
+        "type": "square",
+        "connections": [
+          "R02"
+        ],
+        "coordinates": "X2Y4",
+        "name": "Oaken Lantern Square"
+      },
+      {
+        "id": "R04",
+        "type": "square",
+        "connections": [
+          "R01"
+        ],
+        "coordinates": "X1Y2",
+        "name": "Shadowsend Crossing"
+      }
+    ],
+    "layout": [
+      [
+        "R04",
+        "R01"
+      ],
+      [
+        "   ",
+        "R02"
+      ],
+      [
+        "   ",
+        "R03"
+      ]
+    ]
+  },
+  "locations": [
+    {
+      "locationId": "R01",
+      "name": "Wardens' Vigil Hall",
+      "type": "barracks",
+      "description": "This sturdy longhouse, crowned by moss-laden timbers and wreathed in the scent of old leather and oiled wood, serves as the barracks and gathering hall for Greenwatch\u2019s guardians. Ancient banners\u2014faded but proudly kept\u2014hang above racks of polished, if well-worn, gear. The structure\u2019s visible repairs and sun-bleached wooden beams speak of many years of vigilant service.",
+      "coordinates": "X2Y2",
+      "connectivity": [
+        "R02",
+        "R04"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Elen the Ranger",
+          "description": "A seasoned, sharp-eyed ranger, Elen is the steadfast protector of Greenwatch and the party's principal contact for their mission. Clad in forest-hued leathers and exuding both authority and care, Elen is currently briefing the hall's watch on the latest disturbances. She seems to be preparing for an important mission of her own.",
+          "attitude": "Helpful, focused, but wary of unknown threats. Will guide and support the party but cannot join them permanently due to her own duties."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Set of finely-crafted arrows (20)",
+        "Tattered field guide annotated in Elen's hand",
+        "Potion of Healing (hidden in a supply chest)"
+      ],
+      "plotHooks": [
+        "Elen shares rumors of unnatural tracks found in the nearby woods.",
+        "A battered dispatch requests urgent reconnaissance beyond the river.",
+        "A missing patrol\u2019s gear is recovered, but its members are nowhere to be found.",
+        "Elen mentions she'll need to establish a long-term watch post once immediate threats are handled."
+      ],
+      "dmInstructions": "Use Wardens' Vigil Hall as a hub for initial quest assignment, introductions, and investigation. Adjust number of NPCs or background village guards present as needed. Elen may offer minor items or healing if the party earns trust.",
+      "doors": [
+        {
+          "name": "Main Entrance",
+          "description": "A heavy oaken door, reinforced with iron bands and fitted with a carved handle shaped like a stag\u2019s head.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 15,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "Armory Door",
+          "description": "A stout side door barred from inside, with a small iron lock and a painted shield emblem.",
+          "type": "regular",
+          "locked": true,
+          "lockDC": 13,
+          "breakDC": 16,
+          "keyname": "Barracks Armory Key",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 12: Spot subtle scuff marks near the armory, suggesting recent unauthorized access.",
+        "Perception DC 10: Hear muffled conversations discussing unusual animal sightings."
+      ],
+      "accessibility": "Normal access; open to guards, villagers, and trusted visitors. Armory is locked except to authorized personnel.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Signs Of Age",
+          "description": "Weathered beams, patched stonework, and faded banners mark the hall\u2019s long service."
+        },
+        {
+          "name": "Wall of Remembrance",
+          "description": "A wooden plaque bearing the names of fallen wardens, some with flowers left in respect."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": "The party meets Elen the Ranger, receives their initial assignment, and can investigate clues about recent disturbances. They may also notice evidence of someone tampering with the armory."
+    },
+    {
+      "locationId": "R02",
+      "name": "The Restful Quiver",
+      "type": "tavern",
+      "description": "A cozy tavern with honeyed light slanting through leaded windows, The Restful Quiver hums with the easy laughter of locals and the clatter of wooden mugs. Walls are decorated with hunting trophies and dried herbs, while the smell of river fish stew drifts through the taproom.",
+      "coordinates": "X2Y3",
+      "connectivity": [
+        "R01",
+        "R03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Old Fenwick the Tavernkeeper",
+          "description": "A genial, white-bearded human who runs the tavern with a quick wit and an encyclopedic memory for village gossip. Always ready with a story or a steaming mug of cider.",
+          "attitude": "Friendly, talkative, eager to help travelers for the price of a tale or two."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Pouch of rare local herbs (hidden behind the bar)",
+        "Map fragment showing a secret woodland path",
+        "Silvered arrowhead (mounted in the trophy display)"
+      ],
+      "plotHooks": [
+        "Fenwick recalls travelers speaking of lights in the forest at night.",
+        "A regular patron has gone missing after taking a shortcut home.",
+        "A decorative hunting horn is missing from the trophy wall."
+      ],
+      "dmInstructions": "Use the tavern for gathering rumors, recruiting informants, and learning about the village\u2019s recent troubles. Old Fenwick is a good source for local information. The party can search for clues or oddities here.",
+      "doors": [
+        {
+          "name": "Front Door",
+          "description": "A broad, welcoming wooden door carved with arching willow leaves.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 13,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "Cellar Hatch",
+          "description": "A stout hatch behind the bar leading to a root cellar, with sturdy hinges and a basic latch.",
+          "type": "regular",
+          "locked": true,
+          "lockDC": 10,
+          "breakDC": 13,
+          "keyname": "Tavern Cellar Key",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Perception DC 11: Notice a concealed compartment beneath the bar.",
+        "Insight DC 12: Sense Fenwick is withholding a particular rumor, unless plied with a good story or drink."
+      ],
+      "accessibility": "Normal access; open to the public during daylight and evening hours. The cellar is locked outside of staff use.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Tables And Chairs",
+          "description": "A collection of mismatched, hand-carved furniture, each piece with its own story."
+        },
+        {
+          "name": "Trophy Display",
+          "description": "A wall-mounted rack of antlers, fangs, and a few local curiosities."
+        },
+        {
+          "name": "Bar Counter",
+          "description": "A polished wooden bar, well-maintained and lined with engraved mugs."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": "The party can gather information from Fenwick and the locals, uncover rumors, and potentially find secret items or paths based on what they discover."
+    },
+    {
+      "locationId": "R03",
+      "name": "Oaken Lantern Square",
+      "type": "square",
+      "description": "Bathed in the dappled shadows of willows, this central square is paved with mossy stones and ringed by lantern poles. A well at its heart draws villagers for water and gossip, while a sprawling notice board posts the latest news and requests.",
+      "coordinates": "X2Y4",
+      "connectivity": [
+        "R02"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Mirna the Village Elder",
+          "description": "A kindly, sharp-eyed halfling with a crown of white braids, Mirna supervises village business from a simple bench, offering wisdom and guidance to all.",
+          "attitude": "Wise, nurturing, attentive to the needs of villagers and newcomers alike."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Bundle of handwritten announcements (some referencing recent odd sightings)",
+        "Small coin purse wedged behind the well\u2019s stones",
+        "Piece of torn cloak fabric matching a missing villager"
+      ],
+      "plotHooks": [
+        "Mirna seeks brave souls to investigate a spate of unusual animal behavior.",
+        "Several requests for missing pets and livestock are posted on the board.",
+        "A traveling peddler left in a hurry, leaving behind a mysterious locked box."
+      ],
+      "dmInstructions": "Use the square as a place for public announcements, gathering, and roleplay encounters. Mirna may offer side quests, guidance, or introductions to other key NPCs. The notice board provides hooks for additional rumors and tasks.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 12: Find a hidden note beneath the notice board, warning of danger in the woods.",
+        "Perception DC 13: Spot subtle animal tracks leading away from the well."
+      ],
+      "accessibility": "Normal access; open-air, easy for all to enter and gather.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Notice Board",
+          "description": "A sturdy wooden board bristling with parchment requests, job postings, and lost-and-found notices."
+        },
+        {
+          "name": "Well",
+          "description": "A stone well with a wooden bucket and winding rope, its walls cool and damp."
+        },
+        {
+          "name": "Sitting Area",
+          "description": "A shaded bench beneath an old willow, favored by Mirna and other elders."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": "The party can interact with Mirna for local wisdom and plot hooks, interact with villagers, and investigate physical clues posted in the square."
+    },
+    {
+      "locationId": "R04",
+      "name": "Shadowsend Crossing",
+      "type": "square",
+      "description": "A bustling thoroughfare where merchant stalls and open-air tables cluster beneath the shade. The Crossing marks the transition from Greenwatch\u2019s heart to its woodland edge, with paths leading deeper into the village or toward the wilds.",
+      "coordinates": "X1Y2",
+      "connectivity": [
+        "R01"
+      ],
+      "areaConnectivity": [
+        "Verdantwood Wilds"
+      ],
+      "areaConnectivityId": [
+        "VW001"
+      ],
+      "npcs": [
+        {
+          "name": "Torren the Merchant",
+          "description": "A resourceful, quick-talking half-elf with a knack for acquiring rare goods and news from travelers passing through Greenwatch.",
+          "attitude": "Pragmatic, a little sly, willing to barter or trade information for goods."
+        },
+        {
+          "name": "Willow the Herbalist (local guide)",
+          "description": "A cheerful young gnome with leaf-stained hands and a warm smile, Willow offers herbal remedies and occasionally guides visitors into the wilds.",
+          "attitude": "Helpful, optimistic, eager to share natural lore and point out subtle dangers beyond the village."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Satchel of rare medicinal herbs (from Willow\u2019s stall)",
+        "Traveler\u2019s journal with notes about shadowy figures seen at dusk",
+        "Unusual trinket: a wooden charm shaped like a fox"
+      ],
+      "plotHooks": [
+        "Torren has noticed unfamiliar faces watching the village outskirts.",
+        "Willow is missing a pouch of potent herbs, possibly stolen by a desperate villager.",
+        "Rumors of bandits or wild beasts harassing the trade road are circulating among the merchants."
+      ],
+      "dmInstructions": "Use Shadowsend Crossing as a point of transition between the safety of Greenwatch and the dangers of the wilds. Torren and Willow can provide supplies, directions, or leads on suspicious activity. Bandit Lieutenant Karsk is not present here, but may be referenced as a threat in liaisons with the wild.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 11: Notice a hidden message carved into a market table, referencing a meeting outside town.",
+        "Nature DC 10: Identify unusual herbs or animal pelts for sale."
+      ],
+      "accessibility": "Normal access; open to villagers, merchants, and travelers. Paths lead directly toward the Verdantwood Wilds.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Sitting Area",
+          "description": "Small wooden benches for merchants and patrons to rest and barter."
+        },
+        {
+          "name": "Merchant Stalls",
+          "description": "Collapsible awnings and colorful tables offering goods from Greenwatch and beyond."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": "The party can gather supplies, learn about dangers along the frontier, and meet guides for further travel. This is also the main route to Verdantwood Wilds."
+    }
+  ],
+  "randomEncounters": [
+    {
+      "roll": "1-10",
+      "encounter": "lost traveler",
+      "description": "A lost traveler appropriate for level 1 parties"
+    },
+    {
+      "roll": "11-20",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "21-30",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "31-40",
+      "encounter": "lost traveler",
+      "description": "A lost traveler appropriate for level 1 parties"
+    },
+    {
+      "roll": "41-50",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "51-60",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "61-70",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "71-80",
+      "encounter": "lost traveler",
+      "description": "A lost traveler appropriate for level 1 parties"
+    }
+  ],
+  "areaFeatures": [
+    "market square",
+    "merchant quarter",
+    "guard posts"
+  ],
+  "notes": "NPCs should have daily routines. Political factions create roleplay opportunities."
+}

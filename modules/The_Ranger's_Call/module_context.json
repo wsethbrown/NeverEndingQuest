@@ -1,0 +1,217 @@
+{
+  "module_name": "The Ranger's Call",
+  "module_id": "The_Ranger's_Call",
+  "areas": {
+    "GV001": {
+      "name": "Greenwatch Village",
+      "type": "town",
+      "locations": [],
+      "npcs": [
+        "Elen the Ranger",
+        "Old Fenwick the Tavernkeeper",
+        "Mirna the Village Elder",
+        "Torren the Merchant",
+        "Willow the Herbalist (local guide)"
+      ],
+      "plot_points": [
+        "PP001",
+        "PP002",
+        "PP003",
+        "PP004"
+      ]
+    },
+    "VW001": {
+      "name": "Verdantwood Wilds",
+      "type": "wilderness",
+      "locations": [],
+      "npcs": [
+        "Merritt the Watchful",
+        "Kella of the Glades",
+        "Tavrin Quickfoot",
+        "Bandit Lieutenant Karsk"
+      ],
+      "plot_points": [
+        "VW_PP001",
+        "VW_PP002",
+        "VW_PP003",
+        "VW_PP004"
+      ]
+    },
+    "WR001": {
+      "name": "Watcher's Rise",
+      "type": "dungeon",
+      "locations": [],
+      "npcs": [
+        "Sereth Dolen",
+        "Caretaker Voss"
+      ],
+      "plot_points": [
+        "WR_PP001",
+        "WR_PP002",
+        "WR_PP003",
+        "WR_PP004"
+      ]
+    }
+  },
+  "npcs": {
+    "elen_the_ranger": {
+      "name": "Elen the Ranger",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "GV001",
+          "location": "R01"
+        }
+      ]
+    },
+    "mirna_the_village_elder": {
+      "name": "Mirna the Village Elder",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "GV001",
+          "location": "R03"
+        }
+      ]
+    },
+    "torren_the_merchant": {
+      "name": "Torren the Merchant",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "GV001",
+          "location": "R04"
+        }
+      ]
+    },
+    "old_fenwick_the_tavernkeeper": {
+      "name": "Old Fenwick the Tavernkeeper",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "GV001",
+          "location": "R02"
+        }
+      ]
+    },
+    "bandit_lieutenant_karsk": {
+      "name": "Bandit Lieutenant Karsk",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "VW001",
+          "location": "R04"
+        }
+      ]
+    },
+    "willow_the_herbalist_(local_guide)": {
+      "name": "Willow the Herbalist (local guide)",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "GV001",
+          "location": "R04"
+        }
+      ]
+    },
+    "merritt_the_watchful": {
+      "name": "Merritt the Watchful",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "VW001",
+          "location": "R01"
+        }
+      ]
+    },
+    "kella_of_the_glades": {
+      "name": "Kella of the Glades",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "VW001",
+          "location": "R02"
+        }
+      ]
+    },
+    "tavrin_quickfoot": {
+      "name": "Tavrin Quickfoot",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "VW001",
+          "location": "R03"
+        }
+      ]
+    },
+    "sereth_dolen": {
+      "name": "Sereth Dolen",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "WR001",
+          "location": "R01"
+        }
+      ]
+    },
+    "caretaker_voss": {
+      "name": "Caretaker Voss",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "WR001",
+          "location": "R04"
+        }
+      ]
+    }
+  },
+  "locations": {},
+  "plot_scopes": {
+    "PP001": "GV001",
+    "PP002": "GV001",
+    "PP003": "GV001",
+    "PP004": "GV001",
+    "PP005": "GV001",
+    "VW_PP001": "VW001",
+    "VW_PP002": "VW001",
+    "VW_PP003": "VW001",
+    "VW_PP004": "VW001",
+    "WR_PP001": "WR001",
+    "WR_PP002": "WR001",
+    "WR_PP003": "WR001",
+    "WR_PP004": "WR001"
+  },
+  "references": {
+    "npc:Elen the Ranger": [
+      "module:plotStages"
+    ],
+    "npc:Mirna the Village Elder": [
+      "module:plotStages"
+    ],
+    "npc:Torren the Merchant": [
+      "module:plotStages"
+    ],
+    "npc:Old Fenwick the Tavernkeeper": [
+      "module:plotStages"
+    ],
+    "npc:Bandit Lieutenant Karsk": [
+      "module:plotStages"
+    ],
+    "npc:Willow the Herbalist (local guide)": [
+      "module:plotStages"
+    ]
+  },
+  "validation_issues": [],
+  "generated_at": "2025-06-22T01:53:20.606805"
+}

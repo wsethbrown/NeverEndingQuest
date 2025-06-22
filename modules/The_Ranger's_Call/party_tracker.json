@@ -1,0 +1,26 @@
+{
+  "module": "The Ranger's Call",
+  "partyMembers": [],
+  "partyNPCs": [],
+  "worldConditions": {
+    "year": 1492,
+    "month": "Hammer",
+    "day": 1,
+    "time": "08:00:00",
+    "weather": "Clear",
+    "season": "Winter",
+    "dayNightCycle": "Day",
+    "moonPhase": "New Moon",
+    "currentLocation": "Wardens' Vigil Hall",
+    "currentLocationId": "R01",
+    "currentArea": "Greenwatch Village",
+    "currentAreaId": "GV001",
+    "majorEventsUnderway": [],
+    "politicalClimate": "",
+    "activeEncounter": "",
+    "activeCombatEncounter": "",
+    "weatherConditions": "",
+    "lastCompletedEncounter": ""
+  },
+  "activeQuests": []
+}
