@@ -11,8 +11,8 @@ While AI drives the narrative and game logic, multiple validation layers ensure 
 ### 3. **Data Integrity Above All**
 Every data operation is atomic, validated, and recoverable. We use JSON schemas, backup mechanisms, file locking, and multi-layer validation to ensure game state consistency even under failure conditions.
 
-### 4. **Location-Based Hub-and-Spoke Module Architecture**
-Our revolutionary module system uses geographic boundaries rather than narrative chapters. Each area network forms a self-contained module, with automatic cross-module transitions based on location IDs. This creates a living, interconnected world where players can revisit any area while maintaining full context through accumulated adventure summaries.
+### 4. **Module-Centric Hub-and-Spoke Architecture with Timeline Preservation**
+Our revolutionary module system uses geographic boundaries rather than narrative chapters. Each area network forms a self-contained module, with intelligent conversation segmentation preserving chronological adventure history. This creates a living, interconnected world where players can revisit any area while maintaining complete context through AI-generated adventure summaries and seamless timeline preservation.
 
 ### 5. **Unified Character Management**
 All characters (players, NPCs, monsters) use consistent schemas and processing patterns while allowing for role-specific behavior. This simplifies maintenance and ensures consistent game mechanics.
@@ -58,16 +58,25 @@ User Input → Action Parsing → AI Processing → Validation → State Update 
 
 ## File Organization Principles
 
-### **Hierarchical Campaign Structure**
+### **Module-Centric File Structure**
 ```
-campaigns/[campaign_name]/
+modules/[module_name]/
 ├── areas/              # Location files (HH001.json, G001.json)
 ├── characters/         # Unified player/NPC storage
-├── monsters/           # Campaign-specific creatures
+├── monsters/           # Module-specific creatures
 ├── encounters/         # Combat encounters
-├── campaign_plot.json  # Master plot file
-├── party_tracker.json  # Current game state
-└── meta files...
+├── module_plot.json    # Module plot progression
+└── party_tracker.json  # Current game state
+
+modules/campaign_archives/   # Chronological conversation history
+├── [Module]_conversation_001.json
+├── [Module]_conversation_002.json
+└── ...
+
+modules/campaign_summaries/  # AI-generated adventure chronicles
+├── [Module]_summary_001.json
+├── [Module]_summary_002.json
+└── ...
 ```
 
 ### **ID and Naming Conventions**
@@ -92,28 +101,34 @@ campaigns/[campaign_name]/
 4. **State Validation**: Game state consistency checks
 5. **Reference Validation**: Cross-file integrity verification
 
-## Campaign Continuity System
+## Module Transition System
 
-### **Location-Based Module Boundaries**
-Our hub-and-spoke campaign architecture revolutionizes multi-module play:
-- **Geographic Modules**: Each area network (locations sharing prefixes) forms one module
-- **Automatic Detection**: System detects cross-module transitions via location IDs
-- **Seamless Integration**: No player prompts needed - transitions are organic and AI-driven
-- **Context Preservation**: Full conversation history archived before module summarization
+### **Intelligent Conversation Segmentation**
+Our module transition system preserves chronological adventure history through advanced conversation timeline management:
+- **Immediate Detection**: Module transitions detected in `action_handler.py` when party tracker changes
+- **Smart Boundary Detection**: Two-condition logic for optimal conversation compression
+- **AI Summary Integration**: Full adventure summaries loaded from campaign_summaries folder
+- **Timeline Preservation**: Chronological adventure sequence maintained across all modules
 
-### **Summary Accumulation Strategy**
+### **Two-Condition Boundary Logic**
 ```
-Visit 1: Module_A → [Chronicle A]
-Visit 2: Module_B → [Chronicle B] 
-Visit 3: Return to Module_A → [Chronicle A + Chronicle B + new events]
-Visit 4: Back to Module_B → [All accumulated chronicles + latest adventure]
+Condition 1: Previous Module Transition Exists
+└─ Compress conversation between the two module transitions
+
+Condition 2: No Previous Module Transition  
+└─ Compress from after last system message to current transition
 ```
 
-### **Campaign Context Injection**
-- **Pre-Transition**: Archive full conversation history with timestamps
-- **During Transition**: Auto-generate elevated prose chronicle of completed module
-- **Post-Transition**: Inject accumulated adventure summaries as conversation context
-- **Living World**: Each module retains state and continues evolving with new visits
+### **Conversation Timeline Architecture**
+```
+[System Message] → [Module Summary] → [Module Transition] → [New Module Conversation]
+```
+
+### **Sequential Archive Strategy**
+- **Immediate Archiving**: Full conversation history preserved in campaign_archives/
+- **AI Chronicle Generation**: Detailed adventure summaries created in campaign_summaries/
+- **Sequential Numbering**: Automatic sequence tracking for chronological timeline
+- **Context Restoration**: Complete adventure context available for return visits
 
 ## Error Handling Philosophy
 
