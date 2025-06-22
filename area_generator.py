@@ -35,8 +35,112 @@ class MapLayoutGenerator:
             "town": ["square", "market", "tavern", "shop", "temple", "guild", "residence", "gate", "warehouse", "barracks"]
         }
     
-    def generate_layout(self, num_locations: int, area_type: str = "dungeon") -> Dict[str, Any]:
-        """Generate a map layout with connected rooms"""
+    def generate_thematic_names(self, room_data: List[Dict], area_context: Dict[str, Any]) -> List[str]:
+        """
+        Use AI to generate thematic, immersive location names based on module context.
+        
+        Args:
+            room_data: List of room dictionaries with id, type, connections
+            area_context: Context including module name, area type, theme, etc.
+            
+        Returns:
+            List of thematic names matching the room order
+        """
+        try:
+            # Build context for AI
+            module_name = area_context.get('module_name', 'Unknown Module')
+            area_name = area_context.get('area_name', 'Unknown Area')
+            area_type = area_context.get('area_type', 'dungeon')
+            theme = area_context.get('theme', 'fantasy adventure')
+            
+            # Create room list for AI prompt
+            room_list = []
+            for i, room in enumerate(room_data):
+                room_list.append(f"{i+1}. {room['type'].title()} ({room['id']}) - connects to {len(room['connections'])} other rooms")
+            
+            rooms_text = "\\n".join(room_list)
+            
+            prompt = f"""You are creating thematic location names for a D&D module called "{module_name}".
+
+AREA CONTEXT:
+- Area Name: {area_name}
+- Area Type: {area_type}
+- Theme: {theme}
+- Total Locations: {len(room_data)}
+
+ROOM LIST TO NAME:
+{rooms_text}
+
+NAMING REQUIREMENTS:
+1. Create unique, memorable names that fit the module's theme
+2. Names should be 2-4 words maximum  
+3. Avoid generic terms like "Room 1" or including IDs
+4. Consider the room's function and connections
+5. Names should feel immersive and atmospheric
+6. Use evocative adjectives (Ancient, Forgotten, Shattered, etc.)
+
+EXAMPLES OF GOOD NAMES:
+- entrance → "Weathered Gate Chamber"
+- throne room → "Sunken Crown Hall" 
+- corridor → "Whispering Passage"
+- shrine → "Altar of Lost Hopes"
+- marketplace → "Merchant's Circle"
+
+Please respond with ONLY a JSON array of names in the exact order listed above:
+["Name 1", "Name 2", "Name 3", ...]
+
+No explanations, just the JSON array of thematic location names."""
+
+            response = client.chat.completions.create(
+                model=DM_MAIN_MODEL,
+                messages=[
+                    {"role": "system", "content": "You are an expert at creating immersive D&D location names that enhance storytelling and world-building."},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=500,
+                temperature=0.8
+            )
+            
+            response_text = response.choices[0].message.content.strip()
+            
+            # Parse JSON response
+            import json
+            try:
+                names = json.loads(response_text)
+                if isinstance(names, list) and len(names) == len(room_data):
+                    print(f"AI generated {len(names)} thematic location names for {area_name}")
+                    return names
+                else:
+                    print(f"Warning: AI returned {len(names) if isinstance(names, list) else 'invalid'} names, expected {len(room_data)}")
+                    raise ValueError("Invalid AI response format")
+            except (json.JSONDecodeError, ValueError) as e:
+                print(f"Error parsing AI response: {e}")
+                print(f"AI Response: {response_text}")
+                raise
+                
+        except Exception as e:
+            print(f"Error generating thematic names: {e}")
+            print("Falling back to enhanced generic names...")
+            
+            # Enhanced fallback with better naming
+            fallback_names = []
+            for room in room_data:
+                room_type = room['type']
+                # Add atmospheric adjectives based on area type
+                if area_context.get('area_type') == 'dungeon':
+                    adjectives = ['Ancient', 'Forgotten', 'Dark', 'Crumbling', 'Hidden', 'Lost', 'Shadowed']
+                elif area_context.get('area_type') == 'wilderness':
+                    adjectives = ['Wild', 'Misty', 'Windswept', 'Overgrown', 'Sacred', 'Remote', 'Weathered']
+                else:  # town
+                    adjectives = ['Bustling', 'Old', 'Grand', 'Cobbled', 'Noble', 'Merchant', 'Central']
+                
+                adj = random.choice(adjectives)
+                fallback_names.append(f"{adj} {room_type.title()}")
+            
+            return fallback_names
+    
+    def generate_layout(self, num_locations: int, area_type: str = "dungeon", area_context: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Generate a map layout with connected rooms and AI-generated thematic names"""
         # Calculate grid size
         grid_size = max(5, int((num_locations * 1.5) ** 0.5))
         
@@ -96,19 +200,37 @@ class MapLayoutGenerator:
         # Clean up grid (remove empty rows/columns)
         cleaned_grid = self.clean_grid(grid)
         
-        # Create room data
-        rooms = []
+        # Create room data with basic info first
+        room_data = []
         for room_id in sorted(room_positions.keys()):
             x, y = room_positions[room_id]
             room_type = random.choice(self.room_types.get(area_type, ["room"]))
             
-            rooms.append({
+            room_data.append({
                 "id": room_id,
-                "name": f"{room_type.title()} {room_id}",
                 "type": room_type,
                 "connections": sorted(list(set(connections[room_id]))),
                 "coordinates": f"X{x}Y{y}"
             })
+        
+        # Generate AI-powered thematic names if context provided
+        if area_context:
+            try:
+                thematic_names = self.generate_thematic_names(room_data, area_context)
+                # Apply the thematic names
+                for i, room in enumerate(room_data):
+                    room["name"] = thematic_names[i]
+            except Exception as e:
+                print(f"Failed to generate thematic names: {e}")
+                # Fallback to enhanced generic names
+                for room in room_data:
+                    room["name"] = f"{room['type'].title()} {room['id']}"
+        else:
+            # No context provided, use original generic naming
+            for room in room_data:
+                room["name"] = f"{room['type'].title()} {room['id']}"
+        
+        rooms = room_data
         
         return {
             "mapId": f"MAP_{placed_rooms}",
@@ -169,8 +291,18 @@ class AreaGenerator:
             }
             num_locations = location_counts.get(config.size, 15)
         
-        # Generate map layout
-        map_data = self.map_gen.generate_layout(num_locations, config.area_type)
+        # Build context for AI naming
+        area_context = {
+            'module_name': module_context.get('moduleName', 'Unknown Module'),
+            'area_name': area_name,
+            'area_type': config.area_type,
+            'theme': module_context.get('moduleDescription', 'fantasy adventure'),
+            'danger_level': config.danger_level,
+            'recommended_level': config.recommended_level
+        }
+        
+        # Generate map layout with AI-powered thematic naming
+        map_data = self.map_gen.generate_layout(num_locations, config.area_type, area_context)
         
         # Generate locations from map rooms
         locations = []
