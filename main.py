@@ -13,6 +13,7 @@
 # - Action parsing and routing to appropriate handlers
 # - AI response validation and state synchronization
 # - Conversation history management and context compression
+# - Module transition processing with timeline preservation
 # - Real-time user feedback and status reporting
 # - DM Note generation for authoritative current game state
 # 

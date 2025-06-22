@@ -57,14 +57,17 @@ This is not optional - Unicode characters WILL cause the game to crash with enco
 Use `python validate_module_files.py` to check schema compatibility after making changes to JSON files or schemas. This ensures all game files remain compatible with their schemas and prevents runtime errors. Aim for 100% validation pass rate.
 
 # Module-Centric Architecture
-This system follows a **Module-Centric Design Philosophy** instead of campaign-based organization:
+This system follows a **Module-Centric Design Philosophy** with advanced conversation timeline management:
 
 ## Core Principles:
 - **Modules as Self-Contained Adventures**: Each module represents a complete, playable adventure
-- **No Campaign Dependencies**: Modules can be played independently or linked together
-- **Modular Content Organization**: All content (characters, monsters, locations) stored within module directories
+- **Seamless Module Transitions**: Intelligent conversation segmentation preserving chronological adventure history
+- **Unified Conversation Timeline**: Hub-and-spoke model maintaining adventure sequence across all modules
+- **AI-Powered Context Compression**: Full adventure summaries generated from actual gameplay conversations
+- **Smart Boundary Detection**: Two-condition logic for optimal conversation segmentation between modules
+- **Automatic Archiving**: Campaign summaries and conversations stored sequentially in dedicated folders
 - **Unified Path Management**: ModulePathManager provides consistent file access patterns
-- **Forward Compatibility**: System designed around modules/ directory structure
+- **Forward Compatibility**: System designed around modules/ directory structure with timeline preservation
 
 ## Directory Structure:
 ```
@@ -85,6 +88,36 @@ modules/[module_name]/
 - File naming: "*_module.json" not "*_campaign.json"
 
 This architecture supports both standalone adventures and linked module series while maintaining clean separation of concerns.
+
+# Module Transition System
+Advanced conversation timeline management preserving chronological adventure history across modules:
+
+## Transition Processing Architecture:
+- **Immediate Detection**: Module transitions detected in `action_handler.py` when `updatePartyTracker` changes module
+- **Marker Insertion**: "Module transition: [from] to [to]" marker inserted immediately at point of module change
+- **Post-Processing**: `check_and_process_module_transitions()` in `main.py` handles conversation compression
+- **AI Summary Integration**: Loads complete AI-generated summaries from `modules/campaign_summaries/` folder
+
+## Two-Condition Boundary Detection:
+1. **Previous Module Transition Exists**: Compress conversation between the two module transitions
+2. **No Previous Module Transition**: Compress from after last system message to current transition
+
+## Conversation Segmentation Format:
+```json
+[
+  {main system message},
+  {"role": "user", "content": "Module summary: === MODULE SUMMARY ===\n\n[Module_Name]:\n------------------------------\n[Full AI-generated summary]"},
+  {"role": "user", "content": "Module transition: [from_module] to [to_module]"},
+  {new module conversation...}
+]
+```
+
+## File Structure Integration:
+- **Campaign Archives**: `modules/campaign_archives/[Module_Name]_conversation_[sequence].json`
+- **Campaign Summaries**: `modules/campaign_summaries/[Module_Name]_summary_[sequence].json`
+- **Sequential Numbering**: Automatic sequence tracking for chronological adventure timeline
+
+This system ensures seamless module transitions while preserving complete adventure context and enabling the hub-and-spoke campaign model.
 
 # SRD 5.2.1 Compliance
 This project uses SRD content under CC BY 4.0. When coding:

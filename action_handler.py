@@ -11,6 +11,7 @@
 # KEY RESPONSIBILITIES:
 # - Parse and validate action commands from AI responses
 # - Route actions to appropriate subsystem handlers
+# - Module transition detection and marker insertion
 # - Ensure atomic execution of compound operations
 # - Maintain consistency across all game state updates
 # - Provide standardized error handling for all actions

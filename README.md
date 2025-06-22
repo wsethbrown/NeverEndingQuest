@@ -7,12 +7,14 @@ An AI-powered Dungeon Master assistant for running 5th edition campaigns with fu
 DungeonMasterAI uses OpenAI's GPT models to create complete 5th edition campaigns and provide an interactive Dungeon Master experience. The system features a revolutionary **Location-Based Hub-and-Spoke Campaign Architecture** that enables seamless multi-module adventures.
 
 ### Revolutionary Campaign System
-- **Location-Based Modules**: Each geographic area network forms a self-contained adventure module
-- **Automatic Module Transitions**: AI-driven cross-module travel with seamless context preservation
-- **Living World Continuity**: Return to any visited module with full accumulated adventure history
-- **Chronicle Generation**: Elegant prose summaries of completed adventures using elevated fantasy language
-- **Hub-and-Spoke Design**: Central hub locations accessible from multiple adventure modules
-- **AI Autonomous Module Creation**: When all adventures are complete, the AI DM can create new modules based on party history
+- **Module-Centric Architecture**: Self-contained adventure modules with unified conversation timeline
+- **Seamless Module Transitions**: Intelligent conversation segmentation preserving chronological adventure history
+- **AI-Powered Conversation Compression**: Full adventure summaries generated from actual gameplay conversations
+- **Living World Continuity**: Return to any visited module with complete accumulated adventure context
+- **Chronological Timeline Preservation**: Hub-and-spoke model maintaining adventure sequence across modules
+- **Automatic Context Archiving**: Campaign summaries stored sequentially with detailed narrative chronicles
+- **Smart Boundary Detection**: Two-condition logic for optimal conversation segmentation between modules
+- **AI Autonomous Module Creation**: Dynamic module generation based on party history and adventure progression
 
 ### Campaign Generation
 - **Complete Module Builder**: Generate entire adventure modules with areas, locations, plots, and NPCs
