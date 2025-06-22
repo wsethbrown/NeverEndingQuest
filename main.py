@@ -693,17 +693,21 @@ def check_and_process_module_transitions(conversation_history, party_tracker_dat
 def generate_module_summary(conversation_history, party_tracker_data, module_name, transition_index):
     """Generate a summary for a module transition"""
     
-    # Condition 1: Look for previous module transition first
+    # Condition 1: Look for previous module transition OR module summary first
     boundary_index = None
     
     for i in range(transition_index - 1, -1, -1):
         msg = conversation_history[i]
-        if msg.get("role") == "user" and "Module transition:" in msg.get("content", ""):
-            boundary_index = i + 1  # Start after previous transition
-            print(f"DEBUG: CONDITION 1 - Found previous module transition at index {i}, boundary at {boundary_index}")
+        content = msg.get("content", "")
+        
+        # Look for either previous module transition or existing module summary
+        if (msg.get("role") == "user" and 
+            ("Module transition:" in content or "Module summary:" in content)):
+            boundary_index = i + 1  # Start after previous transition/summary
+            print(f"DEBUG: CONDITION 1 - Found previous module marker at index {i}, boundary at {boundary_index}")
             break
     
-    # Condition 2: If no previous module transition, find last system message
+    # Condition 2: If no previous module transition/summary, find last system message
     if boundary_index is None:
         for i in range(transition_index - 1, -1, -1):
             msg = conversation_history[i]
@@ -717,38 +721,82 @@ def generate_module_summary(conversation_history, party_tracker_data, module_nam
             boundary_index = 0
             print(f"DEBUG: FALLBACK - No system message found, using boundary at {boundary_index}")
     
-    # Extract ALL conversation from boundary to transition (this will all be compressed)
+    # Extract ONLY the conversation from boundary to transition (actual gameplay)
     module_conversation = conversation_history[boundary_index:transition_index]
     print(f"DEBUG: Extracting {len(module_conversation)} messages from index {boundary_index} to {transition_index} for summary")
     
-    # Load the most recent AI-generated summary from campaign_summaries folder
+    # Generate summary from ACTUAL conversation history, not plot files
     try:
-        import glob
-        import json
-        
-        # Find the most recent summary file for this module
-        summary_pattern = f"modules/campaign_summaries/{module_name}_summary_*.json"
-        summary_files = glob.glob(summary_pattern)
-        
-        if summary_files:
-            # Get the most recent summary file by sequence number
-            latest_file = max(summary_files, key=lambda x: int(x.split('_')[-1].split('.')[0]))
-            print(f"DEBUG: Loading module summary from {latest_file}")
+        # Filter out system messages and technical messages from the conversation
+        meaningful_messages = []
+        for msg in module_conversation:
+            content = msg.get("content", "")
+            role = msg.get("role", "")
             
-            with open(latest_file, 'r', encoding='utf-8') as f:
-                summary_data = json.load(f)
-                full_summary = summary_data.get('summary', '')
-                
-                if full_summary:
-                    # Use exact same format as location summaries
-                    formatted_summary = f"=== MODULE SUMMARY ===\n\n{module_name}:\n------------------------------\n{full_summary}"
-                    print(f"DEBUG: Using full AI-generated summary for {module_name}")
-                    return formatted_summary
+            # Skip technical messages but keep actual gameplay
+            if (role in ["user", "assistant"] and 
+                not content.startswith(("Location transition:", "Module transition:", 
+                                      "Module summary:", "Dungeon Master Note:", "Error Note:"))):
+                meaningful_messages.append(msg)
         
-        print(f"DEBUG: No summary file found for {module_name}, using fallback")
+        print(f"DEBUG: Found {len(meaningful_messages)} meaningful conversation messages to summarize")
+        
+        # If we have substantial conversation, generate AI summary from actual gameplay
+        if len(meaningful_messages) >= 3:
+            try:
+                from openai import OpenAI
+                import config
+                
+                # Prepare conversation for summarization
+                conversation_text = ""
+                for msg in meaningful_messages[-20:]:  # Last 20 meaningful messages
+                    role = "Player" if msg.get("role") == "user" else "DM"
+                    content = msg.get("content", "")
+                    conversation_text += f"{role}: {content}\n\n"
+                
+                # Generate summary using AI
+                client = OpenAI(api_key=config.OPENAI_API_KEY)
+                
+                summary_prompt = f"""You are creating an adventure chronicle for a D&D session. Summarize this actual gameplay conversation from the {module_name} module into a compelling narrative story.
+
+IMPORTANT: Only include events that actually happened in the conversation. Do not add events from other sources.
+
+Focus on:
+- Actual player actions and decisions made
+- NPCs encountered and interactions that occurred  
+- Locations visited and described
+- Plot developments that happened
+- Character relationships and moments
+
+Write in an elevated fantasy prose style, like a chronicle or epic tale. Make it engaging but accurate to what actually occurred.
+
+ACTUAL GAMEPLAY CONVERSATION:
+{conversation_text}
+
+Write a compelling chronicle of these actual events:"""
+
+                response = client.chat.completions.create(
+                    model=config.DM_SUMMARIZATION_MODEL,
+                    messages=[
+                        {"role": "system", "content": "You are an expert at creating beautiful adventure chronicles from D&D gameplay, focusing only on events that actually occurred."},
+                        {"role": "user", "content": summary_prompt}
+                    ],
+                    temperature=0.7,
+                    max_tokens=2000
+                )
+                
+                ai_summary = response.choices[0].message.content.strip()
+                formatted_summary = f"=== MODULE SUMMARY ===\n\n{module_name}:\n------------------------------\n{ai_summary}"
+                print(f"DEBUG: Generated AI summary from actual conversation for {module_name}")
+                return formatted_summary
+                
+            except Exception as e:
+                print(f"DEBUG: Error generating AI summary from conversation: {e}, using fallback")
+        
+        print(f"DEBUG: Not enough meaningful conversation for AI summary ({len(meaningful_messages)} messages), using fallback")
         
     except Exception as e:
-        print(f"DEBUG: Error loading module summary: {e}, using fallback")
+        print(f"DEBUG: Error processing conversation for summary: {e}, using fallback")
     
     # Fallback to simple summary if no AI summary available
     meaningful_messages = [
@@ -765,15 +813,33 @@ def generate_module_summary(conversation_history, party_tracker_data, module_nam
         return f"Extended adventure in {module_name} with multiple significant events and discoveries."
 
 def compress_conversation_history_on_module_transition(conversation_history, module_name, summary_text, transition_index):
-    """Compress conversation history by replacing ALL conversation before transition with summary only"""
+    """Compress conversation history by replacing conversation segment with summary, preserving previous summaries"""
     
-    # Find the first system message (main game rules) - this is the ONLY thing we keep
-    main_system_message = None
-    for i, msg in enumerate(conversation_history):
-        if msg.get("role") == "system":
-            main_system_message = msg
-            print(f"DEBUG: Found main system message at index {i}")
+    # Find the boundary for compression - same logic as generate_module_summary
+    boundary_index = None
+    
+    for i in range(transition_index - 1, -1, -1):
+        msg = conversation_history[i]
+        content = msg.get("content", "")
+        
+        # Look for either previous module transition or existing module summary
+        if (msg.get("role") == "user" and 
+            ("Module transition:" in content or "Module summary:" in content)):
+            boundary_index = i + 1  # Start after previous transition/summary
+            print(f"DEBUG: COMPRESSION - Found previous module marker at index {i}, boundary at {boundary_index}")
             break
+    
+    # If no previous module marker, find last system message
+    if boundary_index is None:
+        for i, msg in enumerate(conversation_history):
+            if msg.get("role") == "system":
+                boundary_index = i + 1  # Start after system message
+                print(f"DEBUG: COMPRESSION - Found system message at index {i}, boundary at {boundary_index}")
+                break
+        
+        if boundary_index is None:
+            boundary_index = 0
+            print(f"DEBUG: COMPRESSION - No system message found, using boundary at {boundary_index}")
     
     # Create summary message
     summary_message = {
@@ -781,16 +847,20 @@ def compress_conversation_history_on_module_transition(conversation_history, mod
         "content": f"Module summary: {summary_text}"
     }
     
-    # Build compressed history: ONLY main system message + summary + transition + everything after
+    # Build compressed history: everything before boundary + summary + transition + everything after
     compressed_history = []
     
-    if main_system_message:
-        compressed_history.append(main_system_message)
+    # Keep everything before the boundary (includes system message + previous summaries)
+    compressed_history.extend(conversation_history[:boundary_index])
     
-    compressed_history.append(summary_message)  # Module summary
-    compressed_history.extend(conversation_history[transition_index:])  # Transition marker and everything after
+    # Add the new summary for this module  
+    compressed_history.append(summary_message)
+    
+    # Add transition marker and everything after
+    compressed_history.extend(conversation_history[transition_index:])
     
     print(f"DEBUG: Compressed module conversation from {len(conversation_history)} to {len(compressed_history)} messages")
+    print(f"DEBUG: Preserved {boundary_index} messages before boundary, added 1 summary, kept {len(conversation_history) - transition_index} messages after transition")
     print(f"DEBUG: Result structure: main system message + module summary + transition + new conversation")
     return compressed_history
 
