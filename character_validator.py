@@ -6,9 +6,19 @@ based on the 5th edition of the world's most popular role playing game rules.
 
 Uses GPT-4.1 to intelligently validate and auto-correct:
 - Armor Class calculations
+- Inventory item categorization (prevents arrows as "miscellaneous", etc.)
 - Equipment conflicts  
 - Temporary effects (future)
 - Stat bonuses (future)
+
+INVENTORY VALIDATION SYSTEM:
+Solves GitHub issue #45 - inconsistent ration storage format across characters.
+Two-pronged approach:
+1. PREVENTIVE: Enhanced AI prompts prevent future categorization errors
+2. CORRECTIVE: AI validation fixes existing miscategorized items
+
+The system uses the same deep merge strategy as the main character updater,
+ensuring atomic file operations and preventing data corruption.
 
 The AI reasons through the rules rather than following hardcoded logic,
 making it flexible and adaptable to any character structure or edge case.
@@ -42,6 +52,9 @@ class AICharacterValidator:
         
         # Use AI to validate and correct AC calculation
         corrected_data = self.ai_validate_armor_class(character_data)
+        
+        # Use AI to validate and correct inventory categorization
+        corrected_data = self.ai_validate_inventory_categories(corrected_data)
         
         # Future: Add other AI validations here
         # - Temporary effects expiration  
@@ -83,6 +96,58 @@ class AICharacterValidator:
         except Exception as e:
             self.logger.error(f"AI validation failed: {str(e)}")
             return character_data
+    
+    def ai_validate_inventory_categories(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Use AI to validate and correct inventory item categorization
+        Following the main character updater pattern: return only changes, use deep merge
+        
+        Args:
+            character_data: Character JSON data
+            
+        Returns:
+            Character data with AI-corrected inventory categories
+        """
+        
+        max_attempts = 3
+        attempt = 1
+        
+        while attempt <= max_attempts:
+            try:
+                validation_prompt = self.build_inventory_validation_prompt(character_data)
+                
+                response = self.client.chat.completions.create(
+                    model=CHARACTER_VALIDATOR_MODEL,
+                    temperature=0.1,  # Low temperature for consistent validation
+                    messages=[
+                        {"role": "system", "content": self.get_inventory_validator_system_prompt()},
+                        {"role": "user", "content": validation_prompt}
+                    ]
+                    # No max_tokens - let AI return full response
+                )
+                
+                ai_response = response.choices[0].message.content.strip()
+                
+                # Parse AI response to get inventory updates only
+                inventory_updates = self.parse_inventory_validation_response(ai_response, character_data)
+                
+                if inventory_updates:
+                    # Apply updates using deep merge (same pattern as main character updater)
+                    from update_character_info import deep_merge_dict
+                    corrected_data = deep_merge_dict(character_data, inventory_updates)
+                    return corrected_data
+                else:
+                    # No changes needed
+                    return character_data
+                    
+            except Exception as e:
+                self.logger.error(f"AI inventory validation attempt {attempt} failed: {str(e)}")
+                attempt += 1
+                if attempt > max_attempts:
+                    self.logger.error(f"All {max_attempts} inventory validation attempts failed")
+                    return character_data
+        
+        return character_data
     
     def get_validator_system_prompt(self) -> str:
         """
@@ -291,6 +356,139 @@ Provide the corrected character data with proper AC calculation."""
         
         # Return original data if parsing fails
         return original_data
+    
+    def get_inventory_validator_system_prompt(self) -> str:
+        """
+        System prompt for AI inventory categorization validation
+        
+        Returns:
+            System prompt with inventory categorization rules
+        """
+        return """You are an expert inventory categorization validator for the 5th edition of the world's most popular role playing game. Your job is to ensure all inventory items are correctly categorized according to standard item types.
+
+## PRIMARY TASK: INVENTORY CATEGORIZATION VALIDATION
+
+You must validate that each item in the character's inventory has the correct item_type based on its name and description.
+
+### VALID ITEM TYPES (use these EXACTLY):
+- "weapon" - swords, bows, daggers, melee and ranged weapons
+- "armor" - armor pieces, shields, cloaks, boots, gloves, protective wear
+- "ammunition" - arrows, bolts, sling bullets, thrown weapon ammo
+- "consumable" - potions, scrolls, food, rations, anything consumed when used
+- "equipment" - tools, torches, rope, containers, utility items
+- "miscellaneous" - rings, amulets, wands, truly miscellaneous items only
+
+### CATEGORIZATION RULES:
+- Arrows, Bolts, Bullets -> "ammunition"
+- Travel Ration, Food, Bread -> "consumable" 
+- Torch, Rope, Tools, Containers -> "equipment"
+- Potions, Scrolls -> "consumable"
+- Rings, Amulets, Wands -> "miscellaneous"
+- Any armor or protective gear -> "armor"
+- Any weapon -> "weapon"
+
+### OUTPUT FORMAT:
+Return a JSON object with ONLY the changes needed:
+{
+  "corrections_made": ["list of corrections"],
+  "equipment": [
+    {
+      "item_name": "exact item name",
+      "item_type": "corrected_type"
+    }
+  ]
+}
+
+CRITICAL: Only return items that need their item_type corrected. Do NOT return items that are already correctly categorized. Do NOT return the complete character data - only the equipment items that need item_type fixes.
+"""
+    
+    def build_inventory_validation_prompt(self, character_data: Dict[str, Any]) -> str:
+        """
+        Build validation prompt for inventory categorization
+        
+        Args:
+            character_data: Character JSON data
+            
+        Returns:
+            Formatted prompt for AI validation
+        """
+        equipment = character_data.get('equipment', [])
+        
+        prompt = f"""Please validate the inventory categorization for this character:
+
+CHARACTER NAME: {character_data.get('name', 'Unknown')}
+
+CURRENT INVENTORY:
+"""
+        
+        for i, item in enumerate(equipment):
+            item_name = item.get('item_name', 'Unknown Item')
+            item_type = item.get('item_type', 'Unknown')
+            description = item.get('description', 'No description')
+            quantity = item.get('quantity', 1)
+            
+            prompt += f"""
+Item #{i+1}:
+- Name: {item_name}
+- Current Type: {item_type}
+- Description: {description}
+- Quantity: {quantity}
+"""
+        
+        prompt += """
+
+Validate each item's categorization and correct any that are wrong. Focus especially on:
+- Items currently marked as "miscellaneous" that should be other types
+- Arrows/ammunition items
+- Food/rations that should be "consumable"  
+- Tools/torches that should be "equipment"
+
+IMPORTANT: Return ONLY the items that need their item_type corrected. Do not include items that are already correctly categorized."""
+        
+        return prompt
+    
+    def parse_inventory_validation_response(self, ai_response: str, original_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Parse AI inventory validation response - returns only the updates/changes
+        
+        Args:
+            ai_response: AI response string
+            original_data: Original character data
+            
+        Returns:
+            Dictionary with only the changes to apply (or empty dict if no changes)
+        """
+        try:
+            # Try to extract JSON from AI response
+            start_idx = ai_response.find('{')
+            end_idx = ai_response.rfind('}') + 1
+            
+            if start_idx != -1 and end_idx != -1:
+                json_str = ai_response[start_idx:end_idx]
+                parsed_response = json.loads(json_str)
+                
+                # Check if there are any equipment updates
+                if 'equipment' in parsed_response and parsed_response['equipment']:
+                    # Log corrections made
+                    if 'corrections_made' in parsed_response:
+                        inventory_corrections = parsed_response['corrections_made']
+                        for correction in inventory_corrections:
+                            self.logger.info(f"AI Inventory Correction: {correction}")
+                            self.corrections_made.append(f"Inventory: {correction}")
+                    
+                    # Return only the equipment updates
+                    return {"equipment": parsed_response['equipment']}
+                else:
+                    # No corrections needed
+                    self.logger.debug("No inventory corrections needed")
+                    return {}
+                
+        except (json.JSONDecodeError, KeyError) as e:
+            self.logger.error(f"Failed to parse AI inventory response: {str(e)}")
+            self.logger.debug(f"AI Response was: {ai_response}")
+        
+        # Return empty dict if parsing fails (no changes)
+        return {}
     
     def validate_character_file_safe(self, file_path: str) -> tuple[Dict[str, Any], bool]:
         """

@@ -174,7 +174,7 @@
     },
     {
       "item_name": "Arrows",
-      "item_type": "miscellaneous",
+      "item_type": "ammunition",
       "description": "Standard arrows for a longbow.",
       "quantity": 60
     },
@@ -198,37 +198,37 @@
     },
     {
       "item_name": "Explorer's Pack",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A backpack, a bedroll, a mess kit, a tinderbox, 10 torches, 10 days of rations, and a waterskin. The pack also has 50 feet of hempen rope strapped to the side of it.",
       "quantity": 1
     },
     {
       "item_name": "Staff",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A walking stick.",
       "quantity": 1
     },
     {
       "item_name": "Hunting trap",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A mechanical device for catching game.",
       "quantity": 1
     },
     {
       "item_name": "Traveler's clothes",
-      "item_type": "miscellaneous",
+      "item_type": "armor",
       "description": "Sturdy clothes suitable for travel.",
       "quantity": 1
     },
     {
       "item_name": "Belt pouch",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A small pouch worn on the belt.",
       "quantity": 1
     },
     {
       "item_name": "Chest with 58 Gold Coins and 4 Gemstones",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A small chest containing 58 gold coins and 4 gemstones.",
       "quantity": 1
     },

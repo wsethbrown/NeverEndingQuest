@@ -212,14 +212,21 @@ def format_schema_for_prompt(schema, character_role):
     # Add common item type guidance
     schema_info += """
 CRITICAL - Valid item_type values (MUST use one of these EXACTLY):
-- "weapon" - swords, bows, daggers, etc.
-- "armor" - armor, shields, cloaks, boots, gloves, etc.
-- "miscellaneous" - rings, amulets, wands, potions (if not consumable), general items
-- "consumable" - potions, scrolls, food, anything that gets used up
+- "weapon" - swords, bows, daggers, melee and ranged weapons
+- "armor" - armor pieces, shields, cloaks, boots, gloves, protective wear
+- "ammunition" - arrows, bolts, sling bullets, thrown weapon ammo
+- "consumable" - potions, scrolls, food, rations, anything consumed when used
+- "equipment" - tools, torches, rope, containers, utility items
+- "miscellaneous" - rings, amulets, wands, truly miscellaneous items only
 
-NEVER use: "wondrous item", "magic item", "magical", "equipment", or any other value!
+NEVER use: "wondrous item", "magic item", "magical" or any other value!
 
-Common Item Type Mappings:
+NOTE: Enhanced categorization system fixes GitHub issue #45 (inconsistent item storage)
+
+Enhanced Item Type Mappings:
+- Arrows/Bolts/Bullets -> item_type: "ammunition"
+- Travel Ration/Food -> item_type: "consumable", item_subtype: "food"
+- Torch/Rope/Tools -> item_type: "equipment", item_subtype: "tool"
 - Cloak of Elvenkind -> item_type: "armor", item_subtype: "cloak"
 - Ring of Protection -> item_type: "miscellaneous", item_subtype: "ring"
 - Wand of Magic Missiles -> item_type: "miscellaneous", item_subtype: "wand"
@@ -322,14 +329,26 @@ def fix_item_types(updates):
     """Fix common item_type mistakes before validation"""
     # Map of common wrong values to correct values
     item_type_fixes = {
+        # Existing fixes
         "wondrous item": "miscellaneous",
         "wondrous": "miscellaneous",
         "magic item": "miscellaneous",
         "magical item": "miscellaneous",
         "magical": "miscellaneous",
-        "equipment": "miscellaneous",
+        "equipment": "equipment",  # Allow equipment instead of forcing to miscellaneous
         "potion": "consumable",
         "scroll": "consumable",
+        # New fixes for common issues
+        "arrows": "ammunition",
+        "ammunition": "ammunition",
+        "ammo": "ammunition",
+        "ration": "consumable",
+        "food": "consumable",
+        "torch": "equipment",
+        "tool": "equipment",
+        "rope": "equipment",
+        "container": "equipment",
+        # Keep existing
         "cloak": "armor",
         "ring": "miscellaneous",
         "amulet": "miscellaneous",

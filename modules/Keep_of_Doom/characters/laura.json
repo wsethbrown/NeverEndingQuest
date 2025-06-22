@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 7,
   "maxHitPoints": 7,
-  "armorClass": 12,
+  "armorClass": 14,
   "initiative": 2,
   "speed": 30,
   "abilities": {
@@ -114,7 +114,7 @@
     },
     {
       "item_name": "Component pouch",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "A small pouch used to carry spell components.",
       "quantity": 1,
@@ -124,7 +124,7 @@
     },
     {
       "item_name": "Scholar's pack",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "Includes a book of lore, bottle of ink, ink pen, 10 sheets of parchment, little bag of sand, and a small knife.",
       "quantity": 1,
@@ -134,7 +134,7 @@
     },
     {
       "item_name": "Spellbook",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "Contains your wizard spells.",
       "quantity": 1,

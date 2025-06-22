@@ -18,7 +18,7 @@
   "initiative": 2,
   "speed": 30,
   "abilities": {
-    "strength": 17,
+    "strength": 16,
     "dexterity": 14,
     "constitution": 16,
     "intelligence": 11,
@@ -65,7 +65,7 @@
   "classFeatures": [
     {
       "name": "Second Wind",
-      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action (used)",
+      "description": "Once per short rest, regain 1d10 + fighter level HP as a bonus action",
       "source": "Fighter feature",
       "usage": {
         "current": 1,
@@ -75,7 +75,7 @@
     },
     {
       "name": "Action Surge",
-      "description": "Once per short rest, take one additional action on your turn (restored)",
+      "description": "Once per short rest, take one additional action on your turn",
       "source": "Fighter feature",
       "usage": {
         "current": 1,
@@ -129,15 +129,146 @@
     },
     {
       "item_name": "Hemp Rope (50 feet)",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "Sturdy rope useful for climbing, tying, and securing items",
       "quantity": 1
     },
     {
       "item_name": "Torch",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A wooden torch that burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet",
       "quantity": 3
+    },
+    {
+      "item_name": "Carved Bone Talisman",
+      "item_type": "miscellaneous",
+      "description": "A slender, carved bone used as a focus in the Lost Ward Circle ritual",
+      "quantity": 1
+    },
+    {
+      "item_name": "Bundle of Gloamwood Roots",
+      "item_type": "miscellaneous",
+      "description": "Dried roots from the Gloamwood, used as a living token in the Lost Ward Circle ritual",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ancient Bronze Key (raven sigil)",
+      "item_type": "miscellaneous",
+      "description": "An old bronze key with a raven sigil, given by Elder Mirna",
+      "quantity": 1
+    },
+    {
+      "item_name": "Silver Whistle (patrol signal)",
+      "item_type": "miscellaneous",
+      "description": "A small silver whistle used as a patrol signal by rangers",
+      "quantity": 1
+    },
+    {
+      "item_name": "Detailed Forest Map",
+      "item_type": "miscellaneous",
+      "description": "A detailed map marking the Lost Ward Circle, unstable ravine, and approach to the Keep of Doom",
+      "quantity": 1
+    },
+    {
+      "item_name": "Battered Ranger's Journal",
+      "item_type": "miscellaneous",
+      "description": "A worn journal with notes about Elen, Sir Garran Vael, warnings about whispers, and the Keeper",
+      "quantity": 1
+    },
+    {
+      "item_name": "Parchment Map Scrap",
+      "item_type": "miscellaneous",
+      "description": "A faded parchment with a diagram marking a secret entrance to the keep at dusk",
+      "quantity": 1
+    },
+    {
+      "item_name": "Scout Elen's emergency ration (unopened)",
+      "item_type": "consumable",
+      "description": "An unopened emergency ration belonging to Scout Elen, found near the Hidden Keep Entrance",
+      "quantity": 1
+    },
+    {
+      "item_name": "Small silver mirror (cracked, 5 gp value)",
+      "item_type": "miscellaneous",
+      "description": "A small cracked silver mirror, valued at 5 gold pieces",
+      "quantity": 1
+    },
+    {
+      "item_name": "Tarnished silver medallion (knight's insignia, 10 gp value)",
+      "item_type": "miscellaneous",
+      "description": "A tarnished silver medallion bearing a knight's insignia, valued at 10 gold pieces",
+      "quantity": 1
+    },
+    {
+      "item_name": "Rusted key ring with 3 ancient keys (fits various doors in the keep)",
+      "item_type": "miscellaneous",
+      "description": "A rusted key ring holding three ancient keys that fit various doors within the keep",
+      "quantity": 1
+    },
+    {
+      "item_name": "Small battered coffer",
+      "item_type": "miscellaneous",
+      "description": "A small battered coffer, possibly containing valuables or important items, including ancient copper coins",
+      "quantity": 1
+    },
+    {
+      "item_name": "Old parchment (coded message/roster)",
+      "item_type": "miscellaneous",
+      "description": "An old parchment containing a coded message or roster, possibly related to the mercenaries or the keep",
+      "quantity": 1
+    },
+    {
+      "item_name": "Small silver key (sunburst)",
+      "item_type": "miscellaneous",
+      "description": "A small silver key with a sunburst design",
+      "quantity": 1
+    },
+    {
+      "item_name": "Chaplain's journal",
+      "item_type": "miscellaneous",
+      "description": "A worn journal belonging to the chapel's chaplain, containing prayers and notes",
+      "quantity": 1
+    },
+    {
+      "item_name": "Holy symbol (silver)",
+      "item_type": "miscellaneous",
+      "description": "A silver holy symbol representing the faith of the chapel",
+      "quantity": 1
+    },
+    {
+      "item_name": "Knight's heart amulet",
+      "item_type": "miscellaneous",
+      "item_subtype": "amulet",
+      "description": "An amulet shaped like a heart, said to have belonged to a noble knight",
+      "quantity": 1,
+      "equipped": true,
+      "magical": true,
+      "effects": [
+        {
+          "type": "resistance",
+          "target": "fear",
+          "value": null,
+          "description": "Grants resistance to fear effects caused by Sir Garran's curse"
+        },
+        {
+          "type": "resistance",
+          "target": "necrotic",
+          "value": null,
+          "description": "Grants resistance to necrotic damage from Sir Garran's curse or associated spectral magic"
+        }
+      ]
+    },
+    {
+      "item_name": "Torn cloak piece",
+      "item_type": "miscellaneous",
+      "description": "A torn piece of fabric from a cloak, confirming Elen's presence here",
+      "quantity": 1
+    },
+    {
+      "item_name": "Parchment confirming Elen's presence",
+      "item_type": "miscellaneous",
+      "description": "A torn parchment bearing notes that confirm Scout Elen was at this location",
+      "quantity": 1
     },
     {
       "item_name": "Well-preserved longbow",
@@ -146,21 +277,16 @@
       "quantity": 1
     },
     {
+      "item_name": "Guard's coinpurse (13 sp, folded love letter)",
+      "item_type": "miscellaneous",
+      "description": "A coinpurse containing 13 silver pieces and a folded love letter",
+      "quantity": 1
+    },
+    {
       "item_name": "Scroll of Protection from Undead",
       "item_type": "consumable",
-      "item_subtype": "scroll",
       "description": "A magical scroll that grants protection from undead creatures when used",
-      "quantity": 1,
-      "magical": true,
-      "consumable": true,
-      "spellLevel": 1,
-      "effects": [
-        {
-          "type": "advantage",
-          "target": "saving_throws_vs_undead",
-          "description": "Advantage on saving throws against undead for 10 minutes"
-        }
-      ]
+      "quantity": 1
     },
     {
       "item_name": "Ornate Small Key",
@@ -237,39 +363,20 @@
     {
       "item_name": "Lord Vael's signet ring",
       "item_type": "miscellaneous",
-      "item_subtype": "ring",
       "description": "A finely crafted signet ring belonging to Lord Vael, bearing his family crest. Upon inspection, the ring emanates faint protective magic and may be a key to unlocking further secrets in the keep.",
-      "quantity": 1,
-      "magical": true,
-      "effects": [
-        {
-          "type": "other",
-          "target": "secrets",
-          "description": "May unlock secrets in the keep"
-        }
-      ]
+      "quantity": 1
     },
     {
       "item_name": "Enchanted goblet",
       "item_type": "miscellaneous",
-      "item_subtype": "other",
       "description": "A goblet pulsating with faint magical energy, possibly linked to the spectral servants. Inspection reveals it may be used in rituals or to communicate with the spirits.",
-      "quantity": 1,
-      "magical": true,
-      "effects": [
-        {
-          "type": "other",
-          "target": "communication",
-          "description": "May be used to communicate with spirits"
-        }
-      ]
+      "quantity": 1
     },
     {
       "item_name": "Jeweled dagger",
       "item_type": "weapon",
-      "description": "A small dagger encrusted with precious stones, elegant but deadly. Examination shows it bears enchantments that could aid in breaking magical bindings. Identified as an enchanted ceremonial weapon from the Vael family line. It is safely usable and may have additional minor magical properties. No curse detected.",
-      "quantity": 1,
-      "magical": true
+      "description": "A small dagger encrusted with precious stones, elegant but deadly. Examination shows it bears enchantments that could aid in breaking magical bindings.",
+      "quantity": 1
     },
     {
       "item_name": "Family Chronicle",
@@ -338,61 +445,73 @@
       "quantity": 1
     },
     {
-      "item_name": "Potion of Heroism",
+      "item_name": "Sir Garran's sword (+2 weapon)",
+      "item_type": "weapon",
+      "description": "The sword of Sir Garran, now enhanced to a +2 magical weapon.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": true,
+      "magic_bonus": 2
+    },
+    {
+      "item_name": "Vial of Shadow Essence",
+      "item_type": "miscellaneous",
+      "description": "A small vial containing concentrated shadow essence, a residue of the Shadow Relic's corruption.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ancient Scroll (Relic's Creation)",
+      "item_type": "miscellaneous",
+      "description": "An ancient scroll detailing the creation of the Shadow Relic and its dark magic.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Amulet of Protection Against Shadow Magic",
+      "item_type": "miscellaneous",
+      "item_subtype": "amulet",
+      "description": "An amulet that grants protection against shadow magic effects.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": true,
+      "effects": [
+        {
+          "type": "resistance",
+          "target": "shadow",
+          "value": null,
+          "description": "Grants resistance to shadow magic effects"
+        }
+      ]
+    },
+    {
+      "item_name": "Deed to Shadowfall Keep",
+      "item_type": "miscellaneous",
+      "description": "The deed to Shadowfall Keep, a valuable document granting ownership rights.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Scroll of Cure Wounds",
       "item_type": "consumable",
-      "item_subtype": "potion",
-      "description": "A potion found at the base of the desecrated shrine, grants temporary heroism effects when consumed.",
+      "item_subtype": "scroll",
+      "description": "A magical scroll containing a 1st-level Cure Wounds spell that can be cast once.",
       "quantity": 1,
       "magical": true,
       "consumable": true,
-      "spellLevel": 3,
-      "effects": [
-        {
-          "type": "bonus",
-          "target": "temporary_hp",
-          "value": 10,
-          "description": "Grants 10 temporary hit points and advantage on attack rolls for 1 hour"
-        }
-      ]
+      "spellLevel": 1
     },
     {
-      "item_name": "Antique Silver Flask",
-      "item_type": "miscellaneous",
-      "description": "An old silver flask discovered among the scattered cards on the guard table.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Reward Coffer from Harrow's Hollow",
-      "item_type": "miscellaneous",
-      "description": "A coffer containing several velvet pouches with gold and silver coins, and two small gemstones. The deed to a plot of land west of the village has been removed.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Wand of Magic Missiles",
-      "item_type": "miscellaneous",
-      "item_subtype": "wand",
-      "description": "A slender wand crafted from polished oak, topped with a crystal that glows with arcane energy. Contains charges of Magic Missile spells.",
-      "quantity": 1,
+      "item_name": "Potion of Greater Healing",
+      "item_type": "consumable",
+      "item_subtype": "potion",
+      "description": "A magical potion that restores 4d4+4 hit points when consumed.",
+      "quantity": 2,
       "magical": true,
-      "spellLevel": 1,
-      "charges": {
-        "current": 5,
-        "max": 7
-      },
-      "rechargeRate": "daily",
-      "effects": [
-        {
-          "type": "other",
-          "target": "spell_casting",
-          "description": "Cast Magic Missile (1st level) using charges"
-        }
-      ]
+      "consumable": true
     },
     {
       "item_name": "Ring of Protection",
       "item_type": "miscellaneous",
       "item_subtype": "ring",
-      "description": "A silver ring inscribed with protective runes that shimmer with a faint blue light. Grants a +1 bonus to AC and saving throws.",
+      "description": "A magical ring that grants a +1 bonus to AC and saving throws while worn.",
       "quantity": 1,
       "magical": true,
       "equipped": false,
@@ -401,61 +520,29 @@
           "type": "bonus",
           "target": "AC",
           "value": 1,
-          "description": "+1 bonus to AC"
+          "description": "Grants +1 bonus to AC"
         },
         {
           "type": "bonus",
           "target": "saving_throws",
           "value": 1,
-          "description": "+1 bonus to all saving throws"
+          "description": "Grants +1 bonus to all saving throws"
         }
       ]
     },
     {
-      "item_name": "Scroll of Cure Light Wounds",
-      "item_type": "consumable",
-      "item_subtype": "scroll",
-      "description": "A pristine scroll inscribed with healing magic. When read, it restores hit points to the target.",
-      "quantity": 2,
-      "magical": true,
-      "consumable": true,
-      "spellLevel": 1,
-      "effects": [
-        {
-          "type": "other",
-          "target": "healing",
-          "description": "Restores 1d8+1 hit points when used"
-        }
-      ]
-    },
-    {
-      "item_name": "Amulet of Natural Armor",
+      "item_name": "Wand of Magic Missiles",
       "item_type": "miscellaneous",
-      "item_subtype": "amulet",
-      "description": "A wooden amulet carved in the shape of a bear, imbued with protective nature magic. Enhances natural defenses.",
+      "item_subtype": "wand",
+      "description": "A magical wand that can cast Magic Missile. Has 7 charges and regains 1d6+1 charges daily at dawn.",
       "quantity": 1,
       "magical": true,
-      "equipped": false,
-      "effects": [
-        {
-          "type": "bonus",
-          "target": "AC",
-          "value": 1,
-          "description": "+1 natural armor bonus to AC"
-        }
-      ]
-    },
-    {
-      "item_name": "Travel Ration",
-      "item_type": "miscellaneous",
-      "description": "A compact meal suitable for travel, providing nourishment for one day",
-      "quantity": 1
-    },
-    {
-      "item_name": "Vial of Lamp Oil",
-      "item_type": "miscellaneous",
-      "description": "A small vial of lamp oil used to fuel lanterns and lamps",
-      "quantity": 1
+      "charges": {
+        "current": 5,
+        "max": 7
+      },
+      "rechargeRate": "daily",
+      "spellLevel": 1
     }
   ],
   "ammunition": [
@@ -526,7 +613,7 @@
     }
   },
   "currency": {
-    "gold": 154,
+    "gold": 214,
     "silver": 0,
     "copper": 0
   },
@@ -549,9 +636,50 @@
       "source": "Human"
     }
   ],
-  "temporaryEffects": [],
+  "temporaryEffects": [
+    {
+      "name": "Blessing of the Forest Guardian",
+      "description": "Advantage on saving throws against fear effects.",
+      "duration": "24 hours",
+      "expiration": "1492-03-03T07:39:00",
+      "source": "Forest Guardian",
+      "effectType": "magic"
+    },
+    {
+      "name": "Ward's Favor",
+      "description": "Undead in the Gloamwood have disadvantage on attacks against Norn for 24 hours.",
+      "duration": "24 hours",
+      "expiration": "1492-03-03T07:39:00",
+      "source": "Lost Ward Circle Ritual",
+      "effectType": "magic"
+    },
+    {
+      "name": "Blessing of the Restored Shrine",
+      "description": "+2 AC against undead.",
+      "duration": "8 hours",
+      "expiration": "1492-03-02T15:39:00",
+      "source": "Restored Shrine",
+      "effectType": "magic"
+    }
+  ],
   "injuries": [],
   "equipment_effects": [
+    {
+      "name": "Knight's heart amulet - Resistance",
+      "type": "resistance",
+      "target": "fear",
+      "value": null,
+      "description": "Grants resistance to fear effects caused by Sir Garran's curse",
+      "source": "Knight's heart amulet"
+    },
+    {
+      "name": "Knight's heart amulet - Resistance",
+      "type": "resistance",
+      "target": "necrotic",
+      "value": null,
+      "description": "Grants resistance to necrotic damage from Sir Garran's curse or associated spectral magic",
+      "source": "Knight's heart amulet"
+    },
     {
       "name": "Fighting Style: Defense",
       "type": "bonus",
