@@ -1,0 +1,335 @@
+{
+  "plotTitle": "Shadows Over Greenwatch",
+  "mainObjective": "Investigate the supernatural threats plaguing the Greenwatch region by uncovering the village conspiracy, cleansing the corrupted Verdantwood Wilds, and neutralizing the ancient vigilance of Watcher's Rise before these interconnected dangers overwhelm the area.",
+  "plotPoints": [
+    {
+      "id": "PP001",
+      "title": "A Quiet Panic in Greenwatch",
+      "description": "Upon arrival, the party finds Greenwatch Village shrouded in worry. Locals quietly mourn recent disappearances, with daily routines disrupted. The party is approached by Mirna the Village Elder, who implores them to investigate. Initial clues point toward strange night-time disturbances near the herb gardens and villagers who seem to know more than they admit.",
+      "location": "GV001",
+      "nextPoints": [
+        "PP002"
+      ],
+      "status": "not started",
+      "plotImpact": "Sets the mystery's tone, introduces key NPCs, and provides early suspicions and social hooks.",
+      "sideQuests": [
+        {
+          "id": "SQ001",
+          "title": "Moss & Memory",
+          "description": "Willow the Herbalist asks for help gathering rare moon-moss, which only grows in forgotten corners of the village at night. Gathering it may reveal hidden paths or overheard secrets from lurking villagers.",
+          "involvedLocations": [
+            "GV001"
+          ],
+          "status": "not started",
+          "plotImpact": "May provide the party a shortcut to later clues and Willow's trust."
+        },
+        {
+          "id": "SQ002",
+          "title": "Lost Ledger",
+          "description": "Old Fenwick the Tavernkeeper has lost his ledger and suspects petty theft might be linked to the greater disappearances. If found, it may reveal names of recently missing patrons and strange late-night transactions.",
+          "involvedLocations": [
+            "GV001"
+          ],
+          "status": "not started",
+          "plotImpact": "May offer new suspects or evidence, and grants Fenwick's goodwill."
+        }
+      ],
+      "areaId": "GV001"
+    },
+    {
+      "id": "PP002",
+      "title": "Secrets Beneath the Clover",
+      "description": "Investigating the gardens and alleys reveals evidence of secretive nighttime gatherings—strange footprints, trampled clover, and fragments of river-grass banners. Social encounters with wary villagers and Torren the Merchant unravel rumors of a shadowy figure seen moving between homes. The party discovers a hidden entrance to ancient cellars beneath the village.",
+      "location": "GV001",
+      "nextPoints": [
+        "PP003"
+      ],
+      "status": "not started",
+      "plotImpact": "Uncovers the physical path to the source of the disappearances and the involvement of certain villagers.",
+      "sideQuests": [
+        {
+          "id": "SQ003",
+          "title": "Clover's Watch",
+          "description": "A young villager pleads for help in locating their missing sibling, last seen playing near the willow arches. Searching these areas can reveal a piece of jewelry and a secret message carved into a willow trunk.",
+          "involvedLocations": [
+            "GV001"
+          ],
+          "status": "not started",
+          "plotImpact": "May provide an NPC ally later or critical hints for the cellar's secret entrance."
+        }
+      ],
+      "areaId": "GV001"
+    },
+    {
+      "id": "PP003",
+      "title": "The Hidden Cellars",
+      "description": "Descending into the root-choked cellars, the party finds evidence of ritual activity: symbols in chalk, discarded herbs, and trembling captives. Exploration and combat ensue as the party confronts a cultist cell orchestrating the disappearances, overseen by an enigmatic figure tied to the village's history.",
+      "location": "GV001",
+      "nextPoints": [
+        "PP004"
+      ],
+      "status": "not started",
+      "plotImpact": "Resolves who is responsible, provides direct confrontation, and reveals the deeper motive for the disappearances.",
+      "sideQuests": [
+        {
+          "id": "SQ004",
+          "title": "Herb of Olden Tears",
+          "description": "A captive offers information in exchange for a rare healing herb known only to local lore. Finding it involves navigating dangerous, overgrown cellar tunnels.",
+          "involvedLocations": [
+            "GV001"
+          ],
+          "status": "not started",
+          "plotImpact": "Reveals the cult's true objective or a safe method of disabling ritual wards."
+        }
+      ],
+      "areaId": "GV001"
+    },
+    {
+      "id": "PP004",
+      "title": "Dawn Over Greenwatch",
+      "description": "With the cult exposed, the party must decide the village's fate: expose all collaborators, negotiate for clemency, or cover up the conspiracy for the greater good. The village's mood shifts as sunrise casts light on new beginnings or lingering scars. However, Mirna reveals that the village's troubles are part of a larger pattern affecting the entire region.",
+      "location": "GV001",
+      "nextPoints": [
+        "PP005"
+      ],
+      "status": "not started",
+      "plotImpact": "Offers a meaningful choice that determines Greenwatch's future and sets up broader regional threats.",
+      "sideQuests": [
+        {
+          "id": "SQ005",
+          "title": "The Cleansing Bell",
+          "description": "Mirna asks the party to help lead a dawn ritual with the communal bell, believed to banish evil. Success could heal rifts among villagers and lessen fear, while failure may breed resentment or future threats.",
+          "involvedLocations": [
+            "GV001"
+          ],
+          "status": "not started",
+          "plotImpact": "Affects the final mood and unity of Greenwatch, and may grant a blessing or future contacts."
+        }
+      ],
+      "areaId": "GV001"
+    },
+    {
+      "id": "PP005",
+      "title": "Into the Verdantwood Wilds",
+      "description": "Mirna directs the party to investigate strange disturbances in the Verdantwood Wilds—eerie lights, vanishing wildlife, and corrupted plant life that suggest a supernatural threat. The party must navigate treacherous swamp terrain while searching for the source of the corruption. Local hermits and cryptic markings on willow trees hint at something unnatural at play.",
+      "location": "VW001",
+      "nextPoints": [
+        "PP006"
+      ],
+      "status": "not started",
+      "plotImpact": "Transitions the party from village intrigue to wilderness exploration, revealing the regional scope of the threats.",
+      "sideQuests": [
+        {
+          "id": "SQ006",
+          "title": "Firefly Rescue",
+          "description": "Iridescent fireflies are vanishing from the swamp, throwing the local ecosystem off-balance. A reclusive druid offers guidance if the party can discover the cause and restore balance.",
+          "involvedLocations": [
+            "VW001"
+          ],
+          "status": "not started",
+          "plotImpact": "Completing this quest earns the trust of local wildlife and may grant a magical boon for navigating the swamp."
+        },
+        {
+          "id": "SQ007",
+          "title": "The Sunken Cache",
+          "description": "The party stumbles upon a partially sunken merchant's satchel. Recovering it (without attracting dangerous swamp beasts) could reveal useful supplies or clues about the missing villagers.",
+          "involvedLocations": [
+            "VW001"
+          ],
+          "status": "not started",
+          "plotImpact": "Provides a clue pointing toward recent bandit activity deeper in the Wilds."
+        }
+      ],
+      "areaId": "VW001"
+    },
+    {
+      "id": "PP006",
+      "title": "The Bandit Encampment",
+      "description": "Following clues, the party tracks a group of bandits to a makeshift encampment hidden amidst dense undergrowth. The camp is camouflaged and guarded by traps and lookouts. The party must decide between stealth, negotiation, or direct confrontation to learn what the bandits know about the regional disturbances and their connection to the corruption.",
+      "location": "VW001",
+      "nextPoints": [
+        "PP007"
+      ],
+      "status": "not started",
+      "plotImpact": "Depending on the party's approach, they might secure an uneasy alliance, gain intelligence, or provoke a hostile pursuit.",
+      "sideQuests": [
+        {
+          "id": "SQ008",
+          "title": "Bandit Betrayal",
+          "description": "One bandit, Tavrin Quickfoot, wants out. If convinced, Tavrin offers secret routes through the swamp and insight into the bandit leader's plans and their connection to the ancient corruption.",
+          "involvedLocations": [
+            "VW001"
+          ],
+          "status": "not started",
+          "plotImpact": "Gaining Tavrin's help makes later travel safer and reveals a hidden shortcut to the corruption's source."
+        }
+      ],
+      "areaId": "VW001"
+    },
+    {
+      "id": "PP007",
+      "title": "The Heart of the Corruption",
+      "description": "Strange magic pulses from an ancient willow at the heart of the Wilds, warping flora and fauna. The party discovers Kella of the Glades, a wild-eyed hermit, performing rituals to awaken an ancient guardian. Kella claims the land is under threat from the same forces affecting Watcher's Rise, and only drastic measures can save it. The party must decide whether to aid, oppose, or outwit Kella—whose actions may do more harm than good.",
+      "location": "VW001",
+      "nextPoints": [
+        "PP008"
+      ],
+      "status": "not started",
+      "plotImpact": "The party's choices here determine the fate of the swamp and reveal the connection between the Wilds and Watcher's Rise.",
+      "sideQuests": [
+        {
+          "id": "SQ009",
+          "title": "The Withering Blight",
+          "description": "Patches of sickly, dying flora are spreading. Investigating these blights reveals a connection to the ancient willow's magic and the true nature of the corruption spreading from Watcher's Rise.",
+          "involvedLocations": [
+            "VW001"
+          ],
+          "status": "not started",
+          "plotImpact": "Provides vital information about how to weaken or cleanse the corruption at its source."
+        }
+      ],
+      "areaId": "VW001"
+    },
+    {
+      "id": "PP008",
+      "title": "Shadows Among the Hollows",
+      "description": "As twilight falls, the party faces the true mastermind: Bandit Lieutenant Karsk, who seeks to bind the awakened ancient guardian to his will using artifacts stolen from villagers and corrupted heartwood. Karsk reveals he's been gathering power to assault Watcher's Rise and claim its ancient secrets. Combat, negotiation, or clever subterfuge will decide the fate of Verdantwood Wilds.",
+      "location": "VW001",
+      "nextPoints": [
+        "PP009"
+      ],
+      "status": "not started",
+      "plotImpact": "The resolution here affects the party's approach to Watcher's Rise and the strength of opposition they'll face there.",
+      "sideQuests": [
+        {
+          "id": "SQ010",
+          "title": "Spirit's Bargain",
+          "description": "A mysterious swamp spirit offers aid in exchange for a promise to cleanse Watcher's Rise. Keeping or breaking the promise may affect the outcome of future confrontations.",
+          "involvedLocations": [
+            "VW001"
+          ],
+          "status": "not started",
+          "plotImpact": "Securing the spirit's aid may provide crucial assistance at Watcher's Rise or lead to long-term consequences."
+        }
+      ],
+      "areaId": "VW001"
+    },
+    {
+      "id": "PP009",
+      "title": "Approaching Watcher's Rise",
+      "description": "With the Wilds cleansed or controlled, the party approaches the dread-looming Watcher's Rise. A strange red mist rises from the old ruin, and the party senses an unnatural vigilance from the cyclopean statues. The entrance is sealed by a puzzle involving the gemstone eyes of the statues. Their actions in the Wilds may have affected the magical defenses here.",
+      "location": "WR001",
+      "nextPoints": [
+        "PP010"
+      ],
+      "status": "not started",
+      "plotImpact": "Successfully entering Watcher's Rise advances the party to explore its haunted halls and confront the source of the regional corruption.",
+      "sideQuests": [
+        {
+          "id": "SQ011",
+          "title": "Omen in the Mosaic",
+          "description": "An intricate mosaic at the entrance depicts an ancient ritual connected to the corruption in the Wilds. Careful study may reveal a warning or a clue to bypassing the initial traps within.",
+          "involvedLocations": [
+            "WR001"
+          ],
+          "status": "not started",
+          "plotImpact": "A successful investigation grants advantage on checks against the first tier of dungeon traps."
+        }
+      ],
+      "areaId": "WR001"
+    },
+    {
+      "id": "PP010",
+      "title": "Hall of Unblinking Guardians",
+      "description": "Within the spiraling corridors, the party faces magical surveillance—animated statues whose gemstone eyes follow every move, triggering traps or summoning spectral sentinels. The corruption from the Wilds has made these guardians more aggressive. The party must decide whether to engage directly, sneak past, or attempt to deactivate their magical vigilance.",
+      "location": "WR001",
+      "nextPoints": [
+        "PP011"
+      ],
+      "status": "not started",
+      "plotImpact": "How the party deals with the guardians affects later encounters—hasty combat may exhaust resources, while clever bypass could make future challenges easier.",
+      "sideQuests": [
+        {
+          "id": "SQ012",
+          "title": "The Silent Watcher's Plea",
+          "description": "One damaged statue whispers a fragmented warning about the 'Curator Below' and the spreading corruption. If the party repairs or communes with it magically, they may learn secrets about the dungeon's creator and the source of the regional threats.",
+          "involvedLocations": [
+            "WR001"
+          ],
+          "status": "not started",
+          "plotImpact": "Uncovering this information could allow the party to avoid certain traps or negotiate with the final guardian."
+        }
+      ],
+      "areaId": "WR001"
+    },
+    {
+      "id": "PP011",
+      "title": "Chamber of Reflected Sins",
+      "description": "Crossing a great cracked mosaic, the party enters a chamber where their movements trigger illusions—echoes of past trespassers and guardians, including visions of the original corruption that spread to the Wilds. Here, they must face riddles or confrontations drawn from the dungeon's memory, testing their resolve and the choices they've made throughout their journey.",
+      "location": "WR001",
+      "nextPoints": [
+        "PP012"
+      ],
+      "status": "not started",
+      "plotImpact": "Decisions made here affect the final guardian's disposition and the party's understanding of how to end the regional corruption.",
+      "sideQuests": [
+        {
+          "id": "SQ013",
+          "title": "The Unfinished Confession",
+          "description": "An apparition of a past intruder begs for help finishing a confession about the origin of the corruption. Translating and heeding the warning may grant the party a boon or key to stopping the spread of corruption.",
+          "involvedLocations": [
+            "WR001"
+          ],
+          "status": "not started",
+          "plotImpact": "Completing the confession provides crucial knowledge for the final confrontation."
+        },
+        {
+          "id": "SQ014",
+          "title": "Echoes of the Past",
+          "description": "By interacting with echoes or illusions, the party may learn about the original purpose of Watcher's Rise and how its fall from grace led to the regional corruption affecting both the Wilds and the village.",
+          "involvedLocations": [
+            "WR001"
+          ],
+          "status": "not started",
+          "plotImpact": "Understanding the history can help the party roleplay or negotiate with the dungeon's denizens and find a permanent solution."
+        }
+      ],
+      "areaId": "WR001"
+    },
+    {
+      "id": "PP012",
+      "title": "The Vigilant Curator",
+      "description": "Deep within the heart of Watcher's Rise, the party faces Caretaker Voss, the ageless guardian entwined with the dungeon's magic and memory. The Curator confronts the party about their actions throughout the region—their handling of the village conspiracy, their approach to the Wilds, and their intentions for ending the cycle of corruption. Depending on prior actions, this becomes a negotiation, desperate battle, or chance to end the regional curse permanently.",
+      "location": "WR001",
+      "nextPoints": [
+        "PP013"
+      ],
+      "status": "not started",
+      "plotImpact": "The outcome decides the fate of Watcher's Rise and determines whether the regional corruption is ended, contained, or spread further.",
+      "sideQuests": [
+        {
+          "id": "SQ015",
+          "title": "The Gemstone Bargain",
+          "description": "Caretaker Voss may be persuaded to release the dungeon's corrupting influence if given proof of the party's good intentions throughout the region, or if they agree to take up a new vigil to prevent future corruption.",
+          "involvedLocations": [
+            "WR001"
+          ],
+          "status": "not started",
+          "plotImpact": "Completing this bargain offers unique rewards or responsibilities, potentially ending the regional threat permanently."
+        }
+      ],
+      "areaId": "WR001"
+    },
+    {
+      "id": "PP013",
+      "title": "The Ranger's Return",
+      "description": "With the regional threats addressed, the party returns to Greenwatch Village where they reunite with Elen, who has completed her surveillance mission. She reveals that the corruption they faced was part of a larger supernatural incursion, and their success here has prevented a much greater catastrophe. The party's choices throughout the adventure determine the long-term stability of the region and their reputation among the Rangers.",
+      "location": "GV001",
+      "nextPoints": [],
+      "status": "not started",
+      "plotImpact": "Concludes the adventure with consequences based on all prior choices, establishing the party's relationship with the Rangers and the future stability of the Greenwatch region.",
+      "sideQuests": [],
+      "areaId": "GV001"
+    }
+  ]
+}

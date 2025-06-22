@@ -138,7 +138,7 @@
       "locationId": "D01",
       "name": "The Sundered Causeway",
       "type": "ruins",
-      "description": "Once a proud road connecting the keep to distant settlements, now a broken ribbon of stone slabs half-swallowed by the marsh. Massive stone pillars that once supported decorative arches lie toppled and cracked, while sections of the causeway have collapsed entirely, leaving gaps that must be jumped or circumvented through treacherous bog. Ghostly processions sometimes traverse the air where the causeway once stood unbroken, phantom travelers and merchants going about business long forgotten. The remaining stone exhibits strange properties—occasionally becoming translucent or shifting position slightly when not directly observed. Ancient defensive positions line the causeway's length, now home to corrupted wildlife and more sinister entities.",
+      "description": "Once a proud road connecting the keep to distant settlements, now a broken ribbon of stone slabs half-swallowed by the marsh. Massive stone pillars that once supported decorative arches lie toppled and cracked, while sections of the causeway have collapsed entirely, leaving gaps that must be jumped or circumvented through treacherous bog. Ghostly processions sometimes traverse the air where the causeway once stood unbroken, phantom travelers and merchants going about business long forgotten. The remaining stone exhibits strange properties\u2014occasionally becoming translucent or shifting position slightly when not directly observed. Ancient defensive positions line the causeway's length, now home to corrupted wildlife and more sinister entities.",
       "coordinates": "X1Y1",
       "connectivity": [
         "D02",
@@ -156,7 +156,7 @@
           "name": "Spectral Soldiers",
           "number": "1d6",
           "disposition": "territorial",
-          "strategy": "These ghosts of soldiers who once defended the causeway still patrol their posts, attacking anyone they perceive as enemies—particularly those carrying symbols of rival lords or magical items."
+          "strategy": "These ghosts of soldiers who once defended the causeway still patrol their posts, attacking anyone they perceive as enemies\u2014particularly those carrying symbols of rival lords or magical items."
         },
         {
           "name": "Corrupted Vine Blights",
@@ -218,7 +218,7 @@
       "locationId": "D02",
       "name": "The Mire of Echoes",
       "type": "bog",
-      "description": "A vast, treacherous bog where time and sound behave unpredictably. Murky water stretches in all directions, broken by small islands of relatively solid ground and strange, twisted vegetation. The air is thick with cloying mist that muffles some sounds while unnaturally amplifying others. Voices call out from nowhere—some repeating conversations from years past, others seemingly predicting words not yet spoken. Stepping stones form tenuous paths through the mire, but many shift position or sink when weighted. Bizarre bog lights hover just above the surface, some natural gas, others more sinister entities. The water itself has an oily rainbow sheen and occasionally ripples without cause. Dead trees rise from deeper sections, their bark carved with symbols by unknown hands.",
+      "description": "A vast, treacherous bog where time and sound behave unpredictably. Murky water stretches in all directions, broken by small islands of relatively solid ground and strange, twisted vegetation. The air is thick with cloying mist that muffles some sounds while unnaturally amplifying others. Voices call out from nowhere\u2014some repeating conversations from years past, others seemingly predicting words not yet spoken. Stepping stones form tenuous paths through the mire, but many shift position or sink when weighted. Bizarre bog lights hover just above the surface, some natural gas, others more sinister entities. The water itself has an oily rainbow sheen and occasionally ripples without cause. Dead trees rise from deeper sections, their bark carved with symbols by unknown hands.",
       "coordinates": "X2Y1",
       "connectivity": [
         "D01",
@@ -251,7 +251,7 @@
       ],
       "plotHooks": [
         "The echoes occasionally repeat fragments of Sir Garran's original plan to contain the shadow relic in the barrow, suggesting it held some special property.",
-        "The bog mummy was once the keeper of natural balance before the shadow's corruption spread into the marches—it carries a key to sealed chambers in the barrow.",
+        "The bog mummy was once the keeper of natural balance before the shadow's corruption spread into the marches\u2014it carries a key to sealed chambers in the barrow.",
         "Markings on the dead trees form a map when viewed from above, showing the original design of the standing stones before they were partially destroyed."
       ],
       "dmInstructions": "This location emphasizes psychological horror and environmental dangers. The will-o'-wisps mimic cries for help in familiar voices, requiring Insight checks (DC 14) to recognize the deception. Navigating the mire requires either the enchanted compass from the causeway, successful Survival checks (DC 15), or following specific patterns in the bog lights (recognized with Nature DC 14). The bog mummy attacks only if players disturb specific small islands marked with druidic symbols (recognizable with Religion DC 13). The boots of water walking are submerged beside the skeleton of a previous adventurer, visible only if the vial of swamp luminescence is used or if players specifically search sunken areas (Investigation DC 16).",
@@ -268,10 +268,11 @@
         {
           "name": "Echo Snare",
           "description": "Pockets where echoes become overwhelming and disorienting.",
-          "detectDC": 15,
-          "disableDC": 16,
-          "triggerDC": 14,
-          "damage": "Overwhelming cacophony requires DC 14 Wisdom save or become confused for 1d4 rounds, moving in random directions potentially toward danger."
+          "type": "supernatural",
+          "trigger": "Entering areas where multiple echo lines converge",
+          "trapDC": 14,
+          "trapEffect": "Overwhelming cacophony requires DC 14 Wisdom save or become confused for 1d4 rounds, moving in random directions potentially toward danger.",
+          "disarmNotes": "Can be detected with DC 15 Perception check by noticing how sounds interact strangely in these areas."
         }
       ],
       "dcChecks": [
@@ -303,7 +304,7 @@
       "locationId": "D03",
       "name": "Abandoned Watchtower",
       "type": "tower",
-      "description": "A crumbling stone tower rising from a rocky outcropping that provides the only truly solid ground for miles around. Once used to monitor the causeway and surrounding marches, the structure now leans at a precarious angle, its upper floors open to the elements where part of the wall has collapsed. Crows and more unnatural avians nest in the broken rafters, and the stones themselves seem to absorb sound, creating an unnatural quiet inside. Ancient defense mechanisms—arrow slits, murder holes, and a partially intact portcullis—suggest it once served military purposes. The lower levels contain a cistern of dark water and storage rooms long since looted. From the higher vantage point, the full expanse of the Blighted Marches is visible, including strange patterns in the landscape visible only from above.",
+      "description": "A crumbling stone tower rising from a rocky outcropping that provides the only truly solid ground for miles around. Once used to monitor the causeway and surrounding marches, the structure now leans at a precarious angle, its upper floors open to the elements where part of the wall has collapsed. Crows and more unnatural avians nest in the broken rafters, and the stones themselves seem to absorb sound, creating an unnatural quiet inside. Ancient defense mechanisms\u2014arrow slits, murder holes, and a partially intact portcullis\u2014suggest it once served military purposes. The lower levels contain a cistern of dark water and storage rooms long since looted. From the higher vantage point, the full expanse of the Blighted Marches is visible, including strange patterns in the landscape visible only from above.",
       "coordinates": "X1Y2",
       "connectivity": [
         "D01",
@@ -344,7 +345,7 @@
         "The tower commander's journal describes 'the ritual of seven stones' that could potentially bind or destroy the shadow relic if performed during specific lunar alignments.",
         "From the tower's height, patterns become visible in the landscape that suggest the entire region was designed as a massive ritual space, with the keep at its center."
       ],
-      "dmInstructions": "This location provides strategic information about the region and the shadow relic's nature. Watcher Morven inhabits the top floor and will speak with players who approach peacefully (treating him with respect grants advantage on Persuasion checks). The animated armor activates if players take items without permission or try to access Morven's quarters directly. The shadows attack only at night or if all lights are extinguished. The spyglass is hidden in a concealed compartment in the observation deck (DC 15 Investigation). The tower's height offers unique perspectives—players who specifically study the landscape from above (no check required) notice patterns suggesting ritual design across the entire region. Morven can identify items recovered from elsewhere in the marches and provide historical context about Sir Garran and the shadow relic.",
+      "dmInstructions": "This location provides strategic information about the region and the shadow relic's nature. Watcher Morven inhabits the top floor and will speak with players who approach peacefully (treating him with respect grants advantage on Persuasion checks). The animated armor activates if players take items without permission or try to access Morven's quarters directly. The shadows attack only at night or if all lights are extinguished. The spyglass is hidden in a concealed compartment in the observation deck (DC 15 Investigation). The tower's height offers unique perspectives\u2014players who specifically study the landscape from above (no check required) notice patterns suggesting ritual design across the entire region. Morven can identify items recovered from elsewhere in the marches and provide historical context about Sir Garran and the shadow relic.",
       "doors": [
         {
           "name": "Tower Entrance",
@@ -408,7 +409,7 @@
       "locationId": "D04",
       "name": "Black Banner Encampment",
       "type": "camp",
-      "description": "A collection of dark tents and makeshift structures arranged in a precise pattern that forms mystical symbols when viewed from above. The Black Banner—a flag depicting a shadowy hand grasping a bleeding heart—flies from the central pavilion. Cultists in dark robes move purposefully between tents, conducting rituals and observations of the keep and barrow. Captives are kept in crude cages, some being prepared for sacrifice, others simply observed for signs of shadow corruption. Arcane equipment for measuring energy patterns dots the camp, while alchemical experiments bubble in specially constructed workstations. The perimeter is guarded by both mundane sentries and warding symbols etched into the ground. The entire camp feels like a malevolent intrusion—organized, methodical, and patient in its study of the shadow's power.",
+      "description": "A collection of dark tents and makeshift structures arranged in a precise pattern that forms mystical symbols when viewed from above. The Black Banner\u2014a flag depicting a shadowy hand grasping a bleeding heart\u2014flies from the central pavilion. Cultists in dark robes move purposefully between tents, conducting rituals and observations of the keep and barrow. Captives are kept in crude cages, some being prepared for sacrifice, others simply observed for signs of shadow corruption. Arcane equipment for measuring energy patterns dots the camp, while alchemical experiments bubble in specially constructed workstations. The perimeter is guarded by both mundane sentries and warding symbols etched into the ground. The entire camp feels like a malevolent intrusion\u2014organized, methodical, and patient in its study of the shadow's power.",
       "coordinates": "X3Y1",
       "connectivity": [
         "D02",
@@ -454,7 +455,7 @@
         "Magister Valen possesses an ancient text suggesting the barrow was originally created to imprison a different entity, one that the shadow relic might awaken if brought there.",
         "Acolyte Therin knows a secret path to approach the barrow unseen, avoiding the more dangerous aspects of the cursed landscape."
       ],
-      "dmInstructions": "This location presents multiple approaches—stealth, diplomacy, or direct conflict. The camp is well-guarded, requiring either Stealth checks (DC 15) to infiltrate or Deception/Persuasion checks (DC 14) to enter under false pretenses. Acolyte Therin can be found tending to captives and will help if approached alone and offered a way out of the cult (Persuasion DC 13). Magister Valen resides in the central pavilion and will speak with players who claim to have knowledge about the shadow relic, but attempts to capture them for study if he senses weakness. The research journal is kept in Valen's private quarters (locked chest, DC 15 to pick). Freeing captives creates a useful distraction (no check required) but also alerts the entire camp. The shadow hounds can track characters by scent even after they leave the camp, potentially creating complications elsewhere.",
+      "dmInstructions": "This location presents multiple approaches\u2014stealth, diplomacy, or direct conflict. The camp is well-guarded, requiring either Stealth checks (DC 15) to infiltrate or Deception/Persuasion checks (DC 14) to enter under false pretenses. Acolyte Therin can be found tending to captives and will help if approached alone and offered a way out of the cult (Persuasion DC 13). Magister Valen resides in the central pavilion and will speak with players who claim to have knowledge about the shadow relic, but attempts to capture them for study if he senses weakness. The research journal is kept in Valen's private quarters (locked chest, DC 15 to pick). Freeing captives creates a useful distraction (no check required) but also alerts the entire camp. The shadow hounds can track characters by scent even after they leave the camp, potentially creating complications elsewhere.",
       "doors": [
         {
           "name": "Central Pavilion Entrance",
@@ -554,7 +555,7 @@
         "Memories from the wisps show an earlier confrontation between Sir Garran and the shadow relic, where he nearly succeeded in containing it before being overwhelmed.",
         "The standing stones' arrangement mirrors constellations associated with barriers between worlds, suggesting they may have been part of an ancient effort to prevent something worse than the shadow relic from entering this realm."
       ],
-      "dmInstructions": "This location focuses on magical discovery and ritual potential. The stone guardians remain dormant unless players damage the stones or attempt rituals without proper preparation (reading the manual or successful Religion/Arcana checks). The wisps of memory approach anyone who spends more than a few minutes in the circle, attempting to share knowledge—this requires Wisdom saves (DC 14) to process without becoming disoriented for 1d4 rounds. The ritual dagger is embedded in the altar stone and can only be removed by someone with magical ability (no check required, but must be a spellcaster). The manual is hidden in a small hollow beneath one of the fallen stones (Investigation DC 14). Players who perform the proper ritual (following the manual or with successful Arcana checks DC 15) can temporarily enhance magic cast within the circle, potentially gaining advantages for the final confrontation with the shadow relic. During certain astronomical alignments (which Watcher Morven can predict if met), the circle's power increases dramatically.",
+      "dmInstructions": "This location focuses on magical discovery and ritual potential. The stone guardians remain dormant unless players damage the stones or attempt rituals without proper preparation (reading the manual or successful Religion/Arcana checks). The wisps of memory approach anyone who spends more than a few minutes in the circle, attempting to share knowledge\u2014this requires Wisdom saves (DC 14) to process without becoming disoriented for 1d4 rounds. The ritual dagger is embedded in the altar stone and can only be removed by someone with magical ability (no check required, but must be a spellcaster). The manual is hidden in a small hollow beneath one of the fallen stones (Investigation DC 14). Players who perform the proper ritual (following the manual or with successful Arcana checks DC 15) can temporarily enhance magic cast within the circle, potentially gaining advantages for the final confrontation with the shadow relic. During certain astronomical alignments (which Watcher Morven can predict if met), the circle's power increases dramatically.",
       "doors": [],
       "traps": [],
       "dcChecks": [
@@ -586,7 +587,7 @@
       "locationId": "D06",
       "name": "The Cursed Barrow",
       "type": "tomb",
-      "description": "An enormous earthen mound rising from the blighted landscape, its entrance marked by a trilithon of massive stones similar to those in the standing stone circle. Ancient trees with twisted forms grow atop the barrow, their roots forming cage-like patterns around the entry. The passage into the mound descends steeply, leading to a network of stone chambers that predate the keep by centuries. Wall carvings depict rituals of binding and containment, showing figures imprisoning a dark, amorphous entity. The innermost chamber contains a sarcophagus-like structure designed not to hold a body but to contain something far less tangible. The air inside the barrow feels dense and resistant, while whispers emanate from the walls themselves—some in languages long forgotten. Despite the corruption that has claimed the surrounding marches, the barrow's innermost chambers maintain a strange purity, as if actively resisting the shadow's influence through ancient protective magic.",
+      "description": "An enormous earthen mound rising from the blighted landscape, its entrance marked by a trilithon of massive stones similar to those in the standing stone circle. Ancient trees with twisted forms grow atop the barrow, their roots forming cage-like patterns around the entry. The passage into the mound descends steeply, leading to a network of stone chambers that predate the keep by centuries. Wall carvings depict rituals of binding and containment, showing figures imprisoning a dark, amorphous entity. The innermost chamber contains a sarcophagus-like structure designed not to hold a body but to contain something far less tangible. The air inside the barrow feels dense and resistant, while whispers emanate from the walls themselves\u2014some in languages long forgotten. Despite the corruption that has claimed the surrounding marches, the barrow's innermost chambers maintain a strange purity, as if actively resisting the shadow's influence through ancient protective magic.",
       "coordinates": "X3Y2",
       "connectivity": [
         "D03",
@@ -617,9 +618,9 @@
         "Ritual components specifically designed for shadow containment"
       ],
       "plotHooks": [
-        "The containment ritual scroll reveals the barrow was designed to imprison an ancient entity of pure shadow that predates even the keep—the very entity that the shadow relic accidentally drew power from.",
+        "The containment ritual scroll reveals the barrow was designed to imprison an ancient entity of pure shadow that predates even the keep\u2014the very entity that the shadow relic accidentally drew power from.",
         "Wall carvings suggest Sir Garran discovered the barrow and attempted to use its containment properties to control the shadow relic, but underestimated the connection between the relic and the Entity.",
-        "The Entity offers knowledge about destroying the shadow relic completely, but at the price of replacing it in the relic's connection to Sir Garran—potentially saving him but creating a new threat."
+        "The Entity offers knowledge about destroying the shadow relic completely, but at the price of replacing it in the relic's connection to Sir Garran\u2014potentially saving him but creating a new threat."
       ],
       "dmInstructions": "This location serves as both a source of crucial information and a potential solution to the shadow relic problem. The Barrow Guardians attack only if players bring shadow-corrupted items (including the shadow relic itself) past the outer chambers. The Entity begins as whispers that only one party member can hear (the most magically attuned or the most emotionally vulnerable), attempting to forge a connection. It offers genuine knowledge about destroying the shadow relic but has its own dangerous agenda. The binding staff is held by the lead Barrow Guardian and can be obtained either through combat or by proving worthy intention (performing part of the containment ritual). The innermost chamber contains the ritual components and vial of purified earth (no check required if the chamber is thoroughly searched). Players who study the wall carvings (Investigation DC 13) understand the barrow could potentially contain the shadow relic, but bringing it here risks awakening the Entity completely. The amulet is hidden in a small alcove near the entrance (Perception DC 15).",
       "doors": [

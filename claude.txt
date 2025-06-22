@@ -1,28 +1,165 @@
-[01:53:20] Saved: plot_WR001.json
-[01:53:20] Generated plot for WR001
-[01:53:20] Step 5: Creating party tracker...
-[01:53:20] Saved: party_tracker.json
-[01:53:20] Created party tracker
-[01:53:20] Step 6: Creating module summary...
-[01:53:20] Created module summary
-[01:53:20] Step 7: Validating module consistency...
-[01:53:20] All validation checks passed!
-[01:53:20] Saved: validation_report.json
-[01:53:20] Module generation complete!
-[01:53:20] Output saved to: ./modules/The_Ranger's_Call_20250622_015000
+S C:\dungeon_master_v1> python reset_campaign.py
 
-Module 'The_Ranger's_Call' has been generated!
-Output directory: ./modules/The_Ranger's_Call_20250622_015000
+============================================================
+CAMPAIGN NUCLEAR RESET - COMPLETE WIPE TO VIRGIN STATE
+============================================================
 
-You can now:
-1. Review the MODULE_SUMMARY.md file
-2. Edit any generated files as needed
-3. Start your adventure with main.py
-DEBUG:httpcore.connection:close.started
-DEBUG:httpcore.connection:close.complete
-DEBUG:httpcore.connection:close.started
-DEBUG:httpcore.connection:close.complete
-DEBUG:httpcore.connection:close.started
-DEBUG:httpcore.connection:close.complete
-DEBUG:httpcore.connection:close.started
-DEBUG:httpcore.connection:close.complete
+This will:
+1. Backup EVERYTHING to a timestamped folder
+2. Restore all modules from clean _BU.json backups
+3. Delete ALL characters, conversations, and game state
+4. Create a fresh campaign ready for first-time play
+
+
+Are you sure you want to completely reset the campaign? (yes/no): yes
+
+PHASE 1: Creating complete backup...
+Backing up modules directory...
+  Backing up current_location.json
+  Backing up journal.json
+  Backing up training_data.json
+  Backing up debug.txt
+  Backing up claude.txt
+Backing up debug_log_backups directory...
+✓ Backup complete: campaign_backup_20250622_131331
+
+PHASE 2: Resetting all modules from backups...
+Found 4 modules: Keep_of_Doom, Silver_Vein_Whispers, The_Ranger's_Call, The_Rangers_Call_backup_20250622_021433
+
+Resetting module: Keep_of_Doom
+  ✓ Restored G001.json
+  ✓ Restored HH001.json
+  ✓ Restored module_context.json
+  ✓ Restored module_plot.json
+  ✓ Restored norn.json
+  ✓ Restored party_tracker.json
+  ✓ Restored plot_HH001.json
+  ✓ Restored SK001.json
+  ✓ Restored TBM001.json
+  ✓ Restored TCD001.json
+  ✓ Restored areas\G001.json
+  ✓ Restored areas\HH001.json
+  ✓ Restored areas\module_context.json
+  ✓ Restored areas\module_plot.json
+  ✓ Restored areas\party_tracker.json
+  ✓ Restored areas\plot_HH001.json
+  ✓ Restored areas\SK001.json
+  ✓ Restored areas\TBM001.json
+  ✓ Restored areas\TCD001.json
+  ✓ Restored backup_pre_integration_20250615_110207\G001.json
+  ✓ Restored backup_pre_integration_20250615_110207\HH001.json
+  ✓ Restored backup_pre_integration_20250615_110207\module_context.json
+  ✓ Restored backup_pre_integration_20250615_110207\module_plot.json
+  ✓ Restored backup_pre_integration_20250615_110207\norn.json
+  ✓ Restored backup_pre_integration_20250615_110207\party_tracker.json
+  ✓ Restored backup_pre_integration_20250615_110207\plot_HH001.json
+  ✓ Restored backup_pre_integration_20250615_110207\SK001.json
+  ✓ Restored backup_pre_integration_20250615_110207\TBM001.json
+  ✓ Restored backup_pre_integration_20250615_110207\TCD001.json
+  ✓ Restored backup_pre_integration_20250615_110829\G001.json
+  ✓ Restored backup_pre_integration_20250615_110829\HH001.json
+  ✓ Restored backup_pre_integration_20250615_110829\module_context.json
+  ✓ Restored backup_pre_integration_20250615_110829\module_plot.json
+  ✓ Restored backup_pre_integration_20250615_110829\norn.json
+  ✓ Restored backup_pre_integration_20250615_110829\party_tracker.json
+  ✓ Restored backup_pre_integration_20250615_110829\plot_HH001.json
+  ✓ Restored backup_pre_integration_20250615_110829\SK001.json
+  ✓ Restored backup_pre_integration_20250615_110829\TBM001.json
+  ✓ Restored backup_pre_integration_20250615_110829\TCD001.json
+  ✓ Restored backup_pre_integration_20250615_200446\G001.json
+  ✓ Restored backup_pre_integration_20250615_200446\HH001.json
+  ✓ Restored backup_pre_integration_20250615_200446\module_context.json
+  ✓ Restored backup_pre_integration_20250615_200446\module_plot.json
+  ✓ Restored backup_pre_integration_20250615_200446\norn.json
+  ✓ Restored backup_pre_integration_20250615_200446\party_tracker.json
+  ✓ Restored backup_pre_integration_20250615_200446\plot_HH001.json
+  ✓ Restored backup_pre_integration_20250615_200446\SK001.json
+  ✓ Restored backup_pre_integration_20250615_200446\TBM001.json
+  ✓ Restored backup_pre_integration_20250615_200446\TCD001.json
+  ✓ Restored old_plot_files\plot_HH001.json
+  Clearing characters directory...
+  ✓ Characters directory cleared
+  Cleaning up legacy area files from main folder...
+  ✓ Removed legacy G001.json from main folder
+  ✓ Removed legacy HH001.json from main folder
+  ✓ Removed legacy SK001.json from main folder
+  ✓ Removed legacy TBM001.json from main folder
+  ✓ Removed legacy TCD001.json from main folder
+
+Resetting module: Silver_Vein_Whispers
+  ✓ Restored map_RC001.json
+  ✓ Restored map_SR001.json
+  ✓ Restored map_WR001.json
+  ✓ Restored module_context.json
+  ✓ Restored module_plot.json
+  ✓ Restored npc_codex.json
+  ✓ Restored party_tracker.json
+  ✓ Restored plot_RC001.json
+  ✓ Restored plot_SR001.json
+  ✓ Restored plot_WR001.json
+  ✓ Restored RC001.json
+  ✓ Restored SR001.json
+  ✓ Restored validation_report.json
+  ✓ Restored WR001.json
+  ✓ Restored areas\RC001.json
+  ✓ Restored areas\SR001.json
+  ✓ Restored areas\WR001.json
+  ✓ Restored backup_pre_integration_20250618_215919\map_RC001.json
+  ✓ Restored backup_pre_integration_20250618_215919\map_SR001.json
+  ✓ Restored backup_pre_integration_20250618_215919\map_WR001.json
+  ✓ Restored backup_pre_integration_20250618_215919\module_context.json
+  ✓ Restored backup_pre_integration_20250618_215919\module_plot.json
+  ✓ Restored backup_pre_integration_20250618_215919\party_tracker.json
+  ✓ Restored backup_pre_integration_20250618_215919\plot_RC001.json
+  ✓ Restored backup_pre_integration_20250618_215919\plot_SR001.json
+  ✓ Restored backup_pre_integration_20250618_215919\plot_WR001.json
+  ✓ Restored backup_pre_integration_20250618_215919\RC001.json
+  ✓ Restored backup_pre_integration_20250618_215919\SR001.json
+  ✓ Restored backup_pre_integration_20250618_215919\validation_report.json
+  ✓ Restored backup_pre_integration_20250618_215919\WR001.json
+  Clearing characters directory...
+  ✓ Characters directory cleared
+
+Resetting module: The_Ranger's_Call
+  ✓ Restored map_GV001.json
+  ✓ Restored map_VW001.json
+  ✓ Restored map_WR001.json
+  ✓ Restored module_context.json
+  ✓ Restored party_tracker.json
+  ✓ Restored plot_GV001.json
+  ✓ Restored plot_VW001.json
+  ✓ Restored plot_WR001.json
+  ✓ Restored validation_report.json
+  ✓ Restored areas\GV001.json
+  ✓ Restored areas\VW001.json
+  ✓ Restored areas\WR001.json
+  Clearing characters directory...
+  ✓ Characters directory cleared
+
+Resetting module: The_Rangers_Call_backup_20250622_021433
+  Clearing characters directory...
+  ✓ Characters directory cleared
+
+PHASE 3: Creating fresh game state...
+  ✓ Reset current_location.json to starting point (HH001 A01)
+  ✓ Created empty journal.json
+
+PHASE 4: Clearing all generated files...
+  ✓ Cleared campaign_archives
+  ✓ Cleared campaign_summaries
+
+============================================================
+CAMPAIGN RESET COMPLETE!
+============================================================
+
+✓ Current state backed up to: campaign_backup_20250622_131331
+✓ All modules restored from clean backups
+✓ All characters and game state cleared
+✓ Ready for virgin campaign testing!
+
+Next steps:
+1. Run the game to test party tracker creation
+2. Create a new character to test character generation
+3. Begin your fresh campaign!
+
+PS C:\dungeon_master_v1> 

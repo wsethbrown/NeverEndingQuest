@@ -427,9 +427,8 @@ def validate_module_structure(module_name):
             if area_id and not os.path.exists(f"{module_dir}/map_{area_id}.json"):
                 issues.append(f"Missing map file for area: {area_id}")
             
-            # Check for corresponding plot file
-            if area_id and not os.path.exists(f"{module_dir}/plot_{area_id}.json"):
-                issues.append(f"Missing plot file for area: {area_id}")
+            # Individual plot files no longer used - centralized module_plot.json handles all plots
+            # Validation removed for individual plot files
                 
         except json.JSONDecodeError:
             issues.append(f"Invalid JSON in area file: {area_file}")

@@ -190,6 +190,18 @@
         }
       ]
     },
+    "mistress_veyra": {
+      "name": "Mistress Veyra",
+      "role": "",
+      "faction": "The Hollow Host",
+      "appears_in": []
+    },
+    "brother_kelm": {
+      "name": "Brother Kelm",
+      "role": "",
+      "faction": "The Hollow Host",
+      "appears_in": []
+    },
     "sister_amara": {
       "name": "Sister Amara",
       "role": "",
@@ -263,6 +275,9 @@
     "npc:Mira the Moorwise (druidic guide)": [
       "module:faction:The Riverbound Circle"
     ],
+    "npc:Elder Brioc": [
+      "module:faction:The Riverbound Circle"
+    ],
     "npc:Queen Seralyth (cursed spirit)": [
       "module:faction:The Calamyr Remnant"
     ],
@@ -278,10 +293,24 @@
     "npc:Captain Veylan (mercenary leader)": [
       "module:faction:The Argent Reliquary"
     ],
+    "npc:Scribe Miri": [
+      "module:faction:The Argent Reliquary"
+    ],
     "npc:Dren of the Blue Flame": [
       "module:faction:The Hollow Host"
     ],
+    "npc:Mistress Veyra": [
+      "module:faction:The Hollow Host"
+    ],
+    "npc:Brother Kelm": [
+      "module:faction:The Hollow Host"
+    ]
   },
-  "validation_issues": [],
+  "validation_issues": [
+    "NPC 'Elder Brioc' is referenced in ['module:faction:The Riverbound Circle'] but not placed in any location",
+    "NPC 'Scribe Miri' is referenced in ['module:faction:The Argent Reliquary'] but not placed in any location",
+    "NPC 'Mistress Veyra' is referenced in ['module:faction:The Hollow Host'] but not placed in any location",
+    "NPC 'Brother Kelm' is referenced in ['module:faction:The Hollow Host'] but not placed in any location"
+  ],
   "generated_at": "2025-06-18T21:59:17.890844"
 }

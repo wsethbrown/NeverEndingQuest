@@ -1,0 +1,470 @@
+{
+  "character_role": "npc",
+  "character_type": "npc",
+  "name": "Elen",
+  "type": "npc",
+  "size": "Medium",
+  "level": 5,
+  "race": "Wood Elf",
+  "class": "Ranger",
+  "alignment": "neutral good",
+  "background": "Outlander",
+  "status": "alive",
+  "condition": "none",
+  "condition_affected": [],
+  "hitPoints": 42,
+  "maxHitPoints": 42,
+  "armorClass": 17,
+  "initiative": 3,
+  "speed": 35,
+  "abilities": {
+    "strength": 13,
+    "dexterity": 16,
+    "constitution": 14,
+    "intelligence": 12,
+    "wisdom": 15,
+    "charisma": 10
+  },
+  "savingThrows": [
+    "Strength",
+    "Dexterity"
+  ],
+  "skills": {
+    "Animal Handling": 5,
+    "Athletics": 4,
+    "Insight": 5,
+    "Investigation": 4,
+    "Nature": 4,
+    "Perception": 8,
+    "Stealth": 6,
+    "Survival": 8
+  },
+  "proficiencyBonus": 3,
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 18
+  },
+  "languages": [
+    "Common",
+    "Elvish"
+  ],
+  "proficiencies": {
+    "armor": [
+      "Light armor",
+      "Medium armor",
+      "Shields"
+    ],
+    "weapons": [
+      "Simple weapons",
+      "Martial weapons",
+      "Longswords",
+      "Longbows",
+      "Shortbows"
+    ],
+    "tools": [
+      "Herbalism kit"
+    ]
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "classFeatures": [
+    {
+      "name": "Favored Enemy",
+      "description": "Elen has advantage on Wisdom (Survival) checks to track undead and on Intelligence checks to recall information about them.",
+      "source": "Ranger"
+    },
+    {
+      "name": "Natural Explorer",
+      "description": "When Elen makes a Wisdom (Survival) check in forest terrain, her proficiency bonus is doubled if she is using a skill that she's proficient with.",
+      "source": "Ranger"
+    },
+    {
+      "name": "Fighting Style",
+      "description": "Archery - Elen gains a +2 bonus to attack rolls she makes with ranged weapons.",
+      "source": "Ranger"
+    },
+    {
+      "name": "Spellcasting",
+      "description": "Elen can cast ranger spells using Wisdom as her spellcasting ability (spell save DC 13, +5 to hit with spell attacks).",
+      "source": "Ranger"
+    },
+    {
+      "name": "Ranger Archetype",
+      "description": "Hunter - Elen has chosen the Hunter archetype.",
+      "source": "Ranger"
+    },
+    {
+      "name": "Hunter's Prey",
+      "description": "Colossus Slayer - Once per turn when Elen hits a creature with a weapon attack, the creature takes an extra 1d8 damage if it's below its hit point maximum.",
+      "source": "Hunter"
+    },
+    {
+      "name": "Extra Attack",
+      "description": "Elen can attack twice when she takes the Attack action on her turn.",
+      "source": "Ranger"
+    }
+  ],
+  "racialTraits": [
+    {
+      "name": "Darkvision",
+      "description": "Elen can see in darkness (shades of gray) up to 60 feet.",
+      "source": "Wood Elf"
+    },
+    {
+      "name": "Keen Senses",
+      "description": "Elen has proficiency in the Perception skill.",
+      "source": "Wood Elf"
+    },
+    {
+      "name": "Fey Ancestry",
+      "description": "Elen has advantage on saving throws against being charmed, and magic can't put her to sleep.",
+      "source": "Wood Elf"
+    },
+    {
+      "name": "Trance",
+      "description": "Elen does not need to sleep. Instead, she meditates deeply for 4 hours a day.",
+      "source": "Wood Elf"
+    },
+    {
+      "name": "Elf Weapon Training",
+      "description": "Elen has proficiency with longswords, shortbows, longbows, and shortbows.",
+      "source": "Wood Elf"
+    },
+    {
+      "name": "Fleet of Foot",
+      "description": "Elen's base walking speed increases to 35 feet.",
+      "source": "Wood Elf"
+    },
+    {
+      "name": "Mask of the Wild",
+      "description": "Elen can attempt to hide even when she is only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena.",
+      "source": "Wood Elf"
+    }
+  ],
+  "backgroundFeature": {
+    "name": "Wanderer",
+    "description": "Elen has an excellent memory for maps and geography, and she can always recall the general layout of terrain, settlements, and other features around her.",
+    "source": "Outlander"
+  },
+  "temporaryEffects": [],
+  "injuries": [],
+  "equipment_effects": [
+    {
+      "name": "Cloak of Elvenkind - Advantage",
+      "type": "advantage",
+      "target": "stealth_checks",
+      "value": null,
+      "description": "Advantage on Dexterity (Stealth) checks",
+      "source": "Cloak of Elvenkind"
+    },
+    {
+      "name": "Amulet of Natural Armor - Bonus",
+      "type": "bonus",
+      "target": "AC",
+      "value": 1,
+      "description": "+1 natural armor bonus to AC",
+      "source": "Amulet of Natural Armor"
+    },
+    {
+      "name": "Ring of Protection - Bonus",
+      "type": "bonus",
+      "target": "AC",
+      "value": 1,
+      "description": "+1 bonus to AC",
+      "source": "Ring of Protection"
+    },
+    {
+      "name": "Ring of Protection - Bonus",
+      "type": "bonus",
+      "target": "saving_throws",
+      "value": 1,
+      "description": "+1 bonus to saving throws",
+      "source": "Ring of Protection"
+    }
+  ],
+  "feats": [],
+  "equipment": [
+    {
+      "item_name": "Longbow",
+      "item_type": "weapon",
+      "description": "A tall bow made of yew wood.",
+      "quantity": 1,
+      "damage": "1d8 piercing",
+      "attack_bonus": 8,
+      "weapon_type": "ranged",
+      "range": "150/600"
+    },
+    {
+      "item_name": "Arrows",
+      "item_type": "miscellaneous",
+      "description": "Standard arrows for a longbow.",
+      "quantity": 60
+    },
+    {
+      "item_name": "Scimitar",
+      "item_type": "weapon",
+      "description": "A curved, slashing blade.",
+      "quantity": 1,
+      "damage": "1d6 slashing",
+      "attack_bonus": 6,
+      "weapon_type": "melee"
+    },
+    {
+      "item_name": "Shortsword",
+      "item_type": "weapon",
+      "description": "A short, straight blade perfect for close combat.",
+      "quantity": 1,
+      "damage": "1d6 piercing",
+      "attack_bonus": 6,
+      "weapon_type": "melee"
+    },
+    {
+      "item_name": "Explorer's Pack",
+      "item_type": "miscellaneous",
+      "description": "A backpack, a bedroll, a mess kit, a tinderbox, 10 torches, 10 days of rations, and a waterskin. The pack also has 50 feet of hempen rope strapped to the side of it.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Staff",
+      "item_type": "miscellaneous",
+      "description": "A walking stick.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Hunting trap",
+      "item_type": "miscellaneous",
+      "description": "A mechanical device for catching game.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Traveler's clothes",
+      "item_type": "miscellaneous",
+      "description": "Sturdy clothes suitable for travel.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Belt pouch",
+      "item_type": "miscellaneous",
+      "description": "A small pouch worn on the belt.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Chest with 58 Gold Coins and 4 Gemstones",
+      "item_type": "miscellaneous",
+      "description": "A small chest containing 58 gold coins and 4 gemstones.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Cloak of Elvenkind",
+      "item_type": "armor",
+      "item_subtype": "cloak",
+      "description": "A flowing cloak woven from ethereal fabric that seems to shift between shades of green and brown. Grants advantage on Stealth checks. A gift from Norn.",
+      "quantity": 1,
+      "magical": true,
+      "equipped": true,
+      "armor_category": "other",
+      "effects": [
+        {
+          "type": "advantage",
+          "target": "stealth_checks",
+          "description": "Advantage on Dexterity (Stealth) checks"
+        }
+      ]
+    },
+    {
+      "item_name": "Fey-threaded Studded Leather Armor",
+      "item_type": "armor",
+      "description": "Studded leather armor reinforced with fey-thread, tougher and lighter than standard studded leather.",
+      "quantity": 1,
+      "armor_class": 13,
+      "armor_type": "light",
+      "equipped": true
+    },
+    {
+      "item_name": "Boots of Whispering Soles",
+      "item_type": "armor",
+      "description": "Enchanted boots that muffle footsteps, granting advantage on Dexterity (Stealth) checks related to movement.",
+      "quantity": 1,
+      "magical": true,
+      "equipped": false,
+      "armor_category": "other"
+    },
+    {
+      "item_name": "Hunter's Rune-Sash",
+      "item_type": "miscellaneous",
+      "description": "A sash woven with runes that enhance stamina and tracking abilities.",
+      "quantity": 1,
+      "magical": true
+    },
+    {
+      "item_name": "Amulet of Natural Armor",
+      "item_type": "miscellaneous",
+      "item_subtype": "amulet",
+      "description": "A wooden amulet carved in the shape of a bear, imbued with protective nature magic. Enhances natural defenses.",
+      "quantity": 1,
+      "magical": true,
+      "equipped": true,
+      "effects": [
+        {
+          "type": "bonus",
+          "target": "AC",
+          "value": 1,
+          "description": "+1 natural armor bonus to AC"
+        }
+      ]
+    },
+    {
+      "item_name": "Ring of Protection",
+      "item_type": "miscellaneous",
+      "item_subtype": "ring",
+      "description": "A magical ring that grants a +1 bonus to AC and saving throws while worn.",
+      "quantity": 1,
+      "magical": true,
+      "equipped": true,
+      "effects": [
+        {
+          "type": "bonus",
+          "target": "AC",
+          "value": 1,
+          "description": "+1 bonus to AC"
+        },
+        {
+          "type": "bonus",
+          "target": "saving_throws",
+          "value": 1,
+          "description": "+1 bonus to saving throws"
+        }
+      ]
+    },
+    {
+      "item_name": "Bedroll",
+      "item_type": "miscellaneous",
+      "description": "A roll of bedding for sleeping outdoors.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Rations (1 week)",
+      "item_type": "consumable",
+      "description": "Food supplies sufficient for one week of travel.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Waterskin",
+      "item_type": "miscellaneous",
+      "description": "A container for carrying water during travel.",
+      "quantity": 1
+    }
+  ],
+  "ammunition": [
+    {
+      "name": "Arrows",
+      "quantity": 60,
+      "description": "Standard arrows for longbow"
+    }
+  ],
+  "attacksAndSpellcasting": [
+    {
+      "name": "Longbow",
+      "attackBonus": 8,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "piercing",
+      "type": "ranged",
+      "description": "Ranged Weapon Attack: +8 to hit, range 150/600 ft., one target. Hit: 1d8+3 piercing damage."
+    },
+    {
+      "name": "Scimitar",
+      "attackBonus": 6,
+      "damageDice": "1d6",
+      "damageBonus": 3,
+      "damageType": "slashing",
+      "type": "melee",
+      "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 1d6+3 slashing damage."
+    },
+    {
+      "name": "Shortsword",
+      "attackBonus": 6,
+      "damageDice": "1d6",
+      "damageBonus": 3,
+      "damageType": "piercing",
+      "type": "melee",
+      "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 1d6+3 piercing damage."
+    }
+  ],
+  "spellcasting": {
+    "ability": "wisdom",
+    "spellSaveDC": 13,
+    "spellAttackBonus": 5,
+    "spells": {
+      "cantrips": [],
+      "level1": [
+        "Hunter's Mark",
+        "Cure Wounds",
+        "Animal Friendship",
+        "Speak with Animals"
+      ],
+      "level2": [
+        "Pass without Trace",
+        "Spike Growth"
+      ],
+      "level3": [],
+      "level4": [],
+      "level5": [],
+      "level6": [],
+      "level7": [],
+      "level8": [],
+      "level9": []
+    },
+    "spellSlots": {
+      "level1": {
+        "current": 4,
+        "max": 4
+      },
+      "level2": {
+        "current": 2,
+        "max": 2
+      },
+      "level3": {
+        "current": 0,
+        "max": 0
+      },
+      "level4": {
+        "current": 0,
+        "max": 0
+      },
+      "level5": {
+        "current": 0,
+        "max": 0
+      },
+      "level6": {
+        "current": 0,
+        "max": 0
+      },
+      "level7": {
+        "current": 0,
+        "max": 0
+      },
+      "level8": {
+        "current": 0,
+        "max": 0
+      },
+      "level9": {
+        "current": 0,
+        "max": 0
+      }
+    }
+  },
+  "currency": {
+    "gold": 45,
+    "silver": 20,
+    "copper": 15
+  },
+  "experience_points": 6500,
+  "exp_required_for_next_level": 14000,
+  "personality_traits": "Scout Elen is vigilant and observant, always scanning her surroundings for potential threats or useful information.",
+  "ideals": "Protection - I must use my skills to protect those who cannot protect themselves.",
+  "bonds": "The village of Harrow's Hollow depends on me to keep watch and warn of dangers from the wild.",
+  "flaws": "I have little patience for those who are not prepared for the dangers of the wilderness."
+}

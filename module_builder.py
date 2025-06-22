@@ -371,7 +371,7 @@ The plot title should reference this specific area, not other locations.
             )
             
             self.plots_data[area_id] = plot_data
-            self.save_json(plot_data, f"plot_{area_id}.json")
+            # Individual plot files removed - using centralized module_plot.json instead
             
             # Update context with plot points
             for plot_point in plot_data.get("plotPoints", []):
