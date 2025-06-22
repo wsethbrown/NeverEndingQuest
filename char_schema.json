@@ -228,7 +228,7 @@
         "type": "object",
         "properties": {
           "item_name": {"type": "string"},
-          "item_type": {"type": "string", "enum": ["weapon", "armor", "miscellaneous", "consumable"]},
+          "item_type": {"type": "string", "enum": ["weapon", "armor", "miscellaneous", "consumable", "ammunition", "equipment"]},
           "item_subtype": {"type": "string", "enum": ["scroll", "potion", "wand", "ring", "amulet", "cloak", "boots", "gloves", "helmet", "rod", "staff", "other"]},
           "description": {"type": "string"},
           "quantity": {"type": "integer"},

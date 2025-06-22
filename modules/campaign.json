@@ -3,7 +3,8 @@
   "currentModule": null,
   "hubModule": "Shadowfall Keep",
   "completedModules": [
-    "Keep_of_Doom"
+    "Keep_of_Doom",
+    "Silver_Vein_Whispers"
   ],
   "availableModules": [
     "Silver_Vein_Whispers",
@@ -34,6 +35,6 @@
     "unlockedAreas": [],
     "hubEstablished": true
   },
-  "lastUpdated": "2025-06-21T18:04:11.087216",
+  "lastUpdated": "2025-06-22T00:04:00.652466",
   "version": "1.0.0"
 }

@@ -49,13 +49,13 @@ Always respond with a JSON object in the following format:
 // Example Response 7: False - Wrong action for module travel
 {
   "valid": false,
-  "reason": "The assistant's response mentions traveling to 'Silver Vein River' (another module) but uses 'transitionLocation' which only works within the current module. When traveling to another module, the assistant must use 'updatePartyTracker' with the module parameter set to the target module name. Try again using updatePartyTracker action."
+  "reason": "The assistant's response mentions traveling to 'Frostward Peaks' (another module) but uses 'transitionLocation' which only works within the current module. When traveling to another module, the assistant must use 'updatePartyTracker' with the module parameter set to the target module name. Try again using updatePartyTracker action."
 }
 
 // Example Response 8: True - Correct module travel
 {
   "valid": true,
-  "reason": "The assistant correctly uses 'updatePartyTracker' with module parameter to transition from Keep_of_Doom to Silver_Vein_Whispers after the player explicitly requested travel to that module."
+  "reason": "The assistant correctly uses 'updatePartyTracker' with module parameter to transition from Desert_Crown to Frostward_Peaks after the player explicitly requested travel to that module."
 }
 
 
@@ -116,7 +116,7 @@ Requires "narrative" parameter containing rich story description with embedded m
    
    ### CRITICAL MODULE TRAVEL VALIDATION:
    **VALID for updatePartyTracker with module change:**
-   - "I travel to Silver_Vein_Whispers" [VALID]
+   - "I travel to Frostward_Peaks" [VALID]
    - "Take us to the Desert Crown module" [VALID]
    - "Let's journey to [specific module name]" [VALID]
    
