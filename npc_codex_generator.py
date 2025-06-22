@@ -350,10 +350,16 @@ def get_or_create_npc_codex(module_name):
             # Save codex using atomic write operations
             try:
                 print(f"Saving NPC codex to: {codex_file}")
-                safe_write_json(codex, codex_file)
+                write_success = safe_write_json(codex_file, codex, create_backup=True, acquire_lock=False)
+                
+                if not write_success:
+                    raise ValueError("Failed to write codex file")
                 
                 # Verify the save worked
                 verification = safe_read_json(codex_file)
+                if verification is None:
+                    raise ValueError("Could not read back saved codex file")
+                    
                 if verification.get("total_npcs") != codex.get("total_npcs"):
                     raise ValueError("Codex verification failed after save")
                 
