@@ -1,0 +1,71 @@
+{
+  "mapId": "MAP_5",
+  "mapName": "Dungeon Map",
+  "totalRooms": 5,
+  "rooms": [
+    {
+      "id": "TW01",
+      "type": "hall",
+      "connections": [
+        "TW02",
+        "TW04"
+      ],
+      "coordinates": "X2Y2",
+      "name": "Thorn-Root Gallery"
+    },
+    {
+      "id": "TW02",
+      "type": "entrance",
+      "connections": [
+        "TW01",
+        "TW03",
+        "TW05"
+      ],
+      "coordinates": "X3Y2",
+      "name": "Brambleshade Approach"
+    },
+    {
+      "id": "TW03",
+      "type": "treasure room",
+      "connections": [
+        "TW02",
+        "TW04"
+      ],
+      "coordinates": "X3Y1",
+      "name": "Bandit's Hidden Vault"
+    },
+    {
+      "id": "TW04",
+      "type": "shrine",
+      "connections": [
+        "TW01",
+        "TW03"
+      ],
+      "coordinates": "X2Y1",
+      "name": "Shrine of the Gloaming Hunt"
+    },
+    {
+      "id": "TW05",
+      "type": "corridor",
+      "connections": [
+        "TW02"
+      ],
+      "coordinates": "X3Y3",
+      "name": "Shadowbriar Corridor"
+    }
+  ],
+  "layout": [
+    [
+      "TW04",
+      "TW03"
+    ],
+    [
+      "TW01",
+      "TW02"
+    ],
+    [
+      "   ",
+      "TW05"
+    ]
+  ]
+}

@@ -1,0 +1,437 @@
+{
+  "areaId": "TW001",
+  "areaName": "Thornwood Wilds",
+  "areaType": "dungeon",
+  "areaDescription": "The Thornwood Wilds writhe with predatory intelligence, their canopy of clawed branches seeming to shift and close behind intruders. Ancient trees lean inward like conspirators, their moss-choked bark weeping strange saps while root-latticed shadows conceal signs of recent violence. The air tastes of copper and fear, thick with the scent of spilled blood and the acrid smoke of bandit camps. Every snapping twig and rustling leaf might herald ambush, while drag marks in the earth tell grim stories of those who ventured here before you.",
+  "dangerLevel": "medium",
+  "recommendedLevel": 1,
+  "climate": "controlled - cool and damp",
+  "terrain": "stone corridors and chambers",
+  "map": {
+    "mapId": "MAP_5",
+    "mapName": "Dungeon Map",
+    "totalRooms": 5,
+    "rooms": [
+      {
+        "id": "TW01",
+        "type": "hall",
+        "connections": [
+          "TW02",
+          "TW04"
+        ],
+        "coordinates": "X2Y2",
+        "name": "Thorn-Root Gallery"
+      },
+      {
+        "id": "TW02",
+        "type": "entrance",
+        "connections": [
+          "TW01",
+          "TW03",
+          "TW05"
+        ],
+        "coordinates": "X3Y2",
+        "name": "Brambleshade Approach"
+      },
+      {
+        "id": "TW03",
+        "type": "treasure room",
+        "connections": [
+          "TW02",
+          "TW04"
+        ],
+        "coordinates": "X3Y1",
+        "name": "Bandit's Hidden Vault"
+      },
+      {
+        "id": "TW04",
+        "type": "shrine",
+        "connections": [
+          "TW01",
+          "TW03"
+        ],
+        "coordinates": "X2Y1",
+        "name": "Shrine of the Gloaming Hunt"
+      },
+      {
+        "id": "TW05",
+        "type": "corridor",
+        "connections": [
+          "TW02"
+        ],
+        "coordinates": "X3Y3",
+        "name": "Shadowbriar Corridor"
+      }
+    ],
+    "layout": [
+      [
+        "TW04",
+        "TW03"
+      ],
+      [
+        "TW01",
+        "TW02"
+      ],
+      [
+        "   ",
+        "TW05"
+      ]
+    ]
+  },
+  "locations": [
+    {
+      "locationId": "TW01",
+      "name": "Ambush Site",
+      "type": "hall", 
+      "description": "A blood-stained clearing where the aftermath of a bandit ambush tells its grim story. Overturned merchant wagons leak scattered goods among the brambles, while Wounded Scout Neris leans against a tree, binding hastily treated wounds. Drag marks in the soft earth lead deeper into the thorny maze, and the metallic scent of recent violence hangs heavy in the still air.",
+      "coordinates": "X2Y2",
+      "connectivity": [
+        "TW02",
+        "TW04"
+      ],
+      "areaConnectivity": [
+        "Rangers' Outpost"
+      ],
+      "areaConnectivityId": [
+        "RO001"
+      ],
+      "npcs": [
+        {
+          "name": "Wounded Scout Neris",
+          "description": "A different Scout Neris than at the outpost - this one bears fresh wounds and the haunted look of someone who barely escaped a brutal ambush. She clutches a broken arrow and speaks in urgent whispers about the bandits' tactics and the direction they took their captives.",
+          "attitude": "Injured and shaken but determined to see the bandits brought to justice. Grateful for rescue and eager to help track the attackers."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Scattered merchant goods from the attacked caravan",
+        "Broken bandit weapon with distinctive markings",
+        "Trail rations and medical supplies from overturned wagon"
+      ],
+      "plotHooks": [
+        "The wounded scout witnessed the bandits taking captives deeper into the Thornwood",
+        "Bandit equipment and tactics suggest military training rather than common brigandry",
+        "Fresh tracks lead toward a hidden stronghold somewhere in the dense forest",
+        "The scout mentions seeing strange lights and unnatural sounds from the bandit camp"
+      ],
+      "dmInstructions": "This location serves as the entry point into the Thornwood investigation. The wounded scout provides crucial intelligence about bandit movements and the urgency of rescuing captives. Use this to drive the party deeper into the wilds.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Medicine DC 12: Treat the wounded scout's injuries effectively",
+        "Investigation DC 11: Study the ambush site to understand bandit tactics",
+        "Survival DC 13: Follow the tracks leading toward the bandit stronghold"
+      ],
+      "accessibility": "Forest clearing accessible from main trade road",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Overturned Wagon",
+          "description": "A merchant wagon lying on its side, contents scattered and searched by the bandits during their raid."
+        },
+        {
+          "name": "Battle Traces",
+          "description": "Blood stains, weapon marks on trees, and disturbed earth showing the fierce struggle that took place here."
+        },
+        {
+          "name": "Drag Marks",
+          "description": "Clear signs where captives and valuable goods were dragged deeper into the forest toward the bandit hideout."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "TW02",
+      "name": "Bandit Trail",
+      "type": "entrance",
+      "description": "A narrow path winding through dense thornbushes shows signs of frequent use by the bandit gang. Boot prints mix with drag marks in the muddy earth, while broken branches and disturbed undergrowth reveal the route to their hidden stronghold. Crude warning markers hang from twisted trees, meant to deter casual travelers.",
+      "coordinates": "X3Y2",
+      "connectivity": [
+        "TW01",
+        "TW03",
+        "TW05"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [],
+      "lootTable": [],
+      "plotHooks": [],
+      "dmInstructions": "This trail leads toward the bandit stronghold. Consider having the party encounter bandit patrols or traps along the way. Use this location to build tension as they get closer to the main threat.",
+      "doors": [],
+      "traps": [
+        {
+          "name": "Concealed Rope Snare",
+          "description": "A hidden rope trap designed to catch pursuing rangers by the ankle.",
+          "detectDC": 14,
+          "disableDC": 12,
+          "effect": "Restrains target, requires DC 15 Athletics or Acrobatics to escape"
+        }
+      ],
+      "dcChecks": [
+        "Stealth DC 13: Move quietly to avoid alerting bandit patrols ahead",
+        "Survival DC 11: Follow the bandit trail without losing the path",
+        "Perception DC 12: Notice warning markers and potential ambush points"
+      ],
+      "accessibility": "Narrow forest path requiring careful navigation",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Warning Totems",
+          "description": "Crude carved symbols hung from branches, meant to intimidate and warn off casual travelers."
+        },
+        {
+          "name": "Tracking Signs",
+          "description": "Boot prints, broken vegetation, and drag marks showing frequent bandit movement toward their stronghold."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "TW03",
+      "name": "Captive Camp",
+      "type": "treasure room",
+      "description": "A small clearing hidden within thorny undergrowth serves as a temporary holding area for bandit captives. Rescued Merchant Lira cowers behind makeshift shelter, her fine clothes torn and muddy from rough treatment. Empty cages and discarded rope suggest other prisoners were recently moved to a more permanent location deeper in the forest.",
+      "coordinates": "X3Y1",
+      "connectivity": [
+        "TW02",
+        "TW04"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Rescued Merchant Lira",
+          "description": "A traumatized merchant who escaped from the bandit stronghold during a guard change. She witnessed the bandits' operations and can provide valuable intelligence about their numbers, defenses, and the mysterious figures who seem to be funding their activities.",
+          "attitude": "Fearful but grateful for rescue. Eager to share information about the bandit stronghold and desperate to ensure no other merchants suffer her fate."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Merchant's concealed coin purse",
+        "Torn map showing bandit patrol routes",
+        "Abandoned prisoner belongings with clues to other captives"
+      ],
+      "plotHooks": [
+        "Lira describes the main bandit stronghold's layout and defenses",
+        "Other captives were taken deeper into the forest toward a permanent base",
+        "The bandits spoke of mysterious benefactors with supernatural backing",
+        "Lira overheard plans for a major assault on the Rangers' Outpost"
+      ],
+      "dmInstructions": "Rescued Merchant Lira provides crucial intelligence about the bandit stronghold and confirms the supernatural backing. She can guide the party or be escorted to safety, depending on party preferences.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Medicine DC 10: Treat Lira's injuries and calm her trauma",
+        "Persuasion DC 11: Encourage Lira to share detailed information about the stronghold",
+        "Investigation DC 12: Study the abandoned captive area for clues about other prisoners"
+      ],
+      "accessibility": "Hidden clearing accessible through dense undergrowth",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Makeshift Cages",
+          "description": "Crude wooden and rope cages used to hold captives, now empty but showing signs of recent use."
+        },
+        {
+          "name": "Prisoner Belongings",
+          "description": "Scattered personal effects from captured merchants and travelers, some bearing identifying marks."
+        },
+        {
+          "name": "Hidden Cache",
+          "description": "A concealed supply stash containing prisoner rations and basic medical supplies."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "TW04",
+      "name": "Hermit's Refuge",
+      "type": "shrine",
+      "description": "Ancient trees form a natural sanctuary where Spirit-Touched Hermit Maelo tends to wounded forest creatures. The air shimmers with faint magical energy, and strange symbols carved into bark seem to ward off the corruption spreading from the north. Wildlife that fled the supernatural disturbances finds temporary safety here.",
+      "coordinates": "X2Y1",
+      "connectivity": [
+        "TW01",
+        "TW03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Spirit-Touched Hermit Maelo",
+          "description": "An elderly human druid with eyes that reflect otherworldly knowledge and hands that glow faintly with natural magic. Maelo has sensed the supernatural corruption spreading from the northern reaches and understands the connection between the bandits and the dark forces backing them.",
+          "attitude": "Mystical and cryptic but ultimately helpful. Concerned about the spreading corruption and willing to aid those who would fight against unnatural influences."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Herbal healing potion brewed by the hermit",
+        "Ward stones that protect against supernatural influence",
+        "Ancient tome describing the corruption from the north"
+      ],
+      "plotHooks": [
+        "Maelo explains the supernatural corruption spreading from the Northern Reaches",
+        "The hermit offers protection charms against the dark forces backing the bandits",
+        "Ancient knowledge about how to cleanse the corruption affecting the region",
+        "Warnings about what the party will face in the corrupted northern woods"
+      ],
+      "dmInstructions": "Maelo provides mystical insight and preparation for the supernatural threats ahead. He can offer healing, protection, and crucial information about the corruption in the Northern Reaches.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Arcana DC 13: Understand the nature of the supernatural corruption Maelo describes",
+        "Religion DC 11: Recognize the protective symbols carved into the sanctuary trees",
+        "Nature DC 12: Learn how to identify and resist the spreading corruption"
+      ],
+      "accessibility": "Sacred grove protected by natural and magical barriers",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Sacred Grove",
+          "description": "Ancient trees arranged in a natural circle, their bark carved with protective symbols that ward off corruption."
+        },
+        {
+          "name": "Healing Springs",
+          "description": "A small spring with pure water that glows faintly with restorative magic, providing sanctuary to injured creatures."
+        },
+        {
+          "name": "Ward Stones",
+          "description": "Standing stones inscribed with druidic runes that create a barrier against supernatural corruption and evil influences."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "TW05",
+      "name": "Bandit Stronghold",
+      "type": "corridor",
+      "description": "A fortified clearing hidden deep within the thornwood where the bandit gang has established their main base of operations. Crude wooden palisades reinforced with stolen iron create defensive walls, while lookout posts built into ancient oak trees provide commanding views of the approaches. The air carries the scent of wood smoke, unwashed bodies, and something darker - an unnatural corruption that seems to emanate from supplies marked with strange symbols.",
+      "coordinates": "X3Y3",
+      "connectivity": [
+        "TW02"
+      ],
+      "areaConnectivity": [
+        "Northern Corrupted Woods"
+      ],
+      "areaConnectivityId": [
+        "NCW001"
+      ],
+      "npcs": [
+        {
+          "name": "Bandit Captain Gorvek",
+          "description": "A scarred half-orc warrior who leads the bandit gang with brutal efficiency. His armor bears strange symbols that match those found on the corrupted supplies, and his eyes occasionally flash with an unnatural green light that hints at supernatural influence.",
+          "attitude": "Aggressive and paranoid, suspicious of anyone approaching the stronghold. Will fight to defend the base but may attempt to flee if severely outmatched."
+        }
+      ],
+      "monsters": [
+        "2 Bandit Sentries (human bandits with crossbows)",
+        "3 Bandit Warriors (human bandits with scimitars and shields)", 
+        "1 Bandit Captain Gorvek (half-orc with supernatural backing)"
+      ],
+      "lootTable": [
+        "Chest containing stolen merchant goods worth 150 gold pieces",
+        "Cache of weapons and armor taken from defeated travelers",
+        "Mysterious supplies marked with corruption symbols",
+        "Map showing planned attacks on trade routes"
+      ],
+      "plotHooks": [
+        "Strange supplies suggest the bandits are backed by supernatural forces from the north",
+        "Captured documents reveal plans for a major assault on the Rangers' Outpost",
+        "The corruption affecting Captain Gorvek hints at the larger threat in the Northern Woods", 
+        "Evidence of communication with mysterious benefactors providing gold and equipment"
+      ],
+      "dmInstructions": "This is the climactic encounter for the Thornwood Wilds area. The bandits will fight defensively from their fortifications. Captain Gorvek's corruption connects to the Northern Corrupted Woods storyline. Consider having him flee toward the north if the battle goes poorly, leading the party toward the final area.",
+      "doors": [
+        {
+          "name": "Palisade Gate",
+          "description": "A reinforced wooden gate with iron bands, secured with heavy crossbeams.",
+          "type": "regular",
+          "locked": true,
+          "lockDC": 15,
+          "breakDC": 18,
+          "keyname": "Stronghold Gate Key",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [
+        {
+          "name": "Concealed Pit Trap",
+          "description": "A camouflaged pit filled with sharpened stakes, positioned to catch attackers approaching the main gate.",
+          "detectDC": 15,
+          "disableDC": 13,
+          "effect": "2d6 piercing damage and prone condition, DC 13 Dexterity saving throw for half damage"
+        }
+      ],
+      "dcChecks": [
+        "Stealth DC 14: Approach the stronghold without alerting the sentries",
+        "Investigation DC 12: Study the fortifications to identify weak points in the defenses",
+        "Perception DC 13: Notice the supernatural corruption affecting the bandit captain"
+      ],
+      "accessibility": "Fortified clearing with defensive walls and elevated positions",
+      "dangerLevel": "High",
+      "features": [
+        {
+          "name": "Wooden Palisade",
+          "description": "Crude but effective defensive walls made from sharpened logs, reinforced with scavenged iron bands."
+        },
+        {
+          "name": "Lookout Posts",
+          "description": "Elevated platforms built into large trees, providing commanding views and defensive positions for the bandits."
+        },
+        {
+          "name": "Corrupted Supply Cache",
+          "description": "A collection of supplies marked with strange symbols that emanate an unsettling aura, suggesting supernatural backing."
+        },
+        {
+          "name": "Central Fire Pit",
+          "description": "A large fire pit surrounded by crude benches where the bandits gather, cook, and plan their raids."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    }
+  ],
+  "randomEncounters": [
+    {
+      "roll": "1-10",
+      "encounter": "hostile creature",
+      "description": "A hostile creature appropriate for level 1 parties"
+    },
+    {
+      "roll": "11-20",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 1 parties"
+    },
+    {
+      "roll": "21-30",
+      "encounter": "hostile creature",
+      "description": "A hostile creature appropriate for level 1 parties"
+    },
+    {
+      "roll": "31-40",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 1 parties"
+    },
+    {
+      "roll": "41-50",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 1 parties"
+    },
+    {
+      "roll": "51-60",
+      "encounter": "bandit patrol",
+      "description": "A bandit patrol appropriate for level 1 parties"
+    }
+  ],
+  "areaFeatures": [
+    "ancient murals",
+    "mysterious mechanisms",
+    "forgotten shrines"
+  ],
+  "notes": "Consider lighting sources and trap placement. Underground areas may have limited resources."
+}
