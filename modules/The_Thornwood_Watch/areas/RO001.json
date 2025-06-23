@@ -102,6 +102,21 @@
           "name": "Ranger Elen",
           "description": "The steadfast commander of Thornwood Outpost, Elen bears the weight of protecting the frontier trade routes. Her weathered leathers speak of countless patrols, and her sharp gaze misses nothing. Though duty binds her to this post, worry creases her brow as reports from other regions grow more troubling.",
           "attitude": "Professional but concerned, testing the party's competence while revealing the burden of command."
+        },
+        {
+          "name": "Ranger Marcus",
+          "description": "A grizzled veteran scout with weathered hands and keen eyes, Marcus has patrolled these forests for over a decade. He knows every trail, every hiding spot, and has countless stories of close calls with bandits and wild beasts.",
+          "attitude": "Gruff but helpful, willing to share patrol knowledge and trail wisdom with those who prove themselves worthy of respect."
+        },
+        {
+          "name": "Scout Kira",
+          "description": "A young, eager ranger who reports directly to Elen and frequently carries messages between outposts. Her enthusiasm is infectious, though her inexperience sometimes shows in her overeager questions and bright-eyed optimism.",
+          "attitude": "Enthusiastic and talkative, eager to prove herself and always ready to share the latest news and gossip from other ranger posts."
+        },
+        {
+          "name": "Messenger Tom",
+          "description": "A road-weary courier who rides between settlements carrying dispatches and news. His horse shows signs of hard travel, and he always seems to be either arriving from or departing for another urgent delivery.",
+          "attitude": "Tired but reliable, grateful for a safe place to rest and always willing to share news from distant settlements in exchange for a hot meal."
         }
       ],
       "monsters": [],
@@ -159,6 +174,21 @@
           "name": "Quartermaster Brann",
           "description": "A methodical dwarf with ink-stained fingers and a sharp eye for detail, Brann maintains the outpost's supplies with military precision. Recent shortages have made him increasingly cautious about who gets access to equipment and rations.",
           "attitude": "Businesslike and protective of supplies, but will warm to characters who prove their worth to the outpost."
+        },
+        {
+          "name": "Dock Worker Finn",
+          "description": "A burly human who handles the loading and unloading of supply barges at the riverside dock. His clothes are perpetually damp from river spray, and he knows every merchant barge captain who travels these waters.",
+          "attitude": "Friendly and chatty, always eager to share river gossip and stories about the various merchants and their cargo."
+        },
+        {
+          "name": "Merchant Vera",
+          "description": "A nervous middle-aged trader whose own caravan was attacked two weeks ago. She lost most of her goods but escaped with her life, and now helps Brann with supply inventory while waiting for safe passage home.",
+          "attitude": "Anxious but grateful for shelter, willing to share detailed accounts of bandit tactics and warning signs she noticed before her attack."
+        },
+        {
+          "name": "Apprentice Jeb",
+          "description": "Brann's young assistant, a well-meaning but clumsy human who handles the simpler supply tasks. He's eager to please but prone to dropping things and mixing up inventory counts.",
+          "attitude": "Enthusiastic and helpful, though often apologetic about his mistakes. Looks up to the rangers and dreams of joining their ranks someday."
         }
       ],
       "monsters": [],
@@ -216,6 +246,21 @@
           "name": "Trader Sila",
           "description": "A sharp-eyed half-elf with silver-streaked hair and quick gestures, Sila coordinates the merchant community at the outpost. Her network of contacts spans the region, making her invaluable for gathering information about bandit activities and trade route dangers.",
           "attitude": "Friendly but stressed, eager to share information with anyone who might help restore safe passage for merchants."
+        },
+        {
+          "name": "Merchant Gareth",
+          "description": "A portly human trader who specializes in general goods and basic supplies. His wagon is currently being repaired after damage from a recent bandit encounter, and he's frustrated by the delays to his trading schedule.",
+          "attitude": "Worried and impatient, constantly checking on his damaged wagon and eager to discuss the deteriorating safety of the trade routes."
+        },
+        {
+          "name": "Trader Mila",
+          "description": "An exotic goods merchant with items from distant lands, Mila has been stranded at the outpost longer than expected. She deals in rare spices, unusual trinkets, and has heard disturbing rumors about supernatural corruption.",
+          "attitude": "Mysterious but helpful, willing to trade information about strange occurrences for protection or safe passage to her next destination."
+        },
+        {
+          "name": "Caravan Guard Bex",
+          "description": "A retired soldier turned caravan guard who now helps coordinate security for merchant groups. Her experience shows in her alert posture and the practical arrangement of her weapons and armor.",
+          "attitude": "Professional and direct, focused on practical security matters and always assessing potential threats to merchant caravans."
         }
       ],
       "monsters": [],
