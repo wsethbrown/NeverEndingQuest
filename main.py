@@ -1130,6 +1130,23 @@ def check_all_modules_plot_completion():
 def main_game_loop():
     global needs_conversation_history_update
 
+    # Check if first-time setup is needed
+    try:
+        from startup_wizard import startup_required, run_startup_sequence
+        
+        if startup_required():
+            print("[D20] Welcome to your 5th Edition Adventure! [D20]")
+            print("It looks like this is your first time, or you need to set up a character.")
+            print("Let's get you ready for adventure!\n")
+            
+            success = run_startup_sequence()
+            if not success:
+                print("[ERROR] Setup was cancelled or failed. Cannot start game loop.")
+                return
+    except Exception as e:
+        print(f"[ERROR] Startup wizard failed: {e}")
+        return
+
     validation_prompt_text = load_validation_prompt() 
 
     with open("system_prompt.txt", "r", encoding="utf-8") as file:
@@ -1137,6 +1154,11 @@ def main_game_loop():
 
     conversation_history = load_json_file(json_file) or []
     party_tracker_data = load_json_file("party_tracker.json")
+    
+    # Verify party tracker loaded successfully
+    if not party_tracker_data:
+        print("[ERROR] Party tracker not found after setup. Something went wrong.")
+        return
     
     # Extract module name from party tracker data first
     module_name = party_tracker_data.get("module", "").replace(" ", "_")

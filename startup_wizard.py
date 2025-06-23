@@ -32,8 +32,8 @@ STARTUP_CONVERSATION_FILE = "startup_conversation.json"
 
 def run_startup_sequence():
     """Main entry point for startup wizard"""
-    print("\nWelcome to your 5th Edition Adventure!")
-    print("Let's set up your character and choose your adventure...\n")
+    print("\nDungeon Master: Welcome to your 5th Edition Adventure!")
+    print("Dungeon Master: Let's set up your character and choose your adventure...\n")
     
     try:
         # Initialize startup conversation
@@ -45,7 +45,7 @@ def run_startup_sequence():
             print("Setup cancelled. Exiting...")
             return False
         
-        print(f"\nGreat choice! You've selected: {selected_module['display_name']}")
+        print(f"\nDungeon Master: Great choice! You've selected: {selected_module['display_name']}")
         
         # Step 2: Character selection/creation
         character_name = select_or_create_character(conversation, selected_module)
@@ -59,8 +59,8 @@ def run_startup_sequence():
         # Cleanup
         cleanup_startup_conversation()
         
-        print(f"\nSetup complete! Welcome, {character_name}!")
-        print(f"Your adventure in {selected_module['display_name']} is about to begin...\n")
+        print(f"\nDungeon Master: Setup complete! Welcome, {character_name}!")
+        print(f"Dungeon Master: Your adventure in {selected_module['display_name']} is about to begin...\n")
         
         return True
         
@@ -189,7 +189,7 @@ Ask the player which module they'd like to play, and explain that they can just 
     
     # Get AI response
     response = get_ai_response(conversation)
-    print(f"AI: {response}")
+    print(f"Dungeon Master: {response}")
     
     return modules
 
@@ -202,8 +202,8 @@ def select_module(conversation):
         return None
     
     if len(modules) == 1:
-        print(f"Only one module available: {modules[0]['display_name']}")
-        print(f"   {modules[0]['description']}")
+        print(f"Dungeon Master: Only one module available: {modules[0]['display_name']}")
+        print(f"Dungeon Master: {modules[0]['description']}")
         return modules[0]
     
     # For fresh installations, auto-select lowest level module
@@ -213,9 +213,9 @@ def select_module(conversation):
         # Find matching module in scanned modules
         for module in modules:
             if module['name'] == module_name:
-                print(f"Auto-selected starting module: {module['display_name']}")
-                print(f"   {module['description']}")
-                print(f"   Level Range: {lowest_level_module.get('levelRange', {})}")
+                print(f"Dungeon Master: Auto-selected starting module: {module['display_name']}")
+                print(f"Dungeon Master: {module['description']}")
+                print(f"Dungeon Master: Level Range: {lowest_level_module.get('levelRange', {})}")
                 return module
     
     # Present options to player
@@ -290,7 +290,7 @@ def present_character_options(conversation, characters, module_name):
         
         conversation.append({"role": "system", "content": ai_prompt})
         response = get_ai_response(conversation)
-        print(f"AI: {response}")
+        print(f"Dungeon Master: {response}")
         return "create_new"
     
     # Build character list
@@ -315,7 +315,7 @@ Be helpful and explain that they can type the character number, character name, 
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"AI: {response}")
+    print(f"Dungeon Master: {response}")
     
     return characters
 
@@ -346,7 +346,7 @@ def select_or_create_character(conversation, module):
                 choice_num = int(user_input)
                 if 1 <= choice_num <= len(characters):
                     selected_char = characters[choice_num - 1]
-                    print(f"Success: You've selected {selected_char['name']}!")
+                    print(f"Dungeon Master: Excellent! You've selected {selected_char['name']}!")
                     return selected_char['filename']
                 else:
                     print(f"Error: Please choose a number between 1 and {len(characters)}, or 'new' to create a character")
@@ -358,7 +358,7 @@ def select_or_create_character(conversation, module):
             user_lower = user_input.lower()
             for char in characters:
                 if user_lower in char['name'].lower():
-                    print(f"Success: You've selected {char['name']}!")
+                    print(f"Dungeon Master: Excellent! You've selected {char['name']}!")
                     return char['filename']
             
             print("Error: I didn't understand that. Please enter the character number, character name, or 'new' to create a new character.")
@@ -370,7 +370,7 @@ def select_or_create_character(conversation, module):
 
 def create_new_character(conversation, module):
     """Main character creation flow using AI interview"""
-    print("\nLet's create your character!")
+    print("\nDungeon Master: Let's create your character!")
     
     # AI-powered character creation interview
     character_data = ai_character_interview(conversation, module)
@@ -389,7 +389,7 @@ def create_new_character(conversation, module):
     success = save_character_to_module(character_data, module['name'])
     
     if success:
-        print(f"Success: Character {character_name} created successfully!")
+        print(f"Dungeon Master: Character {character_name} created successfully!")
         return character_name.lower().replace(" ", "_")
     else:
         print(f"Error: Failed to save character {character_name}")
@@ -461,7 +461,7 @@ CHARACTER SCHEMA:
             {"role": "user", "content": f"You are helping a new player create their first level 1 character for the {module['display_name']} adventure. Welcome them to the adventure, set an immersive tone that brings them into the game world, and begin the character creation process. Start by finding out what kind of hero they want to become. Use phrases like 'Let's get you started by finding out a little bit about you' to engage them in the process."}
         ]
         
-        print("\nAI: Starting character creation with AI assistant...")
+        print("\nDungeon Master: Starting character creation with AI assistant...")
         print("=" * 50)
         
         # Interactive conversation loop
@@ -469,7 +469,7 @@ CHARACTER SCHEMA:
             try:
                 # Get AI response
                 response = get_ai_response(creation_conversation)
-                print(f"\nAI: {response}")
+                print(f"\nDungeon Master: {response}")
                 
                 # Check if response looks like JSON (character finalization)
                 if response.strip().startswith('{') and response.strip().endswith('}'):
@@ -486,7 +486,7 @@ CHARACTER SCHEMA:
                         # Further sanitize the loaded character data
                         character_data = sanitize_character_data(character_data)
                         
-                        print("\nSuccess: Character data received!")
+                        print("\nDungeon Master: Character data received! Finalizing your hero...")
                         return character_data
                     except json.JSONDecodeError as e:
                         print(f"\nError: Invalid JSON received: {e}")
@@ -603,7 +603,7 @@ def get_character_name(conversation):
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"AI: {response}")
+    print(f"Dungeon Master: {response}")
     
     while True:
         try:
@@ -643,7 +643,7 @@ Ask them to choose by number (1-9) or race name. Be enthusiastic about whichever
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"AI: {response}")
+    print(f"Dungeon Master: {response}")
     
     while True:
         try:
@@ -655,7 +655,7 @@ Ask them to choose by number (1-9) or race name. Be enthusiastic about whichever
                 num = int(choice)
                 if num in races:
                     race_name = races[num][0]
-                    print(f"Success: Great choice! You've chosen {race_name}.")
+                    print(f"Dungeon Master: Great choice! You've chosen {race_name}.")
                     return race_name
                 else:
                     print(f"Error: Please choose a number between 1 and {len(races)}")
@@ -667,7 +667,7 @@ Ask them to choose by number (1-9) or race name. Be enthusiastic about whichever
             choice_lower = choice.lower()
             for num, (race, desc) in races.items():
                 if choice_lower in race.lower():
-                    print(f"Success: Great choice! You've chosen {race}.")
+                    print(f"Dungeon Master: Great choice! You've chosen {race}.")
                     return race
             
             print("Error: I didn't recognize that race. Please choose a number (1-9) or race name from the list.")
@@ -704,7 +704,7 @@ Ask them to choose by number (1-10) or class name. Mention that they can't go wr
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"AI: {response}")
+    print(f"Dungeon Master: {response}")
     
     while True:
         try:
@@ -716,7 +716,7 @@ Ask them to choose by number (1-10) or class name. Mention that they can't go wr
                 num = int(choice)
                 if num in classes:
                     class_name = classes[num][0]
-                    print(f"Success: Excellent! You've chosen {class_name}.")
+                    print(f"Dungeon Master: Excellent! You've chosen {class_name}.")
                     return class_name
                 else:
                     print(f"Error: Please choose a number between 1 and {len(classes)}")
@@ -728,7 +728,7 @@ Ask them to choose by number (1-10) or class name. Mention that they can't go wr
             choice_lower = choice.lower()
             for num, (cls, desc) in classes.items():
                 if choice_lower in cls.lower():
-                    print(f"Success: Excellent! You've chosen {cls}.")
+                    print(f"Dungeon Master: Excellent! You've chosen {cls}.")
                     return cls
             
             print("Error: I didn't recognize that class. Please choose a number (1-10) or class name from the list.")
@@ -762,7 +762,7 @@ Ask them to choose by number (1-10) or background name. Emphasize that this help
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"AI: {response}")
+    print(f"Dungeon Master: {response}")
     
     while True:
         try:
@@ -774,7 +774,7 @@ Ask them to choose by number (1-10) or background name. Emphasize that this help
                 num = int(choice)
                 if num in backgrounds:
                     bg_name = backgrounds[num][0]
-                    print(f"Success: Perfect! You've chosen {bg_name}.")
+                    print(f"Dungeon Master: Perfect! You've chosen {bg_name}.")
                     return bg_name
                 else:
                     print(f"Error: Please choose a number between 1 and {len(backgrounds)}")
@@ -786,7 +786,7 @@ Ask them to choose by number (1-10) or background name. Emphasize that this help
             choice_lower = choice.lower()
             for num, (bg, desc) in backgrounds.items():
                 if choice_lower in bg.lower() or choice_lower in bg.replace(" ", "").lower():
-                    print(f"Success: Perfect! You've chosen {bg}.")
+                    print(f"Dungeon Master: Perfect! You've chosen {bg}.")
                     return bg
             
             print("Error: I didn't recognize that background. Please choose a number (1-10) or background name from the list.")
@@ -820,7 +820,7 @@ We'll go through each ability and you can tell me which score (from the remainin
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"AI: {response}")
+    print(f"Dungeon Master: {response}")
     
     remaining_scores = standard_array.copy()
     assigned_abilities = {}
@@ -837,7 +837,7 @@ We'll go through each ability and you can tell me which score (from the remainin
                     if score in remaining_scores:
                         assigned_abilities[ability.lower()] = score
                         remaining_scores.remove(score)
-                        print(f"Success: {ability}: {score}")
+                        print(f"Dungeon Master: {ability}: {score}")
                         break
                     else:
                         print(f"Error: Score {score} not available. Choose from: {', '.join(map(str, remaining_scores))}")
@@ -863,7 +863,7 @@ Ask for each one separately, and suggest they can keep it short and simple - jus
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"AI: {response}")
+    print(f"Dungeon Master: {response}")
     
     # Get each personality aspect
     aspects = [
@@ -1019,7 +1019,7 @@ Ask if they want to confirm this character and start their adventure, or if they
     
     conversation.append({"role": "system", "content": ai_prompt})
     response = get_ai_response(conversation)
-    print(f"AI: {response}")
+    print(f"Dungeon Master: {response}")
     
     while True:
         try:
@@ -1027,10 +1027,10 @@ Ask if they want to confirm this character and start their adventure, or if they
             conversation.append({"role": "user", "content": user_input})
             
             if any(word in user_input for word in ['yes', 'confirm', 'looks good', 'perfect', 'great', 'ready']):
-                print("Excellent! Your character is ready for adventure!")
+                print("Dungeon Master: Excellent! Your character is ready for adventure!")
                 return True
             elif any(word in user_input for word in ['no', 'change', 'different', 'redo']):
-                print("Character creation would restart here - for now, let's proceed with this character.")
+                print("Dungeon Master: Character creation would restart here - for now, let's proceed with this character.")
                 return True  # For now, just proceed
             else:
                 print("Error: Please say 'yes' to confirm your character or 'no' if you'd like to make changes.")
@@ -1099,7 +1099,7 @@ def update_party_tracker(module_name, character_name):
         
         if "worldConditions" not in party_data:
             # Get AI-determined starting location for the selected module
-            starting_location = get_ai_starting_location(module)
+            starting_location = get_ai_starting_location({'moduleName': module_name})
             
             party_data["worldConditions"] = {
                 "year": 1492,
@@ -1315,8 +1315,8 @@ if __name__ == "__main__":
     if startup_required():
         success = run_startup_sequence()
         if success:
-            print("Startup wizard completed successfully!")
+            print("Dungeon Master: Startup wizard completed successfully!")
         else:
             print("Error: Startup wizard failed or was cancelled.")
     else:
-        print("Character and module already configured. No setup needed.")
+        print("Dungeon Master: Character and module already configured. No setup needed.")
