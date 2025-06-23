@@ -334,7 +334,7 @@ MODULE INDEPENDENCE RULES:
             
             # Add locations to area data and save complete area file
             area_data["locations"] = location_data["locations"]
-            self.save_json(area_data, f"{area_id}.json")
+            self.save_json(area_data, f"areas/{area_id}.json")
             
             self.log(f"Generated {len(location_data['locations'])} locations for {area_id}")
     
