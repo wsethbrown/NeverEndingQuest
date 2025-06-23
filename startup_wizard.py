@@ -235,7 +235,7 @@ def select_module(conversation):
                 if 1 <= choice_num <= len(modules):
                     return modules[choice_num - 1]
                 else:
-                    print(f"Error: Please choose a number between 1 and {len(modules)}")
+                    print(f"Dungeon Master: Please choose a number between 1 and {len(modules)}")
                     continue
             except ValueError:
                 pass
@@ -247,7 +247,7 @@ def select_module(conversation):
                     user_lower in module['name'].lower()):
                     return module
             
-            print("Error: I didn't understand that. Please enter the number (1, 2, etc.) or name of the module.")
+            print("Dungeon Master: I didn't understand that. Please enter the number (1, 2, etc.) or name of the module.")
             
         except KeyboardInterrupt:
             return None
@@ -349,7 +349,7 @@ def select_or_create_character(conversation, module):
                     print(f"Dungeon Master: Excellent! You've selected {selected_char['name']}!")
                     return selected_char['filename']
                 else:
-                    print(f"Error: Please choose a number between 1 and {len(characters)}, or 'new' to create a character")
+                    print(f"Dungeon Master: Please choose a number between 1 and {len(characters)}, or 'new' to create a character")
                     continue
             except ValueError:
                 pass
@@ -361,7 +361,7 @@ def select_or_create_character(conversation, module):
                     print(f"Dungeon Master: Excellent! You've selected {char['name']}!")
                     return char['filename']
             
-            print("Error: I didn't understand that. Please enter the character number, character name, or 'new' to create a new character.")
+            print("Dungeon Master: I didn't understand that. Please enter the character number, character name, or 'new' to create a new character.")
             
         except KeyboardInterrupt:
             return None
@@ -613,7 +613,7 @@ def get_character_name(conversation):
             if len(name) >= 2 and name.replace(" ", "").isalpha():
                 return name.title()
             else:
-                print("Error: Please enter a valid name (letters only, at least 2 characters)")
+                print("Dungeon Master: Please enter a valid name (letters only, at least 2 characters)")
                 
         except KeyboardInterrupt:
             return None
@@ -658,7 +658,7 @@ Ask them to choose by number (1-9) or race name. Be enthusiastic about whichever
                     print(f"Dungeon Master: Great choice! You've chosen {race_name}.")
                     return race_name
                 else:
-                    print(f"Error: Please choose a number between 1 and {len(races)}")
+                    print(f"Dungeon Master: Please choose a number between 1 and {len(races)}")
                     continue
             except ValueError:
                 pass
@@ -670,7 +670,7 @@ Ask them to choose by number (1-9) or race name. Be enthusiastic about whichever
                     print(f"Dungeon Master: Great choice! You've chosen {race}.")
                     return race
             
-            print("Error: I didn't recognize that race. Please choose a number (1-9) or race name from the list.")
+            print("Dungeon Master: I didn't recognize that race. Please choose a number (1-9) or race name from the list.")
             
         except KeyboardInterrupt:
             return None
@@ -719,7 +719,7 @@ Ask them to choose by number (1-10) or class name. Mention that they can't go wr
                     print(f"Dungeon Master: Excellent! You've chosen {class_name}.")
                     return class_name
                 else:
-                    print(f"Error: Please choose a number between 1 and {len(classes)}")
+                    print(f"Dungeon Master: Please choose a number between 1 and {len(classes)}")
                     continue
             except ValueError:
                 pass
@@ -731,7 +731,7 @@ Ask them to choose by number (1-10) or class name. Mention that they can't go wr
                     print(f"Dungeon Master: Excellent! You've chosen {cls}.")
                     return cls
             
-            print("Error: I didn't recognize that class. Please choose a number (1-10) or class name from the list.")
+            print("Dungeon Master: I didn't recognize that class. Please choose a number (1-10) or class name from the list.")
             
         except KeyboardInterrupt:
             return None
@@ -777,7 +777,7 @@ Ask them to choose by number (1-10) or background name. Emphasize that this help
                     print(f"Dungeon Master: Perfect! You've chosen {bg_name}.")
                     return bg_name
                 else:
-                    print(f"Error: Please choose a number between 1 and {len(backgrounds)}")
+                    print(f"Dungeon Master: Please choose a number between 1 and {len(backgrounds)}")
                     continue
             except ValueError:
                 pass
@@ -789,7 +789,7 @@ Ask them to choose by number (1-10) or background name. Emphasize that this help
                     print(f"Dungeon Master: Perfect! You've chosen {bg}.")
                     return bg
             
-            print("Error: I didn't recognize that background. Please choose a number (1-10) or background name from the list.")
+            print("Dungeon Master: I didn't recognize that background. Please choose a number (1-10) or background name from the list.")
             
         except KeyboardInterrupt:
             return None
@@ -840,9 +840,9 @@ We'll go through each ability and you can tell me which score (from the remainin
                         print(f"Dungeon Master: {ability}: {score}")
                         break
                     else:
-                        print(f"Error: Score {score} not available. Choose from: {', '.join(map(str, remaining_scores))}")
+                        print(f"Dungeon Master: Score {score} not available. Choose from: {', '.join(map(str, remaining_scores))}")
                 except ValueError:
-                    print(f"Error: Please enter a number from: {', '.join(map(str, remaining_scores))}")
+                    print(f"Dungeon Master: Please enter a number from: {', '.join(map(str, remaining_scores))}")
                     
             except KeyboardInterrupt:
                 return None
@@ -1033,7 +1033,7 @@ Ask if they want to confirm this character and start their adventure, or if they
                 print("Dungeon Master: Character creation would restart here - for now, let's proceed with this character.")
                 return True  # For now, just proceed
             else:
-                print("Error: Please say 'yes' to confirm your character or 'no' if you'd like to make changes.")
+                print("Dungeon Master: Please say 'yes' to confirm your character or 'no' if you'd like to make changes.")
                 
         except KeyboardInterrupt:
             return False
