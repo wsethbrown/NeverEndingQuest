@@ -103,8 +103,8 @@
         }
       ],
       "monsters": [
-        "1 Corrupted Cave Fisher (enhanced cave fisher with necrotic damage)",
-        "2-3 Tainted Stirges (stirges with disease transmission)"
+        "1 Corrupted Cave Fisher (CR 1, enhanced with necrotic damage)",
+        "2-3 Tainted Stirges (CR 1/8 each, stirges with disease transmission)"
       ],
       "lootTable": [
         "Vial of concentrated corruption essence",
@@ -173,9 +173,9 @@
         }
       ],
       "monsters": [
-        "2-3 Twig Blights (enhanced with necrotic thorns)",
-        "1 Awakened Shrub (corrupted and hostile)",
-        "1-2 Corrupted Wolves (if Sylara becomes hostile)"
+        "2-3 Twig Blights (CR 1/8 each, enhanced with necrotic thorns)",
+        "1 Awakened Shrub (CR 0, corrupted and hostile)",
+        "1-2 Corrupted Wolves (CR 1/4 each, if Sylara becomes hostile)"
       ],
       "lootTable": [
         "Heartwood staff infused with corruption resistance",
@@ -248,8 +248,8 @@
         }
       ],
       "monsters": [
-        "2-3 Shadow Corrupted Wolves (only if the Hart is threatened)",
-        "1 Corrupted Owlbear (driven here by the corruption, hostile to all)"
+        "2-3 Shadow Corrupted Wolves (CR 1/4 each, only if the Hart is threatened)",
+        "1 Corrupted Owlbear (CR 2, driven here by the corruption, hostile to all)"
       ],
       "lootTable": [
         "Antler fragment with purification magic",
@@ -314,9 +314,9 @@
         }
       ],
       "monsters": [
-        "1 Corrupted Ranger Thane (veteran stats with necrotic abilities)",
-        "2-3 Corrupted Animals (his former animal companions, now hostile)",
-        "1 Shadow (spawned from the camp's despair)"
+        "1 Corrupted Ranger Thane (CR 2, veteran with necrotic abilities)",
+        "2-3 Corrupted Animals (CR 1/4 each, his former animal companions, now hostile)",
+        "1 Shadow (CR 1/2, spawned from the camp's despair)"
       ],
       "lootTable": [
         "Ranger's journal detailing the corruption's rapid spread",
@@ -388,9 +388,9 @@
         }
       ],
       "monsters": [
-        "1 Echo of the Void (custom aberration, boss-level threat)",
-        "2-3 Corrupted Elementals (earth/air elementals twisted by alien energy)",
-        "1-2 Void Spawn (lesser manifestations of the alien corruption)"
+        "1 Echo of the Void (CR 3, custom aberration boss)",
+        "2-3 Corrupted Elementals (CR 1 each, earth/air elementals twisted by alien energy)",
+        "1-2 Void Spawn (CR 1/2 each, lesser manifestations of the alien corruption)"
       ],
       "lootTable": [
         "Fragment of the meteorite (dangerous but valuable to scholars)",
