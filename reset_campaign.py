@@ -161,6 +161,12 @@ def reset_global_state():
         os.remove("campaign.json")
         print("  ✓ Removed campaign.json (will be created fresh)")
     
+    # Delete world_registry.json - let module stitcher create fresh one
+    world_registry_file = os.path.join("modules", "world_registry.json")
+    if os.path.exists(world_registry_file):
+        os.remove(world_registry_file)
+        print("  ✓ Removed world_registry.json (will be created fresh)")
+    
     # Reset current location to Keep of Doom starting point
     starting_location = {
         "locationId": "A01",
