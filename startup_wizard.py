@@ -369,33 +369,239 @@ def select_or_create_character(conversation, module):
 # ===== CHARACTER CREATION =====
 
 def create_new_character(conversation, module):
-    """Main character creation flow using AI interview"""
+    """Main character creation flow using AI interview with error recovery"""
     print("\nDungeon Master: Let's create your character!")
     
-    # AI-powered character creation interview
-    character_data = ai_character_interview(conversation, module)
+    max_retries = 3
+    retry_count = 0
     
-    if not character_data:
-        return None
+    while retry_count < max_retries:
+        # AI-powered character creation interview
+        character_data = ai_character_interview(conversation, module, retry_count)
+        
+        if not character_data:
+            retry_count += 1
+            if retry_count < max_retries:
+                print(f"Character creation failed. Retrying... (Attempt {retry_count + 1}/{max_retries})")
+                continue
+            else:
+                print("Error: Character creation failed after multiple attempts.")
+                return None
+        
+        # Validate character data with detailed error reporting
+        valid, error = validate_character_with_recovery(character_data)
+        if valid:
+            # Save character to module
+            character_name = character_data['name']
+            success = save_character_to_module(character_data, module['name'])
+            
+            if success:
+                print(f"Dungeon Master: Character {character_name} created successfully!")
+                return character_name.lower().replace(" ", "_")
+            else:
+                print(f"Error: Failed to save character {character_name}")
+                return None
+        else:
+            retry_count += 1
+            if retry_count < max_retries:
+                print(f"Character validation failed: {error}")
+                print(f"Attempting to fix and retry... (Attempt {retry_count + 1}/{max_retries})")
+                # Add validation error to conversation for AI to learn from
+                conversation.append({
+                    "role": "system", 
+                    "content": f"Previous character creation failed validation: {error}. Please create a valid character that follows the schema requirements."
+                })
+                continue
+            else:
+                print(f"Error: Character validation failed after {max_retries} attempts: {error}")
+                print("Dungeon Master: Let me try creating a simple backup character for you...")
+                # Try fallback character creation
+                fallback_character = create_fallback_character(module)
+                if fallback_character:
+                    character_name = fallback_character['name']
+                    success = save_character_to_module(fallback_character, module['name'])
+                    if success:
+                        print(f"Dungeon Master: I've created a basic {fallback_character['class']} character named {character_name} for you!")
+                        print("You can always create a new character later when the system is working better.")
+                        return character_name.lower().replace(" ", "_")
+                
+                print("Error: All character creation methods failed. Please try again later.")
+                return None
     
-    # Validate character data
-    valid, error = validate_character(character_data)
-    if not valid:
-        print(f"Error: Character validation failed: {error}")
-        return None
-    
-    # Save character to module
-    character_name = character_data['name']
-    success = save_character_to_module(character_data, module['name'])
-    
-    if success:
-        print(f"Dungeon Master: Character {character_name} created successfully!")
-        return character_name.lower().replace(" ", "_")
-    else:
-        print(f"Error: Failed to save character {character_name}")
+    return None
+
+def create_fallback_character(module):
+    """Create a simple default character when AI creation fails"""
+    try:
+        fallback_char = {
+            "character_role": "player",
+            "character_type": "player",
+            "name": "Adventurer",
+            "type": "player",
+            "size": "Medium",
+            "level": 1,
+            "race": "Human",
+            "class": "Fighter",
+            "alignment": "neutral good",
+            "background": "Folk Hero",
+            "status": "alive",
+            "condition": "none",
+            "condition_affected": [],
+            "hitPoints": 12,
+            "maxHitPoints": 12,
+            "armorClass": 16,
+            "initiative": 1,
+            "speed": 30,
+            "abilities": {
+                "strength": 15,
+                "dexterity": 13,
+                "constitution": 14,
+                "intelligence": 12,
+                "wisdom": 13,
+                "charisma": 11
+            },
+            "savingThrows": ["strength", "constitution"],
+            "skills": {
+                "athletics": 4,
+                "intimidation": 2
+            },
+            "proficiencyBonus": 2,
+            "senses": {
+                "darkvision": 0,
+                "passivePerception": 13
+            },
+            "languages": ["Common"],
+            "proficiencies": {
+                "armor": ["Light", "Medium", "Heavy", "Shields"],
+                "weapons": ["Simple", "Martial"],
+                "tools": []
+            },
+            "damageVulnerabilities": [],
+            "damageResistances": [],
+            "damageImmunities": [],
+            "conditionImmunities": [],
+            "classFeatures": [
+                {
+                    "name": "Fighting Style",
+                    "description": "Defense: +1 to AC while wearing armor",
+                    "source": "Fighter",
+                    "usage": {"current": 0, "max": 0, "refreshOn": "longRest"}
+                },
+                {
+                    "name": "Second Wind",
+                    "description": "Regain 1d10 + fighter level hit points as a bonus action",
+                    "source": "Fighter", 
+                    "usage": {"current": 1, "max": 1, "refreshOn": "shortRest"}
+                }
+            ],
+            "racialTraits": [
+                {
+                    "name": "Extra Language",
+                    "description": "You can speak, read, and write one extra language",
+                    "source": "Human"
+                }
+            ],
+            "backgroundFeature": {
+                "name": "Rustic Hospitality",
+                "description": "Since you come from the ranks of the common folk, you fit in among them with ease",
+                "source": "Folk Hero"
+            },
+            "temporaryEffects": [],
+            "injuries": [],
+            "equipment_effects": [],
+            "feats": [],
+            "equipment": [
+                {
+                    "item_name": "Chain Mail",
+                    "item_type": "armor",
+                    "item_subtype": "other",
+                    "description": "Heavy armor, base AC 16",
+                    "quantity": 1,
+                    "equipped": True,
+                    "magical": False,
+                    "consumable": False,
+                    "ac_base": 16,
+                    "ac_bonus": 0,
+                    "dex_limit": 0,
+                    "armor_category": "heavy",
+                    "stealth_disadvantage": True
+                },
+                {
+                    "item_name": "Longsword",
+                    "item_type": "weapon",
+                    "item_subtype": "other",
+                    "description": "Versatile melee weapon",
+                    "quantity": 1,
+                    "equipped": True,
+                    "magical": False,
+                    "consumable": False,
+                    "damage": "1d8",
+                    "attack_bonus": 4,
+                    "weapon_type": "melee",
+                    "effects": []
+                }
+            ],
+            "ammunition": [],
+            "attacksAndSpellcasting": [
+                {
+                    "name": "Longsword",
+                    "attackBonus": 4,
+                    "damageDice": "1d8",
+                    "damageBonus": 2,
+                    "damageType": "slashing",
+                    "type": "melee",
+                    "description": "Versatile (1d10 two-handed)"
+                }
+            ],
+            "spellcasting": {
+                "ability": "intelligence",
+                "spellSaveDC": 10,
+                "spellAttackBonus": 0,
+                "spells": {
+                    "cantrips": [], "level1": [], "level2": [], "level3": [],
+                    "level4": [], "level5": [], "level6": [], "level7": [],
+                    "level8": [], "level9": []
+                },
+                "spellSlots": {
+                    "level1": {"current": 0, "max": 0},
+                    "level2": {"current": 0, "max": 0},
+                    "level3": {"current": 0, "max": 0},
+                    "level4": {"current": 0, "max": 0},
+                    "level5": {"current": 0, "max": 0},
+                    "level6": {"current": 0, "max": 0},
+                    "level7": {"current": 0, "max": 0},
+                    "level8": {"current": 0, "max": 0},
+                    "level9": {"current": 0, "max": 0}
+                },
+                "preparedSpells": []
+            },
+            "currency": {
+                "gold": 15,
+                "silver": 0,
+                "copper": 0
+            },
+            "experience_points": 0,
+            "exp_required_for_next_level": 300,
+            "challengeRating": 0.25,
+            "personality_traits": "A reliable and sturdy adventurer ready for action",
+            "ideals": "Helping others and doing what's right",
+            "bonds": "Loyal to friends and companions",
+            "flaws": "Sometimes too eager to rush into danger"
+        }
+        
+        # Validate the fallback character
+        valid, error = validate_character(fallback_char)
+        if valid:
+            return fallback_char
+        else:
+            print(f"Warning: Even fallback character failed validation: {error}")
+            return None
+            
+    except Exception as e:
+        print(f"Error creating fallback character: {e}")
         return None
 
-def ai_character_interview(conversation, module):
+def ai_character_interview(conversation, module, retry_count=0):
     """AI-powered character creation interview using agentic approach"""
     
     try:
@@ -1052,6 +1258,73 @@ def validate_character(character_data):
         return False, f"Schema validation error: {e.message}"
     except Exception as e:
         return False, f"Validation error: {str(e)}"
+
+def validate_character_with_recovery(character_data):
+    """Enhanced validation with automatic error recovery and detailed reporting"""
+    try:
+        schema = safe_json_load("char_schema.json")
+        if not schema:
+            return False, "Could not load character schema"
+        
+        # First try to auto-fix common issues
+        character_data = auto_fix_character_data(character_data)
+        
+        # Validate the character data
+        validate(character_data, schema)
+        return True, None
+        
+    except ValidationError as e:
+        # Provide detailed error information
+        error_path = " -> ".join(str(x) for x in e.absolute_path) if e.absolute_path else "root"
+        detailed_error = f"Field '{error_path}': {e.message}"
+        return False, detailed_error
+    except Exception as e:
+        return False, f"Validation error: {str(e)}"
+
+def auto_fix_character_data(character_data):
+    """Automatically fix common character data validation issues"""
+    if not isinstance(character_data, dict):
+        return character_data
+        
+    # Fix equipment ac_base values that are too low
+    if "equipment" in character_data and isinstance(character_data["equipment"], list):
+        for item in character_data["equipment"]:
+            if isinstance(item, dict) and "ac_base" in item:
+                # Shield should have ac_base of 2, armor should be 10+
+                if item.get("armor_category") == "shield" and item.get("ac_base", 0) < 2:
+                    item["ac_base"] = 2
+                elif item.get("armor_category") in ["light", "medium", "heavy"] and item.get("ac_base", 0) < 10:
+                    # Set minimum armor AC based on type
+                    if item.get("armor_category") == "light":
+                        item["ac_base"] = 11  # Leather armor
+                    elif item.get("armor_category") == "medium":
+                        item["ac_base"] = 14  # Hide armor
+                    elif item.get("armor_category") == "heavy":
+                        item["ac_base"] = 16  # Chain mail
+    
+    # Fix ability scores that are too low (D&D minimum is usually 8)
+    if "abilities" in character_data and isinstance(character_data["abilities"], dict):
+        for ability, score in character_data["abilities"].items():
+            if isinstance(score, int) and score < 8:
+                character_data["abilities"][ability] = 8
+    
+    # Fix proficiency bonus for level 1 characters
+    if character_data.get("level") == 1 and character_data.get("proficiencyBonus", 0) != 2:
+        character_data["proficiencyBonus"] = 2
+    
+    # Ensure required numeric fields have valid values
+    numeric_mins = {
+        "hitPoints": 1,
+        "maxHitPoints": 1,
+        "armorClass": 10,
+        "speed": 5
+    }
+    
+    for field, min_val in numeric_mins.items():
+        if field in character_data and character_data[field] < min_val:
+            character_data[field] = min_val
+    
+    return character_data
 
 # ===== FILE OPERATIONS =====
 

@@ -245,7 +245,7 @@
             "required": ["current", "max"]
           },
           "rechargeRate": {"type": "string", "enum": ["daily", "weekly", "monthly", "never", "dawn", "dusk"]},
-          "ac_base": {"type": "integer", "minimum": 10, "maximum": 30},
+          "ac_base": {"type": "integer", "minimum": 0, "maximum": 30},
           "ac_bonus": {"type": "integer", "minimum": -5, "maximum": 10},
           "dex_limit": {"type": ["integer", "null"], "minimum": 0, "maximum": 10},
           "armor_category": {"type": "string", "enum": ["light", "medium", "heavy", "shield", "other"]},
