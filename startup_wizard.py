@@ -713,6 +713,10 @@ CHARACTER SCHEMA:
                     print("Error: Character creation cancelled.")
                     return None
                 
+                # Skip empty input to prevent infinite loops
+                if not user_input:
+                    continue
+                
                 # Add to conversation
                 creation_conversation.append({"role": "assistant", "content": response})
                 creation_conversation.append({"role": "user", "content": user_input})
