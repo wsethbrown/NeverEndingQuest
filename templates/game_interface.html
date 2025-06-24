@@ -2226,7 +2226,15 @@
         // Auto-scroll to bottom function
         function scrollToBottom(elementId) {
             const element = document.getElementById(elementId);
-            element.scrollTop = element.scrollHeight;
+            if (element) {
+                element.scrollTop = element.scrollHeight;
+                // Force scroll for debug tab specifically
+                if (elementId === 'debug-output') {
+                    setTimeout(() => {
+                        element.scrollTop = element.scrollHeight;
+                    }, 50);
+                }
+            }
         }
         
         // Format timestamp
