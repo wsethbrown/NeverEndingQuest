@@ -6,6 +6,7 @@ Orchestrates the generation of a complete 5th edition module by calling generato
 
 import json
 import os
+import shutil
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
 from datetime import datetime
@@ -123,6 +124,14 @@ MODULE INDEPENDENCE RULES:
         # Step 4: Generate plots for each area
         self.log("Step 4: Generating plots for each area...")
         self.generate_plots()
+        
+        # Step 4.5: Unify plots into module_plot.json
+        self.log("Step 4.5: Creating unified module plot...")
+        self.unify_plots()
+        
+        # Step 4.6: Update area plot hooks to reference unified plot
+        self.log("Step 4.6: Updating area plot hooks...")
+        self.update_area_plot_hooks()
         
         # Step 5: Generate initial party tracker
         self.log("Step 5: Creating party tracker...")
@@ -383,6 +392,446 @@ The plot title should reference this specific area, not other locations.
             
             self.log(f"Generated plot for {area_id}")
     
+    def unify_plots(self):
+        """Unify individual area plots into a single module_plot.json using AI"""
+        if not self.plots_data:
+            self.log("Warning: No plots to unify")
+            return
+            
+        # Import OpenAI at the function level to avoid circular imports
+        from openai import OpenAI
+        from config import OPENAI_API_KEY, DM_MAIN_MODEL
+        
+        client = OpenAI(api_key=OPENAI_API_KEY)
+        
+        # Prepare context for unification
+        area_summaries = []
+        all_plot_points = []
+        all_side_quests = []
+        
+        for area_id, plot_data in self.plots_data.items():
+            area_data = self.areas_data[area_id]
+            area_summaries.append({
+                "area_id": area_id,
+                "area_name": area_data["areaName"],
+                "area_type": area_data.get("areaType", "unknown"),
+                "recommended_level": area_data.get("recommendedLevel", 1),
+                "plot_title": plot_data.get("plotTitle", ""),
+                "main_objective": plot_data.get("mainObjective", ""),
+                "num_plot_points": len(plot_data.get("plotPoints", []))
+            })
+            
+            # Extract plot points and side quests with area context
+            for pp in plot_data.get("plotPoints", []):
+                pp_with_context = pp.copy()
+                pp_with_context["source_area"] = area_id
+                pp_with_context["area_name"] = area_data["areaName"]
+                all_plot_points.append(pp_with_context)
+                
+                for sq in pp.get("sideQuests", []):
+                    sq_with_context = sq.copy()
+                    sq_with_context["source_area"] = area_id
+                    sq_with_context["area_name"] = area_data["areaName"]
+                    sq_with_context["parent_plot_point"] = pp["id"]
+                    all_side_quests.append(sq_with_context)
+        
+        # Create AI prompt for unification
+        prompt = f"""You are an expert D&D module designer. Combine these individual area plots into a single, coherent module-wide plot structure.
+
+MODULE CONTEXT:
+- Module Name: {self.module_data.get('moduleName', 'Unknown')}
+- Module Description: {self.module_data.get('moduleDescription', '')}
+- Total Areas: {len(self.areas_data)}
+
+INDIVIDUAL AREA PLOTS TO UNIFY:
+{json.dumps(area_summaries, indent=2)}
+
+ALL PLOT POINTS TO REORGANIZE:
+{json.dumps(all_plot_points, indent=2)}
+
+UNIFICATION REQUIREMENTS:
+1. Create a single overarching plot title that encompasses the entire module
+2. Write a main objective that ties all areas together
+3. Reorganize plot points into a logical progression that flows between areas
+4. Maintain narrative coherence - each plot point should lead naturally to the next
+5. Preserve all existing plot points but reorder/renumber them for better flow
+6. Update plot point descriptions to reference connections between areas when appropriate
+7. Ensure side quests remain attached to their appropriate plot points
+8. Update nextPoints arrays to reflect the new unified progression
+9. Consider level progression - easier areas should come before harder ones
+
+RETURN FORMAT:
+Return a JSON object with this exact structure:
+{{
+    "plotTitle": "Unified title for the entire module",
+    "mainObjective": "Overarching goal that spans all areas",
+    "plotPoints": [
+        {{
+            "id": "PP001",
+            "title": "Plot point title",
+            "description": "Detailed description that may reference travel between areas",
+            "location": "area_id (like HG001, not R01)",
+            "nextPoints": ["PP002"],
+            "status": "not started",
+            "plotImpact": "",
+            "sideQuests": [
+                {{
+                    "id": "SQ001", 
+                    "title": "Side quest title",
+                    "description": "Side quest description",
+                    "involvedLocations": ["area_id"],
+                    "status": "not started",
+                    "plotImpact": ""
+                }}
+            ]
+        }}
+    ],
+    "activeQuests": [],
+    "completedQuests": [],
+    "failedQuests": [],
+    "worldEvents": [],
+    "dmNotes": []
+}}
+
+IMPORTANT: 
+- Use area IDs (like HG001) for location fields, not room IDs (like R01)
+- Renumber plot points sequentially starting from PP001
+- Renumber side quests sequentially starting from SQ001
+- Maintain all existing content but improve flow and connections"""
+
+        try:
+            response = client.chat.completions.create(
+                model=DM_MAIN_MODEL,
+                messages=[
+                    {"role": "system", "content": "You are an expert D&D module designer specializing in creating coherent, engaging adventure narratives."},
+                    {"role": "user", "content": prompt}
+                ],
+                response_format={"type": "json_object"},
+                temperature=0.7
+            )
+            
+            unified_plot = json.loads(response.choices[0].message.content)
+            
+            # Add missing required fields if not present
+            required_fields = ["activeQuests", "completedQuests", "failedQuests", "worldEvents", "dmNotes"]
+            for field in required_fields:
+                if field not in unified_plot:
+                    unified_plot[field] = []
+            
+            # Save the unified plot
+            output_path = os.path.join(self.config.output_directory, "module_plot.json")
+            self.save_json(unified_plot, "module_plot.json")
+            
+            self.log(f"Created unified module plot with {len(unified_plot.get('plotPoints', []))} plot points")
+            
+        except Exception as e:
+            self.log(f"Error during plot unification: {e}")
+            # Fallback: create a simple unified structure
+            self._create_fallback_unified_plot()
+    
+    def _create_fallback_unified_plot(self):
+        """Create a simple unified plot if AI unification fails"""
+        unified_plot = {
+            "plotTitle": self.module_data.get('moduleName', 'Adventure Module'),
+            "mainObjective": f"Complete the challenges across {len(self.areas_data)} interconnected areas",
+            "plotPoints": [],
+            "activeQuests": [],
+            "completedQuests": [],
+            "failedQuests": [],
+            "worldEvents": [],
+            "dmNotes": []
+        }
+        
+        # Simple concatenation of all plot points
+        plot_counter = 1
+        side_quest_counter = 1
+        
+        for area_id, plot_data in self.plots_data.items():
+            for pp in plot_data.get("plotPoints", []):
+                new_pp = {
+                    "id": f"PP{plot_counter:03d}",
+                    "title": pp.get("title", f"Plot Point {plot_counter}"),
+                    "description": pp.get("description", ""),
+                    "location": area_id,
+                    "nextPoints": [f"PP{plot_counter+1:03d}"] if plot_counter < sum(len(p.get("plotPoints", [])) for p in self.plots_data.values()) else [],
+                    "status": "not started",
+                    "plotImpact": "",
+                    "sideQuests": []
+                }
+                
+                # Add side quests
+                for sq in pp.get("sideQuests", []):
+                    new_sq = {
+                        "id": f"SQ{side_quest_counter:03d}",
+                        "title": sq.get("title", f"Side Quest {side_quest_counter}"),
+                        "description": sq.get("description", ""),
+                        "involvedLocations": [area_id],
+                        "status": "not started",
+                        "plotImpact": ""
+                    }
+                    new_pp["sideQuests"].append(new_sq)
+                    side_quest_counter += 1
+                
+                unified_plot["plotPoints"].append(new_pp)
+                plot_counter += 1
+        
+        self.save_json(unified_plot, "module_plot.json")
+        self.log(f"Created fallback unified plot with {len(unified_plot['plotPoints'])} plot points")
+    
+    def update_area_plot_hooks(self):
+        """Update area plot hooks to reference unified plot using atomic updates with safety guards"""
+        # Load the unified plot we just created
+        unified_plot_path = os.path.join(self.config.output_directory, "module_plot.json")
+        try:
+            with open(unified_plot_path, 'r', encoding='utf-8') as f:
+                unified_plot = json.load(f)
+        except Exception as e:
+            self.log(f"Warning: Could not load unified plot for hook updates: {e}")
+            return
+        
+        # Import here to avoid circular imports
+        from openai import OpenAI
+        from config import OPENAI_API_KEY, DM_MAIN_MODEL
+        
+        client = OpenAI(api_key=OPENAI_API_KEY)
+        
+        # Update each area's plot hooks
+        for area_id in self.areas_data:
+            self._update_single_area_plot_hooks(area_id, unified_plot, client)
+    
+    def _update_single_area_plot_hooks(self, area_id, unified_plot, client):
+        """Atomically update plot hooks for a single area with deep merge and safety guards"""
+        # Import here to avoid circular imports
+        from file_operations import safe_write_json, safe_read_json
+        
+        area_file_path = os.path.join(self.config.output_directory, "areas", f"{area_id}.json")
+        
+        # STEP 1: Create backup before any changes
+        backup_path = f"{area_file_path}.backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        try:
+            shutil.copy2(area_file_path, backup_path)
+            self.log(f"Created backup: {backup_path}")
+        except Exception as e:
+            self.log(f"Warning: Could not create backup for {area_id}: {e}")
+        
+        # STEP 2: Load original area data with validation
+        try:
+            original_area_data = safe_read_json(area_file_path)
+            if not original_area_data or not isinstance(original_area_data, dict):
+                self.log(f"Error: Invalid area data for {area_id}")
+                return
+        except Exception as e:
+            self.log(f"Error: Could not load area {area_id}: {e}")
+            return
+        
+        # STEP 3: Create in-memory backup
+        import copy
+        area_backup = copy.deepcopy(original_area_data)
+        
+        # STEP 4: Extract relevant plot points for this area
+        relevant_plot_points = []
+        relevant_side_quests = []
+        
+        for pp in unified_plot.get("plotPoints", []):
+            if pp.get("location") == area_id:
+                relevant_plot_points.append({
+                    "id": pp["id"],
+                    "title": pp["title"],
+                    "description": pp["description"]
+                })
+                
+                for sq in pp.get("sideQuests", []):
+                    if area_id in sq.get("involvedLocations", []):
+                        relevant_side_quests.append({
+                            "id": sq["id"],
+                            "title": sq["title"],
+                            "description": sq["description"]
+                        })
+        
+        if not relevant_plot_points:
+            self.log(f"No plot points found for area {area_id}, skipping hook updates")
+            return
+        
+        # STEP 5: Generate updated plot hooks using AI
+        try:
+            updated_hooks = self._generate_enhanced_plot_hooks(
+                area_id, 
+                original_area_data, 
+                relevant_plot_points, 
+                relevant_side_quests, 
+                client
+            )
+            
+            if not updated_hooks:
+                self.log(f"No plot hook updates generated for {area_id}")
+                return
+                
+        except Exception as e:
+            self.log(f"Error generating plot hooks for {area_id}: {e}")
+            return
+        
+        # STEP 6: Deep merge updates with original data (ATOMIC OPERATION)
+        try:
+            updated_area_data = self._deep_merge_area_updates(area_backup, updated_hooks)
+            
+            # STEP 7: Validate critical fields preserved
+            if not self._validate_area_integrity(area_backup, updated_area_data, area_id):
+                self.log(f"Error: Area integrity check failed for {area_id}, rolling back")
+                return
+            
+            # STEP 8: Atomic write with safety guards
+            safe_write_json(area_file_path, updated_area_data)
+            self.log(f"Successfully updated plot hooks for {area_id}")
+            
+            # STEP 9: Cleanup old backups (keep only 3 most recent)
+            self._cleanup_area_backups(area_file_path)
+            
+        except Exception as e:
+            self.log(f"Error during atomic update for {area_id}: {e}")
+            # Restore from backup on failure
+            try:
+                shutil.copy2(backup_path, area_file_path)
+                self.log(f"Restored {area_id} from backup due to update failure")
+            except:
+                self.log(f"Critical error: Could not restore {area_id} from backup")
+    
+    def _generate_enhanced_plot_hooks(self, area_id, area_data, plot_points, side_quests, client):
+        """Generate enhanced plot hooks that reference specific plot points and side quests"""
+        # Import here to avoid circular imports
+        from config import DM_MAIN_MODEL
+        
+        # Extract existing plot hooks from all locations in the area
+        existing_hooks = []
+        for location in area_data.get("locations", []):
+            hooks = location.get("plotHooks", [])
+            if hooks:
+                existing_hooks.extend(hooks)
+        
+        prompt = f"""You are updating plot hooks for a D&D area to reference specific unified plot points.
+
+AREA: {area_data.get('areaName', area_id)} ({area_id})
+AREA DESCRIPTION: {area_data.get('areaDescription', '')}
+
+EXISTING PLOT HOOKS TO ENHANCE:
+{json.dumps(existing_hooks, indent=2)}
+
+RELEVANT PLOT POINTS FOR THIS AREA:
+{json.dumps(plot_points, indent=2)}
+
+RELEVANT SIDE QUESTS FOR THIS AREA:
+{json.dumps(side_quests, indent=2)}
+
+TASK: Update the existing plot hooks to specifically reference the unified plot points and side quests.
+
+REQUIREMENTS:
+1. Keep the essence and style of existing plot hooks
+2. Add specific references to plot point IDs (PP001, PP002, etc.) where appropriate
+3. Add references to side quest IDs (SQ001, SQ002, etc.) where appropriate
+4. Maintain the narrative tone and area atmosphere
+5. Make hooks actionable for DMs
+6. Only update plot hooks - do NOT change other area data
+
+RETURN FORMAT:
+Return a JSON object with this structure:
+{{
+  "plotHookUpdates": [
+    {{
+      "locationId": "R01",
+      "plotHooks": [
+        "Enhanced hook that mentions PP001 or SQ001 specifically...",
+        "Another enhanced hook referencing the unified plot..."
+      ]
+    }}
+  ]
+}}
+
+IMPORTANT: 
+- Only include locations that need plot hook updates
+- Reference specific plot point/side quest IDs where it makes narrative sense
+- Preserve the existing hook style and tone
+- Make hooks more specific and actionable"""
+
+        try:
+            response = client.chat.completions.create(
+                model=DM_MAIN_MODEL,
+                messages=[
+                    {"role": "system", "content": "You are an expert D&D module designer specializing in creating actionable plot hooks that reference specific plot elements."},
+                    {"role": "user", "content": prompt}
+                ],
+                response_format={"type": "json_object"},
+                temperature=0.6
+            )
+            
+            result = json.loads(response.choices[0].message.content)
+            return result.get("plotHookUpdates", [])
+            
+        except Exception as e:
+            self.log(f"Error in AI plot hook generation: {e}")
+            return []
+    
+    def _deep_merge_area_updates(self, original_data, hook_updates):
+        """Deep merge plot hook updates into area data, preserving all other data"""
+        import copy
+        result = copy.deepcopy(original_data)
+        
+        # Create a lookup for location updates
+        location_updates = {}
+        for update in hook_updates:
+            location_id = update.get("locationId")
+            if location_id and "plotHooks" in update:
+                location_updates[location_id] = update["plotHooks"]
+        
+        # Update only the plot hooks in matching locations
+        for location in result.get("locations", []):
+            location_id = location.get("locationId")
+            if location_id in location_updates:
+                location["plotHooks"] = location_updates[location_id]
+        
+        return result
+    
+    def _validate_area_integrity(self, original_data, updated_data, area_id):
+        """Validate that critical area fields are preserved during update"""
+        critical_fields = ["areaId", "areaName", "areaType", "locations", "map"]
+        
+        for field in critical_fields:
+            if field in original_data and field not in updated_data:
+                self.log(f"Critical field '{field}' missing in updated {area_id}")
+                return False
+            
+            # Validate locations array structure
+            if field == "locations":
+                orig_locations = original_data.get("locations", [])
+                updated_locations = updated_data.get("locations", [])
+                
+                if len(orig_locations) != len(updated_locations):
+                    self.log(f"Location count mismatch in {area_id}")
+                    return False
+                
+                # Check that each location preserves critical fields
+                for orig_loc, updated_loc in zip(orig_locations, updated_locations):
+                    location_critical = ["locationId", "name", "type", "description", "npcs", "monsters"]
+                    for loc_field in location_critical:
+                        if loc_field in orig_loc and loc_field not in updated_loc:
+                            self.log(f"Critical location field '{loc_field}' missing in {area_id}")
+                            return False
+        
+        return True
+    
+    def _cleanup_area_backups(self, area_file_path):
+        """Clean up old area backups, keeping only the 3 most recent"""
+        try:
+            import glob
+            backup_pattern = f"{area_file_path}.backup_*"
+            backups = glob.glob(backup_pattern)
+            
+            if len(backups) > 3:
+                # Sort by modification time, keep newest 3
+                backups.sort(key=os.path.getmtime, reverse=True)
+                for old_backup in backups[3:]:
+                    os.remove(old_backup)
+                    
+        except Exception as e:
+            self.log(f"Warning: Could not cleanup old backups: {e}")
     
     def create_party_tracker(self):
         """Create the initial party tracker file"""
