@@ -804,3 +804,58 @@
 [2025-06-22 00:03:23]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
 [2025-06-22 00:03:23]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
 [2025-06-22 00:03:23] Graph built: 41 locations, 116 connections
+[2025-06-22 17:21:40]   [ERROR] Could not load world registry
+[2025-06-22 17:21:40] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-22 17:21:40]   [OK] Loaded G001: Gloamwood
+[2025-06-22 17:21:40]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-22 17:21:40]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-22 17:21:40]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-22 17:21:40]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-22 17:21:40] Graph built: 35 locations, 82 connections
+[2025-06-22 17:28:19]   [ERROR] Could not load world registry
+[2025-06-22 17:28:20] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-22 17:28:20]   [OK] Loaded G001: Gloamwood
+[2025-06-22 17:28:20]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-22 17:28:20]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-22 17:28:20]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-22 17:28:20]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-22 17:28:20] Graph built: 35 locations, 82 connections
+[2025-06-22 17:34:26]   [ERROR] Could not load world registry
+[2025-06-22 17:34:26] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-22 17:34:26]   [OK] Loaded G001: Gloamwood
+[2025-06-22 17:34:26]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-22 17:34:26]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-22 17:34:26]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-22 17:34:26]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-22 17:34:26] Graph built: 35 locations, 82 connections
+[2025-06-22 17:43:44] Loading all module areas... (discovered: )
+[2025-06-22 17:43:44] Graph built: 0 locations, 0 connections
+[2025-06-22 17:54:41]   [ERROR] Could not load world registry
+[2025-06-22 17:54:41] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-22 17:54:41]   [OK] Loaded G001: Gloamwood
+[2025-06-22 17:54:41]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-22 17:54:41]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-22 17:54:42]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-22 17:54:42]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-22 17:54:42] Graph built: 35 locations, 82 connections
+[2025-06-22 18:26:52]   [ERROR] Could not load world registry
+[2025-06-22 18:26:52] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-22 18:26:52]   [OK] Loaded G001: Gloamwood
+[2025-06-22 18:26:53]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-22 18:26:53]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-22 18:26:53]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-22 18:26:53]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-22 18:26:53] Graph built: 35 locations, 82 connections
+[2025-06-22 20:01:40] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001); The_Ranger's_Call(GV001,VW001,WR001))
+[2025-06-22 20:01:40]   [OK] Loaded GV001: Greenwatch Village [The_Ranger's_Call]
+[2025-06-22 20:01:40]   [OK] Loaded VW001: Verdantwood Wilds [The_Ranger's_Call]
+[2025-06-22 20:01:40]   [OK] Loaded WR001: Watcher's Rise [The_Ranger's_Call]
+[2025-06-22 20:01:40]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-22 20:01:40]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-22 20:01:40]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-22 20:01:40]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-22 20:01:40]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-22 20:01:40]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-22 20:01:40]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-22 20:01:40]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-22 20:01:40] Graph built: 41 locations, 132 connections

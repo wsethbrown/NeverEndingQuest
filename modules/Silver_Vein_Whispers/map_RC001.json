@@ -4,60 +4,60 @@
   "totalRooms": 6,
   "rooms": [
     {
-      "id": "R01",
+      "id": "RC01",
       "name": "Throne Room R01",
       "type": "throne room",
       "connections": [
-        "R02",
-        "R05"
+        "RC02",
+        "RC05"
       ],
       "coordinates": "X2Y2"
     },
     {
-      "id": "R02",
+      "id": "RC02",
       "name": "Hall R02",
       "type": "hall",
       "connections": [
-        "R01",
-        "R03",
-        "R04"
+        "RC01",
+        "RC03",
+        "RC04"
       ],
       "coordinates": "X3Y2"
     },
     {
-      "id": "R03",
+      "id": "RC03",
       "name": "Corridor R03",
       "type": "corridor",
       "connections": [
-        "R02"
+        "RC02"
       ],
       "coordinates": "X3Y1"
     },
     {
-      "id": "R04",
+      "id": "RC04",
       "name": "Corridor R04",
       "type": "corridor",
       "connections": [
-        "R02"
+        "RC02"
       ],
       "coordinates": "X3Y3"
     },
     {
-      "id": "R05",
+      "id": "RC05",
       "name": "Hall R05",
       "type": "hall",
       "connections": [
-        "R01",
-        "R06"
+        "RC01",
+        "RC06"
       ],
       "coordinates": "X1Y2"
     },
     {
-      "id": "R06",
+      "id": "RC06",
       "name": "Chamber R06",
       "type": "chamber",
       "connections": [
-        "R05"
+        "RC05"
       ],
       "coordinates": "X0Y2"
     }
@@ -67,19 +67,19 @@
       "   ",
       "   ",
       "   ",
-      "R03"
+      "RC03"
     ],
     [
-      "R06",
-      "R05",
-      "R01",
-      "R02"
+      "RC06",
+      "RC05",
+      "RC01",
+      "RC02"
     ],
     [
       "   ",
       "   ",
       "   ",
-      "R04"
+      "RC04"
     ]
   ]
 }

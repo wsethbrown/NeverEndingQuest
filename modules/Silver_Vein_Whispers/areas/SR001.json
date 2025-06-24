@@ -13,62 +13,62 @@
     "totalRooms": 6,
     "rooms": [
       {
-        "id": "R01",
+        "id": "SR01",
         "name": "Riverside Outpost",
         "type": "riverside",
         "connections": [
-          "R02",
-          "R03",
-          "R06"
+          "SR02",
+          "SR03",
+          "SR06"
         ],
         "coordinates": "X2Y2"
       },
       {
-        "id": "R02",
+        "id": "SR02",
         "name": "Misty Ravine",
         "type": "ravine",
         "connections": [
-          "R01",
-          "R05"
+          "SR01",
+          "SR05"
         ],
         "coordinates": "X1Y2"
       },
       {
-        "id": "R03",
+        "id": "SR03",
         "name": "Forgotten Campsite",
         "type": "campsite",
         "connections": [
-          "R01",
-          "R04",
-          "R05"
+          "SR01",
+          "SR04",
+          "SR05"
         ],
         "coordinates": "X2Y1"
       },
       {
-        "id": "R04",
+        "id": "SR04",
         "name": "Ancient Crossroads",
         "type": "crossroads",
         "connections": [
-          "R03"
+          "SR03"
         ],
         "coordinates": "X2Y0"
       },
       {
-        "id": "R05",
+        "id": "SR05",
         "name": "Fallen Monument",
         "type": "landmark",
         "connections": [
-          "R02",
-          "R03"
+          "SR02",
+          "SR03"
         ],
         "coordinates": "X1Y1"
       },
       {
-        "id": "R06",
+        "id": "SR06",
         "name": "Offering Cairn",
         "type": "crossroads",
         "connections": [
-          "R01"
+          "SR01"
         ],
         "coordinates": "X3Y2"
       }
@@ -76,32 +76,32 @@
     "layout": [
       [
         "   ",
-        "R04",
+        "SR04",
         "   "
       ],
       [
-        "R05",
-        "R03",
+        "SR05",
+        "SR03",
         "   "
       ],
       [
-        "R02",
-        "R01",
-        "R06"
+        "SR02",
+        "SR01",
+        "SR06"
       ]
     ]
   },
   "locations": [
     {
-      "locationId": "R01",
+      "locationId": "SR01",
       "name": "Riverside Outpost",
       "type": "riverside",
       "description": "Along the fog-draped banks of the Silver Vein River, reeds bow over silvery water and lanternflies swirl in constellations above the shallows. Here, half-sunken stone pillars bear the spiral motifs of a forgotten culture, weathered by centuries and veiled in moss. The faint chime of river stones carries on the current.",
       "coordinates": "X2Y2",
       "connectivity": [
-        "R02",
-        "R03",
-        "R06"
+        "SR02",
+        "SR03",
+        "SR06"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -110,6 +110,36 @@
           "name": "Mira the Moorwise (enigmatic guide)",
           "description": "A cloaked figure with water-worn beads braided into her hair and a manner both gentle and cryptic. She knows the moors intimately and speaks in riddles, hinting at the dangers and secrets along the riverbank.",
           "attitude": "Cautious ally, gently encouraging but never volunteering all she knows."
+        },
+        {
+          "name": "Dock Worker Finn",
+          "description": "A sturdy man with calloused hands who unloads supply boats at the small riverside dock. His back aches from heavy cargo and he often complains about the weight of the goods he handles.",
+          "attitude": "Gruff but straightforward, focused on his work but willing to share information about boat schedules and cargo."
+        },
+        {
+          "name": "Supply Clerk Marta",
+          "description": "A meticulous woman who manages the outpost's provisions and inventory. She keeps detailed records and sells basic traveling supplies like rations and rope to passing adventurers.",
+          "attitude": "Organized and efficient, helpful with supplies but insists on proper payment and record-keeping."
+        },
+        {
+          "name": "Boatman Gareth",
+          "description": "A weathered ferryman who operates a small boat for crossing the dangerous sections of the Silver Vein River. He knows the safest crossing points and charges fair rates for his services.",
+          "attitude": "Practical and cautious, grumbles about weather conditions and river hazards but provides reliable transport."
+        },
+        {
+          "name": "Off-Duty Scout Bren",
+          "description": "A tired ranger who rests at the outpost between patrols. He drinks ale after long days in the wilderness and shares gossip about other outposts and trail conditions.",
+          "attitude": "Relaxed when off duty, friendly over drinks and willing to share news from his patrols of the safer routes."
+        },
+        {
+          "name": "Trader Vera",
+          "description": "A traveling merchant who sets up a small stall selling trinkets, tools, and basic adventuring gear. She haggles over prices and is always looking for profitable trades.",
+          "attitude": "Business-minded and shrewd, focused on making deals but fair in her transactions with travelers."
+        },
+        {
+          "name": "Cook Nessa",
+          "description": "The outpost's cook who prepares simple but hearty meals for the stationed workers and visiting travelers. She knows everyone's favorite dishes and takes pride in her cooking.",
+          "attitude": "Warm and nurturing, enjoys feeding people and sharing kitchen gossip while she works."
         }
       ],
       "monsters": [
@@ -177,14 +207,14 @@
       "adventureSummary": "A mysterious riverside where secrets of the Silver Vein and the moors' spectral past begin to surface."
     },
     {
-      "locationId": "R02",
+      "locationId": "SR02",
       "name": "Misty Ravine",
       "type": "ravine",
       "description": "A narrow, steep-sided gash in the earth, the ravine is cloaked in perpetual mist. Thorny brambles cling to the walls, and rickety rope bridges span the gloom. Carved into the stone is a narrow stair, worn but passable, leading down to a trickle of water.",
       "coordinates": "X1Y2",
       "connectivity": [
-        "R01",
-        "R05"
+        "SR01",
+        "SR05"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -258,15 +288,15 @@
       "adventureSummary": "A precarious descent into the moors' past, where secrets are hidden behind stone and bramble."
     },
     {
-      "locationId": "R03",
+      "locationId": "SR03",
       "name": "Forgotten Campsite",
       "type": "campsite",
       "description": "A forgotten campsite rests atop a low, dry rise, ringed by toppled standing stones and charred firepits. The remnants of canvas tents and rusted cookware suggest it has been many seasons since anyone lingered here.",
       "coordinates": "X2Y1",
       "connectivity": [
-        "R01",
-        "R04",
-        "R05"
+        "SR01",
+        "SR04",
+        "SR05"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -327,13 +357,13 @@
       "adventureSummary": "A derelict camp that holds the echoes of past explorers and warnings of threats yet to come."
     },
     {
-      "locationId": "R04",
+      "locationId": "SR04",
       "name": "Ancient Crossroads",
       "type": "crossroads",
       "description": "A four-way convergence of moor paths, marked by a leaning milestone encoded with ancient glyphs. The crossroads are surrounded by shallow pools that reflect the sky in silvery patches, and the air feels electrically charged.",
       "coordinates": "X2Y0",
       "connectivity": [
-        "R03"
+        "SR03"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -388,14 +418,14 @@
       "adventureSummary": "A convergence of paths, where spirits and signs point toward deeper mysteries."
     },
     {
-      "locationId": "R05",
+      "locationId": "SR05",
       "name": "Fallen Monument",
       "type": "landmark",
       "description": "Atop a windswept knoll rises a toppled monument: a stone arch partially covered in creeping ivy and etched with faded imagery of river queens and crowned serpents. The grass here grows in silvery tufts, and the air seems to hum with ancient power.",
       "coordinates": "X1Y1",
       "connectivity": [
-        "R02",
-        "R03"
+        "SR02",
+        "SR03"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -446,13 +476,13 @@
       "adventureSummary": "A haunted landmark that binds the sorrowful spirit of Rilith\u2014and a key to the moor's spectral unrest."
     },
     {
-      "locationId": "R06",
+      "locationId": "SR06",
       "name": "Offering Cairn",
       "type": "crossroads",
       "description": "A lonely fork where a mossy cairn stands, heaped with small offerings: smooth stones, feathers, and lengths of braided grass. Wisps of fog curl around the cairn, and the air carries the faint scent of wild mint.",
       "coordinates": "X3Y2",
       "connectivity": [
-        "R01"
+        "SR01"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],

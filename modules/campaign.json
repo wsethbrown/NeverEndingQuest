@@ -1,0 +1,23 @@
+{
+  "campaignName": "Fantasy Adventure Campaign",
+  "currentModule": null,
+  "hubModule": null,
+  "completedModules": [],
+  "availableModules": [
+    "The_Ranger's_Call",
+    "Keep_of_Doom",
+    "Silver_Vein_Whispers"
+  ],
+  "hubs": {},
+  "relationships": {},
+  "artifacts": {},
+  "worldState": {
+    "keepOwnership": false,
+    "majorDecisions": [],
+    "crossModuleRelationships": {},
+    "unlockedAreas": [],
+    "hubEstablished": false
+  },
+  "lastUpdated": "2025-06-22T18:33:45.051430",
+  "version": "1.0.0"
+}

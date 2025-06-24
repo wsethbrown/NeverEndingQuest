@@ -4,62 +4,62 @@
   "totalRooms": 6,
   "rooms": [
     {
-      "id": "R01",
+      "id": "SR01",
       "name": "Riverside R01",
       "type": "riverside",
       "connections": [
-        "R02",
-        "R03",
-        "R06"
+        "SR02",
+        "SR03",
+        "SR06"
       ],
       "coordinates": "X2Y2"
     },
     {
-      "id": "R02",
+      "id": "SR02",
       "name": "Ravine R02",
       "type": "ravine",
       "connections": [
-        "R01",
-        "R05"
+        "SR01",
+        "SR05"
       ],
       "coordinates": "X1Y2"
     },
     {
-      "id": "R03",
+      "id": "SR03",
       "name": "Campsite R03",
       "type": "campsite",
       "connections": [
-        "R01",
-        "R04",
-        "R05"
+        "SR01",
+        "SR04",
+        "SR05"
       ],
       "coordinates": "X2Y1"
     },
     {
-      "id": "R04",
+      "id": "SR04",
       "name": "Crossroads R04",
       "type": "crossroads",
       "connections": [
-        "R03"
+        "SR03"
       ],
       "coordinates": "X2Y0"
     },
     {
-      "id": "R05",
+      "id": "SR05",
       "name": "Landmark R05",
       "type": "landmark",
       "connections": [
-        "R02",
-        "R03"
+        "SR02",
+        "SR03"
       ],
       "coordinates": "X1Y1"
     },
     {
-      "id": "R06",
+      "id": "SR06",
       "name": "Crossroads R06",
       "type": "crossroads",
       "connections": [
-        "R01"
+        "SR01"
       ],
       "coordinates": "X3Y2"
     }
@@ -67,18 +67,18 @@
   "layout": [
     [
       "   ",
-      "R04",
+      "SR04",
       "   "
     ],
     [
-      "R05",
-      "R03",
+      "SR05",
+      "SR03",
       "   "
     ],
     [
-      "R02",
-      "R01",
-      "R06"
+      "SR02",
+      "SR01",
+      "SR06"
     ]
   ]
 }

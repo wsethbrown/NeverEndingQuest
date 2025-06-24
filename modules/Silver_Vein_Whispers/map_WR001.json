@@ -4,80 +4,80 @@
   "totalRooms": 6,
   "rooms": [
     {
-      "id": "R01",
+      "id": "WR01",
       "name": "Shrine R01",
       "type": "shrine",
       "connections": [
-        "R02",
-        "R03"
+        "WR02",
+        "WR03"
       ],
       "coordinates": "X2Y2"
     },
     {
-      "id": "R02",
+      "id": "WR02",
       "name": "Vault R02",
       "type": "vault",
       "connections": [
-        "R01",
-        "R04"
+        "WR01",
+        "WR04"
       ],
       "coordinates": "X2Y3"
     },
     {
-      "id": "R03",
+      "id": "WR03",
       "name": "Chamber R03",
       "type": "chamber",
       "connections": [
-        "R01",
-        "R05"
+        "WR01",
+        "WR05"
       ],
       "coordinates": "X1Y2"
     },
     {
-      "id": "R04",
+      "id": "WR04",
       "name": "Laboratory R04",
       "type": "laboratory",
       "connections": [
-        "R02",
-        "R06"
+        "WR02",
+        "WR06"
       ],
       "coordinates": "X2Y4"
     },
     {
-      "id": "R05",
+      "id": "WR05",
       "name": "Corridor R05",
       "type": "corridor",
       "connections": [
-        "R03"
+        "WR03"
       ],
       "coordinates": "X1Y1"
     },
     {
-      "id": "R06",
+      "id": "WR06",
       "name": "Chamber R06",
       "type": "chamber",
       "connections": [
-        "R04"
+        "WR04"
       ],
       "coordinates": "X1Y4"
     }
   ],
   "layout": [
     [
-      "R05",
+      "WR05",
       "   "
     ],
     [
-      "R03",
-      "R01"
+      "WR03",
+      "WR01"
     ],
     [
       "   ",
-      "R02"
+      "WR02"
     ],
     [
-      "R06",
-      "R04"
+      "WR06",
+      "WR04"
     ]
   ]
 }

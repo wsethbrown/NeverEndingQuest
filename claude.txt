@@ -1,165 +1,33 @@
-S C:\dungeon_master_v1> python reset_campaign.py
-
-============================================================
-CAMPAIGN NUCLEAR RESET - COMPLETE WIPE TO VIRGIN STATE
-============================================================
-
-This will:
-1. Backup EVERYTHING to a timestamped folder
-2. Restore all modules from clean _BU.json backups
-3. Delete ALL characters, conversations, and game state
-4. Create a fresh campaign ready for first-time play
-
-
-Are you sure you want to completely reset the campaign? (yes/no): yes
-
-PHASE 1: Creating complete backup...
-Backing up modules directory...
-  Backing up current_location.json
-  Backing up journal.json
-  Backing up training_data.json
-  Backing up debug.txt
-  Backing up claude.txt
-Backing up debug_log_backups directory...
-✓ Backup complete: campaign_backup_20250622_131331
-
-PHASE 2: Resetting all modules from backups...
-Found 4 modules: Keep_of_Doom, Silver_Vein_Whispers, The_Ranger's_Call, The_Rangers_Call_backup_20250622_021433
-
-Resetting module: Keep_of_Doom
-  ✓ Restored G001.json
-  ✓ Restored HH001.json
-  ✓ Restored module_context.json
-  ✓ Restored module_plot.json
-  ✓ Restored norn.json
-  ✓ Restored party_tracker.json
-  ✓ Restored plot_HH001.json
-  ✓ Restored SK001.json
-  ✓ Restored TBM001.json
-  ✓ Restored TCD001.json
-  ✓ Restored areas\G001.json
-  ✓ Restored areas\HH001.json
-  ✓ Restored areas\module_context.json
-  ✓ Restored areas\module_plot.json
-  ✓ Restored areas\party_tracker.json
-  ✓ Restored areas\plot_HH001.json
-  ✓ Restored areas\SK001.json
-  ✓ Restored areas\TBM001.json
-  ✓ Restored areas\TCD001.json
-  ✓ Restored backup_pre_integration_20250615_110207\G001.json
-  ✓ Restored backup_pre_integration_20250615_110207\HH001.json
-  ✓ Restored backup_pre_integration_20250615_110207\module_context.json
-  ✓ Restored backup_pre_integration_20250615_110207\module_plot.json
-  ✓ Restored backup_pre_integration_20250615_110207\norn.json
-  ✓ Restored backup_pre_integration_20250615_110207\party_tracker.json
-  ✓ Restored backup_pre_integration_20250615_110207\plot_HH001.json
-  ✓ Restored backup_pre_integration_20250615_110207\SK001.json
-  ✓ Restored backup_pre_integration_20250615_110207\TBM001.json
-  ✓ Restored backup_pre_integration_20250615_110207\TCD001.json
-  ✓ Restored backup_pre_integration_20250615_110829\G001.json
-  ✓ Restored backup_pre_integration_20250615_110829\HH001.json
-  ✓ Restored backup_pre_integration_20250615_110829\module_context.json
-  ✓ Restored backup_pre_integration_20250615_110829\module_plot.json
-  ✓ Restored backup_pre_integration_20250615_110829\norn.json
-  ✓ Restored backup_pre_integration_20250615_110829\party_tracker.json
-  ✓ Restored backup_pre_integration_20250615_110829\plot_HH001.json
-  ✓ Restored backup_pre_integration_20250615_110829\SK001.json
-  ✓ Restored backup_pre_integration_20250615_110829\TBM001.json
-  ✓ Restored backup_pre_integration_20250615_110829\TCD001.json
-  ✓ Restored backup_pre_integration_20250615_200446\G001.json
-  ✓ Restored backup_pre_integration_20250615_200446\HH001.json
-  ✓ Restored backup_pre_integration_20250615_200446\module_context.json
-  ✓ Restored backup_pre_integration_20250615_200446\module_plot.json
-  ✓ Restored backup_pre_integration_20250615_200446\norn.json
-  ✓ Restored backup_pre_integration_20250615_200446\party_tracker.json
-  ✓ Restored backup_pre_integration_20250615_200446\plot_HH001.json
-  ✓ Restored backup_pre_integration_20250615_200446\SK001.json
-  ✓ Restored backup_pre_integration_20250615_200446\TBM001.json
-  ✓ Restored backup_pre_integration_20250615_200446\TCD001.json
-  ✓ Restored old_plot_files\plot_HH001.json
-  Clearing characters directory...
-  ✓ Characters directory cleared
-  Cleaning up legacy area files from main folder...
-  ✓ Removed legacy G001.json from main folder
-  ✓ Removed legacy HH001.json from main folder
-  ✓ Removed legacy SK001.json from main folder
-  ✓ Removed legacy TBM001.json from main folder
-  ✓ Removed legacy TCD001.json from main folder
-
-Resetting module: Silver_Vein_Whispers
-  ✓ Restored map_RC001.json
-  ✓ Restored map_SR001.json
-  ✓ Restored map_WR001.json
-  ✓ Restored module_context.json
-  ✓ Restored module_plot.json
-  ✓ Restored npc_codex.json
-  ✓ Restored party_tracker.json
-  ✓ Restored plot_RC001.json
-  ✓ Restored plot_SR001.json
-  ✓ Restored plot_WR001.json
-  ✓ Restored RC001.json
-  ✓ Restored SR001.json
-  ✓ Restored validation_report.json
-  ✓ Restored WR001.json
-  ✓ Restored areas\RC001.json
-  ✓ Restored areas\SR001.json
-  ✓ Restored areas\WR001.json
-  ✓ Restored backup_pre_integration_20250618_215919\map_RC001.json
-  ✓ Restored backup_pre_integration_20250618_215919\map_SR001.json
-  ✓ Restored backup_pre_integration_20250618_215919\map_WR001.json
-  ✓ Restored backup_pre_integration_20250618_215919\module_context.json
-  ✓ Restored backup_pre_integration_20250618_215919\module_plot.json
-  ✓ Restored backup_pre_integration_20250618_215919\party_tracker.json
-  ✓ Restored backup_pre_integration_20250618_215919\plot_RC001.json
-  ✓ Restored backup_pre_integration_20250618_215919\plot_SR001.json
-  ✓ Restored backup_pre_integration_20250618_215919\plot_WR001.json
-  ✓ Restored backup_pre_integration_20250618_215919\RC001.json
-  ✓ Restored backup_pre_integration_20250618_215919\SR001.json
-  ✓ Restored backup_pre_integration_20250618_215919\validation_report.json
-  ✓ Restored backup_pre_integration_20250618_215919\WR001.json
-  Clearing characters directory...
-  ✓ Characters directory cleared
-
-Resetting module: The_Ranger's_Call
-  ✓ Restored map_GV001.json
-  ✓ Restored map_VW001.json
-  ✓ Restored map_WR001.json
-  ✓ Restored module_context.json
-  ✓ Restored party_tracker.json
-  ✓ Restored plot_GV001.json
-  ✓ Restored plot_VW001.json
-  ✓ Restored plot_WR001.json
-  ✓ Restored validation_report.json
-  ✓ Restored areas\GV001.json
-  ✓ Restored areas\VW001.json
-  ✓ Restored areas\WR001.json
-  Clearing characters directory...
-  ✓ Characters directory cleared
-
-Resetting module: The_Rangers_Call_backup_20250622_021433
-  Clearing characters directory...
-  ✓ Characters directory cleared
-
-PHASE 3: Creating fresh game state...
-  ✓ Reset current_location.json to starting point (HH001 A01)
-  ✓ Created empty journal.json
-
-PHASE 4: Clearing all generated files...
-  ✓ Cleared campaign_archives
-  ✓ Cleared campaign_summaries
-
-============================================================
-CAMPAIGN RESET COMPLETE!
-============================================================
-
-✓ Current state backed up to: campaign_backup_20250622_131331
-✓ All modules restored from clean backups
-✓ All characters and game state cleared
-✓ Ready for virgin campaign testing!
-
-Next steps:
-1. Run the game to test party tracker creation
-2. Create a new character to test character generation
-3. Begin your fresh campaign!
-
-PS C:\dungeon_master_v1> 
+ {
+    "role": "user",
+    "content": "Location transition: Wardens' Vigil Hall (R01) to Oaken Lantern Square (R03)"
+  },
+  {
+    "role": "user",
+    "content": "Dungeon Master Note: Current date and time: 1492 Springmonth 1 09:15:00. Player: Im hear to help but I admit I need to know more. what's happening?"
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"narration\": \"As you step into the shade of Oaken Lantern Square, the villagers fall respectfully silent, watching Elder Mirna for guidance. She turns to you, her expression weary but resolute, and her voice carries the weight of both hope and worry. \\\"Thank you for coming, Eirik. Greenwatch has always relied on brave souls, but now we face shadows within and without.\\\"\\n\\nShe gestures gently to the crowd and then the woods beyond the square. \\\"Folk have vanished in the night--friends, family, even one of our wardens. Some claim ghostly lights flicker in the Wilds, and animals flee from places they once called home. Worse, we've found signs that someone here is working against us, tampering with our stores and sowing fear.\\\"\\n\\nMirna's hand rests momentarily on the Cleansing Bell, the old bronze instrument shining faintly. \\\"This bell is all that stands between us and panic. At dawn, we ring it in ritual to remind folk that Greenwatch endures. But faith falters when danger walks so close, and it's said the bell's power depends on our unity.\\\"\\n\\nShe searches your face for understanding. \\\"Eirik, I need your help to restore that unity. Speak to the folk, listen for anything out of place, and help me lead the ritual at the next dawn. If we can drive out what haunts us--or at least stand together--we have a chance. Will you help me with this, and keep your eyes and heart open for secrets that may lie hidden in plain sight?\\\"\",\n  \"actions\": [\n    {\n      \"action\": \"updateTime\",\n      \"parameters\": {\n        \"timeEstimate\": 2\n      }\n    }\n  ]\n}"
+  },
+  {
+    "role": "user",
+    "content": "Dungeon Master Note: Current date and time: 1492 Springmonth 1 09:17:00. Player: Yes, I will. Where do I start looking?"
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"narration\": \"Elder Mirna offers a grateful, if weary, smile and gestures gently toward the small knots of villagers gathered around Oaken Lantern Square. \\\"Thank you, Eirik. Begin by listening. Folk are frightened, but every worry shared is a thread to follow. Speak with the smith Tomas by his forge -- he has a keen eye and a strong sense for trouble. The baker Lysa often hears much before sunup, and young Bran is always eager to prove himself.\\\"\\n\\nShe glances toward the Cleansing Bell. \\\"You might also check the bell's base and the paths leading to the armory -- I've felt watched there of late. If you see anything out of place, or anyone acting strangely, trust your instincts.\\\"\\n\\nOne of the villagers, an anxious woman clutching a wooden token, approaches. \\\"Excuse me, Eirik,\\\" she says softly, \\\"my daughter swears she saw someone near the armory last night, but it was too dark to tell who.\\\"\\n\\nMirna nods encouragingly. \\\"Ask questions, listen to their fears, and keep your eyes open. When you're ready, join me for the dawn ritual -- but every answer you find before then will help.\\\"\\n\\nThe square is alive with whispers, sidelong glances, and the promise of hidden truths. Where will you begin, Eirik? Will you speak first with Tomas at the forge, Lysa at the bakery, Bran, or investigate the armory and bell? Or do you have another approach in mind?\",\n  \"actions\": [\n    {\n      \"action\": \"updatePlot\",\n      \"parameters\": {\n        \"plotPointId\": \"PP001\",\n        \"newStatus\": \"in progress\",\n        \"plotImpact\": \"Eirik has accepted Elder Mirna's charge to investigate unrest and suspected conspiracy in Greenwatch, and is poised to gather information from key villagers and locations.\"\n      }\n    }\n  ]\n}"
+  },
+  {
+    "role": "user",
+    "content": "Dungeon Master Note: Current date and time: 1492 Springmonth 1 09:17:00. Player: I'll go speak with Tomas"
+  },
+  {
+    "role": "user",
+    "content": "Error Note: Your previous response failed validation. Reason: The response references 'Tomas', who is not listed as a valid character in the provided module data. Only the following NPCs are valid for this module and area: Elen the Ranger, Mirna the Village Elder, Old Fenwick the Tavernkeeper, Torren the Merchant, Willow the Herbalist, Merritt the Watchful, Kella of the Glades, Tavrin Quickfoot, Bandit Lieutenant Karsk, Sereth Dolen, and Caretaker Voss. Do not reference created or invented NPCs such as 'Tomas'. Revise the response to use only established characters from the module.. Please adjust your response accordingly."
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"narration\": \"Mirna nods, her expression thoughtful as she gestures discreetly toward the bustle of the square. \\\"A wise choice, Eirik. Begin here, among the folk. Many have seen or heard strange things, but only a few are brave enough to speak. Torren the merchant often hears the latest news as he travels--he may have noticed someone or something out of place. Willow the herbalist keeps a close eye on the village's health, and Merritt the Watchful, though quiet, misses little that happens by night or day.\\\"\\n\\nMirna lowers her voice slightly. \\\"If you wish to seek rumors in a less formal setting, Old Fenwick at The Restful Quiver tavern has a knack for guiding loose tongues. And if you sense the need to search for clues yourself, the well, the notice board, and even the base of the Cleansing Bell have all drawn whispers of secrets hidden in plain sight.\\\"\\n\\nShe straightens, exuding the calm strength the village relies on. \\\"Wherever you start, keep your wits about you. Those who work in darkness sometimes fear a little light. If you need guidance, you will find me right here.\\\"\\n\\nThe villagers mill about, casting glances your way, their faces tight with concern and curiosity. Who will you approach first, or where will you search, Eirik?\",\n  \"actions\": []\n}"
+  }
+]

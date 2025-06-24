@@ -13,93 +13,93 @@
     "totalRooms": 6,
     "rooms": [
       {
-        "id": "R01",
+        "id": "WR01",
         "name": "Shrine of Sibilant Currents",
         "type": "shrine",
         "connections": [
-          "R02",
-          "R03"
+          "WR02",
+          "WR03"
         ],
         "coordinates": "X2Y2"
       },
       {
-        "id": "R02",
+        "id": "WR02",
         "name": "Preserved Vault of Remembrance",
         "type": "vault",
         "connections": [
-          "R01",
-          "R04"
+          "WR01",
+          "WR04"
         ],
         "coordinates": "X2Y3"
       },
       {
-        "id": "R03",
+        "id": "WR03",
         "name": "Watcher\u2019s Hearth Chamber",
         "type": "chamber",
         "connections": [
-          "R01",
-          "R05"
+          "WR01",
+          "WR05"
         ],
         "coordinates": "X1Y2"
       },
       {
-        "id": "R04",
+        "id": "WR04",
         "name": "Vein-Touched Laboratory",
         "type": "laboratory",
         "connections": [
-          "R02",
-          "R06"
+          "WR02",
+          "WR06"
         ],
         "coordinates": "X2Y4"
       },
       {
-        "id": "R05",
+        "id": "WR05",
         "name": "Echoing Root Corridor",
         "type": "corridor",
         "connections": [
-          "R03"
+          "WR03"
         ],
         "coordinates": "X1Y1"
       },
       {
-        "id": "R06",
+        "id": "WR06",
         "name": "Chamber of Lingering Regret",
         "type": "chamber",
         "connections": [
-          "R04"
+          "WR04"
         ],
         "coordinates": "X1Y4"
       }
     ],
     "layout": [
       [
-        "R05",
+        "WR05",
         "   "
       ],
       [
-        "R03",
-        "R01"
+        "WR03",
+        "WR01"
       ],
       [
         "   ",
-        "R02"
+        "WR02"
       ],
       [
-        "R06",
-        "R04"
+        "WR06",
+        "WR04"
       ]
     ]
   },
   "locations": [
     {
-      "locationId": "R01",
+      "locationId": "WR01",
       "name": "Shrine of Sibilant Currents",
       "type": "shrine",
       "description": "Once a place of river worship, this small shrine nestles against a mossy bend where the river\u2019s voice seems to whisper from every stone. Water runs in thin rills over faded ritual markings in the mud, pooling around ancient prayer mats. The air is thick with the hush of unspoken secrets and the faint, chilling sense that something listens from beneath the river\u2019s surface.",
       "coordinates": "X2Y2",
       "connectivity": [
-        "R02",
-        "R03"
+        "WR02",
+        "WR03"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -108,6 +108,31 @@
           "name": "Sister Amara",
           "description": "A river priestess, determined but weary, wrapped in sodden robes marked with river glyphs. She maintains the shrine but is haunted by recent failings.",
           "attitude": "Wary but willing to aid those who respect the old rites."
+        },
+        {
+          "name": "Apprentice Tam",
+          "description": "A young acolyte who helps Sister Amara with daily shrine tasks. He sweeps the stone floors, lights prayer candles, and maintains the ritual implements with careful attention to detail.",
+          "attitude": "Eager to help with small tasks and respectful of shrine traditions, though sometimes nervous around strangers."
+        },
+        {
+          "name": "Pilgrim Vera",
+          "description": "A devout visitor who prays quietly at the shrine before continuing her journey. She carries a worn prayer book and simple offerings of river stones and dried flowers.",
+          "attitude": "Peaceful and contemplative, focused on her prayers but polite to other shrine visitors."
+        },
+        {
+          "name": "Herbalist Jorik",
+          "description": "A local plant gatherer who dries medicinal herbs near the shrine's entrance. He knows which plants grow safely along the riverbank and sells basic healing poultices to travelers.",
+          "attitude": "Knowledgeable about local flora, willing to trade herbs and remedies for fair payment."
+        },
+        {
+          "name": "Merchant Aldric",
+          "description": "A weary trader who rests at the shrine while traveling between settlements. He counts his remaining coin and checks his cargo manifest, calculating profits from his journey.",
+          "attitude": "Tired from travel, focused on his business but grateful for a peaceful place to rest and plan his route."
+        },
+        {
+          "name": "Local Fisher Kira",
+          "description": "A woman who brings her daily catch to clean by the shrine's fresh water source. She knows which fish are safe to eat from different parts of the river system.",
+          "attitude": "Practical and hardworking, friendly to those who appreciate fresh fish and local knowledge about the waterways."
         }
       ],
       "monsters": [
@@ -173,14 +198,14 @@
       "adventureSummary": "A place of spiritual importance and the first glimpse of the river's curse; offers lore, a key item, and potential combat."
     },
     {
-      "locationId": "R02",
+      "locationId": "WR02",
       "name": "Preserved Vault of Remembrance",
       "type": "vault",
       "description": "Behind a sealed door, this chamber is lined with clay urns and silver filigree caskets. The walls shimmer faintly with preservation magic, preventing rot and dust. The air is unnaturally still; a hush interrupted only by the distant, persistent drip of water. Intricate sigils on the floor glow when approached, revealing lingering memories.",
       "coordinates": "X2Y3",
       "connectivity": [
-        "R01",
-        "R04"
+        "WR01",
+        "WR04"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -252,14 +277,14 @@
       "adventureSummary": "A puzzle and combat room holding a key item and lore clues; magical defenses deter the unprepared."
     },
     {
-      "locationId": "R03",
+      "locationId": "WR03",
       "name": "Watcher\u2019s Hearth Chamber",
       "type": "chamber",
       "description": "This low-ceilinged chamber smells faintly of smoke and damp wood. Discarded, sodden furniture crowds the walls, their legs deep in mud. An ancient fireplace is choked with cold, ashy water, and a thin mist curls from its hearth. Shadows flicker in the corners, occasionally forming faces that vanish when properly observed.",
       "coordinates": "X1Y2",
       "connectivity": [
-        "R01",
-        "R05"
+        "WR01",
+        "WR05"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -324,14 +349,14 @@
       "adventureSummary": "A roleplay and exploration room; Dren is a source of lore and hints, while the spirits create potential danger."
     },
     {
-      "locationId": "R04",
+      "locationId": "WR04",
       "name": "Vein-Touched Laboratory",
       "type": "laboratory",
       "description": "The walls of this long, cluttered laboratory pulse with faint blue veins that seem almost alive. Alchemical equipment sits atop warped workbenches, and scorched notes are scattered across the floor. A single lantern casts shadows that swirl and writhe, as if the room itself is restless.",
       "coordinates": "X2Y4",
       "connectivity": [
-        "R02",
-        "R06"
+        "WR02",
+        "WR06"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -400,13 +425,13 @@
       "adventureSummary": "A laboratory of magical research; offers roleplay, a monster, key magic items, and vital story progression."
     },
     {
-      "locationId": "R05",
+      "locationId": "WR05",
       "name": "Echoing Root Corridor",
       "type": "corridor",
       "description": "A narrow, winding corridor overhung with tangled roots and faded tapestries. Water trickles along the floor, carrying whispers that seem to echo the party\u2019s words back in unfamiliar voices. Sconces gutter with blue-green flame, casting long shadows that dance eerily on the walls.",
       "coordinates": "X1Y1",
       "connectivity": [
-        "R03"
+        "WR03"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -469,13 +494,13 @@
       "adventureSummary": "A hazardous passage with environmental threats and clues to the dungeon\u2019s deeper mysteries."
     },
     {
-      "locationId": "R06",
+      "locationId": "WR06",
       "name": "Chamber of Lingering Regret",
       "type": "chamber",
       "description": "A wide, circular chamber dominated by intricate symbols scorched into the muddy floor. Broken furniture lines the walls, and the fireplace here burns with cold, silvery flame. The air pulses with palpable sorrow, and soft voices cry out from the shadows, drawing the party toward the river\u2019s secrets.",
       "coordinates": "X1Y4",
       "connectivity": [
-        "R04"
+        "WR04"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],

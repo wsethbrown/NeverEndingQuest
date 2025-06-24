@@ -59,7 +59,7 @@
       "appears_in": [
         {
           "area": "SR001",
-          "location": "R01"
+          "location": "SR01"
         }
       ]
     },
@@ -76,7 +76,7 @@
       "appears_in": [
         {
           "area": "SR001",
-          "location": "R03"
+          "location": "SR03"
         }
       ]
     },
@@ -87,7 +87,7 @@
       "appears_in": [
         {
           "area": "SR001",
-          "location": "R05"
+          "location": "SR05"
         }
       ]
     },
@@ -152,7 +152,7 @@
       "appears_in": [
         {
           "area": "RC001",
-          "location": "R01"
+          "location": "RC01"
         }
       ]
     },
@@ -163,7 +163,7 @@
       "appears_in": [
         {
           "area": "WR001",
-          "location": "R04"
+          "location": "WR04"
         }
       ]
     },
@@ -186,7 +186,7 @@
       "appears_in": [
         {
           "area": "WR001",
-          "location": "R03"
+          "location": "WR03"
         }
       ]
     },
@@ -209,7 +209,7 @@
       "appears_in": [
         {
           "area": "WR001",
-          "location": "R01"
+          "location": "WR01"
         }
       ]
     },
@@ -220,7 +220,7 @@
       "appears_in": [
         {
           "area": "WR001",
-          "location": "R06"
+          "location": "WR06"
         }
       ]
     },
@@ -231,7 +231,7 @@
       "appears_in": [
         {
           "area": "RC001",
-          "location": "R06"
+          "location": "RC06"
         }
       ]
     }

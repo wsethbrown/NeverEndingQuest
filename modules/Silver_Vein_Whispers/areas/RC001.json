@@ -13,60 +13,60 @@
     "totalRooms": 6,
     "rooms": [
       {
-        "id": "R01",
+        "id": "RC01",
         "name": "Shattered Throne Chamber",
         "type": "throne room",
         "connections": [
-          "R02",
-          "R05"
+          "RC02",
+          "RC05"
         ],
         "coordinates": "X2Y2"
       },
       {
-        "id": "R02",
+        "id": "RC02",
         "name": "Grand Gallery",
         "type": "hall",
         "connections": [
-          "R01",
-          "R03",
-          "R04"
+          "RC01",
+          "RC03",
+          "RC04"
         ],
         "coordinates": "X3Y2"
       },
       {
-        "id": "R03",
+        "id": "RC03",
         "name": "Weeping Corridor",
         "type": "corridor",
         "connections": [
-          "R02"
+          "RC02"
         ],
         "coordinates": "X3Y1"
       },
       {
-        "id": "R04",
+        "id": "RC04",
         "name": "Mosaic Corridor",
         "type": "corridor",
         "connections": [
-          "R02"
+          "RC02"
         ],
         "coordinates": "X3Y3"
       },
       {
-        "id": "R05",
+        "id": "RC05",
         "name": "Ceremonial Hall",
         "type": "hall",
         "connections": [
-          "R01",
-          "R06"
+          "RC01",
+          "RC06"
         ],
         "coordinates": "X1Y2"
       },
       {
-        "id": "R06",
+        "id": "RC06",
         "name": "Sanctum of Last Resort",
         "type": "chamber",
         "connections": [
-          "R05"
+          "RC05"
         ],
         "coordinates": "X0Y2"
       }
@@ -76,32 +76,32 @@
         "   ",
         "   ",
         "   ",
-        "R03"
+        "RC03"
       ],
       [
-        "R06",
-        "R05",
-        "R01",
-        "R02"
+        "RC06",
+        "RC05",
+        "RC01",
+        "RC02"
       ],
       [
         "   ",
         "   ",
         "   ",
-        "R04"
+        "RC04"
       ]
     ]
   },
   "locations": [
     {
-      "locationId": "R01",
+      "locationId": "RC01",
       "name": "Shattered Throne Chamber",
       "type": "throne room",
       "description": "A vast, echoing chamber with fractured obsidian arches rising over a shattered mosaic floor. Each tessera glints with a faint, pulsing violet gleam, and condensation weeps from the stone. The air is thick with ancient whispers, and a fractured throne of black stone sits atop a dais, its back etched with cryptic runes and scorched by wild magic. Crumbling statuary and tattered banners hint at the doomed city's lost grandeur.",
       "coordinates": "X2Y2",
       "connectivity": [
-        "R02",
-        "R05"
+        "RC02",
+        "RC05"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -188,15 +188,15 @@
       "adventureSummary": "The Throne Room is the psychic and magical heart of Calamyr's tragedy, offering both danger and vital information for those who dare engage with its guardian spirit."
     },
     {
-      "locationId": "R02",
+      "locationId": "RC02",
       "name": "Grand Gallery",
       "type": "hall",
       "description": "A grand, high-ceilinged gallery lined with obsidian columns. Shattered banners hang limply, their sigils nearly lost to mold and time. The air pulses with a faint, nauseating thrum, and footsteps echo with unnatural clarity. Fine cracks run up and down the walls, seeping faint violet light. The hall feels like it is waiting to be disturbed.",
       "coordinates": "X3Y2",
       "connectivity": [
-        "R01",
-        "R03",
-        "R04"
+        "RC01",
+        "RC03",
+        "RC04"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -283,13 +283,13 @@
       "adventureSummary": "A critical junction in the ruins, Hall R02 tests the party's ability to spot hidden opportunities and deal with magically animated threats."
     },
     {
-      "locationId": "R03",
+      "locationId": "RC03",
       "name": "Weeping Corridor",
       "type": "corridor",
       "description": "A narrow, dim corridor lined with cracked obsidian tiles and flickering sconces. The air is humid; water drips steadily from the ceiling, forming shallow puddles. Shallow grooves cut across the floor, and the ever-present whispers grow more insistent here.",
       "coordinates": "X3Y1",
       "connectivity": [
-        "R02"
+        "RC02"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -358,13 +358,13 @@
       "adventureSummary": "Corridor R03 serves as a tense, trap-laden passage where the party must balance caution and speed under spectral pressure."
     },
     {
-      "locationId": "R04",
+      "locationId": "RC04",
       "name": "Mosaic Corridor",
       "type": "corridor",
       "description": "A broad corridor with mosaic fragments embedded in the floor and walls. Faded tapestries drip from rusted hooks, their scenes distorted. The walls are veined with thin cracks, and the air is heavy with the scent of damp stone. Echoes seem to linger too long here, sometimes overlapping with words the party didn't speak.",
       "coordinates": "X3Y3",
       "connectivity": [
-        "R02"
+        "RC02"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -424,14 +424,14 @@
       "adventureSummary": "Corridor R04 encourages exploration and offers critical lore, but its ghostly guardian punishes disrespect or haste."
     },
     {
-      "locationId": "R05",
+      "locationId": "RC05",
       "name": "Ceremonial Hall",
       "type": "hall",
       "description": "A majestic hallway illuminated by crooked chandeliers that emit violet-tinted light. The walls are lined with faded banners showing Calamyr's lost heraldry. The floor is slick with condensation, and the air pulses with the memory of ancient ceremonies. The end of the hall bears a mural scorched by magical backlash.",
       "coordinates": "X1Y2",
       "connectivity": [
-        "R01",
-        "R06"
+        "RC01",
+        "RC06"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -507,13 +507,13 @@
       "adventureSummary": "Hall R05 is a ceremonial nexus, harboring a powerful guardian and secrets crucial to deeper exploration."
     },
     {
-      "locationId": "R06",
+      "locationId": "RC06",
       "name": "Sanctum of Last Resort",
       "type": "chamber",
       "description": "An ominous chamber lined with intricate wall engravings and decorated with grim relics. The floor is damp, and subtle magical runes trace the periphery. The air here is heavier, as if thick with regret. This chamber once served as a sanctum of last resort.",
       "coordinates": "X0Y2",
       "connectivity": [
-        "R05"
+        "RC05"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
