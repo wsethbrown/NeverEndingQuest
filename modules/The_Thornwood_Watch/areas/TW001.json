@@ -82,7 +82,7 @@
     {
       "locationId": "TW01",
       "name": "Ambush Site",
-      "type": "hall", 
+      "type": "hall",
       "description": "A blood-stained clearing where the aftermath of a bandit ambush tells its grim story. Overturned merchant wagons leak scattered goods among the brambles, while Wounded Scout Neris leans against a tree, binding hastily treated wounds. Drag marks in the soft earth lead deeper into the thorny maze, and the metallic scent of recent violence hangs heavy in the still air.",
       "coordinates": "X2Y2",
       "connectivity": [
@@ -329,7 +329,7 @@
       ],
       "monsters": [
         "2 Bandit Sentries (human bandits with crossbows)",
-        "3 Bandit Warriors (human bandits with scimitars and shields)", 
+        "3 Bandit Warriors (human bandits with scimitars and shields)",
         "1 Bandit Captain Gorvek (half-orc with supernatural backing)"
       ],
       "lootTable": [
@@ -341,7 +341,7 @@
       "plotHooks": [
         "Strange supplies suggest the bandits are backed by supernatural forces from the north",
         "Captured documents reveal plans for a major assault on the Rangers' Outpost",
-        "The corruption affecting Captain Gorvek hints at the larger threat in the Northern Woods", 
+        "The corruption affecting Captain Gorvek hints at the larger threat in the Northern Woods",
         "Evidence of communication with mysterious benefactors providing gold and equipment"
       ],
       "dmInstructions": "This is the climactic encounter for the Thornwood Wilds area. The bandits will fight defensively from their fortifications. Captain Gorvek's corruption connects to the Northern Corrupted Woods storyline. Consider having him flee toward the north if the battle goes poorly, leading the party toward the final area.",
