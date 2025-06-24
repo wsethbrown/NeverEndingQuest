@@ -695,3 +695,55 @@ COMMON STORAGE TRANSACTION ERRORS TO CATCH:
    - CALCULATE: (gold times 10) + silver + (copper divided by 10) must be greater than or equal to cost
 
 If currency math is wrong or sequence is incorrect, REJECT the response and explain the proper format with correct calculations.
+
+## NPC PARTY JOINING VALIDATION RULES
+
+When NPCs volunteer, are recruited, or are asked to join the party, the AI should evaluate whether the NPC would realistically agree and handle party composition updates appropriately:
+
+### Valid NPC Party Joining Scenarios:
+- Player explicitly asks for help: "Who can you spare?" "Can anyone help us?" "We need backup"
+- NPC volunteers in response: "I can spare Scout Kira" "Let me come with you"
+- Player accepts recruitment offers: "Yes, join us" "That would be helpful"
+- Mutual agreement to travel together for shared goals
+
+### Required Actions for NPC Party Joining:
+1. **CHARACTER DECISION**: AI should consider NPC's personality, role, and circumstances
+2. **ACCEPTANCE/DECLINE**: NPC should respond in character (agreeable/hesitant/unable)
+3. **PARTY TRACKER UPDATE**: If NPC agrees to join, use updateCharacterInfo to document the decision
+4. **ADDITIONAL UPDATE**: Consider whether party tracker needs updating for party composition
+
+### NPC Decision Factors:
+- **Personality**: Eager scouts vs cautious veterans vs duty-bound guards
+- **Authority**: Can the NPC leave their post? Do they need permission?
+- **Circumstances**: Is their current role more important than helping the party?
+- **Relationship**: How well does the NPC know/trust the party?
+
+### Validation Examples:
+
+**VALID - NPC Joins Appropriately:**
+Player asks: "Who can you spare to help with scouting?"
+NPC responds: "I can spare Scout Kira. She knows these trails well."
+AI uses updateCharacterInfo to document Kira's agreement and role change.
+
+**VALID - NPC Declines Appropriately:**
+Player asks: "Can the guard captain come with us?"
+NPC responds: "Captain Marcus cannot leave his post, but he can provide maps and supplies."
+No party composition changes made.
+
+**INVALID - Missing Party Management:**
+Player asks: "Anyone available to help?"
+NPC responds: "Scout Kira volunteers to join your mission."
+AI fails to use updateCharacterInfo or consider party tracker updates.
+
+**INVALID - Unrealistic Acceptance:**
+Player asks: "Can the commander join us?"
+NPC immediately agrees without considering their critical leadership role.
+
+### Common Validation Failures:
+- NPC volunteers but no character update actions taken
+- All NPCs unrealistically eager to abandon duties
+- No consideration of NPC personality or circumstances
+- Missing character development for recruitment interactions
+- Party composition changes without proper documentation
+
+The AI should make NPCs feel like real people with their own motivations, responsibilities, and decision-making processes when it comes to joining the party.

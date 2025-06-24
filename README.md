@@ -264,11 +264,15 @@ The AI analyzes area descriptions and themes to suggest natural narrative bridge
 - **Full Character Sheets**: NPCs become full party members with stats, equipment, and progression
 
 **Recruitment Examples:**
-- *"Mira, would you like to join us? We could use a skilled healer on our journey."*
-- *"Gareth, we're heading to dangerous lands. Your sword arm would be welcome."*
-- *"Sage Eldara, your knowledge of ancient magic could help us stop this threat."*
+- *"Who can you spare to help us?"* → Scout volunteers and AI evaluates if they can leave their duties
+- *"Mira, would you like to join us? We could use a skilled healer on our journey."* → AI considers her personality and current situation
+- *"Gareth, we're heading to dangerous lands. Your sword arm would be welcome."* → AI weighs his courage against his responsibilities
+- *"Can anyone help with this mission?"* → Multiple NPCs may volunteer, but only appropriate ones will actually join
 
 **NPC Party Features:**
+- **Smart Recruitment**: NPCs evaluate your requests based on their personality, duties, and relationship with you
+- **Realistic Responses**: Some NPCs may decline if they can't leave their post or don't trust you yet
+- **Natural Conversation**: Ask for help, and NPCs will respond in character - no special commands needed
 - **Combat Participation**: NPCs fight alongside you with full AI tactical decisions
 - **Skill Contributions**: NPCs use their unique abilities to solve problems and overcome challenges
 - **Story Integration**: Party NPCs contribute to roleplay and have their own character arcs
