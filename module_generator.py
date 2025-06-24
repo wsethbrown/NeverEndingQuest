@@ -557,8 +557,8 @@ If the field expects an object, return just the object.
         if module_name:
             # Post-generation cleanup and validation
             print("\nPerforming post-generation validation and cleanup...")
-            # Standardize location IDs
-            standardize_location_ids(module_name)
+            # Standardize location IDs (DISABLED - using prefix system instead)
+            # standardize_location_ids(module_name)
             
             # Validate module structure (skip for custom output directories)
             try:
@@ -951,26 +951,26 @@ If the field expects an object, return just the object.
         self.generate_unified_plot_file(module_data, areas, module_name)
         
         # Create party tracker file
-        party_tracker = {
-            "module": module_name,
-            "partyMembers": [],
-            "partyNPCs": [],
-            "worldConditions": {
-                "currentAreaId": areas[0] if areas else "",
-                "currentLocationId": "R01",  # Default to first room
-                "time": {
-                    "day": 1,
-                    "hour": 8,
-                    "minute": 0,
-                    "timeOfDay": "morning"
-                },
-                "weather": "clear",
-                "events": []
-            },
-            "notes": ""
-        }
-        
-        save_json_safely(party_tracker, f"{module_dir}/party_tracker.json")
+        # party_tracker = {
+        #     "module": module_name,
+        #     "partyMembers": [],
+        #     "partyNPCs": [],
+        #     "worldConditions": {
+        #         "currentAreaId": areas[0] if areas else "",
+        #         "currentLocationId": "R01",  # Default to first room
+        #         "time": {
+        #             "day": 1,
+        #             "hour": 8,
+        #             "minute": 0,
+        #             "timeOfDay": "morning"
+        #         },
+        #         "weather": "clear",
+        #         "events": []
+        #     },
+        #     "notes": ""
+        # }
+        # 
+        # save_json_safely(party_tracker, f"{module_dir}/party_tracker.json")
         
         # Run module debugger for validation
         from module_debugger import ModuleDebugger
