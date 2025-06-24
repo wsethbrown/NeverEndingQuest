@@ -157,9 +157,10 @@ def reset_global_state():
         print("  ✓ Removed party_tracker.json (will be created fresh)")
     
     # Delete campaign.json - let game create fresh one
-    if os.path.exists("campaign.json"):
-        os.remove("campaign.json")
-        print("  ✓ Removed campaign.json (will be created fresh)")
+    campaign_file = os.path.join("modules", "campaign.json")
+    if os.path.exists(campaign_file):
+        os.remove(campaign_file)
+        print("  ✓ Removed modules/campaign.json (will be created fresh)")
     
     # Delete world_registry.json - let module stitcher create fresh one
     world_registry_file = os.path.join("modules", "world_registry.json")
