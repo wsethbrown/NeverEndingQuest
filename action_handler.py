@@ -1144,11 +1144,24 @@ def move_background_npc(npc_name, context, current_location_hint=None, party_tra
 def find_npc_in_areas(npc_name, path_manager, location_hint=None):
     """Find an NPC in area files, returning (area_file, location_id, npc_data)"""
     import glob
+    import os
     from file_operations import safe_read_json
     
-    # Get all area files in the module
+    # Get all area files in the module, excluding backup files
     area_pattern = f"{path_manager.module_dir}/areas/*.json"
-    area_files = glob.glob(area_pattern)
+    all_files = glob.glob(area_pattern)
+    
+    # Filter out backup files (_BU.json) and backup copies (.backup_*)
+    area_files = []
+    for file_path in all_files:
+        filename = os.path.basename(file_path)
+        # Skip backup files
+        if filename.endswith('_BU.json') or '.backup_' in filename:
+            print(f"DEBUG: Skipping backup file: {filename}")
+            continue
+        area_files.append(file_path)
+    
+    print(f"DEBUG: Searching {len(area_files)} active area files (excluded {len(all_files) - len(area_files)} backup files)")
     
     for area_file in area_files:
         try:
