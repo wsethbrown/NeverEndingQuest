@@ -2700,7 +2700,7 @@
                     let usageClass = '';
                     
                     // Add usage tracking if available
-                    if (feature.usage && feature.usage.current !== undefined && feature.usage.max !== undefined) {
+                    if (feature.usage && feature.usage.current !== undefined && feature.usage.max !== undefined && feature.usage.max > 0) {
                         usageDisplay = ` <span class="usage-counter ${feature.usage.current === 0 ? 'exhausted' : ''}">${feature.usage.current}/${feature.usage.max}</span>`;
                         if (feature.usage.refreshOn) {
                             refreshDisplay = ` <span class="feature-refresh">(${feature.usage.refreshOn})</span>`;
@@ -3176,7 +3176,7 @@
                         const desc = feature.description || '';
                         let usageDisplay = '';
                         
-                        if (feature.usage && feature.usage.current !== undefined && feature.usage.max !== undefined) {
+                        if (feature.usage && feature.usage.current !== undefined && feature.usage.max !== undefined && feature.usage.max > 0) {
                             usageDisplay = ` <span class="usage-counter ${feature.usage.current === 0 ? 'exhausted' : ''}">${feature.usage.current}/${feature.usage.max}</span>`;
                         }
                         
