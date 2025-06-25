@@ -254,6 +254,21 @@
           "name": "Trader Sila",
           "description": "A wary woman in a patched green cloak who stands watch by a locked chest. Though guarded, she shows a cautious hope and trust towards the party after their assistance. She coordinates the merchant community and warns others to stay vigilant after dark.",
           "attitude": "Guarded but appreciative, cautiously hopeful and eager to spread warnings among the merchants."
+        },
+        {
+          "name": "Merchant Gareth",
+          "description": "A portly human trader who specializes in general goods and basic supplies. His wagon is currently being repaired after damage from a recent bandit encounter, and he's frustrated by the delays to his trading schedule.",
+          "attitude": "Worried and impatient, constantly checking on his damaged wagon and eager to discuss the deteriorating safety of the trade routes."
+        },
+        {
+          "name": "Trader Mila",
+          "description": "An exotic goods merchant with items from distant lands, Mila has been stranded at the outpost longer than expected. She deals in rare spices, unusual trinkets, and has heard disturbing rumors about supernatural corruption.",
+          "attitude": "Mysterious but helpful, willing to trade information about strange occurrences for protection or safe passage to her next destination."
+        },
+        {
+          "name": "Caravan Guard Bex",
+          "description": "A retired soldier turned caravan guard who now helps coordinate security for merchant groups. Her experience shows in her alert posture and the practical arrangement of her weapons and armor.",
+          "attitude": "Professional and direct, focused on practical security matters and always assessing potential threats to merchant caravans."
         }
       ],
       "monsters": [],
