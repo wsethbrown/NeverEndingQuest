@@ -376,7 +376,15 @@
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [],
-      "monsters": [],
+      "monsters": [
+        {
+          "name": "Wolf",
+          "quantity": {
+            "min": 2,
+            "max": 2
+          }
+        }
+      ],
       "lootTable": [
         "Crow's Hand supply cache with sabotage tools",
         "Coded correspondence revealing next targets",
