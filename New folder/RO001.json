@@ -1,0 +1,426 @@
+{
+  "areaId": "RO001",
+  "areaName": "Rangers\u2019 Outpost",
+  "areaType": "wilderness",
+  "areaDescription": "Weathered timber walkways crisscross a clearing dappled with honeyed sun, where the spicy tang of pine sap mingles with the low murmur of watchful voices. Quivers bristle on hooks beside mossy tents, and blue-jays flit unbothered along ropes strung with tiny silver bells\u2014quiet signals for those who listen more than they speak.",
+  "dangerLevel": "low",
+  "recommendedLevel": 1,
+  "climate": "arctic",
+  "terrain": "coast",
+  "map": {
+    "mapId": "MAP_5",
+    "mapName": "Wilderness Map",
+    "totalRooms": 5,
+    "rooms": [
+      {
+        "id": "R01",
+        "type": "crossroads",
+        "connections": [
+          "R02",
+          "R03",
+          "R04"
+        ],
+        "coordinates": "X2Y2",
+        "name": "Forked Trails Crossing"
+      },
+      {
+        "id": "R02",
+        "type": "riverside",
+        "connections": [
+          "R01"
+        ],
+        "coordinates": "X2Y3",
+        "name": "Moonlit Waters Edge"
+      },
+      {
+        "id": "R03",
+        "type": "ruins",
+        "connections": [
+          "R01",
+          "R05"
+        ],
+        "coordinates": "X1Y2",
+        "name": "Shattered Sentinel Stones"
+      },
+      {
+        "id": "R04",
+        "type": "riverside",
+        "connections": [
+          "R01"
+        ],
+        "coordinates": "X3Y2",
+        "name": "Mistshadow Ford"
+      },
+      {
+        "id": "R05",
+        "type": "cave",
+        "connections": [
+          "R03"
+        ],
+        "coordinates": "X1Y1",
+        "name": "Feral Hollow"
+      }
+    ],
+    "layout": [
+      [
+        "R05",
+        "   ",
+        "   "
+      ],
+      [
+        "R03",
+        "R01",
+        "R04"
+      ],
+      [
+        "   ",
+        "R02",
+        "   "
+      ]
+    ]
+  },
+  "locations": [
+    {
+      "locationId": "R01",
+      "name": "Forked Trails Crossing",
+      "type": "crossroads",
+      "description": "Where three packed-earth paths meet amid a sun-dappled clearing, timber walkways and low log rails define a hub of activity. Moss and needles gather in the cracks, while silver bells hang on tensioned ropes above, their faint chimes alerting rangers to unusual movement. A weathered signpost points the way to outpost landmarks.",
+      "coordinates": "X2Y2",
+      "connectivity": [
+        "R02",
+        "R03",
+        "R04"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Ranger Elen",
+          "description": "A sharp-eyed half-elf clad in forest-green leathers, Elen commands the outpost with a quiet authority. She is constantly alert, her gaze flickering between the trails as she listens for reports.",
+          "attitude": "Wary, respectful to newcomers who prove themselves, expects discipline."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Hand-drawn map of the Thornwood Wilds (shows marked bandit routes)",
+        "Set of silver signal bells (worth 10 gp)",
+        "Weathered ranger\u2019s badge (proof of affiliation, grants advantage on diplomacy with rangers)"
+      ],
+      "plotHooks": [
+        "Ranger Elen quietly seeks proven help to investigate strange lights at the edge of the woods.",
+        "A recent surge in bandit activity has left the rangers stretched thin\u2014Elen may offer guidance or missions to newcomers.",
+        "A set of faint footprints veers off toward the Shattered Sentinel Stones, hinting at a missing scout."
+      ],
+      "dmInstructions": "Forked Trails Crossing is the social center of the outpost. Use this as a staging area for mission briefings, introductions to faction politics, or rumors. If the party requests supplies or assistance, direct them to Quartermaster Brann.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Insight DC 11: Notice the tension in Elen\u2019s posture as she discusses recent threats.",
+        "Perception DC 13: Spot faint, muddy boot prints leading off toward the ruins.",
+        "Survival DC 10: Recognize marks of recent hurried movement in the underbrush."
+      ],
+      "accessibility": "Easily accessible by all main trails; open terrain with minimal obstacles.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Interesting Architecture",
+          "description": "Raised timber walkways and log benches fashioned from felled pines, all built to blend seamlessly with the forest edge."
+        },
+        {
+          "name": "Dust",
+          "description": "Fine, dry pine needles and dust coat the crossroads, stirred by every passing boot."
+        },
+        {
+          "name": "Signal Bells",
+          "description": "Ropes strung with silver bells above the paths; their silent patterns are a ranger\u2019s code."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": "The party meets Ranger Elen, receives their first mission options, and can gather rumors or clues about recent disturbances."
+    },
+    {
+      "locationId": "R02",
+      "name": "Moonlit Waters Edge",
+      "type": "riverside",
+      "description": "A gentle bend in the river shimmers even by day, the water clear and cold beneath tangled willows. Smooth stones line the bank, and an old wooden dock juts into the current. The air is cool, carrying the scent of water mint and distant rain.",
+      "coordinates": "X2Y3",
+      "connectivity": [
+        "R01"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Quartermaster Brann",
+          "description": "A broad-shouldered dwarf with a salt-and-pepper beard and a booming voice, Brann manages supplies and keeps the outpost\u2019s armaments in meticulous order. He\u2019s quick to laugh, but not quick to trust.",
+          "attitude": "Gruff but fair; warms up to those who help maintain order or bring useful goods."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Bundle of arrows (20) and two hunting traps",
+        "Herbal poultice (restores 1d4+1 hp)",
+        "Worn waterproof cloak (resists rain and minor river spray)",
+        "Locked supply box (contains 15 gp, lock DC 15)"
+      ],
+      "plotHooks": [
+        "Quartermaster Brann needs someone to retrieve a shipment lost in the river during a recent storm.",
+        "The bank shows signs of recent animal tracks\u2014possibly linked to the corrupted woodland creatures.",
+        "Brann offers a reward for rare herbs growing further upstream, hinting at a safe side quest."
+      ],
+      "dmInstructions": "Use Brann to facilitate bartering, resource management, and gear upgrades. Players seeking to purchase or requisition basic equipment can do so here. If they examine the riverbank, foreshadow corrupted wildlife or lost supplies.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Perception DC 12: Notice a partially submerged crate snagged on river rocks.",
+        "Survival DC 11: Identify recent animal prints as belonging to a large, sickly stag.",
+        "Sleight of Hand DC 15: Pick the lock on the supply box without Brann noticing."
+      ],
+      "accessibility": "Accessible by trail and dock; the riverbank is slippery but manageable for most.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Dust",
+          "description": "Fine silt and river-sand mix with fresh footprints along the water\u2019s edge."
+        },
+        {
+          "name": "Interesting Architecture",
+          "description": "A sturdy riverside dock with hand-carved mooring posts and an attached storage shed."
+        },
+        {
+          "name": "Signs Of Age",
+          "description": "Weathered wood and mossy stones show years of use and the river\u2019s gentle erosion."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": "Players can trade with Brann, gather supplies, and spot clues about disturbances along the river or to the north."
+    },
+    {
+      "locationId": "R03",
+      "name": "Shattered Sentinel Stones",
+      "type": "ruins",
+      "description": "Low stone pillars, some toppled and others cracked by time, form a broken ring in a clearing encroached by brambles. Faded glyphs barely mark their surfaces. A faint sense of old magic lingers, and the ground is churned as if by desperate feet.",
+      "coordinates": "X1Y2",
+      "connectivity": [
+        "R01",
+        "R05"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Trader Sila",
+          "description": "A wiry human with a knack for acquiring hard-to-find goods. Sila sets up her makeshift shop among the stones, always alert for danger and opportunity.",
+          "attitude": "Cautiously friendly; values information and unusual items."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Pouch of semi-precious stones (worth 25 gp)",
+        "Ancient talisman (offers advantage on one saving throw against fear, single use)",
+        "Bundle of rare herbs (can be traded with Brann or used in healing)"
+      ],
+      "plotHooks": [
+        "Sila seeks help investigating strange markings newly carved into one of the stones.",
+        "A hidden compartment in a fallen pillar may hold clues to the outpost\u2019s history.",
+        "Trader Sila is willing to trade for artifacts found in Feral Hollow but warns of 'unnatural sounds' from within."
+      ],
+      "dmInstructions": "Use Sila to provide rumors, barter rare goods, and initiate quests for esoteric items. If the party investigates the stones, allow Arcana or History checks to reveal their old protective function.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 12: Find a loose stone concealing an old parchment (map fragment).",
+        "Arcana DC 13: Sense lingering protective wards, now mostly dissipated.",
+        "History DC 10: Recall that these stones once served as a warning against supernatural threats."
+      ],
+      "accessibility": "Easily approached via trail, though brambles may slow movement.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Interesting Architecture",
+          "description": "Moss-covered standing stones marked with ancient glyphs."
+        },
+        {
+          "name": "Signs Of Age",
+          "description": "Deep cracks and weathered inscriptions speak to centuries of exposure."
+        },
+        {
+          "name": "Dust",
+          "description": "A fine layer of earth and moss coats the old stones, disturbed by recent activity."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": "Players can trade or interact with Sila, discover clues to the area\u2019s magical past, and set up further quests involving the ruins."
+    },
+    {
+      "locationId": "R04",
+      "name": "Mistshadow Ford",
+      "type": "riverside",
+      "description": "A shallow, stony crossing veiled in morning mist. The river widens here, and stepping stones break the water\u2019s surface. A rope hand-line is strung between two leaning willows, and the air is thick with the scent of wet earth.",
+      "coordinates": "X3Y2",
+      "connectivity": [
+        "R01"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Scout Neris",
+          "description": "A quick-footed wood elf with a wary expression and a limp from a recent patrol. Neris keeps watch here for signs of bandits and is keenly attuned to the subtle changes in the forest\u2019s mood.",
+          "attitude": "Guarded but grateful for help; eager to share information with those who prove trustworthy."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Shortbow with intricate leafwork",
+        "Waterskin of filtered river water",
+        "Minor healing salve (restores 1d4 hp)"
+      ],
+      "plotHooks": [
+        "Neris describes seeing a ghostly hart on the far bank at midnight.",
+        "Unusual tracks cross the ford, leading deeper into the woods\u2014possibly bandits or corrupted wildlife.",
+        "If the party aids Neris, she\u2019ll offer information about a hidden trail to Feral Hollow."
+      ],
+      "dmInstructions": "Mistshadow Ford is a good place for the party to intercept rumors or wildlife. If they spend time here at night, hint at supernatural phenomena or foreshadow The Withered Hart.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Perception DC 11: Spot faint silver fur snagged on a branch.",
+        "Survival DC 12: Identify overlapping sets of tracks\u2014deer, bandit, and something unidentifiable.",
+        "Stealth DC 10: Cross the ford without alerting local wildlife."
+      ],
+      "accessibility": "Open, but the slick stepping stones may challenge those with poor balance.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Signs Of Age",
+          "description": "Smoothed stones and worn ropes indicate years of careful use."
+        },
+        {
+          "name": "Interesting Architecture",
+          "description": "The rope hand-line and carefully placed stepping stones, set by generations of rangers."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": "Players meet Scout Neris, learn about recent supernatural sightings, and can follow tracks that lead toward future dangers."
+    },
+    {
+      "locationId": "R05",
+      "name": "Feral Hollow",
+      "type": "cave",
+      "description": "A low, jagged cave mouth gapes at the base of a mossy bluff, shadowed by the roots of a massive pine. Inside, the air is cool and damp, echoing faintly with the drip of distant water. Stalactites hang from the ceiling, and the ground is scuffed by claw marks.",
+      "coordinates": "X1Y1",
+      "connectivity": [
+        "R03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Captured Bandit Leader Rusk",
+          "description": "A burly human with a haunted look, bound and watched by ranger guards. Rusk is wounded but defiant, his eyes darting toward the dark reaches of the cave.",
+          "attitude": "Sullen and untrusting, but may bargain for freedom or offer valuable intelligence under pressure."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Heavy iron manacles (locked)",
+        "Small pouch of mixed coins (8 gp, 14 sp)",
+        "Scrap of parchment with a coded message (can be deciphered in town)"
+      ],
+      "plotHooks": [
+        "Rusk hints at a hidden cache of supplies elsewhere in the Thornwood Wilds, offering directions in exchange for leniency.",
+        "Whispers in the cave suggest it may be a den for corrupted woodland creatures at night.",
+        "A faint trail of blood leads deeper into an unexplored section of the cave."
+      ],
+      "dmInstructions": "Use this cave as a transition point to more dangerous wilds or as an interrogation site for Rusk. The party may also find leads to supernatural events or bandit schemes.",
+      "doors": [
+        {
+          "name": "Iron Gate",
+          "description": "A heavy, rusted gate barring a side alcove where Rusk is held.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 14,
+          "breakDC": 16,
+          "keyname": "Quartermaster Brann\u2019s key",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Perception DC 13: Hear faint scratching sounds from deeper in the cave.",
+        "Investigation DC 12: Find a hidden message scratched on a stalactite by a previous prisoner.",
+        "Intimidation DC 11: Coerce Rusk into revealing details of the bandits\u2019 plans."
+      ],
+      "accessibility": "Narrow entrance with uneven footing; accessible but treacherous for the unwary.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Stalactites",
+          "description": "Jagged mineral formations drip with condensation, some etched with crude marks."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": "The party can confront or interrogate Rusk, discover clues to larger plots, and prepare to explore the wider Thornwood Wilds."
+    }
+  ],
+  "randomEncounters": [
+    {
+      "roll": "1-10",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "11-20",
+      "encounter": "lost traveler",
+      "description": "A lost traveler appropriate for level 1 parties"
+    },
+    {
+      "roll": "21-30",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "31-40",
+      "encounter": "lost traveler",
+      "description": "A lost traveler appropriate for level 1 parties"
+    },
+    {
+      "roll": "41-50",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "51-60",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "61-70",
+      "encounter": "lost traveler",
+      "description": "A lost traveler appropriate for level 1 parties"
+    },
+    {
+      "roll": "71-80",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "81-90",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "91-100",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    }
+  ],
+  "areaFeatures": [
+    "water sources",
+    "rock formations",
+    "animal dens"
+  ],
+  "notes": "Weather and terrain should affect travel times. Random encounters keep exploration tense."
+}

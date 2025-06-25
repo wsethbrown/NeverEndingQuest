@@ -1,0 +1,610 @@
+{
+  "areaId": "WR001",
+  "areaName": "Whispering Riverbanks",
+  "areaType": "dungeon",
+  "areaDescription": "Water drips from stalactites into milky, sluggish currents winding between tangled roots and moss-choked stones, each splash echoing with the faintest impression of voices that never quite resolve into words. Lantern-light flickers over faded ritual markings along the muddy banks, while the air pulses with a damp, uneasy hush, as if the river itself is holding its breath, waiting for secrets best left unearthed.",
+  "dangerLevel": "medium",
+  "recommendedLevel": 7,
+  "climate": "controlled - cool and damp",
+  "terrain": "stone corridors and chambers",
+  "map": {
+    "mapId": "MAP_6",
+    "mapName": "Dungeon Map",
+    "totalRooms": 6,
+    "rooms": [
+      {
+        "id": "WR01",
+        "name": "Shrine of Sibilant Currents",
+        "type": "shrine",
+        "connections": [
+          "WR02",
+          "WR03"
+        ],
+        "coordinates": "X2Y2"
+      },
+      {
+        "id": "WR02",
+        "name": "Preserved Vault of Remembrance",
+        "type": "vault",
+        "connections": [
+          "WR01",
+          "WR04"
+        ],
+        "coordinates": "X2Y3"
+      },
+      {
+        "id": "WR03",
+        "name": "Watcher\u2019s Hearth Chamber",
+        "type": "chamber",
+        "connections": [
+          "WR01",
+          "WR05"
+        ],
+        "coordinates": "X1Y2"
+      },
+      {
+        "id": "WR04",
+        "name": "Vein-Touched Laboratory",
+        "type": "laboratory",
+        "connections": [
+          "WR02",
+          "WR06"
+        ],
+        "coordinates": "X2Y4"
+      },
+      {
+        "id": "WR05",
+        "name": "Echoing Root Corridor",
+        "type": "corridor",
+        "connections": [
+          "WR03"
+        ],
+        "coordinates": "X1Y1"
+      },
+      {
+        "id": "WR06",
+        "name": "Chamber of Lingering Regret",
+        "type": "chamber",
+        "connections": [
+          "WR04"
+        ],
+        "coordinates": "X1Y4"
+      }
+    ],
+    "layout": [
+      [
+        "WR05",
+        "   "
+      ],
+      [
+        "WR03",
+        "WR01"
+      ],
+      [
+        "   ",
+        "WR02"
+      ],
+      [
+        "WR06",
+        "WR04"
+      ]
+    ]
+  },
+  "locations": [
+    {
+      "locationId": "WR01",
+      "name": "Shrine of Sibilant Currents",
+      "type": "shrine",
+      "description": "Once a place of river worship, this small shrine nestles against a mossy bend where the river\u2019s voice seems to whisper from every stone. Water runs in thin rills over faded ritual markings in the mud, pooling around ancient prayer mats. The air is thick with the hush of unspoken secrets and the faint, chilling sense that something listens from beneath the river\u2019s surface.",
+      "coordinates": "X2Y2",
+      "connectivity": [
+        "WR02",
+        "WR03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Sister Amara",
+          "description": "A river priestess, determined but weary, wrapped in sodden robes marked with river glyphs. She maintains the shrine but is haunted by recent failings.",
+          "attitude": "Wary but willing to aid those who respect the old rites."
+        },
+        {
+          "name": "Apprentice Tam",
+          "description": "A young acolyte who helps Sister Amara with daily shrine tasks. He sweeps the stone floors, lights prayer candles, and maintains the ritual implements with careful attention to detail.",
+          "attitude": "Eager to help with small tasks and respectful of shrine traditions, though sometimes nervous around strangers."
+        },
+        {
+          "name": "Pilgrim Vera",
+          "description": "A devout visitor who prays quietly at the shrine before continuing her journey. She carries a worn prayer book and simple offerings of river stones and dried flowers.",
+          "attitude": "Peaceful and contemplative, focused on her prayers but polite to other shrine visitors."
+        },
+        {
+          "name": "Herbalist Jorik",
+          "description": "A local plant gatherer who dries medicinal herbs near the shrine's entrance. He knows which plants grow safely along the riverbank and sells basic healing poultices to travelers.",
+          "attitude": "Knowledgeable about local flora, willing to trade herbs and remedies for fair payment."
+        },
+        {
+          "name": "Merchant Aldric",
+          "description": "A weary trader who rests at the shrine while traveling between settlements. He counts his remaining coin and checks his cargo manifest, calculating profits from his journey.",
+          "attitude": "Tired from travel, focused on his business but grateful for a peaceful place to rest and plan his route."
+        },
+        {
+          "name": "Local Fisher Kira",
+          "description": "A woman who brings her daily catch to clean by the shrine's fresh water source. She knows which fish are safe to eat from different parts of the river system.",
+          "attitude": "Practical and hardworking, friendly to those who appreciate fresh fish and local knowledge about the waterways."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "River Wraith",
+          "description": "A spectral remnant of a once-faithful devotee, now bound to the waters and driven by sorrow.",
+          "count": 1
+        }
+      ],
+      "lootTable": [
+        "Amulet of River\u2019s Grace (grants advantage on saves vs. being frightened by spirits)",
+        "Bundle of Purification Herbs",
+        "Silver Vein Ritual Scroll"
+      ],
+      "plotHooks": [
+        "Sister Amara beseeches the party to recover a lost relic stolen into the vault.",
+        "A recent surge in spectral activity threatens to overrun the shrine if the river\u2019s curse isn\u2019t addressed."
+      ],
+      "dmInstructions": "Sister Amara knows lore about Queen Seralyth and the river\u2019s curse. The River Wraith manifests if the shrine is disturbed or the correct rites are not performed. Adjust the encounter for two 7th-level characters.",
+      "doors": [
+        {
+          "name": "Ancient Stone Door",
+          "description": "A heavy, river-stained stone slab carved with faded glyphs.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 16,
+          "breakDC": 18,
+          "keyname": "Silver Vein Ritual Scroll",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [
+        {
+          "name": "Simple Pressure Plate",
+          "description": "A hidden pressure plate beneath the central prayer mat; stepping on it triggers spikes from the floor.",
+          "detectDC": 13,
+          "disableDC": 15,
+          "triggerDC": 12,
+          "damage": "1d6 piercing damage from hidden spikes"
+        }
+      ],
+      "dcChecks": [
+        "Religion DC 15: Identify the purpose of the ritual markings.",
+        "Insight DC 14: Notice Sister Amara's anxiety and reluctance to discuss the vault."
+      ],
+      "accessibility": "Easily accessed from the river edge, but the faint whispering and cold air act as a psychological barrier.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Religious Symbols",
+          "description": "Carved and painted glyphs of river spirits and forgotten gods, some stained black by time."
+        },
+        {
+          "name": "Prayer Mats",
+          "description": "Tattered mats, still damp, arranged facing the river, each embroidered with warding sigils."
+        }
+      ],
+      "encounters": [
+        "Sister Amara beseeches aid or warns the party, possibly offering the Ritual Scroll in exchange for help.",
+        "Disturbance of the shrine or failed rites triggers the River Wraith."
+      ],
+      "adventureSummary": "A place of spiritual importance and the first glimpse of the river's curse; offers lore, a key item, and potential combat."
+    },
+    {
+      "locationId": "WR02",
+      "name": "Preserved Vault of Remembrance",
+      "type": "vault",
+      "description": "Behind a sealed door, this chamber is lined with clay urns and silver filigree caskets. The walls shimmer faintly with preservation magic, preventing rot and dust. The air is unnaturally still; a hush interrupted only by the distant, persistent drip of water. Intricate sigils on the floor glow when approached, revealing lingering memories.",
+      "coordinates": "X2Y3",
+      "connectivity": [
+        "WR01",
+        "WR04"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Animated Silver Urns",
+          "description": "Defensive constructs infused with old magic, shaped like urns on slender legs.",
+          "count": 2
+        }
+      ],
+      "lootTable": [
+        "Silver Vein Relic (key to progress in the dungeon)",
+        "Potion of Necrotic Resistance",
+        "Gilded Memory Locket (holds a vision of the past)"
+      ],
+      "plotHooks": [
+        "Memories glimpsed in the sigils hint at the fate of Queen Seralyth and the river's curse.",
+        "Defeating the urn constructs triggers a cryptic vision of the river's last great ritual."
+      ],
+      "dmInstructions": "The Silver Vein Relic is required to open the laboratory. Animated Silver Urns attack intruders unless a specific rite (discoverable in R01) is performed. Sigils can be deciphered with Arcana checks for more story clues.",
+      "doors": [
+        {
+          "name": "Sealed Vault Door",
+          "description": "A thick, rune-etched bronze door humming with preservation magic.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 17,
+          "breakDC": 21,
+          "keyname": "Amulet of River\u2019s Grace or Silver Vein Ritual Scroll",
+          "trapped": true,
+          "trap": "Touching the runes without the correct key inflicts 2d6 necrotic damage."
+        }
+      ],
+      "traps": [
+        {
+          "name": "Rune Ward",
+          "description": "Magical runes flare if the vault is opened improperly.",
+          "detectDC": 15,
+          "disableDC": 17,
+          "triggerDC": 14,
+          "damage": "2d6 necrotic damage"
+        },
+        {
+          "name": "Simple Pressure Plate",
+          "description": "A secondary trap beneath the main path.",
+          "detectDC": 13,
+          "disableDC": 15,
+          "triggerDC": 12,
+          "damage": "1d6 piercing damage from hidden spikes"
+        }
+      ],
+      "dcChecks": [
+        "Arcana DC 15: Understand the preservation magic and how to safely bypass it.",
+        "Perception DC 15: Spot the trigger for the rune ward trap."
+      ],
+      "accessibility": "Locked and magically warded; requires a key item or careful skill checks.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Preservation Magic",
+          "description": "Soft blue light shimmers along the walls and caskets, keeping all within untouched by time."
+        }
+      ],
+      "encounters": [
+        "Animated Silver Urns defend the relic and caskets unless appeased by ritual.",
+        "Visions from the sigils provide cryptic lore."
+      ],
+      "adventureSummary": "A puzzle and combat room holding a key item and lore clues; magical defenses deter the unprepared."
+    },
+    {
+      "locationId": "WR03",
+      "name": "Watcher\u2019s Hearth Chamber",
+      "type": "chamber",
+      "description": "This low-ceilinged chamber smells faintly of smoke and damp wood. Discarded, sodden furniture crowds the walls, their legs deep in mud. An ancient fireplace is choked with cold, ashy water, and a thin mist curls from its hearth. Shadows flicker in the corners, occasionally forming faces that vanish when properly observed.",
+      "coordinates": "X1Y2",
+      "connectivity": [
+        "WR01",
+        "WR05"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Dren of the Blue Flame",
+          "description": "A mysterious wanderer wrapped in a cloak that seems to flicker with blue embers. Dren tends the cold hearth and speaks in riddles about the river\u2019s memory.",
+          "attitude": "Evasive but intrigued by those who listen to the river\u2019s stories."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Spectral Watchers",
+          "description": "Glassy-eyed ghosts who silently observe and react to intrusions or loud noises.",
+          "count": 2
+        }
+      ],
+      "lootTable": [
+        "River-etched Locket (contains a clue to the laboratory)",
+        "Pouch of Emberseed (can ignite even wet wood)",
+        "Rusty Key (opens a chest in R06)"
+      ],
+      "plotHooks": [
+        "Dren offers cryptic guidance and may trade information for tales or a show of respect.",
+        "The Spectral Watchers can be appeased or angered, affecting the party's future encounters in the dungeon."
+      ],
+      "dmInstructions": "Dren provides hints about hidden traps, the location of Queen Seralyth, and the history of the river. If the party antagonizes the spirits or Dren, the Spectral Watchers attack. Dren flees if threatened.",
+      "doors": [
+        {
+          "name": "Decayed Wooden Door",
+          "description": "A swollen, rotten door barely held on its hinges.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 8,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Insight DC 13: Sense Dren\u2019s true intentions.",
+        "Perception DC 14: Notice a hidden cache beneath a loose floorboard."
+      ],
+      "accessibility": "Open from the main corridor, though partially blocked by debris.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Furniture",
+          "description": "Waterlogged chairs and tables, some with ancient carvings of river scenes."
+        },
+        {
+          "name": "Fireplace",
+          "description": "A large hearth filled with damp ashes and faint blue mist."
+        }
+      ],
+      "encounters": [
+        "Dren offers riddles or information in exchange for an interesting story or river token.",
+        "Spectral Watchers emerge if the chamber is disturbed."
+      ],
+      "adventureSummary": "A roleplay and exploration room; Dren is a source of lore and hints, while the spirits create potential danger."
+    },
+    {
+      "locationId": "WR04",
+      "name": "Vein-Touched Laboratory",
+      "type": "laboratory",
+      "description": "The walls of this long, cluttered laboratory pulse with faint blue veins that seem almost alive. Alchemical equipment sits atop warped workbenches, and scorched notes are scattered across the floor. A single lantern casts shadows that swirl and writhe, as if the room itself is restless.",
+      "coordinates": "X2Y4",
+      "connectivity": [
+        "WR02",
+        "WR06"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Professor Halvane",
+          "description": "A driven, sharp-eyed scholar garbed in practical expedition gear. Halvane searches for proof of the Silver Vein\u2019s magical potential and regards intruders as rivals or possible allies.",
+          "attitude": "Competitive and suspicious, but open to negotiation if the party seems knowledgeable."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Alchemical Husk",
+          "description": "A warped creature formed from failed experiments, leaking glowing river fluid.",
+          "count": 1
+        }
+      ],
+      "lootTable": [
+        "Vial of Silver Vein Essence",
+        "Professor\u2019s Research Notes (detail Queen Seralyth\u2019s final ritual)",
+        "Unstable Potion (random effect)"
+      ],
+      "plotHooks": [
+        "Halvane offers a risky alliance or challenges the party for knowledge or resources.",
+        "The Professor\u2019s notes include a ritual necessary to confront Queen Seralyth."
+      ],
+      "dmInstructions": "Halvane may bargain, demand, or fight depending on the party\u2019s approach. Destroying the Husk risks damaging the research notes. The Vial of Essence is valuable for the final confrontation.",
+      "doors": [
+        {
+          "name": "Reinforced Iron Door",
+          "description": "A sturdy iron door with an inset sigil lock and scorch marks.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 18,
+          "breakDC": 20,
+          "keyname": "Silver Vein Relic",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Arcana DC 16: Understand the purpose of the lab\u2019s experiments.",
+        "Investigation DC 15: Find hidden compartments in the workbenches."
+      ],
+      "accessibility": "Requires the Silver Vein Relic to open the door from the vault.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Alchemical Equipment",
+          "description": "Vats, retorts, and beakers stained with iridescent residue."
+        },
+        {
+          "name": "Experiment Notes",
+          "description": "Scorched papers describing attempts to purify the river\u2019s curse."
+        },
+        {
+          "name": "Workbenches",
+          "description": "Warped and scorched, bearing the marks of failed experiments."
+        }
+      ],
+      "encounters": [
+        "A tense negotiation or confrontation with Professor Halvane.",
+        "The Alchemical Husk attacks if disturbed or if Halvane is threatened."
+      ],
+      "adventureSummary": "A laboratory of magical research; offers roleplay, a monster, key magic items, and vital story progression."
+    },
+    {
+      "locationId": "WR05",
+      "name": "Echoing Root Corridor",
+      "type": "corridor",
+      "description": "A narrow, winding corridor overhung with tangled roots and faded tapestries. Water trickles along the floor, carrying whispers that seem to echo the party\u2019s words back in unfamiliar voices. Sconces gutter with blue-green flame, casting long shadows that dance eerily on the walls.",
+      "coordinates": "X1Y1",
+      "connectivity": [
+        "WR03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Rootling Swarm",
+          "description": "A mass of twitching, animate roots with a communal, alien mind. They lash at anything moving too quickly through the corridor.",
+          "count": 1
+        }
+      ],
+      "lootTable": [
+        "Silvered Dagger",
+        "Small Sapphire (25 gp)",
+        "Whispering Tapestry Fragment (shows a symbol matching that in R06)"
+      ],
+      "plotHooks": [
+        "The tapestry\u2019s symbol is a clue to a puzzle in the final chamber.",
+        "The echoes sometimes repeat words in a language the party doesn\u2019t know, hinting at the river\u2019s ancient secrets."
+      ],
+      "dmInstructions": "Running or loud noises draw the Rootling Swarm. Searching the corridor yields the tapestry fragment. The echoes become more coherent as the party approaches R06.",
+      "doors": [
+        {
+          "name": "Root-bound Archway",
+          "description": "A crude arch formed by thick, entwined roots. Some roots writhe as if alive.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 15,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Nature DC 13: Identify the roots as unnatural and dangerous.",
+        "Perception DC 14: Find the hidden tapestry fragment."
+      ],
+      "accessibility": "Open but partially choked with roots; moving quietly is advised.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Sconces",
+          "description": "Iron sconces holding blue-green flames, seemingly impervious to wind or water."
+        },
+        {
+          "name": "Tapestries",
+          "description": "Faded cloths depict forgotten river rituals and masked figures."
+        },
+        {
+          "name": "Echoing Sound",
+          "description": "Subtle whispers mirror the party\u2019s speech with unfamiliar accents."
+        }
+      ],
+      "encounters": [
+        "Rootling Swarm attacks noisy or hasty intruders.",
+        "Silent exploration yields rewards and clues."
+      ],
+      "adventureSummary": "A hazardous passage with environmental threats and clues to the dungeon\u2019s deeper mysteries."
+    },
+    {
+      "locationId": "WR06",
+      "name": "Chamber of Lingering Regret",
+      "type": "chamber",
+      "description": "A wide, circular chamber dominated by intricate symbols scorched into the muddy floor. Broken furniture lines the walls, and the fireplace here burns with cold, silvery flame. The air pulses with palpable sorrow, and soft voices cry out from the shadows, drawing the party toward the river\u2019s secrets.",
+      "coordinates": "X1Y4",
+      "connectivity": [
+        "WR04"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Queen Seralyth",
+          "description": "The cursed spirit and ancient ruler whose failed ritual doomed the riverbanks. Seralyth appears regal and tragic, her form flickering between splendor and decay.",
+          "attitude": "Tormented, seeking understanding but quick to wrath if provoked."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Sorrow Shade",
+          "description": "A haunting shadow, embodiment of Seralyth\u2019s guilt, which defends her in moments of distress.",
+          "count": 1
+        }
+      ],
+      "lootTable": [
+        "Queen\u2019s Circlet (requires atonement to attune)",
+        "Chest containing 140 gp (requires Rusty Key from R03)",
+        "Silver Vein Ritual Codex (final puzzle and lore)"
+      ],
+      "plotHooks": [
+        "Confronting Seralyth provides the chance to break the curse\u2014or doom the river forever.",
+        "The Ritual Codex is required to resolve the river\u2019s fate."
+      ],
+      "dmInstructions": "A climactic roleplay and combat encounter. Seralyth can be reasoned with if the party offers the Ritual Codex and demonstrates understanding of her regret. If combat breaks out, the Sorrow Shade appears. The chest can be opened with the Rusty Key or forced with an Athletics check (DC 15).",
+      "doors": [
+        {
+          "name": "Engraved Bronze Door",
+          "description": "A panel embossed with the same symbol as the tapestry fragment from R05.",
+          "type": "secret",
+          "locked": true,
+          "lockDC": 15,
+          "breakDC": 17,
+          "keyname": "Tapestry Fragment Symbol",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Persuasion DC 17: Convince Seralyth to accept atonement.",
+        "Arcana DC 15: Understand the purpose of the floor symbols."
+      ],
+      "accessibility": "Hidden behind a secret door in the laboratory, revealed by matching the tapestry symbol.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Floor Symbols",
+          "description": "Ancient glyphs scorched into the floor, radiating faint magical energy."
+        },
+        {
+          "name": "Furniture",
+          "description": "Broken, mud-caked remnants of regal chairs and tables."
+        },
+        {
+          "name": "Fireplace",
+          "description": "A large hearth burning with cold, silver-blue flame."
+        }
+      ],
+      "encounters": [
+        "Queen Seralyth confronts the party, seeking release or retribution.",
+        "The Sorrow Shade manifests if Seralyth feels threatened."
+      ],
+      "adventureSummary": "The dungeon\u2019s emotional and narrative climax; resolution of the river\u2019s curse depends on the party\u2019s choices and items found."
+    }
+  ],
+  "randomEncounters": [
+    {
+      "roll": "1-10",
+      "encounter": "hostile creature",
+      "description": "A hostile creature appropriate for level 7 parties"
+    },
+    {
+      "roll": "11-20",
+      "encounter": "hostile creature",
+      "description": "A hostile creature appropriate for level 7 parties"
+    },
+    {
+      "roll": "21-30",
+      "encounter": "hostile creature",
+      "description": "A hostile creature appropriate for level 7 parties"
+    },
+    {
+      "roll": "31-40",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 7 parties"
+    },
+    {
+      "roll": "41-50",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 7 parties"
+    },
+    {
+      "roll": "51-60",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 7 parties"
+    }
+  ],
+  "areaFeatures": [
+    "mysterious mechanisms",
+    "hidden passages",
+    "forgotten shrines"
+  ],
+  "notes": "Consider lighting sources and trap placement. Underground areas may have limited resources."
+}

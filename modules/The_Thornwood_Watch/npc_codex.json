@@ -1,0 +1,101 @@
+{
+  "module_name": "The_Thornwood_Watch",
+  "generated_timestamp": "2025-06-23T21:09:53.944388",
+  "generation_method": "AI_extraction_GPT4",
+  "npcs": [
+    {
+      "name": "Corrupted Ranger Thane",
+      "source": "location_character"
+    },
+    {
+      "name": "Thorn-Touched Dryad Sylara",
+      "source": "location_character"
+    },
+    {
+      "name": "The Withered Hart",
+      "source": "location_character"
+    },
+    {
+      "name": "Echo of the Void",
+      "source": "location_character"
+    },
+    {
+      "name": "Ranger Elen",
+      "source": "location_character"
+    },
+    {
+      "name": "Ranger Marcus",
+      "source": "location_character"
+    },
+    {
+      "name": "Scout Kira",
+      "source": "location_character"
+    },
+    {
+      "name": "Messenger Tom",
+      "source": "location_character"
+    },
+    {
+      "name": "Quartermaster Brann",
+      "source": "location_character"
+    },
+    {
+      "name": "Dock Worker Finn",
+      "source": "location_character"
+    },
+    {
+      "name": "Merchant Vera",
+      "source": "location_character"
+    },
+    {
+      "name": "Apprentice Jeb",
+      "source": "location_character"
+    },
+    {
+      "name": "Trader Sila",
+      "source": "location_character"
+    },
+    {
+      "name": "Merchant Gareth",
+      "source": "location_character"
+    },
+    {
+      "name": "Trader Mila",
+      "source": "location_character"
+    },
+    {
+      "name": "Caravan Guard Bex",
+      "source": "location_character"
+    },
+    {
+      "name": "Scout Neris",
+      "source": "location_character"
+    },
+    {
+      "name": "Captured Bandit Leader Rusk",
+      "source": "location_character"
+    },
+    {
+      "name": "Wounded Scout Neris",
+      "source": "location_character"
+    },
+    {
+      "name": "Rescued Merchant Lira",
+      "source": "location_character"
+    },
+    {
+      "name": "Spirit-Touched Hermit Maelo",
+      "source": "location_character"
+    },
+    {
+      "name": "Bandit Captain Gorvek",
+      "source": "location_character"
+    }
+  ],
+  "total_npcs": 22,
+  "content_stats": {
+    "plot_content_length": 0,
+    "area_content_length": 136222,
+    "existing_character_files": 0
+  }
+}

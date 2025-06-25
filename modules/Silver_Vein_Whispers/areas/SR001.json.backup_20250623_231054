@@ -1,0 +1,587 @@
+{
+  "areaId": "SR001",
+  "areaName": "Sablemoor Reaches",
+  "areaType": "wilderness",
+  "areaDescription": "A hush blankets the Sablemoor Reaches, where fog-draped heath undulates beneath charcoal-tipped grasses and the distant piping of marsh birds echoes between scattered stands of twisted willow. Lanternflies drift in slow constellations above glassy pools, illuminating half-sunken monoliths and the faint, silvery tracks of creatures that prefer not to be seen.",
+  "dangerLevel": "low",
+  "recommendedLevel": 6,
+  "climate": "desert",
+  "terrain": "forest",
+  "map": {
+    "mapId": "MAP_6",
+    "mapName": "Wilderness Map",
+    "totalRooms": 6,
+    "rooms": [
+      {
+        "id": "SR01",
+        "name": "Riverside Outpost",
+        "type": "riverside",
+        "connections": [
+          "SR02",
+          "SR03",
+          "SR06"
+        ],
+        "coordinates": "X2Y2"
+      },
+      {
+        "id": "SR02",
+        "name": "Misty Ravine",
+        "type": "ravine",
+        "connections": [
+          "SR01",
+          "SR05"
+        ],
+        "coordinates": "X1Y2"
+      },
+      {
+        "id": "SR03",
+        "name": "Forgotten Campsite",
+        "type": "campsite",
+        "connections": [
+          "SR01",
+          "SR04",
+          "SR05"
+        ],
+        "coordinates": "X2Y1"
+      },
+      {
+        "id": "SR04",
+        "name": "Ancient Crossroads",
+        "type": "crossroads",
+        "connections": [
+          "SR03"
+        ],
+        "coordinates": "X2Y0"
+      },
+      {
+        "id": "SR05",
+        "name": "Fallen Monument",
+        "type": "landmark",
+        "connections": [
+          "SR02",
+          "SR03"
+        ],
+        "coordinates": "X1Y1"
+      },
+      {
+        "id": "SR06",
+        "name": "Offering Cairn",
+        "type": "crossroads",
+        "connections": [
+          "SR01"
+        ],
+        "coordinates": "X3Y2"
+      }
+    ],
+    "layout": [
+      [
+        "   ",
+        "SR04",
+        "   "
+      ],
+      [
+        "SR05",
+        "SR03",
+        "   "
+      ],
+      [
+        "SR02",
+        "SR01",
+        "SR06"
+      ]
+    ]
+  },
+  "locations": [
+    {
+      "locationId": "SR01",
+      "name": "Riverside Outpost",
+      "type": "riverside",
+      "description": "Along the fog-draped banks of the Silver Vein River, reeds bow over silvery water and lanternflies swirl in constellations above the shallows. Here, half-sunken stone pillars bear the spiral motifs of a forgotten culture, weathered by centuries and veiled in moss. The faint chime of river stones carries on the current.",
+      "coordinates": "X2Y2",
+      "connectivity": [
+        "SR02",
+        "SR03",
+        "SR06"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Mira the Moorwise (enigmatic guide)",
+          "description": "A cloaked figure with water-worn beads braided into her hair and a manner both gentle and cryptic. She knows the moors intimately and speaks in riddles, hinting at the dangers and secrets along the riverbank.",
+          "attitude": "Cautious ally, gently encouraging but never volunteering all she knows."
+        },
+        {
+          "name": "Dock Worker Finn",
+          "description": "A sturdy man with calloused hands who unloads supply boats at the small riverside dock. His back aches from heavy cargo and he often complains about the weight of the goods he handles.",
+          "attitude": "Gruff but straightforward, focused on his work but willing to share information about boat schedules and cargo."
+        },
+        {
+          "name": "Supply Clerk Marta",
+          "description": "A meticulous woman who manages the outpost's provisions and inventory. She keeps detailed records and sells basic traveling supplies like rations and rope to passing adventurers.",
+          "attitude": "Organized and efficient, helpful with supplies but insists on proper payment and record-keeping."
+        },
+        {
+          "name": "Boatman Gareth",
+          "description": "A weathered ferryman who operates a small boat for crossing the dangerous sections of the Silver Vein River. He knows the safest crossing points and charges fair rates for his services.",
+          "attitude": "Practical and cautious, grumbles about weather conditions and river hazards but provides reliable transport."
+        },
+        {
+          "name": "Off-Duty Scout Bren",
+          "description": "A tired ranger who rests at the outpost between patrols. He drinks ale after long days in the wilderness and shares gossip about other outposts and trail conditions.",
+          "attitude": "Relaxed when off duty, friendly over drinks and willing to share news from his patrols of the safer routes."
+        },
+        {
+          "name": "Trader Vera",
+          "description": "A traveling merchant who sets up a small stall selling trinkets, tools, and basic adventuring gear. She haggles over prices and is always looking for profitable trades.",
+          "attitude": "Business-minded and shrewd, focused on making deals but fair in her transactions with travelers."
+        },
+        {
+          "name": "Cook Nessa",
+          "description": "The outpost's cook who prepares simple but hearty meals for the stationed workers and visiting travelers. She knows everyone's favorite dishes and takes pride in her cooking.",
+          "attitude": "Warm and nurturing, enjoys feeding people and sharing kitchen gossip while she works."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Will-o'-Wisp",
+          "count": 2,
+          "description": "Ghostly lights that lure travelers into deeper water or hidden mud patches."
+        }
+      ],
+      "lootTable": [
+        "Waterproof pouch containing a faded river map (shows hidden pools)",
+        "Silvered fishing lure shaped like a crescent moon",
+        "Satchel with 3 doses of moorwort poultices (grants advantage vs. poison for 1 hour)"
+      ],
+      "plotHooks": [
+        "Mira hints at a disturbance upriver, where the water runs cold and restless.",
+        "The ancient stone pillars bear strange runes that glow faintly at dusk.",
+        "A sodden journal details an expedition seeking a 'silver vein' beneath the river."
+      ],
+      "dmInstructions": "Mira offers subtle guidance and cryptic warnings; if befriended, she can provide insight into the hazards of the Sablemoor Reaches. The Will-o'-Wisps may attack or attempt to lure the party into the river if provoked. The pillars can be deciphered with an Intelligence (History) DC 15 check.",
+      "doors": [],
+      "traps": [
+        {
+          "detectDC": 14,
+          "disableDC": 15,
+          "triggerDC": 12,
+          "damage": "2d6 acid (if a character steps into a concealed acid mudpatch beneath the surface)"
+        }
+      ],
+      "dcChecks": [
+        "Perception DC 14: Notice the unnatural shimmer of a Will-o'-Wisp before it attacks.",
+        "History DC 15: Decipher the pillar runes, learning they mark forbidden burial grounds.",
+        "Survival DC 13: Find safe footing along the slippery banks."
+      ],
+      "accessibility": "A narrow footpath leads from the moor to the riverbank. The area is slippery but not dangerous underfoot in daylight.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Signs Of Age",
+          "description": "Lichen-choked pillars and scattered pottery shards speak to millennia of abandonment."
+        },
+        {
+          "name": "Interesting Architecture",
+          "description": "Spiral-carved pillars half-buried in mud, aligned with the river's northward bend."
+        },
+        {
+          "name": "Dust",
+          "description": "Fine silver silt covers stones near the water, glinting in lanternlight."
+        }
+      ],
+      "encounters": [
+        {
+          "type": "roleplay",
+          "description": "Mira the Moorwise awaits, offering riddles and local lore."
+        },
+        {
+          "type": "combat",
+          "description": "Will-o'-Wisps attempt to lure or attack the unwary."
+        },
+        {
+          "type": "exploration",
+          "description": "Searching the riverbank reveals hidden loot and ancient runes."
+        }
+      ],
+      "adventureSummary": "A mysterious riverside where secrets of the Silver Vein and the moors' spectral past begin to surface."
+    },
+    {
+      "locationId": "SR02",
+      "name": "Misty Ravine",
+      "type": "ravine",
+      "description": "A narrow, steep-sided gash in the earth, the ravine is cloaked in perpetual mist. Thorny brambles cling to the walls, and rickety rope bridges span the gloom. Carved into the stone is a narrow stair, worn but passable, leading down to a trickle of water.",
+      "coordinates": "X1Y2",
+      "connectivity": [
+        "SR01",
+        "SR05"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Giant Poisonous Snake",
+          "count": 1,
+          "description": "A mottled serpent that lurks beneath brambles near the water\u2019s edge."
+        }
+      ],
+      "lootTable": [
+        "Bundle of blue-glass beads (worth 25 gp)",
+        "Snake fang charm (grants resistance to poison for 10 minutes, single use)",
+        "Map scrap hinting at a hidden cave beneath the ravine"
+      ],
+      "plotHooks": [
+        "The rope bridge creaks ominously; beneath it, a glint of metal catches the light.",
+        "A child's doll, muddy and torn, is wedged between the rocks.",
+        "Strange scratch-marks on the stair suggest recent passage by something not quite human."
+      ],
+      "dmInstructions": "The ravine's slippery stairs and swaying bridge create environmental hazards. The snake will only attack if disturbed. Exploration may reveal the hidden cave entrance (requiring a Perception DC 15 to spot).",
+      "doors": [
+        {
+          "name": "Hidden Stone Door",
+          "description": "A moss-covered stone slab at the base of the ravine, nearly invisible unless closely examined.",
+          "type": "secret",
+          "locked": true,
+          "lockDC": 16,
+          "breakDC": 18,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [
+        {
+          "detectDC": 15,
+          "disableDC": 17,
+          "triggerDC": 13,
+          "damage": "2d8 bludgeoning (falling stones if door forced open carelessly)"
+        }
+      ],
+      "dcChecks": [
+        "Perception DC 15: Notice the hidden door at the base of the ravine.",
+        "Athletics DC 12: Climb down the slippery stone stairs safely.",
+        "Acrobatics DC 14: Cross the swaying rope bridge without incident."
+      ],
+      "accessibility": "Difficult terrain; safe passage requires careful climbing or crossing the bridge.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Interesting Architecture",
+          "description": "Stairs cut into ancient stone, partially reclaimed by moss and twisting bramble."
+        },
+        {
+          "name": "Signs Of Age",
+          "description": "Crumbled edges and faded carvings hint at the ravine\u2019s use as a passage long ago."
+        }
+      ],
+      "encounters": [
+        {
+          "type": "exploration",
+          "description": "Characters may discover the hidden stone door or traverse environmental hazards."
+        },
+        {
+          "type": "combat",
+          "description": "A giant poisonous snake strikes if anyone lingers by the water."
+        }
+      ],
+      "adventureSummary": "A precarious descent into the moors' past, where secrets are hidden behind stone and bramble."
+    },
+    {
+      "locationId": "SR03",
+      "name": "Forgotten Campsite",
+      "type": "campsite",
+      "description": "A forgotten campsite rests atop a low, dry rise, ringed by toppled standing stones and charred firepits. The remnants of canvas tents and rusted cookware suggest it has been many seasons since anyone lingered here.",
+      "coordinates": "X2Y1",
+      "connectivity": [
+        "SR01",
+        "SR04",
+        "SR05"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Old Fenrick (superstitious hermit)",
+          "description": "A ragged, wild-eyed hermit who claims to have survived the moor's worst. He mutters of spirits, bargains, and the dangers lurking just beyond the firelight.",
+          "attitude": "Suspicious of newcomers but eager to trade stories or warn of ill omens."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Giant Rat",
+          "count": 3,
+          "description": "Bold, oversized rats drawn to abandoned rations and the warmth of the firepit."
+        }
+      ],
+      "lootTable": [
+        "Sealed jar of pickled mushrooms (restores 1d4+1 HP if eaten, once)",
+        "Tarnished silver locket with a portrait of an unknown woman",
+        "Bundle of old expedition notes, partially burned (references a 'veiled queen')"
+      ],
+      "plotHooks": [
+        "Old Fenrick warns of a 'veiled queen' that haunts the moors at night.",
+        "A strange sigil is burned into the turf near the firepit.",
+        "The expedition notes reference a hidden cache somewhere 'west of the stones.'"
+      ],
+      "dmInstructions": "Fenrick can be an excellent source of rumors or local superstition. The rats are more nuisance than threat but may become aggressive if food is exposed. The sigil can be identified with Arcana DC 16 (tied to spirit warding).",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Arcana DC 16: Identify the burnt sigil as a ward against angry spirits.",
+        "Investigation DC 14: Locate the hidden bundle of notes buried near the stones.",
+        "Insight DC 12: Discern Fenrick's warnings are sincere, if eccentric."
+      ],
+      "accessibility": "Easy approach from the main path; the area is sheltered and dry.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Signs Of Age",
+          "description": "Mildewed tents, moss-choked stones, and soot-stained earth suggest long abandonment."
+        },
+        {
+          "name": "Dust",
+          "description": "Fine layers of dust and ash coat rusted cookware and toppled gear."
+        }
+      ],
+      "encounters": [
+        {
+          "type": "roleplay",
+          "description": "Old Fenrick shares warnings, secrets, or superstitious tales."
+        },
+        {
+          "type": "combat",
+          "description": "Giant rats scavenge for food and may attack if threatened."
+        }
+      ],
+      "adventureSummary": "A derelict camp that holds the echoes of past explorers and warnings of threats yet to come."
+    },
+    {
+      "locationId": "SR04",
+      "name": "Ancient Crossroads",
+      "type": "crossroads",
+      "description": "A four-way convergence of moor paths, marked by a leaning milestone encoded with ancient glyphs. The crossroads are surrounded by shallow pools that reflect the sky in silvery patches, and the air feels electrically charged.",
+      "coordinates": "X2Y0",
+      "connectivity": [
+        "SR03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Moorbound Shadow",
+          "count": 1,
+          "description": "A drifting, half-formed spirit that lingers near the crossroads, seeking to confuse travelers."
+        }
+      ],
+      "lootTable": [
+        "Milestone fragment inscribed with a fragment of an ancient prophecy",
+        "Brass compass, always points toward the Whispering Riverbanks",
+        "Bundle of preserved reeds woven in an unfamiliar pattern"
+      ],
+      "plotHooks": [
+        "The milestone's glyphs can be pieced together with clues found elsewhere.",
+        "A spectral shadow blocks passage at night unless appeased or banished.",
+        "The compass seems to react when brought near bodies of water."
+      ],
+      "dmInstructions": "The crossroads act as a puzzle location. The moorbound shadow may be banished with a Religion DC 15 check or appeased by leaving an offering (food, silver, or song). The milestone glyphs can be deciphered with an Intelligence (Investigation) DC 16 check.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Religion DC 15: Banish or calm the moorbound shadow.",
+        "Investigation DC 16: Piece together the meaning of the milestone glyphs.",
+        "Perception DC 13: Notice the compass's needle shifts only near water."
+      ],
+      "accessibility": "Paths are open but can become treacherous after heavy rain.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Signs Of Age",
+          "description": "The milestone is cracked and weathered, and the crossroads are choked with old footprints."
+        },
+        {
+          "name": "Dust",
+          "description": "Fine silver silt dusts the footprints, masking all but the freshest tracks."
+        }
+      ],
+      "encounters": [
+        {
+          "type": "exploration",
+          "description": "Piecing together the ancient glyphs or making offerings at the milestone."
+        },
+        {
+          "type": "combat",
+          "description": "The moorbound shadow grows hostile if ignored or threatened."
+        }
+      ],
+      "adventureSummary": "A convergence of paths, where spirits and signs point toward deeper mysteries."
+    },
+    {
+      "locationId": "SR05",
+      "name": "Fallen Monument",
+      "type": "landmark",
+      "description": "Atop a windswept knoll rises a toppled monument: a stone arch partially covered in creeping ivy and etched with faded imagery of river queens and crowned serpents. The grass here grows in silvery tufts, and the air seems to hum with ancient power.",
+      "coordinates": "X1Y1",
+      "connectivity": [
+        "SR02",
+        "SR03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Rilith the Riverbound (tormented spirit)",
+          "description": "A misty, sorrowful apparition in tattered robes, bound to the broken arch. Rilith yearns for release and weaves between rage and pleading.",
+          "attitude": "Desperate, alternately beseeching and hostile depending on the party's actions."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Half-buried signet ring engraved with a river motif",
+        "Weathered scroll describing a ritual of binding and release",
+        "Fragment of a crown (silver, set with river-blue stones)"
+      ],
+      "plotHooks": [
+        "Rilith begs the party to break the arch's enchantment and end her torment.",
+        "The scroll details a ritual requiring components found elsewhere in the moor.",
+        "The crown fragment matches illustrations in the expedition notes found at the campsite."
+      ],
+      "dmInstructions": "Rilith's mood shifts based on player interaction: calm her with Insight/Religion or provoke a haunting. The arch can be examined with Arcana DC 16 to identify its purpose. Performing the ritual requires gathering items from other locations.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Arcana DC 16: Understand the purpose of the arch and its binding magic.",
+        "Insight DC 14: Calm Rilith enough to learn more of her story.",
+        "Religion DC 15: Determine the ritual\u2019s requirements."
+      ],
+      "accessibility": "A winding path leads up the knoll; access is open but exposed to wind and weather.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Interesting Architecture",
+          "description": "A toppled stone arch, carved in the likeness of a river serpent crowned with reeds."
+        }
+      ],
+      "encounters": [
+        {
+          "type": "roleplay",
+          "description": "Rilith's story and request for freedom."
+        },
+        {
+          "type": "exploration",
+          "description": "Examining the arch and uncovering the ritual scroll."
+        }
+      ],
+      "adventureSummary": "A haunted landmark that binds the sorrowful spirit of Rilith\u2014and a key to the moor's spectral unrest."
+    },
+    {
+      "locationId": "SR06",
+      "name": "Offering Cairn",
+      "type": "crossroads",
+      "description": "A lonely fork where a mossy cairn stands, heaped with small offerings: smooth stones, feathers, and lengths of braided grass. Wisps of fog curl around the cairn, and the air carries the faint scent of wild mint.",
+      "coordinates": "X3Y2",
+      "connectivity": [
+        "SR01"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [],
+      "lootTable": [
+        "Cairn stone etched with an unfamiliar crest",
+        "Bundle of wild mint leaves, fresh despite the chill",
+        "Simple bone flute (produces a soothing tune, advantage on calming checks vs. wild animals in Sablemoor Reaches)"
+      ],
+      "plotHooks": [
+        "The cairn has been recently tended, hinting at another traveler in the moor.",
+        "A hidden message is carved on the underside of one offering stone.",
+        "The bone flute, if played at night, is said to draw the attention of a mysterious wanderer."
+      ],
+      "dmInstructions": "This is a peaceful, atmospheric spot. Searching the cairn may reveal clues or minor boons. The flute may become important later if the characters seek to contact certain NPCs.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 13: Find the hidden message on the cairn stone.",
+        "Nature DC 12: Identify the mint leaves as a potent herb against night chills.",
+        "Performance DC 10: Play the bone flute well enough to attract attention (may trigger a future encounter)."
+      ],
+      "accessibility": "Open, flat ground; easily accessible from any direction.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Interesting Architecture",
+          "description": "A carefully constructed cairn, topped with artful offerings from recent travelers."
+        },
+        {
+          "name": "Signs Of Age",
+          "description": "Some stones are ancient, others newly placed, marking centuries of respect."
+        }
+      ],
+      "encounters": [
+        {
+          "type": "exploration",
+          "description": "Search the cairn for hidden messages and minor boons."
+        },
+        {
+          "type": "roleplay",
+          "description": "Opportunity for players to leave their own offering or reflect on the moor\u2019s mysteries."
+        }
+      ],
+      "adventureSummary": "A tranquil crossroads, rich in small mysteries and hints at the living traditions of the Sablemoor folk."
+    }
+  ],
+  "randomEncounters": [
+    {
+      "roll": "1-10",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 6 parties"
+    },
+    {
+      "roll": "11-20",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 6 parties"
+    },
+    {
+      "roll": "21-30",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 6 parties"
+    },
+    {
+      "roll": "31-40",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 6 parties"
+    },
+    {
+      "roll": "41-50",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 6 parties"
+    },
+    {
+      "roll": "51-60",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 6 parties"
+    },
+    {
+      "roll": "61-70",
+      "encounter": "lost traveler",
+      "description": "A lost traveler appropriate for level 6 parties"
+    },
+    {
+      "roll": "71-80",
+      "encounter": "lost traveler",
+      "description": "A lost traveler appropriate for level 6 parties"
+    },
+    {
+      "roll": "81-90",
+      "encounter": "lost traveler",
+      "description": "A lost traveler appropriate for level 6 parties"
+    }
+  ],
+  "areaFeatures": [
+    "animal dens",
+    "water sources",
+    "ancient trees"
+  ],
+  "notes": "Weather and terrain should affect travel times. Random encounters keep exploration tense."
+}

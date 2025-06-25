@@ -166,21 +166,7 @@
           "name": "Temporary Holding Area",
           "description": "A secured corner of the command post where captured bandit leader Rusk is held under guard. Heavy chains and vigilant rangers ensure the prisoner remains contained while still allowing for interrogation and information gathering."
         }
-      ],
-      "encounters": [
-        {
-          "encounterId": "RO01-E1",
-          "summary": "Interrogation of the captured bandit leader Rusk reveals the main bandit camp location, the Crow's Hand faction, and details about signal whistles used as alarms.",
-          "impact": "The party gains crucial intelligence for planning assaults and understands the severity of the threat, including the presence of twenty-five hardened bandits and three masked spectral figures.",
-          "worldConditions": {
-            "year": 1492,
-            "month": "Springmonth",
-            "day": 1,
-            "time": "09:56:00"
-          }
-        }
-      ],
-      "adventureSummary": "The Rangers' Command Post stood shrouded in chill dawn mists, its battered oak table strewn with blood-smeared maps beneath the silent silver bells that hung overhead, their wires severed and dulled from recent sabotage. Upon arrival, Eirik Hearthwise was met with a somber cadre: Ranger Elen, her eyes sharp yet weary beneath the weight of mounting losses; grizzled Marcus, who spoke grimly of clever bandits leaving no survivors; and Scout Kira, whose wide-eyed reports of strange lights and fleeing wildlife hinted at unnatural forces at play. After initial tension gave way to cautious camaraderie--sealed with promises of ale once the crisis passed--Eirik chose to interrogate the captured bandit leader Rusk. Through persuasion and a carefully offered healing touch that mended Rusk's broken arm, the prisoner revealed the location of the main bandit camp beyond Scout's Watch, the use of signal whistles as alarms, and the presence of a shadowy faction known as the Crow's Hand who orchestrated the raids with deadly precision. Rusk warned of a camp with twenty-five hardened cutthroats and three masked figures whose silent, spectral movements unnerved even the bandits themselves. As the conversation deepened, Elen shared strategic insights into the outpost and its neighboring sites--Supply Depot, Trader's Rest, and Scout's Watch--highlighting vulnerable approaches and the critical role of the sabotaged silver bell network in early warnings. Heeding the urgent need for action, Eirik negotiated a horse and provisions, securing trust and resources for the coming confrontation. Together with Kira, now formally joining his party and radiating eager resolve, they began painstaking repairs on the bell network, uncovering deliberate, expertly concealed cuts and faint boot prints trailing toward Trader's Rest. The discovery of these sabotaged lines, paired with the unsettling reports of ghostly lights feared even by the bandits, underscored the complex threat closing in on the outpost. Throughout these tense hours, bonds formed amid the frostbitten air--between Eirik and the rangers, between healer and hardened outlaw--and a fragile hope kindled that with vigilance and swift action, the next caravan's fate might yet be rewritten."
+      ]
     },
     {
       "locationId": "RO02",
@@ -249,15 +235,13 @@
           "name": "Storage Crates",
           "description": "Weatherproof crates and canvas-wrapped bundles containing essential supplies for the outpost's operations."
         }
-      ],
-      "encounters": [],
-      "adventureSummary": ""
+      ]
     },
     {
       "locationId": "RO03",
       "name": "Trader's Rest",
       "type": "ruins",
-      "description": "A frost-dusted clearing marked by dilapidated benches, a sagging sign, and empty, weathered trade stalls. The usual throng of merchants is absent, and an eerie silence hangs heavily over the quiet market. Signs of recent violence are evident, such as a broken silver bell wire and faint footprints, hinting at recent sabotage by hostile forces. Despite the tension, Trader Sila remains watchful by a locked chest, working to maintain order and warn the merchants of lurking threats.",
+      "description": "A frost-dusted clearing marked by dilapidated benches, a sagging sign, and empty, weathered trade stalls. The usual throng of merchants is absent, and an eerie silence hangs heavily over the quiet market. Signs of recent violence are evident, such as a broken silver bell wire coated in strange black residue and faint muddy footprints, hinting at recent sabotage by hostile forces. Trader Sila, a wary but fatigued woman clad in patched green, remains watchful by a locked chest. The party has repaired the bell wire, restoring critical communication, and confirmed the Crow's Hand's involvement. The atmosphere is tense but filled with cautious hope as merchants prepare to stay vigilant after dark.",
       "coordinates": "X1Y2",
       "connectivity": [
         "RO01",
@@ -268,8 +252,23 @@
       "npcs": [
         {
           "name": "Trader Sila",
-          "description": "A wary woman in a patched green cloak who stands watch by a locked chest. Though guarded, she shows a cautious hope and trust towards the party after their assistance. She coordinates the merchant community and warns others to stay vigilant after dark.",
+          "description": "A wary woman in a patched green cloak who stands watch by a locked chest. She has grown cautiously hopeful and appreciative after the party helped repair the bell wire and shared evidence of the Crow's Hand's sabotage. She coordinates the merchant community and is committed to warning others and maintaining safety after dark.",
           "attitude": "Guarded but appreciative, cautiously hopeful and eager to spread warnings among the merchants."
+        },
+        {
+          "name": "Merchant Gareth",
+          "description": "A portly human trader who specializes in general goods and basic supplies. His wagon is currently being repaired after damage from a recent bandit encounter, and he's frustrated by the delays to his trading schedule.",
+          "attitude": "Worried and impatient, constantly checking on his damaged wagon and eager to discuss the deteriorating safety of the trade routes."
+        },
+        {
+          "name": "Trader Mila",
+          "description": "An exotic goods merchant with items from distant lands, Mila has been stranded at the outpost longer than expected. She deals in rare spices, unusual trinkets, and has heard disturbing rumors about supernatural corruption.",
+          "attitude": "Mysterious but helpful, willing to trade information about strange occurrences for protection or safe passage to her next destination."
+        },
+        {
+          "name": "Caravan Guard Bex",
+          "description": "A retired soldier turned caravan guard who now helps coordinate security for merchant groups. Her experience shows in her alert posture and the practical arrangement of her weapons and armor.",
+          "attitude": "Professional and direct, focused on practical security matters and always assessing potential threats to merchant caravans."
         }
       ],
       "monsters": [],
@@ -285,7 +284,7 @@
         "Fresh trail leads toward the Forgotten Waystation, promising further clues",
         "Saboteurs may still lurk nearby, threatening merchant safety"
       ],
-      "dmInstructions": "Sila is a key NPC providing information about recent sabotage and the growing threat of the Crow's Hand faction. She can guide the party toward investigating the fresh trail to the Forgotten Waystation. The broken bell wire is a vital communication point that the party can repair to restore merchant warnings.",
+      "dmInstructions": "Sila is a key NPC providing information about recent sabotage and the growing threat of the Crow's Hand faction. She can guide the party toward investigating the fresh trail to the Forgotten Waystation. The broken bell wire was a vital communication point that the party repaired to restore merchant warnings. Use the tension and the evidence found to build suspense and motivate investigation.",
       "doors": [],
       "traps": [],
       "dcChecks": [
@@ -298,7 +297,7 @@
       "features": [
         {
           "name": "Broken Silver Bell Wire",
-          "description": "A snapped wire vital for merchant communication; coated in oily black residue indicating sabotage."
+          "description": "A snapped wire vital for merchant communication; coated in oily black residue indicating sabotage. It has been carefully repaired by the party restoring function."
         },
         {
           "name": "Weathered Trade Stalls",
@@ -312,17 +311,17 @@
       "encounters": [
         {
           "encounterId": "RO03-E1",
-          "summary": "The party discovers a sabotage at the merchant bell network with broken wire covered in oily residue and finds a torn cloth linked to the Crow's Hand faction.",
-          "impact": "The party repairs the bell wire, restoring merchant communications and confirming the threat of the Crow's Hand, prompting increased caution among traders.",
+          "summary": "The party met Trader Sila and discovered evidence of sabotage by the Crow's Hand faction, including broken bell wire and a torn cloth insignia.",
+          "impact": "The party repaired the silver bell wire, restoring critical communication for merchant warnings. They gained Sila's cautious trust and revealed a fresh trail leading toward the Forgotten Waystation, indicating ongoing threats nearby.",
           "worldConditions": {
             "year": 1492,
             "month": "Springmonth",
             "day": 1,
-            "time": "10:17:00"
+            "time": "10:27:00"
           }
         }
       ],
-      "adventureSummary": "Upon arriving at Trader's Rest, the party found the market eerily silent and signs of recent sabotage, including a broken bell wire and subtle footprints. They met Trader Sila, who confirmed sightings of shadowy figures and fears of the Crow's Hand faction. After investigating battered crates and collecting evidence--a torn dark cloth with a silver crow's feather--the party repaired the bell wire, restoring vital communication and warning the traders to remain vigilant. The threat remains, but trust has grown, setting the party on a fresh trail toward the Forgotten Waystation."
+      "adventureSummary": "Upon arriving at Trader's Rest, the party found the area unusually silent amid frost and empty trade stalls. After meeting Trader Sila, they uncovered sabotage evidence by the Crow's Hand, including a broken silver bell wire and a torn cloth insignia. Repairing the bell wire restored critical merchant communication, and Sila pledged to warn others and increase vigilance after dark. A fresh trail toward the Forgotten Waystation hints at further danger ahead. The party has established a cautious alliance with the merchant community."
     },
     {
       "locationId": "RO04",
@@ -377,37 +376,48 @@
           "name": "Observation Logs",
           "description": "Detailed written records of movements, weather patterns, and unusual sightings maintained by the scout."
         }
-      ],
-      "encounters": [],
-      "adventureSummary": ""
+      ]
     },
     {
       "locationId": "RO05",
       "name": "Forgotten Waystation",
       "type": "ruins",
-      "description": "Overgrown stone foundations mark where an old ranger messaging station once facilitated communication between outposts. Moss-covered relay towers and a partially collapsed signal platform hint at its former purpose. Recent activity has disturbed the undergrowth - fresh footprints, scattered equipment, and drag marks leading to a concealed cache suggest this abandoned site has found new, sinister purpose.",
+      "description": "Weathered ruins with moss-covered stone walls crumbling amid tangled underbrush. Frost lingers in shadowed hollows while a faint shaft of sunlight pierces an overgrown archway that once marked a safe haven for travelers. The atmosphere is tense and silent, broken only by distant caws. Drag marks lead toward the ruins' darkened entryway, and footprints match those seen at Trader's Rest, indicating the saboteur doubled back here after initial sabotage. A battered lockbox was uncovered beneath ferns containing sabotage tools, oily residues, coded correspondence with a silver-stitch crow's feather insignia, and maps marking caravan routes, bell post locations, and patrol schedules.",
       "coordinates": "X1Y1",
       "connectivity": [
         "RO03"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
-      "npcs": [],
+      "npcs": [
+        {
+          "name": "Eirik",
+          "description": "A vigilant scout who carefully searched the ruins, detecting no immediate danger but finding a forgotten signal mirror.",
+          "attitude": "Helpful"
+        },
+        {
+          "name": "Kira",
+          "description": "An investigative party member who examined drag marks and found the sabotaging cache; determined the involvement of the Crow's Hand organization.",
+          "attitude": "Determined"
+        }
+      ],
       "monsters": [],
       "lootTable": [
         "Crow's Hand supply cache with sabotage tools",
         "Coded correspondence revealing next targets",
         "Maps marking vulnerable points in the silver bell network",
         "Schedule showing caravan routes and timing",
-        "Torn scrap of dark cloth with crow's feather insignia"
+        "Torn scrap of dark cloth with crow's feather insignia",
+        "Battered lockbox with oily residues"
       ],
       "plotHooks": [
         "Fresh drag marks lead to a concealed cache of sabotage equipment",
         "Coded messages reveal the Crow's Hand plans to strike Scout's Watch next",
         "Equipment suggests the saboteurs have inside knowledge of ranger operations",
-        "Evidence points to a coordinated assault on the entire communication network"
+        "Evidence points to a coordinated assault on the entire communication network",
+        "Warning needed for Scout's Watch to prevent further sabotage"
       ],
-      "dmInstructions": "This location serves as evidence of the Crow's Hand's organized campaign against the outpost. The cache reveals their systematic approach and provides clues about their next target (Scout's Watch). Use investigation checks to uncover layers of evidence showing this isn't random banditry but coordinated sabotage.",
+      "dmInstructions": "This location serves as critical evidence of the Crow's Hand's organized campaign against the outpost. The cache reveals their systematic approach and provides clues about their next target (Scout's Watch). Use investigation checks to uncover layers of evidence showing this is coordinated sabotage, not random banditry. Note the subtle environmental clues like frost and silence to build atmosphere.",
       "doors": [],
       "traps": [],
       "dcChecks": [
@@ -416,7 +426,7 @@
         "Perception DC 13: Notice recently disturbed hiding spots and escape routes",
         "Survival DC 11: Determine how recently the site was occupied"
       ],
-      "accessibility": "Abandoned ruins overgrown with vegetation, requires careful searching to find concealed evidence",
+      "accessibility": "Abandoned ruins overgrown with vegetation, requires careful searching to find concealed evidence. The site is currently momentarily safe but tense.",
       "dangerLevel": "Low",
       "features": [
         {
@@ -434,10 +444,26 @@
         {
           "name": "Disturbed Undergrowth",
           "description": "Fresh signs of activity including footprints, drag marks, and hastily concealed evidence of recent occupation."
+        },
+        {
+          "name": "Forgotten Signal Mirror",
+          "description": "A faint glint of an old signal mirror discovered by Eirik, indicating prior communication capabilities."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "RO05-E1",
+          "summary": "The party discovered evidence of sabotage at the ruins, including a hidden cache with tools and coded messages from the Crow's Hand.",
+          "impact": "Revealed the coordinated sabotage campaign targeting ranger outposts and identified Scout's Watch as the next target. The party resolved to warn Scout's Watch and continue their investigation.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 1,
+            "time": "10:53:00"
+          }
+        }
+      ],
+      "adventureSummary": "Upon arriving at the Forgotten Waystation, the party found weathered ruins with frost lingering in shadowed hollows. Kira discovered drag marks and a sabotaging cache containing tools, oily residues, and coded correspondence linked to the Crow's Hand. Eirik found a forgotten signal mirror and confirmed momentary safety. The evidence revealed a coordinated campaign with Scout's Watch as the next target, prompting the party to prepare to warn them. A solemn camaraderie deepened between Eirik and Kira during their vigilance amid the haunting remnants."
     }
   ],
   "randomEncounters": [

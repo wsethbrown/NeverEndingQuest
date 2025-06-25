@@ -225,12 +225,16 @@ def create_module_validation_context(party_tracker_data, path_manager):
     """Create module data context for validation system to check location/NPC references"""
     try:
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
+        current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
         current_module = party_tracker_data.get("module", "Unknown")
         
-        validation_context = f"MODULE VALIDATION DATA:\nCurrent Module: {current_module}\nCurrent Area: {current_area_id}\n\n"
+        validation_context = f"MODULE VALIDATION DATA:\nCurrent Module: {current_module}\nCurrent Area: {current_area_id}\nCurrent Location: {current_location_id}\n\n"
         
-        # Get all valid locations in current area
+        # Get all valid locations in current area and location-specific NPCs
         area_file = path_manager.get_area_path(current_area_id)
+        current_location_npcs = []
+        area_locations_with_npcs = {}
+        
         try:
             with open(area_file, "r", encoding="utf-8") as file:
                 area_data = json.load(file)
@@ -241,6 +245,15 @@ def create_module_validation_context(party_tracker_data, path_manager):
                 loc_name = location.get("name", "")
                 if loc_id and loc_name:
                     valid_locations.append(f"{loc_id} ({loc_name})")
+                    
+                    # Track NPCs by location
+                    location_npcs = [npc.get("name") for npc in location.get("npcs", []) if npc.get("name")]
+                    if location_npcs:
+                        area_locations_with_npcs[loc_id] = location_npcs
+                    
+                    # Collect NPCs for current location
+                    if loc_id == current_location_id:
+                        current_location_npcs = location_npcs
             
             validation_context += f"VALID LOCATIONS in {current_area_id}:\n"
             if valid_locations:
@@ -316,7 +329,32 @@ def create_module_validation_context(party_tracker_data, path_manager):
             else:
                 validation_context += "- No character files found"
         
-        validation_context += "\n\nVALIDATION RULE: AI responses MUST ONLY reference locations and NPCs from the above lists. Any reference to non-existent locations or NPCs should be flagged as invalid."
+        # Add location-aware NPC context
+        validation_context += f"\n\nLOCATION-AWARE NPC VALIDATION:\n"
+        validation_context += f"Current Location: {current_location_id}\n"
+        
+        if current_location_npcs:
+            validation_context += f"NPCs PRESENT at current location ({current_location_id}):\n"
+            validation_context += "\n".join([f"- {npc}" for npc in current_location_npcs])
+            validation_context += "\n\n"
+        else:
+            validation_context += f"NO NPCs present at current location ({current_location_id})\n\n"
+        
+        if area_locations_with_npcs:
+            validation_context += "NPCs at OTHER locations in this area:\n"
+            for loc_id, npcs in area_locations_with_npcs.items():
+                if loc_id != current_location_id:  # Don't repeat current location
+                    validation_context += f"  {loc_id}: {', '.join(npcs)}\n"
+            validation_context += "\n"
+        
+        validation_context += """ENHANCED VALIDATION RULES:
+1. For interactions happening AT the current location, ONLY use NPCs from the "PRESENT at current location" list
+2. For references to NPCs at OTHER locations, they must exist in the "NPCs at OTHER locations" or module character lists
+3. NEVER create new NPCs - all names must exist in the provided lists
+4. If an NPC is referenced incorrectly, suggest the CORRECT NPC from the current location list
+5. NPCs cannot be in multiple locations simultaneously - verify location consistency
+
+CRITICAL: If validation fails due to wrong NPC for location, provide specific correction using NPCs actually present at the current location."""
         
         return validation_context
         

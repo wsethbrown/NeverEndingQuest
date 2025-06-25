@@ -10,8 +10,8 @@
       "nextPoints": [
         "PP002"
       ],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "The party has delivered a warning and evidence of the Crow's Hand's planned assault to Scout's Watch, giving the defenders a chance to prepare for the impending attack.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -20,8 +20,8 @@
           "involvedLocations": [
             "RO001"
           ],
-          "status": "not started",
-          "plotImpact": ""
+          "status": "in progress",
+          "plotImpact": "Eirik and Kira repaired the silver bell network post at Trader's Rest, restoring communication and defense against further attacks. The party also secured evidence of the Crow's Hand involvement."
         },
         {
           "id": "SQ002",
@@ -30,8 +30,8 @@
           "involvedLocations": [
             "RO001"
           ],
-          "status": "not started",
-          "plotImpact": ""
+          "status": "in progress",
+          "plotImpact": "Eirik warned Sila and the merchants about the Crow's Hand, confirming the danger. Trader Sila will remain cautious and advise others to stay together for safety until the threat is dealt with."
         }
       ]
     },

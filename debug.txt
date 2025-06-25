@@ -859,3 +859,170 @@
 [2025-06-22 20:01:40]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
 [2025-06-22 20:01:40]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
 [2025-06-22 20:01:40] Graph built: 41 locations, 132 connections
+[2025-06-23 19:45:53]   [ERROR] Could not load world registry
+[2025-06-23 19:45:53] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-23 19:45:53]   [OK] Loaded G001: Gloamwood
+[2025-06-23 19:45:53]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-23 19:45:53]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-23 19:45:53]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-23 19:45:53]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-23 19:45:53] Graph built: 35 locations, 82 connections
+[2025-06-23 20:20:12]   [ERROR] Could not load world registry
+[2025-06-23 20:20:12] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-23 20:20:12]   [OK] Loaded G001: Gloamwood
+[2025-06-23 20:20:12]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-23 20:20:12]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-23 20:20:12]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-23 20:20:12]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-23 20:20:12] Graph built: 35 locations, 82 connections
+[2025-06-23 20:56:35]   [ERROR] Could not load world registry
+[2025-06-23 20:56:35] Loading module areas... (discovered: G001, HH001, SK001, TBM001, TCD001)
+[2025-06-23 20:56:35]   [OK] Loaded G001: Gloamwood
+[2025-06-23 20:56:35]   [OK] Loaded HH001: Harrow's Hollow
+[2025-06-23 20:56:35]   [OK] Loaded SK001: Shadowfall Keep
+[2025-06-23 20:56:35]   [OK] Loaded TBM001: The Blighted Marches
+[2025-06-23 20:56:35]   [OK] Loaded TCD001: The Cursed Dungeons
+[2025-06-23 20:56:35] Graph built: 35 locations, 82 connections
+[2025-06-23 23:14:31] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001); The_Thornwood_Watch(NCW001,RO001,TW001))
+[2025-06-23 23:14:31]   [OK] Loaded NCW001: Northern Corrupted Woods [The_Thornwood_Watch]
+[2025-06-23 23:14:31]   [OK] Loaded RO001: Rangers’ Outpost [The_Thornwood_Watch]
+[2025-06-23 23:14:31]   [OK] Loaded TW001: Thornwood Wilds [The_Thornwood_Watch]
+[2025-06-23 23:14:31]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-23 23:14:31]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-23 23:14:31]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-23 23:14:31]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-23 23:14:31]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-23 23:14:31]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-23 23:14:31]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-23 23:14:31]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-23 23:14:31] Graph built: 68 locations, 142 connections
+[2025-06-24 18:21:13] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001); The_Thornwood_Watch(NCW001,RO001,TW001))
+[2025-06-24 18:21:13]   [OK] Loaded NCW001: Northern Corrupted Woods [The_Thornwood_Watch]
+[2025-06-24 18:21:13]   [OK] Loaded RO001: Rangers’ Outpost [The_Thornwood_Watch]
+[2025-06-24 18:21:13]   [OK] Loaded TW001: Thornwood Wilds [The_Thornwood_Watch]
+[2025-06-24 18:21:13]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-24 18:21:13]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-24 18:21:13]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-24 18:21:13]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-24 18:21:13]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-24 18:21:13]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-24 18:21:13]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-24 18:21:13]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-24 18:21:13] Graph built: 68 locations, 142 connections
+[2025-06-24 18:33:46] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001); The_Thornwood_Watch(NCW001,RO001,TW001))
+[2025-06-24 18:33:46]   [OK] Loaded NCW001: Northern Corrupted Woods [The_Thornwood_Watch]
+[2025-06-24 18:33:46]   [OK] Loaded RO001: Rangers’ Outpost [The_Thornwood_Watch]
+[2025-06-24 18:33:46]   [OK] Loaded TW001: Thornwood Wilds [The_Thornwood_Watch]
+[2025-06-24 18:33:46]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-24 18:33:46]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-24 18:33:46]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-24 18:33:46]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-24 18:33:46]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-24 18:33:46]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-24 18:33:46]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-24 18:33:46]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-24 18:33:46] Graph built: 68 locations, 142 connections
+[2025-06-24 18:37:24] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001); The_Thornwood_Watch(NCW001,RO001,TW001))
+[2025-06-24 18:37:24]   [OK] Loaded NCW001: Northern Corrupted Woods [The_Thornwood_Watch]
+[2025-06-24 18:37:24]   [OK] Loaded RO001: Rangers’ Outpost [The_Thornwood_Watch]
+[2025-06-24 18:37:24]   [OK] Loaded TW001: Thornwood Wilds [The_Thornwood_Watch]
+[2025-06-24 18:37:24]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-24 18:37:24]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-24 18:37:24]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-24 18:37:24]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-24 18:37:24]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-24 18:37:24]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-24 18:37:24]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-24 18:37:24]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-24 18:37:24] Graph built: 68 locations, 142 connections
+[2025-06-24 18:49:57] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001); The_Thornwood_Watch(NCW001,RO001,TW001))
+[2025-06-24 18:49:57]   [OK] Loaded NCW001: Northern Corrupted Woods [The_Thornwood_Watch]
+[2025-06-24 18:49:57]   [OK] Loaded RO001: Rangers’ Outpost [The_Thornwood_Watch]
+[2025-06-24 18:49:57]   [OK] Loaded TW001: Thornwood Wilds [The_Thornwood_Watch]
+[2025-06-24 18:49:57]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-24 18:49:57]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-24 18:49:57]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-24 18:49:57]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-24 18:49:57]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-24 18:49:57]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-24 18:49:57]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-24 18:49:57]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-24 18:49:57] Graph built: 68 locations, 142 connections
+[2025-06-24 18:53:25] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001); The_Thornwood_Watch(NCW001,RO001,TW001))
+[2025-06-24 18:53:25]   [OK] Loaded NCW001: Northern Corrupted Woods [The_Thornwood_Watch]
+[2025-06-24 18:53:25]   [OK] Loaded RO001: Rangers’ Outpost [The_Thornwood_Watch]
+[2025-06-24 18:53:25]   [OK] Loaded TW001: Thornwood Wilds [The_Thornwood_Watch]
+[2025-06-24 18:53:25]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-24 18:53:25]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-24 18:53:25]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-24 18:53:25]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-24 18:53:25]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-24 18:53:25]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-24 18:53:25]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-24 18:53:25]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-24 18:53:25] Graph built: 68 locations, 142 connections
+[2025-06-24 19:06:37] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001); The_Thornwood_Watch(NCW001,RO001,TW001))
+[2025-06-24 19:06:37]   [OK] Loaded NCW001: Northern Corrupted Woods [The_Thornwood_Watch]
+[2025-06-24 19:06:37]   [OK] Loaded RO001: Rangers' Outpost [The_Thornwood_Watch]
+[2025-06-24 19:06:37]   [OK] Loaded TW001: Thornwood Wilds [The_Thornwood_Watch]
+[2025-06-24 19:06:37]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-24 19:06:37]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-24 19:06:37]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-24 19:06:37]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-24 19:06:37]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-24 19:06:37]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-24 19:06:37]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-24 19:06:37]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-24 19:06:37] Graph built: 68 locations, 142 connections
+[2025-06-24 20:37:29] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001); The_Thornwood_Watch(NCW001,RO001,TW001))
+[2025-06-24 20:37:29]   [OK] Loaded NCW001: Northern Corrupted Woods [The_Thornwood_Watch]
+[2025-06-24 20:37:29]   [OK] Loaded RO001: Rangers' Outpost [The_Thornwood_Watch]
+[2025-06-24 20:37:29]   [OK] Loaded TW001: Thornwood Wilds [The_Thornwood_Watch]
+[2025-06-24 20:37:29]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-24 20:37:29]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-24 20:37:29]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-24 20:37:29]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-24 20:37:29]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-24 20:37:29]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-24 20:37:29]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-24 20:37:29]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-24 20:37:29] Graph built: 68 locations, 142 connections
+[2025-06-24 20:40:25] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001); The_Thornwood_Watch(NCW001,RO001,TW001))
+[2025-06-24 20:40:25]   [OK] Loaded NCW001: Northern Corrupted Woods [The_Thornwood_Watch]
+[2025-06-24 20:40:25]   [OK] Loaded RO001: Rangers' Outpost [The_Thornwood_Watch]
+[2025-06-24 20:40:25]   [OK] Loaded TW001: Thornwood Wilds [The_Thornwood_Watch]
+[2025-06-24 20:40:25]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-24 20:40:25]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-24 20:40:25]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-24 20:40:25]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-24 20:40:25]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-24 20:40:25]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-24 20:40:25]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-24 20:40:25]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-24 20:40:25] Graph built: 68 locations, 142 connections
+[2025-06-24 20:49:19] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001); The_Thornwood_Watch(NCW001,RO001,TW001))
+[2025-06-24 20:49:19]   [OK] Loaded NCW001: Northern Corrupted Woods [The_Thornwood_Watch]
+[2025-06-24 20:49:19]   [OK] Loaded RO001: Rangers' Outpost [The_Thornwood_Watch]
+[2025-06-24 20:49:19]   [OK] Loaded TW001: Thornwood Wilds [The_Thornwood_Watch]
+[2025-06-24 20:49:19]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-24 20:49:19]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-24 20:49:19]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-24 20:49:19]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-24 20:49:19]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-24 20:49:19]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-24 20:49:19]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-24 20:49:19]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-24 20:49:19] Graph built: 68 locations, 142 connections
+[2025-06-24 21:18:54] Loading all module areas... (discovered: Keep_of_Doom(G001,HH001,SK001,TBM001,TCD001); Silver_Vein_Whispers(RC001,SR001,WR001); The_Thornwood_Watch(NCW001,RO001,TW001))
+[2025-06-24 21:18:54]   [OK] Loaded NCW001: Northern Corrupted Woods [The_Thornwood_Watch]
+[2025-06-24 21:18:54]   [OK] Loaded RO001: Rangers' Outpost [The_Thornwood_Watch]
+[2025-06-24 21:18:54]   [OK] Loaded TW001: Thornwood Wilds [The_Thornwood_Watch]
+[2025-06-24 21:18:54]   [OK] Loaded G001: Gloamwood [Keep_of_Doom]
+[2025-06-24 21:18:54]   [OK] Loaded HH001: Harrow's Hollow [Keep_of_Doom]
+[2025-06-24 21:18:54]   [OK] Loaded SK001: Shadowfall Keep [Keep_of_Doom]
+[2025-06-24 21:18:54]   [OK] Loaded TBM001: The Blighted Marches [Keep_of_Doom]
+[2025-06-24 21:18:54]   [OK] Loaded TCD001: The Cursed Dungeons [Keep_of_Doom]
+[2025-06-24 21:18:54]   [OK] Loaded RC001: Ruins of Calamyr [Silver_Vein_Whispers]
+[2025-06-24 21:18:54]   [OK] Loaded SR001: Sablemoor Reaches [Silver_Vein_Whispers]
+[2025-06-24 21:18:54]   [OK] Loaded WR001: Whispering Riverbanks [Silver_Vein_Whispers]
+[2025-06-24 21:18:54] Graph built: 68 locations, 142 connections

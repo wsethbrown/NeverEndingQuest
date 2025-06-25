@@ -1,0 +1,315 @@
+{
+  "character_role": "player",
+  "character_type": "player",
+  "name": "Sylithar the Magnificent",
+  "type": "player",
+  "size": "Medium",
+  "level": 1,
+  "race": "High Elf",
+  "class": "Wizard",
+  "alignment": "chaotic good",
+  "background": "Charlatan",
+  "status": "alive",
+  "condition": "none",
+  "condition_affected": [],
+  "hitPoints": 7,
+  "maxHitPoints": 7,
+  "armorClass": 15,
+  "initiative": 3,
+  "speed": 30,
+  "abilities": {
+    "strength": 8,
+    "dexterity": 16,
+    "constitution": 13,
+    "intelligence": 16,
+    "wisdom": 12,
+    "charisma": 10
+  },
+  "savingThrows": [
+    "intelligence",
+    "wisdom"
+  ],
+  "skills": {
+    "arcana": 5,
+    "deception": 4,
+    "sleight of hand": 5,
+    "investigation": 5,
+    "perception": 5
+  },
+  "proficiencyBonus": 2,
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 15
+  },
+  "languages": [
+    "Common",
+    "Elvish",
+    "Draconic"
+  ],
+  "proficiencies": {
+    "armor": [],
+    "weapons": [
+      "dagger",
+      "dart",
+      "sling",
+      "quarterstaff",
+      "light crossbow"
+    ],
+    "tools": [
+      "disguise kit"
+    ]
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "classFeatures": [
+    {
+      "name": "Spellcasting",
+      "description": "You can cast prepared wizard spells using Intelligence as your spellcasting ability.",
+      "source": "Wizard"
+    },
+    {
+      "name": "Arcane Recovery",
+      "description": "Once per day after a short rest, recover expended spell slots equal to half your wizard level (rounded up).",
+      "source": "Wizard"
+    }
+  ],
+  "racialTraits": [
+    {
+      "name": "Darkvision",
+      "description": "Accustomed to twilit forests and the night sky, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light.",
+      "source": "High Elf"
+    },
+    {
+      "name": "Keen Senses",
+      "description": "You have proficiency in the Perception skill.",
+      "source": "High Elf"
+    },
+    {
+      "name": "Fey Ancestry",
+      "description": "You have advantage on saving throws against being charmed, and magic can't put you to sleep.",
+      "source": "High Elf"
+    },
+    {
+      "name": "Trance",
+      "description": "Elves don't need to sleep. Instead, they meditate deeply for 4 hours a day.",
+      "source": "High Elf"
+    }
+  ],
+  "backgroundFeature": {
+    "name": "False Identity",
+    "description": "You have created a second identity that includes documentation, established acquaintances, and disguises, allowing you to assume that persona.",
+    "source": "Charlatan"
+  },
+  "temporaryEffects": [],
+  "injuries": [],
+  "equipment_effects": [],
+  "feats": [],
+  "equipment": [
+    {
+      "item_name": "Quarterstaff",
+      "item_type": "weapon",
+      "item_subtype": "other",
+      "description": "A sturdy wooden staff, can be used as an arcane focus.",
+      "quantity": 1,
+      "equipped": true,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Dagger",
+      "item_type": "weapon",
+      "item_subtype": "other",
+      "description": "A simple backup weapon.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Component Pouch",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A pouch to carry spell components.",
+      "quantity": 1,
+      "equipped": true,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Spellbook",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "Contains your known wizard spells.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Scholar's Pack",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "Includes notebook, ink, quill, small bag of sand, and a small knife.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Disguise Kit",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "Charlatan's tool for scams and false identities.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Common clothes with hidden pockets",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "Stylish, flamboyant, and practical for a charlatan.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Collection of trinkets and tokens",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "Magic charms and ordinary objects for scams.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    }
+  ],
+  "ammunition": [],
+  "attacksAndSpellcasting": [
+    {
+      "name": "Quarterstaff",
+      "attackBonus": 1,
+      "damageDice": "1d6",
+      "damageBonus": 0,
+      "damageType": "bludgeoning",
+      "type": "melee",
+      "description": "Versatile (1d8 two-handed)"
+    },
+    {
+      "name": "Dagger",
+      "attackBonus": 3,
+      "damageDice": "1d4",
+      "damageBonus": 3,
+      "damageType": "piercing",
+      "type": "melee",
+      "description": "Thrown (range 20/60 ft)"
+    },
+    {
+      "name": "Fire Bolt",
+      "attackBonus": 5,
+      "damageDice": "1d10",
+      "damageBonus": 0,
+      "damageType": "fire",
+      "type": "spell",
+      "description": "Ranged spell attack, 120 ft range"
+    },
+    {
+      "name": "Magic Missile",
+      "attackBonus": 0,
+      "damageDice": "1d4+1",
+      "damageBonus": 0,
+      "damageType": "force",
+      "type": "spell",
+      "description": "Three darts of force, each hits a creature you can see"
+    }
+  ],
+  "spellcasting": {
+    "ability": "intelligence",
+    "spellSaveDC": 13,
+    "spellAttackBonus": 5,
+    "spells": {
+      "cantrips": [
+        "Fire Bolt",
+        "Minor Illusion",
+        "Mage Hand",
+        "Prestidigitation"
+      ],
+      "level1": [
+        "Magic Missile",
+        "Shield",
+        "Mage Armor",
+        "Sleep",
+        "Thunderwave",
+        "Detect Magic"
+      ],
+      "level2": [],
+      "level3": [],
+      "level4": [],
+      "level5": [],
+      "level6": [],
+      "level7": [],
+      "level8": [],
+      "level9": []
+    },
+    "spellSlots": {
+      "level1": {
+        "current": 2,
+        "max": 2
+      },
+      "level2": {
+        "current": 0,
+        "max": 0
+      },
+      "level3": {
+        "current": 0,
+        "max": 0
+      },
+      "level4": {
+        "current": 0,
+        "max": 0
+      },
+      "level5": {
+        "current": 0,
+        "max": 0
+      },
+      "level6": {
+        "current": 0,
+        "max": 0
+      },
+      "level7": {
+        "current": 0,
+        "max": 0
+      },
+      "level8": {
+        "current": 0,
+        "max": 0
+      },
+      "level9": {
+        "current": 0,
+        "max": 0
+      }
+    },
+    "preparedSpells": [
+      "Magic Missile",
+      "Shield",
+      "Mage Armor",
+      "Thunderwave"
+    ]
+  },
+  "currency": {
+    "gold": 15,
+    "silver": 0,
+    "copper": 0
+  },
+  "experience_points": 0,
+  "exp_required_for_next_level": 300,
+  "challengeRating": 0.125,
+  "personality_traits": "Flamboyant and dramatic; kind to friends, guarded with strangers.",
+  "ideals": "Freedom--I value independence and don't like being tied down.",
+  "bonds": "I owe everything to the friend who first taught me magic.",
+  "flaws": "I can't resist showing off, even when it might get me in trouble."
+}
