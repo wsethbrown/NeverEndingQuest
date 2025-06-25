@@ -1,158 +1,124 @@
 # DungeonMasterAI
 
-An AI-powered Dungeon Master assistant for running 5th edition campaigns with full campaign generation, interactive gameplay, and comprehensive game management capabilities.
+An AI-powered Dungeon Master assistant for running 5th edition campaigns with full campaign generation, interactive gameplay, and comprehensive game management capabilities. Created for solo adventurers who love D&D but face the challenge of finding consistent players.
 
-## 💝 A Labor of Love for Solo Adventurers
+## Table of Contents
 
-**Created for the love of roleplaying games and the challenge of finding other players.**
-
-This project was born from a passion for D&D and the reality that finding consistent players for regular sessions can be difficult. DungeonMasterAI provides a complete solo RPG experience that captures the magic of tabletop gaming without the scheduling challenges.
-
-### 🎯 Design Philosophy: Freedom Within Structure
-
-**The AI is intentionally flexible and non-restrictive** - you can convince it, negotiate with it, or even "cheat" if you want to. This is by design! The software provides:
-
-- **Rails and Guards**: Prevent data corruption and maintain game continuity
-- **Player Freedom**: The AI adapts to your playstyle - strict rules-lawyer or creative storyteller
-- **Flexible Interpretation**: Want that magic item? Convince the AI why your character deserves it
-- **Your Adventure**: Play the way that's fun for you - the AI won't judge or restrict your choices
-
-The goal is to provide the **structure needed for consistent gameplay** while maintaining the **creative freedom that makes roleplaying games magical**.
-
-## Overview
-
-DungeonMasterAI uses OpenAI's GPT models to create complete 5th edition campaigns and provide an interactive Dungeon Master experience. The system features a revolutionary **Location-Based Hub-and-Spoke Campaign Architecture** that enables seamless multi-module adventures.
-
-### Revolutionary Campaign System
-- **Module-Centric Architecture**: Self-contained adventure modules with unified conversation timeline
-- **Seamless Module Transitions**: Intelligent conversation segmentation preserving chronological adventure history
-- **AI-Powered Conversation Compression**: Full adventure summaries generated from actual gameplay conversations
-- **Living World Continuity**: Return to any visited module with complete accumulated adventure context
-- **Chronological Timeline Preservation**: Hub-and-spoke model maintaining adventure sequence across modules
-- **Automatic Context Archiving**: Campaign summaries stored sequentially with detailed narrative chronicles
-- **Smart Boundary Detection**: Two-condition logic for optimal conversation segmentation between modules
-- **AI Autonomous Module Creation**: Dynamic module generation based on party history and adventure progression
-
-### Campaign Generation
-- **Complete Module Builder**: Generate entire adventure modules with areas, locations, plots, and NPCs
-- **Context-Aware Generation**: Maintains consistency across all generated content
-- **Schema-Compliant Output**: All generated files follow strict 5th edition schemas
-- **Community Module Support**: Framework for sharing and auto-stitching downloaded adventure modules
-
-### Game Management
-- Character statistics and inventory tracking with unified character architecture
-- NPC interactions with personality and goals across multiple modules
-- Turn-based combat system with validation and AI simulation
-- Location exploration with detailed descriptions and dynamic state
-- Plot progression and quest tracking with authoritative module_plot.json
-- Time and world condition management with realistic progression
-- Dynamic storytelling that evolves based on accumulated player decisions
-
-## Setup
-
-1. Clone this repository
-2. Install the required dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-3. Copy `config_template.py` to `config.py` and add your OpenAI API key:
-   ```
-   cp config_template.py config.py
-   ```
-4. Edit `config.py` to include your actual API key
+- [Quick Start](#quick-start)
+- [Installation](#installation)
+- [Features Overview](#features-overview)
+- [How It Works](#how-it-works)
+- [Advanced Features](#advanced-features)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Community Module Safety](#community-module-safety)
+- [Usage Examples](#usage-examples)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+- [Recent Updates](#recent-updates)
 
 ## Quick Start
 
-### 🚀 Starting Your Adventure
+**Get playing in under 5 minutes!** The AI startup wizard handles everything automatically:
 
-**New players can start playing immediately!** The game features an **AI-powered startup wizard** that automatically:
+1. **Install dependencies**: `pip install -r requirements.txt`
+2. **Add your OpenAI API key**: Copy `config_template.py` to `config.py` and add your key
+3. **Start playing**: `python main.py` - the AI will guide you through character creation and module selection
+4. **Choose your interface**: Use terminal or launch the web interface with `python run_web.py`
 
-1. **Detects all available modules** in your `modules/` directory
-2. **Selects the lowest-level module** for new players (typically level 1-2)
-3. **Uses AI reasoning** to determine the optimal starting location within that module
-4. **Creates your character** through an interactive AI interview process
-5. **Sets up the world** with appropriate weather and political climate
+The system automatically:
+- Detects available adventure modules
+- Selects appropriate starting locations
+- Creates your character through AI interview
+- Sets up the game world with weather and atmosphere
 
-Simply run:
-```bash
-python main.py
-```
+## Installation
 
-The system will guide you through character creation and automatically place you in the perfect starting location for your adventure!
+### Prerequisites
+- Python 3.9 or higher
+- OpenAI API key ([Get one here](https://platform.openai.com/api-keys))
+- Windows, macOS, or Linux
 
-### 🎯 How Module Selection Works
+### Setup Steps
 
-The AI startup wizard uses **agentic reasoning** to provide maximum compatibility:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/dungeon_master_v1.git
+   cd dungeon_master_v1
+   ```
 
-- **Level-Based Progression**: Automatically selects modules with the lowest minimum level requirement
-- **AI Location Analysis**: Analyzes module plot, areas, and locations to find the best starting point
-- **Context-Aware Setup**: Provides appropriate weather, political climate, and story context
-- **Community Module Support**: Works with any properly formatted module you download or create
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### 📦 Module Compatibility
+3. **Configure OpenAI API**
+   ```bash
+   cp config_template.py config.py
+   # Edit config.py and add your OpenAI API key
+   ```
 
-**Any module you download will work automatically!** The system:
+4. **Start playing**
+   ```bash
+   # Terminal interface
+   python main.py
+   
+   # Web interface (recommended)
+   python run_web.py
+   ```
 
-- **Auto-detects** new modules placed in the `modules/` directory
-- **Resolves conflicts** automatically (duplicate area IDs, etc.)
-- **Validates safety** through multiple security layers
-- **Generates transitions** with AI-powered travel narration between modules
-- **Maintains isolation** so modules don't interfere with each other
+### Verify Installation
+Run `python main.py` - you should see the AI startup wizard begin character creation.
 
-### 🎮 Starting Your Game
+## Features Overview
 
-1. **First Time Setup**: Run `python main.py` - the AI will guide you through everything
-2. **Character Creation**: Interactive AI interview creates a character that fits the world
-3. **Module Selection**: System automatically picks the best starting module for your level
-4. **Starting Location**: AI analyzes the module and places you in the most logical location
-5. **Begin Adventure**: Start playing immediately with rich context and atmosphere
+### Core Gameplay
+- **[AI Dungeon Master](#ai-dungeon-master)**: Complete 5e campaign management with intelligent storytelling
+- **[Character System](#character-management)**: Full character creation, progression, and inventory management
+- **[Combat System](#combat-system)**: Turn-based combat with AI tactical decisions
+- **[Module System](#module-system)**: Self-contained adventures with seamless transitions
 
-### 🔍 What Happens When You Start
+### Advanced Features  
+- **[NPC Party Recruitment](#npc-party-recruitment-system)**: Ask any NPC to join your party with realistic AI evaluation
+- **[Player Housing & Storage](#player-housing--hub-system)**: Establish bases and store items across the world
+- **[Module Generation](#module-generation--management)**: AI creates new adventures based on your choices
+- **[Community Modules](#community-module-safety)**: Download and integrate player-created content safely
 
-When you run `python main.py` for the first time, here's exactly what happens:
+### Technical Features
+- **Web Interface**: Modern browser-based interface with separate panels
+- **Save System**: Automatic progress saving with backup protection
+- **Cross-Platform**: Works on Windows, macOS, and Linux
+- **Schema Validation**: All game files follow strict 5e schemas for consistency
 
-1. **Module Scanning**: The system scans your `modules/` directory for all available adventures
-2. **Level Analysis**: Each module's level range is calculated from its area difficulty ratings
-3. **Automatic Selection**: The lowest-level module is selected (perfect for new characters)
-4. **AI Location Analysis**: The AI examines:
-   - Module plot and story themes
-   - All available areas and their descriptions  
-   - Location types (taverns, shops, quest-givers)
-   - Political climate and story context
-5. **Starting Point Selection**: AI selects the most logical starting location (usually a town center or tavern)
-6. **World Setup**: Appropriate weather and political atmosphere are generated
-7. **Character Creation**: Interactive AI interview creates a character that fits the world
-8. **Game Begin**: You start playing with full immersion and context
+## How It Works
 
-### 🏗️ Module Architecture
+DungeonMasterAI provides a complete solo D&D experience with AI-powered campaign management. The system uses OpenAI's GPT models to act as your Dungeon Master, handling everything from storytelling to combat while maintaining strict 5th edition rules.
 
-The system includes three progressive adventure modules:
+**Design Philosophy**: The AI is intentionally flexible - you can convince it, negotiate with it, or play creatively. The software provides structure for consistent gameplay while maintaining the creative freedom that makes RPGs magical.
+
+### What Makes It Special
+
+- **Location-Based Campaign Architecture**: Self-contained adventure modules with seamless transitions
+- **AI-Powered Module Selection**: Automatically picks appropriate adventures for your character level  
+- **Living World Continuity**: NPCs remember you across modules, and your choices have lasting consequences
+- **Smart Module Generation**: AI creates new adventures based on your party's history and preferences
+
+### Available Adventure Modules
+
+The system includes three progressive adventures:
 
 - **The Ranger's Call** (Level 1-2): Starting adventure in Greenwatch Village
 - **Keep of Doom** (Level 3-5): Intermediate adventure in Harrow's Hollow  
 - **Silver Vein Whispers** (Level 6-8): Advanced adventure in the Sablemoor Reaches
 
-Each module is completely self-contained but connected through AI-generated travel narration, creating a seamless world experience.
+### Creating New Adventures
 
-### Generate a New Module
-```
+Generate complete modules with:
+```bash
 python module_builder.py
 ```
-Follow the prompts to create a complete module with areas, locations, and plots.
-
-### Play the Game
-
-**Option 1: Terminal Interface**
-```
-python main.py
-```
-Load your generated module and start playing in the terminal!
-
-**Option 2: Web Interface (Recommended)**
-```
-python run_web.py
-```
-Launch the modern web interface with separate panels for game output and debug information. The browser will open automatically.
+The AI helps create areas, locations, plots, and NPCs that integrate seamlessly with your existing world.
 
 ## How the Campaign World Works
 
@@ -479,6 +445,96 @@ AI: "It won't be easy, but if you can prove yourself worthy through a specific q
 
 **Remember: The AI wants you to have fun! It provides structure for consistency but adapts to your preferred style of play.**
 
+## Troubleshooting
+
+### Common Issues
+
+#### Installation Problems
+- **"Module not found" errors**: Ensure you've installed requirements with `pip install -r requirements.txt`
+- **OpenAI API errors**: Verify your API key is correct in `config.py` and has sufficient credits
+- **Python version**: Requires Python 3.9+ - check with `python --version`
+
+#### Game Startup Issues
+- **No modules found**: Ensure the `modules/` directory exists with adventure modules
+- **Character creation fails**: Check that you have a valid OpenAI API key and internet connection
+- **Web interface won't start**: Try `python -m http.server` to test basic Python web functionality
+
+#### Performance Issues
+- **Slow AI responses**: This is normal - AI processing takes 10-30 seconds per response
+- **Memory usage**: Large conversation histories use more memory - restart periodically for long sessions
+- **File corruption**: The system creates automatic backups - check for `.backup` files if needed
+
+#### Windows-Specific
+- **Unicode errors**: Windows console has encoding limitations - use the web interface for best experience
+- **Path issues**: Use forward slashes or raw strings for file paths
+- **Permission errors**: Run as administrator if experiencing file access issues
+
+### Getting Help
+- Check the [GitHub Issues](https://github.com/yourusername/dungeon_master_v1/issues) for known problems
+- Create a new issue with your error message and system information
+- Include your Python version and operating system in bug reports
+
+## Contributing
+
+We welcome contributions to DungeonMasterAI! This project thrives on community involvement.
+
+### How to Contribute
+
+#### For Developers
+1. **Fork the repository** and create a feature branch
+2. **Follow the code style** established in existing files
+3. **Test your changes** thoroughly before submitting
+4. **Update documentation** for any new features
+5. **Submit a pull request** with a clear description of changes
+
+#### For Content Creators
+- **Create adventure modules** using the module builder
+- **Share your modules** with the community
+- **Report balance issues** or suggest improvements
+- **Write documentation** or tutorials
+
+#### For Players
+- **Report bugs** with detailed reproduction steps
+- **Suggest features** based on your gameplay experience
+- **Share feedback** on game balance and AI behavior
+- **Help new players** in discussions
+
+### Development Setup
+```bash
+# Fork and clone your fork
+git clone https://github.com/yourusername/dungeon_master_v1.git
+cd dungeon_master_v1
+
+# Create development environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install development dependencies
+pip install -r requirements.txt
+pip install pytest black flake8  # Add linting tools
+
+# Run tests
+python -m pytest
+
+# Format code
+black .
+```
+
+### Contribution Guidelines
+- **Code Style**: Follow existing patterns and use meaningful variable names
+- **Documentation**: Update README and docstrings for new features
+- **Testing**: Add tests for new functionality when possible
+- **Compatibility**: Ensure changes work across Windows, macOS, and Linux
+- **Licensing**: All contributions must be compatible with CC BY 4.0 license
+
+### Areas Needing Help
+- **Web interface improvements** - Better UI/UX design
+- **Performance optimization** - Faster AI response times
+- **Module creation tools** - Better module builder interface
+- **Documentation** - More tutorials and examples
+- **Testing** - Automated test coverage
+- **Platform support** - Mobile interfaces, voice integration
+
 ## License
 
 This work is licensed under the Creative Commons Attribution 4.0 International License. 
@@ -498,28 +554,28 @@ Creative Commons Attribution 4.0 International License.
 
 ## Recent Updates
 
-### **🎉 Major Features Added**
-- **🤖 AI-Powered Startup Wizard**: Automatic module detection, level-based selection, and AI reasoning for optimal starting locations
-- **👥 NPC Party Recruitment**: Ask any NPC to join your party with AI evaluation and persistent companions
-- **🏠 Hub & Housing System**: Transform any location into a permanent base with full services
-- **📦 Player Storage System**: Complete natural language storage with atomic file protection
-- **🎯 Module Level Progression**: Intelligent 1-2 → 3-5 → 6-8 level-based adventure flow
-- **🌍 Community Module Compatibility**: Universal module support with automatic conflict resolution
-- **🎲 AI Auto-Generation**: Contextual module creation based on party history and preferences
-- **🔄 Isolated Module Architecture**: Clean module separation with AI travel narration
+### Major Features Added
+- **AI-Powered Startup Wizard**: Automatic module detection, level-based selection, and AI reasoning for optimal starting locations
+- **NPC Party Recruitment**: Ask any NPC to join your party with AI evaluation and persistent companions
+- **Hub & Housing System**: Transform any location into a permanent base with full services
+- **Player Storage System**: Complete natural language storage with atomic file protection
+- **Module Level Progression**: Intelligent 1-2 → 3-5 → 6-8 level-based adventure flow
+- **Community Module Compatibility**: Universal module support with automatic conflict resolution
+- **AI Auto-Generation**: Contextual module creation based on party history and preferences
+- **Isolated Module Architecture**: Clean module separation with AI travel narration
 
-### **🔧 Technical Improvements**
-- **🏗️ Enhanced Module Stitcher**: Fixed areas/ subdirectory scanning with automatic ID conflict resolution
-- **⚙️ Centralized AI Configuration**: Removed all hardcoded GPT models, now uses config.py for consistency
-- **🔧 Startup Wizard Architecture**: Complete rewrite with proper error handling and Windows compatibility
-- **📁 Campaign Path Management**: Implemented `CampaignPathManager` for centralized file path handling
-- **⚔️ Combat System Fixes**: Fixed monster file loading in combat to use campaign directories
-- **📂 Directory Structure**: All campaign-specific files now stored in organized campaign folders
-- **🧹 Legacy Cleanup**: Moved old files to legacy folder, cleaning up root directory
-- **✅ Validation System**: Relaxed combat validation to focus on major errors only
+### Technical Improvements
+- **Enhanced Module Stitcher**: Fixed areas/ subdirectory scanning with automatic ID conflict resolution
+- **Centralized AI Configuration**: Removed all hardcoded GPT models, now uses config.py for consistency
+- **Startup Wizard Architecture**: Complete rewrite with proper error handling and Windows compatibility
+- **Campaign Path Management**: Implemented `CampaignPathManager` for centralized file path handling
+- **Combat System Fixes**: Fixed monster file loading in combat to use campaign directories
+- **Directory Structure**: All campaign-specific files now stored in organized campaign folders
+- **Legacy Cleanup**: Moved old files to legacy folder, cleaning up root directory
+- **Validation System**: Relaxed combat validation to focus on major errors only
 - **Equipment Syncing**: Verified arrow transfer sync between character files
 
-### **🛡️ Safety & Protection**
+### Safety & Protection
 - **Atomic File Operations**: Backup/restore functionality prevents data corruption
 - **Schema Validation**: All operations validated against JSON schemas
 - **Context Contamination Prevention**: AI prompts prevent module creation conflicts
