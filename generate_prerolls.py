@@ -209,10 +209,9 @@ def generate_prerolls(encounter_data, round_num=None):
                     attacks_info, num_attacks = get_monster_attacks(monster_type)
                 elif creature.get("type") == "npc":
                     # Load NPC file to get attacksAndSpellcasting  
-                    npc_name = creature_name.lower().replace(" ", "_")
-                    # Only split if there are multiple underscores - handles both "test_guard" and "guard_1" formats
-                    if "_" in npc_name and len(npc_name.split("_")) > 2:
-                        npc_name = npc_name.split('_')[0]
+                    from module_path_manager import ModulePathManager
+                    path_manager = ModulePathManager()
+                    npc_name = path_manager.format_filename(creature_name)
                     attacks_info, num_attacks = get_npc_attacks(npc_name)
             except Exception as e:
                 print(f"Warning: Could not load attack data for {creature_name}: {e}")

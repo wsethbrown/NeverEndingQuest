@@ -635,7 +635,9 @@ def update_json_schema(ai_response, player_info, encounter_data, party_tracker_d
     # Update NPCs if needed (no XP for NPCs)
     for creature in encounter_data['creatures']:
         if creature['type'] == 'npc':
-            npc_name = creature['name'].lower().replace(' ', '_').split('_')[0] # Format for file access
+            from module_path_manager import ModulePathManager
+            path_manager = ModulePathManager()
+            npc_name = path_manager.format_filename(creature['name']) # Format for file access
             npc_changes = "Update NPC status after combat."
             update_character_info(npc_name, npc_changes)
 
@@ -784,7 +786,7 @@ def sync_active_encounter():
                     print(f"ERROR: Failed to sync player data to encounter: {str(e)}")
                     
             elif creature["type"] == "npc":
-                npc_name = creature['name'].lower().replace(' ', '_').split('_')[0]
+                npc_name = path_manager.format_filename(creature['name'])
                 npc_file = path_manager.get_character_path(npc_name)
                 try:
                     npc_data = safe_json_load(npc_file)
@@ -940,7 +942,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
        
        elif creature["type"] == "npc":
            # Ensure npc_name is correctly formatted for file access
-           npc_file_name_part = creature["name"].lower().replace(" ", "_").split('_')[0] # Handle names like "NPC_1"
+           npc_file_name_part = path_manager.format_filename(creature["name"]) # Handle names like "NPC_1"
            npc_file = path_manager.get_character_path(npc_file_name_part)
            if npc_file_name_part not in npc_templates: # Check against the base name
                try:
@@ -1003,7 +1005,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
            # Get the actual max HP from the correct source
            if creature["type"] == "npc":
                # For NPCs, look up their true max HP from their character file
-               npc_name = creature_name.lower().replace(" ", "_").split('_')[0]
+               npc_name = path_manager.format_filename(creature_name)
                npc_file = path_manager.get_character_path(npc_name)
                try:
                    with open(npc_file, "r") as file:
@@ -1269,7 +1271,7 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        # Reload NPC data
        for creature in encounter_data["creatures"]:
            if creature["type"] == "npc":
-               npc_name = creature["name"].lower().replace(" ", "_").split('_')[0]
+               npc_name = path_manager.format_filename(creature["name"])
                npc_file = path_manager.get_character_path(npc_name)
                try:
                    with open(npc_file, "r") as file:
@@ -1348,7 +1350,7 @@ Player: The combat begins. Describe the scene and the enemies we face."""
                npc_data = None
                if creature["type"] == "npc":
                    # For NPCs, look up their true max HP from their character file
-                   npc_name = creature_name.lower().replace(" ", "_").split('_')[0]
+                   npc_name = path_manager.format_filename(creature_name)
                    npc_file = path_manager.get_character_path(npc_name)
                    try:
                        with open(npc_file, "r") as file:
@@ -1679,7 +1681,7 @@ Player: {user_input_text}"""
            
            elif action_type == "updatenpcinfo":
                # Legacy NPC update - redirect to unified system
-               npc_name_for_update = parameters.get("npcName", "").lower().replace(' ', '_').split('_')[0]
+               npc_name_for_update = path_manager.format_filename(parameters.get("npcName", ""))
                changes = parameters.get("changes", "")
                
                # Debug logging for character update transaction

@@ -1,0 +1,482 @@
+{
+  "areaId": "RO001",
+  "areaName": "Rangers' Outpost",
+  "areaType": "wilderness",
+  "areaDescription": "Crisis transforms this frontier outpost from peaceful haven to fortress under siege. Weathered timber walkways now bear the scars of hasty fortification, while the clearing echoes with urgent voices and the clash of hastily prepared weapons. The spicy tang of pine sap mingles with smoke from signal fires and the metallic scent of fear. Rangers move with grim purpose between reinforced positions, their usual confidence replaced by the weight of impending catastrophe threatening to overwhelm their small garrison.",
+  "dangerLevel": "low",
+  "recommendedLevel": 1,
+  "climate": "arctic",
+  "terrain": "coast",
+  "map": {
+    "mapId": "MAP_5",
+    "mapName": "Wilderness Map",
+    "totalRooms": 5,
+    "rooms": [
+      {
+        "id": "RO01",
+        "type": "crossroads",
+        "connections": [
+          "RO02",
+          "RO03",
+          "RO04"
+        ],
+        "coordinates": "X2Y2",
+        "name": "Forked Trails Crossing"
+      },
+      {
+        "id": "RO02",
+        "type": "riverside",
+        "connections": [
+          "RO01"
+        ],
+        "coordinates": "X2Y3",
+        "name": "Moonlit Waters Edge"
+      },
+      {
+        "id": "RO03",
+        "type": "ruins",
+        "connections": [
+          "RO01",
+          "RO05"
+        ],
+        "coordinates": "X1Y2",
+        "name": "Shattered Sentinel Stones"
+      },
+      {
+        "id": "RO04",
+        "type": "riverside",
+        "connections": [
+          "RO01"
+        ],
+        "coordinates": "X3Y2",
+        "name": "Mistshadow Ford"
+      },
+      {
+        "id": "RO05",
+        "type": "cave",
+        "connections": [
+          "RO03"
+        ],
+        "coordinates": "X1Y1",
+        "name": "Feral Hollow"
+      }
+    ],
+    "layout": [
+      [
+        "RO05",
+        "   ",
+        "   "
+      ],
+      [
+        "RO03",
+        "RO01",
+        "RO04"
+      ],
+      [
+        "   ",
+        "RO02",
+        "   "
+      ]
+    ]
+  },
+  "locations": [
+    {
+      "locationId": "RO01",
+      "name": "Rangers' Command Post",
+      "type": "crossroads",
+      "description": "The Rangers' Command Post stands shrouded in chill dawn mists, its battered oak table strewn with blood-smeared maps beneath the silent silver bells that hang overhead, their wires severed and dulled from recent sabotage. The air is thick with tension as the somber cadre of rangers gathers to confront the escalating threat that grips the Thornwood Wilds.",
+      "coordinates": "X2Y2",
+      "connectivity": [
+        "RO02",
+        "RO03",
+        "RO04"
+      ],
+      "areaConnectivity": [
+        "Thornwood Wilds"
+      ],
+      "areaConnectivityId": [
+        "TW001"
+      ],
+      "npcs": [
+        {
+          "name": "Ranger Elen",
+          "description": "The steadfast commander of Thornwood Outpost, Elen bears the weight of protecting the frontier trade routes. Her eyes are sharp yet weary beneath the weight of mounting losses, and though duty binds her to this post, worry creases her brow as she shares strategic insights into vulnerable approaches and the critical role of the sabotaged silver bell network.",
+          "attitude": "Professional but concerned, testing the party's competence while revealing the burden of command."
+        },
+        {
+          "name": "Ranger Marcus",
+          "description": "A grizzled veteran scout with weathered hands and keen eyes, Marcus speaks grimly of clever bandits leaving no survivors. He remains grim but helpful, sharing patrol knowledge and trail wisdom with those who prove themselves worthy of respect.",
+          "attitude": "Gruff but helpful, willing to share patrol knowledge and trail wisdom with those who prove themselves worthy of respect."
+        },
+        {
+          "name": "Scout Kira",
+          "description": "A young, eager ranger who reports directly to Elen and frequently carries messages between outposts. Her wide-eyed reports of strange lights and fleeing wildlife hint at unnatural forces at play. Now formally joining the party, she radiates eager resolve and is ready to share the latest news and gossip from other ranger posts.",
+          "attitude": "Enthusiastic and talkative, eager to prove herself and always ready to share the latest news and gossip from other ranger posts."
+        },
+        {
+          "name": "Messenger Tom",
+          "description": "A road-weary courier who rides between settlements carrying dispatches and news. His horse shows signs of hard travel, and he always seems to be either arriving from or departing for another urgent delivery.",
+          "attitude": "Tired but reliable, grateful for a safe place to rest and always willing to share news from distant settlements in exchange for a hot meal."
+        },
+        {
+          "name": "Rusk",
+          "description": "Captured bandit leader with a broken arm, recently healed by Eirik Hearthwise's careful touch. Through persuasion, he revealed the location of the main bandit camp beyond Scout's Watch, the use of signal whistles as alarms, and the presence of the shadowy faction known as the Crow's Hand orchestrating the raids.",
+          "attitude": "Defiant yet cooperative under interrogation, providing vital intelligence on bandit operations and their mysterious allies."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Detailed regional map marking bandit activity",
+        "Pouch of silver signal bells",
+        "Ranger's field guide to local threats",
+        "Horse and provisions for upcoming mission"
+      ],
+      "plotHooks": [
+        "Elen urgently recruits the party as three caravans have been destroyed in five days with escalating brutality",
+        "A captured bandit leader, Rusk, holds key intelligence about the bandit camp and the Crow's Hand faction",
+        "Strange reports of ghostly lights and fleeing wildlife hint at unnatural forces in the forest",
+        "The silver bell network sabotage threatens early warnings of bandit raids",
+        "Scout Kira joins the party, bringing fresh resolve and knowledge of nearby outposts"
+      ],
+      "dmInstructions": "Emphasize the tense atmosphere as the rangers grapple with sabotage and mounting threats. Highlight the importance of the silver bell network and the urgency to repair it. Use Rusk's interrogation to reveal plot-critical information about bandit numbers, their camp location, and the enigmatic Crow's Hand. Foster camaraderie between the party and the rangers, setting up future strategic decisions and missions.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Insight DC 12: Notice Elen's concern about reports from distant regions, hinting at larger threats",
+        "Investigation DC 10: Study the tactical maps to understand bandit movement patterns",
+        "Perception DC 8: Hear the subtle signals from the silver bell network warning of approaching activity",
+        "Investigation DC 15: Detect expertly concealed cuts in the silver bell network wiring indicating deliberate sabotage"
+      ],
+      "accessibility": "Central hub with clear sight lines to all outpost approaches; currently partially impaired by sabotage and ongoing repairs",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Command Table",
+          "description": "A battered oak table bearing blood-smeared maps, dispatch scrolls, and tactical markers showing current threats and patrol routes."
+        },
+        {
+          "name": "Sabotaged Silver Bell Network",
+          "description": "Silver bells strung on delicate lines form the early warning system. Several wires have been expertly severed, causing silence where alerts once chimed."
+        },
+        {
+          "name": "Ranger Equipment Racks",
+          "description": "Well-maintained racks holding spare bows, quivers, and survival gear for rangers heading out on patrol."
+        },
+        {
+          "name": "Temporary Holding Area",
+          "description": "A secured corner of the command post where captured bandit leader Rusk is held under guard. Heavy chains and vigilant rangers ensure the prisoner remains contained while still allowing for interrogation and information gathering."
+        }
+      ]
+    },
+    {
+      "locationId": "RO02",
+      "name": "Supply Depot",
+      "type": "riverside",
+      "description": "Wooden crates and canvas-wrapped supplies line the riverbank where merchant barges dock to resupply the outpost. Quartermaster Brann oversees the careful inventory, his weathered hands checking manifests against dwindling stores. The gentle lap of water against the dock mingles with the creak of rope and timber, while nervous traders eye the forest treeline.",
+      "coordinates": "X2Y3",
+      "connectivity": [
+        "RO01"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Quartermaster Brann",
+          "description": "A methodical dwarf with ink-stained fingers and a sharp eye for detail, Brann maintains the outpost's supplies with military precision. Recent shortages have made him increasingly cautious about who gets access to equipment and rations.",
+          "attitude": "Businesslike and protective of supplies, but will warm to characters who prove their worth to the outpost."
+        },
+        {
+          "name": "Dock Worker Finn",
+          "description": "A burly human who handles the loading and unloading of supply barges at the riverside dock. His clothes are perpetually damp from river spray, and he knows every merchant barge captain who travels these waters.",
+          "attitude": "Friendly and chatty, always eager to share river gossip and stories about the various merchants and their cargo."
+        },
+        {
+          "name": "Merchant Vera",
+          "description": "A nervous middle-aged trader whose own caravan was attacked two weeks ago. She lost most of her goods but escaped with her life, and now helps Brann with supply inventory while waiting for safe passage home.",
+          "attitude": "Anxious but grateful for shelter, willing to share detailed accounts of bandit tactics and warning signs she noticed before her attack."
+        },
+        {
+          "name": "Apprentice Jeb",
+          "description": "Brann's young assistant, a well-meaning but clumsy human who handles the simpler supply tasks. He's eager to please but prone to dropping things and mixing up inventory counts.",
+          "attitude": "Enthusiastic and helpful, though often apologetic about his mistakes. Looks up to the rangers and dreams of joining their ranks someday."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Rope and climbing gear",
+        "Trail rations for 3 days",
+        "Waterproof supply manifest showing recent shortages"
+      ],
+      "plotHooks": [
+        "Supply shortages suggest someone is stealing or intercepting shipments",
+        "Merchant barge arrivals have become increasingly irregular and nervous",
+        "Brann mentions unusual equipment requests from supposedly legitimate traders"
+      ],
+      "dmInstructions": "Brann can provide basic equipment and supplies to the party, but requires proof of their legitimacy. He's a good source for information about supply chain disruptions and suspicious merchant activity.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 11: Examine supply manifests to notice patterns in missing shipments",
+        "Persuasion DC 13: Convince Brann to share information about suspicious merchant requests",
+        "Perception DC 9: Notice nervous behavior from traders docking at the depot"
+      ],
+      "accessibility": "Open dock area with clear river access for supply barges",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Supply Dock",
+          "description": "A sturdy wooden dock extending into the river, designed for merchant barges to safely unload cargo."
+        },
+        {
+          "name": "Inventory Ledgers",
+          "description": "Detailed logs tracking all incoming and outgoing supplies, meticulously maintained by Quartermaster Brann."
+        },
+        {
+          "name": "Storage Crates",
+          "description": "Weatherproof crates and canvas-wrapped bundles containing essential supplies for the outpost's operations."
+        }
+      ]
+    },
+    {
+      "locationId": "RO03",
+      "name": "Trader's Rest",
+      "type": "ruins",
+      "description": "A frost-dusted clearing marked by dilapidated benches, a sagging sign, and empty, weathered trade stalls. The usual throng of merchants is absent, and an eerie silence hangs heavily over the quiet market. Signs of recent violence are evident, such as a broken silver bell wire and faint footprints, hinting at recent sabotage by hostile forces. Despite the tension, Trader Sila remains watchful by a locked chest, working to maintain order and warn the merchants of lurking threats.",
+      "coordinates": "X1Y2",
+      "connectivity": [
+        "RO01",
+        "RO05"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Trader Sila",
+          "description": "A wary woman in a patched green cloak who stands watch by a locked chest. Though guarded, she shows a cautious hope and trust towards the party after their assistance. She coordinates the merchant community and warns others to stay vigilant after dark.",
+          "attitude": "Guarded but appreciative, cautiously hopeful and eager to spread warnings among the merchants."
+        },
+        {
+          "name": "Merchant Gareth",
+          "description": "A portly human trader who specializes in general goods and basic supplies. His wagon is currently being repaired after damage from a recent bandit encounter, and he's frustrated by the delays to his trading schedule.",
+          "attitude": "Worried and impatient, constantly checking on his damaged wagon and eager to discuss the deteriorating safety of the trade routes."
+        },
+        {
+          "name": "Trader Mila",
+          "description": "An exotic goods merchant with items from distant lands, Mila has been stranded at the outpost longer than expected. She deals in rare spices, unusual trinkets, and has heard disturbing rumors about supernatural corruption.",
+          "attitude": "Mysterious but helpful, willing to trade information about strange occurrences for protection or safe passage to her next destination."
+        },
+        {
+          "name": "Caravan Guard Bex",
+          "description": "A retired soldier turned caravan guard who now helps coordinate security for merchant groups. Her experience shows in her alert posture and the practical arrangement of her weapons and armor.",
+          "attitude": "Professional and direct, focused on practical security matters and always assessing potential threats to merchant caravans."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Assorted trade goods from various regions",
+        "Merchant's ledger detailing recent attacks",
+        "Map of regional trade routes with danger markings",
+        "Torn scrap of dark cloth embroidered with a silver-stitched crow's feather"
+      ],
+      "plotHooks": [
+        "Evidence links recent sabotage to the Crow's Hand faction",
+        "Sila warns merchants to travel only in trusted company after dark",
+        "Fresh trail leads toward the Forgotten Waystation, promising further clues",
+        "Saboteurs may still lurk nearby, threatening merchant safety"
+      ],
+      "dmInstructions": "Sila is a key NPC providing information about recent sabotage and the growing threat of the Crow's Hand faction. She can guide the party toward investigating the fresh trail to the Forgotten Waystation. The broken bell wire is a vital communication point that the party can repair to restore merchant warnings.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Persuasion DC 12: Convince Sila to share detailed information about recent sabotage",
+        "Investigation DC 14: Examine broken bell wire and footprints for clues",
+        "Perception DC 13: Spot subtle signs of recent movement near the trade stalls"
+      ],
+      "accessibility": "Open market clearing with weathered stalls and benches, accessible via main trade routes",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Broken Silver Bell Wire",
+          "description": "A snapped wire vital for merchant communication; coated in oily black residue indicating sabotage."
+        },
+        {
+          "name": "Weathered Trade Stalls",
+          "description": "Empty and battered stalls showing signs of recent disturbance and hurried departure."
+        },
+        {
+          "name": "Locked Chest",
+          "description": "Guarded by Trader Sila, containing merchant valuables and supplies."
+        }
+      ]
+    },
+    {
+      "locationId": "RO04",
+      "name": "Scout's Watch",
+      "type": "riverside",
+      "description": "A raised wooden platform overlooks the river crossing, providing clear sight lines across the water and into the forest beyond. Scout Neris maintains vigilant watch from this vantage point, her spyglass scanning for threats while signal mirrors catch the light for long-distance communication. The sound of flowing water masks quiet conversations about patrol routes and suspicious movement.",
+      "coordinates": "X3Y2",
+      "connectivity": [
+        "RO01"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Scout Neris",
+          "description": "A keen-eyed human ranger with wind-tousled hair and calloused hands from years of frontier duty. Neris has an encyclopedic knowledge of the surrounding wilderness and can spot trouble from miles away. She's recently returned from investigating strange phenomena in the northern woods.",
+          "attitude": "Alert and professional, eager to share intelligence about wilderness threats but cautious about venturing too far from her watch post."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Spyglass with exceptional range",
+        "Detailed wilderness maps with recent annotations",
+        "Signal mirror for long-distance communication"
+      ],
+      "plotHooks": [
+        "Neris has observed unusual lights and movement in the northern forest",
+        "Wildlife has been fleeing southward in unprecedented numbers",
+        "Strange travelers have been spotted moving at night toward the corrupted areas",
+        "Communication with northern patrol posts has become sporadic and concerning"
+      ],
+      "dmInstructions": "Scout Neris provides reconnaissance intelligence and can guide the party to specific locations in the wilderness. She's the best source for information about the supernatural phenomena affecting the northern reaches.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Perception DC 10: Spot distant movement or signals that Neris points out",
+        "Survival DC 12: Understand the significance of wildlife migration patterns Neris describes",
+        "Investigation DC 11: Study Neris's annotated maps to identify patterns in the strange phenomena"
+      ],
+      "accessibility": "Elevated watch platform accessible by wooden ladder",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Watch Platform",
+          "description": "A sturdy wooden platform raised above the treeline, providing commanding views of the river crossing and forest approaches."
+        },
+        {
+          "name": "Signal Equipment",
+          "description": "Mirrors, flags, and other communication tools for coordinating with distant patrols and the main outpost."
+        },
+        {
+          "name": "Observation Logs",
+          "description": "Detailed written records of movements, weather patterns, and unusual sightings maintained by the scout."
+        }
+      ]
+    },
+    {
+      "locationId": "RO05",
+      "name": "Forgotten Waystation",
+      "type": "ruins",
+      "description": "Overgrown stone foundations mark where an old ranger messaging station once facilitated communication between outposts. Moss-covered relay towers and a partially collapsed signal platform hint at its former purpose. Recent activity has disturbed the undergrowth - fresh footprints, scattered equipment, and drag marks leading to a concealed cache suggest this abandoned site has found new, sinister purpose.",
+      "coordinates": "X1Y1",
+      "connectivity": [
+        "RO03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [],
+      "lootTable": [
+        "Crow's Hand supply cache with sabotage tools",
+        "Coded correspondence revealing next targets",
+        "Maps marking vulnerable points in the silver bell network",
+        "Schedule showing caravan routes and timing",
+        "Torn scrap of dark cloth with crow's feather insignia"
+      ],
+      "plotHooks": [
+        "Fresh drag marks lead to a concealed cache of sabotage equipment",
+        "Coded messages reveal the Crow's Hand plans to strike Scout's Watch next",
+        "Equipment suggests the saboteurs have inside knowledge of ranger operations",
+        "Evidence points to a coordinated assault on the entire communication network"
+      ],
+      "dmInstructions": "This location serves as evidence of the Crow's Hand's organized campaign against the outpost. The cache reveals their systematic approach and provides clues about their next target (Scout's Watch). Use investigation checks to uncover layers of evidence showing this isn't random banditry but coordinated sabotage.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 12: Follow drag marks to discover the hidden equipment cache",
+        "Investigation DC 15: Decode partial messages to reveal next target locations",
+        "Perception DC 13: Notice recently disturbed hiding spots and escape routes",
+        "Survival DC 11: Determine how recently the site was occupied"
+      ],
+      "accessibility": "Abandoned ruins overgrown with vegetation, requires careful searching to find concealed evidence",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Moss-Covered Relay Towers",
+          "description": "Ancient stone towers once used for signal fires and message relay between ranger outposts, now crumbling and overgrown."
+        },
+        {
+          "name": "Collapsed Signal Platform",
+          "description": "A partially destroyed wooden platform where signal mirrors and flags were once operated to communicate with distant posts."
+        },
+        {
+          "name": "Concealed Equipment Cache",
+          "description": "A hidden stash of sabotage tools, coded messages, and intelligence materials recently dragged here by Crow's Hand operatives."
+        },
+        {
+          "name": "Disturbed Undergrowth",
+          "description": "Fresh signs of activity including footprints, drag marks, and hastily concealed evidence of recent occupation."
+        }
+      ]
+    }
+  ],
+  "randomEncounters": [
+    {
+      "roll": "1-10",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "11-20",
+      "encounter": "lost traveler",
+      "description": "A lost traveler appropriate for level 1 parties"
+    },
+    {
+      "roll": "21-30",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "31-40",
+      "encounter": "lost traveler",
+      "description": "A lost traveler appropriate for level 1 parties"
+    },
+    {
+      "roll": "41-50",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "51-60",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "61-70",
+      "encounter": "lost traveler",
+      "description": "A lost traveler appropriate for level 1 parties"
+    },
+    {
+      "roll": "71-80",
+      "encounter": "environmental hazard",
+      "description": "A environmental hazard appropriate for level 1 parties"
+    },
+    {
+      "roll": "81-90",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    },
+    {
+      "roll": "91-100",
+      "encounter": "wandering animal",
+      "description": "A wandering animal appropriate for level 1 parties"
+    }
+  ],
+  "areaFeatures": [
+    "water sources",
+    "rock formations",
+    "animal dens"
+  ],
+  "notes": "Weather and terrain should affect travel times. Random encounters keep exploration tense."
+}

@@ -107,7 +107,7 @@ Remember to only update monster information and leave player and NPC data unchan
                         print(f"{RED}ERROR: Failed to sync player data from {player_file}: {str(e)}{RESET}")
                         
                 elif creature["type"] == "npc":
-                    npc_name = creature['name'].lower().replace(' ', '_').split('_')[0]
+                    npc_name = path_manager.format_filename(creature['name'])
                     npc_file = path_manager.get_character_path(npc_name)
                     try:
                         with open(npc_file, "r") as file:
