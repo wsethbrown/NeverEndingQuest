@@ -415,7 +415,7 @@ def handle_player_data_request(data):
             path_manager = ModulePathManager(current_module)
             
             for npc_info in party_tracker.get('partyNPCs', []):
-                npc_name = npc_info['name'].lower().replace(' ', '_').split('_')[0]
+                npc_name = npc_info['name']
                 
                 try:
                     npc_file = path_manager.get_character_path(npc_name)
