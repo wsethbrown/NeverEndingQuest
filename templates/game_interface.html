@@ -189,6 +189,18 @@
             padding: 10px;
         }
         
+        /* Debug Panel Content - Auto-scroll to bottom */
+        #debug-output {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: 100%;
+        }
+        
+        #debug-output .message {
+            flex-shrink: 0;
+        }
+        
         .game-panel {
             flex: 2;
         }
