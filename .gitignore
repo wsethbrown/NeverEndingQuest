@@ -113,3 +113,7 @@ validation_*_report.md
 # Startup wizard temporary files
 startup_conversation.json
 startup_conversation_archive_*.json
+
+# Training data (large files, sensitive content)
+training_data.json
+*training_data*
