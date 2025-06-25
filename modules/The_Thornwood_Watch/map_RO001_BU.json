@@ -44,12 +44,12 @@
     },
     {
       "id": "RO05",
-      "type": "cave",
+      "type": "ruins",
       "connections": [
         "RO03"
       ],
       "coordinates": "X1Y1",
-      "name": "Feral Hollow"
+      "name": "Forgotten Waystation"
     }
   ],
   "layout": [
