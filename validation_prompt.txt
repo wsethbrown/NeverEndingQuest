@@ -173,6 +173,18 @@ Requires "narrative" parameter containing rich story description with embedded m
    If player mentions another module by name, use updatePartyTracker with module parameter.
    
    Requires parameters for the specific updates (module, currentLocationId, currentLocation, currentAreaId, currentArea, etc.).
+"moveBackgroundNPC": Used for managing NPCs in location files who are NOT traveling with the party. This action handles NPCs who are captured, killed, relocated, or have status changes due to narrative events. CRITICAL DISTINCTION: Use this ONLY for background NPCs in location files, NOT for party NPCs (use updatePartyNPCs for those). Should be used when:
+   - Background NPCs are captured or taken away ("Rusk was captured by the party")
+   - Background NPCs are killed or die ("The merchant was killed in the attack")
+   - Background NPCs relocate or move ("The guard captain went to the watchtower")
+   - Background NPCs have significant status changes ("The wounded scout recovered")
+   
+   Requires "npcName" parameter (exact NPC name) and "context" parameter (narrative explanation of what happened). The system intelligently determines whether to remove, relocate, or update the NPC based on context.
+   
+   **INVALID USAGE:**
+   - Using on party NPCs (NPCs traveling with the party) [INVALID - use updatePartyNPCs]
+   - Using on NPCs that don't exist in location files [INVALID]
+   - Using without clear narrative reason [INVALID]
 
 ## REST MANAGEMENT VALIDATION RULES
 

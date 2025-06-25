@@ -947,7 +947,34 @@ NPC Party Management:
 - This action MUST be included immediately after narrating an NPC joining or leaving the party.
 - Do not proceed with further narration, actions, or dialogue until you've updated the party NPCs.
 - After every response, double-check if any NPCs have joined or left the party. If so, and you haven't updated the party NPCs, do so immediately in your next response.
-- Do not include a "narration" element in this JSON.
+
+Background NPC Movement Management:
+- Use "moveBackgroundNPC" action to handle NPCs in locations who are NOT traveling with the party.
+- This action manages NPCs captured, killed, relocated, or whose status changes due to narrative events.
+- IMPORTANT: This is ONLY for background NPCs in location files - NOT for party NPCs (use updatePartyNPCs for those).
+- Use the following format for background NPC movement:
+  {
+    "actions": [
+      {
+        "action": "moveBackgroundNPC",
+        "parameters": {
+          "npcName": "<npc_name>",
+          "context": "<narrative_explanation_of_what_happened>",
+          "currentLocation": "<location_id_hint_optional>"
+        }
+      }
+    ]
+  }
+- Replace <npc_name> with the exact name of the background NPC being affected.
+- Replace <narrative_explanation> with a clear description of what happened (captured, killed, fled, relocated, etc.).
+- The system will intelligently determine appropriate action (remove, update status, or move) based on context.
+- Use this action when NPCs are captured, killed, move away, or have significant status changes in the story.
+
+Examples of when to use moveBackgroundNPC:
+- "Rusk was captured by the party and taken away" 
+- "The merchant was killed during the bandit attack"
+- "Guard Captain Thorne relocated to the watchtower"
+- "The wounded scout recovered from his injuries"
 
 ## NPC Party Recruitment Guidelines
 

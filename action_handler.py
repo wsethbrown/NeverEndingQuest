@@ -66,6 +66,7 @@ ACTION_CREATE_NEW_MODULE = "createNewModule"
 ACTION_ESTABLISH_HUB = "establishHub"
 ACTION_STORAGE_INTERACTION = "storageInteraction"
 ACTION_UPDATE_PARTY_TRACKER = "updatePartyTracker"
+ACTION_MOVE_BACKGROUND_NPC = "moveBackgroundNPC"
 
 # Module conversation segmentation has been moved to conversation_utils.py
 # to work with the regular conversation update cycle
@@ -974,7 +975,542 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             import traceback
             traceback.print_exc()
 
+    elif action_type == ACTION_MOVE_BACKGROUND_NPC:
+        print(f"DEBUG: Processing moveBackgroundNPC action")
+        try:
+            # Extract parameters
+            npc_name = parameters.get("npcName")
+            context = parameters.get("context", "")
+            current_location = parameters.get("currentLocation")
+            
+            if not npc_name:
+                print(f"ERROR: Missing required parameter 'npcName' for moveBackgroundNPC action")
+                return create_return(status="continue", needs_update=False)
+            
+            # Process the NPC movement
+            success = move_background_npc(npc_name, context, current_location, party_tracker_data)
+            
+            if success:
+                print(f"DEBUG: Successfully processed movement for NPC: {npc_name}")
+                needs_conversation_history_update = True
+            else:
+                print(f"ERROR: Failed to process movement for NPC: {npc_name}")
+                
+        except Exception as e:
+            print(f"ERROR: Exception while processing moveBackgroundNPC: {str(e)}")
+            import traceback
+            traceback.print_exc()
+
     else:
         print(f"WARNING: Unknown action type: {action_type}")
     
     return create_return(needs_update=needs_conversation_history_update)
+
+def move_background_npc(npc_name, context, current_location_hint=None, party_tracker_data=None):
+    """
+    AI-driven function to handle NPC movement/status changes with atomic safety
+    
+    Args:
+        npc_name (str): Name of the NPC to move/update
+        context (str): Narrative context explaining what happened to the NPC
+        current_location_hint (str, optional): Hint about current location if not found automatically
+        party_tracker_data (dict, optional): Party tracker data for module context
+        
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    import json
+    import copy
+    import shutil
+    import os
+    import time
+    import threading
+    from datetime import datetime
+    from file_operations import safe_write_json, safe_read_json
+    
+    print(f"DEBUG: moveBackgroundNPC called for {npc_name}")
+    print(f"DEBUG: Context: {context}")
+    
+    # File locking for atomic operations (similar to updateCharacterInfo)
+    lock = threading.Lock()
+    
+    with lock:
+        try:
+            # Get module context
+            if not party_tracker_data:
+                party_tracker_data = safe_read_json("party_tracker.json")
+                if not party_tracker_data:
+                    print("ERROR: Could not load party tracker data")
+                    return False
+            
+            module_name = party_tracker_data.get("module", "").replace(" ", "_")
+            if not module_name:
+                print("ERROR: No current module found in party tracker")
+                return False
+                
+            path_manager = ModulePathManager(module_name)
+            
+            # Find the NPC in area files
+            npc_location = find_npc_in_areas(npc_name, path_manager, current_location_hint)
+            if not npc_location:
+                print(f"ERROR: Could not find NPC '{npc_name}' in any location")
+                return False
+                
+            area_file, location_id, npc_data = npc_location
+            print(f"DEBUG: Found {npc_name} in {area_file} at location {location_id}")
+            
+            # Load area data with backup
+            area_data = safe_read_json(area_file)
+            if not area_data:
+                print(f"ERROR: Could not load area data from {area_file}")
+                return False
+                
+            # Create backup
+            backup_path = create_area_backup(area_file)
+            if not backup_path:
+                print("WARNING: Could not create backup, proceeding anyway")
+            
+            # Get party NPCs for validation
+            party_npcs = party_tracker_data.get("partyNPCs", [])
+            
+            # Retry loop with fallback system
+            ai_decision = None
+            max_attempts = 5
+            
+            for attempt in range(1, max_attempts + 1):
+                print(f"DEBUG: AI decision attempt {attempt}/{max_attempts}")
+                
+                # Get AI decision on what to do with the NPC
+                ai_decision = get_ai_npc_movement_decision(
+                    npc_name, context, npc_data, area_data, location_id, module_name, party_npcs, attempt
+                )
+                
+                if ai_decision:
+                    # Validate the AI decision
+                    validation_result = validate_npc_movement_decision(ai_decision, area_data, location_id, party_npcs)
+                    if validation_result["valid"]:
+                        print(f"DEBUG: AI decision validated successfully on attempt {attempt}")
+                        break
+                    else:
+                        print(f"DEBUG: AI decision validation failed on attempt {attempt}: {validation_result['reason']}")
+                        if attempt == max_attempts:
+                            print("ERROR: Max attempts reached, AI could not generate valid decision")
+                            return False
+                        else:
+                            # Add validation feedback to context for retry
+                            context += f"\n\nPREVIOUS ATTEMPT FAILED: {validation_result['reason']}"
+                else:
+                    print(f"DEBUG: AI could not generate decision on attempt {attempt}")
+                    if attempt == max_attempts:
+                        print("ERROR: Max attempts reached, AI could not determine appropriate action")
+                        return False
+            
+            if not ai_decision:
+                print("ERROR: AI could not determine appropriate action after all attempts")
+                return False
+                
+            print(f"DEBUG: Final AI decision: {ai_decision.get('action')} - {ai_decision.get('reasoning', 'No reasoning')}")
+            
+            # Execute the AI decision with surgical updates
+            success = execute_npc_movement_decision(ai_decision, area_data, location_id, npc_name, path_manager)
+            
+            if success:
+                # Save updated area data
+                if safe_write_json(area_file, area_data):
+                    print(f"DEBUG: Successfully updated area file {area_file}")
+                    # Clean up old backups
+                    cleanup_old_area_backups(area_file)
+                    return True
+                else:
+                    print(f"ERROR: Failed to save updated area data")
+                    # Restore from backup if save failed
+                    if backup_path and os.path.exists(backup_path):
+                        try:
+                            shutil.copy2(backup_path, area_file)
+                            print("DEBUG: Restored area file from backup due to save failure")
+                        except Exception as e:
+                            print(f"ERROR: Could not restore from backup: {e}")
+                    return False
+            else:
+                print("ERROR: Failed to execute NPC movement decision")
+                return False
+                
+        except Exception as e:
+            print(f"ERROR: Exception in move_background_npc: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            return False
+
+def find_npc_in_areas(npc_name, path_manager, location_hint=None):
+    """Find an NPC in area files, returning (area_file, location_id, npc_data)"""
+    import glob
+    from file_operations import safe_read_json
+    
+    # Get all area files in the module
+    area_pattern = f"{path_manager.module_dir}/areas/*.json"
+    area_files = glob.glob(area_pattern)
+    
+    for area_file in area_files:
+        try:
+            area_data = safe_read_json(area_file)
+            if not area_data:
+                continue
+                
+            # Search through all locations in this area
+            for location in area_data.get("locations", []):
+                location_id = location.get("locationId", "")
+                
+                # If location hint provided, check if this matches
+                if location_hint and location_hint != location_id:
+                    continue
+                    
+                # Search NPCs in this location
+                for npc in location.get("npcs", []):
+                    if npc.get("name", "").lower() == npc_name.lower():
+                        return (area_file, location_id, npc)
+                        
+        except Exception as e:
+            print(f"WARNING: Could not search area file {area_file}: {e}")
+            continue
+    
+    return None
+
+def get_ai_npc_movement_decision(npc_name, context, npc_data, area_data, location_id, module_name, party_npcs=None, attempt=1):
+    """Use AI to determine what to do with the NPC based on context"""
+    try:
+        client = OpenAI(api_key=config.OPENAI_API_KEY)
+        
+        # Get available locations for potential moves
+        available_locations = []
+        for location in area_data.get("locations", []):
+            loc_id = location.get("locationId", "")
+            loc_name = location.get("name", "")
+            if loc_id and loc_name and loc_id != location_id:
+                available_locations.append(f"{loc_id} ({loc_name})")
+        
+        # Check if this is a party NPC vs background NPC
+        party_npc_names = [npc.get("name", "").lower() for npc in (party_npcs or [])]
+        is_party_npc = npc_name.lower() in party_npc_names
+        
+        # Load and validate against location schema
+        from jsonschema import validate, ValidationError
+        import json
+        
+        try:
+            with open("loca_schema.json", "r") as f:
+                location_schema = json.load(f)
+        except Exception as e:
+            print(f"WARNING: Could not load location schema: {e}")
+            location_schema = None
+        
+        system_prompt = f"""You are an expert D&D narrative manager specialized in NPC movement and status changes. Your job is to make intelligent decisions about background NPCs based on narrative context while maintaining strict game world consistency.
+
+CRITICAL DISTINCTIONS:
+- BACKGROUND NPCs: NPCs found in location files who are not traveling with the party
+- PARTY NPCs: NPCs actively traveling with and assisting the party (managed separately)
+- This action is ONLY for BACKGROUND NPCs - NPCs who exist in specific locations
+
+CURRENT NPC CLASSIFICATION:
+- {npc_name} is {'a PARTY NPC (ERROR - use updatePartyNPCs instead)' if is_party_npc else 'a BACKGROUND NPC (correct for this action)'}
+
+AVAILABLE ACTIONS FOR BACKGROUND NPCs:
+1. "remove" - Remove NPC from location entirely
+   - Use for: Captured and taken elsewhere, fled permanently, left the area
+   - Result: NPC disappears from location, may add location description update
+   
+2. "update_status" - Keep NPC in location but change their description  
+   - Use for: Death, injury, status change, but NPC remains in place
+   - Result: NPC description updated, location may be updated too
+   
+3. "move" - Move NPC to different location within same area
+   - Use for: NPC relocated to another nearby location
+   - Result: NPC moves between locations, descriptions updated
+
+SCHEMA VALIDATION REQUIREMENTS:
+All NPC objects must maintain this exact structure:
+{{
+  "name": "string (required)",
+  "description": "string (required)", 
+  "attitude": "string (required)"
+}}
+
+CONTEXT INFORMATION:
+- Module: {module_name}
+- Current Location: {location_id}
+- Available Target Locations: {', '.join(available_locations) if available_locations else 'None (cannot use move action)'}
+- Attempt: {attempt}/5
+
+RESPONSE FORMAT (JSON only):
+{{
+  "action": "remove|update_status|move",
+  "reasoning": "Brief explanation of decision based on narrative context",
+  "newDescription": "Updated NPC description if action is update_status (required field, max 500 chars)",
+  "newAttitude": "Updated attitude if action is update_status (required field)", 
+  "newLocation": "Target location ID if action is move (must match available locations exactly)",
+  "locationUpdate": "Brief addition to location description explaining change (optional, max 200 chars)"
+}}
+
+DECISION GUIDELINES WITH EXAMPLES:
+
+CAPTURE SCENARIO:
+Context: "Rusk was captured by the party and taken to Thornwood"
+Decision: "remove" - Rusk is no longer at this location
+Reasoning: "Captured and removed from area by party"
+
+DEATH SCENARIO:  
+Context: "The merchant was killed by bandits"
+Decision: "update_status" - Body remains in location
+New Description: "The merchant's lifeless body lies sprawled among scattered goods..."
+New Attitude: "Dead"
+Location Update: "Signs of violence and blood stain the ground"
+
+RELOCATION SCENARIO:
+Context: "Elen went to report to the watchtower"  
+Decision: "move" - IF watchtower location exists in available locations
+New Location: "WT01" (only if this exact ID exists)
+Reasoning: "Moved to fulfill duty obligations"
+
+INJURY SCENARIO:
+Context: "The guard was wounded but survived the attack"
+Decision: "update_status" - Guard stays but is injured
+New Description: "A wounded guard with bandaged arms, still determined despite recent injuries..."
+New Attitude: "Cautious but resilient"
+
+IMPORTANT VALIDATION RULES:
+- NEVER move party NPCs (they travel with the party automatically)
+- ONLY use exact location IDs from the available locations list
+- ALWAYS provide required fields: newDescription and newAttitude for update_status
+- Keep descriptions realistic and immersive
+- Maintain narrative consistency with established world"""
+
+        user_prompt = f"""Background NPC Movement Decision Request:
+
+NPC Name: {npc_name}
+Current Description: {npc_data.get('description', 'No description available')}
+Current Attitude: {npc_data.get('attitude', 'No attitude specified')}
+Narrative Context: {context}
+Current Location: {location_id}
+
+Based on this narrative context, determine the most appropriate action for this background NPC. Consider the story implications and choose the action that best maintains narrative consistency.
+
+Remember: This is a background NPC management action, not party NPC management."""
+
+        response = client.chat.completions.create(
+            model=config.NPC_INFO_UPDATE_MODEL,  # Use claude-sonnet-4-20250514 as specified
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            temperature=0.7  # As specified by user
+        )
+        
+        ai_response = response.choices[0].message.content.strip()
+        print(f"DEBUG: AI movement decision response: {ai_response}")
+        
+        # Parse JSON response
+        import re
+        json_match = re.search(r'\{.*\}', ai_response, re.DOTALL)
+        if json_match:
+            return json.loads(json_match.group())
+        else:
+            print("ERROR: No valid JSON found in AI response")
+            return None
+            
+    except Exception as e:
+        print(f"ERROR: AI decision failed: {str(e)}")
+        return None
+
+def validate_npc_movement_decision(decision, area_data, location_id, party_npcs):
+    """Validate AI decision against schema and game rules"""
+    try:
+        # Check required fields
+        if not isinstance(decision, dict):
+            return {"valid": False, "reason": "Decision must be a JSON object"}
+            
+        action = decision.get("action")
+        if action not in ["remove", "update_status", "move"]:
+            return {"valid": False, "reason": f"Invalid action '{action}'. Must be: remove, update_status, or move"}
+        
+        # Validate action-specific requirements
+        if action == "update_status":
+            if not decision.get("newDescription"):
+                return {"valid": False, "reason": "update_status action requires newDescription field"}
+            if not decision.get("newAttitude"):
+                return {"valid": False, "reason": "update_status action requires newAttitude field"}
+            
+            # Check length limits
+            if len(decision.get("newDescription", "")) > 500:
+                return {"valid": False, "reason": "newDescription must be 500 characters or less"}
+                
+        elif action == "move":
+            new_location = decision.get("newLocation")
+            if not new_location:
+                return {"valid": False, "reason": "move action requires newLocation field"}
+                
+            # Check if target location exists
+            valid_locations = [loc.get("locationId") for loc in area_data.get("locations", [])]
+            if new_location not in valid_locations:
+                return {"valid": False, "reason": f"Target location '{new_location}' does not exist. Valid locations: {valid_locations}"}
+        
+        # Check location update length
+        location_update = decision.get("locationUpdate", "")
+        if location_update and len(location_update) > 200:
+            return {"valid": False, "reason": "locationUpdate must be 200 characters or less"}
+        
+        # Schema validation - check NPC structure requirements
+        if action == "update_status":
+            # Simulate the NPC object that would be created
+            test_npc = {
+                "name": "test",
+                "description": decision.get("newDescription"),
+                "attitude": decision.get("newAttitude")
+            }
+            
+            # Basic validation
+            for field in ["name", "description", "attitude"]:
+                if not test_npc.get(field):
+                    return {"valid": False, "reason": f"NPC object missing required field: {field}"}
+                if not isinstance(test_npc[field], str):
+                    return {"valid": False, "reason": f"NPC field '{field}' must be a string"}
+        
+        return {"valid": True, "reason": "Decision validated successfully"}
+        
+    except Exception as e:
+        return {"valid": False, "reason": f"Validation error: {str(e)}"}
+
+def execute_npc_movement_decision(decision, area_data, location_id, npc_name, path_manager):
+    """Execute the AI's decision with surgical updates to area data"""
+    try:
+        action = decision.get("action")
+        
+        # Find the location and NPC in area data
+        target_location = None
+        npc_index = None
+        
+        for location in area_data.get("locations", []):
+            if location.get("locationId") == location_id:
+                target_location = location
+                # Find NPC index
+                for i, npc in enumerate(location.get("npcs", [])):
+                    if npc.get("name", "").lower() == npc_name.lower():
+                        npc_index = i
+                        break
+                break
+        
+        if not target_location or npc_index is None:
+            print("ERROR: Could not find location or NPC in area data")
+            return False
+        
+        if action == "remove":
+            # Remove NPC from location
+            target_location["npcs"].pop(npc_index)
+            print(f"DEBUG: Removed {npc_name} from {location_id}")
+            
+            # Update location description if provided
+            location_update = decision.get("locationUpdate")
+            if location_update:
+                current_desc = target_location.get("description", "")
+                target_location["description"] = f"{current_desc} {location_update}".strip()
+                
+        elif action == "update_status":
+            # Update NPC description and attitude
+            new_description = decision.get("newDescription")
+            new_attitude = decision.get("newAttitude")
+            
+            if new_description:
+                target_location["npcs"][npc_index]["description"] = new_description
+                print(f"DEBUG: Updated description for {npc_name}")
+            
+            if new_attitude:
+                target_location["npcs"][npc_index]["attitude"] = new_attitude
+                print(f"DEBUG: Updated attitude for {npc_name}")
+                
+            # Update location description if provided
+            location_update = decision.get("locationUpdate")
+            if location_update:
+                current_desc = target_location.get("description", "")
+                target_location["description"] = f"{current_desc} {location_update}".strip()
+                    
+        elif action == "move":
+            # Move NPC to different location
+            new_location_id = decision.get("newLocation")
+            if not new_location_id:
+                print("ERROR: Move action specified but no target location provided")
+                return False
+                
+            # Find target location
+            target_new_location = None
+            for location in area_data.get("locations", []):
+                if location.get("locationId") == new_location_id:
+                    target_new_location = location
+                    break
+                    
+            if not target_new_location:
+                print(f"ERROR: Target location {new_location_id} not found")
+                return False
+                
+            # Move NPC
+            npc_to_move = target_location["npcs"].pop(npc_index)
+            target_new_location["npcs"].append(npc_to_move)
+            print(f"DEBUG: Moved {npc_name} from {location_id} to {new_location_id}")
+            
+            # Update both location descriptions if provided
+            location_update = decision.get("locationUpdate")
+            if location_update:
+                # Update source location
+                current_desc = target_location.get("description", "")
+                target_location["description"] = f"{current_desc} {location_update}".strip()
+        
+        else:
+            print(f"ERROR: Unknown action: {action}")
+            return False
+            
+        return True
+        
+    except Exception as e:
+        print(f"ERROR: Failed to execute decision: {str(e)}")
+        return False
+
+def create_area_backup(area_file):
+    """Create timestamped backup of area file"""
+    import shutil
+    import os
+    from datetime import datetime
+    
+    try:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        backup_name = f"{area_file}.backup_npc_move_{timestamp}"
+        shutil.copy2(area_file, backup_name)
+        print(f"DEBUG: Created area backup: {os.path.basename(backup_name)}")
+        return backup_name
+    except Exception as e:
+        print(f"ERROR: Could not create area backup: {e}")
+        return None
+
+def cleanup_old_area_backups(area_file, max_backups=5):
+    """Clean up old area backup files"""
+    import os
+    
+    try:
+        directory = os.path.dirname(area_file)
+        base_name = os.path.basename(area_file)
+        
+        backup_files = []
+        for file in os.listdir(directory):
+            if file.startswith(f"{base_name}.backup_npc_move_") and file.endswith(".json"):
+                backup_path = os.path.join(directory, file)
+                mtime = os.path.getmtime(backup_path)
+                backup_files.append((mtime, backup_path))
+        
+        # Sort by modification time (newest first) and remove old ones
+        backup_files.sort(reverse=True)
+        if len(backup_files) > max_backups:
+            for _, old_backup in backup_files[max_backups:]:
+                try:
+                    os.remove(old_backup)
+                    print(f"DEBUG: Removed old backup: {os.path.basename(old_backup)}")
+                except Exception as e:
+                    print(f"WARNING: Could not remove old backup: {e}")
+                    
+    except Exception as e:
+        print(f"WARNING: Backup cleanup failed: {e}")
