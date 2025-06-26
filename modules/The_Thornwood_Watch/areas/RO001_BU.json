@@ -175,7 +175,8 @@
       "description": "Wooden crates and canvas-wrapped supplies line the riverbank where merchant barges dock to resupply the outpost. Quartermaster Brann oversees the careful inventory, his weathered hands checking manifests against dwindling stores. The gentle lap of water against the dock mingles with the creak of rope and timber, while nervous traders eye the forest treeline.",
       "coordinates": "X2Y3",
       "connectivity": [
-        "RO01"
+        "RO01",
+        "RO04"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
