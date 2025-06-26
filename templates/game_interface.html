@@ -2242,21 +2242,31 @@
         }
         
         // Auto-scroll to bottom function
-        // --- MODIFIED CODE START ---
+        // --- CORRECTED CODE SECTION ---
         // Auto-scroll to bottom function
-        function scrollToBottom(elementId) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                // A race condition can occur where this function is called before the browser
-                // has finished rendering the new message and updating the element's scrollHeight.
-                // By using setTimeout, we push the scroll command to the end of the execution queue,
-                // giving the browser time to repaint. This ensures the scroll is always accurate.
+        function scrollToBottom(contentElementId) {
+            const contentElement = document.getElementById(contentElementId);
+            if (!contentElement) return;
+
+            // Determine which element is the actual scrollable container.
+            let scrollableElement;
+            if (contentElementId === 'debug-output') {
+                // For the debug panel, the scrollbar is on its parent, '.tab-content'.
+                scrollableElement = contentElement.parentElement;
+            } else {
+                // For other panels like 'game-output', the element itself is scrollable.
+                scrollableElement = contentElement;
+            }
+
+            if (scrollableElement) {
+                // The timeout is still necessary to give the browser time to render
+                // the new message before we calculate the new scroll height.
                 setTimeout(() => {
-                    element.scrollTop = element.scrollHeight;
-                }, 50); // A small delay is usually enough.
+                    scrollableElement.scrollTop = scrollableElement.scrollHeight;
+                }, 50);
             }
         }
-        // --- MODIFIED CODE END ---
+        // --- END OF CORRECTED CODE SECTION ---
         
         // Format timestamp
         function formatTimestamp(timestamp) {
