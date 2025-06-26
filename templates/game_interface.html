@@ -2235,6 +2235,12 @@
         let connected = false;
         let gameStarted = false;
         
+        // Capitalize first letter of each word function
+        function capitalizeWords(str) {
+            if (!str) return str;
+            return str.replace(/\b\w/g, l => l.toUpperCase());
+        }
+        
         // Auto-scroll to bottom function
         function scrollToBottom(elementId) {
             const element = document.getElementById(elementId);
@@ -2645,7 +2651,7 @@
             let html = '<div class="character-sheet">';
             
             // Character Header
-            html += `<div class="character-header"><div class="character-name">${data.name}</div><div class="character-details"><div class="detail-left"><div><span class="orange">Level ${data.level}</span> ${data.race} ${data.class}</div><div><span class="orange">Profession:</span> ${data.background || 'Adventurer'} • <span class="orange">Alignment:</span> ${data.alignment || 'Neutral'}</div></div><div class="detail-right"><div><span class="orange">XP:</span> ${data.experience_points} / ${data.exp_required_for_next_level}</div><div><span class="orange">Status:</span> ${data.status || 'Alive'} • <span class="orange">Prof:</span> +${data.proficiencyBonus || 2}</div></div></div></div>`;
+            html += `<div class="character-header"><div class="character-name">${data.name}</div><div class="character-details"><div class="detail-left"><div><span class="orange">Level ${data.level}</span> ${data.race} ${data.class}</div><div><span class="orange">Profession:</span> ${data.background || 'Adventurer'} • <span class="orange">Alignment:</span> ${capitalizeWords(data.alignment) || 'Neutral'}</div></div><div class="detail-right"><div><span class="orange">XP:</span> ${data.experience_points} / ${data.exp_required_for_next_level}</div><div><span class="orange">Status:</span> ${capitalizeWords(data.status) || 'Alive'} • <span class="orange">Prof:</span> +${data.proficiencyBonus || 2}</div></div></div></div>`;
             
             // Ability Scores
             if (data.abilities) {
@@ -3039,7 +3045,7 @@
                 html += `<div class="npc-character-sheet">`;
                 
                 // Header with name and basic info
-                html += `<div class="npc-header"><div class="npc-name">${npc.name}</div><div class="npc-details">${npc.race} ${npc.class} • Level ${npc.level} • ${npc.alignment}</div></div>`;
+                html += `<div class="npc-header"><div class="npc-name">${npc.name}</div><div class="npc-details">${npc.race} ${npc.class} • Level ${npc.level} • ${capitalizeWords(npc.alignment)}</div></div>`;
                 
                 // All Ability Scores with Combat Stats (compact layout)
                 if (npc.abilities) {
