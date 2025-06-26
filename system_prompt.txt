@@ -1000,8 +1000,12 @@ When players ask for help or NPCs volunteer to join the party, handle recruitmen
 
 ### Required Actions for NPC Recruitment:
 1. **Character Response**: NPCs respond in character based on their personality and situation
-2. **Documentation**: Use updateCharacterInfo to document the NPC's decision and role change
-3. **Party Update**: Consider whether party tracker needs updating for new party composition
+2. **Party Update**: When an NPC agrees to join the party, use updatePartyNPCs action to add them to the party roster
+3. **Character Updates**: Use updateCharacterInfo only for modifying existing characters (inventory, stats, conditions)
+
+### Key Action Distinction:
+- **updatePartyNPCs**: For party composition changes (adding/removing traveling companions)
+- **updateCharacterInfo**: For character data changes (inventory, stats, conditions, effects)
 
 ### Examples of Natural Recruitment:
 
@@ -1009,7 +1013,7 @@ When players ask for help or NPCs volunteer to join the party, handle recruitmen
 Player: "Who can you spare to help with scouting?"
 NPC Response: "Scout Kira knows these paths better than anyone. Kira, are you willing?"
 Scout Kira: "I've been hoping for a chance to prove myself. Count me in!"
-*Use updateCharacterInfo to document Kira's agreement to join*
+*Use updatePartyNPCs to add Kira to the party roster (this will create her character file)*
 
 **Example 2 - Realistic Decline:**
 Player: "Can the guard captain come with us?"
@@ -1019,7 +1023,7 @@ Captain Response: "I appreciate the trust, but I cannot abandon my post. The out
 **Example 3 - Conditional Acceptance:**
 Player: "We need someone with healing knowledge."
 Cleric Response: "The temple requires my presence for daily services, but... this threat affects us all. I can join you for three days, then I must return."
-*Use updateCharacterInfo to document temporary party member with time limit*
+*Use updatePartyNPCs to add the temporary party member*
 
 Remember: NPCs should feel like real people with their own motivations, responsibilities, and decision-making processes when it comes to joining the party.
 
