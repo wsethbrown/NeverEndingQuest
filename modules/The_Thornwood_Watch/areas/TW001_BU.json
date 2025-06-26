@@ -1,78 +1,91 @@
 {
   "areaId": "TW001",
   "areaName": "Thornwood Wilds",
-  "areaType": "dungeon",
+  "areaType": "wilderness",
   "areaDescription": "The Thornwood Wilds writhe with predatory intelligence, their canopy of clawed branches seeming to shift and close behind intruders. Ancient trees lean inward like conspirators, their moss-choked bark weeping strange saps while root-latticed shadows conceal signs of recent violence. The air tastes of copper and fear, thick with the scent of spilled blood and the acrid smoke of bandit camps. Every snapping twig and rustling leaf might herald ambush, while drag marks in the earth tell grim stories of those who ventured here before you.",
   "dangerLevel": "medium",
   "recommendedLevel": 1,
-  "climate": "controlled - cool and damp",
-  "terrain": "stone corridors and chambers",
+  "climate": "temperate",
+  "terrain": "forest",
   "map": {
-    "mapId": "MAP_5",
-    "mapName": "Dungeon Map",
-    "totalRooms": 5,
+    "mapId": "MAP_TW001",
+    "mapName": "Thornwood Map",
+    "totalRooms": 6,
     "rooms": [
       {
         "id": "TW01",
-        "type": "hall",
+        "type": "clearing",
         "connections": [
           "TW02",
           "TW04"
         ],
         "coordinates": "X2Y2",
-        "name": "Thorn-Root Gallery"
+        "name": "Ambush Site"
       },
       {
         "id": "TW02",
-        "type": "entrance",
+        "type": "path",
         "connections": [
           "TW01",
           "TW03",
           "TW05"
         ],
         "coordinates": "X3Y2",
-        "name": "Brambleshade Approach"
+        "name": "Bandit Trail"
       },
       {
         "id": "TW03",
-        "type": "treasure room",
+        "type": "clearing",
         "connections": [
           "TW02",
           "TW04"
         ],
         "coordinates": "X3Y1",
-        "name": "Bandit's Hidden Vault"
+        "name": "Abandoned Camp"
       },
       {
         "id": "TW04",
-        "type": "shrine",
+        "type": "grove",
         "connections": [
           "TW01",
-          "TW03"
+          "TW03",
+          "TW06"
         ],
         "coordinates": "X2Y1",
-        "name": "Shrine of the Gloaming Hunt"
+        "name": "Hermit's Refuge"
       },
       {
         "id": "TW05",
-        "type": "corridor",
+        "type": "stronghold",
         "connections": [
           "TW02"
         ],
         "coordinates": "X3Y3",
-        "name": "Shadowbriar Corridor"
+        "name": "Bandit Stronghold"
+      },
+      {
+        "id": "TW06",
+        "type": "cave",
+        "connections": [
+          "TW04"
+        ],
+        "coordinates": "X1Y1",
+        "name": "Wolf's Den Cave"
       }
     ],
     "layout": [
       [
+        "TW06",
         "TW04",
         "TW03"
       ],
       [
+        "   ",
         "TW01",
         "TW02"
       ],
       [
+        "   ",
         "   ",
         "TW05"
       ]
@@ -82,7 +95,7 @@
     {
       "locationId": "TW01",
       "name": "Ambush Site",
-      "type": "hall",
+      "type": "clearing",
       "description": "A blood-stained clearing where the aftermath of a bandit ambush tells its grim story. Overturned merchant wagons leak scattered goods among the brambles, while Wounded Scout Neris leans against a tree, binding hastily treated wounds. Drag marks in the soft earth lead deeper into the thorny maze, and the metallic scent of recent violence hangs heavy in the still air.",
       "coordinates": "X2Y2",
       "connectivity": [
@@ -95,13 +108,7 @@
       "areaConnectivityId": [
         "RO001"
       ],
-      "npcs": [
-        {
-          "name": "Wounded Scout Neris",
-          "description": "A different Scout Neris than at the outpost - this one bears fresh wounds and the haunted look of someone who barely escaped a brutal ambush. She clutches a broken arrow and speaks in urgent whispers about the bandits' tactics and the direction they took their captives.",
-          "attitude": "Injured and shaken but determined to see the bandits brought to justice. Grateful for rescue and eager to help track the attackers."
-        }
-      ],
+      "npcs": [],
       "monsters": [],
       "lootTable": [
         "Scattered merchant goods from the attacked caravan",
@@ -109,18 +116,18 @@
         "Trail rations and medical supplies from overturned wagon"
       ],
       "plotHooks": [
-        "The wounded scout witnessed the bandits taking captives deeper into the Thornwood",
-        "Bandit equipment and tactics suggest military training rather than common brigandry",
-        "Fresh tracks lead toward a hidden stronghold somewhere in the dense forest",
-        "The scout mentions seeing strange lights and unnatural sounds from the bandit camp"
+        "The wounded scout witnessed bandits taking captives to Malarok's camp in the old watchtower",
+        "Bandit equipment shows signs of magical enhancement, suggesting Malarok's influence",
+        "Fresh tracks lead toward the crumbling watchtower where Malarok has established his base",
+        "The scout mentions seeing dark energy and hearing the sorcerer's voice commanding the bandits"
       ],
-      "dmInstructions": "This location serves as the entry point into the Thornwood investigation. The wounded scout provides crucial intelligence about bandit movements and the urgency of rescuing captives. Use this to drive the party deeper into the wilds.",
+      "dmInstructions": "This location serves as the entry point into the Thornwood investigation. The wounded scout provides crucial intelligence about Malarok's operations and the location of his watchtower base. Use this to drive the party toward the sorcerer's stronghold.",
       "doors": [],
       "traps": [],
       "dcChecks": [
         "Medicine DC 12: Treat the wounded scout's injuries effectively",
-        "Investigation DC 11: Study the ambush site to understand bandit tactics",
-        "Survival DC 13: Follow the tracks leading toward the bandit stronghold"
+        "Investigation DC 11: Study the ambush site to find evidence of Malarok's magical corruption affecting the bandits",
+        "Survival DC 13: Follow the tracks leading toward Malarok's watchtower stronghold"
       ],
       "accessibility": "Forest clearing accessible from main trade road",
       "dangerLevel": "Medium",
@@ -144,7 +151,7 @@
     {
       "locationId": "TW02",
       "name": "Bandit Trail",
-      "type": "entrance",
+      "type": "path",
       "description": "A narrow path winding through dense thornbushes shows signs of frequent use by the bandit gang. Boot prints mix with drag marks in the muddy earth, while broken branches and disturbed undergrowth reveal the route to their hidden stronghold. Crude warning markers hang from twisted trees, meant to deter casual travelers.",
       "coordinates": "X3Y2",
       "connectivity": [
@@ -191,9 +198,9 @@
     },
     {
       "locationId": "TW03",
-      "name": "Captive Camp",
-      "type": "treasure room",
-      "description": "A small clearing hidden within thorny undergrowth serves as a temporary holding area for bandit captives. Rescued Merchant Lira cowers behind makeshift shelter, her fine clothes torn and muddy from rough treatment. Empty cages and discarded rope suggest other prisoners were recently moved to a more permanent location deeper in the forest.",
+      "name": "Abandoned Camp",
+      "type": "clearing",
+      "description": "A small clearing hidden within thorny undergrowth that once served as a temporary holding area for bandit captives. Empty cages and discarded rope show this camp was recently abandoned, with prisoners moved to other locations deeper in the forest.",
       "coordinates": "X3Y1",
       "connectivity": [
         "TW02",
@@ -201,13 +208,7 @@
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
-      "npcs": [
-        {
-          "name": "Rescued Merchant Lira",
-          "description": "A traumatized merchant who escaped from the bandit stronghold during a guard change. She witnessed the bandits' operations and can provide valuable intelligence about their numbers, defenses, and the mysterious figures who seem to be funding their activities.",
-          "attitude": "Fearful but grateful for rescue. Eager to share information about the bandit stronghold and desperate to ensure no other merchants suffer her fate."
-        }
-      ],
+      "npcs": [],
       "monsters": [],
       "lootTable": [
         "Merchant's concealed coin purse",
@@ -215,18 +216,18 @@
         "Abandoned prisoner belongings with clues to other captives"
       ],
       "plotHooks": [
-        "Lira describes the main bandit stronghold's layout and defenses",
-        "Other captives were taken deeper into the forest toward a permanent base",
-        "The bandits spoke of mysterious benefactors with supernatural backing",
-        "Lira overheard plans for a major assault on the Rangers' Outpost"
+        "Evidence suggests captives were recently moved to other locations",
+        "Other prisoners were taken deeper into the forest toward a permanent base",
+        "The abandoned camp shows signs of hasty evacuation",
+        "Scattered belongings hint at the fate of missing travelers"
       ],
-      "dmInstructions": "Rescued Merchant Lira provides crucial intelligence about the bandit stronghold and confirms the supernatural backing. She can guide the party or be escorted to safety, depending on party preferences.",
+      "dmInstructions": "This abandoned camp shows evidence of the bandits' operations and recent evacuation. Use this location to build tension and direct the party toward active locations where they can find NPCs and engage with the plot.",
       "doors": [],
       "traps": [],
       "dcChecks": [
-        "Medicine DC 10: Treat Lira's injuries and calm her trauma",
-        "Persuasion DC 11: Encourage Lira to share detailed information about the stronghold",
-        "Investigation DC 12: Study the abandoned captive area for clues about other prisoners"
+        "Investigation DC 10: Study the abandoned captive area for clues about other prisoners",
+        "Survival DC 11: Determine how recently the camp was evacuated",
+        "Investigation DC 12: Find evidence of where the captives were moved"
       ],
       "accessibility": "Hidden clearing accessible through dense undergrowth",
       "dangerLevel": "Medium",
@@ -250,7 +251,7 @@
     {
       "locationId": "TW04",
       "name": "Hermit's Refuge",
-      "type": "shrine",
+      "type": "grove",
       "description": "Ancient trees form a natural sanctuary where Spirit-Touched Hermit Maelo tends to wounded forest creatures. The air shimmers with faint magical energy, and strange symbols carved into bark seem to ward off the corruption spreading from the north. Wildlife that fled the supernatural disturbances finds temporary safety here.",
       "coordinates": "X2Y1",
       "connectivity": [
@@ -308,7 +309,7 @@
     {
       "locationId": "TW05",
       "name": "Bandit Stronghold",
-      "type": "corridor",
+      "type": "stronghold",
       "description": "A fortified clearing hidden deep within the thornwood where the bandit gang has established their main base of operations. Crude wooden palisades reinforced with stolen iron create defensive walls, while lookout posts built into ancient oak trees provide commanding views of the approaches. The air carries the scent of wood smoke, unwashed bodies, and something darker - an unnatural corruption that seems to emanate from supplies marked with strange symbols.",
       "coordinates": "X3Y3",
       "connectivity": [
@@ -394,44 +395,135 @@
       ],
       "encounters": [],
       "adventureSummary": ""
+    },
+    {
+      "locationId": "TW06",
+      "name": "Wolf's Den Cave (Rescue the Lost - SQ004)",
+      "type": "cave",
+      "description": "A narrow cave mouth, partially obscured by thorny bushes, leads into darkness. The sounds of snarling wolves and the desperate clang of steel echo from within. Inside, Wounded Scout Neris and Merchant Lira are cornered, making a desperate stand against several unnaturally aggressive wolves corrupted by Malarok's influence.",
+      "coordinates": "X1Y1",
+      "connectivity": [
+        "TW04"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Wounded Scout Neris",
+          "description": "A ranger who was tracking the bandits when she and Lira were cornered by corrupted wolves. She has a deep gash on her leg but fights fiercely. She has a partially drawn map of the bandit camp's patrols and vital intelligence about Malarok's operations.",
+          "attitude": "Protective and determined, but weakened by her wound. Grateful for rescue and eager to help stop Malarok."
+        },
+        {
+          "name": "Merchant Lira",
+          "description": "A captive who escaped the main bandit camp with Neris's help. She is terrified but surprisingly resilient. She overheard the bandits discussing Malarok's ritual at the 'forgotten altar' and his plans to corrupt the entire region.",
+          "attitude": "Fearful but resolute. Will provide crucial information about Malarok's ultimate plan once safe."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Corrupted Wolf",
+          "quantity": {
+            "min": 2,
+            "max": 3
+          }
+        }
+      ],
+      "lootTable": [
+        "Partial map of bandit patrols (Neris's intelligence)",
+        "Pouch with 15 gold pieces (Lira's emergency funds)",
+        "Healer's kit dropped by fleeing bandits",
+        "Evidence of Malarok's corruption affecting local wildlife"
+      ],
+      "plotHooks": [
+        "Neris's map can help bypass sentries at the bandit stronghold",
+        "Lira's information points directly to Malarok's ritual site and ultimate plan",
+        "Both NPCs can serve as guides to help the party navigate the Thornwood",
+        "Their rescue provides significant advantages for tackling Malarok's forces"
+      ],
+      "dmInstructions": "This location resolves the 'Rescue the Lost' (SQ004) side quest. The party's arrival turns the tide of the fight against the corrupted wolves. Rescuing both NPCs provides significant tactical advantages and crucial plot information for the final confrontation with Malarok.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Medicine DC 12: Treat Neris's wound effectively and restore her mobility",
+        "Investigation DC 11: Study the corrupted wolves to understand Malarok's influence on wildlife",
+        "Survival DC 10: Use Neris's map to identify the best approach to the bandit stronghold"
+      ],
+      "accessibility": "Hidden cave entrance accessible through dense undergrowth from the shrine area",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Makeshift Barricade",
+          "description": "Neris and Lira have piled rocks and debris at the cave entrance to slow the corrupted wolves."
+        },
+        {
+          "name": "Scattered Supplies",
+          "description": "A dropped backpack contains some rations, a water skin, and Lira's emergency coin purse."
+        },
+        {
+          "name": "Corruption Signs",
+          "description": "The wolves show visible signs of Malarok's influence - glowing eyes and unnatural aggression."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
     }
   ],
   "randomEncounters": [
     {
       "roll": "1-10",
-      "encounter": "hostile creature",
-      "description": "A hostile creature appropriate for level 1 parties"
+      "encounter": "corrupted wolf",
+      "description": "1-2 wolves showing signs of Malarok's corruption, with glowing eyes and aggressive behavior"
     },
     {
       "roll": "11-20",
-      "encounter": "territorial beast",
-      "description": "A territorial beast appropriate for level 1 parties"
+      "encounter": "bandit scouts",
+      "description": "2 bandit scouts on patrol, may flee to warn the main camp if not stopped quickly"
     },
     {
       "roll": "21-30",
-      "encounter": "hostile creature",
-      "description": "A hostile creature appropriate for level 1 parties"
+      "encounter": "dire boar",
+      "description": "A territorial dire boar protecting its young, made more aggressive by the spreading corruption"
     },
     {
       "roll": "31-40",
-      "encounter": "territorial beast",
-      "description": "A territorial beast appropriate for level 1 parties"
+      "encounter": "twig blights",
+      "description": "2-3 twig blights animated by the dark magic seeping from the north"
     },
     {
       "roll": "41-50",
-      "encounter": "territorial beast",
-      "description": "A territorial beast appropriate for level 1 parties"
+      "encounter": "lost merchant",
+      "description": "A frightened merchant who escaped a bandit attack, can provide information about recent raids"
     },
     {
       "roll": "51-60",
-      "encounter": "bandit patrol",
-      "description": "A bandit patrol appropriate for level 1 parties"
+      "encounter": "bandit ambush",
+      "description": "3-4 bandits lying in wait along the trail, using the dense undergrowth for cover"
+    },
+    {
+      "roll": "61-70",
+      "encounter": "entangling thorns",
+      "description": "Animated thornbushes reach out with grasping vines, a manifestation of the forest's corruption"
+    },
+    {
+      "roll": "71-80",
+      "encounter": "shadow-touched deer",
+      "description": "A once-majestic deer with antlers dripping dark ichor, eyes glowing with malevolent intelligence"
+    },
+    {
+      "roll": "81-90",
+      "encounter": "lost ranger patrol",
+      "description": "2 rangers from the outpost searching for their missing scout, can share information about recent sightings"
+    },
+    {
+      "roll": "91-100",
+      "encounter": "corrupted treant sapling",
+      "description": "A young treant twisted by Malarok's influence, attacks with whipping branches and thrown rocks"
     }
   ],
   "areaFeatures": [
-    "ancient murals",
-    "mysterious mechanisms",
-    "forgotten shrines"
+    "dense undergrowth",
+    "game trails",
+    "ancient trees"
   ],
   "notes": "Consider lighting sources and trap placement. Underground areas may have limited resources."
 }

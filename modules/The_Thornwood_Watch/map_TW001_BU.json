@@ -1,69 +1,82 @@
 {
-  "mapId": "MAP_5",
-  "mapName": "Dungeon Map",
-  "totalRooms": 5,
+  "mapId": "MAP_TW001",
+  "mapName": "Thornwood Map",
+  "totalRooms": 6,
   "rooms": [
     {
       "id": "TW01",
-      "type": "hall",
+      "type": "clearing",
       "connections": [
         "TW02",
         "TW04"
       ],
       "coordinates": "X2Y2",
-      "name": "Thorn-Root Gallery"
+      "name": "Ambush Site"
     },
     {
       "id": "TW02",
-      "type": "entrance",
+      "type": "path",
       "connections": [
         "TW01",
         "TW03",
         "TW05"
       ],
       "coordinates": "X3Y2",
-      "name": "Brambleshade Approach"
+      "name": "Bandit Trail"
     },
     {
       "id": "TW03",
-      "type": "treasure room",
+      "type": "clearing",
       "connections": [
         "TW02",
         "TW04"
       ],
       "coordinates": "X3Y1",
-      "name": "Bandit's Hidden Vault"
+      "name": "Abandoned Camp"
     },
     {
       "id": "TW04",
-      "type": "shrine",
+      "type": "grove",
       "connections": [
         "TW01",
-        "TW03"
+        "TW03",
+        "TW06"
       ],
       "coordinates": "X2Y1",
-      "name": "Shrine of the Gloaming Hunt"
+      "name": "Thornheart Grove"
     },
     {
       "id": "TW05",
-      "type": "corridor",
+      "type": "stronghold",
       "connections": [
         "TW02"
       ],
       "coordinates": "X3Y3",
-      "name": "Shadowbriar Corridor"
+      "name": "Bandit Stronghold"
+    },
+    {
+      "id": "TW06",
+      "type": "cave",
+      "connections": [
+        "TW04"
+      ],
+      "coordinates": "X1Y1",
+      "name": "Wolf's Den Cave"
     }
   ],
   "layout": [
     [
+      "TW06",
       "TW04",
       "TW03"
     ],
     [
+      "   ",
       "TW01",
       "TW02"
     ],
     [
+      "   ",
       "   ",
       "TW05"
     ]
