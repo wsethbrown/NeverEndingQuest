@@ -100,8 +100,8 @@
       "npcs": [
         {
           "name": "Ranger Elen",
-          "description": "The steadfast commander of Thornwood Outpost, Elen bears the weight of protecting the frontier trade routes. Her eyes are sharp yet weary beneath the weight of mounting losses, and though duty binds her to this post, worry creases her brow as she shares strategic insights into vulnerable approaches and the critical role of the sabotaged silver bell network.",
-          "attitude": "Professional but concerned, testing the party's competence while revealing the burden of command."
+          "description": "The steadfast commander of Thornwood Outpost, Elen bears the weight of protecting the frontier trade routes. As a military professional, she demonstrates clear tactical thinking: assess threats first, then plan defenses, then secure resources. Her eyes are sharp yet weary beneath mounting losses. She will NOT overwhelm newcomers with every problem simultaneously, instead presenting challenges in order of operational priority - intelligence first, defense second, logistics third.",
+          "attitude": "Professional but concerned, testing the party's competence while revealing the burden of command. FOLLOWS MILITARY PRIORITY SEQUENCE: focuses on intelligence gathering (Rusk interrogation) before discussing defensive measures (bell network) or supply concerns (Sila's problem). Demonstrates tactical thinking by addressing crises in logical order rather than overwhelming the party with simultaneous urgent requests."
         },
         {
           "name": "Ranger Marcus",
@@ -111,7 +111,7 @@
         {
           "name": "Scout Kira",
           "description": "A young, eager level 2 ranger who reports directly to Elen and frequently carries messages between outposts. Her wide-eyed reports of strange lights and increasingly aggressive wildlife hint at Malarok's corrupting influence spreading from the north. She is eager to join the party's mission and prove herself as a capable ranger.",
-          "attitude": "Enthusiastic and determined, eager to join the party and help investigate the supernatural corruption affecting the wilderness."
+          "attitude": "Enthusiastic and determined, eager to join the party and help investigate the supernatural corruption affecting the wilderness. Should only volunteer to join AFTER the party has established their mission parameters and begun expedition planning - not during the initial crisis briefing phase."
         },
         {
           "name": "Messenger Tom",
@@ -132,13 +132,13 @@
         "Horse and provisions for upcoming mission"
       ],
       "plotHooks": [
-        "Elen urgently recruits the party as three caravans have been destroyed in five days with unnatural precision",
-        "Captured bandit leader Rusk holds key intelligence about the sorcerer Malarok and the main bandit camp location",
-        "Strange reports of aggressive wildlife and dark energy hint at Malarok's corrupting magical influence",
-        "The silver bell network has been sabotaged by Malarok's agents, threatening communication",
-        "Scout Kira is eager to join the party and help investigate the supernatural corruption"
+        "PRIMARY CRISIS: Elen urgently recruits the party - three caravans destroyed in five days with unnatural precision",
+        "IMMEDIATE ACTION NEEDED: Captured bandit leader Rusk holds key intelligence about the enemy commander and main bandit camp location",
+        "SECONDARY CONCERN (after intel): The silver bell network has been sabotaged, threatening communication and early warning capability",
+        "EXPEDITION SUPPORT (after planning): Scout Kira is eager to join wilderness missions if the party needs a guide",
+        "SUPPLY LOGISTICS (when preparing): Strange reports suggest supernatural corruption - supplies and preparation will be crucial"
       ],
-      "dmInstructions": "Emphasize the tense atmosphere as the rangers grapple with supernatural corruption and mounting threats. Highlight the fear in Rusk's voice when he speaks of Malarok. Use his interrogation to reveal the sorcerer's name, the bandit camp location in the Thornwood, and warnings about Malarok's magical influence over his followers. Scout Kira should express eagerness to join the party's mission.",
+      "dmInstructions": "PRIORITY STAGING: Elen should focus ONLY on the main crisis initially. She prioritizes: 1) Getting intel from Rusk about bandit command structure (main plot critical path). DO NOT mention side quests until this is addressed. AFTER Rusk interrogation reveals Malarok and the bandit camp location, THEN Elen naturally shifts to defensive concerns (bell network). Present side quests SQ001 and SQ002 only as natural follow-ups to main plot progress, not as overwhelming simultaneous options. Scout Kira recruitment should emerge organically during expedition planning, not as immediate choice paralysis. Emphasize the tense atmosphere and highlight Rusk's fear when speaking of Malarok.",
       "doors": [],
       "traps": [],
       "dcChecks": [
@@ -253,7 +253,7 @@
         {
           "name": "Trader Sila",
           "description": "A wary woman in a patched green cloak who stands watch by a locked chest. Though guarded, she shows a cautious hope and trust towards the party after their assistance. She coordinates the merchant community and warns others to stay vigilant after dark.",
-          "attitude": "Guarded but appreciative, cautiously hopeful and eager to spread warnings among the merchants."
+          "attitude": "Guarded but appreciative, cautiously hopeful and eager to spread warnings among the merchants. Should only approach the party with her quest when they're actively preparing for expeditions or gathering supplies - not during the initial crisis assessment phase."
         },
         {
           "name": "Merchant Gareth",
@@ -284,7 +284,7 @@
         "Fresh trail leads toward the Forgotten Waystation where Malarok's agents may have been active",
         "Magical thorny vines and other supernatural elements threaten merchant safety"
       ],
-      "dmInstructions": "Sila is a key NPC who can provide the SQ002 side quest - retrieving her iron-banded chest from a bandit cache. She provides information about Malarok's agents operating in the area. The magically enhanced thorny vines on the East Tower are evidence of the sorcerer's corruption.",
+      "dmInstructions": "ACTIVATION TRIGGER: Only introduce Sila's quest (SQ002) when the party shows interest in supplies/preparation for wilderness expedition, OR after they've assessed the bell network situation. Sila should approach the party naturally when they're gathering resources, not as part of the initial crisis briefing. This represents the 'supply chain' phase of expedition planning, not an immediate crisis. The magically enhanced thorny vines on the East Tower are evidence of Malarok's corruption and should be mentioned when discussing the bell network restoration.",
       "doors": [],
       "traps": [],
       "dcChecks": [

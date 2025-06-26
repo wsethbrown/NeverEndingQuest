@@ -113,14 +113,5 @@
       "plotImpact": "The party is offered a title, a plot of land by the now-grateful frontier council, and a significant monetary reward. The region is stabilized, and new plot hooks emerge.",
       "sideQuests": []
     }
-  ],
-  "activeQuests": [],
-  "completedQuests": [],
-  "failedQuests": [],
-  "worldEvents": [],
-  "dmNotes": [
-    "Malarok is a physical boss. He should be arrogant and monologue about his plans for power. Consider having him magically scry on the party to taunt them from afar, making his presence known before the final fight.",
-    "The corruption's effect on wildlife should escalate. In the Thornwood, animals are just more aggressive. In the Corrupted Grove, they have physical mutations (glowing eyes, shadowy limbs, etc.).",
-    "If the party has the iron charm from Maelo (SQ003), it can be used to momentarily weaken Malarok or disrupt his spellcasting once during the final fight."
   ]
 }
