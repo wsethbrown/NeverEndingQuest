@@ -10,7 +10,6 @@
         "Ranger Elen",
         "Quartermaster Brann",
         "Trader Sila",
-        "Scout Neris",
         "Captured Bandit Leader Rusk"
       ],
       "plot_points": [
@@ -22,11 +21,11 @@
     },
     "TW001": {
       "name": "Thornwood Wilds",
-      "type": "dungeon",
+      "type": "wilderness",
       "locations": [],
       "npcs": [
         "Wounded Scout Neris",
-        "Rescued Merchant Lira",
+        "Merchant Lira",
         "Spirit-Touched Hermit Maelo"
       ],
       "plot_points": [
@@ -85,17 +84,6 @@
         }
       ]
     },
-    "scout_neris": {
-      "name": "Scout Neris",
-      "role": "",
-      "faction": "",
-      "appears_in": [
-        {
-          "area": "RO001",
-          "location": "RO04"
-        }
-      ]
-    },
     "captured_bandit_leader_rusk": {
       "name": "Captured Bandit Leader Rusk",
       "role": "",
@@ -107,14 +95,14 @@
         }
       ]
     },
-    "rescued_merchant_lira": {
-      "name": "Rescued Merchant Lira",
+    "merchant_lira": {
+      "name": "Merchant Lira",
       "role": "",
       "faction": "",
       "appears_in": [
         {
           "area": "TW001",
-          "location": "TW03"
+          "location": "TW06"
         }
       ]
     },
@@ -125,7 +113,7 @@
       "appears_in": [
         {
           "area": "TW001",
-          "location": "TW01"
+          "location": "TW06"
         }
       ]
     },
@@ -160,10 +148,16 @@
   },
   "locations": {},
   "plot_scopes": {
-    "PP001": "NCW001",
-    "PP002": "NCW001",
+    "PP001": "RO001",
+    "PP002": "TW001",
     "PP003": "NCW001",
-    "PP004": "NCW001"
+    "PP004": "NCW001",
+    "PP005": "RO001",
+    "SQ001": "RO001",
+    "SQ002": "RO001",
+    "SQ003": "TW001",
+    "SQ004": "TW001",
+    "SQ005": "NCW001"
   },
   "references": {
     "npc:Ranger Elen": [
@@ -175,13 +169,10 @@
     "npc:Trader Sila": [
       "module:plotStages"
     ],
-    "npc:Scout Neris": [
-      "module:plotStages"
-    ],
     "npc:Captured Bandit Leader Rusk": [
       "module:plotStages"
     ],
-    "npc:Rescued Merchant Lira": [
+    "npc:Merchant Lira": [
       "module:plotStages"
     ],
     "npc:Wounded Scout Neris": [

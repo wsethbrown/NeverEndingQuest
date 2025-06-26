@@ -5,11 +5,11 @@
   "areaDescription": "Crisis transforms this frontier outpost from peaceful haven to fortress under siege. Weathered timber walkways now bear the scars of hasty fortification, while the clearing echoes with urgent voices and the clash of hastily prepared weapons. The spicy tang of pine sap mingles with smoke from signal fires and the metallic scent of fear. Rangers move with grim purpose between reinforced positions, their usual confidence replaced by the weight of impending catastrophe threatening to overwhelm their small garrison.",
   "dangerLevel": "low",
   "recommendedLevel": 1,
-  "climate": "arctic",
-  "terrain": "coast",
+  "climate": "temperate",
+  "terrain": "forest clearing",
   "map": {
-    "mapId": "MAP_5",
-    "mapName": "Wilderness Map",
+    "mapId": "MAP_RO001",
+    "mapName": "Rangers' Outpost Map",
     "totalRooms": 5,
     "rooms": [
       {
@@ -110,8 +110,8 @@
         },
         {
           "name": "Scout Kira",
-          "description": "A young, eager ranger who reports directly to Elen and frequently carries messages between outposts. Her wide-eyed reports of strange lights and fleeing wildlife hint at unnatural forces at play. Now formally joining the party, she radiates eager resolve and is ready to share the latest news and gossip from other ranger posts.",
-          "attitude": "Enthusiastic and talkative, eager to prove herself and always ready to share the latest news and gossip from other ranger posts."
+          "description": "A young, eager level 2 ranger who reports directly to Elen and frequently carries messages between outposts. Her wide-eyed reports of strange lights and increasingly aggressive wildlife hint at Malarok's corrupting influence spreading from the north. She is eager to join the party's mission and prove herself as a capable ranger.",
+          "attitude": "Enthusiastic and determined, eager to join the party and help investigate the supernatural corruption affecting the wilderness."
         },
         {
           "name": "Messenger Tom",
@@ -120,8 +120,8 @@
         },
         {
           "name": "Rusk",
-          "description": "Captured bandit leader with a broken arm, recently healed by Eirik Hearthwise's careful touch. Through persuasion, he revealed the location of the main bandit camp beyond Scout's Watch, the use of signal whistles as alarms, and the presence of the shadowy faction known as the Crow's Hand orchestrating the raids.",
-          "attitude": "Defiant yet cooperative under interrogation, providing vital intelligence on bandit operations and their mysterious allies."
+          "description": "Captured bandit leader with a broken arm, now terrified of his new master. Once a simple brigand, he speaks in hushed, fearful tones about the sorcerer Malarok who now commands the bandit forces. Through careful interrogation, he can reveal the location of the main bandit camp in the Thornwood Wilds and warn of Malarok's growing magical influence over his followers.",
+          "attitude": "Fearful and broken, eager to cooperate in exchange for protection from Malarok's wrath. Provides vital intelligence about the sorcerer's operations."
         }
       ],
       "monsters": [],
@@ -132,20 +132,20 @@
         "Horse and provisions for upcoming mission"
       ],
       "plotHooks": [
-        "Elen urgently recruits the party as three caravans have been destroyed in five days with escalating brutality",
-        "A captured bandit leader, Rusk, holds key intelligence about the bandit camp and the Crow's Hand faction",
-        "Strange reports of ghostly lights and fleeing wildlife hint at unnatural forces in the forest",
-        "The silver bell network sabotage threatens early warnings of bandit raids",
-        "Scout Kira joins the party, bringing fresh resolve and knowledge of nearby outposts"
+        "Elen urgently recruits the party as three caravans have been destroyed in five days with unnatural precision",
+        "Captured bandit leader Rusk holds key intelligence about the sorcerer Malarok and the main bandit camp location",
+        "Strange reports of aggressive wildlife and dark energy hint at Malarok's corrupting magical influence",
+        "The silver bell network has been sabotaged by Malarok's agents, threatening communication",
+        "Scout Kira is eager to join the party and help investigate the supernatural corruption"
       ],
-      "dmInstructions": "Emphasize the tense atmosphere as the rangers grapple with sabotage and mounting threats. Highlight the importance of the silver bell network and the urgency to repair it. Use Rusk's interrogation to reveal plot-critical information about bandit numbers, their camp location, and the enigmatic Crow's Hand. Foster camaraderie between the party and the rangers, setting up future strategic decisions and missions.",
+      "dmInstructions": "Emphasize the tense atmosphere as the rangers grapple with supernatural corruption and mounting threats. Highlight the fear in Rusk's voice when he speaks of Malarok. Use his interrogation to reveal the sorcerer's name, the bandit camp location in the Thornwood, and warnings about Malarok's magical influence over his followers. Scout Kira should express eagerness to join the party's mission.",
       "doors": [],
       "traps": [],
       "dcChecks": [
         "Insight DC 12: Notice Elen's concern about reports from distant regions, hinting at larger threats",
         "Investigation DC 10: Study the tactical maps to understand bandit movement patterns",
         "Perception DC 8: Hear the subtle signals from the silver bell network warning of approaching activity",
-        "Investigation DC 15: Detect expertly concealed cuts in the silver bell network wiring indicating deliberate sabotage"
+        "Investigation DC 15: Detect signs of magical corruption in the sabotaged silver bell network, indicating Malarok's agents used supernatural means"
       ],
       "accessibility": "Central hub with clear sight lines to all outpost approaches; currently partially impaired by sabotage and ongoing repairs",
       "dangerLevel": "Medium",
@@ -208,9 +208,9 @@
         "Waterproof supply manifest showing recent shortages"
       ],
       "plotHooks": [
-        "Supply shortages suggest someone is stealing or intercepting shipments",
-        "Merchant barge arrivals have become increasingly irregular and nervous",
-        "Brann mentions unusual equipment requests from supposedly legitimate traders"
+        "Supply shortages suggest Malarok's agents are intercepting shipments for dark rituals",
+        "Merchant barge arrivals have become increasingly irregular due to supernatural corruption fears",
+        "Brann mentions unusual requests for iron and silver, materials that resist dark magic"
       ],
       "dmInstructions": "Brann can provide basic equipment and supplies to the party, but requires proof of their legitimacy. He's a good source for information about supply chain disruptions and suspicious merchant activity.",
       "doors": [],
@@ -276,15 +276,15 @@
         "Assorted trade goods from various regions",
         "Merchant's ledger detailing recent attacks",
         "Map of regional trade routes with danger markings",
-        "Torn scrap of dark cloth embroidered with a silver-stitched crow's feather"
+        "Parchment with Malarok's sigil - a twisted tree surrounded by dark energy"
       ],
       "plotHooks": [
-        "Evidence links recent sabotage to the Crow's Hand faction",
-        "Sila warns merchants to travel only in trusted company after dark",
-        "Fresh trail leads toward the Forgotten Waystation, promising further clues",
-        "Saboteurs may still lurk nearby, threatening merchant safety"
+        "Evidence of Malarok's magical corruption affecting the trading post",
+        "Sila speaks of her stolen iron-banded chest taken by bandits to a nearby cache",
+        "Fresh trail leads toward the Forgotten Waystation where Malarok's agents may have been active",
+        "Magical thorny vines and other supernatural elements threaten merchant safety"
       ],
-      "dmInstructions": "Sila is a key NPC providing information about recent sabotage and the growing threat of the Crow's Hand faction. She can guide the party toward investigating the fresh trail to the Forgotten Waystation. The broken bell wire is a vital communication point that the party can repair to restore merchant warnings.",
+      "dmInstructions": "Sila is a key NPC who can provide the SQ002 side quest - retrieving her iron-banded chest from a bandit cache. She provides information about Malarok's agents operating in the area. The magically enhanced thorny vines on the East Tower are evidence of the sorcerer's corruption.",
       "doors": [],
       "traps": [],
       "dcChecks": [
@@ -296,8 +296,8 @@
       "dangerLevel": "Medium",
       "features": [
         {
-          "name": "Broken Silver Bell Wire",
-          "description": "A snapped wire vital for merchant communication; coated in oily black residue indicating sabotage."
+          "name": "Magically Enhanced Thorny Vines",
+          "description": "Thick, unnatural vines with razor-sharp thorns that have grown over the East Tower's bell, clearly enhanced by Malarok's magic."
         },
         {
           "name": "Weathered Trade Stalls",
@@ -321,11 +321,6 @@
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [
-        {
-          "name": "Scout Neris",
-          "description": "A keen-eyed human ranger with wind-tousled hair and calloused hands from years of frontier duty. Neris has an encyclopedic knowledge of the surrounding wilderness and can spot trouble from miles away. She's recently returned from investigating strange phenomena in the northern woods.",
-          "attitude": "Alert and professional, eager to share intelligence about wilderness threats but cautious about venturing too far from her watch post."
-        }
       ],
       "monsters": [],
       "lootTable": [
@@ -334,10 +329,10 @@
         "Signal mirror for long-distance communication"
       ],
       "plotHooks": [
-        "Neris has observed unusual lights and movement in the northern forest",
-        "Wildlife has been fleeing southward in unprecedented numbers",
-        "Strange travelers have been spotted moving at night toward the corrupted areas",
-        "Communication with northern patrol posts has become sporadic and concerning"
+        "Neris has observed dark energy and unnatural corruption spreading from the northern forest",
+        "Wildlife has been fleeing southward, some showing signs of magical corruption",
+        "Malarok's agents have been spotted moving at night toward the Thornwood",
+        "Communication with northern patrol posts has been disrupted by the sorcerer's influence"
       ],
       "dmInstructions": "Scout Neris provides reconnaissance intelligence and can guide the party to specific locations in the wilderness. She's the best source for information about the supernatural phenomena affecting the northern reaches.",
       "doors": [],
@@ -361,6 +356,10 @@
         {
           "name": "Observation Logs",
           "description": "Detailed written records of movements, weather patterns, and unusual sightings maintained by the scout."
+        },
+        {
+          "name": "North Tower Bell (SQ001)",
+          "description": "One of three silver bell towers in the communication network. The bell clapper has been stolen by Malarok's agents, leaving the bell silent and the network partially disabled."
         }
       ]
     },
@@ -389,14 +388,14 @@
         "Crow's Hand supply cache with sabotage tools",
         "Coded correspondence revealing next targets",
         "Maps marking vulnerable points in the silver bell network",
-        "Schedule showing caravan routes and timing",
-        "Torn scrap of dark cloth with crow's feather insignia"
+        "Schedule showing caravan routes and ritual timing for Malarok",
+        "Fragment of Malarok's spellbook containing corruption magic"
       ],
       "plotHooks": [
-        "Fresh drag marks lead to a concealed cache of sabotage equipment",
-        "Coded messages reveal the Crow's Hand plans to strike Scout's Watch next",
-        "Equipment suggests the saboteurs have inside knowledge of ranger operations",
-        "Evidence points to a coordinated assault on the entire communication network"
+        "Fresh drag marks lead to a concealed cache of magical components for Malarok's rituals",
+        "Coded messages reveal Malarok's plans to corrupt the northern woods completely",
+        "Equipment suggests the sorcerer has been scrying on ranger operations",
+        "Evidence points to Malarok's systematic corruption of the entire region"
       ],
       "dmInstructions": "This location serves as evidence of the Crow's Hand's organized campaign against the outpost. The cache reveals their systematic approach and provides clues about their next target (Scout's Watch). Use investigation checks to uncover layers of evidence showing this isn't random banditry but coordinated sabotage.",
       "doors": [],
@@ -425,6 +424,10 @@
         {
           "name": "Disturbed Undergrowth",
           "description": "Fresh signs of activity including footprints, drag marks, and hastily concealed evidence of recent occupation."
+        },
+        {
+          "name": "West Tower Bell (SQ001)",
+          "description": "One of three silver bell towers in the communication network. The harmonic crystal has been shattered by Malarok's agents, requiring replacement to restore the tower's function."
         }
       ]
     }

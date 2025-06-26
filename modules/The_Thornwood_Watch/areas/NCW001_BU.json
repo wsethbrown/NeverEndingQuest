@@ -2,14 +2,14 @@
   "areaId": "NCW001",
   "areaName": "Northern Corrupted Woods",
   "areaType": "wilderness",
-  "areaDescription": "The Northern Corrupted Woods exist as an affront to nature itself, where black-needled pines writhe skyward like grasping fingers from ground quilted in ashen moss that crunches underfoot like old bones. Dark sap weeps from twisted trunks in patterns that hurt to look upon, while the air crackles with malevolent energy that makes metal taste sharp and thoughts turn sluggish. Reality seems thin here, and every footstep echoes with the chittering of alien intelligences that watch hungrily from the shifting gloom between worlds.",
+  "areaDescription": "The Northern Corrupted Woods exist as the epicenter of Malarok's dark influence, where ancient trees have been twisted into grotesque forms by the sorcerer's Voidstone magic. Black-needled pines writhe skyward like grasping fingers, their trunks weeping dark sap that pulses with corrupt energy. The air hums with Malarok's power, making metal grow cold and thoughts sluggish. At the heart of this blighted grove lie the crumbling ruins where the sorcerer conducts his dark rituals, protected by magical wards and corrupted guardians.",
   "dangerLevel": "high",
   "recommendedLevel": 2,
-  "climate": "tropical",
-  "terrain": "swamp",
+  "climate": "temperate - corrupted",
+  "terrain": "blighted forest",
   "map": {
-    "mapId": "MAP_5",
-    "mapName": "Wilderness Map",
+    "mapId": "MAP_NCW001",
+    "mapName": "Corrupted Woods Map",
     "totalRooms": 5,
     "rooms": [
       {
@@ -83,7 +83,7 @@
       "locationId": "NC01",
       "name": "Corrupted Entry Cave",
       "type": "cave",
-      "description": "The mouth of this limestone cavern weeps black sap that pools in unnatural patterns on the stone floor, while pale, sickly fungi cast an eerie phosphorescent glow throughout the twisted passages. The air tastes of copper and decay, and strange whispers seem to echo from deeper within, speaking words in no earthly tongue.",
+      "description": "The mouth of this limestone cavern weeps black sap corrupted by Malarok's Voidstone magic, pooling in unnatural patterns on the stone floor. Pale, sickly fungi cast an eerie glow throughout the twisted passages. The air tastes of dark magic and decay, and Malarok's corrupting influence can be felt even here at the forest's edge.",
       "coordinates": "X2Y2",
       "connectivity": [
         "NC02",
@@ -98,8 +98,8 @@
       "npcs": [
         {
           "name": "Corrupted Cave Fisher",
-          "description": "Once a normal cave fisher, this creature has been twisted by the supernatural corruption into something far more sinister. Its chitinous shell now bears veins of pulsing dark energy, and its fishing line drips with acidic corruption that can weaken both flesh and spirit.",
-          "attitude": "Hostile and territorial, it will attack anything that enters its domain, driven by an unnatural hunger for corrupted flesh."
+          "description": "Once a normal cave fisher, this creature has been twisted by Malarok's Voidstone magic into something far more sinister. Its chitinous shell now bears veins of pulsing dark energy, and its fishing line drips with the sorcerer's corruption that can weaken both flesh and spirit.",
+          "attitude": "Hostile and territorial, it will attack anything that enters its domain, driven by Malarok's corrupting influence."
         }
       ],
       "monsters": [
@@ -112,12 +112,12 @@
         "Ancient warning tablets carved in Common and Sylvan"
       ],
       "plotHooks": [
-        "Ancient warning tablets describe the first signs of corruption spreading from deeper in the woods",
-        "The corrupted cave fisher was once a guardian creature, now twisted beyond recognition",
-        "Strange magical emanations from deeper caves suggest a powerful source of corruption",
-        "Claw marks on the cave walls show desperate attempts by fleeing wildlife to escape the spreading taint"
+        "Ancient warning tablets describe the spread of corruption from Malarok's rituals in the ruins",
+        "The corrupted cave fisher was twisted by the sorcerer's Voidstone magic",
+        "Strange magical emanations lead toward Malarok's ritual site deeper in the grove",
+        "Claw marks show desperate attempts by wildlife to escape Malarok's spreading influence"
       ],
-      "dmInstructions": "This serves as the entry point to the corrupted northern region. The cave fisher represents the first serious supernatural threat. Use the corruption effects to foreshadow greater dangers ahead and emphasize how the natural order has been perverted.",
+      "dmInstructions": "This serves as the entry point to Malarok's corrupted domain. The cave fisher represents the first serious supernatural threat twisted by the sorcerer's magic. Use the corruption effects to foreshadow Malarok's power and the Voidstone's influence.",
       "doors": [],
       "traps": [
         {
@@ -373,7 +373,7 @@
       "locationId": "NC05",
       "name": "The Corrupted Nexus",
       "type": "hilltop",
-      "description": "Atop this windswept hill stands the epicenter of the spreading corruption - a massive meteorite of otherworldly black stone that pulses with malevolent energy. The very air around the meteorite shimmers with visible corruption, and the ground in a wide radius has been transformed into a crystalline lattice of dark energy. Ancient trees have become twisted spires of corrupted wood and metal, their roots fused with veins of the alien substance.",
+      "description": "Atop this windswept hill stand the crumbling ruins where Malarok the Corruptor has established his dark sanctuary. At the center of the ancient stone circle, a massive Voidstone Shard pulses with corrupted starlight, amplifying the sorcerer's power. The very air around the altar shimmers with dark magic, and the ground radiates outward with veins of corruption. Ancient trees have become twisted by Malarok's rituals, their forms warped by the Voidstone's influence.",
       "coordinates": "X1Y1",
       "connectivity": [
         "NC02"
@@ -382,29 +382,29 @@
       "areaConnectivityId": [],
       "npcs": [
         {
-          "name": "Echo of the Void",
-          "description": "A fragment of the alien intelligence that arrived with the meteorite, manifesting as a shifting amalgamation of shadow and corrupted energy. It speaks in the voices of all those the corruption has claimed, offering power in exchange for submission to its otherworldly will.",
-          "attitude": "Ancient, alien, and utterly hostile to natural life. It will attempt to corrupt or destroy the party while trying to complete its mission of consuming this world's life force."
+          "name": "Malarok the Corruptor",
+          "description": "A powerful human sorcerer consumed by his lust for power, Malarok has bound himself to the Voidstone Shard to amplify his dark magic. Clad in robes that seem to absorb light, he conducts terrible rituals to corrupt the land and bend it to his will. His eyes burn with the same dark energy as the Voidstone, and his voice carries the authority of one who has tasted ultimate power.",
+          "attitude": "Arrogant and megalomaniacal, convinced of his superiority. He will monologue about his plans for power and mock the party before engaging in deadly combat to protect his Voidstone."
         }
       ],
       "monsters": [
-        "1 Echo of the Void (CR 3, custom aberration boss)",
-        "2-3 Corrupted Elementals (CR 1 each, earth/air elementals twisted by alien energy)",
-        "1-2 Void Spawn (CR 1/2 each, lesser manifestations of the alien corruption)"
+        "1 Malarok the Corruptor (CR 3, human sorcerer with Voidstone enhancement)",
+        "2 Elite Bandit Bodyguards (CR 1 each, bandits enhanced by Malarok's magic)",
+        "1-2 Corrupted Wolves (CR 1/2 each, wolves twisted by the sorcerer's power)"
       ],
       "lootTable": [
-        "Fragment of the meteorite (dangerous but valuable to scholars)",
+        "Fragment of the Voidstone Shard (dangerous but valuable to scholars)",
         "Alien technology partially corrupted by the void energy",
         "Crystal containing trapped souls of corruption victims",
         "Ancient ritual components for purification magic"
       ],
       "plotHooks": [
-        "The meteorite is the source of all corruption in the region and must be cleansed or destroyed",
-        "The alien intelligence seeks to establish a foothold for a larger invasion",
-        "Destroying the nexus will begin healing the entire northern forest",
-        "The corruption was deliberately guided here by someone or something with knowledge of the meteorite"
+        "The Voidstone Shard is the source of all corruption in the region and must be destroyed",
+        "Malarok seeks to use the Voidstone's power to control the entire frontier",
+        "Destroying the Voidstone will begin healing the entire northern forest",
+        "Malarok deliberately sought out and bound himself to the fallen star fragment"
       ],
-      "dmInstructions": "This is the climactic boss fight of the module. The Echo of the Void should be challenging but not impossible for a level 2 party, especially if they've gained allies and information from previous encounters. The fight should emphasize the alien nature of the threat while providing clear victory conditions. Success here should feel like a significant triumph that saves the entire region.",
+      "dmInstructions": "This is the climactic boss fight of the module. Malarok should be challenging but not impossible for a level 2 party, especially if they've gained allies and information from previous encounters. The fight should emphasize the sorcerer's arrogance and power while providing clear victory conditions. Success here should feel like a significant triumph that saves the entire region.",
       "doors": [],
       "traps": [
         {
@@ -423,28 +423,28 @@
         }
       ],
       "dcChecks": [
-        "Arcana DC 18: Understand the alien nature of the corruption and potential methods to cleanse it",
-        "Religion DC 16: Invoke divine power to weaken the void energy's hold on the area",
-        "Investigation DC 14: Find weak points in the meteorite's crystalline structure"
+        "Arcana DC 18: Understand the nature of the Voidstone corruption and potential methods to destroy it",
+        "Religion DC 16: Invoke divine power to weaken Malarok's dark magic",
+        "Investigation DC 14: Find weak points in the Voidstone's crystalline structure"
       ],
       "accessibility": "Hilltop accessible from the grove below, but approach is hindered by reality distortions and void energy",
       "dangerLevel": "Extreme",
       "features": [
         {
-          "name": "Void Meteorite",
-          "description": "A massive chunk of alien black stone that pulses with otherworldly energy, the source of all corruption in the region."
+          "name": "Voidstone Altar",
+          "description": "A massive shard of fallen star bound to an ancient stone altar, pulsing with dark energy that amplifies Malarok's sorcerous power."
         },
         {
-          "name": "Crystalline Corruption Veins",
-          "description": "Veins of dark crystal spreading outward from the meteorite, transforming the natural landscape into something alien."
+          "name": "Corruption Channels",
+          "description": "Veins of dark crystal spreading outward from the Voidstone, carved by Malarok's rituals to channel corrupting energy across the land."
         },
         {
           "name": "Twisted Sentinel Trees",
-          "description": "Ancient trees transformed into spires of corrupted wood and metal, their forms warped beyond recognition."
+          "description": "Ancient trees transformed by Malarok's magic into spires of corrupted wood, their forms warped to serve as guardians of his ritual site."
         },
         {
-          "name": "Reality Fractures",
-          "description": "Visible tears in space-time around the meteorite where the alien presence has weakened the fabric of reality."
+          "name": "Magic Distortion Fields",
+          "description": "Visible distortions in the air around the Voidstone where Malarok's powerful magic has warped the natural flow of energy."
         }
       ],
       "encounters": [],
