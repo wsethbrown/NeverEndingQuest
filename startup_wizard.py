@@ -706,6 +706,9 @@ CHARACTER SCHEMA:
                         creation_conversation.append({"role": "user", "content": "There was an error processing the character data. Please provide a clean JSON object with only standard ASCII characters."})
                         continue
                 
+                # Add AI response to conversation immediately
+                creation_conversation.append({"role": "assistant", "content": response})
+                
                 # Get user input
                 user_input = input("\nYour response: ").strip()
                 
@@ -713,12 +716,11 @@ CHARACTER SCHEMA:
                     print("Error: Character creation cancelled.")
                     return None
                 
-                # Skip empty input to prevent infinite loops
+                # Skip empty input silently - don't add to conversation
                 if not user_input:
                     continue
                 
-                # Add to conversation
-                creation_conversation.append({"role": "assistant", "content": response})
+                # Add valid user input to conversation
                 creation_conversation.append({"role": "user", "content": user_input})
                 
             except KeyboardInterrupt:
