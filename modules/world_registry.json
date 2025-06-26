@@ -1,0 +1,246 @@
+{
+  "worldName": "Fantasy Adventure World",
+  "registryVersion": "1.0.0",
+  "lastUpdated": "2025-06-26T12:08:14.889173",
+  "modules": {
+    "Keep_of_Doom": {
+      "moduleName": "Keep_of_Doom",
+      "addedDate": "2025-06-26T12:07:59.529034",
+      "themes": [
+        "The party arrives in Harrow's Hollow, a small, anxious village gripped by fear. Elder Mirna Harrow asks the characters to investigate recent disappearances, including that of Scout Elen. Tensions run ",
+        "Tracking clues and rumors, the party must brave the haunted forest and reach the Keep of Doom. Along the way, they navigate treacherous terrain, spectral ambushes, and lingering wards. The forest is a",
+        "The party reaches the foreboding Keep of Doom. They must find a way inside, dealing with traps, lingering magical defenses, and spectral guardians. Entry requires cunning, bravery, or the right key--p",
+        "Within the keep's depths lies the source of the curse: the vengeful spirit of Lord Thaddeus Greymont, corrupted by dark magic. The party must confront him, either by combat, exorcism, or fulfilling hi",
+        "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures"
+      ],
+      "plotObjective": "Investigate the mysterious disappearances in Harrow's Hollow and discover the fate of Scout Elen.",
+      "levelRange": {
+        "min": 3,
+        "max": 5
+      },
+      "areaCount": 5,
+      "travelNarration": {
+        "travelNarration": "The road winds ever deeper into the shadowed folds of the countryside, where woods thicken and daylight fades beneath tangled boughs. A chill mist clings to the earth as you approach the brooding expanse of the Gloamwood--where rumors of vanished villagers and the fate of Scout Elen beckon you into the unknown.",
+        "dmGuidance": "Describe the growing sense of unease as the party enters the Gloamwood, emphasizing the oppressive trees and the distant echo of unseen things moving within. Let the players feel the weight of local fear and uncertainty, hinting at Harrow's Hollow's troubles before the first encounter.",
+        "generatedDate": "2025-06-26T12:07:57.266038"
+      },
+      "startingLocation": {
+        "locationId": "A01",
+        "locationName": "Harrow's Hollow General Store",
+        "areaId": "HH001",
+        "areaName": "Harrow's Hollow",
+        "determinedBy": "AI",
+        "timestamp": "2025-06-26T12:35:29.170423"
+      }
+    },
+    "Silver_Vein_Whispers": {
+      "moduleName": "Silver_Vein_Whispers",
+      "addedDate": "2025-06-26T12:08:10.490152",
+      "themes": [
+        "The party arrives at the edge of the Sablemoor Reaches, a mist-wreathed expanse notorious for haunting whispers and unnatural mists. Locals warn travelers away, but the party seeks the tormented spiri",
+        "The party descends into the fog-laden riverbanks, where spectral voices grow louder and strange phenomena threaten to overwhelm the senses. They must investigate the source of the voices, interacting ",
+        "Deep in the river-concealed ruins, the party uncovers remnants of the lost city of Calamyr. Here, they must navigate ancient traps, decipher forgotten lore with Archivist Lareth, and contend with Capt",
+        "With the means to commune with Rilith, the party enacts the ritual, confronting both the tormented spirit and the vengeful Queen Seralyth. Their choices--appeasement, cleansing, bargaining, or combat-"
+      ],
+      "plotObjective": "Uncover the origin and purpose of the Silver Vein River's unnatural magic by exploring the haunted moorlands, confronting the regret-bound queen's spirit, and recovering ancient relics from the ruined city of Calamyr before the river's curse reshapes the fate of all who dwell nearby.",
+      "levelRange": {
+        "min": 6,
+        "max": 8
+      },
+      "areaCount": 3,
+      "travelNarration": {
+        "travelNarration": "Your journey leads you across windswept, desolate moorlands where the air grows chill and thick with a silvery mist that clings to your clothes and whispers along the ground. In the distance, the broken silhouette of ancient Calamyr looms, its shattered towers rising from the moor like skeletal fingers, while the Silver Vein River glimmers with an unnatural, shifting light beneath the gloom. The haunted silence is pierced only by the mournful cry of unseen creatures and the faint, regretful wails that drift on the wind.",
+        "dmGuidance": "Describe the gradual change in landscape as the party approaches the moors, emphasizing the growing sense of unease and the unnatural qualities of the Silver Vein River. Build suspense by mentioning local rumors or glimpses of spectral figures near the ruins, then guide the players toward the imposing gates of Calamyr, setting the stage for their entry into the dungeon.",
+        "generatedDate": "2025-06-26T12:08:08.532328"
+      },
+      "startingLocation": {
+        "locationId": "SR01",
+        "locationName": "Riverside Outpost",
+        "areaId": "SR001",
+        "areaName": "Sablemoor Reaches",
+        "determinedBy": "AI",
+        "timestamp": "2025-06-26T12:35:32.939279"
+      }
+    },
+    "The_Thornwood_Watch": {
+      "moduleName": "The_Thornwood_Watch",
+      "addedDate": "2025-06-26T12:08:14.889173",
+      "themes": [
+        "The party arrives at Rangers' Outpost to find it in crisis. Three caravans have been massacred in five days with unnatural precision. Ranger Elen, the outpost's commander, recruits the party. Her prim",
+        "Following leads from Rusk, the party ventures into the Thornwood Wilds to find the main bandit camp, located in an old, crumbling watchtower. They must overcome unnaturally aggressive wildlife and ban",
+        "The trail leads north to a blighted part of the forest where the trees are twisted and the air hums with dark energy. The party must navigate this dangerous grove to find the source of the sorcerer's ",
+        "Deep within the ruins, the party finds Malarok the Corruptor. He is performing a dark ritual to absorb the power of a large, pulsating Voidstone Shard set upon an altar. He is a formidable spellcaster",
+        "With Malarok defeated and his influence broken, the woods begin to calm. The party returns to Rangers' Outpost as heroes. The remaining bandits have scattered or surrendered. Ranger Elen can finally s"
+      ],
+      "plotObjective": "Investigate the escalating bandit attacks on the Rangers' Outpost and stop the sorcerer who is corrupting the northern wilderness.",
+      "levelRange": {
+        "min": 1,
+        "max": 2
+      },
+      "areaCount": 3,
+      "travelNarration": {
+        "travelNarration": "After several days crossing rolling hills and shadowed glens, the landscape before you grows wild and uneasy. The air is heavy with the scent of damp earth and distant woodsmoke, while dark, twisted trees loom ever closer--marking the threshold of the northern Thornwood, where trouble brews.",
+        "dmGuidance": "Describe the gradual change from familiar terrain to the foreboding forests of the north. Emphasize the increasing sense of watchfulness in the woods and hints of unnatural corruption--a chill in the air, odd animal calls, or the feeling of being observed--setting the stage for the dangers ahead.",
+        "generatedDate": "2025-06-26T12:08:12.705969"
+      }
+    }
+  },
+  "areas": {
+    "G001": {
+      "areaName": "Gloamwood",
+      "areaDescription": "A dense, brooding forest where sunlight rarely pierces the canopy. Ethereal mists swirl between ancient oaks, and spirits of the restless dead prowl the trails. Travelers risk losing both their way and their lives among the twisted paths and shadowed groves.",
+      "areaType": "forest",
+      "dangerLevel": "medium",
+      "recommendedLevel": 3,
+      "climate": "temperate",
+      "terrain": "dense forest, misty trails, marshy clearings",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 9,
+      "module": "Keep_of_Doom",
+      "addedDate": "2025-06-26T12:07:59.529034"
+    },
+    "HH001": {
+      "areaName": "Harrow's Hollow",
+      "areaDescription": "Harrow's Hollow is a medium settlement where civilization meets the frontier. Politics and intrigue mix with everyday commerce.",
+      "areaType": "town",
+      "dangerLevel": "low",
+      "recommendedLevel": 3,
+      "climate": "temperate",
+      "terrain": "urban streets and buildings",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 5,
+      "module": "Keep_of_Doom",
+      "addedDate": "2025-06-26T12:07:59.529034"
+    },
+    "SK001": {
+      "areaName": "Shadowfall Keep",
+      "areaDescription": "A crumbling fortress perched atop a rocky hill, its towers broken and battlements thick with creeping ivy. Within, restless spirits and deadly traps await all who enter, and the cursed knight's presence warps reality itself. The very stones seem to absorb light, casting the keep in perpetual shadow regardless of the time of day.",
+      "areaType": "ruins",
+      "dangerLevel": "high",
+      "recommendedLevel": 4,
+      "climate": "temperate",
+      "terrain": "rocky hill, stone fortress, crumbling architecture",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 8,
+      "module": "Keep_of_Doom",
+      "addedDate": "2025-06-26T12:07:59.529034"
+    },
+    "TBM001": {
+      "areaName": "The Blighted Marches",
+      "areaDescription": "A desolate moor stretching beyond the keep, scarred by ancient battles and lingering curses. Strange lights drift over the bogs at night, and only the desperate or foolhardy dare to cross these lands. The soil itself seems poisoned, growing only twisted vegetation, while miasmic mists obscure vision and disorient travelers. Time and space bend unpredictably here, where the shadow relic's influence has seeped into the very landscape over centuries.",
+      "areaType": "wilderness",
+      "dangerLevel": "extreme",
+      "recommendedLevel": 5,
+      "climate": "cold and foggy",
+      "terrain": "moors, bogs, rocky outcroppings, and blasted plains",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 6,
+      "module": "Keep_of_Doom",
+      "addedDate": "2025-06-26T12:07:59.529034"
+    },
+    "TCD001": {
+      "areaName": "The Cursed Dungeons",
+      "areaDescription": "Beneath the keep, these ancient catacombs twist into darkness, suffused with the shadow relic's malevolent power. Echoes of suffering and the undead linger in every shadowed cell and hidden chamber. The very stones pulse with corrupted energy, and the air is thick with the taste of fear and ancient despair. Time and space seem to warp within these depths, with passages that shouldn't connect somehow leading into one another.",
+      "areaType": "dungeon",
+      "dangerLevel": "high",
+      "recommendedLevel": 4,
+      "climate": "cold and damp",
+      "terrain": "underground stone passages, cells, and chambers",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 7,
+      "module": "Keep_of_Doom",
+      "addedDate": "2025-06-26T12:07:59.529034"
+    },
+    "RC001": {
+      "areaName": "Ruins of Calamyr",
+      "areaDescription": "Shards of obsidian arch over shattered mosaic floors, their surfaces slick with perpetual condensation and faintly pulsing with deep violet light; every footstep echoes through the vast, angular halls, disturbed by a chorus of whispers that seem to rise from the very stones, hinting at volatile magics and the restless remnants of Calamyr's final hour.",
+      "areaType": "dungeon",
+      "dangerLevel": "high",
+      "recommendedLevel": 8,
+      "climate": "controlled - cool and damp",
+      "terrain": "stone corridors and chambers",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 6,
+      "module": "Silver_Vein_Whispers",
+      "addedDate": "2025-06-26T12:08:10.490152"
+    },
+    "SR001": {
+      "areaName": "Sablemoor Reaches",
+      "areaDescription": "A hush blankets the Sablemoor Reaches, where fog-draped heath undulates beneath charcoal-tipped grasses and the distant piping of marsh birds echoes between scattered stands of twisted willow. Lanternflies drift in slow constellations above glassy pools, illuminating half-sunken monoliths and the faint, silvery tracks of creatures that prefer not to be seen.",
+      "areaType": "wilderness",
+      "dangerLevel": "low",
+      "recommendedLevel": 6,
+      "climate": "desert",
+      "terrain": "forest",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 6,
+      "module": "Silver_Vein_Whispers",
+      "addedDate": "2025-06-26T12:08:10.490152"
+    },
+    "WR001": {
+      "areaName": "Whispering Riverbanks",
+      "areaDescription": "Water drips from stalactites into milky, sluggish currents winding between tangled roots and moss-choked stones, each splash echoing with the faintest impression of voices that never quite resolve into words. Lantern-light flickers over faded ritual markings along the muddy banks, while the air pulses with a damp, uneasy hush, as if the river itself is holding its breath, waiting for secrets best left unearthed.",
+      "areaType": "dungeon",
+      "dangerLevel": "medium",
+      "recommendedLevel": 7,
+      "climate": "controlled - cool and damp",
+      "terrain": "stone corridors and chambers",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 6,
+      "module": "Silver_Vein_Whispers",
+      "addedDate": "2025-06-26T12:08:10.490152"
+    },
+    "NCW001": {
+      "areaName": "Northern Corrupted Woods",
+      "areaDescription": "The Northern Corrupted Woods exist as the epicenter of Malarok's dark influence, where ancient trees have been twisted into grotesque forms by the sorcerer's Voidstone magic. Black-needled pines writhe skyward like grasping fingers, their trunks weeping dark sap that pulses with corrupt energy. The air hums with Malarok's power, making metal grow cold and thoughts sluggish. At the heart of this blighted grove lie the crumbling ruins where the sorcerer conducts his dark rituals, protected by magical wards and corrupted guardians.",
+      "areaType": "wilderness",
+      "dangerLevel": "high",
+      "recommendedLevel": 2,
+      "climate": "temperate - corrupted",
+      "terrain": "blighted forest",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 5,
+      "module": "The_Thornwood_Watch",
+      "addedDate": "2025-06-26T12:08:14.889173"
+    },
+    "RO001": {
+      "areaName": "Rangers' Outpost",
+      "areaDescription": "Crisis transforms this frontier outpost from peaceful haven to fortress under siege. Weathered timber walkways now bear the scars of hasty fortification, while the clearing echoes with urgent voices and the clash of hastily prepared weapons. The spicy tang of pine sap mingles with smoke from signal fires and the metallic scent of fear. Rangers move with grim purpose between reinforced positions, their usual confidence replaced by the weight of impending catastrophe threatening to overwhelm their small garrison.",
+      "areaType": "wilderness",
+      "dangerLevel": "low",
+      "recommendedLevel": 1,
+      "climate": "temperate",
+      "terrain": "forest clearing",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 5,
+      "module": "The_Thornwood_Watch",
+      "addedDate": "2025-06-26T12:08:14.889173"
+    },
+    "TW001": {
+      "areaName": "Thornwood Wilds",
+      "areaDescription": "The Thornwood Wilds writhe with predatory intelligence, their canopy of clawed branches seeming to shift and close behind intruders. Ancient trees lean inward like conspirators, their moss-choked bark weeping strange saps while root-latticed shadows conceal signs of recent violence. The air tastes of copper and fear, thick with the scent of spilled blood and the acrid smoke of bandit camps. Every snapping twig and rustling leaf might herald ambush, while drag marks in the earth tell grim stories of those who ventured here before you.",
+      "areaType": "wilderness",
+      "dangerLevel": "medium",
+      "recommendedLevel": 1,
+      "climate": "temperate",
+      "terrain": "forest",
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "locationCount": 6,
+      "module": "The_Thornwood_Watch",
+      "addedDate": "2025-06-26T12:08:14.889173"
+    }
+  },
+  "themes": {},
+  "isolatedModules": true
+}

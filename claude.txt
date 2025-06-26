@@ -1,51 +1,39 @@
-Of course. I have analyzed all the files you provided and have a complete understanding of the structure. I will give you a verbal explanation of the issues and what you need to do to fix them, without providing any code.
-
-This is excellent work. The level of detail is fantastic, and the module is very close to being perfectly coherent. My feedback is focused on a few key narrative inconsistencies that, once fixed, will make the entire adventure seamless for a Game Master to run.
-
-Here is what needs to be fixed:
-
-1. The "Rescue the Lost" Side Quest is Contradictory
-
-This is the most important issue to fix, as it creates a confusing narrative.
-
-The Problem: Your main plot file describes a side quest where the heroes rescue Wounded Scout Neris and Merchant Lira together from a cave of corrupted wolves. This is a great, dramatic moment. However, your area files have them in three separate places:
-
-There is a healthy Scout Neris on watch at the Rangers' Outpost.
-
-There is a different, lone Wounded Scout Neris at the ambush site in the Thornwood.
-
-There is a lone Merchant Lira in a different captive camp in the Thornwood.
-
-This creates a "multiple Neris" problem and separates two characters who are meant to be rescued together, which weakens the story.
-
-How to Fix It: You need to consolidate this into a single, cohesive event.
-
-First: In your RO001 (Rangers' Outpost) file, go to the "Scout's Watch" location and remove the Scout Neris NPC entirely. The watchtower can be there, but she is missing, which reinforces the crisis.
-
-Second: In your TW001 (Thornwood) file, go to the "Ambush Site" location and remove the Wounded Scout Neris NPC from there. The site is where the attack happened, but she is no longer there.
-
-Third: In that same TW001 file, go to the "Captive Camp" location and remove the Merchant Lira NPC. That camp can be described as empty or recently abandoned.
-
-Finally: In the TW001 file, you need to create one new location. Call it "Wolf's Den Cave" or something similar. In this single new location, place both the Wounded Scout Neris and Merchant Lira NPCs, fighting off the corrupted wolves. This will perfectly match the side quest description in your plot file and create a much more memorable encounter for your players.
-
-2. The "Silver Bell Network" Quest Objectives are Not Fully Placed
-
-The Problem: Your plot file correctly states that three bell towers are broken in different ways. You did an excellent job placing the East Tower (with the thorny vines) at the "Trader's Rest" location. However, the other two objectives—the North Tower with the stolen clapper and the West Tower with the shattered crystal—are not explicitly placed in any location in your RO001 file. A GM wouldn't know where to direct the players.
-
-How to Fix It: You just need to anchor these objectives to your existing locations.
-
-In your RO001 file, go to the "Scout's Watch" location. In its list of features, add a new feature describing the North Tower and its missing bell clapper.
-
-Then, go to the "Forgotten Waystation" location. In its list of features, add a new feature describing the West Tower and its shattered harmonic crystal.
-
-3. Minor Data Cleanup
-
-The Problem: Some of the high-level data in your area files doesn't match your excellent descriptions. For example, the Thornwood is described as a forest, but its areaType is listed as "dungeon" and its terrain is "stone corridors." Similarly, the climates and terrains for the other areas are a bit off. The context file also has some outdated information because of the Neris/Lira issue.
-
-How to Fix It:
-
-Simply go through the top of each of your three area files (RO001, TW001, NCW001) and adjust the climate and terrain fields to match your written descriptions (e.g., "temperate" and "forest" for the Thornwood).
-
-After you fix the Neris and Lira situation, update your module_context file to show they only appear in the one new location you created. You should also fix the plot_scopes section to correctly link each plot point to the single area where it occurs (for example, PP001 only happens in RO001).
-
-By making these changes, all of your files will be perfectly synchronized, and the adventure's narrative will flow logically from start to finish. You have built a very strong and engaging module.
+Of course. Here is the original section of the source code that you need to replace.
+You can find this inside the <script> tag at the bottom of your game_interface.html file, right after the capitalizeWords function.
+Original Section to Replace:
+This is the old, problematic code in your file.
+Generated javascript
+// Auto-scroll to bottom function
+        function scrollToBottom(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.scrollTop = element.scrollHeight;
+                // Force scroll for debug tab specifically
+                if (elementId === 'debug-output') {
+                    setTimeout(() => {
+                        element.scrollTop = element.scrollHeight;
+                    }, 50);
+                }
+            }
+        }
+Use code with caution.
+JavaScript
+Replace it with this New Section:
+This is the corrected code that ensures auto-scrolling works reliably for the debug tab and all other panels.
+Generated javascript
+// --- MODIFIED CODE START ---
+        // Auto-scroll to bottom function
+        function scrollToBottom(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                // A race condition can occur where this function is called before the browser
+                // has finished rendering the new message and updating the element's scrollHeight.
+                // By using setTimeout, we push the scroll command to the end of the execution queue,
+                // giving the browser time to repaint. This ensures the scroll is always accurate.
+                setTimeout(() => {
+                    element.scrollTop = element.scrollHeight;
+                }, 50); // A small delay is usually enough.
+            }
+        }
+        // --- MODIFIED CODE END ---
+Use code with caution.

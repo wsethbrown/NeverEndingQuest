@@ -8,21 +8,21 @@
   "race": "Human",
   "class": "Cleric",
   "alignment": "chaotic good",
-  "background": "Soldier (Medic)",
+  "background": "Soldier (Field Medic)",
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 10,
-  "maxHitPoints": 10,
+  "hitPoints": 11,
+  "maxHitPoints": 11,
   "armorClass": 18,
-  "initiative": 0,
+  "initiative": 1,
   "speed": 30,
   "abilities": {
-    "strength": 16,
-    "dexterity": 11,
-    "constitution": 14,
-    "intelligence": 13,
-    "wisdom": 15,
+    "strength": 14,
+    "dexterity": 13,
+    "constitution": 15,
+    "intelligence": 11,
+    "wisdom": 16,
     "charisma": 9
   },
   "savingThrows": [
@@ -31,14 +31,14 @@
   ],
   "skills": {
     "athletics": 4,
-    "medicine": 4,
-    "insight": 4,
-    "religion": 3
+    "intimidation": -1,
+    "medicine": 5,
+    "insight": 5
   },
   "proficiencyBonus": 2,
   "senses": {
     "darkvision": 0,
-    "passivePerception": 12
+    "passivePerception": 13
   },
   "languages": [
     "Common",
@@ -46,17 +46,16 @@
   ],
   "proficiencies": {
     "armor": [
-      "light",
-      "medium",
-      "heavy",
-      "shields"
+      "Light",
+      "Medium",
+      "Shields"
     ],
     "weapons": [
-      "simple"
+      "Simple"
     ],
     "tools": [
-      "gaming set",
-      "vehicles (land)"
+      "Gaming set",
+      "Vehicles (land)"
     ]
   },
   "damageVulnerabilities": [],
@@ -66,23 +65,13 @@
   "classFeatures": [
     {
       "name": "Spellcasting",
-      "description": "You can cast prepared cleric spells using Wisdom as your spellcasting modifier.",
-      "source": "Cleric",
-      "usage": {
-        "current": 0,
-        "max": 0,
-        "refreshOn": "longRest"
-      }
+      "description": "You can cast prepared cleric spells using Wisdom as your spellcasting ability.",
+      "source": "Cleric"
     },
     {
-      "name": "Divine Domain (Life)",
-      "description": "Grants proficiency with heavy armor and enhances healing spells. Bonus: always have Bless and Cure Wounds prepared.",
-      "source": "Cleric",
-      "usage": {
-        "current": 0,
-        "max": 0,
-        "refreshOn": "longRest"
-      }
+      "name": "Divine Domain",
+      "description": "Life Domain: Bonus proficiency in Heavy Armor, always have Bless and Cure Wounds prepared, healing spells restore extra hit points (2 + spell level).",
+      "source": "Cleric"
     }
   ],
   "racialTraits": [
@@ -99,7 +88,7 @@
   ],
   "backgroundFeature": {
     "name": "Military Rank",
-    "description": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also gain access to friendly military encampments and fortresses where your rank is recognized.",
+    "description": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence.",
     "source": "Soldier"
   },
   "temporaryEffects": [],
@@ -108,72 +97,72 @@
   "feats": [],
   "equipment": [
     {
-      "item_name": "Chain Mail",
-      "item_type": "armor",
+      "item_name": "Mace (medic's baton)",
+      "item_type": "weapon",
       "item_subtype": "other",
-      "description": "Heavy armor; AC 16 (requires Strength 13), disadvantage on Stealth.",
+      "description": "A sturdy mace, favored as a medic's baton by Eirik.",
       "quantity": 1,
       "equipped": true,
       "magical": false,
       "consumable": false
+    },
+    {
+      "item_name": "Scale mail",
+      "item_type": "armor",
+      "item_subtype": "other",
+      "description": "Protective scale mail armor.",
+      "quantity": 1,
+      "equipped": true,
+      "magical": false,
+      "consumable": false,
+      "ac_base": 14,
+      "ac_bonus": 0,
+      "dex_limit": 2,
+      "armor_category": "medium",
+      "stealth_disadvantage": true
     },
     {
       "item_name": "Shield",
       "item_type": "armor",
       "item_subtype": "other",
-      "description": "+2 AC when equipped.",
+      "description": "A sturdy shield bearing a symbol of faith.",
       "quantity": 1,
       "equipped": true,
       "magical": false,
-      "consumable": false
-    },
-    {
-      "item_name": "Mace",
-      "item_type": "weapon",
-      "item_subtype": "other",
-      "description": "Simple melee weapon; 1d6 bludgeoning.",
-      "quantity": 1,
-      "equipped": true,
-      "magical": false,
-      "consumable": false
-    },
-    {
-      "item_name": "Holy Symbol",
-      "item_type": "equipment",
-      "item_subtype": "amulet",
-      "description": "Symbol of faith, needed for casting cleric spells.",
-      "quantity": 1,
-      "equipped": true,
-      "magical": false,
-      "consumable": false
-    },
-    {
-      "item_name": "Healer's Kit",
-      "item_type": "equipment",
-      "item_subtype": "other",
-      "description": "A leather pouch with bandages, salves, and splints (10 uses).",
-      "quantity": 1,
-      "equipped": false,
-      "magical": false,
-      "consumable": false
+      "consumable": false,
+      "ac_base": 2,
+      "ac_bonus": 0,
+      "dex_limit": null,
+      "armor_category": "shield",
+      "stealth_disadvantage": false
     },
     {
       "item_name": "Explorer's Pack",
       "item_type": "equipment",
       "item_subtype": "other",
-      "description": "Pack with backpack, bedroll, mess kit, rations, rope, tinderbox, torches, waterskin.",
+      "description": "A pack filled with basic adventuring gear.",
       "quantity": 1,
       "equipped": false,
       "magical": false,
       "consumable": false
     },
     {
-      "item_name": "Bronze Dog Tag",
+      "item_name": "Holy Symbol",
       "item_type": "miscellaneous",
       "item_subtype": "amulet",
-      "description": "A battered bronze tag from Eirik's fallen unit.",
+      "description": "A symbol of Eirik's faith, worn as a badge.",
       "quantity": 1,
       "equipped": true,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Dog tag of fallen unit",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "A metal tag bearing the insignia and names of Eirik's lost comrades.",
+      "quantity": 1,
+      "equipped": false,
       "magical": false,
       "consumable": false
     }
@@ -182,38 +171,40 @@
   "attacksAndSpellcasting": [
     {
       "name": "Mace",
-      "attackBonus": 5,
+      "attackBonus": 4,
       "damageDice": "1d6",
-      "damageBonus": 3,
+      "damageBonus": 2,
       "damageType": "bludgeoning",
       "type": "melee",
-      "description": "Simple melee weapon attack"
+      "description": "A sturdy mace, used in close combat."
     },
     {
       "name": "Sacred Flame",
-      "attackBonus": 0,
+      "attackBonus": 5,
       "damageDice": "1d8",
       "damageBonus": 0,
       "damageType": "radiant",
       "type": "spell",
-      "description": "Cleric cantrip, target makes a Dex save or takes radiant damage."
+      "description": "A flash of radiant light targets a creature, Dexterity save for no damage."
     }
   ],
   "spellcasting": {
     "ability": "wisdom",
     "spellSaveDC": 13,
-    "spellAttackBonus": 4,
+    "spellAttackBonus": 5,
     "spells": {
       "cantrips": [
-        "Sacred Flame",
+        "Spare the Dying",
         "Guidance",
-        "Spare the Dying"
+        "Sacred Flame"
       ],
       "level1": [
         "Bless",
         "Cure Wounds",
         "Healing Word",
-        "Detect Magic"
+        "Shield of Faith",
+        "Guiding Bolt",
+        "Sanctuary"
       ],
       "level2": [],
       "level3": [],
@@ -226,7 +217,7 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 1,
+        "current": 2,
         "max": 2
       },
       "level2": {
@@ -266,19 +257,19 @@
       "Bless",
       "Cure Wounds",
       "Healing Word",
-      "Detect Magic"
+      "Shield of Faith"
     ]
   },
   "currency": {
     "gold": 10,
-    "silver": 5,
+    "silver": 0,
     "copper": 0
   },
   "experience_points": 0,
   "exp_required_for_next_level": 300,
-  "challengeRating": 0.25,
-  "personality_traits": "Eirik is outwardly cheerful and always ready with a joke or a story, but this masks the pain of loss and a deep sense of responsibility for his comrades.",
-  "ideals": "Redemption. Every life saved is a step towards making amends for the ones he could not save.",
-  "bonds": "He wears the battered dog tag of his fallen unit, swearing never to let their sacrifice be in vain.",
-  "flaws": "He hides his grief behind humor and sometimes takes reckless risks to prevent others from dying as his unit did."
+  "challengeRating": 0.125,
+  "personality_traits": "Presents a cheerful, joke-filled exterior to his comrades, masking deep-seated grief.",
+  "ideals": "Redemption--every life saved atones for those he could not.",
+  "bonds": "Carries a dog tag from his fallen unit, a constant reminder of his vow.",
+  "flaws": "Takes reckless risks, terrified of seeing new companions suffer the fate of his old unit."
 }

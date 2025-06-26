@@ -4,42 +4,43 @@
   "name": "Scout Kira",
   "type": "npc",
   "size": "Medium",
-  "level": 5,
+  "level": 1,
   "race": "Wood Elf",
-  "class": "Ranger",
+  "class": "Rogue",
   "alignment": "chaotic good",
   "background": "Outlander",
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 38,
-  "maxHitPoints": 38,
-  "armorClass": 16,
+  "hitPoints": 10,
+  "maxHitPoints": 10,
+  "armorClass": 15,
   "initiative": 4,
   "speed": 35,
   "abilities": {
-    "strength": 12,
-    "dexterity": 18,
-    "constitution": 14,
+    "strength": 10,
+    "dexterity": 17,
+    "constitution": 12,
     "intelligence": 10,
-    "wisdom": 14,
-    "charisma": 9
+    "wisdom": 15,
+    "charisma": 10
   },
   "savingThrows": [
-    "strength",
-    "dexterity"
+    "dexterity",
+    "intelligence"
   ],
   "skills": {
-    "athletics": 4,
-    "perception": 6,
-    "stealth": 8,
-    "survival": 6,
-    "nature": 3
+    "stealth": 6,
+    "perception": 4,
+    "survival": 4,
+    "nature": 2,
+    "athletics": 2,
+    "investigation": 2
   },
-  "proficiencyBonus": 3,
+  "proficiencyBonus": 2,
   "senses": {
     "darkvision": 60,
-    "passivePerception": 16
+    "passivePerception": 14
   },
   "languages": [
     "Common",
@@ -48,16 +49,19 @@
   ],
   "proficiencies": {
     "armor": [
-      "light",
-      "medium",
-      "shields"
+      "light"
     ],
     "weapons": [
       "simple",
-      "martial"
+      "martial",
+      "longsword",
+      "shortsword",
+      "shortbow",
+      "longbow"
     ],
     "tools": [
-      "musical instrument"
+      "flute",
+      "thieves' tools"
     ]
   },
   "damageVulnerabilities": [],
@@ -66,71 +70,51 @@
   "conditionImmunities": [],
   "classFeatures": [
     {
-      "name": "Favored Enemy",
-      "description": "Advantage on Wisdom (Survival) checks to track favored enemies, as well as on Intelligence checks to recall information about them.",
-      "source": "Ranger"
+      "name": "Expertise",
+      "description": "Kira doubles proficiency bonus for Stealth and Perception checks.",
+      "source": "Rogue 1"
     },
     {
-      "name": "Natural Explorer",
-      "description": "Ignore difficult terrain, advantage on initiative rolls, and more in favorite terrain.",
-      "source": "Ranger"
+      "name": "Sneak Attack",
+      "description": "Once per turn, Kira can deal an extra 1d6 damage to one creature she hits with an attack if she has advantage on the attack roll or an ally is within 5 feet of the target.",
+      "source": "Rogue 1"
     },
     {
-      "name": "Fighting Style: Archery",
-      "description": "+2 bonus to attack rolls made with ranged weapons.",
-      "source": "Ranger"
-    },
-    {
-      "name": "Spellcasting",
-      "description": "Can cast ranger spells.",
-      "source": "Ranger"
-    },
-    {
-      "name": "Ranger Archetype: Hunter",
-      "description": "Colossus Slayer: Once per turn, deal 1d8 extra damage to a creature hit with a weapon attack if it's below its hit point maximum.",
-      "source": "Ranger"
-    },
-    {
-      "name": "Primeval Awareness",
-      "description": "Can expend one spell slot to sense whether aberrations, celestials, dragons, elementals, fey, fiends, and undead are present within 1 mile.",
-      "source": "Ranger"
-    },
-    {
-      "name": "Extra Attack",
-      "description": "Can Attack twice, instead of once, whenever taking the Attack action.",
-      "source": "Ranger"
+      "name": "Thieves' Cant",
+      "description": "Kira knows the secret rogue language.",
+      "source": "Rogue 1"
     }
   ],
   "racialTraits": [
     {
       "name": "Darkvision",
-      "description": "Can see in darkness up to 60 feet.",
+      "description": "Kira can see in darkness up to 60 feet as if it were dim light.",
       "source": "Wood Elf"
     },
     {
       "name": "Keen Senses",
-      "description": "Proficiency in the Perception skill.",
+      "description": "Kira is proficient in the Perception skill.",
       "source": "Wood Elf"
     },
     {
       "name": "Fey Ancestry",
-      "description": "Advantage on saving throws against being charmed, and magic can’t put you to sleep.",
+      "description": "Kira has advantage on saving throws against being charmed, and magic can\u2019t put her to sleep.",
       "source": "Wood Elf"
     },
     {
       "name": "Trance",
-      "description": "Elves don’t need to sleep, instead meditate deeply for 4 hours a day.",
+      "description": "Kira only needs to meditate for 4 hours instead of sleeping.",
       "source": "Wood Elf"
     },
     {
       "name": "Mask of the Wild",
-      "description": "Can attempt to hide even when only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena.",
+      "description": "Kira can attempt to hide even when only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena.",
       "source": "Wood Elf"
     }
   ],
   "backgroundFeature": {
     "name": "Wanderer",
-    "description": "Excellent memory for maps and geography, can always recall the general layout of terrain, settlements, and features around you.",
+    "description": "Kira has an excellent memory for maps and geography, and can always recall the general layout of terrain, settlements, and other features. She can find food and fresh water for herself and up to five others each day, provided the land offers berries, small game, water, and so forth.",
     "source": "Outlander"
   },
   "temporaryEffects": [],
@@ -139,54 +123,81 @@
   "feats": [],
   "equipment": [
     {
-      "item_name": "Longbow",
-      "item_type": "weapon",
-      "item_subtype": "other",
-      "description": "A ranged weapon, 1d8 piercing damage, range 150/600, ammunition, heavy, two-handed.",
-      "quantity": 1,
-      "equipped": true,
-      "magical": false,
-      "consumable": false
-    },
-    {
-      "item_name": "Shortsword",
-      "item_type": "weapon",
-      "item_subtype": "other",
-      "description": "A melee weapon, 1d6 piercing damage, finesse, light.",
-      "quantity": 1,
-      "equipped": true,
-      "magical": false,
-      "consumable": false
-    },
-    {
-      "item_name": "Studded Leather Armor",
+      "item_name": "Leather Armor",
       "item_type": "armor",
       "item_subtype": "other",
-      "description": "Light armor, base AC 12 + Dex modifier.",
+      "description": "A suit of leather armor.",
       "quantity": 1,
       "equipped": true,
       "magical": false,
       "consumable": false,
-      "ac_base": 12,
+      "ac_base": 11,
       "ac_bonus": 0,
       "dex_limit": null,
       "armor_category": "light",
       "stealth_disadvantage": false
     },
     {
-      "item_name": "Explorer's Pack",
-      "item_type": "equipment",
+      "item_name": "Shortbow",
+      "item_type": "weapon",
       "item_subtype": "other",
-      "description": "Includes a backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days of rations, and a waterskin.",
+      "description": "A simple ranged weapon.",
+      "quantity": 1,
+      "equipped": true,
+      "magical": false,
+      "consumable": false,
+      "damage": "1d6 piercing",
+      "attack_bonus": 4,
+      "weapon_type": "ranged"
+    },
+    {
+      "item_name": "Shortsword",
+      "item_type": "weapon",
+      "item_subtype": "other",
+      "description": "A simple melee weapon.",
+      "quantity": 1,
+      "equipped": true,
+      "magical": false,
+      "consumable": false,
+      "damage": "1d6 piercing",
+      "attack_bonus": 4,
+      "weapon_type": "melee"
+    },
+    {
+      "item_name": "Flute",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "A musical instrument.",
       "quantity": 1,
       "equipped": false,
       "magical": false,
       "consumable": false
     },
     {
-      "item_name": "Torn scrap of dark cloth with crow's feather insignia",
-      "item_type": "miscellaneous",
-      "description": "A torn piece of dark cloth bearing the insignia of a crow's feather, possibly a clue or token.",
+      "item_name": "Explorer's Pack",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A pack containing basic supplies for exploration.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Quiver of Arrows",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A quiver containing arrows.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Thieves' Tools",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "Tools for picking locks and disarming traps.",
       "quantity": 1,
       "equipped": false,
       "magical": false,
@@ -195,46 +206,39 @@
   ],
   "ammunition": [
     {
-      "name": "Arrows",
-      "quantity": 40,
-      "description": "Ammunition for longbow."
+      "name": "Arrow",
+      "quantity": 20,
+      "description": "Ammunition for a shortbow."
     }
   ],
   "attacksAndSpellcasting": [
     {
-      "name": "Longbow",
-      "attackBonus": 7,
-      "damageDice": "1d8",
-      "damageBonus": 4,
+      "name": "Shortbow",
+      "attackBonus": 4,
+      "damageDice": "1d6",
+      "damageBonus": 3,
       "damageType": "piercing",
       "type": "ranged",
-      "description": "Range 150/600 ft., ammunition, heavy, two-handed."
+      "description": "Ranged Weapon Attack: +4 to hit, range 80/320 ft., one target. Hit: 1d6+3 piercing damage."
     },
     {
       "name": "Shortsword",
-      "attackBonus": 6,
+      "attackBonus": 4,
       "damageDice": "1d6",
-      "damageBonus": 4,
+      "damageBonus": 3,
       "damageType": "piercing",
       "type": "melee",
-      "description": "Finesse, light."
+      "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 1d6+3 piercing damage."
     }
   ],
   "spellcasting": {
-    "ability": "wisdom",
-    "spellSaveDC": 14,
-    "spellAttackBonus": 6,
+    "ability": "",
+    "spellSaveDC": 0,
+    "spellAttackBonus": 0,
     "spells": {
       "cantrips": [],
-      "level1": [
-        "Hunter's Mark",
-        "Cure Wounds",
-        "Goodberry"
-      ],
-      "level2": [
-        "Pass without Trace",
-        "Spike Growth"
-      ],
+      "level1": [],
+      "level2": [],
       "level3": [],
       "level4": [],
       "level5": [],
@@ -245,12 +249,12 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 4,
-        "max": 4
+        "current": 0,
+        "max": 0
       },
       "level2": {
-        "current": 2,
-        "max": 2
+        "current": 0,
+        "max": 0
       },
       "level3": {
         "current": 0,
@@ -281,24 +285,18 @@
         "max": 0
       }
     },
-    "preparedSpells": [
-      "Hunter's Mark",
-      "Cure Wounds",
-      "Goodberry",
-      "Pass without Trace",
-      "Spike Growth"
-    ]
+    "preparedSpells": []
   },
   "currency": {
-    "gold": 12,
-    "silver": 8,
-    "copper": 15
+    "gold": 10,
+    "silver": 5,
+    "copper": 25
   },
-  "experience_points": 6500,
-  "exp_required_for_next_level": 14000,
-  "challengeRating": 3,
-  "personality_traits": "Quiet and observant, Kira prefers the shadows and is slow to trust.",
-  "ideals": "Freedom. She believes people should be able to go where they please.",
-  "bonds": "She is dedicated to the protection of her forest home.",
-  "flaws": "She is slow to forgive and harbors grudges against those who threaten her woods."
+  "experience_points": 0,
+  "exp_required_for_next_level": 300,
+  "challengeRating": 0.25,
+  "personality_traits": "I watch over my friends as if they were a litter of newborn pups.",
+  "ideals": "Change. Life is like the seasons, in constant change, and we must change with it.",
+  "bonds": "An injury to the unspoiled wilderness of my home is an injury to me.",
+  "flaws": "I remember every insult I've received and nurse a silent resentment toward anyone who's ever wronged me."
 }

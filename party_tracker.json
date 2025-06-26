@@ -1,0 +1,39 @@
+{
+    "module": "The_Thornwood_Watch",
+    "partyMembers": [
+        "eirik_hearthwise"
+    ],
+    "partyNPCs": [],
+    "worldConditions": {
+        "year": 1492,
+        "month": "Springmonth",
+        "day": 1,
+        "time": "09:12:00",
+        "weather": "Chill dawn mist with overcast skies, cool and damp",
+        "season": "Spring",
+        "dayNightCycle": "Day",
+        "moonPhase": "New Moon",
+        "currentLocation": "Rangers' Command Post",
+        "currentLocationId": "RO01",
+        "currentArea": "Rangers' Outpost",
+        "currentAreaId": "RO001",
+        "majorEventsUnderway": [],
+        "politicalClimate": "Outpost in crisis under siege from escalating bandit attacks; leadership focused on defense and intelligence gathering amid rising fear and tension",
+        "activeEncounter": "",
+        "activeCombatEncounter": ""
+    },
+    "activeQuests": [
+        {
+            "id": "SQ001",
+            "title": "Restore the Silver Bell Network",
+            "description": "The outpost's three silver bell towers, a magical long-range communication system, have been sabotaged by Malarok's agents. The North Tower's bell clapper was stolen. The East Tower is overgrown with magically enhanced, thorny vines. The West Tower's harmonic crystal has been shattered.",
+            "status": "not started"
+        },
+        {
+            "id": "SQ002",
+            "title": "Merchant's Dilemma",
+            "description": "Trader Sila, the outpost's primary goods supplier, is packing to leave. Her cart of rare alchemical supplies was stolen in a raid. She asks the party to retrieve a specific iron-banded chest from a small bandit cache a few miles away. If they succeed, she'll stay.",
+            "status": "not started"
+        }
+    ]
+}
