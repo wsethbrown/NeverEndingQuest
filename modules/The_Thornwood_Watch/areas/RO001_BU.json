@@ -84,7 +84,7 @@
       "locationId": "RO01",
       "name": "Rangers' Command Post",
       "type": "crossroads",
-      "description": "The Rangers' Command Post stands shrouded in chill dawn mists, its battered oak table strewn with blood-smeared maps beneath the silent silver bells that hang overhead, their wires severed and dulled from recent sabotage. The air is thick with tension as the somber cadre of rangers gathers to confront the escalating threat that grips the Thornwood Wilds.",
+      "description": "The Rangers' Command Post stands shrouded in chill dawn mists, its battered oak table strewn with blood-smeared maps beneath the silent silver bells that hang overhead, their magical resonance disrupted by recent sabotage. The air is thick with tension as the somber cadre of rangers gathers to confront the escalating threat that grips the Thornwood Wilds.",
       "coordinates": "X2Y2",
       "connectivity": [
         "RO02",
@@ -156,7 +156,7 @@
         },
         {
           "name": "Sabotaged Silver Bell Network",
-          "description": "Silver bells strung on delicate lines form the early warning system. Several wires have been expertly severed, causing silence where alerts once chimed."
+          "description": "Magical silver bells form the early warning system, their enchanted resonance disrupted by systematic sabotage. The bells hang silent where magical alerts once chimed across the network."
         },
         {
           "name": "Ranger Equipment Racks",
@@ -241,7 +241,7 @@
       "locationId": "RO03",
       "name": "Trader's Rest",
       "type": "ruins",
-      "description": "A frost-dusted clearing marked by dilapidated benches, a sagging sign, and empty, weathered trade stalls. The usual throng of merchants is absent, and an eerie silence hangs heavily over the quiet market. Signs of recent violence are evident, such as a broken silver bell wire and faint footprints, hinting at recent sabotage by hostile forces. Despite the tension, Trader Sila remains watchful by a locked chest, working to maintain order and warn the merchants of lurking threats.",
+      "description": "A frost-dusted clearing marked by dilapidated benches, a sagging sign, and empty, weathered trade stalls. The usual throng of merchants is absent, and an eerie silence hangs heavily over the quiet market. Signs of recent violence are evident, such as damage to the East Tower's silver bell and faint footprints, hinting at recent sabotage by hostile forces. Despite the tension, Trader Sila remains watchful by a locked chest, working to maintain order and warn the merchants of lurking threats.",
       "coordinates": "X1Y2",
       "connectivity": [
         "RO01",
@@ -289,7 +289,7 @@
       "traps": [],
       "dcChecks": [
         "Persuasion DC 12: Convince Sila to share detailed information about recent sabotage",
-        "Investigation DC 14: Examine broken bell wire and footprints for clues",
+        "Investigation DC 14: Examine damaged bell tower and footprints for clues",
         "Perception DC 13: Spot subtle signs of recent movement near the trade stalls"
       ],
       "accessibility": "Open market clearing with weathered stalls and benches, accessible via main trade routes",
