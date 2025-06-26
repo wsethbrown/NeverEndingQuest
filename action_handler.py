@@ -119,15 +119,34 @@ def update_party_npcs(party_tracker_data, operation, npc):
         if not os.path.exists(npc_file):
             # NPC file doesn't exist, so we need to create it
             try:
+                # Get party level as default if no level specified
+                default_level = ''
+                if not npc.get('level'):
+                    # Get the first party member's level as default
+                    if party_tracker_data.get("partyMembers"):
+                        player_name = party_tracker_data["partyMembers"][0]
+                        player_file = path_manager.get_character_path(player_name)
+                        if os.path.exists(player_file):
+                            try:
+                                from encoding_utils import safe_json_load
+                                player_data = safe_json_load(player_file)
+                                if player_data and 'level' in player_data:
+                                    default_level = str(player_data['level'])
+                                    print(f"DEBUG: Using party level {default_level} as default for NPC {npc['name']}")
+                            except Exception as e:
+                                print(f"DEBUG: Could not get party level, using default: {e}")
+                
+                npc_level = str(npc.get('level', default_level))
+                
                 # Add this debug line right before the subprocess.run call
-                print(f"DEBUG: Calling npc_builder.py with arguments: {npc['name']} {npc.get('race', '')} {npc.get('class', '')} {str(npc.get('level', ''))} {npc.get('background', '')}")
+                print(f"DEBUG: Calling npc_builder.py with arguments: {npc['name']} {npc.get('race', '')} {npc.get('class', '')} {npc_level} {npc.get('background', '')}")
 
                 subprocess.run([
                     "python", "npc_builder.py",
                     npc['name'],
                     npc.get('race', ''),
                     npc.get('class', ''),
-                    str(npc.get('level', '')),
+                    npc_level,
                     npc.get('background', '')
                 ], check=True)
                 print(f"DEBUG: NPC profile created for {npc['name']}")

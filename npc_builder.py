@@ -65,9 +65,12 @@ Use the following rules information when creating the NPC:
 
 Adhere strictly to 5e rules and the provided schema."""
 
+    # Create smarter level guidance
+    level_guidance = npc_level if npc_level else "1-3 (appropriate for early adventuring parties)"
+    
     prompt_messages = [ # Renamed variable
         {"role": "system", "content": system_message},
-        {"role": "user", "content": f"Create an NPC named '{npc_name}' using 5e rules. Race: {npc_race or 'Any'}, Class: {npc_class or 'Any'}, Level: {npc_level or 'Any'}, Background: {npc_background or 'Any'}. Schema: {json.dumps(schema)}"}
+        {"role": "user", "content": f"Create an NPC named '{npc_name}' using 5e rules. Race: {npc_race or 'Any appropriate race'}, Class: {npc_class or 'Any appropriate class'}, Level: {level_guidance}, Background: {npc_background or 'Any appropriate background'}. Schema: {json.dumps(schema)}"}
     ]
 
     try:
