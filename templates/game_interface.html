@@ -2242,18 +2242,21 @@
         }
         
         // Auto-scroll to bottom function
+        // --- MODIFIED CODE START ---
+        // Auto-scroll to bottom function
         function scrollToBottom(elementId) {
             const element = document.getElementById(elementId);
             if (element) {
-                element.scrollTop = element.scrollHeight;
-                // Force scroll for debug tab specifically
-                if (elementId === 'debug-output') {
-                    setTimeout(() => {
-                        element.scrollTop = element.scrollHeight;
-                    }, 50);
-                }
+                // A race condition can occur where this function is called before the browser
+                // has finished rendering the new message and updating the element's scrollHeight.
+                // By using setTimeout, we push the scroll command to the end of the execution queue,
+                // giving the browser time to repaint. This ensures the scroll is always accurate.
+                setTimeout(() => {
+                    element.scrollTop = element.scrollHeight;
+                }, 50); // A small delay is usually enough.
             }
         }
+        // --- MODIFIED CODE END ---
         
         // Format timestamp
         function formatTimestamp(timestamp) {
