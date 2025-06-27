@@ -1299,6 +1299,45 @@ def main_game_loop():
             # Reset counter on valid input
             empty_input_count = 0
 
+        # Check if the last message was a location transition and auto-inject cinematic prompt
+        if (len(conversation_history) > 0 and 
+            conversation_history[-1].get("role") == "user" and 
+            "Location transition:" in conversation_history[-1].get("content", "")):
+            
+            print("DEBUG: Detected recent location transition, injecting cinematic transition prompt")
+            
+            # Extract destination location for context
+            last_transition = conversation_history[-1].get("content", "")
+            destination_location = "the new location"
+            try:
+                import re
+                # Try to extract destination with ID (new format)
+                id_pattern = r'Location transition: .+? \([A-Z]\d+\) to (.+?) \(([A-Z]\d+)\)'
+                id_match = re.match(id_pattern, last_transition)
+                if id_match:
+                    destination_location = id_match.group(1)
+                else:
+                    # Fall back to old format
+                    parts = last_transition.split(" to ")
+                    if len(parts) == 2:
+                        destination_location = parts[1].strip()
+            except Exception as e:
+                print(f"DEBUG: Could not extract destination location: {e}")
+            
+            # Auto-inject cinematic transition prompt
+            cinematic_prompt = f"""The party has just transitioned to {destination_location}. Using the full conversation history and current location context, provide a rich, cinematic description of arriving at this new location. Focus on:
+
+- Sensory details (sights, sounds, smells, textures)
+- Emotional transition and atmosphere from the previous scene
+- Environmental mood that matches the story tone
+- Smooth narrative flow that connects to the previous location
+- Character reactions and immediate impressions
+- Any notable features or details that set the scene
+
+Make this transition feel like a movie scene change, not just a location description. Create an immersive, atmospheric arrival that draws the player into the new environment."""
+
+            user_input_text = cinematic_prompt
+
         party_tracker_data = load_json_file("party_tracker.json") 
 
         party_members_stats = []
