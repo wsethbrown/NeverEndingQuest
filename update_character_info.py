@@ -642,6 +642,7 @@ CRITICAL INSTRUCTIONS:
 6. IMPORTANT: When updating nested objects like 'spellcasting', include ALL existing subfields to prevent data loss
 7. NEVER return partial nested objects that would delete existing important data
 8. If updating spell slots, always include ability, spellSaveDC, spellAttackBonus, and spells fields
+9. SPELL SLOT RULE: Cantrips (0-level spells) do NOT consume spell slots. Only deduct spell slots for leveled spells (1st-9th level).
 
 EQUIPMENT UPDATE EXAMPLES:
 CORRECT (updating one item): {{"equipment": [{{"item_name": "Jeweled dagger", "description": "updated description", "magical": true}}]}}

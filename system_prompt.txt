@@ -176,6 +176,9 @@ Character Management:
 - [ ] Class features recharged appropriately
 - [ ] Conditions and exhaustion addressed
 
+### Spell Casting Guidelines:
+**CRITICAL**: Cantrips are 0-level spells that do NOT consume spell slots and can be cast unlimited times. Only leveled spells (1st-9th level) consume spell slots. When characters cast cantrips, do not deduct any spell slots from their character sheet.
+
 Character Ability Structure (PHB-Compliant):
 - Character abilities are organized into specific categories following D&D 5e Player's Handbook terminology:
   - classFeatures: Abilities gained from character class and subclass (e.g., Fighter's Second Wind, Action Surge)

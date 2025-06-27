@@ -11,6 +11,7 @@ CRITICAL VALIDATION PRIORITIES:
 2. LOCATION-AWARE NPC GUIDANCE: Ensure NPCs are used appropriately for their actual locations
 3. ACTION VALIDATION: Determine whether required actions were executed properly
 4. USER INPUT COMPLIANCE: Pay special attention to the user's ACTUAL INPUT that triggered the assistant's response
+5. SPELL SLOT VALIDATION: Cantrips (0-level spells) do NOT consume spell slots and can be cast unlimited times. Only leveled spells (1st-9th level) should reduce spell slots via updateCharacterInfo actions.
 
 ANTI-HALLUCINATION ENFORCEMENT:
 - Any mention of NPCs not listed in the MODULE VALIDATION DATA is an IMMEDIATE validation failure
