@@ -314,7 +314,7 @@
       "locationId": "RO04",
       "name": "Scout's Watch",
       "type": "riverside",
-      "description": "A raised wooden platform overlooks the river crossing, providing clear sight lines across the water and into the forest beyond. Scout Neris maintains vigilant watch from this vantage point, her spyglass scanning for threats while signal mirrors catch the light for long-distance communication. The sound of flowing water masks quiet conversations about patrol routes and suspicious movement.",
+      "description": "A raised wooden platform overlooks the river crossing, providing clear sight lines across the water and into the forest beyond. Scout Neris maintains vigilant watch from this vantage point, her spyglass scanning for threats while signal mirrors catch the light for long-distance communication. The sound of flowing water masks quiet conversations about patrol routes and suspicious movement. Scattered around the base of the platform are what appear to be dead branches and twisted wood debris, but careful observation might reveal something more sinister lurking among the detritus.",
       "coordinates": "X3Y2",
       "connectivity": [
         "RO01"
@@ -323,7 +323,16 @@
       "areaConnectivityId": [],
       "npcs": [
       ],
-      "monsters": [],
+      "monsters": [
+        {
+          "name": "Twig Blight",
+          "quantity": {
+            "min": 1,
+            "max": 2
+          },
+          "conditions": "Hidden among debris using False Appearance. Only attack if vines are disturbed without being discovered first via Perception DC 13."
+        }
+      ],
       "lootTable": [
         "Spyglass with exceptional range",
         "Detailed wilderness maps with recent annotations",
@@ -335,13 +344,14 @@
         "Malarok's agents have been spotted moving at night toward the Thornwood",
         "Communication with northern patrol posts has been disrupted by the sorcerer's influence"
       ],
-      "dmInstructions": "Scout Neris provides reconnaissance intelligence and can guide the party to specific locations in the wilderness. She's the best source for information about the supernatural phenomena affecting the northern reaches.",
+      "dmInstructions": "Scout Neris provides reconnaissance intelligence and can guide the party to specific locations in the wilderness. She's the best source for information about the supernatural phenomena affecting the northern reaches. Two Twig Blights hide among debris using False Appearance (Perception DC 13 to spot). They only animate and attack if the corrupted vines are disturbed without being discovered first. If spotted beforehand, they can be avoided or dealt with strategically.",
       "doors": [],
       "traps": [],
       "dcChecks": [
         "Perception DC 10: Spot distant movement or signals that Neris points out",
         "Survival DC 12: Understand the significance of wildlife migration patterns Neris describes",
-        "Investigation DC 11: Study Neris's annotated maps to identify patterns in the strange phenomena"
+        "Investigation DC 11: Study Neris's annotated maps to identify patterns in the strange phenomena",
+        "Perception DC 13: Notice that some of the dead branches and debris around the platform base are actually motionless Twig Blights using their False Appearance ability"
       ],
       "accessibility": "Elevated watch platform accessible by wooden ladder",
       "dangerLevel": "Low",
