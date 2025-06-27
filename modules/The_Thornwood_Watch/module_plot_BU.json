@@ -18,7 +18,9 @@
           "title": "Restore the Silver Bell Network",
           "description": "The outpost's three silver bell towers, a magical long-range communication system, have been sabotaged by Malarok's agents. The North Tower's bell clapper was stolen. The East Tower is overgrown with magically enhanced, thorny vines. The West Tower's harmonic crystal has been shattered.",
           "involvedLocations": [
-            "RO001"
+            "RO04",
+            "RO05",
+            "RO06"
           ],
           "status": "not started",
           "plotImpact": "Restored bells allow the Rangers to send for reinforcements (arriving after the main plot) and provide the party with a one-time 'Early Warning' ability, letting them avoid a planned ambush in the Thornwood."

@@ -10,7 +10,7 @@
   "map": {
     "mapId": "MAP_RO001",
     "mapName": "Rangers' Outpost Map",
-    "totalRooms": 5,
+    "totalRooms": 6,
     "rooms": [
       {
         "id": "RO01",
@@ -59,6 +59,15 @@
         ],
         "coordinates": "X1Y1",
         "name": "Feral Hollow"
+      },
+      {
+        "id": "RO06",
+        "type": "ruins",
+        "connections": [
+          "RO03"
+        ],
+        "coordinates": "X1Y3",
+        "name": "North Tower Overlook"
       }
     ],
     "layout": [
@@ -75,6 +84,11 @@
       [
         "   ",
         "RO02",
+        "   "
+      ],
+      [
+        "RO06",
+        "   ",
         "   "
       ]
     ]
@@ -246,7 +260,8 @@
       "coordinates": "X1Y2",
       "connectivity": [
         "RO01",
-        "RO05"
+        "RO05",
+        "RO06"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -369,8 +384,8 @@
           "description": "Detailed written records of movements, weather patterns, and unusual sightings maintained by the scout."
         },
         {
-          "name": "North Tower Bell (SQ001)",
-          "description": "One of three silver bell towers in the communication network. The bell clapper has been stolen by Malarok's agents, leaving the bell silent and the network partially disabled."
+          "name": "East Tower Bell (SQ001)",
+          "description": "One of three silver bell towers in the communication network. This tower was overgrown with magically enhanced thorny vines that have now been cleared by the party, but the bell mechanism still needs restoration to function properly."
         }
       ]
     },
@@ -439,6 +454,74 @@
         {
           "name": "West Tower Bell (SQ001)",
           "description": "One of three silver bell towers in the communication network. The harmonic crystal has been shattered by Malarok's agents, requiring replacement to restore the tower's function."
+        }
+      ]
+    },
+    {
+      "locationId": "RO06",
+      "name": "North Tower Overlook",
+      "type": "ruins",
+      "description": "A weathered stone watchtower rises from a cleared hilltop, commanding sweeping views of the trade routes and river valleys below. The ancient structure bears scars of recent violence: broken masonry, scattered tools, and torn rope where saboteurs struck. Morning mist clings to the tower's base while the silent bell frame above sways gently in the breeze, a grim reminder of the communication network's vulnerability. Fresh boot prints and discarded supplies suggest the area may not be as abandoned as it appears.",
+      "coordinates": "X1Y3",
+      "connectivity": [
+        "RO03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Bandit",
+          "quantity": {
+            "min": 2,
+            "max": 2
+          },
+          "conditions": "Watching the tower for signs of repair attempts. Will attack if discovered or if the party attempts to restore the bell."
+        }
+      ],
+      "lootTable": [
+        "Missing silver bell clapper (hidden near tower base)",
+        "Bandit surveillance notes detailing ranger patrol schedules",
+        "Rope and climbing gear left by saboteurs",
+        "Small cache of rations and silver coins"
+      ],
+      "plotHooks": [
+        "The missing bell clapper is hidden in the undergrowth near the tower base",
+        "Bandit surveillance notes reveal insider knowledge of ranger operations",
+        "Evidence of coordinated sabotage suggests this was part of Malarok's larger plan",
+        "The tower's strategic position could serve as an early warning post once restored"
+      ],
+      "dmInstructions": "Two bandits are stationed here to prevent repairs and watch for ranger activity. They have Perception +1 and will spot approaching parties on a roll of 12+ unless stealth is used. If the party searches the area thoroughly (Investigation DC 12), they find the missing clapper hidden among the rubble. The bandits will flee if reduced to half health, preferring to report back to their superiors rather than fight to the death.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 12: Find the missing silver bell clapper hidden in the undergrowth near the tower base",
+        "Perception DC 13: Notice the two bandits watching from concealed positions before they spot the party",
+        "Investigation DC 10: Discover evidence of the sabotage including cut ropes and deliberate damage to the bell mechanism",
+        "Survival DC 11: Track the bandits' movement patterns and identify their escape routes"
+      ],
+      "accessibility": "Elevated position accessible via winding stone path from Trader's Rest, clear sight lines in all directions",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Ancient Watchtower",
+          "description": "A sturdy stone tower with a damaged bell frame at the top. The structure shows signs of recent sabotage with cut ropes and broken mechanisms."
+        },
+        {
+          "name": "Scenic Overlook",
+          "description": "The elevated position provides commanding views of trade routes, river valleys, and the Rangers' Outpost below."
+        },
+        {
+          "name": "Sabotage Evidence",
+          "description": "Scattered tools, cut ropes, and fresh damage to the bell mechanism reveal the methodical nature of the attack."
+        },
+        {
+          "name": "Hidden Bell Clapper",
+          "description": "The missing silver bell clapper lies concealed in the undergrowth near the tower base, discarded by the saboteurs."
+        },
+        {
+          "name": "Bandit Surveillance Post",
+          "description": "Concealed positions among the rocks and brush where bandits maintain watch over the tower and surrounding area."
         }
       ]
     }
