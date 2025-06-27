@@ -127,6 +127,10 @@ json_file = "conversation_history.json"
 
 needs_conversation_history_update = False
 
+# Message combination system state variables
+held_response = None
+awaiting_combat_resolution = False
+
 # Status display configuration
 current_status_line = None
 
@@ -162,6 +166,57 @@ status_manager.set_callback(status_callback)
 def exit_game():
     print("Fond farewell until we meet again!")
     exit()
+
+# Message combination system helper functions
+def detect_create_encounter(parsed_data):
+    """Check if the parsed response contains a createEncounter action"""
+    if not isinstance(parsed_data, dict) or "actions" not in parsed_data:
+        return False
+    
+    actions = parsed_data.get("actions", [])
+    for action in actions:
+        if isinstance(action, dict) and action.get("action") == "createEncounter":
+            return True
+    return False
+
+def combine_messages(first_response, second_response):
+    """Combine two JSON responses into a single cohesive message"""
+    try:
+        # Parse both responses
+        first_data = json.loads(first_response)
+        second_data = json.loads(second_response)
+        
+        # Combine narrations
+        first_narration = first_data.get("narration", "")
+        second_narration = second_data.get("narration", "")
+        combined_narration = first_narration + "\\n\\n" + second_narration
+        
+        # Combine actions
+        first_actions = first_data.get("actions", [])
+        second_actions = second_data.get("actions", [])
+        combined_actions = first_actions + second_actions
+        
+        # Create combined response
+        combined_data = {
+            "narration": combined_narration,
+            "actions": combined_actions
+        }
+        
+        return json.dumps(combined_data, indent=2)
+        
+    except json.JSONDecodeError as e:
+        print(f"Error combining messages: {e}")
+        # Fallback: return second response if combination fails
+        return second_response
+    except Exception as e:
+        print(f"Unexpected error combining messages: {e}")
+        return second_response
+
+def clear_message_buffer():
+    """Reset the message buffering state"""
+    global held_response, awaiting_combat_resolution
+    held_response = None
+    awaiting_combat_resolution = False
 
 def get_npc_stat(npc_name, stat_name, time_estimate):
     print(f"DEBUG: get_npc_stat called for {npc_name}, stat: {stat_name}")
@@ -1652,6 +1707,55 @@ Make this transition feel like a movie scene change, not just a location descrip
             if validation_result is True:
                 valid_response_received = True
                 print(f"DEBUG: Valid response generated on attempt {retry_count + 1}")
+                
+                # Message combination system integration
+                global held_response, awaiting_combat_resolution
+                try:
+                    parsed_data = json.loads(ai_response_content)
+                    has_create_encounter = detect_create_encounter(parsed_data)
+                    
+                    if has_create_encounter and not awaiting_combat_resolution:
+                        # Hold this message for combination, but process actions immediately
+                        held_response = ai_response_content
+                        awaiting_combat_resolution = True
+                        print("DEBUG: Message held for combination (createEncounter detected)")
+                        
+                        # Add to conversation history and process actions normally
+                        conversation_history.append({"role": "assistant", "content": ai_response_content})
+                        save_conversation_history(conversation_history)
+                        
+                    elif awaiting_combat_resolution:
+                        # Replace the previous held message in conversation history with combined version
+                        combined_response = combine_messages(held_response, ai_response_content)
+                        clear_message_buffer()
+                        
+                        # Find and replace the last assistant message (the held one) with combined version
+                        for i in range(len(conversation_history) - 1, -1, -1):
+                            if conversation_history[i]["role"] == "assistant":
+                                conversation_history[i]["content"] = combined_response
+                                break
+                        
+                        save_conversation_history(conversation_history)
+                        print("DEBUG: Messages combined and conversation history updated")
+                        
+                        # Don't process actions from combat resolution message as they should be included in combined response
+                        result = process_ai_response(combined_response, party_tracker_data, location_data, conversation_history)
+                        if result == "exit":
+                            return
+                        # Skip normal processing path since we handled it above
+                        continue
+                        
+                    else:
+                        # Normal message processing - add to conversation history
+                        conversation_history.append({"role": "assistant", "content": ai_response_content})
+                        save_conversation_history(conversation_history)
+                        
+                except json.JSONDecodeError:
+                    # If parsing fails, proceed with normal processing
+                    print("DEBUG: JSON parsing failed, proceeding with normal processing")
+                except Exception as e:
+                    print(f"DEBUG: Message combination error: {e}, proceeding with normal processing")
+                
                 # Pass the same location_data that was used for the DM note construction
                 result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history) 
                 if result == "exit":
@@ -1660,6 +1764,10 @@ Make this transition feel like a movie scene change, not just a location descrip
                 print(f"DEBUG: Validation failed. Reason: {validation_result}")
                 print(f"Retrying... (Attempt {retry_count + 1}/5)")
                 status_retrying(retry_count + 1, 5)
+                
+                # Don't clear buffer here - let each message validate independently
+                # Buffer only holds validated messages, failed messages just retry
+                
                 conversation_history.append({
                     "role": "user",
                     "content": f"Error Note: Your previous response failed validation. Reason: {validation_result}. Please adjust your response accordingly."

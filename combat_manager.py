@@ -1307,6 +1307,10 @@ Player: The combat begins. Describe the scene and the enemies we face."""
            print("ERROR in run_combat_simulation: EOF when reading a line")
            break
        
+       # Skip empty input to prevent infinite loop
+       if not user_input_text or not user_input_text.strip():
+           continue
+       
        # Prepare dynamic state info for all creatures
        dynamic_state_parts = []
        
