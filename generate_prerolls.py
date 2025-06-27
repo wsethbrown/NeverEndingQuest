@@ -165,6 +165,14 @@ def generate_prerolls(encounter_data, round_num=None):
     preroll_lines.append(f"Preroll Set ID: {preroll_id} (Generated at round start)")
     preroll_lines.append("")
     
+    # Add critical dice usage instructions
+    preroll_lines.append("CRITICAL DICE USAGE:")
+    preroll_lines.append("- For NPC/Monster ATTACKS, you MUST use a die from the \"CREATURE ATTACKS\" list for that specific creature.")
+    preroll_lines.append("- For NPC/Monster SAVING THROWS, you MUST use a die from the \"SAVING THROWS\" list.")
+    preroll_lines.append("- The \"GENERIC DICE\" pool is ONLY for damage rolls, spell effects, or other non-attack/non-save rolls.")
+    preroll_lines.append("- FAILURE TO USE THE CORRECT POOL IS A CRITICAL ERROR.")
+    preroll_lines.append("")
+    
     # Generate generic dice pool
     dice_pool = generate_generic_dice_pool()
     preroll_lines.append("=== GENERIC DICE (use for spells, abilities, improvisation) ===")
