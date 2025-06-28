@@ -424,7 +424,7 @@ def handle_player_data_request(data):
                             response_data = json.load(f)
                 except:
                     # Fallback to characters directory
-                    player_file = f'characters/{player_name}.json'
+                    player_file = path_manager.get_character_path(player_name)
                     if os.path.exists(player_file):
                         with open(player_file, 'r', encoding='utf-8') as f:
                             response_data = json.load(f)
@@ -501,7 +501,8 @@ def handle_npc_saves_request(data):
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
         
-        npc_file = path_manager.get_character_path(npc_name.lower())
+        from update_character_info import normalize_character_name
+        npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
         if os.path.exists(npc_file):
             with open(npc_file, 'r', encoding='utf-8') as f:
                 npc_data = json.load(f)
@@ -530,7 +531,8 @@ def handle_npc_skills_request(data):
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
         
-        npc_file = path_manager.get_character_path(npc_name.lower())
+        from update_character_info import normalize_character_name
+        npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
         if os.path.exists(npc_file):
             with open(npc_file, 'r', encoding='utf-8') as f:
                 npc_data = json.load(f)
@@ -559,7 +561,8 @@ def handle_npc_spells_request(data):
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
         
-        npc_file = path_manager.get_character_path(npc_name.lower())
+        from update_character_info import normalize_character_name
+        npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
         if os.path.exists(npc_file):
             with open(npc_file, 'r', encoding='utf-8') as f:
                 npc_data = json.load(f)
@@ -588,7 +591,8 @@ def handle_npc_inventory_request(data):
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
         
-        npc_file = path_manager.get_character_path(npc_name.lower())
+        from update_character_info import normalize_character_name
+        npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
         if os.path.exists(npc_file):
             with open(npc_file, 'r', encoding='utf-8') as f:
                 npc_data = json.load(f)
