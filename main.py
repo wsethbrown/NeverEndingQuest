@@ -167,6 +167,48 @@ def exit_game():
     print("Fond farewell until we meet again!")
     exit()
 
+def check_and_inject_return_message(conversation_history):
+    """
+    Checks if a 'player has returned' message needs to be injected at startup.
+    
+    Args:
+        conversation_history: List of conversation messages
+        
+    Returns:
+        Tuple of (updated_conversation_history, was_injected)
+    """
+    # Skip if no conversation history (first startup)
+    if not conversation_history:
+        print("DEBUG: No conversation history found, skipping return message injection")
+        return conversation_history, False
+    
+    # Check if there are any user messages (game has been played before)
+    user_messages = [msg for msg in conversation_history if msg.get("role") == "user"]
+    if not user_messages:
+        print("DEBUG: No user messages found, skipping return message injection")
+        return conversation_history, False
+    
+    # Get the last message
+    last_message = conversation_history[-1] if conversation_history else None
+    if not last_message:
+        print("DEBUG: No last message found, skipping return message injection")
+        return conversation_history, False
+    
+    # Check if last message is already a return message
+    last_content = last_message.get("content", "")
+    if "Resume the game, the player has returned" in last_content:
+        print("DEBUG: Return message already present, skipping injection")
+        return conversation_history, False
+    
+    # Inject return message
+    return_message = {
+        "role": "user", 
+        "content": "Dungeon Master Note: Resume the game, the player has returned."
+    }
+    conversation_history.append(return_message)
+    print("DEBUG: Injected 'player has returned' message at startup")
+    return conversation_history, True
+
 def generate_arrival_narration(departure_narration, party_tracker_data, conversation_history):
     """
     Takes the departure narration and generates a seamless arrival narration.
@@ -1337,6 +1379,12 @@ def main_game_loop():
         main_system_prompt_text = file.read() 
 
     conversation_history = load_json_file(json_file) or []
+    
+    # CRITICAL: Check and inject return message BEFORE any processing
+    conversation_history, was_injected = check_and_inject_return_message(conversation_history)
+    if was_injected:
+        save_conversation_history(conversation_history)
+    
     party_tracker_data = load_json_file("party_tracker.json")
     
     # Verify party tracker loaded successfully
