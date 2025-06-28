@@ -1712,24 +1712,36 @@ Make this transition feel like a movie scene change, not just a location descrip
                 valid_response_received = True
                 print(f"DEBUG: Valid response generated on attempt {retry_count + 1}")
                 
-                # Message combination system integration
+                # Message combination system integration - FIXED TO PREVENT DOUBLE INJECTION
                 global held_response, awaiting_combat_resolution
+                response_processed = False  # Track if response was already processed
+                
                 try:
                     parsed_data = json.loads(ai_response_content)
                     has_create_encounter = detect_create_encounter(parsed_data)
                     
                     if has_create_encounter and not awaiting_combat_resolution:
-                        # Hold this message for combination, but process actions immediately
+                        # Hold this message for combination, process actions but DON'T add to conversation history yet
                         held_response = ai_response_content
                         awaiting_combat_resolution = True
                         print("DEBUG: Message held for combination (createEncounter detected)")
                         
-                        # Add to conversation history and process actions normally
+                        # Process actions immediately but defer conversation history update
+                        result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+                        if result == "exit":
+                            return
+                        elif result == "restart":
+                            print("\n[SYSTEM] Restarting game with restored save...\n")
+                            main_game_loop()
+                            return
+                        
+                        # Add to conversation history AFTER processing actions
                         conversation_history.append({"role": "assistant", "content": ai_response_content})
                         save_conversation_history(conversation_history)
+                        response_processed = True
                         
                     elif awaiting_combat_resolution:
-                        # Replace the previous held message in conversation history with combined version
+                        # Combine messages and replace the held one
                         combined_response = combine_messages(held_response, ai_response_content)
                         clear_message_buffer()
                         
@@ -1742,22 +1754,15 @@ Make this transition feel like a movie scene change, not just a location descrip
                         save_conversation_history(conversation_history)
                         print("DEBUG: Messages combined and conversation history updated")
                         
-                        # Don't process actions from combat resolution message as they should be included in combined response
+                        # Process the combined response
                         result = process_ai_response(combined_response, party_tracker_data, location_data, conversation_history)
                         if result == "exit":
                             return
                         elif result == "restart":
-                            # Restart the game loop after save restore
                             print("\n[SYSTEM] Restarting game with restored save...\n")
                             main_game_loop()
                             return
-                        # Skip normal processing path since we handled it above
-                        continue
-                        
-                    else:
-                        # Normal message processing - add to conversation history
-                        conversation_history.append({"role": "assistant", "content": ai_response_content})
-                        save_conversation_history(conversation_history)
+                        response_processed = True
                         
                 except json.JSONDecodeError:
                     # If parsing fails, proceed with normal processing
@@ -1765,8 +1770,13 @@ Make this transition feel like a movie scene change, not just a location descrip
                 except Exception as e:
                     print(f"DEBUG: Message combination error: {e}, proceeding with normal processing")
                 
-                # Pass the same location_data that was used for the DM note construction
-                result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history) 
+                # Only process response if it wasn't already handled by combination logic
+                if not response_processed:
+                    # Normal message processing - add to conversation history and process
+                    conversation_history.append({"role": "assistant", "content": ai_response_content})
+                    save_conversation_history(conversation_history)
+                    
+                    result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history) 
                 if result == "exit":
                     return
                 elif result == "restart":
