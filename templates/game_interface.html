@@ -155,7 +155,7 @@
             background-color: #1a1a1a;
             border-bottom: 1px solid #444;
             padding: 8px 10px;
-            font-family: 'Courier New', monospace;
+            font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
             color: #e0e0e0;
         }
@@ -1733,30 +1733,42 @@
         
         .npc-header {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 15px;
+            justify-content: flex-start; /* MODIFIED: Keeps items together */
+            align-items: center;       /* MODIFIED: Vertically aligns items */
+            gap: 10px;                 /* MODIFIED: Adds space between boxes */
             margin: 0;
-            padding: 0 0 5px 0;
+            padding: 0 0 8px 0;
             border-bottom: 2px solid #444;
         }
 
         .npc-header-main {
-            flex: 1;
+            flex-grow: 1; /* MODIFIED: Takes up available space */
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 6px 10px;
         }
-
+        
+        .npc-header-currency {
+            flex-shrink: 0; /* MODIFIED: Prevents currency box from shrinking */
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 4px;
+        }
+        
         .npc-header-currency .currency-grid {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 4px;
+            gap: 5px;
         }
 
         .npc-header-currency .currency-item {
-            padding: 2px;
-            border-radius: 4px;
+            padding: 2px 4px;
+            background-color: #2c2c2c;
+            border: 1px solid #444;
         }
 
         .npc-header-currency .currency-amount {
-            font-size: 18px;
+            font-size: 16px;
         }
 
         .npc-header-currency .currency-type {
@@ -1794,7 +1806,7 @@
             text-align: center;
             background-color: #333;
             border-radius: 5px;
-            padding: 4px 2px; /* reduced horizontal padding */
+            padding: 4px 2px;
             min-width: 40px;
             font-size: 12px;
         }
@@ -1826,12 +1838,11 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin: 2px auto 0; /* added top margin */
+            margin: 2px auto 0;
             background-color: rgba(255, 165, 0, 0.1);
             font-weight: bold;
         }
         
-        /* Combat stats in abilities row */
         .npc-abilities .npc-combat-stat {
             background-color: #2c2c2c;
             border: 1px solid #4CAF50;
@@ -1849,13 +1860,11 @@
             color: #4CAF50;
         }
         
-        /* Bigger values for AC and INIT */
         .npc-abilities .npc-combat-stat.npc-no-circle .ability-value {
             font-size: 20px;
             font-weight: bold;
         }
         
-        /* HP bar in compact format */
         .npc-abilities .hp-bar {
             background-color: #1a1a1a;
             border: 1px solid #444;
@@ -1888,12 +1897,10 @@
             background-color: #f44336;
         }
         
-        /* Remove circles from AC and INIT */
         .npc-abilities .npc-no-circle .ability-modifier {
             display: none;
         }
         
-        /* NPC Skills and Saves */
         .npc-skills-saves-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1918,7 +1925,6 @@
             background-color: #45a049;
         }
         
-        /* NPC Details Modal */
         .npc-details-modal {
             display: none;
             position: fixed;
@@ -2001,7 +2007,6 @@
             margin-left: 8px;
         }
         
-        /* NPC Spellcasting Section */
         .npc-spellcasting {
             margin: 10px 0;
             background-color: #1a1a1a;
@@ -2044,7 +2049,6 @@
             color: #f44336;
         }
         
-        /* NPC Inventory Modal */
         .npc-inventory-modal {
             display: none;
             position: fixed;
@@ -2148,7 +2152,6 @@
             font-weight: bold;
         }
         
-        /* NPC Spell Modal Styling */
         .npc-spell-info {
             display: flex;
             gap: 15px;
@@ -2231,7 +2234,6 @@
             background-color: rgba(255, 165, 0, 0.1);
         }
         
-        /* Tab system for character details */
         .character-tabs {
             margin-top: 10px;
         }
@@ -2740,7 +2742,7 @@
             container.innerHTML = html;
         }
         
-        // Display NPC information - REFINED
+        // Display NPC information
         function displayNPCs(data) {
             const container = document.getElementById('npcs-content');
             if (!data || data.length === 0) {
@@ -2755,27 +2757,13 @@
                 
                 html += `<div class="npc-character-sheet">`;
                 
-                // --- MODIFIED HEADER ---
                 html += `<div class="npc-header">`;
                 html += `<div class="npc-header-main"><div class="npc-name">${npc.name}</div><div class="npc-details">${npc.race} ${npc.class} • Level ${npc.level} • ${capitalizeWords(npc.alignment)}</div></div>`;
-                
-                // Compact currency display
                 if (npc.currency) {
-                    const gold = npc.currency.gold || 0;
-                    const silver = npc.currency.silver || 0;
-                    const copper = npc.currency.copper || 0;
-                    
-                    html += `<div class="npc-header-currency">
-                                <div class="currency-grid">
-                                    <div class="currency-item"><span class="currency-amount">${gold}</span><span class="currency-type">GP</span></div>
-                                    <div class="currency-item"><span class="currency-amount">${silver}</span><span class="currency-type">SP</span></div>
-                                    <div class="currency-item"><span class="currency-amount">${copper}</span><span class="currency-type">CP</span></div>
-                                </div>
-                            </div>`;
+                    html += `<div class="npc-header-currency"><div class="currency-grid"><div class="currency-item"><span class="currency-amount">${npc.currency.gold || 0}</span><span class="currency-type">GP</span></div><div class="currency-item"><span class="currency-amount">${npc.currency.silver || 0}</span><span class="currency-type">SP</span></div><div class="currency-item"><span class="currency-amount">${npc.currency.copper || 0}</span><span class="currency-type">CP</span></div></div></div>`;
                 }
-                html += `</div>`; // End npc-header
+                html += `</div>`;
                 
-                // --- ABILITIES ROW (CSS fix handles sizing) ---
                 if (npc.abilities) {
                     html += '<div class="npc-abilities">';
                     html += `<div class="ability-score npc-combat-stat"><div class="ability-name">HP</div><div class="ability-value">${npc.hitPoints}/${npc.maxHitPoints}</div><div class="hp-bar"><div class="hp-fill ${hpClass}" style="width: ${hpPercent}%"></div></div></div>`;
@@ -2793,13 +2781,10 @@
                     html += '</div>';
                 }
                 
-                // --- MODIFIED BUTTONS CONTAINER ---
                 html += '<div class="npc-skills-saves-container">';
                 
-                // Saving Throws Button
                 if (npc.savingThrows && npc.savingThrows.length > 0) {
-                    const allSaves = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
-                    let savesData = allSaves.map(save => {
+                    const savesData = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'].map(save => {
                         const isProficient = npc.savingThrows.includes(save);
                         const abilityMod = npc.abilities ? Math.floor((npc.abilities[save.toLowerCase()] - 10) / 2) : 0;
                         const bonus = isProficient ? abilityMod + (npc.proficiencyBonus || 3) : abilityMod;
@@ -2808,51 +2793,44 @@
                     html += `<button class="npc-detail-button" onclick="showNPCSaves('${npc.name}', ${JSON.stringify(savesData).replace(/"/g, '&quot;')})">Saving Throws</button>`;
                 }
                 
-                // Skills Button
                 if (npc.skills) {
                     let skillsData = Object.entries(npc.skills).map(([skill, value]) => ({ name: skill, bonus: value >= 0 ? `+${value}` : `${value}` }));
                     html += `<button class="npc-detail-button" onclick="showNPCSkills('${npc.name}', ${JSON.stringify(skillsData).replace(/"/g, '&quot;')})">Skills</button>`;
                 }
                 
-                // Inventory Button
                 if (npc.equipment && npc.equipment.length > 0) {
                     html += `<button class="npc-detail-button" onclick="showNPCInventory('${npc.name}', ${JSON.stringify(npc.equipment).replace(/"/g, '&quot;')})">Inventory</button>`;
                 }
 
-                // Key Abilities Button
                 if (npc.classFeatures && npc.classFeatures.length > 0) {
                     const featuresData = npc.classFeatures.map(f => ({ name: f.name, detail: f.description || '' }));
                     html += `<button class="npc-detail-button" onclick="showNPCDetailList('${npc.name}', 'Key Abilities', ${JSON.stringify(featuresData).replace(/"/g, '&quot;')})">Key Abilities</button>`;
                 }
 
-                // Racial Traits Button
                 if (npc.racialTraits && npc.racialTraits.length > 0) {
                     const traitsData = npc.racialTraits.map(t => ({ name: t.name, detail: t.description || '' }));
                     html += `<button class="npc-detail-button" onclick="showNPCDetailList('${npc.name}', 'Racial Traits', ${JSON.stringify(traitsData).replace(/"/g, '&quot;')})">Racial Traits</button>`;
                 }
 
-                // Background Button
                 if (npc.backgroundFeature && npc.backgroundFeature.name) {
                     const backgroundData = [{ name: npc.backgroundFeature.name, detail: npc.backgroundFeature.description || '' }];
                     html += `<button class="npc-detail-button" onclick="showNPCDetailList('${npc.name}', 'Background', ${JSON.stringify(backgroundData).replace(/"/g, '&quot;')})">Background</button>`;
                 }
                 
-                html += '</div>'; // End button container
+                html += '</div>';
                 
-                // Status and Condition
                 if (npc.status !== 'alive' || npc.condition !== 'none') {
                     html += `<div class="npc-status"><div class="status-item">Status: <span class="status-value ${npc.status}">${npc.status}</span></div>`;
                     if (npc.condition !== 'none') { html += `<div class="status-item">Condition: <span class="condition-value">${npc.condition}</span></div>`; }
                     html += '</div>';
                 }
                 
-                html += '</div>'; // Close npc-character-sheet
+                html += '</div>';
             });
             
             container.innerHTML = html;
         }
         
-        // Display location data
         function displayLocationData(data) {
             const locationName = document.getElementById('location-name');
             const locationDetails = document.getElementById('location-details');
@@ -2867,7 +2845,6 @@
             locationDetails.textContent = `${timeStr} ${idStr}`;
         }
         
-        // Handle data responses from server
         socket.on('player_data_response', (response) => {
             if (response.dataType === 'inventory') {
                 const activeTab = document.querySelector('.tab-button.active')?.textContent.toLowerCase();
@@ -2904,7 +2881,6 @@
             }
         });
         
-        // --- NEW GENERIC MODAL FUNCTION ---
         function showNPCDetailList(npcName, modalTitle, itemsData) {
             const modal = document.getElementById('npc-details-modal');
             const title = document.getElementById('npc-details-title');
@@ -2916,9 +2892,7 @@
             if (itemsData && itemsData.length > 0) {
                 itemsData.forEach(item => {
                     const detailText = item.detail ? `title="${item.detail.replace(/"/g, '&quot;')}"` : '';
-                    html += `<div class="npc-details-item" ${detailText}>
-                                <span class="npc-details-name">${item.name}</span>
-                            </div>`;
+                    html += `<div class="npc-details-item" ${detailText}><span class="npc-details-name">${item.name}</span></div>`;
                 });
             } else {
                 html = `<div class="npc-details-item">No ${modalTitle.toLowerCase()} available.</div>`;
@@ -2928,7 +2902,6 @@
             modal.style.display = 'block';
         }
 
-        // NPC Modal Functions
         function showNPCInventory(npcName, equipment) {
             const modal = document.getElementById('npc-inventory-modal');
             const title = document.getElementById('npc-inventory-title');
@@ -2999,7 +2972,6 @@
         
         function closeNPCDetails() { document.getElementById('npc-details-modal').style.display = 'none'; }
         
-        // Dice Rolling Functions
         let diceRolls = { d20: [], damage: [] };
         function rollDice(sides) {
             const array = new Uint32Array(1);
@@ -3023,7 +2995,6 @@
         }
         function clearDiceResults() { diceRolls.d20 = []; diceRolls.damage = []; updateDiceDisplay(); }
         
-        // Inventory filtering and sorting functions
         let currentSearchTerm = '', currentFilter = '', filtersActive = false, currentSort = 'name-asc';
         function applyFiltersAndSort() {
             if (!originalInventoryData) return;
@@ -3084,7 +3055,6 @@
         };
     </script>
     
-    <!-- Modals -->
     <div id="npc-inventory-modal" class="npc-inventory-modal"><div class="npc-inventory-modal-content"><div class="npc-inventory-header"><div id="npc-inventory-title" class="npc-inventory-title"></div><span class="npc-inventory-close" onclick="closeNPCInventory()">&times;</span></div><div id="npc-inventory-body" class="npc-inventory-body"></div></div></div>
     <div id="npc-details-modal" class="npc-details-modal"><div class="npc-details-modal-content"><div class="npc-details-header"><div id="npc-details-title" class="npc-details-title"></div><span class="npc-details-close" onclick="closeNPCDetails()">&times;</span></div><div id="npc-details-body" class="npc-details-body"></div></div></div>
     <div id="search-popup" class="search-popup"><div class="search-popup-content"><div class="search-popup-header"><div class="search-popup-title">Search Inventory</div><span class="search-popup-close" onclick="closeSearchPopup()">&times;</span></div><input type="text" class="search-popup-input" id="search-popup-input" placeholder="Search items..." onkeyup="performSearch()"></div></div>
@@ -3092,7 +3062,6 @@
     <div id="load-dialog-overlay" class="save-dialog-overlay"><div class="save-dialog"><h3>Load Game</h3><div id="save-list" class="save-list"></div><div class="dialog-buttons"><button class="dialog-button secondary" onclick="closeLoadDialog()">Cancel</button><button class="dialog-button danger" onclick="deleteSelectedSave()" id="delete-save-button" disabled>Delete</button><button class="dialog-button primary" onclick="performLoad()" id="load-save-button" disabled>Load Game</button></div></div></div>
 
     <script>
-        // Save/Load Game Functionality
         let selectedSaveFolder = null;
         function openSaveDialog() { document.getElementById('save-dialog-overlay').style.display = 'flex'; document.getElementById('save-description').focus(); }
         function closeSaveDialog() { document.getElementById('save-dialog-overlay').style.display = 'none'; document.getElementById('save-description').value = ''; document.getElementById('save-mode').value = 'essential'; }
@@ -3137,7 +3106,6 @@
             saveList.innerHTML = html;
         });
 
-        // Tab functionality for character details
         function switchCharacterDetailTab(containerId, tabName) {
             const container = document.getElementById(containerId);
             if (!container) return;
