@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 7,
   "maxHitPoints": 11,
-  "armorClass": 17,
+  "armorClass": 16,
   "initiative": 1,
   "speed": 30,
   "abilities": {
@@ -232,7 +232,7 @@
     },
     {
       "item_name": "Pouch of Powdered Silver",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "A pouch containing powdered silver, useful against magical thorns and certain creatures.",
       "quantity": 1
@@ -245,7 +245,7 @@
     },
     {
       "item_name": "Pouch of Silver Coins",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A small pouch containing 15 silver coins recovered from bandits and found at the tower.",
       "quantity": 1
     },
@@ -385,7 +385,7 @@
     ]
   },
   "currency": {
-    "gold": 10,
+    "gold": 9,
     "silver": 0,
     "copper": 0
   },

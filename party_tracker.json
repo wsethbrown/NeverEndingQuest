@@ -1,51 +1,51 @@
 {
-  "module": "The_Thornwood_Watch",
-  "partyMembers": [
-    "eirik_hearthwise"
-  ],
-  "partyNPCs": [
-    {
-      "name": "Scout Kira",
-      "role": "Ranger guide and specialist in local flora",
-      "level": 2
-    }
-  ],
-  "worldConditions": {
-    "year": 1492,
-    "month": "Springmonth",
-    "day": 1,
-    "time": "12:02:00",
-    "weather": "",
-    "season": "Spring",
-    "dayNightCycle": "Day",
-    "moonPhase": "New Moon",
-    "currentLocation": "Rangers' Command Post",
-    "currentLocationId": "RO01",
-    "currentArea": "Rangers' Outpost",
-    "currentAreaId": "RO001",
-    "majorEventsUnderway": [],
-    "politicalClimate": "",
-    "activeEncounter": "",
-    "activeCombatEncounter": ""
-  },
-  "activeQuests": [
-    {
-      "id": "SQ001",
-      "title": "Restore the Silver Bell Network",
-      "description": "The outpost's three silver bell towers, a magical long-range communication system, have been sabotaged by Malarok's agents. The North Tower's bell clapper was stolen. The East Tower is overgrown with magically enhanced, thorny vines. The West Tower's harmonic crystal has been shattered.",
-      "status": "in progress"
+    "module": "The_Thornwood_Watch",
+    "partyMembers": [
+        "eirik_hearthwise"
+    ],
+    "partyNPCs": [
+        {
+            "name": "Scout Kira",
+            "role": "Ranger guide and specialist in local flora",
+            "level": 2
+        }
+    ],
+    "worldConditions": {
+        "year": 1492,
+        "month": "Springmonth",
+        "day": 1,
+        "time": "12:33:00",
+        "weather": "",
+        "season": "Spring",
+        "dayNightCycle": "Day",
+        "moonPhase": "New Moon",
+        "currentLocation": "Rangers' Command Post",
+        "currentLocationId": "RO01",
+        "currentArea": "Rangers' Outpost",
+        "currentAreaId": "RO001",
+        "majorEventsUnderway": [],
+        "politicalClimate": "",
+        "activeEncounter": "",
+        "activeCombatEncounter": ""
     },
-    {
-      "id": "SQ002",
-      "title": "Merchant's Dilemma",
-      "description": "Trader Sila, the outpost's primary goods supplier, is packing to leave. Her cart of rare alchemical supplies was stolen in a raid. She asks the party to retrieve a specific iron-banded chest from a small bandit cache a few miles away. If they succeed, she'll stay.",
-      "status": "not started"
-    },
-    {
-      "id": "PP001",
-      "title": "Desperate Defense",
-      "description": "The party arrives at Rangers' Outpost to find it in crisis. Three caravans have been massacred in five days with unnatural precision. Ranger Elen, the outpost's commander, recruits the party. Her prime lead is the captured Bandit Leader, Rusk, a man now terrified of his new master. The party must interrogate Rusk to learn the location of the main bandit camp and the identity of the sorcerer, Malarok, who now commands them.",
-      "status": "in progress"
-    }
-  ]
+    "activeQuests": [
+        {
+            "id": "SQ001",
+            "title": "Restore the Silver Bell Network",
+            "description": "The outpost's three silver bell towers, a magical long-range communication system, have been sabotaged by Malarok's agents. The North Tower's bell clapper was stolen. The East Tower is overgrown with magically enhanced, thorny vines. The West Tower's harmonic crystal has been shattered.",
+            "status": "in progress"
+        },
+        {
+            "id": "SQ002",
+            "title": "Merchant's Dilemma",
+            "description": "Trader Sila, the outpost's primary goods supplier, is packing to leave. Her cart of rare alchemical supplies was stolen in a raid. She asks the party to retrieve a specific iron-banded chest from a small bandit cache a few miles away. If they succeed, she'll stay.",
+            "status": "not started"
+        },
+        {
+            "id": "PP001",
+            "title": "Desperate Defense",
+            "description": "The party arrives at Rangers' Outpost to find it in crisis. Three caravans have been massacred in five days with unnatural precision. Ranger Elen, the outpost's commander, recruits the party. Her prime lead is the captured Bandit Leader, Rusk, a man now terrified of his new master. The party must interrogate Rusk to learn the location of the main bandit camp and the identity of the sorcerer, Malarok, who now commands them.",
+            "status": "in progress"
+        }
+    ]
 }

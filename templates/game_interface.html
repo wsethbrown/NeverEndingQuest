@@ -1721,7 +1721,7 @@
             font-size: 16px;
         }
         
-        /* NPC styling */
+        /* --- NPC STYLING REFINEMENTS --- */
         .npc-character-sheet {
             margin-bottom: 20px;
             padding: 8px;
@@ -1732,10 +1732,35 @@
         }
         
         .npc-header {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
             margin: 0;
-            padding: 0 0 3px 0;
+            padding: 0 0 5px 0;
             border-bottom: 2px solid #444;
+        }
+
+        .npc-header-main {
+            flex: 1;
+        }
+
+        .npc-header-currency .currency-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+        }
+
+        .npc-header-currency .currency-item {
+            padding: 2px;
+            border-radius: 4px;
+        }
+
+        .npc-header-currency .currency-amount {
+            font-size: 18px;
+        }
+
+        .npc-header-currency .currency-type {
+            font-size: 10px;
         }
         
         .npc-name {
@@ -1755,20 +1780,11 @@
             margin: 0;
         }
         
-        .npc-combat-stats {
-            display: flex;
-            justify-content: space-around;
-            margin: 10px 0;
-            background-color: #1a1a1a;
-            border-radius: 5px;
-            padding: 8px;
-        }
-        
         .npc-abilities {
             display: grid;
-            grid-template-columns: repeat(9, 1fr);
-            gap: 6px;
-            margin: 4px 0;
+            grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+            gap: 4px;
+            margin: 8px 0;
             background-color: #1a1a1a;
             border-radius: 5px;
             padding: 6px;
@@ -1778,8 +1794,8 @@
             text-align: center;
             background-color: #333;
             border-radius: 5px;
-            padding: 4px 6px;
-            min-width: 45px;
+            padding: 4px 2px; /* reduced horizontal padding */
+            min-width: 40px;
             font-size: 12px;
         }
         
@@ -1810,7 +1826,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto;
+            margin: 2px auto 0; /* added top margin */
             background-color: rgba(255, 165, 0, 0.1);
             font-weight: bold;
         }
@@ -1880,7 +1896,7 @@
         /* NPC Skills and Saves */
         .npc-skills-saves-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 8px;
             margin: 10px 0;
         }
@@ -1889,10 +1905,10 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 8px 12px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             transition: background-color 0.3s;
             width: 100%;
@@ -1967,6 +1983,7 @@
             margin-bottom: 4px;
             background-color: #1a1a1a;
             border-radius: 4px;
+            cursor: help;
         }
         
         .npc-details-name {
@@ -2000,52 +2017,6 @@
             padding-bottom: 3px;
         }
         
-        .spell-info {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 8px;
-        }
-        
-        .spell-stat {
-            color: #FFA500;
-            font-weight: bold;
-            font-size: 13px;
-        }
-        
-        .spell-level {
-            margin-bottom: 4px;
-        }
-        
-        .spell-level-name {
-            color: #e0e0e0;
-            font-weight: bold;
-            font-size: 12px;
-            margin-bottom: 2px;
-        }
-        
-        .spell-list {
-            color: #ccc;
-            font-size: 11px;
-            margin-left: 10px;
-            line-height: 1.3;
-        }
-        
-        .npc-features-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin: 10px 0;
-        }
-        
-        .npc-features-container .stat-group {
-            margin: 0;
-        }
-        
-        .npc-features-container .stat-group h4 {
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-        
         .npc-status {
             margin-top: 10px;
             padding: 8px;
@@ -2073,64 +2044,7 @@
             color: #f44336;
         }
         
-        /* NPC Equipment Section */
-        .npc-equipment {
-            margin: 10px 0;
-            background-color: #1a1a1a;
-            border-radius: 5px;
-            padding: 8px;
-        }
-        
-        .npc-equipment h4 {
-            color: #4CAF50;
-            font-size: 16px;
-            margin-bottom: 6px;
-            border-bottom: 1px solid #444;
-            padding-bottom: 3px;
-        }
-        
-        .equipped-items {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-        
-        .equipped-item {
-            background-color: #333;
-            border-radius: 3px;
-            padding: 4px 6px;
-            font-size: 13px;
-        }
-        
-        .equipped-item-name {
-            color: #e0e0e0;
-            font-weight: bold;
-        }
-        
-        .equipped-item-type {
-            color: #aaa;
-            font-size: 11px;
-            font-style: italic;
-        }
-        
-        /* NPC Inventory Button */
-        .npc-inventory-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            margin-top: 8px;
-            transition: background-color 0.3s;
-        }
-        
-        .npc-inventory-button:hover {
-            background-color: #45a049;
-        }
-        
-        /* Popup Modal for NPC Inventory */
+        /* NPC Inventory Modal */
         .npc-inventory-modal {
             display: none;
             position: fixed;
@@ -2317,6 +2231,28 @@
             background-color: rgba(255, 165, 0, 0.1);
         }
         
+        /* Tab system for character details */
+        .character-tabs {
+            margin-top: 10px;
+        }
+        
+        .tab-nav {
+            display: flex;
+            background-color: #1a1a1a;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            border: 1px solid #555;
+            border-bottom: none;
+        }
+        
+        .tab-pane {
+            display: none;
+        }
+        
+        .tab-pane.active {
+            display: block;
+        }
+        
     </style>
 </head>
 <body>
@@ -2416,31 +2352,18 @@
         }
         
         // Auto-scroll to bottom function
-        // --- CORRECTED CODE SECTION ---
-        // Auto-scroll to bottom function
         function scrollToBottom(contentElementId) {
             const contentElement = document.getElementById(contentElementId);
             if (!contentElement) return;
 
-            // Determine which element is the actual scrollable container.
-            let scrollableElement;
-            if (contentElementId === 'debug-output') {
-                // For the debug panel, the scrollbar is on its parent, '.tab-content'.
-                scrollableElement = contentElement.parentElement;
-            } else {
-                // For other panels like 'game-output', the element itself is scrollable.
-                scrollableElement = contentElement;
-            }
+            let scrollableElement = (contentElementId === 'debug-output') ? contentElement.parentElement : contentElement;
 
             if (scrollableElement) {
-                // The timeout is still necessary to give the browser time to render
-                // the new message before we calculate the new scroll height.
                 setTimeout(() => {
                     scrollableElement.scrollTop = scrollableElement.scrollHeight;
                 }, 50);
             }
         }
-        // --- END OF CORRECTED CODE SECTION ---
         
         // Format timestamp
         function formatTimestamp(timestamp) {
@@ -2456,33 +2379,25 @@
             
             // Handle different message types
             if (message.type === 'narration') {
-                // DM message with avatar and header
                 const avatar = document.createElement('div');
                 avatar.className = 'message-avatar';
-                
                 const avatarImg = document.createElement('img');
                 avatarImg.src = '/static/dm_logo.png';
                 avatarImg.alt = 'DM';
                 avatar.appendChild(avatarImg);
-                
                 const contentDiv = document.createElement('div');
                 contentDiv.className = 'message-content';
-                
                 const header = document.createElement('div');
                 header.className = 'message-header';
-                
                 const author = document.createElement('span');
                 author.className = 'message-author';
                 author.textContent = 'Dungeon Master';
-                
                 const badge = document.createElement('span');
                 badge.className = 'message-badge';
                 badge.textContent = 'DM';
-                
                 const text = document.createElement('div');
                 text.className = 'message-text';
                 text.textContent = message.content;
-                
                 header.appendChild(author);
                 header.appendChild(badge);
                 contentDiv.appendChild(header);
@@ -2491,25 +2406,19 @@
                 messageDiv.appendChild(contentDiv);
                 
             } else if (message.type === 'user-input') {
-                // Player message with avatar and header
                 const avatar = document.createElement('div');
                 avatar.className = 'message-avatar';
                 avatar.textContent = '⚔️';
-                
                 const contentDiv = document.createElement('div');
                 contentDiv.className = 'message-content';
-                
                 const header = document.createElement('div');
                 header.className = 'message-header';
-                
                 const author = document.createElement('span');
                 author.className = 'message-author';
                 author.textContent = 'You';
-                
                 const text = document.createElement('div');
                 text.className = 'message-text';
                 text.textContent = message.content;
-                
                 header.appendChild(author);
                 contentDiv.appendChild(header);
                 contentDiv.appendChild(text);
@@ -2517,34 +2426,26 @@
                 messageDiv.appendChild(contentDiv);
                 
             } else if (message.type === 'system' || message.type === 'error') {
-                // System/error messages (centered, no avatar)
                 const contentDiv = document.createElement('div');
                 contentDiv.className = 'message-content';
-                
                 const text = document.createElement('div');
                 text.className = 'message-text';
                 text.textContent = message.content;
-                
                 contentDiv.appendChild(text);
                 messageDiv.appendChild(contentDiv);
                 
             } else if (message.type === 'debug') {
-                // Debug messages (simple format for debug panel)
                 const contentDiv = document.createElement('div');
                 contentDiv.className = 'message-content';
-                
-                // Add timestamp for debug messages
                 if (message.timestamp && outputId === 'debug-output') {
                     const timestamp = document.createElement('span');
                     timestamp.className = 'timestamp';
                     timestamp.textContent = formatTimestamp(message.timestamp);
                     contentDiv.appendChild(timestamp);
                 }
-                
                 const text = document.createElement('div');
                 text.className = 'message-text';
                 text.textContent = message.content;
-                
                 contentDiv.appendChild(text);
                 messageDiv.appendChild(contentDiv);
             }
@@ -2558,8 +2459,6 @@
             connected = true;
             document.getElementById('status-text').textContent = 'Connected';
             document.getElementById('status-indicator').classList.add('connected');
-            
-            // Load character stats (default tab) when connected
             loadCharacterStats();
         });
         
@@ -2581,43 +2480,23 @@
             document.getElementById('save-button').disabled = false;
             document.getElementById('load-button').disabled = false;
             document.getElementById('user-input').focus();
-            
-            addMessage('game-output', {
-                type: 'system',
-                content: 'Game started! You can now enter commands.'
-            });
-            
-            // Load character stats (default tab) and location data when game starts
+            addMessage('game-output', { type: 'system', content: 'Game started! You can now enter commands.' });
             loadCharacterStats();
             loadLocationData();
         });
         
-        socket.on('game_output', (message) => {
-            addMessage('game-output', message);
-        });
-        
-        socket.on('debug_output', (message) => {
-            addMessage('debug-output', message);
-        });
-        
-        socket.on('error', (error) => {
-            addMessage('game-output', {
-                type: 'error',
-                content: error.message
-            });
-        });
+        socket.on('game_output', (message) => { addMessage('game-output', message); });
+        socket.on('debug_output', (message) => { addMessage('debug-output', message); });
+        socket.on('error', (error) => { addMessage('game-output', { type: 'error', content: error.message }); });
         
         socket.on('status_update', (data) => {
             const input = document.getElementById('user-input');
             const sendButton = document.getElementById('send-button');
-            
             if (data.is_processing) {
-                // Show status message and disable input
                 input.placeholder = data.message;
                 input.disabled = true;
                 sendButton.disabled = true;
             } else {
-                // Clear status and enable input
                 input.placeholder = "Enter your command...";
                 input.disabled = false;
                 sendButton.disabled = false;
@@ -2635,7 +2514,6 @@
         function sendInput() {
             const input = document.getElementById('user-input');
             const value = input.value.trim();
-            
             if (value && connected && gameStarted) {
                 socket.emit('user_input', { input: value });
                 input.value = '';
@@ -2651,170 +2529,72 @@
         
         // Tab switching function
         function switchTab(tabName) {
-            // Hide all tab contents
             const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(tab => {
-                tab.style.display = 'none';
-            });
+            tabContents.forEach(tab => { tab.style.display = 'none'; });
             
-            // Remove active class from all tab buttons
             const tabButtons = document.querySelectorAll('.tab-button');
-            tabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
+            tabButtons.forEach(button => { button.classList.remove('active'); });
             
-            // Show selected tab content
             document.getElementById(`${tabName}-tab`).style.display = 'block';
-            
-            // Add active class to clicked button
             event.target.classList.add('active');
             
-            // Load data for the selected tab
-            if (tabName === 'inventory') {
-                loadInventory();
-            } else if (tabName === 'stats') {
-                loadCharacterStats();
-            } else if (tabName === 'spells') {
-                loadSpellsAndMagic();
-            } else if (tabName === 'npcs') {
-                loadNPCs();
-            }
+            if (tabName === 'inventory') loadInventory();
+            else if (tabName === 'stats') loadCharacterStats();
+            else if (tabName === 'spells') loadSpellsAndMagic();
+            else if (tabName === 'npcs') loadNPCs();
         }
         
-        // Load player inventory
-        function loadInventory() {
-            socket.emit('request_player_data', { dataType: 'inventory' });
-        }
-        
-        // Load character stats
-        function loadCharacterStats() {
-            socket.emit('request_player_data', { dataType: 'stats' });
-        }
-        
-        // Load spells and magic items
-        function loadSpellsAndMagic() {
-            socket.emit('request_player_data', { dataType: 'inventory' });
-        }
-        
-        // Load NPC information
-        function loadNPCs() {
-            socket.emit('request_player_data', { dataType: 'npcs' });
-        }
-        
-        // Load current location data
-        function loadLocationData() {
-            socket.emit('request_location_data');
-        }
+        function loadInventory() { socket.emit('request_player_data', { dataType: 'inventory' }); }
+        function loadCharacterStats() { socket.emit('request_player_data', { dataType: 'stats' }); }
+        function loadSpellsAndMagic() { socket.emit('request_player_data', { dataType: 'inventory' }); }
+        function loadNPCs() { socket.emit('request_player_data', { dataType: 'npcs' }); }
+        function loadLocationData() { socket.emit('request_location_data'); }
         
         // Display inventory data
-        // Global variable to store original inventory data for filtering
         let originalInventoryData = null;
-        
         function displayInventory(data, preserveOriginal = false) {
             const container = document.getElementById('inventory-content');
             if (!data) {
                 container.innerHTML = '<div class="loading">No inventory data available</div>';
                 return;
             }
-            
-            // If this is fresh data from server and we have active filters/sort, reapply them
             const hasCustomSort = currentSort !== 'name-asc';
             if (!preserveOriginal && originalInventoryData && (filtersActive || hasCustomSort)) {
-                // Store the new original data
                 originalInventoryData = data;
-                // Reapply current filters
                 applyFiltersAndSort();
                 return;
             }
-            
-            // Store original data for filtering only if this is the initial load
             if (!preserveOriginal) {
                 originalInventoryData = data;
             }
-            
             let html = '<div class="inventory-sheet">';
             if (data.currency) {
-                const gold = data.currency.gold || 0;
-                const silver = data.currency.silver || 0;
-                const copper = data.currency.copper || 0;
-                
-                html += `<div class="inventory-header"><div class="currency-display"><div class="currency-title">Currency</div><div class="currency-grid"><div class="currency-item"><span class="currency-amount">${gold}</span><span class="currency-type">GP</span></div><div class="currency-item"><span class="currency-amount">${silver}</span><span class="currency-type">SP</span></div><div class="currency-item"><span class="currency-amount">${copper}</span><span class="currency-type">CP</span></div></div></div></div>`;
+                html += `<div class="inventory-header"><div class="currency-display"><div class="currency-title">Currency</div><div class="currency-grid"><div class="currency-item"><span class="currency-amount">${data.currency.gold || 0}</span><span class="currency-type">GP</span></div><div class="currency-item"><span class="currency-amount">${data.currency.silver || 0}</span><span class="currency-type">SP</span></div><div class="currency-item"><span class="currency-amount">${data.currency.copper || 0}</span><span class="currency-type">CP</span></div></div></div></div>`;
             }
-            
-            // Add compact inventory controls between currency and equipment
-            html += `<div class="inventory-controls">
-                <button class="search-btn" onclick="openSearchPopup()">Search</button>
-                <select class="inventory-sort" id="inventory-sort" onchange="sortInventory()">
-                    <option value="name-asc">Sort: Name A-Z</option>
-                    <option value="name-desc">Sort: Name Z-A</option>
-                    <option value="type">Sort: Type</option>
-                    <option value="quantity">Sort: Quantity</option>
-                </select>
-                <select class="filter-dropdown" id="filter-dropdown" onchange="changeFilter()">
-                    <option value="">Filter</option>
-                    <option value="weapon">Weapons</option>
-                    <option value="armor">Armor</option>
-                    <option value="consumable">Consumables</option>
-                    <option value="magical">Magical</option>
-                    <option value="equipped">Equipped</option>
-                </select>
-                <button class="search-btn" onclick="clearAllFilters()">Clear</button>
-            </div>`;
-            
-            // Equipment section - always show
+            html += `<div class="inventory-controls"><button class="search-btn" onclick="openSearchPopup()">Search</button><select class="inventory-sort" id="inventory-sort" onchange="sortInventory()"><option value="name-asc">Sort: Name A-Z</option><option value="name-desc">Sort: Name Z-A</option><option value="type">Sort: Type</option><option value="quantity">Sort: Quantity</option></select><select class="filter-dropdown" id="filter-dropdown" onchange="changeFilter()"><option value="">Filter</option><option value="weapon">Weapons</option><option value="armor">Armor</option><option value="consumable">Consumables</option><option value="magical">Magical</option><option value="equipped">Equipped</option></select><button class="search-btn" onclick="clearAllFilters()">Clear</button></div>`;
             html += '<div class="equipment-section"><h4>Equipment</h4>';
             if (data.equipment && data.equipment.length > 0) {
-                data.equipment.forEach(item => {
-                    const qty = item.quantity || 1;
-                    const qtyStr = qty > 1 ? ` ×${qty}` : '';
-                    const type = (item.item_type || 'misc').toLowerCase();
-                    const desc = (item.description || '').substr(0, 80);
-                    html += `<div class="inventory-item" title="${desc}"><span class="feature-bullet">●</span><span class="item-name">${item.item_name}${qtyStr}</span><span class="item-type"> (${type})</span></div>`;
-                });
+                data.equipment.forEach(item => { html += `<div class="inventory-item" title="${(item.description || '').substr(0, 80)}"><span class="feature-bullet">●</span><span class="item-name">${item.item_name}${(item.quantity||1) > 1 ? ` ×${item.quantity}` : ''}</span><span class="item-type"> (${(item.item_type || 'misc').toLowerCase()})</span></div>`; });
             } else {
                 html += '<div class="inventory-item"><span class="feature-bullet">●</span><span class="item-name">No equipment</span></div>';
             }
-            html += '</div>';
-            
-            // Main inventory sections in grid layout
-            html += '<div class="inventory-sections">';
-            
-            // Weapons and attacks
+            html += '</div><div class="inventory-sections">';
             if (data.attacksAndSpellcasting && data.attacksAndSpellcasting.length > 0) {
                 html += '<div class="inventory-section"><h4>Weapons & Attacks</h4>';
-                data.attacksAndSpellcasting.forEach(weapon => {
-                    const damage = weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`;
-                    const attack = weapon.attackBonus >= 0 ? `+${weapon.attackBonus}` : weapon.attackBonus;
-                    const damageInfo = `Damage: ${damage} (${weapon.damageType || 'damage'})`;
-                    const fullDesc = weapon.description || '';
-                    html += `<div class="inventory-item" title="${fullDesc}"><div class="item-main"><span class="item-name">${weapon.name}</span><span class="weapon-bonus">${attack}</span></div><div class="item-details"><span class="weapon-damage">${damageInfo}</span></div></div>`;
-                });
+                data.attacksAndSpellcasting.forEach(weapon => { html += `<div class="inventory-item" title="${weapon.description || ''}"><div class="item-main"><span class="item-name">${weapon.name}</span><span class="weapon-bonus">${weapon.attackBonus >= 0 ? '+' : ''}${weapon.attackBonus}</span></div><div class="item-details"><span class="weapon-damage">Damage: ${weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`} (${weapon.damageType || 'damage'})</span></div></div>`; });
                 html += '</div>';
             }
-            
-            // Ammunition
             if (data.ammunition && data.ammunition.length > 0) {
                 html += '<div class="inventory-section"><h4>Ammunition</h4>';
-                data.ammunition.forEach(ammo => {
-                    const desc = (ammo.description || '');
-                    html += `<div class="inventory-item" title="${desc}"><div class="item-main"><span class="item-name">${ammo.name}</span><span class="item-qty">×${ammo.quantity}</span></div></div>`;
-                });
+                data.ammunition.forEach(ammo => { html += `<div class="inventory-item" title="${ammo.description || ''}"><div class="item-main"><span class="item-name">${ammo.name}</span><span class="item-qty">×${ammo.quantity}</span></div></div>`; });
                 html += '</div>';
             }
-            
-            html += '</div>'; // End inventory-sections
-            html += '</div>'; // End inventory-sheet
+            html += '</div></div>';
             container.innerHTML = html;
-            
-            // Restore dropdown values after HTML regeneration
             const sortDropdown = document.getElementById('inventory-sort');
             const filterDropdown = document.getElementById('filter-dropdown');
-            if (sortDropdown && currentSort) {
-                sortDropdown.value = currentSort;
-            }
-            if (filterDropdown && currentFilter) {
-                filterDropdown.value = currentFilter;
-            }
+            if (sortDropdown && currentSort) sortDropdown.value = currentSort;
+            if (filterDropdown && currentFilter) filterDropdown.value = currentFilter;
         }
         
         // Display character stats
@@ -2824,399 +2604,143 @@
                 container.innerHTML = '<div class="loading">No character data available</div>';
                 return;
             }
-            
-            // Calculate ability modifiers
-            function getModifier(score) {
-                const mod = Math.floor((score - 10) / 2);
-                return mod >= 0 ? `+${mod}` : `${mod}`;
-            }
-            
-            // Calculate HP percentage
+            function getModifier(score) { const mod = Math.floor((score - 10) / 2); return mod >= 0 ? `+${mod}` : `${mod}`; }
             const hpPercent = (data.hitPoints / data.maxHitPoints) * 100;
             let hpClass = '';
-            if (hpPercent <= 25) hpClass = 'low';
-            else if (hpPercent <= 50) hpClass = 'medium';
-            
+            if (hpPercent <= 25) hpClass = 'low'; else if (hpPercent <= 50) hpClass = 'medium';
             let html = '<div class="character-sheet">';
-            
-            // Character Header
             html += `<div class="character-header"><div class="character-name">${data.name}</div><div class="character-details"><div class="detail-left"><div><span class="orange">Level ${data.level}</span> ${data.race} ${data.class}</div><div><span class="orange">Profession:</span> ${data.background || 'Adventurer'} • <span class="orange">Alignment:</span> ${capitalizeWords(data.alignment) || 'Neutral'}</div></div><div class="detail-right"><div><span class="orange">XP:</span> ${data.experience_points} / ${data.exp_required_for_next_level}</div><div><span class="orange">Status:</span> ${capitalizeWords(data.status) || 'Alive'} • <span class="orange">Prof:</span> +${data.proficiencyBonus || 2}</div></div></div></div>`;
-            
-            // Ability Scores
             if (data.abilities) {
                 html += '<div class="abilities-row">';
-                const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
-                abilities.forEach(ability => {
+                ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'].forEach(ability => {
                     const score = data.abilities[ability] || 10;
-                    const modifier = getModifier(score);
-                    html += `
-                        <div class="ability-score">
-                            <div class="ability-name">${ability.substr(0, 3).toUpperCase()}</div>
-                            <div class="ability-value">${score}</div>
-                            <div class="ability-modifier">${modifier}</div>
-                        </div>
-                    `;
+                    html += `<div class="ability-score"><div class="ability-name">${ability.substr(0, 3).toUpperCase()}</div><div class="ability-value">${score}</div><div class="ability-modifier">${getModifier(score)}</div></div>`;
                 });
                 html += '</div>';
             }
-            
-            // Combat Stats
             html += `<div class="combat-stats"><div class="combat-stat"><div class="combat-stat-label">Hit Points</div><div class="combat-stat-value">${data.hitPoints}/${data.maxHitPoints}</div><div class="hp-bar"><div class="hp-fill ${hpClass}" style="width: ${hpPercent}%"></div></div></div><div class="combat-stat"><div class="combat-stat-label">Armor Class</div><div class="combat-stat-value">${data.armorClass}</div></div><div class="combat-stat"><div class="combat-stat-label">Initiative</div><div class="combat-stat-value">${data.initiative >= 0 ? '+' : ''}${data.initiative}</div></div></div>`;
-            
-            // Skills and Saves in two columns
             html += '<div class="skills-saves-container">';
-            
-            // Saving Throws
             if (data.savingThrows && data.savingThrows.length > 0) {
                 html += '<div class="stat-group"><h4>Saving Throws</h4><div class="stat-group-content">';
-                const allSaves = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
-                allSaves.forEach(save => {
+                ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'].forEach(save => {
                     const isProficient = data.savingThrows.includes(save);
-                    const ability = save.toLowerCase();
-                    const abilityMod = data.abilities ? Math.floor((data.abilities[ability] - 10) / 2) : 0;
+                    const abilityMod = data.abilities ? Math.floor((data.abilities[save.toLowerCase()] - 10) / 2) : 0;
                     const bonus = isProficient ? abilityMod + (data.proficiencyBonus || 2) : abilityMod;
-                    const bonusStr = bonus >= 0 ? `+${bonus}` : `${bonus}`;
-                    html += `<div class="save-item"><span class="save-name">${save} ${isProficient ? '●' : '○'}</span><span class="save-value">${bonusStr}</span></div>`;
+                    html += `<div class="save-item"><span class="save-name">${save} ${isProficient ? '●' : '○'}</span><span class="save-value">${bonus >= 0 ? '+' : ''}${bonus}</span></div>`;
                 });
                 html += '</div></div>';
             }
-            
-            // Skills
             if (data.skills) {
                 html += '<div class="stat-group"><h4>Skills</h4><div class="stat-group-content">';
-                Object.entries(data.skills).forEach(([skill, value]) => {
-                    const bonus = value >= 0 ? `+${value}` : `${value}`;
-                    html += `<div class="skill-item"><span class="skill-name">${skill}</span><span class="skill-value">${bonus}</span></div>`;
+                Object.entries(data.skills).forEach(([skill, value]) => { html += `<div class="skill-item"><span class="skill-name">${skill}</span><span class="skill-value">${value >= 0 ? '+' : ''}${value}</span></div>`; });
+                html += '</div></div>';
+            }
+            html += '</div>';
+            html += '<div class="abilities-grid">';
+            if (data.classFeatures && data.classFeatures.length > 0) {
+                html += '<div class="stat-group"><h4>Class Features</h4><div class="stat-group-content">';
+                data.classFeatures.forEach(feature => {
+                    let usageDisplay = '';
+                    if (feature.usage && feature.usage.current !== undefined && feature.usage.max > 0) {
+                        usageDisplay = ` <span class="usage-counter ${feature.usage.current === 0 ? 'exhausted' : ''}">${feature.usage.current}/${feature.usage.max}</span>`;
+                    }
+                    html += `<div class="feature-item" title="${(feature.description || '').replace(/"/g, '&quot;')}"><span class="feature-name">${feature.name}</span>${usageDisplay}${(feature.usage && feature.usage.refreshOn) ? ` <span class="feature-refresh">(${feature.usage.refreshOn})</span>` : ''}</div>`;
                 });
                 html += '</div></div>';
             }
-            
-            html += '</div>'; // End skills-saves-container
-            
-            
-            // Abilities Grid - Organized by Category
-            html += '<div class="abilities-grid">';
-            
-            // Class Features with Usage Tracking
-            html += '<div class="stat-group"><h4>Class Features</h4><div class="stat-group-content">';
-            if (data.classFeatures && data.classFeatures.length > 0) {
-                data.classFeatures.forEach(feature => {
-                    const desc = feature.description || '';
-                    let usageDisplay = '';
-                    let refreshDisplay = '';
-                    let usageClass = '';
-                    
-                    // Add usage tracking if available
-                    if (feature.usage && feature.usage.current !== undefined && feature.usage.max !== undefined && feature.usage.max > 0) {
-                        usageDisplay = ` <span class="usage-counter ${feature.usage.current === 0 ? 'exhausted' : ''}">${feature.usage.current}/${feature.usage.max}</span>`;
-                        if (feature.usage.refreshOn) {
-                            refreshDisplay = ` <span class="feature-refresh">(${feature.usage.refreshOn})</span>`;
-                        }
-                    }
-                    
-                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
-                        <span class="feature-name">${feature.name}</span>${usageDisplay}${refreshDisplay}
-                    </div>`;
-                });
-            } else {
-                html += '<div class="feature-item"><span class="feature-name">No class features</span></div>';
-            }
-            html += '</div></div>';
-            
-            // Active Effects (Temporary Effects with Time Display)
-            html += '<div class="stat-group"><h4>Active Effects</h4><div class="stat-group-content">';
             if (data.temporaryEffects && data.temporaryEffects.length > 0) {
+                html += '<div class="stat-group"><h4>Active Effects</h4><div class="stat-group-content">';
                 data.temporaryEffects.forEach(effect => {
-                    const desc = effect.description || '';
-                    let durationDisplay = '';
-                    
-                    // Calculate time remaining if expiration exists
-                    if (effect.expiration && effect.expiration !== 'until healed' && effect.expiration !== 'until removed') {
-                        try {
-                            const expiration = new Date(effect.expiration);
-                            
-                            // Use in-game time instead of real-world time
-                            // For now, we'll use the game time from the loaded data if available
-                            // Otherwise fall back to showing the duration text
-                            let gameTimeNow;
-                            if (window.currentGameTime) {
-                                gameTimeNow = new Date(window.currentGameTime);
-                            } else {
-                                // Fallback: construct current game time (Year 1492, Month Ches=3, Day 2, Time 07:39:00)
-                                // This should be updated to fetch from server in future
-                                gameTimeNow = new Date('1492-03-02T07:39:00');
-                            }
-                            
-                            if (expiration > gameTimeNow) {
-                                const hoursRemaining = Math.ceil((expiration - gameTimeNow) / (1000 * 60 * 60));
-                                durationDisplay = ` <span class="effect-duration">${hoursRemaining}h remaining</span>`;
-                            } else {
-                                durationDisplay = ' <span class="effect-duration expired">Expired</span>';
-                            }
-                        } catch (e) {
-                            if (effect.duration) {
-                                durationDisplay = ` <span class="effect-duration">${effect.duration}</span>`;
-                            }
-                        }
-                    } else if (effect.duration) {
-                        durationDisplay = ` <span class="effect-duration">${effect.duration}</span>`;
-                    }
-                    
-                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
-                        <div class="feature-header">
-                            <span class="feature-name">${effect.name}</span>${durationDisplay}
-                        </div>
-                    </div>`;
+                    let durationDisplay = effect.duration ? ` <span class="effect-duration">${effect.duration}</span>` : '';
+                    html += `<div class="feature-item" title="${(effect.description || '').replace(/"/g, '&quot;')}"><div class="feature-header"><span class="feature-name">${effect.name}</span>${durationDisplay}</div></div>`;
                 });
-            } else {
-                html += '<div class="feature-item"><span class="feature-name">No active effects</span></div>';
+                html += '</div></div>';
             }
-            html += '</div></div>';
-            
-            // Racial Traits (Permanent Abilities)
-            html += '<div class="stat-group"><h4>Racial Traits</h4><div class="stat-group-content">';
             if (data.racialTraits && data.racialTraits.length > 0) {
-                const basicTraits = ['Ability Score Increase', 'Languages', 'Extra Language'];
-                const specialTraits = data.racialTraits.filter(trait => !basicTraits.includes(trait.name));
-                
+                const specialTraits = data.racialTraits.filter(trait => !['Ability Score Increase', 'Languages', 'Extra Language'].includes(trait.name));
                 if (specialTraits.length > 0) {
-                    specialTraits.forEach(trait => {
-                        const desc = trait.description || '';
-                        html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
-                            <span class="feature-name">${trait.name}</span>
-                        </div>`;
-                    });
-                } else {
-                    html += '<div class="feature-item"><span class="feature-name">No special racial traits</span></div>';
+                    html += '<div class="stat-group"><h4>Racial Traits</h4><div class="stat-group-content">';
+                    specialTraits.forEach(trait => { html += `<div class="feature-item" title="${(trait.description || '').replace(/"/g, '&quot;')}"><span class="feature-name">${trait.name}</span></div>`; });
+                    html += '</div></div>';
                 }
-            } else {
-                html += '<div class="feature-item"><span class="feature-name">No racial traits</span></div>';
             }
-            html += '</div></div>';
-            
-            // Background Feature
-            html += '<div class="stat-group"><h4>Background</h4><div class="stat-group-content">';
             if (data.backgroundFeature && data.backgroundFeature.name) {
-                const desc = data.backgroundFeature.description || '';
-                html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
-                    <span class="feature-name">${data.backgroundFeature.name}</span>
-                </div>`;
-            } else {
-                html += '<div class="feature-item"><span class="feature-name">No background feature</span></div>';
+                html += `<div class="stat-group"><h4>Background</h4><div class="stat-group-content"><div class="feature-item" title="${(data.backgroundFeature.description || '').replace(/"/g, '&quot;')}"><span class="feature-name">${data.backgroundFeature.name}</span></div></div></div>`;
             }
-            html += '</div></div>';
-            
-            // Feats
-            html += '<div class="stat-group"><h4>Feats</h4><div class="stat-group-content">';
             if (data.feats && data.feats.length > 0) {
-                data.feats.forEach(feat => {
-                    const desc = feat.description || '';
-                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
-                        <span class="feature-name">${feat.name}</span>
-                    </div>`;
-                });
-            } else {
-                html += '<div class="feature-item"><span class="feature-name">No feats</span></div>';
+                html += '<div class="stat-group"><h4>Feats</h4><div class="stat-group-content">';
+                data.feats.forEach(feat => { html += `<div class="feature-item" title="${(feat.description || '').replace(/"/g, '&quot;')}"><span class="feature-name">${feat.name}</span></div>`; });
+                html += '</div></div>';
             }
             html += '</div></div>';
-            
-            html += '</div>'; // Close abilities-grid
-            
-            html += '</div>'; // End character-sheet
-            
             container.innerHTML = html;
         }
         
         // Display spells and magic items
         function displaySpellsAndMagic(data) {
             const container = document.getElementById('spells-content');
-            if (!data) {
-                container.innerHTML = '<div class="loading">No character data available</div>';
-                return;
-            }
-            
+            if (!data) { container.innerHTML = '<div class="loading">No character data available</div>'; return; }
             let html = '<div class="spells-magic-sheet">';
-            
-            // Check if character has spellcasting abilities
-            const hasSpellcasting = data.spellcasting && data.spellcasting.spells && 
-                Object.values(data.spellcasting.spells).some(spellArray => 
-                    Array.isArray(spellArray) && spellArray.length > 0
-                );
-            
+            const hasSpellcasting = data.spellcasting && data.spellcasting.spells && Object.values(data.spellcasting.spells).some(s => Array.isArray(s) && s.length > 0);
             if (hasSpellcasting) {
-                // Spellcasting Section
-                html += '<div class="spellcasting-section">';
-                html += '<h3>SPELLCASTING</h3>';
-                
-                // Spell Save DC and Attack Bonus
-                if (data.spellcasting.spellSaveDC || data.spellcasting.spellAttackBonus) {
-                    html += '<div class="spell-stats">';
-                    if (data.spellcasting.spellSaveDC) {
-                        html += `<span>Save DC: ${data.spellcasting.spellSaveDC}</span>`;
-                    }
-                    if (data.spellcasting.spellAttackBonus) {
-                        html += `<span>Spell Attack: +${data.spellcasting.spellAttackBonus}</span>`;
-                    }
-                    html += '</div>';
-                }
-                
-                // Display spells by level
+                html += '<div class="spellcasting-section"><h3>SPELLCASTING</h3>';
+                if (data.spellcasting.spellSaveDC || data.spellcasting.spellAttackBonus) { html += `<div class="spell-stats">${data.spellcasting.spellSaveDC ? `<span>Save DC: ${data.spellcasting.spellSaveDC}</span>` : ''}${data.spellcasting.spellAttackBonus ? `<span>Spell Attack: +${data.spellcasting.spellAttackBonus}</span>` : ''}</div>`; }
                 const spellLevels = ['cantrips', 'level1', 'level2', 'level3', 'level4', 'level5', 'level6', 'level7', 'level8', 'level9'];
                 const spellLevelNames = ['Cantrips', '1st Level', '2nd Level', '3rd Level', '4th Level', '5th Level', '6th Level', '7th Level', '8th Level', '9th Level'];
-                
                 spellLevels.forEach((level, index) => {
                     const spells = data.spellcasting.spells[level];
                     if (spells && spells.length > 0) {
-                        const levelNumber = index; // 0 for cantrips, 1-9 for spell levels
-                        const slotKey = `level${levelNumber}`;
-                        
-                        html += '<div class="spell-level-group">';
-                        html += '<div class="spell-level-header">';
-                        html += `<span class="spell-level-name">${spellLevelNames[index]}</span>`;
-                        
-                        // Show spell slots for levels 1-9 (not cantrips)
-                        if (levelNumber > 0 && data.spellcasting.spellSlots && data.spellcasting.spellSlots[slotKey]) {
-                            const slots = data.spellcasting.spellSlots[slotKey];
-                            const current = slots.current || 0;
-                            const max = slots.max || 0;
-                            let slotClass = 'available';
-                            if (current === 0) slotClass = 'exhausted';
-                            else if (current <= max * 0.5) slotClass = 'low';
-                            
-                            html += `<span class="spell-slots ${slotClass}">${current}/${max} slots</span>`;
+                        html += `<div class="spell-level-group"><div class="spell-level-header"><span class="spell-level-name">${spellLevelNames[index]}</span>`;
+                        if (index > 0 && data.spellcasting.spellSlots && data.spellcasting.spellSlots[`level${index}`]) {
+                            const slots = data.spellcasting.spellSlots[`level${index}`];
+                            const slotClass = slots.current === 0 ? 'exhausted' : slots.current <= slots.max * 0.5 ? 'low' : 'available';
+                            html += `<span class="spell-slots ${slotClass}">${slots.current || 0}/${slots.max || 0} slots</span>`;
                         }
-                        
-                        html += '</div>';
-                        
-                        // List spells
-                        html += '<div class="spell-list">';
+                        html += '</div><div class="spell-list">';
                         spells.forEach(spellName => {
-                            html += '<div class="spell-item">';
-                            html += `<span class="spell-name">${spellName}</span>`;
-                            
-                            // Add badges for spell properties
-                            html += '<div class="spell-badges">';
-                            
-                            // Check if spell is prepared (if preparedSpells array exists)
-                            if (data.spellcasting.preparedSpells && data.spellcasting.preparedSpells.includes(spellName)) {
-                                html += '<span class="spell-badge prepared">P</span>';
-                            }
-                            
-                            // Note: We could add ritual [R] and concentration [C] badges here
-                            // if we had that data in the spell information
-                            
-                            html += '</div>';
-                            html += '</div>';
+                            html += `<div class="spell-item"><span class="spell-name">${spellName}</span><div class="spell-badges">${data.spellcasting.preparedSpells && data.spellcasting.preparedSpells.includes(spellName) ? '<span class="spell-badge prepared">P</span>' : ''}</div></div>`;
                         });
-                        html += '</div>';
-                        html += '</div>';
+                        html += '</div></div>';
                     }
                 });
-                
-                html += '</div>'; // End spellcasting-section
+                html += '</div>';
             } else {
-                // No spellcasting message
-                html += '<div class="no-spellcasting-message">';
-                html += 'This character does not have spellcasting abilities.';
-                html += '</div>';
+                html += '<div class="no-spellcasting-message">This character does not have spellcasting abilities.</div>';
             }
-            
-            // Magic Items Section
             html += '<div class="magic-items-section">';
-            
-            // Filter equipment for magic items
-            const scrolls = data.equipment ? data.equipment.filter(item => item.item_subtype === 'scroll') : [];
-            const potions = data.equipment ? data.equipment.filter(item => item.item_subtype === 'potion') : [];
-            const magicalItems = data.equipment ? data.equipment.filter(item => 
-                item.magical && !['scroll', 'potion'].includes(item.item_subtype)
-            ) : [];
-            
-            // Scrolls Category
+            const scrolls = data.equipment ? data.equipment.filter(i => i.item_subtype === 'scroll') : [];
+            const potions = data.equipment ? data.equipment.filter(i => i.item_subtype === 'potion') : [];
+            const magicalItems = data.equipment ? data.equipment.filter(i => i.magical && !['scroll', 'potion'].includes(i.item_subtype)) : [];
             if (scrolls.length > 0) {
-                html += '<div class="magic-items-category">';
-                html += '<h4>SCROLLS</h4>';
-                scrolls.forEach(scroll => {
-                    html += '<div class="magic-item">';
-                    html += `<span class="magic-item-name">${scroll.item_name}</span>`;
-                    
-                    // Show spell level if available
-                    if (scroll.spellLevel !== undefined) {
-                        html += `<span class="spell-badge">${scroll.spellLevel === 0 ? 'Cantrip' : `Level ${scroll.spellLevel}`}</span>`;
-                    }
-                    
-                    // Show quantity or consumable indicator
-                    if (scroll.quantity > 1) {
-                        html += `<span class="magic-item-charges">×${scroll.quantity}</span>`;
-                    } else if (scroll.consumable) {
-                        html += '<span class="magic-item-charges consumable">[1x]</span>';
-                    }
-                    
-                    html += '</div>';
-                });
+                html += '<div class="magic-items-category"><h4>SCROLLS</h4>';
+                scrolls.forEach(s => { html += `<div class="magic-item"><span class="magic-item-name">${s.item_name}</span>${s.spellLevel !== undefined ? `<span class="spell-badge">${s.spellLevel === 0 ? 'Cantrip' : `Level ${s.spellLevel}`}</span>` : ''}${s.quantity > 1 ? `<span class="magic-item-charges">×${s.quantity}</span>` : s.consumable ? '<span class="magic-item-charges consumable">[1x]</span>' : ''}</div>`; });
                 html += '</div>';
             }
-            
-            // Potions Category
             if (potions.length > 0) {
-                html += '<div class="magic-items-category">';
-                html += '<h4>POTIONS</h4>';
-                potions.forEach(potion => {
-                    html += '<div class="magic-item">';
-                    html += `<span class="magic-item-name">${potion.item_name}</span>`;
-                    
-                    // Show quantity or consumable indicator
-                    if (potion.quantity > 1) {
-                        html += `<span class="magic-item-charges">×${potion.quantity}</span>`;
-                    } else if (potion.consumable) {
-                        html += '<span class="magic-item-charges consumable">[1x]</span>';
-                    }
-                    
-                    html += '</div>';
-                });
+                html += '<div class="magic-items-category"><h4>POTIONS</h4>';
+                potions.forEach(p => { html += `<div class="magic-item"><span class="magic-item-name">${p.item_name}</span>${p.quantity > 1 ? `<span class="magic-item-charges">×${p.quantity}</span>` : p.consumable ? '<span class="magic-item-charges consumable">[1x]</span>' : ''}</div>`; });
                 html += '</div>';
             }
-            
-            // Other Magical Items Category
             if (magicalItems.length > 0) {
-                html += '<div class="magic-items-category">';
-                html += '<h4>MAGIC ITEMS</h4>';
+                html += '<div class="magic-items-category"><h4>MAGIC ITEMS</h4>';
                 magicalItems.forEach(item => {
-                    html += '<div class="magic-item">';
-                    html += `<span class="magic-item-name">${item.item_name}</span>`;
-                    
-                    // Show charges if available
+                    let chargesHtml = '';
                     if (item.charges) {
-                        const current = item.charges.current || 0;
-                        const max = item.charges.max || 0;
-                        let chargeClass = 'available';
-                        if (current === 0) chargeClass = 'exhausted';
-                        else if (current <= max * 0.5) chargeClass = 'low';
-                        
-                        html += `<span class="magic-item-charges ${chargeClass}">${current}/${max}</span>`;
+                        const chargeClass = item.charges.current === 0 ? 'exhausted' : item.charges.current <= item.charges.max * 0.5 ? 'low' : 'available';
+                        chargesHtml = `<span class="magic-item-charges ${chargeClass}">${item.charges.current || 0}/${item.charges.max || 0}</span>`;
                     }
-                    
-                    html += '</div>';
+                    html += `<div class="magic-item"><span class="magic-item-name">${item.item_name}</span>${chargesHtml}</div>`;
                 });
                 html += '</div>';
             }
-            
-            // Show message if no magic items
             if (scrolls.length === 0 && potions.length === 0 && magicalItems.length === 0) {
-                html += '<div class="magic-items-category">';
-                html += '<h4>MAGIC ITEMS</h4>';
-                html += '<div class="magic-item">';
-                html += '<span class="magic-item-name">No magical items found</span>';
-                html += '</div>';
-                html += '</div>';
+                html += '<div class="magic-items-category"><h4>MAGIC ITEMS</h4><div class="magic-item"><span class="magic-item-name">No magical items found</span></div></div>';
             }
-            
-            html += '</div>'; // End magic-items-section
-            html += '</div>'; // End spells-magic-sheet
-            
+            html += '</div></div>';
             container.innerHTML = html;
         }
         
-        // Display NPC information
+        // Display NPC information - REFINED
         function displayNPCs(data) {
             const container = document.getElementById('npcs-content');
             if (!data || data.length === 0) {
@@ -3225,229 +2749,100 @@
             }
             
             let html = '';
-            
             data.forEach(npc => {
-                // Calculate HP percentage for health bar
                 const hpPercent = Math.max(0, (npc.hitPoints / npc.maxHitPoints) * 100);
                 const hpClass = hpPercent > 75 ? 'healthy' : hpPercent > 50 ? 'injured' : hpPercent > 25 ? 'bloodied' : 'critical';
                 
                 html += `<div class="npc-character-sheet">`;
                 
-                // Header with name and basic info
-                html += `<div class="npc-header"><div class="npc-name">${npc.name}</div><div class="npc-details">${npc.race} ${npc.class} • Level ${npc.level} • ${capitalizeWords(npc.alignment)}</div></div>`;
+                // --- MODIFIED HEADER ---
+                html += `<div class="npc-header">`;
+                html += `<div class="npc-header-main"><div class="npc-name">${npc.name}</div><div class="npc-details">${npc.race} ${npc.class} • Level ${npc.level} • ${capitalizeWords(npc.alignment)}</div></div>`;
                 
-                // All Ability Scores with Combat Stats (compact layout)
+                // Compact currency display
+                if (npc.currency) {
+                    const gold = npc.currency.gold || 0;
+                    const silver = npc.currency.silver || 0;
+                    const copper = npc.currency.copper || 0;
+                    
+                    html += `<div class="npc-header-currency">
+                                <div class="currency-grid">
+                                    <div class="currency-item"><span class="currency-amount">${gold}</span><span class="currency-type">GP</span></div>
+                                    <div class="currency-item"><span class="currency-amount">${silver}</span><span class="currency-type">SP</span></div>
+                                    <div class="currency-item"><span class="currency-amount">${copper}</span><span class="currency-type">CP</span></div>
+                                </div>
+                            </div>`;
+                }
+                html += `</div>`; // End npc-header
+                
+                // --- ABILITIES ROW (CSS fix handles sizing) ---
                 if (npc.abilities) {
                     html += '<div class="npc-abilities">';
+                    html += `<div class="ability-score npc-combat-stat"><div class="ability-name">HP</div><div class="ability-value">${npc.hitPoints}/${npc.maxHitPoints}</div><div class="hp-bar"><div class="hp-fill ${hpClass}" style="width: ${hpPercent}%"></div></div></div>`;
+                    html += `<div class="ability-score npc-combat-stat npc-no-circle"><div class="ability-name">AC</div><div class="ability-value">${npc.armorClass}</div></div>`;
+                    html += `<div class="ability-score npc-combat-stat npc-no-circle"><div class="ability-name">INIT</div><div class="ability-value">${npc.initiative >= 0 ? '+' : ''}${npc.initiative}</div></div>`;
                     
-                    // Add HP first
-                    html += `<div class="ability-score npc-combat-stat">
-                        <div class="ability-name">HP</div>
-                        <div class="ability-value">${npc.hitPoints}/${npc.maxHitPoints}</div>
-                        <div class="hp-bar"><div class="hp-fill ${hpClass}" style="width: ${hpPercent}%"></div></div>
-                    </div>`;
-                    
-                    // Add AC
-                    html += `<div class="ability-score npc-combat-stat npc-no-circle">
-                        <div class="ability-name">AC</div>
-                        <div class="ability-value">${npc.armorClass}</div>
-                    </div>`;
-                    
-                    // Add Initiative
-                    html += `<div class="ability-score npc-combat-stat npc-no-circle">
-                        <div class="ability-name">INIT</div>
-                        <div class="ability-value">${npc.initiative >= 0 ? '+' : ''}${npc.initiative}</div>
-                    </div>`;
-                    
-                    // Then the six ability scores
                     const allAbilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
                     allAbilities.forEach(ability => {
                         if (npc.abilities[ability]) {
                             const score = npc.abilities[ability];
                             const modifier = Math.floor((score - 10) / 2);
-                            const modStr = modifier >= 0 ? `+${modifier}` : `${modifier}`;
-                            html += `<div class="ability-score">
-                                <div class="ability-name">${ability.substr(0, 3).toUpperCase()}</div>
-                                <div class="ability-value">${score}</div>
-                                <div class="ability-modifier">${modStr}</div>
-                            </div>`;
+                            html += `<div class="ability-score"><div class="ability-name">${ability.substr(0, 3).toUpperCase()}</div><div class="ability-value">${score}</div><div class="ability-modifier">${modifier >= 0 ? `+${modifier}` : modifier}</div></div>`;
                         }
                     });
-                    
                     html += '</div>';
                 }
                 
-                // Skills and Saves as buttons
+                // --- MODIFIED BUTTONS CONTAINER ---
                 html += '<div class="npc-skills-saves-container">';
                 
                 // Saving Throws Button
                 if (npc.savingThrows && npc.savingThrows.length > 0) {
-                    // Prepare saves data for the popup
                     const allSaves = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
-                    let savesData = [];
-                    allSaves.forEach(save => {
+                    let savesData = allSaves.map(save => {
                         const isProficient = npc.savingThrows.includes(save);
-                        const ability = save.toLowerCase();
-                        const abilityMod = npc.abilities ? Math.floor((npc.abilities[ability] - 10) / 2) : 0;
+                        const abilityMod = npc.abilities ? Math.floor((npc.abilities[save.toLowerCase()] - 10) / 2) : 0;
                         const bonus = isProficient ? abilityMod + (npc.proficiencyBonus || 3) : abilityMod;
-                        const bonusStr = bonus >= 0 ? `+${bonus}` : `${bonus}`;
-                        savesData.push({
-                            name: save,
-                            proficient: isProficient,
-                            bonus: bonusStr
-                        });
+                        return { name: save, proficient: isProficient, bonus: bonus >= 0 ? `+${bonus}` : `${bonus}` };
                     });
-                    
-                    html += `<div class="stat-group">`;
                     html += `<button class="npc-detail-button" onclick="showNPCSaves('${npc.name}', ${JSON.stringify(savesData).replace(/"/g, '&quot;')})">Saving Throws</button>`;
-                    html += `</div>`;
                 }
                 
                 // Skills Button
                 if (npc.skills) {
-                    let skillsData = [];
-                    Object.entries(npc.skills).forEach(([skill, value]) => {
-                        const bonus = value >= 0 ? `+${value}` : `${value}`;
-                        skillsData.push({
-                            name: skill,
-                            bonus: bonus
-                        });
-                    });
-                    
-                    html += `<div class="stat-group">`;
+                    let skillsData = Object.entries(npc.skills).map(([skill, value]) => ({ name: skill, bonus: value >= 0 ? `+${value}` : `${value}` }));
                     html += `<button class="npc-detail-button" onclick="showNPCSkills('${npc.name}', ${JSON.stringify(skillsData).replace(/"/g, '&quot;')})">Skills</button>`;
-                    html += `</div>`;
-                }
-                
-                // Spellcasting Button
-                if (npc.spellcasting && npc.spellcasting.spells) {
-                    const hasSpells = Object.values(npc.spellcasting.spells).some(spellLevel => 
-                        Array.isArray(spellLevel) && spellLevel.length > 0
-                    );
-                    
-                    if (hasSpells) {
-                        // Prepare spells data for the popup
-                        let spellsData = {
-                            spellSaveDC: npc.spellcasting.spellSaveDC || null,
-                            spellAttackBonus: npc.spellcasting.spellAttackBonus || null,
-                            spellSlots: npc.spellcasting.spellSlots || {},
-                            spellsByLevel: []
-                        };
-                        
-                        // Organize spells by level
-                        Object.entries(npc.spellcasting.spells).forEach(([level, spells]) => {
-                            if (Array.isArray(spells) && spells.length > 0) {
-                                const levelName = level === 'cantrips' ? 'Cantrips' : `Level ${level.replace('level', '')}`;
-                                const levelNum = level === 'cantrips' ? 0 : parseInt(level.replace('level', ''));
-                                
-                                // Get spell slot information
-                                let slotInfo = null;
-                                if (levelNum > 0 && npc.spellcasting.spellSlots) {
-                                    const slotKey = `level${levelNum}`;
-                                    if (npc.spellcasting.spellSlots[slotKey]) {
-                                        slotInfo = npc.spellcasting.spellSlots[slotKey];
-                                    }
-                                }
-                                
-                                spellsData.spellsByLevel.push({
-                                    level: levelName,
-                                    levelNum: levelNum,
-                                    spells: spells,
-                                    slots: slotInfo
-                                });
-                            }
-                        });
-                        
-                        html += `<div class="stat-group">`;
-                        html += `<button class="npc-detail-button" onclick="showNPCSpells('${npc.name}', ${JSON.stringify(spellsData).replace(/"/g, '&quot;')})">Spellcasting</button>`;
-                        html += `</div>`;
-                    }
                 }
                 
                 // Inventory Button
                 if (npc.equipment && npc.equipment.length > 0) {
-                    html += `<div class="stat-group">`;
                     html += `<button class="npc-detail-button" onclick="showNPCInventory('${npc.name}', ${JSON.stringify(npc.equipment).replace(/"/g, '&quot;')})">Inventory</button>`;
-                    html += `</div>`;
                 }
-                
-                html += '</div>'; // End skills-saves-container
-                
-                // Key Features and Abilities
-                html += '<div class="npc-features-container">';
-                
-                // Class Features with usage tracking
+
+                // Key Abilities Button
                 if (npc.classFeatures && npc.classFeatures.length > 0) {
-                    html += '<div class="stat-group"><h4>Key Abilities</h4><div class="stat-group-content">';
-                    npc.classFeatures.slice(0, 4).forEach(feature => { // Limit to first 4
-                        const desc = feature.description || '';
-                        let usageDisplay = '';
-                        
-                        if (feature.usage && feature.usage.current !== undefined && feature.usage.max !== undefined && feature.usage.max > 0) {
-                            usageDisplay = ` <span class="usage-counter ${feature.usage.current === 0 ? 'exhausted' : ''}">${feature.usage.current}/${feature.usage.max}</span>`;
-                        }
-                        
-                        html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
-                            <span class="feature-name">${feature.name}</span>${usageDisplay}
-                        </div>`;
-                    });
-                    html += '</div></div>';
+                    const featuresData = npc.classFeatures.map(f => ({ name: f.name, detail: f.description || '' }));
+                    html += `<button class="npc-detail-button" onclick="showNPCDetailList('${npc.name}', 'Key Abilities', ${JSON.stringify(featuresData).replace(/"/g, '&quot;')})">Key Abilities</button>`;
                 }
-                
-                // Active Effects
-                if (npc.temporaryEffects && npc.temporaryEffects.length > 0) {
-                    html += '<div class="stat-group"><h4>Active Effects</h4><div class="stat-group-content">';
-                    npc.temporaryEffects.forEach(effect => {
-                        const desc = effect.description || '';
-                        let durationDisplay = '';
-                        
-                        if (effect.duration) {
-                            durationDisplay = ` <span class="effect-duration">${effect.duration}</span>`;
-                        }
-                        
-                        html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
-                            <span class="feature-name">${effect.name}</span>${durationDisplay}
-                        </div>`;
-                    });
-                    html += '</div></div>';
-                }
-                
-                // Special Racial Traits
+
+                // Racial Traits Button
                 if (npc.racialTraits && npc.racialTraits.length > 0) {
-                    const basicTraits = ['Ability Score Increase', 'Languages', 'Extra Language'];
-                    const specialTraits = npc.racialTraits.filter(trait => !basicTraits.includes(trait.name));
-                    
-                    if (specialTraits.length > 0) {
-                        html += '<div class="stat-group"><h4>Racial Traits</h4><div class="stat-group-content">';
-                        specialTraits.slice(0, 3).forEach(trait => { // Limit to first 3
-                            const desc = trait.description || '';
-                            html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
-                                <span class="feature-name">${trait.name}</span>
-                            </div>`;
-                        });
-                        html += '</div></div>';
-                    }
+                    const traitsData = npc.racialTraits.map(t => ({ name: t.name, detail: t.description || '' }));
+                    html += `<button class="npc-detail-button" onclick="showNPCDetailList('${npc.name}', 'Racial Traits', ${JSON.stringify(traitsData).replace(/"/g, '&quot;')})">Racial Traits</button>`;
                 }
-                
-                // Background Feature
+
+                // Background Button
                 if (npc.backgroundFeature && npc.backgroundFeature.name) {
-                    html += '<div class="stat-group"><h4>Background</h4><div class="stat-group-content">';
-                    const desc = npc.backgroundFeature.description || '';
-                    html += `<div class="feature-item" title="${desc.replace(/"/g, '&quot;')}">
-                        <span class="feature-name">${npc.backgroundFeature.name}</span>
-                    </div>`;
-                    html += '</div></div>';
+                    const backgroundData = [{ name: npc.backgroundFeature.name, detail: npc.backgroundFeature.description || '' }];
+                    html += `<button class="npc-detail-button" onclick="showNPCDetailList('${npc.name}', 'Background', ${JSON.stringify(backgroundData).replace(/"/g, '&quot;')})">Background</button>`;
                 }
                 
-                html += '</div>'; // Close npc-features-container
+                html += '</div>'; // End button container
                 
                 // Status and Condition
                 if (npc.status !== 'alive' || npc.condition !== 'none') {
-                    html += `<div class="npc-status">
-                        <div class="status-item">Status: <span class="status-value ${npc.status}">${npc.status}</span></div>`;
-                    if (npc.condition !== 'none') {
-                        html += `<div class="status-item">Condition: <span class="condition-value">${npc.condition}</span></div>`;
-                    }
+                    html += `<div class="npc-status"><div class="status-item">Status: <span class="status-value ${npc.status}">${npc.status}</span></div>`;
+                    if (npc.condition !== 'none') { html += `<div class="status-item">Condition: <span class="condition-value">${npc.condition}</span></div>`; }
                     html += '</div>';
                 }
                 
@@ -3461,17 +2856,12 @@
         function displayLocationData(data) {
             const locationName = document.getElementById('location-name');
             const locationDetails = document.getElementById('location-details');
-            
             if (!data) {
                 locationName.textContent = 'Location Unknown';
                 locationDetails.textContent = '';
                 return;
             }
-            
-            // Display current location and area
             locationName.textContent = `${data.currentLocation} (${data.currentArea})`;
-            
-            // Display time and location IDs for debugging
             const timeStr = data.time ? `${data.day} ${data.month} ${data.year} - ${data.time}` : 'Time Unknown';
             const idStr = data.currentLocationId ? `[${data.currentAreaId}:${data.currentLocationId}]` : '';
             locationDetails.textContent = `${timeStr} ${idStr}`;
@@ -3480,10 +2870,7 @@
         // Handle data responses from server
         socket.on('player_data_response', (response) => {
             if (response.dataType === 'inventory') {
-                // Check if we're currently on the spells & magic tab
-                const activeTabButton = document.querySelector('.tab-button.active');
-                const activeTab = activeTabButton ? activeTabButton.textContent.toLowerCase() : '';
-                
+                const activeTab = document.querySelector('.tab-button.active')?.textContent.toLowerCase();
                 if (activeTab === 'spells & magic') {
                     displaySpellsAndMagic(response.data);
                 } else {
@@ -3498,102 +2885,78 @@
             }
         });
         
-        // Handle location data response
-        socket.on('location_data_response', (response) => {
-            displayLocationData(response.data);
-        });
+        socket.on('location_data_response', (response) => { displayLocationData(response.data); });
         
-        // Auto-refresh data every 5 seconds when tab is active
         setInterval(() => {
-            // Always refresh location data regardless of active tab
             loadLocationData();
-            
-            const activeTabButton = document.querySelector('.tab-button.active');
-            if (activeTabButton) {
-                const activeTab = activeTabButton.textContent.toLowerCase();
-                if (activeTab === 'inventory') {
-                    loadInventory();
-                } else if (activeTab === 'character') {
-                    loadCharacterStats();
-                } else if (activeTab === 'spells & magic') {
-                    loadSpellsAndMagic();
-                } else if (activeTab === 'npcs') {
-                    loadNPCs();
-                }
-            }
+            const activeTab = document.querySelector('.tab-button.active')?.textContent.toLowerCase();
+            if (activeTab === 'inventory') loadInventory();
+            else if (activeTab === 'character') loadCharacterStats();
+            else if (activeTab === 'spells & magic') loadSpellsAndMagic();
+            else if (activeTab === 'npcs') loadNPCs();
         }, 5000);
         
-        // Initial setup
         document.addEventListener('DOMContentLoaded', () => {
-            // Focus on input field when page loads
-            const inputField = document.getElementById('user-input');
-            inputField.focus();
-            
-            // Load initial location data
+            document.getElementById('user-input').focus();
             loadLocationData();
-            
-            // Load character stats (default tab) on page load
-            // This handles page refreshes when already connected
             if (connected) {
                 loadCharacterStats();
             }
         });
         
-        // NPC Inventory Modal Functions
-        function showNPCInventory(npcName, equipment) {
-            const modal = document.getElementById('npc-inventory-modal');
-            const title = document.getElementById('npc-inventory-title');
-            const body = document.getElementById('npc-inventory-body');
-            
-            title.textContent = `${npcName}'s Inventory`;
+        // --- NEW GENERIC MODAL FUNCTION ---
+        function showNPCDetailList(npcName, modalTitle, itemsData) {
+            const modal = document.getElementById('npc-details-modal');
+            const title = document.getElementById('npc-details-title');
+            const body = document.getElementById('npc-details-body');
+
+            title.textContent = `${npcName}'s ${modalTitle}`;
             
             let html = '';
-            if (equipment && equipment.length > 0) {
-                equipment.forEach(item => {
-                    html += `<div class="npc-inventory-item">
-                        <div class="npc-inventory-item-header">
-                            <div class="npc-inventory-item-name">${item.item_name}</div>
-                            <div class="npc-inventory-item-quantity">x${item.quantity || 1}</div>
-                        </div>
-                        <div class="npc-inventory-item-details">${item.item_type}</div>`;
-                    if (item.description) {
-                        html += `<div class="npc-inventory-item-description">${item.description}</div>`;
-                    }
-                    html += '</div>';
+            if (itemsData && itemsData.length > 0) {
+                itemsData.forEach(item => {
+                    const detailText = item.detail ? `title="${item.detail.replace(/"/g, '&quot;')}"` : '';
+                    html += `<div class="npc-details-item" ${detailText}>
+                                <span class="npc-details-name">${item.name}</span>
+                            </div>`;
                 });
             } else {
-                html = '<div class="npc-inventory-item">No items in inventory.</div>';
+                html = `<div class="npc-details-item">No ${modalTitle.toLowerCase()} available.</div>`;
             }
             
             body.innerHTML = html;
             modal.style.display = 'block';
         }
-        
-        function closeNPCInventory() {
+
+        // NPC Modal Functions
+        function showNPCInventory(npcName, equipment) {
             const modal = document.getElementById('npc-inventory-modal');
-            modal.style.display = 'none';
+            const title = document.getElementById('npc-inventory-title');
+            const body = document.getElementById('npc-inventory-body');
+            title.textContent = `${npcName}'s Inventory`;
+            let html = '';
+            if (equipment && equipment.length > 0) {
+                equipment.forEach(item => {
+                    html += `<div class="npc-inventory-item"><div class="npc-inventory-item-header"><div class="npc-inventory-item-name">${item.item_name}</div><div class="npc-inventory-item-quantity">x${item.quantity || 1}</div></div><div class="npc-inventory-item-details">${item.item_type}</div>`;
+                    if (item.description) { html += `<div class="npc-inventory-item-description">${item.description}</div>`; }
+                    html += '</div>';
+                });
+            } else { html = '<div class="npc-inventory-item">No items in inventory.</div>'; }
+            body.innerHTML = html;
+            modal.style.display = 'block';
         }
         
-        // NPC Skills and Saves Modal Functions
+        function closeNPCInventory() { document.getElementById('npc-inventory-modal').style.display = 'none'; }
+        
         function showNPCSkills(npcName, skillsData) {
             const modal = document.getElementById('npc-details-modal');
             const title = document.getElementById('npc-details-title');
             const body = document.getElementById('npc-details-body');
-            
             title.textContent = `${npcName}'s Skills`;
-            
             let html = '';
             if (skillsData && skillsData.length > 0) {
-                skillsData.forEach(skill => {
-                    html += `<div class="npc-details-item">
-                        <span class="npc-details-name">${skill.name}</span>
-                        <span class="npc-details-bonus">${skill.bonus}</span>
-                    </div>`;
-                });
-            } else {
-                html = '<div class="npc-details-item">No skills available.</div>';
-            }
-            
+                skillsData.forEach(skill => { html += `<div class="npc-details-item"><span class="npc-details-name">${skill.name}</span><span class="npc-details-bonus">${skill.bonus}</span></div>`; });
+            } else { html = '<div class="npc-details-item">No skills available.</div>'; }
             body.innerHTML = html;
             modal.style.display = 'block';
         }
@@ -3602,21 +2965,11 @@
             const modal = document.getElementById('npc-details-modal');
             const title = document.getElementById('npc-details-title');
             const body = document.getElementById('npc-details-body');
-            
             title.textContent = `${npcName}'s Saving Throws`;
-            
             let html = '';
             if (savesData && savesData.length > 0) {
-                savesData.forEach(save => {
-                    html += `<div class="npc-details-item">
-                        <span class="npc-details-name">${save.name} ${save.proficient ? '●' : '○'}</span>
-                        <span class="npc-details-bonus">${save.bonus}</span>
-                    </div>`;
-                });
-            } else {
-                html = '<div class="npc-details-item">No saving throws available.</div>';
-            }
-            
+                savesData.forEach(save => { html += `<div class="npc-details-item"><span class="npc-details-name">${save.name} ${save.proficient ? '●' : '○'}</span><span class="npc-details-bonus">${save.bonus}</span></div>`; });
+            } else { html = '<div class="npc-details-item">No saving throws available.</div>'; }
             body.innerHTML = html;
             modal.style.display = 'block';
         }
@@ -3625,487 +2978,178 @@
             const modal = document.getElementById('npc-details-modal');
             const title = document.getElementById('npc-details-title');
             const body = document.getElementById('npc-details-body');
-            
             title.textContent = `${npcName}'s Spellcasting`;
-            
             let html = '';
-            
-            // Add spell save DC and attack bonus if available
-            if (spellsData.spellSaveDC || spellsData.spellAttackBonus) {
-                html += '<div class="npc-spell-info">';
-                if (spellsData.spellSaveDC) {
-                    html += `<span class="npc-spell-stat">Save DC: ${spellsData.spellSaveDC}</span>`;
-                }
-                if (spellsData.spellAttackBonus) {
-                    html += `<span class="npc-spell-stat">Attack: +${spellsData.spellAttackBonus}</span>`;
-                }
-                html += '</div>';
-            }
-            
+            if (spellsData.spellSaveDC || spellsData.spellAttackBonus) { html += `<div class="npc-spell-info">${spellsData.spellSaveDC ? `<span class="npc-spell-stat">Save DC: ${spellsData.spellSaveDC}</span>` : ''}${spellsData.spellAttackBonus ? `<span class="npc-spell-stat">Attack: +${spellsData.spellAttackBonus}</span>` : ''}</div>`; }
             if (spellsData && spellsData.spellsByLevel && spellsData.spellsByLevel.length > 0) {
                 spellsData.spellsByLevel.forEach(levelData => {
-                    html += `<div class="npc-spell-level">`;
-                    html += `<div class="npc-spell-level-header">`;
-                    html += `<span class="npc-spell-level-name">${levelData.level}</span>`;
-                    
-                    // Show spell slots if available (not for cantrips)
+                    html += `<div class="npc-spell-level"><div class="npc-spell-level-header"><span class="npc-spell-level-name">${levelData.level}</span>`;
                     if (levelData.levelNum > 0 && levelData.slots) {
-                        const current = levelData.slots.current || 0;
-                        const max = levelData.slots.max || 0;
-                        const slotClass = current === 0 ? 'exhausted' : current <= max * 0.5 ? 'low' : 'available';
-                        html += `<span class="npc-spell-slots ${slotClass}">${current}/${max} slots</span>`;
+                        const slotClass = levelData.slots.current === 0 ? 'exhausted' : levelData.slots.current <= levelData.slots.max * 0.5 ? 'low' : 'available';
+                        html += `<span class="npc-spell-slots ${slotClass}">${levelData.slots.current || 0}/${levelData.slots.max || 0} slots</span>`;
                     }
-                    
-                    html += `</div>`;
-                    
-                    // List spells
-                    html += `<div class="npc-spell-list">`;
-                    levelData.spells.forEach(spell => {
-                        html += `<div class="npc-spell-item">${spell}</div>`;
-                    });
-                    html += `</div>`;
-                    
-                    html += `</div>`;
+                    html += `</div><div class="npc-spell-list">`;
+                    levelData.spells.forEach(spell => { html += `<div class="npc-spell-item">${spell}</div>`; });
+                    html += `</div></div>`;
                 });
-            } else {
-                html = '<div class="npc-details-item">No spells available.</div>';
-            }
-            
+            } else { html = '<div class="npc-details-item">No spells available.</div>'; }
             body.innerHTML = html;
             modal.style.display = 'block';
         }
         
-        function closeNPCDetails() {
-            const modal = document.getElementById('npc-details-modal');
-            modal.style.display = 'none';
-        }
+        function closeNPCDetails() { document.getElementById('npc-details-modal').style.display = 'none'; }
         
         // Dice Rolling Functions
-        let diceRolls = {
-            d20: [],
-            damage: []
-        };
-        
+        let diceRolls = { d20: [], damage: [] };
         function rollDice(sides) {
-            // Use crypto.getRandomValues for true randomness
             const array = new Uint32Array(1);
             crypto.getRandomValues(array);
             const result = (array[0] % sides) + 1;
-            
-            // Store the roll
-            if (sides === 20) {
-                diceRolls.d20.push(result);
-            } else {
-                diceRolls.damage.push({sides: sides, result: result});
-            }
-            
+            if (sides === 20) { diceRolls.d20.push(result); } 
+            else { diceRolls.damage.push({sides: sides, result: result}); }
             updateDiceDisplay();
         }
-        
         function updateDiceDisplay() {
             const resultsDiv = document.getElementById('dice-results');
             let html = '';
-            
-            // Show d20 rolls
-            if (diceRolls.d20.length > 0) {
-                html += '<span class="dice-result-item">d20: ' + diceRolls.d20.join(', d20: ') + '</span>';
-            }
-            
-            // Show damage rolls with total
+            if (diceRolls.d20.length > 0) { html += '<span class="dice-result-item">d20: ' + diceRolls.d20.join(', d20: ') + '</span>'; }
             if (diceRolls.damage.length > 0) {
-                const damageStrings = diceRolls.damage.map(roll => `d${roll.sides}: ${roll.result}`);
-                const damageTotal = diceRolls.damage.reduce((sum, roll) => sum + roll.result, 0);
-                
                 if (html) html += ' | ';
-                html += '<span class="dice-result-item">' + damageStrings.join(', ') + '</span>';
-                html += '<span class="dice-total">Total: ' + damageTotal + '</span>';
+                html += '<span class="dice-result-item">' + diceRolls.damage.map(r => `d${r.sides}: ${r.result}`).join(', ') + '</span>';
+                html += '<span class="dice-total">Total: ' + diceRolls.damage.reduce((sum, r) => sum + r.result, 0) + '</span>';
             }
-            
-            if (html) {
-                resultsDiv.innerHTML = html;
-                resultsDiv.style.display = 'block';
-            } else {
-                resultsDiv.style.display = 'none';
-            }
+            resultsDiv.innerHTML = html;
+            resultsDiv.style.display = html ? 'block' : 'none';
         }
+        function clearDiceResults() { diceRolls.d20 = []; diceRolls.damage = []; updateDiceDisplay(); }
         
-        function clearDiceResults() {
-            diceRolls.d20 = [];
-            diceRolls.damage = [];
-            updateDiceDisplay();
-        }
-        
-        // Inventory filtering and sorting functions - REDESIGNED
-        let currentSearchTerm = '';
-        let currentFilter = '';
-        let currentSortedData = null;
-        let filtersActive = false;
-        let currentSort = 'name-asc';
-        
+        // Inventory filtering and sorting functions
+        let currentSearchTerm = '', currentFilter = '', filtersActive = false, currentSort = 'name-asc';
         function applyFiltersAndSort() {
             if (!originalInventoryData) return;
-            
-            // Start with original data
             let data = JSON.parse(JSON.stringify(originalInventoryData));
-            
-            // Apply sorting first
             if (data.equipment && currentSort) {
                 data.equipment.sort((a, b) => {
                     switch (currentSort) {
-                        case 'name-asc':
-                            return a.item_name.localeCompare(b.item_name);
-                        case 'name-desc':
-                            return b.item_name.localeCompare(a.item_name);
-                        case 'type':
-                            return a.item_type.localeCompare(b.item_type) || a.item_name.localeCompare(b.item_name);
-                        case 'quantity':
-                            return (b.quantity || 1) - (a.quantity || 1) || a.item_name.localeCompare(b.item_name);
-                        default:
-                            return 0;
+                        case 'name-asc': return a.item_name.localeCompare(b.item_name);
+                        case 'name-desc': return b.item_name.localeCompare(a.item_name);
+                        case 'type': return a.item_type.localeCompare(b.item_type) || a.item_name.localeCompare(b.item_name);
+                        case 'quantity': return (b.quantity || 1) - (a.quantity || 1) || a.item_name.localeCompare(b.item_name);
+                        default: return 0;
                     }
                 });
             }
-            
-            // Store sorted data
-            currentSortedData = data;
-            
-            // Apply filters
             if (data.equipment) {
                 data.equipment = data.equipment.filter(item => {
-                    // Search filter
-                    const matchesSearch = !currentSearchTerm || 
-                        item.item_name.toLowerCase().includes(currentSearchTerm) ||
-                        (item.description && item.description.toLowerCase().includes(currentSearchTerm)) ||
-                        item.item_type.toLowerCase().includes(currentSearchTerm);
-                    
-                    // Type filter
-                    let matchesFilter = true;
+                    const search = !currentSearchTerm || item.item_name.toLowerCase().includes(currentSearchTerm) || (item.description && item.description.toLowerCase().includes(currentSearchTerm)) || item.item_type.toLowerCase().includes(currentSearchTerm);
+                    let filter = true;
                     if (currentFilter) {
                         switch (currentFilter) {
-                            case 'weapon':
-                                matchesFilter = item.item_type === 'weapon';
-                                break;
-                            case 'armor':
-                                matchesFilter = item.item_type === 'armor';
-                                break;
-                            case 'consumable':
-                                matchesFilter = item.item_type === 'consumable' || item.consumable;
-                                break;
-                            case 'magical':
-                                matchesFilter = item.magical;
-                                break;
-                            case 'equipped':
-                                matchesFilter = item.equipped;
-                                break;
+                            case 'weapon': filter = item.item_type === 'weapon'; break;
+                            case 'armor': filter = item.item_type === 'armor'; break;
+                            case 'consumable': filter = item.item_type === 'consumable' || item.consumable; break;
+                            case 'magical': filter = item.magical; break;
+                            case 'equipped': filter = item.equipped; break;
                         }
                     }
-                    
-                    return matchesSearch && matchesFilter;
+                    return search && filter;
                 });
             }
-            
-            // Update display with filtered and sorted data
             displayInventory(data, true);
         }
-        
-        function sortInventory() {
-            const sortDropdown = document.getElementById('inventory-sort');
-            if (sortDropdown) {
-                currentSort = sortDropdown.value;
-                filtersActive = true;
-                applyFiltersAndSort();
-            }
-        }
-        
-        function changeFilter() {
-            currentFilter = document.getElementById('filter-dropdown').value;
-            filtersActive = true;
-            applyFiltersAndSort();
-        }
-        
-        function openSearchPopup() {
-            document.getElementById('search-popup').style.display = 'block';
-            document.getElementById('search-popup-input').focus();
-        }
-        
-        function closeSearchPopup() {
-            document.getElementById('search-popup').style.display = 'none';
-        }
-        
-        function performSearch() {
-            currentSearchTerm = document.getElementById('search-popup-input').value.toLowerCase();
-            filtersActive = true;
-            applyFiltersAndSort();
-        }
-        
+        function sortInventory() { currentSort = document.getElementById('inventory-sort').value; filtersActive = true; applyFiltersAndSort(); }
+        function changeFilter() { currentFilter = document.getElementById('filter-dropdown').value; filtersActive = true; applyFiltersAndSort(); }
+        function openSearchPopup() { document.getElementById('search-popup').style.display = 'block'; document.getElementById('search-popup-input').focus(); }
+        function closeSearchPopup() { document.getElementById('search-popup').style.display = 'none'; }
+        function performSearch() { currentSearchTerm = document.getElementById('search-popup-input').value.toLowerCase(); filtersActive = true; applyFiltersAndSort(); }
         function clearAllFilters() {
-            currentSearchTerm = '';
-            currentFilter = '';
-            currentSort = 'name-asc';
-            filtersActive = false;
+            currentSearchTerm = ''; currentFilter = ''; currentSort = 'name-asc'; filtersActive = false;
             document.getElementById('search-popup-input').value = '';
             document.getElementById('filter-dropdown').value = '';
             const sortDropdown = document.getElementById('inventory-sort');
-            if (sortDropdown) {
-                sortDropdown.value = 'name-asc';
-            }
+            if (sortDropdown) sortDropdown.value = 'name-asc';
             applyFiltersAndSort();
         }
         
-        
-        // Close modal when clicking outside of it
         window.onclick = function(event) {
-            const inventoryModal = document.getElementById('npc-inventory-modal');
-            const detailsModal = document.getElementById('npc-details-modal');
-            const searchPopup = document.getElementById('search-popup');
-            
-            if (event.target === inventoryModal) {
-                closeNPCInventory();
-            }
-            if (event.target === detailsModal) {
-                closeNPCDetails();
-            }
-            if (event.target === searchPopup) {
-                closeSearchPopup();
-            }
+            if (event.target === document.getElementById('npc-inventory-modal')) closeNPCInventory();
+            if (event.target === document.getElementById('npc-details-modal')) closeNPCDetails();
+            if (event.target === document.getElementById('search-popup')) closeSearchPopup();
         };
         
-        // Handle escape key for search popup
         window.onkeydown = function(event) {
-            if (event.key === 'Escape') {
-                const searchPopup = document.getElementById('search-popup');
-                if (searchPopup && searchPopup.style.display === 'block') {
-                    closeSearchPopup();
-                }
+            if (event.key === 'Escape' && document.getElementById('search-popup').style.display === 'block') {
+                closeSearchPopup();
             }
         };
     </script>
     
-    <!-- NPC Inventory Modal -->
-    <div id="npc-inventory-modal" class="npc-inventory-modal">
-        <div class="npc-inventory-modal-content">
-            <div class="npc-inventory-header">
-                <div id="npc-inventory-title" class="npc-inventory-title">NPC Inventory</div>
-                <span class="npc-inventory-close" onclick="closeNPCInventory()">&times;</span>
-            </div>
-            <div id="npc-inventory-body" class="npc-inventory-body">
-                Loading inventory...
-            </div>
-        </div>
-    </div>
-    
-    <!-- NPC Details Modal -->
-    <div id="npc-details-modal" class="npc-details-modal">
-        <div class="npc-details-modal-content">
-            <div class="npc-details-header">
-                <div id="npc-details-title" class="npc-details-title">NPC Details</div>
-                <span class="npc-details-close" onclick="closeNPCDetails()">&times;</span>
-            </div>
-            <div id="npc-details-body" class="npc-details-body">
-                Loading details...
-            </div>
-        </div>
-    </div>
-    
-    <!-- Search Popup Modal -->
-    <div id="search-popup" class="search-popup">
-        <div class="search-popup-content">
-            <div class="search-popup-header">
-                <div class="search-popup-title">Search Inventory</div>
-                <span class="search-popup-close" onclick="closeSearchPopup()">&times;</span>
-            </div>
-            <input type="text" class="search-popup-input" id="search-popup-input" placeholder="Search items by name, description, or type..." onkeyup="performSearch()">
-        </div>
-    </div>
-
-    <!-- Save Game Dialog -->
-    <div id="save-dialog-overlay" class="save-dialog-overlay">
-        <div class="save-dialog">
-            <h3>Save Game</h3>
-            <div class="save-form">
-                <label for="save-description">Description (optional):</label>
-                <textarea id="save-description" placeholder="Enter a description for this save game..."></textarea>
-                
-                <label for="save-mode">Save Mode:</label>
-                <select id="save-mode">
-                    <option value="essential">Essential Files Only (faster)</option>
-                    <option value="full">Full Save (includes conversation history)</option>
-                </select>
-            </div>
-            <div class="dialog-buttons">
-                <button class="dialog-button secondary" onclick="closeSaveDialog()">Cancel</button>
-                <button class="dialog-button primary" onclick="performSave()">Save Game</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Load Game Dialog -->
-    <div id="load-dialog-overlay" class="save-dialog-overlay">
-        <div class="save-dialog">
-            <h3>Load Game</h3>
-            <div id="save-list" class="save-list">
-                Loading save games...
-            </div>
-            <div class="dialog-buttons">
-                <button class="dialog-button secondary" onclick="closeLoadDialog()">Cancel</button>
-                <button class="dialog-button danger" onclick="deleteSelectedSave()" id="delete-save-button" disabled>Delete Save</button>
-                <button class="dialog-button primary" onclick="performLoad()" id="load-save-button" disabled>Load Game</button>
-            </div>
-        </div>
-    </div>
+    <!-- Modals -->
+    <div id="npc-inventory-modal" class="npc-inventory-modal"><div class="npc-inventory-modal-content"><div class="npc-inventory-header"><div id="npc-inventory-title" class="npc-inventory-title"></div><span class="npc-inventory-close" onclick="closeNPCInventory()">&times;</span></div><div id="npc-inventory-body" class="npc-inventory-body"></div></div></div>
+    <div id="npc-details-modal" class="npc-details-modal"><div class="npc-details-modal-content"><div class="npc-details-header"><div id="npc-details-title" class="npc-details-title"></div><span class="npc-details-close" onclick="closeNPCDetails()">&times;</span></div><div id="npc-details-body" class="npc-details-body"></div></div></div>
+    <div id="search-popup" class="search-popup"><div class="search-popup-content"><div class="search-popup-header"><div class="search-popup-title">Search Inventory</div><span class="search-popup-close" onclick="closeSearchPopup()">&times;</span></div><input type="text" class="search-popup-input" id="search-popup-input" placeholder="Search items..." onkeyup="performSearch()"></div></div>
+    <div id="save-dialog-overlay" class="save-dialog-overlay"><div class="save-dialog"><h3>Save Game</h3><div class="save-form"><label for="save-description">Description (optional):</label><textarea id="save-description" placeholder="..."></textarea><label for="save-mode">Save Mode:</label><select id="save-mode"><option value="essential">Essential (faster)</option><option value="full">Full (includes history)</option></select></div><div class="dialog-buttons"><button class="dialog-button secondary" onclick="closeSaveDialog()">Cancel</button><button class="dialog-button primary" onclick="performSave()">Save Game</button></div></div></div>
+    <div id="load-dialog-overlay" class="save-dialog-overlay"><div class="save-dialog"><h3>Load Game</h3><div id="save-list" class="save-list"></div><div class="dialog-buttons"><button class="dialog-button secondary" onclick="closeLoadDialog()">Cancel</button><button class="dialog-button danger" onclick="deleteSelectedSave()" id="delete-save-button" disabled>Delete</button><button class="dialog-button primary" onclick="performLoad()" id="load-save-button" disabled>Load Game</button></div></div></div>
 
     <script>
         // Save/Load Game Functionality
         let selectedSaveFolder = null;
-
-        function openSaveDialog() {
-            document.getElementById('save-dialog-overlay').style.display = 'flex';
-            document.getElementById('save-description').focus();
-        }
-
-        function closeSaveDialog() {
-            document.getElementById('save-dialog-overlay').style.display = 'none';
-            document.getElementById('save-description').value = '';
-            document.getElementById('save-mode').value = 'essential';
-        }
-
-        function openLoadDialog() {
-            document.getElementById('load-dialog-overlay').style.display = 'flex';
-            loadSaveGameList();
-        }
-
-        function closeLoadDialog() {
-            document.getElementById('load-dialog-overlay').style.display = 'none';
-            selectedSaveFolder = null;
-            updateLoadButtons();
-        }
-
-        function loadSaveGameList() {
-            const saveList = document.getElementById('save-list');
-            saveList.innerHTML = 'Loading save games...';
-            
-            // Send request to list save games
-            socket.emit('action', {
-                action: 'listSaves',
-                parameters: {}
-            });
-        }
-
-        function selectSaveGame(saveFolder, element) {
-            // Remove selection from all items
-            document.querySelectorAll('.save-item').forEach(item => {
-                item.classList.remove('selected');
-            });
-            
-            // Select clicked item
-            element.classList.add('selected');
-            selectedSaveFolder = saveFolder;
-            updateLoadButtons();
-        }
-
+        function openSaveDialog() { document.getElementById('save-dialog-overlay').style.display = 'flex'; document.getElementById('save-description').focus(); }
+        function closeSaveDialog() { document.getElementById('save-dialog-overlay').style.display = 'none'; document.getElementById('save-description').value = ''; document.getElementById('save-mode').value = 'essential'; }
+        function openLoadDialog() { document.getElementById('load-dialog-overlay').style.display = 'flex'; loadSaveGameList(); }
+        function closeLoadDialog() { document.getElementById('load-dialog-overlay').style.display = 'none'; selectedSaveFolder = null; updateLoadButtons(); }
+        function loadSaveGameList() { const saveList = document.getElementById('save-list'); saveList.innerHTML = 'Loading...'; socket.emit('action', { action: 'listSaves', parameters: {} }); }
+        function selectSaveGame(saveFolder, element) { document.querySelectorAll('.save-item').forEach(item => { item.classList.remove('selected'); }); element.classList.add('selected'); selectedSaveFolder = saveFolder; updateLoadButtons(); }
         function updateLoadButtons() {
-            const loadButton = document.getElementById('load-save-button');
-            const deleteButton = document.getElementById('delete-save-button');
-            
-            if (selectedSaveFolder) {
-                loadButton.disabled = false;
-                deleteButton.disabled = false;
-            } else {
-                loadButton.disabled = true;
-                deleteButton.disabled = true;
-            }
+            const disabled = !selectedSaveFolder;
+            document.getElementById('load-save-button').disabled = disabled;
+            document.getElementById('delete-save-button').disabled = disabled;
         }
-
         function performSave() {
             const description = document.getElementById('save-description').value;
             const saveMode = document.getElementById('save-mode').value;
-            
-            // Send save game action
-            socket.emit('action', {
-                action: 'saveGame',
-                parameters: {
-                    description: description,
-                    saveMode: saveMode
-                }
-            });
-            
+            socket.emit('action', { action: 'saveGame', parameters: { description: description, saveMode: saveMode } });
             closeSaveDialog();
         }
-
         function performLoad() {
-            if (!selectedSaveFolder) {
-                alert('Please select a save game to load.');
-                return;
-            }
-            
-            if (confirm('Loading a save game will overwrite your current progress. Are you sure?')) {
-                // Send restore game action
-                socket.emit('action', {
-                    action: 'restoreGame',
-                    parameters: {
-                        saveFolder: selectedSaveFolder
-                    }
-                });
-                
+            if (!selectedSaveFolder) return;
+            if (confirm('Overwrite current progress?')) {
+                socket.emit('action', { action: 'restoreGame', parameters: { saveFolder: selectedSaveFolder } });
                 closeLoadDialog();
             }
         }
-
         function deleteSelectedSave() {
-            if (!selectedSaveFolder) {
-                alert('Please select a save game to delete.');
-                return;
-            }
-            
-            if (confirm('Are you sure you want to delete this save game? This action cannot be undone.')) {
-                // Send delete save action
-                socket.emit('action', {
-                    action: 'deleteSave',
-                    parameters: {
-                        saveFolder: selectedSaveFolder
-                    }
-                });
-                
-                // Refresh the list after deletion
+            if (!selectedSaveFolder) return;
+            if (confirm('Delete this save? This cannot be undone.')) {
+                socket.emit('action', { action: 'deleteSave', parameters: { saveFolder: selectedSaveFolder } });
                 setTimeout(() => loadSaveGameList(), 500);
                 selectedSaveFolder = null;
                 updateLoadButtons();
             }
         }
-
-        // Handle save game list response
         socket.on('save_list_response', (saveGames) => {
             const saveList = document.getElementById('save-list');
-            
-            if (saveGames.length === 0) {
-                saveList.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">No save games found.</div>';
-                return;
-            }
-            
+            if (saveGames.length === 0) { saveList.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">No save games found.</div>'; return; }
             let html = '';
             saveGames.forEach(save => {
-                const saveDate = save.save_date_readable || 'Unknown date';
-                const description = save.description || 'No description';
-                const saveMode = save.save_mode || 'unknown';
-                const module = save.module || 'Unknown';
-                const saveFolder = save.save_folder || 'Unknown';
-                const location = save.game_state?.current_location || 'Unknown location';
-                
-                html += `<div class="save-item" onclick="selectSaveGame('${saveFolder}', this)">`;
-                html += `<div class="save-item-header">${saveFolder}</div>`;
-                html += `<div class="save-item-details">`;
-                html += `Date: ${saveDate}<br>`;
-                html += `Module: ${module}<br>`;
-                html += `Location: ${location}<br>`;
-                html += `Mode: ${saveMode}<br>`;
-                html += `Description: ${description}`;
-                html += `</div>`;
-                html += `</div>`;
+                html += `<div class="save-item" onclick="selectSaveGame('${save.save_folder}', this)"><div class="save-item-header">${save.save_folder}</div><div class="save-item-details">Date: ${save.save_date_readable || '?'}<br>Module: ${save.module || '?'}<br>Location: ${save.game_state?.current_location || '?'}<br>Mode: ${save.save_mode || '?'}<br>Description: ${save.description || 'No description'}</div></div>`;
             });
-            
             saveList.innerHTML = html;
         });
 
+        // Tab functionality for character details
+        function switchCharacterDetailTab(containerId, tabName) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const panes = container.querySelectorAll(".tab-pane");
+            panes.forEach(pane => pane.classList.remove("active"));
+            const buttons = container.querySelectorAll(".tab-button");
+            buttons.forEach(button => button.classList.remove("active"));
+            const selectedPane = container.querySelector(`[data-tab="${tabName}"]`);
+            const selectedButton = container.querySelector(`[data-tab-btn="${tabName}"]`);
+            if (selectedPane) selectedPane.classList.add("active");
+            if (selectedButton) selectedButton.classList.add("active");
+        }
     </script>
 </body>
 </html>
