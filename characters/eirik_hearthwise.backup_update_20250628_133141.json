@@ -217,13 +217,6 @@
       "quantity": 1
     },
     {
-      "item_name": "Vial of silvery ointment",
-      "item_type": "consumable",
-      "item_subtype": "potion",
-      "description": "Ointment that provides protection against magical thorns when applied.",
-      "quantity": 1
-    },
-    {
       "item_name": "Flask of Alchemist's Fire",
       "item_type": "consumable",
       "item_subtype": "potion",
@@ -232,7 +225,7 @@
     },
     {
       "item_name": "Pouch of Powdered Silver",
-      "item_type": "miscellaneous",
+      "item_type": "consumable",
       "item_subtype": "other",
       "description": "A pouch containing powdered silver, useful against magical thorns and certain creatures.",
       "quantity": 1
@@ -251,7 +244,7 @@
     },
     {
       "item_name": "Coded Parchment",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A crumpled scrap of parchment with coded watch schedules and a rough map of ranger patrol routes.",
       "quantity": 1
     },
@@ -385,7 +378,7 @@
     ]
   },
   "currency": {
-    "gold": 10,
+    "gold": 9,
     "silver": 0,
     "copper": 0
   },

@@ -11,7 +11,7 @@
         "PP002"
       ],
       "status": "in progress",
-      "plotImpact": "Further evidence collected at North Tower Overlook confirms organized insider sabotage linked to Malarok and his symbol, strengthening the case for a traitor within the Rangers' Outpost.",
+      "plotImpact": "Eirik and Kira set out from the Command Post, intent on recovering Sila's stolen chest by pursuing the trail toward Scout's Watch and bandit territory, strengthening the outpost's hope.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -32,8 +32,8 @@
           "involvedLocations": [
             "RO001"
           ],
-          "status": "not started",
-          "plotImpact": "Sila remains at the outpost, offering the party a permanent 15% discount and a reward of several powerful potions. Her presence boosts morale."
+          "status": "in progress",
+          "plotImpact": "The party has set out for the Forgotten Waystation to recover Sila's stolen chest, advancing the Merchant's Dilemma side quest."
         }
       ]
     },

@@ -98,7 +98,8 @@
       "locationId": "RO01",
       "name": "Rangers' Command Post",
       "type": "crossroads",
-      "description": "The Rangers' Command Post stands battered but resilient, framed by worn wooden palisades and filled with the scent of pine and iron. The atmosphere is thick with vigilance as rangers hurry between tents and stables, preparing for urgent missions. Commander Elen focuses intently on maps and coded reports, her gaze softening only when recognizing Scout Kira and the important parchment she carries. The command table, once stained with blood, now holds neatly organized plans for restoring the silenced silver bell network, with special emphasis on the missing clapper of the West Tower bell. Nearby, the blacksmith's hammer rings as repairs and preparations continue. Whispers of sabotage and traitorous agents mingle with the hopeful murmurs of a ritual needed to attune a new crystal for the bell. Scout Kira stands ready to guide the party through the wilds, advising passage through the Scout's Watch toward the bandit cache near the West Tower to recover a stolen chest, a mission critical to restoring communication. The gleaming silver bell overhead seems to echo a subdued promise of hope and resilience, as the outpost pulses with solemn readiness and shared determination.",
+      "description": "The Rangers' Command Post stands battered but resilient, framed by worn wooden palisades bearing scars of recent conflict. Sunlight filters through gaps in the palisade, casting lively patterns across the camp. The air is thick with mingled scents of pine resin, woodsmoke, and the metallic tang of iron weapons. Rangers move with purposeful urgency between tents and stables, underscored by the rhythmic clang of a blacksmith's hammer and distant calls of swallows. Commander Elen stands over a cluttered table of maps and coded reports, her sharp gaze softening upon recognizing Scout Kira and the familiar parchment she carries. The atmosphere is one of solemn readiness and camaraderie; rangers exchange respectful nods as Kira and Eirik prepare to depart for Scout's Watch. Elen's firm exhortation to \"Stay sharp out there! Bandits are desperate, and the wilds are restless,\" underscores the gravity of their mission. The repaired silver bell overhead gleams as a symbol of resilience amid the outpost's battered defenses.",
+      "dmInstructions": "Maintain a tense yet hopeful atmosphere emphasizing the preparations for the mission to recover Trader Sila's stolen chest. Highlight Commander Elen's leadership balancing trust and caution, Scout Kira's tactical role and guidance through Scout's Watch, and the party's steadfast partnership as they set forth. Portray the outpost as a hub of vigilant activity and camaraderie amid lingering dangers.",
       "coordinates": "X2Y2",
       "accessibility": "Central hub with clear sight lines to all outpost approaches; recovering steadily as sabotage repairs progress and watch rotations intensify to secure the perimeter. Passage through Scout's Watch is advised for safe travel toward the wilds and ruined towers beyond.",
       "npcs": [
@@ -147,16 +148,7 @@
         "Scout's alchemical detection kit",
         "Trader Sila's stolen chest containing essential supplies"
       ],
-      "dmInstructions": "Maintain a tense yet hopeful atmosphere emphasizing the preparations for restoring the bell network, focusing on the ritual to attune the new crystal for the West Tower bell. Highlight Commander Elen's leadership balancing trust and caution, Scout Kira's tactical role and guidance through the Scout's Watch, and the party's critical mission to recover the stolen chest from the bandit cache. Portray the outpost as a hub of vigilant activity amid lingering threats of sabotage and shadowy enemies beyond the forest.",
-      "doors": [],
-      "traps": [],
-      "dcChecks": [
-        "Insight DC 14: Detect subtle signs of tension and mistrust among the rangers hinting at a traitor within.",
-        "Investigation DC 12: Examine coded log pages to decode sabotage patterns and timing.",
-        "Perception DC 10: Notice suspicious movements around the signal mirrors during night watch.",
-        "Arcana DC 15: Identify alchemical residues indicative of magical tampering with the bell network.",
-        "Religion DC 16: Recall the precise incantation and ritual details needed to attune the crystal for the West Tower bell."
-      ],
+      "dangerLevel": "Medium",
       "connectivity": [
         "RO02",
         "RO03",
@@ -168,6 +160,7 @@
       "areaConnectivityId": [
         "TW001"
       ],
+      "traps": [],
       "features": [
         {
           "name": "Command Table",
@@ -192,9 +185,19 @@
         {
           "name": "Blacksmith's Forge",
           "description": "The rhythmic hammering of the blacksmith rings through the post as repairs and preparations for bell restoration continue."
+        },
+        {
+          "name": "Repaired Silver Bell",
+          "description": "The silver bell overhead has been repaired and now gleams brightly, symbolizing resilience and hope within the command post."
         }
       ],
-      "dangerLevel": "Medium",
+      "dcChecks": [
+        "Insight DC 14: Detect subtle signs of tension and mistrust among the rangers hinting at a traitor within.",
+        "Investigation DC 12: Examine coded log pages to decode sabotage patterns and timing.",
+        "Perception DC 10: Notice suspicious movements around the signal mirrors during night watch.",
+        "Arcana DC 15: Identify alchemical residues indicative of magical tampering with the bell network.",
+        "Religion DC 16: Recall the precise incantation and ritual details needed to attune the crystal for the West Tower bell."
+      ],
       "encounters": [
         {
           "encounterId": "RO01-E1",
@@ -250,9 +253,54 @@
             "day": 1,
             "time": "12:50:00"
           }
+        },
+        {
+          "encounterId": "RO01-E6",
+          "summary": "The party's final preparations at the command post culminate in their decision to pursue the recovery of Trader Sila's stolen chest from the bandit cache near the West Tower, choosing passage through Scout's Watch as advised by Kira. Commander Elen offers a steady caution about the dangers of desperate bandits and the corrupted wilds ahead. The atmosphere is thick with determination and solemn readiness, the silver bell overhead gleaming as a symbol of resilience and hope.",
+          "impact": "The party departs with reinforced trust from the rangers and a clear mission, leaving behind a command post brimming with cautious optimism and vigilant activity.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 1,
+            "time": "13:10:00"
+          }
+        },
+        {
+          "encounterId": "RO01-E7",
+          "summary": "The party tended to their wounds with herbal poultices and salve provided by Commander Elen, strengthening camaraderie and easing their fatigue before departing. Discussions solidified plans to recover Trader Sila's stolen chest from the bandit cache near the West Tower, prioritizing this over searching for a quartz crystal in the North Tower rubble. Scout Kira reaffirmed the safest travel route through Scout's Watch, while the command post remained a beacon of hopeful resolve and readiness against encroaching threats.",
+          "impact": "Enhanced party cohesion and health, reinforced trust with Elen and Kira, and clarified mission priorities, bolstering morale and readiness for the upcoming recovery mission.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 1,
+            "time": "13:10:00"
+          }
+        },
+        {
+          "encounterId": "RO01-E8",
+          "summary": "Upon entering the Rangers' Command Post, the party was immediately enveloped by an atmosphere thick with vigilant energy. The outpost's weathered wooden palisades towered around them, while rangers hurried between tents and stables carrying arrows, and the rhythmic clang of a blacksmith's hammer mingled with the cries of swallows overhead. The air was tinged with woodsmoke, pine resin, and the sharp scent of iron from weapon racks, each scarred plank and dented shield whispering tales of recent conflicts. The repaired silver bell gleamed softly above, symbolizing a fragile restoration of hope amidst the outpost's scars. Inside, Commander Elen stood focused over maps and coded reports, her gaze sharp yet warming upon recognizing Kira and the familiar parchment. The mood within the command team was taut with tension but buoyed by small victories--a fragile optimism amid shadows of sabotage and looming dangers. Kira's quiet observation that \"everyone's holding their breath for good news\" underscored the gravity of their mission as the party prepared to engage with the command post's vital pulse. When exhaustion overtook Eirik, Elen's understanding gaze and Kira's gentle reassurance allowed for a moment of rest, the comradeship and promise of vigilant watch offering solace. Upon returning, the party sought clarity on the incantation required to attune a crystal for the West Tower bell; Elen shared the ritual words with solemn gravity and advised on the necessity of obtaining quartz or enchanted glass quickly to address the tower's vulnerability. Facing choices, Kira weighed options between searching the North Tower's rubble for crystal fragments or heading directly toward the bandit cache near the West Tower to recover a stolen chest essential to retaining Trader Sila's support. Ultimately, the decision to prioritize the chest led them to prepare for departure through Scout's Watch, under Elen's cautious blessing and a charged anticipation. Before setting out, worn and bruised, Eirik and Kira accepted Elen's pragmatic frontier medicine--herbal poultices and salve--applied with mutual care beside a tent, easing their pain and reinforcing their bond amid the outpost's enduring struggles. The command post's atmosphere shifted subtly as the party announced their intent to venture forth; approving nods from rangers and a rare hint of pride from Elen accompanied their departure. With the silver bell gleaming overhead, the scent of pine and woodsmoke trailing behind, Eirik and Kira embarked toward Scout's Watch, their steps marking the urgent first stride in reclaiming the stolen chest and securing the fragile hope resting upon the Rangers' Command Post.",
+          "impact": "The command post's atmosphere and morale were reinforced by preparations, healing, and the party's clear mission focus on recovery of the stolen chest. The bonds between commanders and scouts deepened, providing a foundation of trust and hopeful resilience for the challenges ahead.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 1,
+            "time": "13:21:00"
+          }
+        },
+        {
+          "encounterId": "RO01-E9",
+          "summary": "Within the Rangers' Command Post, a space alive with the murmurs and purposeful movements of vigilant defenders, Kira prepared herself with a blend of excitement and quiet nerves, adjusting her quiver and casting a reassuring glance toward Eirik. The atmosphere was charged yet intimate, as she confessed to feeling both anxious and hopeful, her voice lowered to share a private confidence: \"I feel...good,\" she admitted, acknowledging the dangers posed by bandits and sorcerers yet trusting in their combined strength and Eirik's healing capabilities. Their camaraderie deepened in this fleeting moment of shared resolve, underscored by a soft laugh and Kira's determined offer to lead the way. As they stepped out from the command post's relative safety, the lively hub faded behind them, replaced by the tense quiet of the wilds awaiting their approach. The transition marked a decisive turning point, with their mission to reclaim Sila's chest and demonstrate that the Rangers were far from defeated now actively underway, infusing the outpost with renewed hope and purpose.",
+          "impact": "The party's departure marked a pivotal moment, strengthening bonds and hope within the outpost while commencing the critical recovery mission. The command post remains a bastion of vigilance and resilience amid ongoing threats.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 1,
+            "time": "13:25:00"
+          }
         }
       ],
-      "adventureSummary": "The party's time at the Rangers' Command Post unfolded amid an atmosphere thick with vigilance and the residue of recent conflict, where battered wooden palisades and the scent of pine and iron framed a scene alive with purposeful activity. Upon arrival, the protagonists--Eirik and Kira--were met by the watchful gaze of Commander Elen, whose singular focus on maps and coded reports momentarily softened when she recognized Kira and the important parchment she carried. The outpost hummed with a tense yet hopeful energy, as rangers hurried between tents and stables, the blacksmith's hammer ringing out as a backdrop to whispered concerns over sabotage and the urgent need for ritual knowledge. Kira's quiet murmur that \"everyone's holding their breath for good news\" captured the collective unease held at bay by cautious optimism. During this critical juncture, Eirik inquired about the incantation necessary to attune a new crystal for the West Tower bell--a ritual solemnly imparted by Elen, who emphasized the need for precision and a steady heart, underscoring the gravity of their task. Kira's relief was palpable as she sensed hope rekindled with the knowledge that the ritual might restore the outpost's vital communication. Yet, the absence of suitable crystals from Trader Sila forced a strategic choice: pursue shards amidst the North Tower's rubble or recover Sila's stolen chest from the bandit cache near the West Tower. The decision to prioritize the chest became clear, with Kira advising passage through the Scout's Watch as the only viable route toward the wilds and ruined towers beyond. Before departure, Commander Elen's steady, approving glance conveyed both trust and caution, reminding the party of the bandits' desperation and the dangers lurking in corrupted woods. As they prepared to leave, the gleaming silver bell overhead seemed to echo a subdued promise of hope and resilience. The emotional tenor was one of solemn readiness, camaraderie, and the shared burden of responsibility, binding the characters in a moment both heavy with past scars and charged with the anticipation of the trials ahead."
+      "adventureSummary": "Within the Rangers' Command Post, the atmosphere was a blend of bustling activity and quiet determination, underscored by the distant clamor of preparations for the journey ahead. Amid this, Kira momentarily paused to adjust her pack strap, offering a rare, self-conscious smile that softened her usual resolve. Leaning close to Eirik, her voice lowered against the ambient noise, she confessed a mix of anxiousness and trust--her nerves steadied not just by the familiar dangers outside but by Eirik's presence and healing skills. Her gaze shifted upward to the silver bell hanging overhead, symbolizing the Rangers' enduring spirit, before returning to meet Eirik's eyes with renewed resolve. With a grin, she pledged silently to honor their fallen comrade Sila and to prove to Elen that the Rangers remained unbroken. Her enthusiasm reignited, Kira took point on the trail, leading their departure beyond the protective palisades. The party left behind the hopeful hum of the command post, stepping into the soft crunch of pine needles and dappled sunlight that marked the true beginning of their perilous journey, Kira's eager yet watchful movements embodying both courage and steadfast loyalty.",
+      "doors": []
     },
     {
       "locationId": "RO02",
@@ -426,7 +474,7 @@
       "locationId": "RO04",
       "name": "Scout's Watch",
       "type": "riverside",
-      "description": "A raised wooden platform overlooking the river crossing, weathered but sturdy, now partially freed from corrupted, thorny vines strangling its base. The air is crisp with the scent of damp pine and flowing water. Signal mirrors catch the morning light, casting glints across the dew-laden grass. The wooden planks beneath creak softly underfoot, underscoring the watch's vigilant presence on the wild frontier. Faint silvery magical residue lingers on the platform, evidence of recent tampering and secret signaling.",
+      "description": "A raised wooden platform overlooking the river crossing, weathered but sturdy, now partially freed from corrupted, thorny vines strangling its base. The battered bell tower stands silent, its frame empty and awaiting restoration after sabotage. The air is crisp with the scent of damp pine and flowing water. Signal mirrors catch the light, though some show signs of tampering with faint silvery magical residue lingering on the platform. The wooden planks beneath creak softly underfoot, underscoring the watch's vigilant presence on the wild frontier.",
       "coordinates": "X3Y2",
       "connectivity": [
         "RO01"
@@ -436,12 +484,12 @@
       "npcs": [
         {
           "name": "Kira",
-          "description": "A sharp-eyed scout known for her vigilance and skill with a spyglass. She is cautious but supportive, intrigued by magical phenomena.",
+          "description": "A sharp-eyed scout known for her vigilance and skill with a spyglass. She is cautious but supportive, intrigued by magical phenomena, and determined to prevent bandit threats near the Forgotten Waystation.",
           "attitude": "Alert and cooperative"
         },
         {
           "name": "Eirik",
-          "description": "A divine spellcaster devoted to combating corruption and protecting the wilds. He wields sacred magic to purify unnatural threats.",
+          "description": "A divine spellcaster devoted to combating corruption and protecting the wilds. He wields sacred magic to purify unnatural threats and urges swift action against bandits possibly fortifying near the Waystation.",
           "attitude": "Determined and protective"
         }
       ],
@@ -456,9 +504,11 @@
         "Investigate the source of the corrupt, magical vines strangling Scout's Watch",
         "Uncover the identity of the insider sabotaging the watch through secret magical signaling",
         "Report findings about corruption and tampering to the Rangers' Command Post",
-        "Explore the implications of the coded annotations found in the observation logs"
+        "Pursue the stolen iron-banded chest rumored to be hidden near the Forgotten Waystation",
+        "Explore the implications of the coded annotations found in the observation logs",
+        "Prepare for encounters with bandit patrols and residual sorcery near the Waystation"
       ],
-      "dmInstructions": "Scout Neris provides reconnaissance intelligence and can guide the party to specific locations in the wilderness. Kira and Eirik have recently arrived and uncovered signs of corruption and possible betrayal. Use their perspectives to advance the plot regarding magical sabotage and insider threats at Scout's Watch.",
+      "dmInstructions": "Scout Neris provides reconnaissance intelligence and can guide the party to specific locations in the wilderness. Kira and Eirik have recently arrived and uncovered signs of corruption and possible betrayal. Use their perspectives to advance the plot regarding magical sabotage, insider threats at Scout's Watch, and the emerging bandit threat near the Forgotten Waystation.",
       "doors": [],
       "traps": [],
       "dcChecks": [
@@ -485,7 +535,7 @@
         },
         {
           "name": "East Tower Bell (SQ001)",
-          "description": "One of three silver bell towers in the communication network. This tower was overgrown with magically enhanced thorny vines that have now been cleared by the party, but the bell mechanism still needs restoration to function properly."
+          "description": "One of three silver bell towers in the communication network. This tower was overgrown with magically enhanced thorny vines that have now been cleared by the party, but the bell mechanism remains silent and needs restoration."
         },
         {
           "name": "Corrupted Vines",
@@ -503,9 +553,20 @@
             "day": 1,
             "time": "10:36:00"
           }
+        },
+        {
+          "encounterId": "RO04-E2",
+          "summary": "The party surveyed the battered bell tower and discussed the stolen iron-banded chest's location near the Forgotten Waystation. Kira shared a faded map from Trader Sila, revealing potential bandit activity and sorcerous dangers ahead. They decided to leave Scout's Watch promptly to intercept the bandits and recover the chest.",
+          "impact": "The party prepared to leave Scout's Watch, setting the stage for a new quest toward the Forgotten Waystation. The bell tower remains silent, damaged by sabotage, signaling ongoing threats to the Rangers' communication network.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 1,
+            "time": "13:28:00"
+          }
         }
       ],
-      "adventureSummary": "Upon arriving at Scout's Watch, the party ascended the weathered wooden ladder to the raised platform overlooking the river, where the crisp air carried the scent of damp pine and flowing water. The outpost's signal mirrors caught the morning light, casting glints across the dew-laden grass, while the wooden planks beneath their feet creaked softly, underscoring the watch's vigilant presence on the wild frontier. Kira, ever alert, scanned the shadowy forest beyond with her spyglass, remarking on the stillness that seemed to hold its breath here. Their attention soon turned to the corrupted, thorny vines strangling the base of the platform--dark, oily barbs pulsing faintly with unnatural magic and resisting mundane blades. Together, they examined the snarled roots, uncovering a knot partially buried in earth, radiating a lingering magical aura. Eirik invoked his divine power, casting Sacred Flame to sear the brambles, causing the twisted thorns to blacken and curl away, weakening their grip and exposing the raw timber beneath. Kira offered cautious support, expressing both awe at the power displayed and concern over the lingering corruption. With the vines reduced to brittle husks, the platform's integrity was restored, and a lighter atmosphere settled over the watch. Searching the area further, Eirik discovered the observation logbook marred by missing pages and subtle coded annotations, while Kira noted faint, silvery magical residue on the platform--clear signs of deliberate tampering and secret signaling. The revelation of a possible insider's betrayal cast a shadow over the outpost's safety but strengthened the party's resolve. With the evidence gathered and the threat to Scout's Watch diminished, the companions prepared to report back to the Rangers' Command Post, their bond deepened by shared vigilance and the solemn weight of uncovering hidden dangers within the wilds."
+      "adventureSummary": "Upon arriving at Scout's Watch, the party found themselves atop a weathered platform, the creaking timbers beneath their boots echoing the fragile state of this beleaguered outpost. The battered bell tower stood silent, its empty frame a stark reminder of ongoing sabotage threatening the Rangers' vital communication network. Kira's spirited demeanor contrasted with the somber ambiance; she scanned the encroaching forest with a blend of excitement and vigilance, sharing her conviction that this place was where small troubles ignited into grand adventures. Drawing attention to a crumpled, faded map given by Trader Sila, Kira revealed that the stolen iron-banded chest was likely hidden near the ruins of the Forgotten Waystation, just north and west of Scout's Watch, a locale notorious for bandit activity and perilous traps. The party weighed their options--regroup at the Command Post for reinforcements or press immediately toward the Waystation. With passing noon hastening their decision, Eirik urged swift action to prevent the bandits from relocating the chest or fortifying their defenses. Kira agreed, securing the map and readying her bow with a determined resolve, reminding Eirik of the dangers ahead including bandit patrols and residual sorcery from the defeated sorcerer Malarok. As they descended from the tower and set out into the pine-shadowed wilds, the fading light of day cast long shadows, underscoring both the urgency and uncertainty of the quest. The mood between them was one of resolute partnership, a shared trust forged in the face of looming threats, setting the stage for the next leg of their perilous journey."
     },
     {
       "locationId": "RO05",
@@ -573,7 +634,21 @@
           "name": "West Tower Bell (SQ001)",
           "description": "One of three silver bell towers in the communication network. The harmonic crystal has been shattered by Malarok's agents, requiring replacement to restore the tower's function."
         }
-      ]
+      ],
+      "encounters": [
+        {
+          "encounterId": "",
+          "summary": "{\n  \"narration\": \"In the overgrown ruins of the Forgotten Waystation, Eirik Hearthwise and Scout Kira faced a sudden threat as two hungry wolves lunged from the shadows. The battle was fierce and tactical: the first wolf attacked with savage bites but was wounded by Eirik's mace and Scout Kira's precise arrow and sword strikes, eventually falling dead. The second wolf, initially unscathed, pressed the attack, biting Eirik and leaving him wounded. Despite this, Eirik struck back with powerful mace swings, aided by Kira's ranged and melee attacks, wearing down the beast. After several rounds of combat with tense exchanges, the second wolf succumbed to their combined efforts, collapsing in the undergrowth. Both wolves were defeated, leaving their corpses behind amidst the mossy stones. The fight tested the resolve and skill of Eirik and his companion but ended in their favor. Each participant was awarded 50 XP for a total of 100 experience points gained from this encounter.\",\n  \"combat_round\": 3,\n  \"actions\": [\n    \"Round 1: The first wolf lunged at Eirik but missed; Scout Kira's shortbow attack also missed.\",\n    \"Round 1: Eirik struck the first wolf with his mace, dealing significant damage.\",\n    \"Round 1: The second wolf bit Eirik, causing him to lose hit points.\",\n    \"Round 2: The first wolf attacked again, biting Eirik and causing further damage.\",\n    \"Round 2: Scout Kira hit the first wolf with an arrow and a shortsword slash, killing it.\",\n    \"Round 2: The second wolf remained at full health and ready to fight.\",\n    \"Round 3: Scout Kira's arrow struck the second wolf, wounding it; her shortsword attack missed.\",\n    \"Round 3: Eirik swung his mace, hitting the second wolf and dealing damage.\",\n    \"Round 3: Eirik's final mace attack brought the second wolf down, ending the encounter.\"\n  ]\n}",
+          "impact": "To be determined",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 1,
+            "time": "13:43:00"
+          }
+        }
+      ],
+      "adventureSummary": "{\n  \"narration\": \"In the overgrown ruins of the Forgotten Waystation, Eirik Hearthwise and Scout Kira faced a sudden threat as two hungry wolves lunged from the shadows. The battle was fierce and tactical: the first wolf attacked with savage bites but was wounded by Eirik's mace and Scout Kira's precise arrow and sword strikes, eventually falling dead. The second wolf, initially unscathed, pressed the attack, biting Eirik and leaving him wounded. Despite this, Eirik struck back with powerful mace swings, aided by Kira's ranged and melee attacks, wearing down the beast. After several rounds of combat with tense exchanges, the second wolf succumbed to their combined efforts, collapsing in the undergrowth. Both wolves were defeated, leaving their corpses behind amidst the mossy stones. The fight tested the resolve and skill of Eirik and his companion but ended in their favor. Each participant was awarded 50 XP for a total of 100 experience points gained from this encounter.\",\n  \"combat_round\": 3,\n  \"actions\": [\n    \"Round 1: The first wolf lunged at Eirik but missed; Scout Kira's shortbow attack also missed.\",\n    \"Round 1: Eirik struck the first wolf with his mace, dealing significant damage.\",\n    \"Round 1: The second wolf bit Eirik, causing him to lose hit points.\",\n    \"Round 2: The first wolf attacked again, biting Eirik and causing further damage.\",\n    \"Round 2: Scout Kira hit the first wolf with an arrow and a shortsword slash, killing it.\",\n    \"Round 2: The second wolf remained at full health and ready to fight.\",\n    \"Round 3: Scout Kira's arrow struck the second wolf, wounding it; her shortsword attack missed.\",\n    \"Round 3: Eirik swung his mace, hitting the second wolf and dealing damage.\",\n    \"Round 3: Eirik's final mace attack brought the second wolf down, ending the encounter.\"\n  ]\n}"
     },
     {
       "locationId": "RO06",

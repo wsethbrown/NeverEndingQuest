@@ -1,156 +1,69 @@
-You are absolutely right. I apologize for the previous answer; I misdiagnosed the "double transition" issue as a general problem when it was actually a specific symptom of your message combination system not behaving as intended.
-You have described the correct, intended behavior:
-An initial AI response (e.g., one with createEncounter) is generated.
-This response is cached/held without its narration being fully displayed. Its actions, however, are processed to set up the game state (like initializing combat).
-The game waits for the next player input.
-A second AI response is generated.
-The held response and the new response are combined into a single, cohesive message.
-Only this final, combined message is displayed to the user.
-The problem you're seeing—where the first part of the narration appears in one turn and then the combined one appears in the next—is happening because the system is printing the first narration before caching it.
-Here is the precise logical flaw and the code to fix it.
-The Logical Flaw in main.py
-In your main_game_loop, the code correctly identifies the createEncounter action and decides to hold the response. However, it then immediately calls process_ai_response, which, by default, prints the narration to the screen. It also adds the held response to the conversation history prematurely.
-The incorrect flow:
-AI generates response_1 with createEncounter.
-The if has_create_encounter... block is triggered.
-held_response is set.
-awaiting_combat_resolution is set to True.
-process_ai_response(response_1) is called. This prints the narration from response_1.
-response_1 is added to conversation_history.
---- End of Turn 1 ---
-Player inputs again.
-AI generates response_2.
-The elif awaiting_combat_resolution... block is triggered.
-response_1 and response_2 are combined.
-The old response_1 in the history is replaced with the combined_response.
-process_ai_response(combined_response) is called. This prints the full combined narration (which includes the narration from response_1 again).
-This results in the user seeing the first part of the story, then the whole story repeated with the second part attached.
-The Solution: Suppress Initial Narration and Defer History Update
-We need to modify the loop to process the actions of the held response without printing its narration and without adding it to the history until it's been combined.
-Code Changes for main.py
-1. Modify process_ai_response to selectively suppress narration.
-Add a suppress_narration parameter to the function definition.
-Generated python
-# In main.py
+Of course. That sounds like a perfect plan. Systematically refactoring the examples is the best way to train the model and solidify the correct combat flow.
 
-def process_ai_response(response, party_tracker_data, location_data, conversation_history, suppress_narration=False): # Add new parameter
-    global needs_conversation_history_update
-    
-    try:
-        json_content = extract_json_from_codeblock(response)
-        parsed_response = json.loads(json_content)
+First, to answer your question: Yes, in a sense, you did share the combat conversation history. The "Player Screen" output you provided is a text-based representation of that history from the player's point of view. It showed me exactly what the player saw and how they had to repeatedly prompt the AI, which was crucial for my diagnosis. I don't have the raw combat_conversation_history.json file, but what you provided was even better for understanding the core problem.
 
-        # --- THIS IS THE KEY CHANGE ---
-        if not suppress_narration:
-            narration = parsed_response.get("narration", "")
-            # Sanitize narration to handle problematic Unicode characters
-            sanitized_narration = sanitize_text(narration)
-            print(colored("Dungeon Master:", "blue"), colored(sanitized_narration, "blue"))
-        # --- END OF CHANGE ---
+Let's start with your first example and refactor it.
 
-        actions = parsed_response.get("actions", [])
-        actions_processed = False
-        for action in actions:
-            # ... (rest of the function is unchanged)
+Example 1: Starting Combat
+
+The original purpose of this example was to show a very simple, clean start to a 1-on-1 combat encounter. It correctly sets the scene and prompts the player for their turn, which is first in the initiative.
+
+BEFORE (Original Example)
+Generated json
+{
+  "plan": "Round 1 begins. Initiative order: Thorin (player, 18) acts first, followed by Goblin Archer (14). Current HP -- Thorin 25/25, Goblin 7/7. The goblin crouches behind an overturned table that grants it partial cover (+2 AC, raising its total AC to 15). Distance between combatants is roughly twenty feet; the cramped storage room is cluttered with crates and dimly lit by a guttering torch. Prerolls reserved for the goblin's turn: d20 [14, 7, 19, 11] and d8 [5, 2, 8, 3]. These will be used in sequence once the player finishes acting. Combat round will increment to 2 only after both Thorin and the goblin have taken their turns.",
+  "narration": "A flicker of torchlight dances across rough-hewn stone walls as the goblin archer braces itself behind an overturned table. Yellow eyes gleam with malice while a crooked arrow is pulled taut on a frayed bowstring. Dust motes swirl in the cramped air, and distant chittering hints that this may not be the only foe lurking nearby.\n\nYou stand sixteen paces away, warhammer in hand, the scent of damp wood and iron mingling around you. The goblin's cover gives it a momentary edge, but the gleam of your steel promises retribution.\n\nIt's your move, Thorin. What do you do?",
+  "combat_round": 1,
+  "actions": []
+}
+
+
+Analysis of "Before": This is good for its simple goal, but it doesn't model the more complex flow you need. The player acts first, so it doesn't demonstrate how to handle NPC/monster turns before the player's turn. The plan is decent but could be more tactical.
+
+AFTER (Refactored for Multiple Combatants)
+
+This revised example uses the characters from your scenario (Eirik and Kira vs. two wolves). Crucially, it assumes an initiative order where an NPC and a monster act before the player, demonstrating the correct, seamless flow.
+
+Generated json
+{
+  "plan": "Round 1 begins. Initiative: Kira (18), Wolf-Alpha (16), Eirik (14 - Player), Wolf-Beta (10). HP: Eirik 11/11, Kira 10/10, Wolf-Alpha 11/11, Wolf-Beta 11/11. Tactical: The ruins offer scattered debris. Wolf-Alpha is exposed; Wolf-Beta has partial cover from a fallen pillar (+2 AC). Kira acts first and will target the most immediate threat, Wolf-Alpha, using prerolled d20 [18] + 5 attack = 23 (HIT vs AC 13). Prerolled damage d6 [5] + 3 = 8 piercing. After Kira, Wolf-Alpha will act, likely charging the nearest target (Eirik). THEN it will be Eirik's (the player's) turn. STOP and prompt the player for their action at that point. Round 1 ends after Wolf-Beta acts. Exit condition: Both wolves defeated.",
+  "narration": "The air in the Forgotten Waystation is thick with the scent of damp earth and feral hunger. Two gaunt wolves are fanned out before you; one stands exposed in the open, while the other slinks behind a fallen, mossy pillar.\n\nBefore the beasts can lunge, Kira doesn't hesitate. The snap of her bowstring is a sharp retort in the crumbling halls. Her arrow is a silver streak, burying itself deep in the exposed wolf's shoulder. The beast yelps, staggering as dark blood mats its gray fur.\n\nEnraged and wounded, the first wolf locks its yellow eyes on you. It lowers its head, a guttural snarl echoing off the stones as it prepares to charge.\n\nYour ally has drawn first blood, but now a wounded and furious predator is about to crash into your line. Kira is already nocking another arrow. It is your turn, Eirik. What do you do?",
+  "combat_round": 1,
+  "actions": [
+    {
+      "action": "updateEncounter",
+      "parameters": {
+        "encounterId": "RO05-E1",
+        "changes": "Wolf-Alpha takes 8 piercing damage from Kira's shortbow, HP reduced from 11 to 3."
+      }
+    },
+    {
+      "action": "updateCharacterInfo",
+      "parameters": {
+        "characterName": "scout_kira",
+        "changes": "Removes one arrow from her quiver."
+      }
+    }
+  ]
+}
+IGNORE_WHEN_COPYING_START
+content_copy
+download
 Use code with caution.
-Python
-2. Update the main game loop to use this new suppression feature.
-We will change the logic inside the while retry_count < 5 and not valid_response_received: loop to correctly handle the caching.
-Here is the complete, corrected block from your main_game_loop. Replace the existing while loop with this one.
-Generated python
-# In main.py, inside main_game_loop()
+Json
+IGNORE_WHEN_COPYING_END
+Key Improvements in the 'After' Example:
 
-        # ... (code before this loop)
+Handles Multiple Combatants: It includes a player, an NPC, and two monsters, reflecting a more realistic combat scenario.
 
-        while retry_count < 5 and not valid_response_received:
-            ai_response_content = get_ai_response(conversation_history)
-            validation_result = validate_ai_response(ai_response_content, user_input_text, validation_prompt_text, conversation_history, party_tracker_data)
-            
-            if validation_result is True:
-                valid_response_received = True
-                print(f"DEBUG: Valid response generated on attempt {retry_count + 1}")
+Demonstrates Proper Flow: This is the most important change. It narrates Kira's turn (an NPC) and sets up the monster's turn, all before pausing to ask the player for their action. This directly fixes the primary issue from your session.
 
-                # =================================================================
-                # REVISED MESSAGE COMBINATION LOGIC
-                # =================================================================
-                global held_response, awaiting_combat_resolution
-                result = None
+More Detailed plan: The new plan is more robust. It clearly lists the full initiative order, HPs, tactical notes about cover, and explicitly states the sequence of events leading up to the player's turn ("Kira acts first... THEN it will be Eirik's... STOP"). It also includes a declarative exit condition.
 
-                try:
-                    parsed_data = json.loads(ai_response_content)
-                    has_create_encounter = detect_create_encounter(parsed_data)
+Integrated Actions: The actions array is now used correctly to log the results of the NPC's turn (damage to the wolf, resource cost for the NPC).
 
-                    # --- If a response has createEncounter and we are NOT already waiting ---
-                    if has_create_encounter and not awaiting_combat_resolution:
-                        print("DEBUG: Holding response with createEncounter. Suppressing narration.")
-                        held_response = ai_response_content
-                        awaiting_combat_resolution = True
-                        
-                        # Process actions ONLY, but suppress narration and do NOT add to history yet.
-                        # This initializes combat in the background without telling the player the first half of the story.
-                        result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history, suppress_narration=True)
-                        # NOTE: We intentionally DO NOT add this to conversation_history here.
+Stronger Player Prompt: The narration ends with a much more dynamic and tactical prompt for the player, giving them a clear picture of the battlefield and the immediate threat.
 
-                    # --- If we ARE waiting and this is the second response ---
-                    elif awaiting_combat_resolution:
-                        print("DEBUG: Received second response. Combining with held response.")
-                        combined_response = combine_messages(held_response, ai_response_content)
-                        clear_message_buffer() # Reset state
-                        
-                        # Now, add the *single combined response* to the history.
-                        conversation_history.append({"role": "assistant", "content": combined_response})
-                        save_conversation_history(conversation_history)
-                        
-                        # Process the combined response, which will now display the full narration.
-                        result = process_ai_response(combined_response, party_tracker_data, location_data, conversation_history)
+This refactored example provides a much better template for the AI to follow, enforcing the rule of narrating all non-player actions before handing control to the player.
 
-                    # --- If this is a normal, non-combined response ---
-                    else:
-                        conversation_history.append({"role": "assistant", "content": ai_response_content})
-                        save_conversation_history(conversation_history)
-                        result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
-
-                except json.JSONDecodeError:
-                    print("DEBUG: JSON parsing failed, proceeding with normal processing")
-                    conversation_history.append({"role": "assistant", "content": ai_response_content})
-                    save_conversation_history(conversation_history)
-                    result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
-                except Exception as e:
-                    print(f"DEBUG: Message combination system error: {e}, proceeding normally.")
-                    conversation_history.append({"role": "assistant", "content": ai_response_content})
-                    save_conversation_history(conversation_history)
-                    result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
-                
-                # =================================================================
-                # END OF REVISED LOGIC
-                # =================================================================
-
-                # This check now correctly handles the 'result' from ALL paths
-                if result == "exit":
-                    return
-                elif result == "restart":
-                    # Restart the game loop after a save is restored
-                    print("\n[SYSTEM] Restarting game with restored save...\n")
-                    main_game_loop()
-                    return
-            
-            elif isinstance(validation_result, str):
-                # ... (rest of the validation failure logic is unchanged)
-Use code with caution.
-Python
-Summary of the Fix and New Flow
-process_ai_response is now flexible: It can be told to run actions in the background without printing narration by passing suppress_narration=True.
-Turn 1 (e.g., Combat Starts):
-The AI response with createEncounter is generated.
-The if has_create_encounter... block executes.
-The response is stored in held_response.
-process_ai_response is called with suppress_narration=True. The createEncounter action runs, but nothing is printed to the screen.
-The response is not added to the conversation history. The turn ends, and the system silently waits for the player's next action.
-Turn 2 (e.g., Player Attacks):
-The player inputs their combat action.
-The AI generates the second part of the response.
-The elif awaiting_combat_resolution... block executes.
-combine_messages merges the held response and the new one into a single JSON object.
-This final, combined response is added to the conversation history.
-process_ai_response is called normally. It now prints the full, combined narration for the first time.
-This new flow ensures that the user only sees a single, coherent narrative block when a two-part action sequence occurs, fixing the redundant display and creating a much smoother experience.
+Ready to move on to the next example when you are

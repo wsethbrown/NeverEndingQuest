@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 7,
+  "hitPoints": 4,
   "maxHitPoints": 11,
   "armorClass": 16,
   "initiative": 1,
@@ -217,13 +217,6 @@
       "quantity": 1
     },
     {
-      "item_name": "Vial of silvery ointment",
-      "item_type": "consumable",
-      "item_subtype": "potion",
-      "description": "Ointment that provides protection against magical thorns when applied.",
-      "quantity": 1
-    },
-    {
       "item_name": "Flask of Alchemist's Fire",
       "item_type": "consumable",
       "item_subtype": "potion",
@@ -232,7 +225,7 @@
     },
     {
       "item_name": "Pouch of Powdered Silver",
-      "item_type": "equipment",
+      "item_type": "consumable",
       "item_subtype": "other",
       "description": "A pouch containing powdered silver, useful against magical thorns and certain creatures.",
       "quantity": 1
@@ -245,7 +238,7 @@
     },
     {
       "item_name": "Pouch of Silver Coins",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A small pouch containing 15 silver coins recovered from bandits and found at the tower.",
       "quantity": 1
     },
@@ -263,13 +256,13 @@
     },
     {
       "item_name": "Stub of Black Wax",
-      "item_type": "miscellaneous",
+      "item_type": "consumable",
       "description": "A small, battered stub of black wax found near the sabotage site.",
       "quantity": 1
     },
     {
       "item_name": "Ragged Red Cloth",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A piece of ragged red cloth that appears to be evidence of sabotage.",
       "quantity": 1
     }
@@ -389,7 +382,7 @@
     "silver": 0,
     "copper": 0
   },
-  "experience_points": 50,
+  "experience_points": 100,
   "exp_required_for_next_level": 300,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit.",

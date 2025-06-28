@@ -1065,7 +1065,7 @@ Initiative Order: {initiative_order}
 
 {preroll_text}
 
-Player: The combat begins. Describe the scene and the enemies we face."""
+Player: The setup scene for the combat has already been given and described to the party. Now, describe the combat situation and the enemies the party faces."""
 
    conversation_history.append({"role": "user", "content": initial_prompt})
    save_json_file(conversation_history_file, conversation_history)

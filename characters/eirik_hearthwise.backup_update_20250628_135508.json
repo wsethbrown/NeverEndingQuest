@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 7,
+  "hitPoints": 4,
   "maxHitPoints": 11,
   "armorClass": 16,
   "initiative": 1,
@@ -217,13 +217,6 @@
       "quantity": 1
     },
     {
-      "item_name": "Vial of silvery ointment",
-      "item_type": "consumable",
-      "item_subtype": "potion",
-      "description": "Ointment that provides protection against magical thorns when applied.",
-      "quantity": 1
-    },
-    {
       "item_name": "Flask of Alchemist's Fire",
       "item_type": "consumable",
       "item_subtype": "potion",
@@ -232,21 +225,21 @@
     },
     {
       "item_name": "Pouch of Powdered Silver",
-      "item_type": "equipment",
+      "item_type": "consumable",
       "item_subtype": "other",
       "description": "A pouch containing powdered silver, useful against magical thorns and certain creatures.",
       "quantity": 1
     },
     {
       "item_name": "Missing Silver Bell Clapper",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A critical piece of the North Tower bell, missing and recovered from bandits.",
       "quantity": 1
     },
     {
       "item_name": "Pouch of Silver Coins",
       "item_type": "equipment",
-      "description": "A small pouch containing 10 silver coins recovered from bandits.",
+      "description": "A small pouch containing 15 silver coins recovered from bandits and found at the tower.",
       "quantity": 1
     },
     {
@@ -259,6 +252,18 @@
       "item_name": "Climbing Rope",
       "item_type": "equipment",
       "description": "A coil of sturdy climbing rope taken from the bandits.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Stub of Black Wax",
+      "item_type": "miscellaneous",
+      "description": "A small, battered stub of black wax found near the sabotage site.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ragged Red Cloth",
+      "item_type": "miscellaneous",
+      "description": "A piece of ragged red cloth that appears to be evidence of sabotage.",
       "quantity": 1
     }
   ],
@@ -373,7 +378,7 @@
     ]
   },
   "currency": {
-    "gold": 10,
+    "gold": 9,
     "silver": 0,
     "copper": 0
   },
