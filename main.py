@@ -226,9 +226,10 @@ def combine_messages(first_response, second_response):
 
 def clear_message_buffer():
     """Reset the message buffering state"""
-    global held_response, awaiting_combat_resolution
+    global held_response, awaiting_combat_resolution, awaiting_location_transition
     held_response = None
     awaiting_combat_resolution = False
+    awaiting_location_transition = False
 
 def get_npc_stat(npc_name, stat_name, time_estimate):
     print(f"DEBUG: get_npc_stat called for {npc_name}, stat: {stat_name}")
@@ -888,8 +889,7 @@ Write a compelling chronicle of these actual events:"""
                         {"role": "system", "content": "You are an expert at creating beautiful adventure chronicles from D&D gameplay, focusing only on events that actually occurred."},
                         {"role": "user", "content": summary_prompt}
                     ],
-                    temperature=0.7,
-                    max_tokens=2000
+                    temperature=0.7
                 )
                 
                 ai_summary = response.choices[0].message.content.strip()
@@ -990,6 +990,8 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             # Sanitize narration to handle problematic Unicode characters
             sanitized_narration = sanitize_text(narration)
             print(colored("Dungeon Master:", "blue"), colored(sanitized_narration, "blue"))
+        else:
+            print("DEBUG: Narration suppressed in process_ai_response")
         # --- END OF CHANGE ---
 
         actions = parsed_response.get("actions", [])
@@ -1716,10 +1718,17 @@ Make this transition feel like a movie scene change, not just a location descrip
 
         while retry_count < 5 and not valid_response_received:
             ai_response_content = get_ai_response(conversation_history)
+            print(f"DEBUG: Got AI response for user input: {user_input_text[:100]}...")
+            print(f"DEBUG: AI response preview: {ai_response_content[:200]}...")
             validation_result = validate_ai_response(ai_response_content, user_input_text, validation_prompt_text, conversation_history, party_tracker_data)
             if validation_result is True:
                 valid_response_received = True
                 print(f"DEBUG: Valid response generated on attempt {retry_count + 1}")
+                print(f"DEBUG: AI response content: {ai_response_content[:500]}...")
+                
+                # Check if this response contains transitionLocation before parsing
+                if "transitionLocation" in ai_response_content:
+                    print("DEBUG: Response contains transitionLocation action (string check)")
                 
                 # =================================================================
                 # REVISED MESSAGE COMBINATION LOGIC
@@ -1731,12 +1740,24 @@ Make this transition feel like a movie scene change, not just a location descrip
                     parsed_data = json.loads(ai_response_content)
                     has_create_encounter = detect_create_encounter(parsed_data)
                     has_transition_location = detect_transition_location(parsed_data)
+                    
+                    # Debug output to see what actions are in the response
+                    if "actions" in parsed_data:
+                        action_types = [action.get("action") for action in parsed_data.get("actions", []) if isinstance(action, dict)]
+                        print(f"DEBUG: Actions in response: {action_types}")
+                        print(f"DEBUG: has_transition_location = {has_transition_location}")
+                        print(f"DEBUG: awaiting_location_transition = {awaiting_location_transition}")
+                        print(f"DEBUG: awaiting_combat_resolution = {awaiting_combat_resolution}")
+                    
+                    # Track if we're holding this response
+                    response_held = False
 
                     # --- If a response has createEncounter and we are NOT already waiting ---
                     if has_create_encounter and not awaiting_combat_resolution:
                         print("DEBUG: Holding response with createEncounter. Suppressing narration.")
                         held_response = ai_response_content
                         awaiting_combat_resolution = True
+                        response_held = True
                         
                         # Process actions ONLY, but suppress narration and do NOT add to history yet.
                         # This initializes combat in the background without telling the player the first half of the story.
@@ -1745,14 +1766,20 @@ Make this transition feel like a movie scene change, not just a location descrip
 
                     # --- If a response has transitionLocation and we are NOT already waiting ---
                     elif has_transition_location and not awaiting_location_transition:
-                        print("DEBUG: Holding response with transitionLocation. Suppressing narration.")
+                        print("DEBUG: Holding response with transitionLocation. Suppressing narration AND actions.")
+                        print(f"DEBUG: Held response preview: {ai_response_content[:200]}...")
                         held_response = ai_response_content
                         awaiting_location_transition = True
+                        response_held = True
                         
-                        # Process actions ONLY, but suppress narration and do NOT add to history yet.
-                        # This processes the location transition in the background without showing narration.
-                        result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history, suppress_narration=True)
-                        # NOTE: We intentionally DO NOT add this to conversation_history here.
+                        # CRITICAL FIX: Do NOT process the transitionLocation action yet!
+                        # Unlike combat encounters which need initialization, location transitions
+                        # should wait for the user's next input (confirmation).
+                        # We only hold the response, we don't execute it.
+                        print("DEBUG: Location transition action held - NOT executing yet")
+                        
+                        # CRITICAL: We must skip the normal processing
+                        print("DEBUG: Skipping normal processing for held transition response")
 
                     # --- If we ARE waiting for combat and this is the second response ---
                     elif awaiting_combat_resolution:
@@ -1782,9 +1809,13 @@ Make this transition feel like a movie scene change, not just a location descrip
 
                     # --- If this is a normal, non-combined response ---
                     else:
-                        conversation_history.append({"role": "assistant", "content": ai_response_content})
-                        save_conversation_history(conversation_history)
-                        result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+                        # Only process normally if we didn't hold the response
+                        if not response_held:
+                            conversation_history.append({"role": "assistant", "content": ai_response_content})
+                            save_conversation_history(conversation_history)
+                            result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+                        else:
+                            print("DEBUG: Response was held, skipping normal processing")
 
                 except json.JSONDecodeError:
                     print("DEBUG: JSON parsing failed, proceeding with normal processing")
