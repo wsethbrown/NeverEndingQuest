@@ -1,13 +1,13 @@
 # ============================================================================
 # MAIN.PY - GAME LOOP CONTROLLER
 # ============================================================================
-# 
+#
 # ARCHITECTURE ROLE: Primary Controller in MVC Pattern
-# 
+#
 # This is the central orchestrator of the 5th edition Dungeon Master system, implementing
 # the main game loop and coordinating all subsystems. It follows the Command Pattern
 # where every game interaction is processed as a discrete action.
-# 
+#
 # KEY RESPONSIBILITIES:
 # - Game session management and main loop execution
 # - Action parsing and routing to appropriate handlers
@@ -17,25 +17,25 @@
 # - Real-time user feedback and status reporting
 # - DM Note generation for authoritative current game state
 # - AI-powered NPC validation system coordination
-# 
+#
 # DM NOTE DESIGN PHILOSOPHY:
 # - AUTHORITATIVE SOURCE: DM Note contains current, dynamic game state
 # - REAL-TIME DATA: Always reflects most up-to-date character information
 # - AI CLARITY: Single source of truth prevents conflicting information
 # - DYNAMIC FOCUS: HP, spell slots, conditions, and active effects
-# 
+#
 # DM NOTE CONTENT STRATEGY:
 # Generated content includes:
 #   - Current party status (HP, level, XP, spell slots)
 #   - Active location and environmental conditions
 #   - Time, date, and world state information
 #   - Dynamic character states (not static reference data)
-# 
+#
 # INFORMATION ARCHITECTURE:
 # - DM NOTES: Current state, real-time data, authoritative information
 # - SYSTEM MESSAGES: Static character reference (conversation_utils.py)
 # - SEPARATION PRINCIPLE: Prevents AI confusion from version conflicts
-# 
+#
 # ARCHITECTURAL INTEGRATION:
 # - Coordinates with dm_wrapper.py for AI interactions
 # - Uses action_handler.py for command processing
@@ -44,10 +44,10 @@
 # - Integrates with ModulePathManager for file operations
 # - Provides dynamic data to conversation_utils.py for context management
 # - Leverages npc_codex_generator.py for AI-powered character validation
-# 
+#
 # DATA FLOW:
 # User Input -> Action Processing -> AI Response -> NPC Codex Validation -> State Update -> DM Note Refresh
-# 
+#
 # This file embodies our "AI-First Design with Human Safety Nets" principle
 # by combining powerful AI capabilities with rigorous validation layers and
 # clear information architecture that prevents AI confusion.
@@ -130,7 +130,6 @@ needs_conversation_history_update = False
 # Message combination system state variables
 held_response = None
 awaiting_combat_resolution = False
-awaiting_location_transition = False
 
 # Status display configuration
 current_status_line = None
@@ -168,6 +167,67 @@ def exit_game():
     print("Fond farewell until we meet again!")
     exit()
 
+def generate_arrival_narration(departure_narration, party_tracker_data, conversation_history):
+    """
+    Takes the departure narration and generates a seamless arrival narration.
+    """
+    print("DEBUG: Generating cinematic arrival narration...")
+    
+    # Get details for the new location from the (now updated) party tracker
+    new_location_name = party_tracker_data["worldConditions"]["currentLocation"]
+    new_area_name = party_tracker_data["worldConditions"]["currentArea"]
+
+    # Construct the special prompt
+    arrival_prompt = f"""
+    You are a master storyteller. The following text describes the party's departure from one location. Your task is to write a seamless, cinematic, and immersive description of their arrival at their destination, "{new_location_name}" in the "{new_area_name}" area.
+
+    The arrival narration should:
+    1.  Feel like a direct continuation of the departure text.
+    2.  Focus on sensory details (sights, sounds, smells) of the new location.
+    3.  Set the mood and atmosphere of the new environment.
+    4.  Incorporate the reactions or immediate impressions of the player characters and NPCs.
+    5.  Do not repeat any information from the departure text. Just write the arrival part.
+
+    DEPARTURE NARRATION (for context):
+    ---
+    {departure_narration}
+    ---
+
+    Now, write the arrival narration.
+    """
+    
+    # We can also add the most recent non-system messages for better context
+    recent_context = [msg for msg in conversation_history if msg.get("role") != "system"][-5:]
+
+    narration_request_messages = [
+        {"role": "system", "content": "You are a master storyteller specializing in immersive, cinematic narrations."},
+        *recent_context,
+        {"role": "user", "content": arrival_prompt}
+    ]
+
+    try:
+        response = client.chat.completions.create(
+            model=DM_MAIN_MODEL,  # Use the main model for high-quality narration
+            temperature=TEMPERATURE,
+            messages=narration_request_messages
+        )
+        arrival_text = response.choices[0].message.content.strip()
+        
+        # Sometimes the AI will still wrap its response in a JSON object. We need to handle that.
+        try:
+            parsed_json = json.loads(arrival_text)
+            arrival_text = parsed_json.get("narration", arrival_text)
+        except json.JSONDecodeError:
+            # It's just plain text, which is what we want.
+            pass
+
+        print("DEBUG: Arrival narration generated successfully.")
+        return sanitize_text(arrival_text)
+    except Exception as e:
+        print(f"ERROR: Failed to generate arrival narration: {e}")
+        return f"(The journey to {new_location_name} is uneventful.)" # Fallback text
+
+
 # Message combination system helper functions
 def detect_create_encounter(parsed_data):
     """Check if the parsed response contains a createEncounter action"""
@@ -177,17 +237,6 @@ def detect_create_encounter(parsed_data):
     actions = parsed_data.get("actions", [])
     for action in actions:
         if isinstance(action, dict) and action.get("action") == "createEncounter":
-            return True
-    return False
-
-def detect_transition_location(parsed_data):
-    """Check if the parsed response contains a transitionLocation action"""
-    if not isinstance(parsed_data, dict) or "actions" not in parsed_data:
-        return False
-    
-    actions = parsed_data.get("actions", [])
-    for action in actions:
-        if isinstance(action, dict) and action.get("action") == "transitionLocation":
             return True
     return False
 
@@ -201,7 +250,7 @@ def combine_messages(first_response, second_response):
         # Combine narrations
         first_narration = first_data.get("narration", "")
         second_narration = second_data.get("narration", "")
-        combined_narration = first_narration + "\\n\\n" + second_narration
+        combined_narration = f"{first_narration}\n\n{second_narration}"
         
         # Combine actions
         first_actions = first_data.get("actions", [])
@@ -226,10 +275,9 @@ def combine_messages(first_response, second_response):
 
 def clear_message_buffer():
     """Reset the message buffering state"""
-    global held_response, awaiting_combat_resolution, awaiting_location_transition
+    global held_response, awaiting_combat_resolution
     held_response = None
     awaiting_combat_resolution = False
-    awaiting_location_transition = False
 
 def get_npc_stat(npc_name, stat_name, time_estimate):
     print(f"DEBUG: get_npc_stat called for {npc_name}, stat: {stat_name}")
@@ -613,7 +661,7 @@ def check_and_process_location_transitions(conversation_history, party_tracker_d
     # Check if this transition has already been processed (has a summary right before it)
     if last_transition_index > 0:
         prev_msg = conversation_history[last_transition_index - 1]
-        if prev_msg.get("role") == "assistant" and "=== LOCATION SUMMARY ===" in prev_msg.get("content", ""):
+        if "=== LOCATION SUMMARY ===" in prev_msg.get("content", ""):
             # This transition has already been processed
             return conversation_history
     
@@ -977,62 +1025,90 @@ def extract_json_from_codeblock(text):
         return match.group(1)
     return text
 
-def process_ai_response(response, party_tracker_data, location_data, conversation_history, suppress_narration=False):
+def process_ai_response(response, party_tracker_data, location_data, conversation_history):
     global needs_conversation_history_update
     
     try:
         json_content = extract_json_from_codeblock(response)
         parsed_response = json.loads(json_content)
+        
+        # --- NEW TRANSITION LOGIC ---
+        is_transition = False
+        departure_narration = ""
+        # Check if the response contains a transition action
+        for action in parsed_response.get("actions", []):
+            if action.get("action") == "transitionLocation":
+                is_transition = True
+                departure_narration = parsed_response.get("narration", "")
+                break
+        
+        # If it's a transition, handle it with the special two-step process
+        if is_transition:
+            print("DEBUG: Transition action detected. Holding departure narration.")
+            
+            # Step 1: Process actions to update state (summary, party_tracker, etc.)
+            for action in parsed_response.get("actions", []):
+                action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
+            
+            # Step 2: Reload the state to get the NEW location context
+            fresh_party_data = load_json_file("party_tracker.json")
+            fresh_conversation_history = load_json_file(json_file) or []
+            
+            # Step 3: Generate the arrival narration using the new helper function
+            arrival_narration = generate_arrival_narration(departure_narration, fresh_party_data, fresh_conversation_history)
+            
+            # Step 4: Combine and display the full narration
+            full_narration = f"{departure_narration}\n\n{arrival_narration}"
+            print(colored("Dungeon Master:", "blue"), colored(full_narration, "blue"))
 
-        # --- THIS IS THE KEY CHANGE ---
-        if not suppress_narration:
-            narration = parsed_response.get("narration", "")
-            # Sanitize narration to handle problematic Unicode characters
-            sanitized_narration = sanitize_text(narration)
-            print(colored("Dungeon Master:", "blue"), colored(sanitized_narration, "blue"))
-        else:
-            print("DEBUG: Narration suppressed in process_ai_response")
-        # --- END OF CHANGE ---
+            # Step 5: Add the final combined narration to history as a single, clean message.
+            # This replaces the original departure-only message.
+            # Find the original assistant message and replace its content.
+            for i in range(len(conversation_history) - 1, -1, -1):
+                if conversation_history[i].get("role") == "assistant":
+                    # Update the content to be the final, combined narration.
+                    # We store it in the same JSON format for consistency.
+                    conversation_history[i]['content'] = json.dumps({"narration": full_narration, "actions": []})
+                    print("DEBUG: Replaced last assistant message with combined transition narration.")
+                    break
+            
+            save_conversation_history(conversation_history)
+            
+            needs_conversation_history_update = True
+            return {"role": "assistant", "content": json.dumps({"narration": full_narration, "actions": []})}
+        
+        # --- END NEW TRANSITION LOGIC ---
+
+        # If not a transition, proceed with normal processing
+        narration = parsed_response.get("narration", "")
+        sanitized_narration = sanitize_text(narration)
+        print(colored("Dungeon Master:", "blue"), colored(sanitized_narration, "blue"))
 
         actions = parsed_response.get("actions", [])
         actions_processed = False
         for action in actions:
-            # Call action_handler to process each action
             result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
             actions_processed = True
             
-            # Handle new dictionary return format
             if isinstance(result, dict):
-                if result.get("status") == "exit":
-                    return "exit"
-                if result.get("status") == "restart":
-                    # Save game was restored, restart the game
-                    print("\n[SYSTEM] Save game restored. Restarting game session...")
-                    return "restart"
-                if result.get("needs_update"):
-                    needs_conversation_history_update = True
-                if result.get("status") == "needs_response":
-                    # Get a new AI response
-                    new_response = get_ai_response(conversation_history)
-                    process_ai_response(new_response, party_tracker_data, location_data, conversation_history)
-            # Backward compatibility for old return types (can be removed later)
-            elif result == "exit":
-                return "exit"
-            elif isinstance(result, bool) and result:
-                needs_conversation_history_update = True
+                if result.get("status") == "exit": return "exit"
+                if result.get("status") == "restart": return "restart"
+                if result.get("needs_update"): needs_conversation_history_update = True
+            elif result == "exit": return "exit"
+            elif isinstance(result, bool) and result: needs_conversation_history_update = True
 
-        # Reload party tracker data if any actions were processed
         if actions_processed:
             party_tracker_data = load_json_file("party_tracker.json")
 
         return {"role": "assistant", "content": response}
+
     except json.JSONDecodeError as e:
         print(f"Error: Unable to parse AI response as JSON: {e}")
         print(f"Problematic response: {response}")
-        # Sanitize response before printing in case of JSON parsing errors
         sanitized_response = sanitize_text(response)
-        print(colored("Dungeon Master:", "blue"), colored(sanitized_response, "blue")) # Print raw response if JSON fails but it was a narration
-        return {"role": "assistant", "content": response} # Return raw if parsing fails
+        print(colored("Dungeon Master:", "blue"), colored(sanitized_response, "blue"))
+        return {"role": "assistant", "content": response}
+
 
 def save_conversation_history(history):
     try:
@@ -1328,13 +1404,13 @@ def main_game_loop():
             save_conversation_history(conversation_history)
             needs_conversation_history_update = False
 
-        # Check for and process any location transitions
+        # Your essential cleanup script remains here, running every cycle.
         conversation_history = check_and_process_location_transitions(conversation_history, party_tracker_data, path_manager)
         save_conversation_history(conversation_history)
         
-        # Check for and process any module transitions
         conversation_history = check_and_process_module_transitions(conversation_history, party_tracker_data)
         save_conversation_history(conversation_history)
+
 
         # Set status to ready before accepting input
         status_ready()
@@ -1368,46 +1444,7 @@ def main_game_loop():
         else:
             # Reset counter on valid input
             empty_input_count = 0
-
-        # Check if the last message was a location transition and auto-inject cinematic prompt
-        if (len(conversation_history) > 0 and 
-            conversation_history[-1].get("role") == "user" and 
-            "Location transition:" in conversation_history[-1].get("content", "")):
-            
-            print("DEBUG: Detected recent location transition, injecting cinematic transition prompt")
-            
-            # Extract destination location for context
-            last_transition = conversation_history[-1].get("content", "")
-            destination_location = "the new location"
-            try:
-                import re
-                # Try to extract destination with ID (new format)
-                id_pattern = r'Location transition: .+? \([A-Z]\d+\) to (.+?) \(([A-Z]\d+)\)'
-                id_match = re.match(id_pattern, last_transition)
-                if id_match:
-                    destination_location = id_match.group(1)
-                else:
-                    # Fall back to old format
-                    parts = last_transition.split(" to ")
-                    if len(parts) == 2:
-                        destination_location = parts[1].strip()
-            except Exception as e:
-                print(f"DEBUG: Could not extract destination location: {e}")
-            
-            # Auto-inject cinematic transition prompt
-            cinematic_prompt = f"""The party has just transitioned to {destination_location}. Using the full conversation history and current location context, provide a rich, cinematic description of arriving at this new location. Focus on:
-
-- Sensory details (sights, sounds, smells, textures)
-- Emotional transition and atmosphere from the previous scene
-- Environmental mood that matches the story tone
-- Smooth narrative flow that connects to the previous location
-- Character reactions and immediate impressions
-- Any notable features or details that set the scene
-
-Make this transition feel like a movie scene change, not just a location description. Create an immersive, atmospheric arrival that draws the player into the new environment."""
-
-            user_input_text = cinematic_prompt
-
+        
         party_tracker_data = load_json_file("party_tracker.json") 
 
         party_members_stats = []
@@ -1714,158 +1751,40 @@ Make this transition feel like a movie scene change, not just a location descrip
 
         retry_count = 0
         valid_response_received = False 
-        ai_response_content = None 
-
+        ai_response_content = None
+        
         while retry_count < 5 and not valid_response_received:
             ai_response_content = get_ai_response(conversation_history)
-            print(f"DEBUG: Got AI response for user input: {user_input_text[:100]}...")
-            print(f"DEBUG: AI response preview: {ai_response_content[:200]}...")
             validation_result = validate_ai_response(ai_response_content, user_input_text, validation_prompt_text, conversation_history, party_tracker_data)
+            
             if validation_result is True:
                 valid_response_received = True
                 print(f"DEBUG: Valid response generated on attempt {retry_count + 1}")
-                print(f"DEBUG: AI response content: {ai_response_content[:500]}...")
+                conversation_history.append({"role": "assistant", "content": ai_response_content})
+                save_conversation_history(conversation_history)
+                result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
                 
-                # Check if this response contains transitionLocation before parsing
-                if "transitionLocation" in ai_response_content:
-                    print("DEBUG: Response contains transitionLocation action (string check)")
-                
-                # =================================================================
-                # REVISED MESSAGE COMBINATION LOGIC
-                # =================================================================
-                global held_response, awaiting_combat_resolution, awaiting_location_transition
-                result = None
-
-                try:
-                    parsed_data = json.loads(ai_response_content)
-                    has_create_encounter = detect_create_encounter(parsed_data)
-                    has_transition_location = detect_transition_location(parsed_data)
-                    
-                    # Debug output to see what actions are in the response
-                    if "actions" in parsed_data:
-                        action_types = [action.get("action") for action in parsed_data.get("actions", []) if isinstance(action, dict)]
-                        print(f"DEBUG: Actions in response: {action_types}")
-                        print(f"DEBUG: has_transition_location = {has_transition_location}")
-                        print(f"DEBUG: awaiting_location_transition = {awaiting_location_transition}")
-                        print(f"DEBUG: awaiting_combat_resolution = {awaiting_combat_resolution}")
-                    
-                    # Track if we're holding this response
-                    response_held = False
-
-                    # --- If a response has createEncounter and we are NOT already waiting ---
-                    if has_create_encounter and not awaiting_combat_resolution:
-                        print("DEBUG: Holding response with createEncounter. Suppressing narration.")
-                        held_response = ai_response_content
-                        awaiting_combat_resolution = True
-                        response_held = True
-                        
-                        # Process actions ONLY, but suppress narration and do NOT add to history yet.
-                        # This initializes combat in the background without telling the player the first half of the story.
-                        result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history, suppress_narration=True)
-                        # NOTE: We intentionally DO NOT add this to conversation_history here.
-
-                    # --- If a response has transitionLocation and we are NOT already waiting ---
-                    elif has_transition_location and not awaiting_location_transition:
-                        print("DEBUG: Holding response with transitionLocation. Suppressing narration AND actions.")
-                        print(f"DEBUG: Held response preview: {ai_response_content[:200]}...")
-                        held_response = ai_response_content
-                        awaiting_location_transition = True
-                        response_held = True
-                        
-                        # CRITICAL FIX: Do NOT process the transitionLocation action yet!
-                        # Unlike combat encounters which need initialization, location transitions
-                        # should wait for the user's next input (confirmation).
-                        # We only hold the response, we don't execute it.
-                        print("DEBUG: Location transition action held - NOT executing yet")
-                        
-                        # CRITICAL: We must skip the normal processing
-                        print("DEBUG: Skipping normal processing for held transition response")
-
-                    # --- If we ARE waiting for combat and this is the second response ---
-                    elif awaiting_combat_resolution:
-                        print("DEBUG: Received second response. Combining with held combat response.")
-                        combined_response = combine_messages(held_response, ai_response_content)
-                        clear_message_buffer() # Reset state
-                        
-                        # Now, add the *single combined response* to the history.
-                        conversation_history.append({"role": "assistant", "content": combined_response})
-                        save_conversation_history(conversation_history)
-                        
-                        # Process the combined response, which will now display the full narration.
-                        result = process_ai_response(combined_response, party_tracker_data, location_data, conversation_history)
-
-                    # --- If we ARE waiting for location transition and this is the second response ---
-                    elif awaiting_location_transition:
-                        print("DEBUG: Received second response. Combining with held location transition response.")
-                        combined_response = combine_messages(held_response, ai_response_content)
-                        clear_message_buffer() # Reset state
-                        
-                        # Now, add the *single combined response* to the history.
-                        conversation_history.append({"role": "assistant", "content": combined_response})
-                        save_conversation_history(conversation_history)
-                        
-                        # Process the combined response, which will now display the full narration.
-                        result = process_ai_response(combined_response, party_tracker_data, location_data, conversation_history)
-
-                    # --- If this is a normal, non-combined response ---
-                    else:
-                        # Only process normally if we didn't hold the response
-                        if not response_held:
-                            conversation_history.append({"role": "assistant", "content": ai_response_content})
-                            save_conversation_history(conversation_history)
-                            result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
-                        else:
-                            print("DEBUG: Response was held, skipping normal processing")
-
-                except json.JSONDecodeError:
-                    print("DEBUG: JSON parsing failed, proceeding with normal processing")
-                    conversation_history.append({"role": "assistant", "content": ai_response_content})
-                    save_conversation_history(conversation_history)
-                    result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
-                except Exception as e:
-                    print(f"DEBUG: Message combination system error: {e}, proceeding normally.")
-                    conversation_history.append({"role": "assistant", "content": ai_response_content})
-                    save_conversation_history(conversation_history)
-                    result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
-                
-                # =================================================================
-                # END OF REVISED LOGIC
-                # =================================================================
-
-                # This check now correctly handles the 'result' from ALL paths
-                if result == "exit":
-                    return
-                elif result == "restart":
-                    # Restart the game loop after a save is restored
+                if result == "exit": return
+                if result == "restart":
                     print("\n[SYSTEM] Restarting game with restored save...\n")
                     main_game_loop()
                     return
+
             elif isinstance(validation_result, str):
                 print(f"DEBUG: Validation failed. Reason: {validation_result}")
-                print(f"Retrying... (Attempt {retry_count + 1}/5)")
                 status_retrying(retry_count + 1, 5)
-                
-                # Don't clear buffer here - let each message validate independently
-                # Buffer only holds validated messages, failed messages just retry
-                
-                conversation_history.append({
-                    "role": "user",
-                    "content": f"Error Note: Your previous response failed validation. Reason: {validation_result}. Please adjust your response accordingly."
-                })
+                conversation_history.append({"role": "user", "content": f"Error Note: Your previous response failed validation. Reason: {validation_result}. Please adjust your response accordingly."})
                 retry_count += 1
             else: 
                 print(f"DEBUG: Unexpected validation result: {validation_result}. Assuming invalid and retrying.")
                 retry_count += 1
-
-
+        
         if not valid_response_received:
             print("Failed to generate a valid response after 5 attempts. Proceeding with the last generated response.")
             if ai_response_content: 
                 result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history) 
-                if result == "exit":
-                    return
-                elif result == "restart":
-                    # Restart the game loop after save restore
+                if result == "exit": return
+                if result == "restart":
                     print("\n[SYSTEM] Restarting game with restored save...\n")
                     main_game_loop()
                     return
@@ -1874,14 +1793,9 @@ Make this transition feel like a movie scene change, not just a location descrip
                 conversation_history.append({"role": "assistant", "content": "I seem to be having trouble formulating a response. Could you try rephrasing your action or query?"})
                 save_conversation_history(conversation_history)
         
-        # Always ensure status is reset to ready at end of main game loop
-        try:
-            status_ready()
-            print("DEBUG: Status reset to ready at end of main game loop")
-        except Exception as e:
-            print(f"DEBUG: Error resetting status at end of main game loop: {e}")
+        status_ready()
 
-
+        # This block now only runs if a response was NOT held
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"] 
         # Use current module from party tracker for plot data  
         module_name_updated = party_tracker_data.get("module", "").replace(" ", "_")
@@ -1922,7 +1836,7 @@ def main():
             print("Setup complete! Your adventure begins now...\n")
     
     except Exception as e:
-        print(f"[WARNING] Startup wizard had an issue: {e}")
+        print(f"WARNING] Startup wizard had an issue: {e}")
         print("Continuing with main game (assuming setup is complete)...\n")
     
     # Continue with normal game loop
