@@ -990,6 +990,10 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             if isinstance(result, dict):
                 if result.get("status") == "exit":
                     return "exit"
+                if result.get("status") == "restart":
+                    # Save game was restored, restart the game
+                    print("\n[SYSTEM] Save game restored. Restarting game session...")
+                    return "restart"
                 if result.get("needs_update"):
                     needs_conversation_history_update = True
                 if result.get("status") == "needs_response":
@@ -1742,6 +1746,11 @@ Make this transition feel like a movie scene change, not just a location descrip
                         result = process_ai_response(combined_response, party_tracker_data, location_data, conversation_history)
                         if result == "exit":
                             return
+                        elif result == "restart":
+                            # Restart the game loop after save restore
+                            print("\n[SYSTEM] Restarting game with restored save...\n")
+                            main_game_loop()
+                            return
                         # Skip normal processing path since we handled it above
                         continue
                         
@@ -1759,6 +1768,11 @@ Make this transition feel like a movie scene change, not just a location descrip
                 # Pass the same location_data that was used for the DM note construction
                 result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history) 
                 if result == "exit":
+                    return
+                elif result == "restart":
+                    # Restart the game loop after save restore
+                    print("\n[SYSTEM] Restarting game with restored save...\n")
+                    main_game_loop()
                     return
             elif isinstance(validation_result, str):
                 print(f"DEBUG: Validation failed. Reason: {validation_result}")
@@ -1783,6 +1797,11 @@ Make this transition feel like a movie scene change, not just a location descrip
             if ai_response_content: 
                 result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history) 
                 if result == "exit":
+                    return
+                elif result == "restart":
+                    # Restart the game loop after save restore
+                    print("\n[SYSTEM] Restarting game with restored save...\n")
+                    main_game_loop()
                     return
             else:
                 print("ERROR: No AI response was generated after retries.")

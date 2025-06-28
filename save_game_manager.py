@@ -105,8 +105,8 @@ class SaveGameManager:
             # Character data
             "characters/",
             
-            # Active encounters
-            "encounter_*.json",
+            # Active encounters - we need to use glob to find these
+            # Will be handled separately
         ]
         
         # Module-specific files if we have a current module
@@ -126,6 +126,11 @@ class SaveGameManager:
             "modules/campaign.json",
             "modules/world_registry.json",
         ])
+        
+        # Add active encounter files using glob
+        import glob
+        encounter_files = glob.glob("encounter_*.json")
+        essential_files.extend(encounter_files)
         
         return essential_files
     
@@ -224,6 +229,10 @@ class SaveGameManager:
                 # Exact file
                 if filepath == essential:
                     return True
+        
+        # Special check for encounter files
+        if filepath.startswith("encounter_") and filepath.endswith(".json"):
+            return True
         
         # For full save mode, also check optional files
         if save_mode == "full":
@@ -334,6 +343,13 @@ class SaveGameManager:
                 # Skip the save directory itself
                 if save_path in root:
                     continue
+                
+                # Skip directories that should be excluded
+                dirs[:] = [d for d in dirs if not any(
+                    d.startswith(pattern[:-1]) if pattern.endswith("*") else d == pattern 
+                    for pattern in self.get_excluded_patterns() 
+                    if "/" not in pattern
+                )]
                 
                 # Process files
                 for file in files:
