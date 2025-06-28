@@ -110,7 +110,7 @@ SOFT_REDDISH_ORANGE = "\033[38;2;204;102;0m"
 RESET_COLOR = "\033[0m"
 
 # Temperature
-TEMPERATURE = 1
+TEMPERATURE = 0.8
 
 # OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -1427,36 +1427,24 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        # Generate initiative order for validation context
        initiative_order = get_initiative_order(encounter_data)
        
-       # Format user input with DM note, hitpoints info, and prerolls
-       user_input_with_note = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field, 'combat_round' field, and an 'actions' array. 
-
-CRITICAL UPDATE RULES:
-- For PLAYERS and NPCs: Use 'updateCharacterInfo' with characterName parameter
-- For MONSTERS: Use 'updateEncounter' with a text description in the changes field
-- NEVER use updateCharacterInfo for monsters - it will fail
-- Example for monster: {{"action": "updateEncounter", "parameters": {{"encounterId": "XXX", "changes": "Specter takes 7 damage, HP from 22 to 15"}}}}
-- Example for player/NPC: {{"action": "updateCharacterInfo", "parameters": {{"characterName": "Norn", "changes": "Takes 5 damage from attack"}}}}
-
-Important Character Field Definitions:
-- 'status' field: Overall life/death state - ONLY use 'alive', 'dead', 'unconscious', or 'defeated' (lowercase)
-- 'condition' field: 5e status conditions - use 'none' when no conditions, or valid 5e conditions like 'blinded', 'charmed', 'poisoned', etc.
-- 'condition_affected' array: List of active 5e conditions affecting the character
-
-Critical Rules:
-1. NEVER set condition to 'alive' - that goes in the status field
-2. NEVER set status to 'none' - use 'alive' for conscious characters
-3. Include the 'exit' action when the encounter ends
-4. All field values must match the expected schema exactly
-5. MANDATORY: Include "combat_round" field in your response
-6. Track combat rounds: increment ONLY when ALL alive creatures have completed their turns in initiative order
-7. Current round is {current_round} - advance to next round when all creatures have acted
-
-Current dynamic state for all creatures:
+       # Create a focused, streamlined per-turn prompt
+       # Most rules are in the system prompt. This prompt focuses on DYNAMIC state.
+       user_input_with_note = f"""--- CURRENT COMBAT STATE ---
+Round: {current_round}
+Initiative Order: {initiative_order}
+All Creatures State:
 {all_dynamic_state}
 
-Initiative Order: {initiative_order}
+--- PRE-ROLLED DICE FOR NPCS/MONSTERS ---
+
+CRITICAL DICE USAGE - YOU MUST FOLLOW THESE RULES:
+1. For an NPC/Monster ATTACK ROLL: You MUST use a die from the '== CREATURE ATTACKS ==' list for that specific creature.
+2. For an NPC/Monster SAVING THROW: You MUST use a die from the '== SAVING THROWS ==' list for that specific creature.
+3. The '== GENERIC DICE ==' pool is ONLY for damage rolls, spell effects, or other non-attack/non-save rolls.
+FAILURE TO USE THE CORRECT POOL IS A CRITICAL ERROR.
 
 {preroll_text}
+--- END OF STATE & DICE ---
 
 Player: {user_input_text}"""
        
