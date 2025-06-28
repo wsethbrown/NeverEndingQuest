@@ -466,7 +466,7 @@ def create_character_backup(character_path, backup_reason="update"):
         
         # Copy the file
         shutil.copy2(character_path, backup_path)
-        print(f"{GREEN}Created backup: {backup_filename}{RESET}")
+        print(f"DEBUG: Created backup: {backup_filename}")
         
         # Also create a "latest" backup that's easier to find
         latest_backup_path = character_path + ".backup_latest"
@@ -511,7 +511,7 @@ def cleanup_old_backups(character_path, max_backups=5):
             for _, file_path in files_to_remove:
                 try:
                     os.remove(file_path)
-                    print(f"Removed old backup: {os.path.basename(file_path)}")
+                    print(f"DEBUG: Removed old backup: {os.path.basename(file_path)}")
                 except Exception as e:
                     print(f"{ORANGE}Warning: Could not remove old backup {file_path}: {str(e)}{RESET}")
                     
@@ -535,7 +535,7 @@ def restore_character_from_backup(character_name, backup_type="latest", characte
     # Auto-detect character role if not provided
     if character_role is None:
         character_role = detect_character_role(character_name)
-        print(f"Detected character role: {character_role}")
+        print(f"DEBUG: Detected character role: {character_role}")
     
     character_path = get_character_path(character_name, character_role)
     
@@ -582,18 +582,18 @@ def update_character_info(character_name, changes, character_role=None):
         bool: True if successful, False otherwise
     """
     
-    print(f"{ORANGE}Updating character info for: {character_name}{RESET}")
+    print(f"DEBUG: Updating character info for: {character_name}")
     
     # Normalize character name to handle titles and descriptors
     normalized_name = normalize_character_name(character_name)
     if normalized_name != character_name:
-        print(f"Normalized character name from '{character_name}' to '{normalized_name}'")
+        print(f"DEBUG: Normalized character name from '{character_name}' to '{normalized_name}'")
         character_name = normalized_name
     
     # Auto-detect character role if not provided
     if character_role is None:
         character_role = detect_character_role(character_name)
-        print(f"Detected character role: {character_role}")
+        print(f"DEBUG: Detected character role: {character_role}")
     
     # Load schema and character data
     schema = load_schema()
@@ -684,7 +684,7 @@ Character Role: {character_role}
     
     while attempt <= max_attempts:
         try:
-            print(f"Attempt {attempt} of {max_attempts}")
+            print(f"DEBUG: Attempt {attempt} of {max_attempts}")
             
             response = client.chat.completions.create(
                 model=model,
@@ -759,11 +759,11 @@ Character Role: {character_role}
             
             # Save updated character data
             if safe_write_json(character_path, updated_data):
-                print(f"{GREEN}Successfully updated {character_name} ({character_role})!{RESET}")
+                print(f"DEBUG: Successfully updated {character_name} ({character_role})!")
                 
                 # Log the changes
                 changed_fields = list(updates.keys())
-                print(f"Updated fields: {', '.join(changed_fields)}")
+                print(f"DEBUG: Updated fields: {', '.join(changed_fields)}")
                 
                 # AI Character Validation after successful update
                 try:
@@ -771,11 +771,11 @@ Character Role: {character_role}
                     validated_data, validation_success = validator.validate_character_file_safe(character_path)
                     
                     if validation_success and validator.corrections_made:
-                        print(f"{GREEN}Character auto-validated with corrections: {validator.corrections_made}{RESET}")
+                        print(f"DEBUG: Character auto-validated with corrections...")
                     elif validation_success:
-                        print(f"{GREEN}Character validated - no corrections needed{RESET}")
+                        print(f"DEBUG: Character validated - no corrections needed")
                     else:
-                        print(f"{ORANGE}Warning: Character validation failed, but update completed{RESET}")
+                        print(f"DEBUG: Warning: Character validation failed, but update completed")
                         
                 except Exception as e:
                     print(f"{ORANGE}Warning: Character validation error: {str(e)}{RESET}")
@@ -787,11 +787,11 @@ Character Role: {character_role}
                     effects_validated_data, effects_success = effects_validator.validate_character_effects_safe(character_path)
                     
                     if effects_success and effects_validator.corrections_made:
-                        print(f"{GREEN}Character effects auto-validated with corrections: {effects_validator.corrections_made}{RESET}")
+                        print(f"DEBUG: Character effects auto-validated with corrections...")
                     elif effects_success:
-                        print(f"{GREEN}Character effects validated - no corrections needed{RESET}")
+                        print(f"DEBUG: Character effects validated - no corrections needed")
                     else:
-                        print(f"{ORANGE}Warning: Character effects validation failed, but update completed{RESET}")
+                        print(f"DEBUG: Warning: Character effects validation failed, but update completed")
                         
                 except Exception as e:
                     print(f"{ORANGE}Warning: Character effects validation error: {str(e)}{RESET}")
