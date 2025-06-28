@@ -91,7 +91,9 @@ Remember to only update monster information and leave player and NPC data unchan
             # Now sync player and NPC information from their respective files
             for creature in encounter_info["creatures"]:
                 if creature["type"] == "player":
-                    player_file = path_manager.get_character_path(creature['name'].lower().replace(' ', '_'))
+                    # Import normalize_character_name for consistent naming
+                    from update_character_info import normalize_character_name
+                    player_file = path_manager.get_character_path(normalize_character_name(creature['name']))
                     try:
                         with open(player_file, "r") as file:
                             player_data = json.load(file)

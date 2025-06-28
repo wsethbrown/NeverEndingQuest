@@ -10,18 +10,20 @@
       "nextPoints": [
         "PP002"
       ],
-      "status": "completed",
-      "plotImpact": "Eirik gains Rusk's trust and secures vital intelligence: the main bandit camp is in a ruined watchtower in the Thornwood, led by the sorcerer Malarok, who wields a corrupting black stone. Details about the camp's defenses and upcoming ritual are revealed, shifting the outpost from defense to proactive planning.",
+      "status": "in progress",
+      "plotImpact": "Further evidence collected at North Tower Overlook confirms organized insider sabotage linked to Malarok and his symbol, strengthening the case for a traitor within the Rangers' Outpost.",
       "sideQuests": [
         {
           "id": "SQ001",
           "title": "Restore the Silver Bell Network",
           "description": "The outpost's three silver bell towers, a magical long-range communication system, have been sabotaged by Malarok's agents. The North Tower's bell clapper was stolen. The East Tower is overgrown with magically enhanced, thorny vines. The West Tower's harmonic crystal has been shattered.",
           "involvedLocations": [
-            "RO001"
+            "RO04",
+            "RO05",
+            "RO06"
           ],
-          "status": "not started",
-          "plotImpact": "Restored bells allow the Rangers to send for reinforcements (arriving after the main plot) and provide the party with a one-time 'Early Warning' ability, letting them avoid a planned ambush in the Thornwood."
+          "status": "in progress",
+          "plotImpact": "The party returns to report the restoration of the North Tower's bell to Commander Elen, spreading hope and momentum throughout the Rangers' Outpost."
         },
         {
           "id": "SQ002",

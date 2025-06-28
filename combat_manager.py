@@ -93,7 +93,7 @@ from config import (
     DM_VALIDATION_MODEL, 
     COMBAT_DIALOGUE_SUMMARY_MODEL
 )
-from update_character_info import update_character_info
+from update_character_info import update_character_info, normalize_character_name
 import update_encounter
 import update_party_tracker
 # Import the preroll generator
@@ -615,7 +615,7 @@ def update_json_schema(ai_response, player_info, encounter_data, party_tracker_d
         xp_info = ai_response.split("XP Awarded:")[-1].strip()
 
     # Update player information, including XP
-    player_name = player_info['name'].lower().replace(' ', '_')
+    player_name = normalize_character_name(player_info['name'])
     player_changes = f"Update the character's experience points. XP Awarded: {xp_info}"
     update_success = update_character_info(player_name, player_changes)
     
@@ -764,7 +764,7 @@ def sync_active_encounter():
         # Update player and NPC data in the encounter
         for creature in encounter_data.get("creatures", []):
             if creature["type"] == "player":
-                player_file = path_manager.get_character_path(creature['name'].lower().replace(' ', '_'))
+                player_file = path_manager.get_character_path(normalize_character_name(creature['name']))
                 try:
                     player_data = safe_json_load(player_file)
                     if not player_data:
@@ -897,7 +897,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    # Extract data for all creatures in the encounter
    for creature in encounter_data["creatures"]:
        if creature["type"] == "player":
-           player_name = creature["name"].lower().replace(" ", "_")
+           player_name = normalize_character_name(creature["name"])
            player_file = path_manager.get_character_path(player_name)
            try:
                player_info = safe_json_load(player_file)
@@ -1243,7 +1243,7 @@ Player: The combat begins. Describe the scene and the enemies we face."""
        print("DEBUG: Refreshing conversation history with latest character data...")
        
        # Reload player info
-       player_name = player_info["name"].lower().replace(" ", "_")
+       player_name = normalize_character_name(player_info["name"])
        player_file = path_manager.get_character_path(player_name)
        try:
            player_info = safe_json_load(player_file)
@@ -1657,9 +1657,9 @@ Player: {user_input_text}"""
            if action_type == "updateplayerinfo" or action_type == "updatecharacterinfo":
                # Handle both legacy and new action types
                if action_type == "updateplayerinfo":
-                   character_name = player_info["name"].lower().replace(" ", "_")
+                   character_name = normalize_character_name(player_info["name"])
                else:
-                   character_name = parameters.get("characterName", player_info["name"]).lower().replace(" ", "_")
+                   character_name = normalize_character_name(parameters.get("characterName", player_info["name"]))
                
                changes = parameters.get("changes", "")
                try:

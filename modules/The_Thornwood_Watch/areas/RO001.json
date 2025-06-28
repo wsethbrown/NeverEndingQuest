@@ -10,7 +10,7 @@
   "map": {
     "mapId": "MAP_RO001",
     "mapName": "Rangers' Outpost Map",
-    "totalRooms": 5,
+    "totalRooms": 6,
     "rooms": [
       {
         "id": "RO01",
@@ -59,6 +59,15 @@
         ],
         "coordinates": "X1Y1",
         "name": "Feral Hollow"
+      },
+      {
+        "id": "RO06",
+        "type": "ruins",
+        "connections": [
+          "RO03"
+        ],
+        "coordinates": "X1Y3",
+        "name": "North Tower Overlook"
       }
     ],
     "layout": [
@@ -76,6 +85,11 @@
         "   ",
         "RO02",
         "   "
+      ],
+      [
+        "RO06",
+        "   ",
+        "   "
       ]
     ]
   },
@@ -84,60 +98,60 @@
       "locationId": "RO01",
       "name": "Rangers' Command Post",
       "type": "crossroads",
-      "description": "The Rangers' Command Post stands shrouded in morning mist, the battered oak command table cluttered with blood-streaked maps beneath the silent silver bells, their magical resonance broken by recent sabotage. The atmosphere carries a tense but cautious optimism as rangers gather, exchanged whispers and watchful eyes fixed on the shackled bandit leader Rusk, whose fearful demeanor speaks volumes of the dark power behind the new enemy. Commander Elen directs operations with measured authority, briefing the party on the lost caravan, the threat of the sorcerer Malarok, and the urgent need to restore the bell network for early warnings. The outpost is now a hub of renewed purpose as preparations are underway to strike back and reclaim the safety of the Thornwood frontier.",
+      "description": "The Rangers' Command Post stands enveloped in morning mist, alive with the tense bustle of rangers preparing for patrol and urgent missions. The battered oak command table is cleared of blood-streaked maps, replaced with neatly organized tactical charts and coded log pages revealing signs of deliberate sabotage within the outpost. Banners of the Silver Thorn flutter gently, mingling with the fresh scent of pine and woodsmoke. Commander Elen's quarters are a hub of anxious whispers and wary glances, reflecting the outpost's fragile state amid mounting threats. The silenced silver bell network remains a critical concern, with plans underway to restore the North Tower bell first, its clapper missing and bell silent. Scout Kira, now a trusted ally, shares keen observations of suspicious activity around the signal mirrors and traces of alchemical interference. The command post pulses with a mix of hope, apprehension, and resolute determination as the party and rangers prepare to confront the encroaching darkness and unravel the traitor's plots.",
       "coordinates": "X2Y2",
-      "accessibility": "Central hub with clear sight lines to all outpost approaches; currently partially impaired by sabotage and ongoing repairs but regaining function as efforts to restore the bell network progress.",
+      "accessibility": "Central hub with clear sight lines to all outpost approaches; recovering steadily as sabotage repairs progress and watch rotations intensify to secure the perimeter.",
       "npcs": [
         {
           "name": "Ranger Elen",
-          "description": "The steadfast commander of Thornwood Outpost, Elen bears the weight of protecting the frontier trade routes. As a military professional, she demonstrates clear tactical thinking: assess threats first, then plan defenses, then secure resources. Her eyes are sharp yet weary beneath mounting losses. She focuses on intelligence gathering first, then defensive measures such as restoring the bell network, and finally logistics.",
-          "attitude": "Professional but concerned, testing the party's competence while revealing the burden of command. Now more hopeful after gaining critical intelligence from Rusk and seeing renewed determination among the rangers."
+          "description": "The steadfast commander of Thornwood Outpost, Elen bears the weight of protecting the frontier trade routes. Her strategic mind now sharpened by new intelligence of internal sabotage, she has initiated double watch rotations and enlisted trusted scouts to root out traitors. Her demeanor balances resolute urgency with guarded hope, rallying the rangers to renewed vigilance without sowing panic.",
+          "attitude": "Professional and determined, rallying the outpost with clear orders and cautious optimism while tightly managing morale and operational security."
         },
         {
           "name": "Ranger Marcus",
-          "description": "A grizzled veteran scout with weathered hands and keen eyes, Marcus speaks grimly of clever bandits leaving no survivors. He remains grim but helpful, sharing patrol knowledge and trail wisdom with those who prove themselves worthy of respect.",
-          "attitude": "Gruff but helpful, willing to share patrol knowledge and trail wisdom with those who prove themselves worthy of respect."
+          "description": "A grizzled veteran scout with weathered hands and keen eyes, Marcus shares grim patrol knowledge while supporting increased vigilance. He has taken on additional scouting duties to monitor suspicious activity near the signal mirrors and along the outpost perimeter.",
+          "attitude": "Gruff but loyal, committed to supporting Elen's plans and mentoring younger rangers through the heightened threat environment."
         },
         {
           "name": "Scout Kira",
-          "description": "A young, eager level 2 ranger who reports directly to Elen and frequently carries messages between outposts. Her wide-eyed reports of strange lights and aggressive wildlife hint at Malarok's corrupting influence spreading from the north. She has joined the party, eager to help with the thorn overgrowth in the East Tower.",
-          "attitude": "Enthusiastic and determined, eager to join the party and help investigate the supernatural corruption affecting the wilderness. Ready to guide the party through the Thornwood and handle magical thorn overgrowth."
+          "description": "A young, eager level 2 ranger newly integrated into the party, Kira brings invaluable field reports of magical corruption and alchemical traces near the signal mirrors. She advocates for discrete investigation to identify the traitor sabotaging the bell network and stands ready to lead the party through the thorn-choked wilderness toward the North Tower.",
+          "attitude": "Enthusiastic and vigilant, eager to aid in investigation and restoration efforts, balancing youthful energy with growing tactical insight."
         },
         {
           "name": "Messenger Tom",
-          "description": "A road-weary courier who rides between settlements carrying dispatches and news. His horse shows signs of hard travel, and he always seems to be either arriving from or departing for another urgent delivery.",
-          "attitude": "Tired but reliable, grateful for a safe place to rest and always willing to share news from distant settlements in exchange for a hot meal."
+          "description": "A road-weary courier who rides between settlements carrying dispatches and news. He remains present at the post, sharing updates from other frontiers and the wider realm amidst the tense atmosphere.",
+          "attitude": "Tired but reliable, providing essential communication links and up-to-date intelligence."
         },
         {
           "name": "Rusk",
-          "description": "Captured bandit leader with a broken arm, now terrified of his new master. Once a simple brigand, he speaks in hushed, fearful tones about the sorcerer Malarok who now commands the bandit forces. Under Eirik's compassionate care and cure wounds, Rusk has revealed the bandits' hidden camp location in a crumbling moss-covered watchtower and detailed Malarok's dark magic and sinister plans.",
-          "attitude": "Fearful and broken, eager to cooperate in exchange for protection from Malarok's wrath. Provides vital intelligence about the sorcerer's operations and bandit camp defenses."
+          "description": "Captured bandit leader with a broken arm, now visibly more fearful after revelations of internal sabotage and a traitor aiding Malarok's agents. Though still shaken, under the party's protection and Elen's oversight, he continues to provide critical intelligence regarding the enemy's plans and moves.",
+          "attitude": "Fearful and broken, cooperating cautiously with the outpost leadership to expose threats within."
         }
       ],
       "monsters": [],
       "plotHooks": [
-        "PRIMARY CRISIS: Elen urgently recruits the party - three caravans destroyed in five days with unnatural precision",
-        "IMMEDIATE ACTION NEEDED: Captured bandit leader Rusk holds key intelligence about the enemy commander and main bandit camp location",
-        "SECONDARY CONCERN (after intel): The silver bell network has been sabotaged, threatening communication and early warning capability",
-        "EXPEDITION SUPPORT (after planning): Scout Kira is eager to join wilderness missions and assist with overcoming magical thorn overgrowth",
-        "UPCOMING MISSION: Secure the North Tower to reactivate its bell before addressing the more dangerous East Tower",
-        "SUPPLY LOGISTICS (when preparing): Strange reports suggest supernatural corruption - supplies and preparation will be crucial"
+        "PRIMARY CRISIS: Evidence of deliberate internal sabotage threatens the silver bell early warning network.",
+        "IMMEDIATE ACTION: Commander Elen initiates double watch rotations and enlists trusted scouts to identify and neutralize the traitor within.",
+        "INVESTIGATION: Scout Kira reports suspicious activity around signal mirrors and alchemical traces needing discreet examination.",
+        "RESTORATION MISSION: Priority set on securing and restoring the North Tower bell, whose clapper is missing and bell silent.",
+        "ONGOING DANGER: The East Tower remains overrun with magical thorn overgrowth and remains a future target for restoration efforts.",
+        "UPCOMING CHALLENGE: The party must lead efforts to restore the bell network while guarding against shadowy agents and supernatural threats beyond the forest edge."
       ],
       "lootTable": [
-        "Detailed regional map marking bandit activity",
-        "Pouch of silver signal bells",
-        "Ranger's field guide to local threats",
-        "Horse and provisions for upcoming mission",
-        "Gloves and salve to counter cursed brambles"
+        "Coded log pages revealing sabotage details",
+        "Replacement bell clapper for North Tower",
+        "Gloves and salve to counter cursed brambles",
+        "Maps highlighting suspicious activity near signal mirrors",
+        "Scout's alchemical detection kit"
       ],
-      "dmInstructions": "Elen now briefs the party with critical intelligence from Rusk about the bandit camp and sorcerer Malarok. Emphasize the shift from grim endurance to cautious optimism in the outpost. Scout Kira is present and ready to join the party for the expedition. Focus upcoming scenarios on restoring the silver bell network starting with the North Tower. Present challenges logically with urgency and tactical planning, highlighting the importance of the bell system and the threat of magical corruption.",
+      "dmInstructions": "Focus on the tense but focused atmosphere of a command post recovering from internal betrayal. Emphasize Elen's leadership balancing urgency and morale, the party's role in investigating sabotage and restoring the bell network starting with the North Tower, and Scout Kira's increasing tactical contributions. Present threats as both internal (traitor) and external (Malarok's agents). Reinforce the significance of the bell network for early warnings and the need for discrete investigation amid heightened vigilance.",
       "doors": [],
       "traps": [],
       "dcChecks": [
-        "Insight DC 12: Notice Elen's concern about reports from distant regions, hinting at larger threats",
-        "Investigation DC 10: Study the tactical maps to understand bandit movement patterns",
-        "Perception DC 8: Hear the subtle signals from the silver bell network warning of approaching activity",
-        "Investigation DC 15: Detect signs of magical corruption in the sabotaged silver bell network, indicating Malarok's agents used supernatural means"
+        "Insight DC 14: Detect subtle signs of tension and mistrust among the rangers hinting at a traitor within.",
+        "Investigation DC 12: Examine coded log pages to decode sabotage patterns and timing.",
+        "Perception DC 10: Notice suspicious movements around the signal mirrors during night watch.",
+        "Arcana DC 15: Identify alchemical residues indicative of magical tampering with the bell network."
       ],
       "connectivity": [
         "RO02",
@@ -153,19 +167,23 @@
       "features": [
         {
           "name": "Command Table",
-          "description": "A battered oak table bearing blood-smeared maps, dispatch scrolls, and tactical markers showing current threats and patrol routes."
+          "description": "A battered oak table now cleared and organized with tactical maps, coded logs, and notes outlining sabotage findings and restoration plans."
         },
         {
           "name": "Sabotaged Silver Bell Network",
-          "description": "Magical silver bells form the early warning system, their enchanted resonance disrupted by systematic sabotage. The bells hang silent where magical alerts once chimed across the network."
+          "description": "The enchanted silver bells that once formed an early warning system hang silent due to targeted sabotage, with the North Tower bell missing its clapper and the East Tower still choked by magical brambles."
         },
         {
           "name": "Ranger Equipment Racks",
-          "description": "Well-maintained racks holding spare bows, quivers, and survival gear for rangers heading out on patrol."
+          "description": "Well-maintained racks holding spare bows, quivers, and survival gear, prepared for imminent patrols and restoration missions."
         },
         {
           "name": "Temporary Holding Area",
-          "description": "A secured corner of the command post where captured bandit leader Rusk is held under guard. Heavy chains and vigilant rangers ensure the prisoner remains contained while still allowing for interrogation and information gathering."
+          "description": "A secured corner where bandit leader Rusk is held under vigilant guard, continuing to provide intelligence despite his fearful state."
+        },
+        {
+          "name": "Signal Mirrors",
+          "description": "Strategically placed mirrors used for long-distance communication; recently noted for suspicious activity and possible alchemical tampering."
         }
       ],
       "dangerLevel": "Medium",
@@ -202,15 +220,26 @@
             "day": 1,
             "time": "09:19:00"
           }
+        },
+        {
+          "encounterId": "RO01-E4",
+          "summary": "Eirik and Kira return to the command post with coded log pages and evidence of deliberate sabotage implicating a traitor within the rangers aiding Malarok's agents. Commander Elen responds by initiating double watch rotations and recruiting trusted scouts for investigation. The party discusses restoring the silenced silver bell network, prioritizing the North Tower bell missing its clapper, while Scout Kira shares observations of suspicious activity and alchemical traces near the signal mirrors.",
+          "impact": "The outpost shifts into a heightened state of vigilance and cautious optimism. Plans are laid for discrete investigations and restoration missions, strengthening the party's leadership role and galvanizing ranger morale amid continuing threats.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 1,
+            "time": "10:55:00"
+          }
         }
       ],
-      "adventureSummary": "At the Rangers' Command Post, the morning mist curled through the battered outpost, where tension hung thick alongside the scent of damp wood and worn leather. Blood-streaked maps cluttered the oak command table beneath silent silver bells, their mute presence a grim reminder of recent sabotage. The party arrived amid a gathering of rangers clustered tensely, their gazes flickering toward the pale, shackled bandit leader Rusk, who sat slumped and haunted in the holding corner under watchful eyes. Commander Elen, sharp-eyed and measured, briefed the party on the dire situation: another caravan had been lost overnight, rangers were stretched thin, and Rusk was broken by fear of a sorcerer known only as \"the master.\" Eirik approached Rusk with a calm, compassionate demeanor, casting cure wounds upon the bandit's shattered arm, an act that stirred a fragile hope and trust in the desperate man. Under Eirik's earnest assurance--though unable to guarantee Rusk's safety from Malarok's wrath--the captive revealed critical intelligence: the bandits' hidden camp lay in a crumbling, moss-covered watchtower in the Thornwood, guarded by traps and scouts; their new leader was the corrupting sorcerer Malarok, who wielded a sinister black stone and twisted his followers with dark magic, preparing a terrible ritual. This revelation shifted the outpost's mood from grim endurance to cautious optimism, with Commander Elen already plotting strikes and the other rangers murmuring renewed hope. After a brief respite, the party reconvened as Elen outlined the urgent need to restore the sabotaged silver bell network, vital for early warnings and coordination. With Scout Kira joining the party, equipped to handle the magical thorn overgrowth choking the East Tower, and sturdy gloves and salve provided to counter the cursed brambles, plans formed swiftly. Though the East Tower's vines were a pressing threat, the party chose to first secure the nearer North Tower to reactivate its bell, gaining critical warning capability. As they prepared to leave, the command post's atmosphere had lightened--purpose replacing despair--and with respect earned from the rangers, the party set forth from the Rangers' Command Post, their next steps poised to turn the tide in Thornwood's fraught frontier."
+      "adventureSummary": "As the morning deepened at the Rangers' Command Post, Eirik and Kira returned through the mist-laden path, greeted by the tense bustle of rangers preparing for patrol amid banners of the Silver Thorn and the scent of pine and woodsmoke. Bearing the heavy burden of their discovery--coded log pages and signs of sabotage--they moved with purpose toward Commander Elen's quarters, where anxious whispers and wary glances underscored the outpost's fragile state. Presenting their evidence, they revealed that the sabotage was deliberate and internal, implicating a traitor aiding the enemy Malarok's agents, and Elen responded with resolute urgency, initiating double watch rotations and enlisting trusted scouts while cautioning against panic. Kira added keen observations of suspicious activity around the signal mirrors and alchemical traces, prompting plans for discrete investigation and increased vigilance. The command post's atmosphere, a mix of hope and apprehension, intensified as the party discussed restoring the silenced silver bell network crucial for early warning; Kira advocated beginning with the North Tower--the bell there still mute due to a missing clapper--while Elen mapped the route and warned of lurking shadows beyond the forest edge. Clarifications followed, confirming that though Scout's Watch at the East Tower was cleared of magical brambles, the bell network's full restoration remained incomplete, underscoring the ongoing peril. Throughout, the camaraderie between Eirik and Kira shone, marked by shared determination and light moments easing tension, while Elen's leadership galvanized the outpost's defenders. With the morning sun piercing the mist, the party prepared to lead the charge toward the North Tower, embodying the outpost's hope and resolve amid encroaching darkness."
     },
     {
       "locationId": "RO02",
       "name": "Supply Depot",
       "type": "riverside",
-      "description": "Wooden crates and canvas-wrapped supplies line the riverbank where merchant barges dock to resupply the outpost. Quartermaster Brann oversees the careful inventory, his weathered hands checking manifests against dwindling stores. The gentle lap of water against the dock mingles with the creak of rope and timber, while nervous traders eye the forest treeline.",
+      "description": "Wooden crates and canvas-wrapped supplies line the riverbank where merchant barges dock to resupply the outpost. The depot is peaceful and well-maintained, offering a safe haven with neatly stacked tools and materials for repairs and first aid. Quartermaster Brann, clad in a patched green cloak, manages the depot with a watchful eye. The gentle lap of water against the dock mingles with the creak of rope and timber, while traders and locals share wary tales of the dangers northward, especially the enchanted thorny vines entangling the northern bell tower.",
       "coordinates": "X2Y3",
       "connectivity": [
         "RO01",
@@ -221,45 +250,56 @@
       "npcs": [
         {
           "name": "Quartermaster Brann",
-          "description": "A methodical dwarf with ink-stained fingers and a sharp eye for detail, Brann maintains the outpost's supplies with military precision. Recent shortages have made him increasingly cautious about who gets access to equipment and rations.",
-          "attitude": "Businesslike and protective of supplies, but will warm to characters who prove their worth to the outpost."
-        },
-        {
-          "name": "Dock Worker Finn",
-          "description": "A burly human who handles the loading and unloading of supply barges at the riverside dock. His clothes are perpetually damp from river spray, and he knows every merchant barge captain who travels these waters.",
-          "attitude": "Friendly and chatty, always eager to share river gossip and stories about the various merchants and their cargo."
+          "description": "A portly, methodical dwarf wearing a patched green cloak. He oversees the depot's supplies with military precision and offers assistance to trusted visitors.",
+          "attitude": "Businesslike but cooperative, warming to those who prove their worth and respectful of the depot's safety."
         },
         {
           "name": "Merchant Vera",
-          "description": "A nervous middle-aged trader whose own caravan was attacked two weeks ago. She lost most of her goods but escaped with her life, and now helps Brann with supply inventory while waiting for safe passage home.",
-          "attitude": "Anxious but grateful for shelter, willing to share detailed accounts of bandit tactics and warning signs she noticed before her attack."
+          "description": "A nervous middle-aged trader who recently escaped an attack by magical thorny vines. She now helps with inventory and offers gifts like alchemist's fire and powdered silver out of gratitude.",
+          "attitude": "Anxious but grateful, willing to share warnings about the vines and bandit activity, and requests aid in finding a missing merchant named Sila."
+        },
+        {
+          "name": "Kira",
+          "description": "A calm and observant ranger who provides knowledge about the depot and the dangers of the northern bell tower entwined with magical vines.",
+          "attitude": "Quietly amused and confident, offering guidance and reassurance to the party."
+        },
+        {
+          "name": "Dock Worker Finn",
+          "description": "A burly human who handles loading and unloading of barges, familiar with river merchants and local happenings.",
+          "attitude": "Friendly and chatty, sharing gossip and stories."
         },
         {
           "name": "Apprentice Jeb",
-          "description": "Brann's young assistant, a well-meaning but clumsy human who handles the simpler supply tasks. He's eager to please but prone to dropping things and mixing up inventory counts.",
-          "attitude": "Enthusiastic and helpful, though often apologetic about his mistakes. Looks up to the rangers and dreams of joining their ranks someday."
+          "description": "Brann's young and clumsy human assistant, eager to help with supplies and dreams of joining the rangers.",
+          "attitude": "Enthusiastic and apologetic, willing to assist the party."
         }
       ],
       "monsters": [],
       "lootTable": [
         "Rope and climbing gear",
         "Trail rations for 3 days",
-        "Waterproof supply manifest showing recent shortages"
+        "Waterproof supply manifest showing recent shortages",
+        "Alchemist's fire",
+        "Powdered silver"
       ],
       "plotHooks": [
         "Supply shortages suggest Malarok's agents are intercepting shipments for dark rituals",
         "Merchant barge arrivals have become increasingly irregular due to supernatural corruption fears",
-        "Brann mentions unusual requests for iron and silver, materials that resist dark magic"
+        "Brann mentions unusual requests for iron and silver, materials that resist dark magic",
+        "Investigate the enchanted thorny vines wrapping the northern bell tower",
+        "Search for bandits threatening the supply chain and the missing merchant named Sila"
       ],
-      "dmInstructions": "Brann can provide basic equipment and supplies to the party, but requires proof of their legitimacy. He's a good source for information about supply chain disruptions and suspicious merchant activity.",
+      "dmInstructions": "Brann provides supplies and information to those he trusts. Vera offers alchemical items and insights into bandit threats and magical vines without charge. Kira can guide the party regarding the northern bell tower and dangers ahead. Use NPCs to build tension around the enchanted vines and bandit activity, encouraging preparation before venturing north.",
       "doors": [],
       "traps": [],
       "dcChecks": [
         "Investigation DC 11: Examine supply manifests to notice patterns in missing shipments",
         "Persuasion DC 13: Convince Brann to share information about suspicious merchant requests",
-        "Perception DC 9: Notice nervous behavior from traders docking at the depot"
+        "Perception DC 9: Notice nervous behavior from traders docking at the depot",
+        "Arcana DC 14: Understand properties and dangers of the magical thorny vines",
+        "Insight DC 12: Gauge Vera's sincerity and anxiety when discussing bandit attacks"
       ],
-      "accessibility": "Open dock area with clear river access for supply barges",
+      "accessibility": "Open dock area with clear river access for supply barges; easily accessible on foot from nearby locations.",
       "dangerLevel": "Low",
       "features": [
         {
@@ -274,7 +314,21 @@
           "name": "Storage Crates",
           "description": "Weatherproof crates and canvas-wrapped bundles containing essential supplies for the outpost's operations."
         }
-      ]
+      ],
+      "encounters": [
+        {
+          "encounterId": "RO02-E1",
+          "summary": "The party arrived at the Supply Depot in the gentle morning light, stepping from the thinning fog into a peaceful riverside outpost filled with neatly stacked crates, ropes, and well-worn tools. They engaged with Quartermaster Brann, Merchant Vera, and Kira, learning about the dangers posed by magical thorny vines at the northern bell tower. Vera gifted the party alchemist's fire and powdered silver, refusing payment out of gratitude. Vera also requested assistance in locating bandits and a missing merchant named Sila.",
+          "impact": "The party secured useful supplies and goodwill from key NPCs, gaining valuable magical tools and information. They are now better prepared and motivated to investigate the northern bell tower and related threats.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 1,
+            "time": "09:30:00"
+          }
+        }
+      ],
+      "adventureSummary": "At 1492 Springmonth 1, 09:30, the party arrived at the Supply Depot, engaging with Quartermaster Brann, Kira, and Merchant Vera. They learned about the enchanted thorny vines threatening the northern bell tower, received alchemical gifts, and were tasked with investigating bandits and a missing merchant named Sila. The depot provided a safe place to resupply and gather information before venturing north."
     },
     {
       "locationId": "RO03",
@@ -284,7 +338,8 @@
       "coordinates": "X1Y2",
       "connectivity": [
         "RO01",
-        "RO05"
+        "RO05",
+        "RO06"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -352,54 +407,86 @@
       "locationId": "RO04",
       "name": "Scout's Watch",
       "type": "riverside",
-      "description": "A raised wooden platform overlooks the river crossing, providing clear sight lines across the water and into the forest beyond. Scout Neris maintains vigilant watch from this vantage point, her spyglass scanning for threats while signal mirrors catch the light for long-distance communication. The sound of flowing water masks quiet conversations about patrol routes and suspicious movement.",
+      "description": "A raised wooden platform overlooking the river crossing, weathered but sturdy, now partially freed from corrupted, thorny vines strangling its base. The air is crisp with the scent of damp pine and flowing water. Signal mirrors catch the morning light, casting glints across the dew-laden grass. The wooden planks beneath creak softly underfoot, underscoring the watch's vigilant presence on the wild frontier. Faint silvery magical residue lingers on the platform, evidence of recent tampering and secret signaling.",
       "coordinates": "X3Y2",
       "connectivity": [
         "RO01"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
-      "npcs": [],
+      "npcs": [
+        {
+          "name": "Kira",
+          "description": "A sharp-eyed scout known for her vigilance and skill with a spyglass. She is cautious but supportive, intrigued by magical phenomena.",
+          "attitude": "Alert and cooperative"
+        },
+        {
+          "name": "Eirik",
+          "description": "A divine spellcaster devoted to combating corruption and protecting the wilds. He wields sacred magic to purify unnatural threats.",
+          "attitude": "Determined and protective"
+        }
+      ],
       "monsters": [],
       "lootTable": [
         "Spyglass with exceptional range",
         "Detailed wilderness maps with recent annotations",
-        "Signal mirror for long-distance communication"
+        "Signal mirror for long-distance communication",
+        "Observation logbook with coded annotations"
       ],
       "plotHooks": [
-        "Neris has observed dark energy and unnatural corruption spreading from the northern forest",
-        "Wildlife has been fleeing southward, some showing signs of magical corruption",
-        "Malarok's agents have been spotted moving at night toward the Thornwood",
-        "Communication with northern patrol posts has been disrupted by the sorcerer's influence"
+        "Investigate the source of the corrupt, magical vines strangling Scout's Watch",
+        "Uncover the identity of the insider sabotaging the watch through secret magical signaling",
+        "Report findings about corruption and tampering to the Rangers' Command Post",
+        "Explore the implications of the coded annotations found in the observation logs"
       ],
-      "dmInstructions": "Scout Neris provides reconnaissance intelligence and can guide the party to specific locations in the wilderness. She's the best source for information about the supernatural phenomena affecting the northern reaches.",
+      "dmInstructions": "Scout Neris provides reconnaissance intelligence and can guide the party to specific locations in the wilderness. Kira and Eirik have recently arrived and uncovered signs of corruption and possible betrayal. Use their perspectives to advance the plot regarding magical sabotage and insider threats at Scout's Watch.",
       "doors": [],
       "traps": [],
       "dcChecks": [
         "Perception DC 10: Spot distant movement or signals that Neris points out",
         "Survival DC 12: Understand the significance of wildlife migration patterns Neris describes",
-        "Investigation DC 11: Study Neris's annotated maps to identify patterns in the strange phenomena"
+        "Investigation DC 11: Study Neris's annotated maps to identify patterns in the strange phenomena",
+        "Arcana DC 14: Detect and analyze the magical residue left by tampering on the platform",
+        "Investigation DC 13: Decipher the coded annotations in the observation logbook"
       ],
-      "accessibility": "Elevated watch platform accessible by wooden ladder",
-      "dangerLevel": "Low",
+      "accessibility": "Elevated watch platform accessible by weathered wooden ladder, recently cleared of corrupted vines",
+      "dangerLevel": "Medium",
       "features": [
         {
           "name": "Watch Platform",
-          "description": "A sturdy wooden platform raised above the treeline, providing commanding views of the river crossing and forest approaches."
+          "description": "A sturdy wooden platform raised above the treeline, providing commanding views of the river crossing and forest approaches, recently restored after magical corruption was burned away."
         },
         {
           "name": "Signal Equipment",
-          "description": "Mirrors, flags, and other communication tools for coordinating with distant patrols and the main outpost."
+          "description": "Mirrors, flags, and other communication tools for coordinating with distant patrols and the main outpost, now showing signs of tampering through magical residue."
         },
         {
           "name": "Observation Logs",
-          "description": "Detailed written records of movements, weather patterns, and unusual sightings maintained by the scout."
+          "description": "Detailed written records of movements, weather patterns, and unusual sightings maintained by the scout, some pages missing and others containing subtle coded annotations."
         },
         {
-          "name": "North Tower Bell (SQ001)",
-          "description": "One of three silver bell towers in the communication network. The bell clapper has been stolen by Malarok's agents, leaving the bell silent and the network partially disabled."
+          "name": "East Tower Bell (SQ001)",
+          "description": "One of three silver bell towers in the communication network. This tower was overgrown with magically enhanced thorny vines that have now been cleared by the party, but the bell mechanism still needs restoration to function properly."
+        },
+        {
+          "name": "Corrupted Vines",
+          "description": "Dark, thorny, oily vines imbued with unnatural magic that had strangled the base of the platform. Burned away but still faintly pulsing with residual dark power."
         }
-      ]
+      ],
+      "encounters": [
+        {
+          "encounterId": "RO04-E1",
+          "summary": "The party ascended the watch platform and discovered corrupted, magical vines strangling its base. Using divine magic and careful examination, they weakened and destroyed the brambles, uncovering signs of magical tampering and insider sabotage in the observation logs.",
+          "impact": "The corrupted vines were burned away, restoring the platform's structural integrity. Evidence of sabotage was uncovered, raising concerns about an insider threat and the security of Scout's Watch.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 1,
+            "time": "10:36:00"
+          }
+        }
+      ],
+      "adventureSummary": "Upon arriving at Scout's Watch, the party ascended the weathered wooden ladder to the raised platform overlooking the river, where the crisp air carried the scent of damp pine and flowing water. The outpost's signal mirrors caught the morning light, casting glints across the dew-laden grass, while the wooden planks beneath their feet creaked softly, underscoring the watch's vigilant presence on the wild frontier. Kira, ever alert, scanned the shadowy forest beyond with her spyglass, remarking on the stillness that seemed to hold its breath here. Their attention soon turned to the corrupted, thorny vines strangling the base of the platform--dark, oily barbs pulsing faintly with unnatural magic and resisting mundane blades. Together, they examined the snarled roots, uncovering a knot partially buried in earth, radiating a lingering magical aura. Eirik invoked his divine power, casting Sacred Flame to sear the brambles, causing the twisted thorns to blacken and curl away, weakening their grip and exposing the raw timber beneath. Kira offered cautious support, expressing both awe at the power displayed and concern over the lingering corruption. With the vines reduced to brittle husks, the platform's integrity was restored, and a lighter atmosphere settled over the watch. Searching the area further, Eirik discovered the observation logbook marred by missing pages and subtle coded annotations, while Kira noted faint, silvery magical residue on the platform--clear signs of deliberate tampering and secret signaling. The revelation of a possible insider's betrayal cast a shadow over the outpost's safety but strengthened the party's resolve. With the evidence gathered and the threat to Scout's Watch diminished, the companions prepared to report back to the Rangers' Command Post, their bond deepened by shared vigilance and the solemn weight of uncovering hidden dangers within the wilds."
     },
     {
       "locationId": "RO05",
@@ -468,6 +555,92 @@
           "description": "One of three silver bell towers in the communication network. The harmonic crystal has been shattered by Malarok's agents, requiring replacement to restore the tower's function."
         }
       ]
+    },
+    {
+      "locationId": "RO06",
+      "name": "North Tower Overlook",
+      "type": "ruins",
+      "description": "A weathered stone watchtower rises from a cleared hilltop, commanding sweeping views of the trade routes and river valleys below. The ancient structure bears scars of recent violence: broken masonry, scattered tools, and torn rope where saboteurs struck. Morning mist clings to the tower's base while the bell frame above now holds its restored silver clapper, ringing out a clear peal that echoes across the wilds. The tower stands secured after a fierce struggle, its renewed voice a symbol of hope and vigilance. Nearby, signs of recent bandit activity and evidence of sabotage remain, hinting at a deeper conspiracy.",
+      "coordinates": "X1Y3",
+      "connectivity": [
+        "RO03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Eirik Hearthwise",
+          "description": "A steadfast ranger with a crossbow and mace, skilled in magic and combat. Slightly wounded from recent fight but resolute.",
+          "attitude": "Friendly"
+        },
+        {
+          "name": "Scout Kira",
+          "description": "A nimble and skilled scout armed with a shortbow and shortsword, expert in stealth and climbing. She restored the bell clapper and keeps watch.",
+          "attitude": "Friendly"
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Stolen silver coins recovered from bandits",
+        "Coded watch schedules revealing ranger patrols",
+        "Rough map with ranger patrol routes",
+        "Sealed pouch containing silver coins, sealing wax, and a ragged red cloth indicating conspiratorial ties"
+      ],
+      "plotHooks": [
+        "Bandit surveillance notes and sabotage evidence suggest insider betrayal within the Rangers' outpost",
+        "The restored bell can serve as an early warning system against further raids",
+        "The faded sigil matching bandit sorcery marks hints at a deeper, sinister alliance with Malarok",
+        "Investigate the meaning of the ragged red cloth and the sealing wax found among the bandit loot"
+      ],
+      "dmInstructions": "The two bandits have been defeated and the tower secured. The missing silver bell clapper has been found and reinstalled by Scout Kira, restoring the bell's function. The area now offers clues to a wider conspiracy through bandit documents and symbols. The tower should be considered safe for roleplay and exploration, with new leads for investigation. The restored bell can be used by the party to signal or alert allied forces.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 12: Find the missing silver bell clapper hidden in the undergrowth near the tower base",
+        "Perception DC 13: Notice the two bandits watching from concealed positions before they spot the party",
+        "Investigation DC 10: Discover evidence of the sabotage including cut ropes and deliberate damage to the bell mechanism",
+        "Survival DC 11: Track the bandits' movement patterns and identify their escape routes",
+        "Arcana DC 14: Recognize the faded sigil etched into stone as a mark of bandit sorcery",
+        "Investigation DC 15: Examine the sealed pouch containing silver coins, sealing wax, and a ragged red cloth for clues about the conspiracy"
+      ],
+      "accessibility": "Elevated position accessible via winding stone path from Trader's Rest, clear sight lines in all directions; tower climbable via secured ropes",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Ancient Watchtower",
+          "description": "A sturdy stone tower with a repaired bell frame now holding the restored silver bell clapper, ringing clearly."
+        },
+        {
+          "name": "Scenic Overlook",
+          "description": "The elevated position provides commanding views of trade routes, river valleys, and the Rangers' Outpost below."
+        },
+        {
+          "name": "Sabotage Evidence",
+          "description": "Scattered tools, cut ropes, and fresh damage to the bell mechanism reveal the methodical nature of the attack."
+        },
+        {
+          "name": "Hidden Bell Clapper",
+          "description": "The missing silver bell clapper has been recovered and reinstalled, restoring the tower's signaling function."
+        },
+        {
+          "name": "Bandit Surveillance Post",
+          "description": "Concealed positions among the rocks and brush where bandits maintained watch over the tower and surrounding area, now abandoned after defeat."
+        }
+      ],
+      "encounters": [
+        {
+          "encounterId": "RO06-E1",
+          "summary": "Eirik Hearthwise and Scout Kira prepared a stealthy ambush at the North Tower Overlook against two bandits watching the tower. After tense combat rounds involving coordinated strikes and magic, both bandits were defeated. Eirik sustained wounds but remained resolute. The party secured the tower and gained valuable intelligence from the fallen foes.",
+          "impact": "The tower is secured and the bandits eliminated. The missing bell clapper was recovered from the undergrowth. Evidence of insider sabotage was uncovered, including coded watch schedules, a rough map, and a pouch with silver coins, sealing wax, and a ragged red cloth. The bell clapper was reinstalled by Kira, restoring the tower's signaling capability.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 1,
+            "time": "11:52:00"
+          }
+        }
+      ],
+      "adventureSummary": "At the North Tower Overlook, Eirik Hearthwise and Scout Kira ascended the crumbling bluff beneath the battered bell frame. Alert to bandit threats, they initiated a stealthy ambush, defeating two bandits after fierce combat. Eirik sustained wounds. Searching the fallen foes revealed stolen silver coins, watch schedules, a rough map, and the missing silver bell clapper wrapped in oilcloth--an emblem of insider sabotage. Kira climbed the tower to reinstall the clapper, restoring the bell's voice. Further clues included a faded sigil matching bandit sorcery marks, a pouch with silver coins, sealing wax, and a ragged red cloth, indicating a deeper conspiracy tied to Malarok. With the tower secured and the bell ringing, the party descended toward the command post, heralding a fragile but vital victory."
     }
   ],
   "randomEncounters": [

@@ -12,9 +12,9 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 11,
+  "hitPoints": 7,
   "maxHitPoints": 11,
-  "armorClass": 16,
+  "armorClass": 17,
   "initiative": 1,
   "speed": 30,
   "abilities": {
@@ -169,21 +169,21 @@
     },
     {
       "item_name": "Insignia of rank",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "A badge showing Eirik's former military rank.",
       "quantity": 1
     },
     {
       "item_name": "Trophy from a fallen enemy",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "A keepsake from Eirik's military days.",
       "quantity": 1
     },
     {
       "item_name": "Set of bone dice",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "A gaming set (bone dice).",
       "quantity": 1
@@ -197,7 +197,7 @@
     },
     {
       "item_name": "Dog tag",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "amulet",
       "description": "A dog tag belonging to a fallen comrade.",
       "quantity": 1
@@ -207,6 +207,70 @@
       "item_type": "equipment",
       "item_subtype": "other",
       "description": "A small pouch for coins.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Sturdy gloves",
+      "item_type": "armor",
+      "item_subtype": "gloves",
+      "description": "Protective gloves to shield hands from magical thorns.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Vial of silvery ointment",
+      "item_type": "consumable",
+      "item_subtype": "potion",
+      "description": "Ointment that provides protection against magical thorns when applied.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Flask of Alchemist's Fire",
+      "item_type": "consumable",
+      "item_subtype": "potion",
+      "description": "A volatile flask that can be thrown to ignite targets. Handle with care.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Pouch of Powdered Silver",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "A pouch containing powdered silver, useful against magical thorns and certain creatures.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Missing Silver Bell Clapper",
+      "item_type": "miscellaneous",
+      "description": "A critical piece of the North Tower bell, missing and recovered from bandits.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Pouch of Silver Coins",
+      "item_type": "miscellaneous",
+      "description": "A small pouch containing 15 silver coins recovered from bandits and found at the tower.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Coded Parchment",
+      "item_type": "miscellaneous",
+      "description": "A crumpled scrap of parchment with coded watch schedules and a rough map of ranger patrol routes.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Climbing Rope",
+      "item_type": "equipment",
+      "description": "A coil of sturdy climbing rope taken from the bandits.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Stub of Black Wax",
+      "item_type": "miscellaneous",
+      "description": "A small, battered stub of black wax found near the sabotage site.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ragged Red Cloth",
+      "item_type": "miscellaneous",
+      "description": "A piece of ragged red cloth that appears to be evidence of sabotage.",
       "quantity": 1
     }
   ],
@@ -275,7 +339,7 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 1,
+        "current": 0,
         "max": 2
       },
       "level2": {
@@ -325,7 +389,7 @@
     "silver": 0,
     "copper": 0
   },
-  "experience_points": 0,
+  "experience_points": 50,
   "exp_required_for_next_level": 300,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit.",

@@ -265,7 +265,8 @@ def level_up_character(character_name):
             
             # Save the conversation history
             # Sanitize the filename for the conversation log
-            safe_name = re.sub(r'[^a-zA-Z0-9_-]', '_', character_name.lower())
+            from update_character_info import normalize_character_name
+            safe_name = normalize_character_name(character_name)
             conversation_file = f"{safe_name}_level_up_conversation.json"
             if safe_write_json(conversation_file, conversation_history):
                 print(f"The level-up conversation has been saved to {conversation_file}")

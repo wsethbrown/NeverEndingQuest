@@ -68,13 +68,14 @@ def update_json_schema(ai_response, player_info, monster_info):
             print("Valid JSON schemas received. Exiting the second model.")
 
             # Update the JSON files based on the updated schemas
-            player_name = updated_player_info["name"].lower().replace(" ", "_")
+            from update_character_info import normalize_character_name
+            player_name = normalize_character_name(updated_player_info["name"])
             player_file = f"{player_name}.json"
             with open(player_file, "w") as file:
                 json.dump(updated_player_info, file, indent=2)
             print(f"{updated_player_info['name']} JSON file updated.")
 
-            monster_name = updated_monster_info["name"].lower().replace(" ", "_")
+            monster_name = normalize_character_name(updated_monster_info["name"])
             monster_file = f"{monster_name}.json"
             with open(monster_file, "w") as file:
                 json.dump(updated_monster_info, file, indent=2)

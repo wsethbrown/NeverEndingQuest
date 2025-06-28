@@ -78,40 +78,17 @@ class ModulePathManager:
     def format_filename(self, name):
         """Convert a name to a filesystem-safe filename format
         
-        Preserves the original character name in JSON files while creating
-        safe filenames for the filesystem. Handles special characters,
-        apostrophes, spaces, and other problematic characters.
+        Uses the centralized normalize_character_name() function to ensure
+        consistent character name handling across the entire system.
         
         Examples:
-        - "Mike's Magical Minion" -> "mikes_magical_minion"
+        - "Mike's Magical Minion" -> "mike_s_magical_minion"
         - "Sir Big-Bellied Night" -> "sir_big_bellied_night"  
-        - "D'Artagnan the Bold" -> "dartagnan_the_bold"
+        - "D'Artagnan the Bold" -> "d_artagnan_the_bold"
+        - "Sir Mac'Davier" -> "sir_mac_davier"
         """
-        import re
-        
-        # Convert to lowercase
-        safe_name = name.lower()
-        
-        # Replace apostrophes and other punctuation with nothing
-        safe_name = re.sub(r"['\"\.,!?;:]", "", safe_name)
-        
-        # Replace spaces, hyphens, and other separators with underscores
-        safe_name = re.sub(r"[\s\-]+", "_", safe_name)
-        
-        # Remove any remaining non-alphanumeric characters except underscores
-        safe_name = re.sub(r"[^a-z0-9_]", "", safe_name)
-        
-        # Remove multiple consecutive underscores
-        safe_name = re.sub(r"_+", "_", safe_name)
-        
-        # Remove leading/trailing underscores
-        safe_name = safe_name.strip("_")
-        
-        # Ensure we have at least something (fallback for edge cases)
-        if not safe_name:
-            safe_name = "character"
-            
-        return safe_name
+        from update_character_info import normalize_character_name
+        return normalize_character_name(name)
     
     # Monster and NPC paths
     def get_monster_path(self, monster_name):

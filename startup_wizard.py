@@ -397,7 +397,8 @@ def create_new_character(conversation, module):
             
             if success:
                 print(f"Dungeon Master: Character {character_name} created successfully!")
-                return character_name.lower().replace(" ", "_")
+                from update_character_info import normalize_character_name
+                return normalize_character_name(character_name)
             else:
                 print(f"Error: Failed to save character {character_name}")
                 return None
@@ -423,7 +424,8 @@ def create_new_character(conversation, module):
                     if success:
                         print(f"Dungeon Master: I've created a basic {fallback_character['class']} character named {character_name} for you!")
                         print("You can always create a new character later when the system is working better.")
-                        return character_name.lower().replace(" ", "_")
+                        from update_character_info import normalize_character_name
+                        return normalize_character_name(character_name)
                 
                 print("Error: All character creation methods failed. Please try again later.")
                 return None
@@ -1342,7 +1344,8 @@ def save_character_to_module(character_data, module_name):
     try:
         # Use ModulePathManager for proper path handling
         path_manager = ModulePathManager(module_name)
-        char_name = character_data['name'].lower().replace(" ", "_")
+        from update_character_info import normalize_character_name
+        char_name = normalize_character_name(character_data['name'])
         char_file = path_manager.get_character_unified_path(char_name)
         
         # Create character directory if it doesn't exist
@@ -1372,7 +1375,8 @@ def update_party_tracker(module_name, character_name):
         party_data["module"] = module_name
         
         # Update party members
-        char_filename = character_name.lower().replace(" ", "_")
+        from update_character_info import normalize_character_name
+        char_filename = normalize_character_name(character_name)
         party_data["partyMembers"] = [char_filename]
         
         # Initialize other required fields if they don't exist

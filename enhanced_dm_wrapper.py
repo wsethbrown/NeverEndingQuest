@@ -52,7 +52,8 @@ class GameState:
                 self.in_combat = bool(party_data["worldConditions"].get("activeCombatEncounter", ""))
                 self.encounter_id = party_data["worldConditions"].get("activeCombatEncounter", "")
             
-            player_file = f"{self.player_name.lower().replace(' ', '_')}.json"
+            from update_character_info import normalize_character_name
+            player_file = f"{normalize_character_name(self.player_name)}.json"
             with open(player_file, "r", encoding="utf-8") as f:
                 player_data = json.load(f)
                 self.current_hp = player_data["hitPoints"]

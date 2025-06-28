@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 10,
+  "hitPoints": 7,
   "maxHitPoints": 10,
   "armorClass": 15,
   "initiative": 4,
@@ -98,7 +98,7 @@
     },
     {
       "name": "Fey Ancestry",
-      "description": "Kira has advantage on saving throws against being charmed, and magic can\u2019t put her to sleep.",
+      "description": "Kira has advantage on saving throws against being charmed, and magic can’t put her to sleep.",
       "source": "Wood Elf"
     },
     {
@@ -165,7 +165,7 @@
     },
     {
       "item_name": "Flute",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "A musical instrument.",
       "quantity": 1,
@@ -185,7 +185,7 @@
     },
     {
       "item_name": "Quiver of Arrows",
-      "item_type": "equipment",
+      "item_type": "ammunition",
       "item_subtype": "other",
       "description": "A quiver containing arrows.",
       "quantity": 1,

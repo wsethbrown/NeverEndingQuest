@@ -6,7 +6,8 @@ def print_encounter_details(encounter_data):
     encounter_details = []
     for creature in encounter_data["creatures"]:
         name = creature["name"]
-        with open(f"{name.lower().replace(' ', '_')}.json") as char_file:
+        from update_character_info import normalize_character_name
+        with open(f"{normalize_character_name(name)}.json") as char_file:
             char_data = json.load(char_file)
             hp = creature["currentHitPoints"]
             max_hp = creature["maxHitPoints"]
@@ -24,7 +25,7 @@ def roll_initiative(filename):
 
         initiative_rolls = []
         for creature in encounter_data["creatures"]:
-            with open(f"{creature['name'].lower().replace(' ', '_')}.json") as char_file:
+            with open(f"{normalize_character_name(creature['name'])}.json") as char_file:
                 char_data = json.load(char_file)
                 dex_modifier = (char_data["abilities"]["dexterity"] - 10) // 2
 

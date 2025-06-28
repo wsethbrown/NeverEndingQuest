@@ -29,7 +29,8 @@ def clear_combat_history_files():
         clear_json_file(file)
 
 def format_type_name(name):
-    return name.lower().replace(' ', '_')
+    from update_character_info import normalize_character_name
+    return normalize_character_name(name)
 
 def load_json(file_name):
     try:

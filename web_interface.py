@@ -409,7 +409,8 @@ def handle_player_data_request(data):
         if dataType == 'stats' or dataType == 'inventory' or dataType == 'spells':
             # Get player name from party tracker
             if party_tracker.get('partyMembers') and len(party_tracker['partyMembers']) > 0:
-                player_name = party_tracker['partyMembers'][0].lower().replace(' ', '_')
+                from update_character_info import normalize_character_name
+                player_name = normalize_character_name(party_tracker['partyMembers'][0])
                 
                 # Try module-specific path first
                 from module_path_manager import ModulePathManager

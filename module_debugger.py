@@ -361,7 +361,8 @@ class ModuleDebugger:
                 for location in data["locations"]:
                     for monster in location.get("monsters", []):
                         monster_name = monster.get("name") if isinstance(monster, dict) else monster
-                        monster_file = f"{monster_name.lower().replace(' ', '_')}.json"
+                        from update_character_info import normalize_character_name
+                        monster_file = f"{normalize_character_name(monster_name)}.json"
                         if not os.path.exists(monster_file):
                             self.log_warning(f"Monster file not found: {monster_file} (referenced in {filename})")
     

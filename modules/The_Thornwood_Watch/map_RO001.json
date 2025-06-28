@@ -1,7 +1,7 @@
 {
   "mapId": "MAP_RO001",
   "mapName": "Rangers' Outpost Map",
-  "totalRooms": 5,
+  "totalRooms": 6,
   "rooms": [
     {
       "id": "RO01",
@@ -29,7 +29,8 @@
       "type": "ruins",
       "connections": [
         "RO01",
-        "RO05"
+        "RO05",
+        "RO06"
       ],
       "coordinates": "X1Y2",
       "name": "Shattered Sentinel Stones"
@@ -52,6 +53,15 @@
       ],
       "coordinates": "X1Y1",
       "name": "Forgotten Waystation"
+    },
+    {
+      "id": "RO06",
+      "type": "ruins",
+      "connections": [
+        "RO03"
+      ],
+      "coordinates": "X1Y3",
+      "name": "North Tower Overlook"
     }
   ],
   "layout": [
@@ -68,6 +78,11 @@
     [
       "   ",
       "RO02",
+      "   "
+    ],
+    [
+      "RO06",
+      "   ",
       "   "
     ]
   ]
