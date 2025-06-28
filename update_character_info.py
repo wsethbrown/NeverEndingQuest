@@ -93,20 +93,26 @@ def load_conversation_history():
     return data if data else []
 
 def normalize_character_name(character_name):
-    """Normalize character names to handle titles and descriptors"""
-    # Remove common titles and descriptors
-    name = character_name.strip()
+    """Convert character name to safe filename format"""
+    import re
     
-    # Handle specific known cases
-    if "Scout Elen" in name or "Elen" in name:
-        return "Elen"
+    # Convert to lowercase and replace problematic characters
+    name = character_name.strip().lower()
     
-    # Remove common titles
-    titles_to_remove = ["Scout", "Guard", "Captain", "Sir", "Lady", "Lord", "Master", "Sergeant"]
-    for title in titles_to_remove:
-        if name.startswith(title + " "):
-            name = name[len(title):].strip()
-            break
+    # Replace spaces with underscores
+    name = name.replace(" ", "_")
+    
+    # Replace apostrophes with underscores (handles names like "Mac'Davier")
+    name = name.replace("'", "_")
+    
+    # Replace any other non-alphanumeric characters with underscores
+    name = re.sub(r'[^a-z0-9_]', '_', name)
+    
+    # Remove multiple consecutive underscores
+    name = re.sub(r'_+', '_', name)
+    
+    # Remove leading/trailing underscores
+    name = name.strip('_')
     
     return name
 
