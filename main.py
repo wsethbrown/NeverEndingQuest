@@ -1135,6 +1135,11 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             if isinstance(result, dict):
                 if result.get("status") == "exit": return "exit"
                 if result.get("status") == "restart": return "restart"
+                if result.get("status") == "needs_response":
+                    # Combat summary was added to conversation history, get AI response
+                    conversation_history = load_json_file("conversation_history.json") or []
+                    ai_response = get_ai_response(conversation_history)
+                    return process_ai_response(ai_response, conversation_history)
                 if result.get("needs_update"): needs_conversation_history_update = True
             elif result == "exit": return "exit"
             elif isinstance(result, bool) and result: needs_conversation_history_update = True
