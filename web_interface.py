@@ -346,6 +346,27 @@ def handle_user_input(data):
         'content': user_input
     })
 
+@socketio.on('action')
+def handle_action(data):
+    """Handle direct action requests (like save/load)"""
+    action_type = data.get('action')
+    parameters = data.get('parameters', {})
+    
+    # Handle save/load actions directly
+    if action_type == 'listSaves':
+        try:
+            from save_game_manager import SaveGameManager
+            manager = SaveGameManager()
+            saves = manager.list_save_games()
+            emit('save_list_response', saves)
+        except Exception as e:
+            print(f"Error listing saves: {e}")
+            emit('save_list_response', [])
+    else:
+        # For other actions, convert to JSON input and put in the queue
+        action_json = json.dumps({"action": action_type, "parameters": parameters})
+        user_input_queue.put(action_json)
+
 @socketio.on('start_game')
 def handle_start_game():
     """Start the game in a separate thread"""

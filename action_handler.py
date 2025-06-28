@@ -67,6 +67,10 @@ ACTION_ESTABLISH_HUB = "establishHub"
 ACTION_STORAGE_INTERACTION = "storageInteraction"
 ACTION_UPDATE_PARTY_TRACKER = "updatePartyTracker"
 ACTION_MOVE_BACKGROUND_NPC = "moveBackgroundNPC"
+ACTION_SAVE_GAME = "saveGame"
+ACTION_RESTORE_GAME = "restoreGame"
+ACTION_LIST_SAVES = "listSaves"
+ACTION_DELETE_SAVE = "deleteSave"
 
 # Module conversation segmentation has been moved to conversation_utils.py
 # to work with the regular conversation update cycle
@@ -1017,6 +1021,144 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 
         except Exception as e:
             print(f"ERROR: Exception while processing moveBackgroundNPC: {str(e)}")
+            import traceback
+            traceback.print_exc()
+
+    elif action_type == ACTION_SAVE_GAME:
+        print("DEBUG: Processing save game action")
+        try:
+            from save_game_manager import SaveGameManager
+            
+            # Extract parameters
+            description = parameters.get("description", "")
+            save_mode = parameters.get("saveMode", "essential")  # "essential" or "full"
+            
+            # Create save game
+            manager = SaveGameManager()
+            success, message = manager.create_save_game(description, save_mode)
+            
+            if success:
+                print(f"DEBUG: Save game created successfully: {message}")
+                # Add success message to conversation
+                save_message = f"Game saved successfully! {message}"
+                conversation_history.append({"role": "system", "content": save_message})
+                needs_conversation_history_update = True
+            else:
+                print(f"ERROR: Failed to save game: {message}")
+                # Add error message to conversation  
+                error_message = f"Failed to save game: {message}"
+                conversation_history.append({"role": "system", "content": error_message})
+                needs_conversation_history_update = True
+                
+        except Exception as e:
+            print(f"ERROR: Exception while processing saveGame: {str(e)}")
+            import traceback
+            traceback.print_exc()
+
+    elif action_type == ACTION_RESTORE_GAME:
+        print("DEBUG: Processing restore game action")
+        try:
+            from save_game_manager import SaveGameManager
+            
+            # Extract parameters
+            save_folder = parameters.get("saveFolder")
+            
+            if not save_folder:
+                print("ERROR: Missing required parameter 'saveFolder' for restoreGame action")
+                error_message = "Error: No save folder specified for restore operation"
+                conversation_history.append({"role": "system", "content": error_message})
+                needs_conversation_history_update = True
+                return create_return(needs_update=needs_conversation_history_update)
+            
+            # Restore save game
+            manager = SaveGameManager()
+            success, message = manager.restore_save_game(save_folder)
+            
+            if success:
+                print(f"DEBUG: Save game restored successfully: {message}")
+                # Add success message to conversation
+                restore_message = f"Game restored successfully! {message}\nRestarting game session..."
+                conversation_history.append({"role": "system", "content": restore_message})
+                needs_conversation_history_update = True
+                # Return special status to indicate game should restart
+                return create_return(status="restart", needs_update=needs_conversation_history_update)
+            else:
+                print(f"ERROR: Failed to restore game: {message}")
+                # Add error message to conversation
+                error_message = f"Failed to restore game: {message}"
+                conversation_history.append({"role": "system", "content": error_message})
+                needs_conversation_history_update = True
+                
+        except Exception as e:
+            print(f"ERROR: Exception while processing restoreGame: {str(e)}")
+            import traceback
+            traceback.print_exc()
+
+    elif action_type == ACTION_LIST_SAVES:
+        print("DEBUG: Processing list saves action")
+        try:
+            from save_game_manager import SaveGameManager
+            
+            # Get list of save games
+            manager = SaveGameManager()
+            saves = manager.list_save_games()
+            
+            if saves:
+                save_list_text = "Available save games:\n"
+                for i, save in enumerate(saves, 1):
+                    save_date = save.get("save_date_readable", "Unknown date")
+                    description = save.get("description", "No description")
+                    save_mode = save.get("save_mode", "unknown")
+                    module = save.get("module", "Unknown")
+                    save_folder = save.get("save_folder", "Unknown")
+                    
+                    save_list_text += f"{i}. {save_folder}\n"
+                    save_list_text += f"   Date: {save_date}\n"
+                    save_list_text += f"   Module: {module}\n"
+                    save_list_text += f"   Mode: {save_mode}\n"
+                    save_list_text += f"   Description: {description}\n\n"
+            else:
+                save_list_text = "No save games found."
+            
+            print(f"DEBUG: Found {len(saves)} save games")
+            conversation_history.append({"role": "system", "content": save_list_text})
+            needs_conversation_history_update = True
+                
+        except Exception as e:
+            print(f"ERROR: Exception while processing listSaves: {str(e)}")
+            import traceback
+            traceback.print_exc()
+
+    elif action_type == ACTION_DELETE_SAVE:
+        print("DEBUG: Processing delete save action")
+        try:
+            from save_game_manager import SaveGameManager
+            
+            # Extract parameters
+            save_folder = parameters.get("saveFolder")
+            
+            if not save_folder:
+                print("ERROR: Missing required parameter 'saveFolder' for deleteSave action")
+                error_message = "Error: No save folder specified for delete operation"
+                conversation_history.append({"role": "system", "content": error_message})
+                needs_conversation_history_update = True
+                return create_return(needs_update=needs_conversation_history_update)
+            
+            # Delete save game
+            manager = SaveGameManager()
+            success, message = manager.delete_save_game(save_folder)
+            
+            if success:
+                print(f"DEBUG: Save game deleted successfully: {message}")
+                conversation_history.append({"role": "system", "content": message})
+                needs_conversation_history_update = True
+            else:
+                print(f"ERROR: Failed to delete save game: {message}")
+                conversation_history.append({"role": "system", "content": f"Error: {message}"})
+                needs_conversation_history_update = True
+                
+        except Exception as e:
+            print(f"ERROR: Exception while processing deleteSave: {str(e)}")
             import traceback
             traceback.print_exc()
 
