@@ -1,39 +1,156 @@
-Of course. Here is the original section of the source code that you need to replace.
-You can find this inside the <script> tag at the bottom of your game_interface.html file, right after the capitalizeWords function.
-Original Section to Replace:
-This is the old, problematic code in your file.
-Generated javascript
-// Auto-scroll to bottom function
-        function scrollToBottom(elementId) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.scrollTop = element.scrollHeight;
-                // Force scroll for debug tab specifically
-                if (elementId === 'debug-output') {
-                    setTimeout(() => {
-                        element.scrollTop = element.scrollHeight;
-                    }, 50);
-                }
-            }
-        }
+You are absolutely right. I apologize for the previous answer; I misdiagnosed the "double transition" issue as a general problem when it was actually a specific symptom of your message combination system not behaving as intended.
+You have described the correct, intended behavior:
+An initial AI response (e.g., one with createEncounter) is generated.
+This response is cached/held without its narration being fully displayed. Its actions, however, are processed to set up the game state (like initializing combat).
+The game waits for the next player input.
+A second AI response is generated.
+The held response and the new response are combined into a single, cohesive message.
+Only this final, combined message is displayed to the user.
+The problem you're seeing—where the first part of the narration appears in one turn and then the combined one appears in the next—is happening because the system is printing the first narration before caching it.
+Here is the precise logical flaw and the code to fix it.
+The Logical Flaw in main.py
+In your main_game_loop, the code correctly identifies the createEncounter action and decides to hold the response. However, it then immediately calls process_ai_response, which, by default, prints the narration to the screen. It also adds the held response to the conversation history prematurely.
+The incorrect flow:
+AI generates response_1 with createEncounter.
+The if has_create_encounter... block is triggered.
+held_response is set.
+awaiting_combat_resolution is set to True.
+process_ai_response(response_1) is called. This prints the narration from response_1.
+response_1 is added to conversation_history.
+--- End of Turn 1 ---
+Player inputs again.
+AI generates response_2.
+The elif awaiting_combat_resolution... block is triggered.
+response_1 and response_2 are combined.
+The old response_1 in the history is replaced with the combined_response.
+process_ai_response(combined_response) is called. This prints the full combined narration (which includes the narration from response_1 again).
+This results in the user seeing the first part of the story, then the whole story repeated with the second part attached.
+The Solution: Suppress Initial Narration and Defer History Update
+We need to modify the loop to process the actions of the held response without printing its narration and without adding it to the history until it's been combined.
+Code Changes for main.py
+1. Modify process_ai_response to selectively suppress narration.
+Add a suppress_narration parameter to the function definition.
+Generated python
+# In main.py
+
+def process_ai_response(response, party_tracker_data, location_data, conversation_history, suppress_narration=False): # Add new parameter
+    global needs_conversation_history_update
+    
+    try:
+        json_content = extract_json_from_codeblock(response)
+        parsed_response = json.loads(json_content)
+
+        # --- THIS IS THE KEY CHANGE ---
+        if not suppress_narration:
+            narration = parsed_response.get("narration", "")
+            # Sanitize narration to handle problematic Unicode characters
+            sanitized_narration = sanitize_text(narration)
+            print(colored("Dungeon Master:", "blue"), colored(sanitized_narration, "blue"))
+        # --- END OF CHANGE ---
+
+        actions = parsed_response.get("actions", [])
+        actions_processed = False
+        for action in actions:
+            # ... (rest of the function is unchanged)
 Use code with caution.
-JavaScript
-Replace it with this New Section:
-This is the corrected code that ensures auto-scrolling works reliably for the debug tab and all other panels.
-Generated javascript
-// --- MODIFIED CODE START ---
-        // Auto-scroll to bottom function
-        function scrollToBottom(elementId) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                // A race condition can occur where this function is called before the browser
-                // has finished rendering the new message and updating the element's scrollHeight.
-                // By using setTimeout, we push the scroll command to the end of the execution queue,
-                // giving the browser time to repaint. This ensures the scroll is always accurate.
-                setTimeout(() => {
-                    element.scrollTop = element.scrollHeight;
-                }, 50); // A small delay is usually enough.
-            }
-        }
-        // --- MODIFIED CODE END ---
+Python
+2. Update the main game loop to use this new suppression feature.
+We will change the logic inside the while retry_count < 5 and not valid_response_received: loop to correctly handle the caching.
+Here is the complete, corrected block from your main_game_loop. Replace the existing while loop with this one.
+Generated python
+# In main.py, inside main_game_loop()
+
+        # ... (code before this loop)
+
+        while retry_count < 5 and not valid_response_received:
+            ai_response_content = get_ai_response(conversation_history)
+            validation_result = validate_ai_response(ai_response_content, user_input_text, validation_prompt_text, conversation_history, party_tracker_data)
+            
+            if validation_result is True:
+                valid_response_received = True
+                print(f"DEBUG: Valid response generated on attempt {retry_count + 1}")
+
+                # =================================================================
+                # REVISED MESSAGE COMBINATION LOGIC
+                # =================================================================
+                global held_response, awaiting_combat_resolution
+                result = None
+
+                try:
+                    parsed_data = json.loads(ai_response_content)
+                    has_create_encounter = detect_create_encounter(parsed_data)
+
+                    # --- If a response has createEncounter and we are NOT already waiting ---
+                    if has_create_encounter and not awaiting_combat_resolution:
+                        print("DEBUG: Holding response with createEncounter. Suppressing narration.")
+                        held_response = ai_response_content
+                        awaiting_combat_resolution = True
+                        
+                        # Process actions ONLY, but suppress narration and do NOT add to history yet.
+                        # This initializes combat in the background without telling the player the first half of the story.
+                        result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history, suppress_narration=True)
+                        # NOTE: We intentionally DO NOT add this to conversation_history here.
+
+                    # --- If we ARE waiting and this is the second response ---
+                    elif awaiting_combat_resolution:
+                        print("DEBUG: Received second response. Combining with held response.")
+                        combined_response = combine_messages(held_response, ai_response_content)
+                        clear_message_buffer() # Reset state
+                        
+                        # Now, add the *single combined response* to the history.
+                        conversation_history.append({"role": "assistant", "content": combined_response})
+                        save_conversation_history(conversation_history)
+                        
+                        # Process the combined response, which will now display the full narration.
+                        result = process_ai_response(combined_response, party_tracker_data, location_data, conversation_history)
+
+                    # --- If this is a normal, non-combined response ---
+                    else:
+                        conversation_history.append({"role": "assistant", "content": ai_response_content})
+                        save_conversation_history(conversation_history)
+                        result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+
+                except json.JSONDecodeError:
+                    print("DEBUG: JSON parsing failed, proceeding with normal processing")
+                    conversation_history.append({"role": "assistant", "content": ai_response_content})
+                    save_conversation_history(conversation_history)
+                    result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+                except Exception as e:
+                    print(f"DEBUG: Message combination system error: {e}, proceeding normally.")
+                    conversation_history.append({"role": "assistant", "content": ai_response_content})
+                    save_conversation_history(conversation_history)
+                    result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+                
+                # =================================================================
+                # END OF REVISED LOGIC
+                # =================================================================
+
+                # This check now correctly handles the 'result' from ALL paths
+                if result == "exit":
+                    return
+                elif result == "restart":
+                    # Restart the game loop after a save is restored
+                    print("\n[SYSTEM] Restarting game with restored save...\n")
+                    main_game_loop()
+                    return
+            
+            elif isinstance(validation_result, str):
+                # ... (rest of the validation failure logic is unchanged)
 Use code with caution.
+Python
+Summary of the Fix and New Flow
+process_ai_response is now flexible: It can be told to run actions in the background without printing narration by passing suppress_narration=True.
+Turn 1 (e.g., Combat Starts):
+The AI response with createEncounter is generated.
+The if has_create_encounter... block executes.
+The response is stored in held_response.
+process_ai_response is called with suppress_narration=True. The createEncounter action runs, but nothing is printed to the screen.
+The response is not added to the conversation history. The turn ends, and the system silently waits for the player's next action.
+Turn 2 (e.g., Player Attacks):
+The player inputs their combat action.
+The AI generates the second part of the response.
+The elif awaiting_combat_resolution... block executes.
+combine_messages merges the held response and the new one into a single JSON object.
+This final, combined response is added to the conversation history.
+process_ai_response is called normally. It now prints the full, combined narration for the first time.
+This new flow ensures that the user only sees a single, coherent narrative block when a two-part action sequence occurs, fixing the redundant display and creating a much smoother experience.

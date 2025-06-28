@@ -1,0 +1,62 @@
+{
+  "encounterId": "B04-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 1,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 8,
+      "maxHitPoints": 36,
+      "armorClass": 16
+    },
+    {
+      "name": "Specter",
+      "type": "enemy",
+      "monsterType": "specter",
+      "initiative": 13,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -2,
+      "maxHitPoints": 22
+    },
+    {
+      "name": "Specter_2",
+      "type": "enemy",
+      "monsterType": "specter",
+      "initiative": 14,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -5,
+      "maxHitPoints": 22
+    },
+    {
+      "name": "Will-o'-Wisp",
+      "type": "enemy",
+      "monsterType": "will-o'-wisp",
+      "initiative": 8,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -1,
+      "maxHitPoints": 22
+    }
+  ],
+  "encounterSummary": "As Norn scans the Lost Ward Circle for danger, the flickering blue energy between the ancient stones intensifies. Two specters emerge from the shadows, their forms swirling with malice, while a will-o'-wisp hovers above the ritual dais, its light pulsing with predatory intent. The ward's failing magic has drawn these undead guardians to confront Norn in the heart of the circle."
+}

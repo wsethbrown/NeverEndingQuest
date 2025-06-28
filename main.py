@@ -130,6 +130,7 @@ needs_conversation_history_update = False
 # Message combination system state variables
 held_response = None
 awaiting_combat_resolution = False
+awaiting_location_transition = False
 
 # Status display configuration
 current_status_line = None
@@ -176,6 +177,17 @@ def detect_create_encounter(parsed_data):
     actions = parsed_data.get("actions", [])
     for action in actions:
         if isinstance(action, dict) and action.get("action") == "createEncounter":
+            return True
+    return False
+
+def detect_transition_location(parsed_data):
+    """Check if the parsed response contains a transitionLocation action"""
+    if not isinstance(parsed_data, dict) or "actions" not in parsed_data:
+        return False
+    
+    actions = parsed_data.get("actions", [])
+    for action in actions:
+        if isinstance(action, dict) and action.get("action") == "transitionLocation":
             return True
     return False
 
@@ -965,17 +977,20 @@ def extract_json_from_codeblock(text):
         return match.group(1)
     return text
 
-def process_ai_response(response, party_tracker_data, location_data, conversation_history):
+def process_ai_response(response, party_tracker_data, location_data, conversation_history, suppress_narration=False):
     global needs_conversation_history_update
     
     try:
         json_content = extract_json_from_codeblock(response)
         parsed_response = json.loads(json_content)
 
-        narration = parsed_response.get("narration", "")
-        # Sanitize narration to handle problematic Unicode characters
-        sanitized_narration = sanitize_text(narration)
-        print(colored("Dungeon Master:", "blue"), colored(sanitized_narration, "blue"))
+        # --- THIS IS THE KEY CHANGE ---
+        if not suppress_narration:
+            narration = parsed_response.get("narration", "")
+            # Sanitize narration to handle problematic Unicode characters
+            sanitized_narration = sanitize_text(narration)
+            print(colored("Dungeon Master:", "blue"), colored(sanitized_narration, "blue"))
+        # --- END OF CHANGE ---
 
         actions = parsed_response.get("actions", [])
         actions_processed = False
@@ -1012,11 +1027,9 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
     except json.JSONDecodeError as e:
         print(f"Error: Unable to parse AI response as JSON: {e}")
         print(f"Problematic response: {response}")
-
         # Sanitize response before printing in case of JSON parsing errors
         sanitized_response = sanitize_text(response)
         print(colored("Dungeon Master:", "blue"), colored(sanitized_response, "blue")) # Print raw response if JSON fails but it was a narration
-
         return {"role": "assistant", "content": response} # Return raw if parsing fails
 
 def save_conversation_history(history):
@@ -1708,75 +1721,91 @@ Make this transition feel like a movie scene change, not just a location descrip
                 valid_response_received = True
                 print(f"DEBUG: Valid response generated on attempt {retry_count + 1}")
                 
-                # Message combination system integration - FIXED TO PREVENT DOUBLE INJECTION
-                global held_response, awaiting_combat_resolution
-                response_processed = False  # Track if response was already processed
-                
+                # =================================================================
+                # REVISED MESSAGE COMBINATION LOGIC
+                # =================================================================
+                global held_response, awaiting_combat_resolution, awaiting_location_transition
+                result = None
+
                 try:
                     parsed_data = json.loads(ai_response_content)
                     has_create_encounter = detect_create_encounter(parsed_data)
-                    
+                    has_transition_location = detect_transition_location(parsed_data)
+
+                    # --- If a response has createEncounter and we are NOT already waiting ---
                     if has_create_encounter and not awaiting_combat_resolution:
-                        # Hold this message for combination, process actions but DON'T add to conversation history yet
+                        print("DEBUG: Holding response with createEncounter. Suppressing narration.")
                         held_response = ai_response_content
                         awaiting_combat_resolution = True
-                        print("DEBUG: Message held for combination (createEncounter detected)")
                         
-                        # Process actions immediately but defer conversation history update
-                        result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
-                        if result == "exit":
-                            return
-                        elif result == "restart":
-                            print("\n[SYSTEM] Restarting game with restored save...\n")
-                            main_game_loop()
-                            return
+                        # Process actions ONLY, but suppress narration and do NOT add to history yet.
+                        # This initializes combat in the background without telling the player the first half of the story.
+                        result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history, suppress_narration=True)
+                        # NOTE: We intentionally DO NOT add this to conversation_history here.
+
+                    # --- If a response has transitionLocation and we are NOT already waiting ---
+                    elif has_transition_location and not awaiting_location_transition:
+                        print("DEBUG: Holding response with transitionLocation. Suppressing narration.")
+                        held_response = ai_response_content
+                        awaiting_location_transition = True
                         
-                        # Add to conversation history AFTER processing actions
+                        # Process actions ONLY, but suppress narration and do NOT add to history yet.
+                        # This processes the location transition in the background without showing narration.
+                        result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history, suppress_narration=True)
+                        # NOTE: We intentionally DO NOT add this to conversation_history here.
+
+                    # --- If we ARE waiting for combat and this is the second response ---
+                    elif awaiting_combat_resolution:
+                        print("DEBUG: Received second response. Combining with held combat response.")
+                        combined_response = combine_messages(held_response, ai_response_content)
+                        clear_message_buffer() # Reset state
+                        
+                        # Now, add the *single combined response* to the history.
+                        conversation_history.append({"role": "assistant", "content": combined_response})
+                        save_conversation_history(conversation_history)
+                        
+                        # Process the combined response, which will now display the full narration.
+                        result = process_ai_response(combined_response, party_tracker_data, location_data, conversation_history)
+
+                    # --- If we ARE waiting for location transition and this is the second response ---
+                    elif awaiting_location_transition:
+                        print("DEBUG: Received second response. Combining with held location transition response.")
+                        combined_response = combine_messages(held_response, ai_response_content)
+                        clear_message_buffer() # Reset state
+                        
+                        # Now, add the *single combined response* to the history.
+                        conversation_history.append({"role": "assistant", "content": combined_response})
+                        save_conversation_history(conversation_history)
+                        
+                        # Process the combined response, which will now display the full narration.
+                        result = process_ai_response(combined_response, party_tracker_data, location_data, conversation_history)
+
+                    # --- If this is a normal, non-combined response ---
+                    else:
                         conversation_history.append({"role": "assistant", "content": ai_response_content})
                         save_conversation_history(conversation_history)
-                        response_processed = True
-                        
-                    elif awaiting_combat_resolution:
-                        # Combine messages and replace the held one
-                        combined_response = combine_messages(held_response, ai_response_content)
-                        clear_message_buffer()
-                        
-                        # Find and replace the last assistant message (the held one) with combined version
-                        for i in range(len(conversation_history) - 1, -1, -1):
-                            if conversation_history[i]["role"] == "assistant":
-                                conversation_history[i]["content"] = combined_response
-                                break
-                        
-                        save_conversation_history(conversation_history)
-                        print("DEBUG: Messages combined and conversation history updated")
-                        
-                        # Process the combined response
-                        result = process_ai_response(combined_response, party_tracker_data, location_data, conversation_history)
-                        if result == "exit":
-                            return
-                        elif result == "restart":
-                            print("\n[SYSTEM] Restarting game with restored save...\n")
-                            main_game_loop()
-                            return
-                        response_processed = True
-                        
+                        result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+
                 except json.JSONDecodeError:
-                    # If parsing fails, proceed with normal processing
                     print("DEBUG: JSON parsing failed, proceeding with normal processing")
-                except Exception as e:
-                    print(f"DEBUG: Message combination error: {e}, proceeding with normal processing")
-                
-                # Only process response if it wasn't already handled by combination logic
-                if not response_processed:
-                    # Normal message processing - add to conversation history and process
                     conversation_history.append({"role": "assistant", "content": ai_response_content})
                     save_conversation_history(conversation_history)
-                    
-                    result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history) 
+                    result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+                except Exception as e:
+                    print(f"DEBUG: Message combination system error: {e}, proceeding normally.")
+                    conversation_history.append({"role": "assistant", "content": ai_response_content})
+                    save_conversation_history(conversation_history)
+                    result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+                
+                # =================================================================
+                # END OF REVISED LOGIC
+                # =================================================================
+
+                # This check now correctly handles the 'result' from ALL paths
                 if result == "exit":
                     return
                 elif result == "restart":
-                    # Restart the game loop after save restore
+                    # Restart the game loop after a save is restored
                     print("\n[SYSTEM] Restarting game with restored save...\n")
                     main_game_loop()
                     return
