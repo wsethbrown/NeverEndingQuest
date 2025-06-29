@@ -756,6 +756,21 @@ Character Role: {character_role}
                 if attempt == max_attempts:
                     print(f"{RED}Max attempts reached. Reverting changes.{RESET}")
                     return False
+                
+                # Add validation error feedback to the prompt for next attempt
+                if "item_subtype" in error_msg and "is not one of" in error_msg:
+                    # Extract the problematic subtype
+                    subtype_start = error_msg.find("'") + 1
+                    subtype_end = error_msg.find("'", subtype_start)
+                    invalid_subtype = error_msg[subtype_start:subtype_end] if subtype_start > 0 and subtype_end > subtype_start else "unknown"
+                    
+                    feedback_message = f"\n\nPREVIOUS ATTEMPT FAILED: The item_subtype '{invalid_subtype}' is not valid. Valid item_subtype values are: ['scroll', 'potion', 'wand', 'ring', 'amulet', 'cloak', 'boots', 'gloves', 'helmet', 'rod', 'staff', 'food', 'other']. For food items like trail rations, use 'food' as the item_subtype."
+                    messages[-1]["content"] += feedback_message
+                else:
+                    # Generic validation error feedback
+                    feedback_message = f"\n\nPREVIOUS ATTEMPT FAILED: {error_msg}. Please fix the validation error in your next response."
+                    messages[-1]["content"] += feedback_message
+                
                 attempt += 1
                 continue
             

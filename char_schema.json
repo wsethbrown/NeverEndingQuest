@@ -229,7 +229,7 @@
         "properties": {
           "item_name": {"type": "string"},
           "item_type": {"type": "string", "enum": ["weapon", "armor", "miscellaneous", "consumable", "ammunition", "equipment"]},
-          "item_subtype": {"type": "string", "enum": ["scroll", "potion", "wand", "ring", "amulet", "cloak", "boots", "gloves", "helmet", "rod", "staff", "other"]},
+          "item_subtype": {"type": "string", "enum": ["scroll", "potion", "wand", "ring", "amulet", "cloak", "boots", "gloves", "helmet", "rod", "staff", "food", "other"]},
           "description": {"type": "string"},
           "quantity": {"type": "integer"},
           "equipped": {"type": "boolean", "default": false},
