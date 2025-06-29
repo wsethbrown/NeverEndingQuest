@@ -96,11 +96,12 @@
       "locationId": "TW01",
       "name": "Ambush Site",
       "type": "clearing",
-      "description": "A blood-stained clearing where the aftermath of a bandit ambush tells its grim story. Overturned merchant wagons leak scattered goods among the brambles, while Wounded Scout Neris leans against a tree, binding hastily treated wounds. Drag marks in the soft earth lead deeper into the thorny maze, and the metallic scent of recent violence hangs heavy in the still air.",
+      "description": "A blood-stained clearing where the aftermath of a brutal bandit ambush tells its grim story. Overturned merchant wagons leak scattered goods among the brambles, while the fallen body of Ranger Corwin lies motionless near a shattered shield, victim of the vicious attack. Fresh drag marks and bloodied cloth fragments lead north through the undergrowth, suggesting any survivors may have fled in that direction. The metallic scent of recent violence and death hangs heavy in the still air.",
       "coordinates": "X2Y2",
       "connectivity": [
         "TW02",
-        "TW04"
+        "TW04",
+        "TW06"
       ],
       "areaConnectivity": [
         "Rangers' Outpost"
@@ -142,7 +143,11 @@
         },
         {
           "name": "Drag Marks",
-          "description": "Clear signs where captives and valuable goods were dragged deeper into the forest toward the bandit hideout."
+          "description": "Clear signs where captives and valuable goods were dragged north through the forest, suggesting survivors fled toward the Wolf's Den Cave."
+        },
+        {
+          "name": "Fallen Ranger",
+          "description": "The body of Ranger Corwin lies near a shattered shield, a victim of the brutal bandit ambush. His ranger's cloak is torn and bloodied."
         }
       ],
       "encounters": [],
