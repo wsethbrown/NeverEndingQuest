@@ -267,7 +267,9 @@
           "attitude": "Mystical and cryptic but ultimately helpful. Concerned about the spreading corruption and willing to aid those who would fight against unnatural influences."
         }
       ],
-      "monsters": [],
+      "monsters": [
+        "1 Tainted Naiad (appears after Maelo's ritual, can be freed with Remove Curse/Lesser Restoration or DC 15 Persuasion + offering purified water)"
+      ],
       "lootTable": [
         "Herbal healing potion brewed by the hermit",
         "Ward stones that protect against supernatural influence",
@@ -279,7 +281,7 @@
         "Ancient knowledge about how to cleanse the corruption affecting the region",
         "Warnings about what the party will face in the corrupted northern woods"
       ],
-      "dmInstructions": "Maelo provides mystical insight and preparation for the supernatural threats ahead. He can offer healing, protection, and crucial information about the corruption in the Northern Reaches.",
+      "dmInstructions": "Maelo provides mystical insight and preparation for the supernatural threats ahead. He can offer healing, protection, and crucial information about the corruption in the Northern Reaches. After completing his scrying ritual at the spring, a Tainted Naiad emerges - the corrupted former guardian. She attacks initially but can be freed rather than killed through Remove Curse, Lesser Restoration, or peaceful persuasion with an offering of purified spring water (DC 15).",
       "doors": [],
       "traps": [],
       "dcChecks": [
@@ -296,7 +298,7 @@
         },
         {
           "name": "Healing Springs",
-          "description": "A small spring with pure water that glows faintly with restorative magic, providing sanctuary to injured creatures."
+          "description": "A small spring with pure water that glows faintly with restorative magic, providing sanctuary to injured creatures. Once corrupted by Malarok's influence, now cleansed and protected by the hermit's ritual work."
         },
         {
           "name": "Ward Stones",
