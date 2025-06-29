@@ -52,6 +52,7 @@ from status_manager import (
     status_updating_plot, status_advancing_time, status_processing_levelup
 )
 from location_path_finder import LocationGraph
+from conversation_utils import handle_module_conversation_segmentation
 
 # Action type constants
 ACTION_CREATE_ENCOUNTER = "createEncounter"
