@@ -75,6 +75,7 @@ import json
 import os
 from module_path_manager import ModulePathManager
 from encoding_utils import safe_json_load
+from plot_formatting import format_plot_for_ai
 
 # ============================================================================
 # MODULE TRANSITION DETECTION AND HANDLING
@@ -302,11 +303,10 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
     
 # Module transition detection now happens before system message removal above
 
-    # Insert plot data
+    # Insert plot data with new formatting
     if plot_data:
-        plot_message = "Here's the current plot data:\n"
-        plot_message += f"{plot_data}\n"  # plot_data is already compressed
-        new_history.append({"role": "system", "content": plot_message})
+        formatted_plot = format_plot_for_ai(plot_data)
+        new_history.append({"role": "system", "content": formatted_plot})
 
     # Get the current area and location ID from the party tracker data
     current_area = party_tracker_data["worldConditions"]["currentArea"] if party_tracker_data else None
