@@ -96,20 +96,20 @@
       "locationId": "TW01",
       "name": "Ambush Site",
       "type": "clearing",
-      "description": "A somber clearing in the Thornwood forest at dawn, marked by an overturned wagon, scattered arrows, and the smoldering remains of a campfire. The ground bears fresh and older bootprints and drag marks leading into the undergrowth, indicating the forced removal of captives. The tense silence hangs heavy as the party discovers the absence of Wounded Scout Neris and Merchant Lira, deepening the uncertainty of their fate.",
-      "dmInstructions": "Portray the aftermath of a brutal ambush with lingering tension and uncertainty. Highlight the party's discovery of missing captives and the emotional weight of the scene, encouraging roleplay centered on concern and urgency. Use the cleared area and surrounding forest to emphasize tracking opportunities and the somber tone following the skirmish. Prepare for potential future encounters related to the captives' whereabouts and bandit threats.",
+      "description": "A battered clearing beneath the waning afternoon sun, surrounded by shadowed pines and carrying the bittersweet scent of pine and earth. The overturned wagon serves as a silent testament to past violence, strewn with broken arrows, torn cloth, and scattered debris. Drag marks and varied bootprints lead toward the Bandit Trail, marking the hurried retreat of bandits and the path of captives. The tension of recent conflict lingers in the air as Eirik and Scout Kira carefully search the area, uncovering clues that hint at the bandits' fate and their own resolve to press onward.",
+      "dmInstructions": "Depict the somber aftermath of a brutal ambush with lingering tension and subtle signs of retreat. Emphasize the detailed search of the party, uncovering clues and items left behind by the bandits. Encourage roleplay highlighting camaraderie and determination between Eirik and Scout Kira. Use environmental features to provide tracking opportunities and deepen narrative intrigue. Prepare for future encounters related to the bandits' trail and mysterious captives.",
       "coordinates": "X2Y2",
       "accessibility": "Forest clearing accessible from main trade road and nearby trails",
       "npcs": [
         {
           "name": "Eirik Hearthwise",
-          "description": "A resilient adventurer and protector, carrying the unconscious Scout Kira with grave determination and exhaustion after surviving the ambush.",
+          "description": "A resilient adventurer and protector, moving with practiced care as he searches the ambush site alongside Scout Kira, his bond with her quietly deepening.",
           "attitude": "Resolute"
         },
         {
           "name": "Scout Kira",
-          "description": "A vigilant and confident scout, currently unconscious in Eirik's arms, wounded from the battle at the clearing.",
-          "attitude": "Unconscious"
+          "description": "A vigilant and confident scout, now conscious and aiding in a meticulous search of the ambush site, her keen eyes catching subtle details left by the bandits.",
+          "attitude": "Alert"
         }
       ],
       "monsters": [],
@@ -128,7 +128,9 @@
         "Broken bandit weapon with distinctive markings",
         "Trail rations and medical supplies from overturned wagon",
         "Alchemist's fire remnants",
-        "Torn but valuable cloth from captives' clothing"
+        "Torn but valuable cloth from captives' clothing",
+        "Stray crossbow bolt",
+        "Small pouch of silver coins"
       ],
       "dangerLevel": "High",
       "connectivity": [
@@ -146,7 +148,7 @@
       "features": [
         {
           "name": "Overturned Wagon",
-          "description": "A merchant wagon lying on its side, contents scattered and searched by bandits during their raid."
+          "description": "A merchant wagon lying on its side, its contents scattered and searched by bandits during their raid."
         },
         {
           "name": "Battle Traces",
@@ -158,7 +160,7 @@
         },
         {
           "name": "Narrow Cave Mouth",
-          "description": "A small cave entrance nearby where the rescued prisoners were found huddled, now empty as they have been moved."
+          "description": "A small cave entrance nearby where the rescued prisoners were previously found huddled, now empty as they have been moved."
         }
       ],
       "dcChecks": [
@@ -166,7 +168,9 @@
         "Investigation DC 11: Identify evidence of magical influence on bandits",
         "Survival DC 13: Track footprints and blood marks leading from the clearing",
         "Perception DC 14: Detect signs of the corrupted wolves' lingering presence",
-        "Stealth DC 15: Approach the cave mouth without alerting remaining predators"
+        "Stealth DC 15: Approach the cave mouth without alerting remaining predators",
+        "Investigation DC 14: Discover hidden clues beneath the overturned wagon",
+        "Perception DC 12: Spot subtle signs of the bandits' hurried retreat"
       ],
       "encounters": [
         {
@@ -201,9 +205,20 @@
             "day": 2,
             "time": "05:20:00"
           }
+        },
+        {
+          "encounterId": "TW01-E4",
+          "summary": "Eirik and Scout Kira return to the Ambush Site in the late afternoon, conducting a meticulous search of the battered clearing. They uncover a broken bandit dagger marked with Malarok's sigil, a sealed bandage packet, trail rations, a scrap of valuable cloth, a stray crossbow bolt, and a small pouch of silver coins. Drag marks and varied bootprints confirm the bandits' hurried retreat toward the Bandit Trail.",
+          "impact": "The discovery of these items provides crucial clues about the bandits' identity and movements, strengthening the party's resolve to pursue the trail further. The mutual trust and camaraderie between Eirik and Kira deepen as they prepare to press onward toward the wolf's den.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 2,
+            "time": "18:05:00"
+          }
         }
       ],
-      "adventureSummary": "The party arrived at the Ambush Site at dawn, stepping into a battered clearing marked by an overturned wagon, scattered arrows, and the smoldering remains of a campfire. Kira remained unconscious in Eirik's arms as they carefully surveyed the area, noting with growing concern that the places where Wounded Scout Neris and Merchant Lira had been huddled were now empty, their absence marked only by fresh and older bootprints crisscrossing the muddy earth and drag marks leading into the undergrowth. The clearing held a tense silence, as if waiting for what might come next, while the uncertainty of the prisoners' fate weighed heavily on the group. After a brief moment to absorb the grim scene, Eirik resolved to carry Kira back to the Rangers' Command Post. The journey through the dense, eerily quiet forest was tense and somber, the usual chorus of wildlife replaced by the muffled sounds of boots on damp earth. Upon reaching the outpost, grim-faced rangers hurriedly opened the gates, their urgency reflecting the seriousness of the situation. Commander Elen's sharp gaze softened with concern as she took in Kira's limp form, swiftly ordering a healer and inviting Eirik inside. Within the warmth of the hall, amidst the scent of wild thyme and the crackle of fire, Elen assessed Kira's wounds with practiced care, offering Eirik a solemn affirmation: \"You did well, Eirik.\" As Kira was tended to, Eirik felt the crushing weight of exhaustion settle upon him, but also a fragile hope anchored by the familiar sights and sounds of the command post and the knowledge that his companion was now in capable hands. This moment deepened the party's connection with Commander Elen and marked a crucial step in their ongoing struggle against the bandit menace threatening the Thornwood.",
+      "adventureSummary": "Upon returning to the Ambush Site beneath the waning afternoon sun, Eirik and Scout Kira found themselves once again enveloped by the tense, shadowed pines and the bittersweet scent of pine and earth. The battered clearing bore the grim scars of their prior confrontation: an overturned wagon lay as a silent testament to violence, strewn with broken arrows and torn cloth, relics of the chaos that had unfolded. Kira's vigilant gaze swept the scene, her voice lowered to a whisper as she urged a meticulous search, acknowledging the bandits' cunning and the forest's secrets. Together, they moved with practiced care, probing beneath the wagon and through scattered debris, their hands brushing against earth loosened by recent struggle. Their efforts--bolstered by Eirik's keen soldier's eye--uncovered a broken bandit dagger marked with Malarok's twisted sigil, a sealed bandage packet, trail rations, and a valuable scrap of cloth that hinted at the fate of missing captives. Kira herself found a stray crossbow bolt and a small pouch of silver coins, each item a fragment of the bandits' hurried retreat and a clue toward their trail. As shadows deepened, the pair noted drag marks leading toward the Bandit Trail, mingled with varied bootprints, confirming the direction of pursuit. Throughout their search, an unspoken bond of mutual trust and resolve quietly deepened between Eirik and Kira, their shared diligence and subtle smiles reflective of comradeship forged in hardship. With evidence collected and hearts steeled, they decided to leave the haunt of past violence behind and press onward toward the wolf's den, determined to explore more thoroughly this time, undeterred by memories of the wolves' prior attack.",
       "doors": []
     },
     {

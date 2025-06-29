@@ -4,16 +4,16 @@
   "name": "Scout Kira",
   "type": "npc",
   "size": "Medium",
-  "level": 1,
+  "level": 2,
   "race": "Wood Elf",
   "class": "Rogue",
   "alignment": "chaotic good",
   "background": "Outlander",
   "status": "alive",
-  "condition": "unconscious",
+  "condition": "none",
   "condition_affected": [],
-  "hitPoints": 0,
-  "maxHitPoints": 10,
+  "hitPoints": 19,
+  "maxHitPoints": 19,
   "armorClass": 15,
   "initiative": 4,
   "speed": 35,
@@ -85,6 +85,11 @@
       "name": "Thieves' Cant",
       "description": "Kira knows the secret rogue language.",
       "source": "Rogue 1"
+    },
+    {
+      "name": "Cunning Action",
+      "description": "Starting at 2nd level, Kira can use a bonus action on each of her turns in combat to take the Dash, Disengage, or Hide action.",
+      "source": "Rogue 2"
     }
   ],
   "racialTraits": [
@@ -119,18 +124,7 @@
     "description": "Kira has an excellent memory for maps and geography, and can always recall the general layout of terrain, settlements, and other features. She can find food and fresh water for herself and up to five others each day, provided the land offers berries, small game, water, and so forth.",
     "source": "Outlander"
   },
-  "temporaryEffects": [
-    {
-      "name": "Stabilized",
-      "description": "Kira has been stabilized and is no longer at risk of dying, but remains unconscious at 0 HP.",
-      "source": "Commander Elen's care",
-      "duration": "until healed",
-      "effect": {
-        "deathSaveSuccesses": 3,
-        "deathSaveFailures": 0
-      }
-    }
-  ],
+  "temporaryEffects": [],
   "injuries": [],
   "equipment_effects": [],
   "feats": [],
@@ -218,7 +212,7 @@
     },
     {
       "item_name": "Yew Ward Charm",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A protective charm made of braided yew wood, granting resistance to magical corruption from the Voidstone.",
       "quantity": 1,
       "equipped": true,
@@ -315,7 +309,7 @@
     "copper": 25
   },
   "experience_points": 300,
-  "exp_required_for_next_level": 300,
+  "exp_required_for_next_level": 900,
   "challengeRating": 0.25,
   "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale.",
   "ideals": "Change. Life is like the seasons, in constant change, and we must change with it. I now strive to be a beacon of hope and courage for those around me.",

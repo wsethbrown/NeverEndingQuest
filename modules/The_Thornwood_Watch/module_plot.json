@@ -46,7 +46,7 @@
         "PP003"
       ],
       "status": "in progress",
-      "plotImpact": "Eirik returns to the Rangers' Command Post with the injured Kira, seeking medical attention and reporting the dire situation at the Ambush Site. This strengthens the party's connection with Commander Elen and sets the stage for further investigation of the bandit threat.",
+      "plotImpact": "The party safely disarmed a concealed rope snare on the Bandit Trail, demonstrating their preparedness and teamwork as they press closer to the bandit stronghold.",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -111,7 +111,12 @@
       "description": "When the party completes their mission to eliminate the bandit threat and defeat Malarok, they must return to Rangers' Outpost to report their success to Commander Elen. Receive your reward and recognition for securing the frontier.",
       "location": "RO001",
       "nextPoints": [],
-      "prerequisites": ["PP001", "PP002", "PP003", "PP004"],
+      "prerequisites": [
+        "PP001",
+        "PP002",
+        "PP003",
+        "PP004"
+      ],
       "status": "not started",
       "plotImpact": "",
       "sideQuests": []

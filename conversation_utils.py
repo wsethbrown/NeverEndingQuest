@@ -245,6 +245,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
                     "No active location data available",
                     "Here's the updated party tracker data:",
                     "Here's the current plot data:",
+                    "=== ADVENTURE PLOT STATUS ===",
                     "Here's the current map data:",
                     "Here's the module data:",
                     "WORLD STATE CONTEXT:"

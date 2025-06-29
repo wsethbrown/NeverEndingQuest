@@ -212,19 +212,38 @@
     },
     {
       "item_name": "Yew Ward Charm",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A protective charm made of braided yew wood, granting resistance to magical corruption from the Voidstone.",
       "quantity": 1,
       "equipped": true,
       "magical": false,
       "consumable": false
+    },
+    {
+      "item_name": "Pouch of silver coins",
+      "item_type": "equipment",
+      "description": "A small pouch containing silver coins.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Trail rations",
+      "item_type": "consumable",
+      "item_subtype": "food",
+      "description": "Dried meats, hard bread, and nuts for sustenance on the road.",
+      "quantity": 3,
+      "equipped": false,
+      "magical": false,
+      "consumable": true
     }
   ],
   "ammunition": [
     {
-      "name": "Arrow",
-      "quantity": 18,
-      "description": "Ammunition for a shortbow."
+      "name": "Crossbow bolt",
+      "quantity": 10,
+      "description": "Ammunition for crossbows."
     }
   ],
   "attacksAndSpellcasting": [

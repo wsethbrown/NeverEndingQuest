@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 21,
   "maxHitPoints": 21,
-  "armorClass": 17,
+  "armorClass": 16,
   "initiative": 1,
   "speed": 30,
   "abilities": {
@@ -274,6 +274,33 @@
       "item_type": "equipment",
       "description": "A detailed map showing known bandit patrol routes and ambush points, given by Scout Neris.",
       "quantity": 1
+    },
+    {
+      "item_name": "Broken bandit dagger engraved with Malarok's sigil",
+      "item_type": "weapon",
+      "description": "A damaged dagger once owned by a bandit, bearing the dark sigil of Malarok.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Sealed bandage packet",
+      "item_type": "consumable",
+      "item_subtype": "other",
+      "description": "A small packet containing sterile bandages, useful for treating wounds.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Trail rations",
+      "item_type": "consumable",
+      "item_subtype": "food",
+      "description": "Packaged food for travelers, providing nourishment on long journeys.",
+      "quantity": 2
+    },
+    {
+      "item_name": "Torn but valuable cloth",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A piece of cloth, torn but of fine quality, possibly useful for trade or crafting.",
+      "quantity": 1
     }
   ],
   "ammunition": [
@@ -386,6 +413,14 @@
       "Protection from Evil and Good",
       "Sanctuary",
       "Shield of Faith"
+    ],
+    "temporaryEffects": [
+      {
+        "target": "Kira",
+        "effect": "Guidance",
+        "description": "+1d4 bonus on next ability check",
+        "duration": "next ability check"
+      }
     ]
   },
   "currency": {

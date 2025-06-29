@@ -4,7 +4,7 @@
   "name": "Eirik Hearthwise",
   "type": "player",
   "size": "Medium",
-  "level": 1,
+  "level": 2,
   "race": "Human",
   "class": "Cleric",
   "alignment": "chaotic good",
@@ -12,8 +12,8 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 11,
-  "maxHitPoints": 11,
+  "hitPoints": 21,
+  "maxHitPoints": 21,
   "armorClass": 17,
   "initiative": 1,
   "speed": 30,
@@ -73,6 +73,16 @@
       "name": "Divine Domain: Life",
       "description": "You gain proficiency with heavy armor. Bless and Cure Wounds are always prepared. Your healing spells heal additional hit points equal to 2 + the spell's level (Disciple of Life).",
       "source": "Cleric"
+    },
+    {
+      "name": "Channel Divinity (1/rest)",
+      "description": "You can channel divine energy to fuel magical effects. You start with one option: Turn Undead. As an action, present your holy symbol and speak a prayer. Each undead within 30 feet must make a Wisdom save or be turned for 1 minute or until it takes damage.",
+      "source": "Cleric"
+    },
+    {
+      "name": "Preserve Life (Channel Divinity Option)",
+      "description": "As an action, you can restore a total of HP equal to five times your cleric level (10 HP at level 2), divided among any creatures within 30 feet of you, not to heal a creature above half its hit point maximum.",
+      "source": "Life Domain"
     }
   ],
   "racialTraits": [
@@ -225,7 +235,7 @@
     },
     {
       "item_name": "Pouch of Silver Coins",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A small pouch containing 15 silver coins recovered from bandits and found at the tower.",
       "quantity": 1
     },
@@ -263,6 +273,33 @@
       "item_name": "Bandit Patrols Map",
       "item_type": "equipment",
       "description": "A detailed map showing known bandit patrol routes and ambush points, given by Scout Neris.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Broken bandit dagger engraved with Malarok's sigil",
+      "item_type": "weapon",
+      "description": "A damaged dagger once owned by a bandit, bearing the dark sigil of Malarok.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Sealed bandage packet",
+      "item_type": "consumable",
+      "item_subtype": "other",
+      "description": "A small packet containing sterile bandages, useful for treating wounds.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Trail rations",
+      "item_type": "consumable",
+      "item_subtype": "food",
+      "description": "Packaged food for travelers, providing nourishment on long journeys.",
+      "quantity": 2
+    },
+    {
+      "item_name": "Torn but valuable cloth",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A piece of cloth, torn but of fine quality, possibly useful for trade or crafting.",
       "quantity": 1
     }
   ],
@@ -318,7 +355,8 @@
         "Healing Word",
         "Detect Magic",
         "Protection from Evil and Good",
-        "Sanctuary"
+        "Sanctuary",
+        "Shield of Faith"
       ],
       "level2": [],
       "level3": [],
@@ -331,8 +369,8 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 2,
-        "max": 2
+        "current": 3,
+        "max": 3
       },
       "level2": {
         "current": 0,
@@ -373,7 +411,8 @@
       "Healing Word",
       "Detect Magic",
       "Protection from Evil and Good",
-      "Sanctuary"
+      "Sanctuary",
+      "Shield of Faith"
     ]
   },
   "currency": {
@@ -382,7 +421,7 @@
     "copper": 0
   },
   "experience_points": 300,
-  "exp_required_for_next_level": 300,
+  "exp_required_for_next_level": 900,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",
   "ideals": "Redemption. Every life saved is a step toward atoning for the lives he failed to save.",
