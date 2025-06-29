@@ -1252,7 +1252,7 @@ def check_all_modules_plot_completion():
     import os
     import glob
     
-    print("DEBUG: Starting comprehensive module plot completion check")
+    # Comprehensive module plot completion check (verbose logging removed)
     
     modules_dir = "modules"
     all_modules_data = {
@@ -1306,17 +1306,15 @@ def check_all_modules_plot_completion():
             
             if area_files:
                 available_modules.append(item)
-                print(f"DEBUG: Found valid module: {item} (has {len(area_files)} area files)")
     
-    print(f"DEBUG: Found {len(available_modules)} valid modules: {available_modules}")
+    # Found modules: {available_modules} (consolidated logging)
     
     # Check plot completion for each module
     for module_name in available_modules:
         module_path_manager = ModulePathManager(module_name)
         plot_file_path = module_path_manager.get_plot_path()
         
-        print(f"DEBUG: Checking plot completion for module '{module_name}'")
-        print(f"DEBUG: Plot file path: {plot_file_path}")
+        # Checking plot completion for module '{module_name}' at {plot_file_path}
         
         try:
             plot_data = load_json_file(plot_file_path)
@@ -1344,7 +1342,7 @@ def check_all_modules_plot_completion():
                 if not module_complete:
                     all_modules_data["all_complete"] = False
                 
-                print(f"DEBUG: Module {module_name} completion: {completed_plots}/{total_plots} ({module_complete})")
+                # Module {module_name} completion: {completed_plots}/{total_plots} ({module_complete})
                 
             else:
                 print(f"DEBUG: Module {module_name} has no plot data or plotPoints")
@@ -1369,9 +1367,7 @@ def check_all_modules_plot_completion():
     
     all_modules_data["modules_checked"] = available_modules
     
-    print(f"DEBUG: All modules plot completion check complete")
-    print(f"DEBUG: Total modules checked: {len(available_modules)}")
-    print(f"DEBUG: All modules complete: {all_modules_data['all_complete']}")
+    # Module completion check: {len(available_modules)} modules, all complete: {all_modules_data['all_complete']}
     
     return all_modules_data
 
