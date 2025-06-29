@@ -11,7 +11,7 @@
         "PP002"
       ],
       "status": "not started",
-      "plotImpact": "Success provides the location of the main bandit camp in the Thornwood and a name for the villain: Malarok.",
+      "plotImpact": "",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -33,7 +33,7 @@
             "RO001"
           ],
           "status": "not started",
-          "plotImpact": "Sila remains at the outpost, offering the party a permanent 15% discount and a reward of several powerful potions. Her presence boosts morale."
+          "plotImpact": ""
         }
       ]
     },
@@ -46,7 +46,7 @@
         "PP003"
       ],
       "status": "not started",
-      "plotImpact": "Evidence found in the camp (maps marked with a strange sigil, and a journal detailing rituals offered to a 'dark stone') points towards a location deeper in the woods to the north.",
+      "plotImpact": "",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -56,7 +56,7 @@
             "TW001"
           ],
           "status": "not started",
-          "plotImpact": "Maelo reveals that Malarok is using a 'Voidstone'—a shard of a fallen star—to amplify his magic and corrupt the land. He warns them that the stone's dark magic is weakened by pure iron and gives them an iron charm that grows cold when near strong corruption."
+          "plotImpact": ""
         },
         {
           "id": "SQ004",
@@ -67,7 +67,7 @@
             "TW06"
           ],
           "status": "not started",
-          "plotImpact": "Gareth's map allows the party to bypass the watchtower's primary sentries. Kael's information provides a crucial clue about the final location and Malarok's plan. Both survivors can either be escorted back to safety or return on their own once the wolves are defeated."
+          "plotImpact": ""
         }
       ]
     },
@@ -80,7 +80,7 @@
         "PP004"
       ],
       "status": "not started",
-      "plotImpact": "The party pinpoints the epicenter of the corruption: a set of crumbling, ancient ruins, guarded by Malarok's most powerful minions.",
+      "plotImpact": "",
       "sideQuests": [
         {
           "id": "SQ005",
@@ -90,7 +90,7 @@
             "NCW001"
           ],
           "status": "not started",
-          "plotImpact": "Defeating or freeing the Hart breaks a magical ward hiding the entrance to the ruins' inner sanctum. A shard of its purified antler can be fashioned into a charm that grants resistance to necrotic damage for the final confrontation."
+          "plotImpact": ""
         }
       ]
     },
@@ -103,7 +103,7 @@
         "PP005"
       ],
       "status": "not started",
-      "plotImpact": "With Malarok defeated and the Voidstone shattered, the dark energy dissipates. The corruption in the woods recedes, and the bandits under his control scatter in confusion.",
+      "plotImpact": "",
       "sideQuests": []
     },
     {
@@ -114,7 +114,7 @@
       "nextPoints": [],
       "prerequisites": ["PP001", "PP002", "PP003", "PP004"],
       "status": "not started",
-      "plotImpact": "When completed, the frontier will be secured, and the party will be recognized as heroes with opportunities for new adventures beyond the outpost.",
+      "plotImpact": "",
       "sideQuests": []
     }
   ]
