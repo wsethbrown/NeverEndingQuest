@@ -3144,7 +3144,7 @@
                 .replace(/^_|_$/g, '');
         }
 
-        function createSpellTooltip(spellName, spellInfo) {
+        function createSpellTooltip(spellInfo) {
             const tooltip = document.createElement('div');
             tooltip.className = 'spell-tooltip';
             
@@ -3173,48 +3173,48 @@
 
         function showSpellTooltip(event) {
             if (!spellData) return;
-            
-            const spellName = event.target.textContent.trim();
+
+            const spellNameElement = event.currentTarget;
+            const spellName = spellNameElement.textContent.trim();
             const normalizedName = normalizeSpellName(spellName);
             const spellInfo = spellData[normalizedName];
-            
+
             if (!spellInfo) return;
-            
-            // Remove existing tooltip
-            hideSpellTooltip();
-            
-            // Create new tooltip
-            currentTooltip = createSpellTooltip(spellName, spellInfo);
-            
-            // Add tooltip to DOM with visibility hidden to measure dimensions
-            currentTooltip.style.visibility = 'hidden';
-            currentTooltip.style.left = '0px';
-            currentTooltip.style.top = '0px';
+
+            hideSpellTooltip(); // Remove any lingering tooltips
+
+            currentTooltip = createSpellTooltip(spellInfo);
             document.body.appendChild(currentTooltip);
-            
-            // Get target and tooltip dimensions
-            const rect = event.target.getBoundingClientRect();
+
+            const rect = spellNameElement.getBoundingClientRect();
             const tooltipRect = currentTooltip.getBoundingClientRect();
-            
-            // Calculate position relative to the clicked element
-            let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            // Position above the element by default
             let top = rect.top - tooltipRect.height - 8;
-            
-            // Keep tooltip on screen horizontally
-            if (left < 8) left = 8;
-            if (left + tooltipRect.width > window.innerWidth - 8) {
-                left = window.innerWidth - tooltipRect.width - 8;
+            if (top < 8) { // If not enough space above, position below
+                top = rect.bottom + 8;
             }
-            
-            // Keep tooltip on screen vertically
-            if (top < 8) {
-                top = rect.bottom + 8; // Position below if no room above
+
+            // Center with the element horizontally
+            let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+            if (left < 8) { // Keep on screen horizontally
+                left = 8;
+            } else if (left + tooltipRect.width > viewportWidth - 8) {
+                left = viewportWidth - tooltipRect.width - 8;
             }
-            
-            // Position and show tooltip
-            currentTooltip.style.left = left + 'px';
-            currentTooltip.style.top = top + 'px';
-            currentTooltip.style.visibility = 'visible';
+
+            currentTooltip.style.left = `${left}px`;
+            currentTooltip.style.top = `${top}px`;
+
+            // Use a timeout to allow the browser to apply the position before adding
+            // the 'visible' class, which triggers the CSS transition for a smooth fade-in.
+            setTimeout(() => {
+                if (currentTooltip) {
+                    currentTooltip.classList.add('visible');
+                }
+            }, 10);
         }
 
         function hideSpellTooltip() {
