@@ -538,11 +538,12 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         location_graph.load_module_data()
         
         # MAP: Convert area ID to entry location ID if needed (TW001 -> TW01)
-        if len(new_location_name_or_id) >= 5 and new_location_name_or_id[-3:].isdigit():
-            potential_entry = new_location_name_or_id[:-3] + new_location_name_or_id[-2:]
-            if location_graph.validate_location_id_format(potential_entry):
-                print(f"DEBUG: Mapped area ID '{new_location_name_or_id}' to entry location '{potential_entry}'")
-                new_location_name_or_id = potential_entry
+        if not location_graph.validate_location_id_format(new_location_name_or_id):
+            # Try to find entry location for this area ID
+            entry_location = location_graph.get_entry_location_for_area(new_location_name_or_id)
+            if entry_location:
+                print(f"DEBUG: Mapped area ID '{new_location_name_or_id}' to entry location '{entry_location}'")
+                new_location_name_or_id = entry_location
         
         # VALIDATE: Check if location transition is valid
         is_valid, error_message, auto_area_connectivity_id = validate_location_transition(

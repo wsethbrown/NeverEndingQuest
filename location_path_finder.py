@@ -380,6 +380,34 @@ class LocationGraph:
         if area_id and area_id in self.area_data:
             return self.area_data[area_id].get('areaName', 'Unknown Area')
         return 'Unknown Area'
+    
+    def get_entry_location_for_area(self, area_id: str) -> Optional[str]:
+        """
+        Find the entry location ID for a given area ID by looking for locations 
+        with areaConnectivity or using the first location in the area.
+        
+        Args:
+            area_id (str): Area ID like "TW001", "RO001", etc.
+        
+        Returns:
+            str: Entry location ID like "TW01", "RO01", etc. or None if area not found
+        """
+        if area_id not in self.area_data:
+            return None
+        
+        area_data = self.area_data[area_id]
+        locations = area_data.get('locations', [])
+        
+        if not locations:
+            return None
+        
+        # First, look for locations with areaConnectivity (external connections)
+        for location in locations:
+            if location.get('areaConnectivity') or location.get('areaConnectivityId'):
+                return location.get('locationId')
+        
+        # Fallback: return the first location in the area
+        return locations[0].get('locationId')
 
 
 def format_path_result(success: bool, path: List[str], message: str, graph: LocationGraph) -> str:
