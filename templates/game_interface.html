@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1749,6 +1750,33 @@
             padding: 6px 10px;
         }
         
+        .npc-header-xp {
+            flex-shrink: 0;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 4px 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .xp-label {
+            font-size: 10px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .xp-value {
+            font-size: 14px;
+            color: #FFA500;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+        
         .npc-header-currency {
             flex-shrink: 0; /* MODIFIED: Prevents currency box from shrinking */
             background-color: #1a1a1a;
@@ -2632,19 +2660,28 @@
             html += `<div class="inventory-controls"><button class="search-btn" onclick="openSearchPopup()">Search</button><select class="inventory-sort" id="inventory-sort" onchange="sortInventory()"><option value="name-asc">Sort: Name A-Z</option><option value="name-desc">Sort: Name Z-A</option><option value="type">Sort: Type</option><option value="quantity">Sort: Quantity</option></select><select class="filter-dropdown" id="filter-dropdown" onchange="changeFilter()"><option value="">Filter</option><option value="weapon">Weapons</option><option value="armor">Armor</option><option value="consumable">Consumables</option><option value="magical">Magical</option><option value="equipped">Equipped</option></select><button class="search-btn" onclick="clearAllFilters()">Clear</button></div>`;
             html += '<div class="equipment-section"><h4>Equipment</h4>';
             if (data.equipment && data.equipment.length > 0) {
-                data.equipment.forEach(item => { html += `<div class="inventory-item" title="${(item.description || '').substr(0, 80)}"><span class="feature-bullet">●</span><span class="item-name">${item.item_name}${(item.quantity||1) > 1 ? ` ×${item.quantity}` : ''}</span><span class="item-type"> (${(item.item_type || 'misc').toLowerCase()})</span></div>`; });
+                data.equipment.forEach(item => { 
+                    const description = (item.description || 'No description available.').replace(/"/g, '&quot;');
+                    html += `<div class="inventory-item" data-tooltip-title="${item.item_name}" data-tooltip-content="${description}"><span class="feature-bullet">●</span><span class="item-name">${item.item_name}${(item.quantity||1) > 1 ? ` ×${item.quantity}` : ''}</span><span class="item-type"> (${(item.item_type || 'misc').toLowerCase()})</span></div>`; 
+                });
             } else {
                 html += '<div class="inventory-item"><span class="feature-bullet">●</span><span class="item-name">No equipment</span></div>';
             }
             html += '</div><div class="inventory-sections">';
             if (data.attacksAndSpellcasting && data.attacksAndSpellcasting.length > 0) {
                 html += '<div class="inventory-section"><h4>Weapons & Attacks</h4>';
-                data.attacksAndSpellcasting.forEach(weapon => { html += `<div class="inventory-item" title="${weapon.description || ''}"><div class="item-main"><span class="item-name">${weapon.name}</span><span class="weapon-bonus">${weapon.attackBonus >= 0 ? '+' : ''}${weapon.attackBonus}</span></div><div class="item-details"><span class="weapon-damage">Damage: ${weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`} (${weapon.damageType || 'damage'})</span></div></div>`; });
+                data.attacksAndSpellcasting.forEach(weapon => { 
+                    const description = (weapon.description || 'No description available.').replace(/"/g, '&quot;');
+                    html += `<div class="inventory-item" data-tooltip-title="${weapon.name}" data-tooltip-content="${description}"><div class="item-main"><span class="item-name">${weapon.name}</span><span class="weapon-bonus">${weapon.attackBonus >= 0 ? '+' : ''}${weapon.attackBonus}</span></div><div class="item-details"><span class="weapon-damage">Damage: ${weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`} (${weapon.damageType || 'damage'})</span></div></div>`; 
+                });
                 html += '</div>';
             }
             if (data.ammunition && data.ammunition.length > 0) {
                 html += '<div class="inventory-section"><h4>Ammunition</h4>';
-                data.ammunition.forEach(ammo => { html += `<div class="inventory-item" title="${ammo.description || ''}"><div class="item-main"><span class="item-name">${ammo.name}</span><span class="item-qty">×${ammo.quantity}</span></div></div>`; });
+                data.ammunition.forEach(ammo => { 
+                    const description = (ammo.description || 'No description available.').replace(/"/g, '&quot;');
+                    html += `<div class="inventory-item" data-tooltip-title="${ammo.name}" data-tooltip-content="${description}"><div class="item-main"><span class="item-name">${ammo.name}</span><span class="item-qty">×${ammo.quantity}</span></div></div>`; 
+                });
                 html += '</div>';
             }
             html += '</div></div>';
@@ -2653,6 +2690,7 @@
             const filterDropdown = document.getElementById('filter-dropdown');
             if (sortDropdown && currentSort) sortDropdown.value = currentSort;
             if (filterDropdown && currentFilter) filterDropdown.value = currentFilter;
+            initializeAllTooltips();
         }
         
         // Display character stats
@@ -2702,7 +2740,8 @@
                     if (feature.usage && feature.usage.current !== undefined && feature.usage.max > 0) {
                         usageDisplay = ` <span class="usage-counter ${feature.usage.current === 0 ? 'exhausted' : ''}">${feature.usage.current}/${feature.usage.max}</span>`;
                     }
-                    html += `<div class="feature-item" title="${(feature.description || '').replace(/"/g, '&quot;')}"><span class="feature-name">${feature.name}</span>${usageDisplay}${(feature.usage && feature.usage.refreshOn) ? ` <span class="feature-refresh">(${feature.usage.refreshOn})</span>` : ''}</div>`;
+                    const description = (feature.description || 'No description available.').replace(/"/g, '&quot;');
+                    html += `<div class="feature-item" data-tooltip-title="${feature.name}" data-tooltip-content="${description}"><span class="feature-name">${feature.name}</span>${usageDisplay}${(feature.usage && feature.usage.refreshOn) ? ` <span class="feature-refresh">(${feature.usage.refreshOn})</span>` : ''}</div>`;
                 });
                 html += '</div></div>';
             }
@@ -2710,7 +2749,8 @@
                 html += '<div class="stat-group"><h4>Active Effects</h4><div class="stat-group-content">';
                 data.temporaryEffects.forEach(effect => {
                     let durationDisplay = effect.duration ? ` <span class="effect-duration">${effect.duration}</span>` : '';
-                    html += `<div class="feature-item" title="${(effect.description || '').replace(/"/g, '&quot;')}"><div class="feature-header"><span class="feature-name">${effect.name}</span>${durationDisplay}</div></div>`;
+                    const description = (effect.description || 'No description available.').replace(/"/g, '&quot;');
+                    html += `<div class="feature-item" data-tooltip-title="${effect.name}" data-tooltip-content="${description}"><div class="feature-header"><span class="feature-name">${effect.name}</span>${durationDisplay}</div></div>`;
                 });
                 html += '</div></div>';
             }
@@ -2718,20 +2758,28 @@
                 const specialTraits = data.racialTraits.filter(trait => !['Ability Score Increase', 'Languages', 'Extra Language'].includes(trait.name));
                 if (specialTraits.length > 0) {
                     html += '<div class="stat-group"><h4>Racial Traits</h4><div class="stat-group-content">';
-                    specialTraits.forEach(trait => { html += `<div class="feature-item" title="${(trait.description || '').replace(/"/g, '&quot;')}"><span class="feature-name">${trait.name}</span></div>`; });
+                    specialTraits.forEach(trait => { 
+                        const description = (trait.description || 'No description available.').replace(/"/g, '&quot;');
+                        html += `<div class="feature-item" data-tooltip-title="${trait.name}" data-tooltip-content="${description}"><span class="feature-name">${trait.name}</span></div>`; 
+                    });
                     html += '</div></div>';
                 }
             }
             if (data.backgroundFeature && data.backgroundFeature.name) {
-                html += `<div class="stat-group"><h4>Background</h4><div class="stat-group-content"><div class="feature-item" title="${(data.backgroundFeature.description || '').replace(/"/g, '&quot;')}"><span class="feature-name">${data.backgroundFeature.name}</span></div></div></div>`;
+                const description = (data.backgroundFeature.description || 'No description available.').replace(/"/g, '&quot;');
+                html += `<div class="stat-group"><h4>Background</h4><div class="stat-group-content"><div class="feature-item" data-tooltip-title="${data.backgroundFeature.name}" data-tooltip-content="${description}"><span class="feature-name">${data.backgroundFeature.name}</span></div></div></div>`;
             }
             if (data.feats && data.feats.length > 0) {
                 html += '<div class="stat-group"><h4>Feats</h4><div class="stat-group-content">';
-                data.feats.forEach(feat => { html += `<div class="feature-item" title="${(feat.description || '').replace(/"/g, '&quot;')}"><span class="feature-name">${feat.name}</span></div>`; });
+                data.feats.forEach(feat => { 
+                    const description = (feat.description || 'No description available.').replace(/"/g, '&quot;');
+                    html += `<div class="feature-item" data-tooltip-title="${feat.name}" data-tooltip-content="${description}"><span class="feature-name">${feat.name}</span></div>`; 
+                });
                 html += '</div></div>';
             }
             html += '</div></div>';
             container.innerHTML = html;
+            initializeAllTooltips();
         }
         
         // Display spells and magic items
@@ -2771,12 +2819,18 @@
             const magicalItems = data.equipment ? data.equipment.filter(i => i.magical && !['scroll', 'potion'].includes(i.item_subtype)) : [];
             if (scrolls.length > 0) {
                 html += '<div class="magic-items-category"><h4>SCROLLS</h4>';
-                scrolls.forEach(s => { html += `<div class="magic-item"><span class="magic-item-name">${s.item_name}</span>${s.spellLevel !== undefined ? `<span class="spell-badge">${s.spellLevel === 0 ? 'Cantrip' : `Level ${s.spellLevel}`}</span>` : ''}${s.quantity > 1 ? `<span class="magic-item-charges">×${s.quantity}</span>` : s.consumable ? '<span class="magic-item-charges consumable">[1x]</span>' : ''}</div>`; });
+                scrolls.forEach(s => { 
+                    const description = (s.description || 'No description available.').replace(/"/g, '&quot;');
+                    html += `<div class="magic-item" data-tooltip-title="${s.item_name}" data-tooltip-content="${description}"><span class="magic-item-name">${s.item_name}</span>${s.spellLevel !== undefined ? `<span class="spell-badge">${s.spellLevel === 0 ? 'Cantrip' : `Level ${s.spellLevel}`}</span>` : ''}${s.quantity > 1 ? `<span class="magic-item-charges">×${s.quantity}</span>` : s.consumable ? '<span class="magic-item-charges consumable">[1x]</span>' : ''}</div>`; 
+                });
                 html += '</div>';
             }
             if (potions.length > 0) {
                 html += '<div class="magic-items-category"><h4>POTIONS</h4>';
-                potions.forEach(p => { html += `<div class="magic-item"><span class="magic-item-name">${p.item_name}</span>${p.quantity > 1 ? `<span class="magic-item-charges">×${p.quantity}</span>` : p.consumable ? '<span class="magic-item-charges consumable">[1x]</span>' : ''}</div>`; });
+                potions.forEach(p => { 
+                    const description = (p.description || 'No description available.').replace(/"/g, '&quot;');
+                    html += `<div class="magic-item" data-tooltip-title="${p.item_name}" data-tooltip-content="${description}"><span class="magic-item-name">${p.item_name}</span>${p.quantity > 1 ? `<span class="magic-item-charges">×${p.quantity}</span>` : p.consumable ? '<span class="magic-item-charges consumable">[1x]</span>' : ''}</div>`; 
+                });
                 html += '</div>';
             }
             if (magicalItems.length > 0) {
@@ -2787,7 +2841,8 @@
                         const chargeClass = item.charges.current === 0 ? 'exhausted' : item.charges.current <= item.charges.max * 0.5 ? 'low' : 'available';
                         chargesHtml = `<span class="magic-item-charges ${chargeClass}">${item.charges.current || 0}/${item.charges.max || 0}</span>`;
                     }
-                    html += `<div class="magic-item"><span class="magic-item-name">${item.item_name}</span>${chargesHtml}</div>`;
+                    const description = (item.description || 'No description available.').replace(/"/g, '&quot;');
+                    html += `<div class="magic-item" data-tooltip-title="${item.item_name}" data-tooltip-content="${description}"><span class="magic-item-name">${item.item_name}</span>${chargesHtml}</div>`;
                 });
                 html += '</div>';
             }
@@ -2797,8 +2852,7 @@
             html += '</div></div>';
             container.innerHTML = html;
             
-            // Initialize spell tooltips after content is loaded
-            initializeSpellTooltips();
+            initializeAllTooltips();
         }
         
         // Display NPC information
@@ -2818,6 +2872,14 @@
                 
                 html += `<div class="npc-header">`;
                 html += `<div class="npc-header-main"><div class="npc-name">${npc.name}</div><div class="npc-details">${npc.race} ${npc.class} • Level ${npc.level} • ${capitalizeWords(npc.alignment)}</div></div>`;
+                
+                if (npc.experience_points !== undefined && npc.exp_required_for_next_level !== undefined) {
+                    html += `<div class="npc-header-xp">
+                                <div class="xp-label">XP</div>
+                                <div class="xp-value">${npc.experience_points} / ${npc.exp_required_for_next_level}</div>
+                             </div>`;
+                }
+
                 if (npc.currency) {
                     html += `<div class="npc-header-currency"><div class="currency-grid"><div class="currency-item"><span class="currency-amount">${npc.currency.gold || 0}</span><span class="currency-type">GP</span></div><div class="currency-item"><span class="currency-amount">${npc.currency.silver || 0}</span><span class="currency-type">SP</span></div><div class="currency-item"><span class="currency-amount">${npc.currency.copper || 0}</span><span class="currency-type">CP</span></div></div></div>`;
                 }
@@ -3178,35 +3240,39 @@
             if (selectedButton) selectedButton.classList.add("active");
         }
 
-        // Spell Tooltip System
+        // --- UNIVERSAL TOOLTIP SYSTEM ---
         let spellData = null;
         let currentTooltip = null;
 
         // Load spell data once and cache it
         fetch('/spell-data')
             .then(response => response.json())
-            .then(data => {
-                spellData = data;
-            })
-            .catch(error => {
-                console.warn('Could not load spell data:', error);
-                spellData = {};
-            });
+            .then(data => { spellData = data; })
+            .catch(error => { console.warn('Could not load spell data:', error); spellData = {}; });
 
         function normalizeSpellName(spellName) {
-            return spellName.toLowerCase()
-                .replace(/['\s/-]/g, '_')
-                .replace(/_+/g, '_')
-                .replace(/^_|_$/g, '');
+            return spellName.toLowerCase().replace(/['\s/-]/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, '');
+        }
+        
+        // 1. Generic Tooltip Creator for Items/Features
+        function createGenericTooltip(title, content) {
+            const tooltip = document.createElement('div');
+            tooltip.className = 'spell-tooltip'; // Reuse the great style
+            
+            let html = `<div class="spell-tooltip-header">${title}</div>`;
+            html += `<div class="spell-tooltip-description">${content}</div>`;
+            
+            tooltip.innerHTML = html;
+            return tooltip;
         }
 
+        // 2. Specialized Tooltip Creator for Spells
         function createSpellTooltip(spellInfo) {
             const tooltip = document.createElement('div');
             tooltip.className = 'spell-tooltip';
             
             let html = `<div class="spell-tooltip-header">${spellInfo.name}</div>`;
             
-            // Meta information
             const components = [];
             if (spellInfo.components?.verbal) components.push('V');
             if (spellInfo.components?.somatic) components.push('S');
@@ -3214,11 +3280,8 @@
             
             const levelText = spellInfo.level === 0 ? 'Cantrip' : `Level ${spellInfo.level}`;
             html += `<div class="spell-tooltip-meta">${levelText} ${spellInfo.school} • ${spellInfo.casting_time} • ${components.join(', ')}</div>`;
-            
-            // Description
             html += `<div class="spell-tooltip-description">${spellInfo.description}</div>`;
             
-            // Classes
             if (spellInfo.classes && spellInfo.classes.length > 0) {
                 html += `<div class="spell-tooltip-classes">Classes: ${spellInfo.classes.join(', ')}</div>`;
             }
@@ -3227,45 +3290,25 @@
             return tooltip;
         }
 
-        function showSpellTooltip(event) {
-            if (!spellData) return;
-
-            const spellNameElement = event.currentTarget;
-            const spellName = spellNameElement.textContent.trim();
-            const normalizedName = normalizeSpellName(spellName);
-            const spellInfo = spellData[normalizedName];
-
-            if (!spellInfo) return;
-
-            hideSpellTooltip(); // Remove any lingering tooltips
-
-            currentTooltip = createSpellTooltip(spellInfo);
-            document.body.appendChild(currentTooltip);
-
-            const rect = spellNameElement.getBoundingClientRect();
-            const tooltipRect = currentTooltip.getBoundingClientRect();
+        // 3. Centralized Positioning and Hiding Logic
+        function positionTooltip(targetElement, tooltipElement) {
+            const rect = targetElement.getBoundingClientRect();
+            const tooltipRect = tooltipElement.getBoundingClientRect();
             const viewportWidth = window.innerWidth;
             const viewportHeight = window.innerHeight;
 
-            // Position above the element by default
             let top = rect.top - tooltipRect.height - 8;
-            if (top < 8) { // If not enough space above, position below
-                top = rect.bottom + 8;
-            }
+            if (top < 8) { top = rect.bottom + 8; }
 
-            // Center with the element horizontally
             let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
-            if (left < 8) { // Keep on screen horizontally
-                left = 8;
-            } else if (left + tooltipRect.width > viewportWidth - 8) {
+            if (left < 8) { left = 8; } 
+            else if (left + tooltipRect.width > viewportWidth - 8) {
                 left = viewportWidth - tooltipRect.width - 8;
             }
 
-            currentTooltip.style.left = `${left}px`;
-            currentTooltip.style.top = `${top}px`;
+            tooltipElement.style.left = `${left}px`;
+            tooltipElement.style.top = `${top}px`;
 
-            // Use a timeout to allow the browser to apply the position before adding
-            // the 'visible' class, which triggers the CSS transition for a smooth fade-in.
             setTimeout(() => {
                 if (currentTooltip) {
                     currentTooltip.classList.add('visible');
@@ -3273,20 +3316,57 @@
             }, 10);
         }
 
-        function hideSpellTooltip() {
+        function hideTooltip() {
             if (currentTooltip) {
                 currentTooltip.remove();
                 currentTooltip = null;
             }
         }
 
-        function initializeSpellTooltips() {
-            // Add event listeners to all spell names
-            document.querySelectorAll('.spell-name').forEach(nameElement => {
-                nameElement.addEventListener('mouseenter', showSpellTooltip);
-                nameElement.addEventListener('mouseleave', hideSpellTooltip);
+        // 4. Event Handlers
+        function showGenericTooltip(event) {
+            hideTooltip();
+            const target = event.currentTarget;
+            const title = target.getAttribute('data-tooltip-title');
+            const content = target.getAttribute('data-tooltip-content');
+            if (!content) return;
+            currentTooltip = createGenericTooltip(title, content);
+            document.body.appendChild(currentTooltip);
+            positionTooltip(target, currentTooltip);
+        }
+
+        function showSpellTooltip(event) {
+            if (!spellData) return;
+            hideTooltip();
+            const spellNameElement = event.currentTarget;
+            const spellName = spellNameElement.textContent.trim();
+            const normalizedName = normalizeSpellName(spellName);
+            const spellInfo = spellData[normalizedName];
+            if (!spellInfo) return;
+            currentTooltip = createSpellTooltip(spellInfo);
+            document.body.appendChild(currentTooltip);
+            positionTooltip(spellNameElement, currentTooltip);
+        }
+
+        // 5. Master Initializer Function
+        function initializeAllTooltips() {
+            // Spells
+            document.querySelectorAll('.spell-name').forEach(el => {
+                el.removeEventListener('mouseenter', showSpellTooltip); // Prevent duplicates
+                el.removeEventListener('mouseleave', hideTooltip);
+                el.addEventListener('mouseenter', showSpellTooltip);
+                el.addEventListener('mouseleave', hideTooltip);
+            });
+
+            // Generic items (features, inventory, etc.)
+            document.querySelectorAll('[data-tooltip-content]').forEach(el => {
+                el.removeEventListener('mouseenter', showGenericTooltip); // Prevent duplicates
+                el.removeEventListener('mouseleave', hideTooltip);
+                el.addEventListener('mouseenter', showGenericTooltip);
+                el.addEventListener('mouseleave', hideTooltip);
             });
         }
     </script>
 </body>
 </html>
+```

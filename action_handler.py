@@ -673,15 +673,117 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             return create_return(status="needs_response", needs_update=True)
 
     elif action_type == ACTION_LEVEL_UP:
+        status_processing_levelup()
+        print(f"DEBUG: Processing levelUp action")
+        
         entity_name = parameters.get("entityName")
         new_level = parameters.get("newLevel")
-
-        with open("leveling_info.txt", "r", encoding="utf-8") as file:
-            leveling_info = file.read()
-
-        dm_note = f"Leveling Dungeon Master Guidance: Proceed with leveling up the player character or the party NPC given the 5th Edition role playing game rules. Only level the player or the party NPC one level at a time to ensure no mistakes are made. Use the 'updateCharacterInfo' action for both player characters and NPCs. Include the character name and all changes. If you are leveling up a player character, you must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updateCharacterInfo' to pass all changes to the character sheet and include the experience goal for the next level. Do not update the character's information in segments. \n\n{leveling_info}"
-        conversation_history.append({"role": "user", "content": dm_note})
-        return create_return(status="needs_response", needs_update=True)
+        
+        try:
+            # Import the simplified level up function
+            from level_up import run_level_up_process
+            
+            # Get current character data
+            # First check if it's in the characters folder
+            character_file = f"characters/{entity_name}.json"
+            character_data = safe_read_json(character_file)
+            
+            # If not found, try without the characters folder (backwards compatibility)
+            if not character_data:
+                character_file = f"{entity_name}.json"
+                character_data = safe_read_json(character_file)
+            
+            if not character_data:
+                print(f"ERROR: Could not find character {entity_name}")
+                error_msg = f"Level up failed: Could not find character data for {entity_name}"
+                conversation_history.append({"role": "system", "content": error_msg})
+                return create_return(status="continue", needs_update=True)
+            
+            current_level = character_data.get("level", 1)
+            
+            # Run level up process with timeout protection
+            import signal
+            
+            def timeout_handler(signum, frame):
+                raise TimeoutError("Level up process timed out")
+            
+            # Set 30 second timeout
+            signal.signal(signal.SIGALRM, timeout_handler)
+            signal.alarm(30)
+            
+            try:
+                result = run_level_up_process(
+                    entity_name, 
+                    current_level, 
+                    new_level,
+                    conversation_history[-10:]  # Last 10 messages for context
+                )
+                
+                # Cancel timeout
+                signal.alarm(0)
+                
+                if result["success"]:
+                    # Check if this is an interactive player level up
+                    if result.get("interactive"):
+                        # For players, inject guidance and return needs_response
+                        print(f"DEBUG: Player level up - injecting interactive guidance")
+                        conversation_history.append({"role": "user", "content": result["guidance"]})
+                        needs_conversation_history_update = True
+                        return create_return(status="needs_response", needs_update=True)
+                    else:
+                        # For NPCs, apply the changes using update_character_info
+                        changes = result.get("changes", {})
+                        if changes:
+                            print(f"DEBUG: Applying NPC level up changes: {json.dumps(changes)}")
+                            
+                            # Import update_character_info function
+                            from update_character_info import update_character_info
+                            
+                            # Apply the changes
+                            update_success = update_character_info(entity_name, json.dumps(changes))
+                            
+                            if update_success:
+                                print(f"DEBUG: Successfully leveled up NPC {entity_name} to level {new_level}")
+                                
+                                # Add success message to conversation
+                                level_up_message = f"[Level Up Complete] {entity_name} has advanced to level {new_level}!"
+                                conversation_history.append({"role": "system", "content": level_up_message})
+                                
+                                # Add the summary
+                                if result.get("summary"):
+                                    conversation_history.append({"role": "system", "content": result["summary"]})
+                                
+                                needs_conversation_history_update = True
+                            else:
+                                print(f"ERROR: Failed to apply level up changes")
+                                error_msg = f"Level up failed: Could not update character {entity_name}"
+                                conversation_history.append({"role": "system", "content": error_msg})
+                                needs_conversation_history_update = True
+                        else:
+                            print(f"ERROR: No changes returned from level up process")
+                            error_msg = "Level up failed: No changes generated"
+                            conversation_history.append({"role": "system", "content": error_msg})
+                            needs_conversation_history_update = True
+                else:
+                    error_msg = result.get("error", "Unknown level up error")
+                    print(f"ERROR: Level up failed - {error_msg}")
+                    conversation_history.append({"role": "system", "content": f"Level up failed: {error_msg}"})
+                    needs_conversation_history_update = True
+                    
+            except TimeoutError:
+                signal.alarm(0)
+                print("ERROR: Level up process timed out after 30 seconds")
+                error_msg = "Level up failed: Process timed out. Please try again."
+                conversation_history.append({"role": "system", "content": error_msg})
+                needs_conversation_history_update = True
+                
+        except Exception as e:
+            print(f"ERROR: Exception during level up: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            error_msg = f"Level up failed: {str(e)}"
+            conversation_history.append({"role": "system", "content": error_msg})
+            needs_conversation_history_update = True
 
     elif action_type == ACTION_UPDATE_CHARACTER_INFO:
         status_updating_character()
