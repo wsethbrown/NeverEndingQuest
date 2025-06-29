@@ -108,7 +108,7 @@ class StorageProcessor:
         character_inventory = []
         if context.get("character") and context["character"].get("equipment"):
             available_items = [item for item in context["character"]["equipment"] if item.get("quantity", 1) > 0]
-            for item in available_items[:10]:  # Limit for prompt size
+            for item in available_items:  # Include ALL items, no limit
                 character_inventory.append({
                     "name": item.get("item_name", "Unknown"),
                     "quantity": item.get("quantity", 1),
@@ -132,7 +132,7 @@ Character: {context.get('character', {}).get('name', 'Unknown')}
 Current Location: {context.get('location', {}).get('name', 'Unknown Location')} (ID: {context.get('location', {}).get('id', 'UNKNOWN')})
 Current Area: {context.get('location', {}).get('area_name', 'Unknown Area')} (ID: {context.get('location', {}).get('area_id', 'UNKNOWN')})
 
-CHARACTER INVENTORY (first 10 items):
+CHARACTER INVENTORY (all items):
 {json.dumps(character_inventory, indent=2)}
 
 EXISTING STORAGE AT LOCATION:
@@ -256,69 +256,104 @@ For "What's in our storage here?":
         return operation
         
     def process_storage_description(self, description: str, character_name: str) -> Dict[str, Any]:
-        """Process natural language storage description into validated operation"""
+        """Process natural language storage description into validated operation with retry logic"""
         
-        try:
-            # Get game context
-            context = self._get_game_context(character_name)
-            
-            # Create AI prompt
-            messages = self._create_processing_prompt(description, context)
-            
-            # Call AI model
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=messages,
-                temperature=0.1,  # Low temperature for consistency
-                max_tokens=500
-            )
-            
-            # Parse AI response
-            ai_response = response.choices[0].message.content.strip()
-            
-            # Try to parse JSON from response
+        max_attempts = 3
+        original_description = description
+        
+        for attempt in range(max_attempts):
             try:
-                # Handle cases where AI might wrap JSON in markdown
-                if "```json" in ai_response:
-                    ai_response = ai_response.split("```json")[1].split("```")[0].strip()
-                elif "```" in ai_response:
-                    ai_response = ai_response.split("```")[1].strip()
+                print(f"DEBUG: Storage processing attempt {attempt + 1} of {max_attempts}")
+                
+                # Get game context
+                context = self._get_game_context(character_name)
+                
+                # Create AI prompt
+                messages = self._create_processing_prompt(description, context)
+                
+                # Call AI model
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=messages,
+                    temperature=0.1,  # Low temperature for consistency
+                    max_tokens=500
+                )
+                
+                # Parse AI response
+                ai_response = response.choices[0].message.content.strip()
+                
+                # Try to parse JSON from response
+                try:
+                    # Handle cases where AI might wrap JSON in markdown
+                    if "```json" in ai_response:
+                        ai_response = ai_response.split("```json")[1].split("```")[0].strip()
+                    elif "```" in ai_response:
+                        ai_response = ai_response.split("```")[1].strip()
+                        
+                    operation = json.loads(ai_response)
                     
-                operation = json.loads(ai_response)
+                except json.JSONDecodeError as e:
+                    if attempt == max_attempts - 1:  # Last attempt
+                        return {
+                            "success": False,
+                            "error": f"AI response was not valid JSON after {max_attempts} attempts: {e}",
+                            "raw_response": ai_response
+                        }
+                    continue  # Retry on JSON parse error
+                    
+                # Post-process operation
+                operation = self._post_process_operation(operation, context)
                 
-            except json.JSONDecodeError as e:
+                # Validate operation
+                is_valid, validation_error = self._validate_operation(operation)
+                
+                if not is_valid:
+                    print(f"DEBUG: Validation failed on attempt {attempt + 1}: {validation_error}")
+                    
+                    if attempt == max_attempts - 1:  # Last attempt
+                        return {
+                            "success": False,
+                            "error": f"Generated operation failed validation after {max_attempts} attempts: {validation_error}",
+                            "operation": operation
+                        }
+                    
+                    # Prepare retry with error feedback
+                    if "Character does not have" in validation_error:
+                        # Extract the problematic item name from the error
+                        error_parts = validation_error.split("Character does not have ")
+                        if len(error_parts) > 1:
+                            missing_item = error_parts[1].strip()
+                            description = f"{original_description}\n\nPREVIOUS ATTEMPT FAILED: The item '{missing_item}' was not found in the character's inventory. Please check the CHARACTER INVENTORY list above and use the EXACT item name that matches what the player described. Try to match '{missing_item}' to the closest item in the inventory list."
+                    else:
+                        description = f"{original_description}\n\nPREVIOUS ATTEMPT FAILED: {validation_error}. Please try again using exact item names from the CHARACTER INVENTORY list."
+                    
+                    continue  # Retry with feedback
+                    
+                # Success!
+                print(f"DEBUG: Storage processing succeeded on attempt {attempt + 1}")
                 return {
-                    "success": False,
-                    "error": f"AI response was not valid JSON: {e}",
-                    "raw_response": ai_response
+                    "success": True,
+                    "operation": operation,
+                    "description": original_description,
+                    "processed_at": datetime.now().isoformat()
                 }
                 
-            # Post-process operation
-            operation = self._post_process_operation(operation, context)
-            
-            # Validate operation
-            is_valid, validation_error = self._validate_operation(operation)
-            
-            if not is_valid:
-                return {
-                    "success": False,
-                    "error": f"Generated operation failed validation: {validation_error}",
-                    "operation": operation
-                }
-                
-            return {
-                "success": True,
-                "operation": operation,
-                "description": description,
-                "processed_at": datetime.now().isoformat()
-            }
-            
-        except Exception as e:
-            return {
-                "success": False,
-                "error": f"Failed to process storage description: {str(e)}",
-                "description": description
-            }
+            except Exception as e:
+                print(f"DEBUG: Storage processing exception on attempt {attempt + 1}: {e}")
+                if attempt == max_attempts - 1:  # Last attempt
+                    return {
+                        "success": False,
+                        "error": f"Failed to process storage description after {max_attempts} attempts: {str(e)}",
+                        "description": original_description
+                    }
+                continue  # Retry on exception
+        
+        # Should never reach here, but just in case
+        return {
+            "success": False,
+            "error": f"Storage processing failed after {max_attempts} attempts",
+            "description": original_description
+        }
             
     def suggest_storage_actions(self, character_name: str) -> List[str]:
         """Suggest possible storage actions based on current context"""
