@@ -1,0 +1,1138 @@
+2025-06-28 14:25:13,780 - INFO - Loaded existing repository with 1 spells
+2025-06-28 14:27:10,774 - INFO - Loaded existing repository with 0 spells
+2025-06-28 14:27:10,785 - INFO - Using spell file: test_spells.txt
+2025-06-28 14:27:10,786 - INFO - Starting to process 5 spells in batches of 3
+2025-06-28 14:27:10,793 - INFO - Repository saved with 1 spells
+2025-06-28 14:27:10,793 - INFO - Processing batch 1 (3 spells): Acid Splash, Aid, Alarm
+2025-06-28 14:27:10,794 - INFO - Processing spell: Acid Splash
+2025-06-28 14:27:13,903 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:27:13,929 - INFO - Repository saved with 2 spells
+2025-06-28 14:27:13,930 - INFO - Successfully processed 'Acid Splash' (1/5)
+2025-06-28 14:27:15,933 - INFO - Processing spell: Aid
+2025-06-28 14:27:21,222 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:27:21,231 - INFO - Repository saved with 3 spells
+2025-06-28 14:27:21,232 - INFO - Successfully processed 'Aid' (2/5)
+2025-06-28 14:27:23,234 - INFO - Processing spell: Alarm
+2025-06-28 14:27:26,920 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:27:26,930 - INFO - Repository saved with 4 spells
+2025-06-28 14:27:26,931 - INFO - Successfully processed 'Alarm' (3/5)
+2025-06-28 14:27:28,933 - INFO - Processing batch 2 (2 spells): Alter Self, Animal Friendship
+2025-06-28 14:27:28,934 - INFO - Processing spell: Alter Self
+2025-06-28 14:27:34,248 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:27:34,257 - INFO - Repository saved with 5 spells
+2025-06-28 14:27:34,258 - INFO - Successfully processed 'Alter Self' (4/5)
+2025-06-28 14:27:36,261 - INFO - Processing spell: Animal Friendship
+2025-06-28 14:27:39,947 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:27:39,958 - INFO - Repository saved with 6 spells
+2025-06-28 14:27:39,959 - INFO - Successfully processed 'Animal Friendship' (5/5)
+2025-06-28 14:27:41,970 - INFO - Repository saved with 6 spells
+2025-06-28 14:27:41,970 - INFO - Repository build complete!
+2025-06-28 14:27:41,971 - INFO - Total spells in repository: 6
+2025-06-28 14:27:41,971 - INFO - Spells processed this session: 5
+2025-06-28 14:27:41,972 - INFO - Validating spell repository...
+2025-06-28 14:27:41,972 - INFO - Validation complete: 0/6 spells valid
+2025-06-28 14:27:41,973 - WARNING - Found 9 issues:
+2025-06-28 14:27:41,973 - WARNING -   - _metadata: missing field 'name'
+2025-06-28 14:27:41,974 - WARNING -   - _metadata: missing field 'level'
+2025-06-28 14:27:41,974 - WARNING -   - _metadata: missing field 'school'
+2025-06-28 14:27:41,975 - WARNING -   - _metadata: missing field 'casting_time'
+2025-06-28 14:27:41,975 - WARNING -   - _metadata: missing field 'range'
+2025-06-28 14:27:41,976 - WARNING -   - _metadata: missing field 'components'
+2025-06-28 14:27:41,976 - WARNING -   - _metadata: missing field 'duration'
+2025-06-28 14:27:41,977 - WARNING -   - _metadata: missing field 'classes'
+2025-06-28 14:27:41,977 - WARNING -   - _metadata: validation error - 'level'
+2025-06-28 14:28:54,038 - INFO - Loaded existing repository with 5 spells
+2025-06-28 14:28:54,042 - INFO - Using spell file: spell_list.txt
+2025-06-28 14:28:54,043 - INFO - Starting to process 245 spells in batches of 3
+2025-06-28 14:28:54,049 - INFO - Repository saved with 6 spells
+2025-06-28 14:28:54,050 - INFO - Processing batch 1 (3 spells): Acid Splash, Aid, Alarm
+2025-06-28 14:28:54,050 - INFO - Spell 'Acid Splash' already in repository, skipping
+2025-06-28 14:28:56,053 - INFO - Spell 'Aid' already in repository, skipping
+2025-06-28 14:28:58,056 - INFO - Spell 'Alarm' already in repository, skipping
+2025-06-28 14:29:00,059 - INFO - Processing batch 2 (3 spells): Alter Self, Animal Friendship, Animal Messenger
+2025-06-28 14:29:00,059 - INFO - Spell 'Alter Self' already in repository, skipping
+2025-06-28 14:29:02,062 - INFO - Spell 'Animal Friendship' already in repository, skipping
+2025-06-28 14:29:04,065 - INFO - Processing spell: Animal Messenger
+2025-06-28 14:29:08,178 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:29:08,189 - INFO - Repository saved with 7 spells
+2025-06-28 14:29:08,190 - INFO - Successfully processed 'Animal Messenger' (1/245)
+2025-06-28 14:29:10,193 - INFO - Processing batch 3 (3 spells): Animate Dead, Animate Objects, Antilife Shell
+2025-06-28 14:29:10,193 - INFO - Processing spell: Animate Dead
+2025-06-28 14:29:18,977 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:29:18,990 - INFO - Repository saved with 8 spells
+2025-06-28 14:29:18,990 - INFO - Successfully processed 'Animate Dead' (2/245)
+2025-06-28 14:29:20,993 - INFO - Processing spell: Animate Objects
+2025-06-28 14:29:25,145 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:29:25,155 - INFO - Repository saved with 9 spells
+2025-06-28 14:29:25,156 - INFO - Successfully processed 'Animate Objects' (3/245)
+2025-06-28 14:29:27,159 - INFO - Processing spell: Antilife Shell
+2025-06-28 14:29:29,713 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:29:29,722 - INFO - Repository saved with 10 spells
+2025-06-28 14:29:29,723 - INFO - Successfully processed 'Antilife Shell' (4/245)
+2025-06-28 14:29:31,725 - INFO - Processing batch 4 (3 spells): Arcane Eye, Arcane Lock, Armor of Agathys
+2025-06-28 14:29:31,726 - INFO - Processing spell: Arcane Eye
+2025-06-28 14:29:35,776 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:29:35,785 - INFO - Repository saved with 11 spells
+2025-06-28 14:29:35,786 - INFO - Successfully processed 'Arcane Eye' (5/245)
+2025-06-28 14:29:37,789 - INFO - Processing spell: Arcane Lock
+2025-06-28 14:29:41,063 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:29:41,076 - INFO - Repository saved with 12 spells
+2025-06-28 14:29:41,076 - INFO - Successfully processed 'Arcane Lock' (6/245)
+2025-06-28 14:29:43,079 - INFO - Processing spell: Armor of Agathys
+2025-06-28 14:29:46,040 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:29:46,050 - INFO - Repository saved with 13 spells
+2025-06-28 14:29:46,051 - INFO - Successfully processed 'Armor of Agathys' (7/245)
+2025-06-28 14:29:48,053 - INFO - Processing batch 5 (3 spells): Arms of Hadar, Augury, Awaken
+2025-06-28 14:29:48,054 - INFO - Processing spell: Arms of Hadar
+2025-06-28 14:29:51,839 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:29:51,851 - INFO - Repository saved with 14 spells
+2025-06-28 14:29:51,851 - INFO - Successfully processed 'Arms of Hadar' (8/245)
+2025-06-28 14:29:53,854 - INFO - Processing spell: Augury
+2025-06-28 14:29:57,238 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:29:57,252 - INFO - Repository saved with 15 spells
+2025-06-28 14:29:57,252 - INFO - Successfully processed 'Augury' (9/245)
+2025-06-28 14:29:59,255 - INFO - Processing spell: Awaken
+2025-06-28 14:30:03,388 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:30:03,404 - INFO - Repository saved with 16 spells
+2025-06-28 14:30:03,405 - INFO - Successfully processed 'Awaken' (10/245)
+2025-06-28 14:30:05,408 - INFO - Processing batch 6 (3 spells): Bane, Banishment, Barkskin
+2025-06-28 14:30:05,409 - INFO - Processing spell: Bane
+2025-06-28 14:30:08,616 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:30:08,633 - INFO - Repository saved with 17 spells
+2025-06-28 14:30:08,633 - INFO - Successfully processed 'Bane' (11/245)
+2025-06-28 14:30:10,635 - INFO - Processing spell: Banishment
+2025-06-28 14:30:15,118 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:30:15,129 - INFO - Repository saved with 18 spells
+2025-06-28 14:30:15,129 - INFO - Successfully processed 'Banishment' (12/245)
+2025-06-28 14:30:17,132 - INFO - Processing spell: Barkskin
+2025-06-28 14:30:19,514 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:30:19,527 - INFO - Repository saved with 19 spells
+2025-06-28 14:30:19,528 - INFO - Successfully processed 'Barkskin' (13/245)
+2025-06-28 14:30:21,530 - INFO - Processing batch 7 (3 spells): Beacon of Hope, Beast Sense, Bestow Curse
+2025-06-28 14:30:21,531 - INFO - Processing spell: Beacon of Hope
+2025-06-28 14:30:24,041 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:30:24,057 - INFO - Repository saved with 20 spells
+2025-06-28 14:30:24,057 - INFO - Successfully processed 'Beacon of Hope' (14/245)
+2025-06-28 14:30:26,060 - INFO - Processing spell: Beast Sense
+2025-06-28 14:30:28,858 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:30:28,872 - INFO - Repository saved with 21 spells
+2025-06-28 14:30:28,872 - INFO - Successfully processed 'Beast Sense' (15/245)
+2025-06-28 14:30:30,875 - INFO - Processing spell: Bestow Curse
+2025-06-28 14:30:35,863 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:30:35,874 - INFO - Repository saved with 22 spells
+2025-06-28 14:30:35,874 - INFO - Successfully processed 'Bestow Curse' (16/245)
+2025-06-28 14:30:37,875 - INFO - Processing batch 8 (3 spells): Bigby's Hand, Blade Ward, Bless
+2025-06-28 14:30:37,876 - INFO - Processing spell: Bigby's Hand
+2025-06-28 14:30:45,657 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:30:45,669 - INFO - Repository saved with 23 spells
+2025-06-28 14:30:45,669 - INFO - Successfully processed 'Bigby's Hand' (17/245)
+2025-06-28 14:30:47,672 - INFO - Processing spell: Blade Ward
+2025-06-28 14:30:52,460 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:30:52,473 - INFO - Repository saved with 24 spells
+2025-06-28 14:30:52,474 - INFO - Successfully processed 'Blade Ward' (18/245)
+2025-06-28 14:30:54,476 - INFO - Processing spell: Bless
+2025-06-28 14:30:57,048 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:30:57,064 - INFO - Repository saved with 25 spells
+2025-06-28 14:30:57,065 - INFO - Successfully processed 'Bless' (19/245)
+2025-06-28 14:30:59,067 - INFO - Processing batch 9 (3 spells): Blight, Blindness/Deafness, Blink
+2025-06-28 14:30:59,068 - INFO - Processing spell: Blight
+2025-06-28 14:31:02,468 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:31:02,479 - INFO - Repository saved with 26 spells
+2025-06-28 14:31:02,479 - INFO - Successfully processed 'Blight' (20/245)
+2025-06-28 14:31:04,482 - INFO - Processing spell: Blindness/Deafness
+2025-06-28 14:31:07,857 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:31:07,868 - INFO - Repository saved with 27 spells
+2025-06-28 14:31:07,869 - INFO - Successfully processed 'Blindness/Deafness' (21/245)
+2025-06-28 14:31:09,872 - INFO - Processing spell: Blink
+2025-06-28 14:31:13,840 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:31:13,852 - INFO - Repository saved with 28 spells
+2025-06-28 14:31:13,853 - INFO - Successfully processed 'Blink' (22/245)
+2025-06-28 14:31:15,855 - INFO - Processing batch 10 (3 spells): Blur, Branding Smite, Burning Hands
+2025-06-28 14:31:15,856 - INFO - Processing spell: Blur
+2025-06-28 14:31:18,323 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:31:18,335 - INFO - Repository saved with 29 spells
+2025-06-28 14:31:18,335 - INFO - Successfully processed 'Blur' (23/245)
+2025-06-28 14:31:20,338 - INFO - Processing spell: Branding Smite
+2025-06-28 14:31:23,146 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:31:23,159 - INFO - Repository saved with 30 spells
+2025-06-28 14:31:23,160 - INFO - Successfully processed 'Branding Smite' (24/245)
+2025-06-28 14:31:25,163 - INFO - Processing spell: Burning Hands
+2025-06-28 14:31:29,372 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:31:29,386 - INFO - Repository saved with 31 spells
+2025-06-28 14:31:29,387 - INFO - Successfully processed 'Burning Hands' (25/245)
+2025-06-28 14:31:31,401 - INFO - Repository saved with 31 spells
+2025-06-28 14:31:31,401 - INFO - Created backup after batch 10
+2025-06-28 14:31:31,401 - INFO - Processing batch 11 (3 spells): Call Lightning, Calm Emotions, Charm Person
+2025-06-28 14:31:31,402 - INFO - Processing spell: Call Lightning
+2025-06-28 14:31:36,213 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:31:36,226 - INFO - Repository saved with 32 spells
+2025-06-28 14:31:36,226 - INFO - Successfully processed 'Call Lightning' (26/245)
+2025-06-28 14:31:38,229 - INFO - Processing spell: Calm Emotions
+2025-06-28 14:31:42,564 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:31:42,575 - INFO - Repository saved with 33 spells
+2025-06-28 14:31:42,575 - INFO - Successfully processed 'Calm Emotions' (27/245)
+2025-06-28 14:31:44,578 - INFO - Processing spell: Charm Person
+2025-06-28 14:31:48,734 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:31:48,750 - INFO - Repository saved with 34 spells
+2025-06-28 14:31:48,750 - INFO - Successfully processed 'Charm Person' (28/245)
+2025-06-28 14:31:50,752 - INFO - Processing batch 12 (3 spells): Chill Touch, Chromatic Orb, Clairvoyance
+2025-06-28 14:31:50,753 - INFO - Processing spell: Chill Touch
+2025-06-28 14:31:56,036 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:31:56,054 - INFO - Repository saved with 35 spells
+2025-06-28 14:31:56,055 - INFO - Successfully processed 'Chill Touch' (29/245)
+2025-06-28 14:31:58,058 - INFO - Processing spell: Chromatic Orb
+2025-06-28 14:32:02,115 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:32:02,135 - INFO - Repository saved with 36 spells
+2025-06-28 14:32:02,136 - INFO - Successfully processed 'Chromatic Orb' (30/245)
+2025-06-28 14:32:04,139 - INFO - Processing spell: Clairvoyance
+2025-06-28 14:32:10,920 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:32:10,939 - INFO - Repository saved with 37 spells
+2025-06-28 14:32:10,940 - INFO - Successfully processed 'Clairvoyance' (31/245)
+2025-06-28 14:32:12,942 - INFO - Processing batch 13 (3 spells): Cloud of Daggers, Cloudkill, Color Spray
+2025-06-28 14:32:12,943 - INFO - Processing spell: Cloud of Daggers
+2025-06-28 14:32:16,341 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:32:16,356 - INFO - Repository saved with 38 spells
+2025-06-28 14:32:16,357 - INFO - Successfully processed 'Cloud of Daggers' (32/245)
+2025-06-28 14:32:18,360 - INFO - Processing spell: Cloudkill
+2025-06-28 14:32:22,553 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:32:22,572 - INFO - Repository saved with 39 spells
+2025-06-28 14:32:22,572 - INFO - Successfully processed 'Cloudkill' (33/245)
+2025-06-28 14:32:24,575 - INFO - Processing spell: Color Spray
+2025-06-28 14:32:28,222 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:32:28,249 - INFO - Repository saved with 40 spells
+2025-06-28 14:32:28,250 - INFO - Successfully processed 'Color Spray' (34/245)
+2025-06-28 14:32:30,253 - INFO - Processing batch 14 (3 spells): Command, Commune, Commune with Nature
+2025-06-28 14:32:30,254 - INFO - Processing spell: Command
+2025-06-28 14:32:35,137 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:32:35,153 - INFO - Repository saved with 41 spells
+2025-06-28 14:32:35,154 - INFO - Successfully processed 'Command' (35/245)
+2025-06-28 14:32:37,156 - INFO - Processing spell: Commune
+2025-06-28 14:32:39,966 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:32:39,990 - INFO - Repository saved with 42 spells
+2025-06-28 14:32:39,991 - INFO - Successfully processed 'Commune' (36/245)
+2025-06-28 14:32:41,993 - INFO - Processing spell: Commune with Nature
+2025-06-28 14:32:44,761 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:32:44,774 - INFO - Repository saved with 43 spells
+2025-06-28 14:32:44,775 - INFO - Successfully processed 'Commune with Nature' (37/245)
+2025-06-28 14:32:46,777 - INFO - Processing batch 15 (3 spells): Comprehend Languages, Compulsion, Cone of Cold
+2025-06-28 14:32:46,778 - INFO - Processing spell: Comprehend Languages
+2025-06-28 14:32:49,419 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:32:49,432 - INFO - Repository saved with 44 spells
+2025-06-28 14:32:49,432 - INFO - Successfully processed 'Comprehend Languages' (38/245)
+2025-06-28 14:32:51,435 - INFO - Processing spell: Compulsion
+2025-06-28 14:32:56,178 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:32:56,192 - INFO - Repository saved with 45 spells
+2025-06-28 14:32:56,193 - INFO - Successfully processed 'Compulsion' (39/245)
+2025-06-28 14:32:58,195 - INFO - Processing spell: Cone of Cold
+2025-06-28 14:33:01,405 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:33:01,418 - INFO - Repository saved with 46 spells
+2025-06-28 14:33:01,418 - INFO - Successfully processed 'Cone of Cold' (40/245)
+2025-06-28 14:33:03,421 - INFO - Processing batch 16 (3 spells): Confusion, Conjure Animals, Conjure Elemental
+2025-06-28 14:33:03,421 - INFO - Processing spell: Confusion
+2025-06-28 14:33:08,842 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:33:08,857 - INFO - Repository saved with 47 spells
+2025-06-28 14:33:08,857 - INFO - Successfully processed 'Confusion' (41/245)
+2025-06-28 14:33:10,860 - INFO - Processing spell: Conjure Animals
+2025-06-28 14:33:15,913 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:33:15,933 - INFO - Repository saved with 48 spells
+2025-06-28 14:33:15,933 - INFO - Successfully processed 'Conjure Animals' (42/245)
+2025-06-28 14:33:17,936 - INFO - Processing spell: Conjure Elemental
+2025-06-28 14:33:22,637 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:33:22,656 - INFO - Repository saved with 49 spells
+2025-06-28 14:33:22,657 - INFO - Successfully processed 'Conjure Elemental' (43/245)
+2025-06-28 14:33:24,659 - INFO - Processing batch 17 (3 spells): Conjure Minor Elementals, Conjure Woodland Beings, Contact Other Plane
+2025-06-28 14:33:24,660 - INFO - Processing spell: Conjure Minor Elementals
+2025-06-28 14:33:28,999 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:33:29,017 - INFO - Repository saved with 50 spells
+2025-06-28 14:33:29,018 - INFO - Successfully processed 'Conjure Minor Elementals' (44/245)
+2025-06-28 14:33:31,021 - INFO - Processing spell: Conjure Woodland Beings
+2025-06-28 14:33:37,362 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:33:37,379 - INFO - Repository saved with 51 spells
+2025-06-28 14:33:37,380 - INFO - Successfully processed 'Conjure Woodland Beings' (45/245)
+2025-06-28 14:33:39,383 - INFO - Processing spell: Contact Other Plane
+2025-06-28 14:33:42,707 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:33:42,722 - INFO - Repository saved with 52 spells
+2025-06-28 14:33:42,723 - INFO - Successfully processed 'Contact Other Plane' (46/245)
+2025-06-28 14:33:44,725 - INFO - Processing batch 18 (3 spells): Contagion, Continual Flame, Control Water
+2025-06-28 14:33:44,726 - INFO - Processing spell: Contagion
+2025-06-28 14:33:47,463 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:33:47,478 - INFO - Repository saved with 53 spells
+2025-06-28 14:33:47,478 - INFO - Successfully processed 'Contagion' (47/245)
+2025-06-28 14:33:49,481 - INFO - Processing spell: Continual Flame
+2025-06-28 14:33:52,010 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:33:52,042 - INFO - Repository saved with 54 spells
+2025-06-28 14:33:52,043 - INFO - Successfully processed 'Continual Flame' (48/245)
+2025-06-28 14:33:54,045 - INFO - Processing spell: Control Water
+2025-06-28 14:34:14,734 - INFO - Loaded existing repository with 53 spells
+2025-06-28 14:34:14,742 - INFO - Using spell file: spell_list.txt
+2025-06-28 14:34:14,743 - INFO - Starting to process 245 spells in batches of 3
+2025-06-28 14:34:14,754 - INFO - Repository saved with 54 spells
+2025-06-28 14:34:14,754 - INFO - Processing batch 1 (3 spells): Acid Splash, Aid, Alarm
+2025-06-28 14:34:14,755 - INFO - Spell 'Acid Splash' already in repository, skipping
+2025-06-28 14:34:16,757 - INFO - Spell 'Aid' already in repository, skipping
+2025-06-28 14:34:18,761 - INFO - Spell 'Alarm' already in repository, skipping
+2025-06-28 14:34:20,765 - INFO - Processing batch 2 (3 spells): Alter Self, Animal Friendship, Animal Messenger
+2025-06-28 14:34:20,765 - INFO - Spell 'Alter Self' already in repository, skipping
+2025-06-28 14:34:22,768 - INFO - Spell 'Animal Friendship' already in repository, skipping
+2025-06-28 14:34:24,771 - INFO - Spell 'Animal Messenger' already in repository, skipping
+2025-06-28 14:34:26,774 - INFO - Processing batch 3 (3 spells): Animate Dead, Animate Objects, Antilife Shell
+2025-06-28 14:34:26,774 - INFO - Spell 'Animate Dead' already in repository, skipping
+2025-06-28 14:34:28,777 - INFO - Spell 'Animate Objects' already in repository, skipping
+2025-06-28 14:34:30,781 - INFO - Spell 'Antilife Shell' already in repository, skipping
+2025-06-28 14:34:32,784 - INFO - Processing batch 4 (3 spells): Arcane Eye, Arcane Lock, Armor of Agathys
+2025-06-28 14:34:32,784 - INFO - Spell 'Arcane Eye' already in repository, skipping
+2025-06-28 14:34:34,787 - INFO - Spell 'Arcane Lock' already in repository, skipping
+2025-06-28 14:34:36,790 - INFO - Spell 'Armor of Agathys' already in repository, skipping
+2025-06-28 14:34:38,794 - INFO - Processing batch 5 (3 spells): Arms of Hadar, Augury, Awaken
+2025-06-28 14:34:38,794 - INFO - Spell 'Arms of Hadar' already in repository, skipping
+2025-06-28 14:34:40,798 - INFO - Spell 'Augury' already in repository, skipping
+2025-06-28 14:34:42,801 - INFO - Spell 'Awaken' already in repository, skipping
+2025-06-28 14:34:44,804 - INFO - Processing batch 6 (3 spells): Bane, Banishment, Barkskin
+2025-06-28 14:34:44,805 - INFO - Spell 'Bane' already in repository, skipping
+2025-06-28 14:34:46,808 - INFO - Spell 'Banishment' already in repository, skipping
+2025-06-28 14:34:48,812 - INFO - Spell 'Barkskin' already in repository, skipping
+2025-06-28 14:34:50,815 - INFO - Processing batch 7 (3 spells): Beacon of Hope, Beast Sense, Bestow Curse
+2025-06-28 14:34:50,816 - INFO - Spell 'Beacon of Hope' already in repository, skipping
+2025-06-28 14:34:52,818 - INFO - Spell 'Beast Sense' already in repository, skipping
+2025-06-28 14:34:54,825 - INFO - Spell 'Bestow Curse' already in repository, skipping
+2025-06-28 14:34:56,828 - INFO - Processing batch 8 (3 spells): Bigby's Hand, Blade Ward, Bless
+2025-06-28 14:34:56,828 - INFO - Spell 'Bigby's Hand' already in repository, skipping
+2025-06-28 14:34:58,831 - INFO - Spell 'Blade Ward' already in repository, skipping
+2025-06-28 14:35:00,834 - INFO - Spell 'Bless' already in repository, skipping
+2025-06-28 14:35:02,837 - INFO - Processing batch 9 (3 spells): Blight, Blindness/Deafness, Blink
+2025-06-28 14:35:02,838 - INFO - Spell 'Blight' already in repository, skipping
+2025-06-28 14:35:04,841 - INFO - Spell 'Blindness/Deafness' already in repository, skipping
+2025-06-28 14:35:06,844 - INFO - Spell 'Blink' already in repository, skipping
+2025-06-28 14:35:08,847 - INFO - Processing batch 10 (3 spells): Blur, Branding Smite, Burning Hands
+2025-06-28 14:35:08,848 - INFO - Spell 'Blur' already in repository, skipping
+2025-06-28 14:35:10,850 - INFO - Spell 'Branding Smite' already in repository, skipping
+2025-06-28 14:35:12,854 - INFO - Spell 'Burning Hands' already in repository, skipping
+2025-06-28 14:35:14,880 - INFO - Repository saved with 54 spells
+2025-06-28 14:35:14,881 - INFO - Created backup after batch 10
+2025-06-28 14:35:14,881 - INFO - Processing batch 11 (3 spells): Call Lightning, Calm Emotions, Charm Person
+2025-06-28 14:35:14,882 - INFO - Spell 'Call Lightning' already in repository, skipping
+2025-06-28 14:35:16,884 - INFO - Spell 'Calm Emotions' already in repository, skipping
+2025-06-28 14:35:18,888 - INFO - Spell 'Charm Person' already in repository, skipping
+2025-06-28 14:35:20,891 - INFO - Processing batch 12 (3 spells): Chill Touch, Chromatic Orb, Clairvoyance
+2025-06-28 14:35:20,892 - INFO - Spell 'Chill Touch' already in repository, skipping
+2025-06-28 14:35:22,895 - INFO - Spell 'Chromatic Orb' already in repository, skipping
+2025-06-28 14:35:24,898 - INFO - Spell 'Clairvoyance' already in repository, skipping
+2025-06-28 14:35:26,901 - INFO - Processing batch 13 (3 spells): Cloud of Daggers, Cloudkill, Color Spray
+2025-06-28 14:35:26,902 - INFO - Spell 'Cloud of Daggers' already in repository, skipping
+2025-06-28 14:35:28,905 - INFO - Spell 'Cloudkill' already in repository, skipping
+2025-06-28 14:35:30,907 - INFO - Spell 'Color Spray' already in repository, skipping
+2025-06-28 14:35:32,910 - INFO - Processing batch 14 (3 spells): Command, Commune, Commune with Nature
+2025-06-28 14:35:32,911 - INFO - Spell 'Command' already in repository, skipping
+2025-06-28 14:35:34,914 - INFO - Spell 'Commune' already in repository, skipping
+2025-06-28 14:35:36,917 - INFO - Spell 'Commune with Nature' already in repository, skipping
+2025-06-28 14:35:38,920 - INFO - Processing batch 15 (3 spells): Comprehend Languages, Compulsion, Cone of Cold
+2025-06-28 14:35:38,921 - INFO - Spell 'Comprehend Languages' already in repository, skipping
+2025-06-28 14:35:40,924 - INFO - Spell 'Compulsion' already in repository, skipping
+2025-06-28 14:35:42,927 - INFO - Spell 'Cone of Cold' already in repository, skipping
+2025-06-28 14:35:44,930 - INFO - Processing batch 16 (3 spells): Confusion, Conjure Animals, Conjure Elemental
+2025-06-28 14:35:44,931 - INFO - Spell 'Confusion' already in repository, skipping
+2025-06-28 14:35:46,934 - INFO - Spell 'Conjure Animals' already in repository, skipping
+2025-06-28 14:35:48,938 - INFO - Spell 'Conjure Elemental' already in repository, skipping
+2025-06-28 14:35:50,941 - INFO - Processing batch 17 (3 spells): Conjure Minor Elementals, Conjure Woodland Beings, Contact Other Plane
+2025-06-28 14:35:50,942 - INFO - Spell 'Conjure Minor Elementals' already in repository, skipping
+2025-06-28 14:35:52,945 - INFO - Spell 'Conjure Woodland Beings' already in repository, skipping
+2025-06-28 14:35:54,948 - INFO - Spell 'Contact Other Plane' already in repository, skipping
+2025-06-28 14:35:56,951 - INFO - Processing batch 18 (3 spells): Contagion, Continual Flame, Control Water
+2025-06-28 14:35:56,952 - INFO - Spell 'Contagion' already in repository, skipping
+2025-06-28 14:35:58,956 - INFO - Spell 'Continual Flame' already in repository, skipping
+2025-06-28 14:36:00,959 - INFO - Processing spell: Control Water
+2025-06-28 14:36:06,779 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:36:06,793 - INFO - Repository saved with 55 spells
+2025-06-28 14:36:06,794 - INFO - Successfully processed 'Control Water' (1/245)
+2025-06-28 14:36:08,796 - INFO - Processing batch 19 (3 spells): Counterspell, Create Food and Water, Create or Destroy Water
+2025-06-28 14:36:08,797 - INFO - Processing spell: Counterspell
+2025-06-28 14:36:11,452 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:36:11,474 - INFO - Repository saved with 56 spells
+2025-06-28 14:36:11,474 - INFO - Successfully processed 'Counterspell' (2/245)
+2025-06-28 14:36:13,477 - INFO - Processing spell: Create Food and Water
+2025-06-28 14:36:16,435 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:36:16,454 - INFO - Repository saved with 57 spells
+2025-06-28 14:36:16,455 - INFO - Successfully processed 'Create Food and Water' (3/245)
+2025-06-28 14:36:18,457 - INFO - Processing spell: Create or Destroy Water
+2025-06-28 14:36:20,370 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:36:20,383 - INFO - Repository saved with 58 spells
+2025-06-28 14:36:20,384 - INFO - Successfully processed 'Create or Destroy Water' (4/245)
+2025-06-28 14:36:22,386 - INFO - Processing batch 20 (3 spells): Creation, Crown of Madness, Cure Wounds
+2025-06-28 14:36:22,387 - INFO - Processing spell: Creation
+2025-06-28 14:36:26,800 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:36:26,818 - INFO - Repository saved with 59 spells
+2025-06-28 14:36:26,818 - INFO - Successfully processed 'Creation' (5/245)
+2025-06-28 14:36:28,821 - INFO - Processing spell: Crown of Madness
+2025-06-28 14:36:32,497 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:36:32,511 - INFO - Repository saved with 60 spells
+2025-06-28 14:36:32,512 - INFO - Successfully processed 'Crown of Madness' (6/245)
+2025-06-28 14:36:34,514 - INFO - Processing spell: Cure Wounds
+2025-06-28 14:36:36,455 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:36:36,467 - INFO - Repository saved with 61 spells
+2025-06-28 14:36:36,468 - INFO - Successfully processed 'Cure Wounds' (7/245)
+2025-06-28 14:36:38,489 - INFO - Repository saved with 61 spells
+2025-06-28 14:36:38,489 - INFO - Created backup after batch 20
+2025-06-28 14:36:38,490 - INFO - Processing batch 21 (3 spells): Dancing Lights, Darkness, Darkvision
+2025-06-28 14:36:38,490 - INFO - Processing spell: Dancing Lights
+2025-06-28 14:36:42,205 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:36:42,224 - INFO - Repository saved with 62 spells
+2025-06-28 14:36:42,224 - INFO - Successfully processed 'Dancing Lights' (8/245)
+2025-06-28 14:36:44,227 - INFO - Processing spell: Darkness
+2025-06-28 14:36:48,182 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:36:48,201 - INFO - Repository saved with 63 spells
+2025-06-28 14:36:48,202 - INFO - Successfully processed 'Darkness' (9/245)
+2025-06-28 14:36:50,204 - INFO - Processing spell: Darkvision
+2025-06-28 14:36:52,246 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:36:52,270 - INFO - Repository saved with 64 spells
+2025-06-28 14:36:52,271 - INFO - Successfully processed 'Darkvision' (10/245)
+2025-06-28 14:36:54,274 - INFO - Processing batch 22 (3 spells): Daylight, Death Ward, Detect Evil and Good
+2025-06-28 14:36:54,274 - INFO - Processing spell: Daylight
+2025-06-28 14:36:56,862 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:36:56,880 - INFO - Repository saved with 65 spells
+2025-06-28 14:36:56,880 - INFO - Successfully processed 'Daylight' (11/245)
+2025-06-28 14:36:58,883 - INFO - Processing spell: Death Ward
+2025-06-28 14:37:02,133 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:37:02,155 - INFO - Repository saved with 66 spells
+2025-06-28 14:37:02,156 - INFO - Successfully processed 'Death Ward' (12/245)
+2025-06-28 14:37:04,158 - INFO - Processing spell: Detect Evil and Good
+2025-06-28 14:37:06,185 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:37:06,210 - INFO - Repository saved with 67 spells
+2025-06-28 14:37:06,211 - INFO - Successfully processed 'Detect Evil and Good' (13/245)
+2025-06-28 14:37:08,214 - INFO - Processing batch 23 (3 spells): Detect Magic, Detect Poison and Disease, Detect Thoughts
+2025-06-28 14:37:08,214 - INFO - Processing spell: Detect Magic
+2025-06-28 14:37:10,327 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:37:10,348 - INFO - Repository saved with 68 spells
+2025-06-28 14:37:10,349 - INFO - Successfully processed 'Detect Magic' (14/245)
+2025-06-28 14:37:12,352 - INFO - Processing spell: Detect Poison and Disease
+2025-06-28 14:37:14,385 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:37:14,401 - INFO - Repository saved with 69 spells
+2025-06-28 14:37:14,402 - INFO - Successfully processed 'Detect Poison and Disease' (15/245)
+2025-06-28 14:37:16,405 - INFO - Processing spell: Detect Thoughts
+2025-06-28 14:37:20,179 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:37:20,196 - INFO - Repository saved with 70 spells
+2025-06-28 14:37:20,196 - INFO - Successfully processed 'Detect Thoughts' (16/245)
+2025-06-28 14:37:22,199 - INFO - Processing batch 24 (3 spells): Dimension Door, Disguise Self, Dispel Evil and Good
+2025-06-28 14:37:22,200 - INFO - Processing spell: Dimension Door
+2025-06-28 14:37:25,979 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:37:26,006 - INFO - Repository saved with 71 spells
+2025-06-28 14:37:26,007 - INFO - Successfully processed 'Dimension Door' (17/245)
+2025-06-28 14:37:28,009 - INFO - Processing spell: Disguise Self
+2025-06-28 14:37:32,523 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:37:32,539 - INFO - Repository saved with 72 spells
+2025-06-28 14:37:32,539 - INFO - Successfully processed 'Disguise Self' (18/245)
+2025-06-28 14:37:34,542 - INFO - Processing spell: Dispel Evil and Good
+2025-06-28 14:37:37,867 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:37:37,886 - INFO - Repository saved with 73 spells
+2025-06-28 14:37:37,887 - INFO - Successfully processed 'Dispel Evil and Good' (19/245)
+2025-06-28 14:37:39,889 - INFO - Processing batch 25 (3 spells): Dispel Magic, Divination, Divine Favor
+2025-06-28 14:37:39,890 - INFO - Processing spell: Dispel Magic
+2025-06-28 14:37:43,470 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:37:43,485 - INFO - Repository saved with 74 spells
+2025-06-28 14:37:43,485 - INFO - Successfully processed 'Dispel Magic' (20/245)
+2025-06-28 14:37:45,488 - INFO - Processing spell: Divination
+2025-06-28 14:37:47,985 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:37:48,005 - INFO - Repository saved with 75 spells
+2025-06-28 14:37:48,005 - INFO - Successfully processed 'Divination' (21/245)
+2025-06-28 14:37:50,008 - INFO - Processing spell: Divine Favor
+2025-06-28 14:37:52,100 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:37:52,121 - INFO - Repository saved with 76 spells
+2025-06-28 14:37:52,121 - INFO - Successfully processed 'Divine Favor' (22/245)
+2025-06-28 14:37:54,124 - INFO - Processing batch 26 (3 spells): Dominate Beast, Dominate Person, Dream
+2025-06-28 14:37:54,125 - INFO - Processing spell: Dominate Beast
+2025-06-28 14:37:58,203 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:37:58,219 - INFO - Repository saved with 77 spells
+2025-06-28 14:37:58,219 - INFO - Successfully processed 'Dominate Beast' (23/245)
+2025-06-28 14:38:00,222 - INFO - Processing spell: Dominate Person
+2025-06-28 14:38:03,846 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:38:03,861 - INFO - Repository saved with 78 spells
+2025-06-28 14:38:03,862 - INFO - Successfully processed 'Dominate Person' (24/245)
+2025-06-28 14:38:05,865 - INFO - Processing spell: Dream
+2025-06-28 14:38:09,245 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:38:09,266 - INFO - Repository saved with 79 spells
+2025-06-28 14:38:09,266 - INFO - Successfully processed 'Dream' (25/245)
+2025-06-28 14:38:11,269 - INFO - Processing batch 27 (3 spells): Eldritch Blast, Enhance Ability, Enlarge/Reduce
+2025-06-28 14:38:11,270 - INFO - Processing spell: Eldritch Blast
+2025-06-28 14:38:13,345 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:38:13,361 - INFO - Repository saved with 80 spells
+2025-06-28 14:38:13,362 - INFO - Successfully processed 'Eldritch Blast' (26/245)
+2025-06-28 14:38:15,365 - INFO - Processing spell: Enhance Ability
+2025-06-28 14:38:20,175 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:38:20,188 - INFO - Repository saved with 81 spells
+2025-06-28 14:38:20,189 - INFO - Successfully processed 'Enhance Ability' (27/245)
+2025-06-28 14:38:22,191 - INFO - Processing spell: Enlarge/Reduce
+2025-06-28 14:38:27,386 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:38:27,402 - INFO - Repository saved with 82 spells
+2025-06-28 14:38:27,402 - INFO - Successfully processed 'Enlarge/Reduce' (28/245)
+2025-06-28 14:38:29,405 - INFO - Processing batch 28 (3 spells): Enthrall, Evard's Black Tentacles, Expeditious Retreat
+2025-06-28 14:38:29,406 - INFO - Processing spell: Enthrall
+2025-06-28 14:38:32,478 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:38:32,505 - INFO - Repository saved with 83 spells
+2025-06-28 14:38:32,506 - INFO - Successfully processed 'Enthrall' (29/245)
+2025-06-28 14:38:34,509 - INFO - Processing spell: Evard's Black Tentacles
+2025-06-28 14:38:37,865 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:38:37,880 - INFO - Repository saved with 84 spells
+2025-06-28 14:38:37,881 - INFO - Successfully processed 'Evard's Black Tentacles' (30/245)
+2025-06-28 14:38:39,883 - INFO - Processing spell: Expeditious Retreat
+2025-06-28 14:38:43,174 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:38:43,193 - INFO - Repository saved with 85 spells
+2025-06-28 14:38:43,193 - INFO - Successfully processed 'Expeditious Retreat' (31/245)
+2025-06-28 14:38:45,195 - INFO - Processing batch 29 (3 spells): Fabricate, Faerie Fire, False Life
+2025-06-28 14:38:45,196 - INFO - Processing spell: Fabricate
+2025-06-28 14:38:48,638 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:38:48,654 - INFO - Repository saved with 86 spells
+2025-06-28 14:38:48,655 - INFO - Successfully processed 'Fabricate' (32/245)
+2025-06-28 14:38:50,658 - INFO - Processing spell: Faerie Fire
+2025-06-28 14:38:54,062 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:38:54,079 - INFO - Repository saved with 87 spells
+2025-06-28 14:38:54,080 - INFO - Successfully processed 'Faerie Fire' (33/245)
+2025-06-28 14:38:56,083 - INFO - Processing spell: False Life
+2025-06-28 14:38:57,887 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:38:57,903 - INFO - Repository saved with 88 spells
+2025-06-28 14:38:57,904 - INFO - Successfully processed 'False Life' (34/245)
+2025-06-28 14:38:59,910 - INFO - Processing batch 30 (3 spells): Fear, Feather Fall, Feign Death
+2025-06-28 14:38:59,912 - INFO - Processing spell: Fear
+2025-06-28 14:39:02,887 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:39:02,905 - INFO - Repository saved with 89 spells
+2025-06-28 14:39:02,905 - INFO - Successfully processed 'Fear' (35/245)
+2025-06-28 14:39:04,908 - INFO - Processing spell: Feather Fall
+2025-06-28 14:39:08,463 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:39:08,481 - INFO - Repository saved with 90 spells
+2025-06-28 14:39:08,481 - INFO - Successfully processed 'Feather Fall' (36/245)
+2025-06-28 14:39:10,483 - INFO - Processing spell: Feign Death
+2025-06-28 14:39:13,214 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 14:39:13,231 - INFO - Repository saved with 91 spells
+2025-06-28 14:39:13,231 - INFO - Successfully processed 'Feign Death' (37/245)
+2025-06-28 15:07:50,257 - INFO - Loaded existing repository with 90 spells
+2025-06-28 15:07:50,303 - INFO - Repository saved with 91 spells
+2025-06-28 15:07:50,315 - INFO - Processing spell: Find Familiar
+2025-06-28 15:07:56,154 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:07:56,176 - INFO - Repository saved with 92 spells
+2025-06-28 15:07:56,191 - INFO - Repository saved with 92 spells
+2025-06-28 15:07:58,194 - INFO - Processing spell: Find Steed
+2025-06-28 15:08:03,825 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:08:03,847 - INFO - Repository saved with 93 spells
+2025-06-28 15:08:03,864 - INFO - Repository saved with 93 spells
+2025-06-28 15:08:05,867 - INFO - Processing spell: Find Traps
+2025-06-28 15:08:09,377 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:08:09,391 - INFO - Repository saved with 94 spells
+2025-06-28 15:08:09,406 - INFO - Repository saved with 94 spells
+2025-06-28 15:08:11,409 - INFO - Processing spell: Fire Bolt
+2025-06-28 15:08:13,589 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:08:13,630 - INFO - Repository saved with 95 spells
+2025-06-28 15:08:13,650 - INFO - Repository saved with 95 spells
+2025-06-28 15:08:15,653 - INFO - Processing spell: Fire Shield
+2025-06-28 15:08:19,155 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:08:19,176 - INFO - Repository saved with 96 spells
+2025-06-28 15:08:19,196 - INFO - Repository saved with 96 spells
+2025-06-28 15:23:55,760 - INFO - Loaded existing repository with 95 spells
+2025-06-28 15:23:55,776 - INFO - Repository saved with 96 spells
+2025-06-28 15:23:55,806 - INFO - Processing spell: Fireball
+2025-06-28 15:24:01,578 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:24:01,578 - INFO - Repository saved with 97 spells
+2025-06-28 15:24:01,593 - INFO - Repository saved with 97 spells
+2025-06-28 15:24:03,595 - INFO - Processing spell: Flame Blade
+2025-06-28 15:24:07,352 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:24:07,352 - INFO - Repository saved with 98 spells
+2025-06-28 15:24:07,352 - INFO - Repository saved with 98 spells
+2025-06-28 15:24:09,368 - INFO - Processing spell: Flame Strike
+2025-06-28 15:24:12,566 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:24:12,566 - INFO - Repository saved with 99 spells
+2025-06-28 15:24:12,583 - INFO - Repository saved with 99 spells
+2025-06-28 15:24:14,584 - INFO - Processing spell: Flaming Sphere
+2025-06-28 15:24:17,292 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:24:17,292 - INFO - Repository saved with 100 spells
+2025-06-28 15:24:17,292 - INFO - Repository saved with 100 spells
+2025-06-28 15:24:19,307 - INFO - Processing spell: Fly
+2025-06-28 15:24:22,090 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:24:22,106 - INFO - Repository saved with 101 spells
+2025-06-28 15:24:22,106 - INFO - Repository saved with 101 spells
+2025-06-28 15:24:24,114 - INFO - Processing spell: Fog Cloud
+2025-06-28 15:24:26,686 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:24:26,686 - INFO - Repository saved with 102 spells
+2025-06-28 15:24:26,702 - INFO - Repository saved with 102 spells
+2025-06-28 15:24:28,706 - INFO - Processing spell: Freedom of Movement
+2025-06-28 15:24:30,897 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:24:30,897 - INFO - Repository saved with 103 spells
+2025-06-28 15:24:30,911 - INFO - Repository saved with 103 spells
+2025-06-28 15:24:32,913 - INFO - Processing spell: Friends
+2025-06-28 15:24:35,278 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:24:35,278 - INFO - Repository saved with 104 spells
+2025-06-28 15:24:35,278 - INFO - Repository saved with 104 spells
+2025-06-28 15:24:37,286 - INFO - Processing spell: Gaseous Form
+2025-06-28 15:24:40,805 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:24:40,824 - INFO - Repository saved with 105 spells
+2025-06-28 15:24:40,828 - INFO - Repository saved with 105 spells
+2025-06-28 15:24:42,829 - INFO - Processing spell: Geas
+2025-06-28 15:24:46,415 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:24:46,415 - INFO - Repository saved with 106 spells
+2025-06-28 15:24:46,433 - INFO - Repository saved with 106 spells
+2025-06-28 15:24:48,434 - INFO - Processing spell: Gentle Repose
+2025-06-28 15:24:50,685 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:24:50,685 - INFO - Repository saved with 107 spells
+2025-06-28 15:24:50,685 - INFO - Repository saved with 107 spells
+2025-06-28 15:24:52,695 - INFO - Processing spell: Giant Insect
+2025-06-28 15:24:57,243 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:24:57,243 - INFO - Repository saved with 108 spells
+2025-06-28 15:24:57,261 - INFO - Repository saved with 108 spells
+2025-06-28 15:24:59,263 - INFO - Processing spell: Glyph of Warding
+2025-06-28 15:25:10,887 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:25:10,887 - INFO - Repository saved with 109 spells
+2025-06-28 15:25:10,887 - INFO - Repository saved with 109 spells
+2025-06-28 15:25:12,897 - INFO - Processing spell: Goodberry
+2025-06-28 15:25:15,461 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:25:15,461 - INFO - Repository saved with 110 spells
+2025-06-28 15:25:15,476 - INFO - Repository saved with 110 spells
+2025-06-28 15:25:17,478 - INFO - Processing spell: Grease
+2025-06-28 15:25:21,254 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:25:21,254 - INFO - Repository saved with 111 spells
+2025-06-28 15:25:21,271 - INFO - Repository saved with 111 spells
+2025-06-28 15:25:23,272 - INFO - Processing spell: Greater Invisibility
+2025-06-28 15:25:25,213 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:25:25,213 - INFO - Repository saved with 112 spells
+2025-06-28 15:25:25,232 - INFO - Repository saved with 112 spells
+2025-06-28 15:25:27,233 - INFO - Processing spell: Greater Restoration
+2025-06-28 15:25:32,298 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:25:32,314 - INFO - Repository saved with 113 spells
+2025-06-28 15:25:32,314 - INFO - Repository saved with 113 spells
+2025-06-28 15:25:34,321 - INFO - Processing spell: Guardian of Faith
+2025-06-28 15:25:37,468 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:25:37,489 - INFO - Repository saved with 114 spells
+2025-06-28 15:25:37,493 - INFO - Repository saved with 114 spells
+2025-06-28 15:25:39,495 - INFO - Processing spell: Guidance
+2025-06-28 15:25:41,722 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:25:41,737 - INFO - Repository saved with 115 spells
+2025-06-28 15:25:41,746 - INFO - Repository saved with 115 spells
+2025-06-28 15:25:43,747 - INFO - Processing spell: Guiding Bolt
+2025-06-28 15:25:46,423 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:25:46,426 - INFO - Repository saved with 116 spells
+2025-06-28 15:25:46,434 - INFO - Repository saved with 116 spells
+2025-06-28 15:25:48,436 - INFO - Repository saved with 116 spells
+2025-06-28 15:25:48,436 - INFO - Processing spell: Gust of Wind
+2025-06-28 15:25:52,197 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:25:52,203 - INFO - Repository saved with 117 spells
+2025-06-28 15:25:52,203 - INFO - Repository saved with 117 spells
+2025-06-28 15:25:54,210 - INFO - Processing spell: Hallow
+2025-06-28 15:26:01,036 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:26:01,036 - INFO - Repository saved with 118 spells
+2025-06-28 15:26:01,052 - INFO - Repository saved with 118 spells
+2025-06-28 15:26:03,053 - INFO - Processing spell: Hallucinatory Terrain
+2025-06-28 15:26:05,588 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:26:05,604 - INFO - Repository saved with 119 spells
+2025-06-28 15:26:05,604 - INFO - Repository saved with 119 spells
+2025-06-28 15:26:07,611 - INFO - Processing spell: Haste
+2025-06-28 15:26:10,885 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:26:10,885 - INFO - Repository saved with 120 spells
+2025-06-28 15:26:10,902 - INFO - Repository saved with 120 spells
+2025-06-28 15:26:12,903 - INFO - Processing spell: Healing Word
+2025-06-28 15:26:15,374 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:26:15,374 - INFO - Repository saved with 121 spells
+2025-06-28 15:26:15,374 - INFO - Repository saved with 121 spells
+2025-06-28 15:26:17,383 - INFO - Processing spell: Heat Metal
+2025-06-28 15:26:20,761 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:26:20,761 - INFO - Repository saved with 122 spells
+2025-06-28 15:26:20,779 - INFO - Repository saved with 122 spells
+2025-06-28 15:26:22,781 - INFO - Processing spell: Hellish Rebuke
+2025-06-28 15:26:25,966 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:26:25,966 - INFO - Repository saved with 123 spells
+2025-06-28 15:26:25,978 - INFO - Repository saved with 123 spells
+2025-06-28 15:26:27,980 - INFO - Processing spell: Heroism
+2025-06-28 15:26:30,793 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:26:30,809 - INFO - Repository saved with 124 spells
+2025-06-28 15:26:30,818 - INFO - Repository saved with 124 spells
+2025-06-28 15:26:32,820 - INFO - Processing spell: Hex
+2025-06-28 15:26:36,372 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:26:36,372 - INFO - Repository saved with 125 spells
+2025-06-28 15:26:36,389 - INFO - Repository saved with 125 spells
+2025-06-28 15:26:38,391 - INFO - Processing spell: Hold Monster
+2025-06-28 15:26:41,077 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:26:41,077 - INFO - Repository saved with 126 spells
+2025-06-28 15:26:41,096 - INFO - Repository saved with 126 spells
+2025-06-28 15:26:43,097 - INFO - Processing spell: Hold Person
+2025-06-28 15:26:46,344 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:26:46,344 - INFO - Repository saved with 127 spells
+2025-06-28 15:26:46,360 - INFO - Repository saved with 127 spells
+2025-06-28 15:26:48,361 - INFO - Processing spell: Hunger of Hadar
+2025-06-28 15:26:52,474 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:26:52,474 - INFO - Repository saved with 128 spells
+2025-06-28 15:26:52,488 - INFO - Repository saved with 128 spells
+2025-06-28 15:26:54,490 - INFO - Processing spell: Hunter's Mark
+2025-06-28 15:26:57,825 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:26:57,825 - INFO - Repository saved with 129 spells
+2025-06-28 15:26:57,841 - INFO - Repository saved with 129 spells
+2025-06-28 15:26:59,843 - INFO - Processing spell: Hypnotic Pattern
+2025-06-28 15:27:04,128 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:27:04,137 - INFO - Repository saved with 130 spells
+2025-06-28 15:27:04,142 - INFO - Repository saved with 130 spells
+2025-06-28 15:27:06,143 - INFO - Processing spell: Ice Storm
+2025-06-28 15:27:09,613 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:27:09,613 - INFO - Repository saved with 131 spells
+2025-06-28 15:27:09,630 - INFO - Repository saved with 131 spells
+2025-06-28 15:27:11,631 - INFO - Processing spell: Identify
+2025-06-28 15:27:14,617 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:27:14,633 - INFO - Repository saved with 132 spells
+2025-06-28 15:27:14,642 - INFO - Repository saved with 132 spells
+2025-06-28 15:27:16,643 - INFO - Processing spell: Illusory Script
+2025-06-28 15:27:20,556 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:27:20,556 - INFO - Repository saved with 133 spells
+2025-06-28 15:27:20,556 - INFO - Repository saved with 133 spells
+2025-06-28 15:27:22,566 - INFO - Processing spell: Inflict Wounds
+2025-06-28 15:27:25,624 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:27:25,640 - INFO - Repository saved with 134 spells
+2025-06-28 15:27:25,648 - INFO - Repository saved with 134 spells
+2025-06-28 15:27:27,649 - INFO - Processing spell: Insect Plague
+2025-06-28 15:27:31,942 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:27:31,957 - INFO - Repository saved with 135 spells
+2025-06-28 15:27:31,964 - INFO - Repository saved with 135 spells
+2025-06-28 15:27:33,966 - INFO - Processing spell: Invisibility
+2025-06-28 15:27:36,552 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:27:36,568 - INFO - Repository saved with 136 spells
+2025-06-28 15:27:36,568 - INFO - Repository saved with 136 spells
+2025-06-28 15:27:38,579 - INFO - Repository saved with 136 spells
+2025-06-28 15:27:38,579 - INFO - Processing spell: Jump
+2025-06-28 15:27:40,576 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:27:40,592 - INFO - Repository saved with 137 spells
+2025-06-28 15:27:40,592 - INFO - Repository saved with 137 spells
+2025-06-28 15:27:42,600 - INFO - Processing spell: Knock
+2025-06-28 15:27:45,718 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:27:45,718 - INFO - Repository saved with 138 spells
+2025-06-28 15:27:45,733 - INFO - Repository saved with 138 spells
+2025-06-28 15:27:47,738 - INFO - Processing spell: Legend Lore
+2025-06-28 15:27:50,584 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:27:50,584 - INFO - Repository saved with 139 spells
+2025-06-28 15:27:50,599 - INFO - Repository saved with 139 spells
+2025-06-28 15:27:52,600 - INFO - Processing spell: Leomund's Secret Chest
+2025-06-28 15:28:01,160 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:28:01,160 - INFO - Repository saved with 140 spells
+2025-06-28 15:28:01,171 - INFO - Repository saved with 140 spells
+2025-06-28 15:28:03,173 - INFO - Processing spell: Leomund's Tiny Hut
+2025-06-28 15:28:06,548 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:28:06,564 - INFO - Repository saved with 141 spells
+2025-06-28 15:28:06,569 - INFO - Repository saved with 141 spells
+2025-06-28 15:28:08,570 - INFO - Processing spell: Lesser Restoration
+2025-06-28 15:28:10,356 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:28:10,372 - INFO - Repository saved with 142 spells
+2025-06-28 15:28:10,378 - INFO - Repository saved with 142 spells
+2025-06-28 15:28:12,379 - INFO - Processing spell: Levitate
+2025-06-28 15:28:16,535 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:28:16,554 - INFO - Repository saved with 143 spells
+2025-06-28 15:28:16,554 - INFO - Repository saved with 143 spells
+2025-06-28 15:28:18,560 - INFO - Processing spell: Light
+2025-06-28 15:28:21,316 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:28:21,331 - INFO - Repository saved with 144 spells
+2025-06-28 15:28:21,337 - INFO - Repository saved with 144 spells
+2025-06-28 15:28:23,338 - INFO - Processing spell: Lightning Bolt
+2025-06-28 15:28:27,133 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:28:27,149 - INFO - Repository saved with 145 spells
+2025-06-28 15:28:27,153 - INFO - Repository saved with 145 spells
+2025-06-28 15:28:29,155 - INFO - Processing spell: Locate Animals or Plants
+2025-06-28 15:28:32,428 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:28:32,428 - INFO - Repository saved with 146 spells
+2025-06-28 15:28:32,446 - INFO - Repository saved with 146 spells
+2025-06-28 15:28:34,448 - INFO - Processing spell: Locate Creature
+2025-06-28 15:28:38,222 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:28:38,237 - INFO - Repository saved with 147 spells
+2025-06-28 15:28:38,246 - INFO - Repository saved with 147 spells
+2025-06-28 15:28:40,247 - INFO - Processing spell: Locate Object
+2025-06-28 15:28:43,931 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:28:43,940 - INFO - Repository saved with 148 spells
+2025-06-28 15:28:43,947 - INFO - Repository saved with 148 spells
+2025-06-28 15:28:45,949 - INFO - Processing spell: Longstrider
+2025-06-28 15:28:48,637 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:28:48,655 - INFO - Repository saved with 149 spells
+2025-06-28 15:28:48,659 - INFO - Repository saved with 149 spells
+2025-06-28 15:28:50,662 - INFO - Processing spell: Mage Armor
+2025-06-28 15:28:53,001 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:28:53,017 - INFO - Repository saved with 150 spells
+2025-06-28 15:28:53,026 - INFO - Repository saved with 150 spells
+2025-06-28 15:28:55,027 - INFO - Processing spell: Mage Hand
+2025-06-28 15:28:58,007 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:28:58,007 - INFO - Repository saved with 151 spells
+2025-06-28 15:28:58,021 - INFO - Repository saved with 151 spells
+2025-06-28 15:29:00,023 - INFO - Processing spell: Magic Circle
+2025-06-28 15:29:05,033 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:29:05,033 - INFO - Repository saved with 152 spells
+2025-06-28 15:29:05,055 - INFO - Repository saved with 152 spells
+2025-06-28 15:29:07,056 - INFO - Processing spell: Magic Missile
+2025-06-28 15:29:09,389 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:29:09,407 - INFO - Repository saved with 153 spells
+2025-06-28 15:29:09,413 - INFO - Repository saved with 153 spells
+2025-06-28 15:29:11,414 - INFO - Processing spell: Magic Mouth
+2025-06-28 15:29:14,964 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:29:14,964 - INFO - Repository saved with 154 spells
+2025-06-28 15:29:14,981 - INFO - Repository saved with 154 spells
+2025-06-28 15:29:16,983 - INFO - Processing spell: Magic Weapon
+2025-06-28 15:29:19,582 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:29:19,598 - INFO - Repository saved with 155 spells
+2025-06-28 15:29:19,606 - INFO - Repository saved with 155 spells
+2025-06-28 15:29:21,607 - INFO - Processing spell: Major Image
+2025-06-28 15:29:26,634 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:29:26,649 - INFO - Repository saved with 156 spells
+2025-06-28 15:29:26,659 - INFO - Repository saved with 156 spells
+2025-06-28 15:29:28,660 - INFO - Repository saved with 156 spells
+2025-06-28 15:29:28,660 - INFO - Processing spell: Mass Cure Wounds
+2025-06-28 15:29:31,317 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:29:31,338 - INFO - Repository saved with 157 spells
+2025-06-28 15:29:31,343 - INFO - Repository saved with 157 spells
+2025-06-28 15:29:33,344 - INFO - Processing spell: Mass Healing Word
+2025-06-28 15:29:35,907 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:29:35,907 - INFO - Repository saved with 158 spells
+2025-06-28 15:29:35,925 - INFO - Repository saved with 158 spells
+2025-06-28 15:29:37,926 - INFO - Processing spell: Meld into Stone
+2025-06-28 15:29:41,863 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:29:41,863 - INFO - Repository saved with 159 spells
+2025-06-28 15:29:41,877 - INFO - Repository saved with 159 spells
+2025-06-28 15:29:43,878 - INFO - Processing spell: Melf's Acid Arrow
+2025-06-28 15:29:46,424 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:29:46,424 - INFO - Repository saved with 160 spells
+2025-06-28 15:29:46,434 - INFO - Repository saved with 160 spells
+2025-06-28 15:29:48,436 - INFO - Processing spell: Mending
+2025-06-28 15:29:50,728 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:29:50,728 - INFO - Repository saved with 161 spells
+2025-06-28 15:29:50,745 - INFO - Repository saved with 161 spells
+2025-06-28 15:29:52,746 - INFO - Processing spell: Message
+2025-06-28 15:29:55,390 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:29:55,390 - INFO - Repository saved with 162 spells
+2025-06-28 15:29:55,404 - INFO - Repository saved with 162 spells
+2025-06-28 15:29:57,406 - INFO - Processing spell: Minor Illusion
+2025-06-28 15:30:01,746 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:30:01,755 - INFO - Repository saved with 163 spells
+2025-06-28 15:30:01,759 - INFO - Repository saved with 163 spells
+2025-06-28 15:30:03,763 - INFO - Processing spell: Mirror Image
+2025-06-28 15:30:07,223 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:30:07,239 - INFO - Repository saved with 164 spells
+2025-06-28 15:30:07,256 - INFO - Repository saved with 164 spells
+2025-06-28 15:30:09,258 - INFO - Processing spell: Mislead
+2025-06-28 15:30:12,471 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:30:12,486 - INFO - Repository saved with 165 spells
+2025-06-28 15:30:12,491 - INFO - Repository saved with 165 spells
+2025-06-28 15:30:14,493 - INFO - Processing spell: Misty Step
+2025-06-28 15:30:16,487 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:30:16,487 - INFO - Repository saved with 166 spells
+2025-06-28 15:30:16,503 - INFO - Repository saved with 166 spells
+2025-06-28 15:30:18,504 - INFO - Processing spell: Modify Memory
+2025-06-28 15:30:22,258 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:30:22,273 - INFO - Repository saved with 167 spells
+2025-06-28 15:30:22,282 - INFO - Repository saved with 167 spells
+2025-06-28 15:30:24,283 - INFO - Processing spell: Moonbeam
+2025-06-28 15:30:28,489 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:30:28,497 - INFO - Repository saved with 168 spells
+2025-06-28 15:30:28,504 - INFO - Repository saved with 168 spells
+2025-06-28 15:30:30,506 - INFO - Processing spell: Mordenkainen's Faithful Hound
+2025-06-28 15:30:33,835 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:30:33,835 - INFO - Repository saved with 169 spells
+2025-06-28 15:30:33,856 - INFO - Repository saved with 169 spells
+2025-06-28 15:30:35,858 - INFO - Processing spell: Mordenkainen's Private Sanctum
+2025-06-28 15:30:39,304 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:30:39,304 - INFO - Repository saved with 170 spells
+2025-06-28 15:30:39,321 - INFO - Repository saved with 170 spells
+2025-06-28 15:30:41,322 - INFO - Processing spell: Nondetection
+2025-06-28 15:30:44,226 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:30:44,226 - INFO - Repository saved with 171 spells
+2025-06-28 15:30:44,241 - INFO - Repository saved with 171 spells
+2025-06-28 15:30:46,243 - INFO - Processing spell: Nystul's Magic Aura
+2025-06-28 15:30:50,534 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:30:50,549 - INFO - Repository saved with 172 spells
+2025-06-28 15:30:50,558 - INFO - Repository saved with 172 spells
+2025-06-28 15:30:52,560 - INFO - Processing spell: Otiluke's Resilient Sphere
+2025-06-28 15:30:57,619 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:30:57,619 - INFO - Repository saved with 173 spells
+2025-06-28 15:30:57,635 - INFO - Repository saved with 173 spells
+2025-06-28 15:30:59,639 - INFO - Processing spell: Pass without Trace
+2025-06-28 15:31:02,034 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:31:02,050 - INFO - Repository saved with 174 spells
+2025-06-28 15:31:02,060 - INFO - Repository saved with 174 spells
+2025-06-28 15:31:04,061 - INFO - Processing spell: Passwall
+2025-06-28 15:31:07,849 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:31:07,866 - INFO - Repository saved with 175 spells
+2025-06-28 15:31:07,871 - INFO - Repository saved with 175 spells
+2025-06-28 15:31:09,872 - INFO - Processing spell: Phantasmal Force
+2025-06-28 15:31:15,337 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:31:15,337 - INFO - Repository saved with 176 spells
+2025-06-28 15:31:15,350 - INFO - Repository saved with 176 spells
+2025-06-28 15:31:17,357 - INFO - Repository saved with 176 spells
+2025-06-28 15:31:17,357 - INFO - Processing spell: Phantasmal Killer
+2025-06-28 15:31:20,367 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:31:20,375 - INFO - Repository saved with 177 spells
+2025-06-28 15:31:20,387 - INFO - Repository saved with 177 spells
+2025-06-28 15:31:22,389 - INFO - Processing spell: Phantom Steed
+2025-06-28 15:31:25,885 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:31:25,888 - INFO - Repository saved with 178 spells
+2025-06-28 15:31:25,900 - INFO - Repository saved with 178 spells
+2025-06-28 15:31:27,902 - INFO - Processing spell: Planar Binding
+2025-06-28 15:31:31,670 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:31:31,687 - INFO - Repository saved with 179 spells
+2025-06-28 15:31:31,692 - INFO - Repository saved with 179 spells
+2025-06-28 15:31:33,695 - INFO - Processing spell: Plant Growth
+2025-06-28 15:31:36,739 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:31:36,754 - INFO - Repository saved with 180 spells
+2025-06-28 15:31:36,764 - INFO - Repository saved with 180 spells
+2025-06-28 15:31:38,766 - INFO - Processing spell: Polymorph
+2025-06-28 15:31:45,345 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:31:45,411 - INFO - Repository saved with 181 spells
+2025-06-28 15:31:45,411 - INFO - Repository saved with 181 spells
+2025-06-28 15:31:47,419 - INFO - Processing spell: Prayer of Healing
+2025-06-28 15:31:49,622 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:31:49,640 - INFO - Repository saved with 182 spells
+2025-06-28 15:31:49,649 - INFO - Repository saved with 182 spells
+2025-06-28 15:31:51,651 - INFO - Processing spell: Prestidigitation
+2025-06-28 15:31:57,227 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:31:57,249 - INFO - Repository saved with 183 spells
+2025-06-28 15:31:57,254 - INFO - Repository saved with 183 spells
+2025-06-28 15:31:59,258 - INFO - Processing spell: Protection from Energy
+2025-06-28 15:32:01,970 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:32:01,982 - INFO - Repository saved with 184 spells
+2025-06-28 15:32:01,987 - INFO - Repository saved with 184 spells
+2025-06-28 15:32:03,990 - INFO - Processing spell: Protection from Evil and Good
+2025-06-28 15:32:06,965 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:32:06,981 - INFO - Repository saved with 185 spells
+2025-06-28 15:32:06,991 - INFO - Repository saved with 185 spells
+2025-06-28 15:32:08,992 - INFO - Processing spell: Protection from Poison
+2025-06-28 15:32:11,773 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:32:11,773 - INFO - Repository saved with 186 spells
+2025-06-28 15:32:11,790 - INFO - Repository saved with 186 spells
+2025-06-28 15:32:13,793 - INFO - Processing spell: Purify Food and Drink
+2025-06-28 15:32:15,758 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:32:15,778 - INFO - Repository saved with 187 spells
+2025-06-28 15:32:15,784 - INFO - Repository saved with 187 spells
+2025-06-28 15:32:17,786 - INFO - Processing spell: Raise Dead
+2025-06-28 15:32:20,774 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:32:20,774 - INFO - Repository saved with 188 spells
+2025-06-28 15:32:20,791 - INFO - Repository saved with 188 spells
+2025-06-28 15:32:22,794 - INFO - Processing spell: Rary's Telepathic Bond
+2025-06-28 15:32:26,071 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:32:26,081 - INFO - Repository saved with 189 spells
+2025-06-28 15:32:26,091 - INFO - Repository saved with 189 spells
+2025-06-28 15:32:28,094 - INFO - Processing spell: Ray of Enfeeblement
+2025-06-28 15:32:30,702 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:32:30,717 - INFO - Repository saved with 190 spells
+2025-06-28 15:32:30,727 - INFO - Repository saved with 190 spells
+2025-06-28 15:32:32,728 - INFO - Processing spell: Ray of Frost
+2025-06-28 15:32:35,245 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:32:35,259 - INFO - Repository saved with 191 spells
+2025-06-28 15:32:35,271 - INFO - Repository saved with 191 spells
+2025-06-28 15:32:37,272 - INFO - Processing spell: Reincarnate
+2025-06-28 15:32:41,447 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:32:41,447 - INFO - Repository saved with 192 spells
+2025-06-28 15:32:41,468 - INFO - Repository saved with 192 spells
+2025-06-28 15:32:43,471 - INFO - Processing spell: Remove Curse
+2025-06-28 15:32:45,499 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:32:45,499 - INFO - Repository saved with 193 spells
+2025-06-28 15:32:45,513 - INFO - Repository saved with 193 spells
+2025-06-28 15:32:47,514 - INFO - Processing spell: Resistance
+2025-06-28 15:32:49,890 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:32:49,913 - INFO - Repository saved with 194 spells
+2025-06-28 15:32:49,920 - INFO - Repository saved with 194 spells
+2025-06-28 15:32:51,921 - INFO - Processing spell: Revivify
+2025-06-28 15:32:53,769 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:32:53,786 - INFO - Repository saved with 195 spells
+2025-06-28 15:32:53,793 - INFO - Repository saved with 195 spells
+2025-06-28 15:32:55,794 - INFO - Processing spell: Rope Trick
+2025-06-28 15:33:00,050 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:33:00,066 - INFO - Repository saved with 196 spells
+2025-06-28 15:33:00,080 - INFO - Repository saved with 196 spells
+2025-06-28 15:33:02,087 - INFO - Repository saved with 196 spells
+2025-06-28 15:33:02,087 - INFO - Processing spell: Sacred Flame
+2025-06-28 15:33:04,704 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:33:04,726 - INFO - Repository saved with 197 spells
+2025-06-28 15:33:04,734 - INFO - Repository saved with 197 spells
+2025-06-28 15:33:06,735 - INFO - Processing spell: Sanctuary
+2025-06-28 15:33:09,946 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:33:09,962 - INFO - Repository saved with 198 spells
+2025-06-28 15:33:09,977 - INFO - Repository saved with 198 spells
+2025-06-28 15:33:11,978 - INFO - Processing spell: Scorching Ray
+2025-06-28 15:33:14,809 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:33:14,826 - INFO - Repository saved with 199 spells
+2025-06-28 15:33:14,834 - INFO - Repository saved with 199 spells
+2025-06-28 15:33:16,836 - INFO - Processing spell: Scrying
+2025-06-28 15:33:22,161 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:33:22,161 - INFO - Repository saved with 200 spells
+2025-06-28 15:33:22,176 - INFO - Repository saved with 200 spells
+2025-06-28 15:33:24,178 - INFO - Processing spell: See Invisibility
+2025-06-28 15:33:26,140 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:33:26,155 - INFO - Repository saved with 201 spells
+2025-06-28 15:33:26,164 - INFO - Repository saved with 201 spells
+2025-06-28 15:33:28,166 - INFO - Processing spell: Seeming
+2025-06-28 15:33:31,092 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:33:31,104 - INFO - Repository saved with 202 spells
+2025-06-28 15:33:31,114 - INFO - Repository saved with 202 spells
+2025-06-28 15:33:33,116 - INFO - Processing spell: Sending
+2025-06-28 15:33:35,153 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:33:35,168 - INFO - Repository saved with 203 spells
+2025-06-28 15:33:35,180 - INFO - Repository saved with 203 spells
+2025-06-28 15:33:37,182 - INFO - Processing spell: Shatter
+2025-06-28 15:33:42,442 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:33:42,459 - INFO - Repository saved with 204 spells
+2025-06-28 15:33:42,468 - INFO - Repository saved with 204 spells
+2025-06-28 15:33:44,471 - INFO - Processing spell: Shield
+2025-06-28 15:33:46,768 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:33:46,784 - INFO - Repository saved with 205 spells
+2025-06-28 15:33:46,791 - INFO - Repository saved with 205 spells
+2025-06-28 15:33:48,792 - INFO - Processing spell: Shield of Faith
+2025-06-28 15:33:50,964 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:33:50,964 - INFO - Repository saved with 206 spells
+2025-06-28 15:33:50,980 - INFO - Repository saved with 206 spells
+2025-06-28 15:33:52,983 - INFO - Processing spell: Shocking Grasp
+2025-06-28 15:33:55,743 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:33:55,743 - INFO - Repository saved with 207 spells
+2025-06-28 15:33:55,765 - INFO - Repository saved with 207 spells
+2025-06-28 15:33:57,766 - INFO - Processing spell: Silence
+2025-06-28 15:34:00,083 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:34:00,083 - INFO - Repository saved with 208 spells
+2025-06-28 15:34:00,102 - INFO - Repository saved with 208 spells
+2025-06-28 15:34:02,103 - INFO - Processing spell: Silent Image
+2025-06-28 15:34:05,858 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:34:05,874 - INFO - Repository saved with 209 spells
+2025-06-28 15:34:05,886 - INFO - Repository saved with 209 spells
+2025-06-28 15:34:07,888 - INFO - Processing spell: Sleep
+2025-06-28 15:34:11,689 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:34:11,706 - INFO - Repository saved with 210 spells
+2025-06-28 15:34:11,712 - INFO - Repository saved with 210 spells
+2025-06-28 15:34:13,714 - INFO - Processing spell: Sleet Storm
+2025-06-28 15:34:16,780 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:34:16,795 - INFO - Repository saved with 211 spells
+2025-06-28 15:34:16,804 - INFO - Repository saved with 211 spells
+2025-06-28 15:34:18,806 - INFO - Processing spell: Slow
+2025-06-28 15:34:23,149 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:34:23,151 - INFO - Repository saved with 212 spells
+2025-06-28 15:34:23,166 - INFO - Repository saved with 212 spells
+2025-06-28 15:34:25,167 - INFO - Processing spell: Spare the Dying
+2025-06-28 15:34:27,290 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:34:27,305 - INFO - Repository saved with 213 spells
+2025-06-28 15:34:27,316 - INFO - Repository saved with 213 spells
+2025-06-28 15:34:29,317 - INFO - Processing spell: Speak with Animals
+2025-06-28 15:34:31,477 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:34:31,477 - INFO - Repository saved with 214 spells
+2025-06-28 15:34:31,500 - INFO - Repository saved with 214 spells
+2025-06-28 15:34:33,502 - INFO - Processing spell: Speak with Dead
+2025-06-28 15:34:36,530 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:34:36,547 - INFO - Repository saved with 215 spells
+2025-06-28 15:34:36,558 - INFO - Repository saved with 215 spells
+2025-06-28 15:34:38,560 - INFO - Processing spell: Speak with Plants
+2025-06-28 15:34:41,050 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:34:41,050 - INFO - Repository saved with 216 spells
+2025-06-28 15:34:41,067 - INFO - Repository saved with 216 spells
+2025-06-28 15:34:43,079 - INFO - Repository saved with 216 spells
+2025-06-28 15:34:43,079 - INFO - Processing spell: Spider Climb
+2025-06-28 15:34:45,314 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:34:45,314 - INFO - Repository saved with 217 spells
+2025-06-28 15:34:45,333 - INFO - Repository saved with 217 spells
+2025-06-28 15:34:47,335 - INFO - Processing spell: Spike Growth
+2025-06-28 15:34:49,904 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:34:49,904 - INFO - Repository saved with 218 spells
+2025-06-28 15:34:49,917 - INFO - Repository saved with 218 spells
+2025-06-28 15:34:51,918 - INFO - Processing spell: Spirit Guardians
+2025-06-28 15:34:57,581 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:34:57,597 - INFO - Repository saved with 219 spells
+2025-06-28 15:34:57,608 - INFO - Repository saved with 219 spells
+2025-06-28 15:34:59,610 - INFO - Processing spell: Spiritual Weapon
+2025-06-28 15:35:04,877 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:35:04,897 - INFO - Repository saved with 220 spells
+2025-06-28 15:35:04,905 - INFO - Repository saved with 220 spells
+2025-06-28 15:35:06,908 - INFO - Processing spell: Stinking Cloud
+2025-06-28 15:35:10,381 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:35:10,398 - INFO - Repository saved with 221 spells
+2025-06-28 15:35:10,406 - INFO - Repository saved with 221 spells
+2025-06-28 15:35:12,407 - INFO - Processing spell: Stone Shape
+2025-06-28 15:35:14,988 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:35:15,014 - INFO - Repository saved with 222 spells
+2025-06-28 15:35:15,022 - INFO - Repository saved with 222 spells
+2025-06-28 15:35:17,024 - INFO - Processing spell: Stoneskin
+2025-06-28 15:35:19,120 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:35:19,120 - INFO - Repository saved with 223 spells
+2025-06-28 15:35:19,139 - INFO - Repository saved with 223 spells
+2025-06-28 15:35:21,140 - INFO - Processing spell: Suggestion
+2025-06-28 15:35:25,346 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:35:25,362 - INFO - Repository saved with 224 spells
+2025-06-28 15:35:25,375 - INFO - Repository saved with 224 spells
+2025-06-28 15:35:27,376 - INFO - Processing spell: Tasha's Hideous Laughter
+2025-06-28 15:35:31,579 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:35:31,592 - INFO - Repository saved with 225 spells
+2025-06-28 15:35:31,602 - INFO - Repository saved with 225 spells
+2025-06-28 15:35:33,603 - INFO - Processing spell: Telekinesis
+2025-06-28 15:35:37,547 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:35:37,563 - INFO - Repository saved with 226 spells
+2025-06-28 15:35:37,571 - INFO - Repository saved with 226 spells
+2025-06-28 15:35:39,575 - INFO - Processing spell: Teleportation Circle
+2025-06-28 15:35:42,938 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:35:42,938 - INFO - Repository saved with 227 spells
+2025-06-28 15:35:42,955 - INFO - Repository saved with 227 spells
+2025-06-28 15:35:44,957 - INFO - Processing spell: Tenser's Floating Disk
+2025-06-28 15:35:48,532 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:35:48,532 - INFO - Repository saved with 228 spells
+2025-06-28 15:35:48,549 - INFO - Repository saved with 228 spells
+2025-06-28 15:35:50,551 - INFO - Processing spell: Thaumaturgy
+2025-06-28 15:35:54,029 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:35:54,046 - INFO - Repository saved with 229 spells
+2025-06-28 15:35:54,051 - INFO - Repository saved with 229 spells
+2025-06-28 15:35:56,055 - INFO - Processing spell: Thunderwave
+2025-06-28 15:35:59,742 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:35:59,758 - INFO - Repository saved with 230 spells
+2025-06-28 15:35:59,764 - INFO - Repository saved with 230 spells
+2025-06-28 15:36:01,768 - INFO - Processing spell: Tongues
+2025-06-28 15:36:04,267 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:36:04,277 - INFO - Repository saved with 231 spells
+2025-06-28 15:36:04,289 - INFO - Repository saved with 231 spells
+2025-06-28 15:36:06,292 - INFO - Processing spell: Tree Stride
+2025-06-28 15:36:08,681 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:36:08,689 - INFO - Repository saved with 232 spells
+2025-06-28 15:36:08,699 - INFO - Repository saved with 232 spells
+2025-06-28 15:36:10,700 - INFO - Processing spell: True Strike
+2025-06-28 15:36:12,927 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:36:12,943 - INFO - Repository saved with 233 spells
+2025-06-28 15:36:12,961 - INFO - Repository saved with 233 spells
+2025-06-28 15:36:14,963 - INFO - Processing spell: Unseen Servant
+2025-06-28 15:36:18,147 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:36:18,147 - INFO - Repository saved with 234 spells
+2025-06-28 15:36:18,162 - INFO - Repository saved with 234 spells
+2025-06-28 15:36:20,166 - INFO - Processing spell: Vampiric Touch
+2025-06-28 15:36:24,112 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:36:24,112 - INFO - Repository saved with 235 spells
+2025-06-28 15:36:24,130 - INFO - Repository saved with 235 spells
+2025-06-28 15:36:26,132 - INFO - Processing spell: Vicious Mockery
+2025-06-28 15:36:29,401 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:36:29,401 - INFO - Repository saved with 236 spells
+2025-06-28 15:36:29,420 - INFO - Repository saved with 236 spells
+2025-06-28 15:36:31,431 - INFO - Repository saved with 236 spells
+2025-06-28 15:36:31,431 - INFO - Processing spell: Wall of Fire
+2025-06-28 15:36:35,422 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:36:35,422 - INFO - Repository saved with 237 spells
+2025-06-28 15:36:35,441 - INFO - Repository saved with 237 spells
+2025-06-28 15:36:37,442 - INFO - Processing spell: Wall of Force
+2025-06-28 15:36:41,551 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:36:41,551 - INFO - Repository saved with 238 spells
+2025-06-28 15:36:41,567 - INFO - Repository saved with 238 spells
+2025-06-28 15:36:43,570 - INFO - Processing spell: Wall of Stone
+2025-06-28 15:36:48,290 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:36:48,298 - INFO - Repository saved with 239 spells
+2025-06-28 15:36:48,307 - INFO - Repository saved with 239 spells
+2025-06-28 15:36:50,309 - INFO - Processing spell: Warding Bond
+2025-06-28 15:36:58,478 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:36:58,499 - INFO - Repository saved with 240 spells
+2025-06-28 15:36:58,507 - INFO - Repository saved with 240 spells
+2025-06-28 15:37:00,509 - INFO - Processing spell: Water Breathing
+2025-06-28 15:37:02,481 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:37:02,498 - INFO - Repository saved with 241 spells
+2025-06-28 15:37:02,506 - INFO - Repository saved with 241 spells
+2025-06-28 15:37:04,507 - INFO - Processing spell: Water Walk
+2025-06-28 15:37:06,993 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:37:06,993 - INFO - Repository saved with 242 spells
+2025-06-28 15:37:07,011 - INFO - Repository saved with 242 spells
+2025-06-28 15:37:09,012 - INFO - Processing spell: Web
+2025-06-28 15:37:14,160 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:37:14,166 - INFO - Repository saved with 243 spells
+2025-06-28 15:37:14,188 - INFO - Repository saved with 243 spells
+2025-06-28 15:37:16,189 - INFO - Processing spell: Wind Wall
+2025-06-28 15:37:22,694 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:37:22,711 - INFO - Repository saved with 244 spells
+2025-06-28 15:37:22,716 - INFO - Repository saved with 244 spells
+2025-06-28 15:37:24,720 - INFO - Processing spell: Witch Bolt
+2025-06-28 15:37:27,964 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:37:27,964 - INFO - Repository saved with 245 spells
+2025-06-28 15:37:27,983 - INFO - Repository saved with 245 spells
+2025-06-28 15:37:29,987 - INFO - Processing spell: Zone of Truth
+2025-06-28 15:37:33,509 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 15:37:33,513 - INFO - Repository saved with 246 spells
+2025-06-28 15:37:33,525 - INFO - Repository saved with 246 spells
+2025-06-28 15:37:35,542 - INFO - Repository saved with 246 spells
+2025-06-28 15:37:35,542 - INFO - Validating spell repository...
+2025-06-28 15:37:35,544 - INFO - Validation complete: 245/246 spells valid

@@ -92,6 +92,11 @@ def validate_location_transition(location_graph, current_location_id, destinatio
         if not location_graph.validate_location_id_format(destination_location_id):
             return False, f"Destination location '{destination_location_id}' does not exist in module", None
         
+        # Use pathfinding to validate that a connected path exists
+        success, path, path_message = location_graph.find_path(current_location_id, destination_location_id)
+        if not success:
+            return False, f"No valid path exists between '{current_location_id}' and '{destination_location_id}': {path_message}", None
+        
         # Check if this is a cross-area transition
         is_cross_area = location_graph.is_cross_area_transition(current_location_id, destination_location_id)
         if is_cross_area is None:
@@ -104,6 +109,7 @@ def validate_location_transition(location_graph, current_location_id, destinatio
             area_connectivity_id = f"{dest_area_id}-{destination_location_id}"
         
         print(f"DEBUG: Location transition validation passed")
+        print(f"DEBUG: Path found: {' -> '.join(path) if path else 'Direct connection'}")
         print(f"DEBUG: Cross-area transition: {is_cross_area}")
         if area_connectivity_id:
             print(f"DEBUG: Generated area connectivity ID: {area_connectivity_id}")
