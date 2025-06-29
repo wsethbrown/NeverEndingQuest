@@ -616,6 +616,26 @@ def handle_npc_inventory_request(data):
     except Exception as e:
         emit('npc_inventory_response', {'npcName': npc_name, 'data': None, 'error': str(e)})
 
+# CORRECTLY PLACED STORAGE HANDLER
+@socketio.on('request_storage_data')
+def handle_request_storage_data():
+    """Handles a request from the client to view all player storage."""
+    print("DEBUG: Received request for storage data from client.")
+    try:
+        from storage_manager import get_storage_manager
+        manager = get_storage_manager()
+        # Calling view_storage() with no location_id gets ALL storage containers.
+        storage_data = manager.view_storage()
+        
+        if storage_data.get("success"):
+            emit('storage_data_response', {'data': storage_data})
+        else:
+            emit('error', {'message': 'Failed to retrieve storage data.'})
+            
+    except Exception as e:
+        print(f"ERROR handling storage request: {e}")
+        emit('error', {'message': 'An internal error occurred while fetching storage data.'})
+
 def run_game_loop():
     """Run the main game loop with enhanced error handling"""
     try:
