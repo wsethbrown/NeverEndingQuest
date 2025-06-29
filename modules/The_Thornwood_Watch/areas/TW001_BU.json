@@ -402,7 +402,7 @@
       "locationId": "TW06",
       "name": "Wolf's Den Cave (Rescue the Lost - SQ004)",
       "type": "cave",
-      "description": "A narrow cave mouth, partially obscured by thorny bushes, leads into darkness. The sounds of snarling wolves and the desperate clang of steel echo from within. Inside, Wounded Scout Neris and Merchant Lira are cornered, making a desperate stand against several unnaturally aggressive wolves corrupted by Malarok's influence.",
+      "description": "A narrow cave mouth, partially obscured by thorny bushes, leads into darkness. The sounds of snarling wolves and the desperate clang of steel echo from within. Inside, Wounded Ranger Gareth and Merchant Kael are cornered, making a desperate stand against several unnaturally aggressive wolves corrupted by Malarok's influence.",
       "coordinates": "X1Y1",
       "connectivity": [
         "TW04"
@@ -411,14 +411,14 @@
       "areaConnectivityId": [],
       "npcs": [
         {
-          "name": "Wounded Scout Neris",
-          "description": "A ranger who was tracking the bandits when she and Lira were cornered by corrupted wolves. She has a deep gash on her leg but fights fiercely. She has a partially drawn map of the bandit camp's patrols and vital intelligence about Malarok's operations.",
-          "attitude": "Protective and determined, but weakened by her wound. Grateful for rescue and eager to help stop Malarok."
+          "name": "Wounded Ranger Gareth",
+          "description": "A grizzled ranger who was scouting bandit movements when he and Kael were cornered by corrupted wolves. He has a bleeding shoulder wound but fights with grim determination. He carries a partially completed map of the bandit camp's defenses and patrol routes.",
+          "attitude": "Stoic and battle-hardened, but grateful for rescue. Eager to share intelligence to stop the bandit threat."
         },
         {
-          "name": "Merchant Lira",
-          "description": "A captive who escaped the main bandit camp with Neris's help. She is terrified but surprisingly resilient. She overheard the bandits discussing Malarok's ritual at the 'forgotten altar' and his plans to corrupt the entire region.",
-          "attitude": "Fearful but resolute. Will provide crucial information about Malarok's ultimate plan once safe."
+          "name": "Merchant Kael",
+          "description": "A traveling spice trader who was captured during a bandit raid but escaped with Gareth's help. Though shaken, he's surprisingly observant and overheard the bandits discussing their master's ritual plans at an ancient altar site.",
+          "attitude": "Nervous but determined to help. Will provide valuable information about bandit operations and ritual preparations."
         }
       ],
       "monsters": [
@@ -431,14 +431,14 @@
         }
       ],
       "lootTable": [
-        "Partial map of bandit patrols (Neris's intelligence)",
-        "Pouch with 15 gold pieces (Lira's emergency funds)",
+        "Partial map of bandit patrols (Gareth's intelligence)",
+        "Pouch with 20 gold pieces (Kael's emergency funds)",
         "Healer's kit dropped by fleeing bandits",
         "Evidence of Malarok's corruption affecting local wildlife"
       ],
       "plotHooks": [
-        "Neris's map can help bypass sentries at the bandit stronghold",
-        "Lira's information points directly to Malarok's ritual site and ultimate plan",
+        "Gareth's map can help bypass sentries at the bandit stronghold",
+        "Kael's information points directly to Malarok's ritual site and ultimate plan",
         "Both NPCs can serve as guides to help the party navigate the Thornwood",
         "Their rescue provides significant advantages for tackling Malarok's forces"
       ],
@@ -446,20 +446,20 @@
       "doors": [],
       "traps": [],
       "dcChecks": [
-        "Medicine DC 12: Treat Neris's wound effectively and restore her mobility",
+        "Medicine DC 12: Treat Gareth's wound effectively and restore his mobility",
         "Investigation DC 11: Study the corrupted wolves to understand Malarok's influence on wildlife",
-        "Survival DC 10: Use Neris's map to identify the best approach to the bandit stronghold"
+        "Survival DC 10: Use Gareth's map to identify the best approach to the bandit stronghold"
       ],
       "accessibility": "Hidden cave entrance accessible through dense undergrowth from the shrine area",
       "dangerLevel": "Medium",
       "features": [
         {
           "name": "Makeshift Barricade",
-          "description": "Neris and Lira have piled rocks and debris at the cave entrance to slow the corrupted wolves."
+          "description": "Gareth and Kael have piled rocks and debris at the cave entrance to slow the corrupted wolves."
         },
         {
           "name": "Scattered Supplies",
-          "description": "A dropped backpack contains some rations, a water skin, and Lira's emergency coin purse."
+          "description": "A dropped backpack contains some rations, a water skin, and Kael's emergency coin purse."
         },
         {
           "name": "Corruption Signs",
