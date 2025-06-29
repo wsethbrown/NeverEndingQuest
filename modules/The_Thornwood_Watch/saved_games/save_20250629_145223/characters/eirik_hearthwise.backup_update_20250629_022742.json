@@ -12,9 +12,9 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 10,
+  "hitPoints": 11,
   "maxHitPoints": 11,
-  "armorClass": 16,
+  "armorClass": 17,
   "initiative": 1,
   "speed": 30,
   "abilities": {
@@ -225,7 +225,7 @@
     },
     {
       "item_name": "Pouch of Silver Coins",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A small pouch containing 15 silver coins recovered from bandits and found at the tower.",
       "quantity": 1
     },
@@ -331,7 +331,7 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 0,
+        "current": 2,
         "max": 2
       },
       "level2": {

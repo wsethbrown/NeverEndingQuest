@@ -32,7 +32,7 @@ def format_plot_for_ai(plot_data):
     
     # Completed plot points
     for point in completed_points:
-        output += f"✓ COMPLETED: {point.get('title', 'Untitled')} ({point.get('id', 'Unknown')})\n"
+        output += f"[COMPLETED]: {point.get('title', 'Untitled')} ({point.get('id', 'Unknown')})\n"
         output += f"  - {point.get('description', 'No description')}\n"
         if point.get('plotImpact'):
             output += f"  - Impact: {point['plotImpact']}\n"
@@ -47,7 +47,7 @@ def format_plot_for_ai(plot_data):
     
     # Active plot points  
     for point in active_points:
-        output += f"→ ACTIVE: {point.get('title', 'Untitled')} ({point.get('id', 'Unknown')})\n"
+        output += f"[ACTIVE]: {point.get('title', 'Untitled')} ({point.get('id', 'Unknown')})\n"
         output += f"  - {point.get('description', 'No description')}\n"
         if point.get('plotImpact'):
             output += f"  - Current situation: {point['plotImpact']}\n"

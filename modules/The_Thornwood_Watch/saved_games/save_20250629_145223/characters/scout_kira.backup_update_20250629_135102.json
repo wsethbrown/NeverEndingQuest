@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 0,
+  "hitPoints": 9,
   "maxHitPoints": 10,
   "armorClass": 15,
   "initiative": 4,
@@ -119,18 +119,7 @@
     "description": "Kira has an excellent memory for maps and geography, and can always recall the general layout of terrain, settlements, and other features. She can find food and fresh water for herself and up to five others each day, provided the land offers berries, small game, water, and so forth.",
     "source": "Outlander"
   },
-  "temporaryEffects": [
-    {
-      "name": "Stabilized",
-      "description": "Kira has been stabilized and is no longer at risk of dying, but remains unconscious at 0 HP.",
-      "source": "Spare the Dying",
-      "duration": "until healed",
-      "effect": {
-        "deathSaveSuccesses": 3,
-        "deathSaveFailures": 0
-      }
-    }
-  ],
+  "temporaryEffects": [],
   "injuries": [],
   "equipment_effects": [],
   "feats": [],

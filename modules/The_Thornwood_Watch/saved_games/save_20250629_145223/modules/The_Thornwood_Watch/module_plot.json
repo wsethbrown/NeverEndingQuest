@@ -61,12 +61,12 @@
         {
           "id": "SQ004",
           "title": "Rescue the Lost",
-          "description": "The party discovers a cave where Wounded prisoners sheltered from from corrupted wolves. A prisoner has a partially completed map of the bandit camp's patrols. Antoher prisoner overheard the bandits talking about 'gathering tributes for the master's ritual' at some 'forgotten altar'.",
+          "description": "The party discovers a cave where Wounded Scout Neris is protecting Merchant Lira from corrupted wolves. Neris has a partially completed map of the bandit camp's patrols. Lira overheard the bandits talking about 'gathering tributes for the master's ritual' at some 'forgotten altar'.",
           "involvedLocations": [
             "TW001"
           ],
           "status": "completed",
-          "plotImpact": "Eirik and Kira, battered but victorious, rescue the prisoners from the Wolf's Den Cave and lead them away from the Ambush Site toward safety on the Bandit Trail, advancing the main plot and strengthening the outpost's position against Malarok."
+          "plotImpact": "Eirik and Kira, battered but victorious, rescue Scout Neris and Merchant Lira from the Wolf's Den Cave and lead them away from the Ambush Site toward safety on the Bandit Trail, advancing the main plot and strengthening the outpost's position against Malarok."
         }
       ]
     },
@@ -79,7 +79,7 @@
         "PP004"
       ],
       "status": "not started",
-      "plotImpact": "",
+      "plotImpact": "The party pinpoints the epicenter of the corruption: a set of crumbling, ancient ruins, guarded by Malarok's most powerful minions.",
       "sideQuests": [
         {
           "id": "SQ005",
@@ -89,7 +89,7 @@
             "NCW001"
           ],
           "status": "not started",
-          "plotImpact": ""
+          "plotImpact": "Defeating or freeing the Hart breaks a magical ward hiding the entrance to the ruins' inner sanctum. A shard of its purified antler can be fashioned into a charm that grants resistance to necrotic damage for the final confrontation."
         }
       ]
     },
@@ -102,18 +102,17 @@
         "PP005"
       ],
       "status": "not started",
-      "plotImpact": "",
+      "plotImpact": "With Malarok defeated and the Voidstone shattered, the dark energy dissipates. The corruption in the woods recedes, and the bandits under his control scatter in confusion.",
       "sideQuests": []
     },
     {
       "id": "PP005",
-      "title": "Report to Commander Elen",
-      "description": "When the party completes their mission to eliminate the bandit threat and defeat Malarok, they must return to Rangers' Outpost to report their success to Commander Elen. Receive your reward and recognition for securing the frontier.",
+      "title": "Frontier Secured",
+      "description": "With Malarok defeated and his influence broken, the woods begin to calm. The party returns to Rangers' Outpost as heroes. The remaining bandits have scattered or surrendered. Ranger Elen can finally secure the frontier, and news of the party's deeds begins to spread, opening doors to new adventures.",
       "location": "RO001",
       "nextPoints": [],
-      "prerequisites": ["PP001", "PP002", "PP003", "PP004"],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "With both Eirik and Kira recovered and the outpost secure, the party is poised to choose their next adventure as news of their deeds spreads.",
       "sideQuests": []
     }
   ]

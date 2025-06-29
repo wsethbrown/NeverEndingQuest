@@ -1,0 +1,49 @@
+{
+  "encounterId": "C04-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 4,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 25,
+      "maxHitPoints": 47,
+      "armorClass": 19
+    },
+    {
+      "name": "Skeletal Archer",
+      "type": "enemy",
+      "monsterType": "skeletal_archer",
+      "initiative": 14,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -3,
+      "maxHitPoints": 13
+    },
+    {
+      "name": "Animated Weapon",
+      "type": "enemy",
+      "monsterType": "animated_weapon",
+      "initiative": 19,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -7,
+      "maxHitPoints": 27
+    }
+  ],
+  "encounterSummary": "Norn launches a surprise attack against a skeletal archer in the Fallen Barracks, triggering an immediate battle with both a skeletal archer and an animated weapon. The sudden action rouses all threats in the room.",
+  "current_round": 3
+}

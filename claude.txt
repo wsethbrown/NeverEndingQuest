@@ -1,23 +1,11 @@
-GitHub Commit Summary
-Here is a summary of all the changes we've made to implement the agentic level-up system.
-Commit Title:
-Generated code
-feat: Implement agentic, UI-integrated level-up system
-Use code with caution.
-Commit Description:
-Generated code
-Refactored the character leveling system into a fully agentic, interactive process that integrates seamlessly with the main game UI. This change replaces the previous non-interactive subprocess model with a class-based session manager.
+Dungeon Master
+DM
+Kira perches on a barrel beside you, twirling an arrow between nimble fingers as she considers your question. Her brow furrows in thought, her voice quieting just a touch. 'Honestly, Eirik, we did more than most ever could. Malarok's dead, the Voidstone's shattered, and the bandits have finally scattered to the wilds. The outpost is safe for the first time in months.'
 
-Key improvements:
-- **Agentic Interview Model:** The `levelUp` action now triggers a dedicated `LevelUpSession` that takes over the conversation, conducting an interactive interview with the player for all choices.
-- **UI Integration:** The main game loop in `main.py` now drives the level-up UI, displaying AI prompts and capturing player input within the "Game Output" window, preventing the conversation from breaking out into the console.
-- **Narration Suppression:** The system now intelligently detects the `levelUp` action to suppress the initial redundant narration from the main DM, creating a smooth handoff to the Level Up Assistant.
-- **Isolated Conversation Logging:** The entire level-up interview is logged to a separate `level_up_conversation.json` for debugging, while only the final narrative summary is appended to the main `conversation_history.json`.
-- **Robust Input Handling:** The level-up input loop now validates against empty submissions, preventing the AI from receiving blank messages and prematurely ending the interview.
-- **Architectural Consistency:** The level-up manager's architecture now mirrors the successful patterns of the `combat_manager` and `startup_wizard`, improving code consistency and maintainability.
-Use code with caution.
-Files Changed:
-main.py
-action_handler.py
-level_up_manager.py
-level_up_system_prompt.txt
+Commander Elen, hearing the question, steps over with a confident nod. 'You broke the back of the threat here. With the frontier secure, our job turns to rebuilding and watching for any remnants who might try to regroup. The rangers are already sweeping the woods for stragglers, and I've sent word to the neighboring communities. If another would-be tyrant tries to rise in these wilds, we'll have warning.'
+
+Kira gives a small, satisfied smile, but she leans close and lowers her voice. 'Still, I wouldn't be surprised if some of Malarok's old magic or one of his lieutenants tries to stir up trouble again. And you know how bandits are--they never disappear for good.'
+
+Elen adds, 'For now, your work here is truly done. If you want to help further, there are rumors from the north along the Gloamwood trail, and the merchants whisper of new dangers upriver. Or, if you wish, enjoy some peace and let the rangers handle things. You've earned it.'
+
+Kira pats your shoulder. 'So, partner, ready for rest? Or does adventure call you elsewhere?'

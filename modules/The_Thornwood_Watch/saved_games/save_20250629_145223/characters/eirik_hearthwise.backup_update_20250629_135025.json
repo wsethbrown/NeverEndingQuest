@@ -4,7 +4,7 @@
   "name": "Eirik Hearthwise",
   "type": "player",
   "size": "Medium",
-  "level": 1,
+  "level": 2,
   "race": "Human",
   "class": "Cleric",
   "alignment": "chaotic good",
@@ -12,9 +12,9 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 11,
-  "maxHitPoints": 11,
-  "armorClass": 16,
+  "hitPoints": 21,
+  "maxHitPoints": 21,
+  "armorClass": 17,
   "initiative": 1,
   "speed": 30,
   "abilities": {
@@ -72,6 +72,11 @@
     {
       "name": "Divine Domain: Life",
       "description": "You gain proficiency with heavy armor. Bless and Cure Wounds are always prepared. Your healing spells heal additional hit points equal to 2 + the spell's level (Disciple of Life).",
+      "source": "Cleric"
+    },
+    {
+      "name": "Channel Divinity (1/rest)",
+      "description": "You can channel divine energy to fuel magical effects. At 2nd level, you can use Channel Divinity once per rest, choosing either Turn Undead or the Life Domain's Preserve Life.",
       "source": "Cleric"
     }
   ],
@@ -225,7 +230,7 @@
     },
     {
       "item_name": "Pouch of Silver Coins",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A small pouch containing 15 silver coins recovered from bandits and found at the tower.",
       "quantity": 1
     },
@@ -318,7 +323,8 @@
         "Healing Word",
         "Detect Magic",
         "Protection from Evil and Good",
-        "Sanctuary"
+        "Sanctuary",
+        "Shield of Faith"
       ],
       "level2": [],
       "level3": [],
@@ -331,8 +337,8 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 1,
-        "max": 2
+        "current": 3,
+        "max": 3
       },
       "level2": {
         "current": 0,
@@ -368,12 +374,13 @@
       }
     },
     "preparedSpells": [
-      "Bless",
-      "Cure Wounds",
       "Healing Word",
       "Detect Magic",
       "Protection from Evil and Good",
-      "Sanctuary"
+      "Sanctuary",
+      "Shield of Faith",
+      "Bless",
+      "Cure Wounds"
     ]
   },
   "currency": {
@@ -382,7 +389,7 @@
     "copper": 0
   },
   "experience_points": 300,
-  "exp_required_for_next_level": 300,
+  "exp_required_for_next_level": 900,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",
   "ideals": "Redemption. Every life saved is a step toward atoning for the lives he failed to save.",

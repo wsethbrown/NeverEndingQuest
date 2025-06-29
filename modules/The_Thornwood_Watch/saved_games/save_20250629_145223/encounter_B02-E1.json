@@ -1,0 +1,48 @@
+{
+  "encounterId": "B02-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 17,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 17,
+      "maxHitPoints": 36,
+      "armorClass": 16
+    },
+    {
+      "name": "Giant Spider",
+      "type": "enemy",
+      "monsterType": "giant_spider",
+      "initiative": 11,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -3,
+      "maxHitPoints": 26
+    },
+    {
+      "name": "Swarm of Spiders",
+      "type": "enemy",
+      "monsterType": "swarm_of_spiders",
+      "initiative": 18,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -5,
+      "maxHitPoints": 22
+    }
+  ],
+  "encounterSummary": "Norn spots a giant spider lurking in the rafters of the Abandoned Ranger Outpost and notices a swarm of spiders gathering in the shadows. The spiders, sensing Norn's presence, prepare to attack."
+}

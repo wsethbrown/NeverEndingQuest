@@ -14,7 +14,7 @@
         "year": 1492,
         "month": "Springmonth",
         "day": 2,
-        "time": "17:18:00",
+        "time": "17:10:00",
         "weather": "",
         "season": "Spring",
         "dayNightCycle": "Night",
@@ -29,6 +29,12 @@
         "activeCombatEncounter": ""
     },
     "activeQuests": [
+        {
+            "id": "PP005",
+            "title": "Frontier Secured",
+            "description": "With Malarok defeated and his influence broken, the woods begin to calm. The party returns to Rangers' Outpost as heroes. The remaining bandits have scattered or surrendered. Ranger Elen can finally secure the frontier, and news of the party's deeds begins to spread, opening doors to new adventures.",
+            "status": "in progress"
+        },
         {
             "id": "PP002",
             "title": "Into the Thornwood",
