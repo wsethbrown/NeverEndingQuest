@@ -496,7 +496,8 @@ Return a JSON object with this exact structure:
 IMPORTANT: 
 - Use area IDs (like HG001) for location fields, not room IDs (like R01)
 - Renumber plot points sequentially starting from PP001
-- Renumber side quests sequentially starting from SQ001
+- Renumber side quests GLOBALLY and sequentially starting from SQ001 (SQ001, SQ002, SQ003, etc. across ALL plot points)
+- Each side quest must have a unique number across the entire module, not restarting from SQ001 for each plot point
 - Maintain all existing content but improve flow and connections"""
 
         try:
