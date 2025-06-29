@@ -1399,6 +1399,14 @@ def main_game_loop():
     conversation_history, was_injected = check_and_inject_return_message(conversation_history)
     if was_injected:
         save_conversation_history(conversation_history)
+        
+        # Generate AI response to the return message for startup narration
+        print("DEBUG: Generating startup narration after return message injection")
+        ai_response = get_ai_response(conversation_history)
+        if ai_response:
+            conversation_history.append({"role": "assistant", "content": ai_response})
+            save_conversation_history(conversation_history)
+            print("DEBUG: Startup narration added to conversation history")
     
     party_tracker_data = load_json_file("party_tracker.json")
     
