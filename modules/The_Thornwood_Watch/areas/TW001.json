@@ -96,54 +96,75 @@
       "locationId": "TW01",
       "name": "Ambush Site",
       "type": "clearing",
-      "description": "A blood-stained clearing in the Thornwood forest marked by the aftermath of a fierce bandit ambush. The muddy earth is churned with dried blood and scattered broken arrows embedded in tree trunks. The charred remains of a battered wagon lie amidst the brambles, releasing the lingering scent of alchemical fire and spent magic. Fresh deep boot prints and drag marks suggest a wounded person or valuable cargo were forcibly removed recently. Crushed wildflowers and torn cloth caught on brambles hint at the desperate struggle that took place here.",
+      "description": "A somber clearing in the Thornwood forest, shadowed by tangled brambles and heavy with the scent of damp earth and lingering alchemical fire. The ground is stained with fresh and dried blood, the remnants of a brutal battle. Scattered broken arrows and torn cloth flutter in the cold breeze. Nearby, the battered remains of a merchant wagon lay charred and overturned. Drag marks and deep boot prints lead away from the site, indicating the forced removal of captives and valuable cargo. The narrow mouth of a nearby cave offers a grim refuge for desperate survivors.",
+      "dmInstructions": "Use this clearing to convey the aftermath of a harrowing skirmish involving corrupted wolves serving dark forces. Emphasize the tension and danger lingering in the air as the party discovers wounded survivors and the threatening presence of dark magic. Highlight opportunities for roleplay and tactical combat, as well as tracking and rescuing captives. The encounter with corrupted wolves should be intense and lethal, showcasing the need for careful resource management and teamwork.",
       "coordinates": "X2Y2",
-      "connectivity": [
-        "TW02",
-        "TW04"
-      ],
-      "areaConnectivity": [
-        "Rangers' Outpost"
-      ],
-      "areaConnectivityId": [
-        "RO001"
-      ],
+      "accessibility": "Forest clearing accessible from main trade road and nearby trails",
       "npcs": [
         {
           "name": "Scout Kira",
-          "description": "A vigilant and confident scout with keen senses and light-hearted banter, aiding investigation of the ambush.",
+          "description": "A vigilant and confident scout with keen senses and light-hearted banter, recently injured but determined and grateful after surviving the wolf attack.",
           "attitude": "Friendly"
+        },
+        {
+          "name": "Lira",
+          "description": "A wounded merchant woman rescued from captivity, wary yet thankful, bearing signs of harsh treatment and exhaustion.",
+          "attitude": "Grateful"
+        },
+        {
+          "name": "Neris",
+          "description": "A battered scout, one of the captives rescued from the bandits, pale and weak but alert to dangers ahead.",
+          "attitude": "Cautious"
+        },
+        {
+          "name": "Eirik Hearthwise",
+          "description": "A resilient adventurer and protector, gravely wounded in battle with corrupted wolves but alive thanks to sheer determination and alchemical fire.",
+          "attitude": "Resolute"
         }
       ],
-      "monsters": [],
+      "monsters": [
+        {
+          "name": "Corrupted Wolf",
+          "quantity": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ],
+      "plotHooks": [
+        "The bandits who ambushed the caravan bear a dark sorcerer's sigil linked to Malarok",
+        "Fresh tracks and bloodied cloth lead toward survivors and possibly Malarok's camp",
+        "The growing threat of bandits empowered by dark magic must be confronted",
+        "Following the faint trail may lead to rescuing captives or discovering valuable intelligence",
+        "Dark designs connected to the shadowed watchtower threaten the region"
+      ],
       "lootTable": [
         "Sealed bandage packet",
         "Trail rations",
         "Broken bandit dagger engraved with Malarok's sinister sigil",
         "Scattered merchant goods from the attacked caravan",
         "Broken bandit weapon with distinctive markings",
-        "Trail rations and medical supplies from overturned wagon"
+        "Trail rations and medical supplies from overturned wagon",
+        "Alchemist's fire remnants",
+        "Torn but valuable cloth from captives' clothing"
       ],
-      "plotHooks": [
-        "The bandits who ambushed the caravan bear a dark sorcerer's sigil linked to Malarok",
-        "Fresh tracks and bloodied cloth lead toward survivors and possibly Malarok's camp",
-        "The growing threat of bandits empowered by dark magic must be confronted",
-        "Following the faint trail may lead to rescuing captives or discovering valuable intelligence"
+      "dangerLevel": "High",
+      "connectivity": [
+        "TW02",
+        "TW04",
+        "Bandit Trail"
       ],
-      "dmInstructions": "Use this clearing to illustrate the grim aftermath of the bandit ambush and to highlight the growing threat of Malarok's influence. Scout Kira's insights reveal clues overlooked by the party, including a hidden cache. Encourage players to follow the subtle tracks and blood marks deeper into the forest to the Hermit's Refuge or bandit hideout. Maintain a tense, atmospheric mood with ambient sounds and the feeling of unseen eyes watching.",
-      "doors": [],
+      "areaConnectivity": [
+        "Rangers' Outpost"
+      ],
+      "areaConnectivityId": [
+        "RO01"
+      ],
       "traps": [],
-      "dcChecks": [
-        "Medicine DC 12: Treat injuries found at the ambush site",
-        "Investigation DC 11: Identify evidence of magical influence on bandits",
-        "Survival DC 13: Track footprints and blood marks leading from the clearing"
-      ],
-      "accessibility": "Forest clearing accessible from main trade road",
-      "dangerLevel": "Medium",
       "features": [
         {
           "name": "Overturned Wagon",
-          "description": "A merchant wagon lying on its side, contents scattered and searched by the bandits during their raid."
+          "description": "A merchant wagon lying on its side, contents scattered and searched by bandits during their raid."
         },
         {
           "name": "Battle Traces",
@@ -152,7 +173,18 @@
         {
           "name": "Drag Marks",
           "description": "Clear signs where captives and valuable goods were dragged deeper into the forest toward the bandit hideout."
+        },
+        {
+          "name": "Narrow Cave Mouth",
+          "description": "A small cave entrance nearby where the rescued prisoners were found huddled, guarded by corrupted wolves."
         }
+      ],
+      "dcChecks": [
+        "Medicine DC 12: Treat injuries found at the ambush site",
+        "Investigation DC 11: Identify evidence of magical influence on bandits",
+        "Survival DC 13: Track footprints and blood marks leading from the clearing",
+        "Perception DC 14: Detect signs of the corrupted wolves' lingering presence",
+        "Stealth DC 15: Approach the cave mouth without alerting remaining predators"
       ],
       "encounters": [
         {
@@ -165,9 +197,21 @@
             "day": 2,
             "time": "01:16:00"
           }
+        },
+        {
+          "encounterId": "TW01-E2",
+          "summary": "In the grim Thornwood clearing, Eirik Hearthwise and Scout Kira face off against three corrupted wolves, twisted by dark magic and ravenous with unnatural hunger. The battle is brutal; both heroes are grievously wounded but manage to defeat or repel the wolves. They rescue two prisoners, Lira and Neris, from the nearby cave mouth.",
+          "impact": "The party's victory results in the survival of key NPCs and the discovery of valuable intelligence on bandit patrols and dark magic influences. Eirik and Kira are injured but alive, strengthening their bond. The group moves onward toward safety and aid.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 2,
+            "time": "02:47:00"
+          }
         }
       ],
-      "adventureSummary": "Eirik and Scout Kira arrive at the Ambush Site, discovering a grim scene of battle with dried blood, broken arrows, and charred wagon remains. Kira's keen observation reveals a hidden cache including a broken bandit dagger bearing Malarok's sigil, linking the bandits to the dark sorcerer. Fresh boot prints and drag marks suggest captives or valuable cargo were taken recently. The pair choose to follow a faint, bloodied trail deeper into the Thornwood toward the Hermit's Refuge, alert and cautious of lurking dangers."
+      "adventureSummary": "Within the somber clearing of the Ambush Site, shadowed by the tangled Thornwood and heavy with the scent of damp earth and lingering alchemical fire, Eirik Hearthwise and Scout Kira found their resolve tested to its limits. Initially pausing to catch their breath amid the battered remnants of a recent skirmish, they soon detected fresh drag marks and torn cloth, signs that the bandits' captives were nearby and still in peril. With quiet urgency, Kira guided Eirik deeper into the forest's grasp, their senses sharpened beneath the pale moonlight as they followed a faint, blood-spattered trail winding through brambles and around dense thickets. This pursuit led them to a narrow cave mouth where two desperate prisoners--a wounded merchant woman named Lira and a battered scout called Neris--huddled beneath the vigilant gaze of three corrupted wolves, whose unnatural malice chilled the air. The ensuing battle was brutal and fraught with peril; despite grievous wounds inflicted by relentless, dark magic-tainted beasts, Eirik and Kira fought with ferocity and unyielding determination. Kira's precise arrow and Eirik's well-aimed crossbow bolts struck true, yet both fell unconscious in the fray, clinging to life amidst the wolves' savage assault. In a final act of desperation, Eirik hurled alchemist's fire, igniting one wolf and turning the tide, forcing the last corrupted creature to flee as the clearing settled into heavy silence. As consciousness returned, the survivors shared a moment of solemn relief and quiet affection--forehead to forehead, Eirik reassured Kira with whispered promises amid the ache of their injuries. The rescued captives, grateful yet wary, revealed grim tidings of bandit patrols and dark designs tied to the shadowed watchtower. With no time to linger, Eirik gathered Kira into his arms, the fragile bond between them strengthened by shared hardship, and led the small, battered group away from the bloodied clearing onto the Bandit Trail. Though the Thornwood's dangers loomed still, their triumph brought hope; together, they pressed onward toward safety and the promise of aid, the night alive with the whispered vows of survival and solidarity forged in the crucible of the Ambush Site.",
+      "doors": []
     },
     {
       "locationId": "TW02",
