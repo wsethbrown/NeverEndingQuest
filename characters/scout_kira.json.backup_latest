@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 10,
+  "hitPoints": 9,
   "maxHitPoints": 10,
   "armorClass": 15,
   "initiative": 4,
@@ -65,7 +65,9 @@
     ]
   },
   "damageVulnerabilities": [],
-  "damageResistances": [],
+  "damageResistances": [
+    "magical corruption"
+  ],
   "damageImmunities": [],
   "conditionImmunities": [],
   "classFeatures": [
@@ -202,12 +204,21 @@
       "equipped": false,
       "magical": false,
       "consumable": false
+    },
+    {
+      "item_name": "Yew Ward Charm",
+      "item_type": "miscellaneous",
+      "description": "A protective charm made of braided yew wood, granting resistance to magical corruption from the Voidstone.",
+      "quantity": 1,
+      "equipped": true,
+      "magical": false,
+      "consumable": false
     }
   ],
   "ammunition": [
     {
       "name": "Arrow",
-      "quantity": 20,
+      "quantity": 18,
       "description": "Ammunition for a shortbow."
     }
   ],
@@ -292,11 +303,11 @@
     "silver": 5,
     "copper": 25
   },
-  "experience_points": 0,
+  "experience_points": 300,
   "exp_required_for_next_level": 300,
   "challengeRating": 0.25,
-  "personality_traits": "I watch over my friends as if they were a litter of newborn pups.",
-  "ideals": "Change. Life is like the seasons, in constant change, and we must change with it.",
-  "bonds": "An injury to the unspoiled wilderness of my home is an injury to me.",
-  "flaws": "I remember every insult I've received and nurse a silent resentment toward anyone who's ever wronged me."
+  "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale.",
+  "ideals": "Change. Life is like the seasons, in constant change, and we must change with it. I now strive to be a beacon of hope and courage for those around me.",
+  "bonds": "An injury to the unspoiled wilderness of my home is an injury to me. My bond to the Rangers' Outpost and its people has grown stronger with their recognition.",
+  "flaws": "I remember every insult I've received and nurse a silent resentment toward anyone who's ever wronged me. However, I am learning to put aside grudges to focus on the greater good."
 }

@@ -46,7 +46,6 @@ from location_manager import get_location_data
 from module_path_manager import ModulePathManager
 from plot_update import update_plot
 from encoding_utils import sanitize_text, safe_json_dump, safe_json_load
-from file_operations import safe_read_json
 from status_manager import (
     status_transitioning_location, status_updating_character, status_updating_party,
     status_updating_plot, status_advancing_time, status_processing_levelup
@@ -674,43 +673,15 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             return create_return(status="needs_response", needs_update=True)
 
     elif action_type == ACTION_LEVEL_UP:
-        status_processing_levelup()
         entity_name = parameters.get("entityName")
         new_level = parameters.get("newLevel")
-        print(f"DEBUG: Initializing levelUp session for {entity_name} to level {new_level}")
 
-        try:
-            # Import the session manager
-            from level_up_manager import LevelUpSession
-            
-            # Find character file to get current level
-            from update_character_info import normalize_character_name
-            module_name = party_tracker_data.get("module", "").replace(" ", "_")
-            path_manager = ModulePathManager(module_name)
-            char_file = path_manager.get_character_path(normalize_character_name(entity_name))
-            character_data = safe_read_json(char_file)
-            
-            if not character_data:
-                print(f"ERROR: Could not find character {entity_name} to start level up.")
-                # Return an error message to display in the UI
-                return create_return(status="error", response_data={"error_message": "Character data not found."})
+        with open("leveling_info.txt", "r", encoding="utf-8") as file:
+            leveling_info = file.read()
 
-            current_level = character_data.get("level", 1)
-
-            # Create a new level up session object
-            level_up_session = LevelUpSession(entity_name, current_level, new_level)
-            
-            # Return a special status to the main loop, passing the session object
-            return {
-                "status": "enter_levelup_mode",
-                "session": level_up_session
-            }
-
-        except Exception as e:
-            print(f"ERROR: A critical error occurred while initializing the level up session: {e}")
-            import traceback
-            traceback.print_exc()
-            return create_return(status="error", response_data={"error_message": "System error during level up."})
+        dm_note = f"Leveling Dungeon Master Guidance: Proceed with leveling up the player character or the party NPC given the 5th Edition role playing game rules. Only level the player or the party NPC one level at a time to ensure no mistakes are made. Use the 'updateCharacterInfo' action for both player characters and NPCs. Include the character name and all changes. If you are leveling up a player character, you must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updateCharacterInfo' to pass all changes to the character sheet and include the experience goal for the next level. Do not update the character's information in segments. \n\n{leveling_info}"
+        conversation_history.append({"role": "user", "content": dm_note})
+        return create_return(status="needs_response", needs_update=True)
 
     elif action_type == ACTION_UPDATE_CHARACTER_INFO:
         status_updating_character()

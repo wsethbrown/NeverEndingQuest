@@ -1,0 +1,42 @@
+[
+  {
+    "timestamp": "2025-06-29T09:57:30.673676",
+    "character": "test_levelup",
+    "level_transition": "1 -> 2",
+    "valid": false,
+    "errors": [
+      "Hit Points: The increase from 11 to 18 is not possible for a Cleric with 15 Constitution. Clerics use 1d8 (or 5) + CON modifier (2) per level. The maximum possible HP at level 2 is 11 (level 1) + 10 (max roll) = 21, but the standard average is 11 + 7 = 18. However, the assistant must offer a choice between rolling or taking average, not just assign 7 HP.",
+      "Experience Points: The 'experience_points' field is set to 0 after leveling, which is incorrect. It should remain at 300, as per the leveling table for level 2.",
+      "Spellcasting: The spellcasting section adds 'Shield of Faith' to both the known and prepared spells without prompting the player to choose new prepared spells. Clerics do not learn new spells at level 2, but their number of prepared spells increases with level. The assistant should prompt the player to prepare additional spells, not automatically add them.",
+      "Spellcasting: The spell slot progression is correct (3 first-level slots), but the assistant did not clarify that the player can now prepare one additional spell (Wisdom modifier [+3] + Cleric level [2] = 5 prepared spells, but domain spells are always prepared and do not count against this limit). The prepared spells list is too long if domain spells are not being handled correctly.",
+      "Class Features: The assistant correctly adds Channel Divinity (1/rest), Turn Undead, and Preserve Life, but does not clarify that Preserve Life is a Life Domain feature gained at 2nd level.",
+      "Proficiency Bonus: The proficiency bonus should remain +2, which is correct.",
+      "exp_required_for_next_level: The value is set to 900, which is correct for level 3, but the assistant should clarify that this is for reference."
+    ],
+    "warnings": [
+      "The assistant should prompt the player to choose whether to roll or take average HP.",
+      "The assistant should clarify the rules for preparing spells as a cleric at level 2 and prompt the player to select additional prepared spells.",
+      "The assistant should not add new spells to the prepared list without player input."
+    ],
+    "response_snippet": "{\n  \"character_role\": \"player\",\n  \"character_type\": \"player\",\n  \"name\": \"test_levelup\",\n  \"type\": \"player\",\n  \"size\": \"Medium\",\n  \"level\": 2,\n  \"race\": \"Human\",\n  \"class\": \"Cleric\",\n  \"alignment\": \"ch..."
+  },
+  {
+    "timestamp": "2025-06-29T09:58:23.635667",
+    "character": "test_levelup",
+    "level_transition": "1 -> 2",
+    "valid": false,
+    "errors": [
+      "Hit Points: The HP increase is incorrect. For a Cleric (d8 hit die), with CON 15 (+2), the average increase should be 5 (average) + 2 = 7, so max HP should be 11 + 7 = 18. However, the assistant must offer the player a choice to roll 1d8 or take the average (5) + CON mod. The assistant did not offer this choice.",
+      "Spellcasting: The number of prepared spells is not validated against the Cleric's rules. Clerics can prepare a number of spells equal to their Wisdom modifier + Cleric level (at level 2: 3 + 2 = 5). The prepared spell list contains 7 spells, which is too many.",
+      "Spell List: The assistant added 'Guiding Bolt' to both the known and prepared spell list without explanation or player choice. Clerics do not 'know' spells, they prepare them from the full list.",
+      "Spell Slots: The spell slot progression is correct (3 1st-level slots at level 2), but the 'current' slots should not be automatically set to max unless a long rest is assumed. This should be clarified.",
+      "Class Features: The new features are correct for Cleric 2 (Channel Divinity, Turn Undead, and Life Domain: Preserve Life), but the assistant should clarify that only one use of Channel Divinity is gained at this level.",
+      "Experience Points: The 'exp_required_for_next_level' field is set to 900, which is correct for level 3, but the assistant should clarify that the character is now level 2 and needs 900 XP for level 3."
+    ],
+    "warnings": [
+      "The assistant should prompt the player to choose which spells to prepare, since Clerics prepare spells after a long rest and can change them.",
+      "The assistant should clarify if a long rest is being assumed when spell slots are refilled."
+    ],
+    "response_snippet": "{\n  \"character_role\": \"player\",\n  \"character_type\": \"player\",\n  \"name\": \"test_levelup\",\n  \"type\": \"player\",\n  \"size\": \"Medium\",\n  \"level\": 2,\n  \"race\": \"Human\",\n  \"class\": \"Cleric\",\n  \"alignment\": \"ch..."
+  }
+]

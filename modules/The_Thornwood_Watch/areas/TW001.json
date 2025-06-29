@@ -96,41 +96,23 @@
       "locationId": "TW01",
       "name": "Ambush Site",
       "type": "clearing",
-      "description": "A somber clearing in the Thornwood forest, shadowed by tangled brambles and heavy with the scent of damp earth and lingering alchemical fire. The ground is stained with fresh and dried blood, the remnants of a brutal battle. Scattered broken arrows and torn cloth flutter in the cold breeze. Nearby, the battered remains of a merchant wagon lay charred and overturned. Drag marks and deep boot prints lead away from the site, indicating the forced removal of captives and valuable cargo. The narrow mouth of a nearby cave offers a grim refuge for desperate survivors.",
-      "dmInstructions": "Use this clearing to convey the aftermath of a harrowing skirmish involving corrupted wolves serving dark forces. Emphasize the tension and danger lingering in the air as the party discovers wounded survivors and the threatening presence of dark magic. Highlight opportunities for roleplay and tactical combat, as well as tracking and rescuing captives. The encounter with corrupted wolves should be intense and lethal, showcasing the need for careful resource management and teamwork.",
+      "description": "A somber clearing in the Thornwood forest at dawn, marked by an overturned wagon, scattered arrows, and the smoldering remains of a campfire. The ground bears fresh and older bootprints and drag marks leading into the undergrowth, indicating the forced removal of captives. The tense silence hangs heavy as the party discovers the absence of Wounded Scout Neris and Merchant Lira, deepening the uncertainty of their fate.",
+      "dmInstructions": "Portray the aftermath of a brutal ambush with lingering tension and uncertainty. Highlight the party's discovery of missing captives and the emotional weight of the scene, encouraging roleplay centered on concern and urgency. Use the cleared area and surrounding forest to emphasize tracking opportunities and the somber tone following the skirmish. Prepare for potential future encounters related to the captives' whereabouts and bandit threats.",
       "coordinates": "X2Y2",
       "accessibility": "Forest clearing accessible from main trade road and nearby trails",
       "npcs": [
         {
-          "name": "Scout Kira",
-          "description": "A vigilant and confident scout with keen senses and light-hearted banter, recently injured but determined and grateful after surviving the wolf attack.",
-          "attitude": "Friendly"
-        },
-        {
-          "name": "Lira",
-          "description": "A wounded merchant woman rescued from captivity, wary yet thankful, bearing signs of harsh treatment and exhaustion.",
-          "attitude": "Grateful"
-        },
-        {
-          "name": "Neris",
-          "description": "A battered scout, one of the captives rescued from the bandits, pale and weak but alert to dangers ahead.",
-          "attitude": "Cautious"
-        },
-        {
           "name": "Eirik Hearthwise",
-          "description": "A resilient adventurer and protector, gravely wounded in battle with corrupted wolves but alive thanks to sheer determination and alchemical fire.",
+          "description": "A resilient adventurer and protector, carrying the unconscious Scout Kira with grave determination and exhaustion after surviving the ambush.",
           "attitude": "Resolute"
-        }
-      ],
-      "monsters": [
+        },
         {
-          "name": "Corrupted Wolf",
-          "quantity": {
-            "min": 0,
-            "max": 1
-          }
+          "name": "Scout Kira",
+          "description": "A vigilant and confident scout, currently unconscious in Eirik's arms, wounded from the battle at the clearing.",
+          "attitude": "Unconscious"
         }
       ],
+      "monsters": [],
       "plotHooks": [
         "The bandits who ambushed the caravan bear a dark sorcerer's sigil linked to Malarok",
         "Fresh tracks and bloodied cloth lead toward survivors and possibly Malarok's camp",
@@ -176,7 +158,7 @@
         },
         {
           "name": "Narrow Cave Mouth",
-          "description": "A small cave entrance nearby where the rescued prisoners were found huddled, guarded by corrupted wolves."
+          "description": "A small cave entrance nearby where the rescued prisoners were found huddled, now empty as they have been moved."
         }
       ],
       "dcChecks": [
@@ -208,9 +190,20 @@
             "day": 2,
             "time": "02:47:00"
           }
+        },
+        {
+          "encounterId": "TW01-E3",
+          "summary": "The party arrives at the Ambush Site at dawn to find the clearing battered and quiet. Scout Kira lies unconscious in Eirik's arms. The places where Wounded Scout Neris and Merchant Lira had been huddled are now empty, marked only by fresh and older bootprints and drag marks leading into the undergrowth.",
+          "impact": "The absence of the prisoners increases the urgency to track their whereabouts and heightens the party's concern. The group departs promptly to carry Kira back to the Rangers' Command Post for aid, strengthening their alliance with Commander Elen and marking a pivotal moment in their struggle against the bandits.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 2,
+            "time": "05:20:00"
+          }
         }
       ],
-      "adventureSummary": "Within the somber clearing of the Ambush Site, shadowed by the tangled Thornwood and heavy with the scent of damp earth and lingering alchemical fire, Eirik Hearthwise and Scout Kira found their resolve tested to its limits. Initially pausing to catch their breath amid the battered remnants of a recent skirmish, they soon detected fresh drag marks and torn cloth, signs that the bandits' captives were nearby and still in peril. With quiet urgency, Kira guided Eirik deeper into the forest's grasp, their senses sharpened beneath the pale moonlight as they followed a faint, blood-spattered trail winding through brambles and around dense thickets. This pursuit led them to a narrow cave mouth where two desperate prisoners--a wounded merchant woman named Lira and a battered scout called Neris--huddled beneath the vigilant gaze of three corrupted wolves, whose unnatural malice chilled the air. The ensuing battle was brutal and fraught with peril; despite grievous wounds inflicted by relentless, dark magic-tainted beasts, Eirik and Kira fought with ferocity and unyielding determination. Kira's precise arrow and Eirik's well-aimed crossbow bolts struck true, yet both fell unconscious in the fray, clinging to life amidst the wolves' savage assault. In a final act of desperation, Eirik hurled alchemist's fire, igniting one wolf and turning the tide, forcing the last corrupted creature to flee as the clearing settled into heavy silence. As consciousness returned, the survivors shared a moment of solemn relief and quiet affection--forehead to forehead, Eirik reassured Kira with whispered promises amid the ache of their injuries. The rescued captives, grateful yet wary, revealed grim tidings of bandit patrols and dark designs tied to the shadowed watchtower. With no time to linger, Eirik gathered Kira into his arms, the fragile bond between them strengthened by shared hardship, and led the small, battered group away from the bloodied clearing onto the Bandit Trail. Though the Thornwood's dangers loomed still, their triumph brought hope; together, they pressed onward toward safety and the promise of aid, the night alive with the whispered vows of survival and solidarity forged in the crucible of the Ambush Site.",
+      "adventureSummary": "The party arrived at the Ambush Site at dawn, stepping into a battered clearing marked by an overturned wagon, scattered arrows, and the smoldering remains of a campfire. Kira remained unconscious in Eirik's arms as they carefully surveyed the area, noting with growing concern that the places where Wounded Scout Neris and Merchant Lira had been huddled were now empty, their absence marked only by fresh and older bootprints crisscrossing the muddy earth and drag marks leading into the undergrowth. The clearing held a tense silence, as if waiting for what might come next, while the uncertainty of the prisoners' fate weighed heavily on the group. After a brief moment to absorb the grim scene, Eirik resolved to carry Kira back to the Rangers' Command Post. The journey through the dense, eerily quiet forest was tense and somber, the usual chorus of wildlife replaced by the muffled sounds of boots on damp earth. Upon reaching the outpost, grim-faced rangers hurriedly opened the gates, their urgency reflecting the seriousness of the situation. Commander Elen's sharp gaze softened with concern as she took in Kira's limp form, swiftly ordering a healer and inviting Eirik inside. Within the warmth of the hall, amidst the scent of wild thyme and the crackle of fire, Elen assessed Kira's wounds with practiced care, offering Eirik a solemn affirmation: \"You did well, Eirik.\" As Kira was tended to, Eirik felt the crushing weight of exhaustion settle upon him, but also a fragile hope anchored by the familiar sights and sounds of the command post and the knowledge that his companion was now in capable hands. This moment deepened the party's connection with Commander Elen and marked a crucial step in their ongoing struggle against the bandit menace threatening the Thornwood.",
       "doors": []
     },
     {

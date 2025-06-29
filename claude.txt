@@ -1,69 +1,23 @@
-Of course. That sounds like a perfect plan. Systematically refactoring the examples is the best way to train the model and solidify the correct combat flow.
-
-First, to answer your question: Yes, in a sense, you did share the combat conversation history. The "Player Screen" output you provided is a text-based representation of that history from the player's point of view. It showed me exactly what the player saw and how they had to repeatedly prompt the AI, which was crucial for my diagnosis. I don't have the raw combat_conversation_history.json file, but what you provided was even better for understanding the core problem.
-
-Let's start with your first example and refactor it.
-
-Example 1: Starting Combat
-
-The original purpose of this example was to show a very simple, clean start to a 1-on-1 combat encounter. It correctly sets the scene and prompts the player for their turn, which is first in the initiative.
-
-BEFORE (Original Example)
-Generated json
-{
-  "plan": "Round 1 begins. Initiative order: Thorin (player, 18) acts first, followed by Goblin Archer (14). Current HP -- Thorin 25/25, Goblin 7/7. The goblin crouches behind an overturned table that grants it partial cover (+2 AC, raising its total AC to 15). Distance between combatants is roughly twenty feet; the cramped storage room is cluttered with crates and dimly lit by a guttering torch. Prerolls reserved for the goblin's turn: d20 [14, 7, 19, 11] and d8 [5, 2, 8, 3]. These will be used in sequence once the player finishes acting. Combat round will increment to 2 only after both Thorin and the goblin have taken their turns.",
-  "narration": "A flicker of torchlight dances across rough-hewn stone walls as the goblin archer braces itself behind an overturned table. Yellow eyes gleam with malice while a crooked arrow is pulled taut on a frayed bowstring. Dust motes swirl in the cramped air, and distant chittering hints that this may not be the only foe lurking nearby.\n\nYou stand sixteen paces away, warhammer in hand, the scent of damp wood and iron mingling around you. The goblin's cover gives it a momentary edge, but the gleam of your steel promises retribution.\n\nIt's your move, Thorin. What do you do?",
-  "combat_round": 1,
-  "actions": []
-}
-
-
-Analysis of "Before": This is good for its simple goal, but it doesn't model the more complex flow you need. The player acts first, so it doesn't demonstrate how to handle NPC/monster turns before the player's turn. The plan is decent but could be more tactical.
-
-AFTER (Refactored for Multiple Combatants)
-
-This revised example uses the characters from your scenario (Eirik and Kira vs. two wolves). Crucially, it assumes an initiative order where an NPC and a monster act before the player, demonstrating the correct, seamless flow.
-
-Generated json
-{
-  "plan": "Round 1 begins. Initiative: Kira (18), Wolf-Alpha (16), Eirik (14 - Player), Wolf-Beta (10). HP: Eirik 11/11, Kira 10/10, Wolf-Alpha 11/11, Wolf-Beta 11/11. Tactical: The ruins offer scattered debris. Wolf-Alpha is exposed; Wolf-Beta has partial cover from a fallen pillar (+2 AC). Kira acts first and will target the most immediate threat, Wolf-Alpha, using prerolled d20 [18] + 5 attack = 23 (HIT vs AC 13). Prerolled damage d6 [5] + 3 = 8 piercing. After Kira, Wolf-Alpha will act, likely charging the nearest target (Eirik). THEN it will be Eirik's (the player's) turn. STOP and prompt the player for their action at that point. Round 1 ends after Wolf-Beta acts. Exit condition: Both wolves defeated.",
-  "narration": "The air in the Forgotten Waystation is thick with the scent of damp earth and feral hunger. Two gaunt wolves are fanned out before you; one stands exposed in the open, while the other slinks behind a fallen, mossy pillar.\n\nBefore the beasts can lunge, Kira doesn't hesitate. The snap of her bowstring is a sharp retort in the crumbling halls. Her arrow is a silver streak, burying itself deep in the exposed wolf's shoulder. The beast yelps, staggering as dark blood mats its gray fur.\n\nEnraged and wounded, the first wolf locks its yellow eyes on you. It lowers its head, a guttural snarl echoing off the stones as it prepares to charge.\n\nYour ally has drawn first blood, but now a wounded and furious predator is about to crash into your line. Kira is already nocking another arrow. It is your turn, Eirik. What do you do?",
-  "combat_round": 1,
-  "actions": [
-    {
-      "action": "updateEncounter",
-      "parameters": {
-        "encounterId": "RO05-E1",
-        "changes": "Wolf-Alpha takes 8 piercing damage from Kira's shortbow, HP reduced from 11 to 3."
-      }
-    },
-    {
-      "action": "updateCharacterInfo",
-      "parameters": {
-        "characterName": "scout_kira",
-        "changes": "Removes one arrow from her quiver."
-      }
-    }
-  ]
-}
-IGNORE_WHEN_COPYING_START
-content_copy
-download
+GitHub Commit Summary
+Here is a summary of all the changes we've made to implement the agentic level-up system.
+Commit Title:
+Generated code
+feat: Implement agentic, UI-integrated level-up system
 Use code with caution.
-Json
-IGNORE_WHEN_COPYING_END
-Key Improvements in the 'After' Example:
+Commit Description:
+Generated code
+Refactored the character leveling system into a fully agentic, interactive process that integrates seamlessly with the main game UI. This change replaces the previous non-interactive subprocess model with a class-based session manager.
 
-Handles Multiple Combatants: It includes a player, an NPC, and two monsters, reflecting a more realistic combat scenario.
-
-Demonstrates Proper Flow: This is the most important change. It narrates Kira's turn (an NPC) and sets up the monster's turn, all before pausing to ask the player for their action. This directly fixes the primary issue from your session.
-
-More Detailed plan: The new plan is more robust. It clearly lists the full initiative order, HPs, tactical notes about cover, and explicitly states the sequence of events leading up to the player's turn ("Kira acts first... THEN it will be Eirik's... STOP"). It also includes a declarative exit condition.
-
-Integrated Actions: The actions array is now used correctly to log the results of the NPC's turn (damage to the wolf, resource cost for the NPC).
-
-Stronger Player Prompt: The narration ends with a much more dynamic and tactical prompt for the player, giving them a clear picture of the battlefield and the immediate threat.
-
-This refactored example provides a much better template for the AI to follow, enforcing the rule of narrating all non-player actions before handing control to the player.
-
-Ready to move on to the next example when you are
+Key improvements:
+- **Agentic Interview Model:** The `levelUp` action now triggers a dedicated `LevelUpSession` that takes over the conversation, conducting an interactive interview with the player for all choices.
+- **UI Integration:** The main game loop in `main.py` now drives the level-up UI, displaying AI prompts and capturing player input within the "Game Output" window, preventing the conversation from breaking out into the console.
+- **Narration Suppression:** The system now intelligently detects the `levelUp` action to suppress the initial redundant narration from the main DM, creating a smooth handoff to the Level Up Assistant.
+- **Isolated Conversation Logging:** The entire level-up interview is logged to a separate `level_up_conversation.json` for debugging, while only the final narrative summary is appended to the main `conversation_history.json`.
+- **Robust Input Handling:** The level-up input loop now validates against empty submissions, preventing the AI from receiving blank messages and prematurely ending the interview.
+- **Architectural Consistency:** The level-up manager's architecture now mirrors the successful patterns of the `combat_manager` and `startup_wizard`, improving code consistency and maintainability.
+Use code with caution.
+Files Changed:
+main.py
+action_handler.py
+level_up_manager.py
+level_up_system_prompt.txt

@@ -10,8 +10,8 @@
       "nextPoints": [
         "PP002"
       ],
-      "status": "in progress",
-      "plotImpact": "Eirik and Kira set out from the Command Post, intent on recovering Sila's stolen chest by pursuing the trail toward Scout's Watch and bandit territory, strengthening the outpost's hope.",
+      "status": "completed",
+      "plotImpact": "With the bell network restored and the bandit threat scattered, the immediate crisis at the Rangers' Outpost is resolved. The community is safe, morale is high, and new opportunities for adventure await.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -22,8 +22,8 @@
             "RO05",
             "RO06"
           ],
-          "status": "in progress",
-          "plotImpact": "The party returns to report the restoration of the North Tower's bell to Commander Elen, spreading hope and momentum throughout the Rangers' Outpost."
+          "status": "completed",
+          "plotImpact": "With the harmonic crystal attuned and the ritual completed, the West Tower bell is restored. The Silver Bell Network is once again whole, securing the outpost's communications and warning system across the frontier."
         },
         {
           "id": "SQ002",
@@ -32,8 +32,8 @@
           "involvedLocations": [
             "RO001"
           ],
-          "status": "in progress",
-          "plotImpact": "The party has set out for the Forgotten Waystation to recover Sila's stolen chest, advancing the Merchant's Dilemma side quest."
+          "status": "completed",
+          "plotImpact": "Sila's chest has been returned with all goods intact. She will remain as the outpost's primary supplier, stabilizing trade and morale at Ranger's Rest."
         }
       ]
     },
@@ -45,8 +45,8 @@
       "nextPoints": [
         "PP003"
       ],
-      "status": "not started",
-      "plotImpact": "Evidence found in the camp (maps marked with a strange sigil, and a journal detailing rituals offered to a 'dark stone') points towards a location deeper in the woods to the north.",
+      "status": "in progress",
+      "plotImpact": "Eirik returns to the Rangers' Command Post with the injured Kira, seeking medical attention and reporting the dire situation at the Ambush Site. This strengthens the party's connection with Commander Elen and sets the stage for further investigation of the bandit threat.",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -55,8 +55,8 @@
           "involvedLocations": [
             "TW001"
           ],
-          "status": "not started",
-          "plotImpact": "Maelo reveals that Malarok is using a 'Voidstone'—a shard of a fallen star—to amplify his magic and corrupt the land. He warns them that the stone's dark magic is weakened by pure iron and gives them an iron charm that grows cold when near strong corruption."
+          "status": "completed",
+          "plotImpact": "Maelo has performed his divination, revealing the source of the corruption in the Thornwood and providing the party with a protective ward and guidance to the bandit camp. The party now knows the location of the prisoners and the nature of the Voidstone."
         },
         {
           "id": "SQ004",
@@ -65,8 +65,8 @@
           "involvedLocations": [
             "TW001"
           ],
-          "status": "not started",
-          "plotImpact": "Neris's map allows the party to bypass the watchtower's primary sentries. Lira's information provides a crucial clue about the final location and Malarok's plan."
+          "status": "completed",
+          "plotImpact": "Eirik and Kira, battered but victorious, rescue Scout Neris and Merchant Lira from the Wolf's Den Cave and lead them away from the Ambush Site toward safety on the Bandit Trail, advancing the main plot and strengthening the outpost's position against Malarok."
         }
       ]
     },
@@ -111,8 +111,8 @@
       "description": "With Malarok defeated and his influence broken, the woods begin to calm. The party returns to Rangers' Outpost as heroes. The remaining bandits have scattered or surrendered. Ranger Elen can finally secure the frontier, and news of the party's deeds begins to spread, opening doors to new adventures.",
       "location": "RO001",
       "nextPoints": [],
-      "status": "not started",
-      "plotImpact": "The party is offered a title, a plot of land by the now-grateful frontier council, and a significant monetary reward. The region is stabilized, and new plot hooks emerge.",
+      "status": "in progress",
+      "plotImpact": "With both Eirik and Kira recovered and the outpost secure, the party is poised to choose their next adventure as news of their deeds spreads.",
       "sideQuests": []
     }
   ]

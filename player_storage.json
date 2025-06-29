@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2025-06-18T23:20:57.343696",
+  "lastUpdated": "2025-06-28T21:28:01.386267",
   "playerStorage": [
     {
       "id": "storage_bf32305c",
@@ -310,6 +310,57 @@
             }
           ],
           "timestamp": "2025-06-18T23:20:57.391250"
+        }
+      ]
+    },
+    {
+      "id": "storage_a1ebb879",
+      "deviceType": "chest",
+      "deviceName": "Storage Chest",
+      "locationId": "RO01",
+      "locationName": "Rangers' Command Post",
+      "areaId": "RO001",
+      "areaName": "Rangers' Outpost",
+      "contents": [
+        {
+          "item_name": "Sila's iron-banded chest",
+          "item_type": "equipment",
+          "description": "A battered wooden crate with iron bands and Sila's merchant mark, recovered from a hidden cache at the Forgotten Waystation.",
+          "quantity": 1,
+          "equipped": false
+        },
+        {
+          "item_name": "Ragged Red Cloth",
+          "item_type": "equipment",
+          "description": "A piece of ragged red cloth that appears to be evidence of sabotage.",
+          "quantity": 1,
+          "equipped": false
+        }
+      ],
+      "createdBy": "Eirik Hearthwise",
+      "createdDate": "2025-06-28T21:28:01.386267",
+      "accessibility": "party",
+      "lastAccessed": "2025-06-28T21:28:01.417413",
+      "accessLog": [
+        {
+          "character": "Eirik Hearthwise",
+          "action": "create",
+          "timestamp": "2025-06-28T21:28:01.386267"
+        },
+        {
+          "character": "Eirik Hearthwise",
+          "action": "store_items",
+          "items": [
+            {
+              "item": "Sila's iron-banded chest",
+              "quantity": 1
+            },
+            {
+              "item": "Ragged Red Cloth",
+              "quantity": 1
+            }
+          ],
+          "timestamp": "2025-06-28T21:28:01.417413"
         }
       ]
     }

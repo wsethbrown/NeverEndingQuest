@@ -80,6 +80,7 @@ from player_stats import get_player_stat
 from update_world_time import update_world_time
 from conversation_utils import update_conversation_history, update_character_data
 from update_character_info import update_character_info
+from level_up_manager import LevelUpSession # Add this line
 
 # Import new manager modules
 import location_manager
@@ -1080,7 +1081,23 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
     try:
         json_content = extract_json_from_codeblock(response)
         parsed_response = json.loads(json_content)
+        actions = parsed_response.get("actions", [])
         
+        # --- START OF FIX: Detect levelUp action before printing narration ---
+        is_levelup_action = any(action.get("action") == "levelUp" for action in actions)
+
+        if is_levelup_action:
+            print("DEBUG: levelUp action detected. Suppressing initial narration and starting session.")
+            # Process ONLY the levelUp action from the list to start the session.
+            # This assumes the first levelUp action is the one to process.
+            for action in actions:
+                if action.get("action") == "levelUp":
+                    # Directly call the action handler for just this action
+                    return action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
+            # Fallback in case the loop doesn't find it, though it should.
+            return None
+        # --- END OF FIX ---
+
         # --- NEW TRANSITION LOGIC ---
         is_transition = False
         departure_narration = ""
@@ -1096,7 +1113,6 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             print("DEBUG: Transition action detected. Holding departure narration.")
             
             # Step 1: Process actions to update state (summary, party_tracker, etc.)
-            # +++ FIX: CHECK THE RESULT OF ACTIONS TO SET THE UPDATE FLAG +++
             actions_processed = False
             for action in parsed_response.get("actions", []):
                 result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
@@ -1107,7 +1123,6 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
                     needs_conversation_history_update = True
             if actions_processed:
                 party_tracker_data = load_json_file("party_tracker.json")
-            # +++ END FIX +++
             
             # Step 2: Reload the state to get the NEW location context
             fresh_party_data = load_json_file("party_tracker.json")
@@ -1121,29 +1136,23 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             print(colored("Dungeon Master:", "blue"), colored(full_narration, "blue"))
 
             # Step 5: Add the final combined narration to history as a single, clean message.
-            # This replaces the original departure-only message.
-            # Find the original assistant message and replace its content.
             for i in range(len(conversation_history) - 1, -1, -1):
                 if conversation_history[i].get("role") == "assistant":
-                    # Update the content to be the final, combined narration.
-                    # We store it in the same JSON format for consistency.
                     conversation_history[i]['content'] = json.dumps({"narration": full_narration, "actions": []}) # Actions already processed
                     print("DEBUG: Replaced last assistant message with combined transition narration.")
                     break
             
             save_conversation_history(conversation_history)
             
-            # We already set the flag above, so the main loop will handle reloading
             return {"role": "assistant", "content": json.dumps({"narration": full_narration, "actions": []})}
         
         # --- END NEW TRANSITION LOGIC ---
 
-        # If not a transition, proceed with normal processing
+        # If not a transition or levelup, proceed with normal processing
         narration = parsed_response.get("narration", "")
         sanitized_narration = sanitize_text(narration)
         print(colored("Dungeon Master:", "blue"), colored(sanitized_narration, "blue"))
 
-        actions = parsed_response.get("actions", [])
         actions_processed = False
         for action in actions:
             result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
@@ -1152,6 +1161,9 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             if isinstance(result, dict):
                 if result.get("status") == "exit": return "exit"
                 if result.get("status") == "restart": return "restart"
+                # This check is now crucial for the level up flow
+                if result.get("status") == "enter_levelup_mode":
+                    return result
                 if result.get("status") == "needs_response":
                     # Combat summary was added to conversation history, get AI response
                     conversation_history = load_json_file("conversation_history.json") or []
@@ -1163,6 +1175,18 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
 
         if actions_processed:
             party_tracker_data = load_json_file("party_tracker.json")
+            
+            if hasattr(action_handler.process_action, 'level_up_summaries') and action_handler.process_action.level_up_summaries:
+                print(f"DEBUG: Injecting {len(action_handler.process_action.level_up_summaries)} level up summaries")
+                
+                combined_summary = "\n\n".join(action_handler.process_action.level_up_summaries)
+                conversation_history.append({"role": "user", "content": combined_summary})
+                save_conversation_history(conversation_history)
+                
+                action_handler.process_action.level_up_summaries = []
+                
+                ai_response = get_ai_response(conversation_history)
+                return process_ai_response(ai_response, party_tracker_data, location_data, conversation_history)
 
         return {"role": "assistant", "content": response}
 
@@ -1834,17 +1858,88 @@ def main_game_loop():
             if validation_result is True:
                 valid_response_received = True
                 print(f"DEBUG: Valid response generated on attempt {retry_count + 1}")
-                conversation_history.append({"role": "assistant", "content": ai_response_content})
-                save_conversation_history(conversation_history)
-                result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+                # Don't append to history yet, process_ai_response will do it
                 
-                if result == "exit": return
-                if result == "restart":
+                # --- START OF MODIFIED BLOCK ---
+                
+                # Process the response and check for special modes like level up
+                result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+
+                if isinstance(result, dict) and result.get("status") == "enter_levelup_mode":
+                    # Enter the level up sub-loop
+                    level_up_session = result["session"]
+                    
+                    # Get the first message from the session
+                    dm_response = level_up_session.start()
+                    
+                    # Display the first message and add to history
+                    print(colored("Dungeon Master:", "blue"), colored(dm_response, "blue"))
+                    conversation_history.append({"role": "assistant", "content": dm_response})
+                    save_conversation_history(conversation_history)
+
+                    # Loop until the session is complete
+                    while not level_up_session.is_complete:
+                        # Get player input
+                        player_name_display = f"{SOLID_GREEN}{player_name_actual}{RESET_COLOR}"
+                        level_up_input = input(f"{player_name_display} (Leveling Up): ")
+
+                        # Skip processing if input is empty or just whitespace
+                        if not level_up_input or not level_up_input.strip():
+                            continue # Immediately re-prompt for input
+                        
+                        # Handle the input and get the next AI response from the session
+                        # The session object handles its own internal conversation history.
+                        # We DO NOT add this to the main conversation_history.
+                        dm_response = level_up_session.handle_input(level_up_input)
+
+                        # Display the response to the player in the UI
+                        print(colored("Dungeon Master:", "blue"), colored(dm_response, "blue"))
+
+                    # After the loop, the session is complete. Get the summary.
+                    if level_up_session.success:
+                        print("DEBUG: Level up successful. Adding summary to conversation for AI context.")
+                        # Add the summary to history as a 'user' message so the AI can react to it.
+                        conversation_history.append({"role": "user", "content": level_up_session.summary})
+                        save_conversation_history(conversation_history)
+                        
+                        # --- START OF FIX: Re-query the AI for a narrative response ---
+                        print("DEBUG: Re-querying main AI for a narrative response to the level up.")
+                        # Get a new response from the main DM based on the level-up summary.
+                        ai_response_content = get_ai_response(conversation_history)
+                        
+                        # Process this new response as if it were a normal turn.
+                        # This will print the narration and handle any new actions.
+                        process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+                        
+                        # Add the AI's response to the history.
+                        conversation_history.append({"role": "assistant", "content": ai_response_content})
+                        save_conversation_history(conversation_history)
+                        # --- END OF FIX ---
+
+                    else:
+                        # If the level up failed, we still want to inform the player.
+                        print(colored("Dungeon Master:", "red"), colored(level_up_session.summary, "red"))
+                        conversation_history.append({"role": "system", "content": level_up_session.summary})
+                        save_conversation_history(conversation_history)
+
+                    # Break the outer validation loop and proceed to the next turn.
+                    break 
+
+                elif result == "exit": 
+                    return
+                elif result == "restart":
                     print("\n[SYSTEM] Restarting game with restored save...\n")
                     main_game_loop()
                     return
+                else:
+                    # Default case: Just a regular response
+                    conversation_history.append({"role": "assistant", "content": ai_response_content})
+                    save_conversation_history(conversation_history)
+
+                # --- END OF MODIFIED BLOCK ---
 
             elif isinstance(validation_result, str):
+                # (The rest of your validation retry logic remains the same)
                 print(f"DEBUG: Validation failed. Reason: {validation_result}")
                 status_retrying(retry_count + 1, 5)
                 conversation_history.append({"role": "user", "content": f"Error Note: Your previous response failed validation. Reason: {validation_result}. Please adjust your response accordingly."})

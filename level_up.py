@@ -1,4 +1,4 @@
-# level_up_v2.py - Simplified level up system that returns changes dict
+# level_up.py - Simplified level up system that returns changes dict
 
 import json
 from openai import OpenAI

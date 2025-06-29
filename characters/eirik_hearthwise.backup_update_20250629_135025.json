@@ -4,7 +4,7 @@
   "name": "Eirik Hearthwise",
   "type": "player",
   "size": "Medium",
-  "level": 1,
+  "level": 2,
   "race": "Human",
   "class": "Cleric",
   "alignment": "chaotic good",
@@ -12,8 +12,8 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 7,
-  "maxHitPoints": 11,
+  "hitPoints": 21,
+  "maxHitPoints": 21,
   "armorClass": 17,
   "initiative": 1,
   "speed": 30,
@@ -72,6 +72,11 @@
     {
       "name": "Divine Domain: Life",
       "description": "You gain proficiency with heavy armor. Bless and Cure Wounds are always prepared. Your healing spells heal additional hit points equal to 2 + the spell's level (Disciple of Life).",
+      "source": "Cleric"
+    },
+    {
+      "name": "Channel Divinity (1/rest)",
+      "description": "You can channel divine energy to fuel magical effects. At 2nd level, you can use Channel Divinity once per rest, choosing either Turn Undead or the Life Domain's Preserve Life.",
       "source": "Cleric"
     }
   ],
@@ -217,23 +222,10 @@
       "quantity": 1
     },
     {
-      "item_name": "Flask of Alchemist's Fire",
-      "item_type": "consumable",
-      "item_subtype": "potion",
-      "description": "A volatile flask that can be thrown to ignite targets. Handle with care.",
-      "quantity": 1
-    },
-    {
       "item_name": "Pouch of Powdered Silver",
       "item_type": "consumable",
       "item_subtype": "other",
       "description": "A pouch containing powdered silver, useful against magical thorns and certain creatures.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Missing Silver Bell Clapper",
-      "item_type": "miscellaneous",
-      "description": "A critical piece of the North Tower bell, missing and recovered from bandits.",
       "quantity": 1
     },
     {
@@ -256,14 +248,26 @@
     },
     {
       "item_name": "Stub of Black Wax",
-      "item_type": "miscellaneous",
+      "item_type": "consumable",
       "description": "A small, battered stub of black wax found near the sabotage site.",
       "quantity": 1
     },
     {
-      "item_name": "Ragged Red Cloth",
-      "item_type": "miscellaneous",
-      "description": "A piece of ragged red cloth that appears to be evidence of sabotage.",
+      "item_name": "Crow's Hand Feather",
+      "item_type": "equipment",
+      "description": "A crow's feather marked with oily black wax, a signature of the Crow's Hand.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Rune-etched Ritual Vial",
+      "item_type": "consumable",
+      "description": "A vial inscribed with ancient runes given by Maelo. Now filled with purified water, cleansed of the taint from the spring as part of 'The Hermit's Warning' quest.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Bandit Patrols Map",
+      "item_type": "equipment",
+      "description": "A detailed map showing known bandit patrol routes and ambush points, given by Scout Neris.",
       "quantity": 1
     }
   ],
@@ -319,7 +323,8 @@
         "Healing Word",
         "Detect Magic",
         "Protection from Evil and Good",
-        "Sanctuary"
+        "Sanctuary",
+        "Shield of Faith"
       ],
       "level2": [],
       "level3": [],
@@ -332,8 +337,8 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 0,
-        "max": 2
+        "current": 3,
+        "max": 3
       },
       "level2": {
         "current": 0,
@@ -369,12 +374,13 @@
       }
     },
     "preparedSpells": [
-      "Bless",
-      "Cure Wounds",
       "Healing Word",
       "Detect Magic",
       "Protection from Evil and Good",
-      "Sanctuary"
+      "Sanctuary",
+      "Shield of Faith",
+      "Bless",
+      "Cure Wounds"
     ]
   },
   "currency": {
@@ -382,11 +388,11 @@
     "silver": 0,
     "copper": 0
   },
-  "experience_points": 50,
-  "exp_required_for_next_level": 300,
+  "experience_points": 300,
+  "exp_required_for_next_level": 900,
   "challengeRating": 0.25,
-  "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit.",
+  "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",
   "ideals": "Redemption. Every life saved is a step toward atoning for the lives he failed to save.",
-  "bonds": "Carries a dog tag from his fallen unit as a constant reminder of his promise to protect others.",
+  "bonds": "Carries a dog tag from his fallen unit as a constant reminder of his promise to protect others. Has earned Sila's continued support and access to her supplies following the recovery of her chest.",
   "flaws": "Reckless in the face of danger, terrified of losing friends again and willing to take great risks to prevent it."
 }
