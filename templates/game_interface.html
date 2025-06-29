@@ -3186,33 +3186,35 @@
             // Create new tooltip
             currentTooltip = createSpellTooltip(spellName, spellInfo);
             
-            // Initially position tooltip off-screen to prevent flicker
-            currentTooltip.style.left = '-9999px';
-            currentTooltip.style.top = '-9999px';
+            // Add tooltip to DOM with visibility hidden to measure dimensions
+            currentTooltip.style.visibility = 'hidden';
+            currentTooltip.style.left = '0px';
+            currentTooltip.style.top = '0px';
             document.body.appendChild(currentTooltip);
             
-            // Force a reflow to ensure tooltip is rendered
-            currentTooltip.offsetHeight;
-            
-            // Position tooltip
+            // Get target and tooltip dimensions
             const rect = event.target.getBoundingClientRect();
             const tooltipRect = currentTooltip.getBoundingClientRect();
             
+            // Calculate position relative to the clicked element
             let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
             let top = rect.top - tooltipRect.height - 8;
             
-            // Keep tooltip on screen
+            // Keep tooltip on screen horizontally
             if (left < 8) left = 8;
             if (left + tooltipRect.width > window.innerWidth - 8) {
                 left = window.innerWidth - tooltipRect.width - 8;
             }
+            
+            // Keep tooltip on screen vertically
             if (top < 8) {
-                top = rect.bottom + 8;
+                top = rect.bottom + 8; // Position below if no room above
             }
             
             // Position and show tooltip
             currentTooltip.style.left = left + 'px';
             currentTooltip.style.top = top + 'px';
+            currentTooltip.style.visibility = 'visible';
         }
 
         function hideSpellTooltip() {
