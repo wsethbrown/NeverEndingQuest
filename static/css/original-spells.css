@@ -243,8 +243,8 @@
 
 /* Spell Tooltip Styles */
 .spell-tooltip {
-    display: none; /* Hidden by default */
-    position: absolute; /* Positioned relative to the viewport */
+    display: block; /* Always visible when created */
+    position: fixed; /* Fixed positioning to prevent layout shifts */
     background-color: #1a1a1a;
     border: 1px solid #FFA500;
     border-radius: 8px;
@@ -256,6 +256,8 @@
     font-family: 'Crimson Text', Georgia, serif;
     color: #e0e0e0;
     pointer-events: none; /* VERY IMPORTANT: Prevents the tooltip from flickering */
+    opacity: 1;
+    transform: translateZ(0); /* Force hardware acceleration */
 }
 
 .spell-tooltip-header {

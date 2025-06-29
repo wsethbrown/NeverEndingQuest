@@ -3185,7 +3185,14 @@
             
             // Create new tooltip
             currentTooltip = createSpellTooltip(spellName, spellInfo);
+            
+            // Initially position tooltip off-screen to prevent flicker
+            currentTooltip.style.left = '-9999px';
+            currentTooltip.style.top = '-9999px';
             document.body.appendChild(currentTooltip);
+            
+            // Force a reflow to ensure tooltip is rendered
+            currentTooltip.offsetHeight;
             
             // Position tooltip
             const rect = event.target.getBoundingClientRect();
@@ -3203,9 +3210,9 @@
                 top = rect.bottom + 8;
             }
             
+            // Position and show tooltip
             currentTooltip.style.left = left + 'px';
             currentTooltip.style.top = top + 'px';
-            currentTooltip.style.display = 'block';
         }
 
         function hideSpellTooltip() {
