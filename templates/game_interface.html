@@ -2740,6 +2740,9 @@
             }
             html += '</div></div>';
             container.innerHTML = html;
+            
+            // Initialize spell tooltips after content is loaded
+            initializeSpellTooltips();
         }
         
         // Display NPC information
@@ -3117,6 +3120,107 @@
             const selectedButton = container.querySelector(`[data-tab-btn="${tabName}"]`);
             if (selectedPane) selectedPane.classList.add("active");
             if (selectedButton) selectedButton.classList.add("active");
+        }
+
+        // Spell Tooltip System
+        let spellData = null;
+        let currentTooltip = null;
+
+        // Load spell data once and cache it
+        fetch('/spell-data')
+            .then(response => response.json())
+            .then(data => {
+                spellData = data;
+            })
+            .catch(error => {
+                console.warn('Could not load spell data:', error);
+                spellData = {};
+            });
+
+        function normalizeSpellName(spellName) {
+            return spellName.toLowerCase()
+                .replace(/['\s/-]/g, '_')
+                .replace(/_+/g, '_')
+                .replace(/^_|_$/g, '');
+        }
+
+        function createSpellTooltip(spellName, spellInfo) {
+            const tooltip = document.createElement('div');
+            tooltip.className = 'spell-tooltip';
+            
+            let html = `<div class="spell-tooltip-header">${spellInfo.name}</div>`;
+            
+            // Meta information
+            const components = [];
+            if (spellInfo.components?.verbal) components.push('V');
+            if (spellInfo.components?.somatic) components.push('S');
+            if (spellInfo.components?.material) components.push('M');
+            
+            const levelText = spellInfo.level === 0 ? 'Cantrip' : `Level ${spellInfo.level}`;
+            html += `<div class="spell-tooltip-meta">${levelText} ${spellInfo.school} • ${spellInfo.casting_time} • ${components.join(', ')}</div>`;
+            
+            // Description
+            html += `<div class="spell-tooltip-description">${spellInfo.description}</div>`;
+            
+            // Classes
+            if (spellInfo.classes && spellInfo.classes.length > 0) {
+                html += `<div class="spell-tooltip-classes">Classes: ${spellInfo.classes.join(', ')}</div>`;
+            }
+            
+            tooltip.innerHTML = html;
+            return tooltip;
+        }
+
+        function showSpellTooltip(event) {
+            if (!spellData) return;
+            
+            const spellName = event.target.textContent.trim();
+            const normalizedName = normalizeSpellName(spellName);
+            const spellInfo = spellData[normalizedName];
+            
+            if (!spellInfo) return;
+            
+            // Remove existing tooltip
+            hideSpellTooltip();
+            
+            // Create new tooltip
+            currentTooltip = createSpellTooltip(spellName, spellInfo);
+            document.body.appendChild(currentTooltip);
+            
+            // Position tooltip
+            const rect = event.target.getBoundingClientRect();
+            const tooltipRect = currentTooltip.getBoundingClientRect();
+            
+            let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+            let top = rect.top - tooltipRect.height - 8;
+            
+            // Keep tooltip on screen
+            if (left < 8) left = 8;
+            if (left + tooltipRect.width > window.innerWidth - 8) {
+                left = window.innerWidth - tooltipRect.width - 8;
+            }
+            if (top < 8) {
+                top = rect.bottom + 8;
+            }
+            
+            currentTooltip.style.left = left + 'px';
+            currentTooltip.style.top = top + 'px';
+            currentTooltip.style.display = 'block';
+        }
+
+        function hideSpellTooltip() {
+            if (currentTooltip) {
+                currentTooltip.remove();
+                currentTooltip = null;
+            }
+        }
+
+        function initializeSpellTooltips() {
+            // Add event listeners to all spell names
+            document.querySelectorAll('.spell-name').forEach(nameElement => {
+                nameElement.addEventListener('mouseenter', showSpellTooltip);
+                nameElement.addEventListener('mouseleave', hideSpellTooltip);
+            });
         }
     </script>
 </body>

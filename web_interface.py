@@ -320,6 +320,16 @@ def serve_dm_logo():
     from flask import send_file
     return send_file('dm_logo.png', mimetype='image/png')
 
+@app.route('/spell-data')
+def get_spell_data():
+    """Serve spell repository data for tooltips"""
+    try:
+        with open('spell_repository.json', 'r') as f:
+            spell_data = json.load(f)
+        return jsonify(spell_data)
+    except FileNotFoundError:
+        return jsonify({})
+
 @socketio.on('connect')
 def handle_connect():
     """Handle client connection"""
