@@ -613,6 +613,17 @@ Location Transition Time Guidelines:
 - After every response, double-check if any significant time has passed. If so, and you haven't updated the time, do so immediately in your next response.
 - Include a "narration" element in this JSON.
 
+Rest Time Calculation Guidelines:
+- When players request rest "until morning/dawn" or "turn in for the night":
+  - Calculate time needed to reach 6:00-8:00 AM the next day
+  - Example: Current time 15:56, "rest until morning" → timeEstimate: 940 minutes (reaches 07:00 next day)
+- When players request specific duration rest:
+  - Use literal time: "8 hour rest" → exactly 8 hours (480 minutes)
+  - "short rest" → 60 minutes, "long rest" → 480 minutes (unless context indicates "until morning")
+- Consider player language context:
+  - "turn in for the night", "see you in the morning", "rest until dawn" = advance to morning hours
+  - "take an 8-hour long rest", "rest for X hours" = use literal duration
+
 ## Player Storage System
 
 The game includes a player storage system that allows characters to create storage containers at locations and store/retrieve items using natural language.
