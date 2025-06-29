@@ -108,12 +108,13 @@
     },
     {
       "id": "PP005",
-      "title": "Frontier Secured",
-      "description": "With Malarok defeated and his influence broken, the woods begin to calm. The party returns to Rangers' Outpost as heroes. The remaining bandits have scattered or surrendered. Ranger Elen can finally secure the frontier, and news of the party's deeds begins to spread, opening doors to new adventures.",
+      "title": "Report to Commander Elen",
+      "description": "When the party completes their mission to eliminate the bandit threat and defeat Malarok, they must return to Rangers' Outpost to report their success to Commander Elen. Receive your reward and recognition for securing the frontier.",
       "location": "RO001",
       "nextPoints": [],
+      "prerequisites": ["PP001", "PP002", "PP003", "PP004"],
       "status": "not started",
-      "plotImpact": "The party is offered a title, a plot of land by the now-grateful frontier council, and a significant monetary reward. The region is stabilized, and new plot hooks emerge.",
+      "plotImpact": "When completed, the frontier will be secured, and the party will be recognized as heroes with opportunities for new adventures beyond the outpost.",
       "sideQuests": []
     }
   ]
