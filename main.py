@@ -411,7 +411,14 @@ def create_module_validation_context(party_tracker_data, path_manager):
                     
                     # Collect NPCs for current location
                     if loc_id == current_location_id:
-                        current_location_npcs = location_npcs
+                        current_location_npcs = location_npcs.copy()  # Start with location NPCs
+            
+            # Add party NPCs to current location (they travel with the party)
+            party_npcs = party_tracker_data.get("partyNPCs", [])
+            for party_npc in party_npcs:
+                npc_name = party_npc.get("name", "")
+                if npc_name and npc_name not in current_location_npcs:
+                    current_location_npcs.append(npc_name)
             
             validation_context += f"VALID LOCATIONS in {current_area_id}:\n"
             if valid_locations:
