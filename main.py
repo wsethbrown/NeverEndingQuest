@@ -1089,8 +1089,18 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             print("DEBUG: Transition action detected. Holding departure narration.")
             
             # Step 1: Process actions to update state (summary, party_tracker, etc.)
+            # +++ FIX: CHECK THE RESULT OF ACTIONS TO SET THE UPDATE FLAG +++
+            actions_processed = False
             for action in parsed_response.get("actions", []):
-                action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
+                result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
+                actions_processed = True
+                if isinstance(result, dict) and result.get("needs_update"):
+                    needs_conversation_history_update = True
+                elif isinstance(result, bool) and result:
+                    needs_conversation_history_update = True
+            if actions_processed:
+                party_tracker_data = load_json_file("party_tracker.json")
+            # +++ END FIX +++
             
             # Step 2: Reload the state to get the NEW location context
             fresh_party_data = load_json_file("party_tracker.json")
@@ -1110,13 +1120,13 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
                 if conversation_history[i].get("role") == "assistant":
                     # Update the content to be the final, combined narration.
                     # We store it in the same JSON format for consistency.
-                    conversation_history[i]['content'] = json.dumps({"narration": full_narration, "actions": []})
+                    conversation_history[i]['content'] = json.dumps({"narration": full_narration, "actions": []}) # Actions already processed
                     print("DEBUG: Replaced last assistant message with combined transition narration.")
                     break
             
             save_conversation_history(conversation_history)
             
-            needs_conversation_history_update = True
+            # We already set the flag above, so the main loop will handle reloading
             return {"role": "assistant", "content": json.dumps({"narration": full_narration, "actions": []})}
         
         # --- END NEW TRANSITION LOGIC ---
@@ -1139,7 +1149,7 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
                     # Combat summary was added to conversation history, get AI response
                     conversation_history = load_json_file("conversation_history.json") or []
                     ai_response = get_ai_response(conversation_history)
-                    return process_ai_response(ai_response, conversation_history)
+                    return process_ai_response(ai_response, party_tracker_data, location_data, conversation_history)
                 if result.get("needs_update"): needs_conversation_history_update = True
             elif result == "exit": return "exit"
             elif isinstance(result, bool) and result: needs_conversation_history_update = True
