@@ -442,12 +442,14 @@
         "Evidence of Malarok's corruption affecting local wildlife"
       ],
       "plotHooks": [
+        "The survivors reveal they were being held as captives for a terrible sacrifice ritual",
         "Gareth's map can help bypass sentries at the bandit stronghold",
         "Kael's information points directly to Malarok's ritual site and ultimate plan",
         "Both NPCs can serve as guides to help the party navigate the Thornwood",
-        "Their rescue provides significant advantages for tackling Malarok's forces"
+        "Their rescue provides significant advantages for tackling Malarok's forces",
+        "With the wolves defeated, the survivors can return safely to the command post on their own if the party continues forward"
       ],
-      "dmInstructions": "This location resolves the 'Rescue the Lost' (SQ004) side quest. The party's arrival turns the tide of the fight against the corrupted wolves. Rescuing both NPCs provides significant tactical advantages and crucial plot information for the final confrontation with Malarok.",
+      "dmInstructions": "This location resolves the 'Rescue the Lost' (SQ004) side quest. The party's arrival turns the tide of the fight against the corrupted wolves. After the wolves are defeated, the survivors reveal they were being held captive and were intended to be part of a terrible sacrifice ritual. Rescuing both NPCs provides significant tactical advantages and crucial plot information for the final confrontation with Malarok. The survivors can either be escorted back to the Rangers' Command Post for safety, or if the party chooses to push forward, Gareth and Kael are now confident enough to return on their own since the wolves are dead.",
       "doors": [],
       "traps": [],
       "dcChecks": [

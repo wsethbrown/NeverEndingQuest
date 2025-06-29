@@ -61,12 +61,13 @@
         {
           "id": "SQ004",
           "title": "Rescue the Lost",
-          "description": "The party discovers a cave where Wounded Scout Neris is protecting Merchant Lira from corrupted wolves. Neris has a partially completed map of the bandit camp's patrols. Lira overheard the bandits talking about 'gathering tributes for the master's ritual' at some 'forgotten altar'.",
+          "description": "The party follows tracks from the Ambush Site north to the Wolf's Den Cave where Wounded Ranger Gareth and Merchant Kael are making a desperate stand against corrupted wolves. Gareth has a partially completed map of the bandit camp's patrols. Kael overheard the bandits talking about 'gathering tributes for the master's ritual' at some 'forgotten altar'. Both survivors reveal they were being held as captives for a terrible sacrifice.",
           "involvedLocations": [
-            "TW001"
+            "TW001",
+            "TW06"
           ],
           "status": "not started",
-          "plotImpact": "Neris's map allows the party to bypass the watchtower's primary sentries. Lira's information provides a crucial clue about the final location and Malarok's plan."
+          "plotImpact": "Gareth's map allows the party to bypass the watchtower's primary sentries. Kael's information provides a crucial clue about the final location and Malarok's plan. Both survivors can either be escorted back to safety or return on their own once the wolves are defeated."
         }
       ]
     },
