@@ -101,6 +101,7 @@ class SaveGameManager:
             "party_tracker.json",
             "current_location.json", 
             "journal.json",
+            "player_storage.json",
             
             # Character data
             "characters/",
