@@ -537,6 +537,13 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         location_graph = LocationGraph()
         location_graph.load_module_data()
         
+        # MAP: Convert area ID to entry location ID if needed (TW001 -> TW01)
+        if len(new_location_name_or_id) >= 5 and new_location_name_or_id[-3:].isdigit():
+            potential_entry = new_location_name_or_id[:-3] + new_location_name_or_id[-2:]
+            if location_graph.validate_location_id_format(potential_entry):
+                print(f"DEBUG: Mapped area ID '{new_location_name_or_id}' to entry location '{potential_entry}'")
+                new_location_name_or_id = potential_entry
+        
         # VALIDATE: Check if location transition is valid
         is_valid, error_message, auto_area_connectivity_id = validate_location_transition(
             location_graph, current_location_id, new_location_name_or_id
@@ -547,7 +554,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
             return create_return(
                 status="error", 
                 needs_update=False,
-                response_data={"error_message": error_message}
+                response_data={"error_message": f"Path Validation: {error_message}"}
             )
         
         # Debug the exact string values for easier troubleshooting
