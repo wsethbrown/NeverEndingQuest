@@ -1,4 +1,22 @@
 #!/usr/bin/env python3
+# ============================================================================
+# RUN_WEB.PY - WEB INTERFACE LAUNCHER
+# ============================================================================
+#
+# ARCHITECTURE ROLE: User Interface Layer - Web Application Launcher
+#
+# This launcher script provides the entry point for the web-based user interface,
+# coordinating Flask server startup and browser integration for cross-platform
+# web-based game access.
+#
+# KEY RESPONSIBILITIES:
+# - Web interface process management and startup coordination
+# - Automatic browser launching for seamless user experience
+# - Cross-platform compatibility for web server deployment
+# - Integration with Flask + SocketIO web interface architecture
+# - Error handling and graceful startup failure management
+#
+
 """
 Launcher script for the DungeonMasterAI web interface.
 This script starts the Flask server and automatically opens the browser.

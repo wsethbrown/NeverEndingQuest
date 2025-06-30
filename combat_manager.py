@@ -1,3 +1,23 @@
+# ============================================================================
+# COMBAT_MANAGER.PY - TURN-BASED COMBAT SYSTEM
+# ============================================================================
+#
+# ARCHITECTURE ROLE: Game Systems Layer - Combat Management
+#
+# This module provides comprehensive turn-based combat management for the 5th edition
+# Dungeon Master system, implementing AI-driven combat encounters with full rule
+# compliance and intelligent resource tracking.
+#
+# KEY RESPONSIBILITIES:
+# - Turn-based combat orchestration with initiative order management
+# - AI-powered combat decision making for NPCs and monsters
+# - Combat state validation and rule compliance verification
+# - Experience point calculation and reward distribution
+# - Combat logging and debugging support with per-encounter directories
+# - Real-time combat status display and resource tracking
+# - Preroll dice caching system to prevent AI manipulation
+#
+
 """
 Combat Manager Module for DungeonMasterAI
 

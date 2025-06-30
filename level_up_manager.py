@@ -1,4 +1,24 @@
 #!/usr/bin/env python3
+# ============================================================================
+# LEVEL_UP_MANAGER.PY - AI-DRIVEN CHARACTER PROGRESSION
+# ============================================================================
+#
+# ARCHITECTURE ROLE: Game Systems Layer - Character Progression Management
+#
+# This module provides AI-guided character advancement with complete 5th edition
+# rule compliance, operating in isolated subprocess execution to prevent game
+# state corruption during the level-up process.
+#
+# KEY RESPONSIBILITIES:
+# - Interactive AI-driven level-up interview process for players
+# - Automated optimized advancement choices for NPCs
+# - D&D 5e rule compliance validation and verification
+# - Isolated subprocess execution for fault tolerance
+# - Character advancement state management without direct I/O
+# - Integration with main game loop through summary reports
+# - Atomic character update operations with rollback capability
+#
+
 """
 Level Up Manager Module for DungeonMasterAI
 

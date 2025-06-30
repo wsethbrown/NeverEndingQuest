@@ -1,3 +1,22 @@
+# ============================================================================
+# ENCODING_UTILS.PY - CROSS-PLATFORM ENCODING SAFETY
+# ============================================================================
+#
+# ARCHITECTURE ROLE: Data Management Layer - Encoding Safety and Text Processing
+#
+# This module provides critical cross-platform text encoding safety for Windows
+# console compatibility, preventing Unicode encoding crashes that would break
+# the entire game system through comprehensive character sanitization.
+#
+# KEY RESPONSIBILITIES:
+# - Unicode character sanitization for Windows console (cp1252) compatibility
+# - Comprehensive character mapping and replacement for problematic Unicode
+# - Text encoding and decoding utilities for cross-platform compatibility
+# - JSON data sanitization to prevent encoding-related crashes
+# - ASCII character enforcement for game output and logging
+# - Integration with all output systems to ensure encoding safety
+#
+
 """
 Encoding utilities for handling character encoding issues throughout the system.
 Provides consistent text sanitization and encoding/decoding functions.

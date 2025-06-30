@@ -89,6 +89,50 @@ modules/[module_name]/
 
 This architecture supports both standalone adventures and linked module series while maintaining clean separation of concerns.
 
+## Recent Architectural Patterns
+
+### Manager Pattern Implementation
+Follow the established Manager Pattern for all major subsystems:
+- **CampaignManager**: Orchestrates campaign-wide operations and hub-and-spoke management
+- **ModulePathManager**: Provides file system abstraction for module-centric architecture
+- **StorageManager**: Handles player storage system with atomic file protection
+- **LocationManager**: Manages location-based features and storage integration
+- **CombatManager**: Controls turn-based combat system with AI validation
+- **LevelUpManager**: Manages character progression in isolated subprocess
+- **StatusManager**: Provides real-time user feedback across all systems
+
+### Atomic Operations Convention
+All state-modifying operations MUST use atomic patterns:
+```python
+# Standard atomic operation pattern:
+# 1. Create backup of affected files
+# 2. Perform operation with step-by-step validation
+# 3. Verify final state integrity
+# 4. Clean up backups on success OR restore on failure
+```
+
+### AI Integration Patterns
+When integrating AI functionality:
+- Use specialized AI models for different purposes (DM, validator, content generator)
+- Implement validation layers for AI responses
+- Provide fallback mechanisms for AI failures
+- Use subprocess isolation for complex AI operations (level-up system)
+
+### Session State Management
+Maintain session state consistency across:
+- Console interface operations
+- Web interface real-time updates
+- File system modifications
+- Module transitions
+- Save/load operations
+
+### Web Interface Integration
+For web interface features:
+- Use SocketIO for real-time bidirectional communication
+- Implement queue-based output management for thread safety
+- Provide status broadcasting across console and web interfaces
+- Maintain session state synchronization between interfaces
+
 # Module Transition System
 Advanced conversation timeline management preserving chronological adventure history across modules:
 

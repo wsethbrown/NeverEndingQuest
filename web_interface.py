@@ -1,3 +1,23 @@
+# ============================================================================
+# WEB_INTERFACE.PY - REAL-TIME WEB FRONTEND
+# ============================================================================
+#
+# ARCHITECTURE ROLE: User Interface Layer - Real-Time Web Frontend
+#
+# This module provides a modern Flask-based web interface with SocketIO integration
+# for real-time bidirectional communication between the browser and game engine,
+# enabling responsive tabbed character data display and live game state updates.
+#
+# KEY RESPONSIBILITIES:
+# - Flask + SocketIO real-time web server management
+# - Tabbed interface design with dynamic character data presentation
+# - Queue-based threaded output processing for responsive user experience
+# - Real-time game state synchronization across multiple browser sessions
+# - Cross-platform browser-based interface compatibility
+# - Status broadcasting integration with console and web interfaces
+# - Session state management linking web sessions to game state
+#
+
 """
 Web Interface for DungeonMasterAI
 

@@ -1,3 +1,23 @@
+# ============================================================================
+# CHARACTER_EFFECTS_VALIDATOR.PY - AI-POWERED EFFECTS VALIDATION
+# ============================================================================
+#
+# ARCHITECTURE ROLE: AI Integration Layer - Character Effects Validation
+#
+# This module provides intelligent AI-powered validation and management of character
+# effects, using GPT-4 to reason through complex effect categorization and state
+# management that would be difficult with hardcoded logic.
+#
+# KEY RESPONSIBILITIES:
+# - AI-driven categorization of mixed character effects into proper arrays
+# - Intelligent equipment effect calculation from equipped items
+# - Duration format standardization to timestamps for consistent tracking
+# - Class feature usage tracking and state management
+# - Time-based effect expiration with game world time integration
+# - Flexible effect validation adaptable to any character structure
+# - Complex effect interaction resolution through AI reasoning
+#
+
 """
 AI-Powered Character Effects Validator
 

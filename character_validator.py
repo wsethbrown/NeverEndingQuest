@@ -1,3 +1,22 @@
+# ============================================================================
+# CHARACTER_VALIDATOR.PY - AI-POWERED CHARACTER DATA VALIDATION
+# ============================================================================
+#
+# ARCHITECTURE ROLE: AI Integration Layer - Character Data Validation
+#
+# This module provides intelligent AI-powered character validation ensuring data
+# integrity and D&D 5e rule compliance through GPT-4 reasoning and validation,
+# with automatic correction capabilities for common data inconsistencies.
+#
+# KEY RESPONSIBILITIES:
+# - AI-driven character data validation with D&D 5e rule compliance
+# - Intelligent armor class calculation verification and correction
+# - Inventory item categorization and equipment conflict resolution
+# - Automatic data format standardization and correction
+# - Character sheet integrity validation across all character components
+# - Integration with character effects validation for comprehensive validation
+#
+
 """
 AI-Powered Character Validator
 

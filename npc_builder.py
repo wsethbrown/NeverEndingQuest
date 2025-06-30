@@ -1,3 +1,22 @@
+# ============================================================================
+# NPC_BUILDER.PY - AI-POWERED CHARACTER CREATION
+# ============================================================================
+#
+# ARCHITECTURE ROLE: Content Generation Layer - Character Creation
+#
+# This module provides comprehensive AI-driven NPC creation with schema validation,
+# generating detailed character profiles, stats, and background information
+# for integration with the module-centric architecture.
+#
+# KEY RESPONSIBILITIES:
+# - AI-powered NPC character generation with personality and background
+# - Schema-compliant character data creation and validation
+# - Integration with module path management for file organization
+# - Character stat generation with D&D 5e rule compliance
+# - NPC profile creation with narrative and mechanical consistency
+# - Batch character creation for module population
+#
+
 import json
 import sys
 import os

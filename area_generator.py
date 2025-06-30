@@ -1,4 +1,23 @@
 #!/usr/bin/env python3
+# ============================================================================
+# AREA_GENERATOR.PY - AI-DRIVEN LOCATION CONTENT CREATION
+# ============================================================================
+#
+# ARCHITECTURE ROLE: Content Generation Layer - Location Content Creation
+#
+# This module provides AI-powered area and location generation with integrated
+# map layouts, creating comprehensive location files that serve as the
+# foundation for the module-centric geographic architecture.
+#
+# KEY RESPONSIBILITIES:
+# - AI-driven area and location content generation
+# - Map layout creation and ASCII map integration
+# - Schema-compliant area file structure creation
+# - Geographic relationship management within modules
+# - Location feature and description generation
+# - Integration with module builder for complete location systems
+#
+
 """
 Area Generator Script
 Creates area JSON files with map layouts based on module requirements.

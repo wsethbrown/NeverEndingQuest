@@ -60,9 +60,13 @@ User Input → Action Parsing → AI Processing → Validation → State Update 
 
 ### **Module-Centric File Structure**
 ```
+characters/             # Unified player/NPC storage (global)
+├── player_character.json
+├── npc_character.json
+└── ...
+
 modules/[module_name]/
 ├── areas/              # Location files (HH001.json, G001.json)
-├── characters/         # Unified player/NPC storage
 ├── monsters/           # Module-specific creatures
 ├── encounters/         # Combat encounters
 ├── module_plot.json    # Module plot progression
@@ -78,6 +82,11 @@ modules/campaign_summaries/  # AI-generated adventure chronicles
 ├── [Module]_summary_001.json
 ├── [Module]_summary_002.json
 └── ...
+
+save_games/             # Module-aware save system
+├── save_metadata.json
+├── save_[timestamp].json
+└── ...
 ```
 
 ### **ID and Naming Conventions**
@@ -89,11 +98,15 @@ modules/campaign_summaries/  # AI-generated adventure chronicles
 ## AI Integration Philosophy
 
 ### **Multi-Model Strategy**
-- **Primary DM**: Main narrative and game logic (GPT-4)
-- **Combat Manager**: Turn-based combat simulation
-- **Validator**: Response accuracy verification
-- **Content Generators**: Specialized builders for NPCs, monsters, locations
-- **Summarizers**: Adventure logs and conversation compression
+- **Primary DM**: Main narrative and game logic (GPT-4 or Claude)
+- **Combat Manager**: AI-driven turn-based combat simulation with validation
+- **Character Effects Validator**: AI-powered temporary effects validation system
+- **Level Up Manager**: AI-guided character progression with D&D 5e rule compliance
+- **Content Generators**: Specialized AI builders for NPCs, monsters, locations, and complete modules
+- **NPC Codex Generator**: AI-powered NPC extraction and validation registry creation
+- **Response Validator**: Separate AI model verifies narrative and mechanical accuracy
+- **Summarizers**: AI-generated adventure logs and conversation compression
+- **Module Builder**: AI-autonomous complete module generation with integrated validation
 
 ### **Validation Pipeline**
 1. **Syntax Validation**: JSON structure and parsing
@@ -269,5 +282,208 @@ When extending the system:
 - Maintain support for legacy file structures
 - Preserve existing API contracts where possible
 - Document breaking changes with migration guides
+
+## Save Game Management Architecture
+
+### **Module-Aware Save System**
+Our save game system provides comprehensive campaign persistence with intelligent module context preservation:
+
+- **Save State Capture**: Complete game state serialization including party tracker, conversation history, and module-specific data
+- **Module Context Preservation**: Saves include current module information for seamless restoration across different adventure contexts
+- **Save Metadata Management**: Timestamp tracking, character level snapshots, and location context for save file organization
+- **Cross-Module Save Compatibility**: Save files work seamlessly when transitioning between different adventure modules
+
+### **Save Game Architecture**
+```
+Save Game Structure:
+{
+  "metadata": {
+    "save_timestamp": "ISO_timestamp",
+    "current_module": "module_name",
+    "party_level_range": "1-3",
+    "current_location": "area_id"
+  },
+  "game_state": {
+    "party_tracker": {...},
+    "conversation_history": [...],
+    "module_data": {...}
+  }
+}
+```
+
+### **Atomic Save Operations**
+- **Backup Creation**: Automatic backup of existing saves before overwriting
+- **Write Verification**: Save integrity validation after write operations
+- **Rollback Capability**: Automatic restore of backup on save corruption detection
+- **Concurrent Access Protection**: File locking during save operations
+
+### **Save Discovery and Management**
+- **Automatic Save Detection**: Dynamic discovery of available save files
+- **Metadata-Driven Organization**: Save list presentation with contextual information
+- **Save Validation**: Schema compliance checking for save file integrity
+- **Legacy Save Migration**: Backward compatibility with older save formats
+
+## Player Storage System Architecture
+
+### **Location-Tied Storage Model**
+Our player storage system transforms game locations into persistent player bases with comprehensive inventory management:
+
+- **Location Storage Binding**: Any location can become a permanent storage facility through player interaction
+- **Storage Schema Integration**: Locations gain storage capabilities through dynamic schema extension
+- **Multi-Container Support**: Different storage container types (chests, barrels, rooms) with distinct capacity limits
+- **Persistent Storage State**: Storage contents preserved across game sessions and module transitions
+
+### **Storage System Components**
+```
+Storage Integration Pipeline:
+Location Detection → Storage Initialization → Schema Validation → Atomic Operations → State Persistence
+```
+
+### **Storage Manager Architecture**
+- **Atomic Storage Operations**: All storage modifications use backup/restore patterns for data integrity
+- **Concurrent Access Protection**: File locking prevents storage corruption during simultaneous access
+- **Schema-Driven Validation**: Storage operations validated against location and item schemas
+- **Cross-Module Storage Access**: Storage contents accessible when revisiting locations across different modules
+
+### **Storage Operation Patterns**
+```python
+# Storage operation with atomic protection:
+# 1. Create backup of current location state
+# 2. Modify location storage data
+# 3. Validate modified data against schema
+# 4. Write changes with integrity verification
+# 5. Clean up backup on successful operation
+```
+
+## Level Up Management Architecture
+
+### **AI-Driven Character Progression**
+Our level up system provides interactive, AI-guided character advancement with complete D&D 5e rule compliance:
+
+- **Isolated Subprocess Execution**: Level up operations run in separate process to prevent game state corruption
+- **AI-Guided Decision Making**: GPT-4 provides intelligent recommendations for character advancement choices
+- **Interactive Progression Interface**: Step-by-step guidance through ability score improvements, feat selection, and spell choices
+- **Rule Compliance Validation**: Automatic verification of all character advancement against D&D 5e rules
+
+### **Level Up Process Architecture**
+```
+Level Up Pipeline:
+XP Validation → Backup Creation → Subprocess Launch → AI Interaction → Rule Validation → Character Update → State Restoration
+```
+
+### **Character Advancement Components**
+- **Experience Point Validation**: Prevents duplicate XP awards and validates level progression thresholds
+- **Ability Score Management**: Guided ability score improvements with racial bonus calculations
+- **Feat Integration**: AI-assisted feat selection with prerequisite validation
+- **Spell Management**: Class-appropriate spell selection with spell slot calculation
+- **Equipment Integration**: Automatic equipment updates for class-specific gear
+
+### **Fault-Tolerant Design**
+- **Process Isolation**: Level up failures don't affect main game state
+- **Automatic Backup/Restore**: Character state protected through atomic operations
+- **Validation Layers**: Multiple validation passes ensure character sheet integrity
+- **Graceful Error Recovery**: Comprehensive error handling with rollback capabilities
+
+## Web Interface Architecture
+
+### **Real-Time Web Interface System**
+Our web interface provides a modern browser-based interface with real-time game state synchronization:
+
+- **Flask + SocketIO Integration**: Real-time bidirectional communication between web interface and game engine
+- **Tabbed Interface Design**: Organized character data presentation with dynamic tab management
+- **Queue-Based Output Management**: Threaded output processing for responsive user experience
+- **Cross-Platform Compatibility**: Browser-based interface works across different operating systems
+
+### **Web Interface Components**
+```
+Web Architecture Stack:
+Frontend (HTML/CSS/JS) → SocketIO Bridge → Flask Application → Game Engine Integration → File System
+```
+
+### **Real-Time Communication Patterns**
+- **Event-Driven Updates**: Game state changes broadcast immediately to connected clients
+- **Queue-Based Processing**: Output messages queued and processed asynchronously
+- **Session State Management**: Web sessions linked to game state for consistent experience
+- **Concurrent User Support**: Multiple browser sessions can monitor same game state
+
+### **Status Management System**
+
+### **Observer Pattern Status Tracking**
+Our status management system provides comprehensive real-time feedback across all game operations:
+
+- **Multi-Channel Status Updates**: Different status types (info, warning, error, success) with appropriate visual presentation
+- **Thread-Safe Status Queue**: Status updates processed safely across multiple threads
+- **Component-Specific Status**: Different game systems provide contextual status information
+- **Real-Time Status Broadcasting**: Status updates immediately visible in both console and web interfaces
+
+### **Status System Architecture**
+```python
+# Status update flow:
+# Game Component → Status Manager → Queue Processing → Interface Updates (Console + Web)
+```
+
+### **Status Categories and Integration**
+- **Combat Status**: Turn progression, damage calculations, and combat resolution updates
+- **Character Status**: Level progression, equipment changes, and ability modifications
+- **Module Status**: Location transitions, plot progression, and module loading information
+- **System Status**: File operations, AI processing, and validation results
+
+## Session Management Architecture
+
+### **Cross-System Session State**
+Our session management architecture maintains consistent state across all game systems and operations:
+
+- **Session Isolation**: Each major operation (save/load, level-up, storage management) maintains isolated session context
+- **State Synchronization**: Session state synchronized across console interface, web interface, and file system
+- **Session Recovery**: Robust session recovery mechanisms for interrupted operations
+- **Cross-Module Session Continuity**: Session state preserved during module transitions and adventure progression
+
+### **Session State Components**
+```
+Session Architecture:
+Game State ↔ Session Manager ↔ Operation Contexts (Save, Level-Up, Storage, Combat)
+                    ↕
+            Status Broadcasting System
+                    ↕
+        Interface Layers (Console + Web)
+```
+
+### **Session Lifecycle Management**
+- **Session Initialization**: Automatic session setup when game operations begin
+- **Context Preservation**: Operation-specific contexts maintained throughout complex workflows
+- **Session Cleanup**: Automatic cleanup of temporary session data and locks
+- **Session Migration**: Session state transferred seamlessly during module transitions
+
+## Atomic Operations Architecture
+
+### **Universal Backup/Restore Pattern**
+Our atomic operations architecture ensures data integrity across all game systems through comprehensive backup and restoration mechanisms:
+
+- **Pre-Operation Backups**: Automatic backup creation before any state-modifying operation
+- **Operation Validation**: Post-operation validation with automatic rollback on failure
+- **Multi-File Atomic Operations**: Coordinated atomic operations across multiple related files
+- **Nested Operation Support**: Atomic operations within atomic operations with proper cleanup
+
+### **Atomic Operation Patterns**
+```python
+# Universal atomic operation pattern:
+# 1. Create backup of all affected files
+# 2. Perform operation with validation at each step
+# 3. Verify final state integrity
+# 4. Clean up backups on success OR restore from backups on failure
+```
+
+### **Atomic Operation Integration**
+- **Character Operations**: All character modifications use atomic patterns (level-up, equipment, effects)
+- **Location Operations**: Location storage and modification operations with full backup protection
+- **Save Game Operations**: Save creation and loading with integrity verification
+- **Module Transitions**: Module changes coordinated across multiple file systems atomically
+- **Combat Operations**: Combat state changes with rollback capability for invalid states
+
+### **Fault Tolerance Design**
+- **Operation Logging**: Comprehensive logging of all atomic operations for debugging and recovery
+- **Automatic Recovery**: Failed operations automatically restored to pre-operation state
+- **Corruption Detection**: Automatic detection of file corruption with restoration from backups
+- **Graceful Degradation**: System continues operating even when some atomic operations fail
 
 This architecture philosophy ensures our D&D system remains maintainable, extensible, and reliable while embracing the power of AI-driven game management.

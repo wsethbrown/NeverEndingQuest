@@ -1,4 +1,23 @@
 #!/usr/bin/env python3
+# ============================================================================
+# PLOT_GENERATOR.PY - AI-DRIVEN NARRATIVE CONTENT CREATION
+# ============================================================================
+#
+# ARCHITECTURE ROLE: Content Generation Layer - Narrative Content Creation
+#
+# This module provides AI-powered plot generation for creating comprehensive
+# narrative content with detailed storylines, quest structures, and plot
+# progression systems compliant with module schemas.
+#
+# KEY RESPONSIBILITIES:
+# - AI-driven plot and narrative content generation
+# - Schema-compliant plot structure creation and validation
+# - Quest system integration with module architecture
+# - Narrative continuity management across plot elements
+# - Plot progression tracking and state management
+# - Integration with module builder and content generation pipeline
+#
+
 """
 Plot Generator Script
 Creates plot JSON files with detailed content based on schema requirements.
