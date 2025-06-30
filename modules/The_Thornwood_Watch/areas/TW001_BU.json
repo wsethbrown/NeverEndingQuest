@@ -373,9 +373,27 @@
         }
       ],
       "monsters": [
-        "2 Bandit Sentries (human bandits with crossbows)",
-        "3 Bandit Warriors (human bandits with scimitars and shields)",
-        "1 Bandit Captain Gorvek (half-orc with supernatural backing)"
+        {
+          "name": "Bandit Sentry",
+          "quantity": {
+            "min": 2,
+            "max": 2
+          }
+        },
+        {
+          "name": "Bandit Warrior",
+          "quantity": {
+            "min": 3,
+            "max": 3
+          }
+        },
+        {
+          "name": "Bandit Captain Gorvek",
+          "quantity": {
+            "min": 1,
+            "max": 1
+          }
+        }
       ],
       "lootTable": [
         "Chest containing stolen merchant goods worth 150 gold pieces",

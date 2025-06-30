@@ -225,7 +225,7 @@
       "locationId": "TW02",
       "name": "Bandit Trail",
       "type": "path",
-      "description": "A narrow path winding through dense thornbushes shows signs of frequent use by the bandit gang. Boot prints mix with drag marks in the muddy earth, while broken branches and disturbed undergrowth reveal the route to their hidden stronghold. Crude warning markers hang from twisted trees, meant to deter casual travelers.",
+      "description": "A narrow path winding through dense thornbushes shows signs of frequent use by the bandit gang. Boot prints mix with drag marks in the muddy earth, while broken branches and disturbed undergrowth reveal the route to their hidden stronghold. Crude warning markers hang from twisted trees, meant to deter casual travelers. A cleverly concealed rope snare trap has been identified and carefully avoided by the party, and near the edge of a clearing lies a battered cage half-buried in the undergrowth, hinting at previous bandit activity and potential clues.",
       "coordinates": "X3Y2",
       "connectivity": [
         "TW01",
@@ -237,24 +237,30 @@
       "npcs": [],
       "monsters": [],
       "lootTable": [],
-      "plotHooks": [],
-      "dmInstructions": "This trail leads toward the bandit stronghold. Consider having the party encounter bandit patrols or traps along the way. Use this location to build tension as they get closer to the main threat.",
+      "plotHooks": [
+        "Investigate the abandoned bandit camp and the half-buried cage for clues",
+        "Follow the trail cautiously towards the Bandit Stronghold",
+        "Avoid or disarm traps set along the bandit trail"
+      ],
+      "dmInstructions": "This trail leads toward the bandit stronghold. Watch for traps like the concealed rope snare and consider encounters with bandit patrols. Use this location to build tension as the party advances toward the main threat. Note the presence of an abandoned camp and potential clues left behind by bandits.",
       "doors": [],
       "traps": [
         {
           "name": "Concealed Rope Snare",
-          "description": "A hidden rope trap designed to catch pursuing rangers by the ankle.",
+          "description": "A hidden rope trap stretched low across the path, designed to catch pursuers by the ankle. The party chose to avoid disarming it and instead passed around it through dense undergrowth.",
           "detectDC": 14,
           "disableDC": 12,
-          "effect": "Restrains target, requires DC 15 Athletics or Acrobatics to escape"
+          "triggerDC": 15,
+          "damage": "Restrains target until escape by DC 15 Athletics or Acrobatics"
         }
       ],
       "dcChecks": [
         "Stealth DC 13: Move quietly to avoid alerting bandit patrols ahead",
         "Survival DC 11: Follow the bandit trail without losing the path",
-        "Perception DC 12: Notice warning markers and potential ambush points"
+        "Perception DC 12: Notice warning markers and potential ambush points",
+        "Investigation DC 14: Examine the abandoned bandit camp and the half-buried cage"
       ],
-      "accessibility": "Narrow forest path requiring careful navigation",
+      "accessibility": "Narrow forest path requiring careful navigation; progress slowed by dense undergrowth when avoiding traps",
       "dangerLevel": "Medium",
       "features": [
         {
@@ -264,16 +270,32 @@
         {
           "name": "Tracking Signs",
           "description": "Boot prints, broken vegetation, and drag marks showing frequent bandit movement toward their stronghold."
+        },
+        {
+          "name": "Abandoned Bandit Camp",
+          "description": "An old camp site with a battered cage half-buried near the clearing's edge, possibly containing clues or hidden stashes."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "TW02-E1",
+          "summary": "The party discovered fresh drag marks and signs of bandit complacency along the trail. Kira identified a concealed rope snare trap which the group chose to avoid rather than disarm. While bypassing the trap through dense undergrowth, they noted an abandoned bandit camp with a half-buried cage, hinting at possible clues left behind. The party elected to press onward toward the Bandit Stronghold as dusk fell.",
+          "impact": "The party avoided trap damage but slowed their travel. They gained valuable intelligence on bandit movements and potential leads from the abandoned camp. The cautious approach preserved the party's safety but increased travel time.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 2,
+            "time": "18:53:00"
+          }
+        }
+      ],
+      "adventureSummary": "At the Bandit Trail, the party detected fresh drag marks and a concealed rope snare trap, which they carefully avoided. They discovered an abandoned bandit camp with a half-buried cage, suggesting clues could be found. Deciding against exploring further, they pressed onward toward the Bandit Stronghold as dusk approached."
     },
     {
       "locationId": "TW03",
       "name": "Abandoned Camp",
       "type": "clearing",
-      "description": "A small clearing hidden within thorny undergrowth that once served as a temporary holding area for bandit captives. Empty cages and discarded rope show this camp was recently abandoned, with prisoners moved to other locations deeper in the forest.",
+      "description": "A small clearing hidden within thorny undergrowth that once served as a temporary holding area for bandit captives. Empty cages and discarded rope show this camp was recently abandoned, with prisoners moved to other locations deeper in the forest. Faint drag marks lead away from the central fire ring, suggesting a hurried evacuation to avoid an approaching threat.",
       "coordinates": "X3Y1",
       "connectivity": [
         "TW02",
@@ -282,25 +304,52 @@
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [],
-      "monsters": [],
+      "monsters": [
+        {
+          "name": "Whispering Ashling",
+          "quantity": {
+            "min": 2,
+            "max": 3
+          }
+        },
+        {
+          "name": "Ashbound Bandit",
+          "quantity": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
       "lootTable": [
         "Merchant's concealed coin purse",
         "Torn map showing bandit patrol routes",
-        "Abandoned prisoner belongings with clues to other captives"
+        "Abandoned prisoner belongings with clues to other captives",
+        "Half-burned bandit journal with ritual notes",
+        "Vial of alchemical fire (1d6 damage, single use)",
+        "Map fragment showing Bandit Trail and Grove connection",
+        "8-12 gold pieces from bandit's hidden pouch"
       ],
       "plotHooks": [
         "Evidence suggests captives were recently moved to other locations",
         "Other prisoners were taken deeper into the forest toward a permanent base",
         "The abandoned camp shows signs of hasty evacuation",
-        "Scattered belongings hint at the fate of missing travelers"
+        "Scattered belongings hint at the fate of missing travelers",
+        "Faint drag marks lead deeper into the Thornwood Wilds",
+        "Ashbound bandit reveals ritual gathering for 'the stone' if spared",
+        "Half-burned journal mentions Malarok's growing power and need for tribute",
+        "Ritual symbols found match those seen at other corruption sites"
       ],
-      "dmInstructions": "This abandoned camp shows evidence of the bandits' operations and recent evacuation. Use this location to build tension and direct the party toward active locations where they can find NPCs and engage with the plot.",
+      "dmInstructions": "This abandoned camp contains corrupted remnants of a failed ritual. The Whispering Ashlings (CR 1/8, 4-5 HP each) emerge first as eerie harassment, followed by the Ashbound Bandit (CR 1, ~18-20 HP) who is mad but can provide intel if spared. Start with discovery through investigation, not immediate combat. The encounter emphasizes Malarok's corruption theme while providing crucial plot information through the journal and bandit's ravings.",
       "doors": [],
       "traps": [],
       "dcChecks": [
         "Investigation DC 10: Study the abandoned captive area for clues about other prisoners",
         "Survival DC 11: Determine how recently the camp was evacuated",
-        "Investigation DC 12: Find evidence of where the captives were moved"
+        "Investigation DC 12: Find evidence of where the captives were moved",
+        "Perception DC 13: Notice faint drag marks leading away from the camp",
+        "Perception DC 13: Notice the Whispering Ashlings before they attack",
+        "Persuasion DC 15: Calm the Ashbound Bandit and extract information",
+        "Arcana DC 12: Identify the ritual symbols and their connection to corruption"
       ],
       "accessibility": "Hidden clearing accessible through dense undergrowth",
       "dangerLevel": "Medium",
@@ -316,10 +365,38 @@
         {
           "name": "Hidden Cache",
           "description": "A concealed supply stash containing prisoner rations and basic medical supplies."
+        },
+        {
+          "name": "Faint Drag Marks",
+          "description": "Subtle marks in the dirt and leaves indicating someone was dragged away hurriedly from the camp."
+        },
+        {
+          "name": "Ritual Circle",
+          "description": "A half-completed ritual circle drawn in ash and blood, with symbols matching Malarok's corruption magic."
+        },
+        {
+          "name": "Ashling Husks",
+          "description": "Remnants of failed ritual subjects, now animate with whispers of dark magic and seeking to drag others into their fate."
+        },
+        {
+          "name": "Bandit's Mad Shelter",
+          "description": "A crude lean-to where the Ashbound Bandit has been hiding, covered in frantic scribblings and ritual notes."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "TW03-E1",
+          "summary": "The party investigates the abandoned camp, noting signs of hasty evacuation and faint drag marks leading into the forest.",
+          "impact": "The party gains clues about the bandits' recent movements and the possible fate of captives, setting a trail to follow.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 2,
+            "time": "18:37:00"
+          }
+        }
+      ],
+      "adventureSummary": "At the Abandoned Camp, the party found evidence of a hasty bandit evacuation with empty cages and scattered belongings. Kira detected faint drag marks suggesting a captive was dragged away recently, prompting the party to follow the trail deeper into the woods with cautious resolve."
     },
     {
       "locationId": "TW04",
@@ -444,9 +521,27 @@
         }
       ],
       "monsters": [
-        "2 Bandit Sentries (human bandits with crossbows)",
-        "3 Bandit Warriors (human bandits with scimitars and shields)",
-        "1 Bandit Captain Gorvek (half-orc with supernatural backing)"
+        {
+          "name": "Bandit Sentry",
+          "quantity": {
+            "min": 2,
+            "max": 2
+          }
+        },
+        {
+          "name": "Bandit Warrior",
+          "quantity": {
+            "min": 3,
+            "max": 3
+          }
+        },
+        {
+          "name": "Bandit Captain Gorvek",
+          "quantity": {
+            "min": 1,
+            "max": 1
+          }
+        }
       ],
       "lootTable": [
         "Chest containing stolen merchant goods worth 150 gold pieces",

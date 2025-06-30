@@ -1745,16 +1745,43 @@ def main_game_loop():
             monsters_str = "None listed"
             if location_data and "monsters" in location_data:
                 monsters = location_data.get("monsters", [])
-                if monsters:
+                
+                # Bulletproof check: ensure monsters is actually a list/array
+                if not isinstance(monsters, (list, tuple)):
+                    monsters_str = f"Invalid monster data format: {type(monsters)}"
+                elif monsters:
                     monster_list = []
                     for monster in monsters:
-                        name = monster.get('name', 'Unknown')
-                        qty = monster.get('quantity', {})
-                        if isinstance(qty, dict):
-                            qty_str = f"{qty.get('min', 1)}-{qty.get('max', 1)}"
+                        # Graceful handling for different monster formats
+                        if isinstance(monster, str):
+                            # Handle legacy string format (just use the string)
+                            monster_list.append(f"- {monster}")
+                        elif isinstance(monster, dict):
+                            # Handle dictionary format (multiple schema versions)
+                            name = monster.get('name', 'Unknown')
+                            
+                            # Try different quantity field names
+                            qty = None
+                            qty_str = "1"
+                            
+                            if 'quantity' in monster:
+                                # Standard schema: {"quantity": {"min": 1, "max": 1}}
+                                qty = monster.get('quantity', {})
+                                if isinstance(qty, dict):
+                                    qty_str = f"{qty.get('min', 1)}-{qty.get('max', 1)}"
+                                else:
+                                    qty_str = str(qty)
+                            elif 'number' in monster:
+                                # Keep of Doom schema: {"number": "2d4"}
+                                qty_str = str(monster.get('number', 1))
+                            elif 'count' in monster:
+                                # Silver Vein schema: {"count": 2}
+                                qty_str = str(monster.get('count', 1))
+                            
+                            monster_list.append(f"- {name} ({qty_str})")
                         else:
-                            qty_str = str(qty)
-                        monster_list.append(f"- {name} ({qty_str})")
+                            # Handle unexpected types
+                            monster_list.append(f"- Unknown monster type: {type(monster)}")
                     monsters_str = "\n".join(monster_list)
 
             # Check ALL modules for plot completion before suggesting module creation

@@ -46,7 +46,7 @@
         "PP003"
       ],
       "status": "in progress",
-      "plotImpact": "The party safely disarmed a concealed rope snare on the Bandit Trail, demonstrating their preparedness and teamwork as they press closer to the bandit stronghold.",
+      "plotImpact": "Eirik and Kira have reached the bandit stronghold at nightfall, preparing to scout the heart of the enemy's operations and uncover Malarok's plans.",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -61,7 +61,7 @@
         {
           "id": "SQ004",
           "title": "Rescue the Lost",
-          "description": "The party discovers a cave where Wounded prisoners sheltered from from corrupted wolves. A prisoner has a partially completed map of the bandit camp's patrols. Antoher prisoner overheard the bandits talking about 'gathering tributes for the master's ritual' at some 'forgotten altar'.",
+          "description": "The party discovers a cave where wounded prisoners sheltered from corrupted wolves. A prisoner has a partially completed map of the bandit camp's patrols. Another prisoner overheard the bandits talking about 'gathering tributes for the master's ritual' at some 'forgotten altar'.",
           "involvedLocations": [
             "TW001"
           ],
