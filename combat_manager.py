@@ -359,22 +359,22 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
         {"role": "system", "content": validation_prompt}
     ]
     
-    # Add previous 6 user/assistant pairs for context
-    if conversation_history and len(conversation_history) > 12:
-        # Get the last 13 messages (6 pairs + current user input)
+    # Add previous 12 user/assistant pairs for context
+    if conversation_history and len(conversation_history) > 24:
+        # Get the last 25 messages (12 pairs + current user input)
         # But exclude the current user input since we'll add it separately
-        recent_messages = conversation_history[-13:-1]  # Last 12 messages before current
+        recent_messages = conversation_history[-25:-1]  # Last 24 messages before current
         
         # Filter to only user/assistant messages (no system messages)
         context_messages = [
             msg for msg in recent_messages 
             if msg["role"] in ["user", "assistant"]
-        ][-12:]  # Ensure we only get last 12 (6 pairs)
+        ][-24:]  # Ensure we only get last 24 (12 pairs)
         
         # Add context header and messages
         validation_conversation.append({
             "role": "system", 
-            "content": "=== PREVIOUS COMBAT CONTEXT (last 6 exchanges) ==="
+            "content": "=== PREVIOUS COMBAT CONTEXT (last 12 exchanges) ==="
         })
         validation_conversation.extend(context_messages)
     
