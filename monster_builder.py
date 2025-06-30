@@ -91,10 +91,42 @@ def save_json(file_name, data):
         print(f"{RED}Error saving to {file_name}: {str(e)}{RESET}")
         return False
 
-def generate_monster(monster_name, schema):
+def generate_monster(monster_name, schema, party_level=1):
+    # Build context-aware system prompt
+    system_content = """You are an assistant that creates monster schema JSON files from a master monster schema template for a 5e game. Given a monster name, create a JSON representation of the monster's stats and abilities according to 5e rules following the monster schema template exactly.
+
+CHALLENGE RATING GUIDANCE:
+- Party Level 1: CR 1/8 to CR 1/2 for normal encounters, CR 1 for boss encounters
+- Party Level 2: CR 1/4 to CR 1 for normal encounters, CR 2 for boss encounters  
+- Party Level 3: CR 1/2 to CR 1 for normal encounters, CR 2-3 for boss encounters
+- Party Level 4: CR 1/2 to CR 2 for normal encounters, CR 3-4 for boss encounters
+- Party Level 5+: Scale accordingly, normal encounters should be CR (level-2) to CR (level), bosses CR (level+1) to CR (level+2)
+
+ENCOUNTER BALANCE:
+- "low" danger: Use lower end of CR range
+- "medium" danger: Use middle of CR range  
+- "high" danger: Use higher end of CR range, consider adding special abilities
+- Multiple monsters: Reduce individual CR but increase tactical complexity
+
+NAMING CONVENTIONS:
+- For generic names like "Orc_1" or "Bandit_2", use standard Monster Manual names
+- For unique names, create custom monsters with that exact name
+- For corrupted/themed variants, add appropriate descriptors and abilities
+
+Ensure your new monster JSON adheres to the provided schema template. Do not include any additional properties or nested 'type' and 'value' fields. Return only the JSON content without any markdown formatting."""
+
+    # Build context-aware user prompt
+    user_content = f"""Create a monster named '{monster_name}' using 5e rules.
+
+PARTY LEVEL: {party_level}
+
+Scale Challenge Rating appropriately for party level {party_level} using the CR guidance above.
+
+Schema: {json.dumps(schema)}"""
+    
     prompt = [
-        {"role": "system", "content": "You are an assistant that creates monster schema JSON files from a master monster schema template for a 5e game. Given a monster name, create a JSON representation of the monster's stats and abilities according to 5e rules following the monster schema template exactly. Be sure to follow the monster bestiary for naming normal monsters based on the name provided. For example, if the name is Orc_1, then your monster name is an Orc. If you are given a named monster or boss then you can create a unique monster schema with that name as it will be unique. Ensure your new monster JSON adheres to the provided schema template. Do not include any additional properties or nested 'type' and 'value' fields. Return only the JSON content without any markdown formatting."},
-        {"role": "user", "content": f"Create a monster named '{monster_name}' using 5e rules. Schema: {json.dumps(schema)}"}
+        {"role": "system", "content": system_content},
+        {"role": "user", "content": user_content}
     ]
 
     try:
@@ -143,12 +175,29 @@ def main():
         print(f"{RED}Usage: python monster_builder.py <monster_name>{RESET}")
         return
 
-    monster_name_arg = sys.argv[1] # Renamed variable
-    schema_data = load_schema("mon_schema.json") # Renamed variable
+    monster_name_arg = sys.argv[1]
+    
+    # Get average party level from all character files
+    party_level = 1
+    try:
+        from encoding_utils import safe_json_load
+        party_tracker = safe_json_load("party_tracker.json")
+        if party_tracker and party_tracker.get("partyMembers"):
+            levels = []
+            for character_name in party_tracker["partyMembers"]:
+                character_data = safe_json_load(f"characters/{character_name}.json")
+                if character_data:
+                    levels.append(character_data.get("level", 1))
+            if levels:
+                party_level = round(sum(levels) / len(levels))
+    except:
+        party_level = 1
+    
+    schema_data = load_schema("mon_schema.json")
     if not schema_data:
         return
 
-    generated_monster_data = generate_monster(monster_name_arg, schema_data) # Renamed variable
+    generated_monster_data = generate_monster(monster_name_arg, schema_data, party_level)
     if generated_monster_data:
         # Get current module from party tracker for consistent path resolution
         try:
