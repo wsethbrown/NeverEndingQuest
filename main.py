@@ -963,7 +963,7 @@ def generate_module_summary(conversation_history, party_tracker_data, module_nam
                 # Generate summary using AI
                 client = OpenAI(api_key=config.OPENAI_API_KEY)
                 
-                summary_prompt = f"""You are creating an adventure chronicle for a D&D session. Summarize this actual gameplay conversation from the {module_name} module into a compelling narrative story.
+                summary_prompt = f"""You are creating an adventure chronicle for a 5th edition session. Summarize this actual gameplay conversation from the {module_name} module into a compelling narrative story.
 
 IMPORTANT: Only include events that actually happened in the conversation. Do not add events from other sources.
 
@@ -984,7 +984,7 @@ Write a compelling chronicle of these actual events:"""
                 response = client.chat.completions.create(
                     model=config.DM_SUMMARIZATION_MODEL,
                     messages=[
-                        {"role": "system", "content": "You are an expert at creating beautiful adventure chronicles from D&D gameplay, focusing only on events that actually occurred."},
+                        {"role": "system", "content": "You are an expert at creating beautiful adventure chronicles from 5th edition gameplay, focusing only on events that actually occurred."},
                         {"role": "user", "content": summary_prompt}
                     ],
                     temperature=0.7

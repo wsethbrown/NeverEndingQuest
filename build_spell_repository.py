@@ -140,7 +140,7 @@ class SpellRepositoryBuilder:
         
     def create_spell_prompt(self, spell_name):
         """Create prompt for AI to generate spell information"""
-        return f"""Please provide detailed information for the D&D 5e spell "{spell_name}" in the following JSON format. Use only official SRD 5.2.1 information (CC BY 4.0 licensed content). Be accurate and complete:
+        return f"""Please provide detailed information for the 5th edition spell "{spell_name}" in the following JSON format. Use only official SRD 5.2.1 information (CC BY 4.0 licensed content). Be accurate and complete:
 
 {{
   "name": "Exact spell name",
@@ -180,7 +180,7 @@ Respond with ONLY the JSON object, no additional text."""
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": "You are a D&D 5e rules expert. Provide accurate spell information from the SRD 5.2.1 in the requested JSON format."},
+                    {"role": "system", "content": "You are a 5th edition rules expert. Provide accurate spell information from the SRD 5.2.1 in the requested JSON format."},
                     {"role": "user", "content": prompt}
                 ],
                 max_tokens=1000,
@@ -365,7 +365,7 @@ Respond with ONLY the JSON object, no additional text."""
 
 def main():
     """Main function to build spell repository"""
-    print("D&D 5e Spell Repository Builder")
+    print("5th Edition Spell Repository Builder")
     print("=" * 40)
     
     builder = SpellRepositoryBuilder()

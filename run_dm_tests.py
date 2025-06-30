@@ -57,7 +57,7 @@ class DMTestRunner:
                 return f.read()
         except:
             # Fallback to test prompt
-            return """You are a D&D 5e Dungeon Master. You must ALWAYS respond with a JSON object in this exact format:
+            return """You are a 5th edition Dungeon Master. You must ALWAYS respond with a JSON object in this exact format:
 
 {
   "narration": "Your descriptive text and dialogue here",

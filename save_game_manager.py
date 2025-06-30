@@ -12,7 +12,7 @@ Handles save and restore functionality for game state preservation.
 # ARCHITECTURE ROLE: Data Management Layer - Game State Persistence
 # 
 # This module implements comprehensive save and restore functionality for the
-# D&D Dungeon Master system, preserving complete game state while maintaining
+# 5th edition Dungeon Master system, preserving complete game state while maintaining
 # module-centric architecture and conversation timeline integrity.
 # 
 # KEY RESPONSIBILITIES:

@@ -320,7 +320,7 @@ class DMResponseValidator:
         return errors
     
     def validate_game_rules(self, data: Dict) -> List[str]:
-        """Validate against D&D 5e game rules"""
+        """Validate against 5th edition game rules"""
         errors = []
         
         for i, action in enumerate(data.get("actions", [])):

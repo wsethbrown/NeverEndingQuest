@@ -279,7 +279,7 @@ def _ai_analyze_starting_location(module_data: dict) -> tuple:
     try:
         client = OpenAI(api_key=config.OPENAI_API_KEY)
         
-        system_prompt = """You are an expert D&D adventure module analyst. Analyze the provided module data to determine the most logical starting location for player characters entering this adventure module.
+        system_prompt = """You are an expert 5th edition adventure module analyst. Analyze the provided module data to determine the most logical starting location for player characters entering this adventure module.
 
 ANALYSIS CRITERIA:
 1. **Adventure Flow**: Look at plot points (PP001 usually indicates starting area)
@@ -300,7 +300,7 @@ Respond with ONLY a JSON object in this exact format:
 
 Use the EXACT locationId and areaId from the provided data. Do not create new IDs."""
 
-        user_prompt = f"""Analyze this D&D adventure module to determine the starting location:
+        user_prompt = f"""Analyze this 5th edition adventure module to determine the starting location:
 
 MODULE DATA:
 {json.dumps(module_data, indent=2)}
@@ -1421,7 +1421,7 @@ def get_ai_npc_movement_decision(npc_name, context, npc_data, area_data, locatio
             print(f"WARNING: Could not load location schema: {e}")
             location_schema = None
         
-        system_prompt = f"""You are an expert D&D narrative manager specialized in NPC movement and status changes. Your job is to make intelligent decisions about background NPCs based on narrative context while maintaining strict game world consistency.
+        system_prompt = f"""You are an expert 5th edition narrative manager specialized in NPC movement and status changes. Your job is to make intelligent decisions about background NPCs based on narrative context while maintaining strict game world consistency.
 
 CRITICAL DISTINCTIONS:
 - BACKGROUND NPCs: NPCs found in location files who are not traveling with the party

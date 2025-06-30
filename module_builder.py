@@ -436,7 +436,7 @@ The plot title should reference this specific area, not other locations.
                     all_side_quests.append(sq_with_context)
         
         # Create AI prompt for unification
-        prompt = f"""You are an expert D&D module designer. Combine these individual area plots into a single, coherent module-wide plot structure.
+        prompt = f"""You are an expert 5th edition module designer. Combine these individual area plots into a single, coherent module-wide plot structure.
 
 MODULE CONTEXT:
 - Module Name: {self.module_data.get('moduleName', 'Unknown')}
@@ -504,7 +504,7 @@ IMPORTANT:
             response = client.chat.completions.create(
                 model=DM_MAIN_MODEL,
                 messages=[
-                    {"role": "system", "content": "You are an expert D&D module designer specializing in creating coherent, engaging adventure narratives."},
+                    {"role": "system", "content": "You are an expert 5th edition module designer specializing in creating coherent, engaging adventure narratives."},
                     {"role": "user", "content": prompt}
                 ],
                 response_format={"type": "json_object"},
@@ -708,7 +708,7 @@ IMPORTANT:
             if hooks:
                 existing_hooks.extend(hooks)
         
-        prompt = f"""You are updating plot hooks for a D&D area to reference specific unified plot points.
+        prompt = f"""You are updating plot hooks for a 5th edition area to reference specific unified plot points.
 
 AREA: {area_data.get('areaName', area_id)} ({area_id})
 AREA DESCRIPTION: {area_data.get('areaDescription', '')}
@@ -756,7 +756,7 @@ IMPORTANT:
             response = client.chat.completions.create(
                 model=DM_MAIN_MODEL,
                 messages=[
-                    {"role": "system", "content": "You are an expert D&D module designer specializing in creating actionable plot hooks that reference specific plot elements."},
+                    {"role": "system", "content": "You are an expert 5th edition module designer specializing in creating actionable plot hooks that reference specific plot elements."},
                     {"role": "user", "content": prompt}
                 ],
                 response_format={"type": "json_object"},
@@ -1030,7 +1030,7 @@ def parse_narrative_to_module_params(narrative: str) -> Dict[str, Any]:
     
     client = OpenAI(api_key=config.OPENAI_API_KEY)
     
-    parsing_prompt = """You are a module configuration parser. Given a narrative description of a D&D adventure module, extract the key parameters needed for module generation.
+    parsing_prompt = """You are a module configuration parser. Given a narrative description of a 5th edition adventure module, extract the key parameters needed for module generation.
 
 The narrative may contain embedded parameters in this format:
 - **Module Name**: _Name_With_Underscores_
