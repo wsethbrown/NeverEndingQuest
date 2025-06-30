@@ -214,25 +214,50 @@
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [],
-      "monsters": [],
+      "monsters": [
+        {
+          "name": "Whispering Ashling",
+          "quantity": {
+            "min": 2,
+            "max": 3
+          }
+        },
+        {
+          "name": "Ashbound Bandit",
+          "quantity": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
       "lootTable": [
         "Merchant's concealed coin purse",
         "Torn map showing bandit patrol routes",
-        "Abandoned prisoner belongings with clues to other captives"
+        "Abandoned prisoner belongings with clues to other captives",
+        "Half-burned bandit journal with ritual notes",
+        "Vial of alchemical fire (1d6 damage, single use)",
+        "Map fragment showing Bandit Trail and Grove connection",
+        "8-12 gold pieces from bandit's hidden pouch"
       ],
       "plotHooks": [
         "Evidence suggests captives were recently moved to other locations",
         "Other prisoners were taken deeper into the forest toward a permanent base",
         "The abandoned camp shows signs of hasty evacuation",
-        "Scattered belongings hint at the fate of missing travelers"
+        "Scattered belongings hint at the fate of missing travelers",
+        "Ashbound bandit reveals ritual gathering for 'the stone' if spared",
+        "Half-burned journal mentions Malarok's growing power and need for tribute",
+        "Ritual symbols found match those seen at other corruption sites"
       ],
-      "dmInstructions": "This abandoned camp shows evidence of the bandits' operations and recent evacuation. Use this location to build tension and direct the party toward active locations where they can find NPCs and engage with the plot.",
+      "dmInstructions": "This abandoned camp contains corrupted remnants of a failed ritual. The Whispering Ashlings (CR 1/8, 4-5 HP each) emerge first as eerie harassment, followed by the Ashbound Bandit (CR 1, ~18-20 HP) who is mad but can provide intel if spared. Start with discovery through investigation, not immediate combat. The encounter emphasizes Malarok's corruption theme while providing crucial plot information through the journal and bandit's ravings.",
       "doors": [],
       "traps": [],
       "dcChecks": [
         "Investigation DC 10: Study the abandoned captive area for clues about other prisoners",
         "Survival DC 11: Determine how recently the camp was evacuated",
-        "Investigation DC 12: Find evidence of where the captives were moved"
+        "Investigation DC 12: Find evidence of where the captives were moved",
+        "Perception DC 13: Notice the Whispering Ashlings before they attack",
+        "Persuasion DC 15: Calm the Ashbound Bandit and extract information",
+        "Arcana DC 12: Identify the ritual symbols and their connection to corruption"
       ],
       "accessibility": "Hidden clearing accessible through dense undergrowth",
       "dangerLevel": "Medium",
@@ -248,6 +273,18 @@
         {
           "name": "Hidden Cache",
           "description": "A concealed supply stash containing prisoner rations and basic medical supplies."
+        },
+        {
+          "name": "Ritual Circle",
+          "description": "A half-completed ritual circle drawn in ash and blood, with symbols matching Malarok's corruption magic."
+        },
+        {
+          "name": "Ashling Husks",
+          "description": "Remnants of failed ritual subjects, now animate with whispers of dark magic and seeking to drag others into their fate."
+        },
+        {
+          "name": "Bandit's Mad Shelter",
+          "description": "A crude lean-to where the Ashbound Bandit has been hiding, covered in frantic scribblings and ritual notes."
         }
       ],
       "encounters": [],
