@@ -736,6 +736,22 @@ COMMON STORAGE TRANSACTION ERRORS TO CATCH:
 
 If currency math is wrong or sequence is incorrect, REJECT the response and explain the proper format with correct calculations.
 
+
+## EXPERIENCE POINT (XP) VALIDATION RULES
+
+Your validation of XP awards must follow this strict two-part system:
+
+### 1. Post-Combat XP (PROHIBITED)
+After a "Combat Summary" message appears in the conversation history, the AI DM is **strictly prohibited** from generating `updateCharacterInfo` actions to award combat XP.
+
+*   **Validation Failure:** Any XP awarded by the AI following a "Combat Summary" is a critical error. The AI's response must be purely narrative.
+
+### 2. Narrative Takedown XP (REQUIRED)
+If the AI DM narrates the defeat of an enemy *outside* of a formal combat encounter (i.e., no "Combat Summary" has preceded it), it is **required** to award XP in the *same* JSON response.
+
+*   **Validation Failure:** Failing to immediately award XP after narrating a takedown is a critical error. The `updateCharacterInfo` actions for XP are missing.
+
+
 ## NPC PARTY JOINING VALIDATION RULES
 
 When NPCs volunteer, are recruited, or are asked to join the party, the AI should evaluate whether the NPC would realistically agree and handle party composition updates appropriately:
