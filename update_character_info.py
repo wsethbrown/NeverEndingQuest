@@ -439,6 +439,48 @@ def validate_character_data(data, schema, character_name):
             error_msg += f" at path: {'.'.join(map(str, e.path))}"
         return False, error_msg
 
+def purge_invalid_fields(data, schema, character_name=""):
+    """
+    Remove fields from character data that are not in the schema.
+    This prevents validation failures from AI-added invalid fields.
+    
+    Args:
+        data (dict): Character data to clean
+        schema (dict): Schema to validate against
+        character_name (str): Character name for logging
+    
+    Returns:
+        tuple: (cleaned_data, removed_fields_list)
+    """
+    if not isinstance(data, dict) or not isinstance(schema, dict):
+        return data, []
+    
+    schema_properties = schema.get('properties', {})
+    removed_fields = []
+    cleaned_data = {}
+    
+    for field, value in data.items():
+        if field in schema_properties:
+            # Field exists in schema - keep it (but recursively clean if it's an object)
+            field_schema = schema_properties[field]
+            if isinstance(value, dict) and field_schema.get('type') == 'object':
+                # Recursively clean nested objects
+                if 'properties' in field_schema:
+                    cleaned_value, nested_removed = purge_invalid_fields(value, field_schema, f"{character_name}.{field}")
+                    cleaned_data[field] = cleaned_value
+                    if nested_removed:
+                        removed_fields.extend([f"{field}.{nf}" for nf in nested_removed])
+                else:
+                    cleaned_data[field] = value
+            else:
+                cleaned_data[field] = value
+        else:
+            # Field not in schema - remove it
+            removed_fields.append(field)
+            print(f"{ORANGE}PURGED invalid field '{field}' from {character_name}{RESET}")
+    
+    return cleaned_data, removed_fields
+
 def create_character_backup(character_path, backup_reason="update"):
     """
     Create a timestamped backup of a character file before making changes
@@ -747,6 +789,11 @@ Character Role: {character_role}
             
             # Role-specific normalization
             updated_data = normalize_status_and_condition(updated_data, character_role)
+            
+            # Purge invalid fields before validation
+            updated_data, removed_fields = purge_invalid_fields(updated_data, schema, character_name)
+            if removed_fields:
+                print(f"{ORANGE}Purged {len(removed_fields)} invalid fields: {', '.join(removed_fields)}{RESET}")
             
             # Validate updated data
             is_valid, error_msg = validate_character_data(updated_data, schema, character_name)

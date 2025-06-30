@@ -12,9 +12,9 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 21,
+  "hitPoints": 4,
   "maxHitPoints": 21,
-  "armorClass": 16,
+  "armorClass": 17,
   "initiative": 1,
   "speed": 30,
   "abilities": {
@@ -369,7 +369,7 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 3,
+        "current": 1,
         "max": 3
       },
       "level2": {
@@ -413,14 +413,6 @@
       "Protection from Evil and Good",
       "Sanctuary",
       "Shield of Faith"
-    ],
-    "temporaryEffects": [
-      {
-        "target": "Kira",
-        "effect": "Guidance",
-        "description": "+1d4 bonus on next ability check",
-        "duration": "next ability check"
-      }
     ]
   },
   "currency": {
@@ -428,7 +420,7 @@
     "silver": 0,
     "copper": 0
   },
-  "experience_points": 300,
+  "experience_points": 675,
   "exp_required_for_next_level": 900,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",
