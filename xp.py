@@ -73,7 +73,7 @@ def main():
         return "No active combat encounter found.", 0
 
     # Load the active encounter
-    encounter_filename = f"encounter_{active_encounter_id}.json"
+    encounter_filename = f"modules/encounters/encounter_{active_encounter_id}.json"
     if not os.path.exists(encounter_filename):
         return f"Encounter file {encounter_filename} not found.", 0
 

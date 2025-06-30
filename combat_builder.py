@@ -317,7 +317,9 @@ def main():
     encounter = generate_encounter(encounter_data)
     
     if encounter:
-        encounter_file = f"encounter_{encounter['encounterId']}.json"
+        # Ensure centralized encounters directory exists
+        os.makedirs("modules/encounters", exist_ok=True)
+        encounter_file = f"modules/encounters/encounter_{encounter['encounterId']}.json"
         logging.debug(f"Saving encounter data: {json.dumps(encounter, indent=2)}")
         if save_json(encounter_file, encounter):
             logging.info(f"Encounter successfully built and saved to {encounter_file}")

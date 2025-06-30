@@ -772,7 +772,7 @@ def sync_active_encounter():
             return
             
         # Load the encounter file
-        encounter_file = f"encounter_{active_encounter_id}.json"
+        encounter_file = f"modules/encounters/encounter_{active_encounter_id}.json"
         encounter_data = safe_json_load(encounter_file)
         if not encounter_data:
             print(f"ERROR: Failed to load encounter file: {encounter_file}")
@@ -899,7 +899,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    save_json_file(third_model_history_file, third_model_history)
    
    # Load encounter data
-   json_file_path = f"encounter_{encounter_id}.json"
+   json_file_path = f"modules/encounters/encounter_{encounter_id}.json"
    try:
        encounter_data = safe_json_load(json_file_path)
        if not encounter_data:
@@ -1276,7 +1276,7 @@ Player: The setup scene for the combat has already been given and described to t
            print(f"ERROR: Failed to reload player file {player_file}: {str(e)}")
        
        # Reload encounter data
-       json_file_path = f"encounter_{encounter_id}.json"
+       json_file_path = f"modules/encounters/encounter_{encounter_id}.json"
        try:
            encounter_data = safe_json_load(json_file_path)
            if encounter_data:
@@ -1647,7 +1647,7 @@ Player: {user_input_text}"""
                    print(f"DEBUG: Combat advancing from round {current_round} to round {new_round}")
                    encounter_data['current_round'] = new_round
                    # Save the updated encounter data
-                   save_json_file(f"encounter_{encounter_id}.json", encounter_data)
+                   save_json_file(f"modules/encounters/encounter_{encounter_id}.json", encounter_data)
                elif isinstance(new_round, int) and new_round < current_round:
                    print(f"DEBUG: Ignoring backward round progression from {current_round} to {new_round}")
            

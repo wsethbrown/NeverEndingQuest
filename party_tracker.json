@@ -1,39 +1,32 @@
 {
-    "module": "The_Thornwood_Watch",
-    "partyMembers": [
-        "eirik_hearthwise"
-    ],
-    "partyNPCs": [
-        {
-            "name": "Scout Kira",
-            "role": "Ranger guide and specialist in local flora",
-            "level": 2
-        }
-    ],
-    "worldConditions": {
-        "year": 1492,
-        "month": "Springmonth",
-        "day": 2,
-        "time": "18:23:00",
-        "weather": "",
-        "season": "Spring",
-        "dayNightCycle": "Night",
-        "moonPhase": "New Moon",
-        "currentLocation": "Bandit Trail",
-        "currentLocationId": "TW02",
-        "currentArea": "Thornwood Wilds",
-        "currentAreaId": "TW001",
-        "majorEventsUnderway": [],
-        "politicalClimate": "",
-        "activeEncounter": "",
-        "activeCombatEncounter": ""
-    },
-    "activeQuests": [
-        {
-            "id": "PP002",
-            "title": "Into the Thornwood",
-            "description": "Following leads from Rusk, the party ventures into the Thornwood Wilds to find the main bandit camp, located in an old, crumbling watchtower. They must overcome unnaturally aggressive wildlife and bandit patrols to reach the camp, rescue any surviving captives, and find clues about Malarok's ultimate goal.",
-            "status": "in progress"
-        }
-    ]
+  "module": "The_Thornwood_Watch",
+  "partyMembers": [
+    "eirik_hearthwise"
+  ],
+  "partyNPCs": [
+    {
+      "name": "Scout Kira",
+      "role": "Ranger guide and specialist in local flora",
+      "level": 2
+    }
+  ],
+  "worldConditions": {
+    "year": 1492,
+    "month": "Springmonth",
+    "day": 2,
+    "time": "20:12:00",
+    "weather": "",
+    "season": "Spring",
+    "dayNightCycle": "Night",
+    "moonPhase": "New Moon",
+    "currentLocation": "Rangers' Command Post",
+    "currentLocationId": "RO01",
+    "currentArea": "Rangers' Outpost",
+    "currentAreaId": "RO001",
+    "majorEventsUnderway": [],
+    "politicalClimate": "",
+    "activeEncounter": "",
+    "activeCombatEncounter": ""
+  },
+  "activeQuests": []
 }

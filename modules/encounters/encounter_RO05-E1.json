@@ -1,0 +1,64 @@
+{
+  "encounterId": "RO05-E1",
+  "creatures": [
+    {
+      "name": "Eirik Hearthwise",
+      "type": "player",
+      "initiative": 15,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 4,
+      "maxHitPoints": 11,
+      "armorClass": 16
+    },
+    {
+      "name": "Wolf",
+      "type": "enemy",
+      "monsterType": "wolf",
+      "initiative": 0,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 0,
+      "maxHitPoints": 11
+    },
+    {
+      "name": "Wolf_2",
+      "type": "enemy",
+      "monsterType": "wolf",
+      "initiative": 2,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -2,
+      "maxHitPoints": 11
+    },
+    {
+      "name": "Scout Kira",
+      "type": "npc",
+      "npcType": "scout_kira",
+      "initiative": 17,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 10,
+      "maxHitPoints": 10,
+      "armorClass": 15
+    }
+  ],
+  "encounterSummary": "Two hungry wolves emerge from the rubble of the Forgotten Waystation, circling to attack Eirik and Kira as they search for Sila's stolen chest.",
+  "current_round": 3
+}

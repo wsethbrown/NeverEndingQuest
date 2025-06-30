@@ -348,7 +348,10 @@ class ModuleDebugger:
         print("\n[combat_manager.py checks]")
         
         # Check for encounter files
-        encounter_files = [f for f in os.listdir(".") if f.startswith("encounter_") and f.endswith(".json")]
+        encounter_dir = "modules/encounters"
+        encounter_files = []
+        if os.path.exists(encounter_dir):
+            encounter_files = [f for f in os.listdir(encounter_dir) if f.startswith("encounter_") and f.endswith(".json")]
         if not encounter_files:
             self.log_info("No active encounter files found (normal for non-combat)")
         else:

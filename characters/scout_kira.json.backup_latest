@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 19,
   "maxHitPoints": 19,
-  "armorClass": 15,
+  "armorClass": 16,
   "initiative": 4,
   "speed": 35,
   "abilities": {
@@ -30,7 +30,7 @@
     "intelligence"
   ],
   "skills": {
-    "stealth": 6,
+    "stealth": 7,
     "perception": 4,
     "survival": 4,
     "nature": 2,
@@ -124,7 +124,14 @@
     "description": "Kira has an excellent memory for maps and geography, and can always recall the general layout of terrain, settlements, and other features. She can find food and fresh water for herself and up to five others each day, provided the land offers berries, small game, water, and so forth.",
     "source": "Outlander"
   },
-  "temporaryEffects": [],
+  "temporaryEffects": [
+    {
+      "name": "Shield of Faith",
+      "description": "+2 AC for up to 10 minutes, concentration required by Eirik",
+      "duration": "10 minutes",
+      "source": "Eirik"
+    }
+  ],
   "injuries": [],
   "equipment_effects": [],
   "feats": [],
@@ -194,7 +201,7 @@
       "item_name": "Quiver of Arrows",
       "item_type": "ammunition",
       "item_subtype": "other",
-      "description": "A quiver containing arrows.",
+      "description": "A quiver containing arrows recovered from the downed sentry.",
       "quantity": 1,
       "equipped": false,
       "magical": false,
@@ -212,39 +219,89 @@
     },
     {
       "item_name": "Yew Ward Charm",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A protective charm made of braided yew wood, granting resistance to magical corruption from the Voidstone.",
       "quantity": 1,
       "equipped": true,
       "magical": false,
       "consumable": false
+    },
+    {
+      "item_name": "Pouch of silver coins",
+      "item_type": "miscellaneous",
+      "description": "A small pouch containing silver coins.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Trail rations",
+      "item_type": "consumable",
+      "item_subtype": "food",
+      "description": "Dried meats, hard bread, and nuts for sustenance on the road.",
+      "quantity": 3,
+      "equipped": false,
+      "magical": false,
+      "consumable": true
+    },
+    {
+      "item_name": "Crossbow",
+      "item_type": "weapon",
+      "description": "A simple ranged weapon recovered from the downed sentry.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false,
+      "damage": "1d8 piercing",
+      "attack_bonus": 2,
+      "weapon_type": "ranged"
+    },
+    {
+      "item_name": "Small Pouch of Coins",
+      "item_type": "miscellaneous",
+      "description": "A small pouch containing assorted coins recovered from the sentry.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Battered Holy Symbol of Tymora",
+      "item_type": "miscellaneous",
+      "description": "A worn holy symbol of Tymora, the goddess of luck.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Flask of Whiskey",
+      "item_type": "consumable",
+      "item_subtype": "potion",
+      "description": "A small flask containing whiskey, kept from the bandit bodies.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": true
     }
   ],
   "ammunition": [
     {
-      "name": "Arrow",
-      "quantity": 18,
-      "description": "Ammunition for a shortbow."
+      "name": "Crossbow bolt",
+      "quantity": 10,
+      "description": "Ammunition for crossbows."
     }
   ],
   "attacksAndSpellcasting": [
     {
-      "name": "Shortbow",
-      "attackBonus": 4,
+      "name": "Shortbow Shot",
+      "attackBonus": 6,
       "damageDice": "1d6",
       "damageBonus": 3,
       "damageType": "piercing",
       "type": "ranged",
-      "description": "Ranged Weapon Attack: +4 to hit, range 80/320 ft., one target. Hit: 1d6+3 piercing damage."
-    },
-    {
-      "name": "Shortsword",
-      "attackBonus": 4,
-      "damageDice": "1d6",
-      "damageBonus": 3,
-      "damageType": "piercing",
-      "type": "melee",
-      "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 1d6+3 piercing damage."
+      "description": "Kira fires another arrow from her shortbow, striking Captain Gorvek with deadly precision."
     }
   ],
   "spellcasting": {
@@ -304,11 +361,11 @@
     "preparedSpells": []
   },
   "currency": {
-    "gold": 11,
-    "silver": 5,
-    "copper": 25
+    "gold": 25,
+    "silver": 13,
+    "copper": 38
   },
-  "experience_points": 300,
+  "experience_points": 800,
   "exp_required_for_next_level": 900,
   "challengeRating": 0.25,
   "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale.",

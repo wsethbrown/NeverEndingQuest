@@ -130,7 +130,7 @@ class SaveGameManager:
         
         # Add active encounter files using glob
         import glob
-        encounter_files = glob.glob("encounter_*.json")
+        encounter_files = glob.glob("modules/encounters/encounter_*.json")
         essential_files.extend(encounter_files)
         
         return essential_files
@@ -232,7 +232,7 @@ class SaveGameManager:
                     return True
         
         # Special check for encounter files
-        if filepath.startswith("encounter_") and filepath.endswith(".json"):
+        if filepath.startswith("modules/encounters/encounter_") and filepath.endswith(".json"):
             return True
         
         # For full save mode, also check optional files

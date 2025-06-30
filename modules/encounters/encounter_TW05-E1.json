@@ -1,0 +1,51 @@
+{
+  "encounterId": "TW05-E1",
+  "creatures": [
+    {
+      "name": "Eirik Hearthwise",
+      "type": "player",
+      "initiative": 4,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 4,
+      "maxHitPoints": 21,
+      "armorClass": 17
+    },
+    {
+      "name": "Bandit Captain Gorvek",
+      "type": "enemy",
+      "monsterType": "bandit_captain_gorvek",
+      "initiative": 5,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -3,
+      "maxHitPoints": 45
+    },
+    {
+      "name": "Scout Kira",
+      "type": "npc",
+      "npcType": "scout_kira",
+      "initiative": 7,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 19,
+      "maxHitPoints": 19,
+      "armorClass": 16
+    }
+  ],
+  "encounterSummary": "With the sentries and bandit warriors eliminated through stealth, Eirik and Kira launch a surprise assault on Bandit Captain Gorvek, the last enemy standing in the stronghold. The firelight flickers as the final showdown begins.",
+  "current_round": 5,
+  "combat_round": 5
+}

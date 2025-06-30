@@ -47,6 +47,9 @@ class ModulePathManager:
     # Class-level variable to track last logged module across all instances
     _last_module_logged = None
     
+    # Centralized encounters directory
+    ENCOUNTERS_DIR = "modules/encounters"
+    
     def __init__(self, module_name=None):
         self.module_name = module_name or self._get_active_module()
         self.module_dir = f"modules/{self.module_name}"
@@ -226,8 +229,12 @@ class ModulePathManager:
     
     # Encounter paths
     def get_encounter_path(self, location_id, encounter_num):
-        """Get the path to an encounter file"""
-        return f"encounter_{location_id}-E{encounter_num}.json"
+        """Get the path to an encounter file in the centralized encounters directory"""
+        return f"{self.ENCOUNTERS_DIR}/encounter_{location_id}-E{encounter_num}.json"
+    
+    def get_encounter_path_from_id(self, encounter_id):
+        """Get the path to an encounter file using a full encounter ID"""
+        return f"{self.ENCOUNTERS_DIR}/encounter_{encounter_id}.json"
     
     # Random encounter paths
     def get_random_encounter_path(self):
@@ -247,6 +254,11 @@ class ModulePathManager:
         areas_dir = f"{self.module_dir}/areas"
         os.makedirs(areas_dir, exist_ok=True)
         return areas_dir
+    
+    def ensure_encounters_directory(self):
+        """Ensure the centralized encounters directory exists"""
+        os.makedirs(self.ENCOUNTERS_DIR, exist_ok=True)
+        return self.ENCOUNTERS_DIR
     
     # Check if a file exists
     def file_exists(self, path):

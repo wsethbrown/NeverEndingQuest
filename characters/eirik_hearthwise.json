@@ -12,9 +12,9 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 4,
+  "hitPoints": 13,
   "maxHitPoints": 21,
-  "armorClass": 17,
+  "armorClass": 16,
   "initiative": 1,
   "speed": 30,
   "abilities": {
@@ -160,14 +160,14 @@
       "item_name": "Crossbow bolts",
       "item_type": "ammunition",
       "item_subtype": "other",
-      "description": "Ammunition for a light crossbow.",
-      "quantity": 20
+      "description": "Ammunition for light crossbow.",
+      "quantity": 10
     },
     {
       "item_name": "Priest's pack",
       "item_type": "equipment",
       "item_subtype": "other",
-      "description": "A pack containing useful items for clerics.",
+      "description": "Contains holy symbol, stub of black wax, and pouch of powdered silver.",
       "quantity": 1
     },
     {
@@ -195,7 +195,7 @@
       "item_name": "Set of bone dice",
       "item_type": "equipment",
       "item_subtype": "other",
-      "description": "A gaming set (bone dice).",
+      "description": "A gaming set (bone dice) kept as a token.",
       "quantity": 1
     },
     {
@@ -235,7 +235,7 @@
     },
     {
       "item_name": "Pouch of Silver Coins",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A small pouch containing 15 silver coins recovered from bandits and found at the tower.",
       "quantity": 1
     },
@@ -248,7 +248,7 @@
     {
       "item_name": "Climbing Rope",
       "item_type": "equipment",
-      "description": "A coil of sturdy climbing rope taken from the bandits.",
+      "description": "A coil of sturdy climbing rope taken as a token from the bandits.",
       "quantity": 1
     },
     {
@@ -260,7 +260,7 @@
     {
       "item_name": "Crow's Hand Feather",
       "item_type": "equipment",
-      "description": "A crow's feather marked with oily black wax, a signature of the Crow's Hand.",
+      "description": "A crow's feather tied with red twine, kept as a token from the stronghold.",
       "quantity": 1
     },
     {
@@ -300,6 +300,72 @@
       "item_type": "equipment",
       "item_subtype": "other",
       "description": "A piece of cloth, torn but of fine quality, possibly useful for trade or crafting.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Heavy iron key",
+      "item_type": "equipment",
+      "description": "A heavy iron key taken from Captain Gorvek's possessions.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Missive with black wax seal",
+      "item_type": "equipment",
+      "description": "A folded letter sealed with black wax, bearing an ominous insignia.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Polished dagger with arcane symbols",
+      "item_type": "weapon",
+      "description": "A finely polished dagger etched with glowing arcane runes.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Thornwood map marked with Xs",
+      "item_type": "equipment",
+      "description": "A detailed map of Thornwood with several locations marked with mysterious Xs.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Gold ring",
+      "item_type": "miscellaneous",
+      "description": "A simple gold ring looted from bandit bodies, valued at 5 gold coins.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Merchant jewels and rings",
+      "item_type": "miscellaneous",
+      "description": "A collection of valuable jewels and rings looted from the ironbound chest, worth approximately 150 gold pieces.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Bundle of weapons and battered armor",
+      "item_type": "equipment",
+      "description": "A collection of assorted weapons and battered armor pieces, some marked with ranger insignia.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Cache of mysterious arcane-marked supplies",
+      "item_type": "equipment",
+      "description": "A sealed cache containing supplies marked with strange arcane symbols, possibly for ritual use or dark magic.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Map showing planned attacks on trade routes",
+      "item_type": "equipment",
+      "description": "A detailed map indicating planned bandit attacks on various trade routes near Thornwood.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Battered crossbow",
+      "item_type": "weapon",
+      "description": "A worn and battered crossbow found in the bandit stronghold.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Torn but valuable cloth bundle",
+      "item_type": "miscellaneous",
+      "description": "Torn cloth bundle containing a hidden gold ring.",
       "quantity": 1
     }
   ],
@@ -369,7 +435,7 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 1,
+        "current": 0,
         "max": 3
       },
       "level2": {
@@ -416,11 +482,11 @@
     ]
   },
   "currency": {
-    "gold": 9,
-    "silver": 0,
-    "copper": 0
+    "gold": 19,
+    "silver": 21,
+    "copper": 20
   },
-  "experience_points": 675,
+  "experience_points": 800,
   "exp_required_for_next_level": 900,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",

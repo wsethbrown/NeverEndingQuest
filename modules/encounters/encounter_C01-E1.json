@@ -1,0 +1,48 @@
+{
+  "encounterId": "C01-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 10,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 19,
+      "maxHitPoints": 36,
+      "armorClass": 19
+    },
+    {
+      "name": "Skeleton",
+      "type": "enemy",
+      "monsterType": "skeleton",
+      "initiative": 11,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 0,
+      "maxHitPoints": 13
+    },
+    {
+      "name": "Shadow",
+      "type": "enemy",
+      "monsterType": "shadow",
+      "initiative": 19,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 0,
+      "maxHitPoints": 16
+    }
+  ],
+  "encounterSummary": "A skeleton rises from the leaf-strewn stones and a living shadow emerges from the darkness, moving to attack Norn in the Outer Courtyard of Shadowfall Keep."
+}

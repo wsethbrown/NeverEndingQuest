@@ -1,0 +1,35 @@
+{
+  "encounterId": "C05-E1",
+  "creatures": [
+    {
+      "name": "Norn",
+      "type": "player",
+      "initiative": 15,
+      "status": "alive",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": 12,
+      "maxHitPoints": 47,
+      "armorClass": 19
+    },
+    {
+      "name": "Mimic",
+      "type": "enemy",
+      "monsterType": "mimic",
+      "initiative": 9,
+      "status": "dead",
+      "conditions": [],
+      "actions": {
+        "actionType": "",
+        "target": ""
+      },
+      "currentHitPoints": -7,
+      "maxHitPoints": 58
+    }
+  ],
+  "encounterSummary": "Norn has provoked the mimic lurking as the ornate chair at the head of the table in the Great Hall. The creature reveals its true form and attacks, while phantom servants recoil and the spectral feast devolves into chaos.",
+  "current_round": 5
+}

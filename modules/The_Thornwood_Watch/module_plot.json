@@ -45,8 +45,8 @@
       "nextPoints": [
         "PP003"
       ],
-      "status": "in progress",
-      "plotImpact": "Eirik and Kira have reached the bandit stronghold at nightfall, preparing to scout the heart of the enemy's operations and uncover Malarok's plans.",
+      "status": "completed",
+      "plotImpact": "Eirik and Kira have cleared the Bandit Stronghold, recovered evidence of Malarok's corruption, and safely returned to Commander Elen to report and deliver their findings.",
       "sideQuests": [
         {
           "id": "SQ003",

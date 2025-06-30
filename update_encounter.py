@@ -33,7 +33,7 @@ def update_encounter(encounter_id, changes, max_retries=3):
         path_manager = ModulePathManager(current_module)
     except:
         path_manager = ModulePathManager()  # Fallback to reading from file
-    with open(f"encounter_{encounter_id}.json", "r") as file:
+    with open(f"modules/encounters/encounter_{encounter_id}.json", "r") as file:
         encounter_info = json.load(file)
 
     original_info = copy.deepcopy(encounter_info)  # Keep a copy of the original info
@@ -135,7 +135,7 @@ Remember to only update monster information and leave player and NPC data unchan
             print(f"{GREEN}DEBUG: Encounter update - PASS{RESET}")
 
             # Save the updated encounter info
-            with open(f"encounter_{encounter_id}.json", "w") as file:
+            with open(f"modules/encounters/encounter_{encounter_id}.json", "w") as file:
                 json.dump(encounter_info, file, indent=2)
 
             return encounter_info
