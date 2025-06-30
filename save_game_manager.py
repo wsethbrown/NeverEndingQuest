@@ -103,6 +103,15 @@ class SaveGameManager:
             "journal.json",
             "player_storage.json",
             
+            # Critical game data files
+            "spell_repository.json",
+            "training_data.json",
+            "combat_conversation_history.json",
+            
+            # Conversation and chat history (critical for game continuity)
+            "conversation_history.json",
+            "chat_history.json",
+            
             # Character data
             "characters/",
             
@@ -138,9 +147,7 @@ class SaveGameManager:
     def get_optional_files(self) -> List[str]:
         """Get list of optional files for full save mode"""
         return [
-            # Conversation history
-            "conversation_history.json",
-            "chat_history.json",
+            # Additional conversation history
             "second_model_history.json", 
             "third_model_history.json",
             
