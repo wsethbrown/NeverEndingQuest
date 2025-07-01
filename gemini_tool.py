@@ -5,7 +5,9 @@ Provides access to Gemini 2.5 Pro for planning, analysis, and handling large fil
 """
 
 import os
-from typing import List, Optional
+import json
+from typing import List, Optional, Dict, Any
+from concurrent.futures import ThreadPoolExecutor
 from google import genai
 from google.genai import types
 
@@ -51,21 +53,25 @@ CRITICAL RULES:
 
 Remember: You're helping Claude plan, not doing the work."""
         
-        # Conversation history storage
-        self.conversation_history = []
+        # Conversation history storage - stores conversation history
+        self.conversation_history: Dict[str, List[Dict[str, str]]] = {}
 
-    def upload_files(self, file_paths: List[str]) -> List:
-        """Upload files to Gemini and return file objects"""
-        uploaded_files = []
-        for file_path in file_paths:
+    def upload_files(self, file_paths: List[str], uploaded_files: List) -> None:
+        """Upload files to Gemini and append to uploaded_files list"""
+        def upload_single_file(file_path: str):
             try:
                 print(f"Uploading {file_path}...")
                 myfile = self.client.files.upload(file=file_path)
                 uploaded_files.append(myfile)
                 print(f"Uploaded successfully: {myfile.name}")
+                return myfile
             except Exception as e:
                 print(f"Failed to upload {file_path}: {e}")
-        return uploaded_files
+                return None
+        
+        # Use parallel uploads for better performance
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            list(executor.map(upload_single_file, file_paths))
     
     def cleanup_files(self, uploaded_files: List):
         """Delete uploaded files after use"""
@@ -83,7 +89,9 @@ Remember: You're helping Claude plan, not doing the work."""
               model: str = "gemini-2.5-pro",
               temperature: float = 0.7,
               use_system_prompt: bool = True,
-              conversation_id: Optional[str] = None) -> str:
+              conversation_id: Optional[str] = None,
+              stream: bool = False,
+              expect_json: bool = False) -> str:
         """
         Query Gemini with optional file attachments
         
@@ -94,63 +102,90 @@ Remember: You're helping Claude plan, not doing the work."""
             temperature: Response temperature (default: 0.7)
             use_system_prompt: Whether to include system prompt (default: True)
             conversation_id: Optional ID to track conversation history
+            stream: Whether to stream the response (default: False)
+            expect_json: Whether to parse response as JSON (default: False)
             
         Returns:
-            String response from Gemini
+            String response from Gemini (or parsed JSON if expect_json=True)
         """
         uploaded_files = []
         
         try:
-            # Build contents array
-            contents = []
-            
-            # Add system prompt if requested (saves ~100 tokens when skipped)
-            if use_system_prompt:
-                contents.append(self.default_system_prompt)
-                contents.append("\n\n")
-            
-            # Add conversation history if tracking
+            # Get or create conversation history
             if conversation_id:
                 if conversation_id not in self.conversation_history:
                     self.conversation_history[conversation_id] = []
                 history = self.conversation_history[conversation_id]
-                for entry in history[-10:]:  # Last 10 exchanges for context
-                    contents.append(f"User: {entry['user']}")
-                    contents.append(f"Assistant: {entry['assistant']}")
-                    contents.append("\n")
+            
+            # Build message content
+            message_parts = []
+            
+            # Add system prompt
+            if use_system_prompt:
+                message_parts.append(self.default_system_prompt)
+                message_parts.append("\n\n")
+            
+            # Add conversation history if tracking
+            if conversation_id and history:
+                for entry in history[-5:]:  # Last 5 exchanges for context
+                    message_parts.append(f"User: {entry['user']}")
+                    message_parts.append(f"Assistant: {entry['assistant']}")
+                    message_parts.append("\n")
             
             # Upload files if provided
             if files:
-                uploaded_files = self.upload_files(files)
-                # Add uploaded files to contents
+                self.upload_files(files, uploaded_files)
+                # Add uploaded files to message
                 for file in uploaded_files:
-                    contents.append(file)
-                    contents.append("\n\n")
+                    message_parts.append(file)
+                    message_parts.append("\n\n")
             
             # Add user prompt
-            contents.append(prompt)
+            message_parts.append(prompt)
             
             # Generate response
             print(f"Querying {model}...")
-            response = self.client.models.generate_content(
-                model=model,
-                contents=contents,
-                config=types.GenerateContentConfig(
-                    temperature=temperature
-                    # Note: Gemini 2.5 Pro requires thinking mode, cannot be disabled
-                )
-            )
             
-            response_text = response.text
+            if stream:
+                response = self.client.models.generate_content(
+                    model=model,
+                    contents=message_parts,
+                    config=types.GenerateContentConfig(temperature=temperature),
+                    stream=True
+                )
+                full_response = ""
+                for chunk in response:
+                    chunk_text = chunk.text
+                    print(chunk_text, end="", flush=True)
+                    full_response += chunk_text
+                print()  # New line after streaming
+                response_text = full_response
+            else:
+                response = self.client.models.generate_content(
+                    model=model,
+                    contents=message_parts,
+                    config=types.GenerateContentConfig(temperature=temperature)
+                )
+                response_text = response.text
             
             # Store in conversation history if tracking
             if conversation_id:
-                if conversation_id not in self.conversation_history:
-                    self.conversation_history[conversation_id] = []
                 self.conversation_history[conversation_id].append({
                     'user': prompt,
                     'assistant': response_text
                 })
+            
+            # Parse JSON if expected
+            if expect_json:
+                try:
+                    return json.loads(response_text)
+                except json.JSONDecodeError:
+                    # Try to extract JSON from markdown code block
+                    import re
+                    json_match = re.search(r'```json\s*(.*?)\s*```', response_text, re.DOTALL)
+                    if json_match:
+                        return json.loads(json_match.group(1))
+                    return {"error": "Failed to parse JSON", "raw_response": response_text}
             
             return response_text
             
@@ -185,7 +220,9 @@ def query_gemini(prompt: str,
                  model: str = "gemini-2.5-pro",
                  temperature: float = 0.7,
                  use_system_prompt: bool = True,
-                 conversation_id: Optional[str] = None) -> str:
+                 conversation_id: Optional[str] = None,
+                 stream: bool = False,
+                 expect_json: bool = False) -> Any:
     """
     Query Gemini AI for planning, analysis, or handling large files
     
@@ -196,6 +233,8 @@ def query_gemini(prompt: str,
         temperature: 0.7 (default) for balanced responses
         use_system_prompt: Include system prompt (default: True, set False to save tokens)
         conversation_id: Optional ID to maintain conversation context
+        stream: Stream the response in real-time (default: False)
+        expect_json: Parse response as JSON (default: False)
         
     Returns:
         Gemini's response as a string
@@ -217,12 +256,21 @@ def query_gemini(prompt: str,
         )
     """
     tool = get_gemini_tool()
-    return tool.query(prompt, files, model, temperature, use_system_prompt, conversation_id)
+    return tool.query(prompt, files, model, temperature, use_system_prompt, conversation_id, stream, expect_json)
 
 
 # Helper functions for common use cases
-def plan_feature(feature_description: str, files: Optional[List[str]] = None) -> str:
+def plan_feature(feature_description: str, files: Optional[List[str]] = None, as_json: bool = False) -> Any:
     """Get a plan for implementing a feature"""
+    json_instruction = """
+Respond with a JSON object in this format:
+{
+  "files_to_modify": [{"path": "file_path", "changes": ["change1", "change2"]}],
+  "steps": ["step1", "step2", ...],
+  "challenges": ["challenge1", "challenge2", ...],
+  "locations": [{"file": "file_path", "line_range": "100-150", "description": "what to change"}]
+}""" if as_json else ""
+    
     prompt = f"""Please provide a clear implementation plan for the following feature:
 
 {feature_description}
@@ -233,9 +281,9 @@ Include:
 3. Potential challenges to watch for
 4. Line numbers or section names where changes are needed
 
-Keep the plan concise and actionable."""
+Keep the plan concise and actionable.{json_instruction}"""
     
-    return query_gemini(prompt, files)
+    return query_gemini(prompt, files, expect_json=as_json)
 
 
 def analyze_large_file(file_path: str, question: str) -> str:
@@ -265,8 +313,22 @@ Be concise and focus on actionable advice."""
     return query_gemini(prompt, context_files)
 
 
-def suggest_refactoring(file_path: str, focus: Optional[str] = None) -> str:
+def suggest_refactoring(file_path: str, focus: Optional[str] = None, as_json: bool = False) -> Any:
     """Get refactoring suggestions for a file"""
+    json_instruction = """
+Respond with a JSON object in this format:
+{
+  "refactorings": [
+    {
+      "priority": 1,
+      "type": "extract_function|rename|restructure|etc",
+      "location": {"lines": "100-150", "function": "function_name"},
+      "description": "what to refactor",
+      "rationale": "why this improves the code"
+    }
+  ]
+}""" if as_json else ""
+    
     prompt = f"""Please analyze this code and suggest refactoring improvements.
 {f'Focus on: {focus}' if focus else ''}
 
@@ -276,9 +338,9 @@ Provide:
 3. Brief explanation of why each change improves the code
 4. Priority order for changes
 
-Keep suggestions practical and focused."""
+Keep suggestions practical and focused.{json_instruction}"""
     
-    return query_gemini(prompt, files=[file_path], use_system_prompt=False)
+    return query_gemini(prompt, files=[file_path], use_system_prompt=False, expect_json=as_json)
 
 
 def generate_tests(file_path: str, specific_function: Optional[str] = None) -> str:
@@ -316,7 +378,7 @@ def clear_conversation(conversation_id: str) -> bool:
     """Clear conversation history for a specific ID"""
     tool = get_gemini_tool()
     if hasattr(tool, 'conversation_history') and conversation_id in tool.conversation_history:
-        del tool.conversation_history[conversation_id]
+        tool.conversation_history.pop(conversation_id, None)
         return True
     return False
 
