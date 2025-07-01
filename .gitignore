@@ -56,6 +56,8 @@ module_randomness_test_*.json
 
 # Backup files
 *.bak
+*.backup
+*.backup_*
 *_BU.json
 *_backup_*
 backup/
@@ -112,15 +114,19 @@ testing/
 test_*.py
 *_test.py
 
-# Documentation files
-CHARACTER_EFFECTS_IMPLEMENTATION_PLAN.md
-CHARACTER_UNIFICATION_PLAN.md
-NORN_CHARACTER_MIGRATION_SUMMARY.md
-PHASE_2_COMPLETION_SUMMARY.md
-SCHEMA_CHANGES_SUMMARY.md
-VALIDATOR_TEST_RESULTS.md
-CLAUDE.md
-CONVERSATION_TRUNCATION_PLAN.md
+# Documentation files (keep core docs, exclude development plans)
+*_plan.md
+*_analysis.md
+*_investigation.md
+*_verification*.md
+*_audit*.md
+*_refactor*.md
+*_implementation*.md
+*_summary*.md
+*_report*.md
+*_BU.md
+MODULE_SUMMARY*.md
+SEARCH_PLAN*.md
 
 # Compression test files and outputs
 *compression*.json
