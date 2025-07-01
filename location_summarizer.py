@@ -9,6 +9,7 @@ preserving critical game information while compressing narrative content.
 import json
 import os
 import re
+import time
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple
 from datetime import datetime
@@ -445,15 +446,20 @@ Produce a narrative in the style of a campaign journal or game codex entry. Do n
                               original_messages: List[Dict] = None) -> str:
         """
         Generate AI-powered chronicle summary using exact prompts from claude.txt
+        Includes retry logic for API failures
         """
-        try:
-            # Use exact prompts from claude.txt (updated version)
-            system_prompt = "You are a narrative design assistant trained to convert sequential TTRPG-style location logs into richly detailed, emotionally resonant chronicle summaries. You write with a tone that blends elevated fantasy prose, atmospheric worldbuilding, and declarative clarity. Your goal is to compress multiple location entries into a seamless narrative arc that captures exploration, discovery, character actions, intense combat, magical rituals, social tension, emotional consequences, and ambient detail."
-            
-            # Format the actual conversation text to compress
-            conversation_text = self._format_messages_for_compression(original_messages or [])
-            
-            user_prompt = f"""Given the following sequential location transitions and logs, generate a single, highly detailed chronicle summary that:
+        max_retries = 3
+        retry_delay = 2  # seconds
+        
+        for attempt in range(max_retries):
+            try:
+                # Use exact prompts from claude.txt (updated version)
+                system_prompt = "You are a narrative design assistant trained to convert sequential TTRPG-style location logs into richly detailed, emotionally resonant chronicle summaries. You write with a tone that blends elevated fantasy prose, atmospheric worldbuilding, and declarative clarity. Your goal is to compress multiple location entries into a seamless narrative arc that captures exploration, discovery, character actions, intense combat, magical rituals, social tension, emotional consequences, and ambient detail."
+                
+                # Format the actual conversation text to compress
+                conversation_text = self._format_messages_for_compression(original_messages or [])
+                
+                user_prompt = f"""Given the following sequential location transitions and logs, generate a single, highly detailed chronicle summary that:
 
 1. **Compresses all location segments** into one fluid narrative without using headings, bullet points, or dialogue labels.
 2. **Maintains chronological continuity**, including who did what, where, and why.
@@ -471,44 +477,33 @@ Here is the input:
 
 Your output should read like a published game codex, narrative recap, or campaign journal entry. Never reference this prompt or the data format -- just write the immersive chronicle."""
 
-            # Make API call to OpenAI - purely agentic, no artificial limits
-            response = self.client.chat.completions.create(
-                model=self.ai_model,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
-                temperature=0.7
-                # No max_tokens limit - let AI decide optimal length
-            )
-            
-            # Extract the generated chronicle
-            chronicle = response.choices[0].message.content.strip()
-            
-            # Add a note about AI generation
-            return f"{chronicle}\n\n[AI-Generated Chronicle Summary]"
-            
-        except Exception as e:
-            error(f"AI_FAILURE: Error generating AI chronicle: {e}", exception=e, category="summarization")
-            # Fallback to placeholder if AI fails
-            return self._generate_placeholder_chronicle(start_loc, end_loc, intermediate_locs, preserved_data)
+                # Make API call to OpenAI - purely agentic, no artificial limits
+                response = self.client.chat.completions.create(
+                    model=self.ai_model,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    temperature=0.7
+                    # No max_tokens limit - let AI decide optimal length
+                )
+                
+                # Extract the generated chronicle
+                chronicle = response.choices[0].message.content.strip()
+                
+                # Add a note about AI generation
+                return f"{chronicle}\n\n[AI-Generated Chronicle Summary]"
+                
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    warning(f"AI_RETRY: Chronicle generation attempt {attempt + 1} failed, retrying...", category="summarization")
+                    import time
+                    time.sleep(retry_delay)
+                    continue
+                else:
+                    error(f"AI_FAILURE: Failed to generate AI chronicle after {max_retries} attempts: {e}", exception=e, category="summarization")
+                    raise RuntimeError(f"AI chronicle generation failed after {max_retries} attempts: {e}")
     
-    def _generate_placeholder_chronicle(self, start_loc: str, end_loc: str, 
-                                       intermediate_locs: List[str], preserved_data: Dict[str, Any]) -> str:
-        """
-        Generate a placeholder chronicle for testing
-        In production, this would be replaced with actual AI API calls
-        """
-        # This is a placeholder that demonstrates the expected format
-        # In the real implementation, this would call the AI with the prompts above
-        
-        return f"""The journey from {start_loc} unfolded with purpose and peril, as shadows gathered and destinies intertwined. Through {len(intermediate_locs)} treacherous passages--from the echoing halls of ancient keeps to the whispered secrets of forgotten shrines--the party pressed forward against mounting darkness.
-
-In each location, the weight of their quest grew heavier. Combat erupted with supernatural foes whose very presence chilled the air, leaving the heroes bloodied but resolute. Conversations with mysterious figures revealed cryptic warnings and half-remembered truths that would prove crucial in the trials ahead.
-
-The path concluded at {end_loc}, where the true scope of their mission became clear. What began as simple exploration had transformed into something far more significant--a confrontation with forces that threatened not just their own survival, but the fate of all who dwelt in these haunted lands.
-
-[NOTE: This is a placeholder. In production, this would be generated by AI using the narrative design prompt to create rich, detailed chronicle summaries with actual story content from the conversation messages.]"""
     
     def _create_empty_summary(self, start_location: str, end_location: str) -> Dict:
         """Create summary for empty message set"""
