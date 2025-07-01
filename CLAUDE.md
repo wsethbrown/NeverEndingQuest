@@ -177,3 +177,92 @@ When using command line tools, use these specific command names:
 - All other tools use their standard names: `jq`, `tree`, `fzf`, `black`, `flake8`, `pytest`, `mypy`
 
 Use the Github CLI for this repo as your primary source of open and closed issues.
+
+# Gemini AI Tool
+Use `gemini_tool.py` for large-context analysis, planning, and when stuck:
+
+## WHEN TO USE GEMINI:
+1. **Planning Complex Features**: Before starting implementation, get a clear plan
+2. **When Stuck**: Hit a wall or need fresh perspective on a problem
+3. **Large File Analysis**: Files exceeding my read limits (~2000 lines)
+4. **Whole-Picture Tasks**: Need to see entire file/system context at once
+5. **Multiple File Coordination**: Cross-file feature planning and analysis
+
+## SPECIFIC USE CASES:
+- `game_interface.html` changes (50k+ tokens) - send whole file for planning
+- Architecture decisions requiring full codebase view
+- Debugging issues spanning multiple large files
+- HTML/CSS generation (Gemini excels at web tasks)
+- Getting "unstuck" on complex problems
+
+## WORKFLOW EXAMPLE:
+1. User: "Add feature X to game_interface.html"
+2. Claude: `query_gemini("Plan how to add feature X", files=["templates/game_interface.html"])`
+3. Gemini: Returns step-by-step plan with specific locations
+4. Claude: Execute plan with targeted edits
+
+## USAGE:
+```python
+from gemini_tool import (query_gemini, plan_feature, analyze_large_file, get_unstuck,
+                        suggest_refactoring, generate_tests, write_documentation, clear_conversation)
+
+# Basic query
+result = query_gemini("How should I implement feature X?")
+
+# With large file (automatically uploaded)
+result = query_gemini("Plan adding feature Y to this file", files=["templates/game_interface.html"])
+
+# Multiple files
+result = query_gemini("How do these systems interact?", files=["system1.py", "system2.py"])
+
+# Skip system prompt to save ~100 tokens
+result = query_gemini("Quick question about syntax", use_system_prompt=False)
+
+# Conversation tracking for follow-ups
+result = query_gemini("How to add dark mode?", conversation_id="dark-mode-discussion")
+followup = query_gemini("What about mobile?", conversation_id="dark-mode-discussion")
+clear_conversation("dark-mode-discussion")  # Clean up when done
+
+# Helper functions
+plan = plan_feature("Add dark mode toggle", files=["templates/game_interface.html"])
+analysis = analyze_large_file("game_interface.html", "Where is character data rendered?")
+help_me = get_unstuck("Can't figure out why events aren't firing", files=["web_interface.py"])
+refactor = suggest_refactoring("game_logic.py", focus="performance")
+tests = generate_tests("combat_system.py", specific_function="calculate_damage")
+docs = write_documentation("module_builder.py", doc_type="docstrings")
+```
+
+## FILE HANDLING:
+- Files are automatically uploaded to Gemini
+- Supports any file type (text, code, images, etc.)
+- Files are cleaned up after query
+- No manual file management needed
+
+## MODELS:
+- Default: `gemini-2.5-pro` (powerful, best for complex tasks)
+- Alternative: `gemini-2.5-flash` (faster, cheaper, good for simple queries)
+
+## PROMPT TIPS:
+- Ask for "plan" or "approach" not "implement"
+- Be specific about the goal
+- Request location hints: "which functions/sections to modify"
+- For large files, ask "what line numbers should I focus on?"
+- Explicitly say "analysis only" or "no code implementation"
+
+## PERFORMANCE OPTIMIZATIONS:
+- **Token Savings**: Set `use_system_prompt=False` for quick queries (saves ~100 tokens)
+- **Conversation History**: Use `conversation_id` for related queries to maintain context
+- **Specialized Functions**: Use helper functions that optimize prompts for specific tasks
+
+## NEW FEATURES:
+1. **Conversation Tracking**: Maintain context across multiple queries
+2. **Refactoring Suggestions**: Get specific improvement recommendations
+3. **Test Generation**: Identify test scenarios and edge cases
+4. **Documentation Writing**: Get documentation suggestions
+5. **Better Error Handling**: Specific error types for debugging
+
+## IMPORTANT:
+- Gemini tends to suggest extra features - keep prompts focused
+- Use for planning and analysis, not direct code generation
+- Temperature is set to 0.7 for balanced, honest responses
+- Clear conversations when done to free memory: `clear_conversation(id)`

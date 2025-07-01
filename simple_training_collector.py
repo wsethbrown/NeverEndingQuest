@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Simple Training Data Collector for Web Interface
-Captures input/output pairs during gameplay
+Captures input/output pairs during gameplay for OpenAI fine-tuning
 """
 
 import json
@@ -10,9 +10,9 @@ from datetime import datetime
 from typing import List, Dict, Any
 
 class SimpleTrainingCollector:
-    """Simple collector that just captures input->output pairs"""
+    """Simple collector that captures conversations in OpenAI fine-tuning format"""
     
-    def __init__(self, output_file: str = "training_data.json"):
+    def __init__(self, output_file: str = "training/training_data.json"):
         self.output_file = output_file
         self.current_conversation = []
         
@@ -25,36 +25,39 @@ class SimpleTrainingCollector:
         })
     
     def log_complete_interaction(self, full_message_history: List[Dict], ai_response: str):
-        """Log complete AI interaction for training"""
-        # Create training example with full conversation as input
+        """Log complete AI interaction for training in OpenAI fine-tuning format"""
+        # Convert to OpenAI fine-tuning format
+        messages = []
+        
+        # Extract messages from conversation history
+        for msg in full_message_history:
+            if msg.get("role") in ["system", "user", "assistant"]:
+                messages.append({
+                    "role": msg["role"],
+                    "content": msg["content"]
+                })
+        
+        # Add the AI response as the assistant message
+        messages.append({
+            "role": "assistant", 
+            "content": ai_response
+        })
+        
+        # Create training example in OpenAI format
         training_example = {
-            "id": self._get_next_id(),
-            "timestamp": datetime.now().isoformat(),
-            "input": full_message_history,  # Complete conversation history sent to AI
-            "output": ai_response  # Complete AI response
+            "messages": messages
         }
         
         # Save to file
         self._append_to_file(training_example)
         
-        print(f"[LOGGED] Training example #{training_example['id']}")
-    
-    def _get_next_id(self) -> int:
-        """Get next available ID"""
-        if not os.path.exists(self.output_file):
-            return 1
-        
-        try:
-            with open(self.output_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                if isinstance(data, list) and data:
-                    return max(item.get('id', 0) for item in data) + 1
-                return 1
-        except:
-            return 1
+        print(f"[LOGGED] Training example with {len(messages)} messages")
     
     def _append_to_file(self, training_example: Dict):
-        """Append training example to file"""
+        """Append training example to file in OpenAI format"""
+        # Ensure training directory exists
+        os.makedirs(os.path.dirname(self.output_file), exist_ok=True)
+        
         # Load existing data
         data = []
         if os.path.exists(self.output_file):
@@ -69,7 +72,7 @@ class SimpleTrainingCollector:
         # Add new example
         data.append(training_example)
         
-        # Save back
+        # Save back with pretty formatting
         try:
             with open(self.output_file, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
