@@ -380,13 +380,21 @@ class LocationSummarizer:
 7. **Concludes with a reflective or forward-facing insight**, setting up what may come next.
 8. **Avoids generic or vague phrasing** -- always prefer specificity (e.g., "Norn plunged the dagger into the specter's core" instead of "a character won a fight").
 9. **Assumes no events should be omitted**, even if there was no combat. Silence, ambiance, and tension are part of the story.
+10. **Narrate the complete journey through each location**: You MUST explicitly mention moving through or arriving at each location listed below. Weave each location name naturally into the narrative as the party travels through them. Use transitions like "descended from [Location A] into", "emerged at [Location B] to find", "the path through [Location C] revealed", etc.
 
-JOURNEY: From {start_loc} through {' -> '.join(intermediate_locs)} to {end_loc}
+REQUIRED JOURNEY PROGRESSION (all locations must appear in your narrative):
+Starting at: {start_loc}
+Traveling through (in order): {' -> '.join(intermediate_locs)}
+Ending at: {end_loc}
+
+You MUST narrate the party's movement through EACH of these {len(intermediate_locs) + 2} locations in sequence.
 
 PRESERVED STORY ELEMENTS:
 {self._format_preserved_data_for_ai(preserved_data)}
 
-Produce a narrative in the style of a campaign journal or game codex entry. Do not use headings, bullet points, or dialogue labels. Do not refer to the logs or metadata -- only write the compressed, immersive story."""
+CRITICAL: Your narrative must include all location names from the journey above. Each location should appear naturally within the story as the party progresses through them.
+
+Produce a narrative in the style of a campaign journal or game codex entry. Do not use headings, bullet points, or dialogue labels. Do not refer to the logs or metadata -- only write the compressed, immersive story that shows the party's journey through every listed location."""
         
         # Generate actual AI-powered chronicle summary
         return self._generate_ai_chronicle(start_loc, end_loc, intermediate_locs, preserved_data, original_messages)
@@ -470,12 +478,22 @@ Produce a narrative in the style of a campaign journal or game codex entry. Do n
 7. **Concludes with a reflective or forward-looking insight**, thematically linking what has occurred to what lies ahead.
 8. **Avoids generic phrasing** -- use specific names, textures, items, and visual language (e.g., "Norn's blade parted the specter's ribbed shadows" instead of "a character hit a ghost").
 9. **Never omits quiet moments**: include tension-building silence, fog, haunted ambiance, or signs of dread -- even when no combat occurs.
+10. **Narrate the complete journey through each location**: You MUST explicitly mention moving through or arriving at each location from the journey progression. Weave location names naturally into the narrative as the party travels through them.
+
+REQUIRED JOURNEY PROGRESSION (all locations must appear in your narrative):
+Starting at: {start_loc}
+Traveling through (in order): {' -> '.join(intermediate_locs)}
+Ending at: {end_loc}
+
+You MUST narrate the party's movement through EACH of these {len(intermediate_locs) + 2} locations in sequence.
 
 Here is the input:
 
 {conversation_text}
 
-Your output should read like a published game codex, narrative recap, or campaign journal entry. Never reference this prompt or the data format -- just write the immersive chronicle."""
+CRITICAL: Your narrative must include all location names from the journey progression above. Each location should appear naturally within the story as the party progresses through them.
+
+Your output should read like a published game codex, narrative recap, or campaign journal entry. Never reference this prompt or the data format -- just write the immersive chronicle that shows the party's journey through every listed location."""
 
                 # Make API call to OpenAI - purely agentic, no artificial limits
                 response = self.client.chat.completions.create(
