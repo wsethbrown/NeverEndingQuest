@@ -53,6 +53,10 @@ from status_manager import (
 )
 from location_path_finder import LocationGraph
 from conversation_utils import handle_module_conversation_segmentation
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name(__name__)
 
 # Action type constants
 ACTION_CREATE_ENCOUNTER = "createEncounter"
@@ -110,11 +114,11 @@ def validate_location_transition(location_graph, current_location_id, destinatio
             dest_area_id = location_graph.get_area_id_from_location_id(destination_location_id)
             area_connectivity_id = f"{dest_area_id}-{destination_location_id}"
         
-        print(f"DEBUG: Location transition validation passed")
-        print(f"DEBUG: Path found: {' -> '.join(path) if path else 'Direct connection'}")
-        print(f"DEBUG: Cross-area transition: {is_cross_area}")
+        debug("VALIDATION: Location transition validation passed", category="location_transitions")
+        debug(f"VALIDATION: Path found: {' -> '.join(path) if path else 'Direct connection'}", category="location_transitions")
+        debug(f"VALIDATION: Cross-area transition: {is_cross_area}", category="location_transitions")
         if area_connectivity_id:
-            print(f"DEBUG: Generated area connectivity ID: {area_connectivity_id}")
+            debug(f"VALIDATION: Generated area connectivity ID: {area_connectivity_id}", category="location_transitions")
         
         return True, "", area_connectivity_id
         
@@ -144,14 +148,14 @@ def update_party_npcs(party_tracker_data, operation, npc):
                                 player_data = safe_json_load(player_file)
                                 if player_data and 'level' in player_data:
                                     default_level = str(player_data['level'])
-                                    print(f"DEBUG: Using party level {default_level} as default for NPC {npc['name']}")
+                                    debug(f"STATE_CHANGE: Using party level {default_level} as default for NPC {npc['name']}", category="character_updates")
                             except Exception as e:
-                                print(f"DEBUG: Could not get party level, using default: {e}")
+                                warning(f"FAILURE: Could not get party level, using default: {e}", category="character_updates")
                 
                 npc_level = str(npc.get('level', default_level))
                 
                 # Add this debug line right before the subprocess.run call
-                print(f"DEBUG: Calling npc_builder.py with arguments: {npc['name']} {npc.get('race', '')} {npc.get('class', '')} {npc_level} {npc.get('background', '')}")
+                debug(f"SUBPROCESS: Calling npc_builder.py with arguments: {npc['name']} {npc.get('race', '')} {npc.get('class', '')} {npc_level} {npc.get('background', '')}", category="character_updates")
 
                 subprocess.run([
                     "python", "npc_builder.py",
@@ -161,9 +165,9 @@ def update_party_npcs(party_tracker_data, operation, npc):
                     npc_level,
                     npc.get('background', '')
                 ], check=True)
-                print(f"DEBUG: NPC profile created for {npc['name']}")
+                info(f"SUCCESS: NPC profile created for {npc['name']}", category="character_updates")
             except subprocess.CalledProcessError as e:
-                print(f"ERROR: Failed to create NPC profile for {npc['name']}: {e}")
+                error(f"FAILURE: Failed to create NPC profile for {npc['name']}: {e}", category="character_updates")
                 return
 
         # Now we can add the NPC to the party
@@ -172,7 +176,7 @@ def update_party_npcs(party_tracker_data, operation, npc):
         party_tracker_data["partyNPCs"] = [x for x in party_tracker_data["partyNPCs"] if x["name"] != npc["name"]]
 
     safe_json_dump(party_tracker_data, "party_tracker.json")
-    print(f"DEBUG: Party NPCs updated - {operation} {npc['name']}")
+    info(f"STATE_CHANGE: Party NPCs updated - {operation} {npc['name']}", category="character_updates")
 
 def run_combat_simulation(encounter_id, party_tracker_data, location_data):
     """Run the combat simulation"""
@@ -192,7 +196,7 @@ def get_module_starting_location(module_name: str) -> tuple:
             cached_start = module_data.get('startingLocation')
             
             if cached_start:
-                print(f"DEBUG: Using cached starting location for {module_name}")
+                debug(f"FILE_OP: Using cached starting location for {module_name}", category="module_loading")
                 return (
                     cached_start.get('locationId', 'A01'),
                     cached_start.get('locationName', 'Unknown Location'),
@@ -201,7 +205,7 @@ def get_module_starting_location(module_name: str) -> tuple:
                 )
         
         # No cached result, use AI to analyze module
-        print(f"DEBUG: No cached starting location found, analyzing {module_name} with AI")
+        debug(f"AI_CALL: No cached starting location found, analyzing {module_name} with AI", category="module_loading")
         
         path_manager = ModulePathManager(module_name)
         area_ids = path_manager.get_area_ids()
@@ -232,7 +236,7 @@ def get_module_starting_location(module_name: str) -> tuple:
                         "locations": area_data.get("locations", [])[:3]  # First 3 locations for analysis
                     }
             except Exception as e:
-                print(f"Warning: Could not load area {area_id}: {e}")
+                warning(f"FILE_OP: Could not load area {area_id}: {e}", category="file_operations")
                 continue
         
         # Load plot data
@@ -246,7 +250,7 @@ def get_module_starting_location(module_name: str) -> tuple:
                     "plotPoints": plot_data.get("plotPoints", [])[:3]  # First 3 plot points
                 }
         except Exception as e:
-            print(f"Warning: Could not load plot data: {e}")
+            warning(f"FILE_OP: Could not load plot data: {e}", category="file_operations")
         
         # Use AI to determine starting location
         starting_location = _ai_analyze_starting_location(module_analysis_data)
@@ -266,12 +270,12 @@ def get_module_starting_location(module_name: str) -> tuple:
             }
             
             safe_json_dump(world_registry, world_registry_path)
-            print(f"DEBUG: Cached AI-determined starting location for {module_name}")
+            info(f"SUCCESS: Cached AI-determined starting location for {module_name}", category="module_loading")
         
         return starting_location
         
     except Exception as e:
-        print(f"Warning: Could not get starting location for {module_name}: {e}")
+        error(f"FAILURE: Could not get starting location for {module_name}: {e}", category="module_loading")
         return ("A01", "Unknown Location", "AREA001", "Unknown Area")
 
 def _ai_analyze_starting_location(module_data: dict) -> tuple:
@@ -318,7 +322,7 @@ Determine the most logical starting location based on adventure flow, area types
         )
         
         ai_response = response.choices[0].message.content.strip()
-        print(f"DEBUG: AI starting location analysis response: {ai_response}")
+        debug(f"AI_CALL: Starting location analysis response: {ai_response}", category="ai_operations")
         
         # Parse AI response - handle markdown code blocks
         json_content = ai_response
@@ -336,7 +340,7 @@ Determine the most logical starting location based on adventure flow, area types
                 elif in_json_block:
                     json_lines.append(line)
             json_content = '\n'.join(json_lines)
-            print(f"DEBUG: Extracted JSON from code block: {json_content}")
+            debug(f"AI_CALL: Extracted JSON from code block: {json_content}", category="ai_operations")
         
         try:
             result = json.loads(json_content)
@@ -344,8 +348,8 @@ Determine the most logical starting location based on adventure flow, area types
             # Validate required fields
             required_fields = ['locationId', 'locationName', 'areaId', 'areaName']
             if all(field in result for field in required_fields):
-                print(f"DEBUG: AI determined starting location: {result['areaId']}/{result['locationId']} - {result['locationName']}")
-                print(f"DEBUG: AI reasoning: {result.get('reasoning', 'No reasoning provided')}")
+                info(f"AI_CALL: AI determined starting location: {result['areaId']}/{result['locationId']} - {result['locationName']}", category="module_loading")
+                debug(f"AI_CALL: AI reasoning: {result.get('reasoning', 'No reasoning provided')}", category="ai_operations")
                 
                 return (
                     result['locationId'],
@@ -1366,7 +1370,7 @@ def find_npc_in_areas(npc_name, path_manager, location_hint=None):
             continue
         area_files.append(file_path)
     
-    print(f"DEBUG: Searching {len(area_files)} active area files (excluded {len(all_files) - len(area_files)} backup files)")
+    debug(f"FILE_OP: Searching {len(area_files)} active area files (excluded {len(all_files) - len(area_files)} backup files)", category="file_operations")
     
     for area_file in area_files:
         try:
@@ -1388,7 +1392,7 @@ def find_npc_in_areas(npc_name, path_manager, location_hint=None):
                         return (area_file, location_id, npc)
                         
         except Exception as e:
-            print(f"WARNING: Could not search area file {area_file}: {e}")
+            warning(f"FILE_OP: Could not search area file {area_file}: {e}", category="file_operations")
             continue
     
     return None
@@ -1418,7 +1422,7 @@ def get_ai_npc_movement_decision(npc_name, context, npc_data, area_data, locatio
             with open("loca_schema.json", "r") as f:
                 location_schema = json.load(f)
         except Exception as e:
-            print(f"WARNING: Could not load location schema: {e}")
+            warning(f"FILE_OP: Could not load location schema: {e}", category="file_operations")
             location_schema = None
         
         system_prompt = f"""You are an expert 5th edition narrative manager specialized in NPC movement and status changes. Your job is to make intelligent decisions about background NPCs based on narrative context while maintaining strict game world consistency.
@@ -1523,7 +1527,7 @@ Remember: This is a background NPC management action, not party NPC management."
         )
         
         ai_response = response.choices[0].message.content.strip()
-        print(f"DEBUG: AI movement decision response: {ai_response}")
+        debug(f"AI_CALL: Movement decision response: {ai_response}", category="ai_operations")
         
         # Parse JSON response
         import re
@@ -1531,11 +1535,11 @@ Remember: This is a background NPC management action, not party NPC management."
         if json_match:
             return json.loads(json_match.group())
         else:
-            print("ERROR: No valid JSON found in AI response")
+            error("AI_CALL: No valid JSON found in AI response", category="ai_operations")
             return None
             
     except Exception as e:
-        print(f"ERROR: AI decision failed: {str(e)}")
+        error(f"AI_CALL: AI decision failed: {str(e)}", category="ai_operations")
         return None
 
 def validate_npc_movement_decision(decision, area_data, location_id, party_npcs):
@@ -1616,13 +1620,13 @@ def execute_npc_movement_decision(decision, area_data, location_id, npc_name, pa
                 break
         
         if not target_location or npc_index is None:
-            print("ERROR: Could not find location or NPC in area data")
+            error("VALIDATION: Could not find location or NPC in area data", category="npc_management")
             return False
         
         if action == "remove":
             # Remove NPC from location
             target_location["npcs"].pop(npc_index)
-            print(f"DEBUG: Removed {npc_name} from {location_id}")
+            info(f"STATE_CHANGE: Removed {npc_name} from {location_id}", category="npc_management")
             
             # Update location description if provided
             location_update = decision.get("locationUpdate")
@@ -1637,11 +1641,11 @@ def execute_npc_movement_decision(decision, area_data, location_id, npc_name, pa
             
             if new_description:
                 target_location["npcs"][npc_index]["description"] = new_description
-                print(f"DEBUG: Updated description for {npc_name}")
+                info(f"STATE_CHANGE: Updated description for {npc_name}", category="npc_management")
             
             if new_attitude:
                 target_location["npcs"][npc_index]["attitude"] = new_attitude
-                print(f"DEBUG: Updated attitude for {npc_name}")
+                info(f"STATE_CHANGE: Updated attitude for {npc_name}", category="npc_management")
                 
             # Update location description if provided
             location_update = decision.get("locationUpdate")
@@ -1653,7 +1657,7 @@ def execute_npc_movement_decision(decision, area_data, location_id, npc_name, pa
             # Move NPC to different location
             new_location_id = decision.get("newLocation")
             if not new_location_id:
-                print("ERROR: Move action specified but no target location provided")
+                error("VALIDATION: Move action specified but no target location provided", category="npc_management")
                 return False
                 
             # Find target location
@@ -1664,13 +1668,13 @@ def execute_npc_movement_decision(decision, area_data, location_id, npc_name, pa
                     break
                     
             if not target_new_location:
-                print(f"ERROR: Target location {new_location_id} not found")
+                error(f"VALIDATION: Target location {new_location_id} not found", category="npc_management")
                 return False
                 
             # Move NPC
             npc_to_move = target_location["npcs"].pop(npc_index)
             target_new_location["npcs"].append(npc_to_move)
-            print(f"DEBUG: Moved {npc_name} from {location_id} to {new_location_id}")
+            info(f"STATE_CHANGE: Moved {npc_name} from {location_id} to {new_location_id}", category="npc_management")
             
             # Update both location descriptions if provided
             location_update = decision.get("locationUpdate")
@@ -1680,13 +1684,13 @@ def execute_npc_movement_decision(decision, area_data, location_id, npc_name, pa
                 target_location["description"] = f"{current_desc} {location_update}".strip()
         
         else:
-            print(f"ERROR: Unknown action: {action}")
+            error(f"VALIDATION: Unknown action: {action}", category="npc_management")
             return False
             
         return True
         
     except Exception as e:
-        print(f"ERROR: Failed to execute decision: {str(e)}")
+        error(f"FAILURE: Failed to execute decision: {str(e)}", category="npc_management")
         return False
 
 def create_area_backup(area_file):
@@ -1699,10 +1703,10 @@ def create_area_backup(area_file):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         backup_name = f"{area_file}.backup_npc_move_{timestamp}"
         shutil.copy2(area_file, backup_name)
-        print(f"DEBUG: Created area backup: {os.path.basename(backup_name)}")
+        debug(f"FILE_OP: Created area backup: {os.path.basename(backup_name)}", category="file_operations")
         return backup_name
     except Exception as e:
-        print(f"ERROR: Could not create area backup: {e}")
+        error(f"FILE_OP: Could not create area backup: {e}", category="file_operations")
         return None
 
 def cleanup_old_area_backups(area_file, max_backups=5):
@@ -1726,9 +1730,9 @@ def cleanup_old_area_backups(area_file, max_backups=5):
             for _, old_backup in backup_files[max_backups:]:
                 try:
                     os.remove(old_backup)
-                    print(f"DEBUG: Removed old backup: {os.path.basename(old_backup)}")
+                    debug(f"FILE_OP: Removed old backup: {os.path.basename(old_backup)}", category="file_operations")
                 except Exception as e:
-                    print(f"WARNING: Could not remove old backup: {e}")
+                    warning(f"FILE_OP: Could not remove old backup: {e}", category="file_operations")
                     
     except Exception as e:
-        print(f"WARNING: Backup cleanup failed: {e}")
+        warning(f"FILE_OP: Backup cleanup failed: {e}", category="file_operations")

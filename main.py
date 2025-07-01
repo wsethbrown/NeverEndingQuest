@@ -101,6 +101,10 @@ from campaign_manager import CampaignManager
 
 # Import training data collection
 from simple_training_collector import log_complete_interaction
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name(__name__)
 
 # Import model configurations from config.py
 from config import (
@@ -180,25 +184,25 @@ def check_and_inject_return_message(conversation_history):
     """
     # Skip if no conversation history (first startup)
     if not conversation_history:
-        print("DEBUG: No conversation history found, skipping return message injection")
+        debug("STATE_CHANGE: No conversation history found, skipping return message injection", category="session_management")
         return conversation_history, False
     
     # Check if there are any user messages (game has been played before)
     user_messages = [msg for msg in conversation_history if msg.get("role") == "user"]
     if not user_messages:
-        print("DEBUG: No user messages found, skipping return message injection")
+        debug("STATE_CHANGE: No user messages found, skipping return message injection", category="session_management")
         return conversation_history, False
     
     # Get the last message
     last_message = conversation_history[-1] if conversation_history else None
     if not last_message:
-        print("DEBUG: No last message found, skipping return message injection")
+        debug("STATE_CHANGE: No last message found, skipping return message injection", category="session_management")
         return conversation_history, False
     
     # Check if last message is already a return message
     last_content = last_message.get("content", "")
     if "Resume the game, the player has returned" in last_content:
-        print("DEBUG: Return message already present, skipping injection")
+        debug("STATE_CHANGE: Return message already present, skipping injection", category="session_management")
         return conversation_history, False
     
     # Inject return message
@@ -207,14 +211,14 @@ def check_and_inject_return_message(conversation_history):
         "content": "Dungeon Master Note: Resume the game, the player has returned."
     }
     conversation_history.append(return_message)
-    print("DEBUG: Injected 'player has returned' message at startup")
+    debug("STATE_CHANGE: Injected 'player has returned' message at startup", category="session_management")
     return conversation_history, True
 
 def generate_arrival_narration(departure_narration, party_tracker_data, conversation_history):
     """
     Takes the departure narration and generates a seamless arrival narration.
     """
-    print("DEBUG: Generating cinematic arrival narration...")
+    debug("STATE_CHANGE: Generating cinematic arrival narration...", category="narrative_generation")
     
     # Get details for the new location from the (now updated) party tracker
     new_location_name = party_tracker_data["worldConditions"]["currentLocation"]
@@ -264,12 +268,66 @@ def generate_arrival_narration(departure_narration, party_tracker_data, conversa
             # It's just plain text, which is what we want.
             pass
 
-        print("DEBUG: Arrival narration generated successfully.")
+        debug("SUCCESS: Arrival narration generated successfully.", category="narrative_generation")
         return sanitize_text(arrival_text)
     except Exception as e:
-        print(f"ERROR: Failed to generate arrival narration: {e}")
+        error(f"FAILURE: Failed to generate arrival narration", exception=e, category="narrative_generation")
         return f"(The journey to {new_location_name} is uneventful.)" # Fallback text
 
+
+# <--- NEW FUNCTION to blend the departure and arrival narrations --->
+def generate_seamless_transition_narration(departure_narration, arrival_narration):
+    """
+    Takes two separate narration blocks (departure and arrival) and uses an AI
+    to rewrite them into a single, cohesive, and seamless narrative.
+    """
+    debug("STATE_CHANGE: Blending departure and arrival narrations into a seamless whole...", category="narrative_generation")
+
+    # If either part is empty, just return the other part to avoid weird API calls.
+    if not departure_narration:
+        return arrival_narration
+    if not arrival_narration:
+        return departure_narration
+
+    stitching_prompt = f"""
+You are a master storyteller and narrative editor. The following two text blocks describe a party's departure from one place and their subsequent arrival at another. The transition between them is abrupt because they were generated separately.
+
+Your task is to rewrite them into a single, cohesive, and cinematic narration.
+- Preserve all key details, sensory information, and character actions from both parts.
+- Smooth out the transition so it feels like one continuous story beat.
+- Enhance the prose where possible to create a more engaging and atmospheric experience.
+- Do not add new plot points or actions; your role is to refine the existing narrative flow.
+
+DEPARTURE NARRATION:
+---
+{departure_narration}
+---
+
+ARRIVAL NARRATION:
+---
+{arrival_narration}
+---
+
+Now, provide the rewritten, seamless narration.
+"""
+
+    try:
+        response = client.chat.completions.create(
+            model=DM_MAIN_MODEL,  # Use the main model for high-quality writing
+            temperature=TEMPERATURE,
+            messages=[
+                {"role": "system", "content": "You are a master storyteller and editor, skilled at weaving separate narrative fragments into a single, seamless, and immersive piece of prose."},
+                {"role": "user", "content": stitching_prompt}
+            ]
+        )
+        seamless_narration = response.choices[0].message.content.strip()
+        debug("SUCCESS: Seamless narration generated successfully.", category="narrative_generation")
+        return sanitize_text(seamless_narration)
+    except Exception as e:
+        error(f"FAILURE: Failed to generate seamless transition narration", exception=e, category="narrative_generation")
+        # Fallback to simple concatenation if the API call fails
+        debug("STATE_CHANGE: Falling back to simple concatenation.", category="narrative_generation")
+        return f"{departure_narration}\n\n{arrival_narration}"
 
 # Message combination system helper functions
 def detect_create_encounter(parsed_data):
@@ -309,11 +367,11 @@ def combine_messages(first_response, second_response):
         return json.dumps(combined_data, indent=2)
         
     except json.JSONDecodeError as e:
-        print(f"Error combining messages: {e}")
+        error(f"FAILURE: Error combining messages", exception=e, category="narrative_generation")
         # Fallback: return second response if combination fails
         return second_response
     except Exception as e:
-        print(f"Unexpected error combining messages: {e}")
+        error(f"FAILURE: Unexpected error combining messages", exception=e, category="narrative_generation")
         return second_response
 
 def clear_message_buffer():
@@ -323,7 +381,7 @@ def clear_message_buffer():
     awaiting_combat_resolution = False
 
 def get_npc_stat(npc_name, stat_name, time_estimate):
-    print(f"DEBUG: get_npc_stat called for {npc_name}, stat: {stat_name}")
+    debug(f"STATE_CHANGE: get_npc_stat called for {npc_name}, stat: {stat_name}", category="npc_management")
     # Load party tracker to get correct module
     party_data = load_json_file("party_tracker.json")
     module_name = party_data.get("module", "").replace(" ", "_")
@@ -333,10 +391,10 @@ def get_npc_stat(npc_name, stat_name, time_estimate):
         with open(npc_file, "r", encoding="utf-8") as file:
             npc_stats = json.load(file)
     except FileNotFoundError:
-        print(f"{npc_file} not found. Stat retrieval failed.")
+        error(f"FAILURE: {npc_file} not found. Stat retrieval failed.", category="file_operations")
         return "NPC stat not found"
     except json.JSONDecodeError:
-        print(f"{npc_file} has an invalid JSON format. Stat retrieval failed.")
+        error(f"FAILURE: {npc_file} has an invalid JSON format. Stat retrieval failed.", category="file_operations")
         return "NPC stat not found"
 
     stat_value = None
@@ -472,7 +530,7 @@ def create_module_validation_context(party_tracker_data, path_manager):
                 
         except Exception as e:
             # Fallback to original character file method if codex fails
-            print(f"Warning: NPC codex failed, falling back to character files: {e}")
+            warning(f"VALIDATION: NPC codex failed, falling back to character files", exception=e, category="npc_management")
             import os
             import glob
             character_files = glob.glob(f"{path_manager.module_dir}/characters/*.json")
@@ -610,12 +668,12 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
     
     # DEBUG: Log what validation AI sees for createNewModule actions
     if '"action": "createNewModule"' in primary_response:
-        print("DEBUG: *** VALIDATION DEBUG - createNewModule detected ***")
-        print(f"DEBUG: User input that triggered this: {user_input}")
-        print(f"DEBUG: Last two messages validation AI sees:")
+        debug("VALIDATION: *** VALIDATION DEBUG - createNewModule detected ***", category="ai_validation")
+        debug(f"VALIDATION: User input that triggered this: {user_input}", category="ai_validation")
+        debug("VALIDATION: Last two messages validation AI sees:", category="ai_validation")
         for i, msg in enumerate(last_two_messages):
-            print(f"DEBUG: Message {i+1}: {msg['role']}: {msg['content'][:100]}...")
-        print("DEBUG: *** END VALIDATION DEBUG ***")
+            debug(f"VALIDATION: Message {i+1}: {msg['role']}: {msg['content'][:100]}...", category="ai_validation")
+        debug("VALIDATION: *** END VALIDATION DEBUG ***", category="ai_validation")
 
     max_validation_retries = 3
     for attempt in range(max_validation_retries):
@@ -646,16 +704,16 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
 
                 return reason  # Return the failure reason
             else:
-                print("DEBUG: Validation passed successfully")
+                debug("SUCCESS: Validation passed successfully", category="ai_validation")
                 return True  # Return True for successful validation
 
         except json.JSONDecodeError:
-            print(f"DEBUG: Invalid JSON from validation model (Attempt {attempt + 1}/{max_validation_retries})")
-            print(f"Problematic response: {validation_response}")
+            debug(f"VALIDATION: Invalid JSON from validation model (Attempt {attempt + 1}/{max_validation_retries})", category="ai_validation")
+            debug(f"VALIDATION: Problematic response: {validation_response}", category="ai_validation")
             continue  # Retry the validation
 
     # If we've exhausted all retries and still don't have a valid JSON response
-    print("DEBUG: Validation model consistently produced invalid JSON. Assuming primary response is valid.")
+    warning("VALIDATION: Validation model consistently produced invalid JSON. Assuming primary response is valid.", category="ai_validation")
     return True
 
 def load_validation_prompt():
@@ -667,7 +725,7 @@ def load_json_file(file_path):
     return safe_json_load(file_path)
 
 def process_conversation_history(history):
-    print(f"DEBUG: Processing conversation history")
+    debug("STATE_CHANGE: Processing conversation history", category="conversation_management")
     for message in history:
         if message["role"] == "user" and message["content"].startswith("Leveling Dungeon Master Guidance"):
             message["content"] = "DM Guidance: Proceed with leveling up the player character or the party NPC given the 5th Edition role playing game rules. Only level the player character or party NPC one level at a time to ensure no mistakes are made. If you are leveling up a party NPC then pass all changes at once using the 'updateCharacterInfo' action. If you are leveling up a player character then you must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updateCharacterInfo' to pass all changes to the players character sheet and include the experience goal for the next level. Do not update the player's information in segements."
@@ -675,7 +733,7 @@ def process_conversation_history(history):
     # Apply DM note truncation to clean up bloated messages
     history = truncate_dm_notes(history)
     
-    print(f"DEBUG: Conversation history processing complete")
+    debug("SUCCESS: Conversation history processing complete", category="conversation_management")
     return history
 
 def truncate_dm_notes(conversation_history):
@@ -742,7 +800,7 @@ def check_and_process_location_transitions(conversation_history, party_tracker_d
             # New format with IDs
             leaving_location_name = id_match.group(1)
             leaving_location_id = id_match.group(2)
-            print(f"DEBUG: Extracted from new format - Location: {leaving_location_name}, ID: {leaving_location_id}")
+            debug(f"STATE_CHANGE: Extracted from new format - Location: {leaving_location_name}, ID: {leaving_location_id}", category="location_transitions")
         else:
             # Fall back to old format
             parts = last_transition_content.split(" to ")
@@ -750,15 +808,15 @@ def check_and_process_location_transitions(conversation_history, party_tracker_d
                 from_part = parts[0].replace("Location transition: ", "").strip()
                 leaving_location_name = from_part
                 leaving_location_id = None
-                print(f"DEBUG: Extracted from old format - Location: {leaving_location_name}")
+                debug(f"STATE_CHANGE: Extracted from old format - Location: {leaving_location_name}", category="location_transitions")
             else:
-                print("DEBUG: Could not parse transition message format")
+                warning("VALIDATION: Could not parse transition message format", category="location_transitions")
                 return conversation_history
     except Exception as e:
-        print(f"DEBUG: Error parsing transition message: {str(e)}")
+        error(f"FAILURE: Error parsing transition message", exception=e, category="location_transitions")
         return conversation_history
     
-    print(f"DEBUG: Processing transition from {leaving_location_name}")
+    debug(f"STATE_CHANGE: Processing transition from {leaving_location_name}", category="location_transitions")
     
     try:
         # Generate enhanced adventure summary
@@ -786,20 +844,20 @@ def check_and_process_location_transitions(conversation_history, party_tracker_d
             try:
                 from chunked_compression_integration import check_and_perform_chunked_compression
                 if check_and_perform_chunked_compression():
-                    print("DEBUG: Chunked compression performed after location transition")
+                    debug("SUCCESS: Chunked compression performed after location transition", category="conversation_management")
                     # Reload the compressed history
                     compressed_history = load_json_file(json_file) or compressed_history
             except Exception as e:
-                print(f"DEBUG: Chunked compression check failed: {e}")
+                error(f"FAILURE: Chunked compression check failed", exception=e, category="conversation_management")
             
-            print("DEBUG: Location summary and compression completed")
+            debug("SUCCESS: Location summary and compression completed", category="location_transitions")
             return compressed_history
         else:
-            print("DEBUG: No adventure summary generated")
+            debug("STATE_CHANGE: No adventure summary generated", category="location_transitions")
             return conversation_history
             
     except Exception as e:
-        print(f"ERROR: Failed to process location transition: {str(e)}")
+        error(f"FAILURE: Failed to process location transition", exception=e, category="location_transitions")
         import traceback
         traceback.print_exc()
         return conversation_history
@@ -856,15 +914,15 @@ def check_and_process_module_transitions(conversation_history, party_tracker_dat
         if match:
             leaving_module_name = match.group(1)
             arriving_module_name = match.group(2)
-            print(f"DEBUG: Extracted module transition - From: {leaving_module_name}, To: {arriving_module_name}")
+            debug(f"STATE_CHANGE: Extracted module transition - From: {leaving_module_name}, To: {arriving_module_name}", category="module_transitions")
         else:
-            print("DEBUG: Could not parse module transition message format")
+            warning("VALIDATION: Could not parse module transition message format", category="module_transitions")
             return conversation_history
     except Exception as e:
-        print(f"DEBUG: Error parsing module transition message: {str(e)}")
+        error(f"FAILURE: Error parsing module transition message", exception=e, category="module_transitions")
         return conversation_history
     
-    print(f"DEBUG: Processing module transition from {leaving_module_name}")
+    debug(f"STATE_CHANGE: Processing module transition from {leaving_module_name}", category="module_transitions")
     
     try:
         # Generate module summary using similar logic to location summaries
@@ -884,14 +942,14 @@ def check_and_process_module_transitions(conversation_history, party_tracker_dat
                 last_transition_index
             )
             
-            print("DEBUG: Module summary and compression completed")
+            debug("SUCCESS: Module summary and compression completed", category="module_transitions")
             return compressed_history
         else:
-            print("DEBUG: No module summary generated")
+            debug("STATE_CHANGE: No module summary generated", category="module_transitions")
             return conversation_history
             
     except Exception as e:
-        print(f"ERROR: Failed to process module transition: {str(e)}")
+        error(f"FAILURE: Failed to process module transition", exception=e, category="module_transitions")
         import traceback
         traceback.print_exc()
         return conversation_history
@@ -910,7 +968,7 @@ def generate_module_summary(conversation_history, party_tracker_data, module_nam
         if (msg.get("role") == "user" and 
             ("Module transition:" in content or "Module summary:" in content)):
             boundary_index = i + 1  # Start after previous transition/summary
-            print(f"DEBUG: CONDITION 1 - Found previous module marker at index {i}, boundary at {boundary_index}")
+            debug(f"VALIDATION: CONDITION 1 - Found previous module marker at index {i}, boundary at {boundary_index}", category="conversation_management")
             break
     
     # Condition 2: If no previous module transition/summary, find last system message
@@ -919,17 +977,17 @@ def generate_module_summary(conversation_history, party_tracker_data, module_nam
             msg = conversation_history[i]
             if msg.get("role") == "system":
                 boundary_index = i + 1  # Start after last system message
-                print(f"DEBUG: CONDITION 2 - Found last system message at index {i}, boundary at {boundary_index}")
+                debug(f"VALIDATION: CONDITION 2 - Found last system message at index {i}, boundary at {boundary_index}", category="conversation_management")
                 break
         
         # Fallback if no system message found (shouldn't happen)
         if boundary_index is None:
             boundary_index = 0
-            print(f"DEBUG: FALLBACK - No system message found, using boundary at {boundary_index}")
+            debug(f"VALIDATION: FALLBACK - No system message found, using boundary at {boundary_index}", category="conversation_management")
     
     # Extract ONLY the conversation from boundary to transition (actual gameplay)
     module_conversation = conversation_history[boundary_index:transition_index]
-    print(f"DEBUG: Extracting {len(module_conversation)} messages from index {boundary_index} to {transition_index} for summary")
+    debug(f"STATE_CHANGE: Extracting {len(module_conversation)} messages from index {boundary_index} to {transition_index} for summary", category="conversation_management")
     
     # Generate summary from ACTUAL conversation history, not plot files
     try:
@@ -945,7 +1003,7 @@ def generate_module_summary(conversation_history, party_tracker_data, module_nam
                                       "Module summary:", "Dungeon Master Note:", "Error Note:"))):
                 meaningful_messages.append(msg)
         
-        print(f"DEBUG: Found {len(meaningful_messages)} meaningful conversation messages to summarize")
+        debug(f"STATE_CHANGE: Found {len(meaningful_messages)} meaningful conversation messages to summarize", category="summary_building")
         
         # If we have substantial conversation, generate AI summary from actual gameplay
         if len(meaningful_messages) >= 3:
@@ -992,16 +1050,16 @@ Write a compelling chronicle of these actual events:"""
                 
                 ai_summary = response.choices[0].message.content.strip()
                 formatted_summary = f"=== MODULE SUMMARY ===\n\n{module_name}:\n------------------------------\n{ai_summary}"
-                print(f"DEBUG: Generated AI summary from actual conversation for {module_name}")
+                debug(f"SUCCESS: Generated AI summary from actual conversation for {module_name}", category="summary_building")
                 return formatted_summary
                 
             except Exception as e:
-                print(f"DEBUG: Error generating AI summary from conversation: {e}, using fallback")
+                warning(f"FAILURE: Error generating AI summary from conversation, using fallback", exception=e, category="summary_building")
         
-        print(f"DEBUG: Not enough meaningful conversation for AI summary ({len(meaningful_messages)} messages), using fallback")
+        debug(f"STATE_CHANGE: Not enough meaningful conversation for AI summary ({len(meaningful_messages)} messages), using fallback", category="summary_building")
         
     except Exception as e:
-        print(f"DEBUG: Error processing conversation for summary: {e}, using fallback")
+        error(f"FAILURE: Error processing conversation for summary, using fallback", exception=e, category="summary_building")
     
     # Fallback to simple summary if no AI summary available
     meaningful_messages = [
@@ -1031,7 +1089,7 @@ def compress_conversation_history_on_module_transition(conversation_history, mod
         if (msg.get("role") == "user" and 
             ("Module transition:" in content or "Module summary:" in content)):
             boundary_index = i + 1  # Start after previous transition/summary
-            print(f"DEBUG: COMPRESSION - Found previous module marker at index {i}, boundary at {boundary_index}")
+            debug(f"VALIDATION: COMPRESSION - Found previous module marker at index {i}, boundary at {boundary_index}", category="conversation_management")
             break
     
     # If no previous module marker, find last system message
@@ -1039,12 +1097,12 @@ def compress_conversation_history_on_module_transition(conversation_history, mod
         for i, msg in enumerate(conversation_history):
             if msg.get("role") == "system":
                 boundary_index = i + 1  # Start after system message
-                print(f"DEBUG: COMPRESSION - Found system message at index {i}, boundary at {boundary_index}")
+                debug(f"VALIDATION: COMPRESSION - Found system message at index {i}, boundary at {boundary_index}", category="conversation_management")
                 break
         
         if boundary_index is None:
             boundary_index = 0
-            print(f"DEBUG: COMPRESSION - No system message found, using boundary at {boundary_index}")
+            debug(f"VALIDATION: COMPRESSION - No system message found, using boundary at {boundary_index}", category="conversation_management")
     
     # Create summary message
     summary_message = {
@@ -1064,9 +1122,9 @@ def compress_conversation_history_on_module_transition(conversation_history, mod
     # Add transition marker and everything after
     compressed_history.extend(conversation_history[transition_index:])
     
-    print(f"DEBUG: Compressed module conversation from {len(conversation_history)} to {len(compressed_history)} messages")
-    print(f"DEBUG: Preserved {boundary_index} messages before boundary, added 1 summary, kept {len(conversation_history) - transition_index} messages after transition")
-    print(f"DEBUG: Result structure: main system message + module summary + transition + new conversation")
+    debug(f"SUCCESS: Compressed module conversation from {len(conversation_history)} to {len(compressed_history)} messages", category="conversation_management")
+    debug(f"STATE_CHANGE: Preserved {boundary_index} messages before boundary, added 1 summary, kept {len(conversation_history) - transition_index} messages after transition", category="conversation_management")
+    debug("STATE_CHANGE: Result structure: main system message + module summary + transition + new conversation", category="conversation_management")
     return compressed_history
 
 def extract_json_from_codeblock(text):
@@ -1087,7 +1145,7 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
         is_levelup_action = any(action.get("action") == "levelUp" for action in actions)
 
         if is_levelup_action:
-            print("DEBUG: levelUp action detected. Suppressing initial narration and starting session.")
+            debug("STATE_CHANGE: levelUp action detected. Suppressing initial narration and starting session.", category="level_up")
             # Process ONLY the levelUp action from the list to start the session.
             # This assumes the first levelUp action is the one to process.
             for action in actions:
@@ -1110,7 +1168,7 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
         
         # If it's a transition, handle it with the special two-step process
         if is_transition:
-            print("DEBUG: Transition action detected. Holding departure narration.")
+            debug("STATE_CHANGE: Transition action detected. Holding departure narration.", category="location_transitions")
             
             # Step 1: Process actions to update state (summary, party_tracker, etc.)
             actions_processed = False
@@ -1131,15 +1189,19 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             # Step 3: Generate the arrival narration using the new helper function
             arrival_narration = generate_arrival_narration(departure_narration, fresh_party_data, fresh_conversation_history)
             
-            # Step 4: Combine and display the full narration
-            full_narration = f"{departure_narration}\n\n{arrival_narration}"
+            # <--- MODIFIED SECTION: Use the new seamless narration generator --->
+            # Step 4: Blend the departure and arrival narrations into a single, cohesive story.
+            full_narration = generate_seamless_transition_narration(departure_narration, arrival_narration)
+            
+            # Step 5: Display the final, polished narration
             print(colored("Dungeon Master:", "blue"), colored(full_narration, "blue"))
+            # <--- END OF MODIFIED SECTION --->
 
-            # Step 5: Add the final combined narration to history as a single, clean message.
+            # Step 6: Add the final combined narration to history as a single, clean message.
             for i in range(len(conversation_history) - 1, -1, -1):
                 if conversation_history[i].get("role") == "assistant":
                     conversation_history[i]['content'] = json.dumps({"narration": full_narration, "actions": []}) # Actions already processed
-                    print("DEBUG: Replaced last assistant message with combined transition narration.")
+                    debug("SUCCESS: Replaced last assistant message with combined transition narration.", category="location_transitions")
                     break
             
             save_conversation_history(conversation_history)
@@ -1177,7 +1239,7 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             party_tracker_data = load_json_file("party_tracker.json")
             
             if hasattr(action_handler.process_action, 'level_up_summaries') and action_handler.process_action.level_up_summaries:
-                print(f"DEBUG: Injecting {len(action_handler.process_action.level_up_summaries)} level up summaries")
+                debug(f"STATE_CHANGE: Injecting {len(action_handler.process_action.level_up_summaries)} level up summaries", category="level_up")
                 
                 combined_summary = "\n\n".join(action_handler.process_action.level_up_summaries)
                 conversation_history.append({"role": "user", "content": combined_summary})
@@ -1202,7 +1264,7 @@ def save_conversation_history(history):
     try:
         safe_json_dump(history, json_file)
     except Exception as e:
-        print(colored(f"ERROR: Failed to save conversation history: {e}", "red"))
+        error(f"FAILURE: Failed to save conversation history", exception=e, category="file_operations")
 
 def get_ai_response(conversation_history):
     status_processing_ai()
@@ -1286,7 +1348,7 @@ def check_all_modules_plot_completion():
     }
     
     if not os.path.exists(modules_dir):
-        print("DEBUG: No modules directory found")
+        warning("FILE_OP: No modules directory found", category="module_management")
         return all_modules_data
     
     # Find all valid module directories
@@ -1310,7 +1372,7 @@ def check_all_modules_plot_completion():
                                  and f not in ['campaign.json', 'world_registry.json', 'module_context.json']]
                 area_files.extend(root_area_files)
             except Exception as e:
-                print(f"DEBUG: Error checking root area files for {item}: {e}")
+                error(f"FAILURE: Error checking root area files for {item}", exception=e, category="module_management")
             
             # Check areas/ subdirectory (new structure)
             areas_subdir = os.path.join(module_path, 'areas')
@@ -1326,7 +1388,7 @@ def check_all_modules_plot_completion():
                                        and not f.startswith('module_')]
                     area_files.extend(subdir_area_files)
                 except Exception as e:
-                    print(f"DEBUG: Error checking areas subdirectory for {item}: {e}")
+                    error(f"FAILURE: Error checking areas subdirectory for {item}", exception=e, category="module_management")
             
             if area_files:
                 available_modules.append(item)
@@ -1369,7 +1431,7 @@ def check_all_modules_plot_completion():
                 # Module {module_name} completion: {completed_plots}/{total_plots} ({module_complete})
                 
             else:
-                print(f"DEBUG: Module {module_name} has no plot data or plotPoints")
+                debug(f"STATE_CHANGE: Module {module_name} has no plot data or plotPoints", category="module_management")
                 all_modules_data["completion_summary"][module_name] = {
                     "total_plots": 0,
                     "completed_plots": 0,
@@ -1379,7 +1441,7 @@ def check_all_modules_plot_completion():
                 all_modules_data["all_complete"] = False
                 
         except Exception as e:
-            print(f"DEBUG: Error loading plot data for module {module_name}: {e}")
+            error(f"FAILURE: Error loading plot data for module {module_name}", exception=e, category="module_management")
             all_modules_data["completion_summary"][module_name] = {
                 "total_plots": 0,
                 "completed_plots": 0,
@@ -1412,7 +1474,7 @@ def main_game_loop():
                 print("[ERROR] Setup was cancelled or failed. Cannot start game loop.")
                 return
     except Exception as e:
-        print(f"[ERROR] Startup wizard failed: {e}")
+        error(f"FAILURE: Startup wizard failed", exception=e, category="startup")
         return
 
     validation_prompt_text = load_validation_prompt() 
@@ -1428,12 +1490,12 @@ def main_game_loop():
         save_conversation_history(conversation_history)
         
         # Generate AI response to the return message for startup narration
-        print("DEBUG: Generating startup narration after return message injection")
+        debug("STATE_CHANGE: Generating startup narration after return message injection", category="startup")
         ai_response = get_ai_response(conversation_history)
         if ai_response:
             conversation_history.append({"role": "assistant", "content": ai_response})
             save_conversation_history(conversation_history)
-            print("DEBUG: Startup narration added to conversation history")
+            debug("SUCCESS: Startup narration added to conversation history", category="startup")
     
     party_tracker_data = load_json_file("party_tracker.json")
     
@@ -1444,11 +1506,11 @@ def main_game_loop():
     
     # Extract module name from party tracker data first
     module_name = party_tracker_data.get("module", "").replace(" ", "_")
-    print(f"DEBUG: Initializing path_manager with module: '{module_name}'")
+    debug(f"INITIALIZATION: Initializing path_manager with module: '{module_name}'", category="module_management")
     
     # Initialize path manager with the correct module name
     path_manager = ModulePathManager(module_name)
-    print(f"DEBUG: Path manager initialized - module_name: '{path_manager.module_name}', module_dir: '{path_manager.module_dir}'")
+    debug(f"INITIALIZATION: Path manager initialized - module_name: '{path_manager.module_name}', module_dir: '{path_manager.module_dir}'", category="module_management")
     
     current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
     location_data = location_manager.get_location_info( 
@@ -1461,21 +1523,21 @@ def main_game_loop():
     current_module_name = party_tracker_data.get("module", "").replace(" ", "_")
     current_path_manager = ModulePathManager(current_module_name)
     plot_data = load_json_file(current_path_manager.get_plot_path())
-    print(f"DEBUG: Plot file path: {current_path_manager.get_plot_path()}")
+    debug(f"FILE_OP: Plot file path: {current_path_manager.get_plot_path()}", category="module_management")
     
     module_data = load_json_file(current_path_manager.get_module_file_path())
 
     conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
-    print(f"DEBUG: Before update_conversation_history - history has {len(conversation_history)} messages")
+    debug(f"STATE_CHANGE: Before update_conversation_history - history has {len(conversation_history)} messages", category="conversation_management")
     conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, module_data)
-    print(f"DEBUG: After update_conversation_history - history has {len(conversation_history)} messages")
+    debug(f"STATE_CHANGE: After update_conversation_history - history has {len(conversation_history)} messages", category="conversation_management")
     conversation_history = update_character_data(conversation_history, party_tracker_data)
     
     # Use the new order_conversation_messages function
     conversation_history = order_conversation_messages(conversation_history, main_system_prompt_text)
     
     # Check for missing summaries at game startup
-    print("DEBUG: Checking for missing location summaries at startup")
+    debug("STATE_CHANGE: Checking for missing location summaries at startup", category="startup")
     conversation_history = cumulative_summary.check_and_compact_missing_summaries(
         conversation_history,
         party_tracker_data
@@ -1495,7 +1557,7 @@ def main_game_loop():
         conversation_history = truncate_dm_notes(conversation_history)
 
         if needs_conversation_history_update:
-            print("DEBUG: Reloading conversation history from disk due to needs_conversation_history_update flag")
+            debug("STATE_CHANGE: Reloading conversation history from disk due to needs_conversation_history_update flag", category="conversation_management")
             # Reload conversation history from disk to get any changes made during actions
             conversation_history = load_json_file("modules/conversation_history/conversation_history.json") or []
             conversation_history = process_conversation_history(conversation_history)
@@ -1515,7 +1577,7 @@ def main_game_loop():
 
         # Check if stdin is available (prevent infinite loops in non-interactive environments)
         if hasattr(sys.stdin, 'isatty') and not sys.stdin.isatty():
-            print("WARNING: Running in non-interactive environment. Stdin is not a terminal.")
+            warning("INITIALIZATION: Running in non-interactive environment. Stdin is not a terminal.", category="startup")
             print("Game loop stopped to prevent infinite empty input cycle.")
             print("To run interactively, ensure the program is run from a proper terminal.")
             break
@@ -1562,12 +1624,12 @@ def main_game_loop():
 
         try:
             for npc_info_iter in party_tracker_data["partyNPCs"]:
-                print(f"DEBUG: Processing NPC: {npc_info_iter['name']}")
+                debug(f"STATE_CHANGE: Processing NPC: {npc_info_iter['name']}", category="npc_management")
                 npc_name_iter = npc_info_iter["name"]
                 npc_data_file = path_manager.get_character_path(npc_name_iter)
-                print(f"DEBUG: NPC file path: {npc_data_file}")
+                debug(f"FILE_OP: NPC file path: {npc_data_file}", category="npc_management")
                 npc_data_iter = load_json_file(npc_data_file)
-                print(f"DEBUG: NPC data loaded: {npc_data_iter is not None}")
+                debug(f"FILE_OP: NPC data loaded: {npc_data_iter is not None}", category="npc_management")
                 if npc_data_iter:
                     stats = {
                         "name": npc_info_iter["name"],
@@ -1578,9 +1640,9 @@ def main_game_loop():
                         "max_hp": npc_data_iter.get("maxHitPoints", "N/A")
                     }
                     party_members_stats.append(stats)
-                    print(f"DEBUG: Added NPC stats: {stats}")
+                    debug(f"STATE_CHANGE: Added NPC stats: {stats}", category="npc_management")
         except Exception as e:
-            print(f"DEBUG: Error processing NPCs: {e}")
+            error(f"FAILURE: Error processing NPCs", exception=e, category="npc_management")
             import traceback
             traceback.print_exc()
         
@@ -1704,7 +1766,7 @@ def main_game_loop():
                         if other_module_areas:
                             available_modules_str = ". Available modules for travel: " + "; ".join(other_module_areas)
             except Exception as e:
-                print(f"DEBUG: Failed to load inter-module connectivity: {e}")
+                error(f"FAILURE: Failed to load inter-module connectivity", exception=e, category="module_management")
             # --- END OF INTER-MODULE CONNECTIVITY SECTION ---
             # --- END OF CONNECTIVITY SECTION ---
             
@@ -1712,12 +1774,12 @@ def main_game_loop():
             current_module_for_plot = party_tracker_data.get("module", "").replace(" ", "_")
             current_plot_manager = ModulePathManager(current_module_for_plot)
             plot_data_for_note = load_json_file(current_plot_manager.get_plot_path())
-            print(f"DEBUG: Plot file path: {current_plot_manager.get_plot_path()}")
-            print(f"DEBUG: Plot data loaded: {plot_data_for_note is not None}")
+            debug(f"FILE_OP: Plot file path: {current_plot_manager.get_plot_path()}", category="module_management")
+            debug(f"FILE_OP: Plot data loaded: {plot_data_for_note is not None}", category="module_management")
             if plot_data_for_note:
-                print(f"DEBUG: Plot data keys: {list(plot_data_for_note.keys())}")
+                debug(f"FILE_OP: Plot data keys: {list(plot_data_for_note.keys())}", category="module_management")
             else:
-                print("DEBUG: No plot data loaded - plot_data_for_note is None") 
+                debug("FILE_OP: No plot data loaded - plot_data_for_note is None", category="module_management") 
             current_plot_points = []
             if plot_data_for_note and "plotPoints" in plot_data_for_note:
                  current_plot_points = [
@@ -1789,7 +1851,7 @@ def main_game_loop():
             try:
                 # Debug current module detection
                 current_module = party_tracker_data.get('module', '').replace(' ', '_')
-                print(f"DEBUG: Current module from party tracker: '{current_module}'")
+                debug(f"STATE_CHANGE: Current module from party tracker: '{current_module}'", category="module_management")
                 
                 # Use new comprehensive module completion checker
                 all_modules_completion = check_all_modules_plot_completion()
@@ -1800,40 +1862,40 @@ def main_game_loop():
                 completion_summary = all_modules_completion["completion_summary"]
                 
                 # Print summary of all modules
-                print(f"DEBUG: === ALL MODULES COMPLETION SUMMARY ===")
+                debug("STATE_CHANGE: === ALL MODULES COMPLETION SUMMARY ===", category="module_management")
                 for module_name, summary in completion_summary.items():
                     status = "COMPLETE" if summary["is_complete"] else "INCOMPLETE"
-                    print(f"DEBUG: {module_name}: {summary['completed_plots']}/{summary['total_plots']} plots - {status}")
-                print(f"DEBUG: === END SUMMARY ===")
+                    debug(f"STATE_CHANGE: {module_name}: {summary['completed_plots']}/{summary['total_plots']} plots - {status}", category="module_management")
+                debug("STATE_CHANGE: === END SUMMARY ===", category="module_management")
                 
                 # Determine if we should inject module creation prompt
                 # Only suggest module creation if ALL modules are complete
                 should_inject_creation_prompt = all_modules_complete and len(modules_checked) > 0
                 
-                print(f"DEBUG: All modules complete: {all_modules_complete}")
-                print(f"DEBUG: Should inject module creation prompt: {should_inject_creation_prompt}")
+                debug(f"STATE_CHANGE: All modules complete: {all_modules_complete}", category="module_management")
+                debug(f"STATE_CHANGE: Should inject module creation prompt: {should_inject_creation_prompt}", category="module_management")
                 
                 # If ALL modules are complete, inject creation prompt
                 if should_inject_creation_prompt:
-                    print("DEBUG: *** MODULE CREATION PROMPT INJECTION TRIGGERED ***")
-                    print("DEBUG: All available modules have completed plots - suggesting new module creation")
+                    debug("STATE_CHANGE: *** MODULE CREATION PROMPT INJECTION TRIGGERED ***", category="module_management")
+                    debug("STATE_CHANGE: All available modules have completed plots - suggesting new module creation", category="module_management")
                     # Load the module creation prompt
                     import os
                     if os.path.exists("module_creation_prompt.txt"):
                         with open("module_creation_prompt.txt", "r", encoding="utf-8") as f:
                             module_creation_prompt = "\n\n" + f.read()
-                        print(f"DEBUG: Module creation prompt loaded ({len(module_creation_prompt)} characters)")
+                        debug(f"FILE_OP: Module creation prompt loaded ({len(module_creation_prompt)} characters)", category="module_management")
                     else:
-                        print("DEBUG: module_creation_prompt.txt not found!")
+                        warning("FILE_OP: module_creation_prompt.txt not found!", category="module_management")
                 else:
                     incomplete_modules = [name for name, summary in completion_summary.items() if not summary["is_complete"]]
                     if incomplete_modules:
-                        print(f"DEBUG: Module creation prompt NOT injected - incomplete modules: {incomplete_modules}")
+                        debug(f"STATE_CHANGE: Module creation prompt NOT injected - incomplete modules: {incomplete_modules}", category="module_management")
                     else:
-                        print(f"DEBUG: Module creation prompt NOT injected - no modules found to check")
+                        debug("STATE_CHANGE: Module creation prompt NOT injected - no modules found to check", category="module_management")
                     
             except Exception as e:
-                print(f"DEBUG: Module completion check failed: {e}")
+                error(f"FAILURE: Module completion check failed", exception=e, category="module_management")
                 import traceback
                 traceback.print_exc()
             
@@ -1884,7 +1946,7 @@ def main_game_loop():
             
             if validation_result is True:
                 valid_response_received = True
-                print(f"DEBUG: Valid response generated on attempt {retry_count + 1}")
+                debug(f"SUCCESS: Valid response generated on attempt {retry_count + 1}", category="ai_validation")
                 # Don't append to history yet, process_ai_response will do it
                 
                 # --- START OF MODIFIED BLOCK ---
@@ -1924,13 +1986,13 @@ def main_game_loop():
 
                     # After the loop, the session is complete. Get the summary.
                     if level_up_session.success:
-                        print("DEBUG: Level up successful. Adding summary to conversation for AI context.")
+                        debug("SUCCESS: Level up successful. Adding summary to conversation for AI context.", category="level_up")
                         # Add the summary to history as a 'user' message so the AI can react to it.
                         conversation_history.append({"role": "user", "content": level_up_session.summary})
                         save_conversation_history(conversation_history)
                         
                         # --- START OF FIX: Re-query the AI for a narrative response ---
-                        print("DEBUG: Re-querying main AI for a narrative response to the level up.")
+                        debug("STATE_CHANGE: Re-querying main AI for a narrative response to the level up.", category="level_up")
                         # Get a new response from the main DM based on the level-up summary.
                         ai_response_content = get_ai_response(conversation_history)
                         
@@ -1967,16 +2029,16 @@ def main_game_loop():
 
             elif isinstance(validation_result, str):
                 # (The rest of your validation retry logic remains the same)
-                print(f"DEBUG: Validation failed. Reason: {validation_result}")
+                debug(f"VALIDATION: Validation failed. Reason: {validation_result}", category="ai_validation")
                 status_retrying(retry_count + 1, 5)
                 conversation_history.append({"role": "user", "content": f"Error Note: Your previous response failed validation. Reason: {validation_result}. Please adjust your response accordingly."})
                 retry_count += 1
             else: 
-                print(f"DEBUG: Unexpected validation result: {validation_result}. Assuming invalid and retrying.")
+                warning(f"VALIDATION: Unexpected validation result: {validation_result}. Assuming invalid and retrying.", category="ai_validation")
                 retry_count += 1
         
         if not valid_response_received:
-            print("Failed to generate a valid response after 5 attempts. Proceeding with the last generated response.")
+            error("FAILURE: Failed to generate a valid response after 5 attempts. Proceeding with the last generated response.", category="ai_validation")
             if ai_response_content: 
                 result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history) 
                 if result == "exit": return
@@ -1985,7 +2047,7 @@ def main_game_loop():
                     main_game_loop()
                     return
             else:
-                print("ERROR: No AI response was generated after retries.")
+                error("FAILURE: No AI response was generated after retries.", category="ai_validation")
                 conversation_history.append({"role": "assistant", "content": "I seem to be having trouble formulating a response. Could you try rephrasing your action or query?"})
                 save_conversation_history(conversation_history)
         
@@ -1998,11 +2060,11 @@ def main_game_loop():
         updated_path_manager = ModulePathManager(module_name_updated)
         plot_data = load_json_file(updated_path_manager.get_plot_path())
         module_data = load_json_file(updated_path_manager.get_module_file_path())
-        print(f"DEBUG: Updated plot file path: {updated_path_manager.get_plot_path()}")
+        debug(f"FILE_OP: Updated plot file path: {updated_path_manager.get_plot_path()}", category="module_management")
 
-        print(f"DEBUG: Before AI response update_conversation_history - history has {len(conversation_history)} messages")
+        debug(f"STATE_CHANGE: Before AI response update_conversation_history - history has {len(conversation_history)} messages", category="conversation_management")
         conversation_history = update_conversation_history(conversation_history, party_tracker_data, plot_data, module_data)
-        print(f"DEBUG: After AI response update_conversation_history - history has {len(conversation_history)} messages")
+        debug(f"STATE_CHANGE: After AI response update_conversation_history - history has {len(conversation_history)} messages", category="conversation_management")
         conversation_history = update_character_data(conversation_history, party_tracker_data)
         conversation_history = ensure_main_system_prompt(conversation_history, main_system_prompt_text)
         
@@ -2032,7 +2094,7 @@ def main():
             print("Setup complete! Your adventure begins now...\n")
     
     except Exception as e:
-        print(f"WARNING] Startup wizard had an issue: {e}")
+        warning(f"INITIALIZATION: Startup wizard had an issue", exception=e, category="startup")
         print("Continuing with main game (assuming setup is complete)...\n")
     
     # Continue with normal game loop

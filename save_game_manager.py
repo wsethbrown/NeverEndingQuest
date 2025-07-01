@@ -62,16 +62,14 @@ import time
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Any
-import logging
-
 # Import our existing utilities
 from file_operations import safe_write_json, safe_read_json
 from module_path_manager import ModulePathManager
 from encoding_utils import safe_json_load
+from enhanced_logger import debug, info, warning, error, set_script_name
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+# Set script name for logging
+set_script_name(__name__)
 
 class SaveGameManager:
     """Manages save and restore operations for the Dungeon Master system"""
@@ -91,7 +89,7 @@ class SaveGameManager:
             else:
                 self.path_manager = ModulePathManager()
         except Exception as e:
-            logger.warning(f"Could not initialize module context: {e}")
+            warning(f"INITIALIZATION: Could not initialize module context", exception=e, category="save_game")
             self.path_manager = ModulePathManager()
     
     def get_essential_files(self) -> List[str]:
@@ -286,7 +284,7 @@ class SaveGameManager:
                     "current_area": party_tracker.get("worldConditions", {}).get("currentArea", "Unknown"),
                 }
         except Exception as e:
-            logger.warning(f"Could not load party tracker for metadata: {e}")
+            warning(f"FILE_OP: Could not load party tracker for metadata", exception=e, category="save_game")
         
         try:
             current_location = safe_json_load("current_location.json")
@@ -296,7 +294,7 @@ class SaveGameManager:
                     "area_id": current_location.get("areaId", "Unknown"),
                 }
         except Exception as e:
-            logger.warning(f"Could not load current location for metadata: {e}")
+            warning(f"FILE_OP: Could not load current location for metadata", exception=e, category="save_game")
         
         metadata = {
             "save_timestamp": timestamp.isoformat(),
@@ -335,7 +333,7 @@ class SaveGameManager:
             
             # Create save directory
             os.makedirs(save_path, exist_ok=True)
-            logger.info(f"Created save directory: {save_path}")
+            info(f"FILE_OP: Created save directory: {save_path}", category="save_game")
             
             # Generate and save metadata
             metadata = self.generate_save_metadata(description, save_mode)
@@ -380,9 +378,9 @@ class SaveGameManager:
                         try:
                             shutil.copy2(source_path, dest_path)
                             copied_files.append(file_path)
-                            logger.debug(f"Copied: {file_path}")
+                            debug(f"FILE_OP: Copied: {file_path}", category="save_game")
                         except Exception as e:
-                            logger.error(f"Failed to copy {file_path}: {e}")
+                            error(f"FAILURE: Failed to copy {file_path}", exception=e, category="save_game")
                             skipped_files.append(file_path)
                     else:
                         skipped_files.append(file_path)
@@ -404,12 +402,12 @@ class SaveGameManager:
             else:
                 success_msg += " (full save)"
             
-            logger.info(success_msg)
+            info(f"SUCCESS: {success_msg}", category="save_game")
             return True, success_msg
             
         except Exception as e:
             error_msg = f"Failed to create save game: {str(e)}"
-            logger.error(error_msg)
+            error(f"FAILURE: {error_msg}", category="save_game")
             return False, error_msg
     
     def list_save_games(self) -> List[Dict[str, Any]]:
@@ -432,7 +430,7 @@ class SaveGameManager:
                             metadata["save_path"] = item_path
                             save_games.append(metadata)
         except Exception as e:
-            logger.error(f"Error listing save games: {e}")
+            error(f"FAILURE: Error listing save games", exception=e, category="save_game")
         
         # Sort by timestamp, newest first
         save_games.sort(key=lambda x: x.get("save_timestamp", ""), reverse=True)
@@ -465,7 +463,7 @@ class SaveGameManager:
             backup_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             backup_dir = f"modules/backups/restore_backup_{backup_timestamp}"
             
-            logger.info(f"Creating backup before restore: {backup_dir}")
+            info(f"FILE_OP: Creating backup before restore: {backup_dir}", category="save_game")
             
             # Copy current essential files to backup
             essential_files = self.get_essential_files()
@@ -520,9 +518,9 @@ class SaveGameManager:
                         
                         shutil.copy2(source_file, dest_file)
                         restored_files.append(dest_file)
-                        logger.debug(f"Restored: {dest_file}")
+                        debug(f"FILE_OP: Restored: {dest_file}", category="save_game")
                     except Exception as e:
-                        logger.error(f"Failed to restore {dest_file}: {e}")
+                        error(f"FAILURE: Failed to restore {dest_file}", exception=e, category="save_game")
                         failed_files.append(dest_file)
             
             success_msg = f"Save game restored successfully from: {save_folder}"
@@ -532,12 +530,12 @@ class SaveGameManager:
             if failed_files:
                 success_msg += f"\nFailed to restore {len(failed_files)} files"
             
-            logger.info(success_msg)
+            info(f"SUCCESS: {success_msg}", category="save_game")
             return True, success_msg
             
         except Exception as e:
             error_msg = f"Failed to restore save game: {str(e)}"
-            logger.error(error_msg)
+            error(f"FAILURE: {error_msg}", category="save_game")
             return False, error_msg
     
     def delete_save_game(self, save_folder: str) -> Tuple[bool, str]:
@@ -550,12 +548,12 @@ class SaveGameManager:
                 return False, f"Save game not found: {save_path}"
             
             shutil.rmtree(save_path)
-            logger.info(f"Deleted save game: {save_path}")
+            info(f"SUCCESS: Deleted save game: {save_path}", category="save_game")
             return True, f"Save game deleted: {save_folder}"
             
         except Exception as e:
             error_msg = f"Failed to delete save game: {str(e)}"
-            logger.error(error_msg)
+            error(f"FAILURE: {error_msg}", category="save_game")
             return False, error_msg
 
 # Example usage and testing
@@ -563,7 +561,7 @@ if __name__ == "__main__":
     # Test the save game manager
     manager = SaveGameManager()
     
-    print("Testing Save Game Manager...")
+    debug("INITIALIZATION: Testing Save Game Manager...", category="testing")
     
     # Test file categorization
     test_files = [
@@ -575,16 +573,16 @@ if __name__ == "__main__":
         "conversation_history.json"
     ]
     
-    print("\nFile categorization test:")
+    debug("TEST: File categorization test:", category="testing")
     for test_file in test_files:
         essential = manager.should_include_file(test_file, "essential")
         full = manager.should_include_file(test_file, "full")
-        print(f"  {test_file}: essential={essential}, full={full}")
+        debug(f"TEST: {test_file}: essential={essential}, full={full}", category="testing")
     
     # Test save game listing
-    print("\nListing existing save games:")
+    debug("TEST: Listing existing save games:", category="testing")
     saves = manager.list_save_games()
     for save in saves:
-        print(f"  {save.get('save_folder', 'Unknown')}: {save.get('description', 'No description')}")
+        debug(f"TEST: {save.get('save_folder', 'Unknown')}: {save.get('description', 'No description')}", category="testing")
     
-    print("\nSave Game Manager test completed.")
+    debug("SUCCESS: Save Game Manager test completed.", category="testing")

@@ -38,16 +38,38 @@ DEBUG_CATEGORIES = {
     "schema_processing": False,    # Schema validation details
     "attempt_counts": False,       # "Successfully on attempt X"
     
-    # Script-specific debug categories
-    "main_debug": True,            # Main.py debug messages
-    "action_handler_debug": True,  # ActionHandler debug messages
-    "character_updater_debug": True,  # CharacterUpdater debug messages
-    "combat_manager_debug": True,  # CombatManager debug messages
-    "save_manager_debug": True,    # SaveGameManager debug messages
-    "path_manager_debug": False,   # ModulePathManager debug (verbose)
-    "campaign_manager_debug": True,  # CampaignManager debug messages
-    "location_manager_debug": True,  # LocationManager debug messages
-    "storage_manager_debug": True,   # StorageManager debug messages
+    # Script-specific debug categories (used in enhanced_logger migration)
+    "session_management": True,     # Session startup/shutdown, return message injection
+    "narrative_generation": True,   # AI narrative generation for transitions
+    "npc_management": True,         # NPC loading, validation, updates
+    "ai_validation": True,          # AI response validation, retry logic
+    "module_management": True,      # Module loading, transitions, completion checks
+    "conversation_management": True, # Conversation history updates, compression
+    "level_up": True,              # Level up sessions and processing
+    "startup": True,               # Game startup, wizard, initialization
+    "xp_tracking": True,           # Experience point awards and tracking
+    "encounter_setup": True,       # Encounter initialization, creature setup
+    "encounter_management": True,  # Encounter updates during combat
+    "character_validation": True,  # Character data validation, corrections
+    "ai_processing": True,         # AI API calls, response processing
+    "testing": True,               # Test function debug output
+    "save_game": True,             # Save/restore operations
+    "module_transitions": True,    # Cross-module movement and summaries
+    "storage_operations": True,    # Player storage system operations
+    "combat_validation": True,     # Combat response validation, rule checking
+    "combat_logs": True,           # Combat logging and summary generation
+    "subprocess_output": True,     # Output from subprocess calls
+    
+    # Legacy categories (kept for backward compatibility)
+    "main_debug": False,
+    "action_handler_debug": False,
+    "character_updater_debug": False,
+    "combat_manager_debug": False,
+    "save_manager_debug": False,
+    "path_manager_debug": False,
+    "campaign_manager_debug": False,
+    "location_manager_debug": False,
+    "storage_manager_debug": False
 }
 
 # Log file settings

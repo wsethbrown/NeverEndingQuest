@@ -70,6 +70,10 @@ from module_path_manager import ModulePathManager
 from file_operations import safe_write_json, safe_read_json
 from character_validator import AICharacterValidator
 from character_effects_validator import AICharacterEffectsValidator
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name(__name__)
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -77,11 +81,8 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 TEMPERATURE = 0.7
 VALIDATION_TEMPERATURE = 0.1  # Lower temperature for validation
 
-# ANSI escape codes
-ORANGE = "\033[38;2;255;165;0m"
-RED = "\033[31m"
-GREEN = "\033[32m"
-RESET = "\033[0m"
+# ANSI escape codes - REMOVED per CLAUDE.md guidelines
+# All color codes have been removed to prevent Windows console encoding errors
 
 def load_schema():
     """Load the unified character schema"""
@@ -371,7 +372,7 @@ def fix_item_types(updates):
                 if item_type_lower in item_type_fixes:
                     old_type = item['item_type']
                     item['item_type'] = item_type_fixes[item_type_lower]
-                    print(f"{ORANGE}Auto-corrected item_type: '{old_type}' -> '{item['item_type']}' for {item.get('item_name', 'unknown item')}{RESET}")
+                    debug(f"VALIDATION: Auto-corrected item_type: '{old_type}' -> '{item['item_type']}' for {item.get('item_name', 'unknown item')}", category="character_validation")
     
     return updates
 
@@ -477,7 +478,7 @@ def purge_invalid_fields(data, schema, character_name=""):
         else:
             # Field not in schema - remove it
             removed_fields.append(field)
-            print(f"{ORANGE}PURGED invalid field '{field}' from {character_name}{RESET}")
+            warning(f"VALIDATION: PURGED invalid field '{field}' from {character_name}", category="character_validation")
     
     return cleaned_data, removed_fields
 
@@ -493,7 +494,7 @@ def create_character_backup(character_path, backup_reason="update"):
         str: Path to the backup file, or None if backup failed
     """
     if not os.path.exists(character_path):
-        print(f"{RED}Cannot backup: Character file does not exist: {character_path}{RESET}")
+        error(f"FAILURE: Cannot backup: Character file does not exist: {character_path}", category="file_operations")
         return None
     
     try:
@@ -508,7 +509,7 @@ def create_character_backup(character_path, backup_reason="update"):
         
         # Copy the file
         shutil.copy2(character_path, backup_path)
-        print(f"DEBUG: Created backup: {backup_filename}")
+        debug(f"FILE_OP: Created backup: {backup_filename}", category="file_operations")
         
         # Also create a "latest" backup that's easier to find
         latest_backup_path = character_path + ".backup_latest"
@@ -517,7 +518,7 @@ def create_character_backup(character_path, backup_reason="update"):
         return backup_path
         
     except Exception as e:
-        print(f"{RED}Failed to create backup: {str(e)}{RESET}")
+        error(f"FAILURE: Failed to create backup", exception=e, category="file_operations")
         return None
 
 def cleanup_old_backups(character_path, max_backups=5):
@@ -553,12 +554,12 @@ def cleanup_old_backups(character_path, max_backups=5):
             for _, file_path in files_to_remove:
                 try:
                     os.remove(file_path)
-                    print(f"DEBUG: Removed old backup: {os.path.basename(file_path)}")
+                    debug(f"FILE_OP: Removed old backup: {os.path.basename(file_path)}", category="file_operations")
                 except Exception as e:
-                    print(f"{ORANGE}Warning: Could not remove old backup {file_path}: {str(e)}{RESET}")
+                    warning(f"FILE_OP: Could not remove old backup {file_path}", exception=e, category="file_operations")
                     
     except Exception as e:
-        print(f"{ORANGE}Warning: Backup cleanup failed: {str(e)}{RESET}")
+        warning(f"FILE_OP: Backup cleanup failed", exception=e, category="file_operations")
 
 def restore_character_from_backup(character_name, backup_type="latest", character_role=None):
     """
@@ -572,12 +573,12 @@ def restore_character_from_backup(character_name, backup_type="latest", characte
     Returns:
         bool: True if successful, False otherwise
     """
-    print(f"{ORANGE}Restoring character: {character_name}{RESET}")
+    info(f"STATE_CHANGE: Restoring character: {character_name}", category="character_updates")
     
     # Auto-detect character role if not provided
     if character_role is None:
         character_role = detect_character_role(character_name)
-        print(f"DEBUG: Detected character role: {character_role}")
+        debug(f"STATE_CHANGE: Detected character role: {character_role}", category="character_updates")
     
     character_path = get_character_path(character_name, character_role)
     
@@ -591,7 +592,7 @@ def restore_character_from_backup(character_name, backup_type="latest", characte
         backup_path = os.path.join(directory, f"{name_without_ext}.backup_{backup_type}.json")
     
     if not os.path.exists(backup_path):
-        print(f"{RED}Error: Backup file not found: {backup_path}{RESET}")
+        error(f"FAILURE: Backup file not found: {backup_path}", category="file_operations")
         return False
     
     try:
@@ -600,15 +601,15 @@ def restore_character_from_backup(character_name, backup_type="latest", characte
         
         # Copy backup to main file
         shutil.copy2(backup_path, character_path)
-        print(f"{GREEN}Successfully restored {character_name} from backup{RESET}")
+        info(f"SUCCESS: Successfully restored {character_name} from backup", category="character_updates")
         
         if restoration_backup:
-            print(f"Previous state backed up as: {os.path.basename(restoration_backup)}")
+            info(f"FILE_OP: Previous state backed up as: {os.path.basename(restoration_backup)}", category="file_operations")
         
         return True
         
     except Exception as e:
-        print(f"{RED}Error restoring from backup: {str(e)}{RESET}")
+        error(f"FAILURE: Error restoring from backup", exception=e, category="character_updates")
         return False
 
 def update_character_info(character_name, changes, character_role=None):
@@ -624,18 +625,18 @@ def update_character_info(character_name, changes, character_role=None):
         bool: True if successful, False otherwise
     """
     
-    print(f"DEBUG: Updating character info for: {character_name}")
+    debug(f"STATE_CHANGE: Updating character info for: {character_name}", category="character_updates")
     
     # Normalize character name to handle titles and descriptors
     normalized_name = normalize_character_name(character_name)
     if normalized_name != character_name:
-        print(f"DEBUG: Normalized character name from '{character_name}' to '{normalized_name}'")
+        debug(f"STATE_CHANGE: Normalized character name from '{character_name}' to '{normalized_name}'", category="character_updates")
         character_name = normalized_name
     
     # Auto-detect character role if not provided
     if character_role is None:
         character_role = detect_character_role(character_name)
-        print(f"DEBUG: Detected character role: {character_role}")
+        debug(f"STATE_CHANGE: Detected character role: {character_role}", category="character_updates")
     
     # Load schema and character data
     schema = load_schema()
@@ -644,23 +645,23 @@ def update_character_info(character_name, changes, character_role=None):
     try:
         character_data = safe_read_json(character_path)
         if not character_data:
-            print(f"{RED}Error: Could not load character data for {character_name}{RESET}")
+            error(f"FAILURE: Could not load character data for {character_name}", category="file_operations")
             return False
         
         # Validate that character_data is a dictionary
         if not isinstance(character_data, dict):
-            print(f"{RED}Error: Character data for {character_name} is corrupted (not a dictionary){RESET}")
-            print(f"{RED}Loaded data type: {type(character_data)}, value: {character_data}{RESET}")
+            error(f"FAILURE: Character data for {character_name} is corrupted (not a dictionary)", category="file_operations")
+            error(f"FAILURE: Loaded data type: {type(character_data)}, value: {character_data}", category="file_operations")
             return False
             
     except Exception as e:
-        print(f"{RED}Error loading character data: {str(e)}{RESET}")
+        error(f"FAILURE: Error loading character data", exception=e, category="file_operations")
         return False
     
     # Create file backup before any changes
     backup_path = create_character_backup(character_path, "update")
     if backup_path is None:
-        print(f"{ORANGE}Warning: Could not create backup, but proceeding with update{RESET}")
+        warning("FILE_OP: Could not create backup, but proceeding with update", category="file_operations")
     else:
         # Clean up old backups to prevent accumulation
         cleanup_old_backups(character_path)
@@ -737,7 +738,7 @@ Character Role: {character_role}
     
     while attempt <= max_attempts:
         try:
-            print(f"DEBUG: Attempt {attempt} of {max_attempts}")
+            debug(f"STATE_CHANGE: Attempt {attempt} of {max_attempts}", category="character_updates")
             
             response = client.chat.completions.create(
                 model=model,
@@ -775,8 +776,8 @@ Character Role: {character_role}
             critical_warnings = validate_critical_fields_preserved(character_data, updated_data, character_name)
             if critical_warnings:
                 for warning in critical_warnings:
-                    print(f"{RED}CRITICAL WARNING: {warning}{RESET}")
-                print(f"{RED}Aborting update to prevent data loss. AI response may be incomplete.{RESET}")
+                    error(f"CRITICAL WARNING: {warning}", category="character_validation")
+                error("FAILURE: Aborting update to prevent data loss. AI response may be incomplete.", category="character_validation")
                 
                 # Log the problematic update for debugging
                 debug_info = {
@@ -788,10 +789,10 @@ Character Role: {character_role}
                     "ai_response": raw_response
                 }
                 safe_write_json("debug_critical_field_loss.json", debug_info)
-                print(f"{ORANGE}Debug info saved to debug_critical_field_loss.json{RESET}")
+                debug("FILE_OP: Debug info saved to debug_critical_field_loss.json", category="file_operations")
                 
                 if attempt == max_attempts:
-                    print(f"{RED}Max attempts reached. Update failed to preserve critical data.{RESET}")
+                    error("FAILURE: Max attempts reached. Update failed to preserve critical data.", category="character_validation")
                     return False
                 attempt += 1
                 continue
@@ -802,15 +803,15 @@ Character Role: {character_role}
             # Purge invalid fields before validation
             updated_data, removed_fields = purge_invalid_fields(updated_data, schema, character_name)
             if removed_fields:
-                print(f"{ORANGE}Purged {len(removed_fields)} invalid fields: {', '.join(removed_fields)}{RESET}")
+                warning(f"VALIDATION: Purged {len(removed_fields)} invalid fields: {', '.join(removed_fields)}", category="character_validation")
             
             # Validate updated data
             is_valid, error_msg = validate_character_data(updated_data, schema, character_name)
             
             if not is_valid:
-                print(f"{RED}Validation failed: {error_msg}{RESET}")
+                error(f"VALIDATION: Validation failed: {error_msg}", category="character_validation")
                 if attempt == max_attempts:
-                    print(f"{RED}Max attempts reached. Reverting changes.{RESET}")
+                    error("FAILURE: Max attempts reached. Reverting changes.", category="character_updates")
                     return False
                 
                 # Add validation error feedback to the prompt for next attempt
@@ -832,11 +833,11 @@ Character Role: {character_role}
             
             # Save updated character data
             if safe_write_json(character_path, updated_data):
-                print(f"DEBUG: Successfully updated {character_name} ({character_role})!")
+                info(f"SUCCESS: Successfully updated {character_name} ({character_role})!", category="character_updates")
                 
                 # Log the changes
                 changed_fields = list(updates.keys())
-                print(f"DEBUG: Updated fields: {', '.join(changed_fields)}")
+                debug(f"STATE_CHANGE: Updated fields: {', '.join(changed_fields)}", category="character_updates")
                 
                 # AI Character Validation after successful update
                 try:
@@ -844,14 +845,14 @@ Character Role: {character_role}
                     validated_data, validation_success = validator.validate_character_file_safe(character_path)
                     
                     if validation_success and validator.corrections_made:
-                        print(f"DEBUG: Character auto-validated with corrections...")
+                        debug("VALIDATION: Character auto-validated with corrections...", category="character_validation")
                     elif validation_success:
-                        print(f"DEBUG: Character validated - no corrections needed")
+                        debug("VALIDATION: Character validated - no corrections needed", category="character_validation")
                     else:
-                        print(f"DEBUG: Warning: Character validation failed, but update completed")
+                        warning("VALIDATION: Character validation failed, but update completed", category="character_validation")
                         
                 except Exception as e:
-                    print(f"{ORANGE}Warning: Character validation error: {str(e)}{RESET}")
+                    warning(f"VALIDATION: Character validation error", exception=e, category="character_validation")
                     # Don't fail the update if validation has issues
                 
                 # AI Character Effects Validation after AC validation
@@ -860,27 +861,27 @@ Character Role: {character_role}
                     effects_validated_data, effects_success = effects_validator.validate_character_effects_safe(character_path)
                     
                     if effects_success and effects_validator.corrections_made:
-                        print(f"DEBUG: Character effects auto-validated with corrections...")
+                        debug("VALIDATION: Character effects auto-validated with corrections...", category="character_validation")
                     elif effects_success:
-                        print(f"DEBUG: Character effects validated - no corrections needed")
+                        debug("VALIDATION: Character effects validated - no corrections needed", category="character_validation")
                     else:
-                        print(f"DEBUG: Warning: Character effects validation failed, but update completed")
+                        warning("VALIDATION: Character effects validation failed, but update completed", category="character_validation")
                         
                 except Exception as e:
-                    print(f"{ORANGE}Warning: Character effects validation error: {str(e)}{RESET}")
+                    warning(f"VALIDATION: Character effects validation error", exception=e, category="character_validation")
                     # Don't fail the update if validation has issues
                 
                 return True
             else:
-                print(f"{RED}Error: Failed to save character data{RESET}")
+                error("FAILURE: Failed to save character data", category="file_operations")
                 return False
                 
         except json.JSONDecodeError as e:
-            print(f"{RED}JSON decode error (attempt {attempt}): {str(e)}{RESET}")
-            print(f"Raw response: {raw_response}")
+            error(f"FAILURE: JSON decode error (attempt {attempt})", exception=e, category="ai_processing")
+            debug(f"AI_CALL: Raw response: {raw_response}", category="ai_processing")
             
         except Exception as e:
-            print(f"{RED}Error during update (attempt {attempt}): {str(e)}{RESET}")
+            error(f"FAILURE: Error during update (attempt {attempt})", exception=e, category="character_updates")
         
         if attempt < max_attempts:
             attempt += 1
@@ -888,7 +889,7 @@ Character Role: {character_role}
         else:
             break
     
-    print(f"{RED}Failed to update character after {max_attempts} attempts{RESET}")
+    error(f"FAILURE: Failed to update character after {max_attempts} attempts", category="character_updates")
     return False
 
 # Backward compatibility functions
@@ -937,18 +938,18 @@ def list_character_backups(character_name, character_role=None):
         backups.sort(key=lambda x: x['modified'], reverse=True)
         
     except Exception as e:
-        print(f"{RED}Error listing backups: {str(e)}{RESET}")
+        error(f"FAILURE: Error listing backups", exception=e, category="file_operations")
     
     return backups
 
 if __name__ == "__main__":
     # Test the unified system
-    print("Testing unified character update system...")
+    debug("INITIALIZATION: Testing unified character update system...", category="testing")
     
     # Test with a player character
     result = update_character_info("norn", "Add 100 experience points", character_role='player')
-    print(f"Player update result: {result}")
+    debug(f"TEST: Player update result: {result}", category="testing")
     
     # Test with an NPC
     result = update_character_info("test_guard", "Increase level to 3", character_role='npc')
-    print(f"NPC update result: {result}")
+    debug(f"TEST: NPC update result: {result}", category="testing")

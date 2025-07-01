@@ -49,6 +49,10 @@ from typing import Dict, List, Any, Optional
 from openai import OpenAI
 from config import OPENAI_API_KEY, CHARACTER_VALIDATOR_MODEL
 from file_operations import safe_read_json, safe_write_json
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name(__name__)
 
 class AICharacterValidator:
     def __init__(self):
@@ -631,7 +635,7 @@ def validate_character_file(file_path: str) -> bool:
         # Load character data using safe file operations
         character_data = safe_read_json(file_path)
         if character_data is None:
-            print(f"Error: Could not read character file {file_path}")
+            error(f"FAILURE: Could not read character file {file_path}", category="file_operations")
             return False
         
         # AI validation and correction
@@ -642,17 +646,17 @@ def validate_character_file(file_path: str) -> bool:
         if validator.corrections_made:
             success = safe_write_json(file_path, corrected_data)
             if success:
-                print(f"AI Corrections made: {validator.corrections_made}")
+                info(f"SUCCESS: AI Corrections made: {validator.corrections_made}", category="character_validation")
                 return True
             else:
-                print(f"Error: Failed to save corrected character data to {file_path}")
+                error(f"FAILURE: Failed to save corrected character data to {file_path}", category="file_operations")
                 return False
         else:
-            print("No corrections needed - character data is valid")
+            debug("VALIDATION: No corrections needed - character data is valid", category="character_validation")
             return True
         
     except Exception as e:
-        print(f"Error validating character file {file_path}: {str(e)}")
+        error(f"FAILURE: Error validating character file {file_path}", exception=e, category="character_validation")
         return False
 
 
