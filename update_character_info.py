@@ -64,6 +64,9 @@ from jsonschema import validate, ValidationError
 from openai import OpenAI
 import time
 import re
+import concurrent.futures
+import threading
+from typing import List, Tuple, Dict, Optional
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, PLAYER_INFO_UPDATE_MODEL, NPC_INFO_UPDATE_MODEL
 from module_path_manager import ModulePathManager
@@ -81,9 +84,22 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 # Constants
 TEMPERATURE = 0.7
 VALIDATION_TEMPERATURE = 0.1  # Lower temperature for validation
+MAX_PARALLEL_WORKERS = 8  # Max parallel character updates
+BATCH_SIZE = 8  # Process in batches if more than 8 characters
 
 # ANSI escape codes - REMOVED per CLAUDE.md guidelines
 # All color codes have been removed to prevent Windows console encoding errors
+
+# Global lock manager to prevent file conflicts
+_file_locks = {}
+_lock_manager = threading.Lock()
+
+def get_file_lock(file_path: str) -> threading.Lock:
+    """Get or create a lock for a specific file path"""
+    with _lock_manager:
+        if file_path not in _file_locks:
+            _file_locks[file_path] = threading.Lock()
+        return _file_locks[file_path]
 
 def load_schema():
     """Load the unified character schema"""
@@ -562,6 +578,47 @@ def cleanup_old_backups(character_path, max_backups=5):
     except Exception as e:
         warning(f"FILE_OP: Backup cleanup failed", exception=e, category="file_operations")
 
+def _process_single_character(character_update: Dict[str, any]) -> Tuple[str, bool, str]:
+    """
+    Process a single character update in a thread-safe manner
+    
+    Args:
+        character_update: Dict with keys:
+            - character_name: str
+            - changes: str
+            - character_role: Optional[str]
+    
+    Returns:
+        Tuple of (character_name, success, message)
+    """
+    character_name = character_update['character_name']
+    changes = character_update['changes']
+    character_role = character_update.get('character_role')
+    
+    try:
+        # Get file lock for this character
+        character_path = get_character_path(character_name, character_role)
+        file_lock = get_file_lock(character_path)
+        
+        # Acquire lock and process
+        with file_lock:
+            # Call the original update logic
+            success = _update_character_info_internal(character_name, changes, character_role)
+            
+            if success:
+                message = f"Successfully updated {character_name}"
+                info(f"PARALLEL: {message}", category="character_updates")
+            else:
+                message = f"Failed to update {character_name}"
+                error(f"PARALLEL: {message}", category="character_updates")
+                
+            return (character_name, success, message)
+            
+    except Exception as e:
+        message = f"Error updating {character_name}: {str(e)}"
+        error(f"PARALLEL: {message}", exception=e, category="character_updates")
+        return (character_name, False, message)
+
 def restore_character_from_backup(character_name, backup_type="latest", character_role=None):
     """
     Restore a character from a backup file
@@ -613,7 +670,7 @@ def restore_character_from_backup(character_name, backup_type="latest", characte
         error(f"FAILURE: Error restoring from backup", exception=e, category="character_updates")
         return False
 
-def update_character_info(character_name, changes, character_role=None):
+def _update_character_info_internal(character_name, changes, character_role=None):
     """
     Unified function to update character information for both players and NPCs
     
@@ -894,6 +951,106 @@ Character Role: {character_role}
     error(f"FAILURE: Failed to update character after {max_attempts} attempts", category="character_updates")
     return False
 
+def update_multiple_characters(character_updates: List[Dict[str, any]]) -> Dict[str, any]:
+    """
+    Update multiple characters in parallel with batching support
+    
+    Args:
+        character_updates: List of dicts, each containing:
+            - character_name: str
+            - changes: str  
+            - character_role: Optional[str]
+    
+    Returns:
+        Dict with results:
+            - total: int (total characters to update)
+            - successful: List[str] (character names)
+            - failed: List[Dict[str, str]] (character_name and error message)
+            - messages: List[str] (all messages)
+    """
+    total_updates = len(character_updates)
+    info(f"PARALLEL: Starting parallel update for {total_updates} characters", category="character_updates")
+    
+    results = {
+        'total': total_updates,
+        'successful': [],
+        'failed': [],
+        'messages': []
+    }
+    
+    # Process in batches if more than BATCH_SIZE
+    for batch_start in range(0, total_updates, BATCH_SIZE):
+        batch_end = min(batch_start + BATCH_SIZE, total_updates)
+        batch = character_updates[batch_start:batch_end]
+        batch_size = len(batch)
+        
+        if total_updates > BATCH_SIZE:
+            info(f"PARALLEL: Processing batch {batch_start//BATCH_SIZE + 1} ({batch_size} characters)", category="character_updates")
+        
+        # Use ThreadPoolExecutor for parallel processing
+        with concurrent.futures.ThreadPoolExecutor(max_workers=min(batch_size, MAX_PARALLEL_WORKERS)) as executor:
+            # Submit all tasks
+            future_to_character = {
+                executor.submit(_process_single_character, update): update['character_name']
+                for update in batch
+            }
+            
+            # Process completed tasks as they finish
+            for future in concurrent.futures.as_completed(future_to_character):
+                character_name = future_to_character[future]
+                
+                try:
+                    name, success, message = future.result()
+                    results['messages'].append(message)
+                    
+                    if success:
+                        results['successful'].append(name)
+                    else:
+                        results['failed'].append({
+                            'character_name': name,
+                            'error': message
+                        })
+                        
+                except Exception as e:
+                    error_msg = f"Exception processing {character_name}: {str(e)}"
+                    error(f"PARALLEL: {error_msg}", exception=e, category="character_updates")
+                    results['failed'].append({
+                        'character_name': character_name,
+                        'error': error_msg
+                    })
+                    results['messages'].append(error_msg)
+    
+    # Summary
+    success_count = len(results['successful'])
+    fail_count = len(results['failed'])
+    info(f"PARALLEL: Completed {total_updates} updates - {success_count} successful, {fail_count} failed", category="character_updates")
+    
+    return results
+
+def update_character_info(character_name, changes, character_role=None):
+    """
+    Backward compatible wrapper that uses parallel processing internally
+    
+    Args:
+        character_name (str): Name of the character to update
+        changes (str): Description of changes to make
+        character_role (str, optional): 'player' or 'npc', auto-detected if None
+    
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    # Use parallel system with single character
+    character_update = {
+        'character_name': character_name,
+        'changes': changes,
+        'character_role': character_role
+    }
+    
+    results = update_multiple_characters([character_update])
+    
+    # Return simple boolean for backward compatibility
+    return character_name in results['successful']
+
 # Backward compatibility functions
 def updatePlayerInfo(player_name, changes):
     """Backward compatibility wrapper for player updates"""
@@ -902,6 +1059,64 @@ def updatePlayerInfo(player_name, changes):
 def updateNPCInfo(npc_name, changes):
     """Backward compatibility wrapper for NPC updates"""
     return update_character_info(npc_name, changes, character_role='npc')
+
+def update_party_members(changes: str, include_player: bool = True, include_npcs: bool = True) -> Dict[str, any]:
+    """
+    Update all active party members with the same changes
+    
+    Args:
+        changes: Description of changes to apply to all party members
+        include_player: Whether to include player characters
+        include_npcs: Whether to include NPC party members
+    
+    Returns:
+        Dict with results from update_multiple_characters
+    """
+    # Load party tracker to get active party members
+    party_data = safe_read_json("party_tracker.json")
+    if not party_data:
+        error("PARALLEL: Could not load party tracker", category="character_updates")
+        return {
+            'total': 0,
+            'successful': [],
+            'failed': [],
+            'messages': ['Could not load party tracker']
+        }
+    
+    character_updates = []
+    
+    # Add player character if requested
+    if include_player and 'player' in party_data:
+        player_name = party_data['player'].get('name')
+        if player_name:
+            character_updates.append({
+                'character_name': player_name,
+                'changes': changes,
+                'character_role': 'player'
+            })
+    
+    # Add NPC party members if requested
+    if include_npcs and 'npc_party' in party_data:
+        for npc in party_data['npc_party']:
+            npc_name = npc.get('name')
+            if npc_name:
+                character_updates.append({
+                    'character_name': npc_name,
+                    'changes': changes,
+                    'character_role': 'npc'
+                })
+    
+    if not character_updates:
+        warning("PARALLEL: No party members found to update", category="character_updates")
+        return {
+            'total': 0,
+            'successful': [],
+            'failed': [],
+            'messages': ['No party members found to update']
+        }
+    
+    info(f"PARALLEL: Updating {len(character_updates)} party members", category="character_updates")
+    return update_multiple_characters(character_updates)
 
 # Utility functions for backup management
 def list_character_backups(character_name, character_role=None):
