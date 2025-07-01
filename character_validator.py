@@ -75,6 +75,9 @@ class AICharacterValidator:
         # Use AI to validate and correct inventory categorization
         corrected_data = self.ai_validate_inventory_categories(corrected_data)
         
+        # Validate status-condition consistency
+        corrected_data = self.validate_status_condition_consistency(corrected_data)
+        
         # Future: Add other AI validations here
         # - Temporary effects expiration  
         # - Attack bonus calculation
@@ -545,6 +548,73 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
         except Exception as e:
             self.logger.error(f"Error validating character file {file_path}: {str(e)}")
             return {}, False
+    
+    def validate_status_condition_consistency(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Validate and correct status-condition consistency
+        
+        Ensures that status, condition, and hitPoints fields are logically consistent:
+        - If status is "alive" and hitPoints > 0, condition cannot be "unconscious"
+        - If healing an unconscious character, clear unconscious conditions
+        
+        Args:
+            character_data: Character JSON data
+            
+        Returns:
+            Character data with corrected status-condition consistency
+        """
+        
+        status = character_data.get("status", "alive")
+        condition = character_data.get("condition", "none")
+        condition_affected = character_data.get("condition_affected", [])
+        hit_points = character_data.get("hitPoints", 0)
+        
+        # Check for inconsistent state: alive with HP > 0 but unconscious condition
+        if (status == "alive" and 
+            hit_points > 0 and 
+            (condition == "unconscious" or "unconscious" in condition_affected)):
+            
+            # Create a copy of character data to modify
+            corrected_data = character_data.copy()
+            
+            # Clear unconscious conditions
+            corrected_data["condition"] = "none"
+            corrected_data["condition_affected"] = [c for c in condition_affected if c != "unconscious"]
+            
+            # Log the correction
+            self.corrections_made.append({
+                "type": "status_condition_consistency",
+                "issue": f"Character had status='alive' with hitPoints={hit_points} but condition was unconscious",
+                "correction": "Cleared unconscious condition and condition_affected"
+            })
+            
+            self.logger.info(f"Corrected status-condition inconsistency: status={status}, HP={hit_points}, cleared unconscious condition")
+            
+            return corrected_data
+        
+        # Check for opposite case: unconscious status but no unconscious condition
+        elif status == "unconscious" and condition != "unconscious":
+            # Create a copy of character data to modify
+            corrected_data = character_data.copy()
+            
+            # Set unconscious conditions
+            corrected_data["condition"] = "unconscious"
+            if "unconscious" not in corrected_data.get("condition_affected", []):
+                corrected_data["condition_affected"] = corrected_data.get("condition_affected", []) + ["unconscious"]
+            
+            # Log the correction
+            self.corrections_made.append({
+                "type": "status_condition_consistency", 
+                "issue": f"Character had status='unconscious' but condition was not unconscious",
+                "correction": "Set condition to unconscious and added to condition_affected"
+            })
+            
+            self.logger.info(f"Corrected status-condition inconsistency: status={status}, set unconscious condition")
+            
+            return corrected_data
+        
+        # No corrections needed
+        return character_data
 
 
 def validate_character_file(file_path: str) -> bool:

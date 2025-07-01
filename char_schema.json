@@ -39,17 +39,20 @@
     },
     "status": {
       "type": "string",
-      "enum": ["alive", "dead", "unconscious"]
+      "enum": ["alive", "dead", "unconscious"],
+      "description": "Overall life status of the character. Must be consistent with condition and hitPoints fields."
     },
     "condition": {
       "type": "string",
-      "enum": ["none", "blinded", "charmed", "deafened", "frightened", "grappled", "incapacitated", "invisible", "paralyzed", "petrified", "poisoned", "prone", "restrained", "stunned", "exhaustion", "unconscious"]
+      "enum": ["none", "blinded", "charmed", "deafened", "frightened", "grappled", "incapacitated", "invisible", "paralyzed", "petrified", "poisoned", "prone", "restrained", "stunned", "exhaustion", "unconscious"],
+      "description": "Primary active condition. CONSISTENCY RULE: If status='alive' and hitPoints>0, condition cannot be 'unconscious'. If status='unconscious', condition must be 'unconscious'."
     },
     "condition_affected": {
       "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "description": "Array of all active conditions affecting the character. Must be consistent with 'condition' field and character status."
     },
     "hitPoints": {
       "type": "integer"

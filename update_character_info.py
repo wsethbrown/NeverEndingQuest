@@ -693,6 +693,11 @@ CRITICAL INSTRUCTIONS:
 9. SPELL SLOT RULE: Cantrips (0-level spells) do NOT consume spell slots. Only deduct spell slots for leveled spells (1st-9th level).
 10. HIT DICE RULE: IGNORE all references to hit dice, Hit Dice, HD, or hit dice restoration. Do NOT add hitDice, hitDiceRestored, or maxHitDice fields. The system does not track hit dice.
 11. REST HEALING: For long rests, simply restore hitPoints to maxHitPoints and restore spell slots. For short rests, restore some hitPoints based on the description. Do not implement hit dice mechanics.
+12. STATUS-CONDITION SYNCHRONIZATION: Always maintain consistency between status, condition, and hitPoints fields:
+    - When status changes to "alive" and hitPoints > 0, automatically set condition to "none" and clear condition_affected array
+    - When hitPoints > 0 and status is "alive", condition cannot be "unconscious"
+    - When status is "unconscious", condition must be "unconscious" and condition_affected must include "unconscious"
+    - When healing an unconscious character above 0 HP, clear unconscious from both condition and condition_affected fields
 
 EQUIPMENT UPDATE EXAMPLES:
 CORRECT (updating one item): {{"equipment": [{{"item_name": "Jeweled dagger", "description": "updated description", "magical": true}}]}}
@@ -703,6 +708,10 @@ DANGEROUS EXAMPLE (DO NOT DO):
 
 SAFE EXAMPLE:
 {{"spellcasting": {{"ability": "wisdom", "spellSaveDC": 13, "spellAttackBonus": 5, "spells": {{...}}, "spellSlots": {{...}}}}}} // This preserves all data
+
+CONDITION MANAGEMENT EXAMPLES:
+CORRECT (healing unconscious character): {{"hitPoints": 12, "status": "alive", "condition": "none", "condition_affected": []}}
+WRONG (inconsistent state): {{"hitPoints": 12, "status": "alive", "condition": "unconscious"}} // Condition contradicts status!
 
 Character Role: {character_role}
 """
