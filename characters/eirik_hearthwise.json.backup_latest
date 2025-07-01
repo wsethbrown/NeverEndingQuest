@@ -12,9 +12,9 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 13,
+  "hitPoints": 21,
   "maxHitPoints": 21,
-  "armorClass": 17,
+  "armorClass": 16,
   "initiative": 1,
   "speed": 30,
   "abilities": {
@@ -160,14 +160,14 @@
       "item_name": "Crossbow bolts",
       "item_type": "ammunition",
       "item_subtype": "other",
-      "description": "Ammunition for a light crossbow.",
-      "quantity": 20
+      "description": "Ammunition for light crossbow.",
+      "quantity": 10
     },
     {
       "item_name": "Priest's pack",
       "item_type": "equipment",
       "item_subtype": "other",
-      "description": "A pack containing useful items for clerics.",
+      "description": "Contains holy symbol, stub of black wax, and pouch of powdered silver.",
       "quantity": 1
     },
     {
@@ -195,7 +195,7 @@
       "item_name": "Set of bone dice",
       "item_type": "equipment",
       "item_subtype": "other",
-      "description": "A gaming set (bone dice).",
+      "description": "A gaming set (bone dice) kept as a token.",
       "quantity": 1
     },
     {
@@ -235,7 +235,7 @@
     },
     {
       "item_name": "Pouch of Silver Coins",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A small pouch containing 15 silver coins recovered from bandits and found at the tower.",
       "quantity": 1
     },
@@ -248,7 +248,7 @@
     {
       "item_name": "Climbing Rope",
       "item_type": "equipment",
-      "description": "A coil of sturdy climbing rope taken from the bandits.",
+      "description": "A coil of sturdy climbing rope taken as a token from the bandits.",
       "quantity": 1
     },
     {
@@ -260,7 +260,7 @@
     {
       "item_name": "Crow's Hand Feather",
       "item_type": "equipment",
-      "description": "A crow's feather marked with oily black wax, a signature of the Crow's Hand.",
+      "description": "A crow's feather tied with red twine, kept as a token from the stronghold.",
       "quantity": 1
     },
     {
@@ -297,7 +297,7 @@
     },
     {
       "item_name": "Torn but valuable cloth",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "item_subtype": "other",
       "description": "A piece of cloth, torn but of fine quality, possibly useful for trade or crafting.",
       "quantity": 1
@@ -333,27 +333,16 @@
       "quantity": 1
     },
     {
-      "item_name": "Merchant jewels and rings",
+      "item_name": "Torn but valuable cloth bundle",
       "item_type": "miscellaneous",
-      "description": "A collection of valuable jewels and rings looted from the ironbound chest, worth approximately 150 gold pieces.",
+      "description": "Torn cloth bundle containing a hidden gold ring.",
       "quantity": 1
     },
     {
-      "item_name": "Bundle of weapons and battered armor",
-      "item_type": "miscellaneous",
-      "description": "A collection of assorted weapons and battered armor pieces, some marked with ranger insignia.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Cache of mysterious arcane-marked supplies",
-      "item_type": "equipment",
-      "description": "A sealed cache containing supplies marked with strange arcane symbols, possibly for ritual use or dark magic.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Map showing planned attacks on trade routes",
-      "item_type": "equipment",
-      "description": "A detailed map indicating planned bandit attacks on various trade routes near Thornwood.",
+      "item_name": "Potion of Healing",
+      "item_type": "consumable",
+      "item_subtype": "potion",
+      "description": "A potion that restores hit points when consumed.",
       "quantity": 1
     }
   ],
@@ -423,7 +412,7 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 0,
+        "current": 3,
         "max": 3
       },
       "level2": {
@@ -470,7 +459,7 @@
     ]
   },
   "currency": {
-    "gold": 19,
+    "gold": 13,
     "silver": 21,
     "copper": 20
   },

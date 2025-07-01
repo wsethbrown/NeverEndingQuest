@@ -41,12 +41,17 @@ from encoding_utils import safe_json_load, safe_json_dump
 from module_path_manager import ModulePathManager
 from file_operations import safe_read_json, safe_write_json
 from character_validator import AICharacterValidator
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name(__name__)
 
 class StorageManager:
     """Manages player storage with atomic file protection"""
     
     def __init__(self):
         """Initialize storage manager"""
+        debug("INITIALIZATION: Starting StorageManager", category="storage_operations")
         self.storage_file = "player_storage.json"
         self.schema_file = "storage_action_schema.json"
         # Get current module from party tracker for consistent path resolution
@@ -54,7 +59,9 @@ class StorageManager:
             party_tracker = safe_json_load("party_tracker.json")
             current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
             self.path_manager = ModulePathManager(current_module)
-        except:
+            debug(f"INITIALIZATION: Module path manager initialized for module: {current_module}", category="storage_operations")
+        except Exception as e:
+            warning(f"INITIALIZATION: Could not load party tracker, using default", category="storage_operations")
             self.path_manager = ModulePathManager()  # Fallback to reading from file
         self.character_validator = AICharacterValidator()
         self._ensure_storage_file_exists()
@@ -67,7 +74,10 @@ class StorageManager:
                 "lastUpdated": datetime.now().isoformat(),
                 "playerStorage": []
             }
-            safe_write_json(self.storage_file, initial_data)
+            if safe_write_json(self.storage_file, initial_data):
+                info(f"FILE_OP: Created new storage file: {self.storage_file}", category="file_operations")
+            else:
+                error(f"FILE_OP: Failed to create storage file: {self.storage_file}", category="file_operations")
             
     def _create_backup(self, file_path: str) -> str:
         """Create a timestamped backup of a file"""
@@ -98,7 +108,7 @@ class StorageManager:
                 jsonschema.validate(operation, schema)
             return True
         except (jsonschema.ValidationError, Exception) as e:
-            print(f"[ERROR] Storage operation validation failed: {e}")
+            error(f"VALIDATION: Storage operation validation failed", exception=e, category="storage_operations")
             return False
             
     def _find_item_in_character(self, character_data: Dict[str, Any], item_name: str, quantity: int) -> Tuple[bool, int, Dict[str, Any]]:
@@ -177,6 +187,8 @@ class StorageManager:
             
     def create_storage(self, operation: Dict[str, Any]) -> Dict[str, Any]:
         """Create a new storage container"""
+        debug(f"STATE_CHANGE: Creating storage for character '{operation.get('character')}'", category="storage_operations")
+        
         if not self._validate_storage_operation(operation):
             return {"success": False, "error": "Invalid storage operation"}
             
@@ -185,6 +197,8 @@ class StorageManager:
         try:
             # Create backup of storage file
             storage_backup = self._create_backup(self.storage_file)
+            if storage_backup:
+                debug(f"FILE_OP: Created backup: {storage_backup}", category="file_operations")
             
             # Load current storage data
             storage_data = safe_read_json(self.storage_file)
@@ -233,6 +247,8 @@ class StorageManager:
             # Clean up backup
             self._cleanup_backup(storage_backup)
             
+            info(f"SUCCESS: Created {operation['storage_type']} '{new_storage['deviceName']}' with ID {storage_id}", category="storage_operations")
+            
             return {
                 "success": True,
                 "storage_id": storage_id,
@@ -243,11 +259,16 @@ class StorageManager:
             # Restore backup on failure
             if storage_backup:
                 self._restore_backup(self.storage_file, storage_backup)
+                warning(f"FAILURE: Storage creation failed, restored backup", category="storage_operations")
                 
+            error(f"FAILURE: Failed to create storage - {str(e)}", category="storage_operations")
             return {"success": False, "error": f"Failed to create storage: {str(e)}"}
             
     def store_item(self, operation: Dict[str, Any]) -> Dict[str, Any]:
         """Store an item in a storage container"""
+        item_desc = operation.get("item_name", "multiple items") if "item_name" in operation else "multiple items"
+        debug(f"STATE_CHANGE: Character '{operation.get('character')}' storing {item_desc}", category="storage_operations")
+        
         if not self._validate_storage_operation(operation):
             return {"success": False, "error": "Invalid storage operation"}
             
@@ -257,6 +278,7 @@ class StorageManager:
         try:
             # Get character file path
             character_file = self.path_manager.get_character_path(operation["character"])
+            debug(f"FILE_OP: Loading character from {character_file}", category="file_operations")
             
             # Create backups
             character_backup = self._create_backup(character_file)
@@ -393,6 +415,8 @@ class StorageManager:
             else:
                 message = f"Stored {operation['quantity']} {operation['item_name']} in {storage_container['deviceName']}"
             
+            info(f"SUCCESS: {message}", category="storage_operations")
+            
             return {
                 "success": True,
                 "message": message
@@ -404,11 +428,15 @@ class StorageManager:
                 self._restore_backup(character_file, character_backup)
             if storage_backup:
                 self._restore_backup(self.storage_file, storage_backup)
-                
+            
+            error(f"FAILURE: Failed to store item - {str(e)}", category="storage_operations")    
             return {"success": False, "error": f"Failed to store item: {str(e)}"}
             
     def retrieve_item(self, operation: Dict[str, Any]) -> Dict[str, Any]:
         """Retrieve an item from a storage container"""
+        item_desc = operation.get("item_name", "multiple items") if "item_name" in operation else "multiple items"
+        debug(f"STATE_CHANGE: Character '{operation.get('character')}' retrieving {item_desc}", category="storage_operations")
+        
         if not self._validate_storage_operation(operation):
             return {"success": False, "error": "Invalid storage operation"}
             
@@ -537,6 +565,8 @@ class StorageManager:
             else:
                 message = f"Retrieved {operation['quantity']} {operation['item_name']} from {storage_container['deviceName']}"
             
+            info(f"SUCCESS: {message}", category="storage_operations")
+            
             return {
                 "success": True,
                 "message": message
@@ -548,7 +578,8 @@ class StorageManager:
                 self._restore_backup(character_file, character_backup)
             if storage_backup:
                 self._restore_backup(self.storage_file, storage_backup)
-                
+            
+            error(f"FAILURE: Failed to retrieve item - {str(e)}", category="storage_operations")
             return {"success": False, "error": f"Failed to retrieve item: {str(e)}"}
             
     def view_storage(self, location_id: str = None) -> Dict[str, Any]:

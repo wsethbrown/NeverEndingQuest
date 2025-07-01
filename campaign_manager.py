@@ -60,6 +60,10 @@ from openai import OpenAI
 import config
 from encoding_utils import safe_json_load, safe_json_dump
 from module_path_manager import ModulePathManager
+from enhanced_logger import debug, info, warning, error, game_event, set_script_name
+
+# Set script name for logging
+set_script_name(__name__)
 
 class CampaignManager:
     """Manages campaign state and inter-module continuity"""
@@ -139,12 +143,12 @@ class CampaignManager:
                     safe_json_dump(self.campaign_data, self.campaign_file)
                     
                     if newly_integrated:
-                        print(f"Campaign Manager: Integrated {len(newly_integrated)} new modules: {', '.join(newly_integrated)}")
+                        info(f"INITIALIZATION: Integrated {len(newly_integrated)} new modules: {', '.join(newly_integrated)}", category="module_loading")
                     if missing_modules:
-                        print(f"Campaign Manager: Synced {len(missing_modules)} existing modules: {', '.join(missing_modules)}")
+                        info(f"INITIALIZATION: Synced {len(missing_modules)} existing modules: {', '.join(missing_modules)}", category="module_loading")
             
         except Exception as e:
-            print(f"Warning: Failed to scan for new modules: {e}")
+            warning(f"INITIALIZATION: Failed to scan for new modules: {e}", category="module_loading")
     
     def get_campaign_context(self) -> str:
         """Get campaign context for AI conversations"""
@@ -207,7 +211,7 @@ class CampaignManager:
                 if summary:
                     summaries.append(summary)
             except Exception as e:
-                print(f"Warning: Failed to load summary {summary_file}: {e}")
+                warning(f"FILE_OP: Failed to load summary {summary_file}: {e}", category="file_operations")
         
         return summaries
     
@@ -226,7 +230,7 @@ class CampaignManager:
             plot_file = os.path.join(path_manager.module_dir, "module_plot.json")
             
             if not os.path.exists(plot_file):
-                print(f"No module_plot.json found for {module_name}")
+                debug(f"FILE_OP: No module_plot.json found for {module_name}", category="file_operations")
                 return False
             
             plot_data = safe_json_load(plot_file)
@@ -249,7 +253,7 @@ class CampaignManager:
             return all(point.get('status') == 'completed' for point in plot_points)
             
         except Exception as e:
-            print(f"Error checking module completion for {module_name}: {e}")
+            error(f"FAILURE: Error checking module completion for {module_name}", exception=e, category="module_loading")
             return False
     
     def sync_party_tracker_with_plot(self, module_name: str) -> bool:
@@ -261,7 +265,7 @@ class CampaignManager:
             party_file = "party_tracker.json"
             
             if not os.path.exists(plot_file):
-                print(f"No module_plot.json found for {module_name}")
+                debug(f"FILE_OP: No module_plot.json found for {module_name}", category="file_operations")
                 return False
             
             plot_data = safe_json_load(plot_file)
@@ -291,25 +295,25 @@ class CampaignManager:
                 if quest_id in quest_statuses:
                     new_status = quest_statuses[quest_id]
                     if quest.get('status') != new_status:
-                        print(f"Syncing {quest_id}: {quest.get('status')} -> {new_status}")
+                        debug(f"STATE_CHANGE: Syncing quest {quest_id}: {quest.get('status')} -> {new_status}", category="plot_updates")
                         quest['status'] = new_status
                         updated = True
             
             # Save updated party tracker if changes were made
             if updated:
                 safe_json_dump(party_data, party_file)
-                print(f"Party tracker synced with module plot for {module_name}")
+                info(f"SUCCESS: Party tracker synced with module plot for {module_name}", category="plot_updates")
             
             return updated
             
         except Exception as e:
-            print(f"Error syncing party tracker with plot for {module_name}: {e}")
+            error(f"FAILURE: Error syncing party tracker with plot for {module_name}", exception=e, category="plot_updates")
             return False
     
     def complete_module(self, module_name: str, party_tracker_data: Dict[str, Any], 
                        conversation_history: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Complete a module and generate its summary"""
-        print(f"Completing module: {module_name}")
+        info(f"STATE_CHANGE: Completing module: {module_name}", category="module_loading")
         
         # Generate module summary
         summary = self._generate_module_summary(module_name, party_tracker_data, conversation_history)
@@ -452,7 +456,7 @@ Focus on story outcomes, character development, and decisions that will matter i
             }
             
         except Exception as e:
-            print(f"Error generating module summary: {e}")
+            error(f"FAILURE: Error generating module summary", exception=e, category="summary_building")
             # Fallback summary
             return {
                 "moduleName": module_name,
@@ -511,9 +515,9 @@ Focus on story outcomes, character development, and decisions that will matter i
                 "totalMessages": len(conversation_history)
             }
             safe_json_dump(archive_data, archive_file)
-            print(f"Archived {len(conversation_history)} conversation messages for {module_name} (sequence {sequence_num:03d})")
+            info(f"SUCCESS: Archived {len(conversation_history)} conversation messages for {module_name} (sequence {sequence_num:03d})", category="summary_building")
         except Exception as e:
-            print(f"Warning: Failed to archive conversation history for {module_name}: {e}")
+            warning(f"FAILURE: Failed to archive conversation history for {module_name}: {e}", category="summary_building")
     
     def _load_module_plot_data(self, module_name: str) -> Optional[Dict[str, Any]]:
         """Load module plot data for structured information"""
@@ -524,10 +528,10 @@ Focus on story outcomes, character development, and decisions that will matter i
             if os.path.exists(plot_file):
                 return safe_json_load(plot_file)
             else:
-                print(f"No module_plot.json found for {module_name}")
+                debug(f"FILE_OP: No module_plot.json found for {module_name}", category="file_operations")
                 return None
         except Exception as e:
-            print(f"Error loading plot data for {module_name}: {e}")
+            error(f"FAILURE: Error loading plot data for {module_name}", exception=e, category="module_loading")
             return None
     
     def _get_next_sequence_number(self, directory: str, base_filename: str, extension: str) -> int:
@@ -592,7 +596,7 @@ Focus on story outcomes, character development, and decisions that will matter i
         self.campaign_data['lastUpdated'] = datetime.now().isoformat()
         safe_json_dump(self.campaign_data, self.campaign_file)
         
-        print(f"Hub established: {hub_name}")
+        info(f"STATE_CHANGE: Hub established: {hub_name}", category="module_loading")
     
     def get_available_hubs(self) -> List[str]:
         """Get list of available hub locations"""
@@ -604,7 +608,8 @@ Focus on story outcomes, character development, and decisions that will matter i
     
     def transition_module(self, from_module: str, to_module: str):
         """Handle transition between modules"""
-        print(f"Transitioning from {from_module} to {to_module}")
+        info(f"STATE_CHANGE: Transitioning from {from_module} to {to_module}", category="module_loading")
+        game_event("module_transition", {"from": from_module, "to": to_module})
         
         # Update current module
         self.campaign_data['currentModule'] = to_module
@@ -697,11 +702,11 @@ Focus on story outcomes, character development, and decisions that will matter i
                                      party_tracker_data: Dict[str, Any], 
                                      conversation_history: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Handle automatic summarization when crossing module boundaries"""
-        print(f"\nDEBUG: Cross-module transition detected: {from_module} -> {to_module}")
+        debug(f"STATE_CHANGE: Cross-module transition detected: {from_module} -> {to_module}", category="module_loading")
         
         # Auto-summarize the module being left (allow multiple visits to same module)
         if from_module:
-            print(f"DEBUG: Auto-generating summary for {from_module}...")
+            debug(f"STATE_CHANGE: Auto-generating summary for {from_module}...", category="summary_building")
             
             summary = self._generate_module_summary(from_module, party_tracker_data, conversation_history)
             
@@ -724,15 +729,15 @@ Focus on story outcomes, character development, and decisions that will matter i
             self.campaign_data['lastUpdated'] = datetime.now().isoformat()
             safe_json_dump(self.campaign_data, self.campaign_file)
             
-            print(f"DEBUG: {from_module} summarized and archived (visit #{sequence_num})")
+            info(f"SUCCESS: {from_module} summarized and archived (visit #{sequence_num})", category="summary_building")
             return summary
         
-        print(f"DEBUG: No summary generated - no source module specified")
+        debug(f"STATE_CHANGE: No summary generated - no source module specified", category="module_loading")
         return None
     
     def get_accumulated_summaries_context(self, current_module: str) -> str:
         """Get all relevant module summaries for current module context"""
-        print(f"DEBUG: get_accumulated_summaries_context called for module: {current_module}")
+        debug(f"STATE_CHANGE: get_accumulated_summaries_context called for module: {current_module}", category="summary_building")
         context_parts = []
         
         # Add campaign overview
@@ -740,13 +745,13 @@ Focus on story outcomes, character development, and decisions that will matter i
         context_parts.append(f"Current Module: {current_module}")
         
         # Add all completed module summaries (multiple visits per module)
-        print(f"DEBUG: Completed modules: {self.campaign_data.get('completedModules', [])}")
+        debug(f"STATE_CHANGE: Completed modules: {self.campaign_data.get('completedModules', [])}", category="summary_building")
         if self.campaign_data['completedModules']:
             context_parts.append("\\nPREVIOUS ADVENTURES:")
             for module in self.campaign_data['completedModules']:
-                print(f"DEBUG: Loading summaries for module: {module}")
+                debug(f"FILE_OP: Loading summaries for module: {module}", category="summary_building")
                 summaries = self._load_module_summaries(module)
-                print(f"DEBUG: Found {len(summaries)} summaries for {module}")
+                debug(f"FILE_OP: Found {len(summaries)} summaries for {module}", category="summary_building")
                 if summaries:
                     context_parts.append(f"\\n=== CHRONICLES OF {module.upper()} ===")
                     for i, summary in enumerate(summaries):
@@ -755,7 +760,7 @@ Focus on story outcomes, character development, and decisions that will matter i
                         context_parts.append(f"\\n--- Visit {visit_num} (Chronicle {seq_num:03d}) ---")
                         summary_text = summary.get('summary', 'No summary available')
                         context_parts.append(summary_text)
-                        print(f"DEBUG: Added summary {seq_num} ({len(summary_text)} chars)")
+                        debug(f"FILE_OP: Added summary {seq_num} ({len(summary_text)} chars)", category="summary_building")
         
         # Add current world state
         if self.campaign_data.get('worldState'):
@@ -764,7 +769,7 @@ Focus on story outcomes, character development, and decisions that will matter i
                 context_parts.append(f"- {key}: {value}")
         
         final_context = "\\n".join(context_parts)
-        print(f"DEBUG: Final context length: {len(final_context)} characters")
+        debug(f"SUCCESS: Final context length: {len(final_context)} characters", category="summary_building")
         return final_context
 
 

@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 19,
   "maxHitPoints": 19,
-  "armorClass": 16,
+  "armorClass": 15,
   "initiative": 4,
   "speed": 35,
   "abilities": {
@@ -124,14 +124,7 @@
     "description": "Kira has an excellent memory for maps and geography, and can always recall the general layout of terrain, settlements, and other features. She can find food and fresh water for herself and up to five others each day, provided the land offers berries, small game, water, and so forth.",
     "source": "Outlander"
   },
-  "temporaryEffects": [
-    {
-      "name": "Shield of Faith",
-      "description": "+2 AC for up to 10 minutes, concentration required by Eirik",
-      "duration": "10 minutes",
-      "source": "Eirik"
-    }
-  ],
+  "temporaryEffects": [],
   "injuries": [],
   "equipment_effects": [],
   "feats": [],
@@ -199,7 +192,7 @@
     },
     {
       "item_name": "Quiver of Arrows",
-      "item_type": "ammunition",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "A quiver containing arrows recovered from the downed sentry.",
       "quantity": 1,
@@ -284,6 +277,33 @@
       "equipped": false,
       "magical": false,
       "consumable": true
+    },
+    {
+      "item_name": "Climbing Rope",
+      "item_type": "equipment",
+      "description": "A sturdy rope useful for climbing and traversing difficult terrain.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Crow's Feather Tied with Red Twine",
+      "item_type": "miscellaneous",
+      "description": "A crow's feather tied with red twine, a token recovered from the bandit quarters.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
+    },
+    {
+      "item_name": "Worn Set of Bone Dice",
+      "item_type": "miscellaneous",
+      "description": "A worn set of bone dice, likely used by the bandits for gambling.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
     }
   ],
   "ammunition": [
@@ -361,14 +381,14 @@
     "preparedSpells": []
   },
   "currency": {
-    "gold": 25,
+    "gold": 37,
     "silver": 13,
     "copper": 38
   },
   "experience_points": 800,
   "exp_required_for_next_level": 900,
   "challengeRating": 0.25,
-  "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale.",
+  "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale. Assisted in the final sweep of the stronghold.",
   "ideals": "Change. Life is like the seasons, in constant change, and we must change with it. I now strive to be a beacon of hope and courage for those around me.",
   "bonds": "An injury to the unspoiled wilderness of my home is an injury to me. My bond to the Rangers' Outpost and its people has grown stronger with their recognition.",
   "flaws": "I remember every insult I've received and nurse a silent resentment toward anyone who's ever wronged me. However, I am learning to put aside grudges to focus on the greater good."

@@ -37,6 +37,17 @@ DEBUG_CATEGORIES = {
     "hex_strings": False,          # Location hex representations
     "schema_processing": False,    # Schema validation details
     "attempt_counts": False,       # "Successfully on attempt X"
+    
+    # Script-specific debug categories
+    "main_debug": True,            # Main.py debug messages
+    "action_handler_debug": True,  # ActionHandler debug messages
+    "character_updater_debug": True,  # CharacterUpdater debug messages
+    "combat_manager_debug": True,  # CombatManager debug messages
+    "save_manager_debug": True,    # SaveGameManager debug messages
+    "path_manager_debug": False,   # ModulePathManager debug (verbose)
+    "campaign_manager_debug": True,  # CampaignManager debug messages
+    "location_manager_debug": True,  # LocationManager debug messages
+    "storage_manager_debug": True,   # StorageManager debug messages
 }
 
 # Log file settings

@@ -60,6 +60,10 @@ from encoding_utils import (
     safe_json_dump,
     fix_corrupted_location_name
 )
+from enhanced_logger import debug, info, warning, error, game_event, set_script_name
+
+# Set script name for logging
+set_script_name(__name__)
 
 def get_storage_at_location(location_id):
     """Get all player storage containers at a specific location"""
@@ -68,7 +72,7 @@ def get_storage_at_location(location_id):
         manager = get_storage_manager()
         return manager.get_storage_at_location(location_id)
     except Exception as e:
-        print(f"DEBUG: Could not load storage at location {location_id}: {e}")
+        debug(f"FILE_OP: Could not load storage at location {location_id}", category="storage_operations")
         return []
 
 def format_storage_description(storage_containers):
@@ -103,13 +107,13 @@ def load_json_file(file_path):
             return safe_json_load(file_path)
     except FileNotFoundError:
         # This message is misleading - we're not creating the file, just noting it doesn't exist
-        print(f"DEBUG: File {file_path} not found.")
+        debug(f"FILE_OP: File {file_path} not found", category="file_operations")
         return None
     except json.JSONDecodeError:
-        print(f"DEBUG: Invalid JSON in {file_path}.")
+        error(f"FILE_OP: Invalid JSON in {file_path}", category="file_operations")
         return None
     except UnicodeDecodeError:
-        print(f"DEBUG: Unable to decode {file_path} using UTF-8 encoding.")
+        error(f"FILE_OP: Unable to decode {file_path} using UTF-8 encoding", category="file_operations")
         return None
 
 def normalize_string(s):
@@ -161,11 +165,11 @@ def get_location_data(location_id, area_id):
         for location in area_data["locations"]:
             if location["locationId"] == location_id:
                 return location
-        print(f"ERROR: Location {location_id} not found in {area_file}")
+        warning(f"VALIDATION: Location {location_id} not found in {area_file}", category="location_transitions")
     except FileNotFoundError:
-        print(f"ERROR: Area file {area_file} not found")
+        error(f"FILE_OP: Area file {area_file} not found", category="file_operations")
     except json.JSONDecodeError:
-        print(f"ERROR: Invalid JSON in {area_file}")
+        error(f"FILE_OP: Invalid JSON in {area_file}", category="file_operations")
     return None
 
 def update_world_conditions(current_conditions, new_location, current_area, current_area_id):
@@ -200,8 +204,8 @@ def update_world_conditions(current_conditions, new_location, current_area, curr
 
 def handle_location_transition(current_location, new_location, current_area, current_area_id, area_connectivity_id=None):
     """Handle transition between locations, prioritizing ID matching"""
-    print(f"DEBUG: Handling location transition from '{current_location}' to '{new_location}'")
-    print(f"DEBUG: Current area: '{current_area}', Current area ID: '{current_area_id}'")
+    info(f"STATE_CHANGE: Location transition from '{current_location}' to '{new_location}'", category="location_transitions")
+    debug(f"STATE_CHANGE: Current area: '{current_area}', Current area ID: '{current_area_id}'", category="location_transitions")
 
     party_tracker = load_json_file("party_tracker.json")
     if party_tracker:
@@ -220,12 +224,12 @@ def handle_location_transition(current_location, new_location, current_area, cur
                     break
                     
             if current_location_info:
-                print(f"DEBUG: Current location identified: {current_location_info['name']} (ID: {current_location_info['locationId']})")
+                debug(f"VALIDATION: Current location identified: {current_location_info['name']} (ID: {current_location_info['locationId']})", category="location_transitions")
             else:
-                print(f"ERROR: Current location '{current_location}' not found in area data")
+                error(f"VALIDATION: Current location '{current_location}' not found in area data", category="location_transitions")
                 return None
         else:
-            print(f"ERROR: Failed to load current area data from {current_area_file}")
+            error(f"FILE_OP: Failed to load current area data from {current_area_file}", category="file_operations")
             return None
 
         new_location_info = None
@@ -259,12 +263,12 @@ def handle_location_transition(current_location, new_location, current_area, cur
                             break
                 
                 if new_location_info:
-                    print(f"DEBUG: Found new location in connected area: {new_location_info['name']} (ID: {new_location_info['locationId']})")
+                    debug(f"VALIDATION: Found new location in connected area: {new_location_info['name']} (ID: {new_location_info['locationId']})", category="location_transitions")
                 else:
-                    print(f"ERROR: New location '{new_location}' not found in connected area {area_connectivity_id}")
+                    error(f"VALIDATION: New location '{new_location}' not found in connected area {area_connectivity_id}", category="location_transitions")
                     return None
             else:
-                print(f"ERROR: Failed to load new area data from {new_area_file}")
+                error(f"FILE_OP: Failed to load new area data from {new_area_file}", category="file_operations")
                 return None
         else:
             # Transition within the same area
@@ -272,18 +276,18 @@ def handle_location_transition(current_location, new_location, current_area, cur
             # Priority 1: Check if new_location is a location ID directly
             new_location_info = next((loc for loc in current_area_data["locations"] if loc["locationId"] == new_location), None)
             if new_location_info:
-                print(f"DEBUG: Found new location by ID: {new_location_info['name']} (ID: {new_location_info['locationId']})")
+                debug(f"VALIDATION: Found new location by ID: {new_location_info['name']} (ID: {new_location_info['locationId']})", category="location_transitions")
             
             # Priority 2: Look for exact name match
             if not new_location_info:
                 new_location_info = next((loc for loc in current_area_data["locations"] if loc["name"] == new_location), None)
                 if new_location_info:
-                    print(f"DEBUG: Found new location by exact name: {new_location_info['name']} (ID: {new_location_info['locationId']})")
+                    debug(f"VALIDATION: Found new location by exact name: {new_location_info['name']} (ID: {new_location_info['locationId']})", category="location_transitions")
             
             # Priority 3: Check if new_location matches a connecting location ID
             if not new_location_info and "connectivity" in current_location_info:
                 connecting_ids = current_location_info["connectivity"]
-                print(f"DEBUG: Checking against connecting location IDs: {connecting_ids}")
+                debug(f"VALIDATION: Checking against connecting location IDs: {connecting_ids}", category="location_transitions")
                 
                 for loc_id in connecting_ids:
                     connected_loc = next((loc for loc in current_area_data["locations"] if loc["locationId"] == loc_id), None)
@@ -291,26 +295,26 @@ def handle_location_transition(current_location, new_location, current_area, cur
                         # Check if the name of this connected location matches our target
                         if normalize_string(connected_loc["name"]) == normalize_string(new_location):
                             new_location_info = connected_loc
-                            print(f"DEBUG: Found connection to location by name match: {new_location_info['name']} (ID: {new_location_info['locationId']})")
+                            debug(f"VALIDATION: Found connection to location by name match: {new_location_info['name']} (ID: {new_location_info['locationId']})", category="location_transitions")
                             break
                 
             # If still not found, check if the town square is in the list of connecting locations
             if not new_location_info and "town square" in normalize_string(new_location):
-                print(f"DEBUG: Special case - looking for Town Square in connecting locations")
+                debug(f"VALIDATION: Special case - looking for Town Square in connecting locations", category="location_transitions")
                 for loc_id in current_location_info.get("connectivity", []):
                     connected_loc = next((loc for loc in current_area_data["locations"] if loc["locationId"] == loc_id), None)
                     if connected_loc and "square" in normalize_string(connected_loc["name"]):
                         new_location_info = connected_loc
-                        print(f"DEBUG: Found Town Square as connected location: {new_location_info['name']}")
+                        debug(f"VALIDATION: Found Town Square as connected location: {new_location_info['name']}", category="location_transitions")
                         break
 
         if not new_location_info:
-            print(f"ERROR: Could not find new location '{new_location}' by any method")
+            error(f"FAILURE: Could not find new location '{new_location}' by any method", category="location_transitions")
             return None
 
-        print(f"DEBUG: New location info: {new_location_info['name']} (ID: {new_location_info['locationId']})")
+        debug(f"SUCCESS: New location validated: {new_location_info['name']} (ID: {new_location_info['locationId']})", category="location_transitions")
     else:
-        print("ERROR: Failed to load party_tracker.json")
+        error("FILE_OP: Failed to load party_tracker.json", category="file_operations")
         return None
 
     if current_location_info:
@@ -318,17 +322,17 @@ def handle_location_transition(current_location, new_location, current_area, cur
         try:
             safe_json_dump(current_location_info, "current_location.json")
         except Exception as e:
-            print(f"ERROR: Failed to update current_location.json. Error: {str(e)}")
+            error(f"FILE_OP: Failed to update current_location.json", exception=e, category="file_operations")
 
         # Run adventure summary update
         try:
             result = subprocess.run(["python", "adv_summary.py", "conversation_history.json", "current_location.json", current_location, current_area_id],
                         check=True, capture_output=True, text=True)
-            print("DEBUG: Adventure summary updated successfully")
+            info("SUCCESS: Adventure summary updated successfully", category="summary_building")
         except subprocess.CalledProcessError as e:
-            print(f"ERROR: Error occurred while running adv_summary.py: {e}")
-            print(f"ERROR: stdout: {e.stdout}")
-            print(f"ERROR: stderr: {e.stderr}")
+            error(f"FAILURE: Failed to run adv_summary.py", exception=e, category="summary_building")
+            debug(f"SUBPROCESS: stdout: {e.stdout}", category="subprocess_output")
+            debug(f"SUBPROCESS: stderr: {e.stderr}", category="subprocess_output")
 
         # Log the transition for debugging
         debug_log_file = "transition_debug.log"
@@ -339,7 +343,7 @@ def handle_location_transition(current_location, new_location, current_area, cur
                 debug_file.write(f"Area ID: {current_area_id}\n")
                 debug_file.write(f"Adventure summary has been generated\n")
         except Exception as e:
-            print(f"ERROR: Failed to write to debug log: {str(e)}")
+            error(f"FILE_OP: Failed to write to debug log", exception=e, category="file_operations")
 
         # Update party tracker with new location information
         if party_tracker and new_location_info:
@@ -371,9 +375,18 @@ def handle_location_transition(current_location, new_location, current_area, cur
 
             try:
                 safe_json_dump(party_tracker, "party_tracker.json")
-                print("DEBUG: Successfully updated party_tracker.json")
+                info("SUCCESS: Updated party_tracker.json with new location", category="file_operations")
+                
+                # Log successful location transition as a game event
+                game_event("location_transition", {
+                    "from": current_location,
+                    "to": new_location_info["name"],
+                    "from_id": current_location_id,
+                    "to_id": new_location_info["locationId"],
+                    "area_change": area_connectivity_id is not None
+                })
             except Exception as e:
-                print(f"ERROR: Failed to update party_tracker.json. Error: {str(e)}")
+                error(f"FAILURE: Failed to update party_tracker.json", exception=e, category="file_operations")
 
         # Get storage information for the new location
         storage_containers = get_storage_at_location(new_location_info["locationId"])
@@ -383,5 +396,5 @@ def handle_location_transition(current_location, new_location, current_area, cur
         
         return base_prompt + storage_description
     else:
-        print(f"ERROR: Could not find information for current location: {current_location}")
+        error(f"FAILURE: Could not find information for current location: {current_location}", category="location_transitions")
         return None

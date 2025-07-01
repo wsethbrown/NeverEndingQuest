@@ -1,4 +1,10 @@
 import json
+import os
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name(__name__)
+
 # ============================================================================
 # MODULE_PATH_MANAGER.PY - FILE SYSTEM ABSTRACTION LAYER
 # ============================================================================
@@ -39,8 +45,6 @@ import json
 # and maintainable while supporting seamless legacy migration.
 # ============================================================================
 
-import os
-
 class ModulePathManager:
     """Manages file paths for module-specific resources"""
     
@@ -62,20 +66,12 @@ class ModulePathManager:
                 module = data.get("module", "Keep_of_Doom")
                 # Only log if module changes or on first load
                 if ModulePathManager._last_module_logged != module:
-                    try:
-                        from enhanced_logger import debug
-                        debug(f"ModulePathManager switched to module '{module}'", category="module_loading")
-                    except:
-                        pass  # Suppress debug output unless there's an actual change
+                    info(f"INITIALIZATION: Switched to module '{module}'", category="module_loading")
                     ModulePathManager._last_module_logged = module
                 return module
         except Exception as e:
-            try:
-                from enhanced_logger import error
-                error(f"ModulePathManager could not load party_tracker.json", exception=e)
-            except:
-                print(f"DEBUG: ModulePathManager could not load party_tracker.json: {e}")
-                print(f"DEBUG: Using default module 'Keep_of_Doom'")
+            error(f"FILE_OP: Could not load party_tracker.json", exception=e, category="file_operations")
+            debug("INITIALIZATION: Using default module 'Keep_of_Doom'", category="module_loading")
             return "Keep_of_Doom"  # Default fallback
     
     def format_filename(self, name):

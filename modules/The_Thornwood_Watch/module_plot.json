@@ -11,7 +11,7 @@
         "PP002"
       ],
       "status": "completed",
-      "plotImpact": "With the bell network restored and the bandit threat scattered, the immediate crisis at the Rangers' Outpost is resolved. The community is safe, morale is high, and new opportunities for adventure await.",
+      "plotImpact": "The party has successfully defended the Rangers' Outpost and restored the bell network, securing the frontier's immediate safety.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -46,7 +46,7 @@
         "PP003"
       ],
       "status": "completed",
-      "plotImpact": "Eirik and Kira have cleared the Bandit Stronghold, recovered evidence of Malarok's corruption, and safely returned to Commander Elen to report and deliver their findings.",
+      "plotImpact": "The party has ventured into the Thornwood, defeated the bandits, and returned with evidence of Malarok's involvement.",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -78,8 +78,8 @@
       "nextPoints": [
         "PP004"
       ],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "Commander Elen and Ranger Marcus now have the map of planned attacks, allowing them to better defend the trade routes and track Malarok's activities.",
       "sideQuests": [
         {
           "id": "SQ005",
@@ -117,8 +117,8 @@
         "PP003",
         "PP004"
       ],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "completed",
+      "plotImpact": "The party has returned to the Rangers' Command Post and reported to Commander Elen, receiving recognition and reward for securing the frontier.",
       "sideQuests": []
     }
   ]

@@ -6,6 +6,7 @@ Provides cleaner console output and detailed file logging
 import logging
 import sys
 import os
+import re
 from datetime import datetime
 from logging.handlers import RotatingFileHandler
 from debug_config import *
@@ -32,6 +33,9 @@ class CleanConsoleFormatter(logging.Formatter):
     def format(self, record):
         # Skip certain verbose messages
         msg = record.getMessage()
+        
+        # Ensure no Unicode characters in output
+        msg = self._sanitize_unicode(msg)
         
         # Simplify module loading messages
         if "ModulePathManager loaded module" in msg:
@@ -73,6 +77,28 @@ class CleanConsoleFormatter(logging.Formatter):
                 return msg
                 
         return msg
+    
+    def _sanitize_unicode(self, text):
+        """Replace Unicode characters with ASCII equivalents"""
+        replacements = {
+            '✓': '[OK]', '✔': '[OK]', '✅': '[OK]',
+            '✗': '[FAIL]', '✘': '[FAIL]', '❌': '[FAIL]',
+            '→': '->', '←': '<-', '↑': '^', '↓': 'v',
+            '➜': '->', '⇒': '=>',
+            '●': '*', '○': 'o', '◆': '*', '◇': '*',
+            '■': '[#]', '□': '[ ]', '•': '*', '▪': '*',
+            '—': '--', '–': '-', '…': '...',
+            '«': '<<', '»': '>>',
+            '"': '"', '"': '"', ''': "'", ''': "'"
+        }
+        
+        for unicode_char, ascii_char in replacements.items():
+            text = text.replace(unicode_char, ascii_char)
+        
+        # Remove any remaining non-ASCII characters
+        text = re.sub(r'[^\x00-\x7F]+', '?', text)
+        
+        return text
 
 class GameLogger:
     """Main logger class for the game"""
@@ -80,6 +106,7 @@ class GameLogger:
     def __init__(self):
         self.logger = logging.getLogger('DungeonMasterAI')
         self.logger.setLevel(logging.DEBUG)
+        self.script_name = None  # Will be set by set_script_name()
         
         # Remove existing handlers
         self.logger.handlers = []
@@ -90,13 +117,44 @@ class GameLogger:
         console_handler.addFilter(CategoryFilter())
         self.logger.addHandler(console_handler)
         
+        # Create sanitizing formatter for file handlers
+        class SanitizingFormatter(logging.Formatter):
+            def format(self, record):
+                # Sanitize the message before formatting
+                original_msg = str(record.msg)
+                sanitized_msg = self._sanitize_unicode(original_msg)
+                record.msg = sanitized_msg
+                record.args = ()
+                return super().format(record)
+            
+            def _sanitize_unicode(self, text):
+                replacements = {
+                    '✓': '[OK]', '✔': '[OK]', '✅': '[OK]',
+                    '✗': '[FAIL]', '✘': '[FAIL]', '❌': '[FAIL]',
+                    '→': '->', '←': '<-', '↑': '^', '↓': 'v',
+                    '➜': '->', '⇒': '=>',
+                    '●': '*', '○': 'o', '◆': '*', '◇': '*',
+                    '■': '[#]', '□': '[ ]', '•': '*', '▪': '*',
+                    '—': '--', '–': '-', '…': '...',
+                    '«': '<<', '»': '>>',
+                    '"': '"', '"': '"', ''': "'", ''': "'"
+                }
+                
+                for unicode_char, ascii_char in replacements.items():
+                    text = text.replace(unicode_char, ascii_char)
+                
+                # Remove any remaining non-ASCII characters
+                text = re.sub(r'[^\x00-\x7F]+', '?', text)
+                
+                return text
+        
         # Error file handler
         error_handler = RotatingFileHandler(
             ERROR_LOG_FILE,
             maxBytes=MAX_LOG_SIZE_MB * 1024 * 1024,
             backupCount=3
         )
-        error_formatter = logging.Formatter(
+        error_formatter = SanitizingFormatter(
             '%(asctime)s - %(levelname)s - %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S'
         )
@@ -114,10 +172,21 @@ class GameLogger:
         debug_handler.setLevel(logging.DEBUG)
         self.logger.addHandler(debug_handler)
     
+    def _format_message(self, message):
+        """Add script name prefix if set"""
+        if self.script_name:
+            # Extract just the module name from full path
+            script_name = self.script_name.split('.')[-1]
+            # Capitalize first letter and add prefix
+            script_prefix = script_name.replace('_', ' ').title().replace(' ', '')
+            return f"[{script_prefix}] {message}"
+        return message
+    
     def debug(self, message, category=None):
         """Log debug message with optional category"""
+        formatted_message = self._format_message(message)
         record = self.logger.makeRecord(
-            self.logger.name, logging.DEBUG, "", 0, message, [], None
+            self.logger.name, logging.DEBUG, "", 0, formatted_message, [], None
         )
         if category:
             record.category = category
@@ -125,8 +194,9 @@ class GameLogger:
     
     def info(self, message, category=None):
         """Log info message with optional category"""
+        formatted_message = self._format_message(message)
         record = self.logger.makeRecord(
-            self.logger.name, logging.INFO, "", 0, message, [], None
+            self.logger.name, logging.INFO, "", 0, formatted_message, [], None
         )
         if category:
             record.category = category
@@ -134,32 +204,48 @@ class GameLogger:
     
     def warning(self, message, category=None):
         """Log warning message"""
-        self.logger.warning(message)
+        formatted_message = self._format_message(message)
+        self.logger.warning(formatted_message)
     
     def error(self, message, exception=None, category=None):
         """Log error message with optional exception"""
+        formatted_message = self._format_message(message)
         if exception:
-            self.logger.error(f"{message}: {str(exception)}")
+            self.logger.error(f"{formatted_message}: {str(exception)}")
         else:
-            self.logger.error(message)
+            self.logger.error(formatted_message)
     
     def game_event(self, event_type, details):
         """Log a game event in a structured way"""
+        # Note: These already get script prefix from info() method
         if event_type == "location_transition":
-            self.info(f"[LOCATION] {details['from']} -> {details['to']}", category="location_transitions")
+            self.info(f"LOCATION: {details['from']} -> {details['to']}", category="location_transitions")
         elif event_type == "plot_update":
-            self.info(f"[PLOT] {details['plot_id']} - {details['status']}", category="plot_updates")
+            self.info(f"PLOT: {details['plot_id']} - {details['status']}", category="plot_updates")
         elif event_type == "inventory_change":
-            self.info(f"[INVENTORY] {details['action']}: {details['item']}", category="inventory_changes")
+            self.info(f"INVENTORY: {details['action']}: {details['item']}", category="inventory_changes")
         elif event_type == "character_update":
-            self.info(f"[CHARACTER] {details['character']}: {details['change']}", category="character_updates")
+            self.info(f"CHARACTER: {details['character']}: {details['change']}", category="character_updates")
         elif event_type == "combat_start":
-            self.info(f"[COMBAT] {details['enemies']}", category="combat_events")
+            self.info(f"COMBAT: {details.get('enemies', 'Unknown enemies')}", category="combat_events")
+        elif event_type == "combat_end":
+            self.info(f"COMBAT: Ended - {details.get('result', 'Unknown result')}", category="combat_events")
+        elif event_type == "module_transition":
+            self.info(f"MODULE: {details['from']} -> {details['to']}", category="module_loading")
+        elif event_type == "save_game":
+            self.info(f"SAVE: {details.get('description', 'Game saved')}", category="file_operations")
+        elif event_type == "load_game":
+            self.info(f"LOAD: {details.get('save_name', 'Game loaded')}", category="file_operations")
         else:
-            self.info(f"{event_type}: {details}")
+            self.info(f"{event_type.upper()}: {details}")
 
 # Global logger instance
 game_logger = GameLogger()
+
+# Script name management
+def set_script_name(name):
+    """Set the script name for logging prefix"""
+    game_logger.script_name = name
 
 # Convenience functions
 def debug(message, category=None):
@@ -168,11 +254,11 @@ def debug(message, category=None):
 def info(message, category=None):
     game_logger.info(message, category)
 
-def warning(message):
-    game_logger.warning(message)
+def warning(message, category=None):
+    game_logger.warning(message, category)
 
-def error(message, exception=None):
-    game_logger.error(message, exception)
+def error(message, exception=None, category=None):
+    game_logger.error(message, exception, category)
 
 def game_event(event_type, details):
     game_logger.game_event(event_type, details)
