@@ -440,8 +440,7 @@ Focus on story outcomes, character development, and decisions that will matter i
                         {"role": "system", "content": "Extract campaign-relevant data from module completion summary. Be concise and factual."},
                         {"role": "user", "content": export_prompt}
                     ],
-                    temperature=0.3,
-                    max_tokens=1000
+                    temperature=0.3
                 )
                 
                 exported_data = json.loads(export_response.choices[0].message.content)

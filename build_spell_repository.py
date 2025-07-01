@@ -183,7 +183,6 @@ Respond with ONLY the JSON object, no additional text."""
                     {"role": "system", "content": "You are a 5th edition rules expert. Provide accurate spell information from the SRD 5.2.1 in the requested JSON format."},
                     {"role": "user", "content": prompt}
                 ],
-                max_tokens=1000,
                 temperature=0.1
             )
             

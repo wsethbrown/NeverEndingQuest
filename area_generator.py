@@ -116,7 +116,6 @@ No explanations, just the JSON array of thematic location names."""
                     {"role": "system", "content": "You are an expert at creating immersive D&D location names that enhance storytelling and world-building."},
                     {"role": "user", "content": prompt}
                 ],
-                max_tokens=500,
                 temperature=0.8
             )
             

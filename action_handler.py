@@ -317,8 +317,7 @@ Determine the most logical starting location based on adventure flow, area types
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
             ],
-            temperature=0.1,
-            max_tokens=300
+            temperature=0.1
         )
         
         ai_response = response.choices[0].message.content.strip()

@@ -254,8 +254,7 @@ Extract all legitimate NPC names now:"""
                 {"role": "system", "content": "You are an expert at analyzing D&D module content and extracting NPC names. You understand the difference between NPCs, locations, and monsters."},
                 {"role": "user", "content": extraction_prompt}
             ],
-            temperature=0.1,  # Low temperature for consistent extraction
-            max_tokens=2000
+            temperature=0.1  # Low temperature for consistent extraction
         )
         
         # Parse the response

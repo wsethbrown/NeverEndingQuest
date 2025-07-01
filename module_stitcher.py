@@ -392,8 +392,7 @@ Create atmospheric travel narration that leads into this adventure."""
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
                 ],
-                temperature=0.8,
-                max_tokens=300
+                temperature=0.8
             )
             
             # Parse AI response
@@ -819,8 +818,7 @@ Respond with JSON:
                     {"role": "system", "content": "You are a content safety reviewer for family-friendly fantasy gaming content. Be strict but reasonable in your assessment."},
                     {"role": "user", "content": safety_prompt}
                 ],
-                temperature=0.1,
-                max_tokens=200
+                temperature=0.1
             )
             
             ai_response = response.choices[0].message.content

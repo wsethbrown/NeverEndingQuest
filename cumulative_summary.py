@@ -268,8 +268,7 @@ Use past tense and third person. Be vivid, specific, and emotional where appropr
         response = client.chat.completions.create(
             model=ADVENTURE_SUMMARY_MODEL,
             temperature=TEMPERATURE,
-            messages=messages,
-            max_tokens=500  # Keep summaries concise
+            messages=messages
         )
         summary = response.choices[0].message.content.strip()
         # Sanitize AI response to prevent encoding issues

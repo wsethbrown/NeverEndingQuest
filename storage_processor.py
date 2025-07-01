@@ -279,8 +279,7 @@ For "What's in our storage here?":
                 response = self.client.chat.completions.create(
                     model=self.model,
                     messages=messages,
-                    temperature=0.1,  # Low temperature for consistency
-                    max_tokens=500
+                    temperature=0.1  # Low temperature for consistency
                 )
                 
                 # Parse AI response
