@@ -344,8 +344,8 @@ def merge_equipment_arrays(base_equipment, update_equipment):
             # Add new item if it doesn't exist
             result.append(copy.deepcopy(update_item))
     
-    # Remove items with zero or negative quantity
-    result = [item for item in result if item.get('quantity', 1) > 0]
+    # Remove items with zero or negative quantity or marked with _remove flag
+    result = [item for item in result if item.get('quantity', 1) > 0 and not item.get('_remove', False)]
     
     return result
 

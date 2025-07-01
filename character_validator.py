@@ -12,6 +12,7 @@
 # - AI-driven character data validation with 5th edition rule compliance
 # - Intelligent armor class calculation verification and correction
 # - Inventory item categorization and equipment conflict resolution
+# - Currency consolidation preserving player agency over containers
 # - Automatic data format standardization and correction
 # - Character sheet integrity validation across all character components
 # - Integration with character effects validation for comprehensive validation
@@ -26,6 +27,7 @@ based on the 5th edition of the world's most popular role playing game rules.
 Uses GPT-4.1 to intelligently validate and auto-correct:
 - Armor Class calculations
 - Inventory item categorization (prevents arrows as "miscellaneous", etc.)
+- Currency consolidation (consolidates loose coins while preserving valuables)
 - Equipment conflicts  
 - Temporary effects (future)
 - Stat bonuses (future)
@@ -78,6 +80,10 @@ class AICharacterValidator:
         
         # Use AI to validate and correct inventory categorization
         corrected_data = self.ai_validate_inventory_categories(corrected_data)
+        
+        # Use AI to consolidate loose currency into main currency counts
+        # This identifies loose coins and empties coin bags while preserving gems and containers
+        corrected_data = self.ai_consolidate_inventory_currency(corrected_data)
         
         # Validate status-condition consistency
         corrected_data = self.validate_status_condition_consistency(corrected_data)
@@ -619,6 +625,229 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
         
         # No corrections needed
         return character_data
+    
+    def ai_consolidate_inventory_currency(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Use AI to consolidate loose currency into main currency counts
+        Following the main character updater pattern: return only changes, use deep merge
+        
+        Consolidates:
+        - Loose coins (e.g., "5 gold pieces")
+        - Emptied coin bags (e.g., "bag of 50 gold")
+        
+        Preserves:
+        - Gems and valuables (e.g., "ruby worth 150 gold")
+        - Containers with contents (e.g., "chest containing 1000 gold")
+        - Art objects and trade goods
+        
+        Args:
+            character_data: Character JSON data
+            
+        Returns:
+            Character data with consolidated currency
+        """
+        
+        max_attempts = 3
+        attempt = 1
+        
+        while attempt <= max_attempts:
+            try:
+                consolidation_prompt = self.build_currency_consolidation_prompt(character_data)
+                
+                response = self.client.chat.completions.create(
+                    model=CHARACTER_VALIDATOR_MODEL,
+                    temperature=0.1,  # Low temperature for consistent validation
+                    messages=[
+                        {"role": "system", "content": self.get_currency_consolidation_system_prompt()},
+                        {"role": "user", "content": consolidation_prompt}
+                    ]
+                )
+                
+                ai_response = response.choices[0].message.content.strip()
+                
+                # Parse AI response to get consolidation updates only
+                consolidation_updates = self.parse_currency_consolidation_response(ai_response, character_data)
+                
+                if consolidation_updates:
+                    # Apply updates using deep merge (same pattern as main character updater)
+                    from update_character_info import deep_merge_dict
+                    corrected_data = deep_merge_dict(character_data, consolidation_updates)
+                    return corrected_data
+                else:
+                    # No consolidation needed
+                    return character_data
+                    
+            except Exception as e:
+                self.logger.error(f"AI currency consolidation attempt {attempt} failed: {str(e)}")
+                attempt += 1
+                if attempt > max_attempts:
+                    self.logger.error(f"All {max_attempts} currency consolidation attempts failed")
+                    return character_data
+        
+        return character_data
+    
+    def get_currency_consolidation_system_prompt(self) -> str:
+        """
+        System prompt for AI currency consolidation
+        
+        Returns:
+            System prompt with consolidation rules and examples
+        """
+        return """You are an expert inventory manager for the 5th edition of the world's most popular role playing game. Your job is to consolidate loose currency items into the character's main currency totals while preserving player agency over containers and valuables.
+
+## PRIMARY TASK: CURRENCY CONSOLIDATION
+
+You must identify loose currency that should be added to the character's currency totals and remove those items from inventory.
+
+### CONSOLIDATION RULES:
+
+**DO CONSOLIDATE (add to currency and remove from inventory):**
+- Loose coins: "5 gold pieces", "10 silver", "handful of copper"
+- Emptied coin bags: "bag of 50 gold", "pouch with 100 silver"
+- Clearly available currency: "20 gold from the table", "coins from defeated bandit"
+- Currency with clear amounts: "15 gp", "stack of 30 silver coins"
+
+**DO NOT CONSOLIDATE (preserve as inventory items):**
+- Gems/jewelry: "ruby worth 150 gold", "diamond (500gp value)", "golden necklace"
+- Containers with contents: "chest containing 1000 gold", "locked strongbox with coins"
+- Trapped/locked items: "trapped chest", "locked coffer", "sealed vault"
+- Art objects: "golden statue worth 250gp", "ornate painting valued at 100gp"
+- Trade goods: "silk worth 100gp", "rare spices (50gp value)"
+- Ambiguous containers: Items where it's unclear if the player has opened them
+
+### CURRENCY TYPES:
+- platinum (pp) = 10 gold
+- gold (gp) = 1 gold
+- electrum (ep) = 0.5 gold
+- silver (sp) = 0.1 gold  
+- copper (cp) = 0.01 gold
+
+### OUTPUT FORMAT:
+Return a JSON object with ONLY the changes needed:
+{
+  "inventory": {
+    "currency": {
+      "platinum": 0,
+      "gold": 125,      // New total after consolidation
+      "electrum": 0,
+      "silver": 50,     // New total after consolidation
+      "copper": 200     // New total after consolidation
+    }
+  },
+  "equipment": [
+    {"item_name": "exact name of item to remove", "_remove": true},
+    {"item_name": "another item to remove", "_remove": true}
+  ],
+  "consolidations_made": [
+    "Consolidated X gold pieces into currency",
+    "Emptied bag of Y gold into currency",
+    "Total gold increased from A to B"
+  ]
+}
+
+CRITICAL: 
+- Only return currency fields that changed
+- Only list items that should be removed
+- Calculate new totals by adding consolidated amounts to existing currency
+- Preserve player agency - when in doubt, don't consolidate"""
+    
+    def build_currency_consolidation_prompt(self, character_data: Dict[str, Any]) -> str:
+        """
+        Build consolidation prompt with character inventory
+        
+        Args:
+            character_data: Character JSON data
+            
+        Returns:
+            Formatted prompt for AI consolidation
+        """
+        equipment = character_data.get('equipment', [])
+        current_currency = character_data.get('inventory', {}).get('currency', {})
+        
+        prompt = f"""Please consolidate loose currency for this character:
+
+CHARACTER NAME: {character_data.get('name', 'Unknown')}
+
+CURRENT CURRENCY:
+- Platinum: {current_currency.get('platinum', 0)}
+- Gold: {current_currency.get('gold', 0)}
+- Electrum: {current_currency.get('electrum', 0)}
+- Silver: {current_currency.get('silver', 0)}
+- Copper: {current_currency.get('copper', 0)}
+
+CURRENT INVENTORY:
+"""
+        
+        for i, item in enumerate(equipment):
+            item_name = item.get('item_name', 'Unknown Item')
+            item_type = item.get('item_type', 'Unknown')
+            description = item.get('description', 'No description')
+            quantity = item.get('quantity', 1)
+            
+            prompt += f"""
+Item #{i+1}:
+- Name: {item_name}
+- Type: {item_type}
+- Description: {description}
+- Quantity: {quantity}
+"""
+        
+        prompt += """
+
+Identify loose currency items that should be consolidated into the main currency totals. Remember:
+- Consolidate loose coins and emptied bags
+- Preserve gems, containers, and valuables
+- Calculate new currency totals after consolidation
+- Return only the changes needed"""
+        
+        return prompt
+    
+    def parse_currency_consolidation_response(self, ai_response: str, original_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Parse AI currency consolidation response - returns only the updates/changes
+        
+        Args:
+            ai_response: AI response string
+            original_data: Original character data
+            
+        Returns:
+            Dictionary with only the changes to apply (or empty dict if no changes)
+        """
+        try:
+            # Try to extract JSON from AI response
+            start_idx = ai_response.find('{')
+            end_idx = ai_response.rfind('}') + 1
+            
+            if start_idx != -1 and end_idx != -1:
+                json_str = ai_response[start_idx:end_idx]
+                parsed_response = json.loads(json_str)
+                
+                # Build update dictionary with only changes
+                updates = {}
+                
+                # Check for currency updates
+                if 'inventory' in parsed_response and 'currency' in parsed_response['inventory']:
+                    updates['inventory'] = {'currency': parsed_response['inventory']['currency']}
+                
+                # Check for equipment removals
+                if 'equipment' in parsed_response and parsed_response['equipment']:
+                    updates['equipment'] = parsed_response['equipment']
+                
+                # Log consolidations made
+                if 'consolidations_made' in parsed_response:
+                    consolidations = parsed_response['consolidations_made']
+                    for consolidation in consolidations:
+                        self.logger.info(f"AI Currency Consolidation: {consolidation}")
+                        self.corrections_made.append(f"Currency: {consolidation}")
+                
+                return updates if updates else {}
+                
+        except (json.JSONDecodeError, KeyError) as e:
+            self.logger.error(f"Failed to parse AI currency consolidation response: {str(e)}")
+            self.logger.debug(f"AI Response was: {ai_response}")
+        
+        # Return empty dict if parsing fails (no changes)
+        return {}
 
 
 def validate_character_file(file_path: str) -> bool:
