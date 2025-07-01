@@ -130,6 +130,8 @@ test_*.py
 *_BU.md
 MODULE_SUMMARY*.md
 SEARCH_PLAN*.md
+VALIDATOR_TEST_RESULTS.md
+encounter_file_operations.md
 
 # Compression test files and outputs
 *compression*.json
