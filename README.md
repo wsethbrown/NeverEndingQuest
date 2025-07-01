@@ -8,6 +8,7 @@ An AI-powered Dungeon Master assistant for running 5th edition campaigns with fu
 - [Installation](#installation)
 - [Features Overview](#features-overview)
 - [How It Works](#how-it-works)
+- [Architecture & Design Philosophy](#architecture--design-philosophy)
 - [Advanced Features](#advanced-features)
 - [Project Structure](#project-structure)
 - [Configuration](#configuration)
@@ -119,6 +120,16 @@ Generate complete modules with:
 python module_builder.py
 ```
 The AI helps create areas, locations, plots, and NPCs that integrate seamlessly with your existing world.
+
+## Architecture & Design Philosophy
+
+For a deep dive into how NeverEndingQuest works under the hood, including:
+- The conversation compression pipeline that enables infinite adventures
+- How the modular system maintains story continuity
+- Context management strategies for AI memory
+- Technical implementation details
+
+See the comprehensive [Architecture Documentation](ARCHITECTURE.md).
 
 ## How the Campaign World Works
 
