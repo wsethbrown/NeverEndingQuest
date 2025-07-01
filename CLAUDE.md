@@ -204,7 +204,10 @@ Use `gemini_tool.py` for large-context analysis, planning, and when stuck:
 ## USAGE:
 ```python
 from gemini_tool import (query_gemini, plan_feature, analyze_large_file, get_unstuck,
-                        suggest_refactoring, generate_tests, write_documentation, clear_conversation)
+                        suggest_refactoring, generate_tests, write_documentation, 
+                        clear_conversation, upload_files_once, query_with_session,
+                        cleanup_session, check_token_count, save_all_conversations,
+                        load_all_conversations)
 
 # Basic query
 result = query_gemini("How should I implement feature X?")
@@ -223,11 +226,26 @@ result = query_gemini("How to add dark mode?", conversation_id="dark-mode-discus
 followup = query_gemini("What about mobile?", conversation_id="dark-mode-discussion")
 clear_conversation("dark-mode-discussion")  # Clean up when done
 
+# File session management - upload once, query multiple times
+upload_files_once(["game_interface.html", "game_logic.js"], session_id="ui-analysis")
+result1 = query_with_session("Where is player data rendered?", session_id="ui-analysis")
+result2 = query_with_session("How are events handled?", session_id="ui-analysis")
+result3 = query_with_session("What about the mobile layout?", session_id="ui-analysis")
+cleanup_session("ui-analysis")  # Clean up when done
+
+# Token counting (check before sending large requests)
+tokens = check_token_count("This is my prompt")
+tokens_with_history = check_token_count("Follow-up", conversation_id="existing-chat")
+
+# Conversation persistence
+save_all_conversations("my_gemini_chats.pkl")  # Save to disk
+load_all_conversations("my_gemini_chats.pkl")  # Restore later
+
 # Helper functions
 plan = plan_feature("Add dark mode toggle", files=["templates/game_interface.html"])
 analysis = analyze_large_file("game_interface.html", "Where is character data rendered?")
 help_me = get_unstuck("Can't figure out why events aren't firing", files=["web_interface.py"])
-refactor = suggest_refactoring("game_logic.py", focus="performance")
+refactor = suggest_refactoring("game_logic.py", focus="performance", as_json=True)
 tests = generate_tests("combat_system.py", specific_function="calculate_damage")
 docs = write_documentation("module_builder.py", doc_type="docstrings")
 ```
@@ -254,15 +272,23 @@ docs = write_documentation("module_builder.py", doc_type="docstrings")
 - **Conversation History**: Use `conversation_id` for related queries to maintain context
 - **Specialized Functions**: Use helper functions that optimize prompts for specific tasks
 
-## NEW FEATURES:
-1. **Conversation Tracking**: Maintain context across multiple queries
-2. **Refactoring Suggestions**: Get specific improvement recommendations
-3. **Test Generation**: Identify test scenarios and edge cases
-4. **Documentation Writing**: Get documentation suggestions
-5. **Better Error Handling**: Specific error types for debugging
+## NEW FEATURES V2:
+1. **Native Conversation Format**: Uses Gemini's native conversation structure for better context
+2. **File Session Management**: Upload files once, query multiple times without re-uploading
+3. **Automatic Retry Logic**: Exponential backoff with jitter for transient failures
+4. **Rate Limiting**: Enforces 2 RPM for Gemini Pro to avoid quota errors
+5. **Conversation Persistence**: Save/load conversations to disk for continuity
+6. **Token Counting**: Check token usage before sending (note: implementation pending API fix)
+7. **Enhanced Error Handling**: Specific handling for quota, permission, and API errors
+8. **Configuration Flexibility**: Set default model/temperature on initialization
+9. **Parallel File Uploads**: Upload multiple files concurrently (5 workers)
+10. **JSON Output Support**: Automatic parsing with markdown fallback
 
 ## IMPORTANT:
+- Gemini Pro has a 2 RPM rate limit - tool automatically waits between requests
+- Use file sessions for multiple queries on same files to save time and quota
+- Save conversations before ending sessions to preserve context
+- Clear conversations and file sessions when done to free memory
 - Gemini tends to suggest extra features - keep prompts focused
 - Use for planning and analysis, not direct code generation
-- Temperature is set to 0.7 for balanced, honest responses
-- Clear conversations when done to free memory: `clear_conversation(id)`
+- Temperature defaults to 0.7 for balanced responses
