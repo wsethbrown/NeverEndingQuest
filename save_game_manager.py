@@ -106,11 +106,11 @@ class SaveGameManager:
             # Critical game data files
             "spell_repository.json",
             "training_data.json",
-            "combat_conversation_history.json",
+            "modules/conversation_history/combat_conversation_history.json",
             
             # Conversation and chat history (critical for game continuity)
-            "conversation_history.json",
-            "chat_history.json",
+            "modules/conversation_history/conversation_history.json",
+            "modules/conversation_history/chat_history.json",
             
             # Character data
             "characters/",
@@ -148,8 +148,8 @@ class SaveGameManager:
         """Get list of optional files for full save mode"""
         return [
             # Additional conversation history
-            "second_model_history.json", 
-            "third_model_history.json",
+            "modules/conversation_history/second_model_history.json", 
+            "modules/conversation_history/third_model_history.json",
             
             # Combat logs
             "combat_logs/",
@@ -174,6 +174,7 @@ class SaveGameManager:
             "campaign_backup_*",
             "backup_pre_integration_*", 
             "*_backup_*",
+            "modules/backups/",
             
             # Temporary files
             "*.tmp",
@@ -462,7 +463,7 @@ class SaveGameManager:
             
             # Create backup of current state before restoring
             backup_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            backup_dir = f"restore_backup_{backup_timestamp}"
+            backup_dir = f"modules/backups/restore_backup_{backup_timestamp}"
             
             logger.info(f"Creating backup before restore: {backup_dir}")
             

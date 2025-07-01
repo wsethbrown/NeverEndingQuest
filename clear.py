@@ -70,19 +70,19 @@ print("Area files restored from clean backups.")
 # Delete conversation history and debug/log files
 files_to_delete = [
     # Conversation history files
-    'combat_conversation_history.json', 
-    'conversation_history.json', 
-    'chat_history.json',
+    'modules/conversation_history/combat_conversation_history.json', 
+    'modules/conversation_history/conversation_history.json', 
+    'modules/conversation_history/chat_history.json',
     'player_conversation_history.json',
     
     # Debug log files
-    'transition_debug.log', 
-    'adv_summary_debug.log',
-    'cumulative_summary_debug.log',
-    'combat_builder.log',
+    'modules/logs/transition_debug.log', 
+    'modules/logs/adv_summary_debug.log',
+    'modules/logs/cumulative_summary_debug.log',
+    'modules/logs/combat_builder.log',
     'debug_log.txt',
-    'game_debug.log',
-    'game_errors.log',
+    'modules/logs/game_debug.log',
+    'modules/logs/game_errors.log',
     'error.txt',
     
     # Summary dump files
@@ -90,8 +90,8 @@ files_to_delete = [
     'trimmed_summary_dump.json',
     
     # Model history files
-    'second_model_history.json',
-    'third_model_history.json',
+    'modules/conversation_history/second_model_history.json',
+    'modules/conversation_history/third_model_history.json',
     
     # Debug JSON files
     'debug_encounter_update.json',
@@ -105,7 +105,7 @@ files_to_delete = [
 ]
 
 # Special handling for log files that might be in use
-log_files_to_clear = ['game_debug.log', 'game_errors.log']
+log_files_to_clear = ['modules/logs/game_debug.log', 'modules/logs/game_errors.log']
 
 for file in files_to_delete:
     if os.path.exists(file):

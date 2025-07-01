@@ -268,7 +268,7 @@
             margin-left: 10px;
         }
         
-        .save-button, .load-button {
+        .save-button, .load-button, .reset-button {
             padding: 6px 12px;
             border: none;
             border-radius: 4px;
@@ -292,6 +292,14 @@
         
         .load-button:hover {
             background-color: #7B1FA2;
+        }
+
+        .reset-button {
+            background-color: #f44336; /* Red */
+        }
+
+        .reset-button:hover {
+            background-color: #d32f2f; /* Darker Red */
         }
         
         .save-load-buttons button:disabled {
@@ -2428,8 +2436,8 @@
             <div class="save-load-buttons">
                 <button class="save-button" id="save-button" onclick="openSaveDialog()" disabled title="Save Game">Save</button>
                 <button class="load-button" id="load-button" onclick="openLoadDialog()" disabled title="Load Game">Load</button>
-                <!-- NEW STORAGE BUTTON -->
                 <button class="storage-button" id="storage-button" onclick="openStorageView()" disabled title="View Player Storage">Storage</button>
+                <button class="reset-button" id="reset-button" onclick="openResetDialog()" disabled title="Reset Campaign">Reset</button>
             </div>
         </div>
     </div>
@@ -2640,8 +2648,8 @@
             document.getElementById('send-button').disabled = false;
             document.getElementById('save-button').disabled = false;
             document.getElementById('load-button').disabled = false;
-            // NEW: Enable storage button
             document.getElementById('storage-button').disabled = false;
+            document.getElementById('reset-button').disabled = false;
             document.getElementById('user-input').focus();
             addMessage('game-output', { type: 'system', content: 'Game started! You can now enter commands.' });
             loadCharacterStats();
@@ -3244,13 +3252,14 @@
             if (event.target === document.getElementById('npc-inventory-modal')) closeNPCInventory();
             if (event.target === document.getElementById('npc-details-modal')) closeNPCDetails();
             if (event.target === document.getElementById('search-popup')) closeSearchPopup();
-            // NEW: Close storage modal on outside click
             if (event.target === document.getElementById('storage-modal')) closeStorageView();
+            if (event.target === document.getElementById('reset-dialog-overlay')) closeResetDialog();
         };
         
         window.onkeydown = function(event) {
-            if (event.key === 'Escape' && document.getElementById('search-popup').style.display === 'block') {
-                closeSearchPopup();
+            if (event.key === 'Escape') {
+                if (document.getElementById('search-popup').style.display === 'block') closeSearchPopup();
+                if (document.getElementById('reset-dialog-overlay').style.display === 'flex') closeResetDialog();
             }
         };
     </script>
@@ -3270,6 +3279,25 @@
             </div>
             <div id="storage-modal-body" class="npc-inventory-body">
                 <!-- Storage content will be injected here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW RESET MODAL -->
+    <div id="reset-dialog-overlay" class="save-dialog-overlay">
+        <div class="save-dialog">
+            <h3><span style="color: #f44336;">!</span> CAMPAIGN RESET <span style="color: #f44336;">!</span></h3>
+            <p style="color: #FFA500; text-align: center; margin-bottom: 15px; border: 1px solid #FFA500; padding: 10px; border-radius: 4px;">
+                <strong>WARNING:</strong> This action is irreversible. It will create a backup, then completely delete the current campaign, all characters, and progress, resetting the game to its initial state.
+            </p>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <p style="color: #ccc;">To confirm, please type the following code into the box below:</p>
+                <p id="reset-confirmation-code" style="font-size: 24px; font-weight: bold; color: #4CAF50; letter-spacing: 5px; margin: 10px 0; user-select: none; background: #1a1a1a; padding: 5px; border-radius: 3px;"></p>
+                <input type="text" id="reset-code-input" class="save-form input" placeholder="Enter code here" style="width: 100%; text-align: center; font-size: 18px;" oninput="validateResetCode()">
+            </div>
+            <div class="dialog-buttons">
+                <button class="dialog-button secondary" onclick="closeResetDialog()">Cancel</button>
+                <button class="dialog-button danger" id="confirm-reset-button" onclick="performCampaignReset()" disabled>Confirm Reset</button>
             </div>
         </div>
     </div>
@@ -3508,6 +3536,51 @@
             body.innerHTML = html;
         });
 
+        // --- NEW CAMPAIGN RESET FUNCTIONS ---
+        let currentResetCode = '';
+
+        function openResetDialog() {
+            const overlay = document.getElementById('reset-dialog-overlay');
+            if (!overlay) return;
+
+            currentResetCode = Math.floor(10000 + Math.random() * 90000).toString();
+            
+            document.getElementById('reset-confirmation-code').textContent = currentResetCode;
+            document.getElementById('reset-code-input').value = '';
+            document.getElementById('confirm-reset-button').disabled = true;
+
+            overlay.style.display = 'flex';
+            document.getElementById('reset-code-input').focus();
+        }
+
+        function closeResetDialog() {
+            const overlay = document.getElementById('reset-dialog-overlay');
+            if (overlay) overlay.style.display = 'none';
+            currentResetCode = '';
+        }
+
+        function validateResetCode() {
+            const input = document.getElementById('reset-code-input').value;
+            const confirmButton = document.getElementById('confirm-reset-button');
+            confirmButton.disabled = (input !== currentResetCode);
+        }
+
+        function performCampaignReset() {
+            const input = document.getElementById('reset-code-input').value;
+            if (input !== currentResetCode) {
+                alert('Confirmation code is incorrect.');
+                return;
+            }
+
+            addMessage('game-output', { type: 'system', content: 'Campaign reset initiated... The application will become unresponsive and may require a manual restart after the process completes.' });
+            socket.emit('action', { action: 'nuclearReset', parameters: {} });
+            closeResetDialog();
+
+            // Disable all controls as the backend is about to do something drastic
+            document.getElementById('user-input').disabled = true;
+            document.getElementById('send-button').disabled = true;
+            document.querySelectorAll('.save-load-buttons button').forEach(b => b.disabled = true);
+        }
     </script>
 </body>
 </html>

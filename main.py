@@ -124,7 +124,7 @@ LIGHT_OFF_GREEN = "\033[38;2;100;180;100m"  # More muted light green for stats
 GOLD = "\033[38;2;255;215;0m"  # Gold color for status messages
 RESET_COLOR = "\033[0m"
 
-json_file = "conversation_history.json"
+json_file = "modules/conversation_history/conversation_history.json"
 
 needs_conversation_history_update = False
 
@@ -1166,7 +1166,7 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
                     return result
                 if result.get("status") == "needs_response":
                     # Combat summary was added to conversation history, get AI response
-                    conversation_history = load_json_file("conversation_history.json") or []
+                    conversation_history = load_json_file("modules/conversation_history/conversation_history.json") or []
                     ai_response = get_ai_response(conversation_history)
                     return process_ai_response(ai_response, party_tracker_data, location_data, conversation_history)
                 if result.get("needs_update"): needs_conversation_history_update = True
@@ -1497,7 +1497,7 @@ def main_game_loop():
         if needs_conversation_history_update:
             print("DEBUG: Reloading conversation history from disk due to needs_conversation_history_update flag")
             # Reload conversation history from disk to get any changes made during actions
-            conversation_history = load_json_file("conversation_history.json") or []
+            conversation_history = load_json_file("modules/conversation_history/conversation_history.json") or []
             conversation_history = process_conversation_history(conversation_history)
             save_conversation_history(conversation_history)
             needs_conversation_history_update = False

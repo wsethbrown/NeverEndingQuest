@@ -37,7 +37,7 @@ def print_header():
 def create_backup():
     """Phase 1: Create complete backup of current state"""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    backup_dir = f"campaign_backup_{timestamp}"
+    backup_dir = f"modules/backups/campaign_backup_{timestamp}"
     
     print(f"\n{CYAN}PHASE 1: Creating complete backup...{RESET}")
     os.makedirs(backup_dir, exist_ok=True)
@@ -50,10 +50,10 @@ def create_backup():
     # Backup all root game files
     root_files = [
         "party_tracker.json", "campaign.json", "world_registry.json",
-        "conversation_history.json", "chat_history.json", "combat_conversation_history.json",
+        "modules/conversation_history/conversation_history.json", "modules/conversation_history/chat_history.json", "modules/conversation_history/combat_conversation_history.json",
         "player_conversation_history.json", "current_location.json", "journal.json",
-        "summary_dump.json", "trimmed_summary_dump.json", "second_model_history.json",
-        "third_model_history.json", "debug_encounter_update.json", "debug_initial_response.json",
+        "summary_dump.json", "trimmed_summary_dump.json", "modules/conversation_history/second_model_history.json",
+        "modules/conversation_history/third_model_history.json", "debug_encounter_update.json", "debug_initial_response.json",
         "debug_npc_update.json", "debug_player_update.json", "debug_second_model.json",
         "npc_update_debug_log.json", "npc_update_detailed_log.json", "prompt_validation.json",
         "training_data.json", "debug.txt", "claude.txt"
@@ -65,8 +65,8 @@ def create_backup():
             shutil.copy2(file, backup_dir)
     
     # Backup log files
-    log_files = ["transition_debug.log", "adv_summary_debug.log", "cumulative_summary_debug.log",
-                 "combat_builder.log", "debug_log.txt", "game_debug.log", "game_errors.log", "error.txt"]
+    log_files = ["modules/logs/transition_debug.log", "modules/logs/adv_summary_debug.log", "modules/logs/cumulative_summary_debug.log",
+                 "modules/logs/combat_builder.log", "debug_log.txt", "modules/logs/game_debug.log", "modules/logs/game_errors.log", "error.txt"]
     
     for log in log_files:
         if os.path.exists(log):
@@ -212,8 +212,8 @@ def clear_all_files():
     
     # Conversation files
     conversation_files = [
-        "conversation_history.json", "chat_history.json",
-        "combat_conversation_history.json", "player_conversation_history.json"
+        "modules/conversation_history/conversation_history.json", "modules/conversation_history/chat_history.json",
+        "modules/conversation_history/combat_conversation_history.json", "player_conversation_history.json"
     ]
     
     for file in conversation_files:
@@ -223,10 +223,10 @@ def clear_all_files():
     
     # Debug and log files
     debug_files = [
-        "transition_debug.log", "adv_summary_debug.log", "cumulative_summary_debug.log",
-        "combat_builder.log", "debug_log.txt", "game_debug.log", "game_errors.log", "error.txt",
-        "summary_dump.json", "trimmed_summary_dump.json", "second_model_history.json",
-        "third_model_history.json", "debug_encounter_update.json", "debug_initial_response.json",
+        "modules/logs/transition_debug.log", "modules/logs/adv_summary_debug.log", "modules/logs/cumulative_summary_debug.log",
+        "modules/logs/combat_builder.log", "debug_log.txt", "modules/logs/game_debug.log", "modules/logs/game_errors.log", "error.txt",
+        "summary_dump.json", "trimmed_summary_dump.json", "modules/conversation_history/second_model_history.json",
+        "modules/conversation_history/third_model_history.json", "debug_encounter_update.json", "debug_initial_response.json",
         "debug_npc_update.json", "debug_player_update.json", "debug_second_model.json",
         "npc_update_debug_log.json", "npc_update_detailed_log.json", "prompt_validation.json",
         "combat_validation_log.json", "debug_ai_response.json", "dialogue_summary.json",
@@ -254,8 +254,29 @@ def clear_all_files():
         os.makedirs("modules/campaign_summaries")
         print("  ✓ Cleared campaign_summaries")
 
+def perform_reset_logic():
+    """The core logic of the reset, without prompts or top-level error handling."""
+    # Phase 1: Backup everything
+    backup_dir = create_backup()
+    
+    # Phase 2: Reset all modules
+    print(f"\n{CYAN}PHASE 2: Resetting all modules from backups...{RESET}")
+    modules = discover_modules()
+    print(f"Found {len(modules)} modules: {', '.join(modules)}")
+    
+    for module in modules:
+        reset_module(module)
+    
+    # Phase 3: Reset global state
+    reset_global_state()
+    
+    # Phase 4: Clear all generated files
+    clear_all_files()
+    
+    return backup_dir
+
 def main():
-    """Main reset function"""
+    """Main reset function for command-line execution"""
     print_header()
     
     # Confirm with user
@@ -264,23 +285,9 @@ def main():
         print(f"{YELLOW}Reset cancelled.{RESET}")
         return
     
+    backup_dir = "backup failed" # Default value
     try:
-        # Phase 1: Backup everything
-        backup_dir = create_backup()
-        
-        # Phase 2: Reset all modules
-        print(f"\n{CYAN}PHASE 2: Resetting all modules from backups...{RESET}")
-        modules = discover_modules()
-        print(f"Found {len(modules)} modules: {', '.join(modules)}")
-        
-        for module in modules:
-            reset_module(module)
-        
-        # Phase 3: Reset global state
-        reset_global_state()
-        
-        # Phase 4: Clear all generated files
-        clear_all_files()
+        backup_dir = perform_reset_logic()
         
         # Success message
         print(f"\n{GREEN}{'='*60}")
@@ -297,7 +304,7 @@ def main():
         
     except Exception as e:
         print(f"\n{RED}ERROR during reset: {str(e)}{RESET}")
-        print(f"{YELLOW}Your backup is safe in: {backup_dir if 'backup_dir' in locals() else 'backup failed'}{RESET}")
+        print(f"{YELLOW}Your backup is safe in: {backup_dir}{RESET}")
         raise
 
 if __name__ == "__main__":

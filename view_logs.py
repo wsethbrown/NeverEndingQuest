@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 def view_recent_errors(minutes=10):
     """View errors from the last N minutes"""
     try:
-        with open('game_errors.log', 'r') as f:
+        with open('modules/logs/game_errors.log', 'r') as f:
             lines = f.readlines()
         
         cutoff_time = datetime.now() - timedelta(minutes=minutes)
@@ -41,7 +41,7 @@ def view_recent_errors(minutes=10):
 def view_recent_debug(minutes=10, filter_term=None):
     """View debug messages from the last N minutes"""
     try:
-        with open('game_debug.log', 'r') as f:
+        with open('modules/logs/game_debug.log', 'r') as f:
             lines = f.readlines()
         
         cutoff_time = datetime.now() - timedelta(minutes=minutes)
@@ -73,7 +73,7 @@ def view_recent_debug(minutes=10, filter_term=None):
 
 def tail_logs(log_type='error', lines=20):
     """Show the last N lines of a log file"""
-    filename = 'game_errors.log' if log_type == 'error' else 'game_debug.log'
+    filename = 'modules/logs/game_errors.log' if log_type == 'error' else 'modules/logs/game_debug.log'
     
     try:
         with open(filename, 'r') as f:
@@ -90,9 +90,9 @@ def search_logs(search_term, log_type='both'):
     """Search logs for a specific term"""
     files = []
     if log_type in ['error', 'both']:
-        files.append('game_errors.log')
+        files.append('modules/logs/game_errors.log')
     if log_type in ['debug', 'both']:
-        files.append('game_debug.log')
+        files.append('modules/logs/game_debug.log')
     
     for filename in files:
         try:

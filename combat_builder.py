@@ -8,7 +8,7 @@ import logging
 import shutil
 from module_path_manager import ModulePathManager
 
-logging.basicConfig(filename='combat_builder.log', level=logging.DEBUG)
+logging.basicConfig(filename='modules/logs/combat_builder.log', level=logging.DEBUG)
 
 def clear_json_file(file_path):
     try:

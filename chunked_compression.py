@@ -90,7 +90,7 @@ def find_compression_range(conversation_data, summaries_after_chronicle, last_ch
     
     return first_summary_idx, last_summary_idx, summaries_to_compress
 
-def chunked_compression(conversation_file="conversation_history.json"):
+def chunked_compression(conversation_file="modules/conversation_history/conversation_history.json"):
     """Perform chunked compression - 8 transitions at a time
     
     Args:

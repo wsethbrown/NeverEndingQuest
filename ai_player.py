@@ -41,7 +41,7 @@ class AIPlayer:
         self.character_data = self._load_character_data()
         
         # Initialize LLM debug log
-        self.llm_debug_file = "ai_player_llm_debug.log"
+        self.llm_debug_file = "modules/logs/ai_player_llm_debug.log"
         self._init_llm_debug_log()
     
     def _init_llm_debug_log(self):

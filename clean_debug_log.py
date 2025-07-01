@@ -8,8 +8,8 @@ import re
 def clean_debug_log():
     """Remove repetitive CampaignPathManager lines from game_debug.log"""
     
-    input_file = "game_debug.log"
-    output_file = "game_debug.log.cleaned"
+    input_file = "modules/logs/game_debug.log"
+    output_file = "modules/logs/game_debug.log.cleaned"
     
     # Patterns to match the verbose logging lines
     patterns = [

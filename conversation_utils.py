@@ -550,7 +550,7 @@ FLAWS: {npc_data['flaws']}
 
 def generate_chat_history(conversation_history):
     """Generate a lightweight chat history without system messages"""
-    output_file = "chat_history.json"
+    output_file = "modules/conversation_history/chat_history.json"
     
     try:
         # Filter out system messages and keep only user and assistant messages

@@ -480,7 +480,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                     print("WARNING: Combat simulation did not return valid player info. Player file not updated.")
 
                 # Copy combat summary to main conversation history
-                combat_history = safe_json_load("combat_conversation_history.json")
+                combat_history = safe_json_load("modules/conversation_history/combat_conversation_history.json")
                 combat_summary = next((entry for entry in reversed(combat_history) if entry["role"] == "assistant" and "Combat Summary:" in entry["content"]), None)
 
                 if combat_summary:

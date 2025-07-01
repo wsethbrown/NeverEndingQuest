@@ -1,0 +1,460 @@
+{
+  "character_role": "player",
+  "character_type": "player",
+  "name": "Eirik Hearthwise",
+  "type": "player",
+  "size": "Medium",
+  "level": 2,
+  "race": "Human",
+  "class": "Cleric",
+  "alignment": "chaotic good",
+  "background": "Soldier",
+  "status": "alive",
+  "condition": "none",
+  "condition_affected": [],
+  "hitPoints": 13,
+  "maxHitPoints": 21,
+  "armorClass": 16,
+  "initiative": 1,
+  "speed": 30,
+  "abilities": {
+    "strength": 14,
+    "dexterity": 13,
+    "constitution": 15,
+    "intelligence": 11,
+    "wisdom": 16,
+    "charisma": 9
+  },
+  "savingThrows": [
+    "wisdom",
+    "charisma"
+  ],
+  "skills": {
+    "athletics": 4,
+    "intimidation": -1,
+    "medicine": 5,
+    "insight": 5
+  },
+  "proficiencyBonus": 2,
+  "senses": {
+    "darkvision": 0,
+    "passivePerception": 13
+  },
+  "languages": [
+    "Common",
+    "Dwarvish"
+  ],
+  "proficiencies": {
+    "armor": [
+      "light",
+      "medium",
+      "heavy",
+      "shields"
+    ],
+    "weapons": [
+      "simple"
+    ],
+    "tools": [
+      "gaming set",
+      "vehicles (land)"
+    ]
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "classFeatures": [
+    {
+      "name": "Spellcasting",
+      "description": "You can cast prepared cleric spells using Wisdom as your spellcasting ability (Spell Save DC 13, Spell Attack +5). You can use a holy symbol as a spellcasting focus.",
+      "source": "Cleric"
+    },
+    {
+      "name": "Divine Domain: Life",
+      "description": "You gain proficiency with heavy armor. Bless and Cure Wounds are always prepared. Your healing spells heal additional hit points equal to 2 + the spell's level (Disciple of Life).",
+      "source": "Cleric"
+    },
+    {
+      "name": "Channel Divinity (1/rest)",
+      "description": "You can channel divine energy to fuel magical effects. You start with one option: Turn Undead. As an action, present your holy symbol and speak a prayer. Each undead within 30 feet must make a Wisdom save or be turned for 1 minute or until it takes damage.",
+      "source": "Cleric"
+    },
+    {
+      "name": "Preserve Life (Channel Divinity Option)",
+      "description": "As an action, you can restore a total of HP equal to five times your cleric level (10 HP at level 2), divided among any creatures within 30 feet of you, not to heal a creature above half its hit point maximum.",
+      "source": "Life Domain"
+    }
+  ],
+  "racialTraits": [
+    {
+      "name": "Ability Score Increase",
+      "description": "Your ability scores each increase by 1.",
+      "source": "Human"
+    },
+    {
+      "name": "Extra Language",
+      "description": "You can speak, read, and write one extra language of your choice.",
+      "source": "Human"
+    }
+  ],
+  "backgroundFeature": {
+    "name": "Military Rank",
+    "description": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank.",
+    "source": "Soldier"
+  },
+  "temporaryEffects": [],
+  "injuries": [],
+  "equipment_effects": [
+    {
+      "name": "Shield AC Bonus",
+      "type": "bonus",
+      "target": "AC",
+      "value": 0,
+      "description": "Shield provides +0 AC",
+      "source": "Shield"
+    }
+  ],
+  "feats": [],
+  "equipment": [
+    {
+      "item_name": "Mace",
+      "item_type": "weapon",
+      "item_subtype": "other",
+      "description": "A simple melee weapon.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Scale mail",
+      "item_type": "armor",
+      "item_subtype": "other",
+      "description": "Medium armor (AC 14 + Dex modifier, max 2).",
+      "quantity": 1,
+      "ac_base": 14,
+      "ac_bonus": 0,
+      "dex_limit": 2,
+      "armor_category": "medium",
+      "stealth_disadvantage": true,
+      "equipped": true
+    },
+    {
+      "item_name": "Shield",
+      "item_type": "armor",
+      "item_subtype": "other",
+      "description": "A shield that increases AC by 2.",
+      "quantity": 1,
+      "ac_base": 2,
+      "ac_bonus": 0,
+      "dex_limit": null,
+      "armor_category": "shield",
+      "stealth_disadvantage": false,
+      "equipped": true
+    },
+    {
+      "item_name": "Light crossbow",
+      "item_type": "weapon",
+      "item_subtype": "other",
+      "description": "A simple ranged weapon (1d8 piercing, range 80/320).",
+      "quantity": 1
+    },
+    {
+      "item_name": "Crossbow bolts",
+      "item_type": "ammunition",
+      "item_subtype": "other",
+      "description": "Ammunition for a light crossbow.",
+      "quantity": 20
+    },
+    {
+      "item_name": "Priest's pack",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A pack containing useful items for clerics.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Holy symbol",
+      "item_type": "equipment",
+      "item_subtype": "amulet",
+      "description": "A symbol representing Eirik's faith.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Insignia of rank",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A badge showing Eirik's former military rank.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Trophy from a fallen enemy",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A keepsake from Eirik's military days.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Set of bone dice",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A gaming set (bone dice).",
+      "quantity": 1
+    },
+    {
+      "item_name": "Common clothes",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A set of common clothes.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Dog tag",
+      "item_type": "equipment",
+      "item_subtype": "amulet",
+      "description": "A dog tag belonging to a fallen comrade.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Pouch",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A small pouch for coins.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Sturdy gloves",
+      "item_type": "armor",
+      "item_subtype": "gloves",
+      "description": "Protective gloves to shield hands from magical thorns.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Pouch of Powdered Silver",
+      "item_type": "consumable",
+      "item_subtype": "other",
+      "description": "A pouch containing powdered silver, useful against magical thorns and certain creatures.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Pouch of Silver Coins",
+      "item_type": "equipment",
+      "description": "A small pouch containing 15 silver coins recovered from bandits and found at the tower.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Coded Parchment",
+      "item_type": "equipment",
+      "description": "A crumpled scrap of parchment with coded watch schedules and a rough map of ranger patrol routes.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Climbing Rope",
+      "item_type": "equipment",
+      "description": "A coil of sturdy climbing rope taken from the bandits.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Stub of Black Wax",
+      "item_type": "consumable",
+      "description": "A small, battered stub of black wax found near the sabotage site.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Crow's Hand Feather",
+      "item_type": "equipment",
+      "description": "A crow's feather marked with oily black wax, a signature of the Crow's Hand.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Rune-etched Ritual Vial",
+      "item_type": "consumable",
+      "description": "A vial inscribed with ancient runes given by Maelo. Now filled with purified water, cleansed of the taint from the spring as part of 'The Hermit's Warning' quest.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Bandit Patrols Map",
+      "item_type": "equipment",
+      "description": "A detailed map showing known bandit patrol routes and ambush points, given by Scout Neris.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Broken bandit dagger engraved with Malarok's sigil",
+      "item_type": "weapon",
+      "description": "A damaged dagger once owned by a bandit, bearing the dark sigil of Malarok.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Sealed bandage packet",
+      "item_type": "consumable",
+      "item_subtype": "other",
+      "description": "A small packet containing sterile bandages, useful for treating wounds.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Trail rations",
+      "item_type": "consumable",
+      "item_subtype": "food",
+      "description": "Packaged food for travelers, providing nourishment on long journeys.",
+      "quantity": 2
+    },
+    {
+      "item_name": "Torn but valuable cloth",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A piece of cloth, torn but of fine quality, possibly useful for trade or crafting.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Heavy iron key",
+      "item_type": "equipment",
+      "description": "A heavy iron key taken from Captain Gorvek's possessions.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Missive with black wax seal",
+      "item_type": "equipment",
+      "description": "A folded letter sealed with black wax, bearing an ominous insignia.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Polished dagger with arcane symbols",
+      "item_type": "weapon",
+      "description": "A finely polished dagger etched with glowing arcane runes.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Thornwood map marked with Xs",
+      "item_type": "equipment",
+      "description": "A detailed map of Thornwood with several locations marked with mysterious Xs.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Gold ring",
+      "item_type": "miscellaneous",
+      "description": "A simple gold ring looted from bandit bodies, valued at 5 gold coins.",
+      "quantity": 1
+    }
+  ],
+  "ammunition": [
+    {
+      "name": "Crossbow bolts",
+      "quantity": 20,
+      "description": "Ammunition for a light crossbow."
+    }
+  ],
+  "attacksAndSpellcasting": [
+    {
+      "name": "Mace",
+      "attackBonus": 4,
+      "damageDice": "1d6",
+      "damageBonus": 2,
+      "damageType": "bludgeoning",
+      "type": "melee",
+      "description": "Simple melee weapon. Attack: +4 to hit, reach 5 ft. Hit: 1d6+2 bludgeoning."
+    },
+    {
+      "name": "Light crossbow",
+      "attackBonus": 3,
+      "damageDice": "1d8",
+      "damageBonus": 1,
+      "damageType": "piercing",
+      "type": "ranged",
+      "description": "Simple ranged weapon. Attack: +3 to hit, range 80/320 ft. Hit: 1d8+1 piercing."
+    },
+    {
+      "name": "Sacred Flame",
+      "attackBonus": 0,
+      "damageDice": "1d8",
+      "damageBonus": 0,
+      "damageType": "radiant",
+      "type": "spell",
+      "description": "Cantrip. Target must succeed on a Dexterity save or take 1d8 radiant damage."
+    }
+  ],
+  "spellcasting": {
+    "ability": "wisdom",
+    "spellSaveDC": 13,
+    "spellAttackBonus": 5,
+    "spells": {
+      "cantrips": [
+        "Sacred Flame",
+        "Guidance",
+        "Spare the Dying"
+      ],
+      "level1": [
+        "Bless",
+        "Cure Wounds",
+        "Healing Word",
+        "Detect Magic",
+        "Protection from Evil and Good",
+        "Sanctuary",
+        "Shield of Faith"
+      ],
+      "level2": [],
+      "level3": [],
+      "level4": [],
+      "level5": [],
+      "level6": [],
+      "level7": [],
+      "level8": [],
+      "level9": []
+    },
+    "spellSlots": {
+      "level1": {
+        "current": 0,
+        "max": 3
+      },
+      "level2": {
+        "current": 0,
+        "max": 0
+      },
+      "level3": {
+        "current": 0,
+        "max": 0
+      },
+      "level4": {
+        "current": 0,
+        "max": 0
+      },
+      "level5": {
+        "current": 0,
+        "max": 0
+      },
+      "level6": {
+        "current": 0,
+        "max": 0
+      },
+      "level7": {
+        "current": 0,
+        "max": 0
+      },
+      "level8": {
+        "current": 0,
+        "max": 0
+      },
+      "level9": {
+        "current": 0,
+        "max": 0
+      }
+    },
+    "preparedSpells": [
+      "Bless",
+      "Cure Wounds",
+      "Healing Word",
+      "Detect Magic",
+      "Protection from Evil and Good",
+      "Sanctuary",
+      "Shield of Faith"
+    ]
+  },
+  "currency": {
+    "gold": 19,
+    "silver": 21,
+    "copper": 20
+  },
+  "experience_points": 800,
+  "exp_required_for_next_level": 900,
+  "challengeRating": 0.25,
+  "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",
+  "ideals": "Redemption. Every life saved is a step toward atoning for the lives he failed to save.",
+  "bonds": "Carries a dog tag from his fallen unit as a constant reminder of his promise to protect others. Has earned Sila's continued support and access to her supplies following the recovery of her chest.",
+  "flaws": "Reckless in the face of danger, terrified of losing friends again and willing to take great risks to prevent it."
+}

@@ -135,9 +135,9 @@ TEMPERATURE = 0.8
 # OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-conversation_history_file = "combat_conversation_history.json"
-second_model_history_file = "second_model_history.json"
-third_model_history_file = "third_model_history.json"
+conversation_history_file = "modules/conversation_history/combat_conversation_history.json"
+second_model_history_file = "modules/conversation_history/second_model_history.json"
+third_model_history_file = "modules/conversation_history/third_model_history.json"
 
 # Create a combat_logs directory if it doesn't exist
 os.makedirs("combat_logs", exist_ok=True)

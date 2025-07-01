@@ -40,8 +40,8 @@ DEBUG_CATEGORIES = {
 }
 
 # Log file settings
-ERROR_LOG_FILE = "game_errors.log"
-DEBUG_LOG_FILE = "game_debug.log"
+ERROR_LOG_FILE = "modules/logs/game_errors.log"
+DEBUG_LOG_FILE = "modules/logs/game_debug.log"
 MAX_LOG_SIZE_MB = 10  # Rotate logs when they exceed this size
 
 # Message filters - messages containing these strings will be filtered out

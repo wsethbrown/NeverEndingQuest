@@ -11,6 +11,7 @@ ENV/
 # Logs
 *.log
 logs/
+modules/logs/
 
 # Runtime data
 conversation_history.json
@@ -21,6 +22,7 @@ party_tracker.json.bak
 journal.json
 journal.json.bak
 chronology.json
+modules/conversation_history/backups/
 
 # Debug files
 debug_*.json
@@ -40,6 +42,7 @@ backup/
 backup_*/
 old_files/
 legacy/
+modules/backups/
 
 # Copy files
 *copy.*
