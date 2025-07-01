@@ -41,8 +41,9 @@ from contextlib import redirect_stdout, redirect_stderr
 from redirect_debug_output import install_debug_interceptor, uninstall_debug_interceptor
 install_debug_interceptor()
 
-# Import the main game module
+# Import the main game module and reset logic
 import main as dm_main
+import reset_campaign
 from status_manager import set_status_callback
 
 app = Flask(__name__)
@@ -378,11 +379,11 @@ def handle_user_input(data):
 
 @socketio.on('action')
 def handle_action(data):
-    """Handle direct action requests (like save/load)"""
+    """Handle direct action requests from the UI (save, load, reset)."""
     action_type = data.get('action')
     parameters = data.get('parameters', {})
-    
-    # Handle save/load actions directly
+    print(f"DEBUG: Received direct action from client: {action_type}")
+
     if action_type == 'listSaves':
         try:
             from save_game_manager import SaveGameManager
@@ -392,10 +393,59 @@ def handle_action(data):
         except Exception as e:
             print(f"Error listing saves: {e}")
             emit('save_list_response', [])
-    else:
-        # For other actions, convert to JSON input and put in the queue
-        action_json = json.dumps({"action": action_type, "parameters": parameters})
-        user_input_queue.put(action_json)
+
+    elif action_type == 'saveGame':
+        try:
+            from save_game_manager import SaveGameManager
+            manager = SaveGameManager()
+            description = parameters.get("description", "")
+            save_mode = parameters.get("saveMode", "essential")
+            success, message = manager.create_save_game(description, save_mode)
+            if success:
+                emit('system_message', {'content': f"Game saved: {message}"})
+            else:
+                emit('error', {'message': f"Save failed: {message}"})
+        except Exception as e:
+            emit('error', {'message': f"Save failed: {str(e)}"})
+
+    elif action_type == 'restoreGame':
+        try:
+            from save_game_manager import SaveGameManager
+            manager = SaveGameManager()
+            save_folder = parameters.get("saveFolder")
+            success, message = manager.restore_save_game(save_folder)
+            if success:
+                emit('restore_complete', {'message': 'Game restored successfully. Server restarting...'})
+                socketio.sleep(1)
+                print("INFO: Game restore successful. Server is shutting down for restart.")
+                os._exit(0)
+            else:
+                emit('error', {'message': f"Restore failed: {message}"})
+        except Exception as e:
+            emit('error', {'message': f"Restore failed: {str(e)}"})
+    
+    elif action_type == 'deleteSave':
+        try:
+            from save_game_manager import SaveGameManager
+            manager = SaveGameManager()
+            save_folder = parameters.get("saveFolder")
+            success, message = manager.delete_save_game(save_folder)
+            if success:
+                emit('system_message', {'content': f"Save deleted: {message}"})
+            else:
+                emit('error', {'message': f"Delete failed: {message}"})
+        except Exception as e:
+            emit('error', {'message': f"Delete failed: {str(e)}"})
+
+    elif action_type == 'nuclearReset':
+        try:
+            reset_campaign.perform_reset_logic()
+            emit('reset_complete', {'message': 'Campaign has been reset. Reloading...'})
+            socketio.sleep(1) 
+            print("INFO: Campaign reset complete. Server is shutting down for restart.")
+            os._exit(0)
+        except Exception as e:
+            emit('error', {'message': f'Campaign reset failed: {str(e)}'})
 
 @socketio.on('start_game')
 def handle_start_game():

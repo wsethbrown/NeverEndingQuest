@@ -3324,7 +3324,7 @@
         }
         function performLoad() {
             if (!selectedSaveFolder) return;
-            if (confirm('Overwrite current progress?')) {
+            if (confirm('This will restore the selected save and restart the server. Your current progress will be lost. Continue?')) {
                 socket.emit('action', { action: 'restoreGame', parameters: { saveFolder: selectedSaveFolder } });
                 closeLoadDialog();
             }
@@ -3581,6 +3581,30 @@
             document.getElementById('send-button').disabled = true;
             document.querySelectorAll('.save-load-buttons button').forEach(b => b.disabled = true);
         }
+
+        // --- NEW SOCKET LISTENERS FOR RESTORE/RESET ---
+        socket.on('system_message', (data) => {
+            addMessage('game-output', { type: 'system', content: data.content });
+        });
+
+        socket.on('restore_complete', (data) => {
+            console.log('Restore complete signal received:', data.message);
+            addMessage('game-output', { type: 'system', content: 'Game restored successfully. The page will now reload to sync with the new state.' });
+            
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000); 
+        });
+
+        socket.on('reset_complete', (data) => {
+            console.log('Reset complete signal received:', data.message);
+            addMessage('game-output', { type: 'system', content: 'Campaign has been reset. The page will now reload.' });
+            
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000); 
+        });
+
     </script>
 </body>
 </html>
