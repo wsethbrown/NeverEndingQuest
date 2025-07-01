@@ -56,7 +56,7 @@ from conversation_utils import handle_module_conversation_segmentation
 from enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
-set_script_name(__name__)
+set_script_name("action_handler")
 
 # Action type constants
 ACTION_CREATE_ENCOUNTER = "createEncounter"
@@ -439,24 +439,24 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
     parameters = action.get("parameters", {})
 
     if action_type == ACTION_CREATE_ENCOUNTER:
-        print("DEBUG: Creating combat encounter")
+        debug("INITIALIZATION: Creating combat encounter", category="combat_processing")
         try:
-            print(f"DEBUG: Sending to combat_builder.py: {json.dumps(action)}")
+            debug(f"SUBPROCESS: Sending to combat_builder.py: {json.dumps(action)}", category="combat_processing")
             result = subprocess.run(
                 ["python", "combat_builder.py"],
                 input=json.dumps(action),
                 check=True, capture_output=True, text=True
             )
-            print("DEBUG: combat_builder.py output:", result.stdout)
-            print("DEBUG: combat_builder.py status:", result.stderr)
-            print("DEBUG: Combat encounter created successfully")
+            debug(f"SUBPROCESS: combat_builder.py output: {result.stdout}", category="combat_processing")
+            debug(f"SUBPROCESS: combat_builder.py status: {result.stderr}", category="combat_processing")
+            info("SUCCESS: Combat encounter created successfully", category="combat_processing")
 
             if "Encounter successfully built and saved to encounter_" in result.stdout:
                 encounter_id = result.stdout.strip().split()[-1].replace(".json", "")
 
                 party_tracker_data["worldConditions"]["activeCombatEncounter"] = encounter_id
                 safe_json_dump(party_tracker_data, "party_tracker.json")
-                print(f"DEBUG: Updated party tracker with combat encounter ID: {encounter_id}")
+                debug(f"STATE_CHANGE: Updated party tracker with combat encounter ID: {encounter_id}", category="combat_processing")
 
                 # Reload location data here
                 current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
@@ -479,7 +479,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                     path_manager = ModulePathManager(module_name)
                     player_file = path_manager.get_character_path(player_name)
                     safe_json_dump(updated_player_info, player_file)
-                    print(f"DEBUG: Updated player file for {player_name}")
+                    debug(f"FILE_OP: Updated player file for {player_name}", category="character_updates")
                 else:
                     print("WARNING: Combat simulation did not return valid player info. Player file not updated.")
 
@@ -548,7 +548,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
             # Try to find entry location for this area ID
             entry_location = location_graph.get_entry_location_for_area(new_location_name_or_id)
             if entry_location:
-                print(f"DEBUG: Mapped area ID '{new_location_name_or_id}' to entry location '{entry_location}'")
+                debug(f"VALIDATION: Mapped area ID '{new_location_name_or_id}' to entry location '{entry_location}'", category="location_transitions")
                 new_location_name_or_id = entry_location
         
         # VALIDATE: Check if location transition is valid
@@ -565,9 +565,9 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
             )
         
         # Debug the exact string values for easier troubleshooting
-        print(f"DEBUG: Transitioning from '{current_location_name}' to '{new_location_name_or_id}'")
-        print(f"DEBUG: Current location string (hex): {current_location_name.encode('utf-8').hex()}")
-        print(f"DEBUG: New location string (hex): {new_location_name_or_id.encode('utf-8').hex()}")
+        info(f"STATE_CHANGE: Transitioning from '{current_location_name}' to '{new_location_name_or_id}'", category="location_transitions")
+        debug(f"VALIDATION: Current location string (hex): {current_location_name.encode('utf-8').hex()}", category="location_transitions")
+        debug(f"VALIDATION: New location string (hex): {new_location_name_or_id.encode('utf-8').hex()}", category="location_transitions")
         
         # Use enhanced location manager with auto-generated area connectivity ID
         transition_prompt = location_manager.handle_location_transition(
@@ -588,7 +588,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 # Include location IDs in the transition message for reliable matching
                 conversation_history.append({"role": "user", "content": f"Location transition: {sanitize_text(current_location_name)} ({current_location_id}) to {sanitize_text(new_location_name)} ({new_location_id})"})
             except Exception as e:
-                print(f"DEBUG: Could not get updated location IDs: {str(e)}")
+                warning(f"FAILURE: Could not get updated location IDs: {str(e)}", category="location_transitions")
                 # Fallback to original format if we can't get the IDs
                 conversation_history.append({"role": "user", "content": f"Location transition: {sanitize_text(current_location_name)} to {sanitize_text(new_location_name_or_id)}"})
             
@@ -615,14 +615,14 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 )
                 
                 if is_cross_module:
-                    print(f"DEBUG: Cross-module transition detected: {from_module} -> {to_module}")
+                    info(f"STATE_CHANGE: Cross-module transition detected: {from_module} -> {to_module}", category="module_management")
                     
                     # Handle conversation segmentation - summarize current module and add transition marker
                     conversation_history = handle_module_conversation_segmentation(
                         conversation_history, from_module, to_module
                     )
                     save_conversation_history(conversation_history)
-                    print(f"DEBUG: Module conversation segmentation complete")
+                    debug("STATE_CHANGE: Module conversation segmentation complete", category="module_management")
                     
                     # Auto-summarize the module being left and update campaign state
                     summary = campaign_manager.handle_cross_module_transition(
@@ -634,26 +634,26 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                     safe_json_dump(updated_party_tracker, "party_tracker.json")
                     
                     # Inject accumulated campaign context
-                    print(f"DEBUG: Requesting campaign context for module: {to_module}")
+                    debug(f"AI_CALL: Requesting campaign context for module: {to_module}", category="module_management")
                     campaign_context = campaign_manager.get_accumulated_summaries_context(to_module)
-                    print(f"DEBUG: Campaign context received - Length: {len(campaign_context) if campaign_context else 0} characters")
+                    debug(f"AI_CALL: Campaign context received - Length: {len(campaign_context) if campaign_context else 0} characters", category="module_management")
                     if campaign_context:
                         conversation_history.append({
                             "role": "system", 
                             "content": f"=== CAMPAIGN CONTEXT ===\n{campaign_context}"
                         })
                         save_conversation_history(conversation_history)
-                        print(f"DEBUG: Campaign context injected for {to_module}")
+                        info(f"SUCCESS: Campaign context injected for {to_module}", category="module_management")
                     else:
-                        print(f"DEBUG: No campaign context to inject for {to_module} - context was empty")
+                        warning(f"STATE_CHANGE: No campaign context to inject for {to_module} - context was empty", category="module_management")
                 else:
-                    print(f"DEBUG: Within-module transition: {current_location_id} -> {new_location_id}")
+                    debug(f"STATE_CHANGE: Within-module transition: {current_location_id} -> {new_location_id}", category="location_transitions")
                     
             except Exception as e:
                 print(f"Warning: Campaign transition check failed: {e}")
                 # Don't let campaign system errors break location transitions
             
-            print("DEBUG: Location transition complete")
+            info("SUCCESS: Location transition complete", category="location_transitions")
             needs_conversation_history_update = True  # Trigger conversation history reload
              # After transition, the current_location_data in the main loop might be stale.
             # We need to ensure the AI response processing uses the *new* location data.
@@ -682,7 +682,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
         status_processing_levelup()
         entity_name = parameters.get("entityName")
         new_level = parameters.get("newLevel")
-        print(f"DEBUG: Initializing levelUp session for {entity_name} to level {new_level}")
+        info(f"INITIALIZATION: Starting levelUp session for {entity_name} to level {new_level}", category="character_updates")
 
         try:
             # Import the session manager
@@ -719,7 +719,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
 
     elif action_type == ACTION_UPDATE_CHARACTER_INFO:
         status_updating_character()
-        print(f"DEBUG: Processing updateCharacterInfo action")
+        debug("STATE_CHANGE: Processing updateCharacterInfo action", category="character_updates")
         changes = parameters.get("changes")
         
         # Validate changes parameter
@@ -742,11 +742,11 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 character_name = next((member.lower() for member in party_tracker_data["partyMembers"]), None)
         
         if character_name:
-            print(f"DEBUG: Updating character info for {character_name}")
+            debug(f"STATE_CHANGE: Updating character info for {character_name}", category="character_updates")
             try:
                 success = update_character_info(character_name, changes)
                 if success:
-                    print(f"DEBUG: Character info updated successfully")
+                    info("SUCCESS: Character info updated successfully", category="character_updates")
                     needs_conversation_history_update = True
                 else:
                     print(f"ERROR: Failed to update character info for {character_name}")
@@ -762,7 +762,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
         update_party_npcs(party_tracker_data, operation, npc)
 
     elif action_type == ACTION_UPDATE_ENCOUNTER:
-        print(f"DEBUG: Processing updateEncounter action")
+        debug("STATE_CHANGE: Processing updateEncounter action", category="combat_processing")
         encounter_id = parameters.get("encounterId")
         changes = parameters.get("changes")
         
@@ -775,7 +775,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 updated_encounter = update_encounter(encounter_id, changes)
                 
                 if updated_encounter:
-                    print(f"DEBUG: Encounter {encounter_id} updated successfully")
+                    info(f"SUCCESS: Encounter {encounter_id} updated successfully", category="combat_processing")
                     needs_conversation_history_update = True
                 else:
                     print(f"ERROR: Failed to update encounter {encounter_id}")
@@ -787,7 +787,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             print(f"ERROR: Missing required parameters for updateEncounter. encounterId: {encounter_id}, changes: {changes}")
 
     elif action_type == ACTION_CREATE_NEW_MODULE:
-        print(f"DEBUG: Processing createNewModule action")
+        debug("STATE_CHANGE: Processing createNewModule action", category="module_management")
         try:
             # Pass ALL parameters directly from AI to module builder
             # The AI is fully in control of module creation
@@ -806,7 +806,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             
             if success:
                 # Module name is now returned from the AI parser
-                print(f"DEBUG: Module '{module_name}' created successfully")
+                info(f"SUCCESS: Module '{module_name}' created successfully", category="module_management")
                 
                 # Auto-integrate with module stitcher
                 try:
@@ -814,8 +814,8 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                     stitcher = ModuleStitcher()
                     # Run stitcher in fully autonomous mode
                     integrated_modules = stitcher.scan_and_integrate_new_modules()
-                    print(f"DEBUG: Module '{module_name}' integrated into world registry")
-                    print(f"DEBUG: Integration summary: {integrated_modules}")
+                    info(f"SUCCESS: Module '{module_name}' integrated into world registry", category="module_management")
+                    debug(f"STATE_CHANGE: Integration summary: {integrated_modules}", category="module_management")
                 except Exception as e:
                     print(f"WARNING: Module created but stitching failed: {e}")
                 
@@ -823,9 +823,9 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 try:
                     from status_manager import status_ready
                     status_ready()
-                    print("DEBUG: Status reset to ready")
+                    debug("STATE_CHANGE: Status reset to ready", category="session_management")
                 except Exception as e:
-                    print(f"DEBUG: Error resetting status: {e}")
+                    error(f"FAILURE: Error resetting status", exception=e, category="session_management")
                 
                 # Signal module creation complete
                 dm_note = f"Dungeon Master Note: New module '{module_name}' has been successfully created and integrated into the world. You may now guide the party to this new adventure."
@@ -843,9 +843,9 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 try:
                     from status_manager import status_ready
                     status_ready()
-                    print("DEBUG: Status reset after failure")
+                    debug("STATE_CHANGE: Status reset after failure", category="session_management")
                 except Exception as e:
-                    print(f"DEBUG: Error resetting status after failure: {e}")
+                    error(f"FAILURE: Error resetting status after failure", exception=e, category="session_management")
                 
         except Exception as e:
             print(f"ERROR: Exception while creating module: {str(e)}")
@@ -856,12 +856,12 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             try:
                 from status_manager import status_ready  
                 status_ready()
-                print("DEBUG: Status reset after exception")
+                debug("STATE_CHANGE: Status reset after exception", category="session_management")
             except Exception as status_e:
-                print(f"DEBUG: Error resetting status after exception: {status_e}")
+                error(f"FAILURE: Error resetting status after exception", exception=status_e, category="session_management")
 
     elif action_type == ACTION_ESTABLISH_HUB:
-        print(f"DEBUG: Processing establishHub action")
+        debug("STATE_CHANGE: Processing establishHub action", category="module_management")
         try:
             # Extract hub parameters
             hub_name = parameters.get('hubName')
@@ -885,7 +885,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 
                 campaign_manager.establish_hub(hub_name, hub_data)
                 
-                print(f"DEBUG: Hub '{hub_name}' established successfully")
+                info(f"SUCCESS: Hub '{hub_name}' established successfully", category="module_management")
                 
                 # Add DM note about hub establishment
                 dm_note = f"Dungeon Master Note: '{hub_name}' has been established as a hub location. The party can now return here from other adventures."
@@ -901,7 +901,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             traceback.print_exc()
 
     elif action_type == ACTION_STORAGE_INTERACTION:
-        print(f"DEBUG: Processing storageInteraction action")
+        debug("STATE_CHANGE: Processing storageInteraction action", category="storage_operations")
         try:
             # Import storage modules
             from storage_processor import process_storage_request
@@ -923,7 +923,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 print(f"ERROR: No storage description provided")
                 return create_return(status="continue", needs_update=False)
                 
-            print(f"DEBUG: Processing storage request for {character_name}: '{storage_description}'")
+            debug(f"AI_CALL: Processing storage request for {character_name}: '{storage_description}'", category="storage_operations")
             
             # Process natural language description into operation
             processor_result = process_storage_request(storage_description, character_name)
@@ -939,12 +939,12 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 
             # Execute the validated storage operation
             operation = processor_result["operation"]
-            print(f"DEBUG: Executing storage operation: {operation}")
+            debug(f"STATE_CHANGE: Executing storage operation: {operation}", category="storage_operations")
             
             execution_result = execute_storage_operation(operation)
             
             if execution_result.get("success"):
-                print(f"DEBUG: Storage operation successful: {execution_result.get('message')}")
+                info(f"SUCCESS: Storage operation successful: {execution_result.get('message')}", category="storage_operations")
                 
                 # Add success message to conversation
                 success_message = f"Storage: {execution_result.get('message')}"
@@ -970,7 +970,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             needs_conversation_history_update = True
 
     elif action_type == ACTION_UPDATE_PARTY_TRACKER:
-        print(f"DEBUG: Processing updatePartyTracker action")
+        debug("STATE_CHANGE: Processing updatePartyTracker action", category="party_management")
         try:
             # Load current party tracker
             current_party_data = safe_json_load("party_tracker.json")
@@ -982,7 +982,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             # Check if module is being changed
             new_module = parameters.get("module")
             if new_module and new_module != current_module:
-                print(f"DEBUG: Module change detected: {current_module} -> {new_module}")
+                info(f"STATE_CHANGE: Module change detected: {current_module} -> {new_module}", category="module_management")
                 
                 # Insert module transition marker immediately when module change is detected
                 transition_text = f"Module transition: {current_module} to {new_module}"
@@ -991,7 +991,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                     "content": transition_text
                 }
                 conversation_history.append(transition_message)
-                print(f"DEBUG: Inserted module transition marker: '{transition_text}'")
+                debug(f"STATE_CHANGE: Inserted module transition marker: '{transition_text}'", category="module_management")
                 
                 # Import campaign manager for auto-archiving
                 from campaign_manager import CampaignManager
@@ -999,21 +999,21 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 
                 # Auto-archive and summarize previous module
                 if current_module != "Unknown":
-                    print(f"DEBUG: Auto-archiving conversation and generating summary for {current_module}")
+                    info(f"STATE_CHANGE: Auto-archiving conversation and generating summary for {current_module}", category="module_management")
                     summary = campaign_manager.handle_cross_module_transition(
                         current_module, new_module, current_party_data, conversation_history
                     )
                     if summary:
-                        print(f"DEBUG: Successfully archived conversation and generated summary for {current_module}")
+                        info(f"SUCCESS: Archived conversation and generated summary for {current_module}", category="module_management")
                     else:
-                        print(f"DEBUG: No summary generated for {current_module}")
+                        warning(f"STATE_CHANGE: No summary generated for {current_module}", category="module_management")
                 
                 # Auto-update to starting location if not explicitly provided
                 if ("currentAreaId" not in parameters and 
                     "currentLocationId" not in parameters):
                     try:
                         location_id, location_name, area_id, area_name = get_module_starting_location(new_module)
-                        print(f"DEBUG: Auto-setting starting location for {new_module}: {location_name} [{location_id}] in {area_name} [{area_id}]")
+                        info(f"STATE_CHANGE: Auto-setting starting location for {new_module}: {location_name} [{location_id}] in {area_name} [{area_id}]", category="module_management")
                         
                         # Add starting location to parameters for processing below
                         parameters["currentLocationId"] = location_id
@@ -1037,7 +1037,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             
             # Save updated party tracker
             safe_json_dump(current_party_data, "party_tracker.json")
-            print(f"DEBUG: Party tracker updated successfully")
+            info("SUCCESS: Party tracker updated successfully", category="party_management")
             # Always reload conversation history to pick up changes
             needs_conversation_history_update = True
             
@@ -1047,7 +1047,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             traceback.print_exc()
 
     elif action_type == ACTION_MOVE_BACKGROUND_NPC:
-        print(f"DEBUG: Processing moveBackgroundNPC action")
+        debug("STATE_CHANGE: Processing moveBackgroundNPC action", category="npc_management")
         try:
             # Extract parameters
             npc_name = parameters.get("npcName")
@@ -1062,7 +1062,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             success = move_background_npc(npc_name, context, current_location, party_tracker_data)
             
             if success:
-                print(f"DEBUG: Successfully processed movement for NPC: {npc_name}")
+                info(f"SUCCESS: Processed movement for NPC: {npc_name}", category="npc_management")
                 needs_conversation_history_update = True
             else:
                 print(f"ERROR: Failed to process movement for NPC: {npc_name}")
@@ -1073,7 +1073,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             traceback.print_exc()
 
     elif action_type == ACTION_SAVE_GAME:
-        print("DEBUG: Processing save game action")
+        debug("STATE_CHANGE: Processing save game action", category="save_game")
         try:
             from save_game_manager import SaveGameManager
             
@@ -1086,7 +1086,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             success, message = manager.create_save_game(description, save_mode)
             
             if success:
-                print(f"DEBUG: Save game created successfully: {message}")
+                info(f"SUCCESS: Save game created: {message}", category="save_game")
                 # Add success message to conversation
                 save_message = f"Game saved successfully! {message}"
                 conversation_history.append({"role": "system", "content": save_message})
@@ -1104,7 +1104,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             traceback.print_exc()
 
     elif action_type == ACTION_RESTORE_GAME:
-        print("DEBUG: Processing restore game action")
+        debug("STATE_CHANGE: Processing restore game action", category="save_game")
         try:
             from save_game_manager import SaveGameManager
             
@@ -1123,7 +1123,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             success, message = manager.restore_save_game(save_folder)
             
             if success:
-                print(f"DEBUG: Save game restored successfully: {message}")
+                info(f"SUCCESS: Save game restored: {message}", category="save_game")
                 # Add success message to conversation
                 restore_message = f"Game restored successfully! {message}\nRestarting game session..."
                 conversation_history.append({"role": "system", "content": restore_message})
@@ -1143,7 +1143,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             traceback.print_exc()
 
     elif action_type == ACTION_LIST_SAVES:
-        print("DEBUG: Processing list saves action")
+        debug("STATE_CHANGE: Processing list saves action", category="save_game")
         try:
             from save_game_manager import SaveGameManager
             
@@ -1168,7 +1168,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             else:
                 save_list_text = "No save games found."
             
-            print(f"DEBUG: Found {len(saves)} save games")
+            debug(f"VALIDATION: Found {len(saves)} save games", category="save_game")
             conversation_history.append({"role": "system", "content": save_list_text})
             needs_conversation_history_update = True
                 
@@ -1178,7 +1178,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             traceback.print_exc()
 
     elif action_type == ACTION_DELETE_SAVE:
-        print("DEBUG: Processing delete save action")
+        debug("STATE_CHANGE: Processing delete save action", category="save_game")
         try:
             from save_game_manager import SaveGameManager
             
@@ -1197,7 +1197,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             success, message = manager.delete_save_game(save_folder)
             
             if success:
-                print(f"DEBUG: Save game deleted successfully: {message}")
+                info(f"SUCCESS: Save game deleted: {message}", category="save_game")
                 conversation_history.append({"role": "system", "content": message})
                 needs_conversation_history_update = True
             else:
@@ -1237,8 +1237,8 @@ def move_background_npc(npc_name, context, current_location_hint=None, party_tra
     from datetime import datetime
     from file_operations import safe_write_json, safe_read_json
     
-    print(f"DEBUG: moveBackgroundNPC called for {npc_name}")
-    print(f"DEBUG: Context: {context}")
+    debug(f"STATE_CHANGE: moveBackgroundNPC called for {npc_name}", category="npc_management")
+    debug(f"AI_CALL: Context: {context}", category="npc_management")
     
     # File locking for atomic operations (similar to updateCharacterInfo)
     lock = threading.Lock()
@@ -1266,7 +1266,7 @@ def move_background_npc(npc_name, context, current_location_hint=None, party_tra
                 return False
                 
             area_file, location_id, npc_data = npc_location
-            print(f"DEBUG: Found {npc_name} in {area_file} at location {location_id}")
+            debug(f"VALIDATION: Found {npc_name} in {area_file} at location {location_id}", category="npc_management")
             
             # Load area data with backup
             area_data = safe_read_json(area_file)
@@ -1287,7 +1287,7 @@ def move_background_npc(npc_name, context, current_location_hint=None, party_tra
             max_attempts = 5
             
             for attempt in range(1, max_attempts + 1):
-                print(f"DEBUG: AI decision attempt {attempt}/{max_attempts}")
+                debug(f"AI_CALL: AI decision attempt {attempt}/{max_attempts}", category="npc_management")
                 
                 # Get AI decision on what to do with the NPC
                 ai_decision = get_ai_npc_movement_decision(
@@ -1298,10 +1298,10 @@ def move_background_npc(npc_name, context, current_location_hint=None, party_tra
                     # Validate the AI decision
                     validation_result = validate_npc_movement_decision(ai_decision, area_data, location_id, party_npcs)
                     if validation_result["valid"]:
-                        print(f"DEBUG: AI decision validated successfully on attempt {attempt}")
+                        info(f"SUCCESS: AI decision validated on attempt {attempt}", category="npc_management")
                         break
                     else:
-                        print(f"DEBUG: AI decision validation failed on attempt {attempt}: {validation_result['reason']}")
+                        warning(f"VALIDATION: AI decision failed on attempt {attempt}: {validation_result['reason']}", category="npc_management")
                         if attempt == max_attempts:
                             print("ERROR: Max attempts reached, AI could not generate valid decision")
                             return False
@@ -1309,7 +1309,7 @@ def move_background_npc(npc_name, context, current_location_hint=None, party_tra
                             # Add validation feedback to context for retry
                             context += f"\n\nPREVIOUS ATTEMPT FAILED: {validation_result['reason']}"
                 else:
-                    print(f"DEBUG: AI could not generate decision on attempt {attempt}")
+                    error(f"FAILURE: AI could not generate decision on attempt {attempt}", category="npc_management")
                     if attempt == max_attempts:
                         print("ERROR: Max attempts reached, AI could not determine appropriate action")
                         return False
@@ -1318,7 +1318,7 @@ def move_background_npc(npc_name, context, current_location_hint=None, party_tra
                 print("ERROR: AI could not determine appropriate action after all attempts")
                 return False
                 
-            print(f"DEBUG: Final AI decision: {ai_decision.get('action')} - {ai_decision.get('reasoning', 'No reasoning')}")
+            info(f"AI_CALL: Final AI decision: {ai_decision.get('action')} - {ai_decision.get('reasoning', 'No reasoning')}", category="npc_management")
             
             # Execute the AI decision with surgical updates
             success = execute_npc_movement_decision(ai_decision, area_data, location_id, npc_name, path_manager)
@@ -1326,7 +1326,7 @@ def move_background_npc(npc_name, context, current_location_hint=None, party_tra
             if success:
                 # Save updated area data
                 if safe_write_json(area_file, area_data):
-                    print(f"DEBUG: Successfully updated area file {area_file}")
+                    info(f"SUCCESS: Updated area file {area_file}", category="file_operations")
                     # Clean up old backups
                     cleanup_old_area_backups(area_file)
                     return True
@@ -1336,7 +1336,7 @@ def move_background_npc(npc_name, context, current_location_hint=None, party_tra
                     if backup_path and os.path.exists(backup_path):
                         try:
                             shutil.copy2(backup_path, area_file)
-                            print("DEBUG: Restored area file from backup due to save failure")
+                            warning("FILE_OP: Restored area file from backup due to save failure", category="file_operations")
                         except Exception as e:
                             print(f"ERROR: Could not restore from backup: {e}")
                     return False
@@ -1366,7 +1366,7 @@ def find_npc_in_areas(npc_name, path_manager, location_hint=None):
         filename = os.path.basename(file_path)
         # Skip backup files
         if filename.endswith('_BU.json') or '.backup_' in filename:
-            print(f"DEBUG: Skipping backup file: {filename}")
+            debug(f"FILE_OP: Skipping backup file: {filename}", category="file_operations")
             continue
         area_files.append(file_path)
     

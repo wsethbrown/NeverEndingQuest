@@ -59,6 +59,8 @@ DEBUG_CATEGORIES = {
     "combat_validation": True,     # Combat response validation, rule checking
     "combat_logs": True,           # Combat logging and summary generation
     "subprocess_output": True,     # Output from subprocess calls
+    "combat_processing": True,     # Combat encounter creation and updates
+    "party_management": True,      # Party tracker updates
     
     # Legacy categories (kept for backward compatibility)
     "main_debug": False,
