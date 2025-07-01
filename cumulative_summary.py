@@ -284,7 +284,7 @@ def get_cumulative_adventure_summary():
     debug_print("Building cumulative adventure summary for current session")
     
     # Load current conversation history
-    conversation_history = safe_read_json("conversation_history.json")
+    conversation_history = safe_read_json("modules/conversation_history/conversation_history.json")
     if not conversation_history:
         debug_print("No conversation history found")
         return ""

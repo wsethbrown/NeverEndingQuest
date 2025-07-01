@@ -20,9 +20,9 @@ def clear_json_file(file_path):
 
 def clear_combat_history_files():
     files_to_clear = [
-        "combat_conversation_history.json",
-        "second_model_history.json",
-        "third_model_history.json"
+        "modules/conversation_history/combat_conversation_history.json",
+        "modules/conversation_history/second_model_history.json",
+        "modules/conversation_history/third_model_history.json"
     ]
     
     for file in files_to_clear:
