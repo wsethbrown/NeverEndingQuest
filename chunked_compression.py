@@ -15,6 +15,10 @@ import shutil
 from location_summarizer import LocationSummarizer
 from datetime import datetime
 from chunked_compression_config import COMPRESSION_TRIGGER, CHUNK_SIZE
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("chunked_compression")
 
 def find_all_summaries(conversation_data):
     """Find all location summaries and AI chronicles separately"""
@@ -68,7 +72,7 @@ def count_summaries_after_last_chronicle(conversation_data):
 def find_compression_range(conversation_data, summaries_after_chronicle, last_chronicle_idx):
     """Find the range of messages to compress"""
     if not summaries_after_chronicle or len(summaries_after_chronicle) < CHUNK_SIZE:
-        print(f"Not enough summaries to compress (need {CHUNK_SIZE})")
+        warning(f"COMPRESSION: Not enough summaries to compress (need {CHUNK_SIZE})", category="compression")
         return None, None, []
     
     # Take the first CHUNK_SIZE location summaries
@@ -97,29 +101,29 @@ def chunked_compression(conversation_file="modules/conversation_history/conversa
         conversation_file: Path to the conversation history file to compress
     """
     
-    print("Chunked Conversation Compression")
-    print("=" * 40)
+    info("STATE_CHANGE: Starting Chunked Conversation Compression", category="compression")
+    info("=" * 40, category="compression")
     
     # Load original conversation
     with open(conversation_file, 'r', encoding='utf-8') as f:
         conversation_data = json.load(f)
     
-    print(f"Total messages: {len(conversation_data)}")
+    info(f"Total messages: {len(conversation_data)}", category="compression")
     
     # Count summaries after last chronicle
     count, summaries_after_chronicle, last_chronicle_idx = count_summaries_after_last_chronicle(conversation_data)
     
-    print(f"\nCompression Status:")
-    print(f"  AI Chronicles found: {len([m for m in conversation_data if '[AI-Generated Chronicle Summary]' in m.get('content', '')])}")
-    print(f"  Location summaries after last chronicle: {count}")
-    print(f"  Compression trigger: {COMPRESSION_TRIGGER} summaries")
-    print(f"  Compression size: {CHUNK_SIZE} transitions per chunk")
+    info("COMPRESSION_STATUS: Current state:", category="compression")
+    debug(f"  AI Chronicles found: {len([m for m in conversation_data if '[AI-Generated Chronicle Summary]' in m.get('content', '')])}", category="compression")
+    debug(f"  Location summaries after last chronicle: {count}", category="compression")
+    debug(f"  Compression trigger: {COMPRESSION_TRIGGER} summaries", category="compression")
+    debug(f"  Compression size: {CHUNK_SIZE} transitions per chunk", category="compression")
     
     if count < COMPRESSION_TRIGGER:
-        print(f"\n❌ No compression needed ({count} < {COMPRESSION_TRIGGER})")
+        info(f"COMPRESSION: No compression needed ({count} < {COMPRESSION_TRIGGER})", category="compression")
         return False
     
-    print(f"\n✅ Compression triggered! Will compress oldest {CHUNK_SIZE} transitions.")
+    info(f"COMPRESSION_TRIGGER: Compression triggered! Will compress oldest {CHUNK_SIZE} transitions.", category="compression")
     
     # Find compression range
     first_msg_idx, last_msg_idx, summaries_to_compress = find_compression_range(
@@ -127,18 +131,18 @@ def chunked_compression(conversation_file="modules/conversation_history/conversa
     )
     
     if first_msg_idx is None:
-        print("Failed to determine compression range")
+        error("FAILURE: Failed to determine compression range", category="compression")
         return False
     
-    print(f"\nCompression Details:")
-    print(f"  Messages to compress: {first_msg_idx} to {last_msg_idx}")
-    print(f"  First location: {summaries_to_compress[0]['location']}")
-    print(f"  Last location: {summaries_to_compress[-1]['location']}")
-    print(f"  Transitions included: {len(summaries_to_compress)}")
+    info("COMPRESSION_DETAILS: Compression range:", category="compression")
+    debug(f"  Messages to compress: {first_msg_idx} to {last_msg_idx}", category="compression")
+    debug(f"  First location: {summaries_to_compress[0]['location']}", category="compression")
+    debug(f"  Last location: {summaries_to_compress[-1]['location']}", category="compression")
+    debug(f"  Transitions included: {len(summaries_to_compress)}", category="compression")
     
     # Extract messages to compress
     messages_to_compress = conversation_data[first_msg_idx:last_msg_idx + 1]
-    print(f"  Total messages in range: {len(messages_to_compress)}")
+    debug(f"  Total messages in range: {len(messages_to_compress)}", category="compression")
     
     # Initialize AI summarizer
     summarizer = LocationSummarizer()
@@ -152,11 +156,11 @@ def chunked_compression(conversation_file="modules/conversation_history/conversa
             intermediate_locations=[s['location'] for s in summaries_to_compress[1:-1]]
         )
         
-        print(f"\n✅ AI Chronicle Generated!")
-        print(f"  Original tokens: {result['original_tokens']:,}")
-        print(f"  Summary tokens: {result['summary_tokens']:,}")
-        print(f"  Compression ratio: {result['compression_ratio']:.1%}")
-        print(f"  Events preserved: {result['events_preserved']}")
+        info("SUCCESS: AI Chronicle Generated!", category="compression")
+        debug(f"COMPRESSION_STATS: Original tokens: {result['original_tokens']:,}", category="compression")
+        debug(f"COMPRESSION_STATS: Summary tokens: {result['summary_tokens']:,}", category="compression")
+        debug(f"COMPRESSION_STATS: Compression ratio: {result['compression_ratio']:.1%}", category="compression")
+        debug(f"COMPRESSION_STATS: Events preserved: {result['events_preserved']}", category="compression")
         
         # Create the compressed conversation
         compressed_conversation = conversation_data.copy()
@@ -249,18 +253,18 @@ The compression created a new chronicle chapter covering {CHUNK_SIZE} transition
         with open(summary_file, 'w', encoding='utf-8') as f:
             f.write(summary_content)
         
-        print(f"\n📁 Files created:")
-        print(f"  - {compressed_file}")
-        print(f"  - {summary_file}")
+        info("FILES_CREATED: Files created:", category="compression")
+        info(f"  - {compressed_file}", category="compression")
+        info(f"  - {summary_file}", category="compression")
         
         # Show chronicle count
         chronicles_after = len([m for m in compressed_conversation if '[AI-Generated Chronicle Summary]' in m.get('content', '')])
-        print(f"\n📚 Chronicle chapters: {chronicles_after}")
+        info(f"CHRONICLE_STATUS: Chronicle chapters: {chronicles_after}", category="compression")
         
         return True
         
     except Exception as e:
-        print(f"\n❌ Error during compression: {e}")
+        error(f"COMPRESSION_ERROR: Error during compression: {e}", category="compression")
         import traceback
         traceback.print_exc()
         return False
@@ -268,6 +272,6 @@ The compression created a new chronicle chapter covering {CHUNK_SIZE} transition
 if __name__ == "__main__":
     success = chunked_compression()
     if success:
-        print(f"\n🎉 Chunked compression completed successfully!")
+        info("SUCCESS: Chunked compression completed successfully!", category="compression")
     else:
-        print(f"\n💥 Chunked compression failed!")
+        error("FAILURE: Chunked compression failed!", category="compression")

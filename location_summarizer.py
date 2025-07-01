@@ -18,6 +18,10 @@ from dataclasses import dataclass
 from token_estimator import TokenEstimator
 from openai import OpenAI
 import config
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("location_summarizer")
 
 
 @dataclass
@@ -369,19 +373,19 @@ class LocationSummarizer:
 1. **Compresses all location segments** into one fluid narrative without headers or bullet points.
 2. **Maintains chronological continuity**, including who did what, where, and why.
 3. **Includes all key discoveries**, magical items, ritual effects, emotional reactions, decisions, and changes in setting or mood.
-4. **Uses elevated, immersive fantasy prose** — not modern or casual.
+4. **Uses elevated, immersive fantasy prose** -- not modern or casual.
 5. **Depict combat sequences, monster encounters, and boss battles with intensity**. Describe the foes, their abilities, how the party fought, who was wounded or heroic, and the aftermath. Convey the stakes.
 6. **Preserve any player character sacrifices, wounds, or major successes**. If a battle was hard-fought, show the exhaustion and toll.
 7. **Concludes with a reflective or forward-facing insight**, setting up what may come next.
-8. **Avoids generic or vague phrasing** — always prefer specificity (e.g., "Norn plunged the dagger into the specter's core" instead of "a character won a fight").
+8. **Avoids generic or vague phrasing** -- always prefer specificity (e.g., "Norn plunged the dagger into the specter's core" instead of "a character won a fight").
 9. **Assumes no events should be omitted**, even if there was no combat. Silence, ambiance, and tension are part of the story.
 
-JOURNEY: From {start_loc} through {' → '.join(intermediate_locs)} to {end_loc}
+JOURNEY: From {start_loc} through {' -> '.join(intermediate_locs)} to {end_loc}
 
 PRESERVED STORY ELEMENTS:
 {self._format_preserved_data_for_ai(preserved_data)}
 
-Produce a narrative in the style of a campaign journal or game codex entry. Do not use headings, bullet points, or dialogue labels. Do not refer to the logs or metadata — only write the compressed, immersive story."""
+Produce a narrative in the style of a campaign journal or game codex entry. Do not use headings, bullet points, or dialogue labels. Do not refer to the logs or metadata -- only write the compressed, immersive story."""
         
         # Generate actual AI-powered chronicle summary
         return self._generate_ai_chronicle(start_loc, end_loc, intermediate_locs, preserved_data, original_messages)
@@ -454,18 +458,18 @@ Produce a narrative in the style of a campaign journal or game codex entry. Do n
 1. **Compresses all location segments** into one fluid narrative without using headings, bullet points, or dialogue labels.
 2. **Maintains chronological continuity**, including who did what, where, and why.
 3. **Includes all key discoveries**, magical items, environmental cues, rituals, emotional reactions, and major decisions.
-4. **Uses immersive, elevated fantasy prose** — never casual or modern.
+4. **Uses immersive, elevated fantasy prose** -- never casual or modern.
 5. **Depicts combat sequences, monster encounters, and boss battles with vivid, cinematic intensity**. Describe enemy forms, tactics, powers, damage taken, and how the party triumphed (or failed).
 6. **Preserves character impact**: who took wounds, who made sacrifices, who cast crucial spells or delivered final blows. Show exhaustion, fear, or resolve when relevant.
 7. **Concludes with a reflective or forward-looking insight**, thematically linking what has occurred to what lies ahead.
-8. **Avoids generic phrasing** — use specific names, textures, items, and visual language (e.g., "Norn's blade parted the specter's ribbed shadows" instead of "a character hit a ghost").
-9. **Never omits quiet moments**: include tension-building silence, fog, haunted ambiance, or signs of dread — even when no combat occurs.
+8. **Avoids generic phrasing** -- use specific names, textures, items, and visual language (e.g., "Norn's blade parted the specter's ribbed shadows" instead of "a character hit a ghost").
+9. **Never omits quiet moments**: include tension-building silence, fog, haunted ambiance, or signs of dread -- even when no combat occurs.
 
 Here is the input:
 
 {conversation_text}
 
-Your output should read like a published game codex, narrative recap, or campaign journal entry. Never reference this prompt or the data format — just write the immersive chronicle."""
+Your output should read like a published game codex, narrative recap, or campaign journal entry. Never reference this prompt or the data format -- just write the immersive chronicle."""
 
             # Make API call to OpenAI - purely agentic, no artificial limits
             response = self.client.chat.completions.create(
@@ -485,7 +489,7 @@ Your output should read like a published game codex, narrative recap, or campaig
             return f"{chronicle}\n\n[AI-Generated Chronicle Summary]"
             
         except Exception as e:
-            print(f"Error generating AI chronicle: {e}")
+            error(f"AI_FAILURE: Error generating AI chronicle: {e}", exception=e, category="summarization")
             # Fallback to placeholder if AI fails
             return self._generate_placeholder_chronicle(start_loc, end_loc, intermediate_locs, preserved_data)
     
@@ -498,11 +502,11 @@ Your output should read like a published game codex, narrative recap, or campaig
         # This is a placeholder that demonstrates the expected format
         # In the real implementation, this would call the AI with the prompts above
         
-        return f"""The journey from {start_loc} unfolded with purpose and peril, as shadows gathered and destinies intertwined. Through {len(intermediate_locs)} treacherous passages—from the echoing halls of ancient keeps to the whispered secrets of forgotten shrines—the party pressed forward against mounting darkness.
+        return f"""The journey from {start_loc} unfolded with purpose and peril, as shadows gathered and destinies intertwined. Through {len(intermediate_locs)} treacherous passages--from the echoing halls of ancient keeps to the whispered secrets of forgotten shrines--the party pressed forward against mounting darkness.
 
 In each location, the weight of their quest grew heavier. Combat erupted with supernatural foes whose very presence chilled the air, leaving the heroes bloodied but resolute. Conversations with mysterious figures revealed cryptic warnings and half-remembered truths that would prove crucial in the trials ahead.
 
-The path concluded at {end_loc}, where the true scope of their mission became clear. What began as simple exploration had transformed into something far more significant—a confrontation with forces that threatened not just their own survival, but the fate of all who dwelt in these haunted lands.
+The path concluded at {end_loc}, where the true scope of their mission became clear. What began as simple exploration had transformed into something far more significant--a confrontation with forces that threatened not just their own survival, but the fate of all who dwelt in these haunted lands.
 
 [NOTE: This is a placeholder. In production, this would be generated by AI using the narrative design prompt to create rich, detailed chronicle summaries with actual story content from the conversation messages.]"""
     
@@ -650,16 +654,16 @@ def main():
         ["Narrow Tunnel"]
     )
     
-    print("Location Summarization Test")
-    print("=" * 50)
-    print(f"Original messages: {result['original_message_count']}")
-    print(f"Original tokens: {result['original_tokens']}")
-    print(f"Summary tokens: {result['summary_tokens']}")
-    print(f"Compression ratio: {result['compression_ratio']:.2%}")
-    print(f"Events preserved: {result['events_preserved']}")
-    print("\nSummary:")
-    print(result['summary'])
-    print("\nQuality assessment:", result['metadata']['summary_quality'])
+    info("Location Summarization Test", category="test")
+    info("=" * 50, category="test")
+    info(f"Original messages: {result['original_message_count']}", category="test")
+    info(f"Original tokens: {result['original_tokens']}", category="test")
+    info(f"Summary tokens: {result['summary_tokens']}", category="test")
+    info(f"Compression ratio: {result['compression_ratio']:.2%}", category="test")
+    info(f"Events preserved: {result['events_preserved']}", category="test")
+    info("\nSummary:", category="test")
+    info(result['summary'], category="test")
+    info(f"\nQuality assessment: {result['metadata']['summary_quality']}", category="test")
 
 
 if __name__ == "__main__":

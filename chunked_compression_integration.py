@@ -102,9 +102,7 @@ def check_and_perform_chunked_compression(conversation_file="conversation_histor
             return False
             
     except Exception as e:
-        print(f"ERROR: Failed to check/perform chunked compression: {e}")
-        import traceback
-        traceback.print_exc()
+        error(f"FAILURE: Failed to check/perform chunked compression: {e}", exception=e, category="compression")
         return False
 
 def integrate_with_cumulative_summary():
