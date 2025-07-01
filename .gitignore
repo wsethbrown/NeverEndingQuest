@@ -18,21 +18,41 @@ conversation_history.json
 conversation_history.json.bak
 combat_conversation_history.json
 current_location.json
+party_tracker.json
 party_tracker.json.bak
 journal.json
 journal.json.bak
 chronology.json
-modules/conversation_history/backups/
+modules/conversation_history/
+player_storage.json
+characters/*.json
+characters/*.backup_update_*.json
+combat_logs/
+modules/encounters/
+modules/*/saved_games/
+modules/world_registry.json
+modules/campaign.json
+modules/*/validation_report*.json
+modules/*/npc_codex.json
 
 # Debug files
+debug.txt
+claude.txt
 debug_*.json
 *_debug.json
 prompt_validation.json
 summary_dump.json
+dialogue_summary.json
+combat_validation_log.json
+leveling_validation_log.json
+trimmed_summary_dump.json
 
 # Test results
 test_results_*.json
 test_runs/
+dm_test_*.json
+dm_complex_test_*.json
+module_randomness_test_*.json
 
 # Backup files
 *.bak
