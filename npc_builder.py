@@ -26,6 +26,10 @@ from jsonschema import validate, ValidationError
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, NPC_BUILDER_MODEL # Assuming API key might also be in config eventually
 from module_path_manager import ModulePathManager
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("npc_builder")
 
 GREEN = "\033[32m"
 RED = "\033[31m"
@@ -65,7 +69,7 @@ def save_json(file_name, data):
     try:
         with open(file_name, 'w') as file:
             json.dump(data, file, indent=2)
-        print(f"{GREEN}DEBUG: NPC save ({file_name}) - PASS{RESET}")
+        info(f"SUCCESS: NPC save ({file_name}) - PASS", category="npc_creation")
         return True
     except Exception as e:
         print(f"{RED}Error saving to {file_name}: {str(e)}{RESET}")
@@ -165,7 +169,7 @@ def main():
 
     npc_background_arg = sys.argv[5] if len(sys.argv) > 5 else None # Renamed variable
 
-    print(f"DEBUG: Received arguments - Name: {npc_name_arg}, Race: {npc_race_arg}, Class: {npc_class_arg}, Level: {npc_level_arg}, Background: {npc_background_arg}")
+    debug(f"INPUT_PROCESSING: Received arguments - Name: {npc_name_arg}, Race: {npc_race_arg}, Class: {npc_class_arg}, Level: {npc_level_arg}, Background: {npc_background_arg}", category="npc_creation")
 
     npc_schema_data = load_schema("char_schema.json") # Use unified character schema
     if not npc_schema_data:
@@ -187,12 +191,12 @@ def main():
         characters_dir = os.path.dirname(full_path)
         os.makedirs(characters_dir, exist_ok=True)
         if save_json(full_path, generated_npc_data):
-            print(f"{GREEN}DEBUG: NPC creation ({npc_name_arg}) - PASS{RESET}")
+            info(f"SUCCESS: NPC creation ({npc_name_arg}) - PASS", category="npc_creation")
         else:
-            print(f"{RED}DEBUG: NPC save ({npc_name_arg}) - FAIL{RESET}")
+            error(f"FAILURE: NPC save ({npc_name_arg}) - FAIL", category="npc_creation")
             sys.exit(1)
     else:
-        print(f"{RED}DEBUG: NPC creation ({npc_name_arg}) - FAIL{RESET}")
+        error(f"FAILURE: NPC creation ({npc_name_arg}) - FAIL", category="npc_creation")
         sys.exit(1)
 
 if __name__ == "__main__":

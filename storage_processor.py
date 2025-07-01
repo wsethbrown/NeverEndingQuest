@@ -33,6 +33,10 @@ import config
 from encoding_utils import safe_json_load, safe_json_dump
 from module_path_manager import ModulePathManager
 import jsonschema
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("storage_processor")
 
 class StorageProcessor:
     """Processes natural language storage descriptions using AI"""
@@ -263,7 +267,7 @@ For "What's in our storage here?":
         
         for attempt in range(max_attempts):
             try:
-                print(f"DEBUG: Storage processing attempt {attempt + 1} of {max_attempts}")
+                debug(f"AI_CALL: Storage processing attempt {attempt + 1} of {max_attempts}", category="storage_operations")
                 
                 # Get game context
                 context = self._get_game_context(character_name)
@@ -308,7 +312,7 @@ For "What's in our storage here?":
                 is_valid, validation_error = self._validate_operation(operation)
                 
                 if not is_valid:
-                    print(f"DEBUG: Validation failed on attempt {attempt + 1}: {validation_error}")
+                    warning(f"VALIDATION: Failed on attempt {attempt + 1}: {validation_error}", category="storage_operations")
                     
                     if attempt == max_attempts - 1:  # Last attempt
                         return {
@@ -330,7 +334,7 @@ For "What's in our storage here?":
                     continue  # Retry with feedback
                     
                 # Success!
-                print(f"DEBUG: Storage processing succeeded on attempt {attempt + 1}")
+                info(f"SUCCESS: Storage processing succeeded on attempt {attempt + 1}", category="storage_operations")
                 return {
                     "success": True,
                     "operation": operation,
@@ -339,7 +343,7 @@ For "What's in our storage here?":
                 }
                 
             except Exception as e:
-                print(f"DEBUG: Storage processing exception on attempt {attempt + 1}: {e}")
+                error(f"FAILURE: Storage processing exception on attempt {attempt + 1}", exception=e, category="storage_operations")
                 if attempt == max_attempts - 1:  # Last attempt
                     return {
                         "success": False,

@@ -76,6 +76,10 @@ import os
 from module_path_manager import ModulePathManager
 from encoding_utils import safe_json_load
 from plot_formatting import format_plot_for_ai
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("conversation_utils")
 
 # ============================================================================
 # MODULE TRANSITION DETECTION AND HANDLING
@@ -140,8 +144,8 @@ def insert_module_summary_and_transition(conversation_history, summary_text, tra
     conversation_history.insert(insertion_index, summary_message)
     conversation_history.insert(insertion_index + 1, transition_message)
     
-    print(f"DEBUG: Inserted module summary and transition at index {insertion_index}")
-    print(f"DEBUG: Module transition message: '{transition_text}'")
+    debug(f"STATE_CHANGE: Inserted module summary and transition at index {insertion_index}", category="module_management")
+    debug(f"STATE_CHANGE: Module transition message: '{transition_text}'", category="module_management")
     
     return conversation_history
 
@@ -152,7 +156,7 @@ def handle_module_conversation_segmentation(conversation_history, from_module, t
     compression is handled separately by check_and_process_module_transitions() 
     which mirrors the location transition processing logic.
     """
-    print(f"DEBUG: Inserting module transition marker for {from_module} -> {to_module}")
+    debug(f"STATE_CHANGE: Inserting module transition marker for {from_module} -> {to_module}", category="module_management")
     
     # Simply insert the module transition marker at the end (matching location transition format)
     transition_text = f"Module transition: {from_module} to {to_module}"
@@ -164,8 +168,8 @@ def handle_module_conversation_segmentation(conversation_history, from_module, t
     # Add transition marker to conversation history
     conversation_history.append(transition_message)
     
-    print(f"DEBUG: Module transition marker inserted: '{transition_text}'")
-    print(f"DEBUG: Conversation history now has {len(conversation_history)} messages")
+    debug(f"STATE_CHANGE: Module transition marker inserted: '{transition_text}'", category="module_management")
+    debug(f"STATE_CHANGE: Conversation history now has {len(conversation_history)} messages", category="conversation_management")
     
     return conversation_history
 
@@ -255,7 +259,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
     # Create a new list starting with the primary system prompt
     new_history = [primary_system_prompt] if primary_system_prompt else []
     
-    print(f"DEBUG: Module transition check - previous: '{previous_module}', current: '{current_module}'")
+    debug(f"VALIDATION: Module transition check - previous: '{previous_module}', current: '{current_module}'", category="module_management")
     
     # Module transition detection and marker insertion now happens in action_handler.py
     # This section is preserved for any future module transition logic
@@ -362,13 +366,13 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
         new_history.append({"role": "system", "content": party_tracker_message})
 
     # Add the rest of the conversation history
-    print(f"DEBUG: update_conversation_history preserving {len(updated_history)} messages")
+    debug(f"STATE_CHANGE: update_conversation_history preserving {len(updated_history)} messages", category="conversation_management")
     # Check for module transition messages
     module_transitions = [msg for msg in updated_history if msg.get("role") == "user" and "Module transition:" in msg.get("content", "")]
     if module_transitions:
-        print(f"DEBUG: Found {len(module_transitions)} module transition messages in preserved history")
+        debug(f"VALIDATION: Found {len(module_transitions)} module transition messages in preserved history", category="module_management")
     else:
-        print(f"DEBUG: No module transition messages found in preserved history")
+        debug("VALIDATION: No module transition messages found in preserved history", category="module_management")
     new_history.extend(updated_history)
 
     # Generate lightweight chat history for debugging

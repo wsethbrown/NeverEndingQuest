@@ -21,6 +21,10 @@ from module_stitcher import ModuleStitcher
 import config
 from encoding_utils import safe_json_load, safe_json_dump
 from module_path_manager import ModulePathManager
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("startup_wizard")
 
 # Initialize OpenAI client
 client = OpenAI(api_key=config.OPENAI_API_KEY)
@@ -1508,21 +1512,21 @@ Respond with ONLY a JSON object in this exact format:
         
         # Parse AI response
         ai_response = response.choices[0].message.content.strip()
-        print(f"DEBUG: Raw AI response: {ai_response}")
+        debug(f"AI_RESPONSE: Raw AI response: {ai_response}", category="startup_wizard")
         
         # Extract JSON from response
         import re
         json_match = re.search(r'\{.*\}', ai_response, re.DOTALL)
         if json_match:
             json_text = json_match.group()
-            print(f"DEBUG: Extracted JSON: {json_text}")
+            debug(f"JSON_PROCESSING: Extracted JSON: {json_text}", category="startup_wizard")
             starting_location = json.loads(json_text)
-            print(f"DEBUG: Parsed object: {starting_location}")
+            debug(f"JSON_PROCESSING: Parsed object: {starting_location}", category="startup_wizard")
             print(f"AI selected starting location: {starting_location.get('areaName')} - {starting_location.get('locationName')}")
             return starting_location
         else:
             print("Warning: Could not parse AI response, using fallback")
-            print(f"DEBUG: Full AI response: {ai_response}")
+            debug(f"AI_RESPONSE: Full AI response: {ai_response}", category="startup_wizard")
             return get_fallback_starting_location()
             
     except Exception as e:

@@ -13,6 +13,10 @@ from chunked_compression_config import (
     ENABLE_AUTO_COMPRESSION,
     CREATE_BACKUPS
 )
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("chunked_compression_integration")
 
 def check_and_perform_chunked_compression(conversation_file="conversation_history.json"):
     """
@@ -25,18 +29,18 @@ def check_and_perform_chunked_compression(conversation_file="conversation_histor
     Returns:
         bool: True if compression was performed, False otherwise
     """
-    print("DEBUG: Checking if chunked compression is needed...")
+    debug("COMPRESSION_CHECK: Checking if chunked compression is needed", category="compression")
     
     # Check if auto compression is enabled
     if not ENABLE_AUTO_COMPRESSION:
-        print("DEBUG: Auto compression is disabled in configuration")
+        debug("CONFIG: Auto compression is disabled in configuration", category="compression")
         return False
     
     try:
         # Load conversation history
         conversation_history = safe_json_load(conversation_file)
         if not conversation_history:
-            print("DEBUG: No conversation history found")
+            debug("FILE_CHECK: No conversation history found", category="compression")
             return False
         
         # Count location summaries
@@ -53,48 +57,48 @@ def check_and_perform_chunked_compression(conversation_file="conversation_histor
                     if i > last_chronicle_idx:
                         location_summary_count += 1
         
-        print(f"DEBUG: Found {location_summary_count} location summaries after last chronicle")
+        debug(f"SUMMARY_COUNT: Found {location_summary_count} location summaries after last chronicle", category="compression")
         
         # Check if we've hit the trigger threshold
         if location_summary_count >= COMPRESSION_TRIGGER:
-            print(f"DEBUG: Compression trigger reached ({location_summary_count} >= {COMPRESSION_TRIGGER})! Performing chunked compression...")
+            info(f"COMPRESSION_TRIGGER: Compression trigger reached ({location_summary_count} >= {COMPRESSION_TRIGGER})! Performing chunked compression", category="compression")
             
             # Create a backup before compression if enabled
             if CREATE_BACKUPS:
                 backup_file = f"conversation_history_backup_{os.path.getmtime(conversation_file)}.json"
                 safe_json_dump(conversation_history, backup_file)
-                print(f"DEBUG: Created backup: {backup_file}")
+                info(f"BACKUP_CREATED: Created backup: {backup_file}", category="compression")
             
             # Perform compression
             success = chunked_compression(conversation_file)
             
             if success:
-                print("DEBUG: Chunked compression completed successfully!")
+                info("SUCCESS: Chunked compression completed successfully", category="compression")
                 
                 # Load the compressed file that was created
                 import glob
                 compressed_files = sorted(glob.glob("conversation_history_chunked_*.json"))
                 if compressed_files:
                     latest_compressed = compressed_files[-1]
-                    print(f"DEBUG: Using compressed file: {latest_compressed}")
+                    debug(f"COMPRESSED_FILE: Using compressed file: {latest_compressed}", category="compression")
                     
                     # Copy the compressed version back to the main file
                     compressed_data = safe_json_load(latest_compressed)
                     if compressed_data:
                         safe_json_dump(compressed_data, conversation_file)
-                        print(f"DEBUG: Updated {conversation_file} with compressed version")
+                        info(f"SUCCESS: Updated {conversation_file} with compressed version", category="compression")
                         return True
                     else:
-                        print("DEBUG: Failed to load compressed data")
+                        error("FAILURE: Failed to load compressed data", category="compression")
                         return False
                 else:
-                    print("DEBUG: No compressed file found")
+                    warning("COMPRESSION: No compressed file found", category="compression")
                     return False
             else:
-                print("DEBUG: Chunked compression failed")
+                error("FAILURE: Chunked compression failed", category="compression")
                 return False
         else:
-            print(f"DEBUG: No compression needed yet ({location_summary_count} < {COMPRESSION_TRIGGER})")
+            debug(f"COMPRESSION_CHECK: No compression needed yet ({location_summary_count} < {COMPRESSION_TRIGGER})", category="compression")
             return False
             
     except Exception as e:

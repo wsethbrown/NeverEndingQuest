@@ -45,6 +45,10 @@ install_debug_interceptor()
 import main as dm_main
 import reset_campaign
 from status_manager import set_status_callback
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("web_interface")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dungeon-master-secret-key'
@@ -382,7 +386,7 @@ def handle_action(data):
     """Handle direct action requests from the UI (save, load, reset)."""
     action_type = data.get('action')
     parameters = data.get('parameters', {})
-    print(f"DEBUG: Received direct action from client: {action_type}")
+    debug(f"WEB_REQUEST: Received direct action from client: {action_type}", category="web_interface")
 
     if action_type == 'listSaves':
         try:
@@ -690,7 +694,7 @@ def handle_npc_inventory_request(data):
 @socketio.on('request_storage_data')
 def handle_request_storage_data():
     """Handles a request from the client to view all player storage."""
-    print("DEBUG: Received request for storage data from client.")
+    debug("WEB_REQUEST: Received request for storage data from client", category="web_interface")
     try:
         from storage_manager import get_storage_manager
         manager = get_storage_manager()

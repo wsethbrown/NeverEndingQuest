@@ -7,12 +7,13 @@ import copy
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, ENCOUNTER_UPDATE_MODEL
 from module_path_manager import ModulePathManager
+from enhanced_logger import debug, info, warning, error, set_script_name
 
-# ANSI escape codes
-ORANGE = "\033[38;2;255;165;0m"
-RED = "\033[31m"
-GREEN = "\033[32m"
-RESET = "\033[0m"
+# Set script name for logging
+set_script_name("update_encounter")
+
+# ANSI escape codes - REMOVED per CLAUDE.md guidelines
+# All color codes have been removed to prevent Windows console encoding errors
 
 # Constants
 TEMPERATURE = 0.7
@@ -77,7 +78,7 @@ Remember to only update monster information and leave player and NPC data unchan
         with open("debug_encounter_update.json", "w") as debug_file:
             json.dump({"raw_ai_response": ai_response}, debug_file, indent=2)
 
-        print(f"{ORANGE}DEBUG: Raw AI response written to debug_encounter_update.json{RESET}")
+        debug("AI_RESPONSE: Raw AI response written to debug_encounter_update.json", category="encounter_updates")
 
         # Remove markdown code blocks if present
         ai_response = re.sub(r'```json\n|\n```', '', ai_response)
@@ -132,7 +133,7 @@ Remember to only update monster information and leave player and NPC data unchan
 
             # Compare original and updated info (but don't print it)
             diff = compare_json(original_info, encounter_info)
-            print(f"{GREEN}DEBUG: Encounter update - PASS{RESET}")
+            info(f"SUCCESS: Encounter update - PASS", category="encounter_updates")
 
             # Save the updated encounter info
             with open(f"modules/encounters/encounter_{encounter_id}.json", "w") as file:
@@ -141,13 +142,13 @@ Remember to only update monster information and leave player and NPC data unchan
             return encounter_info
 
         except json.JSONDecodeError as e:
-            print(f"{ORANGE}DEBUG: AI response is not valid JSON. Error: {e}. Retrying...{RESET}")
+            warning(f"VALIDATION: AI response is not valid JSON. Error: {e}. Retrying", category="encounter_updates")
         except ValidationError as e:
             print(f"{RED}ERROR: Updated info does not match the schema. Error: {e}. Retrying...{RESET}")
 
         # If we've reached the maximum number of retries, return the original encounter info
         if attempt == max_retries - 1:
-            print(f"{RED}DEBUG: Encounter update - FAIL{RESET}")
+            error(f"FAILURE: Encounter update - FAIL", category="encounter_updates")
             return original_info
 
         # Wait for a short time before retrying

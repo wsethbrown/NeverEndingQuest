@@ -7,6 +7,10 @@ from termcolor import colored
 import logging
 import shutil
 from module_path_manager import ModulePathManager
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("combat_builder")
 
 logging.basicConfig(filename='modules/logs/combat_builder.log', level=logging.DEBUG)
 
@@ -122,10 +126,10 @@ def load_or_create_monster(monster_type):
     monster_file = path_manager.get_monster_path(monster_type)
     monster_data = load_json(monster_file)
     if not monster_data:
-        print(colored(f"DEBUG: Monster loading ({monster_type}) - attempting creation", "yellow"))
+        warning(f"MONSTER_LOADING: Monster loading ({monster_type}) - attempting creation", category="combat_builder")
         result = subprocess.run(["python", "monster_builder.py", monster_type], capture_output=True, text=True)
         if result.returncode == 0:
-            print(colored(f"DEBUG: Monster builder ({monster_type}) - PASS", "green"))
+            info(f"SUCCESS: Monster builder ({monster_type}) - PASS", category="combat_builder")
             if os.path.exists(monster_file):
                 monster_data = load_json(monster_file)
                 if not monster_data:
@@ -135,7 +139,7 @@ def load_or_create_monster(monster_type):
                 print(colored(f"Error: Monster file {monster_file} was not created", "red"))
                 return None
         else:
-            print(colored(f"DEBUG: Monster builder ({monster_type}) - FAIL", "red"))
+            error(f"FAILURE: Monster builder ({monster_type}) - FAIL", category="combat_builder")
             return None
     return monster_data
 
@@ -152,10 +156,10 @@ def load_or_create_npc(npc_name):
     npc_file = path_manager.get_character_path(npc_name)
     npc_data = load_json(npc_file)
     if not npc_data:
-        print(colored(f"DEBUG: NPC loading ({npc_name}) - attempting creation", "yellow"))
+        warning(f"NPC_LOADING: NPC loading ({npc_name}) - attempting creation", category="combat_builder")
         result = subprocess.run(["python", "npc_builder.py", npc_name], capture_output=True, text=True)
         if result.returncode == 0:
-            print(colored(f"DEBUG: NPC builder ({npc_name}) - PASS", "green"))
+            info(f"SUCCESS: NPC builder ({npc_name}) - PASS", category="combat_builder")
             if os.path.exists(npc_file):
                 npc_data = load_json(npc_file)
                 if not npc_data:
@@ -165,7 +169,7 @@ def load_or_create_npc(npc_name):
                 print(colored(f"Error: NPC file {npc_file} was not created", "red"))
                 return None
         else:
-            print(colored(f"DEBUG: NPC builder ({npc_name}) - FAIL", "red"))
+            error(f"FAILURE: NPC builder ({npc_name}) - FAIL", category="combat_builder")
             return None
     return npc_data
 

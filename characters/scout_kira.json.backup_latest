@@ -221,7 +221,7 @@
     },
     {
       "item_name": "Pouch of silver coins",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A small pouch containing silver coins.",
       "quantity": 1,
       "equipped": false,
@@ -252,7 +252,7 @@
     },
     {
       "item_name": "Small Pouch of Coins",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A small pouch containing assorted coins recovered from the sentry.",
       "quantity": 1,
       "equipped": false,
@@ -381,8 +381,8 @@
     "preparedSpells": []
   },
   "currency": {
-    "gold": 37,
-    "silver": 13,
+    "gold": 75,
+    "silver": 8,
     "copper": 38
   },
   "experience_points": 800,

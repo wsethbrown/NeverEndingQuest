@@ -17,6 +17,10 @@ from plot_generator import PlotGenerator
 from location_generator import LocationGenerator
 from area_generator import AreaGenerator, AreaConfig
 from module_context import ModuleContext
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("module_builder")
 
 @dataclass
 class BuilderConfig:
@@ -1071,7 +1075,7 @@ Return ONLY the JSON object, no explanation."""
             result = result.split("```")[1].split("```")[0].strip()
             
         parsed = json.loads(result)
-        print(f"DEBUG: AI parsed narrative into: {json.dumps(parsed, indent=2)}")
+        debug(f"AI_PROCESSING: AI parsed narrative into: {json.dumps(parsed, indent=2)}", category="module_creation")
         return parsed
         
     except Exception as e:
@@ -1135,7 +1139,7 @@ def ai_driven_module_creation(params: Dict[str, Any]) -> tuple[bool, Optional[st
         if plot_themes:
             enhanced_concept += f" Key themes include: {plot_themes}."
         
-        print(f"DEBUG: AI-driven module creation starting for '{module_name}'")
+        debug(f"MODULE_CREATION: AI-driven module creation starting for '{module_name}'", category="module_creation")
         
         # Configure builder with AI parameters
         config = BuilderConfig(
@@ -1155,7 +1159,7 @@ def ai_driven_module_creation(params: Dict[str, Any]) -> tuple[bool, Optional[st
         # Build the module
         builder.build_module(enhanced_concept)
         
-        print(f"DEBUG: Module '{module_name}' created successfully at {config.output_directory}")
+        info(f"SUCCESS: Module '{module_name}' created successfully at {config.output_directory}", category="module_creation")
         
         # Create a module_plot.json file for the new module (required by the system)
         plot_file_path = os.path.join(config.output_directory, "module_plot.json")
@@ -1179,7 +1183,7 @@ def ai_driven_module_creation(params: Dict[str, Any]) -> tuple[bool, Optional[st
             
             with open(plot_file_path, "w") as f:
                 json.dump(unified_plot, f, indent=2)
-            print(f"DEBUG: Created unified module_plot.json with {len(unified_plot['plotPoints'])} plot points")
+            info(f"SUCCESS: Created unified module_plot.json with {len(unified_plot['plotPoints'])} plot points", category="module_creation")
         
         return True, module_name
         

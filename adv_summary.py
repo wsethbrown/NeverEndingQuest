@@ -9,6 +9,10 @@ from config import OPENAI_API_KEY, ADVENTURE_SUMMARY_MODEL
 from module_path_manager import ModulePathManager
 from encoding_utils import sanitize_text, safe_json_load, safe_json_dump
 from status_manager import status_generating_summary
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("adv_summary")
 
 TEMPERATURE = 0.8
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -17,18 +21,18 @@ def get_current_location():
     try:
         return safe_json_load("current_location.json")
     except Exception as e:
-        print(f"DEBUG: ERROR: Failed to load current_location.json: {e}")
+        error(f"FAILURE: Failed to load current_location.json: {e}", category="file_operations")
         return None
 
 def debug_print(text, log_to_file=True):
     """Print debug message and optionally log to file"""
-    print(f"DEBUG: {text}")
+    debug(f"PROCESSING: {text}", category="adventure_summary")
     if log_to_file:
         try:
             with open("modules/logs/adv_summary_debug.log", "a", encoding="utf-8") as log_file:
                 log_file.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - {text}\n")
         except Exception as e:
-            print(f"DEBUG: Could not write to debug log file: {str(e)}")
+            error(f"FAILURE: Could not write to debug log file: {str(e)}", category="file_operations")
 
 def load_json_file(file_path):
     debug_print(f"Attempting to load file: {file_path}")

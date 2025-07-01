@@ -53,19 +53,23 @@ from module_path_manager import ModulePathManager
 from file_operations import safe_write_json, safe_read_json
 from encoding_utils import sanitize_text, safe_json_load, safe_json_dump
 from status_manager import status_generating_summary, status_updating_journal, status_compressing_history
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("cumulative_summary")
 
 TEMPERATURE = 0.8
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def debug_print(text, log_to_file=True):
     """Print debug message and optionally log to file"""
-    print(f"DEBUG: {text}")
+    debug(f"PROCESSING: {text}", category="cumulative_summary")
     if log_to_file:
         try:
             with open("modules/logs/cumulative_summary_debug.log", "a") as log_file:
                 log_file.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - {text}\n")
         except Exception as e:
-            print(f"DEBUG: Could not write to debug log file: {str(e)}")
+            error(f"FAILURE: Could not write to debug log file: {str(e)}", category="file_operations")
 
 def load_json_file(file_path):
     """Load a JSON file with error handling and encoding sanitization"""

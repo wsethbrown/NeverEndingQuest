@@ -1,9 +1,13 @@
 import json
 from datetime import datetime, timedelta
 from encoding_utils import safe_json_load, safe_json_dump
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("player_stats")
 
 def get_player_stat(player_name, stat_name, time_estimate):
-    print(f"DEBUG: get_player_stat called for {player_name}, stat: {stat_name}")
+    debug(f"STAT_REQUEST: get_player_stat called for {player_name}, stat: {stat_name}", category="player_stats")
     player_file = f"{player_name}.json"
     try:
         with open(player_file, "r", encoding="utf-8") as file:

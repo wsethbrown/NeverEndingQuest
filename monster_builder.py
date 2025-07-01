@@ -53,6 +53,10 @@ from config import OPENAI_API_KEY # Assuming API key is in config.py
 # to your config.py file.
 from config import MONSTER_BUILDER_MODEL # This line will cause an error until you define it in config.py
 from module_path_manager import ModulePathManager
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("monster_builder")
 
 GREEN = "\033[32m"
 RED = "\033[31m"
@@ -85,7 +89,7 @@ def save_json(file_name, data):
         
         with open(file_name, 'w') as file:
             json.dump(data, file, indent=2)
-        print(f"{GREEN}DEBUG: Monster save ({file_name}) - PASS{RESET}")
+        info(f"SUCCESS: Monster save ({file_name}) - PASS", category="monster_creation")
         return True
     except Exception as e:
         print(f"{RED}Error saving to {file_name}: {str(e)}{RESET}")
@@ -209,12 +213,12 @@ def main():
             path_manager = ModulePathManager()  # Fallback to reading from file
         full_path = path_manager.get_monster_path(monster_name_arg)
         if save_json(full_path, generated_monster_data):
-            print(f"{GREEN}DEBUG: Monster creation ({monster_name_arg}) - PASS{RESET}")
+            info(f"SUCCESS: Monster creation ({monster_name_arg}) - PASS", category="monster_creation")
         else:
-            print(f"{RED}DEBUG: Monster save ({monster_name_arg}) - FAIL{RESET}")
+            error(f"FAILURE: Monster save ({monster_name_arg}) - FAIL", category="monster_creation")
             sys.exit(1) # Ensure exit with error code
     else:
-        print(f"{RED}DEBUG: Monster creation ({monster_name_arg}) - FAIL{RESET}")
+        error(f"FAILURE: Monster creation ({monster_name_arg}) - FAIL", category="monster_creation")
         sys.exit(1)  # Exit with an error code
 
 if __name__ == "__main__":

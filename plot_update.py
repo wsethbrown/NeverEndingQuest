@@ -7,18 +7,18 @@ import time
 from config import OPENAI_API_KEY, PLOT_UPDATE_MODEL
 from module_path_manager import ModulePathManager
 from file_operations import safe_write_json, safe_read_json
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("plot_update")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Constants
-# MODEL = "gpt-4o-mini" # REMOVED
 TEMPERATURE = 0.7
 
-# ANSI escape codes
-ORANGE = "\033[38;2;255;165;0m"
-RED = "\033[31m"
-GREEN = "\033[32m"
-RESET = "\033[0m"
+# ANSI escape codes - REMOVED per CLAUDE.md guidelines
+# All color codes have been removed to prevent Windows console encoding errors
 
 def load_schema():
     with open("plot_schema.json", "r") as schema_file:
@@ -27,7 +27,7 @@ def load_schema():
 def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
     party_tracker = safe_read_json("party_tracker.json")
     if not party_tracker:
-        print(f"{RED}ERROR: Could not read party_tracker.json{RESET}")
+        error("FAILURE: Could not read party_tracker.json", category="file_operations")
         return
 
     # Use ModulePathManager to get module plot path with current module
@@ -38,10 +38,10 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
     try:
         plot_info = safe_read_json(plot_file_path)
     except FileNotFoundError:
-        print(f"{RED}ERROR: Plot file {plot_filename} not found in update_party_tracker.{RESET}")
+        error(f"FAILURE: Plot file {plot_filename} not found in update_party_tracker", category="file_operations")
         return
     except json.JSONDecodeError:
-        print(f"{RED}ERROR: Invalid JSON in {plot_filename} in update_party_tracker.{RESET}")
+        error(f"FAILURE: Invalid JSON in {plot_filename} in update_party_tracker", category="file_operations")
         return
 
 
@@ -76,9 +76,9 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
     party_tracker["activeQuests"] = [q for q in party_tracker.get("activeQuests", []) if q.get("status") != "completed"]
 
     if not safe_write_json("party_tracker.json", party_tracker):
-        print(f"{RED}ERROR: Failed to save party_tracker.json{RESET}")
+        error("FAILURE: Failed to save party_tracker.json", category="file_operations")
 
-    print(f"{ORANGE}DEBUG: Party tracker updated for plot point {plot_point_id}{RESET}")
+    debug(f"STATE_CHANGE: Party tracker updated for plot point {plot_point_id}", category="plot_updates")
 
 def update_plot(plot_point_id_param, new_status_param, plot_impact_param, plot_filename_param, max_retries=3): # Renamed params
     try:
@@ -90,13 +90,13 @@ def update_plot(plot_point_id_param, new_status_param, plot_impact_param, plot_f
             
         plot_info_data = safe_read_json(plot_file_path)
         if not plot_info_data:
-            print(f"{RED}ERROR: Could not read plot file{RESET}")
+            error("FAILURE: Could not read plot file", category="file_operations")
             return None
     except FileNotFoundError:
-        print(f"{RED}ERROR: Plot file {plot_filename_param} not found.{RESET}")
+        error(f"FAILURE: Plot file {plot_filename_param} not found", category="file_operations")
         return None # Or raise error
     except json.JSONDecodeError:
-        print(f"{RED}ERROR: Invalid JSON in {plot_filename_param}.{RESET}")
+        error(f"FAILURE: Invalid JSON in {plot_filename_param}", category="file_operations")
         return None # Or raise error
 
 
@@ -157,36 +157,36 @@ Examples:
 
             validate(instance=plot_info_data, schema=plot_schema_data)
 
-            print(f"{GREEN}DEBUG: Successfully updated and validated plot info on attempt {attempt + 1}{RESET}")
+            info(f"SUCCESS: Updated and validated plot info on attempt {attempt + 1}", category="plot_updates")
 
             if not safe_write_json(plot_file_path, plot_info_data):
-                print(f"{RED}ERROR: Failed to save plot file{RESET}")
+                error("FAILURE: Failed to save plot file", category="file_operations")
                 return plot_info_data
 
             update_party_tracker(plot_point_id_param, new_status_param, plot_impact_param, plot_filename_param)
 
-            print(f"{ORANGE}DEBUG: Plot information updated for plot point {plot_point_id_param}{RESET}")
+            debug(f"STATE_CHANGE: Plot information updated for plot point {plot_point_id_param}", category="plot_updates")
             return plot_info_data
 
         except json.JSONDecodeError as e:
-            print(f"{RED}DEBUG: AI response is not valid JSON. Error: {e}{RESET}")
-            print(f"{ORANGE}DEBUG: Attempting to fix JSON...{RESET}")
+            warning(f"VALIDATION: AI response is not valid JSON. Error: {e}", category="ai_processing")
+            warning(f"AI_PROCESSING: Attempting to fix malformed JSON response", category="ai_processing")
             try:
                 fixed_response = ai_response_content.replace("'", '"')
                 fixed_response = fixed_response.replace("True", "true").replace("False", "false")
                 updated_sections = json.loads(fixed_response)
-                print(f"{GREEN}DEBUG: Successfully fixed JSON (attempted){RESET}")
+                info(f"SUCCESS: Fixed malformed JSON response", category="ai_processing")
                 # Re-attempt update logic with fixed_response (simplified for now, original logic was more complex)
                 # This might need more robust re-processing if simple replace isn't enough.
                 # For this refactor, focusing on model name. The fix attempt is a placeholder.
             except Exception as fix_e: # Catch any error during fixing
-                print(f"{RED}DEBUG: Failed to fix JSON. Error during fix: {fix_e}. Retrying original response processing...{RESET}")
+                error(f"FAILURE: Failed to fix JSON. Error during fix: {fix_e}. Retrying original response processing", category="ai_processing")
         except ValidationError as e:
-            print(f"{RED}ERROR: Updated info does not match the schema. Error: {e}{RESET}")
+            error(f"VALIDATION: Updated info does not match the schema. Error: {e}", category="plot_updates")
             # print(f"{YELLOW}Problematic plot_info_data:{RESET}\n{json.dumps(plot_info_data, indent=2)}") # Log data that failed validation
 
         if attempt == max_retries - 1:
-            print(f"{RED}ERROR: Failed to update plot info after {max_retries} attempts. Returning original plot info.{RESET}")
+            error(f"FAILURE: Failed to update plot info after {max_retries} attempts. Returning original plot info", category="plot_updates")
             return plot_info_data # Return original if all retries fail
 
         time.sleep(1)

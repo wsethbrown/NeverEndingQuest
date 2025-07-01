@@ -1,5 +1,9 @@
 import json
 import re
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("mock_action")
 
 def extract_actions(text):
     actions = []
@@ -25,7 +29,7 @@ def extract_actions(text):
                 action_data = json.loads(json_str)
                 if "actions" in action_data and isinstance(action_data["actions"], list):
                     actions.extend(action_data["actions"])
-                    print(f"DEBUG: Extracted action: {json_str}")
+                    debug(f"ACTION_EXTRACTION: Extracted action: {json_str}", category="action_processing")
             except json.JSONDecodeError as e:
                 print(f"Error parsing JSON: {e}")
                 print(f"Problematic JSON string: {json_str}")

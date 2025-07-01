@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 21,
   "maxHitPoints": 21,
-  "armorClass": 16,
+  "armorClass": 17,
   "initiative": 1,
   "speed": 30,
   "abilities": {
@@ -297,7 +297,7 @@
     },
     {
       "item_name": "Torn but valuable cloth",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "A piece of cloth, torn but of fine quality, possibly useful for trade or crafting.",
       "quantity": 1
@@ -459,8 +459,8 @@
     ]
   },
   "currency": {
-    "gold": 13,
-    "silver": 21,
+    "gold": 37,
+    "silver": 26,
     "copper": 20
   },
   "experience_points": 800,
