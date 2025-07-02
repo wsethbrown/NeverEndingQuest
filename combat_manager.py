@@ -1253,6 +1253,9 @@ Player: The setup scene for the combat has already been given and described to t
            parsed_response = json.loads(initial_response)
            narration = parsed_response["narration"]
            print(f"Dungeon Master: {narration}")
+           # Flush to ensure first combat message is captured by web interface
+           import sys
+           sys.stdout.flush()
        except Exception as e:
            error(f"FAILURE: Failed to parse initial response", exception=e, category="combat_events")
    else:
@@ -1686,6 +1689,9 @@ Player: {user_input_text}"""
        # Only display narration if there's no exit action
        if not has_exit_action:
            print(f"Dungeon Master: {narration}")
+           # Flush to ensure combat messages are captured by web interface
+           import sys
+           sys.stdout.flush()
        
        # Process actions
        for action in actions:
