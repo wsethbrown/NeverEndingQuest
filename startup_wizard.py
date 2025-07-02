@@ -1378,10 +1378,8 @@ def update_party_tracker(module_name, character_name):
         # Update module
         party_data["module"] = module_name
         
-        # Update party members
-        from update_character_info import normalize_character_name
-        char_filename = normalize_character_name(character_name)
-        party_data["partyMembers"] = [char_filename]
+        # Update party members - store display name
+        party_data["partyMembers"] = [character_name]
         
         # Initialize other required fields if they don't exist
         if "partyNPCs" not in party_data:

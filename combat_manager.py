@@ -868,6 +868,9 @@ def filter_encounter_for_system_prompt(encounter_data):
 
 def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    """Main function to run the combat simulation"""
+   print(f"\n[DEBUG COMBAT_MANAGER] ========== COMBAT SIMULATION START ==========")
+   print(f"[DEBUG COMBAT_MANAGER] Encounter ID: {encounter_id}")
+   print(f"[DEBUG COMBAT_MANAGER] This should be INTERACTIVE combat with player turns!")
    debug(f"INITIALIZATION: Starting combat simulation for encounter {encounter_id}", category="combat_events")
    
    # Initialize path manager
@@ -1484,12 +1487,19 @@ Player: {user_input_text}"""
        
        for attempt in range(max_retries):
            try:
+               print(f"[DEBUG COMBAT_MANAGER] Making AI call (attempt {attempt + 1}/{max_retries})")
+               print(f"[DEBUG COMBAT_MANAGER] Conversation history has {len(conversation_history)} messages")
+               print(f"[DEBUG COMBAT_MANAGER] This AI call should handle turn-based combat interactively...")
+               
                response = client.chat.completions.create(
                    model=COMBAT_MAIN_MODEL,
                    temperature=TEMPERATURE,
                    messages=conversation_history
                )
                ai_response = response.choices[0].message.content.strip()
+               
+               print(f"[DEBUG COMBAT_MANAGER] AI responded. Response length: {len(ai_response)} chars")
+               print(f"[DEBUG COMBAT_MANAGER] Response preview: {ai_response[:200]}...")
                
                
                # Write raw response to debug file
@@ -1636,6 +1646,14 @@ Player: {user_input_text}"""
            parsed_response = json.loads(ai_response)
            narration = parsed_response["narration"]
            actions = parsed_response["actions"]
+           
+           print(f"[DEBUG COMBAT_MANAGER] AI generated {len(actions)} actions")
+           for i, action in enumerate(actions):
+               print(f"[DEBUG COMBAT_MANAGER] Action {i+1}: type='{action.get('type')}', entity='{action.get('entity', 'N/A')}'")
+           
+           # Check if this is ending combat prematurely
+           if any(action.get('type') == 'exit' for action in actions):
+               print("[DEBUG COMBAT_MANAGER] WARNING: AI generated 'exit' action - this will end combat!")
            
            # Extract and update combat round if provided
            if 'combat_round' in parsed_response:

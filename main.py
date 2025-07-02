@@ -1583,7 +1583,10 @@ def main_game_loop():
             break
 
         player_name_actual = party_tracker_data["partyMembers"][0]
-        player_data_file = path_manager.get_character_path(player_name_actual)
+        # Normalize name for file access
+        from update_character_info import normalize_character_name
+        player_name_normalized = normalize_character_name(player_name_actual)
+        player_data_file = path_manager.get_character_path(player_name_normalized)
         player_data_current = load_json_file(player_data_file)
 
         if player_data_current:

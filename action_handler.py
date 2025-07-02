@@ -141,7 +141,10 @@ def update_party_npcs(party_tracker_data, operation, npc):
                     # Get the first party member's level as default
                     if party_tracker_data.get("partyMembers"):
                         player_name = party_tracker_data["partyMembers"][0]
-                        player_file = path_manager.get_character_path(player_name)
+                        # Normalize name for file access
+                        from update_character_info import normalize_character_name
+                        player_name_normalized = normalize_character_name(player_name)
+                        player_file = path_manager.get_character_path(player_name_normalized)
                         if os.path.exists(player_file):
                             try:
                                 from encoding_utils import safe_json_load
@@ -171,7 +174,23 @@ def update_party_npcs(party_tracker_data, operation, npc):
                 return
 
         # Now we can add the NPC to the party
-        party_tracker_data["partyNPCs"].append(npc)
+        # Ensure consistent name formatting in party tracker
+        npc_copy = npc.copy()  # Don't modify the original
+        
+        # Load the actual NPC data to get the correct display name
+        from encoding_utils import safe_json_load
+        from update_character_info import normalize_character_name
+        normalized_name = normalize_character_name(npc['name'])
+        npc_file = path_manager.get_character_path(normalized_name)
+        
+        if os.path.exists(npc_file):
+            npc_data = safe_json_load(npc_file)
+            if npc_data and 'name' in npc_data:
+                # Use the name from the character file for consistency
+                npc_copy['name'] = npc_data['name']
+                debug(f"STATE_CHANGE: Using character file name '{npc_data['name']}' for party tracker", category="character_updates")
+        
+        party_tracker_data["partyNPCs"].append(npc_copy)
     elif operation == "remove":
         party_tracker_data["partyNPCs"] = [x for x in party_tracker_data["partyNPCs"] if x["name"] != npc["name"]]
 
@@ -438,20 +457,33 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
     parameters = action.get("parameters", {})
 
     if action_type == ACTION_CREATE_ENCOUNTER:
+        print("\n[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER START ==========")
+        print(f"[DEBUG ACTION_HANDLER] Action received: {action}")
         debug("INITIALIZATION: Creating combat encounter", category="combat_processing")
         try:
+            print("[DEBUG ACTION_HANDLER] Calling combat_builder.py...")
             debug(f"SUBPROCESS: Sending to combat_builder.py: {json.dumps(action)}", category="combat_processing")
             result = subprocess.run(
                 ["python", "combat_builder.py"],
                 input=json.dumps(action),
                 check=True, capture_output=True, text=True
             )
+            print(f"[DEBUG ACTION_HANDLER] combat_builder.py completed")
+            print(f"[DEBUG ACTION_HANDLER] Output: {result.stdout[:200]}...")  # First 200 chars
             debug(f"SUBPROCESS: combat_builder.py output: {result.stdout}", category="combat_processing")
             debug(f"SUBPROCESS: combat_builder.py status: {result.stderr}", category="combat_processing")
             info("SUCCESS: Combat encounter created successfully", category="combat_processing")
 
-            if "Encounter successfully built and saved to encounter_" in result.stdout:
-                encounter_id = result.stdout.strip().split()[-1].replace(".json", "")
+            print(f"[DEBUG ACTION_HANDLER] Checking for success in output...")
+            if "Encounter successfully built and saved to" in result.stdout:
+                # Extract encounter ID from the full path
+                # Example: "modules/encounters/encounter_TW03-E2.json" -> "TW03-E2"
+                for line in result.stdout.split('\n'):
+                    if "Encounter successfully built and saved to" in line:
+                        encounter_path = line.split()[-1]
+                        encounter_id = encounter_path.split('encounter_')[-1].replace('.json', '')
+                        print(f"[DEBUG ACTION_HANDLER] SUCCESS! Encounter created with ID: {encounter_id}")
+                        break
 
                 party_tracker_data["worldConditions"]["activeCombatEncounter"] = encounter_id
                 safe_json_dump(party_tracker_data, "party_tracker.json")
@@ -468,25 +500,37 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                     print(f"ERROR: Failed to load location data for {current_location_id}")
                     return # Or handle error appropriately
 
+                print(f"[DEBUG ACTION_HANDLER] About to call run_combat_simulation with encounter: {encounter_id}")
+                print("[DEBUG ACTION_HANDLER] This should start INTERACTIVE turn-based combat...")
+                
                 dialogue_summary, updated_player_info = run_combat_simulation(encounter_id, party_tracker_data, reloaded_location_data)
-
+                
+                print(f"[DEBUG ACTION_HANDLER] Combat simulation returned. Type of result: {type(dialogue_summary)}")
+                print(f"[DEBUG ACTION_HANDLER] Dialogue summary preview: {str(dialogue_summary)[:200]}...")
 
                 player_name = next((member for member in party_tracker_data["partyMembers"]), None)
                 if player_name and updated_player_info is not None:
                     # Get the correct module from party tracker
                     module_name = party_tracker_data.get("module", "").replace(" ", "_")
                     path_manager = ModulePathManager(module_name)
-                    player_file = path_manager.get_character_path(player_name)
+                    # Normalize name for file access
+                    from update_character_info import normalize_character_name
+                    player_name_normalized = normalize_character_name(player_name)
+                    player_file = path_manager.get_character_path(player_name_normalized)
                     safe_json_dump(updated_player_info, player_file)
                     debug(f"FILE_OP: Updated player file for {player_name}", category="character_updates")
                 else:
                     print("WARNING: Combat simulation did not return valid player info. Player file not updated.")
 
                 # Copy combat summary to main conversation history
+                print("[DEBUG ACTION_HANDLER] Loading combat conversation history...")
                 combat_history = safe_json_load("modules/conversation_history/combat_conversation_history.json")
+                print(f"[DEBUG ACTION_HANDLER] Combat history has {len(combat_history) if combat_history else 0} entries")
+                
                 combat_summary = next((entry for entry in reversed(combat_history) if entry["role"] == "assistant" and "Combat Summary:" in entry["content"]), None)
 
                 if combat_summary:
+                    print("[DEBUG ACTION_HANDLER] Found combat summary, appending to conversation history")
                     modified_combat_summary = {
                         "role": "user",
                         "content": combat_summary["content"]
@@ -495,9 +539,17 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                     # Import save_conversation_history from main
                     from main import save_conversation_history
                     save_conversation_history(conversation_history)
+                    print("[DEBUG ACTION_HANDLER] Returning with status='needs_response' - this should trigger AI response")
+                    print("[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER END ==========\n")
                     return create_return(status="needs_response", needs_update=True)
                 else:
                     print("ERROR: Combat summary not found in combat conversation history")
+                    print("[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER END WITH ERROR ==========\n")
+            else:
+                print(f"[DEBUG ACTION_HANDLER] FAILED! Encounter was not created successfully")
+                print(f"[DEBUG ACTION_HANDLER] Full stdout: {result.stdout}")
+                print(f"[DEBUG ACTION_HANDLER] Full stderr: {result.stderr}")
+                print("[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER END WITH FAILURE ==========\n")
 
         except subprocess.CalledProcessError as e:
             print(f"Error occurred while running combat_builder.py: {e}")

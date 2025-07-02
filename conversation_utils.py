@@ -402,8 +402,11 @@ def update_character_data(conversation_history, party_tracker_data):
         
         # Process player characters
         for member in party_tracker_data["partyMembers"]:
+            # Normalize name for file access
+            from update_character_info import normalize_character_name
+            normalized_member = normalize_character_name(member)
             name = member.lower()
-            member_file = path_manager.get_character_path(member)
+            member_file = path_manager.get_character_path(normalized_member)
             try:
                 with open(member_file, "r", encoding="utf-8") as file:
                     member_data = json.load(file)

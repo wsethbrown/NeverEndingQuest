@@ -145,6 +145,7 @@ def load_or_create_monster(monster_type):
 
 def load_or_create_npc(npc_name):
     formatted_npc_name = format_type_name(npc_name)
+    print(f"[DEBUG COMBAT_BUILDER] NPC name normalization: '{npc_name}' -> '{formatted_npc_name}'")
     # Get current module from party tracker for consistent path resolution
     try:
         from encoding_utils import safe_json_load
@@ -153,11 +154,13 @@ def load_or_create_npc(npc_name):
         path_manager = ModulePathManager(current_module)
     except:
         path_manager = ModulePathManager()  # Fallback to reading from file
-    npc_file = path_manager.get_character_path(npc_name)
+    # Use the formatted/normalized name for file path
+    npc_file = path_manager.get_character_path(formatted_npc_name)
     npc_data = load_json(npc_file)
     if not npc_data:
         warning(f"NPC_LOADING: NPC loading ({npc_name}) - attempting creation", category="combat_builder")
-        result = subprocess.run(["python", "npc_builder.py", npc_name], capture_output=True, text=True)
+        # Pass the normalized name to npc_builder.py
+        result = subprocess.run(["python", "npc_builder.py", formatted_npc_name], capture_output=True, text=True)
         if result.returncode == 0:
             info(f"SUCCESS: NPC builder ({npc_name}) - PASS", category="combat_builder")
             if os.path.exists(npc_file):
