@@ -87,6 +87,10 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple
 from openai import OpenAI
 import config
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("module_stitcher")
 from encoding_utils import safe_json_load, safe_json_dump
 from module_path_manager import ModulePathManager
 
@@ -878,7 +882,7 @@ Respond with JSON:
             new_modules = self.detect_new_modules()
             
             if not new_modules:
-                print("No new modules detected.")
+                info("STATE: No new modules detected.", category="module_integration")
                 return integrated_modules
             
             print(f"Found {len(new_modules)} new modules to integrate...")

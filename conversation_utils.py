@@ -570,10 +570,10 @@ def generate_chat_history(conversation_history):
         user_count = sum(1 for msg in chat_history if msg["role"] == "user")
         assistant_count = sum(1 for msg in chat_history if msg["role"] == "assistant")
         
-        print(f"Lightweight chat history updated!")
-        print(f"System messages removed: {system_count}")
-        print(f"User messages: {user_count}")
-        print(f"Assistant messages: {assistant_count}")
+        info(f"SUCCESS: Lightweight chat history updated!", category="conversation_history")
+        debug(f"System messages removed: {system_count}", category="conversation_history")
+        debug(f"User messages: {user_count}", category="conversation_history")
+        debug(f"Assistant messages: {assistant_count}", category="conversation_history")
         
     except Exception as e:
-        print(f"Error generating chat history: {str(e)}")
+        error(f"FAILURE: Error generating chat history: {str(e)}", exception=e, category="conversation_history")

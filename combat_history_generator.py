@@ -18,6 +18,10 @@ The script will:
 import json
 import os
 from datetime import datetime
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("combat_history_generator")
 
 def generate_combat_chat_history():
     """Generate a lightweight chat history from combat conversations"""
@@ -26,7 +30,7 @@ def generate_combat_chat_history():
     
     # Check if input file exists
     if not os.path.exists(input_file):
-        print(f"Error: {input_file} not found!")
+        error(f"FAILURE: {input_file} not found!", category="combat_history")
         return
     
     try:
@@ -42,7 +46,7 @@ def generate_combat_chat_history():
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             backup_file = f"combat_chat_history_backup_{timestamp}.json"
             os.rename(output_file, backup_file)
-            print(f"Created backup: {backup_file}")
+            debug(f"Created backup: {backup_file}", category="combat_history")
         
         # Write the filtered chat history to the output file
         with open(output_file, "w", encoding="utf-8") as f:
@@ -54,15 +58,15 @@ def generate_combat_chat_history():
         user_count = sum(1 for msg in chat_history if msg["role"] == "user")
         assistant_count = sum(1 for msg in chat_history if msg["role"] == "assistant")
         
-        print(f"Combat chat history generated successfully!")
-        print(f"Total messages: {total_count}")
-        print(f"System messages removed: {system_count}")
-        print(f"User messages: {user_count}")
-        print(f"Assistant messages: {assistant_count}")
-        print(f"Output saved to: {output_file}")
+        info(f"SUCCESS: Combat chat history generated successfully!", category="combat_history")
+        debug(f"Total messages: {total_count}", category="combat_history")
+        debug(f"System messages removed: {system_count}", category="combat_history")
+        debug(f"User messages: {user_count}", category="combat_history")
+        debug(f"Assistant messages: {assistant_count}", category="combat_history")
+        info(f"Output saved to: {output_file}", category="combat_history")
         
     except Exception as e:
-        print(f"Error: {str(e)}")
+        error(f"FAILURE: {str(e)}", exception=e, category="combat_history")
 
 if __name__ == "__main__":
     generate_combat_chat_history()

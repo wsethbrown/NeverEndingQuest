@@ -18,6 +18,10 @@ The script will:
 import json
 import os
 from datetime import datetime
+from enhanced_logger import debug, info, warning, error, set_script_name
+
+# Set script name for logging
+set_script_name("chat_history_generator")
 
 def generate_chat_history():
     """Generate a lightweight chat history without system messages"""
@@ -54,15 +58,15 @@ def generate_chat_history():
         user_count = sum(1 for msg in chat_history if msg["role"] == "user")
         assistant_count = sum(1 for msg in chat_history if msg["role"] == "assistant")
         
-        print(f"Chat history generated successfully!")
-        print(f"Total messages: {total_count}")
-        print(f"System messages removed: {system_count}")
-        print(f"User messages: {user_count}")
-        print(f"Assistant messages: {assistant_count}")
-        print(f"Output saved to: {output_file}")
+        info(f"SUCCESS: Chat history generated successfully!", category="chat_history")
+        debug(f"Total messages: {total_count}", category="chat_history")
+        debug(f"System messages removed: {system_count}", category="chat_history")
+        debug(f"User messages: {user_count}", category="chat_history")
+        debug(f"Assistant messages: {assistant_count}", category="chat_history")
+        info(f"Output saved to: {output_file}", category="chat_history")
         
     except Exception as e:
-        print(f"Error: {str(e)}")
+        error(f"FAILURE: {str(e)}", exception=e, category="chat_history")
 
 if __name__ == "__main__":
     generate_chat_history()
