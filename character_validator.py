@@ -89,7 +89,7 @@ class AICharacterValidator:
         # Log activation message for user visibility in debug window
         character_name = character_data.get('name', 'Unknown')
         # Use print for immediate visibility in debug tab
-        print(f"[AI Validator] Activating character validator for {character_name}...")
+        print(f"DEBUG: [AI Validator] Activating character validator for {character_name}...")
         info(f"[AI Validator] Activating character validator for {character_name}...", category="character_validation")
         
         # Use AI to validate and correct AC calculation
@@ -112,13 +112,13 @@ class AICharacterValidator:
         
         # Log completion message
         if self.corrections_made:
-            print(f"[AI Validator] Character validation complete for {character_name}: {len(self.corrections_made)} corrections made")
+            print(f"DEBUG: [AI Validator] Character validation complete for {character_name}: {len(self.corrections_made)} corrections made")
             info(f"[AI Validator] Character validation complete for {character_name}: {len(self.corrections_made)} corrections made", category="character_validation")
             for correction in self.corrections_made:
-                print(f"  - {correction}")
+                print(f"DEBUG:   - {correction}")
                 info(f"  - {correction}", category="character_validation")
         else:
-            print(f"[AI Validator] Character validation complete for {character_name}: No corrections needed")
+            print(f"DEBUG: [AI Validator] Character validation complete for {character_name}: No corrections needed")
             info(f"[AI Validator] Character validation complete for {character_name}: No corrections needed", category="character_validation")
         
         return corrected_data
@@ -678,7 +678,7 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
             Character data with consolidated currency and ammunition
         """
         
-        print(f"[AI Validator] Checking {character_data.get('name', 'Unknown')}'s inventory for consolidation opportunities...")
+        print(f"DEBUG: [AI Validator] Checking {character_data.get('name', 'Unknown')}'s inventory for consolidation opportunities...")
         info(f"[AI Validator] Checking {character_data.get('name', 'Unknown')}'s inventory for consolidation opportunities...", category="character_validation")
         
         max_attempts = 3
@@ -912,7 +912,7 @@ Identify loose currency items AND ammunition that should be consolidated. Rememb
                 if 'consolidations_made' in parsed_response:
                     consolidations = parsed_response['consolidations_made']
                     for consolidation in consolidations:
-                        print(f"[Consolidation] {consolidation}")
+                        print(f"DEBUG: [Consolidation] {consolidation}")
                         info(f"[Consolidation] {consolidation}", category="character_validation")
                         self.logger.info(f"AI Currency Consolidation: {consolidation}")
                         self.corrections_made.append(consolidation)
