@@ -115,6 +115,7 @@ def update_party_tracker(encounter_id):
 
 def load_or_create_monster(monster_type):
     formatted_monster_type = format_type_name(monster_type)
+    print(f"[COMBAT_BUILDER] Monster load/create: '{monster_type}' -> '{formatted_monster_type}'")
     # Get current module from party tracker for consistent path resolution
     try:
         from encoding_utils import safe_json_load
@@ -126,9 +127,11 @@ def load_or_create_monster(monster_type):
     monster_file = path_manager.get_monster_path(monster_type)
     monster_data = load_json(monster_file)
     if not monster_data:
+        print(f"[COMBAT_BUILDER] Monster file not found, creating: {monster_file}")
         warning(f"MONSTER_LOADING: Monster loading ({monster_type}) - attempting creation", category="combat_builder")
         result = subprocess.run(["python", "monster_builder.py", monster_type], capture_output=True, text=True)
         if result.returncode == 0:
+            print(f"[COMBAT_BUILDER] Monster creation successful: {monster_type}")
             info(f"SUCCESS: Monster builder ({monster_type}) - PASS", category="combat_builder")
             if os.path.exists(monster_file):
                 monster_data = load_json(monster_file)
@@ -139,13 +142,17 @@ def load_or_create_monster(monster_type):
                 print(colored(f"Error: Monster file {monster_file} was not created", "red"))
                 return None
         else:
+            print(f"[COMBAT_BUILDER] Monster creation failed: {monster_type}")
+            print(f"[COMBAT_BUILDER] Error output: {result.stderr}")
             error(f"FAILURE: Monster builder ({monster_type}) - FAIL", category="combat_builder")
             return None
+    else:
+        print(f"[COMBAT_BUILDER] Monster loaded from file: {monster_type}")
     return monster_data
 
 def load_or_create_npc(npc_name):
     formatted_npc_name = format_type_name(npc_name)
-    print(f"[DEBUG COMBAT_BUILDER] NPC name normalization: '{npc_name}' -> '{formatted_npc_name}'")
+    print(f"[COMBAT_BUILDER] NPC name normalization: '{npc_name}' -> '{formatted_npc_name}'")
     # Get current module from party tracker for consistent path resolution
     try:
         from encoding_utils import safe_json_load
@@ -158,10 +165,12 @@ def load_or_create_npc(npc_name):
     npc_file = path_manager.get_character_path(formatted_npc_name)
     npc_data = load_json(npc_file)
     if not npc_data:
+        print(f"[COMBAT_BUILDER] NPC file not found, creating: {npc_file}")
         warning(f"NPC_LOADING: NPC loading ({npc_name}) - attempting creation", category="combat_builder")
         # Pass the normalized name to npc_builder.py
         result = subprocess.run(["python", "npc_builder.py", formatted_npc_name], capture_output=True, text=True)
         if result.returncode == 0:
+            print(f"[COMBAT_BUILDER] NPC creation successful: {npc_name}")
             info(f"SUCCESS: NPC builder ({npc_name}) - PASS", category="combat_builder")
             if os.path.exists(npc_file):
                 npc_data = load_json(npc_file)
@@ -172,11 +181,16 @@ def load_or_create_npc(npc_name):
                 print(colored(f"Error: NPC file {npc_file} was not created", "red"))
                 return None
         else:
+            print(f"[COMBAT_BUILDER] NPC creation failed: {npc_name}")
+            print(f"[COMBAT_BUILDER] Error output: {result.stderr}")
             error(f"FAILURE: NPC builder ({npc_name}) - FAIL", category="combat_builder")
             return None
+    else:
+        print(f"[COMBAT_BUILDER] NPC loaded from file: {npc_name}")
     return npc_data
 
 def generate_encounter(encounter_data):
+    print(f"[COMBAT_BUILDER] Starting encounter generation with data: player={encounter_data.get('player')}, npcs={encounter_data.get('npcs', [])}, monsters={encounter_data.get('monsters', [])}")
     location = get_current_location()
     if not location:
         return None
@@ -238,6 +252,7 @@ def generate_encounter(encounter_data):
     monster_counts = {}
     for monster_type in encounter_data["monsters"]:
         formatted_monster_type = format_type_name(monster_type)
+        print(f"[COMBAT_BUILDER] Loading/creating monster: {monster_type} -> {formatted_monster_type}")
         monster_data = load_or_create_monster(monster_type)
         if not monster_data:
             return None
@@ -324,6 +339,8 @@ def main():
     encounter = generate_encounter(encounter_data)
     
     if encounter:
+        print(f"[COMBAT_BUILDER] Encounter generated successfully: {encounter['encounterId']}")
+        print(f"[COMBAT_BUILDER] Total creatures in encounter: {len(encounter['creatures'])}")
         # Ensure centralized encounters directory exists
         os.makedirs("modules/encounters", exist_ok=True)
         encounter_file = f"modules/encounters/encounter_{encounter['encounterId']}.json"
@@ -332,17 +349,21 @@ def main():
             logging.info(f"Encounter successfully built and saved to {encounter_file}")
             print(colored(f"Encounter successfully built and saved to {encounter_file}", "green"))
             
+            print(f"[COMBAT_BUILDER] Updating party tracker with encounter ID: {encounter['encounterId']}")
             updated_encounter_id = update_party_tracker(encounter['encounterId'])
             if updated_encounter_id:
+                print(f"[COMBAT_BUILDER] Party tracker update successful")
                 logging.info(f"Party tracker updated with new combat encounter ID: {updated_encounter_id}")
                 print(colored(f"Party tracker updated with new combat encounter ID: {updated_encounter_id}", "green"))
             else:
+                print(f"[COMBAT_BUILDER] Party tracker update failed")
                 logging.error("Failed to update party tracker.")
                 print(colored("Failed to update party tracker.", "red"))
         else:
             logging.error(f"Failed to save encounter to {encounter_file}")
             print(colored(f"Error: Failed to save encounter to {encounter_file}", "red"))
     else:
+        print(f"[COMBAT_BUILDER] Encounter generation failed")
         logging.error("Failed to generate encounter due to previous errors.")
         print(colored("Error: Failed to generate encounter due to previous errors.", "red"))
 

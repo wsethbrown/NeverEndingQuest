@@ -122,13 +122,12 @@ from generate_prerolls import generate_prerolls
 from encoding_utils import safe_json_load
 from file_operations import safe_write_json
 import cumulative_summary
-from enhanced_logger import debug, info, warning, error, game_event, set_script_name
 
-# Set script name for logging
-set_script_name(__name__)
-
-# Remove color constants - no longer used
-# Color codes removed per CLAUDE.md guidelines
+# Updated color constants
+SOLID_GREEN = "\033[38;2;0;180;0m"
+LIGHT_OFF_GREEN = "\033[38;2;100;180;100m"
+SOFT_REDDISH_ORANGE = "\033[38;2;204;102;0m"
+RESET_COLOR = "\033[0m"
 
 # Temperature
 TEMPERATURE = 0.8
@@ -150,7 +149,7 @@ HISTORY_TIMESTAMP_FORMAT = "%Y%m%d_%H%M%S"
 def get_current_area_id():
     party_tracker = safe_json_load("party_tracker.json")
     if not party_tracker:
-        error("FILE_OP: Failed to load party_tracker.json", category="file_operations")
+        print("ERROR: Failed to load party_tracker.json")
         return None
     return party_tracker["worldConditions"]["currentAreaId"]
 
@@ -166,26 +165,26 @@ def get_location_data(location_id):
         path_manager = ModulePathManager()  # Fallback to reading from file
     
     current_area_id = get_current_area_id()
-    debug(f"STATE_CHANGE: Current area ID: {current_area_id}", category="combat_events")
+    print(f"DEBUG: Current area ID: {current_area_id}")
     area_file = path_manager.get_area_path(current_area_id)
-    debug(f"FILE_OP: Attempting to load area file: {area_file}", category="file_operations")
+    print(f"DEBUG: Attempting to load area file: {area_file}")
 
     if not os.path.exists(area_file):
-        error(f"FILE_OP: Area file {area_file} does not exist", category="file_operations")
+        print(f"ERROR: Area file {area_file} does not exist")
         return None
 
     area_data = safe_json_load(area_file)
     if not area_data:
-        error(f"FILE_OP: Failed to load area file: {area_file}", category="file_operations")
+        print(f"ERROR: Failed to load area file: {area_file}")
         return None
-    debug(f"FILE_OP: Loaded area data: {json.dumps(area_data, indent=2)}", category="file_operations")
+    print(f"DEBUG: Loaded area data: {json.dumps(area_data, indent=2)}")
 
     for location in area_data["locations"]:
         if location["locationId"] == location_id:
-            debug(f"VALIDATION: Found location data for ID {location_id}", category="combat_events")
+            print(f"DEBUG: Found location data for ID {location_id}")
             return location
 
-    error(f"VALIDATION: Location with ID {location_id} not found in area data", category="combat_events")
+    print(f"ERROR: Location with ID {location_id} not found in area data")
     return None
 
 def read_prompt_from_file(filename):
@@ -195,7 +194,7 @@ def read_prompt_from_file(filename):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read().strip()
     except Exception as e:
-        error(f"FILE_OP: Failed to read prompt file {filename}: {str(e)}", category="file_operations")
+        print(f"ERROR: Failed to read prompt file {filename}: {str(e)}")
         return ""
 
 def load_monster_stats(monster_name):
@@ -215,7 +214,7 @@ def load_monster_stats(monster_name):
 
     monster_stats = safe_json_load(monster_file)
     if not monster_stats:
-        error(f"FILE_OP: Failed to load monster file: {monster_file}", category="file_operations")
+        print(f"ERROR: Failed to load monster file: {monster_file}")
     return monster_stats
 
 def load_json_file(file_path):
@@ -229,7 +228,7 @@ def save_json_file(file_path, data):
     try:
         safe_write_json(file_path, data)
     except Exception as e:
-        error(f"FILE_OP: Failed to save {file_path}: {str(e)}", category="file_operations")
+        print(f"ERROR: Failed to save {file_path}: {str(e)}")
 
 def clean_old_dm_notes(conversation_history):
     """
@@ -309,7 +308,7 @@ def write_debug_output(content, filename="debug_second_model.json"):
         with open(filename, "w") as debug_file:
             json.dump(content, debug_file, indent=2)
     except Exception as e:
-        debug(f"FILE_OP: Writing debug output failed - {str(e)}", category="file_operations")
+        print(f"DEBUG: Writing debug output: {str(e)}")
 
 def parse_json_safely(text):
     """Extract and parse JSON from text, handling various formats"""
@@ -370,8 +369,7 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
     Validate a combat response for accuracy in HP tracking, combat flow, etc.
     Returns True if valid, or a string with the reason for failure if invalid.
     """
-    print(f"[COMBAT_MANAGER] Starting validation for combat response")
-    debug("VALIDATION: Validating combat response...", category="combat_validation")
+    print("DEBUG: Validating combat response...")
     
     # Load validation prompt from file
     validation_prompt = read_prompt_from_file('combat_validation_prompt.txt')
@@ -438,28 +436,26 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
                     log_file.write("\n")
 
                 if is_valid:
-                    print(f"[COMBAT_MANAGER] Validation PASSED")
-                    debug("VALIDATION: Combat response validation passed", category="combat_validation")
+                    print("DEBUG: Combat response validation passed")
                     return True
                 else:
-                    print(f"[COMBAT_MANAGER] Validation FAILED: {sanitize_unicode_for_logging(reason)}")
-                    debug(f"VALIDATION: Combat response validation failed. Reason: {sanitize_unicode_for_logging(reason)}", category="combat_validation")
+                    print(f"DEBUG: Combat response validation failed. Reason: {sanitize_unicode_for_logging(reason)}")
                     if recommendation:
                         return {"reason": sanitize_unicode_for_logging(reason), "recommendation": sanitize_unicode_for_logging(recommendation)}
                     else:
                         return sanitize_unicode_for_logging(reason)
                     
             except json.JSONDecodeError:
-                debug(f"VALIDATION: Invalid JSON from validation model (Attempt {attempt + 1}/{max_validation_retries})", category="combat_validation")
-                debug(f"VALIDATION: Problematic response: {validation_response}", category="combat_validation")
+                print(f"DEBUG: Invalid JSON from validation model (Attempt {attempt + 1}/{max_validation_retries})")
+                print(f"Problematic response: {validation_response}")
                 continue
                 
         except Exception as e:
-            debug(f"VALIDATION: Validation error - {str(e)}", category="combat_validation")
+            print(f"DEBUG: Validation error: {str(e)}")
             continue
     
     # If we've exhausted all retries and still don't have a valid result
-    warning("VALIDATION: Validation failed after max retries, assuming response is valid", category="combat_validation")
+    print("DEBUG: Validation failed after max retries, assuming response is valid")
     return True
 
 def normalize_encounter_status(encounter_data):
@@ -497,24 +493,24 @@ def get_initiative_order(encounter_data):
 
 def log_conversation_structure(conversation):
     """Log the structure of the conversation history for debugging"""
-    debug("VALIDATION: Conversation Structure:", category="combat_validation")
-    debug(f"Total messages: {len(conversation)}", category="combat_validation")
+    print("\nDEBUG: Conversation Structure:")
+    print(f"Total messages: {len(conversation)}")
     
     roles = {}
     for i, msg in enumerate(conversation):
         role = msg.get("role", "unknown")
         content_preview = msg.get("content", "")[:50].replace("\n", " ") + "..."
         roles[role] = roles.get(role, 0) + 1
-        debug(f"  [{i}] {role}: {content_preview}", category="combat_validation")
+        print(f"  [{i}] {role}: {content_preview}")
     
-    debug("Message count by role:", category="combat_validation")
+    print("Message count by role:")
     for role, count in roles.items():
-        debug(f"  {role}: {count}", category="combat_validation")
-    # Empty line for debug output
+        print(f"  {role}: {count}")
+    print()
 
 
 def summarize_dialogue(conversation_history_param, location_data, party_tracker_data):
-    debug("AI_CALL: Activating the third model...", category="ai_operations")
+    print("DEBUG: Activating the third model...")
     
     # Extract clean narrative content from conversation history
     clean_conversation = []
@@ -553,7 +549,7 @@ def summarize_dialogue(conversation_history_param, location_data, party_tracker_
     dialogue_summary = response.choices[0].message.content.strip()
 
     current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
-    debug(f"STATE_CHANGE: Current location ID: {current_location_id}", category="encounter_setup")
+    print(f"DEBUG: Current location ID: {current_location_id}")
 
     if location_data and location_data.get("locationId") == current_location_id:
         encounter_id = party_tracker_data["worldConditions"]["activeCombatEncounter"]
@@ -589,7 +585,7 @@ def summarize_dialogue(conversation_history_param, location_data, party_tracker_
         area_file = path_manager.get_area_path(current_area_id)
         area_data = safe_json_load(area_file)
         if not area_data:
-            error(f"FILE_OP: Failed to load area file: {area_file}", category="file_operations")
+            print(f"ERROR: Failed to load area file: {area_file}")
             return dialogue_summary
         
         for i, loc in enumerate(area_data["locations"]):
@@ -598,20 +594,20 @@ def summarize_dialogue(conversation_history_param, location_data, party_tracker_
                 break
         
         if not safe_write_json(area_file, area_data):
-            error(f"FILE_OP: Failed to save area file: {area_file}", category="file_operations")
-        debug(f"STATE_CHANGE: Encounter {encounter_id} added to {area_file}.", category="encounter_setup")
+            print(f"ERROR: Failed to save area file: {area_file}")
+        print(f"DEBUG: Encounter {encounter_id} added to {area_file}.")
 
         conversation_history_param.append({"role": "assistant", "content": f"Combat Summary: {dialogue_summary}"})
         conversation_history_param.append({"role": "user", "content": "The combat has concluded. What would you like to do next?"})
 
-        debug(f"FILE_OP: Attempting to write to file: {conversation_history_file}", category="file_operations")
+        print(f"DEBUG: Attempting to write to file: {conversation_history_file}")
         if not safe_write_json(conversation_history_file, conversation_history_param):
-            error("FILE_OP: Failed to save conversation history", category="file_operations")
+            print(f"ERROR: Failed to save conversation history")
         else:
-            debug("FILE_OP: Conversation history saved successfully", category="file_operations")
-        info("SUCCESS: Conversation history updated with encounter summary.", category="combat_events")
+            print("DEBUG: Conversation history saved successfully")
+        print("Conversation history updated with encounter summary.")
     else:
-        error(f"VALIDATION: Location {current_location_id} not found in location data or location data is incorrect.", category="combat_events")
+        print(f"ERROR: Location {current_location_id} not found in location data or location data is incorrect.")
     return dialogue_summary
 
 def merge_updates(original_data, updated_data):
@@ -645,9 +641,9 @@ def update_json_schema(ai_response, player_info, encounter_data, party_tracker_d
     
     # Return original player info (update_character_info already handles file updates)
     if update_success:
-        debug(f"SUCCESS: Successfully updated player XP", category="xp_tracking")
+        print(f"DEBUG: Successfully updated player XP")
     else:
-        error("FAILURE: Failed to update player info", category="character_updates")
+        print(f"ERROR: Failed to update player info")
     
     updated_player_info = player_info  # Return original data, file is already updated
 
@@ -676,7 +672,7 @@ def update_json_schema(ai_response, player_info, encounter_data, party_tracker_d
 
     # Save the updated party_tracker.json file
     if not safe_write_json("party_tracker.json", party_tracker_data):
-        error("FILE_OP: Failed to save party_tracker.json", category="file_operations")
+        print("ERROR: Failed to save party_tracker.json")
 
     return updated_player_info, updated_encounter_data, party_tracker_data
 
@@ -702,7 +698,7 @@ def generate_chat_history(conversation_history, encounter_id):
 
         # Write the filtered chat history to the output file
         if not safe_write_json(output_file, chat_history):
-            error(f"FILE_OP: Failed to save chat history to {output_file}", category="file_operations")
+            print(f"ERROR: Failed to save chat history to {output_file}")
 
         # Print statistics
         system_count = len(conversation_history) - len(chat_history)
@@ -710,19 +706,19 @@ def generate_chat_history(conversation_history, encounter_id):
         user_count = sum(1 for msg in chat_history if msg["role"] == "user")
         assistant_count = sum(1 for msg in chat_history if msg["role"] == "assistant")
 
-        info("SUCCESS: Combat chat history updated!", category="combat_events")
-        debug(f"Encounter ID: {encounter_id}", category="combat_events")
-        debug(f"System messages removed: {system_count}", category="combat_events")
-        debug(f"SUMMARY: User messages: {user_count}", category="combat_logs")
-        debug(f"SUMMARY: Assistant messages: {assistant_count}", category="combat_logs")
-        debug(f"SUMMARY: Total messages (including system): {total_count}", category="combat_logs")
-        info(f"SUCCESS: Output saved to: {output_file}", category="combat_logs")
+        print(f"\n{SOFT_REDDISH_ORANGE}Combat chat history updated!{RESET_COLOR}")
+        print(f"Encounter ID: {encounter_id}")
+        print(f"System messages removed: {system_count}")
+        print(f"User messages: {user_count}")
+        print(f"Assistant messages: {assistant_count}")
+        print(f"Total messages (including system): {total_count}")
+        print(f"Output saved to: {output_file}")
 
         # Also create/update the latest version of this encounter for easy reference
         latest_file = f"{encounter_dir}/combat_chat_latest.json"
         if not safe_write_json(latest_file, chat_history):
-            error("FILE_OP: Failed to save latest chat history", category="file_operations")
-        info(f"SUCCESS: Latest version also saved to: {latest_file}", category="combat_logs")
+            print(f"ERROR: Failed to save latest chat history")
+        print(f"Latest version also saved to: {latest_file}\n")
 
         # Save a combined latest file for all encounters as well
         all_latest_file = f"combat_logs/all_combat_latest.json"
@@ -746,10 +742,10 @@ def generate_chat_history(conversation_history, encounter_id):
                 json.dump(all_combat_data, f, indent=2)
 
         except Exception as e:
-            error(f"FAILURE: Error updating combined combat log", exception=e, category="combat_logs")
+            print(f"Error updating combined combat log: {str(e)}")
 
     except Exception as e:
-        error(f"FAILURE: Error generating combat chat history", exception=e, category="combat_logs")
+        print(f"Error generating combat chat history: {str(e)}")
 
 def sync_active_encounter():
     """Sync player and NPC data to the active encounter file if one exists"""
@@ -767,7 +763,7 @@ def sync_active_encounter():
     try:
         party_tracker = safe_json_load("party_tracker.json")
         if not party_tracker:
-            error("FAILURE: Failed to load party_tracker.json", category="file_operations")
+            print("ERROR: Failed to load party_tracker.json")
             return
         
         active_encounter_id = party_tracker.get("worldConditions", {}).get("activeCombatEncounter", "")
@@ -779,7 +775,7 @@ def sync_active_encounter():
         encounter_file = f"modules/encounters/encounter_{active_encounter_id}.json"
         encounter_data = safe_json_load(encounter_file)
         if not encounter_data:
-            error(f"FAILURE: Failed to load encounter file: {encounter_file}", category="file_operations")
+            print(f"ERROR: Failed to load encounter file: {encounter_file}")
             return {}
             
         # Track if any changes were made
@@ -792,7 +788,7 @@ def sync_active_encounter():
                 try:
                     player_data = safe_json_load(player_file)
                     if not player_data:
-                        error(f"FAILURE: Failed to load player file: {player_file}", category="file_operations")
+                        print(f"ERROR: Failed to load player file: {player_file}")
                         # Update combat-relevant fields
                         if creature.get("currentHitPoints") != player_data.get("hitPoints"):
                             creature["currentHitPoints"] = player_data.get("hitPoints")
@@ -807,7 +803,7 @@ def sync_active_encounter():
                             creature["conditions"] = player_data.get("condition_affected", [])
                             changes_made = True
                 except Exception as e:
-                    error(f"FAILURE: Failed to sync player data to encounter", exception=e, category="encounter_setup")
+                    print(f"ERROR: Failed to sync player data to encounter: {str(e)}")
                     
             elif creature["type"] == "npc":
                 npc_name = path_manager.format_filename(creature['name'])
@@ -815,7 +811,7 @@ def sync_active_encounter():
                 try:
                     npc_data = safe_json_load(npc_file)
                     if not npc_data:
-                        error(f"FAILURE: Failed to load NPC file: {npc_file}", category="file_operations")
+                        print(f"ERROR: Failed to load NPC file: {npc_file}")
                     else:
                         # Update combat-relevant fields
                         if creature.get("currentHitPoints") != npc_data.get("hitPoints"):
@@ -831,16 +827,16 @@ def sync_active_encounter():
                             creature["conditions"] = npc_data.get("condition_affected", [])
                             changes_made = True
                 except Exception as e:
-                    error(f"FAILURE: Failed to sync NPC data to encounter", exception=e, category="encounter_setup")
+                    print(f"ERROR: Failed to sync NPC data to encounter: {str(e)}")
         
         # Save the encounter file if changes were made
         if changes_made:
             if not safe_write_json(encounter_file, encounter_data):
-                error(f"FAILURE: Failed to save encounter file: {encounter_file}", category="file_operations")
-            debug(f"SUCCESS: Active encounter {active_encounter_id} synced with latest character data", category="encounter_setup")
+                print(f"ERROR: Failed to save encounter file: {encounter_file}")
+            print(f"Active encounter {active_encounter_id} synced with latest character data")
             
     except Exception as e:
-        error(f"FAILURE: Error in sync_active_encounter", exception=e, category="encounter_setup")
+        print(f"ERROR in sync_active_encounter: {str(e)}")
 
 def filter_dynamic_fields(data):
     """Remove dynamic combat fields from character/monster data for system prompts"""
@@ -866,16 +862,12 @@ def filter_encounter_for_system_prompt(encounter_data):
         if field in filtered_data:
             del filtered_data[field]
     
-    debug("STATE_CHANGE: Filtered encounter data for system prompt, removed preroll cache", category="combat_events")
+    print(f"DEBUG: Filtered encounter data for system prompt, removed preroll cache")
     return filtered_data
 
 def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    """Main function to run the combat simulation"""
-   print(f"\n[COMBAT_MANAGER] ========== COMBAT SIMULATION START ==========")
-   print(f"[COMBAT_MANAGER] Encounter ID: {encounter_id}")
-   print(f"[COMBAT_MANAGER] Location: {location_info.get('location_name', 'Unknown')}")
-   print(f"[COMBAT_MANAGER] Starting INTERACTIVE combat with player turns")
-   debug(f"INITIALIZATION: Starting combat simulation for encounter {encounter_id}", category="combat_events")
+   print(f"DEBUG: Starting combat simulation for encounter {encounter_id}")
    
    # Initialize path manager
    from module_path_manager import ModulePathManager
@@ -908,17 +900,13 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    
    # Load encounter data
    json_file_path = f"modules/encounters/encounter_{encounter_id}.json"
-   print(f"[COMBAT_MANAGER] Loading encounter file: {json_file_path}")
    try:
        encounter_data = safe_json_load(json_file_path)
        if not encounter_data:
-           print(f"[COMBAT_MANAGER] Failed to load encounter file")
-           error(f"FAILURE: Failed to load encounter file {json_file_path}", category="file_operations")
+           print(f"ERROR: Failed to load encounter file {json_file_path}")
            return None, None
-       print(f"[COMBAT_MANAGER] Encounter loaded: {len(encounter_data.get('creatures', []))} creatures")
    except Exception as e:
-       print(f"[COMBAT_MANAGER] Exception loading encounter: {str(e)}")
-       error(f"FAILURE: Failed to load encounter file {json_file_path}", exception=e, category="file_operations")
+       print(f"ERROR: Failed to load encounter file {json_file_path}: {str(e)}")
        return None, None
    
    # Initialize data containers
@@ -931,50 +919,43 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
        if creature["type"] == "player":
            player_name = normalize_character_name(creature["name"])
            player_file = path_manager.get_character_path(player_name)
-           print(f"[COMBAT_MANAGER] Loading player: {creature['name']} from {player_file}")
            try:
                player_info = safe_json_load(player_file)
                if not player_info:
-                   print(f"[COMBAT_MANAGER] Failed to load player file")
-                   error(f"FAILURE: Failed to load player file: {player_file}", category="file_operations")
+                   print(f"ERROR: Failed to load player file: {player_file}")
                    return None, None
-               print(f"[COMBAT_MANAGER] Player loaded successfully")
            except Exception as e:
-               print(f"[COMBAT_MANAGER] Exception loading player: {str(e)}")
-               error(f"FAILURE: Failed to load player file {player_file}", exception=e, category="file_operations")
+               print(f"ERROR: Failed to load player file {player_file}: {str(e)}")
                return None, None
        
        elif creature["type"] == "enemy":
            monster_type = creature["monsterType"]
            if monster_type not in monster_templates:
                monster_file = path_manager.get_monster_path(monster_type)
-               print(f"[COMBAT_MANAGER] Loading monster: {creature['name']} (type: {monster_type})")
-               debug(f"FILE_OP: Attempting to load monster file: {monster_file}", category="file_operations")
+               print(f"DEBUG: Attempting to load monster file: {monster_file}")
                try:
                    monster_data = safe_json_load(monster_file)
                    if monster_data:
                        monster_templates[monster_type] = monster_data
-                       print(f"[COMBAT_MANAGER] Monster loaded successfully: {monster_type}")
-                       debug(f"SUCCESS: Successfully loaded monster: {monster_type}", category="file_operations")
+                       print(f"DEBUG: Successfully loaded monster: {monster_type}")
                    else:
-                       print(f"[COMBAT_MANAGER] Failed to load monster file")
-                       error(f"FILE_OP: Failed to load monster file: {monster_file}", category="file_operations")
+                       print(f"ERROR: Failed to load monster file: {monster_file}")
                except FileNotFoundError as e:
-                   error(f"FAILURE: Monster file not found: {monster_file}", category="file_operations")
-                   error(f"FAILURE: {str(e)}", category="file_operations")
+                   print(f"ERROR: Monster file not found: {monster_file}")
+                   print(f"ERROR: {str(e)}")
                    # Check available files for debugging
                    monster_dir = f"{path_manager.module_dir}/monsters"
                    if os.path.exists(monster_dir):
-                       debug(f"FILE_OP: Available monster files in {monster_dir}:", category="file_operations")
+                       print(f"DEBUG: Available monster files in {monster_dir}:")
                        for f in os.listdir(monster_dir):
-                           debug(f"  - {f}", category="combat_validation")
+                           print(f"  - {f}")
                    return None, None
                except json.JSONDecodeError as e:
-                   error(f"FAILURE: Invalid JSON in monster file {monster_file}", exception=e, category="file_operations")
+                   print(f"ERROR: Invalid JSON in monster file {monster_file}: {str(e)}")
                    return None, None
                except Exception as e:
-                   error(f"FAILURE: Failed to load monster file {monster_file}", exception=e, category="file_operations")
-                   error(f"FAILURE: Exception type: {type(e).__name__}", category="file_operations")
+                   print(f"ERROR: Failed to load monster file {monster_file}: {str(e)}")
+                   print(f"ERROR: Exception type: {type(e).__name__}")
                    import traceback
                    traceback.print_exc()
                    return None, None
@@ -989,21 +970,21 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
                    if npc_data:
                        npc_templates[npc_file_name_part] = npc_data
                    else:
-                       error(f"FAILURE: Failed to load NPC file: {npc_file}", category="file_operations")
+                       print(f"ERROR: Failed to load NPC file: {npc_file}")
                except Exception as e:
-                   error(f"FAILURE: Failed to load NPC file {npc_file}", exception=e, category="file_operations")
+                   print(f"ERROR: Failed to load NPC file {npc_file}: {str(e)}")
    
    # Populate the system messages with JSON data (filtering out dynamic fields)
    conversation_history[2]["content"] = f"Player Character:\n{json.dumps(filter_dynamic_fields(player_info), indent=2)}"
    conversation_history[3]["content"] = f"Monster Templates:\n{json.dumps({k: filter_dynamic_fields(v) for k, v in monster_templates.items()}, indent=2)}"
    # Verify that we loaded all necessary data
    if not monster_templates and any(c["type"] == "enemy" for c in encounter_data["creatures"]):
-       error("FAILURE: No monster templates were loaded!", category="file_operations")
+       print("ERROR: No monster templates were loaded!")
        return None, None
    
-   debug(f"INITIALIZATION: Loaded {len(monster_templates)} monster template(s)", category="file_operations")
+   print(f"DEBUG: Loaded {len(monster_templates)} monster template(s)")
    for k, v in monster_templates.items():
-       debug(f"  - {k}: {v.get('name', 'Unknown')}", category="combat_validation")
+       print(f"  - {k}: {v.get('name', 'Unknown')}")
    
    conversation_history[4]["content"] = f"Location:\n{json.dumps(location_info, indent=2)}"
    conversation_history.append({"role": "system", "content": f"NPC Templates:\n{json.dumps({k: filter_dynamic_fields(v) for k, v in npc_templates.items()}, indent=2)}"})
@@ -1051,7 +1032,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
                        npc_data = json.load(file)
                        creature_max_hp = npc_data["maxHitPoints"]
                except Exception as e:
-                   error(f"FAILURE: Failed to get correct max HP for {creature_name}", exception=e, category="combat_events")
+                   print(f"ERROR: Failed to get correct max HP for {creature_name}: {str(e)}")
                    creature_max_hp = creature.get("maxHitPoints", "Unknown")
            else:
                # For monsters, use the encounter data
@@ -1078,10 +1059,10 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    
    # Save the encounter data with initial preroll cache to disk
    save_json_file(json_file_path, encounter_data)
-   debug(f"STATE_CHANGE: Saved initial prerolls for round {round_num}", category="combat_events")
+   print(f"DEBUG: Saved initial prerolls for round {round_num}")
    
    # Get initial scene description before first user input
-   debug("AI_CALL: Getting initial scene description...", category="combat_events")
+   print("DEBUG: Getting initial scene description...")
    # Generate initiative order for validation context
    initiative_order = get_initiative_order(encounter_data)
    
@@ -1134,7 +1115,7 @@ Player: The setup scene for the combat has already been given and described to t
            
            # Check if the response is valid JSON
            if not is_valid_json(initial_response):
-               debug(f"VALIDATION: Invalid JSON response for initial scene (Attempt {attempt + 1}/{max_retries})", category="combat_validation")
+               print(f"DEBUG: Invalid JSON response for initial scene (Attempt {attempt + 1}/{max_retries})")
                if attempt < max_retries - 1:
                    # Add error feedback temporarily for next attempt
                    error_msg = "Your previous response was not a valid JSON object with 'narration' and 'actions' fields. Please provide a valid JSON response for the initial scene."
@@ -1151,7 +1132,7 @@ Player: The setup scene for the combat has already been given and described to t
                    })
                    continue
                else:
-                   warning("VALIDATION: Max retries exceeded for JSON validation. Using last response.", category="combat_validation")
+                   print("DEBUG: Max retries exceeded for JSON validation. Using last response.")
                    break
            
            # Parse the JSON response
@@ -1160,18 +1141,16 @@ Player: The setup scene for the combat has already been given and described to t
            actions = parsed_response["actions"]
            
            # Validate the combat logic
-           print(f"[COMBAT_MANAGER] Validating initial combat response (Attempt {attempt + 1}/{max_retries})")
-           debug("VALIDATION: Validating combat response...", category="combat_validation")
+           print("DEBUG: Validating combat response...")
            validation_result = validate_combat_response(initial_response, encounter_data, "The combat begins. Describe the scene and the enemies we face.", conversation_history)
            
            if validation_result is True:
                valid_response = True
-               print(f"[COMBAT_MANAGER] Initial scene validation PASSED on attempt {attempt + 1}")
-               debug("VALIDATION: Combat response validation passed", category="combat_validation")
-               debug(f"SUCCESS: Response validated successfully on attempt {attempt + 1}", category="combat_validation")
+               print("DEBUG: Combat response validation passed")
+               print(f"DEBUG: Response validated successfully on attempt {attempt + 1}")
                break
            else:
-               debug(f"VALIDATION: Response validation failed (Attempt {attempt + 1}/{max_retries})", category="combat_validation")
+               print(f"DEBUG: Response validation failed (Attempt {attempt + 1}/{max_retries})")
                
                # Handle both string and dict validation results
                if isinstance(validation_result, dict):
@@ -1184,7 +1163,7 @@ Player: The setup scene for the combat has already been given and described to t
                    reason = validation_result
                    feedback = f"Your previous response had issues with the combat logic: {sanitize_unicode_for_logging(reason)}"
                
-               debug(f"VALIDATION: Reason: {sanitize_unicode_for_logging(reason)}", category="combat_validation")
+               print(f"Reason: {sanitize_unicode_for_logging(reason)}")
                if attempt < max_retries - 1:
                    # Add error feedback temporarily for next attempt
                    error_msg = f"{feedback}. Please correct these issues and provide a valid initial scene description."
@@ -1202,14 +1181,14 @@ Player: The setup scene for the combat has already been given and described to t
                    })
                    continue
                else:
-                   warning("VALIDATION: Max retries exceeded for combat validation. Using last response.", category="combat_validation")
+                   print("DEBUG: Max retries exceeded for combat validation. Using last response.")
                    break
        except Exception as e:
-           error(f"FAILURE: Failed to get or validate initial scene response (Attempt {attempt + 1}/{max_retries})", exception=e, category="combat_events")
+           print(f"ERROR: Failed to get or validate initial scene response (Attempt {attempt + 1}/{max_retries}): {str(e)}")
            if attempt < max_retries - 1:
                continue
            else:
-               warning("VALIDATION: Max retries exceeded. Using last response if available.", category="combat_validation")
+               print("DEBUG: Max retries exceeded. Using last response if available.")
                break
    
    # Clean up conversation history based on validation outcome
@@ -1259,7 +1238,7 @@ Player: The setup scene for the combat has already been given and described to t
                json.dump(validation_log, f, indent=2)
                
        except Exception as e:
-           warning(f"FAILURE: Failed to write validation log", exception=e, category="file_operations")
+           print(f"WARNING: Failed to write validation log: {str(e)}")
    
    # Save the cleaned conversation history
    save_json_file(conversation_history_file, conversation_history)
@@ -1269,26 +1248,19 @@ Player: The setup scene for the combat has already been given and described to t
        try:
            parsed_response = json.loads(initial_response)
            narration = parsed_response["narration"]
-           print(f"[COMBAT_MANAGER] Initial combat narration ready")
-           print(f"Dungeon Master: {narration}")
-           # Flush to ensure first combat message is captured by web interface
-           import sys
-           sys.stdout.flush()
+           print(f"Dungeon Master: {SOFT_REDDISH_ORANGE}{narration}{RESET_COLOR}")
        except Exception as e:
-           print(f"[COMBAT_MANAGER] Failed to parse initial response")
-           error(f"FAILURE: Failed to parse initial response", exception=e, category="combat_events")
+           print(f"ERROR: Failed to parse initial response: {str(e)}")
    else:
-       error("FAILURE: Failed to get an initial scene description after multiple attempts", category="combat_events")
+       print("ERROR: Failed to get an initial scene description after multiple attempts")
    
    # Combat loop
-   print(f"[COMBAT_MANAGER] Entering main combat loop")
    while True:
        # Ensure all character data is synced to the encounter
-       print(f"[COMBAT_MANAGER] Syncing character data to encounter")
        sync_active_encounter()
        
        # REFRESH CONVERSATION HISTORY WITH LATEST DATA
-       debug("STATE_CHANGE: Refreshing conversation history with latest character data...", category="combat_events")
+       print("DEBUG: Refreshing conversation history with latest character data...")
        
        # Reload player info
        player_name = normalize_character_name(player_info["name"])
@@ -1296,12 +1268,12 @@ Player: The setup scene for the combat has already been given and described to t
        try:
            player_info = safe_json_load(player_file)
            if not player_info:
-               error(f"FAILURE: Failed to load player file: {player_file}", category="file_operations")
+               print(f"ERROR: Failed to load player file: {player_file}")
            else:
                # Replace player data in conversation history (with dynamic fields filtered)
                conversation_history[2]["content"] = f"Player Character:\n{json.dumps(filter_dynamic_fields(player_info), indent=2)}"
        except Exception as e:
-           error(f"FAILURE: Failed to reload player file {player_file}", exception=e, category="file_operations")
+           print(f"ERROR: Failed to reload player file {player_file}: {str(e)}")
        
        # Reload encounter data
        json_file_path = f"modules/encounters/encounter_{encounter_id}.json"
@@ -1314,7 +1286,7 @@ Player: The setup scene for the combat has already been given and described to t
                        conversation_history[i]["content"] = f"Encounter Details:\n{json.dumps(filter_encounter_for_system_prompt(encounter_data), indent=2)}"
                        break
        except Exception as e:
-           error(f"FAILURE: Failed to reload encounter file {json_file_path}", exception=e, category="file_operations")
+           print(f"ERROR: Failed to reload encounter file {json_file_path}: {str(e)}")
        
        # Reload NPC data
        for creature in encounter_data["creatures"]:
@@ -1327,7 +1299,7 @@ Player: The setup scene for the combat has already been given and described to t
                        # Update the NPC in the templates dictionary
                        npc_templates[npc_name] = npc_data
                except Exception as e:
-                   error(f"FAILURE: Failed to reload NPC file {npc_file}", exception=e, category="file_operations")
+                   print(f"ERROR: Failed to reload NPC file {npc_file}: {str(e)}")
        
        # Replace NPC templates in conversation history (with dynamic fields filtered)
        for i, msg in enumerate(conversation_history):
@@ -1346,12 +1318,13 @@ Player: The setup scene for the combat has already been given and described to t
        next_level_xp = player_info.get("exp_required_for_next_level", 0)
        current_time_str = party_tracker_data["worldConditions"].get("time", "Unknown")
        
-       stats_display = f"[{current_time_str}][HP:{current_hp}/{max_hp}][XP:{current_xp}/{next_level_xp}]"
+       stats_display = f"{LIGHT_OFF_GREEN}[{current_time_str}][HP:{current_hp}/{max_hp}][XP:{current_xp}/{next_level_xp}]{RESET_COLOR}"
+       player_name_colored = f"{SOLID_GREEN}{player_name_display}{RESET_COLOR}"
        
        try:
-           user_input_text = input(f"{stats_display} {player_name_display}: ")
+           user_input_text = input(f"{stats_display} {player_name_colored}: ")
        except EOFError:
-           error("FAILURE: EOF when reading a line in run_combat_simulation", category="combat_events")
+           print("ERROR in run_combat_simulation: EOF when reading a line")
            break
        
        # Skip empty input to prevent infinite loop
@@ -1408,7 +1381,7 @@ Player: The setup scene for the combat has already been given and described to t
                            npc_data = json.load(file)
                            creature_max_hp = npc_data["maxHitPoints"]
                    except Exception as e:
-                       error(f"FAILURE: Failed to get correct max HP for {creature_name}", exception=e, category="combat_events")
+                       print(f"ERROR: Failed to get correct max HP for {creature_name}: {str(e)}")
                        creature_max_hp = creature.get("maxHitPoints", "Unknown")
                else:
                    # For monsters, use the encounter data
@@ -1452,13 +1425,13 @@ Player: The setup scene for the combat has already been given and described to t
            }
            # Save the encounter data with preroll cache to disk
            save_json_file(json_file_path, encounter_data)
-           debug(f"STATE_CHANGE: Generated new prerolls for round {current_round}", category="combat_events")
+           print(f"DEBUG: Generated new prerolls for round {current_round}")
        else:
            # Use cached prerolls for current round
            preroll_text = encounter_data.get('preroll_cache', {}).get('rolls', '')
            if preroll_text:
                preroll_id = encounter_data.get('preroll_cache', {}).get('preroll_id', 'unknown')
-               debug(f"STATE_CHANGE: Reusing cached prerolls for round {current_round} (ID: {preroll_id})", category="combat_events")
+               print(f"DEBUG: Reusing cached prerolls for round {current_round} (ID: {preroll_id})")
            else:
                # Fallback if cache missing
                preroll_text = generate_prerolls(encounter_data, round_num=current_round)
@@ -1469,7 +1442,7 @@ Player: The setup scene for the combat has already been given and described to t
                }
                # Save the encounter data with preroll cache to disk
                save_json_file(json_file_path, encounter_data)
-               debug(f"STATE_CHANGE: Generated fallback prerolls for round {current_round}", category="combat_events")
+               print(f"DEBUG: Generated fallback prerolls for round {current_round}")
        
        # Generate initiative order for validation context
        initiative_order = get_initiative_order(encounter_data)
@@ -1511,17 +1484,12 @@ Player: {user_input_text}"""
        
        for attempt in range(max_retries):
            try:
-               print(f"[COMBAT_MANAGER] Making AI call for player action (attempt {attempt + 1}/{max_retries})")
-               print(f"[COMBAT_MANAGER] Processing player input: {user_input_text[:50]}..." if len(user_input_text) > 50 else f"[COMBAT_MANAGER] Processing player input: {user_input_text}")
-               
                response = client.chat.completions.create(
                    model=COMBAT_MAIN_MODEL,
                    temperature=TEMPERATURE,
                    messages=conversation_history
                )
                ai_response = response.choices[0].message.content.strip()
-               
-               print(f"[COMBAT_MANAGER] AI response received ({len(ai_response)} chars)")
                
                
                # Write raw response to debug file
@@ -1533,7 +1501,7 @@ Player: {user_input_text}"""
                
                # Check if the response is valid JSON
                if not is_valid_json(ai_response):
-                   debug(f"VALIDATION: Invalid JSON response from AI (Attempt {attempt + 1}/{max_retries})", category="combat_validation")
+                   print(f"DEBUG: Invalid JSON response from AI (Attempt {attempt + 1}/{max_retries})")
                    if attempt < max_retries - 1:
                        # Add error feedback temporarily for next attempt
                        error_msg = "Your previous response was not a valid JSON object with 'narration' and 'actions' fields. Please provide a valid JSON response."
@@ -1550,7 +1518,7 @@ Player: {user_input_text}"""
                        })
                        continue
                    else:
-                       warning("VALIDATION: Max retries exceeded for JSON validation. Skipping this response.", category="combat_validation")
+                       print("DEBUG: Max retries exceeded for JSON validation. Skipping this response.")
                        break
                
                # Parse the JSON response
@@ -1559,16 +1527,14 @@ Player: {user_input_text}"""
                actions = parsed_response["actions"]
                
                # Validate the combat logic
-               print(f"[COMBAT_MANAGER] Validating combat response (Attempt {attempt + 1}/{max_retries})")
                validation_result = validate_combat_response(ai_response, encounter_data, user_input_text, conversation_history)
                
                if validation_result is True:
                    valid_response = True
-                   print(f"[COMBAT_MANAGER] Combat response validation PASSED on attempt {attempt + 1}")
-                   debug(f"SUCCESS: Response validated successfully on attempt {attempt + 1}", category="combat_validation")
+                   print(f"DEBUG: Response validated successfully on attempt {attempt + 1}")
                    break
                else:
-                   debug(f"VALIDATION: Response validation failed (Attempt {attempt + 1}/{max_retries})", category="combat_validation")
+                   print(f"DEBUG: Response validation failed (Attempt {attempt + 1}/{max_retries})")
                    
                    # Handle both string and dict validation results
                    if isinstance(validation_result, dict):
@@ -1581,7 +1547,7 @@ Player: {user_input_text}"""
                        reason = validation_result
                        feedback = f"Your previous response had issues with the combat logic: {sanitize_unicode_for_logging(reason)}"
                    
-                   debug(f"VALIDATION: Reason: {sanitize_unicode_for_logging(reason)}", category="combat_validation")
+                   print(f"Reason: {sanitize_unicode_for_logging(reason)}")
                    if attempt < max_retries - 1:
                        # Add error feedback temporarily for next attempt
                        error_msg = f"{feedback}. Please correct these issues and try again."
@@ -1599,14 +1565,14 @@ Player: {user_input_text}"""
                        })
                        continue
                    else:
-                       warning("VALIDATION: Max retries exceeded for combat validation. Using last response.", category="combat_validation")
+                       print("DEBUG: Max retries exceeded for combat validation. Using last response.")
                        break
            except Exception as e:
-               error(f"FAILURE: Failed to get or validate AI response (Attempt {attempt + 1}/{max_retries})", exception=e, category="combat_events")
+               print(f"ERROR: Failed to get or validate AI response (Attempt {attempt + 1}/{max_retries}): {str(e)}")
                if attempt < max_retries - 1:
                    continue
                else:
-                   warning("VALIDATION: Max retries exceeded. Skipping this response.", category="combat_validation")
+                   print("DEBUG: Max retries exceeded. Skipping this response.")
                    break
        
        # Clean up conversation history based on validation outcome
@@ -1656,13 +1622,13 @@ Player: {user_input_text}"""
                    json.dump(validation_log, f, indent=2)
                    
            except Exception as e:
-               warning(f"FAILURE: Failed to write validation log", exception=e, category="file_operations")
+               print(f"WARNING: Failed to write validation log: {str(e)}")
        
        # Save the cleaned conversation history
        save_json_file(conversation_history_file, conversation_history)
        
        if not ai_response:
-           error("FAILURE: Failed to get a valid AI response after multiple attempts", category="combat_events")
+           print("ERROR: Failed to get a valid AI response after multiple attempts")
            continue
        
        # Process the validated response
@@ -1671,11 +1637,6 @@ Player: {user_input_text}"""
            narration = parsed_response["narration"]
            actions = parsed_response["actions"]
            
-           print(f"[COMBAT_MANAGER] Processing {len(actions)} combat actions")
-           for i, action in enumerate(actions):
-               action_type = action.get('action', action.get('type', 'unknown'))
-               print(f"[COMBAT_MANAGER] Action {i+1}: {action_type}")
-           
            # Extract and update combat round if provided
            if 'combat_round' in parsed_response:
                new_round = parsed_response['combat_round']
@@ -1683,18 +1644,18 @@ Player: {user_input_text}"""
                
                # Only update if round advances (never go backward)
                if isinstance(new_round, int) and new_round > current_round:
-                   debug(f"STATE_CHANGE: Combat advancing from round {current_round} to round {new_round}", category="combat_events")
+                   print(f"DEBUG: Combat advancing from round {current_round} to round {new_round}")
                    encounter_data['current_round'] = new_round
                    # Save the updated encounter data
                    save_json_file(f"modules/encounters/encounter_{encounter_id}.json", encounter_data)
                elif isinstance(new_round, int) and new_round < current_round:
-                   warning(f"VALIDATION: Ignoring backward round progression from {current_round} to {new_round}", category="combat_events")
+                   print(f"DEBUG: Ignoring backward round progression from {current_round} to {new_round}")
            
                
        except json.JSONDecodeError as e:
-           debug(f"VALIDATION: JSON parsing error - {str(e)}", category="combat_events")
-           debug("VALIDATION: Raw AI response:", category="combat_events")
-           debug(ai_response, category="combat_events")
+           print(f"DEBUG: JSON parsing error: {str(e)}")
+           print("DEBUG: Raw AI response:")
+           print(ai_response)
            continue
        
        # Check if this response includes an exit action BEFORE displaying narration
@@ -1706,10 +1667,7 @@ Player: {user_input_text}"""
        
        # Only display narration if there's no exit action
        if not has_exit_action:
-           print(f"Dungeon Master: {narration}")
-           # Flush to ensure combat messages are captured by web interface
-           import sys
-           sys.stdout.flush()
+           print(f"Dungeon Master: {SOFT_REDDISH_ORANGE}{narration}{RESET_COLOR}")
        
        # Process actions
        for action in actions:
@@ -1724,24 +1682,19 @@ Player: {user_input_text}"""
                    character_name = normalize_character_name(parameters.get("characterName", player_info["name"]))
                
                changes = parameters.get("changes", "")
-               print(f"[COMBAT_MANAGER] Updating character: {character_name}")
                try:
                    success = update_character_info(character_name, changes)
                    if success:
-                       print(f"[COMBAT_MANAGER] Character update successful: {character_name}")
-                       debug(f"SUCCESS: Character info updated successfully for {character_name}", category="character_updates")
+                       print(f"DEBUG: Character info updated successfully for {character_name}")
                    else:
-                       print(f"[COMBAT_MANAGER] Character update failed: {character_name}")
-                       error(f"FAILURE: Failed to update character info for {character_name}", category="character_updates")
+                       print(f"ERROR: Failed to update character info for {character_name}")
                except Exception as e:
-                   print(f"[COMBAT_MANAGER] Exception during character update: {str(e)}")
-                   error(f"FAILURE: Failed to update character info", exception=e, category="character_updates")
+                   print(f"ERROR: Failed to update character info: {str(e)}")
            
            elif action_type == "updatenpcinfo":
                # Legacy NPC update - redirect to unified system
                npc_name_for_update = path_manager.format_filename(parameters.get("npcName", ""))
                changes = parameters.get("changes", "")
-               print(f"[COMBAT_MANAGER] Updating NPC: {npc_name_for_update}")
                
                # Debug logging for character update transaction
                debug_log = {
@@ -1754,24 +1707,21 @@ Player: {user_input_text}"""
                }
                
                try:
-                   debug("STATE_CHANGE: Character update transaction starting...", category="npc_management")
-                   debug(f"STATE_CHANGE: Character Name: {npc_name_for_update}", category="npc_management")
-                   debug(f"STATE_CHANGE: Changes requested: {changes}", category="npc_management")
-                   debug(f"STATE_CHANGE: Raw action object: {json.dumps(action, indent=2)}", category="npc_management")
+                   print(f"DEBUG: Character update transaction starting...")
+                   print(f"DEBUG: Character Name: {npc_name_for_update}")
+                   print(f"DEBUG: Changes requested: {changes}")
+                   print(f"DEBUG: Raw action object: {json.dumps(action, indent=2)}")
                    
                    success = update_character_info(npc_name_for_update, changes)
                    
                    debug_log["update_result"] = "success" if success else "failed"
                    
                    if success:
-                       print(f"[COMBAT_MANAGER] NPC update successful: {npc_name_for_update}")
-                       debug(f"SUCCESS: Character {npc_name_for_update} info updated successfully", category="npc_management")
+                       print(f"DEBUG: Character {npc_name_for_update} info updated successfully")
                    else:
-                       print(f"[COMBAT_MANAGER] NPC update failed: {npc_name_for_update}")
-                       warning(f"FAILURE: Update failed for NPC {npc_name_for_update}", category="npc_management")
+                       print(f"DEBUG: Update failed for NPC {npc_name_for_update}")
                except Exception as e:
-                   print(f"[COMBAT_MANAGER] Exception during NPC update: {str(e)}")
-                   error(f"FAILURE: Failed to update NPC info", exception=e, category="npc_management")
+                   print(f"ERROR: Failed to update NPC info: {str(e)}")
                    debug_log["error"] = str(e)
                
                # Write debug log to file
@@ -1780,37 +1730,31 @@ Player: {user_input_text}"""
                        json.dump(debug_log, debug_file)
                        debug_file.write("\n")
                except Exception as log_error:
-                   error(f"FAILURE: Failed to write debug log", exception=log_error, category="file_operations")
+                   print(f"ERROR: Failed to write debug log: {str(log_error)}")
            
            elif action_type == "updateencounter":
                encounter_id_for_update = parameters.get("encounterId", encounter_id)
                changes = parameters.get("changes", "")
-               print(f"[COMBAT_MANAGER] Updating encounter: {encounter_id_for_update}")
                try:
                    updated_encounter_data = update_encounter.update_encounter(encounter_id_for_update, changes)
                    if updated_encounter_data:
                        # Normalize status values to lowercase
                        updated_encounter_data = normalize_encounter_status(updated_encounter_data)
                        encounter_data = updated_encounter_data
-                       print(f"[COMBAT_MANAGER] Encounter update successful")
-                       debug(f"SUCCESS: Encounter {encounter_id_for_update} updated successfully", category="encounter_management")
+                       print(f"DEBUG: Encounter {encounter_id_for_update} updated successfully")
                except Exception as e:
-                   print(f"[COMBAT_MANAGER] Encounter update failed: {str(e)}")
-                   error(f"FAILURE: Failed to update encounter", exception=e, category="encounter_management")
+                   print(f"ERROR: Failed to update encounter: {str(e)}")
            
            elif action_type == "exit":
-               print(f"[COMBAT_MANAGER] Combat ending - preparing summary")
-               debug("STATE_CHANGE: Combat has ended, preparing summary...", category="combat_events")
+               print("DEBUG: Combat has ended, preparing summary...")
                
                # Clear the preroll cache when combat ends
                if 'preroll_cache' in encounter_data:
                    del encounter_data['preroll_cache']
                    save_json_file(json_file_path, encounter_data)
-                   debug("SUCCESS: Cleared preroll cache for ended combat", category="combat_events")
+                   print("DEBUG: Cleared preroll cache for ended combat")
                
-               print(f"[COMBAT_MANAGER] Calculating XP rewards")
                xp_narrative, xp_awarded = calculate_xp()
-               print(f"[COMBAT_MANAGER] XP awarded: {xp_awarded}")
                # Still record this information in the conversation history, but don't print it to console
                conversation_history.append({"role": "user", "content": f"XP Awarded: {xp_narrative}"})
                save_json_file(conversation_history_file, conversation_history)
@@ -1822,60 +1766,57 @@ Player: {user_input_text}"""
                    player_info, _, _ = updated_data_tuple
                
                # Generate dialogue summary
-               print(f"[COMBAT_MANAGER] Generating combat summary")
                dialogue_summary_result = summarize_dialogue(conversation_history, location_info, party_tracker_data)
                
                # Generate chat history for debugging
-               print(f"[COMBAT_MANAGER] Saving combat history")
                generate_chat_history(conversation_history, encounter_id)
                
-               print(f"[COMBAT_MANAGER] Combat complete - exiting simulation")
-               info("STATE_CHANGE: Combat encounter closed. Exiting combat simulation.", category="combat_events")
+               print("Combat encounter closed. Exiting combat simulation.")
                return dialogue_summary_result, player_info
 
        # Save updated conversation history after processing all actions
        save_json_file(conversation_history_file, conversation_history)
 
 def main():
-    debug("INITIALIZATION: Starting main function in combat_manager", category="combat_events")
+    print("DEBUG: Starting main function in combat_manager")
     
     # Load party tracker
     try:
         party_tracker_data = safe_json_load("party_tracker.json")
         if not party_tracker_data:
-            error("FAILURE: Failed to load party_tracker.json", category="file_operations")
+            print("ERROR: Failed to load party_tracker.json")
             return
-        debug(f"FILE_OP: Loaded party_tracker: {party_tracker_data}", category="file_operations")
+        print(f"DEBUG: Loaded party_tracker: {party_tracker_data}")
     except Exception as e:
-        error(f"FAILURE: Failed to load party tracker", exception=e, category="file_operations")
+        print(f"ERROR: Failed to load party tracker: {str(e)}")
         return
     
     # Get active combat encounter
     active_combat_encounter = party_tracker_data["worldConditions"].get("activeCombatEncounter")
-    debug(f"STATE_CHANGE: Active combat encounter: {active_combat_encounter}", category="combat_events")
+    print(f"DEBUG: Active combat encounter: {active_combat_encounter}")
     
     if not active_combat_encounter:
-        info("STATE_CHANGE: No active combat encounter located.", category="combat_events")
+        print("No active combat encounter located.")
         return
     
     # Get location data
     current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
     current_area_id = get_current_area_id()
     
-    debug(f"STATE_CHANGE: Current location ID: {current_location_id}", category="encounter_setup")
-    debug(f"STATE_CHANGE: Current area ID: {current_area_id}", category="combat_events")
+    print(f"DEBUG: Current location ID: {current_location_id}")
+    print(f"DEBUG: Current area ID: {current_area_id}")
     
     location_data = get_location_data(current_location_id)
     
     if not location_data:
-        error(f"FAILURE: Failed to find location {current_location_id}", category="location_transitions")
+        print(f"ERROR: Failed to find location {current_location_id}")
         return
     
     # Run the combat simulation
     dialogue_summary, updated_player_info = run_combat_simulation(active_combat_encounter, party_tracker_data, location_data)
     
-    info("SUCCESS: Combat simulation completed.", category="combat_events")
-    info(f"SUMMARY: Dialogue Summary: {dialogue_summary}", category="combat_events")
+    print("Combat simulation completed.")
+    print(f"Dialogue Summary: {dialogue_summary}")
 
 if __name__ == "__main__":
     main()
