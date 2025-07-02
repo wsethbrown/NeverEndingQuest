@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 21,
   "maxHitPoints": 21,
-  "armorClass": 16,
+  "armorClass": 17,
   "initiative": 1,
   "speed": 30,
   "abilities": {
@@ -157,13 +157,6 @@
       "quantity": 1
     },
     {
-      "item_name": "Crossbow bolts",
-      "item_type": "ammunition",
-      "item_subtype": "other",
-      "description": "Ammunition for light crossbow.",
-      "quantity": 10
-    },
-    {
       "item_name": "Priest's pack",
       "item_type": "equipment",
       "item_subtype": "other",
@@ -231,12 +224,6 @@
       "item_type": "consumable",
       "item_subtype": "other",
       "description": "A pouch containing powdered silver, useful against magical thorns and certain creatures.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Pouch of Silver Coins",
-      "item_type": "equipment",
-      "description": "A small pouch containing 15 silver coins recovered from bandits and found at the tower.",
       "quantity": 1
     },
     {
@@ -334,7 +321,7 @@
     },
     {
       "item_name": "Torn but valuable cloth bundle",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "Torn cloth bundle containing a hidden gold ring.",
       "quantity": 1
     },
@@ -344,13 +331,25 @@
       "item_subtype": "potion",
       "description": "A potion that restores hit points when consumed.",
       "quantity": 1
+    },
+    {
+      "item_name": "Strip of waxed parchment with coded symbols",
+      "item_type": "equipment",
+      "description": "A strip of parchment treated with wax, inscribed with coded symbols for secret communication.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Fire-blackened tin mug",
+      "item_type": "equipment",
+      "description": "A tin mug blackened by fire, a keepsake from a past campfire.",
+      "quantity": 1
     }
   ],
   "ammunition": [
     {
-      "name": "Crossbow bolts",
-      "quantity": 20,
-      "description": "Ammunition for a light crossbow."
+      "name": "Crossbow bolt",
+      "quantity": 30,
+      "description": "Ammunition for crossbows."
     }
   ],
   "attacksAndSpellcasting": [
@@ -459,8 +458,8 @@
     ]
   },
   "currency": {
-    "gold": 38,
-    "silver": 16,
+    "gold": 37,
+    "silver": 21,
     "copper": 20
   },
   "experience_points": 800,

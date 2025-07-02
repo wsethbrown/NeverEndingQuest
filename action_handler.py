@@ -460,6 +460,15 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         print("\n[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER START ==========")
         print(f"[DEBUG ACTION_HANDLER] Action received: {action}")
         debug("INITIALIZATION: Creating combat encounter", category="combat_processing")
+        
+        # Update status to lock input during encounter building
+        try:
+            from status_manager import status_manager
+            status_manager.update_status("Prepare for battle - building encounter...", is_processing=True)
+            debug("STATE_CHANGE: Status updated to building encounter", category="combat_processing")
+        except Exception as e:
+            error(f"FAILURE: Could not update status for encounter building", exception=e, category="combat_processing")
+        
         try:
             print("[DEBUG ACTION_HANDLER] Calling combat_builder.py...")
             debug(f"SUBPROCESS: Sending to combat_builder.py: {json.dumps(action)}", category="combat_processing")
@@ -503,6 +512,14 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 print(f"[DEBUG ACTION_HANDLER] About to call run_combat_simulation with encounter: {encounter_id}")
                 print("[DEBUG ACTION_HANDLER] This should start INTERACTIVE turn-based combat...")
                 
+                # Update status to show combat is starting
+                try:
+                    from status_manager import status_manager
+                    status_manager.update_status("Combat in progress...", is_processing=True)
+                    debug("STATE_CHANGE: Status updated to combat in progress", category="combat_processing")
+                except Exception as e:
+                    error(f"FAILURE: Could not update status for combat start", exception=e, category="combat_processing")
+                
                 dialogue_summary, updated_player_info = run_combat_simulation(encounter_id, party_tracker_data, reloaded_location_data)
                 
                 print(f"[DEBUG ACTION_HANDLER] Combat simulation returned. Type of result: {type(dialogue_summary)}")
@@ -545,20 +562,44 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 else:
                     print("ERROR: Combat summary not found in combat conversation history")
                     print("[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER END WITH ERROR ==========\n")
+                    # Reset status on error
+                    try:
+                        from status_manager import status_ready
+                        status_ready()
+                    except Exception:
+                        pass
             else:
                 print(f"[DEBUG ACTION_HANDLER] FAILED! Encounter was not created successfully")
                 print(f"[DEBUG ACTION_HANDLER] Full stdout: {result.stdout}")
                 print(f"[DEBUG ACTION_HANDLER] Full stderr: {result.stderr}")
                 print("[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER END WITH FAILURE ==========\n")
+                # Reset status on failure
+                try:
+                    from status_manager import status_ready
+                    status_ready()
+                except Exception:
+                    pass
 
         except subprocess.CalledProcessError as e:
             print(f"Error occurred while running combat_builder.py: {e}")
             print("Error output:", e.stderr)
             print("Standard output:", e.stdout)
+            # Reset status on exception
+            try:
+                from status_manager import status_ready
+                status_ready()
+            except Exception:
+                pass
         except Exception as e:
             print(f"Unexpected error occurred: {e}")
             import traceback
             traceback.print_exc()
+            # Reset status on exception
+            try:
+                from status_manager import status_ready
+                status_ready()
+            except Exception:
+                pass
 
     elif action_type == ACTION_UPDATE_TIME:
         status_advancing_time()

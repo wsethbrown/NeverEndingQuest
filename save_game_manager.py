@@ -178,6 +178,7 @@ class SaveGameManager:
             "*.tmp",
             "*.bak",
             "*.backup_*",
+            "*_BU.json",  # Backup files for reset function only
             
             # Python source and schemas
             "*.py",
