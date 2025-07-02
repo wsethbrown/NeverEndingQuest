@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 21,
   "maxHitPoints": 21,
-  "armorClass": 17,
+  "armorClass": 16,
   "initiative": 1,
   "speed": 30,
   "abilities": {
@@ -235,7 +235,7 @@
     },
     {
       "item_name": "Pouch of Silver Coins",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A small pouch containing 15 silver coins recovered from bandits and found at the tower.",
       "quantity": 1
     },
@@ -334,7 +334,7 @@
     },
     {
       "item_name": "Torn but valuable cloth bundle",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "Torn cloth bundle containing a hidden gold ring.",
       "quantity": 1
     },
@@ -459,8 +459,8 @@
     ]
   },
   "currency": {
-    "gold": 37,
-    "silver": 26,
+    "gold": 38,
+    "silver": 16,
     "copper": 20
   },
   "experience_points": 800,
