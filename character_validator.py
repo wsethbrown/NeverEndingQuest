@@ -60,7 +60,18 @@ class AICharacterValidator:
     def __init__(self):
         """Initialize AI-powered validator"""
         self.logger = logging.getLogger(__name__)
-        self.client = OpenAI(api_key=OPENAI_API_KEY)
+        try:
+            self.client = OpenAI(api_key=OPENAI_API_KEY)
+        except Exception as e:
+            # Handle OpenAI client initialization error
+            error(f"Failed to initialize OpenAI client: {str(e)}", exception=e, category="character_validation")
+            error(f"OpenAI client initialization failed. This is likely an environment issue.", category="character_validation")
+            error(f"Error details: {type(e).__name__}: {str(e)}", category="character_validation")
+            info("Possible solutions:", category="character_validation")
+            info("1. Check if OpenAI library is properly installed: pip install openai==1.30.3", category="character_validation")
+            info("2. There may be a proxy or environment configuration issue", category="character_validation")
+            info("3. Try running in a different environment", category="character_validation")
+            raise
         self.corrections_made = []
         
     def validate_and_correct_character(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -74,6 +85,10 @@ class AICharacterValidator:
             AI-corrected character data with proper AC calculation
         """
         self.corrections_made = []
+        
+        # Log activation message for user visibility in debug window
+        character_name = character_data.get('name', 'Unknown')
+        info(f"[AI Validator] Activating character validator for {character_name}...", category="character_validation")
         
         # Use AI to validate and correct AC calculation
         corrected_data = self.ai_validate_armor_class(character_data)
@@ -92,6 +107,14 @@ class AICharacterValidator:
         # - Temporary effects expiration  
         # - Attack bonus calculation
         # - Saving throw bonuses
+        
+        # Log completion message
+        if self.corrections_made:
+            info(f"[AI Validator] Character validation complete for {character_name}: {len(self.corrections_made)} corrections made", category="character_validation")
+            for correction in self.corrections_made:
+                info(f"  - {correction}", category="character_validation")
+        else:
+            info(f"[AI Validator] Character validation complete for {character_name}: No corrections needed", category="character_validation")
         
         return corrected_data
     
@@ -373,6 +396,7 @@ Provide the corrected character data with proper AC calculation."""
                     if 'corrections_made' in parsed_response:
                         self.corrections_made = parsed_response['corrections_made']
                         for correction in self.corrections_made:
+                            debug(f"[AC Correction] {correction}", category="character_validation")
                             self.logger.info(f"AI Correction: {correction}")
                     
                     # Log AC breakdown
@@ -505,6 +529,7 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
                     if 'corrections_made' in parsed_response:
                         inventory_corrections = parsed_response['corrections_made']
                         for correction in inventory_corrections:
+                            debug(f"[Inventory Correction] {correction}", category="character_validation")
                             self.logger.info(f"AI Inventory Correction: {correction}")
                             self.corrections_made.append(f"Inventory: {correction}")
                     
@@ -648,6 +673,8 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
             Character data with consolidated currency and ammunition
         """
         
+        info(f"[AI Validator] Checking {character_data.get('name', 'Unknown')}'s inventory for consolidation opportunities...", category="character_validation")
+        
         max_attempts = 3
         attempt = 1
         
@@ -659,7 +686,7 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
                     model=CHARACTER_VALIDATOR_MODEL,
                     temperature=0.1,  # Low temperature for consistent validation
                     messages=[
-                        {"role": "system", "content": self.get_currency_consolidation_system_prompt()},
+                        {"role": "system", "content": self.get_inventory_consolidation_system_prompt()},
                         {"role": "user", "content": consolidation_prompt}
                     ]
                 )
@@ -831,11 +858,12 @@ Item #{i+1}:
         
         prompt += """
 
-Identify loose currency items that should be consolidated into the main currency totals. Remember:
-- Consolidate loose coins and emptied bags
+Identify loose currency items AND ammunition that should be consolidated. Remember:
+- Consolidate loose coins and emptied bags into currency
+- Move ammunition items (arrows, bolts) to the ammunition section
 - Preserve gems, containers, and valuables
-- Calculate new currency totals after consolidation
-- Return only the changes needed"""
+- Calculate new totals after consolidation
+- Return only the changes needed for both currency and ammunition"""
         
         return prompt
     
@@ -866,6 +894,10 @@ Identify loose currency items that should be consolidated into the main currency
                 if 'inventory' in parsed_response and 'currency' in parsed_response['inventory']:
                     updates['inventory'] = {'currency': parsed_response['inventory']['currency']}
                 
+                # Check for ammunition updates
+                if 'ammunition' in parsed_response and parsed_response['ammunition']:
+                    updates['ammunition'] = parsed_response['ammunition']
+                
                 # Check for equipment removals
                 if 'equipment' in parsed_response and parsed_response['equipment']:
                     updates['equipment'] = parsed_response['equipment']
@@ -874,8 +906,9 @@ Identify loose currency items that should be consolidated into the main currency
                 if 'consolidations_made' in parsed_response:
                     consolidations = parsed_response['consolidations_made']
                     for consolidation in consolidations:
+                        info(f"[Consolidation] {consolidation}", category="character_validation")
                         self.logger.info(f"AI Currency Consolidation: {consolidation}")
-                        self.corrections_made.append(f"Currency: {consolidation}")
+                        self.corrections_made.append(consolidation)
                 
                 return updates if updates else {}
                 
