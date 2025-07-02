@@ -932,6 +932,7 @@ Character Role: {character_role}
                 
                 # AI Character Validation after successful update
                 try:
+                    print(f"\n[Character Validator] Starting validation for {character_name}...")
                     validator = AICharacterValidator()
                     validated_data, validation_success = validator.validate_character_file_safe(character_path)
                     
