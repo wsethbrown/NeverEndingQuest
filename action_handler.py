@@ -743,13 +743,17 @@ Please use a valid location that exists in the current area ({current_area_id}) 
         if character_name:
             debug(f"STATE_CHANGE: Updating character info for {character_name}", category="character_updates")
             try:
+                debug(f"STATE_CHANGE: Calling update_character_info for {character_name}", category="character_updates")
                 success = update_character_info(character_name, changes)
+                debug(f"STATE_CHANGE: update_character_info returned {success}", category="character_updates")
                 if success:
                     info("SUCCESS: Character info updated successfully", category="character_updates")
                     needs_conversation_history_update = True
                 else:
+                    error(f"FAILURE: Failed to update character info for {character_name}", category="character_updates")
                     print(f"ERROR: Failed to update character info for {character_name}")
             except Exception as e:
+                error(f"FAILURE: Exception in character update", exception=e, category="character_updates")
                 print(f"ERROR: Failed to update character info: {str(e)}")
         else:
             print("ERROR: No character name provided and no player found in party tracker.")

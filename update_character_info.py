@@ -591,33 +591,46 @@ def _process_single_character(character_update: Dict[str, any]) -> Tuple[str, bo
     Returns:
         Tuple of (character_name, success, message)
     """
-    character_name = character_update['character_name']
+    original_character_name = character_update['character_name']
+    character_name = original_character_name
     changes = character_update['changes']
     character_role = character_update.get('character_role')
+    
+    # Normalize character name BEFORE path resolution
+    normalized_name = normalize_character_name(character_name)
+    if normalized_name != character_name:
+        debug(f"PARALLEL: Normalized character name from '{character_name}' to '{normalized_name}'", category="character_updates")
+        character_name = normalized_name
     
     try:
         # Get file lock for this character
         character_path = get_character_path(character_name, character_role)
+        debug(f"PARALLEL: Resolved path for '{character_name}' (role: {character_role}) to: '{character_path}'", category="character_updates")
         file_lock = get_file_lock(character_path)
         
         # Acquire lock and process
         with file_lock:
+            debug(f"PARALLEL: Acquired lock for {character_name}, calling _update_character_info_internal", category="character_updates")
             # Call the original update logic
             success = _update_character_info_internal(character_name, changes, character_role)
+            debug(f"PARALLEL: _update_character_info_internal returned {success} for {character_name}", category="character_updates")
             
             if success:
-                message = f"Successfully updated {character_name}"
+                message = f"Successfully updated {original_character_name}"
                 info(f"PARALLEL: {message}", category="character_updates")
             else:
-                message = f"Failed to update {character_name}"
+                message = f"Failed to update {original_character_name}"
                 error(f"PARALLEL: {message}", category="character_updates")
                 
-            return (character_name, success, message)
+            return (original_character_name, success, message)
             
     except Exception as e:
-        message = f"Error updating {character_name}: {str(e)}"
+        import traceback
+        message = f"Error updating {original_character_name}: {str(e)}"
         error(f"PARALLEL: {message}", exception=e, category="character_updates")
-        return (character_name, False, message)
+        # Add full traceback for debugging
+        debug(f"PARALLEL: Full traceback for {original_character_name}:\n{traceback.format_exc()}", category="character_updates")
+        return (original_character_name, False, message)
 
 def restore_character_from_backup(character_name, backup_type="latest", character_role=None):
     """
@@ -683,6 +696,7 @@ def _update_character_info_internal(character_name, changes, character_role=None
         bool: True if successful, False otherwise
     """
     
+    debug(f"STATE_CHANGE: _update_character_info_internal START", category="character_updates")
     debug(f"STATE_CHANGE: Updating character info for: {character_name}", category="character_updates")
     
     # Normalize character name to handle titles and descriptors
@@ -752,7 +766,7 @@ CRITICAL INSTRUCTIONS:
 9. SPELL SLOT RULE: Cantrips (0-level spells) do NOT consume spell slots. Only deduct spell slots for leveled spells (1st-9th level).
 10. HIT DICE RULE: IGNORE all references to hit dice, Hit Dice, HD, or hit dice restoration. Do NOT add hitDice, hitDiceRestored, or maxHitDice fields. The system does not track hit dice.
 11. REST HEALING: For long rests, simply restore hitPoints to maxHitPoints and restore spell slots. For short rests, restore some hitPoints based on the description. Do not implement hit dice mechanics.
-12. CURRENCY MANAGEMENT: Your primary function is to calculate additions and subtractions. NEVER replace the entire currency object. An instruction like "kept 13 gold" after a transaction means you must calculate the *change* (e.g., a subtraction) to reach that state. Do not simply return '{{"currency": {{"gold": 13}}}}' as this will delete the character's silver and copper. Always return the *change* to be applied.
+12. CURRENCY MANAGEMENT: When updating currency, always return the FINAL values after the transaction. If a character has 38 gold and gives 1 gold away, return {{"currency": {{"gold": 37, "silver": 16, "copper": 20}}}} with ALL currency types to preserve the full currency state. NEVER return just the change amount (like -1) or partial currency objects.
 13. STATUS-CONDITION SYNCHRONIZATION: Always maintain consistency between status, condition, and hitPoints fields:
     - When status changes to "alive" and hitPoints > 0, automatically set condition to "none" and clear condition_affected array
     - When hitPoints > 0 and status is "alive", condition cannot be "unconscious"
@@ -776,6 +790,9 @@ WRONG (inconsistent state): {{"hitPoints": 12, "status": "alive", "condition": "
 Character Role: {character_role}
 """
 
+    # Debug log the character's current currency
+    debug(f"CURRENCY_CHECK: {character_name} current currency: {character_data.get('currency', {})}", category="character_updates")
+    
     messages = [
         {"role": "system", "content": system_message},
         {"role": "user", "content": f"Current character data:\n{json.dumps(character_data, indent=2)}"},
@@ -807,15 +824,19 @@ Character Role: {character_role}
             
             raw_response = response.choices[0].message.content.strip()
             
-            # Enhanced debug logging for NPCs
+            # Enhanced debug logging for all characters
+            debug_info = {
+                "attempt": attempt,
+                "character_name": character_name,
+                "character_role": character_role,
+                "changes": changes,
+                "raw_ai_response": raw_response,
+                "current_currency": character_data.get('currency', {})
+            }
             if character_role == 'npc':
-                debug_info = {
-                    "attempt": attempt,
-                    "npc_name": character_name,
-                    "changes": changes,
-                    "raw_ai_response": raw_response
-                }
                 safe_write_json("debug_npc_update.json", debug_info)
+            else:
+                safe_write_json("debug_player_update.json", debug_info)
             
             # Clean and parse JSON response
             json_match = re.search(r'\{.*\}', raw_response, re.DOTALL)
@@ -824,6 +845,9 @@ Character Role: {character_role}
             
             clean_response = json_match.group()
             updates = json.loads(clean_response)
+            
+            # Debug log the parsed updates
+            debug(f"AI_RESPONSE: Parsed updates for {character_name}: {json.dumps(updates, indent=2)}", category="character_updates")
             
             # Fix common item_type mistakes before applying updates
             updates = fix_item_types(updates)
@@ -834,8 +858,8 @@ Character Role: {character_role}
             # Validate that critical fields weren't accidentally deleted
             critical_warnings = validate_critical_fields_preserved(character_data, updated_data, character_name)
             if critical_warnings:
-                for warning in critical_warnings:
-                    error(f"CRITICAL WARNING: {warning}", category="character_validation")
+                for crit_warning in critical_warnings:
+                    error(f"CRITICAL WARNING: {crit_warning}", category="character_validation")
                 error("FAILURE: Aborting update to prevent data loss. AI response may be incomplete.", category="character_validation")
                 
                 # Log the problematic update for debugging
@@ -940,7 +964,9 @@ Character Role: {character_role}
             debug(f"AI_CALL: Raw response: {raw_response}", category="ai_processing")
             
         except Exception as e:
+            import traceback
             error(f"FAILURE: Error during update (attempt {attempt})", exception=e, category="character_updates")
+            debug(f"FAILURE: Full traceback:\n{traceback.format_exc()}", category="character_updates")
         
         if attempt < max_attempts:
             attempt += 1
