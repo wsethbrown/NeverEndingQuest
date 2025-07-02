@@ -41,6 +41,16 @@ class CleanConsoleFormatter(logging.Formatter):
         if "ModulePathManager loaded module" in msg:
             return None  # Skip these entirely
             
+        # Format character update messages prominently
+        if "[Character Update]" in msg:
+            # Extract just the character update part for cleaner display
+            if "] [Character Update]" in msg:
+                # Remove script prefix for cleaner output
+                parts = msg.split("] [Character Update]")
+                if len(parts) >= 2:
+                    return f"[Character Update]{parts[1]}"
+            return msg  # Keep these messages visible
+            
         # Simplify file operation messages
         if "Successfully updated" in msg and "attempt" in msg:
             # Extract just the important part

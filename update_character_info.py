@@ -918,9 +918,17 @@ Character Role: {character_role}
             if safe_write_json(character_path, updated_data):
                 info(f"SUCCESS: Successfully updated {character_name} ({character_role})!", category="character_updates")
                 
-                # Log the changes
+                # Log the changes with more detail for user feedback
                 changed_fields = list(updates.keys())
                 debug(f"STATE_CHANGE: Updated fields: {', '.join(changed_fields)}", category="character_updates")
+                
+                # Provide user-friendly update notification
+                if 'equipment' in changed_fields:
+                    info(f"[Character Update] {character_name}'s equipment/inventory updated", category="character_updates")
+                elif 'currency' in changed_fields:
+                    info(f"[Character Update] {character_name}'s currency updated", category="character_updates")
+                else:
+                    info(f"[Character Update] {character_name}'s {', '.join(changed_fields)} updated", category="character_updates")
                 
                 # AI Character Validation after successful update
                 try:
