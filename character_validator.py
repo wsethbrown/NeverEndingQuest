@@ -83,7 +83,7 @@ class AICharacterValidator:
         
         # Use AI to consolidate loose currency into main currency counts
         # This identifies loose coins and empties coin bags while preserving gems and containers
-        corrected_data = self.ai_consolidate_inventory_currency(corrected_data)
+        corrected_data = self.ai_consolidate_inventory(corrected_data)
         
         # Validate status-condition consistency
         corrected_data = self.validate_status_condition_consistency(corrected_data)
@@ -626,14 +626,15 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
         # No corrections needed
         return character_data
     
-    def ai_consolidate_inventory_currency(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
+    def ai_consolidate_inventory(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Use AI to consolidate loose currency into main currency counts
+        Use AI to consolidate loose currency and ammunition into their proper sections
         Following the main character updater pattern: return only changes, use deep merge
         
         Consolidates:
-        - Loose coins (e.g., "5 gold pieces")
-        - Emptied coin bags (e.g., "bag of 50 gold")
+        - Loose coins (e.g., "5 gold pieces") into currency
+        - Emptied coin bags (e.g., "bag of 50 gold") into currency
+        - Ammunition items (e.g., "Crossbow bolts x 10") into ammunition section
         
         Preserves:
         - Gems and valuables (e.g., "ruby worth 150 gold")
@@ -644,7 +645,7 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
             character_data: Character JSON data
             
         Returns:
-            Character data with consolidated currency
+            Character data with consolidated currency and ammunition
         """
         
         max_attempts = 3
@@ -652,7 +653,7 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
         
         while attempt <= max_attempts:
             try:
-                consolidation_prompt = self.build_currency_consolidation_prompt(character_data)
+                consolidation_prompt = self.build_inventory_consolidation_prompt(character_data)
                 
                 response = self.client.chat.completions.create(
                     model=CHARACTER_VALIDATOR_MODEL,
@@ -686,18 +687,20 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
         
         return character_data
     
-    def get_currency_consolidation_system_prompt(self) -> str:
+    def get_inventory_consolidation_system_prompt(self) -> str:
         """
-        System prompt for AI currency consolidation
+        System prompt for AI inventory consolidation (currency and ammunition)
         
         Returns:
             System prompt with consolidation rules and examples
         """
-        return """You are an expert inventory manager for the 5th edition of the world's most popular role playing game. Your job is to consolidate loose currency items into the character's main currency totals while preserving player agency over containers and valuables.
+        return """You are an expert inventory manager for the 5th edition of the world's most popular role playing game. Your job is to consolidate loose currency items and ammunition into their proper sections while preserving player agency over containers and valuables.
 
-## PRIMARY TASK: CURRENCY CONSOLIDATION
+## PRIMARY TASKS: CURRENCY AND AMMUNITION CONSOLIDATION
 
-You must identify loose currency that should be added to the character's currency totals and remove those items from inventory.
+You must:
+1. Identify loose currency that should be added to the character's currency totals and remove those items from inventory
+2. Identify ammunition items in equipment that should be moved to the ammunition section
 
 ### CONSOLIDATION RULES:
 
@@ -714,6 +717,19 @@ You must identify loose currency that should be added to the character's currenc
 - Art objects: "golden statue worth 250gp", "ornate painting valued at 100gp"
 - Trade goods: "silk worth 100gp", "rare spices (50gp value)"
 - Ambiguous containers: Items where it's unclear if the player has opened them
+
+### AMMUNITION CONSOLIDATION RULES:
+
+**DO CONSOLIDATE (move to ammunition section and remove from equipment):**
+- Clear ammunition items: "Arrows x 20", "Crossbow bolts x 10", "20 arrows"
+- Ammunition with quantities: "Quiver with 30 arrows", "Bundle of 15 bolts"
+- Loose ammunition: "handful of arrows", "some crossbow bolts"
+
+**DO NOT CONSOLIDATE (keep in equipment):**
+- Magical ammunition: "+1 arrows", "flaming arrows", "arrows of slaying"
+- Special ammunition: "silvered arrows", "adamantine bolts"
+- Ammunition containers without clear count: "empty quiver", "bolt case"
+- Non-standard ammunition: "ballista bolts", "special ammunition"
 
 ### CURRENCY TYPES:
 - platinum (pp) = 10 gold
@@ -734,6 +750,13 @@ Return a JSON object with ONLY the changes needed:
       "copper": 200     // New total after consolidation
     }
   },
+  "ammunition": [
+    {
+      "name": "Crossbow bolt",
+      "quantity": 50,     // New total after consolidation
+      "description": "Ammunition for crossbows."
+    }
+  ],
   "equipment": [
     {"item_name": "exact name of item to remove", "_remove": true},
     {"item_name": "another item to remove", "_remove": true}
@@ -741,17 +764,21 @@ Return a JSON object with ONLY the changes needed:
   "consolidations_made": [
     "Consolidated X gold pieces into currency",
     "Emptied bag of Y gold into currency",
-    "Total gold increased from A to B"
+    "Total gold increased from A to B",
+    "Moved 'Crossbow bolts x 10' to ammunition section",
+    "Ammunition 'Crossbow bolt' increased from 40 to 50"
   ]
 }
 
 CRITICAL: 
 - Only return currency fields that changed
+- Only return ammunition entries that changed
 - Only list items that should be removed
-- Calculate new totals by adding consolidated amounts to existing currency
+- Calculate new totals by adding consolidated amounts to existing currency/ammunition
+- For ammunition, maintain the same name format (e.g., "Crossbow bolt" not "crossbow bolts")
 - Preserve player agency - when in doubt, don't consolidate"""
     
-    def build_currency_consolidation_prompt(self, character_data: Dict[str, Any]) -> str:
+    def build_inventory_consolidation_prompt(self, character_data: Dict[str, Any]) -> str:
         """
         Build consolidation prompt with character inventory
         
@@ -763,8 +790,9 @@ CRITICAL:
         """
         equipment = character_data.get('equipment', [])
         current_currency = character_data.get('inventory', {}).get('currency', {})
+        current_ammunition = character_data.get('ammunition', [])
         
-        prompt = f"""Please consolidate loose currency for this character:
+        prompt = f"""Please consolidate loose currency and ammunition for this character:
 
 CHARACTER NAME: {character_data.get('name', 'Unknown')}
 
@@ -775,6 +803,15 @@ CURRENT CURRENCY:
 - Silver: {current_currency.get('silver', 0)}
 - Copper: {current_currency.get('copper', 0)}
 
+CURRENT AMMUNITION:
+"""
+        for ammo in current_ammunition:
+            prompt += f"- {ammo.get('name', 'Unknown')}: {ammo.get('quantity', 0)}\n"
+        
+        if not current_ammunition:
+            prompt += "- None\n"
+            
+        prompt += """
 CURRENT INVENTORY:
 """
         
