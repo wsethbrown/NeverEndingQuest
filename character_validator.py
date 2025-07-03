@@ -46,6 +46,7 @@ making it flexible and adaptable to any character structure or edge case.
 """
 
 import json
+import copy
 import logging
 from typing import Dict, List, Any, Optional
 from openai import OpenAI
@@ -92,17 +93,10 @@ class AICharacterValidator:
         print(f"DEBUG: [AI Validator] Activating character validator for {character_name}...")
         info(f"[AI Validator] Activating character validator for {character_name}...", category="character_validation")
         
-        # Use AI to validate and correct AC calculation
-        corrected_data = self.ai_validate_armor_class(character_data)
+        # OPTIMIZATION: Batch all validations into a single AI call
+        corrected_data = self.ai_validate_all_batched(character_data)
         
-        # Use AI to validate and correct inventory categorization
-        corrected_data = self.ai_validate_inventory_categories(corrected_data)
-        
-        # Use AI to consolidate loose currency into main currency counts
-        # This identifies loose coins and empties coin bags while preserving gems and containers
-        corrected_data = self.ai_consolidate_inventory(corrected_data)
-        
-        # Validate status-condition consistency
+        # Validate status-condition consistency (non-AI validation)
         corrected_data = self.validate_status_condition_consistency(corrected_data)
         
         # Future: Add other AI validations here
@@ -658,6 +652,224 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
         except Exception as e:
             self.logger.error(f"Error validating character file {file_path}: {str(e)}")
             return {}, False
+    
+    def ai_validate_all_batched(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        OPTIMIZED: Batch all AI validations into a single request
+        Combines AC validation, inventory categorization, and currency consolidation
+        
+        Args:
+            character_data: Character JSON data
+            
+        Returns:
+            Character data with all AI corrections applied
+        """
+        character_name = character_data.get('name', 'Unknown')
+        
+        # Build combined validation prompt
+        validation_prompt = self.build_combined_validation_prompt(character_data)
+        
+        try:
+            response = self.client.chat.completions.create(
+                model=CHARACTER_VALIDATOR_MODEL,
+                temperature=0.1,  # Low temperature for consistent validation
+                messages=[
+                    {"role": "system", "content": self.get_combined_validator_system_prompt()},
+                    {"role": "user", "content": validation_prompt}
+                ]
+            )
+            
+            ai_response = response.choices[0].message.content.strip()
+            
+            # Parse AI response to get all corrections
+            corrected_data = self.parse_combined_validation_response(ai_response, character_data)
+            
+            return corrected_data
+            
+        except Exception as e:
+            self.logger.error(f"Batched AI validation failed: {str(e)}")
+            return character_data
+    
+    def get_combined_validator_system_prompt(self) -> str:
+        """
+        System prompt for combined validation tasks
+        """
+        return """You are an expert character validator for the 5th edition of the world's most popular role playing game. 
+You must perform THREE validation tasks in a single response:
+
+1. ARMOR CLASS VALIDATION
+2. INVENTORY CATEGORIZATION
+3. CURRENCY CONSOLIDATION
+
+## TASK 1: ARMOR CLASS VALIDATION
+
+Validate the Armor Class calculation based on equipped armor, shields, and abilities.
+
+AC Calculation Rules:
+- Base AC = 10 + Dexterity modifier (if no armor)
+- With armor: Use armor's base AC + allowed Dexterity modifier
+- Shield: +2 AC (if equipped)
+- Special abilities may add bonuses
+
+Common armor types:
+- Leather Armor: 11 + Dex modifier
+- Studded Leather: 12 + Dex modifier  
+- Chain Shirt: 13 + Dex modifier (max 2)
+- Scale Mail: 14 + Dex modifier (max 2)
+- Chain Mail: 16 (no Dex)
+- Plate: 18 (no Dex)
+
+## TASK 2: INVENTORY CATEGORIZATION
+
+""" + self.get_inventory_validator_system_prompt() + """
+
+## TASK 3: CURRENCY CONSOLIDATION
+
+""" + self.get_inventory_consolidation_system_prompt() + """
+
+## COMBINED OUTPUT FORMAT:
+
+Return a single JSON response with all corrections:
+{
+  "ac_validation": {
+    "current_ac": 17,
+    "calculated_ac": 16,
+    "correction_needed": true,
+    "breakdown": "Scale Mail (14) + Dex mod (+1) + Shield (+2) = 17",
+    "corrections": ["AC should be 17, not 16"]
+  },
+  "inventory_corrections": {
+    "corrections_made": ["List of inventory corrections"],
+    "equipment": [
+      {
+        "item_name": "exact item name",
+        "item_type": "corrected_type"
+      }
+    ]
+  },
+  "currency_consolidation": {
+    "corrections_made": ["List of consolidation actions"],
+    "currency": {
+      "gold": 125,
+      "silver": 50,
+      "copper": 200
+    },
+    "items_to_remove": ["5 gold pieces", "bag of 50 gold"],
+    "ammunition": [
+      {"name": "Arrow", "quantity": 30}
+    ],
+    "ammo_items_to_remove": ["Arrows x 20"]
+  }
+}
+
+IMPORTANT: Perform ALL THREE validations and return results for each in the combined JSON response.
+"""
+    
+    def build_combined_validation_prompt(self, character_data: Dict[str, Any]) -> str:
+        """
+        Build a combined prompt for all validations
+        """
+        character_name = character_data.get('name', 'Unknown')
+        
+        # Get individual prompts
+        ac_prompt = self.build_ac_validation_prompt(character_data)
+        inventory_prompt = self.build_inventory_validation_prompt(character_data)
+        consolidation_prompt = self.build_inventory_consolidation_prompt(character_data)
+        
+        combined_prompt = f"""Please validate ALL aspects of this character in a single response:
+
+CHARACTER NAME: {character_name}
+
+=== TASK 1: ARMOR CLASS VALIDATION ===
+{ac_prompt}
+
+=== TASK 2: INVENTORY CATEGORIZATION ===
+{inventory_prompt}
+
+=== TASK 3: CURRENCY CONSOLIDATION ===
+{consolidation_prompt}
+
+Remember to return a single JSON response with all three validation results."""
+        
+        return combined_prompt
+    
+    def parse_combined_validation_response(self, ai_response: str, original_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Parse the combined AI validation response
+        """
+        try:
+            # Try to extract JSON from AI response
+            start_idx = ai_response.find('{')
+            end_idx = ai_response.rfind('}') + 1
+            
+            if start_idx != -1 and end_idx != -1:
+                json_str = ai_response[start_idx:end_idx]
+                parsed_response = json.loads(json_str)
+                
+                result_data = copy.deepcopy(original_data)
+                
+                # Process AC validation
+                if 'ac_validation' in parsed_response:
+                    ac_result = parsed_response['ac_validation']
+                    if ac_result.get('correction_needed') and 'calculated_ac' in ac_result:
+                        result_data['armorClass'] = ac_result['calculated_ac']
+                        if 'corrections' in ac_result:
+                            self.corrections_made.extend(ac_result['corrections'])
+                    
+                    # Add equipment effects if needed
+                    if 'equipment_effects' in ac_result:
+                        result_data['equipment_effects'] = ac_result['equipment_effects']
+                
+                # Process inventory corrections
+                if 'inventory_corrections' in parsed_response:
+                    inv_result = parsed_response['inventory_corrections']
+                    if 'corrections_made' in inv_result:
+                        self.corrections_made.extend(inv_result['corrections_made'])
+                    
+                    if 'equipment' in inv_result and inv_result['equipment']:
+                        # Apply inventory updates using deep merge
+                        from update_character_info import deep_merge_dict
+                        inventory_updates = {'equipment': inv_result['equipment']}
+                        result_data = deep_merge_dict(result_data, inventory_updates)
+                
+                # Process currency consolidation
+                if 'currency_consolidation' in parsed_response:
+                    curr_result = parsed_response['currency_consolidation']
+                    if 'corrections_made' in curr_result:
+                        self.corrections_made.extend(curr_result['corrections_made'])
+                    
+                    # Update currency
+                    if 'currency' in curr_result:
+                        result_data['currency'] = curr_result['currency']
+                    
+                    # Remove consolidated items
+                    if 'items_to_remove' in curr_result and 'equipment' in result_data:
+                        items_to_remove = set(curr_result['items_to_remove'])
+                        result_data['equipment'] = [
+                            item for item in result_data['equipment']
+                            if item.get('item_name') not in items_to_remove
+                        ]
+                    
+                    # Update ammunition
+                    if 'ammunition' in curr_result:
+                        result_data['ammunition'] = curr_result['ammunition']
+                    
+                    # Remove ammo items from equipment
+                    if 'ammo_items_to_remove' in curr_result and 'equipment' in result_data:
+                        ammo_to_remove = set(curr_result['ammo_items_to_remove'])
+                        result_data['equipment'] = [
+                            item for item in result_data['equipment']
+                            if item.get('item_name') not in ammo_to_remove
+                        ]
+                
+                return result_data
+                
+        except (json.JSONDecodeError, KeyError) as e:
+            self.logger.error(f"Failed to parse combined AI response: {str(e)}")
+            self.logger.debug(f"AI Response was: {ai_response}")
+        
+        # Return original data if parsing fails
+        return original_data
     
     def validate_status_condition_consistency(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
         """
