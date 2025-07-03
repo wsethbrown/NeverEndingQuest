@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 19,
+  "hitPoints": 1,
   "maxHitPoints": 19,
   "armorClass": 15,
   "initiative": 4,
@@ -191,16 +191,6 @@
       "consumable": false
     },
     {
-      "item_name": "Quiver of Arrows",
-      "item_type": "ammunition",
-      "item_subtype": "other",
-      "description": "A quiver containing arrows recovered from the downed sentry.",
-      "quantity": 1,
-      "equipped": false,
-      "magical": false,
-      "consumable": false
-    },
-    {
       "item_name": "Thieves' Tools",
       "item_type": "equipment",
       "item_subtype": "other",
@@ -212,7 +202,7 @@
     },
     {
       "item_name": "Yew Ward Charm",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A protective charm made of braided yew wood, granting resistance to magical corruption from the Voidstone.",
       "quantity": 1,
       "equipped": true,
@@ -221,7 +211,7 @@
     },
     {
       "item_name": "Pouch of silver coins",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A small pouch containing silver coins.",
       "quantity": 1,
       "equipped": false,
@@ -252,7 +242,7 @@
     },
     {
       "item_name": "Small Pouch of Coins",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A small pouch containing assorted coins recovered from the sentry.",
       "quantity": 1,
       "equipped": false,
@@ -308,9 +298,9 @@
   ],
   "ammunition": [
     {
-      "name": "Crossbow bolt",
-      "quantity": 10,
-      "description": "Ammunition for crossbows."
+      "name": "Arrow",
+      "quantity": 15,
+      "description": "Ammunition for bows."
     }
   ],
   "attacksAndSpellcasting": [
@@ -381,7 +371,7 @@
     "preparedSpells": []
   },
   "currency": {
-    "gold": 74,
+    "gold": 75,
     "silver": 18,
     "copper": 38
   },

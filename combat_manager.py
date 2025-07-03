@@ -643,13 +643,27 @@ def update_json_schema(ai_response, player_info, encounter_data, party_tracker_d
     player_changes = f"Update the character's experience points. XP Awarded: {xp_info}"
     update_success = update_character_info(player_name, player_changes)
     
-    # Return original player info (update_character_info already handles file updates)
     if update_success:
         debug(f"SUCCESS: Successfully updated player XP", category="xp_tracking")
+        # CRITICAL FIX: Reload the player data after update to get the new XP
+        from module_path_manager import ModulePathManager
+        from encoding_utils import safe_json_load
+        
+        # Get current module from party tracker
+        current_module = party_tracker_data.get("module", "").replace(" ", "_")
+        path_manager = ModulePathManager(current_module)
+        player_file = path_manager.get_character_path(player_name)
+        
+        # Reload the updated player data
+        updated_player_info = safe_json_load(player_file)
+        if updated_player_info:
+            debug(f"SUCCESS: Reloaded player data with updated XP: {updated_player_info.get('experience_points', 'unknown')}", category="xp_tracking")
+        else:
+            error("FAILURE: Failed to reload updated player data", category="character_updates")
+            updated_player_info = player_info  # Fallback to original if reload fails
     else:
         error("FAILURE: Failed to update player info", category="character_updates")
-    
-    updated_player_info = player_info  # Return original data, file is already updated
+        updated_player_info = player_info  # Keep original on failure
 
     # Update encounter information (monsters only, no XP)
     encounter_id = encounter_data['encounterId']
@@ -1815,11 +1829,12 @@ Player: {user_input_text}"""
                conversation_history.append({"role": "user", "content": f"XP Awarded: {xp_narrative}"})
                save_json_file(conversation_history_file, conversation_history)
                
-               # Update XP for player
-               xp_update_response = f"Update the character's experience points. XP Awarded: {xp_awarded}"
-               updated_data_tuple = update_json_schema(xp_update_response, player_info, encounter_data, party_tracker_data)
-               if updated_data_tuple:
-                   player_info, _, _ = updated_data_tuple
+               # COMMENTED OUT: Manual player XP update - now handled by general character update
+               # This was causing double XP for players (getting total XP instead of per-participant)
+               # xp_update_response = f"Update the character's experience points. XP Awarded: {xp_awarded}"
+               # updated_data_tuple = update_json_schema(xp_update_response, player_info, encounter_data, party_tracker_data)
+               # if updated_data_tuple:
+               #     player_info, _, _ = updated_data_tuple
                
                # Generate dialogue summary
                print(f"[COMBAT_MANAGER] Generating combat summary")

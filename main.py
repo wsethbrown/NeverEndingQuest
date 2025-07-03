@@ -1228,6 +1228,12 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
                     return result
                 if result.get("status") == "needs_response":
                     # Combat summary was added to conversation history, get AI response
+                    # CRITICAL FIX: Save the current response to conversation history before getting new response
+                    current_response = {"role": "assistant", "content": response}
+                    conversation_history.append(current_response)
+                    save_conversation_history(conversation_history)
+                    
+                    # Now reload and get the new AI response
                     conversation_history = load_json_file("modules/conversation_history/conversation_history.json") or []
                     ai_response = get_ai_response(conversation_history)
                     return process_ai_response(ai_response, party_tracker_data, location_data, conversation_history)

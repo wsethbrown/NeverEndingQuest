@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 21,
+  "hitPoints": 1,
   "maxHitPoints": 21,
   "armorClass": 17,
   "initiative": 1,
@@ -214,7 +214,7 @@
     },
     {
       "item_name": "Sturdy gloves",
-      "item_type": "armor",
+      "item_type": "equipment",
       "item_subtype": "gloves",
       "description": "Protective gloves to shield hands from magical thorns.",
       "quantity": 1
@@ -321,7 +321,7 @@
     },
     {
       "item_name": "Torn but valuable cloth bundle",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "Torn cloth bundle containing a hidden gold ring.",
       "quantity": 1
     },
@@ -411,7 +411,7 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 3,
+        "current": 0,
         "max": 3
       },
       "level2": {
@@ -462,7 +462,7 @@
     "silver": 21,
     "copper": 20
   },
-  "experience_points": 800,
+  "experience_points": 825,
   "exp_required_for_next_level": 900,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",
