@@ -439,14 +439,70 @@ You must validate that each item in the character's inventory has the correct it
 - "equipment" - tools, torches, rope, containers, utility items
 - "miscellaneous" - rings, amulets, wands, truly miscellaneous items only
 
-### CATEGORIZATION RULES:
-- Arrows, Bolts, Bullets -> "ammunition"
-- Travel Ration, Food, Bread -> "consumable" 
-- Torch, Rope, Tools, Containers -> "equipment"
-- Potions, Scrolls -> "consumable"
-- Rings, Amulets, Wands -> "miscellaneous"
-- Any armor or protective gear -> "armor"
-- Any weapon -> "weapon"
+### DETAILED CATEGORIZATION RULES:
+
+#### WEAPONS -> "weapon"
+- All swords, axes, maces, hammers, daggers
+- All bows, crossbows, slings
+- Staffs and quarterstaffs used as weapons
+- Any item with attack bonus or damage dice
+
+#### ARMOR -> "armor"  
+- All armor (leather, chain, plate, etc.)
+- Shields of any type
+- Helmets, gauntlets, boots IF they provide AC bonus
+- Cloaks IF they provide AC or protection
+- Robes IF they provide magical protection
+
+#### AMMUNITION -> "ammunition"
+- Arrows, Bolts, Bullets, Darts
+- Sling stones, blowgun needles
+- Any projectile meant to be fired/thrown multiple times
+
+#### CONSUMABLES -> "consumable"
+- ALL potions (healing, magic, alcohol)
+- ALL scrolls
+- ALL food items (rations, bread, meat, fruit)
+- Trail rations, iron rations, dried foods
+- Flasks of oil, holy water, acid, alchemist's fire
+- Anything that is used up when activated
+
+#### EQUIPMENT -> "equipment"
+- Backpacks, sacks, chests, boxes (storage containers)
+- Rope, chain, grappling hooks, pitons
+- Torches, lanterns, candles (light sources)
+- Thieves' tools, healer's kits, tool sets
+- Bedrolls, tents, blankets
+- Maps, spyglasses, magnifying glasses
+- Musical instruments (lute, flute, drums)
+- Holy symbols IF actively used for spellcasting
+- Component pouches, spell focuses
+- Books, tomes, journals (non-magical)
+- Climbing gear, explorer's packs
+
+#### MISCELLANEOUS -> "miscellaneous"
+- Coin pouches, money bags, pouches of coins (NOT active storage containers)
+- Loose coins, gems, pearls, jewelry
+- Dice, cards, gaming sets, chess pieces
+- Lucky charms, tokens, trinkets (non-magical)
+- Holy symbols IF kept as keepsakes (not for spellcasting)
+- Feathers, twine, small decorative items
+- Art objects, statuettes, paintings
+- Letters, notes, deeds, contracts
+- Signet rings (non-magical)
+- Badges, medals, emblems
+- Amulets and talismans (non-magical)
+- Ward charms, protective tokens (non-magical)
+
+### CRITICAL EDGE CASE RULES:
+1. Coin containers (pouches, bags with coins) -> "miscellaneous" NOT "equipment"
+2. Gaming items (dice, cards) -> "miscellaneous" NOT "equipment"  
+3. Holy symbols -> "equipment" IF used for spellcasting, "miscellaneous" IF keepsake
+4. Charms/tokens -> "miscellaneous" UNLESS they provide mechanical benefits
+5. Books -> "equipment" IF spellbooks or reference manuals, "miscellaneous" IF just lore
+6. Containers -> "equipment" IF empty/general use, "miscellaneous" IF specifically for coins
+7. Jewelry -> "miscellaneous" UNLESS it provides magical effects
+8. Tools -> "equipment" IF professional tools, "miscellaneous" IF trinkets
 
 ### OUTPUT FORMAT:
 Return a JSON object with ONLY the changes needed:
