@@ -107,7 +107,7 @@ Remember to only update monster information and leave player and NPC data unchan
                             if "armorClass" in player_data:
                                 creature["armorClass"] = player_data["armorClass"]
                     except Exception as e:
-                        print(f"{RED}ERROR: Failed to sync player data from {player_file}: {str(e)}{RESET}")
+                        print(f"ERROR: Failed to sync player data from {player_file}: {str(e)}")
                         
                 elif creature["type"] == "npc":
                     npc_name = path_manager.format_filename(creature['name'])
@@ -124,7 +124,7 @@ Remember to only update monster information and leave player and NPC data unchan
                             if "armorClass" in npc_data:
                                 creature["armorClass"] = npc_data["armorClass"]
                     except Exception as e:
-                        print(f"{RED}ERROR: Failed to sync NPC data from {npc_file}: {str(e)}{RESET}")
+                        print(f"ERROR: Failed to sync NPC data from {npc_file}: {str(e)}")
 
             # Validate the updated info against the schema
             validate(instance=encounter_info, schema=schema)
@@ -144,7 +144,7 @@ Remember to only update monster information and leave player and NPC data unchan
         except json.JSONDecodeError as e:
             warning(f"VALIDATION: AI response is not valid JSON. Error: {e}. Retrying", category="encounter_updates")
         except ValidationError as e:
-            print(f"{RED}ERROR: Updated info does not match the schema. Error: {e}. Retrying...{RESET}")
+            print(f"ERROR: Updated info does not match the schema. Error: {e}. Retrying...")
 
         # If we've reached the maximum number of retries, return the original encounter info
         if attempt == max_retries - 1:
