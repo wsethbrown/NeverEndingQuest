@@ -338,6 +338,94 @@ def parse_json_safely(text):
     # If we still can't parse it, raise an exception
     raise json.JSONDecodeError("Unable to parse JSON from the given text", text, 0)
 
+def check_multiple_update_encounter(actions):
+    """Check if there are multiple updateEncounter actions that should be consolidated"""
+    if not isinstance(actions, list):
+        return False
+    
+    update_encounter_count = 0
+    for action in actions:
+        if isinstance(action, dict) and action.get("action", "").lower() == "updateencounter":
+            update_encounter_count += 1
+    
+    return update_encounter_count > 1
+
+def create_consolidation_prompt(parsed_response):
+    """Create a retry prompt for consolidating multiple updateEncounter actions"""
+    actions = parsed_response.get("actions", [])
+    
+    # Extract all updateEncounter changes
+    encounter_changes = []
+    encounter_id = None
+    
+    for action in actions:
+        if action.get("action", "").lower() == "updateencounter":
+            params = action.get("parameters", {})
+            if not encounter_id:
+                encounter_id = params.get("encounterId", "")
+            changes = params.get("changes", "")
+            if changes:
+                encounter_changes.append(changes)
+    
+    # Create the consolidated changes description
+    # Add proper punctuation between changes
+    consolidated_changes = ". ".join(encounter_changes)
+    if not consolidated_changes.endswith("."):
+        consolidated_changes += "."
+    
+    retry_prompt = f"""Your previous response contained multiple updateEncounter actions, but these must be consolidated into ONE action.
+
+IMPORTANT RULES:
+1. ALL monster/enemy changes must be in ONE updateEncounter action
+2. updateCharacterInfo is ONLY for players and NPCs (never monsters)
+3. updateEncounter is ONLY for monsters/enemies (never players or NPCs)
+
+You had {len(encounter_changes)} separate updateEncounter actions with these changes:
+{chr(10).join(f'- {change}' for change in encounter_changes)}
+
+Please provide a new response with:
+1. The same narration and combat_round
+2. ONE updateEncounter action combining all monster changes: "{consolidated_changes}"
+3. Keep all other actions (updateCharacterInfo, exit, etc.) unchanged
+
+Remember: One updateEncounter for ALL monster changes, separate updateCharacterInfo for each player/NPC change."""
+    
+    return retry_prompt
+
+def create_multiple_update_requery_prompt(parsed_response):
+    """Create a requery prompt when multiple updateEncounter actions are detected"""
+    actions = parsed_response.get("actions", [])
+    
+    # Count updateEncounter actions
+    update_encounter_count = 0
+    for action in actions:
+        if isinstance(action, dict) and action.get("action", "").lower() == "updateencounter":
+            update_encounter_count += 1
+    
+    retry_prompt = f"""Your response contained {update_encounter_count} updateEncounter actions. This is incorrect - you must use ONLY ONE updateEncounter action that describes ALL monster changes.
+
+CRITICAL ACTION DISTINCTION - NEVER CONFUSE THESE:
+- updateCharacterInfo: Use ONLY for players (your character) and NPCs (allies/neutral characters)
+  - These have their own character files that store their HP, inventory, etc.
+  - Example: updateCharacterInfo for "Eirik Hearthwise" (player) or "Scout Kira" (NPC)
+  
+- updateEncounter: Use ONLY for monsters/enemies in the encounter
+  - These exist only within the encounter file
+  - Use ONE updateEncounter action that describes ALL monster changes
+  - Example: updateEncounter describing "Goblin takes 10 damage (HP 15 -> 5). Orc takes 8 damage (HP 20 -> 12)."
+
+REMEMBER: 
+- The encounter file references player/NPC files but doesn't store their HP
+- Monster HP is stored directly in the encounter file
+- Use exactly ONE updateEncounter action for ALL monster changes in a turn
+
+Please provide a corrected response that:
+1. Uses exactly ONE updateEncounter action for all monster changes
+2. Uses updateCharacterInfo for any player/NPC changes
+3. Consolidates all monster updates into the single updateEncounter's changes field"""
+    
+    return retry_prompt
+
 def sanitize_unicode_for_logging(text):
     """
     Replace common Unicode characters with ASCII equivalents for logging compatibility.
@@ -1173,6 +1261,27 @@ Player: The setup scene for the combat has already been given and described to t
            narration = parsed_response["narration"]
            actions = parsed_response["actions"]
            
+           # Check for multiple updateEncounter actions
+           if check_multiple_update_encounter(actions):
+               debug(f"VALIDATION: Multiple updateEncounter actions detected (Attempt {attempt + 1}/{max_retries})", category="combat_validation")
+               if attempt < max_retries - 1:
+                   # Add requery feedback for next attempt
+                   requery_msg = create_multiple_update_requery_prompt(parsed_response)
+                   conversation_history.append({
+                       "role": "user",
+                       "content": requery_msg
+                   })
+                   # Log this validation attempt
+                   validation_attempts.append({
+                       "attempt": attempt + 1,
+                       "assistant_response": initial_response,
+                       "validation_error": requery_msg,
+                       "error_type": "multiple_update_encounter"
+                   })
+                   continue
+               else:
+                   warning("VALIDATION: Max retries exceeded for multiple updateEncounter correction. Using last response.", category="combat_validation")
+           
            # Validate the combat logic
            print(f"[COMBAT_MANAGER] Validating initial combat response (Attempt {attempt + 1}/{max_retries})")
            debug("VALIDATION: Validating combat response...", category="combat_validation")
@@ -1592,6 +1701,27 @@ Player: {user_input_text}"""
                parsed_response = json.loads(ai_response)
                narration = parsed_response["narration"]
                actions = parsed_response["actions"]
+               
+               # Check for multiple updateEncounter actions
+               if check_multiple_update_encounter(actions):
+                   debug(f"VALIDATION: Multiple updateEncounter actions detected (Attempt {attempt + 1}/{max_retries})", category="combat_validation")
+                   if attempt < max_retries - 1:
+                       # Add requery feedback for next attempt
+                       requery_msg = create_multiple_update_requery_prompt(parsed_response)
+                       conversation_history.append({
+                           "role": "user",
+                           "content": requery_msg
+                       })
+                       # Log this validation attempt
+                       validation_attempts.append({
+                           "attempt": attempt + 1,
+                           "assistant_response": ai_response,
+                           "validation_error": requery_msg,
+                           "error_type": "multiple_update_encounter"
+                       })
+                       continue
+                   else:
+                       warning("VALIDATION: Max retries exceeded for multiple updateEncounter correction. Using last response.", category="combat_validation")
                
                # Validate the combat logic
                print(f"[COMBAT_MANAGER] Validating combat response (Attempt {attempt + 1}/{max_retries})")

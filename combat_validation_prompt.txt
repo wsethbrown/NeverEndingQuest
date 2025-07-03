@@ -78,6 +78,28 @@ ACTION USAGE VALIDATION:
 - NEVER recommend updateCharacterInfo for monsters - it will always fail
 - Example monster update: {"action": "updateEncounter", "parameters": {"encounterId": "XXX", "changes": "Goblin takes 8 damage, HP from 15 to 7"}}
 
+CRITICAL ENTITY TYPE VALIDATION:
+- Check EVERY updateCharacterInfo action: The characterName MUST match a player or NPC in the encounter (type: "player" or "npc")
+- Check EVERY updateEncounter action: The changes MUST describe modifications to monsters/enemies ONLY (type: "enemy")
+- FLAG AS INVALID: Any updateCharacterInfo targeting a creature with type: "enemy"
+- FLAG AS INVALID: Any updateEncounter attempting to modify player or NPC HP
+- FLAG AS INVALID: Mixed entity updates (e.g., one action trying to update both monster and player HP)
+
+VALIDATION EXAMPLES:
+INVALID - Player HP via updateEncounter:
+{"action": "updateEncounter", "changes": "Eirik takes 5 damage, HP 13 -> 8"}
+CORRECT: Use updateCharacterInfo for Eirik (player)
+
+INVALID - Monster HP via updateCharacterInfo:
+{"action": "updateCharacterInfo", "characterName": "whispering_ashling", "changes": "Takes 5 damage"}
+CORRECT: Use updateEncounter for monsters
+
+VALID - Monster HP update:
+{"action": "updateEncounter", "changes": "Whispering Ashling takes 5 piercing damage from Kira's shortbow (HP 16 -> 11)"}
+
+VALID - Player HP update:
+{"action": "updateCharacterInfo", "characterName": "eirik_hearthwise", "changes": "Takes 8 necrotic damage from Ashling's touch (HP 21 -> 13)"}
+
 Respond with a JSON object like this:
 {
   "valid": true/false,
