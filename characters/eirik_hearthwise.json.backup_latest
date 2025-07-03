@@ -348,7 +348,7 @@
   "ammunition": [
     {
       "name": "Crossbow bolt",
-      "quantity": 55,
+      "quantity": 135,
       "description": "Ammunition for crossbows."
     }
   ],
@@ -462,7 +462,7 @@
     ]
   },
   "currency": {
-    "gold": 29,
+    "gold": 25,
     "silver": 20,
     "copper": 20
   },

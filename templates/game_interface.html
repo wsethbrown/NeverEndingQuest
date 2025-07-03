@@ -1589,6 +1589,7 @@
             margin: 0;
             font-size: 16px; /* MODIFIED: Reduced font size */
             line-height: 1.2; /* MODIFIED: Adjusted line height */
+            border-bottom: none; /* MODIFIED: Removed line under items */
         }
         
         .save-item:hover, .skill-item:hover {
@@ -1863,7 +1864,7 @@
         }
         
         .feature-name {
-            color: #e0e0e0;
+            color: #aaa; /* MODIFIED: Matched to skill/save name color */
             font-size: 16px;
         }
         
@@ -3018,25 +3019,33 @@
 
             // ADDED: Weapons and Ammunition sections
             html += '<div class="character-weapons-container">';
+            
+            // --- START OF WEAPONS & ATTACKS FIX ---
             if (data.attacksAndSpellcasting && data.attacksAndSpellcasting.length > 0) {
                 html += '<div class="stat-group"><h4>Weapons & Attacks</h4><div class="stat-group-content">';
                 data.attacksAndSpellcasting.forEach(weapon => { 
                     const description = (weapon.description || 'No description available.').replace(/"/g, '&quot;');
-                    html += `<div class="inventory-item" data-tooltip-title="${weapon.name}" data-tooltip-content="${description}"><div class="item-main"><span class="item-name">${weapon.name}</span><span class="weapon-bonus">${weapon.attackBonus >= 0 ? '+' : ''}${weapon.attackBonus}</span></div><div class="item-details"><span class="weapon-damage">Damage: ${weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`} (${weapon.damageType || 'damage'})</span></div></div>`; 
+                    const damageString = weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`;
+                    html += `<div class="feature-item" data-tooltip-title="${weapon.name}" data-tooltip-content="${description}">
+                                <span class="feature-name" style="color: #4CAF50;">${weapon.name} (${damageString})</span>
+                             </div>`; 
                 });
                 html += '</div></div>';
             } else {
                 html += '<div class="stat-group"><h4>Weapons & Attacks</h4><div class="stat-group-content"><div class="inventory-item"><span class="item-name">No weapons defined.</span></div></div></div>';
             }
-            if (data.ammunition && Object.keys(data.ammunition).length > 0) {
+            // --- END OF WEAPONS & ATTACKS FIX ---
+
+            if (data.ammunition && Array.isArray(data.ammunition) && data.ammunition.length > 0) {
                 html += '<div class="stat-group"><h4>Ammunition</h4><div class="stat-group-content">';
-                Object.entries(data.ammunition).forEach(([name, quantity]) => {
-                    html += `<div class="inventory-item"><div class="item-main"><span class="item-name">${name}</span><span class="item-qty">×${quantity}</span></div></div>`;
+                data.ammunition.forEach(ammo => {
+                    html += `<div class="inventory-item" style="border-bottom: none; padding: 2px 4px;"><div class="item-main" style="margin-bottom: 0;"><span class="item-name" style="font-size: 16px;">${ammo.name}</span><span class="item-qty" style="font-size: 16px;">×${ammo.quantity}</span></div></div>`;
                 });
                 html += '</div></div>';
             } else {
-                html += '<div class="stat-group"><h4>Ammunition</h4><div class="stat-group-content"><div class="inventory-item"><span class="item-name">No ammunition.</span></div></div></div>';
+                html += '<div class="stat-group"><h4>Ammunition</h4><div class="stat-group-content"><div class="inventory-item" style="border-bottom: none; padding: 2px 4px;"><span class="item-name" style="font-size: 16px;">No ammunition.</span></div></div></div>';
             }
+            
             html += '</div>';
 
             html += '</div>'; // close character-sheet

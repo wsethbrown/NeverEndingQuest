@@ -368,21 +368,23 @@ def merge_ammunition_arrays(base_ammunition, update_ammunition):
         update_name_lower = update_name.lower()
         update_quantity = update_ammo.get('quantity', 0)
         
-        if not update_name or update_quantity <= 0:
+        if not update_name:
             continue
         
         # Check if this ammunition already exists (case-insensitive)
         if update_name_lower in ammo_lookup:
-            # Add to existing ammunition quantity
+            # Add to existing ammunition quantity (supports negative for removals)
             ammo_lookup[update_name_lower]['quantity'] += update_quantity
         else:
-            # New ammunition type - ensure schema compliance
-            new_ammo = {
-                'name': update_name,  # Use original casing
-                'quantity': update_quantity,
-                'description': update_ammo.get('description', 'Standard ammunition.')
-            }
-            ammo_lookup[update_name_lower] = new_ammo
+            # New ammunition type - only add if positive quantity
+            if update_quantity > 0:
+                # Ensure schema compliance
+                new_ammo = {
+                    'name': update_name,  # Use original casing
+                    'quantity': update_quantity,
+                    'description': update_ammo.get('description', 'Standard ammunition.')
+                }
+                ammo_lookup[update_name_lower] = new_ammo
     
     # Convert back to array and filter out zero/negative quantities
     result = []
@@ -818,6 +820,14 @@ CRITICAL INSTRUCTIONS:
     Input: "Uses Divine Smite by expending a 2nd-level spell slot"
     Update: {{"spellcasting": {{"spellSlots": {{"level2": {{"current": [reduced by 1]}}}}}}}}
     Note: Do NOT update any Divine Smite usage counter - only the spell slot
+17. AMMUNITION MANAGEMENT - CRITICAL:
+    - When ADDING ammunition: Return the quantity to ADD as a positive number
+      Example: "Added 20 arrows" -> {{"ammunition": [{{"name": "arrows", "quantity": 20}}]}}
+    - When REMOVING/SELLING ammunition: Return the quantity to REMOVE as a NEGATIVE number
+      Example: "Removed 100 crossbow bolts" -> {{"ammunition": [{{"name": "crossbow bolts", "quantity": -100}}]}}
+      Example: "Sold 50 arrows" -> {{"ammunition": [{{"name": "arrows", "quantity": -50}}]}}
+    - NEVER return the final quantity after removal - return the CHANGE amount
+    - The system will automatically calculate the final quantity
 
 EQUIPMENT UPDATE EXAMPLES:
 CORRECT (updating one item): {{"equipment": [{{"item_name": "Jeweled dagger", "description": "updated description", "magical": true}}]}}
@@ -850,6 +860,19 @@ Changes: "Uses Divine Smite by expending a 2nd-level spell slot for extra damage
 Current spellSlots: {{"level2": {{"current": 2, "max": 2}}}}
 Update: {{"spellcasting": {{"spellSlots": {{"level2": {{"current": 1, "max": 2}}}}}}}}
 Note: Divine Smite is an ability that costs spell slots - update ONLY the spell slots, not any ability usage
+
+AMMUNITION EXAMPLES:
+Example 1 - Adding ammunition:
+Changes: "Added 25 crossbow bolts to inventory"
+Update: {{"ammunition": [{{"name": "crossbow bolts", "quantity": 25}}]}}
+
+Example 2 - Removing/Selling ammunition:  
+Changes: "Sold 100 crossbow bolts to Trader Sila"
+Update: {{"ammunition": [{{"name": "crossbow bolts", "quantity": -100}}]}}
+
+Example 3 - Multiple ammunition changes:
+Changes: "Bought 30 arrows, sold 50 crossbow bolts"
+Update: {{"ammunition": [{{"name": "arrows", "quantity": 30}}, {{"name": "crossbow bolts", "quantity": -50}}]}}
 
 Character Role: {character_role}
 """
