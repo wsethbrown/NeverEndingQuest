@@ -466,8 +466,12 @@
       "connectivity": [
         "RO03"
       ],
-      "areaConnectivity": [],
-      "areaConnectivityId": [],
+      "areaConnectivity": [
+        "Thornwood Wilds"
+      ],
+      "areaConnectivityId": [
+        "TW01"
+      ],
       "npcs": [],
       "monsters": [
         {

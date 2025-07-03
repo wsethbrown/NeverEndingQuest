@@ -104,10 +104,12 @@
         "TW06"
       ],
       "areaConnectivity": [
+        "Rangers' Outpost",
         "Rangers' Outpost"
       ],
       "areaConnectivityId": [
-        "RO01"
+        "RO01",
+        "RO06"
       ],
       "npcs": [],
       "monsters": [],
