@@ -5,6 +5,58 @@ Don't add emojis or special characters anywhere in the game code.
 
 When planning, always add creating a plan md file in case you get disconnected to the first step of the plan
 
+# Gemini Consultation Protocol - REQUIRED FOR NEW PROJECTS
+
+## When to Consult Gemini First
+Before starting ANY new feature, bug fix, or significant code modification, you MUST consult Gemini for project context:
+
+1. **Identify relevant files** based on the user's request
+2. **Upload all potentially related files** to Gemini (don't worry about uploading too many)
+3. **Ask for comprehensive context** about the systems involved
+4. **Get recommendations** on implementation approach
+
+## Required Consultation Pattern
+```python
+from gemini_tool import query_gemini
+
+prompt = '''
+User wants to: [describe the task/problem]
+
+Please analyze these files and provide:
+1. Overview of relevant systems and their interactions
+2. Key files, functions, and classes involved
+3. Current implementation patterns to follow
+4. Potential edge cases or issues to watch for
+5. Recommended implementation approach
+6. Specific file locations for the changes
+7. Any related systems that might be affected
+'''
+
+result = query_gemini(prompt, files=[
+    # Upload ALL potentially relevant files
+    'main.py',
+    'relevant_module.py',
+    'related_prompt.txt',
+    'schema_files.json',
+    # Include test files, prompts, configs - better too many than too few
+])
+```
+
+## Benefits of This Approach
+- **Faster file discovery** - Gemini can process many files at once
+- **Better system understanding** - See how components interact
+- **Reduced scanning** - No need to grep through files piece by piece
+- **Comprehensive solutions** - Understand full context before coding
+- **Catch edge cases early** - Gemini can spot potential issues
+
+## Example Use Cases
+- Bug fixes: Upload error logs, related modules, and test files
+- New features: Upload existing similar features, schemas, and integration points
+- Prompt improvements: Upload all related prompts and their validators
+- Refactoring: Upload entire subsystems to understand dependencies
+
+Remember: It's better to give Gemini too much context than too little. Upload liberally!
+
 # Unicode and Special Characters - CRITICAL WARNING
 ## NEVER USE UNICODE CHARACTERS IN ANY PYTHON CODE
 Windows console (cp1252) cannot display Unicode characters and will cause UnicodeEncodeError crashes that break the entire game. This is a CRITICAL requirement.
