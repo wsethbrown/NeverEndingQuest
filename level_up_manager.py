@@ -122,6 +122,18 @@ class LevelUpSession:
 
             if is_valid:
                 changes = update_params.get("changes", "{}")
+                
+                # Strip experience_points from level-up changes to prevent XP bug
+                try:
+                    import json
+                    changes_dict = json.loads(changes)
+                    if "experience_points" in changes_dict:
+                        print(f"[Level Up Session] Removing experience_points from level-up changes")
+                        del changes_dict["experience_points"]
+                        changes = json.dumps(changes_dict)
+                except:
+                    pass  # If parsing fails, just pass through original
+                
                 if update_character_info(self.character_name, changes):
                     print(f"[Level Up Session] SUCCESS! {self.character_name} updated.")
                     self.is_complete = True
