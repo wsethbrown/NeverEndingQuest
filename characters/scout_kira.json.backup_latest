@@ -202,7 +202,7 @@
     },
     {
       "item_name": "Yew Ward Charm",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A protective charm made of braided yew wood, granting resistance to magical corruption from the Voidstone.",
       "quantity": 1,
       "equipped": true,
@@ -288,7 +288,7 @@
     },
     {
       "item_name": "Worn Set of Bone Dice",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "description": "A worn set of bone dice, likely used by the bandits for gambling.",
       "quantity": 1,
       "equipped": false,
@@ -299,7 +299,7 @@
   "ammunition": [
     {
       "name": "Arrow",
-      "quantity": 14,
+      "quantity": 10,
       "description": "Ammunition for bows."
     }
   ],

@@ -2004,6 +2004,21 @@ Player: {user_input_text}"""
                # if updated_data_tuple:
                #     player_info, _, _ = updated_data_tuple
                
+               # CRITICAL FIX: Clear the active combat encounter from party_tracker.json to prevent the loop.
+               # This is the essential logic from the old update_json_schema function.
+               if 'worldConditions' in party_tracker_data and 'activeCombatEncounter' in party_tracker_data['worldConditions']:
+                   last_encounter_id = party_tracker_data["worldConditions"]["activeCombatEncounter"]
+                   if last_encounter_id:
+                       party_tracker_data["worldConditions"]["lastCompletedEncounter"] = last_encounter_id
+                   party_tracker_data['worldConditions']['activeCombatEncounter'] = ""
+                   debug(f"STATE_CHANGE: Cleared active combat encounter. Last completed encounter is now {last_encounter_id}", category="combat_events")
+                   
+                   # Save the updated party_tracker.json file
+                   if not safe_write_json("party_tracker.json", party_tracker_data):
+                       error("FILE_OP: Failed to save party_tracker.json after clearing active encounter", category="file_operations")
+                   else:
+                       info("SUCCESS: Party tracker updated, active combat encounter cleared.", category="combat_events")
+               
                # Generate dialogue summary
                print(f"[COMBAT_MANAGER] Generating combat summary")
                dialogue_summary_result = summarize_dialogue(conversation_history, location_info, party_tracker_data)
