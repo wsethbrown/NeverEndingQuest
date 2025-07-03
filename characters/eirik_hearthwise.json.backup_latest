@@ -4,7 +4,7 @@
   "name": "Eirik Hearthwise",
   "type": "player",
   "size": "Medium",
-  "level": 2,
+  "level": 3,
   "race": "Human",
   "class": "Cleric",
   "alignment": "chaotic good",
@@ -12,8 +12,8 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 21,
-  "maxHitPoints": 21,
+  "hitPoints": 28,
+  "maxHitPoints": 28,
   "armorClass": 17,
   "initiative": 1,
   "speed": 30,
@@ -81,7 +81,7 @@
     },
     {
       "name": "Preserve Life (Channel Divinity Option)",
-      "description": "As an action, you can restore a total of HP equal to five times your cleric level (10 HP at level 2), divided among any creatures within 30 feet of you, not to heal a creature above half its hit point maximum.",
+      "description": "As an action, you can restore a total of HP equal to five times your cleric level (15 HP at level 3), divided among any creatures within 30 feet of you, not to heal a creature above half its hit point maximum.",
       "source": "Life Domain"
     }
   ],
@@ -214,7 +214,7 @@
     },
     {
       "item_name": "Sturdy gloves",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "item_subtype": "gloves",
       "description": "Protective gloves to shield hands from magical thorns.",
       "quantity": 1
@@ -348,7 +348,7 @@
   "ammunition": [
     {
       "name": "Crossbow bolt",
-      "quantity": 30,
+      "quantity": 55,
       "description": "Ammunition for crossbows."
     }
   ],
@@ -396,11 +396,14 @@
         "Cure Wounds",
         "Healing Word",
         "Detect Magic",
-        "Protection from Evil and Good",
         "Sanctuary",
-        "Shield of Faith"
+        "Shield of Faith",
+        "Aid"
       ],
-      "level2": [],
+      "level2": [
+        "Aid",
+        "Spiritual Weapon"
+      ],
       "level3": [],
       "level4": [],
       "level5": [],
@@ -411,12 +414,12 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 0,
-        "max": 3
+        "current": 4,
+        "max": 4
       },
       "level2": {
-        "current": 0,
-        "max": 0
+        "current": 2,
+        "max": 2
       },
       "level3": {
         "current": 0,
@@ -452,18 +455,19 @@
       "Cure Wounds",
       "Healing Word",
       "Detect Magic",
-      "Protection from Evil and Good",
       "Sanctuary",
-      "Shield of Faith"
+      "Shield of Faith",
+      "Aid",
+      "Spiritual Weapon"
     ]
   },
   "currency": {
-    "gold": 34,
+    "gold": 29,
     "silver": 20,
     "copper": 20
   },
-  "experience_points": 900,
-  "exp_required_for_next_level": 900,
+  "experience_points": 2700,
+  "exp_required_for_next_level": 6500,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",
   "ideals": "Redemption. Every life saved is a step toward atoning for the lives he failed to save.",

@@ -299,7 +299,7 @@
   "ammunition": [
     {
       "name": "Arrow",
-      "quantity": 6,
+      "quantity": 36,
       "description": "Ammunition for bows."
     }
   ],
@@ -371,8 +371,8 @@
     "preparedSpells": []
   },
   "currency": {
-    "gold": 77,
-    "silver": 18,
+    "gold": 79,
+    "silver": 19,
     "copper": 38
   },
   "experience_points": 875,

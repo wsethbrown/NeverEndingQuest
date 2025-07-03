@@ -290,13 +290,32 @@ def deep_merge_dict(base_dict, update_dict):
     """Recursively merge update_dict into base_dict, preserving nested structures"""
     result = copy.deepcopy(base_dict)
     
+    # Define arrays that need special merge handling (identified by name fields)
+    named_arrays = {
+        'ammunition': 'name',
+        'attacksAndSpellcasting': 'name', 
+        'classFeatures': 'name',
+        'equipment': 'item_name',
+        'equipment_effects': 'name',
+        'feats': 'name',
+        'racialTraits': 'name',
+        'temporaryEffects': 'name'
+    }
+    
     for key, value in update_dict.items():
         if key in result and isinstance(result[key], dict) and isinstance(value, dict):
             # Recursively merge nested dictionaries
             result[key] = deep_merge_dict(result[key], value)
-        elif key == 'equipment' and isinstance(result.get(key), list) and isinstance(value, list):
-            # Special handling for equipment arrays - merge items by name
-            result[key] = merge_equipment_arrays(result[key], value)
+        elif key in named_arrays and isinstance(result.get(key), list) and isinstance(value, list):
+            # Special handling for arrays with named items
+            name_field = named_arrays[key]
+            if key == 'equipment':
+                result[key] = merge_equipment_arrays(result[key], value)
+            elif key == 'ammunition':
+                result[key] = merge_ammunition_arrays(result[key], value)
+            else:
+                # For other named arrays, use generic merge
+                result[key] = merge_named_arrays(result[key], value, name_field)
         else:
             # Replace or add the value
             result[key] = copy.deepcopy(value)
@@ -330,6 +349,80 @@ def merge_equipment_arrays(base_equipment, update_equipment):
     
     # Remove items with zero or negative quantity or marked with _remove flag
     result = [item for item in result if item.get('quantity', 1) > 0 and not item.get('_remove', False)]
+    
+    return result
+
+def merge_ammunition_arrays(base_ammunition, update_ammunition):
+    """Merge ammunition arrays by name, adding quantities for existing items and ensuring schema compliance"""
+    # Create a lookup map from the base ammunition array
+    ammo_lookup = {}
+    for ammo in base_ammunition:
+        # Use lowercase name as key for case-insensitive matching
+        key = ammo.get('name', '').lower().strip()
+        if key:
+            ammo_lookup[key] = copy.deepcopy(ammo)
+    
+    # Process updates
+    for update_ammo in update_ammunition:
+        update_name = update_ammo.get('name', '').strip()
+        update_name_lower = update_name.lower()
+        update_quantity = update_ammo.get('quantity', 0)
+        
+        if not update_name or update_quantity <= 0:
+            continue
+        
+        # Check if this ammunition already exists (case-insensitive)
+        if update_name_lower in ammo_lookup:
+            # Add to existing ammunition quantity
+            ammo_lookup[update_name_lower]['quantity'] += update_quantity
+        else:
+            # New ammunition type - ensure schema compliance
+            new_ammo = {
+                'name': update_name,  # Use original casing
+                'quantity': update_quantity,
+                'description': update_ammo.get('description', 'Standard ammunition.')
+            }
+            ammo_lookup[update_name_lower] = new_ammo
+    
+    # Convert back to array and filter out zero/negative quantities
+    result = []
+    for ammo in ammo_lookup.values():
+        if ammo.get('quantity', 0) > 0:
+            result.append(ammo)
+    
+    # Sort by name for consistent ordering
+    result.sort(key=lambda x: x.get('name', '').lower())
+    
+    return result
+
+def merge_named_arrays(base_array, update_array, name_field):
+    """Generic merge for arrays of objects identified by a name field"""
+    # Create lookup map from base array
+    lookup = {}
+    for item in base_array:
+        key = item.get(name_field, '').lower().strip()
+        if key:
+            lookup[key] = copy.deepcopy(item)
+    
+    # Process updates
+    for update_item in update_array:
+        update_name = update_item.get(name_field, '').strip()
+        update_name_lower = update_name.lower()
+        
+        if not update_name:
+            continue
+        
+        if update_name_lower in lookup:
+            # Update existing item - merge all fields
+            for field, value in update_item.items():
+                lookup[update_name_lower][field] = value
+        else:
+            # Add new item
+            lookup[update_name_lower] = copy.deepcopy(update_item)
+    
+    # Convert back to array and sort by name
+    result = list(lookup.values())
+    result.sort(key=lambda x: x.get(name_field, '').lower())
     
     return result
 
@@ -761,8 +854,9 @@ Note: Divine Smite is an ability that costs spell slots - update ONLY the spell 
 Character Role: {character_role}
 """
 
-    # Debug log the character's current currency
+    # Debug log the character's current currency and ammunition
     debug(f"CURRENCY_CHECK: {character_name} current currency: {character_data.get('currency', {})}", category="character_updates")
+    debug(f"AMMUNITION_CHECK: {character_name} current ammunition: {character_data.get('ammunition', [])}", category="character_updates")
     
     messages = [
         {"role": "system", "content": system_message},
@@ -794,6 +888,10 @@ Character Role: {character_role}
             )
             
             raw_response = response.choices[0].message.content.strip()
+            
+            # Log the raw LLM response for debugging ammunition issues
+            if "ammunition" in changes.lower() or "bolt" in changes.lower() or "arrow" in changes.lower():
+                debug(f"LLM_RESPONSE for ammunition update: {raw_response[:500]}...", category="character_updates")
             
             # Enhanced debug logging for NPCs
             if character_role == 'npc':
