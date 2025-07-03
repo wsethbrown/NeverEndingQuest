@@ -1296,9 +1296,23 @@ Player: The setup scene for the combat has already been given and described to t
    
    # Combat loop
    print(f"[COMBAT_MANAGER] Entering main combat loop")
+   
+   # Update status to show combat is active
+   try:
+       from status_manager import status_manager
+       status_manager.update_status("Combat in progress - awaiting your action", is_processing=False)
+   except Exception as e:
+       debug(f"Could not update status: {e}", category="status")
    while True:
        # Ensure all character data is synced to the encounter
        print(f"[COMBAT_MANAGER] Syncing character data to encounter")
+       
+       # Clear processing status when ready for player input
+       try:
+           from status_manager import status_manager
+           status_manager.update_status("", is_processing=False)
+       except Exception as e:
+           debug(f"Could not clear status: {e}", category="status")
        sync_active_encounter()
        
        # REFRESH CONVERSATION HISTORY WITH LATEST DATA
@@ -1528,6 +1542,13 @@ Player: {user_input_text}"""
                print(f"[COMBAT_MANAGER] Making AI call for player action (attempt {attempt + 1}/{max_retries})")
                print(f"[COMBAT_MANAGER] Processing player input: {user_input_text[:50]}..." if len(user_input_text) > 50 else f"[COMBAT_MANAGER] Processing player input: {user_input_text}")
                
+               # Update status to show AI is processing
+               try:
+                   from status_manager import status_manager
+                   status_manager.update_status("Combat AI processing your action...", is_processing=True)
+               except Exception as e:
+                   debug(f"Could not update status: {e}", category="status")
+               
                response = client.chat.completions.create(
                    model=COMBAT_MAIN_MODEL,
                    temperature=TEMPERATURE,
@@ -1574,6 +1595,14 @@ Player: {user_input_text}"""
                
                # Validate the combat logic
                print(f"[COMBAT_MANAGER] Validating combat response (Attempt {attempt + 1}/{max_retries})")
+               
+               # Update status to show validation is happening
+               try:
+                   from status_manager import status_manager
+                   status_manager.update_status("Validating combat actions...", is_processing=True)
+               except Exception as e:
+                   debug(f"Could not update status: {e}", category="status")
+               
                validation_result = validate_combat_response(ai_response, encounter_data, user_input_text, conversation_history)
                
                if validation_result is True:
@@ -1686,6 +1715,15 @@ Player: {user_input_text}"""
            actions = parsed_response["actions"]
            
            print(f"[COMBAT_MANAGER] Processing {len(actions)} combat actions")
+           
+           # Update status to show actions are being processed
+           if len(actions) > 0:
+               try:
+                   from status_manager import status_manager
+                   status_manager.update_status("Processing combat outcomes...", is_processing=True)
+               except Exception as e:
+                   debug(f"Could not update status: {e}", category="status")
+           
            for i, action in enumerate(actions):
                action_type = action.get('action', action.get('type', 'unknown'))
                print(f"[COMBAT_MANAGER] Action {i+1}: {action_type}")

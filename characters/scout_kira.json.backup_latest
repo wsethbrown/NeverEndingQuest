@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 1,
+  "hitPoints": 19,
   "maxHitPoints": 19,
   "armorClass": 15,
   "initiative": 4,
@@ -299,7 +299,7 @@
   "ammunition": [
     {
       "name": "Arrow",
-      "quantity": 15,
+      "quantity": 14,
       "description": "Ammunition for bows."
     }
   ],
@@ -375,7 +375,7 @@
     "silver": 18,
     "copper": 38
   },
-  "experience_points": 800,
+  "experience_points": 825,
   "exp_required_for_next_level": 900,
   "challengeRating": 0.25,
   "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale. Assisted in the final sweep of the stronghold.",
