@@ -498,11 +498,12 @@ You must validate that each item in the character's inventory has the correct it
 1. Coin containers (pouches, bags with coins) -> "miscellaneous" NOT "equipment"
 2. Gaming items (dice, cards) -> "miscellaneous" NOT "equipment"  
 3. Holy symbols -> "equipment" IF used for spellcasting, "miscellaneous" IF keepsake
-4. Charms/tokens -> "miscellaneous" UNLESS they provide mechanical benefits
+4. Charms/tokens/wards -> "miscellaneous" for non-magical protective charms (even if they grant resistance)
 5. Books -> "equipment" IF spellbooks or reference manuals, "miscellaneous" IF just lore
 6. Containers -> "equipment" IF empty/general use, "miscellaneous" IF specifically for coins
 7. Jewelry -> "miscellaneous" UNLESS it provides magical effects
 8. Tools -> "equipment" IF professional tools, "miscellaneous" IF trinkets
+9. SPECIAL CASE: Yew Ward Charm -> "miscellaneous" (it's a charm, not active equipment)
 
 ### OUTPUT FORMAT:
 Return a JSON object with ONLY the changes needed:
