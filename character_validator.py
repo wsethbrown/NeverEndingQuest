@@ -483,16 +483,19 @@ You must validate that each item in the character's inventory has the correct it
 #### MISCELLANEOUS -> "miscellaneous"
 - Coin pouches, money bags, pouches of coins (NOT active storage containers)
 - Loose coins, gems, pearls, jewelry
-- Dice, cards, gaming sets, chess pieces
+- Dice, cards, gaming sets, chess pieces (including "Set of bone dice")
 - Lucky charms, tokens, trinkets (non-magical)
 - Holy symbols IF kept as keepsakes (not for spellcasting)
-- Feathers, twine, small decorative items
+- Feathers, twine, small decorative items (including "Crow's Hand Feather")
 - Art objects, statuettes, paintings
 - Letters, notes, deeds, contracts
 - Signet rings (non-magical)
-- Badges, medals, emblems
+- Badges, medals, emblems (including "Insignia of rank")
 - Amulets and talismans (non-magical)
 - Ward charms, protective tokens (non-magical)
+- Military keepsakes, trophies, dog tags (including "Trophy from a fallen enemy", "Dog tag")
+- Trade goods, valuable cloth, fabric scraps (including "Torn but valuable cloth")
+- Simple pouches and coin containers (including "Pouch")
 
 ### CRITICAL EDGE CASE RULES:
 1. Coin containers (pouches, bags with coins) -> "miscellaneous" NOT "equipment"
@@ -503,7 +506,17 @@ You must validate that each item in the character's inventory has the correct it
 6. Containers -> "equipment" IF empty/general use, "miscellaneous" IF specifically for coins
 7. Jewelry -> "miscellaneous" UNLESS it provides magical effects
 8. Tools -> "equipment" IF professional tools, "miscellaneous" IF trinkets
-9. SPECIAL CASE: Yew Ward Charm -> "miscellaneous" (it's a charm, not active equipment)
+9. Military memorabilia -> "miscellaneous" (insignia, trophies, dog tags are keepsakes)
+10. Trade goods -> "miscellaneous" (cloth, fabric, raw materials for trade)
+11. SPECIAL CASES THAT ARE ALWAYS MISCELLANEOUS:
+    - Yew Ward Charm (protective charm)
+    - Insignia of rank (badge/emblem)
+    - Trophy from a fallen enemy (keepsake)
+    - Set of bone dice (gaming set)
+    - Dog tag (keepsake)
+    - Pouch (coin container)
+    - Crow's Hand Feather (token)
+    - Torn but valuable cloth (trade good)
 
 ### OUTPUT FORMAT:
 Return a JSON object with ONLY the changes needed:
