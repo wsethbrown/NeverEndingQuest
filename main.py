@@ -1966,7 +1966,8 @@ def main_game_loop():
                 if isinstance(result, dict) and result.get("status") == "enter_levelup_mode":
                     # Enter the level up sub-loop
                     level_up_session = result["session"]
-                    
+                    final_narration = ""
+
                     # Get the first message from the session
                     dm_response = level_up_session.start()
                     
@@ -1981,42 +1982,32 @@ def main_game_loop():
                         player_name_display = f"{SOLID_GREEN}{player_name_actual}{RESET_COLOR}"
                         level_up_input = input(f"{player_name_display} (Leveling Up): ")
 
-                        # Skip processing if input is empty or just whitespace
                         if not level_up_input or not level_up_input.strip():
-                            continue # Immediately re-prompt for input
+                            continue
                         
                         # Handle the input and get the next AI response from the session
-                        # The session object handles its own internal conversation history.
-                        # We DO NOT add this to the main conversation_history.
                         dm_response = level_up_session.handle_input(level_up_input)
 
-                        # Display the response to the player in the UI
-                        # Always display the response
-                        print(colored("Dungeon Master:", "blue"), colored(dm_response, "blue"))
+                        # Check if the response is the final JSON or a conversational step
+                        try:
+                            # It's the final JSON response
+                            parsed_data = json.loads(dm_response)
+                            final_narration = parsed_data.get("narration", "Level up complete!")
+                            print(colored("Dungeon Master:", "blue"), colored(final_narration, "blue"))
+                            # The session is now complete, loop will exit
+                        except (json.JSONDecodeError, TypeError):
+                            # It's a normal conversational response
+                            print(colored("Dungeon Master:", "blue"), colored(dm_response, "blue"))
 
-                    # After the loop, the session is complete. Get the summary.
+                    # After the loop, the session is complete.
                     if level_up_session.success:
-                        debug("SUCCESS: Level up successful. Adding summary to conversation for AI context.", category="level_up")
-                        # Add the summary to history as a 'user' message so the AI can react to it.
-                        conversation_history.append({"role": "user", "content": level_up_session.summary})
+                        debug("SUCCESS: Level up successful. Using final narration for context.", category="level_up")
+                        # Add the final, high-quality narration to the history as the definitive AI response.
+                        # This provides perfect context for the next turn without an extra AI call.
+                        conversation_history.append({"role": "assistant", "content": json.dumps({"narration": final_narration, "actions": []})})
                         save_conversation_history(conversation_history)
-                        
-                        # --- START OF FIX: Re-query the AI for a narrative response ---
-                        debug("STATE_CHANGE: Re-querying main AI for a narrative response to the level up.", category="level_up")
-                        # Get a new response from the main DM based on the level-up summary.
-                        ai_response_content = get_ai_response(conversation_history)
-                        
-                        # Process this new response as if it were a normal turn.
-                        # This will print the narration and handle any new actions.
-                        process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
-                        
-                        # Add the AI's response to the history.
-                        conversation_history.append({"role": "assistant", "content": ai_response_content})
-                        save_conversation_history(conversation_history)
-                        # --- END OF FIX ---
-
                     else:
-                        # If the level up failed, we still want to inform the player.
+                        # If the level up failed, inform the player and log it.
                         print(colored("Dungeon Master:", "red"), colored(level_up_session.summary, "red"))
                         conversation_history.append({"role": "system", "content": level_up_session.summary})
                         save_conversation_history(conversation_history)
