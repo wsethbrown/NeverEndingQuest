@@ -72,6 +72,46 @@ Required fields in combat responses:
 - "actions": Array of updateCharacterInfo, updateEncounter, or exit actions
 - "plan": (Optional but recommended) The AI's tactical planning thoughts - should include round status, initiative order, HP tracking, who has acted, what rolls are needed. CRITICAL: Plan should clearly indicate when "WAITING for player's roll" vs when resolving actions with provided results.
 
+## RESOURCE USAGE VALIDATION RULES
+
+### CRITICAL VALIDATION CHECKS:
+1. **Action Classification**: Verify the AI correctly identified action type
+   - SPELL: Must exist in spellcasting.spells
+   - ABILITY: Must exist in classFeatures
+   
+2. **Resource Matching**: Ensure correct resource was consumed
+   - Channel Divinity -> Should NOT consume spell slots
+   - Divine Smite -> SHOULD consume spell slots (per description)
+   - Racial spells -> Should use trait usage, not spell slots
+
+### VALIDATION EXAMPLES:
+
+**VALID - Channel Divinity**:
+Action: "I use Preserve Life"
+Update: "Uses Channel Divinity ability Preserve Life (0 uses until rest)"
+✓ Correctly identified as ability, no spell slots consumed
+
+**INVALID - Channel Divinity**:
+Action: "I use Preserve Life"  
+Update: "Expends a 2nd-level spell slot"
+X Channel Divinity should NOT consume spell slots
+
+**VALID - Divine Smite**:
+Action: "I use Divine Smite"
+Update: "Uses Divine Smite by expending a 1st-level spell slot"
+✓ Correctly identified as ability that explicitly uses spell slots
+
+**INVALID - Misclassified Spell**:
+Action: "I cast Cure Wounds"
+Update: "Uses healing ability"
+X Cure Wounds is a SPELL, must track spell slot usage
+
+### Flag as INVALID:
+- Any Channel Divinity consuming spell slots
+- Any spell not consuming appropriate spell slots
+- Missing resource tracking for limited-use abilities
+- Confusion between similar-named spells and abilities
+
 ACTION USAGE VALIDATION:
 - updateCharacterInfo: ONLY for players and NPCs (requires characterName parameter)
 - updateEncounter: ONLY for monsters (uses text description in changes field)

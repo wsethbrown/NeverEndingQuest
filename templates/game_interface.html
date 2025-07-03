@@ -1479,10 +1479,11 @@
         }
         
         /* Combat Stats */
+        /* MODIFIED FOR CURRENCY */
         .combat-stats {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2px;
             margin-bottom: 0;
         }
         
@@ -1670,6 +1671,14 @@
             margin-top: 3px;
         }
         
+        /* ADDED: Container for weapons/ammo on character sheet */
+        .character-weapons-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-top: 3px;
+        }
+
         /* Usage Tracking Styles */
         .feature-item.with-usage {
             flex-direction: column;
@@ -2873,9 +2882,7 @@
                 originalInventoryData = data;
             }
             let html = '<div class="inventory-sheet">';
-            if (data.currency) {
-                html += `<div class="inventory-header"><div class="currency-display"><div class="currency-title">Currency</div><div class="currency-grid"><div class="currency-item"><span class="currency-amount">${data.currency.gold || 0}</span><span class="currency-type">GP</span></div><div class="currency-item"><span class="currency-amount">${data.currency.silver || 0}</span><span class="currency-type">SP</span></div><div class="currency-item"><span class="currency-amount">${data.currency.copper || 0}</span><span class="currency-type">CP</span></div></div></div></div>`;
-            }
+            
             html += `<div class="inventory-controls"><button class="search-btn" onclick="openSearchPopup()">Search</button><select class="inventory-sort" id="inventory-sort" onchange="sortInventory()"><option value="name-asc">Sort: Name A-Z</option><option value="name-desc">Sort: Name Z-A</option><option value="type">Sort: Type</option><option value="quantity">Sort: Quantity</option></select><select class="filter-dropdown" id="filter-dropdown" onchange="changeFilter()"><option value="">Filter</option><option value="weapon">Weapons</option><option value="armor">Armor</option><option value="consumable">Consumables</option><option value="magical">Magical</option><option value="equipped">Equipped</option></select><button class="search-btn" onclick="clearAllFilters()">Clear</button></div>`;
             html += '<div class="equipment-section"><h4>Equipment</h4>';
             if (data.equipment && data.equipment.length > 0) {
@@ -2886,24 +2893,7 @@
             } else {
                 html += '<div class="inventory-item"><span class="feature-bullet">●</span><span class="item-name">No equipment</span></div>';
             }
-            html += '</div><div class="inventory-sections">';
-            if (data.attacksAndSpellcasting && data.attacksAndSpellcasting.length > 0) {
-                html += '<div class="inventory-section"><h4>Weapons & Attacks</h4>';
-                data.attacksAndSpellcasting.forEach(weapon => { 
-                    const description = (weapon.description || 'No description available.').replace(/"/g, '&quot;');
-                    html += `<div class="inventory-item" data-tooltip-title="${weapon.name}" data-tooltip-content="${description}"><div class="item-main"><span class="item-name">${weapon.name}</span><span class="weapon-bonus">${weapon.attackBonus >= 0 ? '+' : ''}${weapon.attackBonus}</span></div><div class="item-details"><span class="weapon-damage">Damage: ${weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`} (${weapon.damageType || 'damage'})</span></div></div>`; 
-                });
-                html += '</div>';
-            }
-            if (data.ammunition && data.ammunition.length > 0) {
-                html += '<div class="inventory-section"><h4>Ammunition</h4>';
-                data.ammunition.forEach(ammo => { 
-                    const description = (ammo.description || 'No description available.').replace(/"/g, '&quot;');
-                    html += `<div class="inventory-item" data-tooltip-title="${ammo.name}" data-tooltip-content="${description}"><div class="item-main"><span class="item-name">${ammo.name}</span><span class="item-qty">×${ammo.quantity}</span></div></div>`; 
-                });
-                html += '</div>';
-            }
-            html += '</div></div>';
+            html += '</div></div>'; // Close equipment-section and inventory-sheet
             container.innerHTML = html;
             const sortDropdown = document.getElementById('inventory-sort');
             const filterDropdown = document.getElementById('filter-dropdown');
@@ -2933,7 +2923,35 @@
                 });
                 html += '</div>';
             }
-            html += `<div class="combat-stats"><div class="combat-stat"><div class="combat-stat-label">Hit Points</div><div class="combat-stat-value">${data.hitPoints}/${data.maxHitPoints}</div><div class="hp-bar"><div class="hp-fill ${hpClass}" style="width: ${hpPercent}%"></div></div></div><div class="combat-stat"><div class="combat-stat-label">Armor Class</div><div class="combat-stat-value">${data.armorClass}</div></div><div class="combat-stat"><div class="combat-stat-label">Initiative</div><div class="combat-stat-value">${data.initiative >= 0 ? '+' : ''}${data.initiative}</div></div></div>`;
+            
+            html += `<div class="combat-stats">
+                        <div class="combat-stat">
+                            <div class="combat-stat-label">HP</div>
+                            <div class="combat-stat-value">${data.hitPoints}/${data.maxHitPoints}</div>
+                            <div class="hp-bar"><div class="hp-fill ${hpClass}" style="width: ${hpPercent}%"></div></div>
+                        </div>
+                        <div class="combat-stat">
+                            <div class="combat-stat-label">AC</div>
+                            <div class="combat-stat-value">${data.armorClass}</div>
+                        </div>
+                        <div class="combat-stat">
+                            <div class="combat-stat-label">INIT</div>
+                            <div class="combat-stat-value">${data.initiative >= 0 ? '+' : ''}${data.initiative}</div>
+                        </div>
+                        <div class="combat-stat">
+                            <div class="combat-stat-label">GP</div>
+                            <div class="combat-stat-value">${data.currency?.gold || 0}</div>
+                        </div>
+                        <div class="combat-stat">
+                            <div class="combat-stat-label">SP</div>
+                            <div class="combat-stat-value">${data.currency?.silver || 0}</div>
+                        </div>
+                        <div class="combat-stat">
+                            <div class="combat-stat-label">CP</div>
+                            <div class="combat-stat-value">${data.currency?.copper || 0}</div>
+                        </div>
+                    </div>`;
+
             html += '<div class="skills-saves-container">';
             if (data.savingThrows && data.savingThrows.length > 0) {
                 html += '<div class="stat-group"><h4>Saving Throws</h4><div class="stat-group-content">';
@@ -2996,7 +3014,32 @@
                 });
                 html += '</div></div>';
             }
-            html += '</div></div>';
+            html += '</div>';
+
+            // ADDED: Weapons and Ammunition sections
+            html += '<div class="character-weapons-container">';
+            if (data.attacksAndSpellcasting && data.attacksAndSpellcasting.length > 0) {
+                html += '<div class="stat-group"><h4>Weapons & Attacks</h4><div class="stat-group-content">';
+                data.attacksAndSpellcasting.forEach(weapon => { 
+                    const description = (weapon.description || 'No description available.').replace(/"/g, '&quot;');
+                    html += `<div class="inventory-item" data-tooltip-title="${weapon.name}" data-tooltip-content="${description}"><div class="item-main"><span class="item-name">${weapon.name}</span><span class="weapon-bonus">${weapon.attackBonus >= 0 ? '+' : ''}${weapon.attackBonus}</span></div><div class="item-details"><span class="weapon-damage">Damage: ${weapon.damage || `${weapon.damageDice}+${weapon.damageBonus}`} (${weapon.damageType || 'damage'})</span></div></div>`; 
+                });
+                html += '</div></div>';
+            } else {
+                html += '<div class="stat-group"><h4>Weapons & Attacks</h4><div class="stat-group-content"><div class="inventory-item"><span class="item-name">No weapons defined.</span></div></div></div>';
+            }
+            if (data.ammunition && Object.keys(data.ammunition).length > 0) {
+                html += '<div class="stat-group"><h4>Ammunition</h4><div class="stat-group-content">';
+                Object.entries(data.ammunition).forEach(([name, quantity]) => {
+                    html += `<div class="inventory-item"><div class="item-main"><span class="item-name">${name}</span><span class="item-qty">×${quantity}</span></div></div>`;
+                });
+                html += '</div></div>';
+            } else {
+                html += '<div class="stat-group"><h4>Ammunition</h4><div class="stat-group-content"><div class="inventory-item"><span class="item-name">No ammunition.</span></div></div></div>';
+            }
+            html += '</div>';
+
+            html += '</div>'; // close character-sheet
             container.innerHTML = html;
             initializeAllTooltips();
         }

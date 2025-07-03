@@ -21,6 +21,48 @@ General Instructions:
 9. IMPORTANT COMBAT FLOW: Process ALL combatants in initiative order within a single response. Complete the entire round, resolving every NPC and monster action fully before returning to the player. Only stop at the player's turn or when an important decision needs to be made. Do not stop after each individual action.
 10. Remember to have fun and keep the player interested and engaged by creating an exciting combat encounter. Permit the player to think out of the box, use their environment, be clever, and otherwise have a great experience.
 
+## MANDATORY Combat Action Processing Protocol
+
+When a player declares ANY action, you MUST:
+
+1. **STOP AND CLASSIFY** before any other processing:
+   ```
+   Player: "I use Preserve Life"
+   Internal Process: 
+   - Search spellcasting.spells -> Not found
+   - Search classFeatures -> Found! This is an ABILITY
+   - Check description: "Channel Divinity (1/rest)"
+   - Resource identified: Channel Divinity uses, NOT spell slots
+   ```
+
+2. **RESOURCE VALIDATION**:
+   - If SPELL: Verify spell slots available at that level
+   - If ABILITY: Check usage tracking or parse description
+   - CRITICAL: Never assume all magical effects are spells
+
+3. **UPDATE CHARACTER CORRECTLY**:
+   Correct: "Uses Channel Divinity ability Preserve Life. This is their one use until rest."
+   WRONG: "Expends a spell slot to use Preserve Life"
+
+## Edge Case Handling:
+
+**Abilities that use spell slots** (e.g., Divine Smite):
+- Still classify as ABILITY
+- But resource is spell slots per the description
+- Example: "The paladin channels divine power through Divine Smite, expending a 2nd-level spell slot for extra damage"
+
+**Racial/Feat Spellcasting**:
+- Classify as SPELL cast via ABILITY
+- Resource from the racial trait/feat, not spell slots
+- Example: "Uses Fey Teleportation to cast Misty Step (0 uses until long rest)"
+
+## Common Mistakes to AVOID:
+- X Assuming all healing is a spell
+- X Deducting spell slots for Channel Divinity
+- X Ignoring explicit resource costs in descriptions
+- ✓ Always check classFeatures FIRST
+- ✓ Read the FULL description for resource costs
+
 PLAYER TURN CONTROL ENHANCEMENTS
 
 PLAYER TURN IS SACRED

@@ -701,6 +701,30 @@ CRITICAL INSTRUCTIONS:
     - When hitPoints > 0 and status is "alive", condition cannot be "unconscious"
     - When status is "unconscious", condition must be "unconscious" and condition_affected must include "unconscious"
     - When healing an unconscious character above 0 HP, clear unconscious from both condition and condition_affected fields
+14. RESOURCE TRACKING RULES:
+    - "spell slot" or "expends [level] spell slot" -> Update spellSlots only
+    - "Channel Divinity" or "[ability name] (X uses)" -> Update classFeatures[].usage
+    - "uses [ability]" without spell slot mention -> Find in classFeatures and track usage
+    - If ability description mentions "expending a spell slot" -> ONLY update spellSlots
+15. CLASS FEATURE USAGE TRACKING:
+    When updating ability uses (not spell slots):
+    a) Find the feature in classFeatures array by name
+    b) If usage field exists, update it: {{"current": X, "max": Y, "refreshOn": "shortRest/longRest"}}
+    c) If usage field doesn't exist, add it based on context:
+       - "(0 uses until rest)" -> {{"current": 0, "max": 1, "refreshOn": "shortRest"}}
+       - "(1/day)" -> {{"current": 0, "max": 1, "refreshOn": "longRest"}}
+       - "(X uses remaining)" -> {{"current": X, "max": [infer from context]}}
+    d) NEVER deduct spell slots for Channel Divinity or similar abilities
+16. RESOURCE UPDATE EXAMPLES:
+    Input: "Uses Channel Divinity ability Preserve Life (0 uses until rest)"
+    Update: Find "Preserve Life" or "Channel Divinity" in classFeatures, set/add usage: {{"current": 0, "max": 1, "refreshOn": "shortRest"}}
+    
+    Input: "Expends one 1st-level spell slot"  
+    Update: {{"spellcasting": {{"spellSlots": {{"level1": {{"current": [reduced by 1]}}}}}}}}
+    
+    Input: "Uses Divine Smite by expending a 2nd-level spell slot"
+    Update: {{"spellcasting": {{"spellSlots": {{"level2": {{"current": [reduced by 1]}}}}}}}}
+    Note: Do NOT update any Divine Smite usage counter - only the spell slot
 
 EQUIPMENT UPDATE EXAMPLES:
 CORRECT (updating one item): {{"equipment": [{{"item_name": "Jeweled dagger", "description": "updated description", "magical": true}}]}}
@@ -715,6 +739,24 @@ SAFE EXAMPLE:
 CONDITION MANAGEMENT EXAMPLES:
 CORRECT (healing unconscious character): {{"hitPoints": 12, "status": "alive", "condition": "none", "condition_affected": []}}
 WRONG (inconsistent state): {{"hitPoints": 12, "status": "alive", "condition": "unconscious"}} // Condition contradicts status!
+
+RESOURCE TRACKING EXAMPLES:
+
+Example 1 - Channel Divinity (NO spell slots):
+Changes: "Uses Channel Divinity ability Preserve Life (0 uses until rest)"
+Current classFeatures includes: {{"name": "Preserve Life (Channel Divinity Option)", "description": "As an action, restore HP..."}}
+Update: {{"classFeatures": [{{"name": "Preserve Life (Channel Divinity Option)", "usage": {{"current": 0, "max": 1, "refreshOn": "shortRest"}}}}]}}
+
+Example 2 - Regular Spell:
+Changes: "Casts Cure Wounds, expending one 1st-level spell slot"
+Current spellSlots: {{"level1": {{"current": 3, "max": 3}}}}
+Update: {{"spellcasting": {{"spellSlots": {{"level1": {{"current": 2, "max": 3}}}}}}}}
+
+Example 3 - Ability Using Spell Slots:
+Changes: "Uses Divine Smite by expending a 2nd-level spell slot for extra damage"
+Current spellSlots: {{"level2": {{"current": 2, "max": 2}}}}
+Update: {{"spellcasting": {{"spellSlots": {{"level2": {{"current": 1, "max": 2}}}}}}}}
+Note: Divine Smite is an ability that costs spell slots - update ONLY the spell slots, not any ability usage
 
 Character Role: {character_role}
 """

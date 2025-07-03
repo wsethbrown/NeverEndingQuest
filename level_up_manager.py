@@ -127,12 +127,8 @@ class LevelUpSession:
                     self.is_complete = True
                     self.success = True
                     self.summary = self._generate_level_up_summary(ai_response)
-                    # Use the narration from the final action as the last message
-                    try:
-                        final_narration = json.loads(ai_response).get("narration", "Level up complete!")
-                        return final_narration
-                    except:
-                         return "Level up complete!"
+                    # Return the full AI response so the main DM can generate proper narration
+                    return ai_response
                 else:
                     self.is_complete = True
                     self.success = False
