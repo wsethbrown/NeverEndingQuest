@@ -288,7 +288,7 @@
     },
     {
       "item_name": "Worn Set of Bone Dice",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A worn set of bone dice, likely used by the bandits for gambling.",
       "quantity": 1,
       "equipped": false,
@@ -299,7 +299,7 @@
   "ammunition": [
     {
       "name": "Arrow",
-      "quantity": 10,
+      "quantity": 6,
       "description": "Ammunition for bows."
     }
   ],
@@ -371,11 +371,11 @@
     "preparedSpells": []
   },
   "currency": {
-    "gold": 75,
+    "gold": 76,
     "silver": 18,
     "copper": 38
   },
-  "experience_points": 825,
+  "experience_points": 875,
   "exp_required_for_next_level": 900,
   "challengeRating": 0.25,
   "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale. Assisted in the final sweep of the stronghold.",
