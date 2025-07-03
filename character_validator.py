@@ -838,8 +838,8 @@ Remember to return a single JSON response with all three validation results."""
                     if 'corrections_made' in curr_result:
                         self.corrections_made.extend(curr_result['corrections_made'])
                     
-                    # Update currency
-                    if 'currency' in curr_result:
+                    # Update currency (only if not empty)
+                    if 'currency' in curr_result and curr_result['currency']:
                         result_data['currency'] = curr_result['currency']
                     
                     # Remove consolidated items
@@ -850,8 +850,8 @@ Remember to return a single JSON response with all three validation results."""
                             if item.get('item_name') not in items_to_remove
                         ]
                     
-                    # Update ammunition
-                    if 'ammunition' in curr_result:
+                    # Update ammunition (only if not empty)
+                    if 'ammunition' in curr_result and curr_result['ammunition']:
                         result_data['ammunition'] = curr_result['ammunition']
                     
                     # Remove ammo items from equipment

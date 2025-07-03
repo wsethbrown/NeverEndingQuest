@@ -14,7 +14,7 @@
   "condition_affected": [],
   "hitPoints": 21,
   "maxHitPoints": 21,
-  "armorClass": 16,
+  "armorClass": 17,
   "initiative": 1,
   "speed": 30,
   "abilities": {
@@ -193,7 +193,7 @@
     },
     {
       "item_name": "Common clothes",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "A set of common clothes.",
       "quantity": 1
@@ -458,7 +458,7 @@
     ]
   },
   "currency": {
-    "gold": 36,
+    "gold": 35,
     "silver": 21,
     "copper": 20
   },
