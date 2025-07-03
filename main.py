@@ -1991,7 +1991,9 @@ def main_game_loop():
                         dm_response = level_up_session.handle_input(level_up_input)
 
                         # Display the response to the player in the UI
-                        print(colored("Dungeon Master:", "blue"), colored(dm_response, "blue"))
+                        # Skip printing if this is the final JSON action (it will be processed below)
+                        if not (level_up_session.is_complete and dm_response.strip().startswith('{')):
+                            print(colored("Dungeon Master:", "blue"), colored(dm_response, "blue"))
 
                     # After the loop, the session is complete. Get the summary.
                     if level_up_session.success:

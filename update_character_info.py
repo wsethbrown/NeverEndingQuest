@@ -828,6 +828,11 @@ CRITICAL INSTRUCTIONS:
       Example: "Sold 50 arrows" -> {{"ammunition": [{{"name": "arrows", "quantity": -50}}]}}
     - NEVER return the final quantity after removal - return the CHANGE amount
     - The system will automatically calculate the final quantity
+18. LEVEL UP RESTRICTION - CRITICAL:
+    - NEVER modify experience_points during level up operations
+    - Level up should ONLY change: level, maxHitPoints, hitPoints, classFeatures, etc.
+    - The experience_points field must NOT be included in level up changes
+    - XP is managed separately and should never be altered during level advancement
 
 EQUIPMENT UPDATE EXAMPLES:
 CORRECT (updating one item): {{"equipment": [{{"item_name": "Jeweled dagger", "description": "updated description", "magical": true}}]}}

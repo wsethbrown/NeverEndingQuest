@@ -299,7 +299,7 @@
   "ammunition": [
     {
       "name": "Arrow",
-      "quantity": 36,
+      "quantity": 102,
       "description": "Ammunition for bows."
     }
   ],
@@ -375,7 +375,7 @@
     "silver": 19,
     "copper": 38
   },
-  "experience_points": 875,
+  "experience_points": 1075,
   "exp_required_for_next_level": 900,
   "challengeRating": 0.25,
   "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale. Assisted in the final sweep of the stronghold.",
