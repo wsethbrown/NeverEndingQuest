@@ -202,7 +202,7 @@
     },
     {
       "item_name": "Yew Ward Charm",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A protective charm made of braided yew wood, granting resistance to magical corruption from the Voidstone.",
       "quantity": 1,
       "equipped": true,

@@ -458,8 +458,8 @@
     ]
   },
   "currency": {
-    "gold": 35,
-    "silver": 21,
+    "gold": 34,
+    "silver": 20,
     "copper": 20
   },
   "experience_points": 900,

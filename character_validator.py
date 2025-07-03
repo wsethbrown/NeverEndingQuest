@@ -447,6 +447,7 @@ You must validate that each item in the character's inventory has the correct it
 - Helmets, gauntlets, boots IF they provide AC bonus
 - Cloaks IF they provide AC or protection
 - Robes IF they provide magical protection
+- NOTE: Regular gloves are NOT armor unless they're gauntlets with AC bonus
 
 #### AMMUNITION -> "ammunition"
 - Arrows, Bolts, Bullets, Darts
@@ -490,6 +491,7 @@ You must validate that each item in the character's inventory has the correct it
 - Military keepsakes, trophies, dog tags (including "Trophy from a fallen enemy", "Dog tag")
 - Trade goods, valuable cloth, fabric scraps (including "Torn but valuable cloth")
 - Simple pouches and coin containers (including "Pouch")
+- Protective gloves without AC bonus (including "Sturdy gloves")
 
 ### CRITICAL EDGE CASE RULES:
 1. Coin containers (pouches, bags with coins) -> "miscellaneous" NOT "equipment"
@@ -511,6 +513,10 @@ You must validate that each item in the character's inventory has the correct it
     - Pouch (coin container)
     - Crow's Hand Feather (token)
     - Torn but valuable cloth (trade good)
+12. SPECIAL CASES FOR GLOVES:
+    - Sturdy gloves -> "miscellaneous" (protective but no AC bonus)
+    - Work gloves -> "equipment" (utility gloves for tasks)
+    - Gauntlets -> "armor" (combat protection with AC bonus)
 
 ### OUTPUT FORMAT:
 Return a JSON object with ONLY the changes needed:
