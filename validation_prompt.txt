@@ -13,6 +13,7 @@ CRITICAL VALIDATION PRIORITIES:
 4. USER INPUT COMPLIANCE: Pay special attention to the user's ACTUAL INPUT that triggered the assistant's response
 5. SPELL SLOT VALIDATION: Cantrips (0-level spells) do NOT consume spell slots and can be cast unlimited times. Only leveled spells (1st-9th level) should reduce spell slots via updateCharacterInfo actions.
 6. LOCATION PATH VALIDATION: When validating transitionLocation actions, check the "Path Validation" section in the context. ONLY allow movement along valid, connected paths. Reject any transitions that show "WARNING" or "No valid path" messages.
+7. COMBAT INITIATION VALIDATION: Review each turn for the Combat Commitment Point. If a hostile action occurred that alerted enemies, was createEncounter called IMMEDIATELY? If any combat actions were resolved narratively after enemies became aware, mark as INVALID.
 
 ANTI-HALLUCINATION ENFORCEMENT:
 - Any mention of NPCs not listed in the MODULE VALIDATION DATA is an IMMEDIATE validation failure
@@ -198,6 +199,18 @@ Requires "narrative" parameter containing rich story description with embedded m
    - Using on party NPCs (NPCs traveling with the party) [INVALID - use updatePartyNPCs]
    - Using on NPCs that don't exist in location files [INVALID]
    - Using without clear narrative reason [INVALID]
+
+// Example Response 13: False - Combat Not Initiated at Commitment Point
+{
+  "valid": false,
+  "reason": "The assistant narrated multiple combat actions (sneak attack, sacred flame, crossbow attack) after enemies became aware from the first attack. Once the first hostile action alerts enemies, the assistant MUST immediately use createEncounter. No further combat actions should be resolved narratively. Rewrite the response to call createEncounter after the first attack alerts the other bandits."
+}
+
+// Example Response 14: True - Correct Combat Initiation
+{
+  "valid": true,
+  "reason": "The assistant correctly identified the combat commitment point when the rogue's first attack alerted other enemies, and immediately used createEncounter to transition to formal combat. Pre-combat buffs (Aid, Guidance) were appropriately handled narratively before the commitment point."
+}
 
 ## REST MANAGEMENT VALIDATION RULES
 
