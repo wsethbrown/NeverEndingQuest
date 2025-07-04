@@ -147,6 +147,54 @@ os.makedirs("combat_logs", exist_ok=True)
 HISTORY_TIMESTAMP_FORMAT = "%Y%m%d_%H%M%S"
 
 
+def process_defeated_creatures(encounter_data, party_tracker_data):
+    """
+    Finds defeated named creatures in an encounter and triggers the
+    moveBackgroundNPC action to permanently remove them from the world state.
+    """
+    # Import the action handler locally to prevent circular import errors
+    import action_handler
+    from enhanced_logger import info, warning, error
+
+    if not encounter_data or not isinstance(encounter_data.get('creatures'), list):
+        warning("PROCESS_DEFEATED: Invalid or missing encounter data. Skipping.", category="combat_resolution")
+        return
+
+    info("PROCESS_DEFEATED: Checking for defeated named creatures to remove from world state.", category="combat_resolution")
+    
+    current_location_id = party_tracker_data.get("worldConditions", {}).get("currentLocationId")
+    if not current_location_id:
+        error("PROCESS_DEFEATED: Could not determine current location ID from party tracker.", category="combat_resolution")
+        return
+
+    for creature in encounter_data.get('creatures', []):
+        creature_status = creature.get('status', 'alive').lower()
+        creature_type = creature.get('type', 'unknown').lower()
+        creature_name = creature.get('name')
+
+        # Process creatures that are 'dead' or 'defeated'
+        if creature_status in ['dead', 'defeated']:
+            # Remove any named non-player creature (enemies, NPCs, named monsters)
+            # Skip players and generic unnamed creatures
+            if creature_type != 'player' and creature_name:
+                
+                info(f"PROCESS_DEFEATED: Found defeated creature '{creature_name}'. Triggering removal.", category="combat_resolution")
+                
+                # Prepare the action to remove the NPC from the location file
+                removal_action = {
+                    "action": "moveBackgroundNPC",
+                    "parameters": {
+                        "npcName": creature_name,
+                        "context": f"Killed during combat encounter in location {current_location_id}.",
+                        "currentLocation": current_location_id
+                    }
+                }
+                
+                # Use the existing action_handler to process the removal.
+                # We pass None for location_data and conversation_history as this is a backend process.
+                action_handler.process_action(removal_action, party_tracker_data, None, None)
+
+
 def get_current_area_id():
     party_tracker = safe_json_load("party_tracker.json")
     if not party_tracker:
@@ -1989,6 +2037,14 @@ Player: {user_input_text}"""
                    del encounter_data['preroll_cache']
                    save_json_file(json_file_path, encounter_data)
                    debug("SUCCESS: Cleared preroll cache for ended combat", category="combat_events")
+               
+               # --- START OF THE FIX ---
+               # This new line permanently removes defeated named enemies from the world.
+               try:
+                   process_defeated_creatures(encounter_data, party_tracker_data)
+               except Exception as e:
+                   error("FAILURE: An error occurred while processing defeated creatures.", exception=e, category="combat_resolution")
+               # --- END OF THE FIX ---
                
                print(f"[COMBAT_MANAGER] Calculating XP rewards")
                xp_narrative, xp_awarded = calculate_xp()
