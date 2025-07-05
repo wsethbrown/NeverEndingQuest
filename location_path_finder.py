@@ -230,17 +230,14 @@ class LocationGraph:
                     if location_id not in self.edges[connected_location_id]:
                         self.edges[connected_location_id].append(location_id)
             
-            # Process areaConnectivityId (area IDs -> entry locations)
-            for area_id in area_connectivity_ids:
-                # Map area ID to entry location ID (TW001 -> TW01)
-                if len(area_id) >= 5 and area_id[-3:].isdigit():
-                    entry_location_id = area_id[:-3] + area_id[-2:]
-                    if entry_location_id in self.nodes:
-                        # Add bidirectional connection using IDs
-                        if entry_location_id not in self.edges[location_id]:
-                            self.edges[location_id].append(entry_location_id)
-                        if location_id not in self.edges[entry_location_id]:
-                            self.edges[entry_location_id].append(location_id)
+            # Process areaConnectivityId (now containing direct location IDs)
+            for connected_location_id in area_connectivity_ids:
+                if connected_location_id in self.nodes:
+                    # Add bidirectional connection using IDs
+                    if connected_location_id not in self.edges[location_id]:
+                        self.edges[location_id].append(connected_location_id)
+                    if location_id not in self.edges[connected_location_id]:
+                        self.edges[connected_location_id].append(location_id)
     
     def _find_location_by_id(self, area_id: str, location_id: str) -> Optional[Dict]:
         """Find a location by its ID within a specific area"""

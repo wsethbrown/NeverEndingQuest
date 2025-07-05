@@ -139,10 +139,12 @@
         "Bandit Trail"
       ],
       "areaConnectivity": [
+        "Rangers' Outpost",
         "Rangers' Outpost"
       ],
       "areaConnectivityId": [
-        "RO01"
+        "RO01",
+        "RO06"
       ],
       "traps": [],
       "features": [
@@ -566,7 +568,7 @@
         "Northern Corrupted Woods"
       ],
       "areaConnectivityId": [
-        "NCW001"
+        "NC01"
       ],
       "npcs": [
         {
