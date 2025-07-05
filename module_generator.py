@@ -835,15 +835,20 @@ If the field expects an object, return just the object.
         exit_loc = from_locations[-1]
         entrance_loc = to_locations[0]
         
+        # Validate that both locations have locationId
+        if "locationId" not in exit_loc or "locationId" not in entrance_loc:
+            print(f"Warning: Missing locationId in connection between {from_area} and {to_area}")
+            return
+        
         # Update area connectivity in from_area exit
         if "areaConnectivity" not in exit_loc:
             exit_loc["areaConnectivity"] = []
         if "areaConnectivityId" not in exit_loc:
             exit_loc["areaConnectivityId"] = []
         
-        # Store just the area name and ID, not specific location IDs
+        # Store the location name and location ID for proper connectivity
         exit_loc["areaConnectivity"].append(entrance_loc["name"])
-        exit_loc["areaConnectivityId"].append(to_area)
+        exit_loc["areaConnectivityId"].append(entrance_loc["locationId"])
         
         # Update area connectivity in to_area entrance
         if "areaConnectivity" not in entrance_loc:
@@ -852,7 +857,7 @@ If the field expects an object, return just the object.
             entrance_loc["areaConnectivityId"] = []
         
         entrance_loc["areaConnectivity"].append(exit_loc["name"])
-        entrance_loc["areaConnectivityId"].append(from_area)
+        entrance_loc["areaConnectivityId"].append(exit_loc["locationId"])
 
     def generate_unified_plot_file(self, module_data: Dict[str, Any], areas: List[str], module_name: str):
         """Generate unified module plot file"""

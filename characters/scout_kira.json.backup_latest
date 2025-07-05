@@ -4,7 +4,7 @@
   "name": "Scout Kira",
   "type": "npc",
   "size": "Medium",
-  "level": 2,
+  "level": 3,
   "race": "Wood Elf",
   "class": "Rogue",
   "alignment": "chaotic good",
@@ -12,8 +12,8 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 19,
-  "maxHitPoints": 19,
+  "hitPoints": 30,
+  "maxHitPoints": 30,
   "armorClass": 15,
   "initiative": 4,
   "speed": 35,
@@ -72,24 +72,44 @@
   "conditionImmunities": [],
   "classFeatures": [
     {
+      "name": "Cunning Action",
+      "description": "Starting at 2nd level, Kira can use a bonus action on each of her turns in combat to take the Dash, Disengage, or Hide action.",
+      "source": "Rogue 2"
+    },
+    {
       "name": "Expertise",
       "description": "Kira doubles proficiency bonus for Stealth and Perception checks.",
       "source": "Rogue 1"
     },
     {
+      "name": "Fast Hands",
+      "description": "Kira can use the bonus action granted by her Cunning Action to make a Dexterity (Sleight of Hand) check, use her thieves’ tools to disarm a trap or open a lock, or take the Use an Object action.",
+      "source": "Thief 3"
+    },
+    {
+      "name": "Guidance",
+      "description": "Can cast Guidance to aid skill checks.",
+      "source": "Spell",
+      "usage": {
+        "current": 0,
+        "max": 1,
+        "refreshOn": "shortRest"
+      }
+    },
+    {
+      "name": "Second-Story Work",
+      "description": "Climbing no longer costs Kira extra movement, and when she makes a running jump, the distance she covers increases by a number of feet equal to her Dexterity modifier.",
+      "source": "Thief 3"
+    },
+    {
       "name": "Sneak Attack",
-      "description": "Once per turn, Kira can deal an extra 1d6 damage to one creature she hits with an attack if she has advantage on the attack roll or an ally is within 5 feet of the target.",
-      "source": "Rogue 1"
+      "description": "Once per turn, Kira can deal an extra 2d6 damage to one creature she hits with an attack if she has advantage on the attack roll or an ally is within 5 feet of the target.",
+      "source": "Rogue 3"
     },
     {
       "name": "Thieves' Cant",
       "description": "Kira knows the secret rogue language.",
       "source": "Rogue 1"
-    },
-    {
-      "name": "Cunning Action",
-      "description": "Starting at 2nd level, Kira can use a bonus action on each of her turns in combat to take the Dash, Disengage, or Hide action.",
-      "source": "Rogue 2"
     }
   ],
   "racialTraits": [
@@ -375,8 +395,8 @@
     "silver": 19,
     "copper": 38
   },
-  "experience_points": 1075,
-  "exp_required_for_next_level": 900,
+  "experience_points": 1275,
+  "exp_required_for_next_level": 2700,
   "challengeRating": 0.25,
   "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale. Assisted in the final sweep of the stronghold.",
   "ideals": "Change. Life is like the seasons, in constant change, and we must change with it. I now strive to be a beacon of hope and courage for those around me.",
