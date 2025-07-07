@@ -1722,16 +1722,19 @@ def main_game_loop():
                          connected_locations_display_str = ", ".join(connected_names_current_area)
                 
                 # Get connections to other areas
-                if "areaConnectivity" in location_data and location_data["areaConnectivity"]:
-                    area_names = location_data.get("areaConnectivity", [])
-                    area_ids = location_data.get("areaConnectivityId", [])
-                    area_connections_formatted = []
-                    for i, name in enumerate(area_names):
-                        conn_id = area_ids[i] if i < len(area_ids) else "Unknown ID"
-                        area_connections_formatted.append(f"{name}")
+                if "areaConnectivityId" in location_data and location_data["areaConnectivityId"]:
+                    # Use the global location_graph to get info about connected locations
+                    connected_area_details = []
+                    for connected_loc_id in location_data["areaConnectivityId"]:
+                        # Get the full info for the connected location
+                        conn_loc_info = location_graph.get_location_info(connected_loc_id)
+                        if conn_loc_info:
+                            conn_loc_name = conn_loc_info['location_name']
+                            conn_area_name = location_graph.get_area_name_from_location_id(connected_loc_id)
+                            connected_area_details.append(f"{conn_loc_name} (in {conn_area_name})")
                     
-                    if area_connections_formatted:
-                        connected_areas_display_str = ". Connects to new areas: " + ", ".join(area_connections_formatted)
+                    if connected_area_details:
+                        connected_areas_display_str = ". Connects to other areas via: " + ", ".join(connected_area_details)
             
             # --- INTER-MODULE CONNECTIVITY SECTION ---
             available_modules_str = ""

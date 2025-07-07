@@ -627,6 +627,9 @@ Create atmospheric travel narration that leads into this adventure."""
                         if old_loc_id.startswith(old_id):
                             new_loc_id = old_loc_id.replace(old_id, new_id, 1)
                             location['locationId'] = new_loc_id
+                        
+                        # Note: areaConnectivityId contains location IDs which are independent
+                        # of area IDs/names, so we do NOT update them when renaming areas
                     
                     # Update map room IDs if map exists
                     map_data = area_data.get('map', {})

@@ -232,87 +232,27 @@ def handle_location_transition(current_location, new_location, current_area, cur
             error(f"FILE_OP: Failed to load current area data from {current_area_file}", category="file_operations")
             return None
 
+        # The new_location parameter is now always a specific location ID.
+        # We just need to find which area it belongs to.
         new_location_info = None
         new_area_data = None
+        new_area_id_for_conditions = None
 
-        if area_connectivity_id:
-            # Handle transition to a new area
-            # Parse area connectivity ID format: "AREACODE-LOCATIONID" (e.g., "TCD001-E01")
-            base_area_id = area_connectivity_id.split('-')[0]
-            target_location_id = area_connectivity_id.split('-')[1] if '-' in area_connectivity_id else new_location
-            
-            new_area_file = path_manager.get_area_path(base_area_id)
-            new_area_data = load_json_file(new_area_file)
-            if new_area_data and "locations" in new_area_data:
-                # Priority 1: Try to match by target location ID from connectivity
-                new_location_info = next((loc for loc in new_area_data["locations"] if loc["locationId"] == target_location_id), None)
-                
-                # Priority 2: Try to match by provided location name/ID
-                if not new_location_info:
-                    new_location_info = next((loc for loc in new_area_data["locations"] if loc["locationId"] == new_location), None)
-                
-                # Priority 2: Try to match by exact name
-                if not new_location_info:
-                    new_location_info = next((loc for loc in new_area_data["locations"] if loc["name"] == new_location), None)
-                    
-                # Priority 3: Check if the new_location is a connecting location ID
-                if not new_location_info and "connectivity" in current_location_info:
-                    for loc_id in current_location_info["connectivity"]:
-                        if loc_id == new_location:
-                            new_location_info = next((loc for loc in new_area_data["locations"] if loc["locationId"] == loc_id), None)
-                            break
-                
-                if new_location_info:
-                    debug(f"VALIDATION: Found new location in connected area: {new_location_info['name']} (ID: {new_location_info['locationId']})", category="location_transitions")
-                else:
-                    error(f"VALIDATION: New location '{new_location}' not found in connected area {area_connectivity_id}", category="location_transitions")
-                    return None
-            else:
-                error(f"FILE_OP: Failed to load new area data from {new_area_file}", category="file_operations")
-                return None
+        # Search all loaded areas to find the new location
+        from location_path_finder import LocationGraph
+        graph = LocationGraph() # Use the graph to access all loaded data
+        graph.load_module_data()
+
+        new_location_info = graph.get_location_info(new_location)
+
+        if new_location_info:
+            new_area_id_for_conditions = new_location_info['area_id']
+            new_area_data = graph.area_data.get(new_area_id_for_conditions)
+            debug(f"VALIDATION: Found new location '{new_location_info['location_name']}' in area {new_area_id_for_conditions}", category="location_transitions")
+            debug(f"SUCCESS: New location validated: {new_location_info['location_name']} (ID: {new_location})", category="location_transitions")
         else:
-            # Transition within the same area
-            
-            # Priority 1: Check if new_location is a location ID directly
-            new_location_info = next((loc for loc in current_area_data["locations"] if loc["locationId"] == new_location), None)
-            if new_location_info:
-                debug(f"VALIDATION: Found new location by ID: {new_location_info['name']} (ID: {new_location_info['locationId']})", category="location_transitions")
-            
-            # Priority 2: Look for exact name match
-            if not new_location_info:
-                new_location_info = next((loc for loc in current_area_data["locations"] if loc["name"] == new_location), None)
-                if new_location_info:
-                    debug(f"VALIDATION: Found new location by exact name: {new_location_info['name']} (ID: {new_location_info['locationId']})", category="location_transitions")
-            
-            # Priority 3: Check if new_location matches a connecting location ID
-            if not new_location_info and "connectivity" in current_location_info:
-                connecting_ids = current_location_info["connectivity"]
-                debug(f"VALIDATION: Checking against connecting location IDs: {connecting_ids}", category="location_transitions")
-                
-                for loc_id in connecting_ids:
-                    connected_loc = next((loc for loc in current_area_data["locations"] if loc["locationId"] == loc_id), None)
-                    if connected_loc:
-                        # Check if the name of this connected location matches our target
-                        if normalize_string(connected_loc["name"]) == normalize_string(new_location):
-                            new_location_info = connected_loc
-                            debug(f"VALIDATION: Found connection to location by name match: {new_location_info['name']} (ID: {new_location_info['locationId']})", category="location_transitions")
-                            break
-                
-            # If still not found, check if the town square is in the list of connecting locations
-            if not new_location_info and "town square" in normalize_string(new_location):
-                debug(f"VALIDATION: Special case - looking for Town Square in connecting locations", category="location_transitions")
-                for loc_id in current_location_info.get("connectivity", []):
-                    connected_loc = next((loc for loc in current_area_data["locations"] if loc["locationId"] == loc_id), None)
-                    if connected_loc and "square" in normalize_string(connected_loc["name"]):
-                        new_location_info = connected_loc
-                        debug(f"VALIDATION: Found Town Square as connected location: {new_location_info['name']}", category="location_transitions")
-                        break
-
-        if not new_location_info:
             error(f"FAILURE: Could not find new location '{new_location}' by any method", category="location_transitions")
             return None
-
-        debug(f"SUCCESS: New location validated: {new_location_info['name']} (ID: {new_location_info['locationId']})", category="location_transitions")
     else:
         error("FILE_OP: Failed to load party_tracker.json", category="file_operations")
         return None
@@ -347,31 +287,26 @@ def handle_location_transition(current_location, new_location, current_area, cur
 
         # Update party tracker with new location information
         if party_tracker and new_location_info:
-            area_for_conditions = new_area_data if area_connectivity_id and new_area_data else current_area_data
-            # Extract base area ID from connectivity ID if transitioning to new area
-            if area_connectivity_id:
-                base_area_id = area_connectivity_id.split('-')[0]
-                area_id_for_conditions = base_area_id
-            else:
-                area_id_for_conditions = current_area_id
+            # Use the new area data if we're transitioning to a different area
+            area_for_conditions = new_area_data if new_area_data else current_area_data
+            area_id_for_conditions = new_area_id_for_conditions if new_area_id_for_conditions else current_area_id
             
             party_tracker["worldConditions"] = update_world_conditions(
                 party_tracker["worldConditions"],
-                new_location_info["name"],
+                new_location_info.get("location_name", new_location_info.get("name", "Unknown Location")),
                 area_for_conditions.get("areaName", current_area if not area_connectivity_id else "Unknown Area"),
                 area_id_for_conditions
             )
             
             # Explicitly set these values to ensure they're correct
             # Sanitize the location name before saving
-            party_tracker["worldConditions"]["currentLocation"] = sanitize_text(new_location_info["name"])
-            party_tracker["worldConditions"]["currentLocationId"] = new_location_info["locationId"]
+            party_tracker["worldConditions"]["currentLocation"] = sanitize_text(new_location_info.get("location_name", new_location_info.get("name", "Unknown Location")))
+            party_tracker["worldConditions"]["currentLocationId"] = new_location
 
-            if area_connectivity_id and new_area_data:
-                # Extract just the area ID from the connectivity ID (e.g., "TCD001" from "TCD001-E01")
-                base_area_id = area_connectivity_id.split('-')[0]
+            if new_area_id_for_conditions != current_area_id and new_area_data:
+                # We're transitioning to a new area
                 party_tracker["worldConditions"]["currentArea"] = new_area_data.get("areaName", "Unknown Area")
-                party_tracker["worldConditions"]["currentAreaId"] = base_area_id
+                party_tracker["worldConditions"]["currentAreaId"] = new_area_id_for_conditions
 
             try:
                 safe_json_dump(party_tracker, "party_tracker.json")
@@ -380,19 +315,19 @@ def handle_location_transition(current_location, new_location, current_area, cur
                 # Log successful location transition as a game event
                 game_event("location_transition", {
                     "from": current_location,
-                    "to": new_location_info["name"],
-                    "from_id": current_location_id,
-                    "to_id": new_location_info["locationId"],
-                    "area_change": area_connectivity_id is not None
+                    "to": new_location_info.get("location_name", new_location_info.get("name", "Unknown Location")),
+                    "from_id": current_location_info.get("locationId", current_location) if current_location_info else current_location,
+                    "to_id": new_location,
+                    "area_change": new_area_id_for_conditions != current_area_id
                 })
             except Exception as e:
                 error(f"FAILURE: Failed to update party_tracker.json", exception=e, category="file_operations")
 
         # Get storage information for the new location
-        storage_containers = get_storage_at_location(new_location_info["locationId"])
+        storage_containers = get_storage_at_location(new_location)
         storage_description = format_storage_description(storage_containers)
         
-        base_prompt = f"Describe the immediate surroundings and any notable features or encounters in {new_location_info['name']}, based on its recent history and current state."
+        base_prompt = f"Describe the immediate surroundings and any notable features or encounters in {new_location_info.get('location_name', new_location_info.get('name', 'this location'))}, based on its recent history and current state."
         
         return base_prompt + storage_description
     else:
