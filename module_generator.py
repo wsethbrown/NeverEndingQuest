@@ -693,16 +693,6 @@ If the field expects an object, return just the object.
             # Generate area data
             area_data = area_gen.generate_area(area_name, area_id, context.to_dict(), config)
             
-            # Update location IDs with unique prefix
-            area_data = self.update_area_with_prefix(area_data, location_prefix)
-            
-            # Debug: Verify prefixes were applied
-            print(f"DEBUG: After prefix update for area {area_id}:")
-            for location in area_data.get("locations", []):
-                print(f"  - Location ID: {location.get('locationId')}")
-            if "map" in area_data and "rooms" in area_data["map"]:
-                print(f"  - Map room IDs: {[room['id'] for room in area_data['map']['rooms']]}")
-            
             # Add locations to context
             for location in area_data.get("locations", []):
                 loc_id = location.get("locationId")
@@ -813,95 +803,7 @@ If the field expects an object, return just the object.
         
         return area_data
     
-    def generate_area_connections(self, module_data: Dict[str, Any], areas: List[str], module_name: str):
-        """Create connections between generated areas"""
-        print("\nGenerating area connections...")
         
-        module_dir = f"modules/{module_name.replace(' ', '_')}"
-        
-        # Get plot stages to determine progression
-        plot_stages = module_data.get("mainPlot", {}).get("plotStages", [])
-        
-        # Extract world map to find intended connections
-        world_map = module_data.get("worldMap", [])
-        
-        # Build connections based on plot progression
-        area_files = {}
-        for area_id in areas:
-            try:
-                # Load from areas subdirectory, not module root
-                with open(f"{module_dir}/areas/{area_id}.json", 'r') as f:
-                    area_files[area_id] = json.load(f)
-                    print(f"DEBUG: Loaded area {area_id} with locations: {[loc.get('locationId') for loc in area_files[area_id].get('locations', [])]}")
-            except (IOError, json.JSONDecodeError) as e:
-                print(f"Warning: Could not load area file {area_id}: {e}")
-        
-        # Create progression based on plot stages
-        if plot_stages and len(areas) > 1:
-            progression = []
-            
-            # Sort areas by recommended level
-            sorted_areas = sorted([(area_id, area_files[area_id].get("recommendedLevel", 1)) 
-                                  for area_id in areas if area_id in area_files],
-                                 key=lambda x: x[1])
-            
-            # Create progression chain
-            for i in range(len(sorted_areas) - 1):
-                from_area = sorted_areas[i][0]
-                to_area = sorted_areas[i+1][0]
-                progression.append((from_area, to_area))
-            
-            # Apply connections
-            for from_area, to_area in progression:
-                self._create_bidirectional_connection(area_files, from_area, to_area)
-        
-        # Save updated area files back to areas subdirectory
-        for area_id, area_data in area_files.items():
-            save_json_safely(area_data, f"{module_dir}/areas/{area_id}.json")
-            print(f"DEBUG: Saved area {area_id} with connections to: {[loc.get('areaConnectivityId', []) for loc in area_data.get('locations', [])]}")
-        
-        print("Area connections generated successfully")
-        
-    def _create_bidirectional_connection(self, area_files: Dict[str, Any], from_area: str, to_area: str):
-        """Create bidirectional connections between two areas"""
-        if from_area not in area_files or to_area not in area_files:
-            return
-        
-        # Get exit locations (prefer last locations for progression)
-        from_locations = area_files[from_area].get("locations", [])
-        to_locations = area_files[to_area].get("locations", [])
-        
-        if not from_locations or not to_locations:
-            return
-        
-        # Select exit points (use last location in from_area and first in to_area)
-        exit_loc = from_locations[-1]
-        entrance_loc = to_locations[0]
-        
-        # Validate that both locations have locationId
-        if "locationId" not in exit_loc or "locationId" not in entrance_loc:
-            print(f"Warning: Missing locationId in connection between {from_area} and {to_area}")
-            return
-        
-        # Update area connectivity in from_area exit
-        if "areaConnectivity" not in exit_loc:
-            exit_loc["areaConnectivity"] = []
-        if "areaConnectivityId" not in exit_loc:
-            exit_loc["areaConnectivityId"] = []
-        
-        # Store the location name and location ID for proper connectivity
-        exit_loc["areaConnectivity"].append(entrance_loc["name"])
-        exit_loc["areaConnectivityId"].append(entrance_loc["locationId"])
-        print(f"DEBUG: Connected {from_area} location {exit_loc['locationId']} to {to_area} location {entrance_loc['locationId']}")
-        
-        # Update area connectivity in to_area entrance
-        if "areaConnectivity" not in entrance_loc:
-            entrance_loc["areaConnectivity"] = []
-        if "areaConnectivityId" not in entrance_loc:
-            entrance_loc["areaConnectivityId"] = []
-        
-        entrance_loc["areaConnectivity"].append(exit_loc["name"])
-        entrance_loc["areaConnectivityId"].append(exit_loc["locationId"])
 
     def generate_unified_plot_file(self, module_data: Dict[str, Any], areas: List[str], module_name: str):
         """Generate unified module plot file"""
@@ -992,9 +894,6 @@ If the field expects an object, return just the object.
         
         # Generate all areas
         areas = self.generate_all_areas(module_data, module_name)
-        
-        # Create area connections
-        self.generate_area_connections(module_data, areas, module_name)
         
         # Generate unified plot file
         self.generate_unified_plot_file(module_data, areas, module_name)

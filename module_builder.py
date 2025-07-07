@@ -125,6 +125,10 @@ MODULE INDEPENDENCE RULES:
         self.log("Step 3: Generating locations for each area...")
         self.generate_locations()
         
+        # Step 3.5: Apply unique prefixes and create area connections
+        self.log("Step 3.5: Finalizing location IDs and connections...")
+        self.finalize_locations_and_connections()
+        
         # Step 4: Generate plots for each area
         self.log("Step 4: Generating plots for each area...")
         self.generate_plots()
@@ -976,6 +980,143 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             }
         }
         self.save_json(report, "validation_report.json")
+    
+    def get_location_prefix(self, area_index: int) -> str:
+        """Get the appropriate prefix for location IDs based on area index"""
+        # Use letters A-Z for first 26 areas, then AA-AZ, BA-BZ, etc.
+        if area_index < 26:
+            return chr(65 + area_index)  # A-Z
+        else:
+            first_letter = chr(65 + (area_index // 26) - 1)
+            second_letter = chr(65 + (area_index % 26))
+            return first_letter + second_letter
+    
+    def update_area_with_prefix(self, area_data: Dict[str, Any], prefix: str) -> Dict[str, Any]:
+        """Update all location IDs in area data to use the specified prefix"""
+        # Update map room IDs
+        if "map" in area_data and "rooms" in area_data["map"]:
+            for room in area_data["map"]["rooms"]:
+                if "id" in room and room["id"].startswith("R"):
+                    # Extract the number part and add new prefix
+                    num = room["id"][1:]
+                    new_id = prefix + num
+                    old_id = room["id"]
+                    room["id"] = new_id
+                    
+                    # Update room name if it contains the ID
+                    if "name" in room and old_id in room["name"]:
+                        room["name"] = room["name"].replace(old_id, new_id)
+                    
+                    # Update connections
+                    if "connections" in room:
+                        room["connections"] = [
+                            prefix + conn[1:] if conn.startswith("R") else conn
+                            for conn in room["connections"]
+                        ]
+        
+        # Update layout grid
+        if "map" in area_data and "layout" in area_data["map"]:
+            for i, row in enumerate(area_data["map"]["layout"]):
+                for j, cell in enumerate(row):
+                    if cell.startswith("R"):
+                        area_data["map"]["layout"][i][j] = prefix + cell[1:]
+        
+        # Update location IDs
+        if "locations" in area_data:
+            for location in area_data["locations"]:
+                if "locationId" in location and location["locationId"].startswith("R"):
+                    num = location["locationId"][1:]
+                    location["locationId"] = prefix + num
+                
+                # Update connectivity
+                if "connectivity" in location:
+                    location["connectivity"] = [
+                        prefix + conn[1:] if conn.startswith("R") else conn
+                        for conn in location["connectivity"]
+                    ]
+        
+        return area_data
+    
+    def _create_bidirectional_connection(self, area_files: Dict[str, Any], from_area: str, to_area: str):
+        """Create bidirectional connections between two areas"""
+        if from_area not in area_files or to_area not in area_files:
+            return
+        
+        # Get exit locations (prefer last locations for progression)
+        from_locations = area_files[from_area].get("locations", [])
+        to_locations = area_files[to_area].get("locations", [])
+        
+        if not from_locations or not to_locations:
+            return
+        
+        # Select exit points (use last location in from_area and first in to_area)
+        exit_loc = from_locations[-1]
+        entrance_loc = to_locations[0]
+        
+        # Validate that both locations have locationId
+        if "locationId" not in exit_loc or "locationId" not in entrance_loc:
+            print(f"Warning: Missing locationId in connection between {from_area} and {to_area}")
+            return
+        
+        # Update area connectivity in from_area exit
+        if "areaConnectivity" not in exit_loc:
+            exit_loc["areaConnectivity"] = []
+        if "areaConnectivityId" not in exit_loc:
+            exit_loc["areaConnectivityId"] = []
+        
+        # Store the location name and location ID for proper connectivity
+        exit_loc["areaConnectivity"].append(entrance_loc["name"])
+        exit_loc["areaConnectivityId"].append(entrance_loc["locationId"])
+        print(f"DEBUG: Connected {from_area} location {exit_loc['locationId']} to {to_area} location {entrance_loc['locationId']}")
+        
+        # Update area connectivity in to_area entrance
+        if "areaConnectivity" not in entrance_loc:
+            entrance_loc["areaConnectivity"] = []
+        if "areaConnectivityId" not in entrance_loc:
+            entrance_loc["areaConnectivityId"] = []
+        
+        entrance_loc["areaConnectivity"].append(exit_loc["name"])
+        entrance_loc["areaConnectivityId"].append(exit_loc["locationId"])
+    
+    def finalize_locations_and_connections(self):
+        """
+        Applies unique prefixes to all location IDs and then creates
+        connections between areas. This must be run AFTER all locations
+        have been fully generated.
+        """
+        # Step 1: Apply unique prefixes to all generated locations
+        sorted_area_ids = sorted(self.areas_data.keys())
+        
+        for i, area_id in enumerate(sorted_area_ids):
+            prefix = self.get_location_prefix(i)
+            self.log(f"Applying prefix '{prefix}' to area {area_id}")
+            
+            # The location data is now stored in the area data itself
+            area_data = self.areas_data[area_id]
+            
+            # Apply the prefix and update the stored data
+            self.areas_data[area_id] = self.update_area_with_prefix(area_data, prefix)
+            
+            # Immediately save the updated area file to disk
+            self.save_json(self.areas_data[area_id], f"areas/{area_id}.json")
+        
+        # Step 2: Create connections between areas using the now-unique IDs
+        if len(sorted_area_ids) > 1:
+            for i in range(len(sorted_area_ids) - 1):
+                from_area_id = sorted_area_ids[i]
+                to_area_id = sorted_area_ids[i+1]
+                
+                # The area_files dictionary needs to be built from the updated self.areas_data
+                area_files_for_connection = {
+                    from_area_id: self.areas_data[from_area_id],
+                    to_area_id: self.areas_data[to_area_id]
+                }
+                
+                self._create_bidirectional_connection(area_files_for_connection, from_area_id, to_area_id)
+                
+                # Save the updated files again after adding connections
+                self.save_json(self.areas_data[from_area_id], f"areas/{from_area_id}.json")
+                self.save_json(self.areas_data[to_area_id], f"areas/{to_area_id}.json")
 
 def main():
     """Interactive module builder"""
