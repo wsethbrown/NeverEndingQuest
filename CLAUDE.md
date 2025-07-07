@@ -141,6 +141,29 @@ modules/[module_name]/
 
 This architecture supports both standalone adventures and linked module series while maintaining clean separation of concerns.
 
+## Module Generation Architecture
+
+### Module Builder and Generator Relationship
+The module creation system uses an **Orchestrator-Worker Pattern**:
+
+- **module_builder.py (Orchestrator)**: 
+  - Acts as the "general contractor" that manages the overall module creation process
+  - Called directly by `main.py` when creating new modules
+  - Instantiates and coordinates all specialized generators (ModuleGenerator, PlotGenerator, LocationGenerator, AreaGenerator)
+  - Does NOT perform actual content generation itself
+
+- **module_generator.py (Worker/Engine)**:
+  - The core content generation engine called by module_builder.py
+  - Contains all the heavy lifting for module structure creation
+  - Implements critical functionality including:
+    - Location ID prefix system (A01, B01, C01 to ensure uniqueness across areas)
+    - Area connection generation (`_create_bidirectional_connection` method)
+    - Validation of duplicate location IDs
+  - This is where area connectivity bugs should be fixed, NOT in module_builder.py
+
+### Key Insight
+When fixing area transitions or connectivity issues, always check `module_generator.py` first, as it contains the actual implementation. The `module_builder.py` is just the orchestrator that calls it.
+
 ## Recent Architectural Patterns
 
 ### Manager Pattern Implementation

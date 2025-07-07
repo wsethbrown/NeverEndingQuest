@@ -696,6 +696,13 @@ If the field expects an object, return just the object.
             # Update location IDs with unique prefix
             area_data = self.update_area_with_prefix(area_data, location_prefix)
             
+            # Debug: Verify prefixes were applied
+            print(f"DEBUG: After prefix update for area {area_id}:")
+            for location in area_data.get("locations", []):
+                print(f"  - Location ID: {location.get('locationId')}")
+            if "map" in area_data and "rooms" in area_data["map"]:
+                print(f"  - Map room IDs: {[room['id'] for room in area_data['map']['rooms']]}")
+            
             # Add locations to context
             for location in area_data.get("locations", []):
                 loc_id = location.get("locationId")
@@ -703,10 +710,43 @@ If the field expects an object, return just the object.
                 context.add_location(loc_id, loc_name, area_id)
             
             # Save area files in module directory
+            print(f"DEBUG: About to save area {area_id} with locations: {[loc.get('locationId') for loc in area_data.get('locations', [])]}")
             area_gen.save_area(area_data, module_name=module_name)
+            
+            # DEBUG: Verify what was actually saved
+            saved_file_path = f"{module_dir}/areas/{area_id}.json"
+            try:
+                with open(saved_file_path, 'r') as f:
+                    saved_data = json.load(f)
+                    saved_locs = [loc.get('locationId') for loc in saved_data.get('locations', [])]
+                    print(f"DEBUG: Verified saved file has locations: {saved_locs}")
+            except Exception as e:
+                print(f"DEBUG: Could not verify saved file: {e}")
             generated_areas.append(area_id)
             
             print(f"Generated area: {area_name} ({area_id}) with location prefix '{location_prefix}' and {len(area_data.get('locations', []))} locations")
+        
+        # Validate no duplicate location IDs across all areas
+        all_location_ids = {}
+        duplicate_ids = []
+        
+        for area_id in generated_areas:
+            try:
+                with open(f"{module_dir}/areas/{area_id}.json", 'r') as f:
+                    area_data = json.load(f)
+                    for location in area_data.get("locations", []):
+                        loc_id = location.get("locationId")
+                        if loc_id in all_location_ids:
+                            duplicate_ids.append(f"{loc_id} (in {area_id} and {all_location_ids[loc_id]})")
+                        else:
+                            all_location_ids[loc_id] = area_id
+            except Exception as e:
+                print(f"Warning: Could not validate area {area_id}: {e}")
+        
+        if duplicate_ids:
+            print(f"WARNING: Duplicate location IDs found across areas: {duplicate_ids}")
+        else:
+            print(f"Validation passed: All {len(all_location_ids)} location IDs are unique across the module")
         
         # Save context file
         context.save(f"{module_dir}/module_context.json")
@@ -789,10 +829,12 @@ If the field expects an object, return just the object.
         area_files = {}
         for area_id in areas:
             try:
-                with open(f"{module_dir}/{area_id}.json", 'r') as f:
+                # Load from areas subdirectory, not module root
+                with open(f"{module_dir}/areas/{area_id}.json", 'r') as f:
                     area_files[area_id] = json.load(f)
-            except (IOError, json.JSONDecodeError):
-                print(f"Warning: Could not load area file {area_id}")
+                    print(f"DEBUG: Loaded area {area_id} with locations: {[loc.get('locationId') for loc in area_files[area_id].get('locations', [])]}")
+            except (IOError, json.JSONDecodeError) as e:
+                print(f"Warning: Could not load area file {area_id}: {e}")
         
         # Create progression based on plot stages
         if plot_stages and len(areas) > 1:
@@ -813,9 +855,10 @@ If the field expects an object, return just the object.
             for from_area, to_area in progression:
                 self._create_bidirectional_connection(area_files, from_area, to_area)
         
-        # Save updated area files
+        # Save updated area files back to areas subdirectory
         for area_id, area_data in area_files.items():
-            save_json_safely(area_data, f"{module_dir}/{area_id}.json")
+            save_json_safely(area_data, f"{module_dir}/areas/{area_id}.json")
+            print(f"DEBUG: Saved area {area_id} with connections to: {[loc.get('areaConnectivityId', []) for loc in area_data.get('locations', [])]}")
         
         print("Area connections generated successfully")
         
@@ -849,6 +892,7 @@ If the field expects an object, return just the object.
         # Store the location name and location ID for proper connectivity
         exit_loc["areaConnectivity"].append(entrance_loc["name"])
         exit_loc["areaConnectivityId"].append(entrance_loc["locationId"])
+        print(f"DEBUG: Connected {from_area} location {exit_loc['locationId']} to {to_area} location {entrance_loc['locationId']}")
         
         # Update area connectivity in to_area entrance
         if "areaConnectivity" not in entrance_loc:
