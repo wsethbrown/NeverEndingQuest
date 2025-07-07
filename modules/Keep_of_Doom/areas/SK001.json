@@ -720,7 +720,7 @@
         "Dungeon Entrance"
       ],
       "areaConnectivityId": [
-        "TCD001-E01"
+        "E01"
       ],
       "npcs": [],
       "monsters": [
@@ -816,7 +816,7 @@
         "Hidden Keep Entrance"
       ],
       "areaConnectivityId": [
-        "G001-B09"
+        "B09"
       ],
       "npcs": [],
       "monsters": [],

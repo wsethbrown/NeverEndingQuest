@@ -221,7 +221,7 @@
         "Harrow's Hollow East Gate"
       ],
       "areaConnectivityId": [
-        "HH001"
+        "A03"
       ],
       "traps": [],
       "features": [
@@ -444,7 +444,7 @@
         "Secret Forest Path"
       ],
       "areaConnectivityId": [
-        "SF001"
+        "C08"
       ],
       "npcs": [],
       "monsters": [],
