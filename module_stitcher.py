@@ -579,8 +579,8 @@ Create atmospheric travel narration that leads into this adventure."""
                         # Update existing areas registry for future conflict checks
                         existing_areas[new_area_id] = {"module": module_name}
             
-            # Check for location ID conflicts within areas
-            location_conflicts = self._resolve_location_id_conflicts(module_path, module_data)
+            # Check for location ID conflicts globally
+            location_conflicts = self._resolve_and_reprefix_location_ids(module_name, module_path)
             conflicts_resolved += location_conflicts
             
             return conflicts_resolved
@@ -671,59 +671,92 @@ Create atmospheric travel narration that leads into this adventure."""
             print(f"Error updating area ID from {old_id} to {new_id}: {e}")
             return False
     
-    def _resolve_location_id_conflicts(self, module_path: str, module_data: Dict[str, Any]) -> int:
-        """Resolve location ID conflicts within areas"""
-        try:
-            conflicts_resolved = 0
-            
-            # Build global location ID registry from existing modules
-            existing_location_ids = set()
-            for area_id, area_data in self.world_registry.get('areas', {}).items():
-                # This is approximate - we'd need to load each area file to get exact location IDs
-                # For now, we'll check against common patterns
-                location_count = area_data.get('locationCount', 0)
-                for i in range(1, location_count + 10):  # Some buffer
-                    existing_location_ids.add(f"{area_id}-{chr(64+i)}")  # A, B, C format
-                    existing_location_ids.add(f"{area_id}_{i:03d}")      # 001, 002 format
-            
-            # Check each area file in the new module
-            for area_id in module_data.get('areas', {}):
-                area_file = os.path.join(module_path, f"{area_id}.json")
-                if os.path.exists(area_file):
-                    area_data = safe_json_load(area_file)
-                    if area_data and 'locations' in area_data:
-                        modified = False
-                        
-                        for location in area_data['locations']:
-                            old_loc_id = location.get('locationId', '')
-                            if old_loc_id in existing_location_ids:
-                                # Generate new unique location ID
-                                new_loc_id = self._generate_unique_location_id(old_loc_id, existing_location_ids)
-                                location['locationId'] = new_loc_id
-                                existing_location_ids.add(new_loc_id)  # Prevent future conflicts
-                                modified = True
-                                conflicts_resolved += 1
-                                print(f"    - Renamed location {old_loc_id} -> {new_loc_id}")
-                        
-                        if modified:
-                            safe_json_dump(area_data, area_file)
-            
-            return conflicts_resolved
-            
-        except Exception as e:
-            print(f"Error resolving location ID conflicts: {e}")
-            return 0
-    
-    def _generate_unique_location_id(self, original_id: str, existing_ids: set) -> str:
-        """Generate unique location ID"""
-        # Try appending numbers
-        for i in range(1, 100):
-            new_id = f"{original_id}_{i}"
-            if new_id not in existing_ids:
-                return new_id
+    def _resolve_and_reprefix_location_ids(self, module_name: str, module_path: str) -> int:
+        """
+        Ensures all location IDs in a new module are globally unique.
+        If any conflict is found, it re-prefixes ALL locations in the new module.
+        """
+        self.log(f"  - Validating global uniqueness of location IDs for {module_name}...")
         
-        # Fallback
-        return f"{original_id}_{datetime.now().strftime('%H%M%S')}"
+        # 1. Get all existing location IDs from the world registry
+        all_existing_loc_ids = set()
+        for area_id in self.world_registry.get('areas', {}):
+            # To get actual location IDs, we must load the area file
+            try:
+                area_info = self.world_registry['areas'][area_id]
+                existing_module_name = area_info.get('module')
+                if not existing_module_name:
+                    continue
+                
+                path_manager = ModulePathManager(existing_module_name)
+                area_file_path = path_manager.get_area_path(area_id)
+                area_data = safe_json_load(area_file_path)
+                if area_data:
+                    for loc in area_data.get('locations', []):
+                        if loc.get('locationId'):
+                            all_existing_loc_ids.add(loc.get('locationId'))
+            except Exception:
+                continue # Skip if file can't be read
+
+        # 2. Get all location IDs from the NEW module
+        new_module_loc_ids = set()
+        new_module_areas_path = os.path.join(module_path, "areas")
+        if not os.path.exists(new_module_areas_path):
+            return 0
+            
+        for area_file in os.listdir(new_module_areas_path):
+            if area_file.endswith(".json"):
+                area_data = safe_json_load(os.path.join(new_module_areas_path, area_file))
+                if area_data:
+                    for loc in area_data.get('locations', []):
+                        if loc.get('locationId'):
+                            new_module_loc_ids.add(loc.get('locationId'))
+
+        # 3. Check for any overlap
+        conflicting_ids = all_existing_loc_ids.intersection(new_module_loc_ids)
+        
+        if not conflicting_ids:
+            self.log_success(f"    - All location IDs in {module_name} are unique.")
+            return 0
+
+        self.log_warning(f"    - Found {len(conflicting_ids)} conflicting location IDs: {list(conflicting_ids)[:5]}...")
+
+        # 4. If conflict exists, re-prefix the ENTIRE new module
+        self.log_info(f"    - Conflict found. Re-prefixing all locations in {module_name} to ensure uniqueness.")
+        
+        # Find the highest existing letter prefix to start from
+        last_prefix_char_code = 64 # Start before 'A'
+        for loc_id in all_existing_loc_ids:
+            if loc_id and loc_id[0].isalpha():
+                last_prefix_char_code = max(last_prefix_char_code, ord(loc_id[0].upper()))
+        
+        start_index = last_prefix_char_code - 64 
+        
+        # We need the helper functions from ModuleBuilder
+        # Import here to avoid circular dependency
+        from module_builder import ModuleBuilder
+        temp_builder = ModuleBuilder(config.BuilderConfig()) # Create a temporary instance to access methods
+        
+        sorted_new_area_files = sorted(os.listdir(new_module_areas_path))
+        conflicts_resolved = 0
+        
+        for i, area_filename in enumerate(sorted_new_area_files):
+            if not area_filename.endswith(".json"):
+                continue
+
+            # Generate a new, globally unique prefix
+            new_prefix = temp_builder.get_location_prefix(start_index + i)
+            area_file_path = os.path.join(new_module_areas_path, area_filename)
+            area_data = safe_json_load(area_file_path)
+            
+            if area_data:
+                self.log_info(f"      - Applying new prefix '{new_prefix}' to area {area_data.get('areaId')}")
+                updated_area_data = temp_builder.update_area_with_prefix(area_data, new_prefix)
+                safe_json_dump(updated_area_data, area_file_path)
+                conflicts_resolved += len(updated_area_data.get('locations', []))
+
+        return conflicts_resolved
+    
     
     def _validate_module_safety(self, module_name: str, module_data: Dict[str, Any]) -> bool:
         """Validate module for safety issues using AI content filtering"""
