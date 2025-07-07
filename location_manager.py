@@ -53,6 +53,7 @@ import traceback
 from datetime import datetime
 from module_path_manager import ModulePathManager
 import cumulative_summary
+import reconcile_location_state
 from encoding_utils import (
     sanitize_text,
     sanitize_dict,
@@ -263,6 +264,38 @@ def handle_location_transition(current_location, new_location, current_area, cur
             safe_json_dump(current_location_info, "current_location.json")
         except Exception as e:
             error(f"FILE_OP: Failed to update current_location.json", exception=e, category="file_operations")
+
+        # =================================================================
+        # NEW RECONCILIATION STEP - INSERT THIS BLOCK
+        # =================================================================
+        try:
+            # Load the full conversation history to find the relevant segment
+            conversation_history = load_json_file("modules/conversation_history/conversation_history.json") or []
+            
+            # Find the start of this location's history by looking for the last transition message
+            start_index = 0
+            for i in range(len(conversation_history) - 1, -1, -1):
+                msg = conversation_history[i]
+                content = msg.get("content", "")
+                if msg.get("role") == "user" and ("Location transition:" in content or "Module transition:" in content):
+                    start_index = i + 1
+                    break
+            
+            history_segment = conversation_history[start_index:]
+
+            # Call the new reconciler for the location we are LEAVING
+            reconcile_location_state.run(
+                area_id=current_area_id, 
+                location_id=current_location_info['locationId'],
+                conversation_history_segment=history_segment
+            )
+            info(f"STATE_RECONCILIATION: Ran reconciler for {current_location_info['name']} ({current_location_info['locationId']}).")
+
+        except Exception as e:
+            error(f"FAILURE: Location State Reconciliation failed for {current_location_info['name']}", exception=e)
+        # =================================================================
+        # END OF NEW STEP
+        # =================================================================
 
         # Run adventure summary update
         try:
