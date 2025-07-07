@@ -105,12 +105,6 @@
         "RO03",
         "RO04"
       ],
-      "areaConnectivity": [
-        "Thornwood Wilds"
-      ],
-      "areaConnectivityId": [
-        "TW001"
-      ],
       "npcs": [
         {
           "name": "Ranger Elen",

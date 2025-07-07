@@ -153,12 +153,8 @@
         "RO03",
         "RO04"
       ],
-      "areaConnectivity": [
-        "Thornwood Wilds"
-      ],
-      "areaConnectivityId": [
-        "TW001"
-      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
       "traps": [],
       "features": [
         {
