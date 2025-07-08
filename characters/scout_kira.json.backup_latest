@@ -319,7 +319,7 @@
   "ammunition": [
     {
       "name": "Arrow",
-      "quantity": 102,
+      "quantity": 93,
       "description": "Ammunition for bows."
     }
   ],
@@ -395,10 +395,10 @@
     "silver": 19,
     "copper": 38
   },
-  "experience_points": 1275,
+  "experience_points": 1325,
   "exp_required_for_next_level": 2700,
   "challengeRating": 0.25,
-  "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale. Assisted in the final sweep of the stronghold.",
+  "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale. Assisted in the final sweep of the stronghold. Assisted in subduing the last bandit warrior.",
   "ideals": "Change. Life is like the seasons, in constant change, and we must change with it. I now strive to be a beacon of hope and courage for those around me.",
   "bonds": "An injury to the unspoiled wilderness of my home is an injury to me. My bond to the Rangers' Outpost and its people has grown stronger with their recognition.",
   "flaws": "I remember every insult I've received and nurse a silent resentment toward anyone who's ever wronged me. However, I am learning to put aside grudges to focus on the greater good."

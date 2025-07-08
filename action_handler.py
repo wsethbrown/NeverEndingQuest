@@ -548,9 +548,10 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
 
                 if combat_summary:
                     print("[DEBUG ACTION_HANDLER] Found combat summary, appending to conversation history")
+                    # Add clear historical marker to prevent Combat Commitment Point confusion
                     modified_combat_summary = {
                         "role": "user",
-                        "content": combat_summary["content"]
+                        "content": "[COMBAT CONCLUDED - HISTORICAL RECORD]\n" + combat_summary["content"] + "\n[END OF COMBAT RECORD - Please continue the narrative after this combat]"
                     }
                     conversation_history.append(modified_combat_summary)
                     # Import save_conversation_history from main

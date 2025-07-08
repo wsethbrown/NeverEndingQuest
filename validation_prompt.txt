@@ -13,7 +13,7 @@ CRITICAL VALIDATION PRIORITIES:
 4. USER INPUT COMPLIANCE: Pay special attention to the user's ACTUAL INPUT that triggered the assistant's response
 5. SPELL SLOT VALIDATION: Cantrips (0-level spells) do NOT consume spell slots and can be cast unlimited times. Only leveled spells (1st-9th level) should reduce spell slots via updateCharacterInfo actions.
 6. LOCATION PATH VALIDATION: When validating transitionLocation actions, check the "Path Validation" section in the context. ONLY allow movement along valid, connected paths. Reject any transitions that show "WARNING" or "No valid path" messages.
-7. COMBAT INITIATION VALIDATION: Review each turn for the Combat Commitment Point. If a hostile action occurred that alerted enemies, was createEncounter called IMMEDIATELY? If any combat actions were resolved narratively after enemies became aware, mark as INVALID.
+7. COMBAT INITIATION VALIDATION: Review each turn for the Combat Commitment Point. If a hostile action occurred that alerted enemies, was createEncounter called IMMEDIATELY? If any combat actions were resolved narratively after enemies became aware, mark as INVALID. EXCEPTION: Messages marked with [COMBAT CONCLUDED - HISTORICAL RECORD] are exempt from this rule as they represent already-resolved combat.
 
 ANTI-HALLUCINATION ENFORCEMENT:
 - Any mention of NPCs not listed in the MODULE VALIDATION DATA is an IMMEDIATE validation failure
