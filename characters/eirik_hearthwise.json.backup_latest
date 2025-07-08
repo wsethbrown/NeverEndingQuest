@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 33,
+  "hitPoints": 25,
   "maxHitPoints": 33,
   "armorClass": 17,
   "initiative": 1,

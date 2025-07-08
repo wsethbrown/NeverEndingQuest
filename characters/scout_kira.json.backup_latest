@@ -319,7 +319,7 @@
   "ammunition": [
     {
       "name": "Arrow",
-      "quantity": 93,
+      "quantity": 91,
       "description": "Ammunition for bows."
     }
   ],
