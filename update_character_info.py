@@ -942,8 +942,20 @@ Character Role: {character_role}
             # Fix common item_type mistakes before applying updates
             updates = fix_item_types(updates)
             
+            # CRITICAL FIX: Prevent AI from setting negative HP in updates
+            if 'hitPoints' in updates and updates['hitPoints'] < 0:
+                debug(f"HP_FIX: AI attempted to set negative HP ({updates['hitPoints']}) for {character_name}, clamping to 0", category="character_updates")
+                updates['hitPoints'] = 0
+            
             # Apply updates to character data using deep merge
             updated_data = deep_merge_dict(character_data, updates)
+            
+            # CRITICAL FIX: Ensure hitPoints never go below 0
+            if 'hitPoints' in updated_data:
+                current_hp = updated_data.get('hitPoints', 0)
+                if current_hp < 0:
+                    debug(f"HP_FIX: Clamping negative HP ({current_hp}) to 0 for {character_name}", category="character_updates")
+                    updated_data['hitPoints'] = 0
             
             # Validate that critical fields weren't accidentally deleted
             critical_warnings = validate_critical_fields_preserved(character_data, updated_data, character_name)
