@@ -1792,7 +1792,6 @@ Player: {user_input_text}"""
                changes = parameters.get("changes", "")
                print(f"[COMBAT_MANAGER] Updating character: {character_name}")
                try:
-                   from update_character_info import update_character_info
                    success = update_character_info(character_name, changes)
                    if success:
                        print(f"[COMBAT_MANAGER] Character update successful: {character_name}")
@@ -1909,7 +1908,6 @@ Player: {user_input_text}"""
                        
                        # Directly call the character update function
                        try:
-                           from update_character_info import update_character_info
                            update_success = update_character_info(character_name, xp_change_description)
                            if update_success:
                                info(f"XP_AWARD: Successfully applied {xp_awarded} XP to {character_name}", category="xp_tracking")
