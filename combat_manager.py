@@ -975,36 +975,38 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    """Main function to run the combat simulation"""
    print(f"\n[COMBAT_MANAGER] ========== COMBAT SIMULATION START ==========")
    print(f"[COMBAT_MANAGER] Encounter ID: {encounter_id}")
-   print(f"[COMBAT_MANAGER] Location: {location_info.get('location_name', 'Unknown')}")
-   print(f"[COMBAT_MANAGER] Starting INTERACTIVE combat with player turns")
+   print(f"[COMBAT_MANAGER] Location: {location_info.get('name', 'Unknown')}")
    debug(f"INITIALIZATION: Starting combat simulation for encounter {encounter_id}", category="combat_events")
    
    # Initialize path manager
    from module_path_manager import ModulePathManager
    from encoding_utils import safe_json_load
-   # Get current module from party tracker for consistent path resolution
    try:
        party_tracker = safe_json_load("party_tracker.json")
        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
        path_manager = ModulePathManager(current_module)
    except:
-       path_manager = ModulePathManager()  # Fallback to reading from file
+       path_manager = ModulePathManager()
 
-   # Initialize conversation history with the original structure
-   conversation_history = [
-       {"role": "system", "content": read_prompt_from_file('combat_sim_prompt.txt')},
-       {"role": "system", "content": f"Current Combat Encounter: {encounter_id}"},
-       {"role": "system", "content": ""}, # Will hold player data
-       {"role": "system", "content": ""}, # Will hold monster templates
-       {"role": "system", "content": ""}, # Will hold location info
-   ]
+   # Check if combat history file exists and has content to determine if we are resuming.
+   if os.path.exists(conversation_history_file) and os.path.getsize(conversation_history_file) > 100:
+       conversation_history = load_json_file(conversation_history_file)
+       is_resuming = True
+       print("[COMBAT_MANAGER] Resuming existing combat session.")
+   else:
+       is_resuming = False
+       conversation_history = [
+           {"role": "system", "content": read_prompt_from_file('combat_sim_prompt.txt')},
+           {"role": "system", "content": f"Current Combat Encounter: {encounter_id}"},
+           {"role": "system", "content": ""}, # Player data placeholder
+           {"role": "system", "content": ""}, # Monster templates placeholder
+           {"role": "system", "content": ""}, # Location info placeholder
+       ]
+       print("[COMBAT_MANAGER] Starting new combat session.")
    
-   # Initialize secondary model histories
+   # Initialize and reset secondary model histories
    second_model_history = []
    third_model_history = []
-   
-   # Save empty histories to files to reset them
-   save_json_file(conversation_history_file, conversation_history)
    save_json_file(second_model_history_file, second_model_history)
    save_json_file(third_model_history_file, third_model_history)
    
@@ -1095,27 +1097,20 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
                except Exception as e:
                    error(f"FAILURE: Failed to load NPC file {npc_file}", exception=e, category="file_operations")
    
-   # Populate the system messages with JSON data (filtering out dynamic fields)
-   conversation_history[2]["content"] = f"Player Character:\n{json.dumps(filter_dynamic_fields(player_info), indent=2)}"
-   conversation_history[3]["content"] = f"Monster Templates:\n{json.dumps({k: filter_dynamic_fields(v) for k, v in monster_templates.items()}, indent=2)}"
-   # Verify that we loaded all necessary data
-   if not monster_templates and any(c["type"] == "enemy" for c in encounter_data["creatures"]):
-       error("FAILURE: No monster templates were loaded!", category="file_operations")
-       return None, None
-   
-   debug(f"INITIALIZATION: Loaded {len(monster_templates)} monster template(s)", category="file_operations")
-   for k, v in monster_templates.items():
-       debug(f"  - {k}: {v.get('name', 'Unknown')}", category="combat_validation")
-   
-   conversation_history[4]["content"] = f"Location:\n{json.dumps(location_info, indent=2)}"
-   conversation_history.append({"role": "system", "content": f"NPC Templates:\n{json.dumps({k: filter_dynamic_fields(v) for k, v in npc_templates.items()}, indent=2)}"})
-   conversation_history.append({"role": "system", "content": f"Encounter Details:\n{json.dumps(filter_encounter_for_system_prompt(encounter_data), indent=2)}"})
-   
-   # Log the conversation structure for debugging
-   log_conversation_structure(conversation_history)
-   
-   # Save the updated conversation history
-   save_json_file(conversation_history_file, conversation_history)
+   # Populate the system messages ONLY if it's a new combat session
+   if not is_resuming:
+       conversation_history[2]["content"] = f"Player Character:\n{json.dumps(filter_dynamic_fields(player_info), indent=2)}"
+       conversation_history[3]["content"] = f"Monster Templates:\n{json.dumps({k: filter_dynamic_fields(v) for k, v in monster_templates.items()}, indent=2)}"
+       if not monster_templates and any(c["type"] == "enemy" for c in encounter_data["creatures"]):
+           error("FAILURE: No monster templates were loaded!", category="file_operations")
+           return None, None
+       
+       conversation_history[4]["content"] = f"Location:\n{json.dumps(location_info, indent=2)}"
+       conversation_history.append({"role": "system", "content": f"NPC Templates:\n{json.dumps({k: filter_dynamic_fields(v) for k, v in npc_templates.items()}, indent=2)}"})
+       conversation_history.append({"role": "system", "content": f"Encounter Details:\n{json.dumps(filter_encounter_for_system_prompt(encounter_data), indent=2)}"})
+       
+       log_conversation_structure(conversation_history)
+       save_json_file(conversation_history_file, conversation_history)
    
    # Prepare initial dynamic state info for all creatures
    dynamic_state_parts = []
@@ -1166,28 +1161,57 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    
    all_dynamic_state = "\n".join(dynamic_state_parts)
    
-   # Initialize round tracking and generate prerolls for the initial scene
-   round_num = 1
-   encounter_data['current_round'] = round_num
+   # Initialize round tracking and generate prerolls
+   round_num = encounter_data.get('current_round', 1)
    preroll_text = generate_prerolls(encounter_data, round_num=round_num)
    
-   # Cache the prerolls
    encounter_data['preroll_cache'] = {
        'round': round_num,
        'rolls': preroll_text,
        'preroll_id': f"{round_num}-{random.randint(1000,9999)}"
    }
-   
-   # Save the encounter data with initial preroll cache to disk
    save_json_file(json_file_path, encounter_data)
-   debug(f"STATE_CHANGE: Saved initial prerolls for round {round_num}", category="combat_events")
+   debug(f"STATE_CHANGE: Saved prerolls for round {round_num}", category="combat_events")
    
-   # Get initial scene description before first user input
-   debug("AI_CALL: Getting initial scene description...", category="combat_events")
-   # Generate initiative order for validation context
-   initiative_order = get_initiative_order(encounter_data)
-   
-   initial_prompt = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field, 'combat_round' field, and an 'actions' array. This is the start of combat, so please describe the scene and set initiative order, but don't take any actions yet. Start off by hooking the player and engaging them for the start of combat the way any world class dungeon master would.
+   # --- START: RESUMPTION AND INITIAL SCENE LOGIC ---
+   if is_resuming:
+       # This is a resumed session. Inject a message to get a re-engagement narration.
+       print("[COMBAT_MANAGER] Injecting 'player has returned' message to re-engage AI.")
+       resume_prompt = "Dungeon Master Note: The game session is resuming after a pause. The player has returned. Please provide a brief narration to re-establish the scene and prompt the player for their next action, based on the last known state from the conversation history."
+       
+       # Add the resume prompt to the history only if it's not already the last message.
+       if not conversation_history or conversation_history[-1].get('content') != resume_prompt:
+           conversation_history.append({"role": "user", "content": resume_prompt})
+           save_json_file(conversation_history_file, conversation_history)
+
+       # Get the AI's re-engagement response
+       try:
+           print("[COMBAT_MANAGER] Getting re-engagement narration from AI...")
+           response = client.chat.completions.create(
+               model=COMBAT_MAIN_MODEL,
+               temperature=TEMPERATURE,
+               messages=conversation_history
+           )
+           resume_response_content = response.choices[0].message.content.strip()
+           
+           conversation_history.append({"role": "assistant", "content": resume_response_content})
+           save_json_file(conversation_history_file, conversation_history)
+
+           parsed_response = json.loads(resume_response_content)
+           narration = parsed_response.get("narration", "The battle continues! What do you do?")
+           print(f"Dungeon Master: {narration}")
+
+       except Exception as e:
+           error("FAILURE: Could not get re-engagement narration.", exception=e, category="combat_events")
+           print("Dungeon Master: The battle continues! What will you do next?")
+   else:
+       # This is a new combat. Use the original logic to get the initial scene.
+       debug("AI_CALL: Getting initial scene description...", category="combat_events")
+       initiative_order = get_initiative_order(encounter_data)
+       
+       initial_prompt_text = f"""The setup scene for the combat has already been given and described to the party. Now, describe the combat situation and the enemies the party faces."""
+
+       initial_prompt = f"""Dungeon Master Note: Respond with valid JSON containing a 'narration' field, 'combat_round' field, and an 'actions' array. This is the start of combat, so please describe the scene and set initiative order, but don't take any actions yet. Start off by hooking the player and engaging them for the start of combat the way any world class dungeon master would.
 
 Important Character Field Definitions:
 - 'status' field: Overall life/death state - ONLY use 'alive', 'dead', 'unconscious', or 'defeated' (lowercase)
@@ -1206,202 +1230,53 @@ Initiative Order: {initiative_order}
 
 {preroll_text}
 
-Player: The setup scene for the combat has already been given and described to the party. Now, describe the combat situation and the enemies the party faces."""
+Player: {initial_prompt_text}"""
 
-   conversation_history.append({"role": "user", "content": initial_prompt})
-   save_json_file(conversation_history_file, conversation_history)
+       conversation_history.append({"role": "user", "content": initial_prompt})
+       save_json_file(conversation_history_file, conversation_history)
 
-   # Get AI response for initial scene with validation and retries
-   max_retries = 3
-   valid_response = False
-   initial_response = None
-   validation_attempts = []  # Store all validation attempts for logging
-   initial_conversation_length = len(conversation_history)  # Mark where validation started
-   
-   for attempt in range(max_retries):
-       try:
-           response = client.chat.completions.create(
-               model=COMBAT_MAIN_MODEL,
-               temperature=TEMPERATURE,
-               messages=conversation_history
-           )
-           initial_response = response.choices[0].message.content.strip()
-           
-           # Write raw response to debug file
-           with open("debug_initial_response.json", "w") as debug_file:
-               json.dump({"raw_initial_response": initial_response}, debug_file, indent=2)
-           
-           # Temporarily add AI response for validation context
-           conversation_history.append({"role": "assistant", "content": initial_response})
-           
-           # Check if the response is valid JSON
-           if not is_valid_json(initial_response):
-               debug(f"VALIDATION: Invalid JSON response for initial scene (Attempt {attempt + 1}/{max_retries})", category="combat_validation")
-               if attempt < max_retries - 1:
-                   # Add error feedback temporarily for next attempt
-                   error_msg = "Your previous response was not a valid JSON object with 'narration' and 'actions' fields. Please provide a valid JSON response for the initial scene."
-                   conversation_history.append({
-                       "role": "user",
-                       "content": error_msg
-                   })
-                   # Log this validation attempt
-                   validation_attempts.append({
-                       "attempt": attempt + 1,
-                       "assistant_response": initial_response,
-                       "validation_error": error_msg,
-                       "error_type": "json_format"
-                   })
-                   continue
-               else:
-                   warning("VALIDATION: Max retries exceeded for JSON validation. Using last response.", category="combat_validation")
-                   break
-           
-           # Parse the JSON response
-           parsed_response = json.loads(initial_response)
-           narration = parsed_response["narration"]
-           actions = parsed_response["actions"]
-           
-           # Check for multiple updateEncounter actions
-           if check_multiple_update_encounter(actions):
-               debug(f"VALIDATION: Multiple updateEncounter actions detected (Attempt {attempt + 1}/{max_retries})", category="combat_validation")
-               if attempt < max_retries - 1:
-                   # Add requery feedback for next attempt
-                   requery_msg = create_multiple_update_requery_prompt(parsed_response)
-                   conversation_history.append({
-                       "role": "user",
-                       "content": requery_msg
-                   })
-                   # Log this validation attempt
-                   validation_attempts.append({
-                       "attempt": attempt + 1,
-                       "assistant_response": initial_response,
-                       "validation_error": requery_msg,
-                       "error_type": "multiple_update_encounter"
-                   })
-                   continue
-               else:
-                   warning("VALIDATION: Max retries exceeded for multiple updateEncounter correction. Using last response.", category="combat_validation")
-           
-           # Validate the combat logic
-           print(f"[COMBAT_MANAGER] Validating initial combat response (Attempt {attempt + 1}/{max_retries})")
-           debug("VALIDATION: Validating combat response...", category="combat_validation")
-           validation_result = validate_combat_response(initial_response, encounter_data, "The combat begins. Describe the scene and the enemies we face.", conversation_history)
-           
-           if validation_result is True:
-               valid_response = True
-               print(f"[COMBAT_MANAGER] Initial scene validation PASSED on attempt {attempt + 1}")
-               debug("VALIDATION: Combat response validation passed", category="combat_validation")
-               debug(f"SUCCESS: Response validated successfully on attempt {attempt + 1}", category="combat_validation")
-               break
-           else:
-               debug(f"VALIDATION: Response validation failed (Attempt {attempt + 1}/{max_retries})", category="combat_validation")
-               
-               # Handle both string and dict validation results
-               if isinstance(validation_result, dict):
-                   reason = validation_result["reason"]
-                   recommendation = validation_result.get("recommendation", "")
-                   feedback = f"Your previous response had issues with the combat logic: {sanitize_unicode_for_logging(reason)}"
-                   if recommendation:
-                       feedback += f"\n\n{sanitize_unicode_for_logging(recommendation)}"
-               else:
-                   reason = validation_result
-                   feedback = f"Your previous response had issues with the combat logic: {sanitize_unicode_for_logging(reason)}"
-               
-               debug(f"VALIDATION: Reason: {sanitize_unicode_for_logging(reason)}", category="combat_validation")
-               if attempt < max_retries - 1:
-                   # Add error feedback temporarily for next attempt
-                   error_msg = f"{feedback}. Please correct these issues and provide a valid initial scene description."
-                   conversation_history.append({
-                       "role": "user",
-                       "content": error_msg
-                   })
-                   # Log this validation attempt
-                   validation_attempts.append({
-                       "attempt": attempt + 1,
-                       "assistant_response": initial_response,
-                       "validation_error": error_msg,
-                       "error_type": "combat_logic",
-                       "reason": sanitize_unicode_for_logging(reason)
-                   })
-                   continue
-               else:
-                   warning("VALIDATION: Max retries exceeded for combat validation. Using last response.", category="combat_validation")
-                   break
-       except Exception as e:
-           error(f"FAILURE: Failed to get or validate initial scene response (Attempt {attempt + 1}/{max_retries})", exception=e, category="combat_events")
-           if attempt < max_retries - 1:
-               continue
-           else:
-               warning("VALIDATION: Max retries exceeded. Using last response if available.", category="combat_validation")
-               break
-   
-   # Clean up conversation history based on validation outcome
-   if valid_response or initial_response:
-       # Remove all validation attempts from conversation history
-       conversation_history = conversation_history[:initial_conversation_length]
+       max_retries = 3
+       initial_response = None
+       initial_conversation_length = len(conversation_history)
        
-       # Add only the final assistant response
+       for attempt in range(max_retries):
+           try:
+               response = client.chat.completions.create(model=COMBAT_MAIN_MODEL, temperature=TEMPERATURE, messages=conversation_history)
+               initial_response = response.choices[0].message.content.strip()
+               conversation_history.append({"role": "assistant", "content": initial_response})
+               
+               if not is_valid_json(initial_response):
+                   if attempt < max_retries - 1:
+                       conversation_history.append({"role": "user", "content": "Invalid JSON format. Please try again."})
+                       continue
+                   else: break
+
+               # FIX: Use the correct variable for the user input parameter
+               validation_result = validate_combat_response(initial_response, encounter_data, initial_prompt_text, conversation_history)
+               
+               if validation_result is True:
+                   break
+               else:
+                   if attempt < max_retries - 1:
+                       reason = validation_result if isinstance(validation_result, str) else "Validation failed."
+                       conversation_history.append({"role": "user", "content": f"Validation Error: {reason}. Please correct."})
+                       continue
+                   else: break
+       
+       # FIX: Simplified cleanup logic
+       conversation_history = conversation_history[:initial_conversation_length]
        if initial_response:
            conversation_history.append({"role": "assistant", "content": initial_response})
-       
-       # Log successful validation if it occurred
-       if valid_response and validation_attempts:
-           validation_attempts.append({
-               "attempt": "final",
-               "assistant_response": initial_response,
-               "validation_result": "success"
-           })
-   
-   # Write validation attempts to log file
-   if validation_attempts:
-       validation_log_path = os.path.join(os.path.dirname(conversation_history_file), "combat_validation_log.json")
-       try:
-           # Load existing log or create new one (JSONL format)
-           validation_log = []
-           if os.path.exists(validation_log_path):
-               with open(validation_log_path, 'r') as f:
-                   for line in f:
-                       line = line.strip()
-                       if line:
-                           try:
-                               validation_log.append(json.loads(line))
-                           except json.JSONDecodeError:
-                               continue
-           
-           # Add current validation session
-           validation_log.append({
-               "timestamp": datetime.now().isoformat(),
-               "encounter_id": encounter_data.get("encounter_id", "unknown"),
-               "scene_type": "initial_scene",
-               "validation_attempts": validation_attempts,
-               "final_outcome": "success" if valid_response else "failed_after_retries"
-           })
-           
-           # Write updated log
-           with open(validation_log_path, 'w') as f:
-               json.dump(validation_log, f, indent=2)
-               
-       except Exception as e:
-           warning(f"FAILURE: Failed to write validation log", exception=e, category="file_operations")
-   
-   # Save the cleaned conversation history
-   save_json_file(conversation_history_file, conversation_history)
-   
-   # Display initial scene if we have a response
-   if initial_response:
-       try:
-           parsed_response = json.loads(initial_response)
-           narration = parsed_response["narration"]
-           print(f"[COMBAT_MANAGER] Initial combat narration ready")
-           print(f"Dungeon Master: {narration}")
-           # Flush to ensure first combat message is captured by web interface
-           import sys
-           sys.stdout.flush()
-       except Exception as e:
-           print(f"[COMBAT_MANAGER] Failed to parse initial response")
-           error(f"FAILURE: Failed to parse initial response", exception=e, category="combat_events")
-   else:
-       error("FAILURE: Failed to get an initial scene description after multiple attempts", category="combat_events")
+           save_json_file(conversation_history_file, conversation_history)
+           try:
+               parsed_response = json.loads(initial_response)
+               print(f"Dungeon Master: {parsed_response['narration']}")
+           except (json.JSONDecodeError, KeyError):
+               print(f"Dungeon Master: {initial_response}") # Print raw if parsing fails
+       else:
+           error("FAILURE: Could not get a valid initial scene from AI.", category="combat_events")
+           return None, None # Exit if we can't start combat
+   # --- END: RESUMPTION AND INITIAL SCENE LOGIC ---
    
    # Combat loop
    print(f"[COMBAT_MANAGER] Entering main combat loop")
@@ -2043,37 +1918,31 @@ def main():
         if not party_tracker_data:
             error("FAILURE: Failed to load party_tracker.json", category="file_operations")
             return
-        debug(f"FILE_OP: Loaded party_tracker: {party_tracker_data}", category="file_operations")
     except Exception as e:
         error(f"FAILURE: Failed to load party tracker", exception=e, category="file_operations")
         return
     
     # Get active combat encounter
     active_combat_encounter = party_tracker_data["worldConditions"].get("activeCombatEncounter")
-    debug(f"STATE_CHANGE: Active combat encounter: {active_combat_encounter}", category="combat_events")
     
     if not active_combat_encounter:
         info("STATE_CHANGE: No active combat encounter located.", category="combat_events")
         return
     
-    # Get location data
+    # Get location data to pass to the simulation
     current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
-    current_area_id = get_current_area_id()
-    
-    debug(f"STATE_CHANGE: Current location ID: {current_location_id}", category="encounter_setup")
-    debug(f"STATE_CHANGE: Current area ID: {current_area_id}", category="combat_events")
-    
     location_data = get_location_data(current_location_id)
     
     if not location_data:
         error(f"FAILURE: Failed to find location {current_location_id}", category="location_transitions")
         return
     
-    # Run the combat simulation
+    # Run the combat simulation, passing the loaded location_data
     dialogue_summary, updated_player_info = run_combat_simulation(active_combat_encounter, party_tracker_data, location_data)
     
     info("SUCCESS: Combat simulation completed.", category="combat_events")
-    info(f"SUMMARY: Dialogue Summary: {dialogue_summary}", category="combat_events")
+    if dialogue_summary:
+        info(f"SUMMARY: Dialogue Summary: {dialogue_summary}", category="combat_events")
 
 if __name__ == "__main__":
     main()

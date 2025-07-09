@@ -1483,6 +1483,22 @@ def main_game_loop():
         error(f"FAILURE: Startup wizard failed", exception=e, category="startup")
         return
 
+    # --- START: COMBAT RESUMPTION LOGIC ---
+    party_tracker_data = load_json_file("party_tracker.json")
+    if party_tracker_data and party_tracker_data["worldConditions"].get("activeCombatEncounter"):
+        active_encounter_id = party_tracker_data["worldConditions"]["activeCombatEncounter"]
+        print(colored(f"[SYSTEM] Active combat encounter '{active_encounter_id}' detected. Resuming combat...", "yellow"))
+        
+        # The combat_manager.main() function will handle the entire combat session.
+        # It will run until combat is resolved.
+        import combat_manager
+        combat_manager.main()
+        
+        print(colored("[SYSTEM] Combat resolved. Continuing adventure...", "yellow"))
+        # After combat, reload the party tracker as it would have been modified.
+        party_tracker_data = load_json_file("party_tracker.json")
+    # --- END: COMBAT RESUMPTION LOGIC ---
+
     validation_prompt_text = load_validation_prompt() 
 
     with open("system_prompt.txt", "r", encoding="utf-8") as file:
