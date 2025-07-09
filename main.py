@@ -1220,6 +1220,16 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
             actions_processed = True
             
+            # --- START OF FIX ---
+            # Check for the special status from the action handler.
+            if isinstance(result, dict) and result.get("status") == "combat_resolved":
+                # Combat was handled and recorded by the action handler.
+                # We must NOT add the original AI response to the history.
+                # We return the last message in the history, which is the summary.
+                debug("SUCCESS: Combat resolved. Skipping append of trigger message.", category="combat_events")
+                return conversation_history[-1] # Return the summary message that was just added
+            # --- END OF FIX ---
+            
             if isinstance(result, dict):
                 if result.get("status") == "exit": return "exit"
                 if result.get("status") == "restart": return "restart"

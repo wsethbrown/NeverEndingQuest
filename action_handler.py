@@ -557,9 +557,10 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                     # Import save_conversation_history from main
                     from main import save_conversation_history
                     save_conversation_history(conversation_history)
-                    print("[DEBUG ACTION_HANDLER] Returning with status='needs_response' - this should trigger AI response")
+                    print("[DEBUG ACTION_HANDLER] Returning with status='combat_resolved' - main loop will skip appending trigger message")
                     print("[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER END ==========\n")
-                    return create_return(status="needs_response", needs_update=True)
+                    # This is our new signal. It tells the main loop that combat is fully resolved.
+                    return {"status": "combat_resolved"}
                 else:
                     print("ERROR: Combat summary not found in combat conversation history")
                     print("[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER END WITH ERROR ==========\n")
