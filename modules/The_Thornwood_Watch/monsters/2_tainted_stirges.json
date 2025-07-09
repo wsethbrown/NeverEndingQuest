@@ -1,0 +1,52 @@
+{
+  "name": "2 Tainted Stirges",
+  "size": "Tiny",
+  "type": "Beast",
+  "alignment": "Unaligned",
+  "armorClass": 15,
+  "hitPoints": 18,
+  "maxHitPoints": 18,
+  "speed": 10,
+  "abilities": {
+    "strength": 5,
+    "dexterity": 14,
+    "constitution": 12,
+    "intelligence": 2,
+    "wisdom": 8,
+    "charisma": 6
+  },
+  "savingThrows": [],
+  "skills": {},
+  "damageVulnerabilities": [],
+  "damageResistances": [
+    "necrotic"
+  ],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 9
+  },
+  "languages": "",
+  "challengeRating": 1,
+  "specialAbilities": [
+    {
+      "name": "Tainted Blood Drain",
+      "attackBonus": 5,
+      "damageDice": "1d4",
+      "damageBonus": 3,
+      "damageType": "necrotic"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Tainted Proboscis",
+      "attackBonus": 5,
+      "damageDice": "1d4",
+      "damageBonus": 3,
+      "damageType": "piercing"
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive"
+}

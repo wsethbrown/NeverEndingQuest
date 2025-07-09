@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 25,
+  "hitPoints": 21,
   "maxHitPoints": 33,
   "armorClass": 17,
   "initiative": 1,
@@ -65,9 +65,14 @@
   "conditionImmunities": [],
   "classFeatures": [
     {
-      "name": "Spellcasting",
-      "description": "You can cast prepared cleric spells using Wisdom as your spellcasting ability (Spell Save DC 13, Spell Attack +5). You can use a holy symbol as a spellcasting focus.",
-      "source": "Cleric"
+      "name": "Channel Divinity (1/rest)",
+      "description": "You can channel divine energy to fuel magical effects. You start with one option: Turn Undead. As an action, present your holy symbol and speak a prayer. Each undead within 30 feet must make a Wisdom save or be turned for 1 minute or until it takes damage.",
+      "source": "Cleric",
+      "usage": {
+        "current": 1,
+        "max": 1,
+        "refreshOn": "longRest"
+      }
     },
     {
       "name": "Divine Domain: Life",
@@ -75,14 +80,19 @@
       "source": "Cleric"
     },
     {
-      "name": "Channel Divinity (1/rest)",
-      "description": "You can channel divine energy to fuel magical effects. You start with one option: Turn Undead. As an action, present your holy symbol and speak a prayer. Each undead within 30 feet must make a Wisdom save or be turned for 1 minute or until it takes damage.",
-      "source": "Cleric"
-    },
-    {
       "name": "Preserve Life (Channel Divinity Option)",
       "description": "As an action, you can restore a total of HP equal to five times your cleric level (15 HP at level 3), divided among any creatures within 30 feet of you, not to heal a creature above half its hit point maximum.",
-      "source": "Life Domain"
+      "source": "Life Domain",
+      "usage": {
+        "current": 1,
+        "max": 1,
+        "refreshOn": "longRest"
+      }
+    },
+    {
+      "name": "Spellcasting",
+      "description": "You can cast prepared cleric spells using Wisdom as your spellcasting ability (Spell Save DC 13, Spell Attack +5). You can use a holy symbol as a spellcasting focus.",
+      "source": "Cleric"
     }
   ],
   "racialTraits": [
@@ -193,7 +203,7 @@
     },
     {
       "item_name": "Common clothes",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "item_subtype": "other",
       "description": "A set of common clothes.",
       "quantity": 1
@@ -343,6 +353,24 @@
       "item_type": "miscellaneous",
       "description": "A tin mug blackened by fire, a keepsake from a past campfire.",
       "quantity": 1
+    },
+    {
+      "item_name": "Vial of concentrated corruption essence",
+      "item_type": "consumable",
+      "description": "A vial containing a potent essence of corruption, used for dark rituals or study.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Warped cave fisher chitin plates",
+      "item_type": "miscellaneous",
+      "description": "Plates of chitin taken from a warped cave fisher, possibly useful for crafting or protection.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ancient warning tablet (Common & Sylvan)",
+      "item_type": "equipment",
+      "description": "An ancient tablet inscribed with warnings in both Common and Sylvan languages.",
+      "quantity": 1
     }
   ],
   "ammunition": [
@@ -417,7 +445,7 @@
         "max": 4
       },
       "level2": {
-        "current": 0,
+        "current": 1,
         "max": 2
       },
       "level3": {
@@ -465,7 +493,7 @@
     "silver": 20,
     "copper": 20
   },
-  "experience_points": 1300,
+  "experience_points": 1925,
   "exp_required_for_next_level": 2700,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",

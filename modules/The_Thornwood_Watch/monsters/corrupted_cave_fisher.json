@@ -1,0 +1,82 @@
+{
+  "name": "Corrupted Cave Fisher",
+  "size": "Medium",
+  "type": "aberration",
+  "alignment": "chaotic evil",
+  "armorClass": 15,
+  "hitPoints": 39,
+  "maxHitPoints": 39,
+  "speed": 30,
+  "abilities": {
+    "strength": 16,
+    "dexterity": 13,
+    "constitution": 14,
+    "intelligence": 5,
+    "wisdom": 12,
+    "charisma": 6
+  },
+  "savingThrows": [
+    "Dex",
+    "Con"
+  ],
+  "skills": {
+    "Stealth": 4,
+    "Perception": 3
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [
+    "necrotic",
+    "poison"
+  ],
+  "damageImmunities": [],
+  "conditionImmunities": [
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 13
+  },
+  "languages": "Understands Deep Speech but can't speak",
+  "challengeRating": 1,
+  "specialAbilities": [
+    {
+      "name": "Web Filament",
+      "attackBonus": 5,
+      "damageDice": "1d6",
+      "damageBonus": 3,
+      "damageType": "slashing"
+    },
+    {
+      "name": "Corrupted Aura",
+      "attackBonus": 0,
+      "damageDice": "1d6",
+      "damageBonus": 0,
+      "damageType": "necrotic"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Claw",
+      "attackBonus": 5,
+      "damageDice": "1d8",
+      "damageBonus": 3,
+      "damageType": "slashing"
+    },
+    {
+      "name": "Filament Reel",
+      "attackBonus": 5,
+      "damageDice": "1d6",
+      "damageBonus": 3,
+      "damageType": "slashing"
+    },
+    {
+      "name": "Corrupted Spit",
+      "attackBonus": 3,
+      "damageDice": "2d6",
+      "damageBonus": 0,
+      "damageType": "necrotic"
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive"
+}
