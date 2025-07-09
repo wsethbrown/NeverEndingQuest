@@ -81,27 +81,36 @@ def get_current_location():
     return party_tracker.get("worldConditions", {}).get("currentLocationId")
 
 def get_next_encounter_number(location):
-    party_tracker = load_json("party_tracker.json")
-    if not party_tracker:
-        print(colored("Error: Failed to load party tracker.", "red"))
+    """Get the next available encounter number by scanning existing encounter files"""
+    import glob
+    
+    # Look for all encounter files matching this location's pattern
+    encounter_pattern = f"modules/encounters/encounter_{location}-E*.json"
+    existing_files = glob.glob(encounter_pattern)
+    
+    if not existing_files:
+        debug(f"No existing encounters found for location {location}", category="encounter_creation")
         return 1
     
-    current_area_id = get_current_area_id()
-    # Get current module from party tracker for consistent path resolution
-    current_module = party_tracker.get("module", "").replace(" ", "_")
-    path_manager = ModulePathManager(current_module)
-    location_data = load_json(path_manager.get_area_path(current_area_id))
-    if not location_data:
-        print(colored(f"Error: Failed to load location data for {current_area_id}.", "red"))
-        return 1
+    # Extract the numbers from existing encounter files
+    numbers = []
+    for file_path in existing_files:
+        # Extract the number from filenames like "encounter_NC01-E1.json"
+        try:
+            filename = os.path.basename(file_path)
+            # Split by '-E' and then by '.json' to get the number
+            number_part = filename.split(f"{location}-E")[1].split(".json")[0]
+            numbers.append(int(number_part))
+        except (IndexError, ValueError) as e:
+            warning(f"Could not parse encounter number from {file_path}: {e}", category="encounter_creation")
+            continue
     
-    location_info = next((loc for loc in location_data.get("locations", []) if loc.get("locationId") == location), None)
-    if not location_info:
-        print(colored(f"Error: Location {location} not found in location data.", "red"))
+    if numbers:
+        next_number = max(numbers) + 1
+        info(f"Found {len(numbers)} existing encounters for {location}, next number: {next_number}", category="encounter_creation")
+        return next_number
+    else:
         return 1
-    
-    existing_encounters = [enc for enc in location_info.get("encounters", []) if enc.get("encounterId", "").startswith(f"{location}-E")]
-    return len(existing_encounters) + 1
 
 def update_party_tracker(encounter_id):
     party_tracker = load_json("party_tracker.json")
