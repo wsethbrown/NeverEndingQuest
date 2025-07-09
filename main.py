@@ -1227,9 +1227,7 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
                 # Now, we need to get the AI's response to the combat ending.
                 debug("STATE_CHANGE: Combat resolved. Requesting post-combat narration from AI.", category="combat_events")
                 
-                # The conversation_history is already up-to-date, so we just call the AI.
-                # We must reload the history from disk to ensure we have the summary.
-                from main import load_json_file, json_file, get_ai_response
+                # The local import has been removed. We can now use the globally imported functions.
                 post_combat_history = load_json_file(json_file) or conversation_history
                 ai_response_after_combat = get_ai_response(post_combat_history)
                 
@@ -1274,14 +1272,22 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
                 ai_response = get_ai_response(conversation_history)
                 return process_ai_response(ai_response, party_tracker_data, location_data, conversation_history)
 
-        return {"role": "assistant", "content": response}
+        # This is a normal turn. Append the response to history and return it.
+        assistant_message = {"role": "assistant", "content": response}
+        conversation_history.append(assistant_message)
+        save_conversation_history(conversation_history)
+        return assistant_message
 
     except json.JSONDecodeError as e:
         print(f"Error: Unable to parse AI response as JSON: {e}")
         print(f"Problematic response: {response}")
         sanitized_response = sanitize_text(response)
         print(colored("Dungeon Master:", "blue"), colored(sanitized_response, "blue"))
-        return {"role": "assistant", "content": response}
+        # Even in error case, append to history
+        assistant_message = {"role": "assistant", "content": response}
+        conversation_history.append(assistant_message)
+        save_conversation_history(conversation_history)
+        return assistant_message
 
 
 def save_conversation_history(history):
@@ -1993,16 +1999,20 @@ def main_game_loop():
             if validation_result is True:
                 valid_response_received = True
                 debug(f"SUCCESS: Valid response generated on attempt {retry_count + 1}", category="ai_validation")
-                # Don't append to history yet, process_ai_response will do it
                 
-                # --- START OF MODIFIED BLOCK ---
-                
-                # Process the response and check for special modes like level up
-                result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
+                # Process the response. This function now handles all sub-loops and special cases.
+                final_result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
 
-                if isinstance(result, dict) and result.get("status") == "enter_levelup_mode":
+                # After processing, check for special exit/restart signals.
+                if final_result == "exit":
+                    return
+                elif final_result == "restart":
+                    print("\n[SYSTEM] Restarting game with restored save...\n")
+                    main_game_loop()
+                    return
+                elif isinstance(final_result, dict) and final_result.get("status") == "enter_levelup_mode":
                     # Enter the level up sub-loop
-                    level_up_session = result["session"]
+                    level_up_session = final_result["session"]
                     final_narration = ""
 
                     # Get the first message from the session
@@ -2052,27 +2062,10 @@ def main_game_loop():
                     # Break the outer validation loop and proceed to the next turn.
                     break 
 
-                elif result == "exit": 
-                    return
-                elif result == "restart":
-                    print("\n[SYSTEM] Restarting game with restored save...\n")
-                    main_game_loop()
-                    return
-                else:
-                    # For any normal turn that doesn't trigger a special loop,
-                    # we append the AI's response to the history.
-                    # The process_ai_response function will have returned the original AI content string.
-                    if isinstance(result, dict) and 'role' in result and 'content' in result:
-                         # This is a history object, likely from a resolved sub-loop.
-                         # We append it directly.
-                         conversation_history.append(result)
-                    else:
-                         # This is the raw AI content from a normal turn.
-                         conversation_history.append({"role": "assistant", "content": ai_response_content})
-                    
-                    save_conversation_history(conversation_history)
-
-                # --- END OF MODIFIED BLOCK ---
+                # The process_ai_response function now handles ALL history appends for every case.
+                # The main loop's only job is to ensure its own 'conversation_history' variable is up to date for the next turn.
+                conversation_history = load_json_file(json_file) or []
+                # No need to save here, as process_ai_response already did.
 
             elif isinstance(validation_result, str):
                 # (The rest of your validation retry logic remains the same)
