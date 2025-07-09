@@ -2051,9 +2051,20 @@ def main_game_loop():
                     main_game_loop()
                     return
                 else:
-                    # Default case: Just a regular response
-                    conversation_history.append({"role": "assistant", "content": ai_response_content})
-                    save_conversation_history(conversation_history)
+                    # --- START OF FINAL FIX ---
+                    # Check if the result indicates a self-contained action (like combat) that already handled its own history.
+                    # We identify this because process_ai_response returns the summary message it added, not the original AI response.
+                    # We check if the result is a dictionary with a 'role' key, which is characteristic of a history message.
+                    is_self_contained_action = isinstance(result, dict) and 'role' in result
+
+                    if is_self_contained_action and result.get('content', '').startswith("[COMBAT CONCLUDED"):
+                        # This was a combat action. The history is already correct. Do nothing more.
+                        debug("MAIN_LOOP: Combat was resolved by handler. Skipping append of trigger message.", category="combat_events")
+                    else:
+                        # Default case: Just a regular response
+                        conversation_history.append({"role": "assistant", "content": ai_response_content})
+                        save_conversation_history(conversation_history)
+                    # --- END OF FINAL FIX ---
 
                 # --- END OF MODIFIED BLOCK ---
 
