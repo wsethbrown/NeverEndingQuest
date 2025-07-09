@@ -39,6 +39,7 @@ def run(area_id, location_id, conversation_history_segment):
     in the corresponding area JSON file.
     """
     info(f"RECONCILER: Starting reconciliation for location '{location_id}' in area '{area_id}'.")
+    debug(f"[RECONCILER] Starting monster reconciliation for {location_id}", category="reconciliation")
 
     # Get the correct module path
     party_tracker = safe_read_json("party_tracker.json")
@@ -48,6 +49,7 @@ def run(area_id, location_id, conversation_history_segment):
 
     if not os.path.exists(area_file_path):
         error(f"RECONCILER: Area file not found at {area_file_path}. Aborting.", category="reconciliation")
+        debug(f"[RECONCILER] FAILED - Could not find area file for {location_id}", category="reconciliation")
         return
 
     # Load the entire area data
@@ -148,6 +150,7 @@ Based on the conversation, what is the final list of active, hostile monsters re
             
             if len(updated_monsters) == 0:
                 info(f"RECONCILER: All monsters defeated - clearing monster list for {location_id}", category="reconciliation")
+                debug(f"[RECONCILER] All monsters in {location_id} have been defeated - clearing list", category="reconciliation")
 
             # Create a backup before writing
             backup_path = create_area_backup(area_file_path)
@@ -165,6 +168,7 @@ Based on the conversation, what is the final list of active, hostile monsters re
                 error(f"RECONCILER: Failed to write area file for location '{location_id}'.", category="reconciliation")
             
             info(f"RECONCILER: Reconciliation complete for location '{location_id}'.", category="reconciliation")
+            debug(f"[RECONCILER] Successfully reconciled {location_id} - {len(original_monsters)} → {len(updated_monsters)} monsters", category="reconciliation")
             return # Success
 
         except (json.JSONDecodeError, ValueError, TypeError) as e:
