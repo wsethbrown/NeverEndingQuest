@@ -1881,12 +1881,46 @@ Player: {user_input_text}"""
                conversation_history.append({"role": "user", "content": f"XP Awarded: {xp_narrative}"})
                save_json_file(conversation_history_file, conversation_history)
                
-               # COMMENTED OUT: Manual player XP update - now handled by general character update
-               # This was causing double XP for players (getting total XP instead of per-participant)
-               # xp_update_response = f"Update the character's experience points. XP Awarded: {xp_awarded}"
-               # updated_data_tuple = update_json_schema(xp_update_response, player_info, encounter_data, party_tracker_data)
-               # if updated_data_tuple:
-               #     player_info, _, _ = updated_data_tuple
+               # =================================================================
+               # NEW: SAFE XP APPLICATION BLOCK
+               # =================================================================
+               # This block programmatically applies the calculated XP to each
+               # party member, avoiding the old AI-driven update loop bug.
+
+               if xp_awarded > 0:
+                   # Build a definitive list of all participants from the party tracker
+                   participants_to_reward = []
+                   if "partyMembers" in party_tracker_data:
+                       participants_to_reward.extend(party_tracker_data["partyMembers"])
+                   if "partyNPCs" in party_tracker_data:
+                       for npc in party_tracker_data["partyNPCs"]:
+                           participants_to_reward.append(npc.get("name"))
+
+                   info(f"XP_AWARD: Applying {xp_awarded} XP to {len(participants_to_reward)} participants: {', '.join(participants_to_reward)}", category="xp_tracking")
+
+                   # Loop through each participant and apply the XP
+                   for character_name in participants_to_reward:
+                       if not character_name:
+                           continue
+                       
+                       # Create a clear, programmatic change description
+                       xp_change_description = f"Awarded {xp_awarded} experience points for successfully concluding a combat encounter."
+                       
+                       # Directly call the character update function
+                       try:
+                           from update_character_info import update_character_info
+                           update_success = update_character_info(character_name, xp_change_description)
+                           if update_success:
+                               info(f"XP_AWARD: Successfully applied {xp_awarded} XP to {character_name}", category="xp_tracking")
+                           else:
+                               error(f"XP_AWARD: Failed to apply XP to {character_name}", category="xp_tracking")
+                       except Exception as e:
+                           error(f"XP_AWARD: Critical error applying XP to {character_name}", exception=e, category="xp_tracking")
+               else:
+                   info("XP_AWARD: No XP awarded for this encounter.", category="xp_tracking")
+               # =================================================================
+               # END OF NEW XP BLOCK
+               # =================================================================
                
                # CRITICAL FIX: Clear the active combat encounter from party_tracker.json to prevent the loop.
                # This is the essential logic from the old update_json_schema function.
