@@ -571,8 +571,14 @@ def get_initiative_order(encounter_data):
     if not creatures:
         return "No creatures in encounter"
     
+    # Filter out dead creatures - they should not be in the initiative order
+    active_creatures = [c for c in creatures if c.get("status", "unknown").lower() != "dead"]
+    
+    if not active_creatures:
+        return "All creatures are dead"
+    
     # Sort by initiative (descending), then alphabetically for ties
-    sorted_creatures = sorted(creatures, key=lambda x: (-x.get("initiative", 0), x.get("name", "")))
+    sorted_creatures = sorted(active_creatures, key=lambda x: (-x.get("initiative", 0), x.get("name", "")))
     
     order_parts = []
     for creature in sorted_creatures:
