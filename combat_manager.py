@@ -1792,6 +1792,7 @@ Player: {user_input_text}"""
                changes = parameters.get("changes", "")
                print(f"[COMBAT_MANAGER] Updating character: {character_name}")
                try:
+                   from update_character_info import update_character_info
                    success = update_character_info(character_name, changes)
                    if success:
                        print(f"[COMBAT_MANAGER] Character update successful: {character_name}")
