@@ -1282,7 +1282,7 @@ Player: {initial_prompt_text}"""
    # --- END: RESUMPTION AND INITIAL SCENE LOGIC ---
    
    # Combat loop
-   print(f"[COMBAT_MANAGER] Entering main combat loop")
+   debug("[COMBAT_MANAGER] Entering main combat loop", category="combat_events")
    
    # Update status to show combat is active
    try:
@@ -1292,7 +1292,7 @@ Player: {initial_prompt_text}"""
        debug(f"Could not update status: {e}", category="status")
    while True:
        # Ensure all character data is synced to the encounter
-       print(f"[COMBAT_MANAGER] Syncing character data to encounter")
+       debug("[COMBAT_MANAGER] Syncing character data to encounter", category="combat_events")
        
        # Clear processing status when ready for player input
        try:
