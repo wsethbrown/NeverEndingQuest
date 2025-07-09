@@ -1262,6 +1262,9 @@ Player: {initial_prompt_text}"""
                        conversation_history.append({"role": "user", "content": f"Validation Error: {reason}. Please correct."})
                        continue
                    else: break
+           except Exception as e:
+               error(f"FAILURE: AI call for initial scene failed on attempt {attempt + 1}", exception=e, category="combat_events")
+               if attempt >= max_retries - 1: break
        
        # FIX: Simplified cleanup logic
        conversation_history = conversation_history[:initial_conversation_length]
