@@ -1220,15 +1220,23 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
             actions_processed = True
             
-            # --- START OF FIX ---
-            # Check for the special status from the action handler.
-            if isinstance(result, dict) and result.get("status") == "combat_resolved":
-                # Combat was handled and recorded by the action handler.
-                # We must NOT add the original AI response to the history.
-                # We return the last message in the history, which is the summary.
-                debug("SUCCESS: Combat resolved. Skipping append of trigger message.", category="combat_events")
-                return conversation_history[-1] # Return the summary message that was just added
-            # --- END OF FIX ---
+            # --- START OF NEW FIX ---
+            # Check for special signals from the action handler.
+            if isinstance(result, dict) and result.get("status") == "needs_post_combat_narration":
+                # This signal means combat finished and its summary was added to the history.
+                # Now, we need to get the AI's response to the combat ending.
+                debug("STATE_CHANGE: Combat resolved. Requesting post-combat narration from AI.", category="combat_events")
+                
+                # The conversation_history is already up-to-date, so we just call the AI.
+                # We must reload the history from disk to ensure we have the summary.
+                from main import load_json_file, json_file, get_ai_response
+                post_combat_history = load_json_file(json_file) or conversation_history
+                ai_response_after_combat = get_ai_response(post_combat_history)
+                
+                # Process the AI's post-combat response.
+                # This will print the narration and handle any new actions.
+                return process_ai_response(ai_response_after_combat, party_tracker_data, location_data, post_combat_history)
+            # --- END OF NEW FIX ---
             
             if isinstance(result, dict):
                 if result.get("status") == "exit": return "exit"
@@ -2051,20 +2059,18 @@ def main_game_loop():
                     main_game_loop()
                     return
                 else:
-                    # --- START OF FINAL FIX ---
-                    # Check if the result indicates a self-contained action (like combat) that already handled its own history.
-                    # We identify this because process_ai_response returns the summary message it added, not the original AI response.
-                    # We check if the result is a dictionary with a 'role' key, which is characteristic of a history message.
-                    is_self_contained_action = isinstance(result, dict) and 'role' in result
-
-                    if is_self_contained_action and result.get('content', '').startswith("[COMBAT CONCLUDED"):
-                        # This was a combat action. The history is already correct. Do nothing more.
-                        debug("MAIN_LOOP: Combat was resolved by handler. Skipping append of trigger message.", category="combat_events")
+                    # For any normal turn that doesn't trigger a special loop,
+                    # we append the AI's response to the history.
+                    # The process_ai_response function will have returned the original AI content string.
+                    if isinstance(result, dict) and 'role' in result and 'content' in result:
+                         # This is a history object, likely from a resolved sub-loop.
+                         # We append it directly.
+                         conversation_history.append(result)
                     else:
-                        # Default case: Just a regular response
-                        conversation_history.append({"role": "assistant", "content": ai_response_content})
-                        save_conversation_history(conversation_history)
-                    # --- END OF FINAL FIX ---
+                         # This is the raw AI content from a normal turn.
+                         conversation_history.append({"role": "assistant", "content": ai_response_content})
+                    
+                    save_conversation_history(conversation_history)
 
                 # --- END OF MODIFIED BLOCK ---
 
