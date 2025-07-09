@@ -76,6 +76,8 @@ def run(area_id, location_id, conversation_history_segment):
 
     # Format the conversation history into a readable string for the prompt
     history_text = ""
+    info(f"RECONCILER: Processing {len(conversation_history_segment)} messages for location {location_id}", category="reconciliation")
+    
     for msg in conversation_history_segment:
         role = "Player" if msg.get("role") == "user" else "DM"
         content = msg.get("content", "")
@@ -83,6 +85,12 @@ def run(area_id, location_id, conversation_history_segment):
         if "Dungeon Master Note:" in content:
             content = re.sub(r"Dungeon Master Note:.*Player:", "Player:", content, flags=re.DOTALL).strip()
         history_text += f"{role}: {content}\n\n"
+    
+    # Debug: Log if we found combat information
+    if "COMBAT CONCLUDED" in history_text:
+        info(f"RECONCILER: Found combat conclusion in history for {location_id}", category="reconciliation")
+    if "dead" in history_text.lower() or "defeated" in history_text.lower():
+        info(f"RECONCILER: Found defeated/dead monsters mentioned in history", category="reconciliation")
 
     # Build the AI prompt
     system_prompt = """You are a game state reconciliation assistant. Your task is to analyze a conversation history segment and determine the final status of monsters in a specific location. Based on the narrative, you will return a new, updated JSON array of monsters that are still active and hostile.
@@ -136,16 +144,27 @@ Based on the conversation, what is the final list of active, hostile monsters re
 
             # All checks passed, proceed to update
             info(f"RECONCILER: AI proposed new monster list with {len(updated_monsters)} active monsters.", category="reconciliation")
+            info(f"RECONCILER: Original monsters: {len(original_monsters)}, Updated monsters: {len(updated_monsters)}", category="reconciliation")
+            
+            if len(updated_monsters) == 0:
+                info(f"RECONCILER: All monsters defeated - clearing monster list for {location_id}", category="reconciliation")
 
             # Create a backup before writing
-            create_area_backup(area_file_path)
+            backup_path = create_area_backup(area_file_path)
+            if backup_path:
+                info(f"RECONCILER: Created backup at {backup_path}", category="reconciliation")
 
             # Update the monster list in the loaded area data
             all_area_data["locations"][location_index]["monsters"] = updated_monsters
 
             # Save the entire area file back
-            safe_write_json(all_area_data, area_file_path)
-            info(f"RECONCILER: Successfully reconciled and saved state for location '{location_id}'.", category="reconciliation")
+            write_result = safe_write_json(area_file_path, all_area_data)
+            if write_result:
+                info(f"RECONCILER: Successfully wrote updated area file for location '{location_id}'.", category="reconciliation")
+            else:
+                error(f"RECONCILER: Failed to write area file for location '{location_id}'.", category="reconciliation")
+            
+            info(f"RECONCILER: Reconciliation complete for location '{location_id}'.", category="reconciliation")
             return # Success
 
         except (json.JSONDecodeError, ValueError, TypeError) as e:
