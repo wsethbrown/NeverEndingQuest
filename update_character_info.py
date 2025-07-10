@@ -364,54 +364,41 @@ def deep_merge_dict(base_dict, update_dict):
     }
     
     for key, value in update_dict.items():
-        if key in result and isinstance(result.get(key), dict) and isinstance(value, dict):
+        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
             # Recursively merge nested dictionaries
             result[key] = deep_merge_dict(result[key], value)
-        elif key in named_arrays and isinstance(value, list):
-            # Special handling for arrays with named items.
-            # This block is now safer and handles cases where the base array might be null or non-existent.
+        elif key in named_arrays and isinstance(result.get(key), list) and isinstance(value, list):
+            # Special handling for arrays with named items
             name_field = named_arrays[key]
-            base_list = result.get(key)
-
+            print(f"[DEBUG deep_merge_dict] Processing named array: {key}")
             if key == 'equipment':
-                result[key] = merge_equipment_arrays(base_list, value)
+                result[key] = merge_equipment_arrays(result[key], value)
             elif key == 'ammunition':
-                result[key] = merge_ammunition_arrays(base_list, value)
+                print(f"[DEBUG deep_merge_dict] Calling merge_ammunition_arrays")
+                result[key] = merge_ammunition_arrays(result[key], value)
+                print(f"[DEBUG deep_merge_dict] merge_ammunition_arrays returned successfully")
             else:
                 # For other named arrays, use generic merge
-                result[key] = merge_named_arrays(base_list, value, name_field)
-        elif key in result and isinstance(result.get(key), list) and isinstance(value, list):
-            # Generic list merging for simple arrays (e.g., languages, savingThrows).
-            base_list = result[key]
-            new_items = [item for item in value if item not in base_list]
-            result[key] = base_list + new_items
+                result[key] = merge_named_arrays(result[key], value, name_field)
         else:
-            # Replace or add the value for primitive types or new keys
+            # Replace or add the value
             result[key] = copy.deepcopy(value)
     
     return result
 
 def merge_equipment_arrays(base_equipment, update_equipment):
     """Merge equipment arrays by item name, preserving existing items and removing zero-quantity items"""
-    # Harden against None input
-    base_list = base_equipment if isinstance(base_equipment, list) else []
-    result = copy.deepcopy(base_list)
+    result = copy.deepcopy(base_equipment)
     
     # Create a mapping of item names to indices in the base equipment
     item_name_to_index = {}
     for i, item in enumerate(result):
-        # Harden against non-dictionary items
-        if isinstance(item, dict):
-            item_name = item.get('item_name', '')
-            if item_name:
-                item_name_to_index[item_name] = i
+        item_name = item.get('item_name', '')
+        if item_name:
+            item_name_to_index[item_name] = i
     
     # Process updates
     for update_item in update_equipment:
-        # Harden against non-dictionary items
-        if not isinstance(update_item, dict):
-            continue
-        
         update_item_name = update_item.get('item_name', '')
         if not update_item_name:
             continue
@@ -425,34 +412,29 @@ def merge_equipment_arrays(base_equipment, update_equipment):
             result.append(copy.deepcopy(update_item))
     
     # Remove items with zero or negative quantity or marked with _remove flag
-    result = [item for item in result if isinstance(item, dict) and item.get('quantity', 1) > 0 and not item.get('_remove', False)]
+    result = [item for item in result if item.get('quantity', 1) > 0 and not item.get('_remove', False)]
     
     return result
 
 def merge_ammunition_arrays(base_ammunition, update_ammunition):
     """Merge ammunition arrays by name, adding quantities for existing items and ensuring schema compliance"""
-    # Ensure base_ammunition is a list to prevent errors if it's None or missing
-    base_list = base_ammunition if isinstance(base_ammunition, list) else []
-
+    # DEBUG: Check what we're receiving
+    print(f"[DEBUG merge_ammunition_arrays] base_ammunition type: {type(base_ammunition)}, value: {base_ammunition}")
+    print(f"[DEBUG merge_ammunition_arrays] update_ammunition type: {type(update_ammunition)}, value: {update_ammunition}")
+    
     # Create a lookup map from the base ammunition array
     ammo_lookup = {}
-    for ammo in base_list:
+    for ammo in base_ammunition:
         # Use lowercase name as key for case-insensitive matching
-        # Ensure item is a dictionary before processing
-        if isinstance(ammo, dict):
-            key = ammo.get('name', '').lower().strip()
-            if key:
-                ammo_lookup[key] = copy.deepcopy(ammo)
+        key = ammo.get('name', '').lower().strip()
+        if key:
+            ammo_lookup[key] = copy.deepcopy(ammo)
     
     # Process updates
-    for update_item in update_ammunition:
-        # Ensure update_item is a dictionary
-        if not isinstance(update_item, dict):
-            continue
-
-        update_name = update_item.get('name', '').strip()
+    for update_ammo in update_ammunition:
+        update_name = update_ammo.get('name', '').strip()
         update_name_lower = update_name.lower()
-        update_quantity = update_item.get('quantity', 0)
+        update_quantity = update_ammo.get('quantity', 0)
         
         if not update_name:
             continue
@@ -461,6 +443,9 @@ def merge_ammunition_arrays(base_ammunition, update_ammunition):
         if update_name_lower in ammo_lookup:
             # Add to existing ammunition quantity (supports negative for removals)
             ammo_lookup[update_name_lower]['quantity'] += update_quantity
+            # If the update includes a description and the base doesn't have one, add it
+            if 'description' in update_ammo and 'description' not in ammo_lookup[update_name_lower]:
+                ammo_lookup[update_name_lower]['description'] = update_ammo['description']
         else:
             # New ammunition type - only add if positive quantity
             if update_quantity > 0:
@@ -468,7 +453,7 @@ def merge_ammunition_arrays(base_ammunition, update_ammunition):
                 new_ammo = {
                     'name': update_name,  # Use original casing
                     'quantity': update_quantity,
-                    'description': update_item.get('description', 'Standard ammunition.')
+                    'description': update_ammo.get('description', 'Standard ammunition.')
                 }
                 ammo_lookup[update_name_lower] = new_ammo
     
@@ -476,6 +461,9 @@ def merge_ammunition_arrays(base_ammunition, update_ammunition):
     result = []
     for ammo in ammo_lookup.values():
         if ammo.get('quantity', 0) > 0:
+            # Ensure description field exists for schema compliance
+            if 'description' not in ammo:
+                ammo['description'] = f"Standard {ammo.get('name', 'ammunition').lower()}."
             result.append(ammo)
     
     # Sort by name for consistent ordering
@@ -485,24 +473,15 @@ def merge_ammunition_arrays(base_ammunition, update_ammunition):
 
 def merge_named_arrays(base_array, update_array, name_field):
     """Generic merge for arrays of objects identified by a name field"""
-    # Harden against None input
-    base_list = base_array if isinstance(base_array, list) else []
-    
     # Create lookup map from base array
     lookup = {}
-    for item in base_list:
-        # Harden against non-dictionary items
-        if isinstance(item, dict):
-            key = item.get(name_field, '').lower().strip()
-            if key:
-                lookup[key] = copy.deepcopy(item)
+    for item in base_array:
+        key = item.get(name_field, '').lower().strip()
+        if key:
+            lookup[key] = copy.deepcopy(item)
     
     # Process updates
     for update_item in update_array:
-        # Harden against non-dictionary items
-        if not isinstance(update_item, dict):
-            continue
-            
         update_name = update_item.get(name_field, '').strip()
         update_name_lower = update_name.lower()
         
@@ -1039,6 +1018,28 @@ Character Role: {character_role}
                 }
                 safe_write_json("debug_npc_update.json", debug_info)
             
+            # COMPREHENSIVE DEBUG LOGGING FOR ALL CHARACTER UPDATES
+            # Log every AI response to help debug spell slot restoration issues
+            debug_character_update = {
+                "timestamp": datetime.now().isoformat(),
+                "character_name": character_name,
+                "character_role": character_role,
+                "attempt": attempt,
+                "changes_requested": changes,
+                "raw_ai_response": raw_response,
+                "model_used": model
+            }
+            
+            # Save to a debug file for every update
+            debug_filename = f"debug_character_update_{character_name.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            safe_write_json(debug_filename, debug_character_update)
+            
+            # Also print to console for immediate visibility
+            print(f"\n[DEBUG CHARACTER UPDATE] {character_name}")
+            print(f"Changes requested: {changes}")
+            print(f"AI Response: {raw_response[:500]}{'...' if len(raw_response) > 500 else ''}")
+            print(f"Full response saved to: {debug_filename}\n")
+            
             # Clean and parse JSON response
             json_match = re.search(r'\{.*\}', raw_response, re.DOTALL)
             if not json_match:
@@ -1046,6 +1047,10 @@ Character Role: {character_role}
             
             clean_response = json_match.group()
             updates = json.loads(clean_response)
+            
+            # Log the parsed JSON update
+            print(f"[DEBUG PARSED JSON] {character_name}")
+            print(f"Updates to apply: {json.dumps(updates, indent=2)[:1000]}{'...' if len(json.dumps(updates)) > 1000 else ''}\n")
             
             # Fix common item_type mistakes before applying updates
             updates = fix_item_types(updates)
@@ -1056,7 +1061,17 @@ Character Role: {character_role}
                 updates['hitPoints'] = 0
             
             # Apply updates to character data using deep merge
+            print(f"[DEBUG] About to call deep_merge_dict for {character_name}")
+            print(f"[DEBUG] Character has ammunition: {'ammunition' in character_data}")
+            if 'ammunition' in character_data:
+                print(f"[DEBUG] Current ammunition: {character_data['ammunition']}")
+            print(f"[DEBUG] Updates contain ammunition: {'ammunition' in updates}")
+            if 'ammunition' in updates:
+                print(f"[DEBUG] Ammunition updates: {updates['ammunition']}")
+            
             updated_data = deep_merge_dict(character_data, updates)
+            
+            print(f"[DEBUG] deep_merge_dict completed successfully")
             
             # CRITICAL FIX: Ensure hitPoints never go below 0
             if 'hitPoints' in updated_data:
@@ -1065,8 +1080,14 @@ Character Role: {character_role}
                     debug(f"HP_FIX: Clamping negative HP ({current_hp}) to 0 for {character_name}", category="character_updates")
                     updated_data['hitPoints'] = 0
             
+            print(f"[DEBUG] Checking ammunition after merge:")
+            if 'ammunition' in updated_data:
+                print(f"[DEBUG] Updated ammunition: {updated_data['ammunition']}")
+            
             # Validate that critical fields weren't accidentally deleted
+            print(f"[DEBUG] About to validate critical fields")
             critical_warnings = validate_critical_fields_preserved(character_data, updated_data, character_name)
+            print(f"[DEBUG] Critical field validation completed. Warnings: {critical_warnings}")
             if critical_warnings:
                 for crit_warning in critical_warnings:
                     error(f"CRITICAL WARNING: {crit_warning}", category="character_validation")
@@ -1091,15 +1112,21 @@ Character Role: {character_role}
                 continue
             
             # Role-specific normalization
+            print(f"[DEBUG] About to normalize status and condition")
             updated_data = normalize_status_and_condition(updated_data, character_role)
+            print(f"[DEBUG] Normalization completed")
             
             # Purge invalid fields before validation
+            print(f"[DEBUG] About to purge invalid fields")
             updated_data, removed_fields = purge_invalid_fields(updated_data, schema, character_name)
+            print(f"[DEBUG] Field purging completed. Removed fields: {removed_fields}")
             if removed_fields:
                 warning(f"VALIDATION: Purged {len(removed_fields)} invalid fields: {', '.join(removed_fields)}", category="character_validation")
             
             # Validate updated data
+            print(f"[DEBUG] About to validate character data against schema")
             is_valid, error_msg = validate_character_data(updated_data, schema, character_name)
+            print(f"[DEBUG] Schema validation completed. Valid: {is_valid}, Error: {error_msg}")
             
             if not is_valid:
                 error(f"VALIDATION: Validation failed: {error_msg}", category="character_validation")
@@ -1125,7 +1152,9 @@ Character Role: {character_role}
                 continue
             
             # Save updated character data
+            print(f"[DEBUG] Validation passed! About to save character data to: {character_path}")
             if safe_write_json(character_path, updated_data):
+                print(f"[DEBUG] Character data saved successfully!")
                 info(f"SUCCESS: Successfully updated {character_name} ({character_role})!", category="character_updates")
                 
                 # Log the changes with more detail for user feedback
@@ -1182,9 +1211,19 @@ Character Role: {character_role}
         except json.JSONDecodeError as e:
             error(f"FAILURE: JSON decode error (attempt {attempt})", exception=e, category="ai_processing")
             debug(f"AI_CALL: Raw response: {raw_response}", category="ai_processing")
+            print(f"\n[DEBUG ERROR] JSON decode error for {character_name}")
+            print(f"Raw response that failed to parse: {raw_response}")
+            print(f"Error: {str(e)}\n")
             
         except Exception as e:
             error(f"FAILURE: Error during update (attempt {attempt})", exception=e, category="character_updates")
+            print(f"\n[DEBUG ERROR] Exception during character update for {character_name}")
+            print(f"Error type: {type(e).__name__}")
+            print(f"Error message: {str(e)}")
+            print(f"Changes requested: {changes}")
+            if 'raw_response' in locals():
+                print(f"AI response received: {raw_response[:500]}...")
+            print(f"Stack trace will be in logs\n")
         
         if attempt < max_attempts:
             attempt += 1
