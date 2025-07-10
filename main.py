@@ -1220,21 +1220,27 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
             actions_processed = True
             
-            # --- START OF NEW FIX ---
-            # Check for special signals from the action handler.
+            # --- SIGNAL-BASED SUB-SYSTEM CONTROL ---
+            # Check for special signals from the action handler that indicate a sub-system has completed.
             if isinstance(result, dict) and result.get("status") == "needs_post_combat_narration":
                 # This signal means combat finished and its summary was added to the history.
-                # Now, we need to get the AI's response to the combat ending.
+                # The action_handler has already:
+                # 1. Run the entire combat encounter
+                # 2. Added the [COMBAT CONCLUDED...] summary to conversation_history
+                # 3. Returned this signal instead of a normal response
+                
                 debug("STATE_CHANGE: Combat resolved. Requesting post-combat narration from AI.", category="combat_events")
                 
-                # The local import has been removed. We can now use the globally imported functions.
+                # We must reload the history from disk to ensure we have the combat summary.
+                # This is necessary because the action_handler modified and saved the history independently.
                 post_combat_history = load_json_file(json_file) or conversation_history
                 ai_response_after_combat = get_ai_response(post_combat_history)
                 
-                # Process the AI's post-combat response.
-                # This will print the narration and handle any new actions.
+                # Process the AI's post-combat response by calling this function again (recursively).
+                # This ensures the post-combat narration is handled just like any other turn,
+                # maintaining consistency in how we process AI responses.
                 return process_ai_response(ai_response_after_combat, party_tracker_data, location_data, post_combat_history)
-            # --- END OF NEW FIX ---
+            # --- END SIGNAL-BASED SUB-SYSTEM CONTROL ---
             
             if isinstance(result, dict):
                 if result.get("status") == "exit": return "exit"
@@ -1272,7 +1278,11 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
                 ai_response = get_ai_response(conversation_history)
                 return process_ai_response(ai_response, party_tracker_data, location_data, conversation_history)
 
-        # This is a normal turn. Append the response to history and return it.
+        # STANDARD TURN COMPLETION: For a normal turn (no special signals or sub-systems),
+        # we append the AI's response to history here in process_ai_response.
+        # This centralizes history management - the main_game_loop no longer needs to handle it.
+        # This ensures the history is saved atomically with the response processing,
+        # preventing any possibility of the history and game state becoming out of sync.
         assistant_message = {"role": "assistant", "content": response}
         conversation_history.append(assistant_message)
         save_conversation_history(conversation_history)
@@ -2000,10 +2010,18 @@ def main_game_loop():
                 valid_response_received = True
                 debug(f"SUCCESS: Valid response generated on attempt {retry_count + 1}", category="ai_validation")
                 
-                # Process the response. This function now handles all sub-loops and special cases.
+                # SIMPLIFIED ARCHITECTURE: process_ai_response now handles ALL complexity internally.
+                # This includes:
+                # - Standard turn processing
+                # - Combat encounters (via needs_post_combat_narration signal)
+                # - Location transitions (with seamless narration generation)
+                # - Level-up sessions (returned as enter_levelup_mode signal)
+                # - All conversation history updates
+                # The main loop is now just a thin orchestration layer.
                 final_result = process_ai_response(ai_response_content, party_tracker_data, location_data, conversation_history)
 
-                # After processing, check for special exit/restart signals.
+                # After processing, we only need to check for control flow signals.
+                # Everything else (including history updates) has been handled by process_ai_response.
                 if final_result == "exit":
                     return
                 elif final_result == "restart":
@@ -2062,10 +2080,13 @@ def main_game_loop():
                     # Break the outer validation loop and proceed to the next turn.
                     break 
 
-                # The process_ai_response function now handles ALL history appends for every case.
-                # The main loop's only job is to ensure its own 'conversation_history' variable is up to date for the next turn.
+                # CRITICAL: Reload conversation history from disk.
+                # Since process_ai_response handles all history updates internally (including sub-systems
+                # like combat that may add multiple messages), we must reload to ensure our local
+                # conversation_history variable matches the persisted state.
+                # This is the ONLY place the main loop needs to manage conversation_history.
                 conversation_history = load_json_file(json_file) or []
-                # No need to save here, as process_ai_response already did.
+                # No need to save here, as process_ai_response already handled all persistence.
 
             elif isinstance(validation_result, str):
                 # (The rest of your validation retry logic remains the same)

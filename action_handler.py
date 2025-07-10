@@ -559,7 +559,12 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                     save_conversation_history(conversation_history)
                     print("[DEBUG ACTION_HANDLER] Returning with status='needs_post_combat_narration' - main loop will get follow-up from AI")
                     print("[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER END ==========\n")
-                    # This new signal tells the main loop to get a follow-up narration from the AI.
+                    # SIGNAL-BASED ARCHITECTURE: This return value is crucial for maintaining chronological history.
+                    # When combat ends, we've already added the [COMBAT CONCLUDED...] summary to conversation_history.
+                    # This signal tells main.py to:
+                    # 1. NOT append the original createEncounter message (preventing duplication)
+                    # 2. Request a new AI response for natural post-combat narration
+                    # This ensures players get seamless transitions like Kira's dialogue after combat.
                     return {"status": "needs_post_combat_narration"}
                 else:
                     print("ERROR: Combat summary not found in combat conversation history")

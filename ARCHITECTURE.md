@@ -7,6 +7,7 @@
 - [The Compression Pipeline](#the-compression-pipeline)
 - [Modular Architecture](#modular-architecture)
 - [Technical Implementation](#technical-implementation)
+- [Data Flow Philosophy](#data-flow-philosophy)
 - [Future Optimizations](#future-optimizations)
 
 ## Design Philosophy
@@ -202,6 +203,37 @@ Different models for different tasks:
 - **Combat Validator**: Ensures rule compliance
 - **Summarizer**: Compressed narrative generation
 - **Content Generator**: Creating new NPCs, locations, items
+
+## Data Flow Philosophy
+
+### **Primary Data Flow**
+The main game loop follows a standard unidirectional flow for most interactions:
+
+```
+User Input → Action Parsing → AI Processing → Validation → State Update → Persistence
+```
+
+### **Sub-System Data Flow (e.g., Combat)**
+For complex, multi-turn sub-systems like combat, the architecture uses a recursive, signal-based flow to maintain control and ensure chronological history.
+
+1. **Initiation:** `main.py` receives an action (e.g., `createEncounter`).
+2. **Delegation:** `main.py` passes control to the `action_handler.py`.
+3. **Blocking Execution:** The `action_handler` calls the sub-system (e.g., `combat_manager.py`), which takes over the game loop completely. The main loop is paused.
+4. **Self-Contained History:** The sub-system runs its course and generates its own historical record (e.g., a combat summary).
+5. **Signal Return:** The `action_handler` injects the historical record into the main conversation history and returns a special signal (e.g., `needs_post_combat_narration`) to `main.py`.
+6. **Recursive Narration:** `main.py` sees the signal, reloads the updated history, and makes a new call to the AI to get a seamless, in-character transition back to the main game.
+7. **Loop Continues:** The turn concludes, and the main loop awaits the next player input.
+
+This pattern ensures that complex sub-systems are self-contained, manage their own history correctly, and provide a seamless narrative experience for the player.
+
+### **Signal-Based Sub-System Control**
+The main loop uses signals returned from the action handler to manage the flow between standard gameplay and special sub-systems:
+- `needs_post_combat_narration`: Combat has concluded, request follow-up narration
+- `enter_levelup_mode`: Start interactive level-up session
+- `exit`: Clean game shutdown
+- `restart`: Reload from save
+
+This signal-based architecture keeps the main loop simple while allowing arbitrarily complex sub-systems to operate independently.
 
 ## Future Optimizations
 
