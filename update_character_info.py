@@ -370,13 +370,13 @@ def deep_merge_dict(base_dict, update_dict):
         elif key in named_arrays and isinstance(result.get(key), list) and isinstance(value, list):
             # Special handling for arrays with named items
             name_field = named_arrays[key]
-            print(f"[DEBUG deep_merge_dict] Processing named array: {key}")
+            # print(f"[DEBUG deep_merge_dict] Processing named array: {key}")
             if key == 'equipment':
                 result[key] = merge_equipment_arrays(result[key], value)
             elif key == 'ammunition':
-                print(f"[DEBUG deep_merge_dict] Calling merge_ammunition_arrays")
+                # print(f"[DEBUG deep_merge_dict] Calling merge_ammunition_arrays")
                 result[key] = merge_ammunition_arrays(result[key], value)
-                print(f"[DEBUG deep_merge_dict] merge_ammunition_arrays returned successfully")
+                # print(f"[DEBUG deep_merge_dict] merge_ammunition_arrays returned successfully")
             else:
                 # For other named arrays, use generic merge
                 result[key] = merge_named_arrays(result[key], value, name_field)
@@ -419,8 +419,8 @@ def merge_equipment_arrays(base_equipment, update_equipment):
 def merge_ammunition_arrays(base_ammunition, update_ammunition):
     """Merge ammunition arrays by name, adding quantities for existing items and ensuring schema compliance"""
     # DEBUG: Check what we're receiving
-    print(f"[DEBUG merge_ammunition_arrays] base_ammunition type: {type(base_ammunition)}, value: {base_ammunition}")
-    print(f"[DEBUG merge_ammunition_arrays] update_ammunition type: {type(update_ammunition)}, value: {update_ammunition}")
+    # print(f"[DEBUG merge_ammunition_arrays] base_ammunition type: {type(base_ammunition)}, value: {base_ammunition}")
+    # print(f"[DEBUG merge_ammunition_arrays] update_ammunition type: {type(update_ammunition)}, value: {update_ammunition}")
     
     # Create a lookup map from the base ammunition array
     ammo_lookup = {}
@@ -1035,10 +1035,10 @@ Character Role: {character_role}
             safe_write_json(debug_filename, debug_character_update)
             
             # Also print to console for immediate visibility
-            print(f"\n[DEBUG CHARACTER UPDATE] {character_name}")
-            print(f"Changes requested: {changes}")
-            print(f"AI Response: {raw_response[:500]}{'...' if len(raw_response) > 500 else ''}")
-            print(f"Full response saved to: {debug_filename}\n")
+            # print(f"\n[DEBUG CHARACTER UPDATE] {character_name}")
+            # print(f"Changes requested: {changes}")
+            # print(f"AI Response: {raw_response[:500]}{'...' if len(raw_response) > 500 else ''}")
+            # print(f"Full response saved to: {debug_filename}\n")
             
             # Clean and parse JSON response
             json_match = re.search(r'\{.*\}', raw_response, re.DOTALL)
@@ -1049,8 +1049,8 @@ Character Role: {character_role}
             updates = json.loads(clean_response)
             
             # Log the parsed JSON update
-            print(f"[DEBUG PARSED JSON] {character_name}")
-            print(f"Updates to apply: {json.dumps(updates, indent=2)[:1000]}{'...' if len(json.dumps(updates)) > 1000 else ''}\n")
+            # print(f"[DEBUG PARSED JSON] {character_name}")
+            # print(f"Updates to apply: {json.dumps(updates, indent=2)[:1000]}{'...' if len(json.dumps(updates)) > 1000 else ''}\n")
             
             # Fix common item_type mistakes before applying updates
             updates = fix_item_types(updates)
@@ -1061,17 +1061,17 @@ Character Role: {character_role}
                 updates['hitPoints'] = 0
             
             # Apply updates to character data using deep merge
-            print(f"[DEBUG] About to call deep_merge_dict for {character_name}")
-            print(f"[DEBUG] Character has ammunition: {'ammunition' in character_data}")
-            if 'ammunition' in character_data:
-                print(f"[DEBUG] Current ammunition: {character_data['ammunition']}")
-            print(f"[DEBUG] Updates contain ammunition: {'ammunition' in updates}")
-            if 'ammunition' in updates:
-                print(f"[DEBUG] Ammunition updates: {updates['ammunition']}")
+            # print(f"[DEBUG] About to call deep_merge_dict for {character_name}")
+            # print(f"[DEBUG] Character has ammunition: {'ammunition' in character_data}")
+            # if 'ammunition' in character_data:
+            #     print(f"[DEBUG] Current ammunition: {character_data['ammunition']}")
+            # print(f"[DEBUG] Updates contain ammunition: {'ammunition' in updates}")
+            # if 'ammunition' in updates:
+            #     print(f"[DEBUG] Ammunition updates: {updates['ammunition']}")
             
             updated_data = deep_merge_dict(character_data, updates)
             
-            print(f"[DEBUG] deep_merge_dict completed successfully")
+            # print(f"[DEBUG] deep_merge_dict completed successfully")
             
             # CRITICAL FIX: Ensure hitPoints never go below 0
             if 'hitPoints' in updated_data:
@@ -1080,14 +1080,14 @@ Character Role: {character_role}
                     debug(f"HP_FIX: Clamping negative HP ({current_hp}) to 0 for {character_name}", category="character_updates")
                     updated_data['hitPoints'] = 0
             
-            print(f"[DEBUG] Checking ammunition after merge:")
-            if 'ammunition' in updated_data:
-                print(f"[DEBUG] Updated ammunition: {updated_data['ammunition']}")
+            # print(f"[DEBUG] Checking ammunition after merge:")
+            # if 'ammunition' in updated_data:
+            #     print(f"[DEBUG] Updated ammunition: {updated_data['ammunition']}")
             
             # Validate that critical fields weren't accidentally deleted
-            print(f"[DEBUG] About to validate critical fields")
+            # print(f"[DEBUG] About to validate critical fields")
             critical_warnings = validate_critical_fields_preserved(character_data, updated_data, character_name)
-            print(f"[DEBUG] Critical field validation completed. Warnings: {critical_warnings}")
+            # print(f"[DEBUG] Critical field validation completed. Warnings: {critical_warnings}")
             if critical_warnings:
                 for crit_warning in critical_warnings:
                     error(f"CRITICAL WARNING: {crit_warning}", category="character_validation")
@@ -1112,21 +1112,21 @@ Character Role: {character_role}
                 continue
             
             # Role-specific normalization
-            print(f"[DEBUG] About to normalize status and condition")
+            # print(f"[DEBUG] About to normalize status and condition")
             updated_data = normalize_status_and_condition(updated_data, character_role)
-            print(f"[DEBUG] Normalization completed")
+            # print(f"[DEBUG] Normalization completed")
             
             # Purge invalid fields before validation
-            print(f"[DEBUG] About to purge invalid fields")
+            # print(f"[DEBUG] About to purge invalid fields")
             updated_data, removed_fields = purge_invalid_fields(updated_data, schema, character_name)
-            print(f"[DEBUG] Field purging completed. Removed fields: {removed_fields}")
+            # print(f"[DEBUG] Field purging completed. Removed fields: {removed_fields}")
             if removed_fields:
                 warning(f"VALIDATION: Purged {len(removed_fields)} invalid fields: {', '.join(removed_fields)}", category="character_validation")
             
             # Validate updated data
-            print(f"[DEBUG] About to validate character data against schema")
+            # print(f"[DEBUG] About to validate character data against schema")
             is_valid, error_msg = validate_character_data(updated_data, schema, character_name)
-            print(f"[DEBUG] Schema validation completed. Valid: {is_valid}, Error: {error_msg}")
+            # print(f"[DEBUG] Schema validation completed. Valid: {is_valid}, Error: {error_msg}")
             
             if not is_valid:
                 error(f"VALIDATION: Validation failed: {error_msg}", category="character_validation")
@@ -1152,9 +1152,9 @@ Character Role: {character_role}
                 continue
             
             # Save updated character data
-            print(f"[DEBUG] Validation passed! About to save character data to: {character_path}")
+            # print(f"[DEBUG] Validation passed! About to save character data to: {character_path}")
             if safe_write_json(character_path, updated_data):
-                print(f"[DEBUG] Character data saved successfully!")
+                # print(f"[DEBUG] Character data saved successfully!")
                 info(f"SUCCESS: Successfully updated {character_name} ({character_role})!", category="character_updates")
                 
                 # Log the changes with more detail for user feedback
@@ -1211,19 +1211,19 @@ Character Role: {character_role}
         except json.JSONDecodeError as e:
             error(f"FAILURE: JSON decode error (attempt {attempt})", exception=e, category="ai_processing")
             debug(f"AI_CALL: Raw response: {raw_response}", category="ai_processing")
-            print(f"\n[DEBUG ERROR] JSON decode error for {character_name}")
-            print(f"Raw response that failed to parse: {raw_response}")
-            print(f"Error: {str(e)}\n")
+            # print(f"\n[DEBUG ERROR] JSON decode error for {character_name}")
+            # print(f"Raw response that failed to parse: {raw_response}")
+            # print(f"Error: {str(e)}\n")
             
         except Exception as e:
             error(f"FAILURE: Error during update (attempt {attempt})", exception=e, category="character_updates")
-            print(f"\n[DEBUG ERROR] Exception during character update for {character_name}")
-            print(f"Error type: {type(e).__name__}")
-            print(f"Error message: {str(e)}")
-            print(f"Changes requested: {changes}")
-            if 'raw_response' in locals():
-                print(f"AI response received: {raw_response[:500]}...")
-            print(f"Stack trace will be in logs\n")
+            # print(f"\n[DEBUG ERROR] Exception during character update for {character_name}")
+            # print(f"Error type: {type(e).__name__}")
+            # print(f"Error message: {str(e)}")
+            # print(f"Changes requested: {changes}")
+            # if 'raw_response' in locals():
+            #     print(f"AI response received: {raw_response[:500]}...")
+            # print(f"Stack trace will be in logs\n")
         
         if attempt < max_attempts:
             attempt += 1
