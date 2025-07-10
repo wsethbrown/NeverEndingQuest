@@ -149,6 +149,66 @@ def detect_character_role(character_name):
     # Default to NPC if not found (most characters created are NPCs)
     return 'npc'
 
+def fuzzy_match_character_name(input_name, party_tracker_data):
+    """
+    Try to find a character using fuzzy matching logic.
+    Returns the correct character name if found, None otherwise.
+    """
+    input_lower = input_name.lower().strip()
+    
+    # Check party members (exact match first)
+    for member in party_tracker_data.get("partyMembers", []):
+        if member.lower() == input_lower:
+            return member
+    
+    # Check party NPCs (exact match first)
+    for npc in party_tracker_data.get("partyNPCs", []):
+        npc_name = npc.get("name", "")
+        if npc_name.lower() == input_lower:
+            return npc_name
+    
+    # Try partial matches for party NPCs (e.g., "kira" matches "Scout Kira")
+    for npc in party_tracker_data.get("partyNPCs", []):
+        npc_name = npc.get("name", "")
+        npc_lower = npc_name.lower()
+        # Check if input is contained in the NPC name
+        if input_lower in npc_lower:
+            debug(f"FUZZY_MATCH: Matched '{input_name}' to '{npc_name}' via partial match", category="character_updates")
+            return npc_name
+        # Check if any word in NPC name matches input
+        npc_words = npc_lower.split()
+        if input_lower in npc_words:
+            debug(f"FUZZY_MATCH: Matched '{input_name}' to '{npc_name}' via word match", category="character_updates")
+            return npc_name
+    
+    # Try checking character files in the module
+    try:
+        current_module = party_tracker_data.get("module", "").replace(" ", "_")
+        path_manager = ModulePathManager(current_module)
+        import glob
+        import os
+        
+        # Get all character files
+        character_files = glob.glob(os.path.join(path_manager.module_dir, "characters", "*.json"))
+        
+        for char_file in character_files:
+            try:
+                char_data = safe_read_json(char_file)
+                if char_data and "name" in char_data:
+                    char_name = char_data["name"]
+                    if char_name.lower() == input_lower:
+                        return char_name
+                    # Check partial match
+                    if input_lower in char_name.lower():
+                        debug(f"FUZZY_MATCH: Matched '{input_name}' to '{char_name}' via file search", category="character_updates")
+                        return char_name
+            except:
+                continue
+    except Exception as e:
+        debug(f"FUZZY_MATCH: Error searching character files: {str(e)}", category="character_updates")
+    
+    return None
+
 def get_character_path(character_name, character_role=None):
     """Get the appropriate file path for a character"""
     # Get current module from party tracker for consistent path resolution
@@ -723,11 +783,24 @@ def update_character_info(character_name, changes, character_role=None):
     
     debug(f"STATE_CHANGE: Updating character info for: {character_name}", category="character_updates")
     
-    # Normalize character name to handle titles and descriptors
-    normalized_name = normalize_character_name(character_name)
-    if normalized_name != character_name:
-        debug(f"STATE_CHANGE: Normalized character name from '{character_name}' to '{normalized_name}'", category="character_updates")
-        character_name = normalized_name
+    # Try fuzzy matching first if the character isn't found
+    original_name = character_name
+    party_tracker_data = safe_json_load("party_tracker.json")
+    
+    # First try with the original name
+    character_path = get_character_path(character_name, character_role)
+    if not os.path.exists(character_path):
+        # Try fuzzy matching
+        fuzzy_matched_name = fuzzy_match_character_name(character_name, party_tracker_data)
+        if fuzzy_matched_name and fuzzy_matched_name != character_name:
+            info(f"FUZZY_MATCH: Resolved '{character_name}' to '{fuzzy_matched_name}'", category="character_updates")
+            character_name = fuzzy_matched_name
+        else:
+            # Still try normalization as a fallback
+            normalized_name = normalize_character_name(character_name)
+            if normalized_name != character_name:
+                debug(f"STATE_CHANGE: Normalized character name from '{character_name}' to '{normalized_name}'", category="character_updates")
+                character_name = normalized_name
     
     # Auto-detect character role if not provided
     if character_role is None:

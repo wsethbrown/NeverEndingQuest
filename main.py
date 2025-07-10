@@ -578,6 +578,13 @@ def create_module_validation_context(party_tracker_data, path_manager):
 4. If an NPC is referenced incorrectly, suggest the CORRECT NPC from the current location list
 5. NPCs cannot be in multiple locations simultaneously - verify location consistency
 
+CHARACTER NAME RULES FOR updateCharacterInfo:
+- ALWAYS use the FULL character name exactly as it appears in the party tracker or NPC lists
+- For party NPCs, use their complete name (e.g., "Scout Kira" not "kira", "Sir Aldric" not "aldric")
+- For party members, use the exact name from partyMembers list
+- NEVER shorten or modify character names in action parameters
+- If a character has a title or descriptor, it MUST be included (e.g., "Scout Kira", "Knight Commander Marcus")
+
 CRITICAL: If validation fails due to wrong NPC for location, provide specific correction using NPCs actually present at the current location."""
         
         return validation_context
