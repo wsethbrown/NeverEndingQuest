@@ -731,6 +731,38 @@ def load_json_file(file_path):
     """Load a JSON file, with error handling and encoding sanitization"""
     return safe_json_load(file_path)
 
+def remove_duplicate_npcs(party_tracker_data):
+    """Remove duplicate NPCs from party tracker, keeping first occurrence.
+    
+    Args:
+        party_tracker_data: The party tracker dictionary
+        
+    Returns:
+        tuple: (cleaned_data, changes_made) where changes_made is boolean
+    """
+    if not party_tracker_data or "partyNPCs" not in party_tracker_data:
+        return party_tracker_data, False
+    
+    original_npcs = party_tracker_data["partyNPCs"]
+    seen_names = set()
+    unique_npcs = []
+    duplicates_removed = []
+    
+    for npc in original_npcs:
+        npc_name = npc.get("name", "")
+        if npc_name not in seen_names:
+            seen_names.add(npc_name)
+            unique_npcs.append(npc)
+        else:
+            duplicates_removed.append(npc_name)
+    
+    if duplicates_removed:
+        debug(f"STATE_CHANGE: Removing duplicate NPCs: {duplicates_removed}", category="npc_management")
+        party_tracker_data["partyNPCs"] = unique_npcs
+        return party_tracker_data, True
+    
+    return party_tracker_data, False
+
 def process_conversation_history(history):
     debug("STATE_CHANGE: Processing conversation history", category="conversation_management")
     for message in history:
@@ -1672,6 +1704,13 @@ def main_game_loop():
             empty_input_count = 0
         
         party_tracker_data = load_json_file("party_tracker.json") 
+        
+        # Remove duplicate NPCs if any exist
+        party_tracker_data, npcs_were_cleaned = remove_duplicate_npcs(party_tracker_data)
+        if npcs_were_cleaned:
+            # Save the cleaned party tracker back to file
+            safe_write_json("party_tracker.json", party_tracker_data)
+            debug("FILE_OP: Updated party_tracker.json with duplicate NPCs removed", category="npc_management")
 
         party_members_stats = []
         for member_name_iter in party_tracker_data["partyMembers"]:
