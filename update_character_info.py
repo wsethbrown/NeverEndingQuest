@@ -295,6 +295,7 @@ Enhanced Item Type Mappings:
 - Arrows/Bolts/Bullets -> item_type: "ammunition"
 - Travel Ration/Food -> item_type: "consumable", item_subtype: "food"
 - Torch/Rope/Tools -> item_type: "equipment", item_subtype: "tool"
+- Studded Leather Armor -> item_type: "armor", description: "Light armor. AC 12 + Dex modifier."
 - Cloak of Elvenkind -> item_type: "armor", item_subtype: "cloak"
 - Ring of Protection -> item_type: "miscellaneous", item_subtype: "ring"
 - Wand of Magic Missiles -> item_type: "miscellaneous", item_subtype: "wand"
