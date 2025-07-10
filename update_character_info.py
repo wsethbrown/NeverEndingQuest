@@ -364,28 +364,27 @@ def deep_merge_dict(base_dict, update_dict):
     }
     
     for key, value in update_dict.items():
-        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+        if key in result and isinstance(result.get(key), dict) and isinstance(value, dict):
             # Recursively merge nested dictionaries
             result[key] = deep_merge_dict(result[key], value)
-        elif key in named_arrays and isinstance(result.get(key), list) and isinstance(value, list):
-            # Special handling for arrays with named items
+        elif key in named_arrays and isinstance(value, list):
+            # Special handling for arrays with named items.
+            # This block is now safer and handles cases where the base array might be null or non-existent.
             name_field = named_arrays[key]
+            base_list = result.get(key)
+
             if key == 'equipment':
-                result[key] = merge_equipment_arrays(result[key], value)
+                result[key] = merge_equipment_arrays(base_list, value)
             elif key == 'ammunition':
-                result[key] = merge_ammunition_arrays(result.get(key), value)
+                result[key] = merge_ammunition_arrays(base_list, value)
             else:
                 # For other named arrays, use generic merge
-                result[key] = merge_named_arrays(result[key], value, name_field)
-        # --- START OF NEW LOGIC BLOCK ---
-        elif key in result and isinstance(result[key], list) and isinstance(value, list):
+                result[key] = merge_named_arrays(base_list, value, name_field)
+        elif key in result and isinstance(result.get(key), list) and isinstance(value, list):
             # Generic list merging for simple arrays (e.g., languages, savingThrows).
-            # This prevents replacement of the entire list by combining them and
-            # removing duplicates, preserving the original order.
             base_list = result[key]
             new_items = [item for item in value if item not in base_list]
             result[key] = base_list + new_items
-        # --- END OF NEW LOGIC BLOCK ---
         else:
             # Replace or add the value for primitive types or new keys
             result[key] = copy.deepcopy(value)
@@ -394,17 +393,25 @@ def deep_merge_dict(base_dict, update_dict):
 
 def merge_equipment_arrays(base_equipment, update_equipment):
     """Merge equipment arrays by item name, preserving existing items and removing zero-quantity items"""
-    result = copy.deepcopy(base_equipment)
+    # Harden against None input
+    base_list = base_equipment if isinstance(base_equipment, list) else []
+    result = copy.deepcopy(base_list)
     
     # Create a mapping of item names to indices in the base equipment
     item_name_to_index = {}
     for i, item in enumerate(result):
-        item_name = item.get('item_name', '')
-        if item_name:
-            item_name_to_index[item_name] = i
+        # Harden against non-dictionary items
+        if isinstance(item, dict):
+            item_name = item.get('item_name', '')
+            if item_name:
+                item_name_to_index[item_name] = i
     
     # Process updates
     for update_item in update_equipment:
+        # Harden against non-dictionary items
+        if not isinstance(update_item, dict):
+            continue
+        
         update_item_name = update_item.get('item_name', '')
         if not update_item_name:
             continue
@@ -418,7 +425,7 @@ def merge_equipment_arrays(base_equipment, update_equipment):
             result.append(copy.deepcopy(update_item))
     
     # Remove items with zero or negative quantity or marked with _remove flag
-    result = [item for item in result if item.get('quantity', 1) > 0 and not item.get('_remove', False)]
+    result = [item for item in result if isinstance(item, dict) and item.get('quantity', 1) > 0 and not item.get('_remove', False)]
     
     return result
 
@@ -478,15 +485,24 @@ def merge_ammunition_arrays(base_ammunition, update_ammunition):
 
 def merge_named_arrays(base_array, update_array, name_field):
     """Generic merge for arrays of objects identified by a name field"""
+    # Harden against None input
+    base_list = base_array if isinstance(base_array, list) else []
+    
     # Create lookup map from base array
     lookup = {}
-    for item in base_array:
-        key = item.get(name_field, '').lower().strip()
-        if key:
-            lookup[key] = copy.deepcopy(item)
+    for item in base_list:
+        # Harden against non-dictionary items
+        if isinstance(item, dict):
+            key = item.get(name_field, '').lower().strip()
+            if key:
+                lookup[key] = copy.deepcopy(item)
     
     # Process updates
     for update_item in update_array:
+        # Harden against non-dictionary items
+        if not isinstance(update_item, dict):
+            continue
+            
         update_name = update_item.get(name_field, '').strip()
         update_name_lower = update_name.lower()
         
