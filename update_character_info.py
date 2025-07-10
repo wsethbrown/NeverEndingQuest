@@ -373,12 +373,21 @@ def deep_merge_dict(base_dict, update_dict):
             if key == 'equipment':
                 result[key] = merge_equipment_arrays(result[key], value)
             elif key == 'ammunition':
-                result[key] = merge_ammunition_arrays(result[key], value)
+                result[key] = merge_ammunition_arrays(result.get(key), value)
             else:
                 # For other named arrays, use generic merge
                 result[key] = merge_named_arrays(result[key], value, name_field)
+        # --- START OF NEW LOGIC BLOCK ---
+        elif key in result and isinstance(result[key], list) and isinstance(value, list):
+            # Generic list merging for simple arrays (e.g., languages, savingThrows).
+            # This prevents replacement of the entire list by combining them and
+            # removing duplicates, preserving the original order.
+            base_list = result[key]
+            new_items = [item for item in value if item not in base_list]
+            result[key] = base_list + new_items
+        # --- END OF NEW LOGIC BLOCK ---
         else:
-            # Replace or add the value
+            # Replace or add the value for primitive types or new keys
             result[key] = copy.deepcopy(value)
     
     return result
@@ -415,19 +424,28 @@ def merge_equipment_arrays(base_equipment, update_equipment):
 
 def merge_ammunition_arrays(base_ammunition, update_ammunition):
     """Merge ammunition arrays by name, adding quantities for existing items and ensuring schema compliance"""
+    # Ensure base_ammunition is a list to prevent errors if it's None or missing
+    base_list = base_ammunition if isinstance(base_ammunition, list) else []
+
     # Create a lookup map from the base ammunition array
     ammo_lookup = {}
-    for ammo in base_ammunition:
+    for ammo in base_list:
         # Use lowercase name as key for case-insensitive matching
-        key = ammo.get('name', '').lower().strip()
-        if key:
-            ammo_lookup[key] = copy.deepcopy(ammo)
+        # Ensure item is a dictionary before processing
+        if isinstance(ammo, dict):
+            key = ammo.get('name', '').lower().strip()
+            if key:
+                ammo_lookup[key] = copy.deepcopy(ammo)
     
     # Process updates
-    for update_ammo in update_ammunition:
-        update_name = update_ammo.get('name', '').strip()
+    for update_item in update_ammunition:
+        # Ensure update_item is a dictionary
+        if not isinstance(update_item, dict):
+            continue
+
+        update_name = update_item.get('name', '').strip()
         update_name_lower = update_name.lower()
-        update_quantity = update_ammo.get('quantity', 0)
+        update_quantity = update_item.get('quantity', 0)
         
         if not update_name:
             continue
@@ -443,7 +461,7 @@ def merge_ammunition_arrays(base_ammunition, update_ammunition):
                 new_ammo = {
                     'name': update_name,  # Use original casing
                     'quantity': update_quantity,
-                    'description': update_ammo.get('description', 'Standard ammunition.')
+                    'description': update_item.get('description', 'Standard ammunition.')
                 }
                 ammo_lookup[update_name_lower] = new_ammo
     
