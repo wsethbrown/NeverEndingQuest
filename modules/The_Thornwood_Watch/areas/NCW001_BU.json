@@ -315,8 +315,7 @@
       ],
       "monsters": [
         "1 Corrupted Ranger Thane (CR 2, veteran with necrotic abilities)",
-        "2-3 Corrupted Animals (CR 1/4 each, his former animal companions, now hostile)",
-        "1 Shadow (CR 1/2, spawned from the camp's despair)"
+        "1 Corrupted Wolf (CR 1/4, his former animal companion, now hostile)"
       ],
       "lootTable": [
         "Ranger's journal detailing the corruption's rapid spread",
@@ -330,7 +329,7 @@
         "Thane's transformation shows how the corruption affects those who linger too long",
         "Evidence suggests the corruption is being deliberately spread rather than occurring naturally"
       ],
-      "dmInstructions": "Thane represents the tragic human cost of the corruption. His internal struggle should evoke sympathy while demonstrating the immediate danger. If the party can reach his uncorrupted side, he can provide crucial intelligence before either dying peacefully or asking them to end his suffering. This encounter should emphasize the urgency of stopping the corruption's spread.",
+      "dmInstructions": "IMPORTANT: Start this encounter with Thane in a LUCID MOMENT, especially if any party members are down. Give the party a chance to speak before combat begins. Thane represents the tragic human cost of the corruption. His internal struggle should evoke sympathy while demonstrating the immediate danger. If approached with compassion (Persuasion DC 12), he may help stabilize downed party members before asking them to end his suffering. Only his corrupted wolf companion attacks immediately. If diplomacy fails or Thane loses control, combat begins. This encounter should emphasize the urgency of stopping the corruption's spread while providing a potential non-combat resolution.",
       "doors": [],
       "traps": [
         {
@@ -344,7 +343,8 @@
       "dcChecks": [
         "Medicine DC 14: Understand the nature of Thane's corruption and potential treatments",
         "Investigation DC 12: Piece together the timeline of the camp's abandonment from scattered evidence",
-        "Insight DC 15: Recognize when Thane is lucid versus when the corruption is controlling him"
+        "Insight DC 15: Recognize when Thane is lucid versus when the corruption is controlling him",
+        "Persuasion DC 12: Reach Thane's humanity during his lucid moments and convince him to help before combat"
       ],
       "accessibility": "Abandoned campsite in a small clearing, easily spotted but emanating obvious danger",
       "dangerLevel": "High",
