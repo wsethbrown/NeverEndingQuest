@@ -51,7 +51,7 @@
         {
           "id": "SQ003",
           "title": "The Hermit's Warning",
-          "description": "The party can find a hidden cabin belonging to Maelo, a hermit who studies the forest's energies. He will only help if the party first cleanses a nearby spring he uses for scrying, which has been tainted by Malarok's magic. He can then perform a ritual to learn more about the threat.",
+          "description": "The party can find a hidden cabin belonging to Maelo, a hermit who studies the forest's energies. He will only help if the party first cleanses a nearby spring he uses for scrying, which has been tainted by Malarok's magic. He can then perform a ritual to learn more about the threat. Reward: Maelo's Iron Charm (grows cold in the presence of dark magic, can potentially break enchantments).",
           "involvedLocations": [
             "TW001"
           ],
@@ -97,7 +97,7 @@
     {
       "id": "PP004",
       "title": "Confronting the Corruptor",
-      "description": "Deep within the ruins, the party finds Malarok the Corruptor. He is performing a dark ritual to absorb the power of a large, pulsating Voidstone Shard set upon an altar. He is a formidable spellcaster, protected by elite bodyguards and the stone's foul energy. The party must defeat Malarok and destroy the Voidstone to end his threat.",
+      "description": "Deep within the ruins, the party finds Malarok the Corruptor. He is performing a dark ritual to absorb the power of a large, pulsating Voidstone Shard set upon an altar. He is a formidable spellcaster, protected by elite bodyguards and the stone's foul energy. The party must defeat Malarok and destroy the Voidstone to end his threat. The purified water in the Rune-etched Ritual Vial from Maelo may be crucial for cleansing the Voidstone's corruption.",
       "location": "NCW001",
       "nextPoints": [
         "PP005"
