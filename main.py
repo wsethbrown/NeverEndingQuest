@@ -1354,8 +1354,8 @@ def get_ai_response(conversation_history):
     )
     content = response.choices[0].message.content.strip()
     
-    # Use the encoding utility to sanitize the AI response
-    content = sanitize_text(content)
+    # The sanitization line that was here has been removed.
+    # We now pass the raw, untouched JSON string to the next function.
     
     # Log training data - complete conversation history and AI response
     try:
