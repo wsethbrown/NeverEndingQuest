@@ -147,6 +147,74 @@ os.makedirs("combat_logs", exist_ok=True)
 HISTORY_TIMESTAMP_FORMAT = "%Y%m%d_%H%M%S"
 
 
+def load_npc_with_fuzzy_match(npc_name, path_manager):
+    """
+    Load NPC data with fuzzy name matching support.
+    First tries exact match, then falls back to fuzzy matching if needed.
+    
+    Args:
+        npc_name: The NPC name to look for
+        path_manager: ModulePathManager instance
+        
+    Returns:
+        tuple: (npc_data, matched_filename) or (None, None) if not found
+    """
+    from encoding_utils import safe_json_load
+    
+    # First try exact match with normalized name
+    formatted_npc_name = path_manager.format_filename(npc_name)
+    npc_file = path_manager.get_character_path(formatted_npc_name)
+    npc_data = safe_json_load(npc_file)
+    
+    if npc_data:
+        debug(f"NPC_LOAD: Exact match found for '{npc_name}' -> '{formatted_npc_name}'", category="combat_manager")
+        return npc_data, formatted_npc_name
+    
+    # If exact match fails, try fuzzy matching
+    debug(f"NPC_LOAD: Exact match failed for '{formatted_npc_name}', attempting fuzzy match", category="combat_manager")
+    
+    # Get all character files in the module
+    import glob
+    character_dir = path_manager.get_characters_dir()
+    character_files = glob.glob(os.path.join(character_dir, "*.json"))
+    
+    best_match = None
+    best_score = 0
+    best_filename = None
+    
+    for char_file in character_files:
+        # Skip backup files
+        if char_file.endswith(".bak") or char_file.endswith("_BU.json"):
+            continue
+            
+        # Load the character data to check if it's an NPC
+        char_data = safe_json_load(char_file)
+        if char_data and char_data.get("characterType") == "npc":
+            char_name = char_data.get("name", "")
+            # Simple fuzzy matching - check if key words from requested name are in character name
+            requested_words = set(formatted_npc_name.lower().split("_"))
+            char_words = set(char_name.lower().replace(" ", "_").split("_"))
+            
+            # Calculate match score based on word overlap
+            common_words = requested_words.intersection(char_words)
+            if common_words:
+                score = len(common_words) / max(len(requested_words), len(char_words))
+                
+                if score > best_score:
+                    best_score = score
+                    best_match = char_data
+                    # Extract just the filename without path for consistency
+                    best_filename = os.path.splitext(os.path.basename(char_file))[0]
+    
+    # Use best match if score is high enough (threshold: 0.5)
+    if best_match and best_score >= 0.5:
+        info(f"NPC_FUZZY_MATCH: Success - '{npc_name}' matched to '{best_match['name']}' (score: {best_score:.2f})", category="combat_manager")
+        return best_match, best_filename
+    else:
+        warning(f"NPC_FUZZY_MATCH: Failed for '{npc_name}' (best score: {best_score:.2f})", category="combat_manager")
+        return None, None
+
+
 def get_current_area_id():
     party_tracker = safe_json_load("party_tracker.json")
     if not party_tracker:
@@ -918,13 +986,11 @@ def sync_active_encounter():
                     error(f"FAILURE: Failed to sync player data to encounter", exception=e, category="encounter_setup")
                     
             elif creature["type"] == "npc":
-                npc_name = path_manager.format_filename(creature['name'])
-                npc_file = path_manager.get_character_path(npc_name)
-                try:
-                    npc_data = safe_json_load(npc_file)
-                    if not npc_data:
-                        error(f"FAILURE: Failed to load NPC file: {npc_file}", category="file_operations")
-                    else:
+                # Use fuzzy matching for NPC loading
+                npc_data, matched_filename = load_npc_with_fuzzy_match(creature['name'], path_manager)
+                if not npc_data:
+                    error(f"FAILURE: Failed to load NPC file for: {creature['name']}", category="file_operations")
+                else:
                         # Update combat-relevant fields
                         if creature.get("currentHitPoints") != npc_data.get("hitPoints"):
                             creature["currentHitPoints"] = npc_data.get("hitPoints")
@@ -1090,18 +1156,14 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
                    return None, None
        
        elif creature["type"] == "npc":
-           # Ensure npc_name is correctly formatted for file access
-           npc_file_name_part = path_manager.format_filename(creature["name"]) # Handle names like "NPC_1"
-           npc_file = path_manager.get_character_path(npc_file_name_part)
-           if npc_file_name_part not in npc_templates: # Check against the base name
-               try:
-                   npc_data = safe_json_load(npc_file)
-                   if npc_data:
-                       npc_templates[npc_file_name_part] = npc_data
-                   else:
-                       error(f"FAILURE: Failed to load NPC file: {npc_file}", category="file_operations")
-               except Exception as e:
-                   error(f"FAILURE: Failed to load NPC file {npc_file}", exception=e, category="file_operations")
+           # Use fuzzy matching for NPC loading
+           npc_data, matched_filename = load_npc_with_fuzzy_match(creature["name"], path_manager)
+           if npc_data and matched_filename:
+               # Use the matched filename as the key to avoid duplicates
+               if matched_filename not in npc_templates:
+                   npc_templates[matched_filename] = npc_data
+           else:
+               error(f"FAILURE: Failed to load NPC file for: {creature['name']}", category="file_operations")
    
    # Populate the system messages ONLY if it's a new combat session
    if not is_resuming:
@@ -1146,15 +1208,12 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
            
            # Get the actual max HP from the correct source
            if creature["type"] == "npc":
-               # For NPCs, look up their true max HP from their character file
-               npc_name = path_manager.format_filename(creature_name)
-               npc_file = path_manager.get_character_path(npc_name)
-               try:
-                   with open(npc_file, "r") as file:
-                       npc_data = json.load(file)
-                       creature_max_hp = npc_data["maxHitPoints"]
-               except Exception as e:
-                   error(f"FAILURE: Failed to get correct max HP for {creature_name}", exception=e, category="combat_events")
+               # For NPCs, look up their true max HP from their character file using fuzzy match
+               npc_data, matched_filename = load_npc_with_fuzzy_match(creature_name, path_manager)
+               if npc_data:
+                   creature_max_hp = npc_data["maxHitPoints"]
+               else:
+                   error(f"FAILURE: Failed to get correct max HP for {creature_name}", category="combat_events")
                    creature_max_hp = creature.get("maxHitPoints", "Unknown")
            else:
                # For monsters, use the encounter data
@@ -1340,15 +1399,13 @@ Player: {initial_prompt_text}"""
        # Reload NPC data
        for creature in encounter_data["creatures"]:
            if creature["type"] == "npc":
-               npc_name = path_manager.format_filename(creature["name"])
-               npc_file = path_manager.get_character_path(npc_name)
-               try:
-                   with open(npc_file, "r") as file:
-                       npc_data = json.load(file)
-                       # Update the NPC in the templates dictionary
-                       npc_templates[npc_name] = npc_data
-               except Exception as e:
-                   error(f"FAILURE: Failed to reload NPC file {npc_file}", exception=e, category="file_operations")
+               # Use fuzzy matching for NPC reloading
+               npc_data, matched_filename = load_npc_with_fuzzy_match(creature["name"], path_manager)
+               if npc_data and matched_filename:
+                   # Update the NPC in the templates dictionary
+                   npc_templates[matched_filename] = npc_data
+               else:
+                   error(f"FAILURE: Failed to reload NPC file for: {creature['name']}", category="file_operations")
        
        # Replace NPC templates in conversation history (with dynamic fields filtered)
        for i, msg in enumerate(conversation_history):
@@ -1421,15 +1478,12 @@ Player: {initial_prompt_text}"""
                # Get the actual max HP from the correct source
                npc_data = None
                if creature["type"] == "npc":
-                   # For NPCs, look up their true max HP from their character file
-                   npc_name = path_manager.format_filename(creature_name)
-                   npc_file = path_manager.get_character_path(npc_name)
-                   try:
-                       with open(npc_file, "r") as file:
-                           npc_data = json.load(file)
-                           creature_max_hp = npc_data["maxHitPoints"]
-                   except Exception as e:
-                       error(f"FAILURE: Failed to get correct max HP for {creature_name}", exception=e, category="combat_events")
+                   # For NPCs, look up their true max HP from their character file using fuzzy match
+                   npc_data, matched_filename = load_npc_with_fuzzy_match(creature_name, path_manager)
+                   if npc_data:
+                       creature_max_hp = npc_data["maxHitPoints"]
+                   else:
+                       error(f"FAILURE: Failed to get correct max HP for {creature_name}", category="combat_events")
                        creature_max_hp = creature.get("maxHitPoints", "Unknown")
                else:
                    # For monsters, use the encounter data
