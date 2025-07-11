@@ -1,0 +1,92 @@
+{
+  "name": "Malarok the Corruptor",
+  "size": "Medium",
+  "type": "Humanoid",
+  "alignment": "Chaotic Evil",
+  "armorClass": 14,
+  "hitPoints": 52,
+  "maxHitPoints": 52,
+  "speed": 30,
+  "abilities": {
+    "strength": 12,
+    "dexterity": 14,
+    "constitution": 16,
+    "intelligence": 15,
+    "wisdom": 12,
+    "charisma": 16
+  },
+  "savingThrows": [
+    "Constitution",
+    "Charisma",
+    "Intelligence"
+  ],
+  "skills": {
+    "Arcana": 4,
+    "Deception": 5,
+    "Insight": 3,
+    "Perception": 3
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [
+    "necrotic"
+  ],
+  "damageImmunities": [],
+  "conditionImmunities": [
+    "charmed"
+  ],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 13
+  },
+  "languages": "Common, Abyssal, Infernal",
+  "challengeRating": 3,
+  "specialAbilities": [
+    {
+      "name": "Aura of Corruption",
+      "attackBonus": 0,
+      "damageDice": "1d6",
+      "damageBonus": 0,
+      "damageType": "necrotic"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Corrupting Touch",
+      "attackBonus": 5,
+      "damageDice": "2d8",
+      "damageBonus": 3,
+      "damageType": "necrotic"
+    },
+    {
+      "name": "Shadow Blade",
+      "attackBonus": 5,
+      "damageDice": "2d6",
+      "damageBonus": 2,
+      "damageType": "psychic"
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive",
+  "spellcasting": {
+    "ability": "Charisma",
+    "spellSaveDC": 14,
+    "spellAttackBonus": 6,
+    "spells": {
+      "cantrips": [
+        "Chill Touch",
+        "Minor Illusion",
+        "Thaumaturgy"
+      ],
+      "level1": [
+        "Charm Person",
+        "Inflict Wounds",
+        "Shield"
+      ],
+      "level2": [
+        "Hold Person",
+        "Mirror Image"
+      ],
+      "level3": []
+    }
+  }
+}

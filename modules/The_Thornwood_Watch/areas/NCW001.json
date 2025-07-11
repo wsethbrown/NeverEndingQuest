@@ -38,7 +38,8 @@
         "type": "cave",
         "connections": [
           "NC01",
-          "NC04"
+          "NC04",
+          "NC05"
         ],
         "coordinates": "X2Y3",
         "name": "Hollow Shade Den"
@@ -57,7 +58,8 @@
         "id": "NC05",
         "type": "hilltop",
         "connections": [
-          "NC02"
+          "NC02",
+          "NC03"
         ],
         "coordinates": "X1Y1",
         "name": "Shrouded Sentinel Rise"
@@ -352,7 +354,8 @@
       "coordinates": "X2Y3",
       "connectivity": [
         "NC01",
-        "NC04"
+        "NC04",
+        "NC05"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -363,18 +366,15 @@
           "attitude": "Noble but weary, initially suspicious of mortals but grateful for genuine aid. Will test the party's intentions before offering assistance or knowledge."
         }
       ],
-      "monsters": [
-        "2-3 Shadow Corrupted Wolves (CR 1/4 each, only if the Hart is threatened)",
-        "1 Corrupted Owlbear (CR 2, driven here by the corruption, hostile to all)"
-      ],
+      "monsters": [],
       "lootTable": [
         "Antler fragment with purification magic",
         "Vial of Hart's tears (powerful healing potion)",
-        "Map to the corruption's source carved in ancient stone",
+        "Map to the corruption's source carved in ancient stone (reveals hidden path to NC05)",
         "Blessing of the Forest Guardian (permanent boon)"
       ],
       "plotHooks": [
-        "The Withered Hart knows the exact source of the corruption and can guide the party to it",
+        "The Withered Hart knows the exact source of the corruption and has revealed the Guardian's Path - a hidden route that leads directly to the Corrupted Nexus",
         "The Hart's power is the only thing preventing the corruption from spreading beyond the northern woods",
         "Ancient forest magic could be restored if the corruption's source is destroyed",
         "The Hart will sacrifice itself to create a powerful ward if no other solution can be found"
@@ -405,6 +405,10 @@
         {
           "name": "Pillar of Fading Light",
           "description": "A column of pure white light emanating from the Hart's presence, the last beacon of hope in the corrupted woods."
+        },
+        {
+          "name": "Hidden Path of the Guardian",
+          "description": "Following the stone map's ancient markings, a concealed trail leads directly through the corruption to the Nexus. This sacred path, known only to the forest guardians, bypasses the normal routes and provides safe passage to NC05 when the map is held."
         }
       ],
       "encounters": [],
@@ -488,7 +492,8 @@
       "description": "Atop this windswept hill stand the crumbling ruins where Malarok the Corruptor has established his dark sanctuary. At the center of the ancient stone circle, a massive Voidstone Shard pulses with corrupted starlight, amplifying the sorcerer's power. The very air around the altar shimmers with dark magic, and the ground radiates outward with veins of corruption. Ancient trees have become twisted by Malarok's rituals, their forms warped by the Voidstone's influence.",
       "coordinates": "X1Y1",
       "connectivity": [
-        "NC02"
+        "NC02",
+        "NC03"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],

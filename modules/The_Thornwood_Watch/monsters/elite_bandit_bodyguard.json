@@ -1,0 +1,78 @@
+{
+  "name": "Elite Bandit Bodyguard",
+  "size": "Medium",
+  "type": "Humanoid",
+  "alignment": "Chaotic Neutral",
+  "armorClass": 16,
+  "hitPoints": 49,
+  "maxHitPoints": 49,
+  "speed": 30,
+  "abilities": {
+    "strength": 15,
+    "dexterity": 16,
+    "constitution": 14,
+    "intelligence": 10,
+    "wisdom": 11,
+    "charisma": 13
+  },
+  "savingThrows": [
+    "Dex",
+    "Con"
+  ],
+  "skills": {
+    "Athletics": 4,
+    "Perception": 2,
+    "Intimidation": 3
+  },
+  "damageVulnerabilities": [],
+  "damageResistances": [],
+  "damageImmunities": [],
+  "conditionImmunities": [],
+  "senses": {
+    "darkvision": 60,
+    "passivePerception": 12
+  },
+  "languages": "Common, Thieves' Cant",
+  "challengeRating": 2,
+  "specialAbilities": [
+    {
+      "name": "Parry",
+      "attackBonus": 0,
+      "damageDice": "0",
+      "damageBonus": 0,
+      "damageType": "none"
+    },
+    {
+      "name": "Multiattack",
+      "attackBonus": 0,
+      "damageDice": "0",
+      "damageBonus": 0,
+      "damageType": "none"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Scimitar",
+      "attackBonus": 5,
+      "damageDice": "1d6",
+      "damageBonus": 3,
+      "damageType": "slashing"
+    },
+    {
+      "name": "Dagger",
+      "attackBonus": 5,
+      "damageDice": "1d4",
+      "damageBonus": 3,
+      "damageType": "piercing"
+    },
+    {
+      "name": "Heavy Crossbow",
+      "attackBonus": 5,
+      "damageDice": "1d10",
+      "damageBonus": 3,
+      "damageType": "piercing"
+    }
+  ],
+  "legendaryActions": [],
+  "condition": "Alive"
+}

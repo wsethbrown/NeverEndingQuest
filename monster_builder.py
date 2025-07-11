@@ -46,12 +46,7 @@ import os
 import re
 from openai import OpenAI
 from jsonschema import validate, ValidationError
-# Import model configuration from config.py
-from config import OPENAI_API_KEY # Assuming API key is in config.py
-# We need a model name for monster_builder, let's assume it will be MONSTER_BUILDER_MODEL
-# You'll need to add MONSTER_BUILDER_MODEL = "gpt-4.1-2025-04-14" (or your preferred model)
-# to your config.py file.
-from config import MONSTER_BUILDER_MODEL # This line will cause an error until you define it in config.py
+import config
 from module_path_manager import ModulePathManager
 from enhanced_logger import debug, info, warning, error, set_script_name
 
@@ -64,7 +59,7 @@ YELLOW = "\033[33m"
 RESET = "\033[0m"
 
 # Use OPENAI_API_KEY from config
-client = OpenAI(api_key=OPENAI_API_KEY)
+client = OpenAI(api_key=config.OPENAI_API_KEY)
 # Note: The original monster_builder.py had a hardcoded API key here.
 # It's better practice to use the one from config.py.
 
@@ -117,7 +112,18 @@ NAMING CONVENTIONS:
 - For unique names, create custom monsters with that exact name
 - For corrupted/themed variants, add appropriate descriptors and abilities
 
-Ensure your new monster JSON adheres to the provided schema template. Do not include any additional properties or nested 'type' and 'value' fields. Return only the JSON content without any markdown formatting."""
+SPELLCASTING MONSTERS:
+- If the monster is described as a spellcaster (wizard, sorcerer, cleric, druid, etc.), include the "spellcasting" property
+- Human spellcasters should have type "Humanoid", not "Fiend" or other types
+- Sorcerers use Charisma, Wizards use Intelligence, Clerics/Druids use Wisdom
+- CR 1: Usually has cantrips and 1st level spells (2-3 spell slots)
+- CR 2-3: Has cantrips, 1st and 2nd level spells (4-6 total spell slots)
+- CR 4-5: Has up to 3rd level spells
+- Calculate spell save DC as: 8 + proficiency bonus + ability modifier
+- Calculate spell attack bonus as: proficiency bonus + ability modifier
+- Choose appropriate spells for the monster's theme and CR
+
+Ensure your new monster JSON adheres to the provided schema template. Do not include any additional properties or nested 'type' and 'value' fields. For non-spellcasters, omit the spellcasting property entirely. Return only the JSON content without any markdown formatting."""
 
     # Build context-aware user prompt
     user_content = f"""Create a monster named '{monster_name}' using 5e rules.
@@ -125,6 +131,8 @@ Ensure your new monster JSON adheres to the provided schema template. Do not inc
 PARTY LEVEL: {party_level}
 
 Scale Challenge Rating appropriately for party level {party_level} using the CR guidance above.
+
+If this monster name includes terms like 'sorcerer', 'wizard', 'cleric', 'druid', 'warlock', 'mage', or other spellcasting classes, make sure to include the spellcasting property with appropriate spells for their CR.
 
 Schema: {json.dumps(schema)}"""
     
@@ -135,7 +143,7 @@ Schema: {json.dumps(schema)}"""
 
     try:
         response = client.chat.completions.create(
-            model=MONSTER_BUILDER_MODEL, # Use imported model name
+            model=config.MONSTER_BUILDER_MODEL, # Use imported model name
             temperature=0.7,
             messages=prompt
         )

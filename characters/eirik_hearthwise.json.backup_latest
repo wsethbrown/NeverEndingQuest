@@ -12,8 +12,8 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 27,
-  "maxHitPoints": 33,
+  "hitPoints": 32,
+  "maxHitPoints": 38,
   "armorClass": 17,
   "initiative": 1,
   "speed": 30,
@@ -373,12 +373,6 @@
       "quantity": 1
     },
     {
-      "item_name": "Reclaimed iron charm from Sylara",
-      "item_type": "miscellaneous",
-      "description": "A charm of iron reclaimed from Sylara, returned to inventory.",
-      "quantity": 1
-    },
-    {
       "item_name": "Ancient druidic tome",
       "item_type": "equipment",
       "description": "An ancient tome describing the cleansing ritual involving sunlight, pure water, and the blade of sacrifice.",
@@ -395,12 +389,31 @@
       "item_type": "miscellaneous",
       "description": "A key to Thane's remaining humanity, a precious family heirloom worn close to the heart.",
       "quantity": 1
+    },
+    {
+      "item_name": "Antler fragment with purification magic",
+      "item_type": "miscellaneous",
+      "description": "A fragment of antler imbued with powerful purification magic, obtained after breaking the corruption on the Withered Hart.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Map to corruption source",
+      "item_type": "equipment",
+      "description": "An ancient stone-carved map discovered at the altar, showing the source of the corruption.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Hart's tears (healing potion)",
+      "item_type": "consumable",
+      "item_subtype": "potion",
+      "description": "A healing potion given by Kira, known as 'Hart's tears'.",
+      "quantity": 1
     }
   ],
   "ammunition": [
     {
       "name": "Crossbow bolt",
-      "quantity": 67,
+      "quantity": 66,
       "description": "Standard crossbow bolts for use with a light crossbow."
     }
   ],
@@ -469,7 +482,7 @@
         "max": 4
       },
       "level2": {
-        "current": 2,
+        "current": 0,
         "max": 2
       },
       "level3": {

@@ -192,6 +192,87 @@
       "condition": {
         "type": "string",
         "enum": ["Alive", "Dead"]
+      },
+      "spellcasting": {
+        "type": "object",
+        "properties": {
+          "ability": {
+            "type": "string",
+            "enum": ["Intelligence", "Wisdom", "Charisma"]
+          },
+          "spellSaveDC": {
+            "type": "integer"
+          },
+          "spellAttackBonus": {
+            "type": "integer"
+          },
+          "spells": {
+            "type": "object",
+            "properties": {
+              "cantrips": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "level1": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "level2": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "level3": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "level4": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "level5": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "level6": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "level7": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "level8": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "level9": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "required": ["ability", "spellSaveDC", "spellAttackBonus", "spells"]
       }
     },
     "required": [

@@ -78,8 +78,8 @@
       "nextPoints": [
         "PP004"
       ],
-      "status": "in progress",
-      "plotImpact": "With Thane's recovery, the party gains insight into the corruption's spread and the dangers posed by the cursed fire pit at the Doomed Explorer's Camp. Thane's warning may help prevent further corruption.",
+      "status": "completed",
+      "plotImpact": "Eirik used Sacred Flame to burn a path through the animated thorn barrier, opening the way to the Corrupted Nexus. The barrier's destruction signals the party's imminent confrontation with Malarok at the heart of the grove.",
       "sideQuests": [
         {
           "id": "SQ005",
@@ -97,12 +97,12 @@
       "id": "PP004",
       "title": "Confronting the Corruptor",
       "description": "Deep within the ruins, the party finds Malarok the Corruptor. He is performing a dark ritual to absorb the power of a large, pulsating Voidstone Shard set upon an altar. He is a formidable spellcaster, protected by elite bodyguards and the stone's foul energy. The party must defeat Malarok and destroy the Voidstone to end his threat.",
-      "location": "NCW001",
+      "location": "NC05",
       "nextPoints": [
         "PP005"
       ],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "The party breaches the Corrupted Nexus, directly confronting Malarok the Corruptor and his elite bodyguards at the Voidstone's altar. The climax of Thornwood's fate begins.",
       "sideQuests": []
     },
     {
