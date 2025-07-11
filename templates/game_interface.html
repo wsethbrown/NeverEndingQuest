@@ -183,10 +183,12 @@
         
         /* Inventory Panel Content - Special Layout */
         #inventory-tab .panel-content {
+            flex: 1; /* This makes the container fill its parent */
             display: flex;
             flex-direction: column;
-            overflow: hidden;
             padding: 10px;
+            min-height: 0; /* A necessary flexbox fix for scrolling */
+            /* The "overflow: hidden" property is removed */
         }
         
         /* Debug Panel Content - Auto-scroll to bottom */
@@ -781,8 +783,9 @@
         }
         
         .tab-content {
-            height: calc(100% - 41px);
-            overflow-y: auto;
+            flex: 1; /* Let the tab content grow to fill available space */
+            min-height: 0; /* A critical fix for nested flex scrolling */
+            overflow-y: auto; /* Default to scrollable */
             display: flex;
             flex-direction: column;
             background-color: #1a1a1a;
@@ -893,10 +896,29 @@
             border: 1px solid #444;
             border-radius: 5px;
             padding: 6px;
-            margin-bottom: 8px;
+            /* margin-bottom has been removed */
             flex: 1;
             overflow-y: auto;
             min-height: 0;
+        }
+
+        /* Storage view button in inventory tab */
+        .storage-view-button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #00BCD4; /* Cyan color from the old button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .storage-view-button:hover {
+            background-color: #0097A7;
         }
         
         .equipment-section h3 {
@@ -944,7 +966,9 @@
         .inventory-item {
             padding: 3px 0;
             border-bottom: 1px solid #222;
-            font-size: 14px;
+            font-size: 12px; /* Was 13px */
+            display: flex;
+            align-items: baseline;
         }
         
         .inventory-item:last-child {
@@ -965,7 +989,7 @@
         .item-name {
             color: #4CAF50;
             font-weight: bold;
-            font-size: 17px;
+            font-size: 14px; /* Was 15px */
         }
         
         .item-qty {
@@ -990,6 +1014,8 @@
             color: #777;
             font-style: italic;
             text-transform: capitalize;
+            margin-left: 8px;
+            font-size: 12px; /* ADD THIS LINE */
         }
         
         .weapon-damage {
@@ -1860,7 +1886,7 @@
         .feature-bullet {
             color: #FFA500;
             margin-right: 6px;
-            font-size: 14px;
+            font-size: 11px; /* Was 12px */
         }
         
         .feature-name {
@@ -2575,7 +2601,6 @@
             <div class="save-load-buttons">
                 <button class="save-button" id="save-button" onclick="openSaveDialog()" disabled title="Save Game">Save</button>
                 <button class="load-button" id="load-button" onclick="openLoadDialog()" disabled title="Load Game">Load</button>
-                <button class="storage-button" id="storage-button" onclick="openStorageView()" disabled title="View Player Storage">Storage</button>
                 <button class="reset-button" id="reset-button" onclick="openResetDialog()" disabled title="Reset Campaign">Reset</button>
             </div>
         </div>
@@ -2631,7 +2656,7 @@
                     <div class="loading">Loading inventory...</div>
                 </div>
             </div>
-            <div class="tab-content" id="stats-tab" style="display: block;">
+            <div class="tab-content" id="stats-tab" style="display: flex;">
                 <div class="panel-content" id="stats-content">
                     <div class="loading">Loading character stats...</div>
                 </div>
@@ -2788,7 +2813,6 @@
             document.getElementById('send-button').disabled = false;
             document.getElementById('save-button').disabled = false;
             document.getElementById('load-button').disabled = false;
-            document.getElementById('storage-button').disabled = false;
             document.getElementById('reset-button').disabled = false;
             document.getElementById('user-input').focus();
             addMessage('game-output', { type: 'system', content: 'Game started! You can now enter commands.' });
@@ -2846,7 +2870,7 @@
             const tabButtons = document.querySelectorAll('.tab-button');
             tabButtons.forEach(button => { button.classList.remove('active'); });
             
-            document.getElementById(`${tabName}-tab`).style.display = 'block';
+            document.getElementById(`${tabName}-tab`).style.display = 'flex';
             event.target.classList.add('active');
             
             if (tabName === 'inventory') loadInventory();
@@ -2878,20 +2902,57 @@
             if (!preserveOriginal) {
                 originalInventoryData = data;
             }
-            let html = '<div class="inventory-sheet">';
-            
-            html += `<div class="inventory-controls"><button class="search-btn" onclick="openSearchPopup()">Search</button><select class="inventory-sort" id="inventory-sort" onchange="sortInventory()"><option value="name-asc">Sort: Name A-Z</option><option value="name-desc">Sort: Name Z-A</option><option value="type">Sort: Type</option><option value="quantity">Sort: Quantity</option></select><select class="filter-dropdown" id="filter-dropdown" onchange="changeFilter()"><option value="">Filter</option><option value="weapon">Weapons</option><option value="armor">Armor</option><option value="consumable">Consumables</option><option value="magical">Magical</option><option value="equipped">Equipped</option></select><button class="search-btn" onclick="clearAllFilters()">Clear</button></div>`;
+
+            // --- START OF REFACTORED HTML STRUCTURE ---
+
+            // No longer wrapped in an outer 'inventory-sheet' div.
+            // The parent 'inventory-content' is now our main container.
+            let html = '';
+
+            // 1. Add the new, wide storage button at the very top.
+            html += `<button class="storage-view-button" onclick="openStorageView()">View Player Storage</button>`;
+
+            // 2. Add the inventory controls. This part is unchanged.
+            html += `<div class="inventory-controls">
+                        <button class="search-btn" onclick="openSearchPopup()">Search</button>
+                        <select class="inventory-sort" id="inventory-sort" onchange="sortInventory()">
+                            <option value="name-asc">Sort: Name A-Z</option>
+                            <option value="name-desc">Sort: Name Z-A</option>
+                            <option value="type">Sort: Type</option>
+                            <option value="quantity">Sort: Quantity</option>
+                        </select>
+                        <select class="filter-dropdown" id="filter-dropdown" onchange="changeFilter()">
+                            <option value="">Filter</option>
+                            <option value="weapon">Weapons</option>
+                            <option value="armor">Armor</option>
+                            <option value="consumable">Consumables</option>
+                            <option value="magical">Magical</option>
+                            <option value="equipped">Equipped</option>
+                        </select>
+                        <button class="search-btn" onclick="clearAllFilters()">Clear</button>
+                    </div>`;
+
+            // 3. Add the equipment section, which will be our scrollable list.
             html += '<div class="equipment-section"><h4>Equipment</h4>';
             if (data.equipment && data.equipment.length > 0) {
-                data.equipment.forEach(item => { 
+                data.equipment.forEach(item => {
                     const description = (item.description || 'No description available.').replace(/"/g, '&quot;');
-                    html += `<div class="inventory-item" data-tooltip-title="${item.item_name}" data-tooltip-content="${description}"><span class="feature-bullet">●</span><span class="item-name">${item.item_name}${(item.quantity||1) > 1 ? ` ×${item.quantity}` : ''}</span><span class="item-type"> (${(item.item_type || 'misc').toLowerCase()})</span></div>`; 
+                    html += `<div class="inventory-item" data-tooltip-title="${item.item_name}" data-tooltip-content="${description}">
+                                <span class="feature-bullet">●</span>
+                                <span class="item-name">${item.item_name}${(item.quantity||1) > 1 ? ` ×${item.quantity}` : ''}</span>
+                                <span class="item-type"> (${(item.item_type || 'misc').toLowerCase()})</span>
+                             </div>`;
                 });
             } else {
                 html += '<div class="inventory-item"><span class="feature-bullet">●</span><span class="item-name">No equipment</span></div>';
             }
-            html += '</div></div>'; // Close equipment-section and inventory-sheet
+            html += '</div>'; // Close equipment-section
+
+            // --- END OF REFACTORED HTML STRUCTURE ---
+
             container.innerHTML = html;
+
+            // The rest of the function remains the same.
             const sortDropdown = document.getElementById('inventory-sort');
             const filterDropdown = document.getElementById('filter-dropdown');
             if (sortDropdown && currentSort) sortDropdown.value = currentSort;
