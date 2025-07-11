@@ -192,17 +192,6 @@
         }
         
         /* Debug Panel Content - Auto-scroll to bottom */
-        #debug-output {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            min-height: 100%;
-            font-size: 12px;
-        }
-        
-        #debug-output .message {
-            flex-shrink: 0;
-        }
         
         .game-panel {
             flex: 2;
@@ -2690,9 +2679,12 @@
             const contentElement = document.getElementById(contentElementId);
             if (!contentElement) return;
 
-            let scrollableElement = (contentElementId === 'debug-output') ? contentElement.parentElement : contentElement;
+            // The element with the ID is now always the correct scrollable container.
+            // The special case for 'debug-output' is no longer needed.
+            const scrollableElement = contentElement;
 
             if (scrollableElement) {
+                // A slight delay ensures the DOM has updated with the new message before we scroll.
                 setTimeout(() => {
                     scrollableElement.scrollTop = scrollableElement.scrollHeight;
                 }, 50);
