@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 16,
+  "hitPoints": 27,
   "maxHitPoints": 27,
   "armorClass": 15,
   "initiative": 4,
@@ -314,12 +314,31 @@
       "equipped": false,
       "magical": false,
       "consumable": false
+    },
+    {
+      "item_name": "Vial of pure water",
+      "item_type": "consumable",
+      "item_subtype": "potion",
+      "description": "A small vial containing pure, clean water.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": true
+    },
+    {
+      "item_name": "Torn Research Notes",
+      "item_type": "miscellaneous",
+      "description": "Notes describing the rapid, guided spread of the corruption and identifying Ranger Thane as a key figure. The notes also mention a family locket tied to Thane, now smashed, breaking the corruption's hold.",
+      "quantity": 1,
+      "equipped": false,
+      "magical": false,
+      "consumable": false
     }
   ],
   "ammunition": [
     {
       "name": "Arrow",
-      "quantity": 79,
+      "quantity": 78,
       "description": "Ammunition for bows."
     }
   ],
@@ -395,7 +414,7 @@
     "silver": 19,
     "copper": 38
   },
-  "experience_points": 2225,
+  "experience_points": 2275,
   "exp_required_for_next_level": 2700,
   "challengeRating": 0.25,
   "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale. Assisted in the final sweep of the stronghold. Assisted in subduing the last bandit warrior.",

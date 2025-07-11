@@ -79,7 +79,7 @@
         "PP004"
       ],
       "status": "in progress",
-      "plotImpact": "Eirik and Kira leave the Corrupted Entry Cave and press into the Blighted Thornbriar Grove, the heart of the corrupted forest. They are now closer than ever to confronting Malarok and the source of the Voidstone's curse.",
+      "plotImpact": "With Thane's recovery, the party gains insight into the corruption's spread and the dangers posed by the cursed fire pit at the Doomed Explorer's Camp. Thane's warning may help prevent further corruption.",
       "sideQuests": [
         {
           "id": "SQ005",
@@ -88,8 +88,8 @@
           "involvedLocations": [
             "NCW001"
           ],
-          "status": "not started",
-          "plotImpact": ""
+          "status": "completed",
+          "plotImpact": "The party has broken the curse on the Withered Hart, freeing the guardian spirit and healing a portion of the woods. The wolves are also freed from corruption. The Hart bestows a magical antler fragment and gratitude."
         }
       ]
     },

@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 21,
+  "hitPoints": 27,
   "maxHitPoints": 33,
   "armorClass": 17,
   "initiative": 1,
@@ -109,7 +109,7 @@
   ],
   "backgroundFeature": {
     "name": "Military Rank",
-    "description": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank.",
+    "description": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. Knowledge gained: The cleansing ritual involves bringing sunlight to the Stone, blessing it with pure water, and using the blade of sacrifice to break the curse.",
     "source": "Soldier"
   },
   "temporaryEffects": [],
@@ -203,7 +203,7 @@
     },
     {
       "item_name": "Common clothes",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "A set of common clothes.",
       "quantity": 1
@@ -371,13 +371,37 @@
       "item_type": "equipment",
       "description": "An ancient tablet inscribed with warnings in both Common and Sylvan languages.",
       "quantity": 1
+    },
+    {
+      "item_name": "Reclaimed iron charm from Sylara",
+      "item_type": "miscellaneous",
+      "description": "A charm of iron reclaimed from Sylara, returned to inventory.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ancient druidic tome",
+      "item_type": "equipment",
+      "description": "An ancient tome describing the cleansing ritual involving sunlight, pure water, and the blade of sacrifice.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Explorer's Journal",
+      "item_type": "equipment",
+      "description": "A journal recovered from the corrupted fire pit containing crucial clues about Ranger Thane, his wolf companion, and the nature of the corruption in the camp.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Thane's family locket",
+      "item_type": "miscellaneous",
+      "description": "A key to Thane's remaining humanity, a precious family heirloom worn close to the heart.",
+      "quantity": 1
     }
   ],
   "ammunition": [
     {
       "name": "Crossbow bolt",
-      "quantity": 69,
-      "description": "Ammunition for crossbows."
+      "quantity": 67,
+      "description": "Standard crossbow bolts for use with a light crossbow."
     }
   ],
   "attacksAndSpellcasting": [
@@ -441,11 +465,11 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 1,
+        "current": 4,
         "max": 4
       },
       "level2": {
-        "current": 1,
+        "current": 2,
         "max": 2
       },
       "level3": {

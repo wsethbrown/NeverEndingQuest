@@ -153,6 +153,10 @@ MODULE INDEPENDENCE RULES:
         self.log("Step 7: Validating module consistency...")
         self.validate_module()
         
+        # Step 8: Create _BU.json backup files for reset functionality
+        self.log("Step 8: Creating _BU.json backup files...")
+        self.create_bu_backups()
+        
         self.log("Module generation complete!")
         self.log(f"Output saved to: {self.config.output_directory}")
     
@@ -980,6 +984,49 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             }
         }
         self.save_json(report, "validation_report.json")
+    
+    def create_bu_backups(self):
+        """Create _BU.json backup files for all generated module files"""
+        import shutil
+        import glob
+        
+        # Get all JSON files in the module directory (excluding subdirectories first)
+        module_files = []
+        
+        # Get files in root module directory
+        root_files = glob.glob(os.path.join(self.config.output_directory, "*.json"))
+        module_files.extend(root_files)
+        
+        # Get files in areas subdirectory
+        areas_files = glob.glob(os.path.join(self.config.output_directory, "areas", "*.json"))
+        module_files.extend(areas_files)
+        
+        # Get files in monsters subdirectory
+        monsters_files = glob.glob(os.path.join(self.config.output_directory, "monsters", "*.json"))
+        module_files.extend(monsters_files)
+        
+        # Get files in encounters subdirectory
+        encounters_files = glob.glob(os.path.join(self.config.output_directory, "encounters", "*.json"))
+        module_files.extend(encounters_files)
+        
+        # Create _BU.json backups for each file
+        backup_count = 0
+        for json_file in module_files:
+            # Skip if it's already a backup file or a character file
+            if json_file.endswith("_BU.json") or "/characters/" in json_file:
+                continue
+                
+            # Create backup filename
+            backup_file = json_file.replace(".json", "_BU.json")
+            
+            try:
+                shutil.copy2(json_file, backup_file)
+                backup_count += 1
+                self.log(f"  Created backup: {os.path.relpath(backup_file, self.config.output_directory)}")
+            except Exception as e:
+                self.log(f"  WARNING: Failed to create backup for {json_file}: {e}")
+        
+        self.log(f"Created {backup_count} _BU.json backup files for reset functionality")
     
     def get_location_prefix(self, area_index: int) -> str:
         """Get the appropriate prefix for location IDs based on area index"""
