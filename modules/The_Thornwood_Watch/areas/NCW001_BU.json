@@ -38,7 +38,8 @@
         "type": "cave",
         "connections": [
           "NC01",
-          "NC04"
+          "NC04",
+          "NC05"
         ],
         "coordinates": "X2Y3",
         "name": "Hollow Shade Den"
@@ -57,7 +58,8 @@
         "id": "NC05",
         "type": "hilltop",
         "connections": [
-          "NC02"
+          "NC02",
+          "NC03"
         ],
         "coordinates": "X1Y1",
         "name": "Shrouded Sentinel Rise"
@@ -236,7 +238,8 @@
       "coordinates": "X2Y3",
       "connectivity": [
         "NC01",
-        "NC04"
+        "NC04",
+        "NC05"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -376,7 +379,8 @@
       "description": "Atop this windswept hill stand the crumbling ruins where Malarok the Corruptor has established his dark sanctuary. At the center of the ancient stone circle, a massive Voidstone Shard pulses with corrupted starlight, amplifying the sorcerer's power. The very air around the altar shimmers with dark magic, and the ground radiates outward with veins of corruption. Ancient trees have become twisted by Malarok's rituals, their forms warped by the Voidstone's influence.",
       "coordinates": "X1Y1",
       "connectivity": [
-        "NC02"
+        "NC02",
+        "NC03"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
