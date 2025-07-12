@@ -644,6 +644,49 @@ def fix_item_types(updates):
     
     return updates
 
+def fix_injury_types(updates):
+    """Fix common injury type mistakes before validation"""
+    # Map of common wrong values to correct values
+    valid_injury_types = ["wound", "poison", "disease", "curse", "other"]
+    
+    if 'injuries' in updates and isinstance(updates['injuries'], list):
+        for injury in updates['injuries']:
+            if isinstance(injury, dict) and 'type' in injury:
+                injury_type = injury['type'].lower()
+                
+                # Map common invalid types to valid ones
+                injury_type_fixes = {
+                    "scar": "other",
+                    "scars": "other",
+                    "burn": "wound",
+                    "burns": "wound",
+                    "cut": "wound",
+                    "cuts": "wound",
+                    "bruise": "wound",
+                    "bruises": "wound",
+                    "fracture": "wound",
+                    "break": "wound",
+                    "broken": "wound",
+                    "infection": "disease",
+                    "infected": "disease",
+                    "poisoned": "poison",
+                    "cursed": "curse",
+                    "hex": "curse",
+                    "hexed": "curse",
+                    "other": "other"
+                }
+                
+                # Fix the injury type if it's invalid
+                if injury_type not in valid_injury_types:
+                    fixed_type = injury_type_fixes.get(injury_type, "other")
+                    warning(f"VALIDATION: Fixed invalid injury type '{injury['type']}' to '{fixed_type}'", category="character_validation")
+                    injury['type'] = fixed_type
+                else:
+                    # Ensure the type is in lowercase even if it's valid
+                    injury['type'] = injury_type
+    
+    return updates
+
 def validate_critical_fields_preserved(original_data, updated_data, character_name):
     """Validate that critical nested fields are not accidentally deleted"""
     critical_paths = [
@@ -918,6 +961,23 @@ def repair_character_data(character_data):
             if 'quantity' not in item:
                 item['quantity'] = 1
                 debug(f"REPAIR: Added missing quantity to equipment: {item.get('item_name', 'unknown')}", category="character_updates")
+    
+    # Ensure injuries have valid types
+    if 'injuries' in character_data and isinstance(character_data['injuries'], list):
+        valid_injury_types = ["wound", "poison", "disease", "curse", "other"]
+        for injury in character_data['injuries']:
+            if isinstance(injury, dict) and 'type' in injury:
+                if injury['type'] not in valid_injury_types:
+                    old_type = injury['type']
+                    # Map common invalid types
+                    injury_type_map = {
+                        "scar": "other",
+                        "scars": "other",
+                        "burn": "wound",
+                        "burns": "wound"
+                    }
+                    injury['type'] = injury_type_map.get(old_type.lower(), "other")
+                    debug(f"REPAIR: Fixed invalid injury type '{old_type}' to '{injury['type']}'", category="character_updates")
     
     return character_data
 
@@ -1197,6 +1257,9 @@ Character Role: {character_role}
             # Fix common item_type mistakes before applying updates
             updates = fix_item_types(updates)
             
+            # Fix common injury type mistakes before applying updates
+            updates = fix_injury_types(updates)
+            
             # CRITICAL FIX: Prevent AI from setting negative HP in updates
             if 'hitPoints' in updates and updates['hitPoints'] < 0:
                 debug(f"HP_FIX: AI attempted to set negative HP ({updates['hitPoints']}) for {character_name}, clamping to 0", category="character_updates")
@@ -1376,7 +1439,8 @@ Character Role: {character_role}
         else:
             break
     
-    error(f"FAILURE: Failed to update character after {max_attempts} attempts", category="character_updates")
+    error(f"FAILURE: Failed to update character {character_name} after {max_attempts} attempts", category="character_updates")
+    error(f"FAILURE: Last validation error was: {error_msg if 'error_msg' in locals() else 'Unknown error'}", category="character_updates")
     return False
 
 # Backward compatibility functions

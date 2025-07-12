@@ -1,0 +1,68 @@
+10:58:09 AM
+[COMBAT_MANAGER] Action 1: updateEncounter
+10:58:09 AM
+[COMBAT_MANAGER] Action 2: exit
+10:58:09 AM
+[COMBAT_MANAGER] Updating encounter: NC05-E1
+10:58:10 AM
+[COMBAT_MANAGER] Encounter update successful
+10:58:10 AM
+[COMBAT_MANAGER] Combat ending - preparing summary
+10:58:10 AM
+[COMBAT_MANAGER] Calculating XP rewards
+10:58:10 AM
+[COMBAT_MANAGER] XP awarded: 600
+10:58:10 AM
+DEBUG: [Character Validator] Starting validation for eirik_hearthwise...
+10:58:11 AM
+DEBUG: [AI Validator] Activating character validator for Eirik Hearthwise...
+10:58:14 AM
+DEBUG: [AI Validator] Character validation complete for Eirik Hearthwise: No corrections needed
+10:58:15 AM
+DEBUG: [Character Validator] Starting validation for Scout Kira...
+10:58:16 AM
+DEBUG: [AI Validator] Activating character validator for Scout Kira...
+10:58:22 AM
+DEBUG: [AI Validator] Character validation complete for Scout Kira: No corrections needed
+10:58:23 AM
+DEBUG: [Character Validator] Starting validation for Corrupted Ranger Thane...
+10:58:24 AM
+DEBUG: [AI Validator] Activating character validator for Ranger Thane...
+10:58:26 AM
+DEBUG: [AI Validator] Character validation complete for Ranger Thane: No corrections needed
+10:58:27 AM
+[COMBAT_MANAGER] Generating combat summary
+10:58:49 AM
+[COMBAT_MANAGER] Saving combat history
+10:58:49 AM
+[COMBAT_MANAGER] Combat complete - exiting simulation
+10:58:49 AM
+[DEBUG ACTION_HANDLER] Combat simulation returned. Type of result: <class 'str'>
+10:58:49 AM
+[DEBUG ACTION_HANDLER] Dialogue summary preview: {
+10:58:49 AM
+  "narration": "The climactic battle atop the corrupted hill of Thornwood reached its fiery conclusion as Eirik Hearthwise and his companions faced off against Malarok the Corruptor and his dark min...
+10:58:49 AM
+[DEBUG ACTION_HANDLER] Loading combat conversation history...
+10:58:49 AM
+[DEBUG ACTION_HANDLER] Combat history has 80 entries
+10:58:49 AM
+[DEBUG ACTION_HANDLER] Found combat summary, appending to conversation history
+10:58:49 AM
+[DEBUG ACTION_HANDLER] Returning with status='needs_post_combat_narration' - main loop will get follow-up from AI
+10:58:49 AM
+[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER END ==========
+10:59:08 AM
+[LOGGED] Training example with 91 messages
+10:59:08 AM
+Current Time: 23:07:00, Time Advanced: 10 minutes, New Time: 23:17:00, Days Passed: 0
+11:01:24 AM
+[23:07:00][HP:14/38][XP:1925/2700] eirik_hearthwise: 
+11:01:24 AM
+[LOGGED] Training example with 92 messages
+11:01:24 AM
+Loading existing NPC codex from: modules/The_Thornwood_Watch\npc_codex.json
+11:01:24 AM
+Loaded existing NPC codex for The_Thornwood_Watch: 21 NPCs
+11:01:27 AM
+Current Time: 23:17:00, Time Advanced: 1 minutes, New Time: 23:18:00, Days Passed: 0

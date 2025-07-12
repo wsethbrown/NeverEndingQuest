@@ -1,34 +1,36 @@
 {
   "name": "Malarok the Corruptor",
   "size": "Medium",
-  "type": "Humanoid",
+  "type": "Fiend",
   "alignment": "Chaotic Evil",
   "armorClass": 14,
-  "hitPoints": 52,
-  "maxHitPoints": 52,
+  "hitPoints": 65,
+  "maxHitPoints": 65,
   "speed": 30,
   "abilities": {
     "strength": 12,
-    "dexterity": 14,
-    "constitution": 16,
-    "intelligence": 15,
+    "dexterity": 16,
+    "constitution": 15,
+    "intelligence": 14,
     "wisdom": 12,
-    "charisma": 16
+    "charisma": 18
   },
   "savingThrows": [
+    "Dexterity",
     "Constitution",
-    "Charisma",
-    "Intelligence"
+    "Charisma"
   ],
   "skills": {
+    "Deception": 7,
     "Arcana": 4,
-    "Deception": 5,
-    "Insight": 3,
-    "Perception": 3
+    "Stealth": 6,
+    "Insight": 3
   },
   "damageVulnerabilities": [],
   "damageResistances": [
-    "necrotic"
+    "fire",
+    "necrotic",
+    "poison"
   ],
   "damageImmunities": [],
   "conditionImmunities": [
@@ -36,13 +38,13 @@
   ],
   "senses": {
     "darkvision": 60,
-    "passivePerception": 13
+    "passivePerception": 11
   },
-  "languages": "Common, Abyssal, Infernal",
+  "languages": "Common, Infernal, Abyssal",
   "challengeRating": 3,
   "specialAbilities": [
     {
-      "name": "Aura of Corruption",
+      "name": "Corrupting Aura",
       "attackBonus": 0,
       "damageDice": "1d6",
       "damageBonus": 0,
@@ -51,40 +53,45 @@
   ],
   "actions": [
     {
-      "name": "Corrupting Touch",
-      "attackBonus": 5,
-      "damageDice": "2d8",
-      "damageBonus": 3,
+      "name": "Shadow Claw",
+      "attackBonus": 6,
+      "damageDice": "1d8",
+      "damageBonus": 4,
       "damageType": "necrotic"
     },
     {
-      "name": "Shadow Blade",
-      "attackBonus": 5,
+      "name": "Dread Bolt",
+      "attackBonus": 6,
       "damageDice": "2d6",
-      "damageBonus": 2,
-      "damageType": "psychic"
+      "damageBonus": 4,
+      "damageType": "force"
     }
   ],
-  "legendaryActions": [],
+  "legendaryActions": [
+    {
+      "name": "Corrupting Glare",
+      "description": "Malarok targets one creature it can see within 30 feet. The target must succeed on a DC 15 Wisdom saving throw or have disadvantage on attack rolls until the end of its next turn."
+    }
+  ],
   "condition": "Alive",
   "spellcasting": {
     "ability": "Charisma",
-    "spellSaveDC": 14,
-    "spellAttackBonus": 6,
+    "spellSaveDC": 15,
+    "spellAttackBonus": 7,
     "spells": {
       "cantrips": [
-        "Chill Touch",
-        "Minor Illusion",
-        "Thaumaturgy"
+        "eldritch blast",
+        "minor illusion",
+        "thaumaturgy"
       ],
       "level1": [
-        "Charm Person",
-        "Inflict Wounds",
-        "Shield"
+        "charm person",
+        "hellish rebuke",
+        "armor of Agathys"
       ],
       "level2": [
-        "Hold Person",
-        "Mirror Image"
+        "mirror image",
+        "hold person"
       ],
       "level3": []
     }
