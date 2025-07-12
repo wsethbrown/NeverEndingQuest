@@ -1095,6 +1095,185 @@ def filter_encounter_for_system_prompt(encounter_data):
     debug("STATE_CHANGE: Filtered encounter data for system prompt, removed preroll cache", category="combat_events")
     return filtered_data
 
+def compress_old_combat_rounds(conversation_history, current_round, keep_recent_rounds=3):
+    """
+    Compress old combat rounds in conversation history to reduce token usage.
+    Keeps the last 'keep_recent_rounds' rounds uncompressed for context.
+    """
+    try:
+        # Don't compress if we're in early rounds
+        if current_round <= keep_recent_rounds + 1:
+            return conversation_history
+        
+        # Check if compression is needed
+        rounds_to_compress = []
+        for round_num in range(1, current_round - keep_recent_rounds):
+            # Check if this round is already compressed
+            already_compressed = any(
+                msg.get('role') == 'assistant' and 
+                f"COMBAT ROUND {round_num} SUMMARY:" in msg.get('content', '')
+                for msg in conversation_history
+            )
+            if not already_compressed:
+                rounds_to_compress.append(round_num)
+        
+        if not rounds_to_compress:
+            debug("COMPRESSION: No rounds need compression", category="combat_events")
+            return conversation_history
+        
+        debug(f"COMPRESSION: Compressing rounds {rounds_to_compress}", category="combat_events")
+        
+        # Find round boundaries
+        round_boundaries = {}
+        current_tracking_round = None
+        
+        for i, msg in enumerate(conversation_history):
+            content = msg.get('content', '')
+            
+            # Check for combat round markers in DM notes
+            if msg.get('role') == 'user' and 'COMBAT ROUND' in content:
+                match = re.search(r'COMBAT ROUND (\d+)', content)
+                if match:
+                    round_num = int(match.group(1))
+                    if round_num in rounds_to_compress:
+                        current_tracking_round = round_num
+                        if round_num not in round_boundaries:
+                            round_boundaries[round_num] = []
+                        round_boundaries[round_num].append(i)
+            
+            # Check for combat_round field in AI responses
+            elif msg.get('role') == 'assistant' and '"combat_round"' in content:
+                try:
+                    # Extract JSON from content
+                    json_match = re.search(r'\{.*"combat_round"\s*:\s*(\d+).*\}', content, re.DOTALL)
+                    if json_match:
+                        round_num = int(json_match.group(1))
+                        if round_num in rounds_to_compress:
+                            current_tracking_round = round_num
+                            if round_num not in round_boundaries:
+                                round_boundaries[round_num] = []
+                            round_boundaries[round_num].append(i)
+                except:
+                    pass
+            
+            # Continue tracking messages for current round
+            elif current_tracking_round and current_tracking_round in round_boundaries:
+                round_boundaries[current_tracking_round].append(i)
+                
+                # Stop tracking when we hit the next round
+                next_round_match = re.search(r'COMBAT ROUND (\d+)', content)
+                if next_round_match and int(next_round_match.group(1)) != current_tracking_round:
+                    current_tracking_round = None
+        
+        # Compress each round
+        new_conversation = []
+        processed_indices = set()
+        
+        for i, msg in enumerate(conversation_history):
+            if i in processed_indices:
+                continue
+            
+            # Check if this starts a round to compress
+            round_to_compress = None
+            for round_num, indices in round_boundaries.items():
+                if i == indices[0]:
+                    round_to_compress = round_num
+                    break
+            
+            if round_to_compress:
+                # Extract messages for this round
+                indices = round_boundaries[round_to_compress]
+                round_messages = []
+                for idx in indices:
+                    if idx < len(conversation_history):
+                        round_messages.append(conversation_history[idx])
+                
+                # Generate summary
+                summary = generate_combat_round_summary(round_to_compress, round_messages)
+                
+                if summary:
+                    # Add compressed round
+                    new_conversation.append({
+                        "role": "assistant",
+                        "content": f"COMBAT ROUND {round_to_compress} SUMMARY:\n{json.dumps(summary, indent=2)}"
+                    })
+                    
+                    # Add transition message
+                    if round_to_compress < current_round - keep_recent_rounds:
+                        new_conversation.append({
+                            "role": "user",
+                            "content": f"Round {round_to_compress} ends and Round {round_to_compress + 1} begins"
+                        })
+                    
+                    processed_indices.update(indices)
+                    info(f"COMPRESSION: Compressed round {round_to_compress}", category="combat_events")
+                else:
+                    # Keep original if compression fails
+                    for idx in indices:
+                        new_conversation.append(conversation_history[idx])
+                        processed_indices.add(idx)
+            else:
+                # Keep message as-is
+                new_conversation.append(msg)
+                processed_indices.add(i)
+        
+        return new_conversation
+        
+    except Exception as e:
+        error(f"COMPRESSION: Error compressing combat rounds", exception=e, category="combat_events")
+        return conversation_history
+
+def generate_combat_round_summary(round_num, round_messages):
+    """Generate a structured summary of a combat round using AI"""
+    try:
+        # Extract content from messages
+        round_content = "\n\n".join([
+            f"[{msg.get('role', 'unknown')}]: {msg.get('content', '')}"
+            for msg in round_messages
+        ])
+        
+        prompt = f"""Convert this combat round into a structured JSON summary optimized for AI consumption.
+
+Round {round_num} Combat Log:
+{round_content}
+
+Create a JSON summary with EXACTLY this structure:
+{{
+  "round": {round_num},
+  "actions": [
+    {{"actor": "name", "init": number, "action": "action_type", "target": "target_name", "roll": "dice+mod=total vs AC/DC", "result": "hit/miss/save/fail", "damage": "X type" or "heal": "X", "effects": "HP changes, conditions, etc"}}
+  ],
+  "deaths": ["list of creatures that died this round"],
+  "status_changes": ["new conditions or effects applied"],
+  "resource_usage": {{"character": "resources used (spell slots, abilities, etc)"}},
+  "narrative_highlights": ["2-4 evocative single sentences capturing key dramatic moments, critical hits, deaths, powerful spells, or memorable character actions"],
+  "round_end_state": {{
+    "alive": ["Name (current/max HP)"],
+    "dead": ["Name"],
+    "conditions": {{"Name": ["conditions"]}}
+  }}
+}}
+
+Focus on mechanical accuracy for the actions. For narrative_highlights, extract the most dramatic or memorable moments that happened this round - critical hits, character deaths, powerful spells, clutch saves, or impactful dialogue. Keep each highlight to one evocative sentence."""
+
+        # Use the mini model for efficiency
+        response = client.chat.completions.create(
+            model=DM_MINI_MODEL,
+            messages=[
+                {"role": "system", "content": "You are a combat log analyzer. Extract mechanical game information and key narrative moments. Always return valid JSON."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.1,
+            response_format={"type": "json_object"}
+        )
+        
+        summary = json.loads(response.choices[0].message.content)
+        return summary
+        
+    except Exception as e:
+        error(f"COMPRESSION: Failed to generate round {round_num} summary", exception=e, category="combat_events")
+        return None
+
 def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    """Main function to run the combat simulation"""
    print(f"\n[COMBAT_MANAGER] ========== COMBAT SIMULATION START ==========")
@@ -1880,6 +2059,22 @@ Player: {user_input_text}"""
                    encounter_data['current_round'] = new_round
                    # Save the updated encounter data
                    save_json_file(f"modules/encounters/encounter_{encounter_id}.json", encounter_data)
+                   
+                   # Compress old combat rounds if we're past round 4
+                   if new_round > 4:
+                       debug(f"COMPRESSION: Checking for round compression (current round: {new_round})", category="combat_events")
+                       compressed_history = compress_old_combat_rounds(
+                           conversation_history, 
+                           new_round, 
+                           keep_recent_rounds=3
+                       )
+                       
+                       # Save compressed history
+                       if len(compressed_history) < len(conversation_history):
+                           conversation_history = compressed_history
+                           save_json_file(conversation_history_file, conversation_history)
+                           info(f"COMPRESSION: Combat history compressed and saved", category="combat_events")
+                           
                elif isinstance(new_round, int) and new_round < current_round:
                    warning(f"VALIDATION: Ignoring backward round progression from {current_round} to {new_round}", category="combat_events")
            
