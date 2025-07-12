@@ -537,22 +537,33 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
         {"role": "system", "content": validation_prompt}
     ]
     
-    # Add previous 12 user/assistant pairs for context
-    if conversation_history and len(conversation_history) > 24:
-        # Get the last 25 messages (12 pairs + current user input)
-        # But exclude the current user input since we'll add it separately
-        recent_messages = conversation_history[-25:-1]  # Last 24 messages before current
+    # Dynamic context based on encounter size
+    num_creatures = len(encounter_data.get("creatures", []))
+    if num_creatures > 6:
+        # For large encounters (7+ participants), provide more context
+        context_pairs = 20  # 40 messages = ~2.5 rounds for 8 participants
+        debug(f"VALIDATION: Using extended context ({context_pairs} pairs) for large encounter with {num_creatures} creatures", category="combat_validation")
+    else:
+        # Standard encounters can use less context
+        context_pairs = 12  # 24 messages = ~2 rounds for 4-6 participants
+        debug(f"VALIDATION: Using standard context ({context_pairs} pairs) for encounter with {num_creatures} creatures", category="combat_validation")
+    
+    # Add previous user/assistant pairs for context
+    if conversation_history and len(conversation_history) > (context_pairs * 2):
+        # Get the messages based on context size
+        # +1 to exclude current user input since we'll add it separately
+        recent_messages = conversation_history[-(context_pairs * 2 + 1):-1]
         
         # Filter to only user/assistant messages (no system messages)
         context_messages = [
             msg for msg in recent_messages 
             if msg["role"] in ["user", "assistant"]
-        ][-24:]  # Ensure we only get last 24 (12 pairs)
+        ][-(context_pairs * 2):]  # Ensure we only get the right number of pairs
         
         # Add context header and messages
         validation_conversation.append({
             "role": "system", 
-            "content": "=== PREVIOUS COMBAT CONTEXT (last 12 exchanges) ==="
+            "content": f"=== PREVIOUS COMBAT CONTEXT (last {context_pairs} exchanges) ==="
         })
         validation_conversation.extend(context_messages)
     
@@ -581,10 +592,13 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
                 reason = validation_json.get("reason", "No reason provided")
                 recommendation = validation_json.get("recommendation", "")
 
-                # Log validation results
+                # Log validation results with encounter context
                 with open("combat_validation_log.json", "a") as log_file:
                     log_entry = {
                         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+                        "encounter_size": num_creatures,
+                        "context_pairs": context_pairs,
+                        "attempt": attempt + 1,
                         "valid": is_valid,
                         "reason": sanitize_unicode_for_logging(reason),
                         "recommendation": sanitize_unicode_for_logging(recommendation),
