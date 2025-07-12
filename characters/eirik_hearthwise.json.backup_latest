@@ -12,8 +12,8 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 28,
-  "maxHitPoints": 38,
+  "hitPoints": 27,
+  "maxHitPoints": 33,
   "armorClass": 17,
   "initiative": 1,
   "speed": 30,
@@ -413,7 +413,7 @@
   "ammunition": [
     {
       "name": "Crossbow bolt",
-      "quantity": 62,
+      "quantity": 67,
       "description": "Standard crossbow bolts for use with a light crossbow."
     }
   ],
@@ -478,11 +478,11 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 2,
+        "current": 4,
         "max": 4
       },
       "level2": {
-        "current": 0,
+        "current": 2,
         "max": 2
       },
       "level3": {

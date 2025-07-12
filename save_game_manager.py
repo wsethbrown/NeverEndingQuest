@@ -495,6 +495,37 @@ class SaveGameManager:
                         shutil.copy2(essential, backup_dest)
                         backed_up_files.append(essential)
             
+            # IMPORTANT: Clean directories that need to be fully replaced
+            # This prevents orphaned files from remaining after restore
+            directories_to_clean = [
+                "modules/encounters/",  # Global encounters directory
+                "characters/",  # Player/NPC characters
+            ]
+            
+            # Add module-specific directories if we have a current module
+            if self.current_module:
+                module_base = f"modules/{self.current_module}"
+                directories_to_clean.extend([
+                    f"{module_base}/encounters/",
+                    f"{module_base}/characters/",
+                    f"{module_base}/areas/",
+                    f"{module_base}/monsters/",
+                ])
+            
+            # Clean each directory
+            for directory in directories_to_clean:
+                if os.path.exists(directory):
+                    info(f"FILE_OP: Cleaning directory before restore: {directory}", category="save_game")
+                    try:
+                        # Remove all files in the directory
+                        for file in os.listdir(directory):
+                            file_path = os.path.join(directory, file)
+                            if os.path.isfile(file_path):
+                                os.remove(file_path)
+                                debug(f"FILE_OP: Removed: {file_path}", category="save_game")
+                    except Exception as e:
+                        warning(f"FILE_OP: Could not fully clean {directory}", exception=e, category="save_game")
+            
             # Now restore files from save
             restored_files = []
             failed_files = []

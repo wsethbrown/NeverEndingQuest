@@ -12,8 +12,8 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 25,
-  "maxHitPoints": 32,
+  "hitPoints": 27,
+  "maxHitPoints": 27,
   "armorClass": 15,
   "initiative": 4,
   "speed": 35,
@@ -144,14 +144,7 @@
     "description": "Kira has an excellent memory for maps and geography, and can always recall the general layout of terrain, settlements, and other features. She can find food and fresh water for herself and up to five others each day, provided the land offers berries, small game, water, and so forth.",
     "source": "Outlander"
   },
-  "temporaryEffects": [
-    {
-      "name": "Aid Spell",
-      "description": "Hit point maximum and current hit points each increased by 5 for 8 hours.",
-      "source": "Eirik's Aid Spell",
-      "duration": "8 hours"
-    }
-  ],
+  "temporaryEffects": [],
   "injuries": [],
   "equipment_effects": [],
   "feats": [],
@@ -345,7 +338,7 @@
   "ammunition": [
     {
       "name": "Arrow",
-      "quantity": 72,
+      "quantity": 78,
       "description": "Ammunition for bows."
     }
   ],
@@ -421,7 +414,7 @@
     "silver": 19,
     "copper": 38
   },
-  "experience_points": 2875,
+  "experience_points": 2275,
   "exp_required_for_next_level": 2700,
   "challengeRating": 0.25,
   "personality_traits": "I watch over my friends as if they were a litter of newborn pups. Recently recognized by the community for my marksmanship and bravery, which has lifted my spirits and morale. Assisted in the final sweep of the stronghold. Assisted in subduing the last bandit warrior.",
