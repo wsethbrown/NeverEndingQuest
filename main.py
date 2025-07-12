@@ -1585,6 +1585,26 @@ def main_game_loop():
         print(colored(f"[SYSTEM] Active combat encounter '{active_encounter_id}' detected. Resuming combat...", "yellow"))
         combat_was_resumed = True  # Mark that we're resuming from combat
         
+        # Load conversation history and inject combat resume markers BEFORE starting combat
+        conversation_history = load_json_file(json_file) or []
+        
+        # Inject combat recovery tracking messages
+        tracking_message = {
+            "role": "user",
+            "content": "[SYSTEM: Combat was interrupted and is being resumed from crash]"
+        }
+        conversation_history.append(tracking_message)
+        
+        recovery_marker = {
+            "role": "assistant",
+            "content": "[SYSTEM: Combat recovery initiated - continuing from last known state]"
+        }
+        conversation_history.append(recovery_marker)
+        
+        # Save the updated conversation history
+        save_conversation_history(conversation_history)
+        debug("STATE_CHANGE: Added combat resume tracking messages before combat restart", category="session_management")
+        
         # The combat_manager.main() function will handle the entire combat session.
         # It will run until combat is resolved.
         import combat_manager
@@ -1603,13 +1623,11 @@ def main_game_loop():
     conversation_history = load_json_file(json_file) or []
     
     # CRITICAL: Check and inject return message BEFORE any processing
-    # Pass combat_was_resumed flag to prevent duplicate messages after combat
-    conversation_history, was_injected = check_and_inject_return_message(conversation_history, is_combat_active=combat_was_resumed)
-    if was_injected:
-        save_conversation_history(conversation_history)
-        
-        # Only generate AI response for non-combat resumes (combat manager handles its own)
-        if not combat_was_resumed:
+    # Don't inject if we already did it for combat resume
+    if not combat_was_resumed:
+        conversation_history, was_injected = check_and_inject_return_message(conversation_history, is_combat_active=False)
+        if was_injected:
+            save_conversation_history(conversation_history)
             # Generate AI response to the return message for startup narration
             debug("STATE_CHANGE: Generating startup narration after return message injection", category="startup")
             ai_response = get_ai_response(conversation_history)
