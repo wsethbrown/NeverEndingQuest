@@ -109,6 +109,8 @@ def get_npc_attacks(npc_name):
     try:
         from module_path_manager import ModulePathManager
         from encoding_utils import safe_json_load
+        from update_character_info import find_character_file_fuzzy
+        
         # Get current module from party tracker for consistent path resolution
         try:
             party_tracker = safe_json_load("party_tracker.json")
@@ -116,7 +118,14 @@ def get_npc_attacks(npc_name):
             path_manager = ModulePathManager(current_module)
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
-        npc_file = path_manager.get_character_path(npc_name)
+        
+        # Use fuzzy matching to find the correct NPC file
+        matched_name = find_character_file_fuzzy(npc_name)
+        if not matched_name:
+            print(f"Warning: Could not find NPC file for '{npc_name}' using fuzzy matching")
+            return [{"name": "weapon attack"}], 1
+            
+        npc_file = path_manager.get_character_path(matched_name)
         
         with open(npc_file, "r") as file:
             npc_data = json.load(file)
