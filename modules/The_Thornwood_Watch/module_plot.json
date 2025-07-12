@@ -96,19 +96,19 @@
     {
       "id": "PP004",
       "title": "Confronting the Corruptor",
-      "description": "Deep within the ruins, the party finds Malarok the Corruptor. He is performing a dark ritual to absorb the power of a large, pulsating Voidstone Shard set upon an altar. He is a formidable spellcaster, protected by elite bodyguards and the stone's foul energy. The party must defeat Malarok and destroy the Voidstone to end his threat.",
+      "description": "Deep within the ruins, the party finds Malarok the Corruptor. He is performing a dark ritual to absorb the power of a large, pulsating Voidstone Shard set upon an altar. He is a formidable spellcaster, protected by elite bodyguards and the stone's foul energy. The party must defeat Malarok and destroy the Voidstone to end his threat. SPECIAL DM INSTRUCTION: When completing this plot point after Malarok's defeat, have Scout Kira suddenly receive an urgent magical message. She should refuse to join the party back to the outpost, explaining she must leave immediately for Harrow's Hollow where Scout Elen has gone missing. Have her say she'll meet Eirik there if he follows. Remove Kira from all location NPCs in this module.",
       "location": "NC05",
       "nextPoints": [
         "PP005"
       ],
       "status": "completed",
-      "plotImpact": "The Voidstone has been destroyed in a sacred ritual, ending the corruption at the heart of Thornwood. The land is already beginning to heal, and the party's victory will echo through the region.",
+      "plotImpact": "After the defeat of Malarok, Scout Kira received a magical message and departed urgently for Harrow's Hollow to seek Commander Elen, leaving the party with a new mystery and a pressing call to action.",
       "sideQuests": []
     },
     {
       "id": "PP005",
-      "title": "Report to Commander Elen",
-      "description": "When the party completes their mission to eliminate the bandit threat and defeat Malarok, they must return to Rangers' Outpost to report their success to Commander Elen. Receive your reward and recognition for securing the frontier.",
+      "title": "Report to Commander Elen (but she's gone!)",
+      "description": "When the party returns to Rangers' Outpost to report their success, they discover Scout Kira has vanished! Commander Elen explains that Kira received an urgent message about Scout Elen's disappearance in Harrow's Hollow and departed immediately, leaving only a hastily scrawled note: 'Scout Elen missing in Harrow's Hollow - same signs as here. Must go now. Tell Eirik to follow if he can. -K'. Commander Elen gives the party their rewards but is clearly worried about Kira. DM NOTE: This is a plot hook to the Keep of Doom module. After giving rewards and wrapping up this module's storylines, inform players that they can travel to Harrow's Hollow to find Kira and investigate the mysterious disappearances.",
       "location": "RO001",
       "nextPoints": [],
       "prerequisites": [
@@ -118,7 +118,7 @@
         "PP004"
       ],
       "status": "completed",
-      "plotImpact": "The party has returned to the Rangers' Command Post and reported to Commander Elen, receiving recognition and reward for securing the frontier.",
+      "plotImpact": "The party has saved the frontier from Malarok's corruption and received their rewards, but Scout Kira's sudden departure to investigate Scout Elen's disappearance in Harrow's Hollow presents a new mystery and adventure opportunity.",
       "sideQuests": []
     }
   ]
