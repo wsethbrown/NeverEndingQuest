@@ -175,7 +175,8 @@ def load_npc_with_fuzzy_match(npc_name, path_manager):
     
     # Get all character files in the module
     import glob
-    character_dir = path_manager.get_characters_dir()
+    # Use the unified characters directory
+    character_dir = "characters"
     character_files = glob.glob(os.path.join(character_dir, "*.json"))
     
     best_match = None
