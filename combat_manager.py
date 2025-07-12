@@ -986,11 +986,12 @@ def sync_active_encounter():
                     error(f"FAILURE: Failed to sync player data to encounter", exception=e, category="encounter_setup")
                     
             elif creature["type"] == "npc":
-                # Use fuzzy matching for NPC loading
-                npc_data, matched_filename = load_npc_with_fuzzy_match(creature['name'], path_manager)
-                if not npc_data:
-                    error(f"FAILURE: Failed to load NPC file for: {creature['name']}", category="file_operations")
-                else:
+                try:
+                    # Use fuzzy matching for NPC loading
+                    npc_data, matched_filename = load_npc_with_fuzzy_match(creature['name'], path_manager)
+                    if not npc_data:
+                        error(f"FAILURE: Failed to load NPC file for: {creature['name']}", category="file_operations")
+                    else:
                         # Update combat-relevant fields
                         if creature.get("currentHitPoints") != npc_data.get("hitPoints"):
                             creature["currentHitPoints"] = npc_data.get("hitPoints")
@@ -1547,13 +1548,31 @@ Player: {initial_prompt_text}"""
                debug(f"STATE_CHANGE: Generated fallback prerolls for round {current_round}", category="combat_events")
        
        # Generate initiative order for validation context
-       initiative_order = get_initiative_order(encounter_data)
+       # Try to use AI-powered live initiative tracker
+       live_tracker = None
+       try:
+           from initiative_tracker_ai import generate_live_initiative_tracker
+           # Get recent conversation for analysis (last 20 messages)
+           recent_conversation = conversation_history[-20:] if len(conversation_history) > 20 else conversation_history
+           live_tracker = generate_live_initiative_tracker(encounter_data, recent_conversation, current_round)
+           if live_tracker:
+               debug("AI_TRACKER: Successfully generated live initiative tracker", category="combat_events")
+       except Exception as e:
+           debug(f"AI_TRACKER: Failed to generate live tracker: {e}", category="combat_events")
+       
+       # Use AI tracker if available, otherwise fall back to simple format
+       if live_tracker:
+           initiative_display = live_tracker
+       else:
+           debug("AI_TRACKER: Using fallback initiative order", category="combat_events")
+           initiative_order = get_initiative_order(encounter_data)
+           initiative_display = f"Initiative Order: {initiative_order}"
        
        # Create a focused, streamlined per-turn prompt
        # Most rules are in the system prompt. This prompt focuses on DYNAMIC state.
        user_input_with_note = f"""--- CURRENT COMBAT STATE ---
 Round: {current_round}
-Initiative Order: {initiative_order}
+{initiative_display}
 All Creatures State:
 {all_dynamic_state}
 
