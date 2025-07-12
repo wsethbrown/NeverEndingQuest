@@ -529,6 +529,16 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
     print(f"[COMBAT_MANAGER] Starting validation for combat response")
     debug("VALIDATION: Validating combat response...", category="combat_validation")
     
+    # Log key validation context
+    try:
+        response_json = json.loads(response)
+        combat_round = response_json.get("combat_round", "unknown")
+        num_actions = len(response_json.get("actions", []))
+        has_plan = "plan" in response_json
+        debug(f"VALIDATION_CONTEXT: Round={combat_round}, Actions={num_actions}, HasPlan={has_plan}", category="combat_validation")
+    except:
+        debug("VALIDATION_CONTEXT: Unable to parse response JSON for context", category="combat_validation")
+    
     # Load validation prompt from file
     validation_prompt = read_prompt_from_file('combat_validation_prompt.txt')
     
@@ -614,7 +624,34 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
                 else:
                     print(f"[COMBAT_MANAGER] Validation FAILED: {sanitize_unicode_for_logging(reason)}")
                     debug(f"VALIDATION: Combat response validation failed. Reason: {sanitize_unicode_for_logging(reason)}", category="combat_validation")
+                    
+                    # Extract specific validation rule that failed from the reason
+                    reason_lower = reason.lower()
+                    if "round" in reason_lower and ("increment" in reason_lower or "advance" in reason_lower):
+                        debug("VALIDATION_RULE: ROUND_TRACKING_ACCURACY violation detected", category="combat_validation")
+                    elif "golden rule" in reason_lower or "mid-round" in reason_lower:
+                        debug("VALIDATION_RULE: GOLDEN_RULE_VIOLATION detected", category="combat_validation")
+                    elif "hp" in reason_lower or "hit point" in reason_lower or "damage" in reason_lower:
+                        debug("VALIDATION_RULE: HP_TRACKING violation detected", category="combat_validation")
+                    elif "death" in reason_lower or "dead" in reason_lower or "0 hp" in reason_lower:
+                        debug("VALIDATION_RULE: DEATH_DETECTION violation detected", category="combat_validation")
+                    elif "initiative" in reason_lower and "order" in reason_lower:
+                        debug("VALIDATION_RULE: INITIATIVE_ORDER violation detected", category="combat_validation")
+                    elif "player" in reason_lower and ("roll" in reason_lower or "dice" in reason_lower):
+                        debug("VALIDATION_RULE: PLAYER_INTERACTION_FLOW violation detected", category="combat_validation")
+                    elif "plan" in reason_lower:
+                        debug("VALIDATION_RULE: PLAN_VALIDATION violation detected", category="combat_validation")
+                    elif "json" in reason_lower or "format" in reason_lower:
+                        debug("VALIDATION_RULE: JSON_STRUCTURE violation detected", category="combat_validation")
+                    elif "updatecharacterinfo" in reason_lower or "updateencounter" in reason_lower:
+                        debug("VALIDATION_RULE: ACTION_USAGE violation detected", category="combat_validation")
+                    elif "ammunition" in reason_lower or "equipment" in reason_lower:
+                        debug("VALIDATION_RULE: RESOURCE_USAGE violation detected", category="combat_validation")
+                    else:
+                        debug("VALIDATION_RULE: UNKNOWN - could not categorize validation failure", category="combat_validation")
+                    
                     if recommendation:
+                        debug(f"VALIDATION_RECOMMENDATION: {sanitize_unicode_for_logging(recommendation)}", category="combat_validation")
                         return {"reason": sanitize_unicode_for_logging(reason), "recommendation": sanitize_unicode_for_logging(recommendation)}
                     else:
                         return sanitize_unicode_for_logging(reason)
@@ -1724,6 +1761,9 @@ Player: {user_input_text}"""
                    else:
                        reason = validation_result
                        feedback = f"Your previous response had issues with the combat logic: {sanitize_unicode_for_logging(reason)}"
+                   
+                   # Log the specific validation failure for debugging
+                   debug(f"VALIDATION_ATTEMPT: {attempt + 1} failed - {sanitize_unicode_for_logging(str(reason)[:200])}", category="combat_validation")
                    
                    debug(f"VALIDATION: Reason: {sanitize_unicode_for_logging(reason)}", category="combat_validation")
                    if attempt < max_retries - 1:
