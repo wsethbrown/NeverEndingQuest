@@ -34,6 +34,9 @@ The system automatically:
 - Creates your character through AI interview
 - Sets up the game world with weather and atmosphere
 
+### See It In Action
+Check out this [**Player's Journey Through The Thornwood Watch**](modules/The_Thornwood_Watch/PLAYER_GUIDE.md) - a real player's first-person account showing creative problem-solving, tactical stealth, diplomatic solutions, and how the AI DM responds to player creativity. Perfect for understanding what gameplay actually looks like!
+
 ## Installation
 
 ### Prerequisites
