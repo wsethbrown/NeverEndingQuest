@@ -1132,8 +1132,13 @@ def compress_old_combat_rounds(conversation_history, current_round, keep_recent_
     Keeps the last 'keep_recent_rounds' rounds uncompressed for context.
     """
     try:
+        # Debug logging
+        debug(f"COMPRESSION: Called with current_round={current_round}, keep_recent_rounds={keep_recent_rounds}", category="combat_events")
+        debug(f"COMPRESSION: Conversation history has {len(conversation_history)} messages", category="combat_events")
+        
         # Don't compress if we're in early rounds
         if current_round <= keep_recent_rounds + 1:
+            debug(f"COMPRESSION: Skipping - too early (round {current_round} <= {keep_recent_rounds + 1})", category="combat_events")
             return conversation_history
         
         # Check if compression is needed
@@ -1147,6 +1152,8 @@ def compress_old_combat_rounds(conversation_history, current_round, keep_recent_
             )
             if not already_compressed:
                 rounds_to_compress.append(round_num)
+            else:
+                debug(f"COMPRESSION: Round {round_num} already compressed", category="combat_events")
         
         if not rounds_to_compress:
             debug("COMPRESSION: No rounds need compression", category="combat_events")
@@ -1489,7 +1496,8 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    all_dynamic_state = "\n".join(dynamic_state_parts)
    
    # Initialize round tracking and generate prerolls
-   round_num = encounter_data.get('current_round', 1)
+   # Use combat_round as primary, fall back to current_round
+   round_num = encounter_data.get('combat_round', encounter_data.get('current_round', 1))
    preroll_text = generate_prerolls(encounter_data, round_num=round_num)
    
    encounter_data['preroll_cache'] = {
@@ -1776,7 +1784,8 @@ Player: {initial_prompt_text}"""
        all_dynamic_state = "\n".join(dynamic_state_parts)
        
        # Check if we need new prerolls based on round progression
-       current_round = encounter_data.get('current_round', 1)
+       # Use combat_round as primary, fall back to current_round
+       current_round = encounter_data.get('combat_round', encounter_data.get('current_round', 1))
        cached_round = encounter_data.get('preroll_cache', {}).get('round', 0)
        
        if current_round > cached_round:
@@ -2082,11 +2091,16 @@ Player: {user_input_text}"""
            # Extract and update combat round if provided
            if 'combat_round' in parsed_response:
                new_round = parsed_response['combat_round']
-               current_round = encounter_data.get('current_round', 1)
+               # Use combat_round from encounter data, not current_round
+               current_combat_round = encounter_data.get('combat_round', encounter_data.get('current_round', 1))
+               
+               debug(f"ROUND_TRACKING: parsed_response has combat_round={new_round}, encounter has combat_round={current_combat_round}", category="combat_events")
                
                # Only update if round advances (never go backward)
-               if isinstance(new_round, int) and new_round > current_round:
-                   debug(f"STATE_CHANGE: Combat advancing from round {current_round} to round {new_round}", category="combat_events")
+               if isinstance(new_round, int) and new_round > current_combat_round:
+                   debug(f"STATE_CHANGE: Combat advancing from round {current_combat_round} to round {new_round}", category="combat_events")
+                   encounter_data['combat_round'] = new_round
+                   # Also update current_round for backwards compatibility
                    encounter_data['current_round'] = new_round
                    # Save the updated encounter data
                    save_json_file(f"modules/encounters/encounter_{encounter_id}.json", encounter_data)
@@ -2094,6 +2108,7 @@ Player: {user_input_text}"""
                    # Compress old combat rounds if we're past round 3
                    if new_round > 3:
                        debug(f"COMPRESSION: Checking for round compression (current round: {new_round})", category="combat_events")
+                       debug(f"COMPRESSION: About to call compress_old_combat_rounds with round {new_round}", category="combat_events")
                        compressed_history = compress_old_combat_rounds(
                            conversation_history, 
                            new_round, 
@@ -2102,9 +2117,12 @@ Player: {user_input_text}"""
                        
                        # Save compressed history
                        if len(compressed_history) < len(conversation_history):
+                           debug(f"COMPRESSION: History compressed from {len(conversation_history)} to {len(compressed_history)} messages", category="combat_events")
                            conversation_history = compressed_history
                            save_json_file(conversation_history_file, conversation_history)
                            info(f"COMPRESSION: Combat history compressed and saved", category="combat_events")
+                       else:
+                           debug(f"COMPRESSION: No compression occurred (still {len(conversation_history)} messages)", category="combat_events")
                            
                elif isinstance(new_round, int) and new_round < current_round:
                    warning(f"VALIDATION: Ignoring backward round progression from {current_round} to {new_round}", category="combat_events")
