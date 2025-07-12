@@ -782,6 +782,47 @@ def restore_character_from_backup(character_name, backup_type="latest", characte
         error(f"FAILURE: Error restoring from backup", exception=e, category="character_updates")
         return False
 
+def repair_character_data(character_data):
+    """
+    Repair common schema issues in character data before processing
+    
+    Args:
+        character_data (dict): Character data to repair
+    
+    Returns:
+        dict: Repaired character data
+    """
+    # Ensure ammunition has descriptions
+    if 'ammunition' in character_data and isinstance(character_data['ammunition'], list):
+        for ammo in character_data['ammunition']:
+            if 'description' not in ammo or not ammo['description']:
+                # Add a default description based on the ammunition name
+                ammo_name = ammo.get('name', 'ammunition').lower()
+                if 'arrow' in ammo_name:
+                    ammo['description'] = "Standard arrows for use with a longbow or shortbow"
+                elif 'bolt' in ammo_name:
+                    ammo['description'] = "Standard crossbow bolts for use with crossbows"
+                elif 'bullet' in ammo_name:
+                    ammo['description'] = "Standard sling bullets for use with a sling"
+                else:
+                    ammo['description'] = f"Standard {ammo_name}"
+                debug(f"REPAIR: Added missing description to ammunition: {ammo['name']}", category="character_updates")
+    
+    # Ensure equipment has required fields
+    if 'equipment' in character_data and isinstance(character_data['equipment'], list):
+        for item in character_data['equipment']:
+            # Ensure all equipment has a description
+            if 'description' not in item or not item['description']:
+                item['description'] = f"A {item.get('item_name', 'item')}"
+                debug(f"REPAIR: Added missing description to equipment: {item.get('item_name', 'unknown')}", category="character_updates")
+            
+            # Ensure quantity exists
+            if 'quantity' not in item:
+                item['quantity'] = 1
+                debug(f"REPAIR: Added missing quantity to equipment: {item.get('item_name', 'unknown')}", category="character_updates")
+    
+    return character_data
+
 def update_character_info(character_name, changes, character_role=None):
     """
     Unified function to update character information for both players and NPCs
@@ -836,6 +877,9 @@ def update_character_info(character_name, changes, character_role=None):
             error(f"FAILURE: Character data for {character_name} is corrupted (not a dictionary)", category="file_operations")
             error(f"FAILURE: Loaded data type: {type(character_data)}, value: {character_data}", category="file_operations")
             return False
+        
+        # Repair common schema issues before processing
+        character_data = repair_character_data(character_data)
             
     except Exception as e:
         error(f"FAILURE: Error loading character data", exception=e, category="file_operations")
@@ -1150,6 +1194,9 @@ Character Role: {character_role}
                 
                 attempt += 1
                 continue
+            
+            # Final repair pass before saving to ensure schema compliance
+            updated_data = repair_character_data(updated_data)
             
             # Save updated character data
             # print(f"[DEBUG] Validation passed! About to save character data to: {character_path}")
