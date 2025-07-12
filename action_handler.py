@@ -131,7 +131,17 @@ def update_party_npcs(party_tracker_data, operation, npc):
         # Get the correct module from party tracker
         module_name = party_tracker_data.get("module", "").replace(" ", "_")
         path_manager = ModulePathManager(module_name)
-        npc_file = path_manager.get_character_path(npc['name'])
+        
+        # Use fuzzy matching to find the NPC file
+        from update_character_info import find_character_file_fuzzy
+        matched_name = find_character_file_fuzzy(npc['name'])
+        
+        if matched_name:
+            npc_file = path_manager.get_character_path(matched_name)
+        else:
+            # If no match found, use the original name for potential creation
+            npc_file = path_manager.get_character_path(npc['name'])
+        
         if not os.path.exists(npc_file):
             # NPC file doesn't exist, so we need to create it
             try:
@@ -179,9 +189,16 @@ def update_party_npcs(party_tracker_data, operation, npc):
         
         # Load the actual NPC data to get the correct display name
         from encoding_utils import safe_json_load
-        from update_character_info import normalize_character_name
-        normalized_name = normalize_character_name(npc['name'])
-        npc_file = path_manager.get_character_path(normalized_name)
+        from update_character_info import normalize_character_name, find_character_file_fuzzy
+        
+        # Use fuzzy matching to find the correct NPC file
+        matched_name = find_character_file_fuzzy(npc['name'])
+        if matched_name:
+            npc_file = path_manager.get_character_path(matched_name)
+        else:
+            # Fallback to normalized name if no match found
+            normalized_name = normalize_character_name(npc['name'])
+            npc_file = path_manager.get_character_path(normalized_name)
         
         if os.path.exists(npc_file):
             npc_data = safe_json_load(npc_file)

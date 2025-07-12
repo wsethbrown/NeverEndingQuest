@@ -524,11 +524,16 @@ def handle_player_data_request(data):
                 npc_name = npc_info['name']
                 
                 try:
-                    npc_file = path_manager.get_character_path(npc_name)
-                    if os.path.exists(npc_file):
-                        with open(npc_file, 'r', encoding='utf-8') as f:
-                            npc_data = json.load(f)
-                            npcs.append(npc_data)
+                    # Use fuzzy matching to find the correct NPC file
+                    from update_character_info import find_character_file_fuzzy
+                    matched_name = find_character_file_fuzzy(npc_name)
+                    
+                    if matched_name:
+                        npc_file = path_manager.get_character_path(matched_name)
+                        if os.path.exists(npc_file):
+                            with open(npc_file, 'r', encoding='utf-8') as f:
+                                npc_data = json.load(f)
+                                npcs.append(npc_data)
                 except:
                     pass
             
@@ -585,8 +590,15 @@ def handle_npc_saves_request(data):
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
         
-        from update_character_info import normalize_character_name
-        npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
+        from update_character_info import normalize_character_name, find_character_file_fuzzy
+        
+        # Use fuzzy matching to find the correct NPC file
+        matched_name = find_character_file_fuzzy(npc_name)
+        if matched_name:
+            npc_file = path_manager.get_character_path(matched_name)
+        else:
+            # Fallback to normalized name if no match found
+            npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
         if os.path.exists(npc_file):
             with open(npc_file, 'r', encoding='utf-8') as f:
                 npc_data = json.load(f)
@@ -615,8 +627,15 @@ def handle_npc_skills_request(data):
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
         
-        from update_character_info import normalize_character_name
-        npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
+        from update_character_info import normalize_character_name, find_character_file_fuzzy
+        
+        # Use fuzzy matching to find the correct NPC file
+        matched_name = find_character_file_fuzzy(npc_name)
+        if matched_name:
+            npc_file = path_manager.get_character_path(matched_name)
+        else:
+            # Fallback to normalized name if no match found
+            npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
         if os.path.exists(npc_file):
             with open(npc_file, 'r', encoding='utf-8') as f:
                 npc_data = json.load(f)
@@ -645,8 +664,15 @@ def handle_npc_spells_request(data):
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
         
-        from update_character_info import normalize_character_name
-        npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
+        from update_character_info import normalize_character_name, find_character_file_fuzzy
+        
+        # Use fuzzy matching to find the correct NPC file
+        matched_name = find_character_file_fuzzy(npc_name)
+        if matched_name:
+            npc_file = path_manager.get_character_path(matched_name)
+        else:
+            # Fallback to normalized name if no match found
+            npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
         if os.path.exists(npc_file):
             with open(npc_file, 'r', encoding='utf-8') as f:
                 npc_data = json.load(f)
@@ -675,8 +701,15 @@ def handle_npc_inventory_request(data):
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
         
-        from update_character_info import normalize_character_name
-        npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
+        from update_character_info import normalize_character_name, find_character_file_fuzzy
+        
+        # Use fuzzy matching to find the correct NPC file
+        matched_name = find_character_file_fuzzy(npc_name)
+        if matched_name:
+            npc_file = path_manager.get_character_path(matched_name)
+        else:
+            # Fallback to normalized name if no match found
+            npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
         if os.path.exists(npc_file):
             with open(npc_file, 'r', encoding='utf-8') as f:
                 npc_data = json.load(f)
