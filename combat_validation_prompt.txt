@@ -12,12 +12,14 @@ MAJOR ISSUES (always flag):
 5. ROUND TRACKING ACCURACY: The combat_round field must increment ONLY when all living creatures in initiative order have acted. A round cannot advance if any creature hasn't taken their turn yet.
 6. INITIATIVE CYCLE VALIDATION: Check that the combat_round number accurately reflects how many complete initiative cycles have occurred. Round 2 means ALL creatures completed Round 1.
 7. PLAN VALIDATION: If a "plan" field is present, verify that the AI's understanding of combat state matches the actual situation. Flag discrepancies between the plan's assessment of round number, HP values, initiative order, or who has/hasn't acted versus what actually occurred in the conversation.
+8. STATUS FIELD VALIDATION: Creature status MUST be one of: "alive", "dead", "unconscious", or "defeated". Flag as INVALID if status contains "panicked", "fled", "fleeing", "destroyed" or any other value.
+9. EXIT CONDITION VALIDATION: The exit action should ONLY be called when ALL enemies are dead, unconscious, or defeated. Flag as INVALID if exit is called while any enemy still has status "alive".
 
 Ensure PROPER COMBAT FLOW:
 - Each monster, player, and NPC turn is processed in initiative order. If you don't know the iniative order then assume the AI Dungeon Master is correct but ensure the actions are at least in an order by character that appears logical and is turn based.
 - IMMEDIATELY after each damaging action the narration should properly account for the results in the narration.
 - When a character dies, the narration should report it as defeated and NOT process its turn when initiative reaches it unless there is a passive action occuring (like save vs death etc).
-- If all enemies are defeated then the narration should end combat.
+- If all enemies are defeated (status: "dead", "unconscious", or "defeated") then the narration should end combat with the exit action. Do NOT exit if any enemy still has status "alive".
 - When the narration action returns to the player's turn, the AI Dungeon Master should pause and await player input for each player action. The AI Dungeon master does not pause and ask the player for action when it is the NPC or monster's turn unless the narration calls for it.
 - CRITICAL PLAYER INTERACTION FLOW: When a player declares an action requiring dice rolls, the AI must follow a two-step process:
   Step 1: Request the roll and WAIT (plan should indicate "WAITING for player's roll")
@@ -221,6 +223,24 @@ Plan: "Player declared attack, resolving immediately"
 Narration: "You attack and deal damage based on your roll!"
 Issue: Plan doesn't indicate waiting for player input
 Fix: Plan must show "WAITING for player's roll" when input is needed
+
+STATUS VALIDATION EXAMPLES:
+
+INVALID - Using Invalid Status:
+updateEncounter: "Goblin sees the wizard die and changes status to 'panicked'"
+Issue: "panicked" is not a valid status
+Fix: Keep status as "alive" and describe panic in narration only
+
+INVALID - Premature Exit:
+Plan: "Wizard is dead, combat ends"
+Actual State: Two goblins still have status "alive"
+Actions: [exit]
+Issue: Exit called while enemies remain alive
+Fix: Continue combat until ALL enemies are dead/unconscious/defeated
+
+VALID - Proper Fleeing:
+updateEncounter: "Goblin flees the battlefield (status: defeated)"
+Issue: None - "defeated" is correct for enemies that successfully escape
 
 COMBAT FLOW VIOLATION EXAMPLES:
 

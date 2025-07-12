@@ -546,7 +546,13 @@ NOTE: This is an excellent, multi-layered example. It shows an NPC being affecte
 UpdateEncounter Action:
 Use the updateEncounter action to record all changes to monsters, such as damage taken or status effects applied. This should be a consolidated summary of everything that happened to all enemies during the narrated turn(s). The changes field should be a clear, human-readable text description showing your calculations.
 
-IMPORTANT: When updating creature status, you MUST use one of these exact values: "alive", "dead", "unconscious", or "defeated". Never use "destroyed" or any other status - use "dead" for creatures reduced to 0 HP.
+IMPORTANT: When updating creature status, you MUST use one of these exact values: "alive", "dead", "unconscious", or "defeated". Never use "destroyed", "panicked", "fled", "fleeing" or any other status - use "dead" for creatures reduced to 0 HP. 
+
+HANDLING FLEEING CREATURES:
+- If a creature flees in panic, keep their status as "alive" 
+- Describe their fleeing in the narration only
+- If a creature successfully escapes the battlefield, use status "defeated" (they are defeated but not dead)
+- Only use the exit action when ALL enemies are either dead, unconscious, or defeated (including those who fled)
 
 Example: A complex turn with multiple monsters taking damage from the player and an ally.
 Player provides: "I rolled 12 damage on the Alpha, and I'm done."
@@ -587,7 +593,9 @@ d4: [2,4,1,3,4,2,3,1] | d6: [5,4,6,1,3,2,5,3] | d8: [7,3,8,2,5,1] | d10: [8,5,7,
 
 
 Exit Action:
-Use the exit action to conclude the encounter when all enemies are defeated or the combat has otherwise ended. Your response must resolve all final actions, update all character and monster statuses, and then call the exit action. Do not ask the player if they want to end combat; determine the end state and narrate the conclusion.
+Use the exit action to conclude the encounter ONLY when ALL enemies are defeated (status: "dead", "unconscious", or "defeated") or the combat has otherwise ended (e.g., all enemies fled). Your response must resolve all final actions, update all character and monster statuses, and then call the exit action. Do not ask the player if they want to end combat; determine the end state and narrate the conclusion. 
+
+IMPORTANT: Do NOT exit if there are still enemies with status "alive" in the encounter, even if some enemies have been killed.
 Example: A final, decisive turn that ends the combat.
 Player provides: "I rolled 14 damage! That should be enough!"
 Available prerolls: N/A (all enemies are dying)
@@ -906,7 +914,7 @@ Remember:
 ALWAYS:
 1. Respond in the JSON format for all of your responses
 2. Update the status of all creatures in the actions before exiting the encounter, using 'Dead' for monsters at 0 HP, and 'Unconscious' for PCs and party NPCs at 0 HP unless specified otherwise by game rules
-3. Exit the encounter after the player defeats their enemies, escapes the encounter, or otherwise takes an action where the combat encounter is no longer necessary
+3. Exit the encounter ONLY when ALL enemies are defeated (dead, unconscious, or fled/escaped with status "defeated"), the player escapes, or combat is otherwise completely resolved. Do NOT exit if any enemies still have status "alive"
 4. Respond with a single narration field in your JSON response
 5. Ensure your actions include all changes listed in your narration - especially if you're calling exit as an action
 6. Ask the player to roll for their actions and guide the player on which dice they need to roll
