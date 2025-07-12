@@ -185,16 +185,22 @@ def load_npc_with_fuzzy_match(npc_name, path_manager):
     
     for char_file in character_files:
         # Skip backup files
-        if char_file.endswith(".bak") or char_file.endswith("_BU.json"):
+        if char_file.endswith(".bak") or char_file.endswith("_BU.json") or "backup" in char_file:
             continue
             
         # Load the character data to check if it's an NPC
         char_data = safe_json_load(char_file)
-        if char_data and char_data.get("characterType") == "npc":
+        # Check both character_type (correct field) and characterType (legacy) for compatibility
+        char_type = char_data.get("character_type") or char_data.get("characterType")
+        if char_data and char_type == "npc":
             char_name = char_data.get("name", "")
             # Simple fuzzy matching - check if key words from requested name are in character name
             requested_words = set(formatted_npc_name.lower().split("_"))
             char_words = set(char_name.lower().replace(" ", "_").split("_"))
+            
+            # Debug log for fuzzy matching
+            debug(f"NPC_FUZZY: Comparing '{formatted_npc_name}' with '{char_name}' from {char_file}", category="combat_manager")
+            debug(f"NPC_FUZZY: Requested words: {requested_words}, Character words: {char_words}", category="combat_manager")
             
             # Calculate match score based on word overlap
             common_words = requested_words.intersection(char_words)
