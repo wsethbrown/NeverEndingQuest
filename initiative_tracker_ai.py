@@ -7,7 +7,7 @@ Used to enhance the combat state display with live turn tracking.
 import json
 import re
 from openai import OpenAI
-from config import OPENAI_API_KEY, DM_MINI_MODEL
+from config import OPENAI_API_KEY, DM_MAIN_MODEL
 import logging
 
 logger = logging.getLogger(__name__)
@@ -72,6 +72,13 @@ def create_initiative_prompt(messages, creatures, current_round):
     for msg in messages:
         role = "Player" if msg["role"] == "user" else "DM"
         conversation_text += f"\n{role}: {msg['content']}\n"
+    
+    # Debug logging
+    logger.debug(f"Initiative AI analyzing Round {current_round}")
+    logger.debug(f"Number of messages: {len(messages)}")
+    if messages:
+        logger.debug(f"Last message role: {messages[-1]['role']}")
+        logger.debug(f"Last message preview: {messages[-1]['content'][:200]}...")
     
     prompt = f"""You are analyzing combat in Round {current_round}. Your ONLY job is to determine who has acted and who hasn't acted yet in THIS SPECIFIC ROUND.
 
@@ -151,7 +158,7 @@ def generate_live_initiative_tracker(encounter_data, conversation_history, curre
         # Query AI model
         client = OpenAI(api_key=OPENAI_API_KEY)
         response = client.chat.completions.create(
-            model=DM_MINI_MODEL,
+            model=DM_MAIN_MODEL,
             messages=[
                 {"role": "system", "content": "You are an initiative tracker. Your ONLY job is to identify who has acted and who hasn't in the specified round. Format your response EXACTLY as requested with the Live Initiative Tracker format using [X], [>], [ ], [D], [S], [P], [U], and [-] markers for different creature states. Do not provide any other information."},
                 {"role": "user", "content": prompt}
