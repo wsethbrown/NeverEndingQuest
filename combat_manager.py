@@ -592,7 +592,7 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
         {"role": "assistant", "content": response}
     ])
 
-    max_validation_retries = 3
+    max_validation_retries = 5
     for attempt in range(max_validation_retries):
         try:
             validation_result = client.chat.completions.create(
@@ -1834,7 +1834,7 @@ Player: {user_input_text}"""
        save_json_file(conversation_history_file, conversation_history)
        
        # Get AI response with validation and retries
-       max_retries = 3
+       max_retries = 5
        valid_response = False
        ai_response = None
        validation_attempts = []  # Store all validation attempts for logging
