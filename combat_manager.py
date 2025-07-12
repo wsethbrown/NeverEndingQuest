@@ -1082,25 +1082,49 @@ def filter_dynamic_fields(data):
     return {k: v for k, v in data.items() if k not in dynamic_fields}
 
 def filter_encounter_for_system_prompt(encounter_data):
-    """Remove preroll cache and other private data from encounter before sharing with AI"""
+    """Create minimal encounter data for system prompt with only essential fields"""
     if not encounter_data or not isinstance(encounter_data, dict):
         return encounter_data
     
-    # Create a copy to avoid modifying original data
-    filtered_data = encounter_data.copy()
+    # Create minimal structure with only essential fields
+    minimal_data = {
+        "encounterId": encounter_data.get("encounterId"),
+        "encounterSummary": encounter_data.get("encounterSummary", ""),
+        "creatures": []
+    }
     
-    # Remove preroll cache - this should never be visible to the AI
-    if 'preroll_cache' in filtered_data:
-        del filtered_data['preroll_cache']
+    # Process each creature to keep only essential fields
+    for creature in encounter_data.get("creatures", []):
+        minimal_creature = {
+            "name": creature.get("name")
+        }
+        
+        # Add type information
+        if creature.get("type"):
+            minimal_creature["type"] = creature["type"]
+        
+        # Add monster/npc specific type info
+        if creature.get("monsterType"):
+            minimal_creature["monsterType"] = creature["monsterType"]
+        if creature.get("npcType"):
+            minimal_creature["npcType"] = creature["npcType"]
+        
+        # Add armor class for all creatures (important for combat)
+        if "armorClass" in creature:
+            minimal_creature["armorClass"] = creature["armorClass"]
+        
+        # Add conditions (will be important when not empty)
+        if "conditions" in creature and creature["conditions"]:
+            minimal_creature["conditions"] = creature["conditions"]
+        
+        # Add actions (even though currently bugged and empty)
+        if "actions" in creature:
+            minimal_creature["actions"] = creature["actions"]
+        
+        minimal_data["creatures"].append(minimal_creature)
     
-    # Remove any other internal tracking fields that shouldn't be shared
-    internal_fields = ['turn_tracker', 'debug_info', 'system_notes']
-    for field in internal_fields:
-        if field in filtered_data:
-            del filtered_data[field]
-    
-    debug("STATE_CHANGE: Filtered encounter data for system prompt, removed preroll cache", category="combat_events")
-    return filtered_data
+    debug("STATE_CHANGE: Created minimal encounter data for system prompt", category="combat_events")
+    return minimal_data
 
 def compress_old_combat_rounds(conversation_history, current_round, keep_recent_rounds=2):
     """
