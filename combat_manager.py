@@ -1857,7 +1857,9 @@ FAILURE TO USE THE CORRECT POOL IS A CRITICAL ERROR.
 {preroll_text}
 --- END OF STATE & DICE ---
 
-Player: {user_input_text}"""
+Player: {user_input_text}
+
+If I've taken all my actions, then narrate everything until my turn or the round ends, whichever comes first, unless my party needs direction from me. And don't forget to adjust my spell slots if used and ammo."""
        
        # Clean old DM notes before adding new user input
        conversation_history = clean_old_dm_notes(conversation_history)
