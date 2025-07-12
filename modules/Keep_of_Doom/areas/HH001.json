@@ -38,7 +38,8 @@
         "name": "Gate A03",
         "type": "gate",
         "connections": [
-          "A01"
+          "A01",
+          "A05"
         ],
         "coordinates": "X2Y3"
       },
@@ -56,7 +57,8 @@
         "name": "Tavern A05",
         "type": "tavern",
         "connections": [
-          "A01"
+          "A01",
+          "A03"
         ],
         "coordinates": "X1Y2"
       }
@@ -310,7 +312,8 @@
       "description": "A pair of heavy wooden gates, iron-banded and weathered, marks the town's eastern edge. A squat stone guardhouse stands beside it, with narrow windows and a simple watch bell. The road beyond runs toward the haunted keep and the Gloamwood beyond. The gate area remains vigilant yet calm, serving as a crucial point for gathering information before venturing along the Witchlight Trail.",
       "coordinates": "X2Y3",
       "connectivity": [
-        "A01"
+        "A01",
+        "A05"
       ],
       "areaConnectivity": [
         "Witchlight Trailhead"
@@ -382,6 +385,10 @@
         {
           "name": "Gate Mechanism",
           "description": "A stout bar and iron lock securing the gates, requiring a key or brute force to bypass."
+        },
+        {
+          "name": "Concealed Tunnel Exit",
+          "description": "Hidden beneath a heavy iron grate covered with years of dirt and leaves, this exit from the old smuggler's tunnel is nearly invisible unless one knows where to look. The grate can be lifted from inside, and fresh scuff marks suggest recent use. This secret route connects to the Wyrd Lantern Inn's cellar, providing a discrete way to enter or leave town unnoticed."
         }
       ],
       "encounters": [],
@@ -474,7 +481,8 @@
       "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew and fresh bread fills the air. Laughter and song are frequent, but at night, whispers of fear and superstition drift between tables.",
       "coordinates": "X1Y2",
       "connectivity": [
-        "A01"
+        "A01",
+        "A03"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -566,6 +574,10 @@
         {
           "name": "Guest Rooms",
           "description": "Modest but clean rooms available for travelers."
+        },
+        {
+          "name": "Hidden Cellar Passage",
+          "description": "Behind a false wall in the root cellar lies an old smuggler's tunnel, originally built during the town's less lawful days. The narrow stone passage is musty but passable, with worn steps leading through darkness. Scout Elen discovered this route during her investigation and used it to secretly leave town. The tunnel emerges near the East Gate through a concealed grate."
         }
       ],
       "encounters": [],
