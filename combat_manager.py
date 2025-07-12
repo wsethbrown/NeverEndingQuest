@@ -111,7 +111,8 @@ from config import (
     COMBAT_MAIN_MODEL,
     # Use the existing validation model instead of COMBAT_VALIDATION_MODEL
     DM_VALIDATION_MODEL, 
-    COMBAT_DIALOGUE_SUMMARY_MODEL
+    COMBAT_DIALOGUE_SUMMARY_MODEL,
+    DM_MINI_MODEL
 )
 from update_character_info import update_character_info, normalize_character_name
 import update_encounter
