@@ -1102,7 +1102,7 @@ def filter_encounter_for_system_prompt(encounter_data):
     debug("STATE_CHANGE: Filtered encounter data for system prompt, removed preroll cache", category="combat_events")
     return filtered_data
 
-def compress_old_combat_rounds(conversation_history, current_round, keep_recent_rounds=3):
+def compress_old_combat_rounds(conversation_history, current_round, keep_recent_rounds=2):
     """
     Compress old combat rounds in conversation history to reduce token usage.
     Keeps the last 'keep_recent_rounds' rounds uncompressed for context.
@@ -2067,13 +2067,13 @@ Player: {user_input_text}"""
                    # Save the updated encounter data
                    save_json_file(f"modules/encounters/encounter_{encounter_id}.json", encounter_data)
                    
-                   # Compress old combat rounds if we're past round 4
-                   if new_round > 4:
+                   # Compress old combat rounds if we're past round 3
+                   if new_round > 3:
                        debug(f"COMPRESSION: Checking for round compression (current round: {new_round})", category="combat_events")
                        compressed_history = compress_old_combat_rounds(
                            conversation_history, 
                            new_round, 
-                           keep_recent_rounds=3
+                           keep_recent_rounds=2
                        )
                        
                        # Save compressed history
