@@ -172,12 +172,13 @@ def exit_game():
     print("Fond farewell until we meet again!")
     exit()
 
-def check_and_inject_return_message(conversation_history):
+def check_and_inject_return_message(conversation_history, is_combat_active=False):
     """
     Checks if a 'player has returned' message needs to be injected at startup.
     
     Args:
         conversation_history: List of conversation messages
+        is_combat_active: Boolean indicating if combat is currently active (prevents duplicate injection)
         
     Returns:
         Tuple of (updated_conversation_history, was_injected)
@@ -205,7 +206,26 @@ def check_and_inject_return_message(conversation_history):
         debug("STATE_CHANGE: Return message already present, skipping injection", category="session_management")
         return conversation_history, False
     
-    # Inject return message
+    # Check if we're resuming from combat - if so, inject a different tracking message
+    if is_combat_active:
+        # Combat manager will handle its own resume message, so we just add a tracking marker
+        tracking_message = {
+            "role": "user",
+            "content": "[SYSTEM: Combat was interrupted and is being resumed from crash]"
+        }
+        conversation_history.append(tracking_message)
+        debug("STATE_CHANGE: Added combat resume tracking message", category="session_management")
+        
+        # Also add an assistant acknowledgment to mark the recovery point
+        recovery_marker = {
+            "role": "assistant",
+            "content": "[SYSTEM: Combat recovery initiated - continuing from last known state]"
+        }
+        conversation_history.append(recovery_marker)
+        debug("STATE_CHANGE: Added combat recovery marker", category="session_management")
+        return conversation_history, True
+    
+    # Normal (non-combat) resume message injection
     return_message = {
         "role": "user", 
         "content": "Dungeon Master Note: Resume the game, the player has returned."
@@ -1558,9 +1578,12 @@ def main_game_loop():
 
     # --- START: COMBAT RESUMPTION LOGIC ---
     party_tracker_data = load_json_file("party_tracker.json")
+    combat_was_resumed = False  # Track if we resumed from combat
+    
     if party_tracker_data and party_tracker_data["worldConditions"].get("activeCombatEncounter"):
         active_encounter_id = party_tracker_data["worldConditions"]["activeCombatEncounter"]
         print(colored(f"[SYSTEM] Active combat encounter '{active_encounter_id}' detected. Resuming combat...", "yellow"))
+        combat_was_resumed = True  # Mark that we're resuming from combat
         
         # The combat_manager.main() function will handle the entire combat session.
         # It will run until combat is resolved.
@@ -1580,17 +1603,20 @@ def main_game_loop():
     conversation_history = load_json_file(json_file) or []
     
     # CRITICAL: Check and inject return message BEFORE any processing
-    conversation_history, was_injected = check_and_inject_return_message(conversation_history)
+    # Pass combat_was_resumed flag to prevent duplicate messages after combat
+    conversation_history, was_injected = check_and_inject_return_message(conversation_history, is_combat_active=combat_was_resumed)
     if was_injected:
         save_conversation_history(conversation_history)
         
-        # Generate AI response to the return message for startup narration
-        debug("STATE_CHANGE: Generating startup narration after return message injection", category="startup")
-        ai_response = get_ai_response(conversation_history)
-        if ai_response:
-            conversation_history.append({"role": "assistant", "content": ai_response})
-            save_conversation_history(conversation_history)
-            debug("SUCCESS: Startup narration added to conversation history", category="startup")
+        # Only generate AI response for non-combat resumes (combat manager handles its own)
+        if not combat_was_resumed:
+            # Generate AI response to the return message for startup narration
+            debug("STATE_CHANGE: Generating startup narration after return message injection", category="startup")
+            ai_response = get_ai_response(conversation_history)
+            if ai_response:
+                conversation_history.append({"role": "assistant", "content": ai_response})
+                save_conversation_history(conversation_history)
+                debug("SUCCESS: Startup narration added to conversation history", category="startup")
     
     party_tracker_data = load_json_file("party_tracker.json")
     

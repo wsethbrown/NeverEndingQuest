@@ -12,8 +12,8 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 27,
-  "maxHitPoints": 33,
+  "hitPoints": 11,
+  "maxHitPoints": 38,
   "armorClass": 17,
   "initiative": 1,
   "speed": 30,
@@ -69,7 +69,7 @@
       "description": "You can channel divine energy to fuel magical effects. You start with one option: Turn Undead. As an action, present your holy symbol and speak a prayer. Each undead within 30 feet must make a Wisdom save or be turned for 1 minute or until it takes damage.",
       "source": "Cleric",
       "usage": {
-        "current": 1,
+        "current": 0,
         "max": 1,
         "refreshOn": "longRest"
       }
@@ -84,7 +84,7 @@
       "description": "As an action, you can restore a total of HP equal to five times your cleric level (15 HP at level 3), divided among any creatures within 30 feet of you, not to heal a creature above half its hit point maximum.",
       "source": "Life Domain",
       "usage": {
-        "current": 1,
+        "current": 0,
         "max": 1,
         "refreshOn": "longRest"
       }
@@ -478,11 +478,11 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 4,
+        "current": 3,
         "max": 4
       },
       "level2": {
-        "current": 2,
+        "current": 0,
         "max": 2
       },
       "level3": {

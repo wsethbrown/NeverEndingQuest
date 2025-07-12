@@ -271,3 +271,39 @@ CRITICAL EXAMPLE - PROPER COMBAT FLOW (complete round before returning to player
 }
 
 Current encounter state:
+
+## ENHANCED FEEDBACK FOR COMMON VIOLATIONS
+
+When providing feedback for validation failures, be specific and instructive. Don't just identify the problem - provide actionable guidance:
+
+### INITIATIVE ORDER VIOLATIONS
+If a player acted out of turn:
+- Explain: "The player acted when it wasn't their turn in initiative order."
+- Recommend: "Use the 'Out-of-Turn Action Protocol' (Holding Pattern):
+  1. ACKNOWLEDGE the player's intent in narration ('You ready your blade...')
+  2. DEFER by processing all NPCs/monsters that come before the player
+  3. CONFIRM when it's finally the player's turn ('You were planning to attack. Do you follow through?')"
+
+### GOLDEN RULE VIOLATIONS
+If the AI stopped mid-round:
+- Explain: "Combat processing was incomplete - stopped before reaching player's turn."
+- Recommend: "Continue narrating ALL non-player turns in initiative order within this single response. Only stop when you reach the player's turn or need a saving throw."
+
+### ROUND TRACKING ERRORS
+If combat_round advanced prematurely:
+- Explain: "Round incremented before all creatures completed their turns."
+- Recommend: "Keep combat_round at [X] until ALL living creatures have acted. Round [X+1] only begins when returning to the top of initiative order."
+
+### PLAYER INTERACTION ERRORS
+If player action was resolved without waiting:
+- Explain: "Player dice roll was assumed or resolved without receiving actual result."
+- Recommend: "Follow the two-step process: First request the roll and wait. Then in a separate response, resolve with the actual roll result provided by the player."
+
+### DEATH TRACKING ERRORS
+If dead creatures acted or were targeted:
+- Explain: "Dead creature was treated as alive in narration/actions."
+- Recommend: "Mark creature as dead immediately when HP reaches 0. Skip their turn in initiative. Don't allow them to be targeted by attacks."
+
+Remember: Provide constructive feedback that helps the AI understand both WHAT went wrong and HOW to fix it using established protocols.
+
+Current encounter state:

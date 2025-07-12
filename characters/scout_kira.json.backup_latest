@@ -12,8 +12,8 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 27,
-  "maxHitPoints": 27,
+  "hitPoints": 22,
+  "maxHitPoints": 32,
   "armorClass": 15,
   "initiative": 4,
   "speed": 35,
@@ -144,7 +144,14 @@
     "description": "Kira has an excellent memory for maps and geography, and can always recall the general layout of terrain, settlements, and other features. She can find food and fresh water for herself and up to five others each day, provided the land offers berries, small game, water, and so forth.",
     "source": "Outlander"
   },
-  "temporaryEffects": [],
+  "temporaryEffects": [
+    {
+      "name": "Aid Spell",
+      "description": "Hit point maximum and current hit points each increased by 5 for 8 hours.",
+      "source": "Eirik's Aid Spell",
+      "duration": "8 hours"
+    }
+  ],
   "injuries": [],
   "equipment_effects": [],
   "feats": [],
@@ -338,7 +345,7 @@
   "ammunition": [
     {
       "name": "Arrow",
-      "quantity": 78,
+      "quantity": 75,
       "description": "Ammunition for bows."
     }
   ],
