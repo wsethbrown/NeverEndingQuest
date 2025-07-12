@@ -24,6 +24,12 @@ Ensure PROPER COMBAT FLOW:
   Step 2: After receiving the roll result, resolve the action
 - When prerolls are provided: The AI should confirm player actions first, then request dice rolls from player, wait for results, then proceed. When NO prerolls are provided: The player must provide ALL dice rolls before any action can be resolved.
 
+CRITICAL COMBAT FLOW VIOLATIONS TO CHECK:
+1. **GOLDEN RULE VIOLATION**: FLAG AS INVALID if the AI response stops narrating mid-round and has not yet reached the player's turn in the initiative order. The AI MUST process ALL non-player turns in a single response.
+2. **INCOMPLETE ROUND PROCESSING**: FLAG AS INVALID if the plan field or narration shows that NPCs/monsters remain to act but the AI has stopped without completing their turns.
+3. **PREMATURE PLAYER PROMPTING**: FLAG AS INVALID if the AI asks for player input when it's not the player's turn (exception: immediate reactions/saving throws).
+4. **TURN ORDER FRAGMENTATION**: FLAG AS INVALID if the AI processes only one or two creature turns then stops, requiring external prompting to continue the round.
+
 CRITICAL ROUND VALIDATION CHECKS:
 - ROUND CONSISTENCY: If combat_round is X, verify that (X-1) complete initiative cycles have already occurred
 - PREMATURE ADVANCEMENT: Flag any case where combat_round increments before all living creatures have acted
@@ -215,6 +221,31 @@ Plan: "Player declared attack, resolving immediately"
 Narration: "You attack and deal damage based on your roll!"
 Issue: Plan doesn't indicate waiting for player input
 Fix: Plan must show "WAITING for player's roll" when input is needed
+
+COMBAT FLOW VIOLATION EXAMPLES:
+
+INVALID - Golden Rule Violation (stopped mid-round):
+Plan: "Round 2. Initiative: Goblin (20), Aldric (17), Player (16), Mira (15), Orc (7). Goblin attacked and missed. Aldric shot and hit for 8 damage. Now stopping for player turn."
+Narration: Ends after Aldric's turn, prompting player
+Issue: AI stopped mid-round. Mira and Orc haven't acted yet but AI is returning control to player
+Fix: Continue processing Mira and Orc turns AFTER player acts, all in one response
+
+INVALID - Turn Order Fragmentation:
+Plan: "Processing Skeleton's turn. Will handle other creatures next."
+Narration: Only describes Skeleton's attack
+Actions: Only updates Skeleton's target
+Issue: AI processed only one creature then stopped, requiring "keep going" prompt
+Fix: Process ALL non-player turns (Skeleton, Aldric, Mira, Zombie) until reaching player
+
+INVALID - Incomplete Round Processing:
+Plan: "Handled 2 of 4 NPCs/monsters. Stopping here."
+Issue: AI knows more creatures need to act but stopped anyway
+Fix: Continue until ALL non-player turns are complete
+
+VALID - Proper Flow (stops only at player turn):
+Plan: "Round 2. Goblin attacked (miss), Aldric shot (8 damage), now it's Player's turn. After player: Mira and Orc still to act."
+Narration: Describes Goblin and Aldric's full turns, then prompts player
+Result: Correctly stopped at player's turn with clear plan to continue afterward
 
 CRITICAL EXAMPLE - PROPER COMBAT FLOW (complete round before returning to player):
 {
