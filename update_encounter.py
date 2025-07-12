@@ -110,21 +110,28 @@ Remember to only update monster information and leave player and NPC data unchan
                         print(f"ERROR: Failed to sync player data from {player_file}: {str(e)}")
                         
                 elif creature["type"] == "npc":
-                    npc_name = path_manager.format_filename(creature['name'])
-                    npc_file = path_manager.get_character_path(npc_name)
-                    try:
-                        with open(npc_file, "r") as file:
-                            npc_data = json.load(file)
-                            # Only sync combat-relevant state
-                            creature["currentHitPoints"] = npc_data.get("hitPoints", creature.get("currentHitPoints", 0))
-                            creature["maxHitPoints"] = npc_data.get("maxHitPoints", creature.get("maxHitPoints", 0))
-                            creature["status"] = npc_data.get("status", creature.get("status", "alive"))
-                            creature["conditions"] = npc_data.get("condition_affected", [])
-                            # Copy armorClass if it exists in NPC data
-                            if "armorClass" in npc_data:
-                                creature["armorClass"] = npc_data["armorClass"]
-                    except Exception as e:
-                        print(f"ERROR: Failed to sync NPC data from {npc_file}: {str(e)}")
+                    # Import the fuzzy matching function
+                    from update_character_info import find_character_file_fuzzy
+                    
+                    # Use fuzzy matching to find the correct NPC file
+                    matched_name = find_character_file_fuzzy(creature['name'])
+                    if matched_name:
+                        npc_file = path_manager.get_character_path(matched_name)
+                        try:
+                            with open(npc_file, "r") as file:
+                                npc_data = json.load(file)
+                                # Only sync combat-relevant state
+                                creature["currentHitPoints"] = npc_data.get("hitPoints", creature.get("currentHitPoints", 0))
+                                creature["maxHitPoints"] = npc_data.get("maxHitPoints", creature.get("maxHitPoints", 0))
+                                creature["status"] = npc_data.get("status", creature.get("status", "alive"))
+                                creature["conditions"] = npc_data.get("condition_affected", [])
+                                # Copy armorClass if it exists in NPC data
+                                if "armorClass" in npc_data:
+                                    creature["armorClass"] = npc_data["armorClass"]
+                        except Exception as e:
+                            print(f"ERROR: Failed to sync NPC data from {npc_file}: {str(e)}")
+                    else:
+                        print(f"WARNING: Could not find NPC file for '{creature['name']}' using fuzzy matching")
 
             # Validate the updated info against the schema
             validate(instance=encounter_info, schema=schema)
