@@ -179,7 +179,8 @@ def load_or_create_npc(npc_name):
         print(f"[COMBAT_BUILDER] Exact match failed for {formatted_npc_name}, trying fuzzy match")
         # Get all character files in the module
         import glob
-        character_dir = path_manager.get_characters_dir()
+        # Use the unified characters directory
+        character_dir = "characters"
         character_files = glob.glob(os.path.join(character_dir, "*.json"))
         
         # Try to find a matching NPC file using fuzzy logic
