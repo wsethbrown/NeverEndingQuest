@@ -118,6 +118,90 @@ def normalize_character_name(character_name):
     
     return name
 
+def find_character_file_fuzzy(character_name):
+    """Find a character file using fuzzy matching
+    
+    This function attempts to find a character file that matches the given name,
+    even if the file name doesn't exactly match the character name.
+    
+    Args:
+        character_name (str): The character name to search for
+        
+    Returns:
+        str: The matched filename (without .json extension) or None if no match found
+        
+    Examples:
+        - "Ranger Thane" might match "corrupted_ranger_thane.json"
+        - "Scout Kira" would match "scout_kira.json"
+    """
+    import glob
+    import os
+    from difflib import SequenceMatcher
+    from enhanced_logger import debug
+    
+    # First try exact match with normalized name
+    normalized_name = normalize_character_name(character_name)
+    
+    # Use the unified characters directory
+    character_dir = "characters"
+    character_files = glob.glob(os.path.join(character_dir, "*.json"))
+    
+    # Try exact match first
+    exact_match_file = os.path.join(character_dir, f"{normalized_name}.json")
+    if os.path.exists(exact_match_file):
+        debug(f"FUZZY_MATCH: Exact match found for '{character_name}' -> '{normalized_name}'", category="character_updates")
+        return normalized_name
+    
+    # Prepare for fuzzy matching
+    input_lower = character_name.lower()
+    input_words = set(input_lower.split())
+    input_normalized = input_lower.replace("_", " ")
+    
+    best_match = None
+    best_score = 0.0
+    
+    for char_file in character_files:
+        filename = os.path.splitext(os.path.basename(char_file))[0]
+        
+        # Skip player character files (they should match exactly)
+        if filename in ['eirik_hearthwise', 'wizard_player']:
+            continue
+            
+        # Check various matching strategies
+        file_lower = filename.lower()
+        file_words = set(file_lower.replace("_", " ").split())
+        
+        # Strategy 1: Word subset matching
+        if input_words.issubset(file_words) or file_words.issubset(input_words):
+            score = len(input_words.intersection(file_words)) / max(len(input_words), len(file_words))
+            if score > best_score:
+                best_score = score
+                best_match = filename
+                debug(f"FUZZY_MATCH: Word subset match '{character_name}' -> '{filename}' (score: {score:.2f})", category="character_updates")
+        
+        # Strategy 2: Normalized partial match
+        if input_normalized in file_lower.replace("_", " "):
+            score = len(input_normalized) / len(file_lower)
+            if score > best_score:
+                best_score = score
+                best_match = filename
+                debug(f"FUZZY_MATCH: Partial match '{character_name}' -> '{filename}' (score: {score:.2f})", category="character_updates")
+        
+        # Strategy 3: Sequence matching
+        sequence_score = SequenceMatcher(None, input_lower, file_lower).ratio()
+        if sequence_score > best_score:
+            best_score = sequence_score
+            best_match = filename
+            debug(f"FUZZY_MATCH: Sequence match '{character_name}' -> '{filename}' (score: {sequence_score:.2f})", category="character_updates")
+    
+    # Return match if score is high enough
+    if best_match and best_score >= 0.5:
+        debug(f"FUZZY_MATCH: Best match for '{character_name}' is '{best_match}' (score: {best_score:.2f})", category="character_updates")
+        return best_match
+    else:
+        debug(f"FUZZY_MATCH: No suitable match found for '{character_name}' (best score: {best_score:.2f})", category="character_updates")
+        return None
+
 def detect_character_role(character_name):
     """Detect character role from existing data or file location"""
     # Get current module from party tracker for consistent path resolution
