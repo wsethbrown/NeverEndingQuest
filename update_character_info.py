@@ -180,6 +180,20 @@ def fuzzy_match_character_name(input_name, party_tracker_data):
         if input_lower in npc_words:
             debug(f"FUZZY_MATCH: Matched '{input_name}' to '{npc_name}' via word match", category="character_updates")
             return npc_name
+        
+        # Check if normalized input matches part of normalized NPC name
+        # This handles cases like "ranger_thane" matching "Corrupted Ranger Thane"
+        input_normalized = input_lower.replace("_", " ")
+        if input_normalized in npc_lower:
+            debug(f"FUZZY_MATCH: Matched '{input_name}' to '{npc_name}' via normalized partial match", category="character_updates")
+            return npc_name
+        
+        # Check each word in the normalized input against the NPC name
+        input_words = input_normalized.split()
+        for word in input_words:
+            if word in npc_lower and len(word) > 2:  # Skip very short words
+                debug(f"FUZZY_MATCH: Matched '{input_name}' to '{npc_name}' via word '{word}'", category="character_updates")
+                return npc_name
     
     # Try checking character files in the module
     try:
