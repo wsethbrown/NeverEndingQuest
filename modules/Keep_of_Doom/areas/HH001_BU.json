@@ -10,7 +10,7 @@
   "map": {
     "mapId": "MAP_5",
     "mapName": "Town Map",
-    "totalRooms": 5,
+    "totalRooms": 6,
     "rooms": [
       {
         "id": "A01",
@@ -39,7 +39,8 @@
         "type": "gate",
         "connections": [
           "A01",
-          "A05"
+          "A05",
+          "A06"
         ],
         "coordinates": "X2Y3"
       },
@@ -58,9 +59,20 @@
         "type": "tavern",
         "connections": [
           "A01",
-          "A03"
+          "A03",
+          "A06"
         ],
         "coordinates": "X1Y2"
+      },
+      {
+        "id": "A06",
+        "name": "Smuggler's Tunnel",
+        "type": "tunnel",
+        "connections": [
+          "A05",
+          "A03"
+        ],
+        "coordinates": "X1Y3"
       }
     ],
     "layout": [
@@ -313,7 +325,8 @@
       "coordinates": "X2Y3",
       "connectivity": [
         "A01",
-        "A05"
+        "A05",
+        "A06"
       ],
       "areaConnectivity": [
         "Witchlight Trailhead"
@@ -482,7 +495,8 @@
       "coordinates": "X1Y2",
       "connectivity": [
         "A01",
-        "A03"
+        "A03",
+        "A06"
       ],
       "areaConnectivity": [],
       "areaConnectivityId": [],
@@ -578,6 +592,100 @@
         {
           "name": "Hidden Cellar Passage",
           "description": "Behind a false wall in the root cellar lies an old smuggler's tunnel, originally built during the town's less lawful days. The narrow stone passage is musty but passable, with worn steps leading through darkness. Scout Elen discovered this route during her investigation and used it to secretly leave town. The tunnel emerges near the East Gate through a concealed grate."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "A06",
+      "name": "Smuggler's Tunnel",
+      "type": "tunnel",
+      "description": "This narrow, stone-lined passage winds beneath Harrow's Hollow, a remnant from the town's less lawful past. The air is damp and musty, carrying hints of earth and old secrets. Rough-hewn walls show tool marks from hasty construction, while ancient timber supports creak ominously overhead. Water drips steadily in the darkness, pooling in worn grooves where countless feet once carried contraband. Fresh scuff marks and a torn piece of blue fabric suggest Scout Elen passed this way recently. The tunnel slopes gently downward from the inn's cellar before rising again toward the East Gate, following the town's natural contours. Shadows dance at the edge of your light, and every sound echoes strangely in the confined space.",
+      "coordinates": "X1Y3",
+      "connectivity": [
+        "A05",
+        "A03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "id": "giant_rat",
+          "name": "Giant Rat",
+          "number": 3,
+          "disposition": "hostile",
+          "strategy": "The rats nest in the tunnel and attack anyone who disturbs their territory, emerging from cracks in the walls."
+        }
+      ],
+      "lootTable": [
+        "Torn piece of Scout Elen's blue cloak",
+        "Old smuggler's lantern (still functional)",
+        "Rusted dagger wedged between stones",
+        "Small leather pouch with 8 copper pieces"
+      ],
+      "plotHooks": [
+        "Fresh footprints in the dust clearly show Scout Elen's passage toward the keep.",
+        "Scratches on the wall form crude arrows pointing toward the East Gate exit.",
+        "A cold draft suggests the tunnel is well-ventilated despite its age.",
+        "The giant rats seem unusually aggressive, as if driven from their normal haunts."
+      ],
+      "dmInstructions": "This tunnel serves as Scout Elen's secret route out of town during her investigation. The party can follow her trail here after freeing the spirit in the inn's cellar. The tunnel is straightforward but cramped (Medium creatures must squeeze in some sections). The giant rats are a minor threat meant to add tension. If players search carefully (Investigation DC 12), they find signs of old smuggling activity. Elen's trail continues toward the East Gate exit. This is a simple point-to-point tunnel with no branches or connections.",
+      "doors": [
+        {
+          "name": "Hidden Cellar Entry",
+          "description": "A cleverly concealed stone door behind a false wall in the inn's cellar.",
+          "type": "secret",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 15,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "Concealed Gate Exit",
+          "description": "An iron grate covered with years of dirt and debris, emerging near the guard post.",
+          "type": "secret",
+          "locked": true,
+          "lockDC": 12,
+          "breakDC": 18,
+          "keyname": "Can be opened from inside",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [
+        {
+          "description": "Loose ceiling stone that falls when disturbed.",
+          "detectionDC": 13,
+          "disarmDC": 12,
+          "saveDC": 12,
+          "damage": "1d6 bludgeoning",
+          "effect": "Dexterity save or take damage from falling debris. Makes loud noise alerting rats."
+        }
+      ],
+      "dcChecks": [
+        "Investigation DC 12: Find old smuggler markings and hidden cache.",
+        "Survival DC 10: Follow Scout Elen's tracks through the tunnel.",
+        "Perception DC 14: Hear the rats before they attack.",
+        "History DC 15: Recognize smuggler markings indicating old cargo storage spots."
+      ],
+      "accessibility": "Narrow and cramped. Medium creatures may need to squeeze in sections. Not suitable for mounts or large equipment.",
+      "dangerLevel": "Low",
+      "features": [
+        {
+          "name": "Old Smuggler's Cache",
+          "description": "A hidden alcove behind loose stones, mostly empty now but containing the pouch and dagger."
+        },
+        {
+          "name": "Elen's Trail",
+          "description": "Clear signs of recent passage including footprints, torn fabric, and disturbed dust, all leading toward the East Gate."
+        },
+        {
+          "name": "Tunnel Architecture",
+          "description": "The tunnel is clearly old but well-constructed, built to last by smugglers who needed a reliable route. It runs directly from inn to gate with no branches."
         }
       ],
       "encounters": [],
