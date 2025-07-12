@@ -1,0 +1,593 @@
+{
+  "areaId": "TW001",
+  "areaName": "Thornwood Wilds",
+  "areaType": "wilderness",
+  "areaDescription": "The Thornwood Wilds writhe with predatory intelligence, their canopy of clawed branches seeming to shift and close behind intruders. Ancient trees lean inward like conspirators, their moss-choked bark weeping strange saps while root-latticed shadows conceal signs of recent violence. The air tastes of copper and fear, thick with the scent of spilled blood and the acrid smoke of bandit camps. Every snapping twig and rustling leaf might herald ambush, while drag marks in the earth tell grim stories of those who ventured here before you.",
+  "dangerLevel": "medium",
+  "recommendedLevel": 1,
+  "climate": "temperate",
+  "terrain": "forest",
+  "map": {
+    "mapId": "MAP_TW001",
+    "mapName": "Thornwood Map",
+    "totalRooms": 6,
+    "rooms": [
+      {
+        "id": "TW01",
+        "type": "clearing",
+        "connections": [
+          "TW02",
+          "TW04"
+        ],
+        "coordinates": "X2Y2",
+        "name": "Ambush Site"
+      },
+      {
+        "id": "TW02",
+        "type": "path",
+        "connections": [
+          "TW01",
+          "TW03",
+          "TW05"
+        ],
+        "coordinates": "X3Y2",
+        "name": "Bandit Trail"
+      },
+      {
+        "id": "TW03",
+        "type": "clearing",
+        "connections": [
+          "TW02",
+          "TW04"
+        ],
+        "coordinates": "X3Y1",
+        "name": "Abandoned Camp"
+      },
+      {
+        "id": "TW04",
+        "type": "grove",
+        "connections": [
+          "TW01",
+          "TW03",
+          "TW06"
+        ],
+        "coordinates": "X2Y1",
+        "name": "Hermit's Refuge"
+      },
+      {
+        "id": "TW05",
+        "type": "stronghold",
+        "connections": [
+          "TW02"
+        ],
+        "coordinates": "X3Y3",
+        "name": "Bandit Stronghold"
+      },
+      {
+        "id": "TW06",
+        "type": "cave",
+        "connections": [
+          "TW04"
+        ],
+        "coordinates": "X1Y1",
+        "name": "Wolf's Den Cave"
+      }
+    ],
+    "layout": [
+      [
+        "TW06",
+        "TW04",
+        "TW03"
+      ],
+      [
+        "   ",
+        "TW01",
+        "TW02"
+      ],
+      [
+        "   ",
+        "   ",
+        "TW05"
+      ]
+    ]
+  },
+  "locations": [
+    {
+      "locationId": "TW01",
+      "name": "Ambush Site",
+      "type": "clearing",
+      "description": "A blood-stained clearing where the aftermath of a brutal bandit ambush tells its grim story. Overturned merchant wagons leak scattered goods among the brambles, while the fallen body of Ranger Corwin lies motionless near a shattered shield, victim of the vicious attack. Fresh drag marks and bloodied cloth fragments lead north through the undergrowth, suggesting any survivors may have fled in that direction. The metallic scent of recent violence and death hangs heavy in the still air.",
+      "coordinates": "X2Y2",
+      "connectivity": [
+        "TW02",
+        "TW04",
+        "TW06"
+      ],
+      "areaConnectivity": [
+        "North Tower Overlook"
+      ],
+      "areaConnectivityId": [
+        "RO06"
+      ],
+      "npcs": [],
+      "monsters": [],
+      "lootTable": [
+        "Scattered merchant goods from the attacked caravan",
+        "Broken bandit weapon with distinctive markings",
+        "Trail rations and medical supplies from overturned wagon"
+      ],
+      "plotHooks": [
+        "The wounded scout witnessed bandits taking captives to Malarok's camp in the old watchtower",
+        "Bandit equipment shows signs of magical enhancement, suggesting Malarok's influence",
+        "Fresh tracks lead toward the crumbling watchtower where Malarok has established his base",
+        "The scout mentions seeing dark energy and hearing the sorcerer's voice commanding the bandits"
+      ],
+      "dmInstructions": "This location serves as the entry point into the Thornwood investigation. The wounded scout provides crucial intelligence about Malarok's operations and the location of his watchtower base. Use this to drive the party toward the sorcerer's stronghold.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Medicine DC 12: Treat the wounded scout's injuries effectively",
+        "Investigation DC 11: Study the ambush site to find evidence of Malarok's magical corruption affecting the bandits",
+        "Survival DC 13: Follow the tracks leading toward Malarok's watchtower stronghold"
+      ],
+      "accessibility": "Forest clearing accessible from main trade road",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Overturned Wagon",
+          "description": "A merchant wagon lying on its side, contents scattered and searched by the bandits during their raid."
+        },
+        {
+          "name": "Battle Traces",
+          "description": "Blood stains, weapon marks on trees, and disturbed earth showing the fierce struggle that took place here."
+        },
+        {
+          "name": "Drag Marks",
+          "description": "Clear signs where captives and valuable goods were dragged north through the forest, suggesting survivors fled toward the Wolf's Den Cave."
+        },
+        {
+          "name": "Fallen Ranger",
+          "description": "The body of Ranger Corwin lies near a shattered shield, a victim of the brutal bandit ambush. His ranger's cloak is torn and bloodied."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "TW02",
+      "name": "Bandit Trail",
+      "type": "path",
+      "description": "A narrow path winding through dense thornbushes shows signs of frequent use by the bandit gang. Boot prints mix with drag marks in the muddy earth, while broken branches and disturbed undergrowth reveal the route to their hidden stronghold. Crude warning markers hang from twisted trees, meant to deter casual travelers.",
+      "coordinates": "X3Y2",
+      "connectivity": [
+        "TW01",
+        "TW03",
+        "TW05"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [],
+      "lootTable": [],
+      "plotHooks": [],
+      "dmInstructions": "This trail leads toward the bandit stronghold. Consider having the party encounter bandit patrols or traps along the way. Use this location to build tension as they get closer to the main threat.",
+      "doors": [],
+      "traps": [
+        {
+          "name": "Concealed Rope Snare",
+          "description": "A hidden rope trap designed to catch pursuing rangers by the ankle.",
+          "detectDC": 14,
+          "disableDC": 12,
+          "effect": "Restrains target, requires DC 15 Athletics or Acrobatics to escape"
+        }
+      ],
+      "dcChecks": [
+        "Stealth DC 13: Move quietly to avoid alerting bandit patrols ahead",
+        "Survival DC 11: Follow the bandit trail without losing the path",
+        "Perception DC 12: Notice warning markers and potential ambush points"
+      ],
+      "accessibility": "Narrow forest path requiring careful navigation",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Warning Totems",
+          "description": "Crude carved symbols hung from branches, meant to intimidate and warn off casual travelers."
+        },
+        {
+          "name": "Tracking Signs",
+          "description": "Boot prints, broken vegetation, and drag marks showing frequent bandit movement toward their stronghold."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "TW03",
+      "name": "Abandoned Camp",
+      "type": "clearing",
+      "description": "A small clearing hidden within thorny undergrowth that once served as a temporary holding area for bandit captives. Empty cages and discarded rope show this camp was recently abandoned, with prisoners moved to other locations deeper in the forest.",
+      "coordinates": "X3Y1",
+      "connectivity": [
+        "TW02",
+        "TW04"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Whispering Ashling",
+          "quantity": {
+            "min": 2,
+            "max": 3
+          }
+        },
+        {
+          "name": "Ashbound Bandit",
+          "quantity": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "lootTable": [
+        "Merchant's concealed coin purse",
+        "Torn map showing bandit patrol routes",
+        "Abandoned prisoner belongings with clues to other captives",
+        "Half-burned bandit journal with ritual notes",
+        "Vial of alchemical fire (1d6 damage, single use)",
+        "Map fragment showing Bandit Trail and Grove connection",
+        "8-12 gold pieces from bandit's hidden pouch"
+      ],
+      "plotHooks": [
+        "Evidence suggests captives were recently moved to other locations",
+        "Other prisoners were taken deeper into the forest toward a permanent base",
+        "The abandoned camp shows signs of hasty evacuation",
+        "Scattered belongings hint at the fate of missing travelers",
+        "Ashbound bandit reveals ritual gathering for 'the stone' if spared",
+        "Half-burned journal mentions Malarok's growing power and need for tribute",
+        "Ritual symbols found match those seen at other corruption sites"
+      ],
+      "dmInstructions": "This abandoned camp contains corrupted remnants of a failed ritual. The Whispering Ashlings (CR 1/8, 4-5 HP each) emerge first as eerie harassment, followed by the Ashbound Bandit (CR 1, ~18-20 HP) who is mad but can provide intel if spared. Start with discovery through investigation, not immediate combat. The encounter emphasizes Malarok's corruption theme while providing crucial plot information through the journal and bandit's ravings.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Investigation DC 10: Study the abandoned captive area for clues about other prisoners",
+        "Survival DC 11: Determine how recently the camp was evacuated",
+        "Investigation DC 12: Find evidence of where the captives were moved",
+        "Perception DC 13: Notice the Whispering Ashlings before they attack",
+        "Persuasion DC 15: Calm the Ashbound Bandit and extract information",
+        "Arcana DC 12: Identify the ritual symbols and their connection to corruption"
+      ],
+      "accessibility": "Hidden clearing accessible through dense undergrowth",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Makeshift Cages",
+          "description": "Crude wooden and rope cages used to hold captives, now empty but showing signs of recent use."
+        },
+        {
+          "name": "Prisoner Belongings",
+          "description": "Scattered personal effects from captured merchants and travelers, some bearing identifying marks."
+        },
+        {
+          "name": "Hidden Cache",
+          "description": "A concealed supply stash containing prisoner rations and basic medical supplies."
+        },
+        {
+          "name": "Ritual Circle",
+          "description": "A half-completed ritual circle drawn in ash and blood, with symbols matching Malarok's corruption magic."
+        },
+        {
+          "name": "Ashling Husks",
+          "description": "Remnants of failed ritual subjects, now animate with whispers of dark magic and seeking to drag others into their fate."
+        },
+        {
+          "name": "Bandit's Mad Shelter",
+          "description": "A crude lean-to where the Ashbound Bandit has been hiding, covered in frantic scribblings and ritual notes."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "TW04",
+      "name": "Hermit's Refuge",
+      "type": "grove",
+      "description": "Ancient trees form a natural sanctuary where Spirit-Touched Hermit Maelo tends to wounded forest creatures. The air shimmers with faint magical energy, and strange symbols carved into bark seem to ward off the corruption spreading from the north. Wildlife that fled the supernatural disturbances finds temporary safety here.",
+      "coordinates": "X2Y1",
+      "connectivity": [
+        "TW01",
+        "TW03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Spirit-Touched Hermit Maelo",
+          "description": "An elderly human druid with eyes that reflect otherworldly knowledge and hands that glow faintly with natural magic. Maelo has sensed the supernatural corruption spreading from the northern reaches and understands the connection between the bandits and the dark forces backing them.",
+          "attitude": "Mystical and cryptic but ultimately helpful. Concerned about the spreading corruption and willing to aid those who would fight against unnatural influences."
+        }
+      ],
+      "monsters": [
+        "1 Tainted Naiad (appears after Maelo's ritual, can be freed with Remove Curse/Lesser Restoration or DC 15 Persuasion + offering purified water)"
+      ],
+      "lootTable": [
+        "Herbal healing potion brewed by the hermit",
+        "Ward stones that protect against supernatural influence",
+        "Ancient tome describing the corruption from the north"
+      ],
+      "plotHooks": [
+        "Maelo explains the supernatural corruption spreading from the Northern Reaches",
+        "The hermit offers protection charms against the dark forces backing the bandits",
+        "Ancient knowledge about how to cleanse the corruption affecting the region",
+        "Warnings about what the party will face in the corrupted northern woods"
+      ],
+      "dmInstructions": "Maelo provides mystical insight and preparation for the supernatural threats ahead. He can offer healing, protection, and crucial information about the corruption in the Northern Reaches. After completing his scrying ritual at the spring, a Tainted Naiad emerges - the corrupted former guardian. She attacks initially but can be freed rather than killed through Remove Curse, Lesser Restoration, or peaceful persuasion with an offering of purified spring water (DC 15).",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Arcana DC 13: Understand the nature of the supernatural corruption Maelo describes",
+        "Religion DC 11: Recognize the protective symbols carved into the sanctuary trees",
+        "Nature DC 12: Learn how to identify and resist the spreading corruption"
+      ],
+      "accessibility": "Sacred grove protected by natural and magical barriers",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Sacred Grove",
+          "description": "Ancient trees arranged in a natural circle, their bark carved with protective symbols that ward off corruption."
+        },
+        {
+          "name": "Healing Springs",
+          "description": "A small spring with pure water that glows faintly with restorative magic, providing sanctuary to injured creatures. Once corrupted by Malarok's influence, now cleansed and protected by the hermit's ritual work."
+        },
+        {
+          "name": "Ward Stones",
+          "description": "Standing stones inscribed with druidic runes that create a barrier against supernatural corruption and evil influences."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "TW05",
+      "name": "Bandit Stronghold",
+      "type": "stronghold",
+      "description": "A fortified clearing hidden deep within the thornwood where the bandit gang has established their main base of operations. Crude wooden palisades reinforced with stolen iron create defensive walls, while lookout posts built into ancient oak trees provide commanding views of the approaches. The air carries the scent of wood smoke, unwashed bodies, and something darker - an unnatural corruption that seems to emanate from supplies marked with strange symbols.",
+      "coordinates": "X3Y3",
+      "connectivity": [
+        "TW02"
+      ],
+      "areaConnectivity": [
+        "Northern Corrupted Woods"
+      ],
+      "areaConnectivityId": [
+        "NC01"
+      ],
+      "npcs": [
+        {
+          "name": "Bandit Captain Gorvek",
+          "description": "A scarred half-orc warrior who leads the bandit gang with brutal efficiency. His armor bears strange symbols that match those found on the corrupted supplies, and his eyes occasionally flash with an unnatural green light that hints at supernatural influence.",
+          "attitude": "Aggressive and paranoid, suspicious of anyone approaching the stronghold. Will fight to defend the base but may attempt to flee if severely outmatched."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Bandit Sentry",
+          "quantity": {
+            "min": 2,
+            "max": 2
+          }
+        },
+        {
+          "name": "Bandit Warrior",
+          "quantity": {
+            "min": 3,
+            "max": 3
+          }
+        },
+        {
+          "name": "Bandit Captain Gorvek",
+          "quantity": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "lootTable": [
+        "Chest containing stolen merchant goods worth 150 gold pieces",
+        "Cache of weapons and armor taken from defeated travelers",
+        "Mysterious supplies marked with corruption symbols",
+        "Map showing planned attacks on trade routes"
+      ],
+      "plotHooks": [
+        "Strange supplies suggest the bandits are backed by supernatural forces from the north",
+        "Captured documents reveal plans for a major assault on the Rangers' Outpost",
+        "The corruption affecting Captain Gorvek hints at the larger threat in the Northern Woods",
+        "Evidence of communication with mysterious benefactors providing gold and equipment"
+      ],
+      "dmInstructions": "This is the climactic encounter for the Thornwood Wilds area. The bandits will fight defensively from their fortifications. Captain Gorvek's corruption connects to the Northern Corrupted Woods storyline. Consider having him flee toward the north if the battle goes poorly, leading the party toward the final area.",
+      "doors": [
+        {
+          "name": "Palisade Gate",
+          "description": "A reinforced wooden gate with iron bands, secured with heavy crossbeams.",
+          "type": "regular",
+          "locked": true,
+          "lockDC": 15,
+          "breakDC": 18,
+          "keyname": "Stronghold Gate Key",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [
+        {
+          "name": "Concealed Pit Trap",
+          "description": "A camouflaged pit filled with sharpened stakes, positioned to catch attackers approaching the main gate.",
+          "detectDC": 15,
+          "disableDC": 13,
+          "effect": "2d6 piercing damage and prone condition, DC 13 Dexterity saving throw for half damage"
+        }
+      ],
+      "dcChecks": [
+        "Stealth DC 14: Approach the stronghold without alerting the sentries",
+        "Investigation DC 12: Study the fortifications to identify weak points in the defenses",
+        "Perception DC 13: Notice the supernatural corruption affecting the bandit captain"
+      ],
+      "accessibility": "Fortified clearing with defensive walls and elevated positions",
+      "dangerLevel": "High",
+      "features": [
+        {
+          "name": "Wooden Palisade",
+          "description": "Crude but effective defensive walls made from sharpened logs, reinforced with scavenged iron bands."
+        },
+        {
+          "name": "Lookout Posts",
+          "description": "Elevated platforms built into large trees, providing commanding views and defensive positions for the bandits."
+        },
+        {
+          "name": "Corrupted Supply Cache",
+          "description": "A collection of supplies marked with strange symbols that emanate an unsettling aura, suggesting supernatural backing."
+        },
+        {
+          "name": "Central Fire Pit",
+          "description": "A large fire pit surrounded by crude benches where the bandits gather, cook, and plan their raids."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    },
+    {
+      "locationId": "TW06",
+      "name": "Wolf's Den Cave (Rescue the Lost - SQ004)",
+      "type": "cave",
+      "description": "A narrow cave mouth, partially obscured by thorny bushes, leads into darkness. The sounds of snarling wolves and the desperate clang of steel echo from within. Inside, Wounded Ranger Gareth and Merchant Kael are cornered, making a desperate stand against several unnaturally aggressive wolves corrupted by Malarok's influence.",
+      "coordinates": "X1Y1",
+      "connectivity": [
+        "TW04"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Wounded Ranger Gareth",
+          "description": "A grizzled ranger who was scouting bandit movements when he and Kael were cornered by corrupted wolves. He has a bleeding shoulder wound but fights with grim determination. He carries a partially completed map of the bandit camp's defenses and patrol routes.",
+          "attitude": "Stoic and battle-hardened, but grateful for rescue. Eager to share intelligence to stop the bandit threat."
+        },
+        {
+          "name": "Merchant Kael",
+          "description": "A traveling spice trader who was captured during a bandit raid but escaped with Gareth's help. Though shaken, he's surprisingly observant and overheard the bandits discussing their master's ritual plans at an ancient altar site.",
+          "attitude": "Nervous but determined to help. Will provide valuable information about bandit operations and ritual preparations."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Corrupted Wolf",
+          "quantity": {
+            "min": 1,
+            "max": 2
+          }
+        }
+      ],
+      "lootTable": [
+        "Partial map of bandit patrols (Gareth's intelligence)",
+        "Pouch with 20 gold pieces (Kael's emergency funds)",
+        "Healer's kit dropped by fleeing bandits",
+        "Evidence of Malarok's corruption affecting local wildlife"
+      ],
+      "plotHooks": [
+        "The survivors reveal they were being held as captives for a terrible sacrifice ritual",
+        "Gareth's map can help bypass sentries at the bandit stronghold",
+        "Kael's information points directly to Malarok's ritual site and ultimate plan",
+        "Both NPCs can serve as guides to help the party navigate the Thornwood",
+        "Their rescue provides significant advantages for tackling Malarok's forces",
+        "With the wolves defeated, the survivors can return safely to the command post on their own if the party continues forward"
+      ],
+      "dmInstructions": "This location resolves the 'Rescue the Lost' (SQ004) side quest. The party's arrival turns the tide of the fight against the corrupted wolves. After the wolves are defeated, the survivors reveal they were being held captive and were intended to be part of a terrible sacrifice ritual. Rescuing both NPCs provides significant tactical advantages and crucial plot information for the final confrontation with Malarok. The survivors can either be escorted back to the Rangers' Command Post for safety, or if the party chooses to push forward, Gareth and Kael are now confident enough to return on their own since the wolves are dead.",
+      "doors": [],
+      "traps": [],
+      "dcChecks": [
+        "Medicine DC 12: Treat Gareth's wound effectively and restore his mobility",
+        "Investigation DC 11: Study the corrupted wolves to understand Malarok's influence on wildlife",
+        "Survival DC 10: Use Gareth's map to identify the best approach to the bandit stronghold"
+      ],
+      "accessibility": "Hidden cave entrance accessible through dense undergrowth from the shrine area",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Makeshift Barricade",
+          "description": "Gareth and Kael have piled rocks and debris at the cave entrance to slow the corrupted wolves."
+        },
+        {
+          "name": "Scattered Supplies",
+          "description": "A dropped backpack contains some rations, a water skin, and Kael's emergency coin purse."
+        },
+        {
+          "name": "Corruption Signs",
+          "description": "The wolves show visible signs of Malarok's influence - glowing eyes and unnatural aggression."
+        }
+      ],
+      "encounters": [],
+      "adventureSummary": ""
+    }
+  ],
+  "randomEncounters": [
+    {
+      "roll": "1-10",
+      "encounter": "corrupted wolf",
+      "description": "1-2 wolves showing signs of Malarok's corruption, with glowing eyes and aggressive behavior"
+    },
+    {
+      "roll": "11-20",
+      "encounter": "bandit scouts",
+      "description": "2 bandit scouts on patrol, may flee to warn the main camp if not stopped quickly"
+    },
+    {
+      "roll": "21-30",
+      "encounter": "dire boar",
+      "description": "A territorial dire boar protecting its young, made more aggressive by the spreading corruption"
+    },
+    {
+      "roll": "31-40",
+      "encounter": "twig blights",
+      "description": "2-3 twig blights animated by the dark magic seeping from the north"
+    },
+    {
+      "roll": "41-50",
+      "encounter": "lost merchant",
+      "description": "A frightened merchant who escaped a bandit attack, can provide information about recent raids"
+    },
+    {
+      "roll": "51-60",
+      "encounter": "bandit ambush",
+      "description": "3-4 bandits lying in wait along the trail, using the dense undergrowth for cover"
+    },
+    {
+      "roll": "61-70",
+      "encounter": "entangling thorns",
+      "description": "Animated thornbushes reach out with grasping vines, a manifestation of the forest's corruption"
+    },
+    {
+      "roll": "71-80",
+      "encounter": "shadow-touched deer",
+      "description": "A once-majestic deer with antlers dripping dark ichor, eyes glowing with malevolent intelligence"
+    },
+    {
+      "roll": "81-90",
+      "encounter": "lost ranger patrol",
+      "description": "2 rangers from the outpost searching for their missing scout, can share information about recent sightings"
+    },
+    {
+      "roll": "91-100",
+      "encounter": "corrupted treant sapling",
+      "description": "A young treant twisted by Malarok's influence, attacks with whipping branches and thrown rocks"
+    }
+  ],
+  "areaFeatures": [
+    "dense undergrowth",
+    "game trails",
+    "ancient trees"
+  ],
+  "notes": "Consider lighting sources and trap placement. Underground areas may have limited resources."
+}
