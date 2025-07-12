@@ -90,16 +90,25 @@ Based on the conversation above, create a **Live Initiative Tracker** showing wh
 - [>] **CurrentCreature (Initiative) - CURRENT TURN**
 - [ ] NextCreature (Initiative) - Waiting
 - [D] DeadCreature (Initiative) - Dead
+- [S] StunnedCreature (Initiative) - Skipped (Stunned)
+- [P] ParalyzedCreature (Initiative) - Skipped (Paralyzed)
+- [U] UnconsciousCreature (Initiative) - Skipped (Unconscious)
+- [-] OtherCondition (Initiative) - Skipped (Condition Name)
 
 IMPORTANT INSTRUCTIONS:
 1. List ALL creatures from the initiative order above (highest to lowest)
 2. Use [X] followed by "Acted" for creatures who have ALREADY ACTED in Round {current_round}
 3. Use [>] and bold followed by "CURRENT TURN" for the creature whose turn it is RIGHT NOW
 4. Use [ ] followed by "Waiting" for creatures who HAVE NOT ACTED YET in Round {current_round}
-5. Use [D] followed by "Dead" for dead/unconscious creatures
-6. DO NOT determine the round number - it is Round {current_round}
-7. ONLY look at actions taken in Round {current_round}, ignore previous rounds
-8. Always include the status word (Acted, CURRENT TURN, Waiting, or Dead) after the name and initiative"""
+5. Use [D] followed by "Dead" for creatures that are dead (0 HP and failed death saves)
+6. Use [S] followed by "Skipped (Stunned)" for stunned creatures who couldn't act
+7. Use [P] followed by "Skipped (Paralyzed)" for paralyzed creatures who couldn't act
+8. Use [U] followed by "Skipped (Unconscious)" for unconscious creatures (0 HP but not dead)
+9. Use [-] followed by "Skipped (Condition)" for any other condition preventing action (incapacitated, petrified, etc.)
+10. DO NOT determine the round number - it is Round {current_round}
+11. ONLY look at actions taken in Round {current_round}, ignore previous rounds
+12. Always include the status description after the name and initiative
+13. If a creature was skipped due to a condition, show the condition that caused the skip"""
     
     return prompt
 
@@ -144,7 +153,7 @@ def generate_live_initiative_tracker(encounter_data, conversation_history, curre
         response = client.chat.completions.create(
             model=DM_MINI_MODEL,
             messages=[
-                {"role": "system", "content": "You are an initiative tracker. Your ONLY job is to identify who has acted and who hasn't in the specified round. Format your response EXACTLY as requested with the Live Initiative Tracker format using [X], [>], [ ], and [D] markers. Do not provide any other information."},
+                {"role": "system", "content": "You are an initiative tracker. Your ONLY job is to identify who has acted and who hasn't in the specified round. Format your response EXACTLY as requested with the Live Initiative Tracker format using [X], [>], [ ], [D], [S], [P], [U], and [-] markers for different creature states. Do not provide any other information."},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.1,
@@ -163,16 +172,18 @@ def generate_live_initiative_tracker(encounter_data, conversation_history, curre
             # Clean up any extra text after the tracker
             lines = tracker.split('\n')
             cleaned_lines = []
+            valid_markers = ['[X]', '[>]', '[ ]', '[D]', '[S]', '[P]', '[U]', '[-]']
+            
             for line in lines:
                 if line.strip() and (
                     line.strip().startswith('**Live Initiative Tracker:**') or
-                    line.strip().startswith('- [')
+                    any(line.strip().startswith(f'- {marker}') for marker in valid_markers)
                 ):
                     cleaned_lines.append(line)
                 elif cleaned_lines and not line.strip():
                     # Keep empty lines within the tracker
                     cleaned_lines.append(line)
-                elif cleaned_lines and not line.strip().startswith('- ['):
+                elif cleaned_lines and not any(line.strip().startswith(f'- {marker}') for marker in valid_markers):
                     # Stop if we hit non-tracker content
                     break
             
