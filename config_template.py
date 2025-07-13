@@ -41,11 +41,11 @@ OPENAI_API_KEY = "your_openai_api_key_here"
 
 # --- Module folder structure ---
 MODULES_DIR = "modules"
-DEFAULT_MODULE = "Echoes_of_the_Elemental_Forge"
+#DEFAULT_MODULE = "Echoes_of_the_Elemental_Forge"
 
 # --- Main Game Logic Models (used in main.py) ---
 DM_MAIN_MODEL = "gpt-4.1-2025-04-14"
-DM_SUMMARIZATION_MODEL = "gpt-4.1-2025-04-14"
+DM_SUMMARIZATION_MODEL = "gpt-4.1-mini-2025-04-14"
 DM_VALIDATION_MODEL = "gpt-4.1-2025-04-14"
 
 # --- Combat Simulation Models (used in combat_manager.py) ---
