@@ -2266,29 +2266,40 @@ If I've taken all my actions, then: 1) First update all HP changes and status ef
                    participants_to_reward = []
                    if "partyMembers" in party_tracker_data:
                        participants_to_reward.extend(party_tracker_data["partyMembers"])
+                       print(f"[DEBUG] Party members found: {party_tracker_data['partyMembers']}")
                    if "partyNPCs" in party_tracker_data:
                        for npc in party_tracker_data["partyNPCs"]:
                            participants_to_reward.append(npc.get("name"))
+                           print(f"[DEBUG] NPC added: {npc.get('name')}")
 
                    info(f"XP_AWARD: Applying {xp_awarded} XP to {len(participants_to_reward)} participants: {', '.join(participants_to_reward)}", category="xp_tracking")
+                   print(f"[DEBUG] Full participant list: {participants_to_reward}")
 
                    # Loop through each participant and apply the XP
                    for character_name in participants_to_reward:
                        if not character_name:
+                           print(f"[DEBUG] Skipping empty character name")
                            continue
+                       
+                       print(f"[DEBUG] Processing XP for character: {character_name}")
                        
                        # Create a clear, programmatic change description
                        xp_change_description = f"Awarded {xp_awarded} experience points for successfully concluding a combat encounter."
                        
                        # Directly call the character update function
                        try:
+                           print(f"[DEBUG] Calling update_character_info for {character_name}")
                            update_success = update_character_info(character_name, xp_change_description)
+                           print(f"[DEBUG] update_character_info returned: {update_success}")
                            if update_success:
                                info(f"XP_AWARD: Successfully applied {xp_awarded} XP to {character_name}", category="xp_tracking")
+                               print(f"[DEBUG] SUCCESS: XP applied to {character_name}")
                            else:
                                error(f"XP_AWARD: Failed to apply XP to {character_name}", category="xp_tracking")
+                               print(f"[DEBUG] FAILED: XP not applied to {character_name}")
                        except Exception as e:
                            error(f"XP_AWARD: Critical error applying XP to {character_name}", exception=e, category="xp_tracking")
+                           print(f"[DEBUG] EXCEPTION: {e}")
                else:
                    info("XP_AWARD: No XP awarded for this encounter.", category="xp_tracking")
                # =================================================================
