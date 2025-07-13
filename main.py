@@ -1383,11 +1383,12 @@ def save_conversation_history(history):
     except Exception as e:
         error(f"FAILURE: Failed to save conversation history", exception=e, category="file_operations")
 
-def get_ai_response(conversation_history):
+def get_ai_response(conversation_history, validation_retry_count=0):
     status_processing_ai()
     
-    # Import action predictor
+    # Import action predictor and config
     from action_predictor import predict_actions_required, extract_actual_actions, log_prediction_accuracy
+    from config import ENABLE_INTELLIGENT_ROUTING, DM_MINI_MODEL, DM_FULL_MODEL, MAX_VALIDATION_RETRIES
     
     # Get the last user message for action prediction
     user_input = ""
@@ -1396,23 +1397,42 @@ def get_ai_response(conversation_history):
             user_input = msg.get("content", "")
             break
     
-    # Predict if actions will be required
-    prediction = predict_actions_required(user_input)
+    # Predict if actions will be required (unless we're in a validation retry)
+    if validation_retry_count == 0:
+        prediction = predict_actions_required(user_input)
+    else:
+        # On validation retry, force full model and skip prediction
+        prediction = {"requires_actions": True, "reason": "Validation retry - using full model"}
     
-    # For now, still use the full model regardless of prediction
-    # This allows us to track accuracy before implementing routing
+    # Determine which model to use based on intelligent routing and validation retry
+    if ENABLE_INTELLIGENT_ROUTING and validation_retry_count == 0:
+        # Use prediction to determine model (Phase 2 of token optimization)
+        selected_model = DM_MINI_MODEL if not prediction["requires_actions"] else DM_FULL_MODEL
+        
+        # Log the routing decision
+        routing_info = "MINI MODEL" if not prediction["requires_actions"] else "FULL MODEL"
+        print(f"DEBUG: MODEL ROUTING - Selected: {routing_info} (Prediction: {prediction['requires_actions']}, Reason: {prediction['reason']})")
+    else:
+        # Use full model (default behavior or validation retry)
+        selected_model = DM_FULL_MODEL
+        if validation_retry_count > 0:
+            print(f"DEBUG: MODEL ROUTING - VALIDATION RETRY {validation_retry_count}: Using FULL MODEL")
+        else:
+            print(f"DEBUG: MODEL ROUTING - Intelligent routing disabled, using FULL MODEL")
+    
+    # Generate response with selected model
     response = client.chat.completions.create(
-        model=DM_MAIN_MODEL, # Use imported model name
+        model=selected_model,
         temperature=TEMPERATURE,
         messages=conversation_history
     )
     content = response.choices[0].message.content.strip()
     
-    # Extract actual actions from the response for accuracy tracking
-    actual_actions = extract_actual_actions(content)
-    
-    # Log prediction accuracy
-    log_prediction_accuracy(user_input, prediction, actual_actions)
+    # Extract actual actions from the response for accuracy tracking (only on initial attempt)
+    if validation_retry_count == 0:
+        actual_actions = extract_actual_actions(content)
+        # Log prediction accuracy
+        log_prediction_accuracy(user_input, prediction, actual_actions)
     
     # The sanitization line that was here has been removed.
     # We now pass the raw, untouched JSON string to the next function.
@@ -2169,7 +2189,8 @@ def main_game_loop():
         ai_response_content = None
         
         while retry_count < 5 and not valid_response_received:
-            ai_response_content = get_ai_response(conversation_history)
+            # Pass validation retry count for intelligent model escalation
+            ai_response_content = get_ai_response(conversation_history, validation_retry_count=retry_count)
             validation_result = validate_ai_response(ai_response_content, user_input_text, validation_prompt_text, conversation_history, party_tracker_data)
             
             if validation_result is True:

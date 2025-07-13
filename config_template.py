@@ -69,7 +69,12 @@ MONSTER_BUILDER_MODEL = "gpt-4.1-2025-04-14"
 ENCOUNTER_UPDATE_MODEL = "gpt-4.1-mini-2025-04-14"
 LEVEL_UP_MODEL = "gpt-4.1-2025-04-14"                  # Used in level_up.py
 
-# --- Testing Models ---
-DM_MINI_MODEL = "gpt-4.1-mini-2025-04-14"              # Used for AI player in automated tests
+# --- Token Optimization Models ---
+DM_MINI_MODEL = "gpt-4.1-mini-2025-04-14"              # Used for simple conversations and plot-only updates
+DM_FULL_MODEL = "gpt-4.1-2025-04-14"                   # Used for complex actions requiring JSON operations
+
+# --- Model Routing Settings ---
+ENABLE_INTELLIGENT_ROUTING = True                        # Enable/disable action-based model routing
+MAX_VALIDATION_RETRIES = 1                              # Retry with full model after this many validation failures
 
 # --- END OF FILE config_template.py ---
