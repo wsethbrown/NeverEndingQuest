@@ -1860,7 +1860,7 @@ FAILURE TO USE THE CORRECT POOL IS A CRITICAL ERROR.
 
 Player: {user_input_text}
 
-If I've taken all my actions, then narrate everything until my turn or the round ends, whichever comes first, unless my party needs direction from me. And don't forget to adjust my spell slots if used and ammo."""
+If I've taken all my actions, then: 1) First update all HP changes and status effects for all creatures affected by actions this round, 2) Update ammunition and spell slots if any were used, 3) Then narrate everything until my turn or the round ends, whichever comes first, unless my party needs direction from me."""
        
        # Clean old DM notes before adding new user input
        conversation_history = clean_old_dm_notes(conversation_history)
