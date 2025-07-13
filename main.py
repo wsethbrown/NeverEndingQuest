@@ -538,6 +538,13 @@ def create_module_validation_context(party_tracker_data, path_manager):
                             except Exception as e:
                                 continue
             
+            # DEBUG: Print what NPCs are being passed to validator
+            print("\n=== DEBUG: NPCs BEING PASSED TO VALIDATOR ===")
+            print(f"Total NPCs found across all modules: {len(valid_npcs)}")
+            for npc in valid_npcs:
+                print(f"  - {npc}")
+            print("=== END DEBUG OUTPUT ===\n")
+            
             validation_context += "VALID CHARACTERS (All Module Codexes):\n"
             if valid_npcs:
                 validation_context += "\n".join([f"- {npc}" for npc in valid_npcs])
