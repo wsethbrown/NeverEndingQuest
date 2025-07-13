@@ -45,7 +45,6 @@ ACTION_PREDICTION_PROMPT = """You are an action prediction agent for a D&D 5e AI
 
 RETURN TRUE if input requires any of these JSON actions:
 - updateCharacterInfo: inventory changes, stat modifications, item use
-- updateTime: activities taking 5+ minutes  
 - transitionLocation: moving to new locations
 - createEncounter: combat initiation
 - updatePlot: story progression
@@ -54,6 +53,8 @@ RETURN TRUE if input requires any of these JSON actions:
 - storageInteraction: item storage/retrieval
 - updatePartyTracker: module travel
 - updatePartyNPCs: party composition changes
+
+NOTE: updateTime is excluded from prediction as it's called for almost every interaction.
 
 RETURN FALSE for pure roleplay:
 - Questions about lore/NPCs/world
@@ -146,23 +147,27 @@ def predict_actions_required(user_input):
 def extract_actual_actions(ai_response):
     """
     Extract actions from AI response to compare with prediction.
+    Excludes updateTime as it's called for almost every interaction.
     
     Args:
         ai_response (str): The AI's JSON response
         
     Returns:
-        list: List of action types found in the response
+        list: List of action types found in the response (excluding updateTime)
     """
     try:
         # Parse the AI response JSON
         response_data = json.loads(ai_response)
         actions = response_data.get("actions", [])
         
-        # Extract action types
+        # Extract action types, excluding updateTime
         action_types = []
         for action in actions:
             if isinstance(action, dict) and "action" in action:
-                action_types.append(action["action"])
+                action_type = action["action"]
+                # Exclude updateTime as it's called for almost every interaction
+                if action_type != "updateTime":
+                    action_types.append(action_type)
         
         return action_types
         
@@ -189,7 +194,7 @@ def log_prediction_accuracy(user_input, prediction, actual_actions):
     # Print debug information
     print(f"\nDEBUG: ACTION PREDICTION - Input: '{user_input[:60]}{'...' if len(user_input) > 60 else ''}'")
     print(f"DEBUG: ACTION PREDICTION - Predicted: {predicted_actions} ({prediction['reason']})")
-    print(f"DEBUG: ACTION PREDICTION - Actual: {actual_has_actions} (actions: {actual_actions})")
+    print(f"DEBUG: ACTION PREDICTION - Actual: {actual_has_actions} (actions: {actual_actions}) [excludes updateTime]")
     print(f"DEBUG: ACTION PREDICTION - MATCH: {match_status} ({'CORRECT' if is_correct else 'INCORRECT'})")
     
     # Log potential token savings
