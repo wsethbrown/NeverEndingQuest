@@ -647,6 +647,15 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
             
             # Save if corrections were made using atomic file operations
             if self.corrections_made:
+                # DEBUG: Check XP before saving corrections
+                if 'experience_points' in character_data and 'experience_points' in corrected_data:
+                    original_xp = character_data.get('experience_points', 0)
+                    corrected_xp = corrected_data.get('experience_points', 0)
+                    if original_xp != corrected_xp:
+                        print(f"[DEBUG VALIDATOR XP] WARNING: Validator changing XP from {original_xp} to {corrected_xp}")
+                    else:
+                        print(f"[DEBUG VALIDATOR XP] Validator preserving XP: {corrected_xp}")
+                
                 success = safe_write_json(file_path, corrected_data)
                 if success:
                     self.logger.info(f"Character file validated and corrected: {file_path}")

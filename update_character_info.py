@@ -1122,6 +1122,7 @@ CRITICAL INSTRUCTIONS:
     - Level up should ONLY change: level, maxHitPoints, hitPoints, classFeatures, etc.
     - The experience_points field must NOT be included in level up changes
     - XP is managed separately and should never be altered during level advancement
+    - IMPORTANT: This restriction ONLY applies to level up operations. You MUST update experience_points when explicitly requested (e.g., "Add 50 experience points", "Award XP")
 
 EQUIPMENT UPDATE EXAMPLES:
 CORRECT (updating one item): {{"equipment": [{{"item_name": "Jeweled dagger", "description": "updated description", "magical": true}}]}}
@@ -1167,6 +1168,16 @@ Update: {{"ammunition": [{{"name": "crossbow bolts", "quantity": -100}}]}}
 Example 3 - Multiple ammunition changes:
 Changes: "Bought 30 arrows, sold 50 crossbow bolts"
 Update: {{"ammunition": [{{"name": "arrows", "quantity": 30}}, {{"name": "crossbow bolts", "quantity": -50}}]}}
+
+EXPERIENCE POINTS EXAMPLES:
+Example 1 - Adding XP:
+Changes: "Add 50 experience points" or "Awarded 50 experience points for successfully concluding a combat encounter"
+Current experience_points: 2675
+Update: {{"experience_points": 2725}}
+
+Example 2 - Setting XP:
+Changes: "Set experience points to 1000"
+Update: {{"experience_points": 1000}}
 
 Character Role: {character_role}
 """
@@ -1251,8 +1262,13 @@ Character Role: {character_role}
             updates = json.loads(clean_response)
             
             # Log the parsed JSON update
-            # print(f"[DEBUG PARSED JSON] {character_name}")
-            # print(f"Updates to apply: {json.dumps(updates, indent=2)[:1000]}{'...' if len(json.dumps(updates)) > 1000 else ''}\n")
+            print(f"[DEBUG PARSED JSON] {character_name}")
+            print(f"Updates to apply: {json.dumps(updates, indent=2)[:1000]}{'...' if len(json.dumps(updates)) > 1000 else ''}\n")
+            
+            # DEBUG: Check if XP update is in the updates
+            if 'experience' in changes.lower() and 'experience_points' not in updates:
+                print(f"[DEBUG XP WARNING] XP change requested but experience_points not in updates!")
+                print(f"[DEBUG XP WARNING] AI returned: {updates}")
             
             # Fix common item_type mistakes before applying updates
             updates = fix_item_types(updates)
@@ -1361,9 +1377,24 @@ Character Role: {character_role}
             
             # Save updated character data
             # print(f"[DEBUG] Validation passed! About to save character data to: {character_path}")
+            
+            # DEBUG: Log XP before saving
+            if 'experience_points' in updated_data:
+                print(f"[DEBUG XP SAVE] About to save {character_name} with XP: {updated_data.get('experience_points')}")
+            
             if safe_write_json(character_path, updated_data):
                 # print(f"[DEBUG] Character data saved successfully!")
                 info(f"SUCCESS: Successfully updated {character_name} ({character_role})!", category="character_updates")
+                
+                # DEBUG: Verify XP was saved correctly
+                if 'experience_points' in updates:
+                    saved_data = safe_read_json(character_path)
+                    if saved_data:
+                        saved_xp = saved_data.get('experience_points', 0)
+                        expected_xp = updated_data.get('experience_points', 0)
+                        print(f"[DEBUG XP VERIFY] After save - Expected XP: {expected_xp}, Actual XP in file: {saved_xp}")
+                        if saved_xp != expected_xp:
+                            print(f"[DEBUG XP VERIFY] WARNING: XP mismatch after save!")
                 
                 # Log the changes with more detail for user feedback
                 changed_fields = list(updates.keys())
@@ -1380,6 +1411,12 @@ Character Role: {character_role}
                 # AI Character Validation after successful update
                 try:
                     print(f"DEBUG: [Character Validator] Starting validation for {character_name}...")
+                    
+                    # DEBUG: Check XP before validation
+                    pre_validation_data = safe_read_json(character_path)
+                    pre_validation_xp = pre_validation_data.get('experience_points', 0) if pre_validation_data else 0
+                    print(f"[DEBUG XP TRACKING] {character_name} XP BEFORE validation: {pre_validation_xp}")
+                    
                     info(f"[Character Validator] Starting validation for {character_name}...", category="character_validation")
                     validator = AICharacterValidator()
                     validated_data, validation_success = validator.validate_character_file_safe(character_path)
@@ -1390,6 +1427,13 @@ Character Role: {character_role}
                         debug("VALIDATION: Character validated - no corrections needed", category="character_validation")
                     else:
                         warning("VALIDATION: Character validation failed, but update completed", category="character_validation")
+                    
+                    # DEBUG: Check XP after validation
+                    post_validation_data = safe_read_json(character_path)
+                    post_validation_xp = post_validation_data.get('experience_points', 0) if post_validation_data else 0
+                    print(f"[DEBUG XP TRACKING] {character_name} XP AFTER validation: {post_validation_xp}")
+                    if pre_validation_xp != post_validation_xp:
+                        print(f"[DEBUG XP TRACKING] WARNING: XP changed during validation! {pre_validation_xp} -> {post_validation_xp}")
                         
                 except Exception as e:
                     warning(f"VALIDATION: Character validation error", exception=e, category="character_validation")
