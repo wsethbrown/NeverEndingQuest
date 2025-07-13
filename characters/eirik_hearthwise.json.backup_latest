@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 19,
+  "hitPoints": 38,
   "maxHitPoints": 38,
   "armorClass": 17,
   "initiative": 1,
@@ -209,7 +209,7 @@
     },
     {
       "item_name": "Common clothes",
-      "item_type": "miscellaneous",
+      "item_type": "equipment",
       "item_subtype": "other",
       "description": "A set of common clothes.",
       "quantity": 1
@@ -342,13 +342,6 @@
       "quantity": 1
     },
     {
-      "item_name": "Potion of Healing",
-      "item_type": "consumable",
-      "item_subtype": "potion",
-      "description": "A potion that restores hit points when consumed.",
-      "quantity": 1
-    },
-    {
       "item_name": "Strip of waxed parchment with coded symbols",
       "item_type": "equipment",
       "description": "A strip of parchment treated with wax, inscribed with coded symbols for secret communication.",
@@ -474,7 +467,7 @@
   "ammunition": [
     {
       "name": "Crossbow bolt",
-      "quantity": 63,
+      "quantity": 62,
       "description": "Standard crossbow bolts for use with a light crossbow."
     }
   ],
@@ -539,11 +532,11 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 0,
+        "current": 4,
         "max": 4
       },
       "level2": {
-        "current": 0,
+        "current": 2,
         "max": 2
       },
       "level3": {

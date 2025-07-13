@@ -94,6 +94,15 @@ def generate_monster(monster_name, schema, party_level=1):
     # Build context-aware system prompt
     system_content = """You are an assistant that creates monster schema JSON files from a master monster schema template for a 5e game. Given a monster name, create a JSON representation of the monster's stats and abilities according to 5e rules following the monster schema template exactly.
 
+CRITICAL RULE - MONSTER SCALING:
+- NEVER scale UP monster stats from their standard values
+- Standard monsters (Giant Rat, Goblin, Orc, etc.) MUST use their official stats
+- Giant Rat = CR 1/4, 7 HP - regardless of party level
+- Goblin = CR 1/4, 7 HP - regardless of party level  
+- Orc = CR 1/2, 15 HP - regardless of party level
+- For low-level parties (level 1-2), you may scale DOWN hit points, but NEVER scale UP
+- To challenge higher level parties, use MORE monsters or DIFFERENT monsters, not buffed versions
+
 CHALLENGE RATING GUIDANCE:
 - Party Level 1: CR 1/8 to CR 1/2 for normal encounters, CR 1 for boss encounters
 - Party Level 2: CR 1/4 to CR 1 for normal encounters, CR 2 for boss encounters  
@@ -108,7 +117,7 @@ ENCOUNTER BALANCE:
 - Multiple monsters: Reduce individual CR but increase tactical complexity
 
 NAMING CONVENTIONS:
-- For generic names like "Orc_1" or "Bandit_2", use standard Monster Manual names
+- For generic names like "Orc_1" or "Bandit_2", use standard Monster Manual names and stats
 - For unique names, create custom monsters with that exact name
 - For corrupted/themed variants, add appropriate descriptors and abilities
 
@@ -130,7 +139,9 @@ Ensure your new monster JSON adheres to the provided schema template. Do not inc
 
 PARTY LEVEL: {party_level}
 
-Scale Challenge Rating appropriately for party level {party_level} using the CR guidance above.
+IMPORTANT: If this is a standard monster (Giant Rat, Goblin, Orc, etc.), use the EXACT official stats. Do NOT scale up HP or other stats based on party level. A Giant Rat always has 7 HP, regardless of party level.
+
+Only create custom stats for unique named monsters or special variants (e.g., "Corrupted Giant Rat" or "Elder Goblin").
 
 If this monster name includes terms like 'sorcerer', 'wizard', 'cleric', 'druid', 'warlock', 'mage', or other spellcasting classes, make sure to include the spellcasting property with appropriate spells for their CR.
 

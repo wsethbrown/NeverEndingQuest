@@ -4,8 +4,8 @@
   "type": "Beast",
   "alignment": "Unaligned",
   "armorClass": 13,
-  "hitPoints": 18,
-  "maxHitPoints": 18,
+  "hitPoints": 7,
+  "maxHitPoints": 7,
   "speed": 30,
   "abilities": {
     "strength": 10,
