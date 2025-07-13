@@ -41,7 +41,7 @@ OPENAI_API_KEY = "your_openai_api_key_here"
 
 # --- Module folder structure ---
 MODULES_DIR = "modules"
-#DEFAULT_MODULE = "Echoes_of_the_Elemental_Forge"
+DEFAULT_MODULE = "The_Thornwood_Watch"
 
 # --- Main Game Logic Models (used in main.py) ---
 DM_MAIN_MODEL = "gpt-4.1-2025-04-14"
