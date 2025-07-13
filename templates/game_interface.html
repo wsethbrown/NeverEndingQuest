@@ -3084,6 +3084,10 @@
         // Display inventory data
         let originalInventoryData = null;
         function displayInventory(data, preserveOriginal = false) {
+            // Save scroll position before updating (special selector for inventory)
+            const equipmentSection = document.querySelector('#inventory-content .equipment-section');
+            const scrollPosition = equipmentSection ? equipmentSection.scrollTop : 0;
+            
             const container = document.getElementById('inventory-content');
             if (!data) {
                 container.innerHTML = '<div class="loading">No inventory data available</div>';
@@ -3148,6 +3152,12 @@
 
             container.innerHTML = html;
 
+            // Restore scroll position after updating (special selector for inventory)
+            const newEquipmentSection = document.querySelector('#inventory-content .equipment-section');
+            if (newEquipmentSection) {
+                newEquipmentSection.scrollTop = scrollPosition;
+            }
+
             // The rest of the function remains the same.
             const sortDropdown = document.getElementById('inventory-sort');
             const filterDropdown = document.getElementById('filter-dropdown');
@@ -3158,6 +3168,10 @@
         
         // Display character stats
         function displayCharacterStats(data) {
+            // Save scroll position before updating
+            const scrollableContainer = document.getElementById('stats-tab');
+            const scrollPosition = scrollableContainer ? scrollableContainer.scrollTop : 0;
+            
             const container = document.getElementById('stats-content');
             if (!data) {
                 container.innerHTML = '<div class="loading">No character data available</div>';
@@ -3308,11 +3322,20 @@
 
             html += '</div>'; // close character-sheet
             container.innerHTML = html;
+            
+            // Restore scroll position after updating
+            if (scrollableContainer) {
+                scrollableContainer.scrollTop = scrollPosition;
+            }
             initializeAllTooltips();
         }
         
         // Display spells and magic items
         function displaySpellsAndMagic(data) {
+            // Save scroll position before updating
+            const scrollableContainer = document.getElementById('spells-tab');
+            const scrollPosition = scrollableContainer ? scrollableContainer.scrollTop : 0;
+            
             const container = document.getElementById('spells-content');
             if (!data) { container.innerHTML = '<div class="loading">No character data available</div>'; return; }
             let html = '<div class="spells-magic-sheet">';
@@ -3381,11 +3404,19 @@
             html += '</div></div>';
             container.innerHTML = html;
             
+            // Restore scroll position after updating
+            if (scrollableContainer) {
+                scrollableContainer.scrollTop = scrollPosition;
+            }
             initializeAllTooltips();
         }
         
         // Display NPC information
         function displayNPCs(data) {
+            // Save scroll position before updating
+            const scrollableContainer = document.getElementById('npcs-tab');
+            const scrollPosition = scrollableContainer ? scrollableContainer.scrollTop : 0;
+            
             const container = document.getElementById('npcs-content');
             if (!data || data.length === 0) {
                 container.innerHTML = '<div class="loading">No NPC data available</div>';
@@ -3479,6 +3510,11 @@
             });
             
             container.innerHTML = html;
+            
+            // Restore scroll position after updating
+            if (scrollableContainer) {
+                scrollableContainer.scrollTop = scrollPosition;
+            }
         }
         
         function displayLocationData(data) {
