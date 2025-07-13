@@ -1605,14 +1605,46 @@ def main_game_loop():
         save_conversation_history(conversation_history)
         debug("STATE_CHANGE: Added combat resume tracking messages before combat restart", category="session_management")
         
-        # The combat_manager.main() function will handle the entire combat session.
-        # It will run until combat is resolved.
-        import combat_manager
-        combat_manager.main()
-        
-        print(colored("[SYSTEM] Combat resolved. Continuing adventure...", "yellow"))
-        # After combat, reload the party tracker as it would have been modified.
+        # Directly get location info for the combat manager
+        current_area_id_resume = party_tracker_data["worldConditions"]["currentAreaId"]
+        location_data_resume = location_manager.get_location_info(
+            party_tracker_data["worldConditions"]["currentLocation"],
+            party_tracker_data["worldConditions"]["currentArea"],
+            current_area_id_resume
+        )
+
+        # Call run_combat_simulation directly to get the return values
+        from combat_manager import run_combat_simulation
+        dialogue_summary, _ = run_combat_simulation(active_encounter_id, party_tracker_data, location_data_resume)
+
+        print(colored("[SYSTEM] Combat resolved. Integrating summary and continuing adventure...", "yellow"))
+
+        # After combat, reload everything to ensure state is fresh
         party_tracker_data = load_json_file("party_tracker.json")
+        conversation_history = load_json_file(json_file) or []
+
+        # ** CRITICAL FIX: Integrate the combat summary into the main conversation history **
+        if dialogue_summary:
+            # We create a clear, systemic message indicating combat is over.
+            # This mimics the handoff from action_handler.
+            combat_summary_message = f"[COMBAT CONCLUDED] The encounter has ended. The following is a summary of events:\n\n{dialogue_summary}"
+            conversation_history.append({"role": "user", "content": combat_summary_message})
+            debug("STATE_CHANGE: Appended combat summary to main history after resumed session.", category="session_management")
+            save_conversation_history(conversation_history)
+
+        # ** CRITICAL FIX: Get a new AI response for post-combat narration **
+        # This makes the resumed flow behave exactly like the normal flow.
+        ai_response_after_combat = get_ai_response(conversation_history)
+        if ai_response_after_combat:
+            # Process the AI's post-combat response to get the game moving again.
+            # We need to load the fresh location data for this call.
+            current_area_id_post_combat = party_tracker_data["worldConditions"]["currentAreaId"]
+            location_data_post_combat = location_manager.get_location_info(
+                party_tracker_data["worldConditions"]["currentLocation"],
+                party_tracker_data["worldConditions"]["currentArea"],
+                current_area_id_post_combat
+            )
+            process_ai_response(ai_response_after_combat, party_tracker_data, location_data_post_combat, conversation_history)
     # --- END: COMBAT RESUMPTION LOGIC ---
 
     validation_prompt_text = load_validation_prompt() 
