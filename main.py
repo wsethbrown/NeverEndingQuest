@@ -461,6 +461,9 @@ def parse_json_safely(text):
 
 def create_module_validation_context(party_tracker_data, path_manager):
     """Create module data context for validation system to check location/NPC references"""
+    print("\n" + "*"*60)
+    print("DEBUG: create_module_validation_context() CALLED")
+    print("*"*60)
     try:
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
         current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
@@ -562,7 +565,10 @@ def create_module_validation_context(party_tracker_data, path_manager):
                 
         except Exception as e:
             # Fallback to original character file method if codex fails
-            warning(f"VALIDATION: NPC codex failed, falling back to character files", exception=e, category="npc_management")
+            print(f"DEBUG: Exception in NPC codex loading: {e}")
+            print(f"DEBUG: Exception type: {type(e)}")
+            print("DEBUG: Falling back to character files method")
+            print(f"WARNING: NPC codex failed, falling back to character files: {e}")
             import os
             import glob
             character_files = glob.glob(f"{path_manager.module_dir}/characters/*.json")
@@ -622,6 +628,10 @@ CRITICAL: If validation fails due to wrong NPC for location, provide specific co
         return validation_context
         
     except Exception as e:
+        print(f"DEBUG: MAJOR EXCEPTION in create_module_validation_context: {e}")
+        print(f"DEBUG: Exception type: {type(e)}")
+        import traceback
+        print(f"DEBUG: Traceback: {traceback.format_exc()}")
         return f"MODULE VALIDATION DATA: Error loading module data - {str(e)}"
 
 def validate_ai_response(primary_response, user_input, validation_prompt_text, conversation_history, party_tracker_data):
