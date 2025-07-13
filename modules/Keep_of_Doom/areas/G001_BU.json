@@ -194,7 +194,20 @@
           "attitude": "Neutral"
         }
       ],
-      "monsters": [],
+      "monsters": [
+        {
+          "name": "Shadow",
+          "number": 2,
+          "disposition": "hostile",
+          "strategy": "These remnants of the keep's dark influence lurk near the ancient standing stones, attracted to the flickering runes. They emerge from the shadows between the stones when travelers disturb the area, seeking to drain their strength and vitality."
+        },
+        {
+          "name": "Twig Blight",
+          "number": 3,
+          "disposition": "territorial", 
+          "strategy": "Animated by the forest's corruption, these plant creatures hide among the natural undergrowth around the trail markers. They attack when the party investigates the signs of Elen's passage or disturbs the offerings at the stones."
+        }
+      ],
       "plotHooks": [
         "An inscription on one of the markers reads: 'Walk with light, for shadows hunger in the wood.'",
         "Fresh footprints indicate someone recently entered the forest, possibly Scout Elen.",
