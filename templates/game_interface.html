@@ -179,6 +179,7 @@
             font-family: 'Courier New', Courier, monospace;
             white-space: pre-wrap;
             word-wrap: break-word;
+            width: 100%;
         }
         
         /* Inventory Panel Content - Special Layout */
@@ -733,8 +734,9 @@
         .message {
             display: flex;
             align-items: flex-start;
-            margin: 20px 0;
+            margin: 25px 0;
             max-width: 100%;
+            width: 100%;
             word-wrap: break-word;
         }
         
@@ -791,8 +793,16 @@
         }
         
         /* DM Messages */
+        .message.narration {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+        }
+        
         .message.narration .message-avatar {
             background: #8b4513;
+            margin-right: 12px;
+            flex-shrink: 0;
         }
         
         .message.narration .message-author {
@@ -804,8 +814,16 @@
         }
         
         /* Player Messages */
+        .message.user-input {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+        }
+        
         .message.user-input .message-avatar {
             background: #4a90e2;
+            margin-right: 12px;
+            flex-shrink: 0;
         }
         
         .message.user-input .message-author {
@@ -819,7 +837,8 @@
         /* System Messages */
         .message.system {
             justify-content: center;
-            margin: 15px 0;
+            margin: 20px 0;
+            width: 100%;
         }
         
         .message.system .message-content {
@@ -840,7 +859,7 @@
         /* Error Messages */
         .message.error {
             justify-content: center;
-            margin: 15px 0;
+            margin: 20px 0;
         }
         
         .message.error .message-content {
