@@ -1261,9 +1261,9 @@ Character Role: {character_role}
             clean_response = json_match.group()
             updates = json.loads(clean_response)
             
-            # Log the parsed JSON update
-            print(f"[DEBUG PARSED JSON] {character_name}")
-            print(f"Updates to apply: {json.dumps(updates, indent=2)[:1000]}{'...' if len(json.dumps(updates)) > 1000 else ''}\n")
+            # Log the parsed JSON update - Commented out to prevent debug leak to player screen
+            # print(f"[DEBUG PARSED JSON] {character_name}")
+            # print(f"Updates to apply: {json.dumps(updates, indent=2)[:1000]}{'...' if len(json.dumps(updates)) > 1000 else ''}\n")
             
             # DEBUG: Check if XP update is in the updates
             if 'experience' in changes.lower() and 'experience_points' not in updates:
