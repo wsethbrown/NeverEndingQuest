@@ -77,11 +77,17 @@ TRUE INDICATORS:
 - Dice roll reports ("I rolled a X") → often trigger character/plot updates based on success
 - Investigation actions ("search for", "look for", "examine") → may update plot with discoveries
 - Error corrections that reference specific mechanics → often require re-doing actions
+- Story-advancing dialogue that triggers responses → often updates plot
+- Calling out or initiating contact at new locations → often triggers NPC encounters and plot updates
+- Agreement to story directions ("let's do it", "aye") → often commits to plot advancement
 
 CRITICAL PATTERNS TO CATCH:
 - Dice roll outcomes ("natural 20", "I rolled") → Usually leads to updateCharacterInfo/updatePlot
 - Active investigations ("search for signs", "look for tracks") → Often updates plot with findings
 - Error correction notes about game mechanics → Typically require action updates when corrected
+- Dialogue with spirits/NPCs that seeks information → Often triggers plot updates with responses
+- Location-based calls ("anyone home?", "hello?") → Often initiates NPC encounters and plot progression
+- Commitment statements in story contexts → Often advances plot when player commits to direction
 
 FALSE INDICATORS:
 - "What do you think?"
@@ -102,7 +108,10 @@ Examples:
 - "I rest for 8 hours" → TRUE (time + character updates)
 - "I rolled a natural 20!" → TRUE (dice outcomes typically trigger character/plot updates)
 - "I search for signs of danger" → TRUE (investigation actions often update plot with discoveries)
-- "Error Note: Your previous response failed validation" → TRUE (error corrections often require re-doing actions)"""
+- "Error Note: Your previous response failed validation" → TRUE (error corrections often require re-doing actions)
+- "I ask the spirits about the darkness" → TRUE (dialogue seeking information often triggers plot updates)
+- "I call out, anyone home?" → TRUE (location-based contact often initiates NPC encounters)
+- "Aye, let's do it" → TRUE (commitment statements often advance plot when in story context)"""
 
 def predict_actions_required(user_input):
     """
