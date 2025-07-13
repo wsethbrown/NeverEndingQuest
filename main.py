@@ -569,8 +569,6 @@ def create_module_validation_context(party_tracker_data, path_manager):
             print(f"DEBUG: Exception type: {type(e)}")
             print("DEBUG: Falling back to character files method")
             print(f"WARNING: NPC codex failed, falling back to character files: {e}")
-            import os
-            import glob
             character_files = glob.glob(f"{path_manager.module_dir}/characters/*.json")
             
             valid_npcs = []
