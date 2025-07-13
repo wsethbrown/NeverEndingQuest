@@ -461,9 +461,6 @@ def parse_json_safely(text):
 
 def create_module_validation_context(party_tracker_data, path_manager):
     """Create module data context for validation system to check location/NPC references"""
-    print("\n" + "*"*60)
-    print("DEBUG: create_module_validation_context() CALLED")
-    print("*"*60)
     try:
         current_area_id = party_tracker_data["worldConditions"]["currentAreaId"]
         current_location_id = party_tracker_data["worldConditions"]["currentLocationId"]
@@ -542,20 +539,20 @@ def create_module_validation_context(party_tracker_data, path_manager):
                                 continue
             
             # DEBUG: Print what NPCs are being passed to validator
-            print("\n" + "="*60)
-            print("DEBUG: NPC VALIDATION CONTEXT BEING CREATED")
-            print("="*60)
-            print(f"Total NPCs found across all modules: {len(valid_npcs)}")
-            if valid_npcs:
-                print("NPCs being passed to validator:")
-                for npc in valid_npcs:
-                    print(f"  - {npc}")
-                    if "Kira" in npc:
-                        print(f"    ^^^ FOUND KIRA: {npc}")
-            else:
-                print("WARNING: NO NPCs found in any module codex!")
-            print("="*60)
-            print()
+            # print("\n" + "="*60)
+            # print("DEBUG: NPC VALIDATION CONTEXT BEING CREATED")
+            # print("="*60)
+            # print(f"Total NPCs found across all modules: {len(valid_npcs)}")
+            # if valid_npcs:
+            #     print("NPCs being passed to validator:")
+            #     for npc in valid_npcs:
+            #         print(f"  - {npc}")
+            #         if "Kira" in npc:
+            #             print(f"    ^^^ FOUND KIRA: {npc}")
+            # else:
+            #     print("WARNING: NO NPCs found in any module codex!")
+            # print("="*60)
+            # print()
             
             validation_context += "VALID CHARACTERS (All Module Codexes):\n"
             if valid_npcs:
@@ -565,10 +562,10 @@ def create_module_validation_context(party_tracker_data, path_manager):
                 
         except Exception as e:
             # Fallback to original character file method if codex fails
-            print(f"DEBUG: Exception in NPC codex loading: {e}")
-            print(f"DEBUG: Exception type: {type(e)}")
-            print("DEBUG: Falling back to character files method")
-            print(f"WARNING: NPC codex failed, falling back to character files: {e}")
+            # print(f"DEBUG: Exception in NPC codex loading: {e}")
+            # print(f"DEBUG: Exception type: {type(e)}")
+            # print("DEBUG: Falling back to character files method")
+            # print(f"WARNING: NPC codex failed, falling back to character files: {e}")
             character_files = glob.glob(f"{path_manager.module_dir}/characters/*.json")
             
             valid_npcs = []
@@ -626,16 +623,14 @@ CRITICAL: If validation fails due to wrong NPC for location, provide specific co
         return validation_context
         
     except Exception as e:
-        print(f"DEBUG: MAJOR EXCEPTION in create_module_validation_context: {e}")
-        print(f"DEBUG: Exception type: {type(e)}")
-        import traceback
-        print(f"DEBUG: Traceback: {traceback.format_exc()}")
+        # print(f"DEBUG: MAJOR EXCEPTION in create_module_validation_context: {e}")
+        # print(f"DEBUG: Exception type: {type(e)}")
+        # import traceback
+        # print(f"DEBUG: Traceback: {traceback.format_exc()}")
         return f"MODULE VALIDATION DATA: Error loading module data - {str(e)}"
 
 def validate_ai_response(primary_response, user_input, validation_prompt_text, conversation_history, party_tracker_data):
-    print("\n" + "!"*60)
-    print("DEBUG: VALIDATION FUNCTION CALLED!")
-    print("!"*60)
+    print("DEBUG: NPC validation running...")
     status_validating()
     # Get the last two messages from the conversation history
     last_two_messages = conversation_history[-2:]
