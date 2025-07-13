@@ -135,6 +135,12 @@ class SaveGameManager:
             "modules/world_registry.json",
         ])
         
+        # Campaign continuity files (CRITICAL for module transitions)
+        essential_files.extend([
+            "modules/campaign_archives/",
+            "modules/campaign_summaries/",
+        ])
+        
         # Add active encounter files using glob
         import glob
         encounter_files = glob.glob("modules/encounters/encounter_*.json")
@@ -152,9 +158,8 @@ class SaveGameManager:
             # Combat logs
             "combat_logs/",
             
-            # Campaign archives and summaries
-            "modules/campaign_archives/",
-            "modules/campaign_summaries/",
+            # Note: Campaign archives and summaries moved to essential files
+            # as they're critical for module transition continuity
         ]
     
     def get_excluded_patterns(self) -> List[str]:
