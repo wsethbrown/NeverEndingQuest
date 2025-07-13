@@ -74,6 +74,14 @@ TRUE INDICATORS:
 - "I store/retrieve" → storage action
 - "I give/trade/exchange" → inventory transfer
 - Activities with time duration → time update
+- Dice roll reports ("I rolled a X") → often trigger character/plot updates based on success
+- Investigation actions ("search for", "look for", "examine") → may update plot with discoveries
+- Error corrections that reference specific mechanics → often require re-doing actions
+
+CRITICAL PATTERNS TO CATCH:
+- Dice roll outcomes ("natural 20", "I rolled") → Usually leads to updateCharacterInfo/updatePlot
+- Active investigations ("search for signs", "look for tracks") → Often updates plot with findings
+- Error correction notes about game mechanics → Typically require action updates when corrected
 
 FALSE INDICATORS:
 - "What do you think?"
@@ -82,6 +90,7 @@ FALSE INDICATORS:
 - "I say [dialogue]"
 - "What can you see?"
 - "Describe the..."
+- Pure narrative descriptions without player action commitment
 
 RESPOND: {"requires_actions": true/false, "reason": "brief explanation"}
 
@@ -90,7 +99,10 @@ Examples:
 - "I go to the tavern" → TRUE (location change)  
 - "What's in this room?" → FALSE (asking for description)
 - "I tell the guard about the bandits" → FALSE (pure dialogue)
-- "I rest for 8 hours" → TRUE (time + character updates)"""
+- "I rest for 8 hours" → TRUE (time + character updates)
+- "I rolled a natural 20!" → TRUE (dice outcomes typically trigger character/plot updates)
+- "I search for signs of danger" → TRUE (investigation actions often update plot with discoveries)
+- "Error Note: Your previous response failed validation" → TRUE (error corrections often require re-doing actions)"""
 
 def predict_actions_required(user_input):
     """
