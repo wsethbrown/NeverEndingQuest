@@ -504,11 +504,7 @@
           "attitude": "Arrogant and megalomaniacal, convinced of his superiority. He will monologue about his plans for power and mock the party before engaging in deadly combat to protect his Voidstone."
         }
       ],
-      "monsters": [
-        "1 Malarok the Corruptor (CR 3, human sorcerer with Voidstone enhancement)",
-        "2 Elite Bandit Bodyguards (CR 1 each, bandits enhanced by Malarok's magic)",
-        "1-2 Corrupted Wolves (CR 1/2 each, wolves twisted by the sorcerer's power)"
-      ],
+      "monsters": [],
       "lootTable": [
         "Fragment of the Voidstone Shard (dangerous but valuable to scholars)",
         "Alien technology partially corrupted by the void energy",

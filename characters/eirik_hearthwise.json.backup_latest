@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 14,
+  "hitPoints": 19,
   "maxHitPoints": 38,
   "armorClass": 17,
   "initiative": 1,
@@ -69,7 +69,7 @@
       "description": "You can channel divine energy to fuel magical effects. You start with one option: Turn Undead. As an action, present your holy symbol and speak a prayer. Each undead within 30 feet must make a Wisdom save or be turned for 1 minute or until it takes damage.",
       "source": "Cleric",
       "usage": {
-        "current": 1,
+        "current": 0,
         "max": 1,
         "refreshOn": "longRest"
       }
@@ -84,7 +84,7 @@
       "description": "As an action, you can restore a total of HP equal to five times your cleric level (15 HP at level 3), divided among any creatures within 30 feet of you, not to heal a creature above half its hit point maximum.",
       "source": "Life Domain",
       "usage": {
-        "current": 1,
+        "current": 0,
         "max": 1,
         "refreshOn": "longRest"
       }
@@ -113,7 +113,13 @@
     "source": "Soldier"
   },
   "temporaryEffects": [],
-  "injuries": [],
+  "injuries": [
+    {
+      "type": "other",
+      "description": "A deep scar across the chest from the corrupted wolf's claws",
+      "source": "Corrupted wolf battle"
+    }
+  ],
   "equipment_effects": [
     {
       "name": "Shield AC Bonus",
@@ -203,7 +209,7 @@
     },
     {
       "item_name": "Common clothes",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "item_subtype": "other",
       "description": "A set of common clothes.",
       "quantity": 1
@@ -302,7 +308,7 @@
     {
       "item_name": "Heavy iron key",
       "item_type": "equipment",
-      "description": "A heavy iron key taken from Captain Gorvek's possessions.",
+      "description": "A heavy iron key taken from Captain Gorvek's possessions. Taken to the cellar from Cira, prepared to investigate the disturbances below the Wyrd Lantern Inn.",
       "quantity": 1
     },
     {
@@ -407,6 +413,61 @@
       "item_type": "consumable",
       "item_subtype": "potion",
       "description": "A healing potion given by Kira, known as 'Hart's tears'.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Malarok's rune-inscribed crystal",
+      "item_type": "miscellaneous",
+      "description": "A crystal inscribed with ancient runes from Malarok's possession.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Voidstone signet ring on silver chain",
+      "item_type": "miscellaneous",
+      "description": "A signet ring made of voidstone, hanging on a delicate silver chain.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Staff with meteorite shard",
+      "item_type": "weapon",
+      "description": "A staff topped with a shard of meteorite, radiating faint magical energy.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Fragment of the Voidstone Shard",
+      "item_type": "miscellaneous",
+      "description": "A small fragment of the mysterious Voidstone Shard recovered from the altar.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Alien twisted metal relic",
+      "item_type": "miscellaneous",
+      "description": "A relic of twisted metal with an otherworldly design, collected from the altar.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Soul-trapped crystal",
+      "item_type": "miscellaneous",
+      "description": "A crystal containing a trapped soul, pulsing with dark energy.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ritual herbs",
+      "item_type": "consumable",
+      "item_subtype": "other",
+      "description": "Herbs used for rituals, gathered from the altar after the battle.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Old bronze key marked with a faded raven sigil",
+      "item_type": "equipment",
+      "description": "Received from Elder Mirna. She entrusted the party with the relic in hopes of uncovering the truth about the disappearances.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Rusted dagger with smuggler runes",
+      "item_type": "weapon",
+      "description": "An old rusted dagger inscribed with smuggler runes, recovered from a hidden alcove in the tunnel.",
       "quantity": 1
     }
   ],
@@ -528,9 +589,9 @@
   "currency": {
     "gold": 35,
     "silver": 20,
-    "copper": 20
+    "copper": 8
   },
-  "experience_points": 1925,
+  "experience_points": 2525,
   "exp_required_for_next_level": 2700,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",

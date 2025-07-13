@@ -135,8 +135,8 @@ CRITICAL ENTITY TYPE VALIDATION:
 
 VALIDATION EXAMPLES:
 INVALID - Player HP via updateEncounter:
-{"action": "updateEncounter", "changes": "Eirik takes 5 damage, HP 13 -> 8"}
-CORRECT: Use updateCharacterInfo for Eirik (player)
+{"action": "updateEncounter", "changes": "ExampleChar_Cleric takes 5 damage, HP 13 -> 8"}
+CORRECT: Use updateCharacterInfo for ExampleChar_Cleric (player)
 
 INVALID - Monster HP via updateCharacterInfo:
 {"action": "updateCharacterInfo", "characterName": "whispering_ashling", "changes": "Takes 5 damage"}

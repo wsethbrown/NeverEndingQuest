@@ -2015,9 +2015,11 @@ def main_game_loop():
                 
                 # Print summary of all modules
                 debug("STATE_CHANGE: === ALL MODULES COMPLETION SUMMARY ===", category="module_management")
+                print("DEBUG: [Module Manager] === MODULE COMPLETION SUMMARY ===")
                 for module_name, summary in completion_summary.items():
                     status = "COMPLETE" if summary["is_complete"] else "INCOMPLETE"
                     debug(f"STATE_CHANGE: {module_name}: {summary['completed_plots']}/{summary['total_plots']} plots - {status}", category="module_management")
+                    print(f"DEBUG: [Module Manager] {module_name}: {summary['completed_plots']}/{summary['total_plots']} plots - {status}")
                 debug("STATE_CHANGE: === END SUMMARY ===", category="module_management")
                 
                 # Determine if we should inject module creation prompt
@@ -2026,6 +2028,8 @@ def main_game_loop():
                 
                 debug(f"STATE_CHANGE: All modules complete: {all_modules_complete}", category="module_management")
                 debug(f"STATE_CHANGE: Should inject module creation prompt: {should_inject_creation_prompt}", category="module_management")
+                print(f"DEBUG: [Module Manager] All modules complete: {all_modules_complete}")
+                print(f"DEBUG: [Module Manager] Module transfer available: {should_inject_creation_prompt}")
                 
                 # If ALL modules are complete, inject creation prompt
                 if should_inject_creation_prompt:

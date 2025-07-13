@@ -3,8 +3,8 @@ Configuration for chunked conversation compression
 """
 
 # Chunked compression settings
-COMPRESSION_TRIGGER = 15  # Number of location summaries to trigger compression
-CHUNK_SIZE = 8           # Number of transitions to compress in each chunk
+COMPRESSION_TRIGGER = 12  # Number of location summaries to trigger compression
+CHUNK_SIZE = 6           # Number of transitions to compress in each chunk
 ENABLE_AUTO_COMPRESSION = True  # Enable automatic compression on location transitions
 
 # Backup settings

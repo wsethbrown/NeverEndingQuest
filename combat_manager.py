@@ -483,7 +483,7 @@ def create_multiple_update_requery_prompt(parsed_response):
 CRITICAL ACTION DISTINCTION - NEVER CONFUSE THESE:
 - updateCharacterInfo: Use ONLY for players (your character) and NPCs (allies/neutral characters)
   - These have their own character files that store their HP, inventory, etc.
-  - Example: updateCharacterInfo for "Eirik Hearthwise" (player) or "Scout Kira" (NPC)
+  - Example: updateCharacterInfo for "ExampleChar_Cleric" (player) or "Scout Kira" (NPC)
   
 - updateEncounter: Use ONLY for monsters/enemies in the encounter
   - These exist only within the encounter file

@@ -10,8 +10,8 @@
       "nextPoints": [
         "PP002"
       ],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "Eirik and Thane have been asked by Elder Mirna to investigate the recent disappearances and the dark influence of the keep. The old bronze key may grant access to a hidden entrance, and new leads involving the wandering shade and the inn's disturbances are available.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -30,8 +30,8 @@
           "involvedLocations": [
             "HH001"
           ],
-          "status": "not started",
-          "plotImpact": ""
+          "status": "completed",
+          "plotImpact": "Eirik's holy light has freed the spirit haunting the cellar and revealed a hidden passage—likely Elen's path—along with a warning about the shadows in the keep. Cira's gratitude and a crucial clue are now earned."
         }
       ]
     },
@@ -43,8 +43,8 @@
       "nextPoints": [
         "PP003"
       ],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "Eirik and Thane have discovered and entered the smuggler's tunnel beneath the Wyrd Lantern Inn, following signs of Elen's passage and opening the way toward the haunted keep.",
       "sideQuests": [
         {
           "id": "SQ003",
