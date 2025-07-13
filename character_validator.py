@@ -99,6 +99,9 @@ class AICharacterValidator:
         # Validate status-condition consistency (non-AI validation)
         corrected_data = self.validate_status_condition_consistency(corrected_data)
         
+        # CRITICAL: Ensure currency object always has all required fields
+        corrected_data = self.ensure_currency_integrity(corrected_data)
+        
         # Future: Add other AI validations here
         # - Temporary effects expiration  
         # - Attack bonus calculation
@@ -844,9 +847,22 @@ Remember to return a single JSON response with all three validation results."""
                     if 'corrections_made' in curr_result:
                         self.corrections_made.extend(curr_result['corrections_made'])
                     
-                    # Update currency (only if not empty)
+                    # Update currency (only if not empty) - MERGE don't replace!
                     if 'currency' in curr_result and curr_result['currency']:
-                        result_data['currency'] = curr_result['currency']
+                        # Ensure we have a currency dict with all fields
+                        if 'currency' not in result_data:
+                            result_data['currency'] = {}
+                        
+                        # Preserve existing currency fields and update only what AI returns
+                        # This prevents erasure of gold/silver when only copper is updated
+                        current_currency = result_data.get('currency', {})
+                        result_data['currency'] = {
+                            'gold': current_currency.get('gold', 0),
+                            'silver': current_currency.get('silver', 0),
+                            'copper': current_currency.get('copper', 0)
+                        }
+                        # Now apply AI updates
+                        result_data['currency'].update(curr_result['currency'])
                     
                     # Remove consolidated items
                     if 'items_to_remove' in curr_result and 'equipment' in result_data:
@@ -1213,11 +1229,48 @@ Identify loose currency items AND ammunition that should be consolidated. Rememb
         
         # Return empty dict if parsing fails (no changes)
         return {}
+    
+    def ensure_currency_integrity(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Ensure currency object has all required fields (gold, silver, copper).
+        This prevents KeyError crashes when fields are missing.
+        
+        Args:
+            character_data: Character data to validate
+            
+        Returns:
+            Character data with complete currency object
+        """
+        if 'currency' not in character_data:
+            character_data['currency'] = {}
+        
+        currency = character_data['currency']
+        
+        # Ensure all currency fields exist with default value of 0
+        required_fields = ['gold', 'silver', 'copper']
+        missing_fields = []
+        
+        for field in required_fields:
+            if field not in currency:
+                currency[field] = 0
+                missing_fields.append(field)
+        
+        if missing_fields:
+            print(f"DEBUG: [Currency Integrity] Added missing currency fields: {missing_fields}")
+            info(f"[Currency Integrity] Added missing currency fields: {missing_fields}", category="character_validation")
+            self.corrections_made.append(f"Added missing currency fields: {', '.join(missing_fields)}")
+        
+        return character_data
 
 
 def validate_character_file(file_path: str) -> bool:
     """
     Convenience function to validate a character file using AI with atomic file operations
+    
+    CRITICAL: This function ensures currency fields are never erased by:
+    1. Using safe_write_json which creates automatic .bak backups
+    2. Merging currency updates instead of replacing
+    3. Validating currency object has all required fields
     
     Args:
         file_path: Path to character JSON file
