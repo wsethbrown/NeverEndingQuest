@@ -48,6 +48,9 @@ DM_MAIN_MODEL = "gpt-4.1-2025-04-14"
 DM_SUMMARIZATION_MODEL = "gpt-4.1-mini-2025-04-14"
 DM_VALIDATION_MODEL = "gpt-4.1-2025-04-14"
 
+# --- Action Prediction Model (used in action_predictor.py) ---
+ACTION_PREDICTION_MODEL = "gpt-4.1-2025-04-14"  # Use full model for accurate action prediction
+
 # --- Combat Simulation Models (used in combat_manager.py) ---
 COMBAT_MAIN_MODEL = "gpt-4.1-2025-04-14"
 # COMBAT_SCHEMA_UPDATER_MODEL - This was defined but not directly used.

@@ -1385,12 +1385,34 @@ def save_conversation_history(history):
 
 def get_ai_response(conversation_history):
     status_processing_ai()
+    
+    # Import action predictor
+    from action_predictor import predict_actions_required, extract_actual_actions, log_prediction_accuracy
+    
+    # Get the last user message for action prediction
+    user_input = ""
+    for msg in reversed(conversation_history):
+        if msg.get("role") == "user":
+            user_input = msg.get("content", "")
+            break
+    
+    # Predict if actions will be required
+    prediction = predict_actions_required(user_input)
+    
+    # For now, still use the full model regardless of prediction
+    # This allows us to track accuracy before implementing routing
     response = client.chat.completions.create(
         model=DM_MAIN_MODEL, # Use imported model name
         temperature=TEMPERATURE,
         messages=conversation_history
     )
     content = response.choices[0].message.content.strip()
+    
+    # Extract actual actions from the response for accuracy tracking
+    actual_actions = extract_actual_actions(content)
+    
+    # Log prediction accuracy
+    log_prediction_accuracy(user_input, prediction, actual_actions)
     
     # The sanitization line that was here has been removed.
     # We now pass the raw, untouched JSON string to the next function.
