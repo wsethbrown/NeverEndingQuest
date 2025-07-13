@@ -59,6 +59,7 @@ import os
 import re
 import sys
 import codecs
+import glob
 from openai import OpenAI
 from datetime import datetime, timedelta
 from termcolor import colored
@@ -509,77 +510,39 @@ def create_module_validation_context(party_tracker_data, path_manager):
         except (FileNotFoundError, json.JSONDecodeError):
             validation_context += f"ERROR: Could not load area data for {current_area_id}\n\n"
         
-        # Get all valid NPCs in current module AND from completed modules using NPC codex
-        from npc_codex_generator import get_or_create_npc_codex
-        
+        # Get all valid NPCs from ALL module codexes
         try:
-            # Get comprehensive NPC list from current module codex
-            codex = get_or_create_npc_codex(current_module)
             valid_npcs = []
             
-            # Add NPCs from current module codex with source information
-            for npc_entry in codex.get("npcs", []):
-                if isinstance(npc_entry, dict) and "name" in npc_entry and "source" in npc_entry:
-                    npc_name = npc_entry["name"]
-                    npc_source = npc_entry["source"]
-                    valid_npcs.append(f"{npc_name} ({npc_source})")
-            
-            # CAMPAIGN NPC INCLUSION: Add NPCs from completed modules via campaign summaries
-            try:
-                summaries_dir = "modules/campaign_summaries"
-                if os.path.exists(summaries_dir):
-                    summary_files = [f for f in os.listdir(summaries_dir) if '_summary_' in f and f.endswith('.json')]
-                    summary_files.sort()
-                    
-                    for summary_file in summary_files:
-                        try:
-                            summary_path = os.path.join(summaries_dir, summary_file)
-                            from encoding_utils import safe_json_load
-                            summary_data = safe_json_load(summary_path)
-                            if summary_data:
-                                module_name = summary_data.get("moduleName", "Unknown Module")
+            # Import all module codexes and merge their NPCs
+            modules_dir = "modules"
+            if os.path.exists(modules_dir):
+                for item in os.listdir(modules_dir):
+                    module_path = os.path.join(modules_dir, item)
+                    if (os.path.isdir(module_path) and 
+                        not item.startswith('.') and 
+                        item not in ['campaign_archives', 'campaign_summaries', 'conversation_history', 'encounters', 'logs', 'backups']):
+                        
+                        # Check if this module has a codex file
+                        codex_file = os.path.join(module_path, "npc_codex.json")
+                        if os.path.exists(codex_file):
+                            try:
+                                with open(codex_file, "r", encoding="utf-8") as f:
+                                    codex = json.load(f)
                                 
-                                # Try to get the codex for the completed module
-                                try:
-                                    completed_module_codex = get_or_create_npc_codex(module_name)
-                                    for npc_entry in completed_module_codex.get("npcs", []):
-                                        if isinstance(npc_entry, dict) and "name" in npc_entry:
-                                            npc_name = npc_entry["name"]
-                                            # Mark as from previous module to distinguish from current module NPCs
-                                            previous_module_entry = f"{npc_name} (Previous Module: {module_name})"
-                                            if previous_module_entry not in valid_npcs:
-                                                valid_npcs.append(previous_module_entry)
-                                except Exception as e:
-                                    # If we can't get the codex for a previous module, that's okay
-                                    debug(f"Could not load NPC codex for completed module {module_name}: {e}", category="npc_validation")
-                        except Exception as e:
-                            debug(f"Could not process campaign summary {summary_file}: {e}", category="npc_validation")
-            except Exception as e:
-                debug(f"Error adding campaign NPCs to validation: {e}", category="npc_validation")
+                                for npc_entry in codex.get("npcs", []):
+                                    if isinstance(npc_entry, dict) and "name" in npc_entry:
+                                        npc_name = npc_entry["name"]
+                                        source = npc_entry.get("source", "unknown")
+                                        valid_npcs.append(f"{npc_name} (Module: {item})")
+                            except Exception as e:
+                                continue
             
-            # Also add NPCs with full character files for completeness
-            import os
-            import glob
-            character_files = glob.glob(f"{path_manager.module_dir}/characters/*.json")
-            for char_file in character_files:
-                try:
-                    with open(char_file, "r", encoding="utf-8") as file:
-                        char_data = json.load(file)
-                    char_name = char_data.get("name", "")
-                    char_type = char_data.get("character_type", "unknown")
-                    if char_name:
-                        # Check if already in codex, if not add with character file source
-                        already_listed = any(npc_name in npc for npc in valid_npcs if char_name in npc)
-                        if not already_listed:
-                            valid_npcs.append(f"{char_name} (character file - {char_type})")
-                except (json.JSONDecodeError, KeyError):
-                    continue
-            
-            validation_context += "VALID CHARACTERS in module:\n"
+            validation_context += "VALID CHARACTERS (All Module Codexes):\n"
             if valid_npcs:
                 validation_context += "\n".join([f"- {npc}" for npc in valid_npcs])
             else:
-                validation_context += "- No characters found in module files"
+                validation_context += "- No NPCs found in module codexes"
                 
         except Exception as e:
             # Fallback to original character file method if codex fails
