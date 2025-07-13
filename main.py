@@ -539,11 +539,20 @@ def create_module_validation_context(party_tracker_data, path_manager):
                                 continue
             
             # DEBUG: Print what NPCs are being passed to validator
-            print("\n=== DEBUG: NPCs BEING PASSED TO VALIDATOR ===")
+            print("\n" + "="*60)
+            print("DEBUG: NPC VALIDATION CONTEXT BEING CREATED")
+            print("="*60)
             print(f"Total NPCs found across all modules: {len(valid_npcs)}")
-            for npc in valid_npcs:
-                print(f"  - {npc}")
-            print("=== END DEBUG OUTPUT ===\n")
+            if valid_npcs:
+                print("NPCs being passed to validator:")
+                for npc in valid_npcs:
+                    print(f"  - {npc}")
+                    if "Kira" in npc:
+                        print(f"    ^^^ FOUND KIRA: {npc}")
+            else:
+                print("WARNING: NO NPCs found in any module codex!")
+            print("="*60)
+            print()
             
             validation_context += "VALID CHARACTERS (All Module Codexes):\n"
             if valid_npcs:
@@ -616,6 +625,9 @@ CRITICAL: If validation fails due to wrong NPC for location, provide specific co
         return f"MODULE VALIDATION DATA: Error loading module data - {str(e)}"
 
 def validate_ai_response(primary_response, user_input, validation_prompt_text, conversation_history, party_tracker_data):
+    print("\n" + "!"*60)
+    print("DEBUG: VALIDATION FUNCTION CALLED!")
+    print("!"*60)
     status_validating()
     # Get the last two messages from the conversation history
     last_two_messages = conversation_history[-2:]
