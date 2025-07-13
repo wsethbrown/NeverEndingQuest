@@ -82,6 +82,44 @@ from enhanced_logger import debug, info, warning, error, set_script_name
 set_script_name("conversation_utils")
 
 # ============================================================================
+# CAMPAIGN SUMMARY INJECTION
+# ============================================================================
+
+def inject_campaign_summaries(new_history):
+    """Inject campaign summaries as system messages into conversation history"""
+    try:
+        summaries_dir = "modules/campaign_summaries"
+        if os.path.exists(summaries_dir):
+            summary_files = [f for f in os.listdir(summaries_dir) if '_summary_' in f and f.endswith('.json')]
+            summary_files.sort()  # Chronological order by filename
+            
+            if summary_files:
+                campaign_context_parts = ["=== CAMPAIGN CONTEXT ==="]
+                
+                for summary_file in summary_files:
+                    try:
+                        summary_path = os.path.join(summaries_dir, summary_file)
+                        summary_data = safe_json_load(summary_path)
+                        if summary_data and "summary" in summary_data:
+                            module_name = summary_data.get("moduleName", "Unknown Module")
+                            sequence = summary_data.get("sequenceNumber", 1)
+                            campaign_context_parts.append(f"\n--- {module_name} (Chronicle {sequence:03d}) ---")
+                            campaign_context_parts.append(summary_data["summary"])
+                    except Exception as e:
+                        debug(f"FAILURE: Could not load summary {summary_file}", exception=e, category="campaign_context")
+                
+                if len(campaign_context_parts) > 1:  # More than just header
+                    campaign_context = "\n".join(campaign_context_parts)
+                    new_history.append({"role": "system", "content": campaign_context})
+                    debug(f"SUCCESS: Injected {len(summary_files)} campaign summaries as system message", category="campaign_context")
+                else:
+                    debug(f"INFO: No valid campaign summaries found to inject", category="campaign_context")
+            else:
+                debug(f"INFO: No campaign summary files found in {summaries_dir}", category="campaign_context")
+    except Exception as e:
+        debug(f"FAILURE: Error injecting campaign summaries", exception=e, category="campaign_context")
+
+# ============================================================================
 # MODULE TRANSITION DETECTION AND HANDLING
 # ============================================================================
 
@@ -240,7 +278,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
     current_module = party_tracker_data.get('module', 'Unknown') if party_tracker_data else 'Unknown'
     previous_module = get_previous_module_from_history(conversation_history)
 
-    # Remove any existing system messages for location, party tracker, plot, map, module data, and world state
+    # Remove any existing system messages for location, party tracker, plot, map, module data, world state, and campaign context
     updated_history = [
         msg for msg in conversation_history 
         if not (msg["role"] == "system" and 
@@ -252,7 +290,8 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
                     "=== ADVENTURE PLOT STATUS ===",
                     "Here's the current map data:",
                     "Here's the module data:",
-                    "WORLD STATE CONTEXT:"
+                    "WORLD STATE CONTEXT:",
+                    "=== CAMPAIGN CONTEXT ==="
                 ]))
     ]
 
@@ -305,6 +344,12 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
     except Exception as e:
         # Don't let world state errors break the conversation system
         pass
+    
+    # CAMPAIGN SUMMARY INJECTION: Add previous adventure context
+    try:
+        inject_campaign_summaries(new_history)
+    except Exception as e:
+        debug(f"FAILURE: Error injecting campaign summaries", exception=e, category="campaign_context")
     
 # Module transition detection now happens before system message removal above
 
