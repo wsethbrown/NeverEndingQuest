@@ -33,8 +33,34 @@ NeverEndingQuest solves the fundamental challenge of AI memory constraints throu
 
 1. **Install dependencies**: `pip install -r requirements.txt`
 2. **Add your OpenAI API key**: Copy `config_template.py` to `config.py` and add your key
-3. **Start playing**: `python main.py` - the AI will guide you through character creation and module selection
-4. **Choose your interface**: Use terminal or launch the web interface with `python run_web.py`
+3. **Launch the game**: `python run_web.py` - opens the web interface in your browser
+4. **Start your adventure**: The AI will guide you through character creation and module selection
+
+> **Note**: While a console mode exists (`python main.py`), the game is designed for the **web interface** which provides the optimal experience with real-time updates, character sheets, and enhanced UI.
+
+## 📄 **Licensing**
+
+NeverEndingQuest uses a **three-tier licensing structure** to balance innovation protection with community development:
+
+### 🔒 **Core Engine (Fair Source License 1.0)**
+The innovative campaign management, conversation compression, and hub-and-spoke architecture are protected under Fair Source License.
+- ✅ **Free for personal, educational, and non-competing use**
+- ✅ **Community contributions welcome**  
+- ✅ **Modify and customize freely**
+- ❌ **Commercial competing use prohibited** (2 year limit)
+
+### 🌐 **Community Tools (Apache 2.0)**  
+Development tools, generators, and utilities are fully open source.
+- ✅ **Use, modify, distribute freely**
+- ✅ **Commercial use allowed**
+- ✅ **Perfect for building on top of NeverEndingQuest**
+
+### 📚 **D&D Content (CC-BY 4.0)**
+All D&D game content from SRD 5.2.1 maintains original licensing.
+- ✅ **Use with attribution to SRD 5.2.1**
+- ✅ **Required for D&D compatibility**
+
+See [LICENSING.md](LICENSING.md) for detailed information and FAQ.
 
 The system automatically:
 - Detects available adventure modules

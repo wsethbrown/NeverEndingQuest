@@ -4,7 +4,7 @@
   "name": "Eirik Hearthwise",
   "type": "player",
   "size": "Medium",
-  "level": 3,
+  "level": 4,
   "race": "Human",
   "class": "Cleric",
   "alignment": "chaotic good",
@@ -12,8 +12,8 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 38,
-  "maxHitPoints": 38,
+  "hitPoints": 11,
+  "maxHitPoints": 47,
   "armorClass": 17,
   "initiative": 1,
   "speed": 30,
@@ -22,7 +22,7 @@
     "dexterity": 13,
     "constitution": 15,
     "intelligence": 11,
-    "wisdom": 16,
+    "wisdom": 18,
     "charisma": 9
   },
   "savingThrows": [
@@ -60,9 +60,14 @@
     ]
   },
   "damageVulnerabilities": [],
-  "damageResistances": [],
+  "damageResistances": [
+    "poison",
+    "poison from Giant Spider"
+  ],
   "damageImmunities": [],
-  "conditionImmunities": [],
+  "conditionImmunities": [
+    "poisoned"
+  ],
   "classFeatures": [
     {
       "name": "Channel Divinity (1/rest)",
@@ -112,12 +117,33 @@
     "description": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. Knowledge gained: The cleansing ritual involves bringing sunlight to the Stone, blessing it with pure water, and using the blade of sacrifice to break the curse.",
     "source": "Soldier"
   },
-  "temporaryEffects": [],
+  "temporaryEffects": [
+    {
+      "name": "Lingering Spirit's Blessing",
+      "description": "Advantage on saves against fear for 24 hours.",
+      "source": "Shrine Ward Ritual"
+    },
+    {
+      "name": "Sense of Accomplishment",
+      "description": "Increased trust with local spirits after purifying the faerie circle with sacred offering and prayer.",
+      "source": "Sacred Ritual"
+    },
+    {
+      "name": "Strengthened Lost Ward Circle",
+      "description": "Undead and corrupted creatures suffer disadvantage on attacks in the Gloamwood for 24 hours.",
+      "source": "Lost Ward Circle Ritual"
+    }
+  ],
   "injuries": [
     {
       "type": "other",
       "description": "A deep scar across the chest from the corrupted wolf's claws",
       "source": "Corrupted wolf battle"
+    },
+    {
+      "type": "other",
+      "description": "Wrapped hand to treat ritual wound",
+      "source": "Lost Ward Circle Ritual"
     }
   ],
   "equipment_effects": [
@@ -187,41 +213,6 @@
       "quantity": 1
     },
     {
-      "item_name": "Insignia of rank",
-      "item_type": "miscellaneous",
-      "item_subtype": "other",
-      "description": "A badge showing Eirik's former military rank.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Trophy from a fallen enemy",
-      "item_type": "miscellaneous",
-      "item_subtype": "other",
-      "description": "A keepsake from Eirik's military days.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Set of bone dice",
-      "item_type": "miscellaneous",
-      "item_subtype": "other",
-      "description": "A gaming set (bone dice) kept as a token.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Common clothes",
-      "item_type": "equipment",
-      "item_subtype": "other",
-      "description": "A set of common clothes.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Dog tag",
-      "item_type": "miscellaneous",
-      "item_subtype": "amulet",
-      "description": "A dog tag belonging to a fallen comrade.",
-      "quantity": 1
-    },
-    {
       "item_name": "Pouch",
       "item_type": "miscellaneous",
       "item_subtype": "other",
@@ -233,13 +224,6 @@
       "item_type": "miscellaneous",
       "item_subtype": "gloves",
       "description": "Protective gloves to shield hands from magical thorns.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Pouch of Powdered Silver",
-      "item_type": "consumable",
-      "item_subtype": "other",
-      "description": "A pouch containing powdered silver, useful against magical thorns and certain creatures.",
       "quantity": 1
     },
     {
@@ -255,200 +239,9 @@
       "quantity": 1
     },
     {
-      "item_name": "Stub of Black Wax",
-      "item_type": "consumable",
-      "description": "A small, battered stub of black wax found near the sabotage site.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Crow's Hand Feather",
-      "item_type": "miscellaneous",
-      "description": "A crow's feather tied with red twine, kept as a token from the stronghold.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Rune-etched Ritual Vial",
-      "item_type": "consumable",
-      "description": "A vial inscribed with ancient runes given by Maelo. Now filled with purified water, cleansed of the taint from the spring as part of 'The Hermit's Warning' quest.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Bandit Patrols Map",
-      "item_type": "equipment",
-      "description": "A detailed map showing known bandit patrol routes and ambush points, given by Scout Neris.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Broken bandit dagger engraved with Malarok's sigil",
-      "item_type": "weapon",
-      "description": "A damaged dagger once owned by a bandit, bearing the dark sigil of Malarok.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Sealed bandage packet",
-      "item_type": "consumable",
-      "item_subtype": "other",
-      "description": "A small packet containing sterile bandages, useful for treating wounds.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Trail rations",
-      "item_type": "consumable",
-      "item_subtype": "food",
-      "description": "Packaged food for travelers, providing nourishment on long journeys.",
-      "quantity": 2
-    },
-    {
-      "item_name": "Torn but valuable cloth",
-      "item_type": "miscellaneous",
-      "item_subtype": "other",
-      "description": "A piece of cloth, torn but of fine quality, possibly useful for trade or crafting.",
-      "quantity": 1
-    },
-    {
       "item_name": "Heavy iron key",
       "item_type": "equipment",
       "description": "A heavy iron key taken from Captain Gorvek's possessions. Taken to the cellar from Cira, prepared to investigate the disturbances below the Wyrd Lantern Inn.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Missive with black wax seal",
-      "item_type": "miscellaneous",
-      "description": "A folded letter sealed with black wax, bearing an ominous insignia.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Polished dagger with arcane symbols",
-      "item_type": "weapon",
-      "description": "A finely polished dagger etched with glowing arcane runes.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Thornwood map marked with Xs",
-      "item_type": "equipment",
-      "description": "A detailed map of Thornwood with several locations marked with mysterious Xs.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Gold ring",
-      "item_type": "miscellaneous",
-      "description": "A simple gold ring looted from bandit bodies, valued at 5 gold coins.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Torn but valuable cloth bundle",
-      "item_type": "miscellaneous",
-      "description": "Torn cloth bundle containing a hidden gold ring.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Strip of waxed parchment with coded symbols",
-      "item_type": "equipment",
-      "description": "A strip of parchment treated with wax, inscribed with coded symbols for secret communication.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Fire-blackened tin mug",
-      "item_type": "miscellaneous",
-      "description": "A tin mug blackened by fire, a keepsake from a past campfire.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Vial of concentrated corruption essence",
-      "item_type": "consumable",
-      "description": "A vial containing a potent essence of corruption, used for dark rituals or study.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Warped cave fisher chitin plates",
-      "item_type": "miscellaneous",
-      "description": "Plates of chitin taken from a warped cave fisher, possibly useful for crafting or protection.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Ancient warning tablet (Common & Sylvan)",
-      "item_type": "equipment",
-      "description": "An ancient tablet inscribed with warnings in both Common and Sylvan languages.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Ancient druidic tome",
-      "item_type": "equipment",
-      "description": "An ancient tome describing the cleansing ritual involving sunlight, pure water, and the blade of sacrifice.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Explorer's Journal",
-      "item_type": "equipment",
-      "description": "A journal recovered from the corrupted fire pit containing crucial clues about Ranger Thane, his wolf companion, and the nature of the corruption in the camp.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Thane's family locket",
-      "item_type": "miscellaneous",
-      "description": "A key to Thane's remaining humanity, a precious family heirloom worn close to the heart.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Antler fragment with purification magic",
-      "item_type": "miscellaneous",
-      "description": "A fragment of antler imbued with powerful purification magic, obtained after breaking the corruption on the Withered Hart.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Map to corruption source",
-      "item_type": "equipment",
-      "description": "An ancient stone-carved map discovered at the altar, showing the source of the corruption.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Hart's tears (healing potion)",
-      "item_type": "consumable",
-      "item_subtype": "potion",
-      "description": "A healing potion given by Kira, known as 'Hart's tears'.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Malarok's rune-inscribed crystal",
-      "item_type": "miscellaneous",
-      "description": "A crystal inscribed with ancient runes from Malarok's possession.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Voidstone signet ring on silver chain",
-      "item_type": "miscellaneous",
-      "description": "A signet ring made of voidstone, hanging on a delicate silver chain.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Staff with meteorite shard",
-      "item_type": "weapon",
-      "description": "A staff topped with a shard of meteorite, radiating faint magical energy.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Fragment of the Voidstone Shard",
-      "item_type": "miscellaneous",
-      "description": "A small fragment of the mysterious Voidstone Shard recovered from the altar.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Alien twisted metal relic",
-      "item_type": "miscellaneous",
-      "description": "A relic of twisted metal with an otherworldly design, collected from the altar.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Soul-trapped crystal",
-      "item_type": "miscellaneous",
-      "description": "A crystal containing a trapped soul, pulsing with dark energy.",
-      "quantity": 1
-    },
-    {
-      "item_name": "Ritual herbs",
-      "item_type": "consumable",
-      "item_subtype": "other",
-      "description": "Herbs used for rituals, gathered from the altar after the battle.",
       "quantity": 1
     },
     {
@@ -462,12 +255,62 @@
       "item_type": "weapon",
       "description": "An old rusted dagger inscribed with smuggler runes, recovered from a hidden alcove in the tunnel.",
       "quantity": 1
+    },
+    {
+      "item_name": "Torn piece of Scout Elen's blue cloak",
+      "item_type": "miscellaneous",
+      "item_subtype": "cloak",
+      "description": "A torn piece of the blue cloak once worn by Scout Elen, found in the smuggler's tunnel. Found blue thread and broken arrow shaft matching Kira's gear at the Lost Ward Circle--evidence that both Elen and Kira passed through and moved toward the Keeper's Cottage.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Old smuggler's lantern (still functional, but empty)",
+      "item_type": "equipment",
+      "description": "An old smuggler's lantern found in the tunnel; it is fully functional and refilled with Keeper Morvath's oil, ready for use.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Carved bone talisman",
+      "item_type": "miscellaneous",
+      "description": "A carved bone talisman given by Keeper Morvath as a ritual component.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Pouch of dried Gloamwood roots",
+      "item_type": "consumable",
+      "item_subtype": "other",
+      "description": "A pouch containing dried Gloamwood roots, used as ritual components.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Travel Ration",
+      "item_type": "consumable",
+      "item_subtype": "food",
+      "description": "A standard travel ration to sustain a character for one day.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Silver Whistle",
+      "item_type": "equipment",
+      "description": "A small silver whistle used for signaling.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Ranger's Journal",
+      "item_type": "equipment",
+      "description": "A journal containing notes and maps from a seasoned ranger.",
+      "quantity": 1
     }
   ],
   "ammunition": [
     {
+      "name": "arrows",
+      "quantity": 24,
+      "description": "Standard ammunition."
+    },
+    {
       "name": "Crossbow bolt",
-      "quantity": 62,
+      "quantity": 59,
       "description": "Standard crossbow bolts for use with a light crossbow."
     }
   ],
@@ -502,8 +345,8 @@
   ],
   "spellcasting": {
     "ability": "wisdom",
-    "spellSaveDC": 13,
-    "spellAttackBonus": 5,
+    "spellSaveDC": 14,
+    "spellAttackBonus": 6,
     "spells": {
       "cantrips": [
         "Sacred Flame",
@@ -532,7 +375,7 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 4,
+        "current": 3,
         "max": 4
       },
       "level2": {
@@ -576,16 +419,17 @@
       "Sanctuary",
       "Shield of Faith",
       "Aid",
-      "Spiritual Weapon"
+      "Spiritual Weapon",
+      "Prayer of Healing"
     ]
   },
   "currency": {
-    "gold": 35,
-    "silver": 20,
+    "gold": 9,
+    "silver": 18,
     "copper": 8
   },
-  "experience_points": 2675,
-  "exp_required_for_next_level": 2700,
+  "experience_points": 2800,
+  "exp_required_for_next_level": 6500,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",
   "ideals": "Redemption. Every life saved is a step toward atoning for the lives he failed to save.",

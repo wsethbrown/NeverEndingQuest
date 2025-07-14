@@ -1,3 +1,11 @@
+"""
+NeverEndingQuest Community Tools - Monster Builder
+Copyright (c) 2024 MoonlightByte
+Licensed under Apache License 2.0
+
+See LICENSE-APACHE file for full terms.
+"""
+
 # ============================================================================
 # MONSTER_BUILDER.PY - CONTENT GENERATION LAYER - MONSTERS
 # ============================================================================

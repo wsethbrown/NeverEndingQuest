@@ -1,3 +1,11 @@
+"""
+NeverEndingQuest Community Tools - Validate Module Files
+Copyright (c) 2024 MoonlightByte
+Licensed under Apache License 2.0
+
+See LICENSE-APACHE file for full terms.
+"""
+
 #!/usr/bin/env python3
 """
 Comprehensive Module File Validation Script

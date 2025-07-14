@@ -1,3 +1,11 @@
+"""
+NeverEndingQuest Community Tools - Character Validator
+Copyright (c) 2024 MoonlightByte
+Licensed under Apache License 2.0
+
+See LICENSE-APACHE file for full terms.
+"""
+
 # ============================================================================
 # CHARACTER_VALIDATOR.PY - AI-POWERED CHARACTER DATA VALIDATION
 # ============================================================================

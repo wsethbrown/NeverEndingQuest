@@ -11,7 +11,7 @@
         "PP002"
       ],
       "status": "in progress",
-      "plotImpact": "Eirik and Thane have been asked by Elder Mirna to investigate the recent disappearances and the dark influence of the keep. The old bronze key may grant access to a hidden entrance, and new leads involving the wandering shade and the inn's disturbances are available.",
+      "plotImpact": "The party has left the dangers of the outpost behind and followed the hidden trail toward the secret entrance to the keep, advancing in their search for Elen and Kira.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -43,8 +43,8 @@
       "nextPoints": [
         "PP003"
       ],
-      "status": "in progress",
-      "plotImpact": "Eirik and Thane have discovered and entered the smuggler's tunnel beneath the Wyrd Lantern Inn, following signs of Elen's passage and opening the way toward the haunted keep.",
+      "status": "completed",
+      "plotImpact": "Eirik and Thane have followed Elen's trail through the smuggler's tunnel and emerged near the East Gate, gathering new clues and bypassing the tunnel's dangers. The road to the keep is now open, progressing the investigation into Harrow's Hollow's curse.",
       "sideQuests": [
         {
           "id": "SQ003",
@@ -53,8 +53,8 @@
           "involvedLocations": [
             "G001"
           ],
-          "status": "not started",
-          "plotImpact": ""
+          "status": "completed",
+          "plotImpact": "Eirik has successfully performed the strengthening ritual at the Lost Ward Circle, fully restoring its power. The keep's influence is significantly weakened, and the forest and Harrow's Hollow are protected from undead threats for the next day."
         },
         {
           "id": "SQ004",

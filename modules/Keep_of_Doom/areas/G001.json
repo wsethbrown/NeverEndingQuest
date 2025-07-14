@@ -283,20 +283,7 @@
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [],
-      "monsters": [
-        {
-          "name": "Giant Spider",
-          "number": 1,
-          "disposition": "territorial",
-          "strategy": "The spider has made its home in the rafters and attacks anyone who disturbs its web-covered nest. It prefers to drop onto unsuspecting prey from above."
-        },
-        {
-          "name": "Swarm of Spiders",
-          "number": 2,
-          "disposition": "neutral",
-          "strategy": "These smaller spiders nest in the darkest corners and only attack if their areas are disturbed."
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Ranger's pack with basic supplies (rations, tinderbox, rope)",
         "Hunting bow with 1d6+4 arrows",
@@ -360,8 +347,31 @@
           "description": "A weathered wooden chest bound with iron, tucked beneath a collapsed beam. The lock is rusty but still functional, and inside lies a crucial map that reveals a secret path through the forest."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "",
+          "summary": "In the intense encounter at the ruined ranger outpost, Eirik Hearthwise and Ranger Thane faced off against a giant spider and two swarms of spiders that launched a vicious ambush under the flickering lanternlight. \n\nThe battle began with Eirik delivering a critical, devastating mace strike that obliterated the first swarm instantly. Thane’s precise arrow wounded the giant spider deeply. Despite fierce retaliation from the spider, including venomous bites that tested Eirik’s resolve, he resisted the poison with steadfast saving throws. The second swarm pressed the attack but gradually fell under Eirik’s relentless hammer blows, eventually being crushed completely by the third round’s end.\n\nThroughout the fight, Thane expended several arrows targeting the giant spider, though not all struck true. The giant spider, severely wounded and weakened, failed to land a decisive blow in the final moments. Ultimately, Eirik’s final crossbow bolt found its mark, ending the giant spider’s threat and bringing the encounter to a close.\n\nBy the end of combat round 3, both swarms of spiders were completely destroyed, leaving only the wounded giant spider. With the spider’s defeat in round 4, all hostile creatures were eliminated. The battlefield was left strewn with the shattered corpses of the swarms and the fallen giant spider’s carcass.\n\nThis hard-fought victory awarded a total of 600 XP, which was evenly divided between Eirik and Thane, granting each 300 experience points for their valor and skill in overcoming the ambush. The party remains battle-ready, having survived the deadly assault with minimal injuries and no lingering conditions.",
+          "impact": "To be determined",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 5,
+            "time": "20:14:00"
+          }
+        },
+        {
+          "encounterId": "",
+          "summary": "In a tense combat encounter at a ruined outpost, Eirik Hearthwise and his companion Ranger Thane faced off against three spider threats: a Giant Spider and two Swarms of Spiders. The fight began with Eirik casting Sacred Flame to damage one swarm, followed by Ranger Thane’s precise archery striking the Giant Spider. The spider swarms launched biting attacks but were largely kept at bay by Eirik’s resilience and Thane’s ranged support.\n\nOver the course of several rounds, Eirik utilized a combination of melee attacks and divine magic, including a crucial Cure Wounds to recover from venomous bites and resist poison effects. Ranger Thane consistently targeted the Giant Spider and swarms with his arrows, gradually wearing them down. Eventually, the Giant Spider was slain by Thane’s combined arrow strikes, and the first swarm was crushed by Eirik’s powerful mace blows.\n\nAs the last swarm rallied for a final assault, Eirik’s Sacred Flame scorched them, and although the spiders counterattacked fiercely, Thane’s final arrow struck true, ending the threat. The battlefield was left strewn with the corpses of the Giant Spider and both swarms of spiders, signifying a hard-fought but decisive victory.\n\nExperience points totaling 600 XP (200 XP each for the Giant Spider and the two Swarms) were awarded and divided evenly between Eirik and Ranger Thane, granting each 300 XP for their successful defeat of these foes.\n\nCombat Round Summary:  \n- Giant Spider defeated after sustained ranged attacks by Thane and melee strikes by Eirik.  \n- First Swarm of Spiders destroyed by Eirik’s mace.  \n- Second Swarm of Spiders heavily damaged by Sacred Flame and Thane’s arrows, finally destroyed by combined efforts.  \n- Eirik resisted poison effects and used Cure Wounds to maintain combat effectiveness.  \n- Both participants remain alive and in fighting condition, with no lingering conditions.\n\nThis encounter demonstrated effective teamwork between divine magic and martial prowess, culminating in the reclamation of the outpost and the defeat of a dangerous arachnid ambush.",
+          "impact": "To be determined",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 5,
+            "time": "20:39:00"
+          }
+        }
+      ],
+      "adventureSummary": "In the intense encounter at the ruined ranger outpost, Eirik Hearthwise and Ranger Thane faced off against a giant spider and two swarms of spiders that launched a vicious ambush under the flickering lanternlight. \n\nThe battle began with Eirik delivering a critical, devastating mace strike that obliterated the first swarm instantly. Thane’s precise arrow wounded the giant spider deeply. Despite fierce retaliation from the spider, including venomous bites that tested Eirik’s resolve, he resisted the poison with steadfast saving throws. The second swarm pressed the attack but gradually fell under Eirik’s relentless hammer blows, eventually being crushed completely by the third round’s end.\n\nThroughout the fight, Thane expended several arrows targeting the giant spider, though not all struck true. The giant spider, severely wounded and weakened, failed to land a decisive blow in the final moments. Ultimately, Eirik’s final crossbow bolt found its mark, ending the giant spider’s threat and bringing the encounter to a close.\n\nBy the end of combat round 3, both swarms of spiders were completely destroyed, leaving only the wounded giant spider. With the spider’s defeat in round 4, all hostile creatures were eliminated. The battlefield was left strewn with the shattered corpses of the swarms and the fallen giant spider’s carcass.\n\nThis hard-fought victory awarded a total of 600 XP, which was evenly divided between Eirik and Thane, granting each 300 experience points for their valor and skill in overcoming the ambush. The party remains battle-ready, having survived the deadly assault with minimal injuries and no lingering conditions.\n\nIn a tense combat encounter at a ruined outpost, Eirik Hearthwise and his companion Ranger Thane faced off against three spider threats: a Giant Spider and two Swarms of Spiders. The fight began with Eirik casting Sacred Flame to damage one swarm, followed by Ranger Thane’s precise archery striking the Giant Spider. The spider swarms launched biting attacks but were largely kept at bay by Eirik’s resilience and Thane’s ranged support.\n\nOver the course of several rounds, Eirik utilized a combination of melee attacks and divine magic, including a crucial Cure Wounds to recover from venomous bites and resist poison effects. Ranger Thane consistently targeted the Giant Spider and swarms with his arrows, gradually wearing them down. Eventually, the Giant Spider was slain by Thane’s combined arrow strikes, and the first swarm was crushed by Eirik’s powerful mace blows.\n\nAs the last swarm rallied for a final assault, Eirik’s Sacred Flame scorched them, and although the spiders counterattacked fiercely, Thane’s final arrow struck true, ending the threat. The battlefield was left strewn with the corpses of the Giant Spider and both swarms of spiders, signifying a hard-fought but decisive victory.\n\nExperience points totaling 600 XP (200 XP each for the Giant Spider and the two Swarms) were awarded and divided evenly between Eirik and Ranger Thane, granting each 300 XP for their successful defeat of these foes.\n\nCombat Round Summary:  \n- Giant Spider defeated after sustained ranged attacks by Thane and melee strikes by Eirik.  \n- First Swarm of Spiders destroyed by Eirik’s mace.  \n- Second Swarm of Spiders heavily damaged by Sacred Flame and Thane’s arrows, finally destroyed by combined efforts.  \n- Eirik resisted poison effects and used Cure Wounds to maintain combat effectiveness.  \n- Both participants remain alive and in fighting condition, with no lingering conditions.\n\nThis encounter demonstrated effective teamwork between divine magic and martial prowess, culminating in the reclamation of the outpost and the defeat of a dangerous arachnid ambush."
     },
     {
       "locationId": "B08",
@@ -821,15 +831,7 @@
           "attitude": "Ambiguously neutral, testing worthiness while offering cryptic guidance"
         }
       ],
-      "monsters": [
-        {
-          "name": "Awakened Shrubs",
-          "quantity": {
-            "min": 2,
-            "max": 2
-          }
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Potion of greater healing (offered as a gift if Morvath is pleased)",
         "Wand of secrets (hidden on a shelf amongst curious trinkets)",

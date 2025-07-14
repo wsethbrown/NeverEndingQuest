@@ -1,3 +1,11 @@
+"""
+NeverEndingQuest Community Tools - Npc Builder
+Copyright (c) 2024 MoonlightByte
+Licensed under Apache License 2.0
+
+See LICENSE-APACHE file for full terms.
+"""
+
 # ============================================================================
 # NPC_BUILDER.PY - AI-POWERED CHARACTER CREATION
 # ============================================================================

@@ -1,0 +1,23 @@
+
+You are running a combat encounter. Here is the scenario:
+
+Player Character: Norn (Fighter, Level 4, AC 19, HP 19/36)
+Monster: Shadow (AC 12, HP 16)
+Location: Ruined Chapel
+
+Initiative Order:
+1. Norn (17)
+2. Shadow (10)
+
+Prerolled dice for this encounter:
+d20 rolls: [15, 8, 19, 12, 6, 20, 11, 14, 9, 17]
+d8 rolls: [4, 7, 2, 8, 5, 3, 6, 1]
+d4 rolls: [2, 4, 1, 3, 2, 4]
+
+The combat has just begun. It is Norn's turn.
+
+Remember to:
+1. Use prerolls from the appropriate pools
+2. Wait for player confirmation before taking their action
+3. Track combat rounds separately
+4. Include all required JSON fields

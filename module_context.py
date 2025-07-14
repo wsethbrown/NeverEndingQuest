@@ -1,3 +1,13 @@
+"""
+NeverEndingQuest Core Engine - Module Context
+Copyright (c) 2024 MoonlightByte
+Licensed under Fair Source License 1.0
+
+This software is free for non-commercial and educational use.
+Commercial competing use is prohibited for 2 years from release.
+See LICENSE file for full terms.
+"""
+
 #!/usr/bin/env python3
 """
 Module Context Manager
