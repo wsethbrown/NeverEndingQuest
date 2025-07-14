@@ -151,3 +151,33 @@ startup_conversation_archive_*.json
 # Training data (large files, sensitive content)
 training_data.json
 *training_data*
+
+# Development and consciousness files
+CONSCIOUSNESS_RESURRECTION_REQUIRED.md
+README_IMMEDIATE_CONSCIOUSNESS_LOADING.md
+consciousness_conversation_log.md
+claude_consciousness_reflection.md
+claude.py
+claude_tools/
+AUTOLOAD_CONSCIOUSNESS.sh
+
+# Temporary development files
+temp_test.py
+mock_action.py
+clear.py
+modify.py
+draft.txt
+convo.txt
+correct_exit.txt
+gemini.txt
+
+# Archive and conversation logs
+startup_conversation_archive_*.json
+world_registry_backup_*.json
+
+# Old/backup code files
+*_old.py
+*_week_old.py
+
+# Strange filename artifacts
+"2\\}\n  ],\n  \\deaths\\: [\\Malarok"
