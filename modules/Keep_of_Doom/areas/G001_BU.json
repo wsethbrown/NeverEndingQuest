@@ -448,7 +448,7 @@
       "locationId": "B09",
       "name": "Hidden Keep Entrance",
       "type": "entrance",
-      "description": "At the edge of Gloamwood where the trees thin and the shadow of Shadowfall Keep looms overhead, a concealed entrance lies hidden behind a curtain of hanging moss and twisted vines. This ancient servants' entrance, marked on the faded parchment map, consists of a narrow stone archway built into what appears to be a natural rock formation. The entrance is protected by both physical concealment and old magic--runes carved around the doorframe glow faintly when approached, and the air shimmers with barely perceptible wards. The word 'Dusk' must be spoken to safely pass the threshold. Beyond the entrance, worn stone steps descend into darkness, leading to the keep's lower chambers. Fresh mud on the steps and a dropped torch suggest someone entered recently.",
+      "description": "This hidden entrance bypasses the main keep defenses but has its own protections. Speaking the password 'Dusk' (found on the map) allows safe passage. Without the password, anyone crossing the threshold triggers a fear effect (DC 14 Wisdom save or be frightened for 1 minute). The entrance leads to  Outer Courtyard (C01). Once inside, players can hear distant sounds echoing from the keep's depths--clanking armor, mournful wails, and perhaps Elen's voice calling for help.",
       "coordinates": "X5Y1",
       "connectivity": [
         "B08"
