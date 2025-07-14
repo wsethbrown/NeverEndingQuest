@@ -1290,6 +1290,20 @@ Character Role: {character_role}
             # if 'ammunition' in updates:
             #     print(f"[DEBUG] Ammunition updates: {updates['ammunition']}")
             
+            # CRITICAL FIX: Prevent XP loss during post-combat processing
+            # This protects against stale character data overwriting recently awarded XP
+            if 'experience_points' in updates:
+                current_xp = character_data.get('experience_points', 0)
+                new_xp = updates['experience_points']
+                
+                # If the update would reduce XP, check if this might be stale data
+                if new_xp < current_xp:
+                    print(f"[DEBUG XP PROTECTION] Preventing XP reduction: {current_xp} -> {new_xp} for {character_name}")
+                    print(f"[DEBUG XP PROTECTION] This may be stale data from post-combat processing")
+                    # Remove the XP update to preserve current XP
+                    del updates['experience_points']
+                    print(f"[DEBUG XP PROTECTION] XP update removed, preserving current XP: {current_xp}")
+            
             updated_data = deep_merge_dict(character_data, updates)
             
             # print(f"[DEBUG] deep_merge_dict completed successfully")
