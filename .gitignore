@@ -62,6 +62,9 @@ module_randomness_test_*.json
 *.backup
 *.backup_*
 *_BU.json
+# Exception: Keep of Doom BU files are core game files
+!modules/Keep_of_Doom/*_BU.json
+!modules/Keep_of_Doom/areas/*_BU.json
 *_backup_*
 backup/
 backup_*/
