@@ -448,7 +448,7 @@
       "locationId": "B09",
       "name": "Hidden Keep Entrance",
       "type": "entrance",
-      "description": "This hidden entrance bypasses the main keep defenses but has its own protections. Speaking the password 'Dusk' (found on the map) allows safe passage. Without the password, anyone crossing the threshold triggers a fear effect (DC 14 Wisdom save or be frightened for 1 minute). The entrance leads to  Outer Courtyard (C01). Once inside, players can hear distant sounds echoing from the keep's depths--clanking armor, mournful wails, and perhaps Elen's voice calling for help.",
+      "description": "This hidden entrance bypasses the main keep defenses but has its own protections. Speaking the password 'Dusk' (found on the map) allows safe passage. Without the password, anyone crossing the threshold triggers a fear effect (DC 14 Wisdom save or be frightened for 1 minute). The entrance leads to the Secret Passage C08. Once inside, players can hear distant sounds echoing from the keep's depths--clanking armor, mournful wails, and perhaps Elen's voice calling for help.",
       "coordinates": "X5Y1",
       "connectivity": [
         "B08"
