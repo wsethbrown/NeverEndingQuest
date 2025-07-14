@@ -181,3 +181,49 @@ world_registry_backup_*.json
 
 # Strange filename artifacts
 "2\\}\n  ],\n  \\deaths\\: [\\Malarok"
+
+# Files manually deleted from repository - do not re-add
+build_spell_repository.py
+character_validator_fixed.py
+correct_exit.txt
+extract_spells.py
+feature_discovery_tests.py
+fix_character_validator_routing.md
+gemini.txt
+gemini_tool.py
+google_api.pi
+load_game_dialog_improvements.md
+migrate_to_unified_file_structure.py
+nc05_e2_fixes.md
+party_tracker\ copy\ 3.json
+party_tracker_elen_norn_prewipe.json
+plan.md
+plan_encounter_debug.md
+plan_readme_restructure.md
+run_dm_tests.py
+spell_extraction_log.txt
+system_prompt\ copy\ 6.txt
+
+# Development files that should stay local only
+architecture_docs.md
+clean_debug_log.py
+clear_echoes_backup.py
+debug_character_update.py
+debug_character_validator_logging.py
+debug_config.py
+debug_migration_status.md
+debug_monster_loading.py
+debug_path_issue.py
+debug_spell_slots.py
+dm_complex_test_setup.py
+enhanced_test_runner.py
+isolated_test_environment.py
+spell_repository_backup.json
+test_combat_prompt_1.txt
+test_combat_prompt_2.txt
+test_combat_validation_prompt.txt
+test_compressed_combat.json
+
+# Training data should never be committed
+simple_training_collector.py
+training/

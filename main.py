@@ -111,7 +111,7 @@ from module_path_manager import ModulePathManager
 from campaign_manager import CampaignManager
 
 # Import training data collection
-from simple_training_collector import log_complete_interaction
+# from simple_training_collector import log_complete_interaction  # DISABLED
 from enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
@@ -1448,10 +1448,11 @@ def get_ai_response(conversation_history, validation_retry_count=0):
     # We now pass the raw, untouched JSON string to the next function.
     
     # Log training data - complete conversation history and AI response
-    try:
-        log_complete_interaction(conversation_history, content)
-    except Exception as e:
-        print(f"Warning: Could not log training data: {e}")
+    # DISABLED: Training data collection
+    # try:
+    #     log_complete_interaction(conversation_history, content)
+    # except Exception as e:
+    #     print(f"Warning: Could not log training data: {e}")
     
     return content
 
