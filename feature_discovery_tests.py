@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Feature Discovery Tests for DungeonMasterAI
+Feature Discovery Tests for NeverEndingQuest
 Specialized tests for AI discovery of non-obvious features like storage chests
 """
 
@@ -360,7 +360,7 @@ def main():
     import argparse
     from datetime import datetime
     
-    parser = argparse.ArgumentParser(description="Feature Discovery Testing for DungeonMasterAI")
+    parser = argparse.ArgumentParser(description="Feature Discovery Testing for NeverEndingQuest")
     parser.add_argument(
         "--scenario",
         choices=["storage_chest_discovery", "location_transition_discovery", 

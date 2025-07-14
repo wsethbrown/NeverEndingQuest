@@ -35,9 +35,9 @@
 # maintaining rigorous data integrity and error recovery mechanisms.
 # ============================================================================
 """
-DungeonMasterAI Wrapper Script
+NeverEndingQuest Wrapper Script
 
-This script acts as a mediator between the user and the DungeonMasterAI application,
+This script acts as a mediator between the user and the NeverEndingQuest application,
 allowing for gameplay in environments that don't support direct interactive terminals.
 
 Usage:
@@ -60,7 +60,7 @@ def strip_ansi_codes(text):
     return ansi_escape.sub('', text)
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="DungeonMasterAI Wrapper")
+    parser = argparse.ArgumentParser(description="NeverEndingQuest Wrapper")
     parser.add_argument('--turns', type=int, default=1, help='Number of turns to simulate')
     return parser.parse_args()
 
@@ -119,7 +119,7 @@ def save_game_state(turn_num, command, response):
     filename = output_dir / f"game_turn_{turn_num}_{timestamp}.md"
     
     with open(filename, "w") as f:
-        f.write(f"# DungeonMasterAI - Turn {turn_num}\n\n")
+        f.write(f"# NeverEndingQuest - Turn {turn_num}\n\n")
         f.write(f"## Player Command\n\n```\n{command}\n```\n\n")
         f.write(f"## Dungeon Master Response\n\n{response}\n")
     
@@ -128,9 +128,9 @@ def save_game_state(turn_num, command, response):
 def main():
     args = parse_args()
 
-    print("DungeonMasterAI Wrapper")
+    print("NeverEndingQuest Wrapper")
     print("=======================")
-    print("This script will run your DungeonMasterAI application and save the output.")
+    print("This script will run your NeverEndingQuest application and save the output.")
     print("Using predefined commands for each turn")
     print()
 
@@ -163,7 +163,7 @@ def main():
         print(preview)
     
     print("\nAll game interactions have been saved to the game_logs directory.")
-    print("Thank you for playing DungeonMasterAI!")
+    print("Thank you for playing NeverEndingQuest!")
 
 if __name__ == "__main__":
     main()

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Enhanced DungeonMasterAI Wrapper Script
+Enhanced NeverEndingQuest Wrapper Script
 
-This script creates a more robust mediator between the user and the DungeonMasterAI application,
+This script creates a more robust mediator between the user and the NeverEndingQuest application,
 allowing for gameplay in environments that don't support direct interactive terminals.
 
 Features:
@@ -69,7 +69,7 @@ def strip_ansi_codes(text):
     return ansi_escape.sub('', text)
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Enhanced DungeonMasterAI Wrapper")
+    parser = argparse.ArgumentParser(description="Enhanced NeverEndingQuest Wrapper")
     parser.add_argument('--turns', type=int, default=1, help='Number of turns to simulate')
     parser.add_argument('--scenario', type=str, default='puzzle', 
                         choices=['puzzle', 'combat', 'exploration'], 
@@ -276,7 +276,7 @@ def save_game_state(turn_num, command, response, state):
     filename = output_dir / f"game_turn_{turn_num}_{timestamp}.md"
     
     with open(filename, "w") as f:
-        f.write(f"# DungeonMasterAI - Turn {turn_num}\n\n")
+        f.write(f"# NeverEndingQuest - Turn {turn_num}\n\n")
         f.write(f"## Game State\n\n")
         f.write(f"- **Location:** {state.current_location}\n")
         f.write(f"- **Time:** {state.time}\n")
@@ -293,9 +293,9 @@ def save_game_state(turn_num, command, response, state):
 def main():
     args = parse_args()
     
-    print("Enhanced DungeonMasterAI Wrapper")
+    print("Enhanced NeverEndingQuest Wrapper")
     print("================================")
-    print("This script will run your DungeonMasterAI application with automatic responses.")
+    print("This script will run your NeverEndingQuest application with automatic responses.")
     print(f"Scenario: {args.scenario}")
     print(f"Auto-dice: {'Enabled' if args.auto_dice else 'Disabled'}")
     print()
@@ -334,7 +334,7 @@ def main():
             print(f"In combat: Encounter {state.encounter_id}")
     
     print("\nAll game interactions have been saved to the game_logs directory.")
-    print("Thank you for playing DungeonMasterAI!")
+    print("Thank you for playing NeverEndingQuest!")
 
 if __name__ == "__main__":
     main()

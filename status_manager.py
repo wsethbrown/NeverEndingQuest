@@ -1,5 +1,5 @@
 """
-Status Manager for DungeonMasterAI
+Status Manager for NeverEndingQuest
 
 This module provides a centralized way to manage and display status messages
 throughout the application, giving users feedback about what the system is doing.
@@ -55,7 +55,7 @@ import time
 from typing import Optional, Callable
 
 class StatusManager:
-    """Manages status messages for the DungeonMasterAI system"""
+    """Manages status messages for the NeverEndingQuest system"""
     
     def __init__(self):
         self._status = "Ready for input"

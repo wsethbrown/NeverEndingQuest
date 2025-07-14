@@ -20,7 +20,7 @@
 #
 
 """
-Level Up Manager Module for DungeonMasterAI
+Level Up Manager Module for NeverEndingQuest
 
 Handles character level up process as a separate, focused conversation.
 This module is fully agentic, conducting an interactive interview with the player,

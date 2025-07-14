@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Isolated Test Environment Manager for DungeonMasterAI
+Isolated Test Environment Manager for NeverEndingQuest
 Creates completely isolated testing environments to prevent interference with main game
 """
 

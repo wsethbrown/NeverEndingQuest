@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Log viewer utility for DungeonMasterAI
+Log viewer utility for NeverEndingQuest
 Allows viewing and filtering of game logs
 """
 

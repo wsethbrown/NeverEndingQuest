@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Save Game Manager Module for DungeonMasterAI
+Save Game Manager Module for NeverEndingQuest
 
 Handles save and restore functionality for game state preservation.
 """
@@ -314,7 +314,7 @@ class SaveGameManager:
             },
             "system_info": {
                 "save_format_version": "1.0",
-                "created_by": "DungeonMasterAI Save System",
+                "created_by": "NeverEndingQuest Save System",
             }
         }
         

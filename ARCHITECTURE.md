@@ -57,7 +57,7 @@ All game content uses JSON schemas, allowing modifications without touching code
 
 ### Key Components:
 
-- **DungeonMasterAI**: The primary AI that narrates adventures and responds to player actions
+- **NeverEndingQuest**: The primary AI that narrates adventures and responds to player actions
 - **Action Handler**: Processes player commands and updates game state
 - **Module System**: Self-contained adventure areas with locations, NPCs, and plotlines
 - **Compression Engine**: Multi-tier system that compresses conversations while preserving story elements

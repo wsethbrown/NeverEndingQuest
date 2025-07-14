@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Enhanced Test Runner for DungeonMasterAI
+Enhanced Test Runner for NeverEndingQuest
 Comprehensive testing framework with isolated environments and feature discovery
 """
 
@@ -469,7 +469,7 @@ def backup_debug_log():
 
 def main():
     """Main entry point for enhanced testing"""
-    parser = argparse.ArgumentParser(description="Enhanced automated testing for DungeonMasterAI")
+    parser = argparse.ArgumentParser(description="Enhanced automated testing for NeverEndingQuest")
     parser.add_argument(
         "--profiles",
         nargs="+",

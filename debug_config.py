@@ -1,5 +1,5 @@
 """
-Debug configuration for DungeonMasterAI
+Debug configuration for NeverEndingQuest
 Controls what debug messages are shown and logged
 """
 

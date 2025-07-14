@@ -1,5 +1,5 @@
 """
-Combat Manager Module for DungeonMasterAI
+Combat Manager Module for NeverEndingQuest
 
 Handles combat encounters between players, NPCs, and monsters.
 

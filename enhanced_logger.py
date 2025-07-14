@@ -1,5 +1,5 @@
 """
-Enhanced logging system for DungeonMasterAI
+Enhanced logging system for NeverEndingQuest
 Provides cleaner console output and detailed file logging
 """
 
@@ -114,7 +114,7 @@ class GameLogger:
     """Main logger class for the game"""
     
     def __init__(self):
-        self.logger = logging.getLogger('DungeonMasterAI')
+        self.logger = logging.getLogger('NeverEndingQuest')
         self.logger.setLevel(logging.DEBUG)
         self.script_name = None  # Will be set by set_script_name()
         

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-AI Player for automated testing of DungeonMasterAI
+AI Player for automated testing of NeverEndingQuest
 Uses GPT-4o-mini to make intelligent decisions based on test objectives
 """
 

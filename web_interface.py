@@ -19,7 +19,7 @@
 #
 
 """
-Web Interface for DungeonMasterAI
+Web Interface for NeverEndingQuest
 
 This module provides a Flask-based web interface for the dungeon master game,
 with separate panels for game output and debug information.
@@ -358,7 +358,7 @@ def get_spell_data():
 @socketio.on('connect')
 def handle_connect():
     """Handle client connection"""
-    emit('connected', {'data': 'Connected to DungeonMasterAI'})
+    emit('connected', {'data': 'Connected to NeverEndingQuest'})
     
     # Send any queued messages
     while not game_output_queue.empty():
@@ -852,7 +852,7 @@ if __name__ == '__main__':
     browser_thread = threading.Thread(target=open_browser, daemon=True)
     browser_thread.start()
     
-    print("Starting DungeonMasterAI Web Interface...")
+    print("Starting NeverEndingQuest Web Interface...")
     print("Opening browser at http://localhost:5000")
     
     # Run the Flask app with SocketIO

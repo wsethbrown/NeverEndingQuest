@@ -45,7 +45,7 @@
 # ============================================================================
 
 """
-Location Path Finder for DungeonMasterAI
+Location Path Finder for NeverEndingQuest
 
 This script determines the path between two locations across areas in the module.
 It builds a graph of all locations and their connections, then finds the shortest path.

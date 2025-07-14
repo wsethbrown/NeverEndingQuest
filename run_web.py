@@ -18,7 +18,7 @@
 #
 
 """
-Launcher script for the DungeonMasterAI web interface.
+Launcher script for the NeverEndingQuest web interface.
 This script starts the Flask server and automatically opens the browser.
 """
 import subprocess
@@ -27,7 +27,7 @@ import os
 import time
 
 def main():
-    print("Launching DungeonMasterAI Web Interface...")
+    print("Launching NeverEndingQuest Web Interface...")
     print("The browser should open automatically. If not, navigate to http://localhost:5000")
     
     # Run the web interface with restart capability
@@ -48,7 +48,7 @@ def main():
                 break
                 
         except KeyboardInterrupt:
-            print("\nShutting down DungeonMasterAI Web Interface...")
+            print("\nShutting down NeverEndingQuest Web Interface...")
             break
         except Exception as e:
             print(f"Error: {e}")
