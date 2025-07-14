@@ -1909,7 +1909,8 @@ If I've taken all my actions, then: 1) First update all HP changes and status ef
                
                
                # Write raw response to debug file
-               with open("debug_ai_response.json", "w") as debug_file:
+               os.makedirs("debug", exist_ok=True)
+               with open("debug/debug_ai_response.json", "w") as debug_file:
                    json.dump({"raw_ai_response": ai_response}, debug_file, indent=2)
                
                # Temporarily add AI response for validation context
@@ -2226,7 +2227,8 @@ If I've taken all my actions, then: 1) First update all HP changes and status ef
                
                # Write debug log to file
                try:
-                   with open("npc_update_debug_log.json", "a") as debug_file:
+                   os.makedirs("debug", exist_ok=True)
+                   with open("debug/npc_update_debug_log.json", "a") as debug_file:
                        json.dump(debug_log, debug_file)
                        debug_file.write("\n")
                except Exception as log_error:

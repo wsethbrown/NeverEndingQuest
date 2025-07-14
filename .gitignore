@@ -227,3 +227,6 @@ test_compressed_combat.json
 # Training data should never be committed
 simple_training_collector.py
 training/
+
+# Debug folder - keep debug files organized and local only
+debug/

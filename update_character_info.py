@@ -1229,7 +1229,8 @@ Character Role: {character_role}
                     "changes": changes,
                     "raw_ai_response": raw_response
                 }
-                safe_write_json("debug_npc_update.json", debug_info)
+                os.makedirs("debug", exist_ok=True)
+                safe_write_json("debug/debug_npc_update.json", debug_info)
             
             # COMPREHENSIVE DEBUG LOGGING FOR ALL CHARACTER UPDATES
             # Log every AI response to help debug spell slot restoration issues
@@ -1244,7 +1245,8 @@ Character Role: {character_role}
             }
             
             # Save to a debug file for every update
-            debug_filename = f"debug_character_update_{character_name.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            os.makedirs("debug", exist_ok=True)
+            debug_filename = f"debug/debug_character_update_{character_name.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
             safe_write_json(debug_filename, debug_character_update)
             
             # Also print to console for immediate visibility
@@ -1337,8 +1339,9 @@ Character Role: {character_role}
                     "update_data": updates,
                     "ai_response": raw_response
                 }
-                safe_write_json("debug_critical_field_loss.json", debug_info)
-                debug("FILE_OP: Debug info saved to debug_critical_field_loss.json", category="file_operations")
+                os.makedirs("debug", exist_ok=True)
+                safe_write_json("debug/debug_critical_field_loss.json", debug_info)
+                debug("FILE_OP: Debug info saved to debug/debug_critical_field_loss.json", category="file_operations")
                 
                 if attempt == max_attempts:
                     error("FAILURE: Max attempts reached. Update failed to preserve critical data.", category="character_validation")

@@ -1,4 +1,5 @@
 import json
+import os
 from jsonschema import validate, ValidationError
 from openai import OpenAI
 import time
@@ -75,10 +76,11 @@ Remember to only update monster information and leave player and NPC data unchan
         ai_response = response.choices[0].message.content.strip()
 
         # Write the raw AI response to a debug file
-        with open("debug_encounter_update.json", "w") as debug_file:
+        os.makedirs("debug", exist_ok=True)
+        with open("debug/debug_encounter_update.json", "w") as debug_file:
             json.dump({"raw_ai_response": ai_response}, debug_file, indent=2)
 
-        debug("AI_RESPONSE: Raw AI response written to debug_encounter_update.json", category="encounter_updates")
+        debug("AI_RESPONSE: Raw AI response written to debug/debug_encounter_update.json", category="encounter_updates")
 
         # Remove markdown code blocks if present
         ai_response = re.sub(r'```json\n|\n```', '', ai_response)
