@@ -445,38 +445,25 @@ def compress_conversation_history_on_transition(conversation_history, leaving_lo
         debug_print(f"No messages to summarize for {leaving_location_name}")
         return conversation_history
 
-def generate_enhanced_adventure_summary(conversation_history_data, party_tracker_data, leaving_location_name, specific_transition_index=None):
+def generate_enhanced_adventure_summary(conversation_history_data, party_tracker_data, leaving_location_name):
     """
     Generate an enhanced adventure summary when leaving a location.
     This is called by the transition handler to create journal entries.
-    
-    Args:
-        specific_transition_index: If provided, process this specific transition instead of finding the most recent one
     """
     debug_print(f"Generating enhanced adventure summary for {leaving_location_name}")
     
-    # Use specific transition index if provided, otherwise find the most recent
-    if specific_transition_index is not None:
-        transition_index = specific_transition_index
-        if transition_index < len(conversation_history_data):
-            msg = conversation_history_data[transition_index]
-            debug_print(f"Using specified transition at index {transition_index}: {msg.get('content', '')}")
-        else:
-            debug_print(f"Specified transition index {transition_index} is out of range")
-            return None
-    else:
-        # Find the most recent location transition message (original behavior)
-        transition_index = None
-        for i in range(len(conversation_history_data) - 1, -1, -1):
-            msg = conversation_history_data[i]
-            if msg.get("role") == "user" and "Location transition:" in msg.get("content", ""):
-                transition_index = i
-                debug_print(f"Found most recent transition at index {i}: {msg.get('content', '')}")
-                break
-        
-        if transition_index is None:
-            debug_print("No location transition found in conversation history")
-            return None
+    # Find the most recent location transition message
+    transition_index = None
+    for i in range(len(conversation_history_data) - 1, -1, -1):
+        msg = conversation_history_data[i]
+        if msg.get("role") == "user" and "Location transition:" in msg.get("content", ""):
+            transition_index = i
+            debug_print(f"Found most recent transition at index {i}: {msg.get('content', '')}")
+            break
+    
+    if transition_index is None:
+        debug_print("No location transition found in conversation history")
+        return None
     
     # Find the previous boundary (either another transition or the last system message)
     previous_boundary_index = None

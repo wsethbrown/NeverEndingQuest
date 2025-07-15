@@ -838,134 +838,116 @@ def check_and_process_location_transitions(conversation_history, party_tracker_d
     Check if there are any unprocessed location transitions in the conversation history
     and process them to create summaries and compress the history.
     """
-    import re
+    # Find the most recent transition that hasn't been processed yet
+    last_transition_index = None
+    last_transition_content = None
     
-    # Find ALL unprocessed transitions in chronological order
-    unprocessed_transitions = []
-    
-    for i in range(len(conversation_history)):
+    for i in range(len(conversation_history) - 1, -1, -1):
         msg = conversation_history[i]
         if msg.get("role") == "user" and "Location transition:" in msg.get("content", ""):
-            # Check if this transition has already been processed (has a matching summary right before it)
-            has_summary_before = False
-            if i > 0:
-                prev_msg = conversation_history[i - 1]
-                if "=== LOCATION SUMMARY ===" in prev_msg.get("content", ""):
-                    # Extract the arriving location from the transition to see if summary matches
-                    transition_content = msg.get("content", "")
-                    try:
-                        # Parse transition to get arriving location
-                        if " to " in transition_content:
-                            arriving_location = transition_content.split(" to ")[1].strip()
-                            # Remove location ID if present: "Location (ID)" -> "Location"
-                            arriving_location = arriving_location.split(" (")[0].strip()
-                            
-                            # Check if the summary is for the arriving location
-                            summary_content = prev_msg.get("content", "")
-                            if arriving_location + ":" in summary_content:
-                                has_summary_before = True
-                            else:
-                                # Summary exists but it's for the wrong location (likely the leaving location)
-                                debug(f"STATE_CHANGE: Found summary at index {i-1} but it's not for arriving location '{arriving_location}'", category="location_transitions")
-                    except Exception as e:
-                        # If parsing fails, fall back to assuming summary exists
-                        has_summary_before = True
-            
-            if not has_summary_before:
-                # Check if there's conversation after this transition to warrant processing
-                has_conversation_after = False
-                for j in range(i + 1, len(conversation_history)):
-                    check_msg = conversation_history[j]
-                    # Skip system messages and DM notes
-                    if check_msg.get("role") == "assistant" or (check_msg.get("role") == "user" and "Dungeon Master Note:" not in check_msg.get("content", "")):
-                        has_conversation_after = True
-                        break
-                
-                if has_conversation_after:
-                    unprocessed_transitions.append((i, msg.get("content", "")))
+            last_transition_index = i
+            last_transition_content = msg.get("content", "")
+            break
     
-    if not unprocessed_transitions:
-        # No unprocessed transitions found
+    if last_transition_index is None:
+        # No transitions found
         return conversation_history
     
-    # Process each unprocessed transition in chronological order
-    current_history = conversation_history
+    # Check if this transition has already been processed (has a summary right before it)
+    if last_transition_index > 0:
+        prev_msg = conversation_history[last_transition_index - 1]
+        if "=== LOCATION SUMMARY ===" in prev_msg.get("content", ""):
+            # This transition has already been processed
+            return conversation_history
     
-    for transition_index, transition_content in unprocessed_transitions:
-        # Extract the leaving location from the transition message
-        # New format: "Location transition: [from_location] (ID) to [to_location] (ID)"
-        # Old format: "Location transition: [from_location] to [to_location]"
-        try:
-            # Try to extract with IDs first (new format)
-            id_pattern = r'Location transition: (.+?) \(([A-Z]\d+)\) to (.+?) \(([A-Z]\d+)\)'
-            id_match = re.match(id_pattern, transition_content)
-            
-            if id_match:
-                # New format with IDs
-                leaving_location_name = id_match.group(1)
-                leaving_location_id = id_match.group(2)
-                debug(f"STATE_CHANGE: Extracted from new format - Location: {leaving_location_name}, ID: {leaving_location_id}", category="location_transitions")
+    # Check if there's already a summary after this transition
+    # If there are regular conversation messages after the transition, we should process it
+    has_conversation_after = False
+    for i in range(last_transition_index + 1, len(conversation_history)):
+        msg = conversation_history[i]
+        # Skip system messages and DM notes
+        if msg.get("role") == "assistant" or (msg.get("role") == "user" and "Dungeon Master Note:" not in msg.get("content", "")):
+            has_conversation_after = True
+            break
+    
+    if not has_conversation_after:
+        # No conversation after the transition yet, wait for next round
+        return conversation_history
+    
+    # Extract the leaving location from the transition message
+    # New format: "Location transition: [from_location] (ID) to [to_location] (ID)"
+    # Old format: "Location transition: [from_location] to [to_location]"
+    try:
+        import re
+        # Try to extract with IDs first (new format)
+        id_pattern = r'Location transition: (.+?) \(([A-Z]\d+)\) to (.+?) \(([A-Z]\d+)\)'
+        id_match = re.match(id_pattern, last_transition_content)
+        
+        if id_match:
+            # New format with IDs
+            leaving_location_name = id_match.group(1)
+            leaving_location_id = id_match.group(2)
+            debug(f"STATE_CHANGE: Extracted from new format - Location: {leaving_location_name}, ID: {leaving_location_id}", category="location_transitions")
+        else:
+            # Fall back to old format
+            parts = last_transition_content.split(" to ")
+            if len(parts) == 2:
+                from_part = parts[0].replace("Location transition: ", "").strip()
+                leaving_location_name = from_part
+                leaving_location_id = None
+                debug(f"STATE_CHANGE: Extracted from old format - Location: {leaving_location_name}", category="location_transitions")
             else:
-                # Fall back to old format
-                parts = transition_content.split(" to ")
-                if len(parts) == 2:
-                    from_part = parts[0].replace("Location transition: ", "").strip()
-                    leaving_location_name = from_part
-                    leaving_location_id = None
-                    debug(f"STATE_CHANGE: Extracted from old format - Location: {leaving_location_name}", category="location_transitions")
-                else:
-                    warning("VALIDATION: Could not parse transition message format", category="location_transitions")
-                    continue  # Skip this transition and try the next one
-        except Exception as e:
-            error(f"FAILURE: Error parsing transition message", exception=e, category="location_transitions")
-            continue  # Skip this transition and try the next one
+                warning("VALIDATION: Could not parse transition message format", category="location_transitions")
+                return conversation_history
+    except Exception as e:
+        error(f"FAILURE: Error parsing transition message", exception=e, category="location_transitions")
+        return conversation_history
+    
+    debug(f"STATE_CHANGE: Processing transition from {leaving_location_name}", category="location_transitions")
+    
+    try:
+        # Generate enhanced adventure summary
+        adventure_summary = cumulative_summary.generate_enhanced_adventure_summary(
+            conversation_history,
+            party_tracker_data,
+            leaving_location_name
+        )
         
-        debug(f"STATE_CHANGE: Processing transition from {leaving_location_name}", category="location_transitions")
-        
-        try:
-            # Generate enhanced adventure summary
-            adventure_summary = cumulative_summary.generate_enhanced_adventure_summary(
-                current_history,
+        if adventure_summary:
+            # Update journal with the summary
+            cumulative_summary.update_journal_with_summary(
+                adventure_summary,
                 party_tracker_data,
-                leaving_location_name,
-                specific_transition_index=transition_index
+                leaving_location_name
             )
             
-            if adventure_summary:
-                # Update journal with the summary
-                cumulative_summary.update_journal_with_summary(
-                    adventure_summary,
-                    party_tracker_data,
-                    leaving_location_name
-                )
-                
-                # Compress conversation history
-                current_history = cumulative_summary.compress_conversation_history_on_transition(
-                    current_history,
-                    leaving_location_name
-                )
-                
-                # Check if chunked compression is needed after creating the location summary
-                try:
-                    from chunked_compression_integration import check_and_perform_chunked_compression
-                    if check_and_perform_chunked_compression():
-                        debug("SUCCESS: Chunked compression performed after location transition", category="conversation_management")
-                        # Reload the compressed history
-                        current_history = load_json_file(json_file) or current_history
-                except Exception as e:
-                    error(f"FAILURE: Chunked compression check failed", exception=e, category="conversation_management")
-                
-                debug(f"SUCCESS: Location summary and compression completed for {leaving_location_name}", category="location_transitions")
-            else:
-                debug(f"STATE_CHANGE: No adventure summary generated for {leaving_location_name}", category="location_transitions")
-                
-        except Exception as e:
-            error(f"FAILURE: Failed to process location transition from {leaving_location_name}", exception=e, category="location_transitions")
-            import traceback
-            traceback.print_exc()
-            continue  # Skip this transition and try the next one
-    
-    return current_history
+            # Compress conversation history
+            compressed_history = cumulative_summary.compress_conversation_history_on_transition(
+                conversation_history,
+                leaving_location_name
+            )
+            
+            # Check if chunked compression is needed after creating the location summary
+            try:
+                from chunked_compression_integration import check_and_perform_chunked_compression
+                if check_and_perform_chunked_compression():
+                    debug("SUCCESS: Chunked compression performed after location transition", category="conversation_management")
+                    # Reload the compressed history
+                    compressed_history = load_json_file(json_file) or compressed_history
+            except Exception as e:
+                error(f"FAILURE: Chunked compression check failed", exception=e, category="conversation_management")
+            
+            debug("SUCCESS: Location summary and compression completed", category="location_transitions")
+            return compressed_history
+        else:
+            debug("STATE_CHANGE: No adventure summary generated", category="location_transitions")
+            return conversation_history
+            
+    except Exception as e:
+        error(f"FAILURE: Failed to process location transition", exception=e, category="location_transitions")
+        import traceback
+        traceback.print_exc()
+        return conversation_history
 
 def check_and_process_module_transitions(conversation_history, party_tracker_data):
     """
