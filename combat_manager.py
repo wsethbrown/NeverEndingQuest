@@ -144,6 +144,27 @@ set_script_name(__name__)
 # Temperature
 TEMPERATURE = 0.8
 
+def get_combat_temperature(encounter_data):
+    """
+    Calculate temperature for main combat processing based on encounter complexity.
+    More creatures = lower temperature for better logical processing.
+    """
+    creatures = encounter_data.get("creatures", [])
+    creature_count = len(creatures)
+    
+    if creature_count >= 12:
+        temp = 0.4
+        print(f"[COMBAT_MANAGER] Using temperature {temp} for very complex encounter ({creature_count} creatures)")
+        return temp
+    elif creature_count >= 8:
+        temp = 0.6
+        print(f"[COMBAT_MANAGER] Using temperature {temp} for complex encounter ({creature_count} creatures)")
+        return temp
+    else:
+        temp = 0.8
+        print(f"[COMBAT_MANAGER] Using temperature {temp} for normal encounter ({creature_count} creatures)")
+        return temp
+
 # OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -1535,7 +1556,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
            print("[COMBAT_MANAGER] Getting re-engagement narration from AI...")
            response = client.chat.completions.create(
                model=COMBAT_MAIN_MODEL,
-               temperature=TEMPERATURE,
+               temperature=get_combat_temperature(encounter_data),
                messages=conversation_history
            )
            resume_response_content = response.choices[0].message.content.strip()
@@ -1587,7 +1608,7 @@ Player: {initial_prompt_text}"""
        
        for attempt in range(max_retries):
            try:
-               response = client.chat.completions.create(model=COMBAT_MAIN_MODEL, temperature=TEMPERATURE, messages=conversation_history)
+               response = client.chat.completions.create(model=COMBAT_MAIN_MODEL, temperature=get_combat_temperature(encounter_data), messages=conversation_history)
                initial_response = response.choices[0].message.content.strip()
                conversation_history.append({"role": "assistant", "content": initial_response})
                
@@ -1900,7 +1921,7 @@ If I've taken all my actions, then: 1) First update all HP changes and status ef
                
                response = client.chat.completions.create(
                    model=COMBAT_MAIN_MODEL,
-                   temperature=TEMPERATURE,
+                   temperature=get_combat_temperature(encounter_data),
                    messages=conversation_history
                )
                ai_response = response.choices[0].message.content.strip()
