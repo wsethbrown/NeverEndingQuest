@@ -1807,7 +1807,12 @@ def main_game_loop():
             needs_conversation_history_update = False
 
         # Your essential cleanup script remains here, running every cycle.
-        conversation_history = check_and_process_location_transitions(conversation_history, party_tracker_data, path_manager)
+        # Loop until all unprocessed location transitions are handled
+        while True:
+            original_length = len(conversation_history)
+            conversation_history = check_and_process_location_transitions(conversation_history, party_tracker_data, path_manager)
+            if len(conversation_history) == original_length:
+                break  # No compression occurred, we're done
         save_conversation_history(conversation_history)
         
         conversation_history = check_and_process_module_transitions(conversation_history, party_tracker_data)
