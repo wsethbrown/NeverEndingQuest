@@ -143,8 +143,14 @@ class LocationPromptGuide:
     Creatures that may be encountered here.
     Include quantity ranges for scalability.
     
+    CRITICAL NAMING REQUIREMENT:
+    - Use SINGULAR names ONLY (e.g., "goblin", "skeleton", "orc")
+    - NEVER use plural names (e.g., "goblins", "skeletons", "orcs")
+    - Each monster entry represents a single creature type, not a group
+    - Multiple creatures are handled through quantity, not plural names
+    
     Each monster entry needs:
-    - name: Creature type (e.g., "goblin", "dire wolf")
+    - name: Creature type in SINGULAR form (e.g., "goblin", "dire wolf")
     - quantity: min/max range for group size
     
     Example:

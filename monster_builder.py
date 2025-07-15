@@ -125,6 +125,9 @@ ENCOUNTER BALANCE:
 - Multiple monsters: Reduce individual CR but increase tactical complexity
 
 NAMING CONVENTIONS:
+- ALWAYS use SINGULAR names (e.g., "Orc", "Skeleton", "Goblin")
+- NEVER use plural names (e.g., "Orcs", "Skeletons", "Goblins")
+- If a plural name is provided, convert to singular form automatically
 - For generic names like "Orc_1" or "Bandit_2", use standard Monster Manual names and stats
 - For unique names, create custom monsters with that exact name
 - For corrupted/themed variants, add appropriate descriptors and abilities
@@ -146,6 +149,11 @@ Ensure your new monster JSON adheres to the provided schema template. Do not inc
     user_content = f"""Create a monster named '{monster_name}' using 5e rules.
 
 PARTY LEVEL: {party_level}
+
+CRITICAL NAMING REQUIREMENT:
+- The monster name MUST be in SINGULAR form (e.g., "Orc", "Skeleton", "Goblin")
+- If the provided name is plural (e.g., "Orcs", "Skeletons", "Goblins"), convert to singular
+- Use singular names regardless of how many creatures will be in the encounter
 
 IMPORTANT: If this is a standard monster (Giant Rat, Goblin, Orc, etc.), use the EXACT official stats. Do NOT scale up HP or other stats based on party level. A Giant Rat always has 7 HP, regardless of party level.
 
