@@ -182,13 +182,13 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Skeletons",
+          "name": "Skeleton",
           "number": "2d4",
           "disposition": "hostile",
           "strategy": "These animated remains of fallen guards rise from beneath the cobblestones when intruders cross the courtyard, attacking with rusty weapons and coordinated tactics."
         },
         {
-          "name": "Shadows",
+          "name": "Shadow",
           "number": 2,
           "disposition": "ambush",
           "strategy": "These insubstantial undead hide among the natural shadows cast by the walls and ruins, striking at isolated or weakened party members."
@@ -359,7 +359,7 @@
       ],
       "monsters": [
         {
-          "name": "Shadows",
+          "name": "Shadow",
           "number": "1d4",
           "disposition": "lurking",
           "strategy": "These shadows hide among the natural darkness cast by broken pews and columns, striking opportunistically at those who disturb holy symbols or approach the altar."
@@ -449,13 +449,13 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Animated Weapons",
-          "number": "2d4",
+          "name": "Animated Weapon",
+          "number": 2,
           "disposition": "hostile",
           "strategy": "These corroded swords, spears, and axes rise into the air and attack intruders, focusing on unarmored targets."
         },
         {
-          "name": "Skeletal Archers",
+          "name": "Skeletal Archer",
           "number": 2,
           "disposition": "ambush",
           "strategy": "These undead remain motionless among debris until intruders reach the center of the room, then rise and attack from range."
@@ -544,7 +544,7 @@
       ],
       "monsters": [
         {
-          "name": "Phantom Servants",
+          "name": "Phantom Servant",
           "number": "2d4",
           "disposition": "hostile",
           "strategy": "These spectral beings perform a mockery of their former duties, serving poisoned phantom food and attacking those who refuse their hospitality."
@@ -634,7 +634,7 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Gargoyles",
+          "name": "Gargoyle",
           "number": 2,
           "disposition": "territorial",
           "strategy": "These creatures pose as decorative statues on the upper levels, attacking when intruders climb too high or disturb their perches."
