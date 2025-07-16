@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 11,
+  "hitPoints": 23,
   "maxHitPoints": 47,
   "armorClass": 17,
   "initiative": 1,
@@ -431,7 +431,7 @@
     },
     {
       "name": "Crossbow bolt",
-      "quantity": 47,
+      "quantity": 46,
       "description": "Standard crossbow bolts for use with a light crossbow."
     }
   ],
@@ -496,7 +496,7 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 4,
+        "current": 3,
         "max": 4
       },
       "level2": {
