@@ -884,67 +884,19 @@ def merge_updates(original_data, updated_data):
 
     return original_data
 
+# DEPRECATED: This function is no longer used and has been replaced by the new XP awarding system
+# that uses update_character_info directly with proper synchronization.
+# The new system:
+# 1. Awards XP through update_character_info with "Awarded X experience points" message
+# 2. Uses atomic file operations with proper locking
+# 3. Has XP protection to prevent reduction
+# 4. Includes comprehensive debug logging
+# Keeping this function for reference only - DO NOT USE
 def update_json_schema(ai_response, player_info, encounter_data, party_tracker_data):
-    # Extract XP information if present
-    xp_info = None
-    if "XP Awarded:" in ai_response:
-        xp_info = ai_response.split("XP Awarded:")[-1].strip()
-
-    # Update player information, including XP
-    player_name = normalize_character_name(player_info['name'])
-    player_changes = f"Update the character's experience points. XP Awarded: {xp_info}"
-    update_success = update_character_info(player_name, player_changes)
-    
-    if update_success:
-        debug(f"SUCCESS: Successfully updated player XP", category="xp_tracking")
-        # CRITICAL FIX: Reload the player data after update to get the new XP
-        from module_path_manager import ModulePathManager
-        from encoding_utils import safe_json_load
-        
-        # Get current module from party tracker
-        current_module = party_tracker_data.get("module", "").replace(" ", "_")
-        path_manager = ModulePathManager(current_module)
-        player_file = path_manager.get_character_path(player_name)
-        
-        # Reload the updated player data
-        updated_player_info = safe_json_load(player_file)
-        if updated_player_info:
-            debug(f"SUCCESS: Reloaded player data with updated XP: {updated_player_info.get('experience_points', 'unknown')}", category="xp_tracking")
-        else:
-            error("FAILURE: Failed to reload updated player data", category="character_updates")
-            updated_player_info = player_info  # Fallback to original if reload fails
-    else:
-        error("FAILURE: Failed to update player info", category="character_updates")
-        updated_player_info = player_info  # Keep original on failure
-
-    # Update encounter information (monsters only, no XP)
-    encounter_id = encounter_data['encounterId']
-    encounter_changes = "Combat has ended. Update status of monster creatures as needed."
-    updated_encounter_data = update_encounter.update_encounter(encounter_id, encounter_changes)
-
-    # Update NPCs if needed (no XP for NPCs)
-    for creature in encounter_data['creatures']:
-        if creature['type'] == 'npc':
-            from module_path_manager import ModulePathManager
-            path_manager = ModulePathManager()
-            npc_name = path_manager.format_filename(creature['name']) # Format for file access
-            npc_changes = "Update NPC status after combat."
-            update_character_info(npc_name, npc_changes)
-
-    # Update party tracker: store last combat encounter before removing active one
-    if 'worldConditions' in party_tracker_data and 'activeCombatEncounter' in party_tracker_data['worldConditions']:
-        # Save the encounter ID before clearing it
-        last_encounter_id = party_tracker_data["worldConditions"]["activeCombatEncounter"]
-        if last_encounter_id:  # Only save if not empty
-            party_tracker_data["worldConditions"]["lastCompletedEncounter"] = last_encounter_id
-        # Clear the active encounter
-        party_tracker_data['worldConditions']['activeCombatEncounter'] = ""
-
-    # Save the updated party_tracker.json file
-    if not safe_write_json("party_tracker.json", party_tracker_data):
-        error("FILE_OP: Failed to save party_tracker.json", category="file_operations")
-
-    return updated_player_info, updated_encounter_data, party_tracker_data
+    # This old function tried to extract XP from AI responses and update characters
+    # It has been replaced by the more robust XP awarding system in the main combat loop
+    warning("DEPRECATED: update_json_schema called but is no longer used", category="xp_tracking")
+    return player_info  # Return unchanged data
 
 def generate_chat_history(conversation_history, encounter_id):
     """
@@ -1672,16 +1624,18 @@ Player: {initial_prompt_text}"""
        # REFRESH CONVERSATION HISTORY WITH LATEST DATA
        debug("STATE_CHANGE: Refreshing conversation history with latest character data...", category="combat_events")
        
-       # Reload player info
+       # Reload player info FOR CONVERSATION HISTORY ONLY - use same pattern as NPCs
+       # This prevents XP reset bug by not overwriting the in-memory player_info object
        player_name = normalize_character_name(player_info["name"])
        player_file = path_manager.get_character_path(player_name)
        try:
-           player_info = safe_json_load(player_file)
-           if not player_info:
+           # Load fresh data for conversation history without overwriting player_info
+           fresh_player_data = safe_json_load(player_file)
+           if not fresh_player_data:
                error(f"FAILURE: Failed to load player file: {player_file}", category="file_operations")
            else:
-               # Replace player data in conversation history (with dynamic fields filtered)
-               conversation_history[2]["content"] = f"Player Character:\n{json.dumps(filter_dynamic_fields(player_info), indent=2)}"
+               # Update conversation history with fresh data (same pattern as NPCs)
+               conversation_history[2]["content"] = f"Player Character:\n{json.dumps(filter_dynamic_fields(fresh_player_data), indent=2)}"
        except Exception as e:
            error(f"FAILURE: Failed to reload player file {player_file}", exception=e, category="file_operations")
        
