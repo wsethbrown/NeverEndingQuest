@@ -28,8 +28,11 @@ journal.json.bak
 chronology.json
 modules/conversation_history/
 player_storage.json
+# Character files - all should be local only
 characters/*.json
-characters/*.backup_update_*.json
+characters/*.json.*
+characters/*.backup*
+characters/*_backup_*
 combat_logs/
 modules/encounters/
 modules/*/saved_games/
