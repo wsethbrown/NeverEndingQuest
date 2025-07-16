@@ -1169,8 +1169,8 @@ def compress_old_combat_rounds(conversation_history, current_round, keep_recent_
         debug(f"COMPRESSION: Conversation history has {len(conversation_history)} messages", category="combat_events")
         
         # Don't compress if we're in early rounds
-        if current_round <= keep_recent_rounds + 1:
-            debug(f"COMPRESSION: Skipping - too early (round {current_round} <= {keep_recent_rounds + 1})", category="combat_events")
+        if current_round <= keep_recent_rounds:
+            debug(f"COMPRESSION: Skipping - too early (round {current_round} <= {keep_recent_rounds})", category="combat_events")
             return conversation_history
         
         # Check if compression is needed
@@ -2140,8 +2140,8 @@ After resolving my declared action, continue the combat flow without stopping. F
                    # Save the updated encounter data
                    save_json_file(f"modules/encounters/encounter_{encounter_id}.json", encounter_data)
                    
-                   # Compress old combat rounds if we're past round 3
-                   if new_round > 3:
+                   # Compress old combat rounds if we're at round 3 or higher
+                   if new_round >= 3:
                        debug(f"COMPRESSION: Checking for round compression (current round: {new_round})", category="combat_events")
                        debug(f"COMPRESSION: About to call compress_old_combat_rounds with round {new_round}", category="combat_events")
                        compressed_history = compress_old_combat_rounds(

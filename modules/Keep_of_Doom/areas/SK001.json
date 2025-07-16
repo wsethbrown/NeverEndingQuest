@@ -180,20 +180,7 @@
         "G001-B07"
       ],
       "npcs": [],
-      "monsters": [
-        {
-          "name": "Skeletons",
-          "number": "2d4",
-          "disposition": "hostile",
-          "strategy": "These animated remains of fallen guards rise from beneath the cobblestones when intruders cross the courtyard, attacking with rusty weapons and coordinated tactics."
-        },
-        {
-          "name": "Shadows",
-          "number": 2,
-          "disposition": "ambush",
-          "strategy": "These insubstantial undead hide among the natural shadows cast by the walls and ruins, striking at isolated or weakened party members."
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Tarnished silver medallion (knight's insignia, 10 gp value)",
         "Rusted key ring with 1d4 keys (fits various doors in the keep)",
@@ -242,8 +229,20 @@
           "description": "An unnatural fog that hugs the ground and swirls around movement, never fully dispersing."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "",
+          "summary": "{\n  \"narration\": \"In the mist-shrouded Outer Courtyard, the party faced a sudden assault from two skeletal guardians risen from beneath the cracked stones. The undead, clad in rusted armor and wielding jagged shortswords, moved with relentless malice. Ranger Thane took a defensive stance while Eirik Hearthwise, initially believed unconscious, stood wounded but resolute. The skeletons struck first, landing hits on both Eirik and Thane, leaving them bloodied but still fighting. Eirik responded by conjuring a spiritual weapon, which dealt significant radiant damage to one skeleton, while his mace attack missed. Thane's precise arrow shattered the second skeleton's skull, reducing the enemy count by half. On the following round, Eirik's spiritual weapon delivered the final, crushing blow to the last skeleton. With the skeletal threat extinguished, silence reclaimed the courtyard, broken only by the echoes of battle and the fading violet glow of residual magic. The fallen skeletons now lay broken and lifeless on the mossy cobblestones, their ancient malice quelled. For their victory against the corrupted undead, Eirik Hearthwise and Ranger Thane each earned 25 experience points, a total of 50 XP divided between the two combatants.\",\n  \"combat_round\": 2,\n  \"actions\": [\n    {\n      \"creature\": \"Skeletons\",\n      \"initiative\": 16,\n      \"actions\": [\n        \"Two skeletons attacked: one hit Eirik Hearthwise with a shortsword, reducing his HP from 47 to 40.\",\n        \"The second skeleton hit Ranger Thane, lowering his HP from 33 to 29.\"\n      ]\n    },\n    {\n      \"creature\": \"Eirik Hearthwise\",\n      \"initiative\": 10,\n      \"actions\": [\n        \"Cast Spiritual Weapon (Level 2 spell slot used, now 1/2 remaining).\",\n        \"Spiritual Weapon attacked closest skeleton, dealing 7 force damage, reducing the skeleton's HP from 13 to 6.\",\n        \"Attempted mace attack on the same skeleton, missed.\"\n      ]\n    },\n    {\n      \"creature\": \"Ranger Thane\",\n      \"initiative\": 2,\n      \"actions\": [\n        \"Shot longbow at second skeleton, delivering a critical hit that destroyed it instantly.\",\n        \"One skeleton defeated and left as a shattered corpse on the battlefield.\"\n      ]\n    },\n    {\n      \"creature\": \"Eirik Hearthwise\",\n      \"initiative\": 10,\n      \"round\": 2,\n      \"actions\": [\n        \"Spiritual Weapon struck the last remaining skeleton, dealing decisive damage that reduced its HP from 6 to below zero, destroying it.\",\n        \"All skeletons defeated; battlefield quiets.\"\n      ]\n    }\n  ]\n}",
+          "impact": "To be determined",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 5,
+            "time": "21:57:00"
+          }
+        }
+      ],
+      "adventureSummary": "{\n  \"narration\": \"In the mist-shrouded Outer Courtyard, the party faced a sudden assault from two skeletal guardians risen from beneath the cracked stones. The undead, clad in rusted armor and wielding jagged shortswords, moved with relentless malice. Ranger Thane took a defensive stance while Eirik Hearthwise, initially believed unconscious, stood wounded but resolute. The skeletons struck first, landing hits on both Eirik and Thane, leaving them bloodied but still fighting. Eirik responded by conjuring a spiritual weapon, which dealt significant radiant damage to one skeleton, while his mace attack missed. Thane's precise arrow shattered the second skeleton's skull, reducing the enemy count by half. On the following round, Eirik's spiritual weapon delivered the final, crushing blow to the last skeleton. With the skeletal threat extinguished, silence reclaimed the courtyard, broken only by the echoes of battle and the fading violet glow of residual magic. The fallen skeletons now lay broken and lifeless on the mossy cobblestones, their ancient malice quelled. For their victory against the corrupted undead, Eirik Hearthwise and Ranger Thane each earned 25 experience points, a total of 50 XP divided between the two combatants.\",\n  \"combat_round\": 2,\n  \"actions\": [\n    {\n      \"creature\": \"Skeletons\",\n      \"initiative\": 16,\n      \"actions\": [\n        \"Two skeletons attacked: one hit Eirik Hearthwise with a shortsword, reducing his HP from 47 to 40.\",\n        \"The second skeleton hit Ranger Thane, lowering his HP from 33 to 29.\"\n      ]\n    },\n    {\n      \"creature\": \"Eirik Hearthwise\",\n      \"initiative\": 10,\n      \"actions\": [\n        \"Cast Spiritual Weapon (Level 2 spell slot used, now 1/2 remaining).\",\n        \"Spiritual Weapon attacked closest skeleton, dealing 7 force damage, reducing the skeleton's HP from 13 to 6.\",\n        \"Attempted mace attack on the same skeleton, missed.\"\n      ]\n    },\n    {\n      \"creature\": \"Ranger Thane\",\n      \"initiative\": 2,\n      \"actions\": [\n        \"Shot longbow at second skeleton, delivering a critical hit that destroyed it instantly.\",\n        \"One skeleton defeated and left as a shattered corpse on the battlefield.\"\n      ]\n    },\n    {\n      \"creature\": \"Eirik Hearthwise\",\n      \"initiative\": 10,\n      \"round\": 2,\n      \"actions\": [\n        \"Spiritual Weapon struck the last remaining skeleton, dealing decisive damage that reduced its HP from 6 to below zero, destroying it.\",\n        \"All skeletons defeated; battlefield quiets.\"\n      ]\n    }\n  ]\n}"
     },
     {
       "locationId": "C02",
@@ -359,16 +358,10 @@
       ],
       "monsters": [
         {
-          "name": "Shadows",
+          "name": "Shadow",
           "number": "1d4",
           "disposition": "lurking",
           "strategy": "These shadows hide among the natural darkness cast by broken pews and columns, striking opportunistically at those who disturb holy symbols or approach the altar."
-        },
-        {
-          "name": "Specter",
-          "number": 1,
-          "disposition": "territorial",
-          "strategy": "This is the vengeful spirit of a knight who died defending the chapel. It attacks anyone who approaches the secret compartment beneath the altar unless they first perform a gesture of respect for the fallen."
         }
       ],
       "lootTable": [
@@ -380,7 +373,7 @@
       ],
       "plotHooks": [
         "Father Aldren tries to convey that 'the heart is hidden where light once shone brightest' (beneath the altar).",
-        "The chaplain's journal reveals Sir Garran ordered the creation of a special amulet containing a drop of his blood\u2014a safeguard against corruption.",
+        "The chaplain's journal reveals Sir Garran ordered the creation of a special amulet containing a drop of his blood--a safeguard against corruption.",
         "Scout Elen's torn cloak piece is found in the chapel, along with a note indicating she learned about the knight's heart and sought it as protection."
       ],
       "dmInstructions": "Father Aldren appears after players defeat the shadows or perform any respectful action in the chapel. He cannot speak directly about the shadow relic (the curse prevents it) but can guide players toward the altar and the hidden knight's heart amulet through pantomime and indirect references. A DC 14 Religion check helps interpret his gestures. The specter attacks anyone who approaches the altar without first bowing to the fallen or making an offering. The heart amulet is crucial for later confronting Sir Garran, offering protection against his strongest powers.",
@@ -438,7 +431,7 @@
       "locationId": "C04",
       "name": "Fallen Barracks",
       "type": "barracks",
-      "description": "A long, partially collapsed chamber once housing the keep's garrison. Rotted bunk frames line the walls, and rusted weapons and armor pieces litter the floor. The ceiling has caved in at the far end, allowing pale light and occasionally rain to enter. Moldy tapestries depicting military victories hang in tatters from the walls, and a large weapon rack stands empty save for a few corroded blades. The floor is uneven, with flagstones pushed up by tree roots that have somehow grown through the stone. Personal effects of long-dead soldiers\u2014letters, trinkets, gambling dice\u2014remain scattered around, preserved in the unnatural stillness of the keep.",
+      "description": "A long, partially collapsed chamber once housing the keep's garrison. Rotted bunk frames line the walls, and rusted weapons and armor pieces litter the floor. The ceiling has caved in at the far end, allowing pale light and occasionally rain to enter. Moldy tapestries depicting military victories hang in tatters from the walls, and a large weapon rack stands empty save for a few corroded blades. The floor is uneven, with flagstones pushed up by tree roots that have somehow grown through the stone. Personal effects of long-dead soldiers--letters, trinkets, gambling dice--remain scattered around, preserved in the unnatural stillness of the keep.",
       "coordinates": "X1Y2",
       "connectivity": [
         "C02",
@@ -449,13 +442,13 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Animated Weapons",
-          "number": "2d4",
+          "name": "Animated Weapon",
+          "number": "2",
           "disposition": "hostile",
           "strategy": "These corroded swords, spears, and axes rise into the air and attack intruders, focusing on unarmored targets."
         },
         {
-          "name": "Skeletal Archers",
+          "name": "Skeletal Archer",
           "number": 2,
           "disposition": "ambush",
           "strategy": "These undead remain motionless among debris until intruders reach the center of the room, then rise and attack from range."
@@ -519,8 +512,20 @@
           "description": "A small private room with a bed, desk, and personal belongings of the garrison leader."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "",
+          "summary": "In the intense combat encounter within the ruined Fallen Barracks, Eirik Hearthwise and the party NPC Ranger Thane faced off against a cadre of undead and haunted weapons: two skeletal archers and two animated weapons. The battle commenced with Thane’s precise archery swiftly eliminating the first skeletal archer, while Eirik’s crossbow bolt wounded the second. The animated weapons launched retaliatory attacks, wounding Thane but failing to bring him down.\n\nAs the fight progressed into the second round, coordinated attacks from Thane and Eirik brought down the remaining skeletal archer, leaving only the two spectral swords floating ominously. Despite injuries, the duo pressed on, with Thane’s relentless archery severely damaging one animated weapon and Eirik delivering the killing blow. The final haunted blade remained, aggressive and unharmed.\n\nEntering the third round, Thane’s arrows continued to chip away at the last spectral sword, though he bore the brunt of its slashes, bleeding but undeterred. Eirik’s accurate crossbow bolts ultimately shattered the final animated weapon’s animating magic, causing it to crash lifelessly to the floor.\n\nThroughout the encounter, both combatants demonstrated resilience and precision: Thane enduring wounds (ending at 14/33 HP) while delivering crucial ranged attacks, and Eirik maintaining full health (40/47 HP) and effectively using crossbow bolts to dispatch the undead threats. Ammunition was expended judiciously, with Eirik using multiple crossbow bolts and Thane firing several arrows.\n\nThe battlefield was left strewn with the shattered remains of two skeletal archers and two animated weapons, all defeated through the party’s combined efforts. For their victory against these four enemies (two CR 1 animated weapons and two CR 0.5 skeletal archers), the party earned a total of 600 experience points, split evenly between Eirik and Thane, awarding each 300 XP.\n\nThis decisive engagement not only cleared the immediate threat in the fallen barracks chamber but also demonstrated the party’s effective teamwork under pressure, setting the stage for further exploration and recovery of the commander’s key.  \n\nCombat Rounds Completed: 3  \nMonsters Defeated:  \n- Skeletal Archer (2 corpses)  \n- Animated Weapon (2 corpses)  \n\nExperience Awarded: 600 XP total; 300 XP each to Eirik Hearthwise and Ranger Thane.",
+          "impact": "To be determined",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 5,
+            "time": "23:19:00"
+          }
+        }
+      ],
+      "adventureSummary": "In the intense combat encounter within the ruined Fallen Barracks, Eirik Hearthwise and the party NPC Ranger Thane faced off against a cadre of undead and haunted weapons: two skeletal archers and two animated weapons. The battle commenced with Thane’s precise archery swiftly eliminating the first skeletal archer, while Eirik’s crossbow bolt wounded the second. The animated weapons launched retaliatory attacks, wounding Thane but failing to bring him down.\n\nAs the fight progressed into the second round, coordinated attacks from Thane and Eirik brought down the remaining skeletal archer, leaving only the two spectral swords floating ominously. Despite injuries, the duo pressed on, with Thane’s relentless archery severely damaging one animated weapon and Eirik delivering the killing blow. The final haunted blade remained, aggressive and unharmed.\n\nEntering the third round, Thane’s arrows continued to chip away at the last spectral sword, though he bore the brunt of its slashes, bleeding but undeterred. Eirik’s accurate crossbow bolts ultimately shattered the final animated weapon’s animating magic, causing it to crash lifelessly to the floor.\n\nThroughout the encounter, both combatants demonstrated resilience and precision: Thane enduring wounds (ending at 14/33 HP) while delivering crucial ranged attacks, and Eirik maintaining full health (40/47 HP) and effectively using crossbow bolts to dispatch the undead threats. Ammunition was expended judiciously, with Eirik using multiple crossbow bolts and Thane firing several arrows.\n\nThe battlefield was left strewn with the shattered remains of two skeletal archers and two animated weapons, all defeated through the party’s combined efforts. For their victory against these four enemies (two CR 1 animated weapons and two CR 0.5 skeletal archers), the party earned a total of 600 experience points, split evenly between Eirik and Thane, awarding each 300 XP.\n\nThis decisive engagement not only cleared the immediate threat in the fallen barracks chamber but also demonstrated the party’s effective teamwork under pressure, setting the stage for further exploration and recovery of the commander’s key.  \n\nCombat Rounds Completed: 3  \nMonsters Defeated:  \n- Skeletal Archer (2 corpses)  \n- Animated Weapon (2 corpses)  \n\nExperience Awarded: 600 XP total; 300 XP each to Eirik Hearthwise and Ranger Thane."
     },
     {
       "locationId": "C05",
@@ -544,8 +549,8 @@
       ],
       "monsters": [
         {
-          "name": "Phantom Servants",
-          "number": "2d4",
+          "name": "Phantom Servant",
+          "number": "1d3+1",
           "disposition": "hostile",
           "strategy": "These spectral beings perform a mockery of their former duties, serving poisoned phantom food and attacking those who refuse their hospitality."
         },
@@ -568,7 +573,7 @@
         "The chronicle reveals Sir Garran originally acquired the relic to protect his people from a rival lord's necromancy.",
         "The scribe hints that something in 'the lowest chamber beneath the study' holds the key to Sir Garran's salvation or destruction."
       ],
-      "dmInstructions": "The phantom servants appear when players approach the table, offering food and drink\u2014those who accept must make a DC 14 Constitution save or suffer 2d8 poison damage and the poisoned condition for 1 hour. The mimic attacks only if someone sits in the ornate chair. The Spectral Scribe ignores the party until directly addressed or until combat ends, at which point he offers his knowledge exchange. He knows most of the keep's history and Sir Garran's tragedy but speaks in formal, archaic language and never directly names the shadow relic (always referring to it as 'the artifact' or 'his lordship's burden').",
+      "dmInstructions": "The phantom servants appear when players approach the table, offering food and drink--those who accept must make a DC 14 Constitution save or suffer 2d8 poison damage and the poisoned condition for 1 hour. The mimic attacks only if someone sits in the ornate chair. The Spectral Scribe ignores the party until directly addressed or until combat ends, at which point he offers his knowledge exchange. He knows most of the keep's history and Sir Garran's tragedy but speaks in formal, archaic language and never directly names the shadow relic (always referring to it as 'the artifact' or 'his lordship's burden').",
       "doors": [
         {
           "name": "Study Door",
@@ -634,7 +639,7 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Gargoyles",
+          "name": "Gargoyle",
           "number": 2,
           "disposition": "territorial",
           "strategy": "These creatures pose as decorative statues on the upper levels, attacking when intruders climb too high or disturb their perches."
@@ -658,7 +663,7 @@
         "From the observatory, players can spot an ancient ritual site in the forest that amplifies or diminishes the keep's power at certain lunar phases.",
         "Scout Elen's final journal entry is found here, noting her intention to confront Sir Garran directly after finding 'the heart that remembers love.'"
       ],
-      "dmInstructions": "Climbing the tower requires multiple Acrobatics or Athletics checks (DC 13) to navigate missing steps and unstable sections. Each failure results in 1d6 fall damage and loud noise that attracts shadows. The gargoyles attack when players reach the observatory platform. The celestial map (found in a locked cabinet, DC 14 to pick) reveals optimal times for confronting the shadow relic\u2014if players wait for the right stellar alignment (or create it artificially), they gain advantage on saves against the relic's powers during the final confrontation.",
+      "dmInstructions": "Climbing the tower requires multiple Acrobatics or Athletics checks (DC 13) to navigate missing steps and unstable sections. Each failure results in 1d6 fall damage and loud noise that attracts shadows. The gargoyles attack when players reach the observatory platform. The celestial map (found in a locked cabinet, DC 14 to pick) reveals optimal times for confronting the shadow relic--if players wait for the right stellar alignment (or create it artificially), they gain advantage on saves against the relic's powers during the final confrontation.",
       "doors": [
         {
           "name": "Observatory Cabinet",
@@ -807,7 +812,7 @@
       "locationId": "C08",
       "name": "Secret Passage",
       "type": "passage",
-      "description": "A narrow, winding tunnel carved through solid rock, barely wide enough for a single person to traverse. The walls are damp with condensation, and ancient roots from the forest above snake through cracks in the stone ceiling. This hidden passage emerges from behind a cleverly concealed stone door in the courtyard wall, its mechanism operated by pressing a specific sequence of weathered stones. The air here is musty and close, carrying the scent of earth and decay from its connection to Gloamwood's depths. Fresh scuff marks on the floor and a torn piece of ranger's cloak caught on a protruding root suggest recent passage\u2014clear evidence of Scout Elen's infiltration of the keep.",
+      "description": "A narrow, winding tunnel carved through solid rock, barely wide enough for a single person to traverse. The walls are damp with condensation, and ancient roots from the forest above snake through cracks in the stone ceiling. This hidden passage emerges from behind a cleverly concealed stone door in the courtyard wall, its mechanism operated by pressing a specific sequence of weathered stones. The air here is musty and close, carrying the scent of earth and decay from its connection to Gloamwood's depths. Fresh scuff marks on the floor and a torn piece of ranger's cloak caught on a protruding root suggest recent passage--clear evidence of Scout Elen's infiltration of the keep.",
       "coordinates": "X1Y0",
       "connectivity": [
         "C01"
@@ -828,9 +833,9 @@
       "plotHooks": [
         "The stone door mechanism shows signs of recent use, with fresh oil applied to keep it silent.",
         "Chalk marks on the tunnel walls appear to be Scout Elen's navigation notes, indicating she planned her route carefully.",
-        "A hastily scrawled warning reads: 'Shadows move on their own within\u2014trust nothing that lacks substance.'"
+        "A hastily scrawled warning reads: 'Shadows move on their own within--trust nothing that lacks substance.'"
       ],
-      "dmInstructions": "This passage serves as the secret connection between Gloamwood and Shadowfall Keep. The entrance from the courtyard side is hidden behind ivy and requires a DC 15 Investigation check to locate without prior knowledge. The stone door mechanism requires a DC 13 Intelligence check to operate without instructions. Players following Scout Elen's trail from Gloamwood will emerge here. The passage is too narrow for Medium creatures to fight effectively (disadvantage on melee attacks) and completely blocks Large or larger creatures. Sound echoes strangely here\u2014loud noises might alert creatures in both the courtyard and the Hidden Keep Entrance.",
+      "dmInstructions": "This passage serves as the secret connection between Gloamwood and Shadowfall Keep. The entrance from the courtyard side is hidden behind ivy and requires a DC 15 Investigation check to locate without prior knowledge. The stone door mechanism requires a DC 13 Intelligence check to operate without instructions. Players following Scout Elen's trail from Gloamwood will emerge here. The passage is too narrow for Medium creatures to fight effectively (disadvantage on melee attacks) and completely blocks Large or larger creatures. Sound echoes strangely here--loud noises might alert creatures in both the courtyard and the Hidden Keep Entrance.",
       "doors": [
         {
           "name": "Secret Stone Door (Courtyard Side)",
