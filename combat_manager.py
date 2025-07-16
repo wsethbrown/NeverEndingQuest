@@ -1891,7 +1891,7 @@ FAILURE TO USE THE CORRECT POOL IS A CRITICAL ERROR.
 
 Player: {user_input_text}
 
-If I've taken all my actions, then: 1) First update all HP changes and status effects for all creatures affected by actions this round, 2) Update ammunition and spell slots if any were used, 3) Then narrate everything until my turn or the round ends, whichever comes first, unless my party needs direction from me."""
+After resolving my declared action, continue the combat flow without stopping. First, narrate and resolve all remaining turns for the current round in initiative order. If that completes the round, immediately advance the combat_round counter and continue narrating and resolving all turns in the new round, stopping only when the initiative order reaches my character's turn again. The goal is a single, seamless response that brings the game state all the way back to my next turn."""
        
        # Clean old DM notes before adding new user input
        conversation_history = clean_old_dm_notes(conversation_history)
