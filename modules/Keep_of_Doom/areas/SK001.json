@@ -440,20 +440,7 @@
       "areaConnectivity": [],
       "areaConnectivityId": [],
       "npcs": [],
-      "monsters": [
-        {
-          "name": "Animated Weapon",
-          "number": "2",
-          "disposition": "hostile",
-          "strategy": "These corroded swords, spears, and axes rise into the air and attack intruders, focusing on unarmored targets."
-        },
-        {
-          "name": "Skeletal Archer",
-          "number": 2,
-          "disposition": "ambush",
-          "strategy": "These undead remain motionless among debris until intruders reach the center of the room, then rise and attack from range."
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Masterwork longsword (weathered but exceptional quality, +1 to attack rolls)",
         "Soldier's lockbox containing 4d10 gp and a silver ring (25 gp value)",

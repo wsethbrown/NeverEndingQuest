@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 47,
+  "hitPoints": 11,
   "maxHitPoints": 47,
   "armorClass": 17,
   "initiative": 1,
@@ -125,6 +125,22 @@
       "expiration": "never",
       "source": "Supernatural Vision",
       "effectType": "magic"
+    },
+    {
+      "name": "Insight from half-written order",
+      "description": "Gained insight about something imprisoned beneath the study and men disappearing into shadows.",
+      "duration": "permanent",
+      "expiration": "never",
+      "source": "Half-written order",
+      "effectType": "other"
+    },
+    {
+      "name": "Insight from soldiers' letters",
+      "description": "Gained insight from soldiers' letters about the keep's fall and rumors of men vanishing into shadows.",
+      "duration": "permanent",
+      "expiration": "never",
+      "source": "Soldiers' Letters",
+      "effectType": "other"
     },
     {
       "name": "Lingering Spirit's Blessing",
@@ -378,6 +394,33 @@
       "item_type": "miscellaneous",
       "description": "A heartfelt love letter found inside a guard's coinpurse.",
       "quantity": 1
+    },
+    {
+      "item_name": "Lucky bone die",
+      "item_type": "miscellaneous",
+      "description": "A small carved bone die believed to bring luck.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Commander's horn",
+      "item_type": "miscellaneous",
+      "item_subtype": "other",
+      "description": "Summons spectral allies once in dire need.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Silver ring",
+      "item_type": "miscellaneous",
+      "item_subtype": "ring",
+      "description": "A silver ring valued at 25 gp.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Partial map showing an intact passage near the Broken Tower",
+      "item_type": "equipment",
+      "item_subtype": "other",
+      "description": "A partial map revealing an intact passage near the Broken Tower.",
+      "quantity": 1
     }
   ],
   "ammunition": [
@@ -388,7 +431,7 @@
     },
     {
       "name": "Crossbow bolt",
-      "quantity": 50,
+      "quantity": 47,
       "description": "Standard crossbow bolts for use with a light crossbow."
     }
   ],
@@ -502,7 +545,7 @@
     ]
   },
   "currency": {
-    "gold": 25,
+    "gold": 48,
     "silver": 29,
     "copper": 8
   },
