@@ -1306,6 +1306,96 @@ Character Role: {character_role}
                     del updates['experience_points']
                     print(f"[DEBUG XP PROTECTION] XP update removed, preserving current XP: {current_xp}")
             
+            # Currency reduction validation
+            if 'currency' in updates:
+                current_currency = character_data.get('currency', {})
+                new_currency = updates.get('currency', {})
+                needs_verification = False
+                reduction_details = []
+                
+                for coin_type in ['gold', 'silver', 'copper']:
+                    current_val = current_currency.get(coin_type, 0)
+                    new_val = new_currency.get(coin_type, current_val)
+                    
+                    if new_val < current_val:
+                        needs_verification = True
+                        reduction_amount = current_val - new_val
+                        reduction_details.append(f"{coin_type}: {current_val} -> {new_val} (-{reduction_amount})")
+                
+                if needs_verification:
+                    print(f"[DEBUG CURRENCY] Currency reduction detected for {character_name}: {', '.join(reduction_details)}")
+                    warning(f"CURRENCY REDUCTION: {character_name} - {', '.join(reduction_details)}", category="character_updates")
+                    
+                    # Create verification prompt
+                    verification_prompt = f"""CURRENCY REDUCTION VERIFICATION REQUIRED:
+
+Character: {character_name}
+Detected reductions: {', '.join(reduction_details)}
+Original request: {changes}
+
+IMPORTANT: Currency should ONLY be reduced in these cases:
+- Making a purchase or trade
+- Giving money away intentionally
+- Losing money (theft, gambling, penalties)
+- Explicit command to remove currency
+
+Currency should NOT be reduced when:
+- Finding coins in containers/coffers
+- Receiving rewards or payment
+- Looting enemies or discovering treasure
+- Opening chests with coins inside
+
+Based on the context, is this currency reduction correct?
+If this was FINDING coins, you should ADD to existing currency, not replace it.
+
+Please provide the CORRECT currency values:
+- Current gold: {current_currency.get('gold', 0)}, silver: {current_currency.get('silver', 0)}, copper: {current_currency.get('copper', 0)}
+- If adding found coins, return the sum of current + found amounts"""
+                    
+                    # Re-query with verification
+                    verification_messages = [
+                        {"role": "system", "content": system_message},
+                        {"role": "user", "content": f"Current character data:\n{json.dumps(character_data, indent=2)}"},
+                        {"role": "user", "content": verification_prompt}
+                    ]
+                    
+                    try:
+                        verification_response = client.chat.completions.create(
+                            model=model,
+                            messages=verification_messages,
+                            temperature=0,
+                            max_tokens=500
+                        )
+                        
+                        verified_response = verification_response.choices[0].message.content.strip()
+                        print(f"[DEBUG CURRENCY] Verification response: {verified_response[:200]}...")
+                        
+                        # Parse verified response
+                        verified_updates = parse_ai_response(verified_response, character_data)
+                        
+                        if verified_updates and 'currency' in verified_updates:
+                            # Replace the currency update with verified values
+                            updates['currency'] = verified_updates['currency']
+                            info(f"CURRENCY VERIFICATION: Updated currency values for {character_name}", category="character_updates")
+                            
+                            # Log the correction details
+                            verified_currency = verified_updates['currency']
+                            for coin_type in ['gold', 'silver', 'copper']:
+                                old_val = new_currency.get(coin_type, 0)
+                                verified_val = verified_currency.get(coin_type, 0)
+                                if old_val != verified_val:
+                                    print(f"[DEBUG CURRENCY] {coin_type}: {old_val} -> {verified_val} (corrected)")
+                        else:
+                            # If verification failed, remove the currency update to prevent corruption
+                            warning(f"CURRENCY VERIFICATION: Failed to parse response, preserving current currency", category="character_updates")
+                            if 'currency' in updates:
+                                del updates['currency']
+                            
+                    except Exception as e:
+                        error(f"CURRENCY VERIFICATION: Error during verification: {str(e)}", category="character_updates")
+                        # On error, preserve current currency by removing the update
+                        del updates['currency']
+            
             updated_data = deep_merge_dict(character_data, updates)
             
             # print(f"[DEBUG] deep_merge_dict completed successfully")
