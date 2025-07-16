@@ -233,3 +233,11 @@ training/
 
 # Debug folder - keep debug files organized and local only
 debug/
+
+# Dynamic game content - generated during gameplay for unique campaigns
+modules/*/monsters/
+modules/*/encounters/
+
+# Campaign archives and summaries - keep local, don't commit to repository
+modules/campaign_archives/
+modules/campaign_summaries/

@@ -12,7 +12,7 @@
   "status": "alive",
   "condition": "none",
   "condition_affected": [],
-  "hitPoints": 11,
+  "hitPoints": 47,
   "maxHitPoints": 47,
   "armorClass": 17,
   "initiative": 1,
@@ -119,33 +119,31 @@
   },
   "temporaryEffects": [
     {
-      "name": "Lingering Spirit's Blessing",
-      "description": "Advantage on saves against fear for 24 hours.",
-      "source": "Shrine Ward Ritual"
+      "name": "Advantage on History checks related to Shadowfall Keep",
+      "description": "Gained advantage on History checks related to Shadowfall Keep and its inhabitants for the rest of the exploration due to a supernatural vision at the fountain.",
+      "duration": "for the rest of the exploration",
+      "expiration": "never",
+      "source": "Supernatural Vision",
+      "effectType": "magic"
     },
     {
-      "name": "Sense of Accomplishment",
-      "description": "Increased trust with local spirits after purifying the faerie circle with sacred offering and prayer.",
-      "source": "Sacred Ritual"
+      "name": "Lingering Spirit's Blessing",
+      "description": "Advantage on saves against fear for 24 hours.",
+      "duration": "24 hours",
+      "expiration": "1492-03-06T22:36:00",
+      "source": "Shrine Ward Ritual",
+      "effectType": "magic"
     },
     {
       "name": "Strengthened Lost Ward Circle",
       "description": "Undead and corrupted creatures suffer disadvantage on attacks in the Gloamwood for 24 hours.",
-      "source": "Lost Ward Circle Ritual"
+      "duration": "24 hours",
+      "expiration": "1492-03-06T22:36:00",
+      "source": "Lost Ward Circle Ritual",
+      "effectType": "magic"
     }
   ],
-  "injuries": [
-    {
-      "type": "other",
-      "description": "A deep scar across the chest from the corrupted wolf's claws",
-      "source": "Corrupted wolf battle"
-    },
-    {
-      "type": "other",
-      "description": "Wrapped hand to treat ritual wound",
-      "source": "Lost Ward Circle Ritual"
-    }
-  ],
+  "injuries": [],
   "equipment_effects": [
     {
       "name": "Shield AC Bonus",
@@ -228,7 +226,7 @@
     },
     {
       "item_name": "Coded Parchment",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A crumpled scrap of parchment with coded watch schedules and a rough map of ranger patrol routes.",
       "quantity": 1
     },
@@ -300,6 +298,86 @@
       "item_type": "equipment",
       "description": "A journal containing notes and maps from a seasoned ranger.",
       "quantity": 1
+    },
+    {
+      "item_name": "Detailed Parchment Map",
+      "item_type": "equipment",
+      "description": "A detailed map showing the surrounding region, useful for navigation.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Cracked Silver Mirror",
+      "item_type": "miscellaneous",
+      "description": "A cracked silver mirror with initials E.R. Inscribed with a value of 5 gp.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Tarnished silver medallion",
+      "item_type": "miscellaneous",
+      "description": "Knight's insignia, valued at 10 gp.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Small locked coffer",
+      "item_type": "equipment",
+      "description": "A small locked coffer discovered beneath the fallen knight statue.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Knight's broken sword",
+      "item_type": "weapon",
+      "description": "A broken sword once wielded by a knight, now damaged and worn.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Small coffer (sealed)",
+      "item_type": "equipment",
+      "description": "A small coffer that has been opened; previously tightly sealed, contents were unknown.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Folded parchment bearing the knight's crest and message",
+      "item_type": "miscellaneous",
+      "description": "A folded parchment discovered inside the small coffer, bearing the knight's crest and a message.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Knight's Heart Amulet (artifact connected to Sir Garran's past)",
+      "item_type": "miscellaneous",
+      "description": "An artifact amulet linked to the history of Sir Garran.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Vial of blessed water (acts as potion of healing against undead damage only)",
+      "item_type": "consumable",
+      "item_subtype": "potion",
+      "description": "A vial containing blessed water effective as a healing potion against undead damage.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Small silver key (opens a secret compartment beneath the altar)",
+      "item_type": "equipment",
+      "description": "A small silver key used to unlock a secret compartment beneath the altar.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Chaplain's journal describing the shadow relic's arrival and early influence",
+      "item_type": "equipment",
+      "description": "A journal kept by the chaplain detailing the shadow relic's arrival and its early effects.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Scroll of Protection from Undead",
+      "item_type": "consumable",
+      "item_subtype": "scroll",
+      "description": "A scroll containing the Protection from Undead spell.",
+      "quantity": 1
+    },
+    {
+      "item_name": "Love letter from guard's coinpurse",
+      "item_type": "miscellaneous",
+      "description": "A heartfelt love letter found inside a guard's coinpurse.",
+      "quantity": 1
     }
   ],
   "ammunition": [
@@ -310,7 +388,7 @@
     },
     {
       "name": "Crossbow bolt",
-      "quantity": 59,
+      "quantity": 50,
       "description": "Standard crossbow bolts for use with a light crossbow."
     }
   ],
@@ -375,7 +453,7 @@
     },
     "spellSlots": {
       "level1": {
-        "current": 3,
+        "current": 4,
         "max": 4
       },
       "level2": {
@@ -424,11 +502,11 @@
     ]
   },
   "currency": {
-    "gold": 9,
-    "silver": 18,
+    "gold": 25,
+    "silver": 29,
     "copper": 8
   },
-  "experience_points": 2800,
+  "experience_points": 3425,
   "exp_required_for_next_level": 6500,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",

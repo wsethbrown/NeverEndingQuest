@@ -468,7 +468,7 @@
         "Ancient runes around the doorframe warn of the curse within but also hint at a way to break it.",
         "A carved message inside the entrance reads: 'May those who enter with pure intent find what was lost.'"
       ],
-      "dmInstructions": "This hidden entrance bypasses the main keep defenses but has its own protections. Speaking the password 'Dusk' (found on the map) allows safe passage. Without the password, anyone crossing the threshold triggers a fear effect (DC 14 Wisdom save or be frightened for 1 minute). The entrance leads to  Outer Courtyard (C01). Once inside, players can hear distant sounds echoing from the keep's depths--clanking armor, mournful wails, and perhaps Elen's voice calling for help.",
+      "dmInstructions": "This hidden entrance bypasses the main keep defenses but has its own protections. Speaking the password 'Dusk' (found on the map) allows safe passage. Without the password, anyone crossing the threshold triggers a fear effect (DC 14 Wisdom save or be frightened for 1 minute). The entrance leads to the Secret Passage C08. Once inside, players can hear distant sounds echoing from the keep's depths--clanking armor, mournful wails, and perhaps Elen's voice calling for help.",
       "doors": [
         {
           "name": "Hidden Stone Door",
