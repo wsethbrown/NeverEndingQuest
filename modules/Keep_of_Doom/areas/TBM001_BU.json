@@ -160,7 +160,7 @@
         },
         {
           "name": "Corrupted Vine Blights",
-          "number": "2d4",
+          "number": "1d3+1",
           "disposition": "ambush",
           "strategy": "These plant creatures hide among the vegetation growing over ruined sections, grabbing passersby and attempting to drag them into the marsh."
         }
@@ -231,7 +231,7 @@
       "monsters": [
         {
           "name": "Will-o'-Wisps",
-          "number": "2d4",
+          "number": "1d3+1",
           "disposition": "deceptive",
           "strategy": "These malevolent lights mimic calls for help, attempting to lead travelers into deep water or quicksand before attacking with electrical discharges."
         },

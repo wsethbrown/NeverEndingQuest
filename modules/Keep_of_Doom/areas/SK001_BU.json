@@ -183,7 +183,7 @@
       "monsters": [
         {
           "name": "Skeleton",
-          "number": "2d4",
+          "number": "1d3+1",
           "disposition": "hostile",
           "strategy": "These animated remains of fallen guards rise from beneath the cobblestones when intruders cross the courtyard, attacking with rusty weapons and coordinated tactics."
         },
@@ -545,7 +545,7 @@
       "monsters": [
         {
           "name": "Phantom Servant",
-          "number": "2d4",
+          "number": "1d3+1",
           "disposition": "hostile",
           "strategy": "These spectral beings perform a mockery of their former duties, serving poisoned phantom food and attacking those who refuse their hospitality."
         },
