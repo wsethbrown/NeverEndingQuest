@@ -547,13 +547,13 @@
           "name": "Phantom Servant",
           "number": "1d3+1",
           "disposition": "hostile",
-          "strategy": "These spectral beings perform a mockery of their former duties, serving poisoned phantom food and attacking those who refuse their hospitality."
+          "strategy": "These spectral beings perform a mockery of their former duties, serving poisoned phantom food and attacking those who refuse their hospitality. (CR 1, AC 12, HP 24, Spectral Slam 1d6+2, Haunting Touch 1d8+1)"
         },
         {
           "name": "Mimic",
           "number": 1,
           "disposition": "ambush",
-          "strategy": "Disguised as an ornate chair at the head of the table, this creature waits for someone to sit before attacking."
+          "strategy": "Disguised as an ornate chair at the head of the table, this creature waits for someone to sit before attacking. (CR 1, AC 12, HP 33, Pseudopod 1d6+2, Bite 1d6+2, Acid 1d4)"
         }
       ],
       "lootTable": [
@@ -568,7 +568,7 @@
         "The chronicle reveals Sir Garran originally acquired the relic to protect his people from a rival lord's necromancy.",
         "The scribe hints that something in 'the lowest chamber beneath the study' holds the key to Sir Garran's salvation or destruction."
       ],
-      "dmInstructions": "The phantom servants appear when players approach the table, offering food and drink\u2014those who accept must make a DC 14 Constitution save or suffer 2d8 poison damage and the poisoned condition for 1 hour. The mimic attacks only if someone sits in the ornate chair. The Spectral Scribe ignores the party until directly addressed or until combat ends, at which point he offers his knowledge exchange. He knows most of the keep's history and Sir Garran's tragedy but speaks in formal, archaic language and never directly names the shadow relic (always referring to it as 'the artifact' or 'his lordship's burden').",
+      "dmInstructions": "The phantom servants appear when players approach the table, offering food and drink\u2014those who accept must make a DC 12 Constitution save or suffer 1d8 poison damage and the poisoned condition for 1 hour. The mimic attacks only if someone sits in the ornate chair. The Spectral Scribe ignores the party until directly addressed or until combat ends, at which point he offers his knowledge exchange. He knows most of the keep's history and Sir Garran's tragedy but speaks in formal, archaic language and never directly names the shadow relic (always referring to it as 'the artifact' or 'his lordship's burden').",
       "doors": [
         {
           "name": "Study Door",
