@@ -285,7 +285,7 @@
     },
     {
       "item_name": "Carved bone talisman",
-      "item_type": "equipment",
+      "item_type": "miscellaneous",
       "description": "A carved bone talisman given by Keeper Morvath as a ritual component.",
       "quantity": 1
     },
@@ -481,13 +481,13 @@
   ],
   "ammunition": [
     {
-      "name": "arrows",
+      "name": "Arrow",
       "quantity": 24,
       "description": "Standard ammunition."
     },
     {
       "name": "Crossbow bolt",
-      "quantity": 44,
+      "quantity": 43,
       "description": "Standard crossbow bolts for use with a light crossbow."
     }
   ],
@@ -605,7 +605,7 @@
     "silver": 47,
     "copper": 14
   },
-  "experience_points": 4525,
+  "experience_points": 4625,
   "exp_required_for_next_level": 6500,
   "challengeRating": 0.25,
   "personality_traits": "Cheerful and full of jokes to put others at ease, but this masks his deep grief over the loss of his previous unit. Sila's trust in Eirik and Kira has grown after the safe return of her chest, strengthening their reputation at the outpost.",
