@@ -417,7 +417,12 @@ The Combat Commitment Point occurs when:
 3. Both sides are aware of each other and at least one intends violence
 
 ### EXCEPTION - Historical Combat Records
-Messages marked with [COMBAT CONCLUDED - HISTORICAL RECORD] are summaries of combat that has already been resolved through the formal combat system. These do NOT trigger the Combat Commitment Point rules. When you see these markers, continue the narrative AFTER that combat, not during it.
+Messages marked with [COMBAT CONCLUDED - HISTORICAL RECORD] are summaries of combat that has already been resolved through the formal combat system. These do NOT trigger the Combat Commitment Point rules. When you see these markers:
+- Continue the narrative AFTER that combat, not during it
+- DO NOT award any experience points mentioned in the summary - they have already been applied by the combat system
+- DO NOT update character HP, status, spell slots, or inventory based on the combat summary - all updates were already processed
+- DO NOT use updateCharacterInfo to apply XP or other rewards mentioned in the historical record
+- The combat summary is for narrative context only - all mechanical effects have been resolved
 
 ### Mandatory Combat Transition Protocol
 When the Combat Commitment Point is reached (excluding historical records), you MUST:

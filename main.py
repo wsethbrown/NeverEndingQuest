@@ -70,6 +70,7 @@ import re
 import sys
 import codecs
 import glob
+import time
 from openai import OpenAI
 from datetime import datetime, timedelta
 from termcolor import colored
@@ -1323,6 +1324,9 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
                 post_combat_history = load_json_file(json_file) or conversation_history
                 ai_response_after_combat = get_ai_response(post_combat_history)
                 
+                # Set flag to indicate we just finished combat (for XP display fix)
+                process_ai_response._just_finished_combat = True
+                
                 # Process the AI's post-combat response by calling this function again (recursively).
                 # This ensures the post-combat narration is handled just like any other turn,
                 # maintaining consistency in how we process AI responses.
@@ -1834,7 +1838,21 @@ def main_game_loop():
         from update_character_info import normalize_character_name
         player_name_normalized = normalize_character_name(player_name_actual)
         player_data_file = path_manager.get_character_path(player_name_normalized)
-        player_data_current = load_json_file(player_data_file)
+        
+        # Force reload of character data after combat to ensure XP updates are visible
+        # Combat manager uses atomic file operations, but we need to ensure we're reading the latest data
+        if hasattr(process_ai_response, '_just_finished_combat') and process_ai_response._just_finished_combat:
+            debug(f"XP_DISPLAY: Post-combat - forcing fresh read of character data", category="xp_tracking")
+            # Clear any potential file system cache by using safe_read_json with its locking mechanism
+            from file_operations import safe_read_json
+            player_data_current = safe_read_json(player_data_file)
+            process_ai_response._just_finished_combat = False
+        else:
+            player_data_current = load_json_file(player_data_file)
+        
+        # Debug log XP values when displaying
+        if player_data_current:
+            debug(f"XP_DISPLAY: Reading character XP for display - {player_name_actual}: {player_data_current.get('experience_points', 'N/A')} XP", category="xp_tracking")
 
         if player_data_current:
             current_hp = player_data_current.get("hitPoints", "N/A")
