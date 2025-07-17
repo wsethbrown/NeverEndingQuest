@@ -152,11 +152,15 @@ def get_combat_temperature(encounter_data):
     creatures = encounter_data.get("creatures", [])
     creature_count = len(creatures)
     
-    if creature_count >= 12:
+    if creature_count > 8:
         temp = 0.4
+        print(f"[COMBAT_MANAGER] Using temperature {temp} for massive encounter ({creature_count} creatures)")
+        return temp
+    elif creature_count > 6:
+        temp = 0.5
         print(f"[COMBAT_MANAGER] Using temperature {temp} for very complex encounter ({creature_count} creatures)")
         return temp
-    elif creature_count >= 8:
+    elif creature_count > 4:
         temp = 0.6
         print(f"[COMBAT_MANAGER] Using temperature {temp} for complex encounter ({creature_count} creatures)")
         return temp
