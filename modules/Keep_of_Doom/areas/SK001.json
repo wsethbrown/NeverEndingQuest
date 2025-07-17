@@ -534,20 +534,7 @@
           "attitude": "Neutral, obsessed with historical accuracy"
         }
       ],
-      "monsters": [
-        {
-          "name": "Phantom Servant",
-          "number": "1d3+1",
-          "disposition": "hostile",
-          "strategy": "These spectral beings perform a mockery of their former duties, serving poisoned phantom food and attacking those who refuse their hospitality. (CR 1, AC 12, HP 24, Spectral Slam 1d6+2, Haunting Touch 1d8+1)"
-        },
-        {
-          "name": "Mimic",
-          "number": 1,
-          "disposition": "ambush",
-          "strategy": "Disguised as an ornate chair at the head of the table, this creature waits for someone to sit before attacking. (CR 1, AC 12, HP 33, Pseudopod 1d6+2, Bite 1d6+2, Acid 1d4)"
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Lord Vael's signet ring (required for study access, 50 gp value)",
         "Enchanted goblet (detects poison when liquid is poured into it)",
@@ -748,14 +735,7 @@
         "E01"
       ],
       "npcs": [],
-      "monsters": [
-        {
-          "name": "Shadow of Sir Garran",
-          "number": 1,
-          "disposition": "guardian",
-          "strategy": "This is not Sir Garran himself but a powerful shadow aspect that defends his private sanctum. It uses the knight's fighting techniques and can manipulate objects in the room to its advantage."
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Sir Garran's personal journal (details his corruption and attempts to resist)",
         "Ornate key to the dungeons below (iron with shadow-absorbing black gems)",

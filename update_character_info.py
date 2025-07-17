@@ -1371,7 +1371,17 @@ Please provide the CORRECT currency values:
                         print(f"[DEBUG CURRENCY] Verification response: {verified_response[:200]}...")
                         
                         # Parse verified response
-                        verified_updates = parse_ai_response(verified_response, character_data)
+                        # Extract JSON from the AI response
+                        try:
+                            verified_json_match = re.search(r'\{.*\}', verified_response, re.DOTALL)
+                            if verified_json_match:
+                                verified_clean_response = verified_json_match.group()
+                                verified_updates = json.loads(verified_clean_response)
+                            else:
+                                verified_updates = None
+                        except (json.JSONDecodeError, AttributeError) as e:
+                            warning(f"CURRENCY VERIFICATION: Failed to parse JSON from verification response: {str(e)}", category="character_updates")
+                            verified_updates = None
                         
                         if verified_updates and 'currency' in verified_updates:
                             # Replace the currency update with verified values

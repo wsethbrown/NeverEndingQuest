@@ -1846,6 +1846,44 @@ def main_game_loop():
             # Clear any potential file system cache by using safe_read_json with its locking mechanism
             from file_operations import safe_read_json
             player_data_current = safe_read_json(player_data_file)
+            
+            # CRITICAL FIX: Also reload party_members_stats for DM Note to prevent stale data in AI context
+            debug(f"XP_DISPLAY: Reloading all party member stats for fresh DM Note", category="xp_tracking")
+            party_members_stats = []
+            for member_name_iter in party_tracker_data["partyMembers"]:
+                member_file_path = path_manager.get_character_path(member_name_iter)
+                member_data_iter = safe_read_json(member_file_path)
+                if member_data_iter:
+                    stats = {
+                        "name": member_name_iter,
+                        "display_name": member_name_iter.capitalize(),
+                        "level": member_data_iter.get("level", "N/A"),
+                        "xp": member_data_iter.get("experience_points", "N/A"),
+                        "hp": member_data_iter.get("hitPoints", "N/A"),
+                        "max_hp": member_data_iter.get("maxHitPoints", "N/A")
+                    }
+                    party_members_stats.append(stats)
+                    debug(f"XP_DISPLAY: Reloaded {member_name_iter} - XP: {stats['xp']}, HP: {stats['hp']}/{stats['max_hp']}", category="xp_tracking")
+            
+            # Also reload party NPC stats
+            for npc in party_tracker_data.get("partyNPCs", []):
+                npc_name = npc.get("name", "")
+                if npc_name:
+                    npc_file_path = path_manager.get_character_path(npc_name)
+                    npc_data = safe_read_json(npc_file_path)
+                    if npc_data:
+                        stats = {
+                            "name": npc_name,
+                            "display_name": npc_name,
+                            "level": npc_data.get("level", "N/A"),
+                            "xp": npc_data.get("experience_points", "N/A"),
+                            "hp": npc_data.get("hitPoints", "N/A"),
+                            "max_hp": npc_data.get("maxHitPoints", "N/A")
+                        }
+                        party_members_stats.append(stats)
+                        debug(f"XP_DISPLAY: Reloaded NPC {npc_name} - XP: {stats['xp']}, HP: {stats['hp']}/{stats['max_hp']}", category="xp_tracking")
+            
+            # Clear the flag after we've used it to reload everything
             process_ai_response._just_finished_combat = False
         else:
             player_data_current = load_json_file(player_data_file)

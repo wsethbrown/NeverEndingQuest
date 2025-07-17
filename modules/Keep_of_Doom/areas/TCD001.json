@@ -251,14 +251,26 @@
           "description": "Magical light fixtures that sputter and dim periodically, creating shifting shadows."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "",
+          "summary": "In a tense and shadow-haunted encounter at the threshold between the Dungeon Entrance and the Gaol, Eirik Hearthwise and Ranger Thane faced off against four malevolent shadow creatures. The battle commenced with cautious but fierce exchanges: initial shadow attacks faltered, but Shadow_2 succeeded in sapping Thane’s strength, reducing his physical capability. Ranger Thane’s retaliatory strike wounded Shadow_4, setting up Eirik’s devastating critical crossbow shot that dispatched Shadow_4 in the first round.\n\nThe shadows persisted, pressing their necrotic assaults and inflicting damage and strength drain attempts, though Eirik’s stalwart constitution allowed him to resist further debilitating effects. With coordinated strikes, Thane eliminated Shadow_3, and Eirik’s mace crushed another shadow, reducing the enemy count steadily. Despite suffering necrotic damage, Eirik maintained his ground, blocking spectral attacks and striking decisive blows.\n\nAs the third round opened, only two shadows remained: one was swiftly destroyed by Thane’s shortsword, and the last was obliterated by Eirik’s critical crossbow bolt, ending the spectral menace. The chamber’s oppressive darkness receded, leaving the party battered but victorious.\n\nAll four shadows—Shadow_4, Shadow_3, Shadow_2, and Shadow—were defeated, leaving no enemies behind. The party’s health and stamina were diminished but intact. Experience points totaling 400 XP were awarded, divided between Eirik and Ranger Thane (or NPC companion), granting each participant 200 XP.\n\nCombat round tracking concluded at round 3 with all enemies vanquished, allowing the party to proceed deeper into the dungeon with the immediate threat neutralized.",
+          "impact": "To be determined",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 6,
+            "time": "11:43:00"
+          }
+        }
+      ],
+      "adventureSummary": "In a tense and shadow-haunted encounter at the threshold between the Dungeon Entrance and the Gaol, Eirik Hearthwise and Ranger Thane faced off against four malevolent shadow creatures. The battle commenced with cautious but fierce exchanges: initial shadow attacks faltered, but Shadow_2 succeeded in sapping Thane’s strength, reducing his physical capability. Ranger Thane’s retaliatory strike wounded Shadow_4, setting up Eirik’s devastating critical crossbow shot that dispatched Shadow_4 in the first round.\n\nThe shadows persisted, pressing their necrotic assaults and inflicting damage and strength drain attempts, though Eirik’s stalwart constitution allowed him to resist further debilitating effects. With coordinated strikes, Thane eliminated Shadow_3, and Eirik’s mace crushed another shadow, reducing the enemy count steadily. Despite suffering necrotic damage, Eirik maintained his ground, blocking spectral attacks and striking decisive blows.\n\nAs the third round opened, only two shadows remained: one was swiftly destroyed by Thane’s shortsword, and the last was obliterated by Eirik’s critical crossbow bolt, ending the spectral menace. The chamber’s oppressive darkness receded, leaving the party battered but victorious.\n\nAll four shadows—Shadow_4, Shadow_3, Shadow_2, and Shadow—were defeated, leaving no enemies behind. The party’s health and stamina were diminished but intact. Experience points totaling 400 XP were awarded, divided between Eirik and Ranger Thane (or NPC companion), granting each participant 200 XP.\n\nCombat round tracking concluded at round 3 with all enemies vanquished, allowing the party to proceed deeper into the dungeon with the immediate threat neutralized."
     },
     {
       "locationId": "E02",
       "name": "The Gaol",
       "type": "prison",
-      "description": "A long corridor flanked by small, barred cells extends into shadow-filled darkness. Most cell doors hang open, their locks long since rusted or broken, while others remain ominously shut. Within some cells, strange distortions warp reality\u2014showing occupants that aren't physically present or replaying scenes of past suffering. The stone floor is worn smooth from countless shuffling steps, and faded bloodstains mark where prisoners or guards met violent ends. A guard station with a simple desk and weapons rack stands near the entrance, while at the far end, a heavy iron door leads deeper into the dungeon complex. The constant sounds of weeping, moaning, and occasionally screaming emanate from the cells, though investigation reveals them to be empty of living occupants.",
+      "description": "A long corridor flanked by small, barred cells extends into shadow-filled darkness. Most cell doors hang open, their locks long since rusted or broken, while others remain ominously shut. Within some cells, strange distortions warp reality--showing occupants that aren't physically present or replaying scenes of past suffering. The stone floor is worn smooth from countless shuffling steps, and faded bloodstains mark where prisoners or guards met violent ends. A guard station with a simple desk and weapons rack stands near the entrance, while at the far end, a heavy iron door leads deeper into the dungeon complex. The constant sounds of weeping, moaning, and occasionally screaming emanate from the cells, though investigation reveals them to be empty of living occupants.",
       "coordinates": "X1Y1",
       "connectivity": [
         "E01",
@@ -269,7 +281,7 @@
       "npcs": [
         {
           "name": "Prisoner Echo",
-          "description": "Not a true NPC but a phenomenon\u2014cell 7 contains a partially substantial echo of Scout Elen, endlessly reliving her capture and questioning. This echo can provide limited information but cannot be physically freed.",
+          "description": "Not a true NPC but a phenomenon--cell 7 contains a partially substantial echo of Scout Elen, endlessly reliving her capture and questioning. This echo can provide limited information but cannot be physically freed.",
           "attitude": "Confused and frightened, repeating the same sequences"
         }
       ],
@@ -297,7 +309,7 @@
       "plotHooks": [
         "The Prisoner Echo of Scout Elen repeatedly mentions 'the heart' and 'his lost love' being the key to Sir Garran's salvation.",
         "The echo crystal, when activated, plays a conversation between Shadow Knight Garran and the shadow relic, revealing their conflicted relationship.",
-        "Cell 13 contains temporal distortions showing possible futures\u2014including one where the shadow relic escapes to consume the entire region in darkness."
+        "Cell 13 contains temporal distortions showing possible futures--including one where the shadow relic escapes to consume the entire region in darkness."
       ],
       "dmInstructions": "This area focuses on psychological horror and information gathering. The ghouls attack from cells when players investigate suspicious sounds. The gibbering mouther emerges only if players respond to cries for help from the last cell. The Prisoner Echo provides cryptic but valuable information if engaged with respectfully (speaking to it as if it were the real Scout Elen). The echo crystal is hidden in the guard station desk (DC 14 Investigation to find) and provides crucial insight into Sir Garran's tragic situation when activated (no check required).",
       "doors": [
@@ -363,7 +375,7 @@
       "locationId": "E03",
       "name": "Torture Chamber",
       "type": "chamber",
-      "description": "A nightmarish space dominated by instruments of suffering. Iron maidens, stretching racks, cages, and devices of more esoteric purpose line the walls and fill the central area. The stone floor slopes subtly toward central drainage channels still stained rust-brown. Chains hang from the ceiling, occasionally swaying without any breeze. Spectral screams periodically fill the air, and the temperature fluctuates wildly from freezing cold to uncomfortable heat. A large iron brazier stands in one corner, eternally burning with ghostly blue flames that provide minimal illumination but no warmth. The walls bear scratch marks from desperate victims and carefully etched tallies marking unknown counts. A heavy wooden table holds implements of precision cruelty\u2014pliers, blades, and hooks arrayed with disturbing orderliness despite centuries of abandonment.",
+      "description": "A nightmarish space dominated by instruments of suffering. Iron maidens, stretching racks, cages, and devices of more esoteric purpose line the walls and fill the central area. The stone floor slopes subtly toward central drainage channels still stained rust-brown. Chains hang from the ceiling, occasionally swaying without any breeze. Spectral screams periodically fill the air, and the temperature fluctuates wildly from freezing cold to uncomfortable heat. A large iron brazier stands in one corner, eternally burning with ghostly blue flames that provide minimal illumination but no warmth. The walls bear scratch marks from desperate victims and carefully etched tallies marking unknown counts. A heavy wooden table holds implements of precision cruelty--pliers, blades, and hooks arrayed with disturbing orderliness despite centuries of abandonment.",
       "coordinates": "X3Y1",
       "connectivity": [
         "E01",
@@ -383,7 +395,7 @@
           "name": "Animated Torture Devices",
           "number": "1d4",
           "disposition": "hungry",
-          "strategy": "These animate objects\u2014iron maidens, cages, and restraints\u2014attempt to capture and hold victims while the Phantom Torturer works."
+          "strategy": "These animate objects--iron maidens, cages, and restraints--attempt to capture and hold victims while the Phantom Torturer works."
         }
       ],
       "lootTable": [
@@ -395,10 +407,10 @@
       ],
       "plotHooks": [
         "The torturer's journal reveals rebels claiming the real Sir Garran 'trapped his soul in his heart' for safekeeping before the shadow fully claimed him.",
-        "The secret compartment (DC 15 Investigation to find) contains a report about 'Project Umbral Shield'\u2014Sir Garran's attempt to create a defensive weapon against rival necromancers.",
+        "The secret compartment (DC 15 Investigation to find) contains a report about 'Project Umbral Shield'--Sir Garran's attempt to create a defensive weapon against rival necromancers.",
         "A preserved recording crystal in one device contains Scout Elen's voice claiming she found 'the heart amulet' but was ambushed before she could use it."
       ],
-      "dmInstructions": "This area focuses on combat and revelations about Sir Garran's past. The Phantom Torturer and animated devices attack when players disturb any equipment or attempt to leave. The torturer targets spellcasters first, believing them to be 'rebel mages.' The secret compartment is hidden behind a loose stone in the wall (Investigation DC 15) and contains crucial documents about the shadow relic's original purpose\u2014a weapon that turned on its creator. The recording crystal is inside a speaking trumpet device on the torturer's table and activates when touched.",
+      "dmInstructions": "This area focuses on combat and revelations about Sir Garran's past. The Phantom Torturer and animated devices attack when players disturb any equipment or attempt to leave. The torturer targets spellcasters first, believing them to be 'rebel mages.' The secret compartment is hidden behind a loose stone in the wall (Investigation DC 15) and contains crucial documents about the shadow relic's original purpose--a weapon that turned on its creator. The recording crystal is inside a speaking trumpet device on the torturer's table and activates when touched.",
       "doors": [
         {
           "name": "Storage Vault Door",
@@ -552,7 +564,7 @@
       "locationId": "E05",
       "name": "Storage Vaults",
       "type": "storage",
-      "description": "A series of interconnected chambers filled with shelves, crates, and barrels containing supplies for the dungeon's operation. Many containers have rotted or broken over time, spilling their contents across the stone floor. Preserved specimens float in cloudy jars\u2014body parts and stranger things collected for unknown purposes. Alchemical equipment lines one wall, with dried residue suggesting the creation of toxins and truth serums. The air carries a chemical smell overlaid with decay, and bioluminescent fungi growing on the ceiling casts an eerie, pulsing green light throughout. Several wardrobes contain moldering guard uniforms and restraint devices, while locked cabinets hold more sinister implements. A partially collapsed passage in one corner suggests a cave-in from upper levels, with rubble partially blocking access to some storage areas.",
+      "description": "A series of interconnected chambers filled with shelves, crates, and barrels containing supplies for the dungeon's operation. Many containers have rotted or broken over time, spilling their contents across the stone floor. Preserved specimens float in cloudy jars--body parts and stranger things collected for unknown purposes. Alchemical equipment lines one wall, with dried residue suggesting the creation of toxins and truth serums. The air carries a chemical smell overlaid with decay, and bioluminescent fungi growing on the ceiling casts an eerie, pulsing green light throughout. Several wardrobes contain moldering guard uniforms and restraint devices, while locked cabinets hold more sinister implements. A partially collapsed passage in one corner suggests a cave-in from upper levels, with rubble partially blocking access to some storage areas.",
       "coordinates": "X3Y2",
       "connectivity": [
         "E03",
@@ -583,11 +595,11 @@
         "Small box containing 3 doses of rare antitoxin effective against magical poisons"
       ],
       "plotHooks": [
-        "The experimental journal details attempts to harness the shadow relic's power for protection rather than corruption\u2014Sir Garran's original intent gone awry.",
+        "The experimental journal details attempts to harness the shadow relic's power for protection rather than corruption--Sir Garran's original intent gone awry.",
         "A preserved specimen labeled 'Shadow Manifestation' shows a physical sample of the relic's substance, with notes on its vulnerability to certain frequencies of light.",
         "A partially burned letter from Sir Garran to a trusted mage asks for help containing the relic, stating 'It speaks to me now, even in daylight.'"
       ],
-      "dmInstructions": "This area rewards careful exploration but punishes carelessness. The gelatinous cube moves slowly through the main pathways and can be avoided with successful Perception checks (DC 12) to spot its nearly invisible form. The mimic appears as an ornate chest in an alcove, attacking only if directly approached. The experimental journal (found in a locked cabinet, DC 14 to pick) provides crucial information about the shadow relic's vulnerabilities to specific types of light\u2014information that grants advantage during the final confrontation if used tactically. The antitoxin is hidden behind several specimen jars (Investigation DC 13).",
+      "dmInstructions": "This area rewards careful exploration but punishes carelessness. The gelatinous cube moves slowly through the main pathways and can be avoided with successful Perception checks (DC 12) to spot its nearly invisible form. The mimic appears as an ornate chest in an alcove, attacking only if directly approached. The experimental journal (found in a locked cabinet, DC 14 to pick) provides crucial information about the shadow relic's vulnerabilities to specific types of light--information that grants advantage during the final confrontation if used tactically. The antitoxin is hidden behind several specimen jars (Investigation DC 13).",
       "doors": [
         {
           "name": "Secured Cabinet",
@@ -676,7 +688,7 @@
         "The ritual platform contains markings showing how to properly approach and potentially bind the shadow relic using 'the heart's resonance.'",
         "Names inscribed on certain skulls match those of Sir Garran's most trusted knights, suggesting they were sacrificed or corrupted in the relic's early days."
       ],
-      "dmInstructions": "This chamber serves as the final challenge before the Relic Chamber. The Bone Speaker blocks the archway and demands visitors demonstrate their purpose and knowledge of Sir Garran's true story (easily done if players have gathered information throughout the dungeon). It asks three questions about Sir Garran, the shadow relic, and Scout Elen\u2014each correct answer opens the way further, while wrong answers cause skeletons to attack. If players show the Knight's Heart Amulet, the Bone Speaker immediately recognizes it and offers additional guidance, explaining how to use it against the shadow relic. The map is hidden in a specific skull marked with a crown symbol (DC 15 Investigation to find).",
+      "dmInstructions": "This chamber serves as the final challenge before the Relic Chamber. The Bone Speaker blocks the archway and demands visitors demonstrate their purpose and knowledge of Sir Garran's true story (easily done if players have gathered information throughout the dungeon). It asks three questions about Sir Garran, the shadow relic, and Scout Elen--each correct answer opens the way further, while wrong answers cause skeletons to attack. If players show the Knight's Heart Amulet, the Bone Speaker immediately recognizes it and offers additional guidance, explaining how to use it against the shadow relic. The map is hidden in a specific skull marked with a crown symbol (DC 15 Investigation to find).",
       "doors": [
         {
           "name": "Grand Archway",
@@ -722,7 +734,7 @@
       "features": [
         {
           "name": "Bone Walls",
-          "description": "Elaborate arrangements of human remains forming the walls and d\u00e9cor of the chamber."
+          "description": "Elaborate arrangements of human remains forming the walls and décor of the chamber."
         },
         {
           "name": "Preparation Slabs",
@@ -740,7 +752,7 @@
       "locationId": "E07",
       "name": "Relic Chamber",
       "type": "ritual",
-      "description": "The heart of darkness beneath the keep\u2014a perfectly circular chamber with a domed ceiling covered in arcane symbols that seem to shift and change when not directly observed. The room's center holds a raised dais upon which floats a pulsating object of pure shadow, vaguely heart-shaped but constantly morphing\u2014the shadow relic itself. Channels carved into the floor form concentric circles around the dais, once filled with blood but now dry and dark. Seven pillars arranged in a circle support the domed ceiling, each carved with scenes depicting the relic's history and power. The air here feels thick and resistant, as if reality itself struggles against dissolution, and shadows cast by any light source move independently and reach toward living creatures. Whispers constantly emanate from the relic, speaking in multiple overlapping voices promising power, revenge, or salvation depending on who listens. At the chamber's far side, a throne-like chair holds the fully manifested form of Sir Garran Vael, now more shadow than man, his armor fused with his corrupted flesh and his eyes burning with conflicted purpose.",
+      "description": "The heart of darkness beneath the keep--a perfectly circular chamber with a domed ceiling covered in arcane symbols that seem to shift and change when not directly observed. The room's center holds a raised dais upon which floats a pulsating object of pure shadow, vaguely heart-shaped but constantly morphing--the shadow relic itself. Channels carved into the floor form concentric circles around the dais, once filled with blood but now dry and dark. Seven pillars arranged in a circle support the domed ceiling, each carved with scenes depicting the relic's history and power. The air here feels thick and resistant, as if reality itself struggles against dissolution, and shadows cast by any light source move independently and reach toward living creatures. Whispers constantly emanate from the relic, speaking in multiple overlapping voices promising power, revenge, or salvation depending on who listens. At the chamber's far side, a throne-like chair holds the fully manifested form of Sir Garran Vael, now more shadow than man, his armor fused with his corrupted flesh and his eyes burning with conflicted purpose.",
       "coordinates": "X2Y3",
       "connectivity": [
         "E06"
@@ -781,11 +793,11 @@
         "Chest containing 5d20 gp, 3d6 gemstones, and a deed to the keep"
       ],
       "plotHooks": [
-        "If redeemed, Sir Garran reveals the shadow relic was originally created to defend the region against necromantic invasion\u2014a protective tool that became corrupted.",
+        "If redeemed, Sir Garran reveals the shadow relic was originally created to defend the region against necromantic invasion--a protective tool that became corrupted.",
         "The pillars show scenes of a rival lord using similar shadow magic against innocent villages, explaining why Sir Garran sought such power in the first place.",
         "Scout Elen made it this far and actually managed to partially awaken Sir Garran's humanity before being captured, explaining his current conflicted state."
       ],
-      "dmInstructions": "This is the campaign's climactic encounter with multiple possible resolutions. Sir Garran attacks when players approach the relic, commanding shadow manifestations to aid him. The Knight's Heart Amulet is crucial\u2014when presented and accompanied by words calling to his humanity (referencing his love, duty, or original purpose), it forces a DC 15 Wisdom save from Sir Garran. Success means he briefly regains control, allowing negotiation or providing advantage against him for 1d4 rounds. The shadow relic attempts to influence party members with whispered offers (DC 14 Wisdom saves to resist). Players can choose to destroy the relic (requiring specific light-based attacks discovered earlier), contain it using the ritual markings (requiring Arcana DC 16), or attempt to cleanse it of corruption (requiring the Knight's Heart and a major sacrifice). Each choice has different consequences for Sir Garran, Scout Elen, and the keep's future. Scout Elen can be freed by destroying her shadow cage (AC 15, 20 HP, vulnerable to radiant damage).",
+      "dmInstructions": "This is the campaign's climactic encounter with multiple possible resolutions. Sir Garran attacks when players approach the relic, commanding shadow manifestations to aid him. The Knight's Heart Amulet is crucial--when presented and accompanied by words calling to his humanity (referencing his love, duty, or original purpose), it forces a DC 15 Wisdom save from Sir Garran. Success means he briefly regains control, allowing negotiation or providing advantage against him for 1d4 rounds. The shadow relic attempts to influence party members with whispered offers (DC 14 Wisdom saves to resist). Players can choose to destroy the relic (requiring specific light-based attacks discovered earlier), contain it using the ritual markings (requiring Arcana DC 16), or attempt to cleanse it of corruption (requiring the Knight's Heart and a major sacrifice). Each choice has different consequences for Sir Garran, Scout Elen, and the keep's future. Scout Elen can be freed by destroying her shadow cage (AC 15, 20 HP, vulnerable to radiant damage).",
       "doors": [
         {
           "name": "Chamber Entrance",

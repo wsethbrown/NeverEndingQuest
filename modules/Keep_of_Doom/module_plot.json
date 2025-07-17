@@ -77,7 +77,7 @@
         "PP004"
       ],
       "status": "in progress",
-      "plotImpact": "The party has defeated the spectral threats of the Great Hall and the mimic, freeing the space for investigation and uncovering key artifacts and knowledge. The Spectral Scribe now offers new direction if the party gathers his missing journal pages.",
+      "plotImpact": "The party has unlocked the hidden trapdoor beneath the Lord's Study and descended into the Dungeon Entrance, advancing their quest to find and destroy the shadow relic.",
       "sideQuests": [
         {
           "id": "SQ005",
@@ -99,8 +99,8 @@
       "nextPoints": [
         "PP005"
       ],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "Eirik discovers proof that Elen was taken deeper into the dungeon by shadowy captors, and the jailer's key ring is recovered, providing a way into The Gaol. The cryptic warning about the relic suggests a clue to surviving its influence.",
       "sideQuests": []
     },
     {
