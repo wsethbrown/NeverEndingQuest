@@ -1229,6 +1229,37 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
         parsed_response = json.loads(json_content)
         actions = parsed_response.get("actions", [])
         
+        # Debug: Check if this is a post-combat response
+        if hasattr(process_ai_response, '_just_finished_combat') and process_ai_response._just_finished_combat:
+            debug(f"POST_COMBAT_RESPONSE: Processing AI response after combat", category="xp_tracking")
+            debug(f"POST_COMBAT_RESPONSE: Actions in response: {[a.get('action') for a in actions]}", category="xp_tracking")
+            
+            # Check for updateCharacterInfo actions that might overwrite XP
+            actions_to_remove = []
+            for i, action in enumerate(actions):
+                if action.get("action") == "updateCharacterInfo":
+                    char_name = action.get("characterName", "Unknown")
+                    changes = action.get("changes", "")
+                    debug(f"POST_COMBAT_RESPONSE: updateCharacterInfo for {char_name}", category="xp_tracking")
+                    debug(f"POST_COMBAT_RESPONSE: Changes: {changes}", category="xp_tracking")
+                    
+                    # Check if this is a player character
+                    party_tracker = load_json_file("party_tracker.json")
+                    is_player = char_name in party_tracker.get("partyMembers", [])
+                    
+                    if is_player:
+                        debug(f"POST_COMBAT_RESPONSE: BLOCKING updateCharacterInfo for player {char_name} after combat!", category="xp_tracking")
+                        # Mark this action for removal
+                        actions_to_remove.append(i)
+                    
+                    if "experience_points" in changes:
+                        debug(f"POST_COMBAT_RESPONSE: WARNING! AI trying to update XP after combat!", category="xp_tracking")
+            
+            # Remove marked actions in reverse order to maintain indices
+            for i in reversed(actions_to_remove):
+                actions.pop(i)
+                debug(f"POST_COMBAT_RESPONSE: Removed updateCharacterInfo action at index {i}", category="xp_tracking")
+        
         # --- START OF FIX: Detect levelUp action before printing narration ---
         is_levelup_action = any(action.get("action") == "levelUp" for action in actions)
 
