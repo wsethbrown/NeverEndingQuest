@@ -1833,27 +1833,25 @@ def main_game_loop():
             print("To run interactively, ensure the program is run from a proper terminal.")
             break
 
+        # --- Post-Combat State Refresh & UI Display ---
+        # This is the core fix. After combat, we MUST reload all data from disk
+        # to avoid using stale in-memory data from before the fight.
+        if hasattr(process_ai_response, '_just_finished_combat') and process_ai_response._just_finished_combat:
+            info("STATE_REFRESH: Post-combat state refresh triggered. Reloading data from disk.", category="game_loop")
+            # Reload the party tracker first, as it's the source of truth.
+            party_tracker_data = load_json_file("party_tracker.json")
+            # Reset the flag so this only runs once per combat.
+            process_ai_response._just_finished_combat = False
+        
+        # Now, get the player's name and load their character file for the UI.
+        # This data will now be fresh if a refresh was just triggered.
         player_name_actual = party_tracker_data["partyMembers"][0]
-        # Normalize name for file access
         from update_character_info import normalize_character_name
         player_name_normalized = normalize_character_name(player_name_actual)
         player_data_file = path_manager.get_character_path(player_name_normalized)
+        player_data_current = load_json_file(player_data_file)
         
-        # Force reload of character data after combat to ensure XP updates are visible
-        # Combat manager uses atomic file operations, but we need to ensure we're reading the latest data
-        if hasattr(process_ai_response, '_just_finished_combat') and process_ai_response._just_finished_combat:
-            debug(f"XP_DISPLAY: Post-combat - forcing fresh read of character data", category="xp_tracking")
-            # Clear any potential file system cache by using safe_read_json with its locking mechanism
-            from file_operations import safe_read_json
-            player_data_current = safe_read_json(player_data_file)
-            process_ai_response._just_finished_combat = False
-        else:
-            player_data_current = load_json_file(player_data_file)
-        
-        # Debug log XP values when displaying
-        if player_data_current:
-            debug(f"XP_DISPLAY: Reading character XP for display - {player_name_actual}: {player_data_current.get('experience_points', 'N/A')} XP", category="xp_tracking")
-
+        # Display the prompt with the (now correct) stats.
         if player_data_current:
             current_hp = player_data_current.get("hitPoints", "N/A")
             max_hp = player_data_current.get("maxHitPoints", "N/A")

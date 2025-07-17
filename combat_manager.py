@@ -2127,202 +2127,108 @@ After resolving my declared action, continue the combat flow without stopping. F
            debug(ai_response, category="combat_events")
            continue
        
-       # Check if this response includes an exit action BEFORE displaying narration
-       has_exit_action = False
-       for action in actions:
-           if action.get("action", "").lower() == "exit":
-               has_exit_action = True
-               break
-       
-       # Only display narration if there's no exit action
-       if not has_exit_action:
-           print(f"Dungeon Master: {narration}")
-           # Flush to ensure combat messages are captured by web interface
-           import sys
-           sys.stdout.flush()
-       
-       # Process actions
+       # --- ACTION PROCESSING: CONSOLIDATE AND EXECUTE ---
+       # This new block prevents race conditions by consolidating all character
+       # updates into a single, authoritative save at the end of combat.
+
+       # A dictionary to hold all change descriptions for each character.
+       # e.g., {'eirik_hearthwise': ['used a crossbow bolt', 'took 5 damage'], ...}
+       final_character_updates = {}
+
+       # Check if combat is ending in this turn.
+       is_combat_ending = any(a.get("action", "").lower() == "exit" for a in actions)
+
+       # Display narration immediately, as it describes the events of the turn.
+       print(f"Dungeon Master: {narration}")
+       import sys
+       sys.stdout.flush()
+
+       # STEP 1: GATHER all intended changes from the AI's actions.
        for action in actions:
            action_type = action.get("action", "").lower()
            parameters = action.get("parameters", {})
-           
-           if action_type == "updateplayerinfo" or action_type == "updatecharacterinfo":
-               # Handle both legacy and new action types
-               if action_type == "updateplayerinfo":
-                   character_name = normalize_character_name(player_info["name"])
-               else:
-                   character_name = normalize_character_name(parameters.get("characterName", player_info["name"]))
-               
-               changes = parameters.get("changes", "")
-               print(f"[COMBAT_MANAGER] Updating character: {character_name}")
-               try:
-                   success = update_character_info(character_name, changes)
-                   if success:
-                       print(f"[COMBAT_MANAGER] Character update successful: {character_name}")
-                       debug(f"SUCCESS: Character info updated successfully for {character_name}", category="character_updates")
-                   else:
-                       print(f"[COMBAT_MANAGER] Character update failed: {character_name}")
-                       error(f"FAILURE: Failed to update character info for {character_name}", category="character_updates")
-               except Exception as e:
-                   print(f"[COMBAT_MANAGER] Exception during character update: {str(e)}")
-                   error(f"FAILURE: Failed to update character info", exception=e, category="character_updates")
-           
-           elif action_type == "updatenpcinfo":
-               # Legacy NPC update - redirect to unified system
-               npc_name_for_update = path_manager.format_filename(parameters.get("npcName", ""))
-               changes = parameters.get("changes", "")
-               print(f"[COMBAT_MANAGER] Updating NPC: {npc_name_for_update}")
-               
-               # Debug logging for character update transaction
-               debug_log = {
-                   "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-                   "action_type": action_type,
-                   "raw_action": action,
-                   "extracted_character_name": npc_name_for_update,
-                   "extracted_changes": changes,
-                   "original_parameters": parameters
-               }
-               
-               try:
-                   debug("STATE_CHANGE: Character update transaction starting...", category="npc_management")
-                   debug(f"STATE_CHANGE: Character Name: {npc_name_for_update}", category="npc_management")
-                   debug(f"STATE_CHANGE: Changes requested: {changes}", category="npc_management")
-                   debug(f"STATE_CHANGE: Raw action object: {json.dumps(action, indent=2)}", category="npc_management")
-                   
-                   success = update_character_info(npc_name_for_update, changes)
-                   
-                   debug_log["update_result"] = "success" if success else "failed"
-                   
-                   if success:
-                       print(f"[COMBAT_MANAGER] NPC update successful: {npc_name_for_update}")
-                       debug(f"SUCCESS: Character {npc_name_for_update} info updated successfully", category="npc_management")
-                   else:
-                       print(f"[COMBAT_MANAGER] NPC update failed: {npc_name_for_update}")
-                       warning(f"FAILURE: Update failed for NPC {npc_name_for_update}", category="npc_management")
-               except Exception as e:
-                   print(f"[COMBAT_MANAGER] Exception during NPC update: {str(e)}")
-                   error(f"FAILURE: Failed to update NPC info", exception=e, category="npc_management")
-                   debug_log["error"] = str(e)
-               
-               # Write debug log to file
-               try:
-                   os.makedirs("debug", exist_ok=True)
-                   with open("debug/npc_update_debug_log.json", "a") as debug_file:
-                       json.dump(debug_log, debug_file)
-                       debug_file.write("\n")
-               except Exception as log_error:
-                   error(f"FAILURE: Failed to write debug log", exception=log_error, category="file_operations")
-           
+
+           if action_type in ["updateplayerinfo", "updatecharacterinfo", "updatenpcinfo"]:
+               char_name_key = "characterName" if "characterName" in parameters else "npcName"
+               character_name = parameters.get(char_name_key)
+               changes = parameters.get("changes")
+
+               if character_name and changes:
+                   if character_name not in final_character_updates:
+                       final_character_updates[character_name] = []
+                   final_character_updates[character_name].append(changes)
+                   info(f"CONSOLIDATING: Queued change for {character_name}: '{changes}'", category="combat_events")
+
            elif action_type == "updateencounter":
+               # Encounter updates are separate and can be processed immediately.
                encounter_id_for_update = parameters.get("encounterId", encounter_id)
                changes = parameters.get("changes", "")
-               print(f"[COMBAT_MANAGER] Updating encounter: {encounter_id_for_update}")
+               info(f"STATE_UPDATE: Processing immediate encounter update: {changes}", category="encounter_management")
                try:
                    updated_encounter_data = update_encounter.update_encounter(encounter_id_for_update, changes)
                    if updated_encounter_data:
-                       # Normalize status values to lowercase
-                       updated_encounter_data = normalize_encounter_status(updated_encounter_data)
-                       encounter_data = updated_encounter_data
-                       print(f"[COMBAT_MANAGER] Encounter update successful")
-                       debug(f"SUCCESS: Encounter {encounter_id_for_update} updated successfully", category="encounter_management")
+                       encounter_data = normalize_encounter_status(updated_encounter_data)
                except Exception as e:
-                   print(f"[COMBAT_MANAGER] Encounter update failed: {str(e)}")
                    error(f"FAILURE: Failed to update encounter", exception=e, category="encounter_management")
            
-           elif action_type == "exit":
-               print(f"[COMBAT_MANAGER] Combat ending - preparing summary")
-               debug("STATE_CHANGE: Combat has ended, preparing summary...", category="combat_events")
-               
-               # Clear the preroll cache when combat ends
-               if 'preroll_cache' in encounter_data:
-                   del encounter_data['preroll_cache']
-                   save_json_file(json_file_path, encounter_data)
-                   debug("SUCCESS: Cleared preroll cache for ended combat", category="combat_events")
-               
-               print(f"[COMBAT_MANAGER] Calculating XP rewards")
+           elif action_type == "exit" and is_combat_ending:
+               # If combat is ending, add the authoritative HP and XP to our dictionary.
+               info("CONSOLIDATING: 'exit' action detected. Calculating final HP and XP.", category="combat_events")
                xp_narrative, xp_awarded = calculate_xp()
-               print(f"[COMBAT_MANAGER] XP awarded: {xp_awarded}")
-               # Still record this information in the conversation history, but don't print it to console
+               info(f"XP_AWARD: Calculated {xp_awarded} XP per participant.", category="xp_tracking")
                conversation_history.append({"role": "user", "content": f"XP Awarded: {xp_narrative}"})
                save_json_file(conversation_history_file, conversation_history)
-               
-               # =================================================================
-               # NEW: SAFE XP APPLICATION BLOCK
-               # =================================================================
-               # This block programmatically applies the calculated XP to each
-               # party member, avoiding the old AI-driven update loop bug.
 
-               if xp_awarded > 0:
-                   # Build a definitive list of all participants from the party tracker
-                   participants_to_reward = []
-                   if "partyMembers" in party_tracker_data:
-                       participants_to_reward.extend(party_tracker_data["partyMembers"])
-                       print(f"[DEBUG] Party members found: {party_tracker_data['partyMembers']}")
-                   if "partyNPCs" in party_tracker_data:
-                       for npc in party_tracker_data["partyNPCs"]:
-                           participants_to_reward.append(npc.get("name"))
-                           print(f"[DEBUG] NPC added: {npc.get('name')}")
+               for creature in encounter_data.get("creatures", []):
+                   if creature.get("type") in ["player", "npc"]:
+                       character_name = creature.get("name")
+                       if character_name:
+                           if character_name not in final_character_updates:
+                               final_character_updates[character_name] = []
+                           
+                           final_hp = creature.get("currentHitPoints")
+                           final_character_updates[character_name].append(f"set hitPoints to {final_hp}")
+                           
+                           if xp_awarded > 0:
+                               final_character_updates[character_name].append(f"awarded {xp_awarded} experience points")
 
-                   info(f"XP_AWARD: Applying {xp_awarded} XP to {len(participants_to_reward)} participants: {', '.join(participants_to_reward)}", category="xp_tracking")
-                   print(f"[DEBUG] Full participant list: {participants_to_reward}")
+       # STEP 2: EXECUTE the consolidated updates. This is the only place character files are saved.
+       if final_character_updates:
+           info("STATE_UPDATE: Applying all consolidated updates.", category="character_updates")
+           for character_name, changes_list in final_character_updates.items():
+               # Join all changes into one comprehensive request string.
+               final_change_string = "Following the turn's events: " + ", and ".join(changes_list) + "."
+               info(f"FINAL_CHANGE_STRING for {character_name}: {final_change_string}", category="character_updates")
 
-                   # Loop through each participant and apply the XP
-                   for character_name in participants_to_reward:
-                       if not character_name:
-                           print(f"[DEBUG] Skipping empty character name")
-                           continue
-                       
-                       print(f"[DEBUG] Processing XP for character: {character_name}")
-                       
-                       # Create a clear, programmatic change description
-                       xp_change_description = f"Awarded {xp_awarded} experience points for successfully concluding a combat encounter."
-                       
-                       # Directly call the character update function
-                       try:
-                           print(f"[DEBUG] Calling update_character_info for {character_name}")
-                           update_success = update_character_info(character_name, xp_change_description)
-                           print(f"[DEBUG] update_character_info returned: {update_success}")
-                           if update_success:
-                               info(f"XP_AWARD: Successfully applied {xp_awarded} XP to {character_name}", category="xp_tracking")
-                               print(f"[DEBUG] SUCCESS: XP applied to {character_name}")
-                           else:
-                               error(f"XP_AWARD: Failed to apply XP to {character_name}", category="xp_tracking")
-                               print(f"[DEBUG] FAILED: XP not applied to {character_name}")
-                       except Exception as e:
-                           error(f"XP_AWARD: Critical error applying XP to {character_name}", exception=e, category="xp_tracking")
-                           print(f"[DEBUG] EXCEPTION: {e}")
-               else:
-                   info("XP_AWARD: No XP awarded for this encounter.", category="xp_tracking")
-               # =================================================================
-               # END OF NEW XP BLOCK
-               # =================================================================
-               
-               # CRITICAL FIX: Clear the active combat encounter from party_tracker.json to prevent the loop.
-               # This is the essential logic from the old update_json_schema function.
-               if 'worldConditions' in party_tracker_data and 'activeCombatEncounter' in party_tracker_data['worldConditions']:
-                   last_encounter_id = party_tracker_data["worldConditions"]["activeCombatEncounter"]
-                   if last_encounter_id:
-                       party_tracker_data["worldConditions"]["lastCompletedEncounter"] = last_encounter_id
-                   party_tracker_data['worldConditions']['activeCombatEncounter'] = ""
-                   debug(f"STATE_CHANGE: Cleared active combat encounter. Last completed encounter is now {last_encounter_id}", category="combat_events")
-                   
-                   # Save the updated party_tracker.json file
-                   if not safe_write_json("party_tracker.json", party_tracker_data):
-                       error("FILE_OP: Failed to save party_tracker.json after clearing active encounter", category="file_operations")
-                   else:
-                       info("SUCCESS: Party tracker updated, active combat encounter cleared.", category="combat_events")
-               
-               # Generate dialogue summary
-               print(f"[COMBAT_MANAGER] Generating combat summary")
-               dialogue_summary_result = summarize_dialogue(conversation_history, location_info, party_tracker_data)
-               
-               # Generate chat history for debugging
-               print(f"[COMBAT_MANAGER] Saving combat history")
-               generate_chat_history(conversation_history, encounter_id)
-               
-               print(f"[COMBAT_MANAGER] Combat complete - exiting simulation")
-               info("STATE_CHANGE: Combat encounter closed. Exiting combat simulation.", category="combat_events")
-               return dialogue_summary_result, player_info
+               try:
+                   update_success = update_character_info(character_name, final_change_string)
+                   if not update_success:
+                       error(f"FAILURE: Final consolidated update failed for {character_name}.", category="character_updates")
+               except Exception as e:
+                   error(f"FAILURE: Critical error during consolidated update for {character_name}", exception=e, category="character_updates")
+
+       # STEP 3: If combat ended, perform final cleanup and exit the simulation.
+       if is_combat_ending:
+           if 'worldConditions' in party_tracker_data and 'activeCombatEncounter' in party_tracker_data['worldConditions']:
+               last_encounter_id = party_tracker_data["worldConditions"]["activeCombatEncounter"]
+               if last_encounter_id:
+                   party_tracker_data["worldConditions"]["lastCompletedEncounter"] = last_encounter_id
+               party_tracker_data['worldConditions']['activeCombatEncounter'] = ""
+               debug(f"STATE_CHANGE: Cleared active combat encounter. Last completed is now {last_encounter_id}", category="combat_events")
+               safe_write_json("party_tracker.json", party_tracker_data)
+
+           info("AI_CALL: Generating final combat summary...", category="ai_operations")
+           dialogue_summary_result = summarize_dialogue(conversation_history, location_info, party_tracker_data)
+           
+           info("FILE_OP: Saving final combat chat history log...", category="combat_logs")
+           generate_chat_history(conversation_history, encounter_id)
+           
+           # Reload the player_info object from disk one last time before returning it.
+           # This ensures the main loop receives the fully updated state.
+           player_info = safe_json_load(player_file)
+
+           info("SUCCESS: Combat complete. Exiting simulation.", category="combat_events")
+           return dialogue_summary_result, player_info
 
        # Save updated conversation history after processing all actions
        save_json_file(conversation_history_file, conversation_history)
