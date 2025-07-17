@@ -1352,49 +1352,14 @@ Please provide the CORRECT currency values:
 - Current gold: {current_currency.get('gold', 0)}, silver: {current_currency.get('silver', 0)}, copper: {current_currency.get('copper', 0)}
 - If adding found coins, return the sum of current + found amounts"""
                     
-                    # Re-query with verification
-                    verification_messages = [
-                        {"role": "system", "content": system_message},
-                        {"role": "user", "content": f"Current character data:\n{json.dumps(character_data, indent=2)}"},
-                        {"role": "user", "content": verification_prompt}
-                    ]
+                    # Currency protection: Remove suspicious currency reductions to prevent corruption
+                    warning(f"CURRENCY PROTECTION: Blocking suspicious currency reduction for {character_name}", category="character_updates")
+                    warning(f"CURRENCY PROTECTION: Reduction details: {reduction_details}", category="character_updates")
                     
-                    try:
-                        verification_response = client.chat.completions.create(
-                            model=model,
-                            messages=verification_messages,
-                            temperature=0,
-                            max_tokens=500
-                        )
-                        
-                        verified_response = verification_response.choices[0].message.content.strip()
-                        print(f"[DEBUG CURRENCY] Verification response: {verified_response[:200]}...")
-                        
-                        # Parse verified response
-                        verified_updates = parse_ai_response(verified_response, character_data)
-                        
-                        if verified_updates and 'currency' in verified_updates:
-                            # Replace the currency update with verified values
-                            updates['currency'] = verified_updates['currency']
-                            info(f"CURRENCY VERIFICATION: Updated currency values for {character_name}", category="character_updates")
-                            
-                            # Log the correction details
-                            verified_currency = verified_updates['currency']
-                            for coin_type in ['gold', 'silver', 'copper']:
-                                old_val = new_currency.get(coin_type, 0)
-                                verified_val = verified_currency.get(coin_type, 0)
-                                if old_val != verified_val:
-                                    print(f"[DEBUG CURRENCY] {coin_type}: {old_val} -> {verified_val} (corrected)")
-                        else:
-                            # If verification failed, remove the currency update to prevent corruption
-                            warning(f"CURRENCY VERIFICATION: Failed to parse response, preserving current currency", category="character_updates")
-                            if 'currency' in updates:
-                                del updates['currency']
-                            
-                    except Exception as e:
-                        error(f"CURRENCY VERIFICATION: Error during verification: {str(e)}", category="character_updates")
-                        # On error, preserve current currency by removing the update
+                    # Remove the currency update to preserve current values
+                    if 'currency' in updates:
                         del updates['currency']
+                        info(f"CURRENCY PROTECTION: Preserved current currency values", category="character_updates")
             
             updated_data = deep_merge_dict(character_data, updates)
             
