@@ -1326,6 +1326,7 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
                 
                 # Set flag to indicate we just finished combat (for XP display fix)
                 process_ai_response._just_finished_combat = True
+                debug(f"COMBAT_FIX: Set _just_finished_combat flag to True", category="xp_tracking")
                 
                 # Process the AI's post-combat response by calling this function again (recursively).
                 # This ensures the post-combat narration is handled just like any other turn,
@@ -1841,6 +1842,7 @@ def main_game_loop():
         
         # Force reload of character data after combat to ensure XP updates are visible
         # Combat manager uses atomic file operations, but we need to ensure we're reading the latest data
+        debug(f"COMBAT_FIX: Checking _just_finished_combat flag. hasattr: {hasattr(process_ai_response, '_just_finished_combat')}, value: {getattr(process_ai_response, '_just_finished_combat', 'NOT SET')}", category="xp_tracking")
         if hasattr(process_ai_response, '_just_finished_combat') and process_ai_response._just_finished_combat:
             debug(f"XP_DISPLAY: Post-combat - forcing fresh read of character data", category="xp_tracking")
             # Clear any potential file system cache by using safe_read_json with its locking mechanism
@@ -1920,20 +1922,26 @@ def main_game_loop():
             safe_write_json("party_tracker.json", party_tracker_data)
             debug("FILE_OP: Updated party_tracker.json with duplicate NPCs removed", category="npc_management")
 
-        party_members_stats = []
-        for member_name_iter in party_tracker_data["partyMembers"]:
-            member_file_path = path_manager.get_character_path(member_name_iter)
-            member_data_iter = load_json_file(member_file_path)
-            if member_data_iter:
-                stats = {
-                    "name": member_name_iter,  # Keep original case to match file names
-                    "display_name": member_name_iter.capitalize(),  # For display purposes
-                    "level": member_data_iter.get("level", "N/A"),
-                    "xp": member_data_iter.get("experience_points", "N/A"),
-                    "hp": member_data_iter.get("hitPoints", "N/A"),
-                    "max_hp": member_data_iter.get("maxHitPoints", "N/A")
-                }
-                party_members_stats.append(stats)
+        # Check if we should skip loading party stats because they'll be loaded post-combat
+        if hasattr(process_ai_response, '_just_finished_combat') and process_ai_response._just_finished_combat:
+            debug(f"DM_NOTE_FIX: Skipping initial party stats load - will load fresh after combat", category="xp_tracking")
+            # party_members_stats will be loaded in the post-combat section
+        else:
+            party_members_stats = []
+            for member_name_iter in party_tracker_data["partyMembers"]:
+                member_file_path = path_manager.get_character_path(member_name_iter)
+                member_data_iter = load_json_file(member_file_path)
+                if member_data_iter:
+                    stats = {
+                        "name": member_name_iter,  # Keep original case to match file names
+                        "display_name": member_name_iter.capitalize(),  # For display purposes
+                        "level": member_data_iter.get("level", "N/A"),
+                        "xp": member_data_iter.get("experience_points", "N/A"),
+                        "hp": member_data_iter.get("hitPoints", "N/A"),
+                        "max_hp": member_data_iter.get("maxHitPoints", "N/A")
+                    }
+                    party_members_stats.append(stats)
+                    debug(f"DM_NOTE_LOAD: Loaded {member_name_iter} stats - XP: {stats['xp']}, HP: {stats['hp']}/{stats['max_hp']}", category="xp_tracking")
 
         try:
             for npc_info_iter in party_tracker_data["partyNPCs"]:

@@ -2297,6 +2297,64 @@ After resolving my declared action, continue the combat flow without stopping. F
                # END OF NEW XP BLOCK
                # =================================================================
                
+               # =================================================================
+               # NEW: SAVE HP CHANGES AFTER COMBAT
+               # =================================================================
+               # Save current HP values for all participants after combat ends
+               print(f"[DEBUG] Saving post-combat HP values for all participants")
+               
+               # Update player HP
+               for creature in encounter_data.get("creatures", []):
+                   if creature["type"] == "player":
+                       player_name = creature["name"]
+                       current_hp = creature.get("currentHitPoints", 0)
+                       max_hp = creature.get("maxHitPoints", 0)
+                       status = creature.get("status", "alive")
+                       
+                       # Load character file
+                       player_file = path_manager.get_character_path(normalize_character_name(player_name))
+                       player_data = safe_json_load(player_file)
+                       
+                       if player_data:
+                           # Update HP and status
+                           player_data["hitPoints"] = current_hp
+                           player_data["maxHitPoints"] = max_hp
+                           player_data["status"] = status
+                           
+                           # Save updated character data
+                           if safe_write_json(player_file, player_data):
+                               print(f"[DEBUG] Saved {player_name} HP: {current_hp}/{max_hp}, Status: {status}")
+                               info(f"HP_UPDATE: Saved post-combat HP for {player_name}: {current_hp}/{max_hp}", category="combat_events")
+                           else:
+                               error(f"HP_UPDATE: Failed to save HP for {player_name}", category="combat_events")
+                   
+                   elif creature["type"] == "npc":
+                       npc_name = creature["name"]
+                       current_hp = creature.get("currentHitPoints", 0)
+                       max_hp = creature.get("maxHitPoints", 0)
+                       status = creature.get("status", "alive")
+                       
+                       # Load NPC file
+                       npc_file = path_manager.get_character_path(normalize_character_name(npc_name))
+                       npc_data = safe_json_load(npc_file)
+                       
+                       if npc_data:
+                           # Update HP and status
+                           npc_data["hitPoints"] = current_hp
+                           npc_data["maxHitPoints"] = max_hp
+                           npc_data["status"] = status
+                           
+                           # Save updated NPC data
+                           if safe_write_json(npc_file, npc_data):
+                               print(f"[DEBUG] Saved {npc_name} HP: {current_hp}/{max_hp}, Status: {status}")
+                               info(f"HP_UPDATE: Saved post-combat HP for {npc_name}: {current_hp}/{max_hp}", category="combat_events")
+                           else:
+                               error(f"HP_UPDATE: Failed to save HP for {npc_name}", category="combat_events")
+               
+               # =================================================================
+               # END OF HP SAVE BLOCK
+               # =================================================================
+               
                # CRITICAL FIX: Clear the active combat encounter from party_tracker.json to prevent the loop.
                # This is the essential logic from the old update_json_schema function.
                if 'worldConditions' in party_tracker_data and 'activeCombatEncounter' in party_tracker_data['worldConditions']:
