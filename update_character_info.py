@@ -995,12 +995,6 @@ def update_character_info(character_name, changes, character_role=None):
     """
     
     debug(f"STATE_CHANGE: Updating character info for: {character_name}", category="character_updates")
-    debug(f"UPDATE_REQUEST: Changes requested: {changes}", category="character_updates")
-    
-    # Check if this is a potentially empty or unnecessary update
-    if not changes or changes.strip() == "" or changes.strip().lower() in ["none", "no changes", "nothing"]:
-        debug(f"UPDATE_REQUEST: Empty or no-op changes detected, skipping update", category="character_updates")
-        return True  # Return success without doing anything
     
     # Try fuzzy matching first if the character isn't found
     original_name = character_name
@@ -1377,17 +1371,7 @@ Please provide the CORRECT currency values:
                         print(f"[DEBUG CURRENCY] Verification response: {verified_response[:200]}...")
                         
                         # Parse verified response
-                        # Extract JSON from the AI response
-                        try:
-                            verified_json_match = re.search(r'\{.*\}', verified_response, re.DOTALL)
-                            if verified_json_match:
-                                verified_clean_response = verified_json_match.group()
-                                verified_updates = json.loads(verified_clean_response)
-                            else:
-                                verified_updates = None
-                        except (json.JSONDecodeError, AttributeError) as e:
-                            warning(f"CURRENCY VERIFICATION: Failed to parse JSON from verification response: {str(e)}", category="character_updates")
-                            verified_updates = None
+                        verified_updates = parse_ai_response(verified_response, character_data)
                         
                         if verified_updates and 'currency' in verified_updates:
                             # Replace the currency update with verified values
@@ -1411,19 +1395,6 @@ Please provide the CORRECT currency values:
                         error(f"CURRENCY VERIFICATION: Error during verification: {str(e)}", category="character_updates")
                         # On error, preserve current currency by removing the update
                         del updates['currency']
-            
-            # DEBUG: Check if updates are minimal or potentially harmful
-            if len(updates) == 0:
-                debug(f"UPDATE_WARNING: AI returned empty updates for {character_name}", category="character_updates")
-                return True  # No changes needed
-            
-            # Check if the only update is something that shouldn't change post-combat
-            suspicious_update = False
-            if len(updates) == 1:
-                update_key = list(updates.keys())[0]
-                if update_key in ['status', 'condition'] and character_data.get('status') == 'alive':
-                    debug(f"UPDATE_WARNING: AI trying to update only {update_key} post-combat for {character_name}", category="character_updates")
-                    suspicious_update = True
             
             updated_data = deep_merge_dict(character_data, updates)
             
@@ -1517,20 +1488,6 @@ Please provide the CORRECT currency values:
             # DEBUG: Log XP before saving
             if 'experience_points' in updated_data:
                 print(f"[DEBUG XP SAVE] About to save {character_name} with XP: {updated_data.get('experience_points')}")
-            
-            # CRITICAL SAFETY CHECK: Ensure we're not writing empty or invalid data
-            if not updated_data or not isinstance(updated_data, dict):
-                error(f"CRITICAL ERROR: Attempted to write invalid data for {character_name}", category="character_updates")
-                error(f"Data type: {type(updated_data)}, Content: {updated_data}", category="character_updates")
-                return False
-            
-            # Ensure critical fields exist
-            critical_fields = ['name', 'level', 'hitPoints', 'maxHitPoints']
-            missing_fields = [field for field in critical_fields if field not in updated_data]
-            if missing_fields:
-                error(f"CRITICAL ERROR: Missing critical fields for {character_name}: {missing_fields}", category="character_updates")
-                error(f"This would corrupt the character file. Aborting update.", category="character_updates")
-                return False
             
             if safe_write_json(character_path, updated_data):
                 # print(f"[DEBUG] Character data saved successfully!")

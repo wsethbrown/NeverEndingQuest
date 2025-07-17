@@ -1229,37 +1229,6 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
         parsed_response = json.loads(json_content)
         actions = parsed_response.get("actions", [])
         
-        # Debug: Check if this is a post-combat response
-        if hasattr(process_ai_response, '_just_finished_combat') and process_ai_response._just_finished_combat:
-            debug(f"POST_COMBAT_RESPONSE: Processing AI response after combat", category="xp_tracking")
-            debug(f"POST_COMBAT_RESPONSE: Actions in response: {[a.get('action') for a in actions]}", category="xp_tracking")
-            
-            # Check for updateCharacterInfo actions that might overwrite XP
-            actions_to_remove = []
-            for i, action in enumerate(actions):
-                if action.get("action") == "updateCharacterInfo":
-                    char_name = action.get("characterName", "Unknown")
-                    changes = action.get("changes", "")
-                    debug(f"POST_COMBAT_RESPONSE: updateCharacterInfo for {char_name}", category="xp_tracking")
-                    debug(f"POST_COMBAT_RESPONSE: Changes: {changes}", category="xp_tracking")
-                    
-                    # Check if this is a player character
-                    party_tracker = load_json_file("party_tracker.json")
-                    is_player = char_name in party_tracker.get("partyMembers", [])
-                    
-                    if is_player:
-                        debug(f"POST_COMBAT_RESPONSE: BLOCKING updateCharacterInfo for player {char_name} after combat!", category="xp_tracking")
-                        # Mark this action for removal
-                        actions_to_remove.append(i)
-                    
-                    if "experience_points" in changes:
-                        debug(f"POST_COMBAT_RESPONSE: WARNING! AI trying to update XP after combat!", category="xp_tracking")
-            
-            # Remove marked actions in reverse order to maintain indices
-            for i in reversed(actions_to_remove):
-                actions.pop(i)
-                debug(f"POST_COMBAT_RESPONSE: Removed updateCharacterInfo action at index {i}", category="xp_tracking")
-        
         # --- START OF FIX: Detect levelUp action before printing narration ---
         is_levelup_action = any(action.get("action") == "levelUp" for action in actions)
 
@@ -1357,7 +1326,6 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
                 
                 # Set flag to indicate we just finished combat (for XP display fix)
                 process_ai_response._just_finished_combat = True
-                debug(f"COMBAT_FIX: Set _just_finished_combat flag to True", category="xp_tracking")
                 
                 # Process the AI's post-combat response by calling this function again (recursively).
                 # This ensures the post-combat narration is handled just like any other turn,
@@ -1873,50 +1841,11 @@ def main_game_loop():
         
         # Force reload of character data after combat to ensure XP updates are visible
         # Combat manager uses atomic file operations, but we need to ensure we're reading the latest data
-        debug(f"COMBAT_FIX: Checking _just_finished_combat flag. hasattr: {hasattr(process_ai_response, '_just_finished_combat')}, value: {getattr(process_ai_response, '_just_finished_combat', 'NOT SET')}", category="xp_tracking")
         if hasattr(process_ai_response, '_just_finished_combat') and process_ai_response._just_finished_combat:
             debug(f"XP_DISPLAY: Post-combat - forcing fresh read of character data", category="xp_tracking")
             # Clear any potential file system cache by using safe_read_json with its locking mechanism
             from file_operations import safe_read_json
             player_data_current = safe_read_json(player_data_file)
-            
-            # CRITICAL FIX: Also reload party_members_stats for DM Note to prevent stale data in AI context
-            debug(f"XP_DISPLAY: Reloading all party member stats for fresh DM Note", category="xp_tracking")
-            party_members_stats = []
-            for member_name_iter in party_tracker_data["partyMembers"]:
-                member_file_path = path_manager.get_character_path(member_name_iter)
-                member_data_iter = safe_read_json(member_file_path)
-                if member_data_iter:
-                    stats = {
-                        "name": member_name_iter,
-                        "display_name": member_name_iter.capitalize(),
-                        "level": member_data_iter.get("level", "N/A"),
-                        "xp": member_data_iter.get("experience_points", "N/A"),
-                        "hp": member_data_iter.get("hitPoints", "N/A"),
-                        "max_hp": member_data_iter.get("maxHitPoints", "N/A")
-                    }
-                    party_members_stats.append(stats)
-                    debug(f"XP_DISPLAY: Reloaded {member_name_iter} - XP: {stats['xp']}, HP: {stats['hp']}/{stats['max_hp']}", category="xp_tracking")
-            
-            # Also reload party NPC stats
-            for npc in party_tracker_data.get("partyNPCs", []):
-                npc_name = npc.get("name", "")
-                if npc_name:
-                    npc_file_path = path_manager.get_character_path(npc_name)
-                    npc_data = safe_read_json(npc_file_path)
-                    if npc_data:
-                        stats = {
-                            "name": npc_name,
-                            "display_name": npc_name,
-                            "level": npc_data.get("level", "N/A"),
-                            "xp": npc_data.get("experience_points", "N/A"),
-                            "hp": npc_data.get("hitPoints", "N/A"),
-                            "max_hp": npc_data.get("maxHitPoints", "N/A")
-                        }
-                        party_members_stats.append(stats)
-                        debug(f"XP_DISPLAY: Reloaded NPC {npc_name} - XP: {stats['xp']}, HP: {stats['hp']}/{stats['max_hp']}", category="xp_tracking")
-            
-            # Clear the flag after we've used it to reload everything
             process_ai_response._just_finished_combat = False
         else:
             player_data_current = load_json_file(player_data_file)
@@ -1953,29 +1882,20 @@ def main_game_loop():
             safe_write_json("party_tracker.json", party_tracker_data)
             debug("FILE_OP: Updated party_tracker.json with duplicate NPCs removed", category="npc_management")
 
-        # Check if we should skip loading party stats because they'll be loaded post-combat
-        party_members_stats = []  # Always initialize the list
-        if hasattr(process_ai_response, '_just_finished_combat') and process_ai_response._just_finished_combat:
-            debug(f"DM_NOTE_FIX: Skipping initial party stats load - will load fresh after combat", category="xp_tracking")
-            # Clear the flag now that we've used it
-            process_ai_response._just_finished_combat = False
-            debug(f"DM_NOTE_FIX: Cleared _just_finished_combat flag", category="xp_tracking")
-            # party_members_stats will remain empty, preventing stale data in DM note
-        else:
-            for member_name_iter in party_tracker_data["partyMembers"]:
-                member_file_path = path_manager.get_character_path(member_name_iter)
-                member_data_iter = load_json_file(member_file_path)
-                if member_data_iter:
-                    stats = {
-                        "name": member_name_iter,  # Keep original case to match file names
-                        "display_name": member_name_iter.capitalize(),  # For display purposes
-                        "level": member_data_iter.get("level", "N/A"),
-                        "xp": member_data_iter.get("experience_points", "N/A"),
-                        "hp": member_data_iter.get("hitPoints", "N/A"),
-                        "max_hp": member_data_iter.get("maxHitPoints", "N/A")
-                    }
-                    party_members_stats.append(stats)
-                    debug(f"DM_NOTE_LOAD: Loaded {member_name_iter} stats - XP: {stats['xp']}, HP: {stats['hp']}/{stats['max_hp']}", category="xp_tracking")
+        party_members_stats = []
+        for member_name_iter in party_tracker_data["partyMembers"]:
+            member_file_path = path_manager.get_character_path(member_name_iter)
+            member_data_iter = load_json_file(member_file_path)
+            if member_data_iter:
+                stats = {
+                    "name": member_name_iter,  # Keep original case to match file names
+                    "display_name": member_name_iter.capitalize(),  # For display purposes
+                    "level": member_data_iter.get("level", "N/A"),
+                    "xp": member_data_iter.get("experience_points", "N/A"),
+                    "hp": member_data_iter.get("hitPoints", "N/A"),
+                    "max_hp": member_data_iter.get("maxHitPoints", "N/A")
+                }
+                party_members_stats.append(stats)
 
         try:
             for npc_info_iter in party_tracker_data["partyNPCs"]:
@@ -2011,7 +1931,6 @@ def main_game_loop():
         )
 
         if party_members_stats:
-            debug(f"DM_NOTE_BUILD: Building DM note with {len(party_members_stats)} party members", category="xp_tracking")
             world_conditions = party_tracker_data["worldConditions"]
             date_time_str = f"{world_conditions['year']} {world_conditions['month']} {world_conditions['day']} {world_conditions['time']}"
             party_stats_formatted = []
@@ -2132,90 +2051,82 @@ def main_game_loop():
             # Use current module from party tracker for plot data
             current_module_for_plot = party_tracker_data.get("module", "").replace(" ", "_")
             current_plot_manager = ModulePathManager(current_module_for_plot)
-        else:
-            debug(f"DM_NOTE_BUILD: party_members_stats is empty - not building party stats section", category="xp_tracking")
+            plot_data_for_note = load_json_file(current_plot_manager.get_plot_path())
+            debug(f"FILE_OP: Plot file path: {current_plot_manager.get_plot_path()}", category="module_management")
+            debug(f"FILE_OP: Plot data loaded: {plot_data_for_note is not None}", category="module_management")
+            if plot_data_for_note:
+                debug(f"FILE_OP: Plot data keys: {list(plot_data_for_note.keys())}", category="module_management")
+            else:
+                debug("FILE_OP: No plot data loaded - plot_data_for_note is None", category="module_management") 
+            current_plot_points = []
+            if plot_data_for_note and "plotPoints" in plot_data_for_note:
+                 current_plot_points = [
+                    point for point in plot_data_for_note["plotPoints"]
+                    if point.get("location") == current_area_id and point["status"] != "completed"
+                ]
+            plot_points_str = "\n".join([f"- {point['title']}: {point['description']}" for point in current_plot_points])
             
-        # Continue with plot data loading regardless of party stats
-        if 'current_plot_manager' not in locals():
-            current_module_for_plot = party_tracker_data.get("module", "").replace(" ", "_")
-            current_plot_manager = ModulePathManager(current_module_for_plot)
-            
-        plot_data_for_note = load_json_file(current_plot_manager.get_plot_path())
-        debug(f"FILE_OP: Plot file path: {current_plot_manager.get_plot_path()}", category="module_management")
-        debug(f"FILE_OP: Plot data loaded: {plot_data_for_note is not None}", category="module_management")
-        if plot_data_for_note:
-            debug(f"FILE_OP: Plot data keys: {list(plot_data_for_note.keys())}", category="module_management")
-        else:
-            debug("FILE_OP: No plot data loaded - plot_data_for_note is None", category="module_management") 
-        current_plot_points = []
-        if plot_data_for_note and "plotPoints" in plot_data_for_note:
-            current_plot_points = [
-                point for point in plot_data_for_note["plotPoints"]
-                if point.get("location") == current_area_id and point["status"] != "completed"
-            ]
-        plot_points_str = "\n".join([f"- {point['title']}: {point['description']}" for point in current_plot_points])
-        
-        side_quests = []
-        for point in current_plot_points:
-            for quest in point.get("sideQuests", []):
-                if quest["status"] != "completed":
-                    side_quests.append(f"- {quest['title']} (Status: {quest['status']}): {quest['description']}")
-        side_quests_str = "\n".join(side_quests)
+            side_quests = []
+            for point in current_plot_points:
+                for quest in point.get("sideQuests", []):
+                    if quest["status"] != "completed":
+                        side_quests.append(f"- {quest['title']} (Status: {quest['status']}): {quest['description']}")
+            side_quests_str = "\n".join(side_quests)
 
-        traps_str = "None listed"
-        if location_data and "traps" in location_data: 
-            traps = location_data.get("traps", [])
-            if traps:
-                traps_str = "\n".join([
-                    f"- {trap.get('name', 'Unknown Trap')}: {trap.get('description', 'No description')} (Detect DC: {trap.get('detectDC', 'N/A')}, Disable DC: {trap.get('disableDC', 'N/A')}, Trigger DC: {trap.get('triggerDC', 'N/A')}, Damage: {trap.get('damage', 'N/A')})"
-                    for trap in traps
-                ])
+            traps_str = "None listed"
+            if location_data and "traps" in location_data: 
+                traps = location_data.get("traps", [])
+                if traps:
+                    traps_str = "\n".join([
+                        f"- {trap.get('name', 'Unknown Trap')}: {trap.get('description', 'No description')} (Detect DC: {trap.get('detectDC', 'N/A')}, Disable DC: {trap.get('disableDC', 'N/A')}, Trigger DC: {trap.get('triggerDC', 'N/A')}, Damage: {trap.get('damage', 'N/A')})"
+                        for trap in traps
+                    ])
 
-        monsters_str = "None listed"
-        if location_data and "monsters" in location_data:
-            monsters = location_data.get("monsters", [])
-            
-            # Bulletproof check: ensure monsters is actually a list/array
-            if not isinstance(monsters, (list, tuple)):
-                monsters_str = f"Invalid monster data format: {type(monsters)}"
-            elif monsters:
-                monster_list = []
-                for monster in monsters:
-                    # Graceful handling for different monster formats
-                    if isinstance(monster, str):
-                        # Handle legacy string format (just use the string)
-                        monster_list.append(f"- {monster}")
-                    elif isinstance(monster, dict):
-                        # Handle dictionary format (multiple schema versions)
-                        name = monster.get('name', 'Unknown')
-                        
-                        # Try different quantity field names
-                        qty = None
-                        qty_str = "1"
+            monsters_str = "None listed"
+            if location_data and "monsters" in location_data:
+                monsters = location_data.get("monsters", [])
+                
+                # Bulletproof check: ensure monsters is actually a list/array
+                if not isinstance(monsters, (list, tuple)):
+                    monsters_str = f"Invalid monster data format: {type(monsters)}"
+                elif monsters:
+                    monster_list = []
+                    for monster in monsters:
+                        # Graceful handling for different monster formats
+                        if isinstance(monster, str):
+                            # Handle legacy string format (just use the string)
+                            monster_list.append(f"- {monster}")
+                        elif isinstance(monster, dict):
+                            # Handle dictionary format (multiple schema versions)
+                            name = monster.get('name', 'Unknown')
                             
-                        if 'quantity' in monster:
-                            # Standard schema: {"quantity": {"min": 1, "max": 1}}
-                            qty = monster.get('quantity', {})
-                            if isinstance(qty, dict):
-                                qty_str = f"{qty.get('min', 1)}-{qty.get('max', 1)}"
-                            else:
-                                qty_str = str(qty)
-                        elif 'number' in monster:
-                            # Keep of Doom schema: {"number": "2d4"}
-                            qty_str = str(monster.get('number', 1))
-                        elif 'count' in monster:
-                            # Silver Vein schema: {"count": 2}
-                            qty_str = str(monster.get('count', 1))
-                        
-                        monster_list.append(f"- {name} ({qty_str})")
-                    else:
-                        # Handle unexpected types
-                        monster_list.append(f"- Unknown monster type: {type(monster)}")
-                monsters_str = "\n".join(monster_list)
+                            # Try different quantity field names
+                            qty = None
+                            qty_str = "1"
+                            
+                            if 'quantity' in monster:
+                                # Standard schema: {"quantity": {"min": 1, "max": 1}}
+                                qty = monster.get('quantity', {})
+                                if isinstance(qty, dict):
+                                    qty_str = f"{qty.get('min', 1)}-{qty.get('max', 1)}"
+                                else:
+                                    qty_str = str(qty)
+                            elif 'number' in monster:
+                                # Keep of Doom schema: {"number": "2d4"}
+                                qty_str = str(monster.get('number', 1))
+                            elif 'count' in monster:
+                                # Silver Vein schema: {"count": 2}
+                                qty_str = str(monster.get('count', 1))
+                            
+                            monster_list.append(f"- {name} ({qty_str})")
+                        else:
+                            # Handle unexpected types
+                            monster_list.append(f"- Unknown monster type: {type(monster)}")
+                    monsters_str = "\n".join(monster_list)
 
-        # Check ALL modules for plot completion before suggesting module creation
-        module_creation_prompt = ""
-        try:
+            # Check ALL modules for plot completion before suggesting module creation
+            module_creation_prompt = ""
+            try:
                 # Debug current module detection
                 current_module = party_tracker_data.get('module', '').replace(' ', '_')
                 debug(f"STATE_CHANGE: Current module from party tracker: '{current_module}'", category="module_management")
@@ -2265,13 +2176,11 @@ def main_game_loop():
                     else:
                         debug("STATE_CHANGE: Module creation prompt NOT injected - no modules found to check", category="module_management")
                     
-        except Exception as e:
-            error(f"FAILURE: Module completion check failed", exception=e, category="module_management")
-            import traceback
-            traceback.print_exc()
+            except Exception as e:
+                error(f"FAILURE: Module completion check failed", exception=e, category="module_management")
+                import traceback
+                traceback.print_exc()
             
-        # Initialize DM note variables (in case party_members_stats is empty)
-        if party_members_stats:
             # Sanitize location name before using in DM note
             current_location_name_note = sanitize_text(current_location_name_note)
             dm_note = (f"Dungeon Master Note: Current date and time: {date_time_str}. "
