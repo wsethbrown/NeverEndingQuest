@@ -143,7 +143,7 @@ def update_party_npcs(party_tracker_data, operation, npc):
         path_manager = ModulePathManager(module_name)
         
         # Use fuzzy matching to find the NPC file
-        from update_character_info import find_character_file_fuzzy
+        from updates.update_character_info import find_character_file_fuzzy
         matched_name = find_character_file_fuzzy(npc['name'])
         
         if matched_name:
@@ -162,12 +162,12 @@ def update_party_npcs(party_tracker_data, operation, npc):
                     if party_tracker_data.get("partyMembers"):
                         player_name = party_tracker_data["partyMembers"][0]
                         # Normalize name for file access
-                        from update_character_info import normalize_character_name
+                        from updates.update_character_info import normalize_character_name
                         player_name_normalized = normalize_character_name(player_name)
                         player_file = path_manager.get_character_path(player_name_normalized)
                         if os.path.exists(player_file):
                             try:
-                                from encoding_utils import safe_json_load
+                                from utils.encoding_utils import safe_json_load
                                 player_data = safe_json_load(player_file)
                                 if player_data and 'level' in player_data:
                                     default_level = str(player_data['level'])
@@ -198,8 +198,8 @@ def update_party_npcs(party_tracker_data, operation, npc):
         npc_copy = npc.copy()  # Don't modify the original
         
         # Load the actual NPC data to get the correct display name
-        from encoding_utils import safe_json_load
-        from update_character_info import normalize_character_name, find_character_file_fuzzy
+        from utils.encoding_utils import safe_json_load
+        from updates.update_character_info import normalize_character_name, find_character_file_fuzzy
         
         # Use fuzzy matching to find the correct NPC file
         matched_name = find_character_file_fuzzy(npc['name'])
@@ -465,10 +465,10 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         }
     """
     # Import modules here to avoid circular imports
-    import location_manager
-    from update_world_time import update_world_time
+    from core.managers import location_manager
+    from updates.update_world_time import update_world_time
     from updates.plot_update import update_plot
-    from update_character_info import update_character_info
+    from updates.update_character_info import update_character_info
 
     # Helper function to create consistent return values
     def create_return(status="continue", needs_update=False, response_data=None):
@@ -490,7 +490,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         
         # Update status to lock input during encounter building
         try:
-            from status_manager import status_manager
+            from core.managers.status_manager import status_manager
             status_manager.update_status("Prepare for battle - building encounter...", is_processing=True)
             debug("STATE_CHANGE: Status updated to building encounter", category="combat_processing")
         except Exception as e:
@@ -541,7 +541,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 
                 # Update status to show combat is starting
                 try:
-                    from status_manager import status_manager
+                    from core.managers.status_manager import status_manager
                     status_manager.update_status("Combat in progress...", is_processing=True)
                     debug("STATE_CHANGE: Status updated to combat in progress", category="combat_processing")
                 except Exception as e:
@@ -558,7 +558,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                     module_name = party_tracker_data.get("module", "").replace(" ", "_")
                     path_manager = ModulePathManager(module_name)
                     # Normalize name for file access
-                    from update_character_info import normalize_character_name
+                    from updates.update_character_info import normalize_character_name
                     player_name_normalized = normalize_character_name(player_name)
                     player_file = path_manager.get_character_path(player_name_normalized)
                     safe_json_dump(updated_player_info, player_file)
@@ -582,6 +582,12 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                     }
                     conversation_history.append(modified_combat_summary)
                     # Import save_conversation_history from main
+                    import sys
+
+                    if __name__ != "__main__":
+
+                        sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
                     from main import save_conversation_history
                     save_conversation_history(conversation_history)
                     print("[DEBUG ACTION_HANDLER] Returning with status='needs_post_combat_narration' - main loop will get follow-up from AI")
@@ -598,7 +604,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                     print("[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER END WITH ERROR ==========\n")
                     # Reset status on error
                     try:
-                        from status_manager import status_ready
+                        from core.managers.status_manager import status_ready
                         status_ready()
                     except Exception:
                         pass
@@ -609,7 +615,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 print("[DEBUG ACTION_HANDLER] ========== CREATE ENCOUNTER END WITH FAILURE ==========\n")
                 # Reset status on failure
                 try:
-                    from status_manager import status_ready
+                    from core.managers.status_manager import status_ready
                     status_ready()
                 except Exception:
                     pass
@@ -620,7 +626,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
             print("Standard output:", e.stdout)
             # Reset status on exception
             try:
-                from status_manager import status_ready
+                from core.managers.status_manager import status_ready
                 status_ready()
             except Exception:
                 pass
@@ -630,7 +636,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
             traceback.print_exc()
             # Reset status on exception
             try:
-                from status_manager import status_ready
+                from core.managers.status_manager import status_ready
                 status_ready()
             except Exception:
                 pass
@@ -650,6 +656,12 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
 
     elif action_type == ACTION_EXIT_GAME:
         conversation_history.append({"role": "user", "content": "Dungeon Master Note: Resume the game, the player has returned."})
+        import sys
+
+        if __name__ != "__main__":
+
+            sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
         from main import save_conversation_history, exit_game
         save_conversation_history(conversation_history)
         exit_game()
@@ -719,6 +731,12 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                 conversation_history.append({"role": "user", "content": f"Location transition: {sanitize_text(current_location_name)} to {sanitize_text(new_location_name_or_id)}"})
             
             # Save conversation history immediately after adding transition
+            import sys
+
+            if __name__ != "__main__":
+
+                sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
             from main import save_conversation_history
             save_conversation_history(conversation_history)
             
@@ -732,7 +750,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
             
             # CAMPAIGN INTEGRATION: Check for cross-module transitions
             try:
-                from campaign_manager import CampaignManager
+                from core.managers.campaign_manager import CampaignManager
                 campaign_manager = CampaignManager()
                 
                 # Detect if this is a cross-module transition
@@ -798,6 +816,12 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             conversation_history.append({"role": "user", "content": error_message})
             
             # Import necessary functions from main
+            import sys
+
+            if __name__ != "__main__":
+
+                sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
             from main import save_conversation_history
             save_conversation_history(conversation_history)
             
@@ -812,10 +836,10 @@ Please use a valid location that exists in the current area ({current_area_id}) 
 
         try:
             # Import the session manager
-            from level_up_manager import LevelUpSession
+            from core.managers.level_up_manager import LevelUpSession
             
             # Find character file to get current level
-            from update_character_info import normalize_character_name
+            from updates.update_character_info import normalize_character_name
             module_name = party_tracker_data.get("module", "").replace(" ", "_")
             path_manager = ModulePathManager(module_name)
             char_file = path_manager.get_character_path(normalize_character_name(entity_name))
@@ -899,7 +923,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
         if encounter_id and changes:
             try:
                 # Import the update_encounter function
-                from update_encounter import update_encounter
+                from updates.update_encounter import update_encounter
                 
                 # Update the encounter
                 updated_encounter = update_encounter(encounter_id, changes)
@@ -921,7 +945,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
         try:
             # Pass ALL parameters directly from AI to module builder
             # The AI is fully in control of module creation
-            from module_builder import ai_driven_module_creation
+            from core.generators.module_builder import ai_driven_module_creation
             
             # Check if this is a single narrative parameter (new format)
             # or multiple parameters (old format)
@@ -951,7 +975,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 
                 # Reset processing status to ready
                 try:
-                    from status_manager import status_ready
+                    from core.managers.status_manager import status_ready
                     status_ready()
                     debug("STATE_CHANGE: Status reset to ready", category="session_management")
                 except Exception as e:
@@ -962,6 +986,12 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 conversation_history.append({"role": "user", "content": dm_note})
                 
                 # Save conversation history
+                import sys
+
+                if __name__ != "__main__":
+
+                    sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
                 from main import save_conversation_history
                 save_conversation_history(conversation_history)
                 
@@ -971,7 +1001,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 
                 # Reset status even on failure  
                 try:
-                    from status_manager import status_ready
+                    from core.managers.status_manager import status_ready
                     status_ready()
                     debug("STATE_CHANGE: Status reset after failure", category="session_management")
                 except Exception as e:
@@ -984,7 +1014,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             
             # Reset status on exception
             try:
-                from status_manager import status_ready  
+                from core.managers.status_manager import status_ready  
                 status_ready()
                 debug("STATE_CHANGE: Status reset after exception", category="session_management")
             except Exception as status_e:
@@ -1002,7 +1032,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             
             if hub_name:
                 # Import campaign manager
-                from campaign_manager import CampaignManager
+                from core.managers.campaign_manager import CampaignManager
                 campaign_manager = CampaignManager()
                 
                 # Establish the hub
@@ -1034,8 +1064,8 @@ Please use a valid location that exists in the current area ({current_area_id}) 
         debug("STATE_CHANGE: Processing storageInteraction action", category="storage_operations")
         try:
             # Import storage modules
-            from storage_processor import process_storage_request
-            from storage_manager import execute_storage_operation
+            from core.managers.storage_processor import process_storage_request
+            from core.managers.storage_manager import execute_storage_operation
             
             # Get storage description from parameters
             storage_description = parameters.get("description", "")
@@ -1124,7 +1154,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 debug(f"STATE_CHANGE: Inserted module transition marker: '{transition_text}'", category="module_management")
                 
                 # Import campaign manager for auto-archiving
-                from campaign_manager import CampaignManager
+                from core.managers.campaign_manager import CampaignManager
                 campaign_manager = CampaignManager()
                 
                 # Auto-archive and summarize previous module
@@ -1205,7 +1235,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
     elif action_type == ACTION_SAVE_GAME:
         debug("STATE_CHANGE: Processing save game action", category="save_game")
         try:
-            from save_game_manager import SaveGameManager
+            from updates.save_game_manager import SaveGameManager
             
             # Extract parameters
             description = parameters.get("description", "")
@@ -1236,7 +1266,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
     elif action_type == ACTION_RESTORE_GAME:
         debug("STATE_CHANGE: Processing restore game action", category="save_game")
         try:
-            from save_game_manager import SaveGameManager
+            from updates.save_game_manager import SaveGameManager
             
             # Extract parameters
             save_folder = parameters.get("saveFolder")
@@ -1275,7 +1305,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
     elif action_type == ACTION_LIST_SAVES:
         debug("STATE_CHANGE: Processing list saves action", category="save_game")
         try:
-            from save_game_manager import SaveGameManager
+            from updates.save_game_manager import SaveGameManager
             
             # Get list of save games
             manager = SaveGameManager()
@@ -1310,7 +1340,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
     elif action_type == ACTION_DELETE_SAVE:
         debug("STATE_CHANGE: Processing delete save action", category="save_game")
         try:
-            from save_game_manager import SaveGameManager
+            from updates.save_game_manager import SaveGameManager
             
             # Extract parameters
             save_folder = parameters.get("saveFolder")
@@ -1365,7 +1395,7 @@ def move_background_npc(npc_name, context, current_location_hint=None, party_tra
     import time
     import threading
     from datetime import datetime
-    from file_operations import safe_write_json, safe_read_json
+    from utils.file_operations import safe_write_json, safe_read_json
     
     debug(f"STATE_CHANGE: moveBackgroundNPC called for {npc_name}", category="npc_management")
     debug(f"AI_CALL: Context: {context}", category="npc_management")

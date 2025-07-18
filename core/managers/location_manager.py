@@ -69,7 +69,7 @@ set_script_name(__name__)
 def get_storage_at_location(location_id):
     """Get all player storage containers at a specific location"""
     try:
-        from storage_manager import get_storage_manager
+        from core.managers.storage_manager import get_storage_manager
         manager = get_storage_manager()
         return manager.get_storage_at_location(location_id)
     except Exception as e:

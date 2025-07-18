@@ -661,7 +661,7 @@ If the field expects an object, return just the object.
         os.makedirs(f"{module_dir}/monsters", exist_ok=True)
         
         # Import area generator
-        from area_generator import AreaGenerator, AreaConfig
+        from core.generators.area_generator import AreaGenerator, AreaConfig
         from utils.module_context import ModuleContext
         
         # Initialize area generator and context

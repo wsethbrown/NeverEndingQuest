@@ -137,7 +137,7 @@ def find_character_file_fuzzy(character_name):
     import glob
     import os
     from difflib import SequenceMatcher
-    from enhanced_logger import debug
+    from utils.enhanced_logger import debug
     
     # First try exact match with normalized name
     normalized_name = normalize_character_name(character_name)

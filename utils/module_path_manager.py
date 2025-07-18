@@ -96,7 +96,7 @@ class ModulePathManager:
         - "D'Artagnan the Bold" -> "d_artagnan_the_bold"
         - "Sir Mac'Davier" -> "sir_mac_davier"
         """
-        from update_character_info import normalize_character_name
+        from updates.update_character_info import normalize_character_name
         return normalize_character_name(name)
     
     # Monster and NPC paths

@@ -401,7 +401,7 @@ def create_new_character(conversation, module):
             
             if success:
                 print(f"Dungeon Master: Character {character_name} created successfully!")
-                from update_character_info import normalize_character_name
+                from updates.update_character_info import normalize_character_name
                 return normalize_character_name(character_name)
             else:
                 print(f"Error: Failed to save character {character_name}")
@@ -428,7 +428,7 @@ def create_new_character(conversation, module):
                     if success:
                         print(f"Dungeon Master: I've created a basic {fallback_character['class']} character named {character_name} for you!")
                         print("You can always create a new character later when the system is working better.")
-                        from update_character_info import normalize_character_name
+                        from updates.update_character_info import normalize_character_name
                         return normalize_character_name(character_name)
                 
                 print("Error: All character creation methods failed. Please try again later.")
@@ -1348,7 +1348,7 @@ def save_character_to_module(character_data, module_name):
     try:
         # Use ModulePathManager for proper path handling
         path_manager = ModulePathManager(module_name)
-        from update_character_info import normalize_character_name
+        from updates.update_character_info import normalize_character_name
         char_name = normalize_character_name(character_data['name'])
         char_file = path_manager.get_character_unified_path(char_name)
         

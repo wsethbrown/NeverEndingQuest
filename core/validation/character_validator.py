@@ -198,7 +198,7 @@ class AICharacterValidator:
                 
                 if inventory_updates:
                     # Apply updates using deep merge (same pattern as main character updater)
-                    from update_character_info import deep_merge_dict
+                    from updates.update_character_info import deep_merge_dict
                     corrected_data = deep_merge_dict(character_data, inventory_updates)
                     return corrected_data
                 else:
@@ -854,7 +854,7 @@ Remember to return a single JSON response with all three validation results."""
                     
                     if 'equipment' in inv_result and inv_result['equipment']:
                         # Apply inventory updates using deep merge
-                        from update_character_info import deep_merge_dict
+                        from updates.update_character_info import deep_merge_dict
                         inventory_updates = {'equipment': inv_result['equipment']}
                         result_data = deep_merge_dict(result_data, inventory_updates)
                 
@@ -1025,7 +1025,7 @@ Remember to return a single JSON response with all three validation results."""
                 
                 if consolidation_updates:
                     # Apply updates using deep merge (same pattern as main character updater)
-                    from update_character_info import deep_merge_dict
+                    from updates.update_character_info import deep_merge_dict
                     corrected_data = deep_merge_dict(character_data, consolidation_updates)
                     return corrected_data
                 else:

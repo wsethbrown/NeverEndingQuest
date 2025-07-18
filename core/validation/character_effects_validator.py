@@ -52,7 +52,7 @@ class AICharacterEffectsValidator:
         self.corrections_made = []
         # Get current module from party tracker for consistent path resolution
         try:
-            from encoding_utils import safe_json_load
+            from utils.encoding_utils import safe_json_load
             party_tracker = safe_json_load("party_tracker.json")
             current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
             self.path_manager = ModulePathManager(current_module)

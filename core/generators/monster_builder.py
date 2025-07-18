@@ -219,7 +219,7 @@ def main():
     # Get average party level from all character files
     party_level = 1
     try:
-        from encoding_utils import safe_json_load
+        from utils.encoding_utils import safe_json_load
         party_tracker = safe_json_load("party_tracker.json")
         if party_tracker and party_tracker.get("partyMembers"):
             levels = []
@@ -240,7 +240,7 @@ def main():
     if generated_monster_data:
         # Get current module from party tracker for consistent path resolution
         try:
-            from encoding_utils import safe_json_load
+            from utils.encoding_utils import safe_json_load
             party_tracker = safe_json_load("party_tracker.json")
             current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
             path_manager = ModulePathManager(current_module)

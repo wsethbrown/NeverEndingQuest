@@ -625,7 +625,7 @@ IMPORTANT:
     def _update_single_area_plot_hooks(self, area_id, unified_plot, client):
         """Atomically update plot hooks for a single area with deep merge and safety guards"""
         # Import here to avoid circular imports
-        from file_operations import safe_write_json, safe_read_json
+        from utils.file_operations import safe_write_json, safe_read_json
         
         area_file_path = os.path.join(self.config.output_directory, "areas", f"{area_id}.json")
         

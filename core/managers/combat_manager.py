@@ -195,7 +195,7 @@ def load_npc_with_fuzzy_match(npc_name, path_manager):
     Returns:
         tuple: (npc_data, matched_filename) or (None, None) if not found
     """
-    from encoding_utils import safe_json_load
+    from utils.encoding_utils import safe_json_load
     
     # First try exact match with normalized name
     formatted_npc_name = path_manager.format_filename(npc_name)
@@ -266,8 +266,8 @@ def get_current_area_id():
     return party_tracker["worldConditions"]["currentAreaId"]
 
 def get_location_data(location_id):
-    from module_path_manager import ModulePathManager
-    from encoding_utils import safe_json_load
+    from utils.module_path_manager import ModulePathManager
+    from utils.encoding_utils import safe_json_load
     # Get current module from party tracker for consistent path resolution
     try:
         party_tracker = safe_json_load("party_tracker.json")
@@ -313,8 +313,8 @@ def read_prompt_from_file(filename):
 
 def load_monster_stats(monster_name):
     # Import the path manager
-    from module_path_manager import ModulePathManager
-    from encoding_utils import safe_json_load
+    from utils.module_path_manager import ModulePathManager
+    from utils.encoding_utils import safe_json_load
     # Get current module from party tracker for consistent path resolution
     try:
         party_tracker = safe_json_load("party_tracker.json")
@@ -834,8 +834,8 @@ def summarize_dialogue(conversation_history_param, location_data, party_tracker_
         else:
             location_data["adventureSummary"] += f"\n\n{dialogue_summary}"
 
-        from module_path_manager import ModulePathManager
-        from encoding_utils import safe_json_load
+        from utils.module_path_manager import ModulePathManager
+        from utils.encoding_utils import safe_json_load
         # Get current module from party tracker for consistent path resolution
         try:
             party_tracker = safe_json_load("party_tracker.json")
@@ -977,8 +977,8 @@ def generate_chat_history(conversation_history, encounter_id):
 
 def sync_active_encounter():
     """Sync player and NPC data to the active encounter file if one exists"""
-    from module_path_manager import ModulePathManager
-    from encoding_utils import safe_json_load
+    from utils.module_path_manager import ModulePathManager
+    from utils.encoding_utils import safe_json_load
     # Get current module from party tracker for consistent path resolution
     try:
         party_tracker = safe_json_load("party_tracker.json")
@@ -1310,8 +1310,8 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    debug(f"INITIALIZATION: Starting combat simulation for encounter {encounter_id}", category="combat_events")
    
    # Initialize path manager
-   from module_path_manager import ModulePathManager
-   from encoding_utils import safe_json_load
+   from utils.module_path_manager import ModulePathManager
+   from utils.encoding_utils import safe_json_load
    try:
        party_tracker = safe_json_load("party_tracker.json")
        current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
@@ -1611,7 +1611,7 @@ Player: {initial_prompt_text}"""
    
    # Update status to show combat is active
    try:
-       from status_manager import status_manager
+       from core.managers.status_manager import status_manager
        status_manager.update_status("Combat in progress - awaiting your action", is_processing=False)
    except Exception as e:
        debug(f"Could not update status: {e}", category="status")
@@ -1621,7 +1621,7 @@ Player: {initial_prompt_text}"""
        
        # Clear processing status when ready for player input
        try:
-           from status_manager import status_manager
+           from core.managers.status_manager import status_manager
            status_manager.update_status("", is_processing=False)
        except Exception as e:
            debug(f"Could not clear status: {e}", category="status")
@@ -1874,7 +1874,7 @@ After resolving my declared action, continue the combat flow without stopping. F
                
                # Update status to show AI is processing
                try:
-                   from status_manager import status_manager
+                   from core.managers.status_manager import status_manager
                    status_manager.update_status("Combat AI processing your action...", is_processing=True)
                except Exception as e:
                    debug(f"Could not update status: {e}", category="status")
@@ -1950,7 +1950,7 @@ After resolving my declared action, continue the combat flow without stopping. F
                
                # Update status to show validation is happening
                try:
-                   from status_manager import status_manager
+                   from core.managers.status_manager import status_manager
                    status_manager.update_status("Validating combat actions...", is_processing=True)
                except Exception as e:
                    debug(f"Could not update status: {e}", category="status")
@@ -2074,7 +2074,7 @@ After resolving my declared action, continue the combat flow without stopping. F
            # Update status to show actions are being processed
            if len(actions) > 0:
                try:
-                   from status_manager import status_manager
+                   from core.managers.status_manager import status_manager
                    status_manager.update_status("Processing combat outcomes...", is_processing=True)
                except Exception as e:
                    debug(f"Could not update status: {e}", category="status")

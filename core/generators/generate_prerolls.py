@@ -65,7 +65,7 @@ def get_monster_attacks(monster_type):
         
     try:
         from utils.module_path_manager import ModulePathManager
-        from encoding_utils import safe_json_load
+        from utils.encoding_utils import safe_json_load
         # Get current module from party tracker for consistent path resolution
         try:
             party_tracker = safe_json_load("party_tracker.json")
@@ -108,8 +108,8 @@ def get_npc_attacks(npc_name):
         
     try:
         from utils.module_path_manager import ModulePathManager
-        from encoding_utils import safe_json_load
-        from update_character_info import find_character_file_fuzzy
+        from utils.encoding_utils import safe_json_load
+        from updates.update_character_info import find_character_file_fuzzy
         
         # Get current module from party tracker for consistent path resolution
         try:

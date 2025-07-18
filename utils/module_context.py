@@ -58,7 +58,7 @@ class ModuleContext:
     def add_npc(self, npc_name: str, area_id: str = None, location_id: str = None, 
                 role: str = "", faction: str = ""):
         """Register an NPC and track where they appear"""
-        from update_character_info import normalize_character_name
+        from updates.update_character_info import normalize_character_name
         npc_key = normalize_character_name(npc_name)
         
         if npc_key not in self.npcs:

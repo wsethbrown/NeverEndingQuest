@@ -744,7 +744,7 @@ Create atmospheric travel narration that leads into this adventure."""
         
         # We need the helper functions from ModuleBuilder
         # Import here to avoid circular dependency
-        from module_builder import ModuleBuilder
+        from core.generators.module_builder import ModuleBuilder
         temp_builder = ModuleBuilder(config.BuilderConfig()) # Create a temporary instance to access methods
         
         sorted_new_area_files = sorted(os.listdir(new_module_areas_path))
@@ -890,7 +890,7 @@ Respond with JSON:
         """Validate module files against schemas"""
         try:
             # Use the existing validator
-            from validate_module_files import ModuleValidator
+            from core.validation.validate_module_files import ModuleValidator
             
             validator = ModuleValidator(module_path, ".")
             validator.load_schemas()

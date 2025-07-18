@@ -29,7 +29,7 @@ def update_encounter(encounter_id, changes, max_retries=3):
     # Load the current encounter info and schema
     # Get current module from party tracker for consistent path resolution
     try:
-        from encoding_utils import safe_json_load
+        from utils.encoding_utils import safe_json_load
         party_tracker = safe_json_load("party_tracker.json")
         current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
         path_manager = ModulePathManager(current_module)
@@ -95,7 +95,7 @@ Remember to only update monster information and leave player and NPC data unchan
             for creature in encounter_info["creatures"]:
                 if creature["type"] == "player":
                     # Import normalize_character_name for consistent naming
-                    from update_character_info import normalize_character_name
+                    from updates.update_character_info import normalize_character_name
                     player_file = path_manager.get_character_path(normalize_character_name(creature['name']))
                     try:
                         with open(player_file, "r") as file:
@@ -113,7 +113,7 @@ Remember to only update monster information and leave player and NPC data unchan
                         
                 elif creature["type"] == "npc":
                     # Import the fuzzy matching function
-                    from update_character_info import find_character_file_fuzzy
+                    from updates.update_character_info import find_character_file_fuzzy
                     
                     # Use fuzzy matching to find the correct NPC file
                     matched_name = find_character_file_fuzzy(creature['name'])

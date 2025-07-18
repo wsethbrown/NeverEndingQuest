@@ -312,4 +312,4 @@ if __name__ == "__main__":
     print("\nWith:")
     print('  safe_write_json("file.json", data)')
     print("\nOr import and use:")
-    print('  from file_operations import safe_write_json, safe_read_json')
+    print('  from utils.file_operations import safe_write_json, safe_read_json')

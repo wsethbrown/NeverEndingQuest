@@ -311,7 +311,7 @@ class WebInput:
     def readline(self):
         # Signal that we're ready for input (with error handling)
         try:
-            from status_manager import status_ready
+            from core.managers.status_manager import status_ready
             status_ready()
         except Exception:
             # If status_ready fails, continue without it
@@ -400,7 +400,7 @@ def handle_action(data):
 
     if action_type == 'listSaves':
         try:
-            from save_game_manager import SaveGameManager
+            from updates.save_game_manager import SaveGameManager
             manager = SaveGameManager()
             saves = manager.list_save_games()
             emit('save_list_response', saves)
@@ -410,7 +410,7 @@ def handle_action(data):
 
     elif action_type == 'saveGame':
         try:
-            from save_game_manager import SaveGameManager
+            from updates.save_game_manager import SaveGameManager
             manager = SaveGameManager()
             description = parameters.get("description", "")
             save_mode = parameters.get("saveMode", "essential")
@@ -424,7 +424,7 @@ def handle_action(data):
 
     elif action_type == 'restoreGame':
         try:
-            from save_game_manager import SaveGameManager
+            from updates.save_game_manager import SaveGameManager
             manager = SaveGameManager()
             save_folder = parameters.get("saveFolder")
             success, message = manager.restore_save_game(save_folder)
@@ -440,7 +440,7 @@ def handle_action(data):
     
     elif action_type == 'deleteSave':
         try:
-            from save_game_manager import SaveGameManager
+            from updates.save_game_manager import SaveGameManager
             manager = SaveGameManager()
             save_folder = parameters.get("saveFolder")
             success, message = manager.delete_save_game(save_folder)
@@ -503,11 +503,11 @@ def handle_player_data_request(data):
         if dataType == 'stats' or dataType == 'inventory' or dataType == 'spells':
             # Get player name from party tracker
             if party_tracker.get('partyMembers') and len(party_tracker['partyMembers']) > 0:
-                from update_character_info import normalize_character_name
+                from updates.update_character_info import normalize_character_name
                 player_name = normalize_character_name(party_tracker['partyMembers'][0])
                 
                 # Try module-specific path first
-                from module_path_manager import ModulePathManager
+                from utils.module_path_manager import ModulePathManager
                 current_module = party_tracker.get("module", "").replace(" ", "_")
                 path_manager = ModulePathManager(current_module)
                 
@@ -526,7 +526,7 @@ def handle_player_data_request(data):
         elif dataType == 'npcs':
             # Get NPC data from party tracker
             npcs = []
-            from module_path_manager import ModulePathManager
+            from utils.module_path_manager import ModulePathManager
             current_module = party_tracker.get("module", "").replace(" ", "_")
             path_manager = ModulePathManager(current_module)
             
@@ -535,7 +535,7 @@ def handle_player_data_request(data):
                 
                 try:
                     # Use fuzzy matching to find the correct NPC file
-                    from update_character_info import find_character_file_fuzzy
+                    from updates.update_character_info import find_character_file_fuzzy
                     matched_name = find_character_file_fuzzy(npc_name)
                     
                     if matched_name:
@@ -590,8 +590,8 @@ def handle_npc_saves_request(data):
         npc_name = data.get('npcName', '')
         
         # Load the NPC file
-        from module_path_manager import ModulePathManager
-        from encoding_utils import safe_json_load
+        from utils.module_path_manager import ModulePathManager
+        from utils.encoding_utils import safe_json_load
         # Get current module from party tracker for consistent path resolution
         try:
             party_tracker = safe_json_load("party_tracker.json")
@@ -600,7 +600,7 @@ def handle_npc_saves_request(data):
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
         
-        from update_character_info import normalize_character_name, find_character_file_fuzzy
+        from updates.update_character_info import normalize_character_name, find_character_file_fuzzy
         
         # Use fuzzy matching to find the correct NPC file
         matched_name = find_character_file_fuzzy(npc_name)
@@ -627,8 +627,8 @@ def handle_npc_skills_request(data):
         npc_name = data.get('npcName', '')
         
         # Load the NPC file
-        from module_path_manager import ModulePathManager
-        from encoding_utils import safe_json_load
+        from utils.module_path_manager import ModulePathManager
+        from utils.encoding_utils import safe_json_load
         # Get current module from party tracker for consistent path resolution
         try:
             party_tracker = safe_json_load("party_tracker.json")
@@ -637,7 +637,7 @@ def handle_npc_skills_request(data):
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
         
-        from update_character_info import normalize_character_name, find_character_file_fuzzy
+        from updates.update_character_info import normalize_character_name, find_character_file_fuzzy
         
         # Use fuzzy matching to find the correct NPC file
         matched_name = find_character_file_fuzzy(npc_name)
@@ -664,8 +664,8 @@ def handle_npc_spells_request(data):
         npc_name = data.get('npcName', '')
         
         # Load the NPC file
-        from module_path_manager import ModulePathManager
-        from encoding_utils import safe_json_load
+        from utils.module_path_manager import ModulePathManager
+        from utils.encoding_utils import safe_json_load
         # Get current module from party tracker for consistent path resolution
         try:
             party_tracker = safe_json_load("party_tracker.json")
@@ -674,7 +674,7 @@ def handle_npc_spells_request(data):
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
         
-        from update_character_info import normalize_character_name, find_character_file_fuzzy
+        from updates.update_character_info import normalize_character_name, find_character_file_fuzzy
         
         # Use fuzzy matching to find the correct NPC file
         matched_name = find_character_file_fuzzy(npc_name)
@@ -701,8 +701,8 @@ def handle_npc_inventory_request(data):
         npc_name = data.get('npcName', '')
         
         # Load the NPC file
-        from module_path_manager import ModulePathManager
-        from encoding_utils import safe_json_load
+        from utils.module_path_manager import ModulePathManager
+        from utils.encoding_utils import safe_json_load
         # Get current module from party tracker for consistent path resolution
         try:
             party_tracker = safe_json_load("party_tracker.json")
@@ -711,7 +711,7 @@ def handle_npc_inventory_request(data):
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
         
-        from update_character_info import normalize_character_name, find_character_file_fuzzy
+        from updates.update_character_info import normalize_character_name, find_character_file_fuzzy
         
         # Use fuzzy matching to find the correct NPC file
         matched_name = find_character_file_fuzzy(npc_name)
@@ -739,7 +739,7 @@ def handle_request_storage_data():
     """Handles a request from the client to view all player storage."""
     debug("WEB_REQUEST: Received request for storage data from client", category="web_interface")
     try:
-        from storage_manager import get_storage_manager
+        from core.managers.storage_manager import get_storage_manager
         manager = get_storage_manager()
         # Calling view_storage() with no location_id gets ALL storage containers.
         storage_data = manager.view_storage()

@@ -33,7 +33,7 @@ def clear_combat_history_files():
         clear_json_file(file)
 
 def format_type_name(name):
-    from update_character_info import normalize_character_name
+    from updates.update_character_info import normalize_character_name
     return normalize_character_name(name)
 
 def load_json(file_name):
@@ -127,7 +127,7 @@ def load_or_create_monster(monster_type):
     print(f"[COMBAT_BUILDER] Monster load/create: '{monster_type}' -> '{formatted_monster_type}'")
     # Get current module from party tracker for consistent path resolution
     try:
-        from encoding_utils import safe_json_load
+        from utils.encoding_utils import safe_json_load
         party_tracker = safe_json_load("party_tracker.json")
         current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
         path_manager = ModulePathManager(current_module)
@@ -164,7 +164,7 @@ def load_or_create_npc(npc_name):
     print(f"[COMBAT_BUILDER] NPC name normalization: '{npc_name}' -> '{formatted_npc_name}'")
     # Get current module from party tracker for consistent path resolution
     try:
-        from encoding_utils import safe_json_load
+        from utils.encoding_utils import safe_json_load
         party_tracker = safe_json_load("party_tracker.json")
         current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
         path_manager = ModulePathManager(current_module)
@@ -264,7 +264,7 @@ def generate_encounter(encounter_data):
     # Add player
     # Get current module from party tracker for consistent path resolution
     try:
-        from encoding_utils import safe_json_load
+        from utils.encoding_utils import safe_json_load
         party_tracker = safe_json_load("party_tracker.json")
         current_module = party_tracker.get("module", "").replace(" ", "_") if party_tracker else None
         path_manager = ModulePathManager(current_module)

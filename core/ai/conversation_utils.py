@@ -305,7 +305,7 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
 
     # Insert world state information
     try:
-        from campaign_manager import CampaignManager
+        from core.managers.campaign_manager import CampaignManager
         campaign_manager = CampaignManager()
         available_modules = campaign_manager.campaign_data.get('availableModules', [])
         
@@ -448,7 +448,7 @@ def update_character_data(conversation_history, party_tracker_data):
         # Process player characters
         for member in party_tracker_data["partyMembers"]:
             # Normalize name for file access
-            from update_character_info import normalize_character_name
+            from updates.update_character_info import normalize_character_name
             normalized_member = normalize_character_name(member)
             name = member.lower()
             member_file = path_manager.get_character_path(normalized_member)
