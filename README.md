@@ -27,6 +27,14 @@ NeverEndingQuest solves the fundamental challenge of AI memory constraints throu
 - [License](#license)
 - [Recent Updates](#recent-updates)
 
+## ⚠️ Important: Directory Structure Update
+
+**For existing users**: The codebase has been reorganized for better maintainability. Key changes:
+- Module builder is now at: `python core/generators/module_builder.py`
+- Conversation history files moved to: `modules/conversation_history/`
+- All Python modules organized into `core/`, `utils/`, `updates/`, and `web/` directories
+- Your existing game data and modules remain unchanged
+
 ## Quick Start
 
 **Get playing in under 5 minutes!** The AI startup wizard handles everything automatically:
@@ -244,7 +252,7 @@ The system includes three progressive adventures:
 
 Generate complete modules with:
 ```bash
-python module_builder.py
+python core/generators/module_builder.py
 ```
 The AI helps create areas, locations, plots, and NPCs that integrate seamlessly with your existing world.
 
@@ -403,35 +411,54 @@ The AI analyzes area descriptions and themes to suggest natural narrative bridge
 
 ## Project Structure
 
+**Note: The codebase has been reorganized for better maintainability. All core functionality is now organized into logical directories.**
+
+### 📁 Directory Organization
+```
+/
+├── core/                    # Core game engine modules
+│   ├── ai/                 # AI integration (action_handler, dm_wrapper, etc.)
+│   ├── generators/         # Content generation (module_builder, npc_builder, etc.)
+│   ├── managers/           # System management (combat_manager, storage_manager, etc.)
+│   └── validation/         # Data validation systems
+├── utils/                  # Utility functions and helpers
+├── updates/               # State update modules
+├── web/                   # Web interface
+├── modules/               # Adventure modules and game data
+│   ├── conversation_history/  # All conversation files
+│   ├── campaign_summaries/    # AI-generated summaries
+│   └── [module_name]/        # Individual adventure modules
+├── prompts/               # AI system prompts
+├── schemas/               # JSON validation schemas
+└── data/                  # Game data files
+```
+
 ### Core Systems
 - `main.py` - Main game loop and player interaction
-- `module_builder.py` - Automated module generation system
-- `module_stitcher.py` - Organic module integration with safety protocols
-- `campaign_manager.py` - Location-based hub-and-spoke campaign orchestration
-- `combat_manager.py` - Combat system management
-- `dm.py` & `dm_wrapper.py` - AI Dungeon Master logic
+- `core/generators/module_builder.py` - Automated module generation system
+- `core/generators/module_stitcher.py` - Organic module integration
+- `core/managers/campaign_manager.py` - Hub-and-spoke campaign orchestration
+- `core/managers/combat_manager.py` - Combat system management
+- `core/ai/dm_wrapper.py` - AI Dungeon Master logic
 
-### Player Systems
-- `storage_manager.py` - Player storage system with atomic file protection
-- `storage_processor.py` - AI-powered natural language storage processing
-- `action_handler.py` - Command processing and system integration
-- `location_manager.py` - Location-based features and storage display
-
-### Campaign Generation
-- `module_generator.py` - Module overview generation
-- `area_generator.py` - Area and map generation
-- `location_generator.py` - Detailed location generation
-- `plot_generator.py` - Plot and quest generation
+### Content Generation
+- `core/generators/module_generator.py` - Module overview generation
+- `core/generators/area_generator.py` - Area and map generation
+- `core/generators/location_generator.py` - Detailed location generation
+- `core/generators/plot_generator.py` - Plot and quest generation
+- `core/generators/npc_builder.py` - NPC generation system
+- `core/generators/monster_builder.py` - Monster creation tools
 
 ### Game Management
-- `conversation_utils.py` - Conversation tracking and summarization
-- `update_*.py` - Various state update modules
-- `player_stats.py` - Character statistics and progression
-- `npc_builder.py` - NPC generation system
-- `monster_builder.py` - Monster creation tools
+- `core/ai/conversation_utils.py` - Conversation tracking
+- `core/managers/storage_manager.py` - Player storage system
+- `core/ai/action_handler.py` - Command processing
+- `utils/player_stats.py` - Character statistics
+- `updates/` - Various state update modules
 
 ### Data Files
-- `*_schema.json` - JSON schemas for validation
+- `schemas/*_schema.json` - JSON schemas for validation
+- `modules/conversation_history/` - Conversation history files
 - `modules/` - Generated module data
 - `*.json` - Character, location, and game state files
 - `player_storage.json` - Central player storage repository
@@ -484,7 +511,7 @@ New module detected → Security scan → Content safety check → Schema valida
 
 ### Generate a Module
 ```bash
-python module_builder.py
+python core/generators/module_builder.py
 # Follow prompts to create areas, locations, plots, and NPCs
 # System ensures consistency and schema compliance
 ```
