@@ -144,30 +144,48 @@ set_script_name(__name__)
 # Temperature
 TEMPERATURE = 0.8
 
-def get_combat_temperature(encounter_data):
+def get_combat_temperature(encounter_data, validation_attempt=0):
     """
     Calculate temperature for main combat processing based on encounter complexity.
     More creatures = lower temperature for better logical processing.
+    Additional reduction applied for validation failures to improve consistency.
+    
+    Args:
+        encounter_data: The encounter data containing creature information
+        validation_attempt: The current validation attempt number (0 = first try)
+    
+    Returns:
+        float: Temperature value between 0.1 and 0.8
     """
     creatures = encounter_data.get("creatures", [])
     creature_count = len(creatures)
     
+    # Base temperature based on creature count
     if creature_count > 8:
-        temp = 0.4
-        print(f"[COMBAT_MANAGER] Using temperature {temp} for massive encounter ({creature_count} creatures)")
-        return temp
+        base_temp = 0.4
+        complexity = "massive"
     elif creature_count > 6:
-        temp = 0.5
-        print(f"[COMBAT_MANAGER] Using temperature {temp} for very complex encounter ({creature_count} creatures)")
-        return temp
+        base_temp = 0.5
+        complexity = "very complex"
     elif creature_count > 4:
-        temp = 0.6
-        print(f"[COMBAT_MANAGER] Using temperature {temp} for complex encounter ({creature_count} creatures)")
-        return temp
+        base_temp = 0.6
+        complexity = "complex"
     else:
-        temp = 0.8
-        print(f"[COMBAT_MANAGER] Using temperature {temp} for normal encounter ({creature_count} creatures)")
-        return temp
+        base_temp = 0.8
+        complexity = "normal"
+    
+    # Apply reduction for validation failures
+    # Each failure reduces temperature by 0.1, max reduction of 0.4
+    temperature_reduction = min(validation_attempt * 0.1, 0.4)
+    final_temp = max(base_temp - temperature_reduction, 0.1)  # Never go below 0.1
+    
+    # Log the temperature selection
+    if validation_attempt == 0:
+        print(f"[COMBAT_MANAGER] Using temperature {final_temp} for {complexity} encounter ({creature_count} creatures)")
+    else:
+        print(f"[COMBAT_MANAGER] Lowering temperature from {base_temp} to {final_temp} after validation failure (attempt {validation_attempt + 1})")
+    
+    return final_temp
 
 # OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -1524,9 +1542,12 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
        # Get the AI's re-engagement response
        try:
            print("[COMBAT_MANAGER] Getting re-engagement narration from AI...")
+           # Use base temperature for re-engagement (no validation failures)
+           temperature_used = get_combat_temperature(encounter_data, validation_attempt=0)
+           
            response = client.chat.completions.create(
                model=COMBAT_MAIN_MODEL,
-               temperature=get_combat_temperature(encounter_data),
+               temperature=temperature_used,
                messages=conversation_history
            )
            resume_response_content = response.choices[0].message.content.strip()
@@ -1578,7 +1599,14 @@ Player: {initial_prompt_text}"""
        
        for attempt in range(max_retries):
            try:
-               response = client.chat.completions.create(model=COMBAT_MAIN_MODEL, temperature=get_combat_temperature(encounter_data), messages=conversation_history)
+               # Calculate temperature with attempt number for dynamic adjustment
+               temperature_used = get_combat_temperature(encounter_data, validation_attempt=attempt)
+               
+               response = client.chat.completions.create(
+                   model=COMBAT_MAIN_MODEL, 
+                   temperature=temperature_used, 
+                   messages=conversation_history
+               )
                initial_response = response.choices[0].message.content.strip()
                conversation_history.append({"role": "assistant", "content": initial_response})
                
@@ -1891,9 +1919,12 @@ After resolving my declared action, continue the combat flow without stopping. F
                except Exception as e:
                    debug(f"Could not update status: {e}", category="status")
                
+               # Calculate temperature with attempt number for dynamic adjustment
+               temperature_used = get_combat_temperature(encounter_data, validation_attempt=attempt)
+               
                response = client.chat.completions.create(
                    model=COMBAT_MAIN_MODEL,
-                   temperature=get_combat_temperature(encounter_data),
+                   temperature=temperature_used,
                    messages=conversation_history
                )
                ai_response = response.choices[0].message.content.strip()
@@ -1924,7 +1955,8 @@ After resolving my declared action, continue the combat flow without stopping. F
                            "attempt": attempt + 1,
                            "assistant_response": ai_response,
                            "validation_error": error_msg,
-                           "error_type": "json_format"
+                           "error_type": "json_format",
+                           "temperature_used": temperature_used
                        })
                        continue
                    else:
@@ -1951,7 +1983,8 @@ After resolving my declared action, continue the combat flow without stopping. F
                            "attempt": attempt + 1,
                            "assistant_response": ai_response,
                            "validation_error": requery_msg,
-                           "error_type": "multiple_update_encounter"
+                           "error_type": "multiple_update_encounter",
+                           "temperature_used": temperature_used
                        })
                        continue
                    else:
@@ -2005,7 +2038,8 @@ After resolving my declared action, continue the combat flow without stopping. F
                            "assistant_response": ai_response,
                            "validation_error": error_msg,
                            "error_type": "combat_logic",
-                           "reason": sanitize_unicode_for_logging(reason)
+                           "reason": sanitize_unicode_for_logging(reason),
+                           "temperature_used": temperature_used
                        })
                        continue
                    else:
@@ -2033,7 +2067,8 @@ After resolving my declared action, continue the combat flow without stopping. F
                validation_attempts.append({
                    "attempt": "final",
                    "assistant_response": ai_response,
-                   "validation_result": "success"
+                   "validation_result": "success",
+                   "temperature_used": temperature_used
                })
        
        # Write validation attempts to log file
