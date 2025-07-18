@@ -13,6 +13,10 @@ import os
 import sys
 import traceback
 from datetime import datetime
+
+# Add the project root to the Python path so we can import from utils, core, etc.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 from openai import OpenAI
 from jsonschema import validate, ValidationError
 from config import OPENAI_API_KEY, ADVENTURE_SUMMARY_MODEL
