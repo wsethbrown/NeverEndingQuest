@@ -135,6 +135,22 @@ Remember to only update monster information and leave player and NPC data unchan
                     else:
                         print(f"WARNING: Could not find NPC file for '{creature['name']}' using fuzzy matching")
 
+            # Normalize creature statuses before validation
+            # Map invalid statuses to valid ones
+            status_mapping = {
+                "destroyed": "dead",
+                "panicked": "alive",
+                "fled": "defeated",
+                "fleeing": "defeated",
+                "dying": "unconscious"
+            }
+            
+            for creature in encounter_info.get("creatures", []):
+                current_status = creature.get("status", "alive")
+                if current_status in status_mapping:
+                    print(f"INFO: Normalizing invalid status '{current_status}' to '{status_mapping[current_status]}' for {creature.get('name', 'unknown')}")
+                    creature["status"] = status_mapping[current_status]
+
             # Validate the updated info against the schema
             validate(instance=encounter_info, schema=schema)
 

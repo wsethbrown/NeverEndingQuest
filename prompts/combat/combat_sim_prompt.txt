@@ -567,7 +567,9 @@ NOTE: This is an excellent, multi-layered example. It shows an NPC being affecte
 UpdateEncounter Action:
 Use the updateEncounter action to record all changes to monsters, such as damage taken or status effects applied. This should be a consolidated summary of everything that happened to all enemies during the narrated turn(s). The changes field should be a clear, human-readable text description showing your calculations.
 
-IMPORTANT: When updating creature status, you MUST use one of these exact values: "alive", "dead", "unconscious", or "defeated". Never use "destroyed", "panicked", "fled", "fleeing" or any other status - use "dead" for creatures reduced to 0 HP. 
+IMPORTANT: When updating creature status, you MUST use one of these exact values: "alive", "dead", "unconscious", or "defeated". Never use "destroyed", "panicked", "fled", "fleeing" or any other status - use "dead" for creatures reduced to 0 HP.
+
+CRITICAL FOR UNDEAD CREATURES: Even though undead (skeletons, zombies, etc.) are "destroyed" in narration, you MUST use status "dead" in the JSON. The word "destroyed" can appear in your narration and changes description, but the actual status field must be "dead". 
 
 HANDLING FLEEING CREATURES:
 - If a creature flees in panic, keep their status as "alive" 

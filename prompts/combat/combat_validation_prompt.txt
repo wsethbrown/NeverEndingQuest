@@ -12,7 +12,7 @@ MAJOR ISSUES (always flag):
 5. ROUND TRACKING ACCURACY: The combat_round field must increment ONLY when all living creatures in initiative order have acted. A round cannot advance if any creature hasn't taken their turn yet.
 6. INITIATIVE CYCLE VALIDATION: Check that the combat_round number accurately reflects how many complete initiative cycles have occurred. Round 2 means ALL creatures completed Round 1.
 7. PLAN VALIDATION: If a "plan" field is present, verify that the AI's understanding of combat state matches the actual situation. Flag discrepancies between the plan's assessment of round number, HP values, initiative order, or who has/hasn't acted versus what actually occurred in the conversation.
-8. STATUS FIELD VALIDATION: Creature status MUST be one of: "alive", "dead", "unconscious", or "defeated". Flag as INVALID if status contains "panicked", "fled", "fleeing", "destroyed" or any other value.
+8. STATUS FIELD VALIDATION: Creature status MUST be one of: "alive", "dead", "unconscious", or "defeated". Flag as INVALID if status contains "panicked", "fled", "fleeing", "destroyed" or any other value. SPECIFIC ERROR: If an undead creature is marked as "destroyed", flag with: "Invalid status 'destroyed' for [creature name]. Undead creatures must use status 'dead' when reduced to 0 HP, even though narration may describe them as 'destroyed'."
 9. EXIT CONDITION VALIDATION: The exit action should ONLY be called when ALL enemies are dead, unconscious, or defeated. Flag as INVALID if exit is called while any enemy still has status "alive".
 
 Ensure PROPER COMBAT FLOW:
