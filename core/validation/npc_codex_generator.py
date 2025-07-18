@@ -45,9 +45,9 @@ import shutil
 from datetime import datetime
 from openai import OpenAI
 import config
-from module_path_manager import ModulePathManager
-from encoding_utils import safe_json_load, safe_json_dump, sanitize_text
-from file_operations import safe_write_json, safe_read_json
+from utils.module_path_manager import ModulePathManager
+from utils.encoding_utils import safe_json_load, safe_json_dump, sanitize_text
+from utils.file_operations import safe_write_json, safe_read_json
 
 
 def generate_npc_codex(module_name):

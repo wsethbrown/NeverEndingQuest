@@ -18,7 +18,7 @@ The script will:
 import json
 import os
 from datetime import datetime
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("combat_history_generator")

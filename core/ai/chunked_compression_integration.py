@@ -18,13 +18,13 @@ from utils.enhanced_logger import debug, info, warning, error, set_script_name
 # Set script name for logging
 set_script_name("chunked_compression_integration")
 
-def check_and_perform_chunked_compression(conversation_file="conversation_history.json"):
+def check_and_perform_chunked_compression(conversation_file="modules/conversation_history/conversation_history.json"):
     """
     Check if chunked compression is needed and perform it if necessary.
     This is called after location transitions when new location summaries are added.
     
     Args:
-        conversation_file: Path to the conversation history file (default: conversation_history.json)
+        conversation_file: Path to the conversation history file (default: modules/conversation_history/conversation_history.json)
     
     Returns:
         bool: True if compression was performed, False otherwise

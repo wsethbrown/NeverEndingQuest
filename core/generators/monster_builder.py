@@ -55,8 +55,8 @@ import re
 from openai import OpenAI
 from jsonschema import validate, ValidationError
 import config
-from module_path_manager import ModulePathManager
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.module_path_manager import ModulePathManager
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("monster_builder")

@@ -14,8 +14,8 @@ If no module_name is provided, it will use the current module from party_tracker
 
 import sys
 import os
-from campaign_manager import CampaignManager
-from encoding_utils import safe_json_load
+from core.managers.campaign_manager import CampaignManager
+from .encoding_utils import safe_json_load
 
 def main():
     """Main sync script"""

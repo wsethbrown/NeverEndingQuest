@@ -18,15 +18,15 @@ The script will:
 import json
 import os
 from datetime import datetime
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("chat_history_generator")
 
 def generate_chat_history():
     """Generate a lightweight chat history without system messages"""
-    input_file = "conversation_history.json"
-    output_file = "chat_history.json"
+    input_file = "modules/conversation_history/conversation_history.json"
+    output_file = "modules/conversation_history/chat_history.json"
     
     # Check if input file exists
     if not os.path.exists(input_file):

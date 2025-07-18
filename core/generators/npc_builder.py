@@ -33,8 +33,8 @@ from openai import OpenAI
 from jsonschema import validate, ValidationError
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, NPC_BUILDER_MODEL # Assuming API key might also be in config eventually
-from module_path_manager import ModulePathManager
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.module_path_manager import ModulePathManager
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("npc_builder")
@@ -84,7 +84,7 @@ def save_json(file_name, data):
         return False
 
 def generate_npc(npc_name, schema, npc_race=None, npc_class=None, npc_level=None, npc_background=None):
-    system_prompt_text = load_prompt("npc_builder_prompt.txt") # Renamed variable
+    system_prompt_text = load_prompt("prompts/generators/npc_builder_prompt.txt") # Renamed variable
     if not system_prompt_text:
         return None
 

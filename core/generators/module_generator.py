@@ -73,8 +73,8 @@ from datetime import datetime
 from openai import OpenAI
 from config import OPENAI_API_KEY, DM_MAIN_MODEL
 import jsonschema
-from module_path_manager import ModulePathManager
-from file_operations import safe_write_json as save_json_safely
+from utils.module_path_manager import ModulePathManager
+from utils.file_operations import safe_write_json as save_json_safely
 
 # Initialize OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)

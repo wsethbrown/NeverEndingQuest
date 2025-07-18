@@ -63,10 +63,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Any
 # Import our existing utilities
-from file_operations import safe_write_json, safe_read_json
-from module_path_manager import ModulePathManager
-from encoding_utils import safe_json_load
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.file_operations import safe_write_json, safe_read_json
+from utils.module_path_manager import ModulePathManager
+from utils.encoding_utils import safe_json_load
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name(__name__)

@@ -64,7 +64,7 @@ def get_monster_attacks(monster_type):
         return [{"name": "monster attack"}], 1
         
     try:
-        from module_path_manager import ModulePathManager
+        from utils.module_path_manager import ModulePathManager
         from encoding_utils import safe_json_load
         # Get current module from party tracker for consistent path resolution
         try:
@@ -107,7 +107,7 @@ def get_npc_attacks(npc_name):
         return [{"name": "weapon attack"}], 1
         
     try:
-        from module_path_manager import ModulePathManager
+        from utils.module_path_manager import ModulePathManager
         from encoding_utils import safe_json_load
         from update_character_info import find_character_file_fuzzy
         
@@ -226,7 +226,7 @@ def generate_prerolls(encounter_data, round_num=None):
                     attacks_info, num_attacks = get_monster_attacks(monster_type)
                 elif creature.get("type") == "npc":
                     # Load NPC file to get attacksAndSpellcasting  
-                    from module_path_manager import ModulePathManager
+                    from utils.module_path_manager import ModulePathManager
                     path_manager = ModulePathManager()
                     npc_name = path_manager.format_filename(creature_name)
                     attacks_info, num_attacks = get_npc_attacks(npc_name)
