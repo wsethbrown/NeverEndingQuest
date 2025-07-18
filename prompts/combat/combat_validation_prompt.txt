@@ -42,6 +42,9 @@ When you find a validation failure, your "reason" must be a direct instruction f
 *   **If the AI requests a saving throw but doesn't stop, use this format:**
     "Player Interaction Violation. You failed to stop after requesting a player saving throw. You MUST end your response immediately after asking for the roll and wait for the player's input before continuing."
 
+*   **If the AI resolves an NPC saving throw without a Dramatic Pause, use this format:**
+    "NPC Saving Throw Violation. You failed to use the 'Dramatic Pause' protocol. You must first DECLARE the NPC's pre-rolled die and then immediately INVITE a brief, non-mechanical reaction from the player to justify the pause (e.g., 'Do you shout a warning?'). You cannot resolve the entire save in a single response."
+
 CRITICAL ROUND VALIDATION CHECKS:
 -   ROUND CONSISTENCY: If combat_round is X, verify that (X-1) complete initiative cycles have already occurred
 -   PREMATURE ADVANCEMENT: Flag any case where combat_round increments before all living creatures have acted
