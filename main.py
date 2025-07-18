@@ -773,7 +773,7 @@ def validate_ai_response(primary_response, user_input, validation_prompt_text, c
     return True
 
 def load_validation_prompt():
-    with open("validation_prompt.txt", "r", encoding="utf-8") as file:
+    with open("prompts/validation/validation_prompt.txt", "r", encoding="utf-8") as file:
         return file.read().strip()
 
 def load_json_file(file_path):

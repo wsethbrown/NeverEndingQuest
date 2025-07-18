@@ -300,8 +300,10 @@ def get_location_data(location_id):
     return None
 
 def read_prompt_from_file(filename):
+    # Prompts are now in the prompts/ directory at project root
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(script_dir, filename)
+    project_root = os.path.join(script_dir, '..', '..')
+    file_path = os.path.join(project_root, 'prompts', filename)
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read().strip()
@@ -583,7 +585,7 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
         debug("VALIDATION_CONTEXT: Unable to parse response JSON for context", category="combat_validation")
     
     # Load validation prompt from file
-    validation_prompt = read_prompt_from_file('combat_validation_prompt.txt')
+    validation_prompt = read_prompt_from_file('combat/combat_validation_prompt.txt')
     
     # Start with validation prompt
     validation_conversation = [
@@ -1325,7 +1327,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    else:
        is_resuming = False
        conversation_history = [
-           {"role": "system", "content": read_prompt_from_file('combat_sim_prompt.txt')},
+           {"role": "system", "content": read_prompt_from_file('combat/combat_sim_prompt.txt')},
            {"role": "system", "content": f"Current Combat Encounter: {encounter_id}"},
            {"role": "system", "content": ""}, # Player data placeholder
            {"role": "system", "content": ""}, # Monster templates placeholder

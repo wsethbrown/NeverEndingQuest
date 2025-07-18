@@ -64,7 +64,7 @@ def check_validation_prompt():
     print("=" * 60)
     
     try:
-        with open("validation_prompt.txt", "r", encoding="utf-8") as f:
+        with open("prompts/validation/validation_prompt.txt", "r", encoding="utf-8") as f:
             content = f.read()
         
         required_patterns = [
@@ -108,7 +108,7 @@ def check_validation_prompt():
         return len(missing_patterns) == 0
         
     except FileNotFoundError:
-        print("❌ validation_prompt.txt not found!")
+        print("❌ prompts/validation/validation_prompt.txt not found!")
         return False
     except Exception as e:
         print(f"❌ Error reading validation prompt: {e}")
@@ -123,7 +123,7 @@ def check_prompt_consistency():
     try:
         with open("system_prompt.txt", "r", encoding="utf-8") as f:
             system_content = f.read()
-        with open("validation_prompt.txt", "r", encoding="utf-8") as f:
+        with open("prompts/validation/validation_prompt.txt", "r", encoding="utf-8") as f:
             validation_content = f.read()
         
         # Check for consistent examples

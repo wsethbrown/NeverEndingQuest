@@ -495,7 +495,7 @@ class ModuleDebugger:
                 self.log_warning(f"Module file {module_file} not found for module '{module_name}'")
         
         # Check for validation prompt
-        if not os.path.exists("validation_prompt.txt"):
+        if not os.path.exists("prompts/validation/validation_prompt.txt"):
             self.log_info("validation_prompt.txt not found (using default)")
             
         # Check for summarization files

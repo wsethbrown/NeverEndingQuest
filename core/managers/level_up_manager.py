@@ -246,10 +246,15 @@ class LevelUpSession:
 
     @staticmethod
     def _load_system_prompts():
-        with open("level_up_system_prompt.txt", "r") as f:
+        # Get project root from the current manager location
+        import os
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.join(script_dir, '..', '..')
+        
+        with open(os.path.join(project_root, "prompts/leveling/level_up_system_prompt.txt"), "r") as f:
             level_up_prompt = f.read()
-        with open("leveling_validation_prompt.txt", "r") as f:
+        with open(os.path.join(project_root, "prompts/leveling/leveling_validation_prompt.txt"), "r") as f:
             validation_prompt = f.read()
-        with open("leveling_info.txt", "r") as f:
+        with open(os.path.join(project_root, "prompts/leveling/leveling_info.txt"), "r") as f:
             leveling_info = f.read()
         return level_up_prompt, validation_prompt, leveling_info

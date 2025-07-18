@@ -9,7 +9,11 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 
 def load_leveling_info():
     """Load leveling information from text file"""
-    with open("leveling_info.txt", "r") as file:
+    import os
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.join(script_dir, '..')
+    file_path = os.path.join(project_root, "prompts/leveling/leveling_info.txt")
+    with open(file_path, "r") as file:
         return file.read().strip()
 
 def get_level_up_guidance(character_name, current_level, new_level):
