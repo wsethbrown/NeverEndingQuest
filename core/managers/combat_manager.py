@@ -648,7 +648,7 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
                 recommendation = validation_json.get("recommendation", "")
 
                 # Log validation results with encounter context
-                with open("combat_validation_log.json", "a") as log_file:
+                with open("modules/conversation_history/combat_validation_log.json", "a") as log_file:
                     log_entry = {
                         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
                         "encounter_size": num_creatures,
@@ -2026,7 +2026,7 @@ After resolving my declared action, continue the combat flow without stopping. F
        
        # Write validation attempts to log file
        if validation_attempts:
-           validation_log_path = os.path.join(os.path.dirname(conversation_history_file), "combat_validation_log.json")
+           validation_log_path = os.path.join(os.path.dirname(conversation_history_file), "modules/conversation_history/combat_validation_log.json")
            try:
                # Load existing log or create new one (JSONL format)
                validation_log = []

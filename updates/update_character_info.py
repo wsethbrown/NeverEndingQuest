@@ -91,7 +91,7 @@ def load_schema():
         return json.load(schema_file)
 
 def load_conversation_history():
-    data = safe_read_json("conversation_history.json")
+    data = safe_read_json("modules/conversation_history/conversation_history.json")
     return data if data else []
 
 def normalize_character_name(character_name):

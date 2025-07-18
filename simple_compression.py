@@ -45,7 +45,7 @@ def simple_compression():
     print("=" * 40)
     
     # Load original conversation
-    with open("conversation_history.json", 'r', encoding='utf-8') as f:
+    with open("modules/conversation_history/conversation_history.json", 'r', encoding='utf-8') as f:
         conversation_data = json.load(f)
     
     print(f"Total messages: {len(conversation_data)}")

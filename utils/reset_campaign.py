@@ -51,7 +51,7 @@ def create_backup():
     root_files = [
         "party_tracker.json", "campaign.json", "world_registry.json",
         "modules/conversation_history/conversation_history.json", "modules/conversation_history/chat_history.json", "modules/conversation_history/combat_conversation_history.json",
-        "player_conversation_history.json", "current_location.json", "journal.json",
+        "modules/conversation_history/conversation_history.json", "current_location.json", "journal.json",
         "summary_dump.json", "trimmed_summary_dump.json", "modules/conversation_history/second_model_history.json",
         "modules/conversation_history/third_model_history.json", "debug_encounter_update.json", "debug_initial_response.json",
         "debug_npc_update.json", "debug_player_update.json", "debug_second_model.json",
@@ -229,7 +229,7 @@ def clear_all_files():
         "modules/conversation_history/third_model_history.json", "debug_encounter_update.json", "debug_initial_response.json",
         "debug_npc_update.json", "debug_player_update.json", "debug_second_model.json",
         "npc_update_debug_log.json", "npc_update_detailed_log.json", "prompt_validation.json",
-        "combat_validation_log.json", "debug_ai_response.json", "dialogue_summary.json",
+        "modules/conversation_history/combat_validation_log.json", "debug_ai_response.json", "dialogue_summary.json",
         "debug_critical_field_loss.json", "debug_npc_update.json"
     ]
     

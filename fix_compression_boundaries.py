@@ -81,7 +81,7 @@ def analyze_conversation_structure():
     print("=" * 50)
     
     # Load the original conversation
-    with open("conversation_history.json", 'r', encoding='utf-8') as f:
+    with open("modules/conversation_history/conversation_history.json", 'r', encoding='utf-8') as f:
         conversation_data = json.load(f)
     
     print(f"Total messages: {len(conversation_data)}")

@@ -299,7 +299,7 @@ def handle_location_transition(current_location, new_location, current_area, cur
 
         # Run adventure summary update
         try:
-            result = subprocess.run(["python", "adv_summary.py", "conversation_history.json", "current_location.json", current_location, current_area_id],
+            result = subprocess.run(["python", "adv_summary.py", "modules/conversation_history/conversation_history.json", "current_location.json", current_location, current_area_id],
                         check=True, capture_output=True, text=True)
             info("SUCCESS: Adventure summary updated successfully", category="summary_building")
         except subprocess.CalledProcessError as e:

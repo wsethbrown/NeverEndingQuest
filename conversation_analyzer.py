@@ -381,7 +381,7 @@ def main():
     import sys
     
     # Default conversation file path - always use the main conversation_history.json
-    conversation_file = "/mnt/c/dungeon_master_v1/conversation_history.json"
+    conversation_file = "modules/conversation_history/conversation_history.json"
     
     # Allow override from command line only if explicitly provided
     if len(sys.argv) > 1:

@@ -607,7 +607,7 @@ if __name__ == "__main__":
         "characters/player1.json",
         "modules/test_module/areas/area1.json",
         "test_file.py",
-        "conversation_history.json"
+        "modules/conversation_history/conversation_history.json"
     ]
     
     debug("TEST: File categorization test:", category="testing")

@@ -25,8 +25,8 @@ set_script_name("combat_history_generator")
 
 def generate_combat_chat_history():
     """Generate a lightweight chat history from combat conversations"""
-    input_file = "combat_conversation_history.json"
-    output_file = "combat_chat_history.json"
+    input_file = "modules/conversation_history/conversation_history.json"
+    output_file = "modules/conversation_history/chat_history.json"
     
     # Check if input file exists
     if not os.path.exists(input_file):

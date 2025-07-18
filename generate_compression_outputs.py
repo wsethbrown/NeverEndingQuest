@@ -21,7 +21,7 @@ def create_compression_outputs():
     print("=" * 50)
     
     # Step 1: Create a copy of the original conversation history
-    source_file = "conversation_history.json"
+    source_file = "modules/conversation_history/conversation_history.json"
     backup_file = "conversation_history_backup.json"
     compressed_file = "conversation_history_compressed.json"
     summary_file = "generated_summary_only.md"

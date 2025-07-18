@@ -324,13 +324,13 @@ class ModuleDebugger:
         required_files = [
             "party_tracker.json",
             "current_location.json",  # May be created by main.py
-            "chat_history.json",      # May be created by main.py
+            "modules/conversation_history/chat_history.json",      # May be created by main.py
             "journal.json"            # May be created by main.py
         ]
         
         for req_file in required_files:
             if req_file not in self.module_data:
-                if req_file in ["current_location.json", "chat_history.json", "journal.json"]:
+                if req_file in ["current_location.json", "modules/conversation_history/chat_history.json", "journal.json"]:
                     self.log_info(f"Optional file not found (will be created): {req_file}")
                 else:
                     self.log_error(f"Required file missing: {req_file}")
@@ -481,7 +481,7 @@ class ModuleDebugger:
             self.log_warning("system_prompt.txt not found (using default)")
         
         # Check conversation history
-        if not os.path.exists("conversation_history.json"):
+        if not os.path.exists("modules/conversation_history/conversation_history.json"):
             self.log_info("conversation_history.json not found (will be created)")
             
         # Check module references in party tracker
