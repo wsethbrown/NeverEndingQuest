@@ -499,8 +499,12 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
         try:
             print("[DEBUG ACTION_HANDLER] Calling combat_builder.py...")
             debug(f"SUBPROCESS: Sending to combat_builder.py: {json.dumps(action)}", category="combat_processing")
+            # Get the path to combat_builder.py relative to the project root
+            project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            combat_builder_path = os.path.join(project_root, "core", "generators", "combat_builder.py")
+            
             result = subprocess.run(
-                ["python", "combat_builder.py"],
+                ["python", combat_builder_path],
                 input=json.dumps(action),
                 check=True, capture_output=True, text=True
             )
