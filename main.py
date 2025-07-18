@@ -95,10 +95,10 @@ from updates.update_character_info import update_character_info
 from core.managers.level_up_manager import LevelUpSession # Add this line
 
 # Import new manager modules
-import core.managers.location_manager as location_manager
+from core.managers import location_manager
 from utils.location_path_finder import LocationGraph
-import core.ai.action_handler as action_handler
-import core.ai.cumulative_summary as cumulative_summary
+from core.ai import action_handler
+from core.ai import cumulative_summary
 from core.managers.status_manager import (
     status_manager, status_ready, status_processing_ai, status_validating,
     status_retrying, status_transitioning_location, status_generating_summary,

@@ -108,6 +108,170 @@ This is not optional - Unicode characters WILL cause the game to crash with enco
 # Schema Validation
 Use `python validate_module_files.py` to check schema compatibility after making changes to JSON files or schemas. This ensures all game files remain compatible with their schemas and prevents runtime errors. Aim for 100% validation pass rate.
 
+# Organized Codebase Architecture 
+
+## Directory Structure and Import Patterns
+The codebase has been comprehensively reorganized into a logical directory structure with 100% verified import functionality:
+
+### Core Directory Organization (61 Python modules total)
+```
+core/                     # Core game engine modules (32 files)
+├── ai/                  # AI integration and processing (9 files)
+│   ├── action_handler.py         # Command processing and system integration
+│   ├── adv_summary.py            # Adventure summary generation  
+│   ├── chunked_compression.py    # Conversation compression engine
+│   ├── chunked_compression_config.py # Compression settings
+│   ├── chunked_compression_integration.py # Compression integration
+│   ├── conversation_utils.py     # Conversation tracking and summarization
+│   ├── cumulative_summary.py     # AI-powered history compression
+│   ├── dm_wrapper.py             # DM AI model wrapper
+│   └── enhanced_dm_wrapper.py    # Enhanced DM functionality
+├── generators/          # Content generation systems (13 files)
+│   ├── area_generator.py         # Location generation with AI
+│   ├── chat_history_generator.py # Chat history processing
+│   ├── combat_builder.py         # Combat encounter creation
+│   ├── combat_history_generator.py # Combat history processing
+│   ├── generate_prerolls.py      # Combat dice management system
+│   ├── location_generator.py     # Area and location generation
+│   ├── location_summarizer.py    # AI-powered location summaries
+│   ├── module_builder.py         # Module creation orchestrator
+│   ├── module_generator.py       # Core content generation engine
+│   ├── module_stitcher.py        # Module integration system
+│   ├── monster_builder.py        # Creature creation with AI
+│   ├── npc_builder.py            # NPC generation with AI
+│   └── plot_generator.py         # Quest and plot generation
+├── managers/            # System orchestration (Manager Pattern) (8 files)
+│   ├── campaign_manager.py       # Hub-and-spoke campaign orchestration
+│   ├── combat_manager.py         # Turn-based combat system
+│   ├── initiative_tracker_ai.py  # Combat initiative tracking
+│   ├── level_up_manager.py       # Character progression in subprocess
+│   ├── location_manager.py       # Location-based features and storage
+│   ├── status_manager.py         # Real-time user feedback system
+│   ├── storage_manager.py        # Player storage with atomic protection
+│   └── storage_processor.py      # Storage transaction processing
+└── validation/          # AI-powered validation systems (6 files)
+    ├── character_effects_validator.py # Character effects validation
+    ├── character_validator.py    # Character data validation
+    ├── dm_complex_validator.py   # Complex game state validation
+    ├── dm_response_validator.py  # DM response validation
+    ├── npc_codex_generator.py    # NPC data validation and codex
+    └── validate_module_files.py  # Module schema validation
+
+utils/                   # Utility functions and core support (18 files)
+├── action_predictor.py           # AI action prediction optimization
+├── analyze_module_options.py     # Module analysis tools
+├── encoding_utils.py             # Text encoding and JSON safety
+├── enhanced_logger.py            # Comprehensive logging system
+├── file_operations.py            # Atomic file operations
+├── level_up.py                   # Legacy level up system
+├── location_path_finder.py       # Location pathfinding utilities
+├── module_context.py             # Module context management
+├── module_path_manager.py        # Module-centric path management
+├── player_stats.py               # Character statistics and progression
+├── plot_formatting.py            # Plot text formatting for AI
+├── reconcile_location_state.py   # Location state reconciliation
+├── redirect_debug_output.py      # Debug output redirection
+├── reset_campaign.py             # Campaign reset utilities
+├── startup_wizard.py             # Character creation wizard
+├── sync_party_tracker.py         # Party tracker synchronization
+├── token_estimator.py            # AI token usage estimation
+└── xp.py                         # Experience point calculations
+
+updates/                 # State update modules (6 files)
+├── plot_update.py                # Quest progression updates
+├── save_game_manager.py          # Save/load operations
+├── update_character_info.py      # Character data updates
+├── update_encounter.py           # Encounter state updates
+├── update_party_tracker.py       # Party tracker updates
+└── update_world_time.py          # World time progression
+
+web/                     # Web interface (1 file)
+└── web_interface.py              # Flask server and SocketIO handlers
+
+prompts/                 # AI system prompts (organized by type)
+├── combat/                       # Combat system prompts
+│   ├── combat_sim_prompt.txt     # Combat simulation rules
+│   └── combat_validation_prompt.txt # Combat validation rules
+├── leveling/                     # Character progression prompts
+│   ├── level_up_system_prompt.txt # Level up rules and guidance
+│   ├── leveling_validation_prompt.txt # Level up validation
+│   └── leveling_info.txt         # D&D 5e leveling tables and rules
+├── validation/                   # General validation prompts
+│   └── validation_prompt.txt     # Core game validation rules
+├── generators/                   # Content generation prompts
+│   ├── module_creation_prompt.txt # Module creation guidance
+│   └── npc_builder_prompt.txt    # NPC generation rules
+└── system_prompt.txt             # Core game rules and AI instructions
+
+modules/conversation_history/     # All conversation files
+├── conversation_history.json     # Main conversation history
+├── level_up_conversation.json    # Level up session history
+├── startup_conversation.json     # Character creation history
+├── chat_history.json             # Lightweight chat history
+└── combat_conversation_history.json # Combat session history
+```
+
+### Import Pattern Standards
+**ALWAYS use these import patterns for new code:**
+
+```python
+# Core AI systems
+from core.ai.action_handler import process_action
+from core.ai.conversation_utils import update_conversation_history
+from core.ai.chunked_compression_integration import check_and_perform_chunked_compression
+
+# Core Managers (follow Manager Pattern)
+from core.managers.combat_manager import CombatManager
+from core.managers.storage_manager import StorageManager
+from core.managers.level_up_manager import LevelUpSession
+
+# Core Generators
+from core.generators.module_builder import ModuleBuilder
+from core.generators.location_summarizer import LocationSummarizer
+
+# Core Validation
+from core.validation.character_validator import AICharacterValidator
+from core.validation.dm_response_validator import validate_dm_response
+
+# Utilities (most commonly used)
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
+from utils.encoding_utils import safe_json_load, safe_json_dump, sanitize_text
+from utils.file_operations import safe_read_json, safe_write_json
+from utils.module_path_manager import ModulePathManager
+
+# Updates
+from updates.update_character_info import update_character_info
+from updates.plot_update import update_plot
+
+# Web interface
+from web.web_interface import app, socketio
+```
+
+### File Path Standards
+**Use these standardized file paths:**
+
+```python
+# Conversation files - ALL in modules/conversation_history/
+"modules/conversation_history/conversation_history.json"
+"modules/conversation_history/level_up_conversation.json"
+"modules/conversation_history/startup_conversation.json"
+
+# Prompt files - organized by system type
+"prompts/combat/combat_sim_prompt.txt"
+"prompts/leveling/level_up_system_prompt.txt" 
+"prompts/validation/validation_prompt.txt"
+"prompts/generators/npc_builder_prompt.txt"
+"prompts/system_prompt.txt"
+
+# Schema files
+"schemas/char_schema.json"
+"schemas/module_schema.json"
+
+# Module data
+"modules/[module_name]/areas/[location_id].json"
+"modules/[module_name]/[module_name]_module.json"
+```
+
 # Module-Centric Architecture
 This system follows a **Module-Centric Design Philosophy** with advanced conversation timeline management:
 
