@@ -1401,7 +1401,7 @@ def get_ai_response(conversation_history, validation_retry_count=0):
     status_processing_ai()
     
     # Import action predictor and config
-    from action_predictor import predict_actions_required, extract_actual_actions, log_prediction_accuracy
+    from utils.action_predictor import predict_actions_required, extract_actual_actions, log_prediction_accuracy
     from config import ENABLE_INTELLIGENT_ROUTING, DM_MINI_MODEL, DM_FULL_MODEL, MAX_VALIDATION_RETRIES
     
     # Get the last user message for action prediction
