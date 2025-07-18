@@ -3,7 +3,7 @@
 import json
 from openai import OpenAI
 from config import OPENAI_API_KEY, LEVEL_UP_MODEL
-from file_operations import safe_read_json
+from .file_operations import safe_read_json
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 

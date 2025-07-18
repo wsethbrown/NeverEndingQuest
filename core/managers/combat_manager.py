@@ -1811,7 +1811,7 @@ Player: {initial_prompt_text}"""
        # Try to use AI-powered live initiative tracker
        live_tracker = None
        try:
-           from initiative_tracker_ai import generate_live_initiative_tracker
+           from .initiative_tracker_ai import generate_live_initiative_tracker
            # Get recent conversation for analysis (last 20 messages)
            recent_conversation = conversation_history[-20:] if len(conversation_history) > 20 else conversation_history
            live_tracker = generate_live_initiative_tracker(encounter_data, recent_conversation, current_round)
