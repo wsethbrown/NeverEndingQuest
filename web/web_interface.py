@@ -356,7 +356,31 @@ def serve_dm_logo():
     """Serve the DM logo image"""
     import mimetypes
     from flask import send_file
-    return send_file('dm_logo.png', mimetype='image/png')
+    # Go up one directory to find dm_logo.png at the root
+    logo_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'dm_logo.png')
+    return send_file(logo_path, mimetype='image/png')
+
+@app.route('/static/player.png')
+def serve_player_icon():
+    """Serve the player icon image"""
+    import mimetypes
+    from flask import send_file
+    # Go up one directory to find player.png in icons folder
+    icon_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'icons', 'player.png')
+    return send_file(icon_path, mimetype='image/png')
+
+@app.route('/static/icons/<path:filename>')
+def serve_icon(filename):
+    """Serve icon images from the icons directory"""
+    import mimetypes
+    from flask import send_file
+    # Ensure the filename ends with .png for security
+    if not filename.endswith('.png'):
+        return "Not found", 404
+    icon_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'icons', filename)
+    if os.path.exists(icon_path):
+        return send_file(icon_path, mimetype='image/png')
+    return "Not found", 404
 
 @app.route('/spell-data')
 def get_spell_data():
