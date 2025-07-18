@@ -360,15 +360,6 @@ def serve_dm_logo():
     logo_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'dm_logo.png')
     return send_file(logo_path, mimetype='image/png')
 
-@app.route('/static/player.png')
-def serve_player_icon():
-    """Serve the player icon image"""
-    import mimetypes
-    from flask import send_file
-    # Go up one directory to find player.png in icons folder
-    icon_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'icons', 'player.png')
-    return send_file(icon_path, mimetype='image/png')
-
 @app.route('/static/icons/<path:filename>')
 def serve_icon(filename):
     """Serve icon images from the icons directory"""

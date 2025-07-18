@@ -2936,10 +2936,7 @@
             } else if (message.type === 'user-input') {
                 const avatar = document.createElement('div');
                 avatar.className = 'message-avatar';
-                const avatarImg = document.createElement('img');
-                avatarImg.src = '/static/player.png';
-                avatarImg.alt = 'Player';
-                avatar.appendChild(avatarImg);
+                avatar.textContent = '⚔️';
                 const contentDiv = document.createElement('div');
                 contentDiv.className = 'message-content';
                 const header = document.createElement('div');

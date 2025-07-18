@@ -164,14 +164,7 @@
         "C07"
       ],
       "npcs": [],
-      "monsters": [
-        {
-          "name": "Shadow",
-          "number": "1d6",
-          "disposition": "ambush",
-          "strategy": "These shadows hide in the naturally dark corners of the chamber, attacking when visitors have fully entered and are examining the prisoner ledgers."
-        }
-      ],
+      "monsters": [],
       "lootTable": [
         "Jailer's key ring (opens cell doors in The Gaol)",
         "Blackened iron dagger (+1 against incorporeal undead)",
