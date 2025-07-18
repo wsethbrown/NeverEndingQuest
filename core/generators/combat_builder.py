@@ -6,8 +6,8 @@ import subprocess
 from termcolor import colored
 import logging
 import shutil
-from module_path_manager import ModulePathManager
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.module_path_manager import ModulePathManager
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("combat_builder")

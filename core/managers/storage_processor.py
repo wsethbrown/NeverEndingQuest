@@ -30,10 +30,10 @@ from datetime import datetime
 from typing import Dict, List, Any, Optional, Tuple
 from openai import OpenAI
 import config
-from encoding_utils import safe_json_load, safe_json_dump
-from module_path_manager import ModulePathManager
+from utils.encoding_utils import safe_json_load, safe_json_dump
+from utils.module_path_manager import ModulePathManager
 import jsonschema
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("storage_processor")

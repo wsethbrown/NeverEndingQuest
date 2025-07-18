@@ -70,7 +70,7 @@ from utils.module_path_manager import ModulePathManager
 from utils.file_operations import safe_write_json, safe_read_json
 from utils.encoding_utils import safe_json_load
 from core.validation.character_validator import AICharacterValidator
-from character_effects_validator import AICharacterEffectsValidator
+from core.validation.character_effects_validator import AICharacterEffectsValidator
 from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging

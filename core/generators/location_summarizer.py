@@ -19,7 +19,7 @@ from dataclasses import dataclass
 from token_estimator import TokenEstimator
 from openai import OpenAI
 import config
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("location_summarizer")

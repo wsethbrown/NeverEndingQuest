@@ -16,10 +16,10 @@ from datetime import datetime
 from openai import OpenAI
 from jsonschema import validate, ValidationError
 from config import OPENAI_API_KEY, ADVENTURE_SUMMARY_MODEL
-from module_path_manager import ModulePathManager
-from encoding_utils import sanitize_text, safe_json_load, safe_json_dump
-from status_manager import status_generating_summary
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.module_path_manager import ModulePathManager
+from utils.encoding_utils import sanitize_text, safe_json_load, safe_json_dump
+from core.managers.status_manager import status_generating_summary
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("adv_summary")
