@@ -30,7 +30,7 @@ set_script_name("startup_wizard")
 client = OpenAI(api_key=config.OPENAI_API_KEY)
 
 # Conversation file for character creation (separate from main game)
-STARTUP_CONVERSATION_FILE = "startup_conversation.json"
+STARTUP_CONVERSATION_FILE = "modules/conversation_history/startup_conversation.json"
 
 # ===== MAIN ORCHESTRATION =====
 

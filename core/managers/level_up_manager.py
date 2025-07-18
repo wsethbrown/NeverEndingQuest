@@ -72,7 +72,7 @@ class LevelUpSession:
         self.is_complete = False
         self.summary = ""
         self.success = False
-        self.conversation_file = "level_up_conversation.json"
+        self.conversation_file = "modules/conversation_history/level_up_conversation.json"
 
     def start(self):
         """
