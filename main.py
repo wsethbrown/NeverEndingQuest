@@ -1724,7 +1724,7 @@ def main_game_loop():
 
     validation_prompt_text = load_validation_prompt() 
 
-    with open("system_prompt.txt", "r", encoding="utf-8") as file:
+    with open("prompts/system_prompt.txt", "r", encoding="utf-8") as file:
         main_system_prompt_text = file.read() 
 
     conversation_history = load_json_file(json_file) or []
