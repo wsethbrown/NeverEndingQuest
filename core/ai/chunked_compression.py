@@ -12,10 +12,10 @@ Compresses conversation history in manageable 8-transition chunks:
 
 import json
 import shutil
-from location_summarizer import LocationSummarizer
+from ..generators.location_summarizer import LocationSummarizer
 from datetime import datetime
-from chunked_compression_config import COMPRESSION_TRIGGER, CHUNK_SIZE
-from enhanced_logger import debug, info, warning, error, set_script_name
+from .chunked_compression_config import COMPRESSION_TRIGGER, CHUNK_SIZE
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("chunked_compression")

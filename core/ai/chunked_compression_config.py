@@ -12,4 +12,4 @@ CREATE_BACKUPS = True    # Create backups before compression
 BACKUP_RETENTION_DAYS = 30  # How long to keep old backups
 
 # File settings
-CONVERSATION_FILE = "conversation_history.json"  # Main conversation history file
+CONVERSATION_FILE = "modules/conversation_history/conversation_history.json"  # Main conversation history file

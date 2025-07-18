@@ -930,7 +930,7 @@ def check_and_process_location_transitions(conversation_history, party_tracker_d
             
             # Check if chunked compression is needed after creating the location summary
             try:
-                from chunked_compression_integration import check_and_perform_chunked_compression
+                from core.ai.chunked_compression_integration import check_and_perform_chunked_compression
                 if check_and_perform_chunked_compression():
                     debug("SUCCESS: Chunked compression performed after location transition", category="conversation_management")
                     # Reload the compressed history

@@ -6,14 +6,14 @@ This module adds chunked compression checks after location transitions.
 
 import json
 import os
-from chunked_compression import chunked_compression
-from encoding_utils import safe_json_load, safe_json_dump
-from chunked_compression_config import (
+from .chunked_compression import chunked_compression
+from utils.encoding_utils import safe_json_load, safe_json_dump
+from .chunked_compression_config import (
     COMPRESSION_TRIGGER, 
     ENABLE_AUTO_COMPRESSION,
     CREATE_BACKUPS
 )
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("chunked_compression_integration")
