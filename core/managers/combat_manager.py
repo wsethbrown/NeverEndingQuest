@@ -2054,7 +2054,7 @@ After resolving my declared action, continue the combat flow without stopping. F
                    json.dump(validation_log, f, indent=2)
                    
            except Exception as e:
-               warning(f"FAILURE: Failed to write validation log", exception=e, category="file_operations")
+               warning(f"FAILURE: Failed to write validation log", category="file_operations")
        
        # Save the cleaned conversation history
        save_json_file(conversation_history_file, conversation_history)

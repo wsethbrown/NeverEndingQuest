@@ -1147,7 +1147,7 @@ Write a compelling chronicle of these actual events:"""
                 return formatted_summary
                 
             except Exception as e:
-                warning(f"FAILURE: Error generating AI summary from conversation, using fallback", exception=e, category="summary_building")
+                warning(f"FAILURE: Error generating AI summary from conversation, using fallback", category="summary_building")
         
         debug(f"STATE_CHANGE: Not enough meaningful conversation for AI summary ({len(meaningful_messages)} messages), using fallback", category="summary_building")
         
@@ -2379,7 +2379,7 @@ def main():
             print("Setup complete! Your adventure begins now...\n")
     
     except Exception as e:
-        warning(f"INITIALIZATION: Startup wizard had an issue", exception=e, category="startup")
+        warning(f"INITIALIZATION: Startup wizard had an issue", category="startup")
         print("Continuing with main game (assuming setup is complete)...\n")
     
     # Continue with normal game loop

@@ -89,7 +89,7 @@ class SaveGameManager:
             else:
                 self.path_manager = ModulePathManager()
         except Exception as e:
-            warning(f"INITIALIZATION: Could not initialize module context", exception=e, category="save_game")
+            warning(f"INITIALIZATION: Could not initialize module context", category="save_game")
             self.path_manager = ModulePathManager()
     
     def get_essential_files(self) -> List[str]:
@@ -290,7 +290,7 @@ class SaveGameManager:
                     "current_area": party_tracker.get("worldConditions", {}).get("currentArea", "Unknown"),
                 }
         except Exception as e:
-            warning(f"FILE_OP: Could not load party tracker for metadata", exception=e, category="save_game")
+            warning(f"FILE_OP: Could not load party tracker for metadata", category="save_game")
         
         try:
             current_location = safe_json_load("current_location.json")
@@ -300,7 +300,7 @@ class SaveGameManager:
                     "area_id": current_location.get("areaId", "Unknown"),
                 }
         except Exception as e:
-            warning(f"FILE_OP: Could not load current location for metadata", exception=e, category="save_game")
+            warning(f"FILE_OP: Could not load current location for metadata", category="save_game")
         
         metadata = {
             "save_timestamp": timestamp.isoformat(),
@@ -529,7 +529,7 @@ class SaveGameManager:
                                 os.remove(file_path)
                                 debug(f"FILE_OP: Removed: {file_path}", category="save_game")
                     except Exception as e:
-                        warning(f"FILE_OP: Could not fully clean {directory}", exception=e, category="save_game")
+                        warning(f"FILE_OP: Could not fully clean {directory}", category="save_game")
             
             # Now restore files from save
             restored_files = []

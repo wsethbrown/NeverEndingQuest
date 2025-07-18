@@ -867,10 +867,10 @@ def cleanup_old_backups(character_path, max_backups=5):
                     os.remove(file_path)
                     debug(f"FILE_OP: Removed old backup: {os.path.basename(file_path)}", category="file_operations")
                 except Exception as e:
-                    warning(f"FILE_OP: Could not remove old backup {file_path}", exception=e, category="file_operations")
+                    warning(f"FILE_OP: Could not remove old backup {file_path}", category="file_operations")
                     
     except Exception as e:
-        warning(f"FILE_OP: Backup cleanup failed", exception=e, category="file_operations")
+        warning(f"FILE_OP: Backup cleanup failed", category="file_operations")
 
 def restore_character_from_backup(character_name, backup_type="latest", character_role=None):
     """
@@ -1508,7 +1508,7 @@ Please provide the CORRECT currency values:
                         print(f"[DEBUG XP TRACKING] WARNING: XP changed during validation! {pre_validation_xp} -> {post_validation_xp}")
                         
                 except Exception as e:
-                    warning(f"VALIDATION: Character validation error", exception=e, category="character_validation")
+                    warning(f"VALIDATION: Character validation error", category="character_validation")
                     # Don't fail the update if validation has issues
                 
                 # AI Character Effects Validation after AC validation
@@ -1524,7 +1524,7 @@ Please provide the CORRECT currency values:
                         warning("VALIDATION: Character effects validation failed, but update completed", category="character_validation")
                         
                 except Exception as e:
-                    warning(f"VALIDATION: Character effects validation error", exception=e, category="character_validation")
+                    warning(f"VALIDATION: Character effects validation error", category="character_validation")
                     # Don't fail the update if validation has issues
                 
                 return True
