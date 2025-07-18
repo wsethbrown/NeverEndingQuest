@@ -12,7 +12,7 @@ Straightforward approach:
 
 import json
 import shutil
-from location_summarizer import LocationSummarizer
+from core.generators.location_summarizer import LocationSummarizer
 from datetime import datetime
 
 def find_location_summaries(conversation_data):

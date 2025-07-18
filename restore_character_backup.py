@@ -10,8 +10,8 @@ import json
 import os
 import shutil
 from typing import Dict, Any, Optional
-from file_operations import safe_read_json, safe_write_json
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.file_operations import safe_read_json, safe_write_json
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("restore_character_backup")
