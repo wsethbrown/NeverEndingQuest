@@ -127,7 +127,7 @@ class CampaignManager:
         """Scan for new modules using module stitcher and sync with world registry"""
         try:
             # Delayed import to avoid circular imports
-            from module_stitcher import get_module_stitcher
+            from core.generators.module_stitcher import get_module_stitcher
             
             # Get module stitcher and scan for new modules
             stitcher = get_module_stitcher()

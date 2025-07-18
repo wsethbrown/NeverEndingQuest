@@ -16,7 +16,7 @@ from datetime import datetime
 from pathlib import Path
 from openai import OpenAI
 from jsonschema import validate, ValidationError
-from module_stitcher import ModuleStitcher
+from core.generators.module_stitcher import ModuleStitcher
 
 import config
 from utils.encoding_utils import safe_json_load, safe_json_dump
@@ -123,7 +123,7 @@ def scan_available_modules():
             # Use module_stitcher detection method (current architecture)
             module_data = None
             try:
-                from module_stitcher import ModuleStitcher
+                from core.generators.module_stitcher import ModuleStitcher
                 stitcher = ModuleStitcher()
                 detected_data = stitcher.analyze_module(item)
                 

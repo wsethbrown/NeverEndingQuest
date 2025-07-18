@@ -61,7 +61,7 @@ from core.managers.status_manager import (
     status_transitioning_location, status_updating_character, status_updating_party,
     status_updating_plot, status_advancing_time, status_processing_levelup
 )
-from location_path_finder import LocationGraph
+from utils.location_path_finder import LocationGraph
 from core.ai.conversation_utils import handle_module_conversation_segmentation
 from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
@@ -940,7 +940,7 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 
                 # Auto-integrate with module stitcher
                 try:
-                    from module_stitcher import ModuleStitcher
+                    from core.generators.module_stitcher import ModuleStitcher
                     stitcher = ModuleStitcher()
                     # Run stitcher in fully autonomous mode
                     integrated_modules = stitcher.scan_and_integrate_new_modules()

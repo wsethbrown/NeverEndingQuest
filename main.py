@@ -96,7 +96,7 @@ from core.managers.level_up_manager import LevelUpSession # Add this line
 
 # Import new manager modules
 import core.managers.location_manager as location_manager
-from location_path_finder import LocationGraph
+from utils.location_path_finder import LocationGraph
 import core.ai.action_handler as action_handler
 import core.ai.cumulative_summary as cumulative_summary
 from core.managers.status_manager import (
@@ -1636,7 +1636,7 @@ def main_game_loop():
 
     # Check if first-time setup is needed
     try:
-        from startup_wizard import startup_required, run_startup_sequence
+        from utils.startup_wizard import startup_required, run_startup_sequence
         
         if startup_required():
             print("[D20] Welcome to your 5th Edition Adventure! [D20]")
@@ -2359,7 +2359,7 @@ def main():
     
     # Check if first-time setup is needed
     try:
-        from startup_wizard import startup_required, run_startup_sequence
+        from utils.startup_wizard import startup_required, run_startup_sequence
         
         if startup_required():
             print("[D20] Welcome to your 5th Edition Adventure! [D20]")

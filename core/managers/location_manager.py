@@ -53,7 +53,7 @@ import traceback
 from datetime import datetime
 from utils.module_path_manager import ModulePathManager
 import core.ai.cumulative_summary as cumulative_summary
-import reconcile_location_state
+import utils.reconcile_location_state as reconcile_location_state
 from utils.encoding_utils import (
     sanitize_text,
     sanitize_dict,
@@ -240,7 +240,7 @@ def handle_location_transition(current_location, new_location, current_area, cur
         new_area_id_for_conditions = None
 
         # Search all loaded areas to find the new location
-        from location_path_finder import LocationGraph
+        from utils.location_path_finder import LocationGraph
         graph = LocationGraph() # Use the graph to access all loaded data
         graph.load_module_data()
 
