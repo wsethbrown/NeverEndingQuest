@@ -102,7 +102,7 @@ class SaveGameManager:
             "player_storage.json",
             
             # Critical game data files
-            "spell_repository.json",
+            "data/spell_repository.json",
             "training_data.json",
             "modules/conversation_history/combat_conversation_history.json",
             

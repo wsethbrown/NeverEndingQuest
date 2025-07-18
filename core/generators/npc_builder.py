@@ -179,7 +179,7 @@ def main():
 
     debug(f"INPUT_PROCESSING: Received arguments - Name: {npc_name_arg}, Race: {npc_race_arg}, Class: {npc_class_arg}, Level: {npc_level_arg}, Background: {npc_background_arg}", category="npc_creation")
 
-    npc_schema_data = load_schema("char_schema.json") # Use unified character schema
+    npc_schema_data = load_schema("schemas/char_schema.json") # Use unified character schema
     if not npc_schema_data:
         sys.exit(1)
 

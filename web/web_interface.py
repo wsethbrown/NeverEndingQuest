@@ -362,7 +362,7 @@ def serve_dm_logo():
 def get_spell_data():
     """Serve spell repository data for tooltips"""
     try:
-        with open('spell_repository.json', 'r') as f:
+        with open('data/spell_repository.json', 'r') as f:
             spell_data = json.load(f)
         return jsonify(spell_data)
     except FileNotFoundError:

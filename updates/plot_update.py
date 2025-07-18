@@ -21,7 +21,7 @@ TEMPERATURE = 0.7
 # All color codes have been removed to prevent Windows console encoding errors
 
 def load_schema():
-    with open("plot_schema.json", "r") as schema_file:
+    with open("schemas/plot_schema.json", "r") as schema_file:
         return json.load(schema_file)
 
 def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):

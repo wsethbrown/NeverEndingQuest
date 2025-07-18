@@ -70,7 +70,7 @@ from utils.file_operations import safe_read_json
 def write_debug(message: str):
     """Write debug message to debug.txt file"""
     try:
-        with open("debug.txt", "a", encoding="utf-8") as f:
+        with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "debug", "location_pathfinder_debug.txt"), "a", encoding="utf-8") as f:
             from datetime import datetime
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             f.write(f"[{timestamp}] {message}\n")

@@ -307,7 +307,7 @@ class PlotGenerator:
     
     def load_schema(self) -> Dict[str, Any]:
         """Load the plot schema for validation"""
-        with open("plot_schema.json", "r") as f:
+        with open("schemas/plot_schema.json", "r") as f:
             return json.load(f)
     
     def generate_field(self, field_path: str, schema_info: Dict[str, Any], 

@@ -123,7 +123,7 @@ def update_location_json(adventure_summary, location_info, current_area_id_from_
     except Exception as e:
         debug_print(f"Error getting last encounter ID: {str(e)}")
 
-    loca_schema_full = load_json_file("loca_schema.json") # Load the full schema
+    loca_schema_full = load_json_file("schemas/loca_schema.json") # Load the full schema
     game_time = get_game_time()
 
     # --- DETAILED SCHEMA ACCESS DEBUGGING ---
@@ -445,7 +445,7 @@ Your writing should feel immersive, literary, and grounded—like a historical e
         return None
 
 def update_journal(adventure_summary, party_tracker_data, location_name):
-    journal_schema = load_json_file("journal_schema.json")
+    journal_schema = load_json_file("schemas/journal_schema.json")
     journal_data = {"entries": []} # Default to empty journal
 
     try:

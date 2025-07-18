@@ -87,7 +87,7 @@ VALIDATION_TEMPERATURE = 0.1  # Lower temperature for validation
 
 def load_schema():
     """Load the unified character schema"""
-    with open("char_schema.json", "r") as schema_file:
+    with open("schemas/char_schema.json", "r") as schema_file:
         return json.load(schema_file)
 
 def load_conversation_history():

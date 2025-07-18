@@ -612,13 +612,13 @@ def ai_character_interview(conversation, module, retry_count=0):
     
     try:
         # Load schema and rules information
-        schema = safe_json_load("char_schema.json")
+        schema = safe_json_load("schemas/char_schema.json")
         if not schema:
             print("Error: Could not load character schema")
             return None
         
-        leveling_info = load_text_file("leveling_info.txt")
-        npc_rules = load_text_file("npc_builder_prompt.txt")
+        leveling_info = load_text_file("prompts/leveling/leveling_info.txt")
+        npc_rules = load_text_file("prompts/generators/npc_builder_prompt.txt")
         
         # Build the character creation system prompt
         base_system_content = """You are a friendly and knowledgeable character creation guide for 5th edition fantasy adventures, using only SRD 5.2.1-compliant rules. You help players build their 1st-level characters step by step by asking questions, offering helpful choices, and reflecting their answers clearly. You do not assume anything without asking. You do not create the character sheet until the player explicitly confirms their choices.
@@ -1262,7 +1262,7 @@ Ask if they want to confirm this character and start their adventure, or if they
 def validate_character(character_data):
     """Validate character against char_schema.json"""
     try:
-        schema = safe_json_load("char_schema.json")
+        schema = safe_json_load("schemas/char_schema.json")
         if not schema:
             return False, "Could not load character schema"
         
@@ -1277,7 +1277,7 @@ def validate_character(character_data):
 def validate_character_with_recovery(character_data):
     """Enhanced validation with automatic error recovery and detailed reporting"""
     try:
-        schema = safe_json_load("char_schema.json")
+        schema = safe_json_load("schemas/char_schema.json")
         if not schema:
             return False, "Could not load character schema"
         

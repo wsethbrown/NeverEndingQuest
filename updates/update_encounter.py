@@ -22,7 +22,7 @@ TEMPERATURE = 0.7
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def load_encounter_schema():
-    with open("encounter_schema.json", "r") as schema_file:
+    with open("schemas/encounter_schema.json", "r") as schema_file:
         return json.load(schema_file)
 
 def update_encounter(encounter_id, changes, max_retries=3):

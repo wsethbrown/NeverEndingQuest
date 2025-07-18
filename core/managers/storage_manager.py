@@ -63,7 +63,7 @@ class StorageManager:
         """Initialize storage manager"""
         debug("INITIALIZATION: Starting StorageManager", category="storage_operations")
         self.storage_file = "player_storage.json"
-        self.schema_file = "storage_action_schema.json"
+        self.schema_file = "schemas/storage_action_schema.json"
         # Get current module from party tracker for consistent path resolution
         try:
             party_tracker = safe_json_load("party_tracker.json")

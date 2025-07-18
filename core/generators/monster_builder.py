@@ -232,7 +232,7 @@ def main():
     except:
         party_level = 1
     
-    schema_data = load_schema("mon_schema.json")
+    schema_data = load_schema("schemas/mon_schema.json")
     if not schema_data:
         return
 

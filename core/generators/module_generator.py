@@ -454,7 +454,7 @@ class ModuleGenerator:
     
     def load_schema(self) -> Dict[str, Any]:
         """Load the module schema for validation"""
-        with open("module_schema.json", "r") as f:
+        with open("schemas/module_schema.json", "r") as f:
             return json.load(f)
     
     def generate_file_references(self, module_name: str) -> Dict:

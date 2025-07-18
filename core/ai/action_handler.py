@@ -1579,7 +1579,7 @@ def get_ai_npc_movement_decision(npc_name, context, npc_data, area_data, locatio
         import json
         
         try:
-            with open("loca_schema.json", "r") as f:
+            with open("schemas/loca_schema.json", "r") as f:
                 location_schema = json.load(f)
         except Exception as e:
             warning(f"FILE_OP: Could not load location schema: {e}", category="file_operations")

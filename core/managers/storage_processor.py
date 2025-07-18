@@ -45,7 +45,7 @@ class StorageProcessor:
         """Initialize storage processor"""
         self.client = OpenAI(api_key=config.OPENAI_API_KEY)
         self.model = config.DM_MAIN_MODEL  # Use full model, not mini
-        self.schema_file = "storage_action_schema.json"
+        self.schema_file = "schemas/storage_action_schema.json"
         # Get current module from party tracker for consistent path resolution
         try:
             party_tracker = safe_json_load("party_tracker.json")
