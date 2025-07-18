@@ -68,9 +68,9 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 from openai import OpenAI
 import config
-from encoding_utils import safe_json_load, safe_json_dump
-from module_path_manager import ModulePathManager
-from enhanced_logger import debug, info, warning, error, game_event, set_script_name
+from utils.encoding_utils import safe_json_load, safe_json_dump
+from utils.module_path_manager import ModulePathManager
+from utils.enhanced_logger import debug, info, warning, error, game_event, set_script_name
 
 # Set script name for logging
 set_script_name(__name__)

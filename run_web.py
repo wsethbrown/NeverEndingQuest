@@ -34,7 +34,7 @@ def main():
     while True:
         try:
             # Run the web interface and capture the return code
-            result = subprocess.run([sys.executable, "web_interface.py"])
+            result = subprocess.run([sys.executable, "web/web_interface.py"])
             
             # Check if it was a planned restart (exit code 0)
             if result.returncode == 0:

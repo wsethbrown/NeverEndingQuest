@@ -1,6 +1,6 @@
 import json
-from file_operations import safe_write_json
-from encoding_utils import sanitize_text, safe_json_dump
+from utils.file_operations import safe_write_json
+from utils.encoding_utils import sanitize_text, safe_json_dump
 
 def update_party_tracker(player_name, player_stats, party_tracker_data):
     if player_stats and party_tracker_data:

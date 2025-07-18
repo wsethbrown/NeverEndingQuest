@@ -19,9 +19,9 @@ from jsonschema import validate, ValidationError
 from module_stitcher import ModuleStitcher
 
 import config
-from encoding_utils import safe_json_load, safe_json_dump
-from module_path_manager import ModulePathManager
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.encoding_utils import safe_json_load, safe_json_dump
+from utils.module_path_manager import ModulePathManager
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("startup_wizard")

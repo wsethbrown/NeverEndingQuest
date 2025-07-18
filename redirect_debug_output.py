@@ -5,7 +5,7 @@ This intercepts print statements and logging calls to provide cleaner output
 
 import sys
 import re
-from enhanced_logger import game_logger, game_event
+from utils.enhanced_logger import game_logger, game_event
 
 class DebugOutputInterceptor:
     """Intercepts stdout to redirect debug messages to our logger"""

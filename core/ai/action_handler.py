@@ -52,18 +52,18 @@ import os
 from datetime import datetime
 from openai import OpenAI
 import config
-from location_manager import get_location_data
-from module_path_manager import ModulePathManager
-from plot_update import update_plot
-from encoding_utils import sanitize_text, safe_json_dump, safe_json_load
-from file_operations import safe_read_json
-from status_manager import (
+from core.managers.location_manager import get_location_data
+from utils.module_path_manager import ModulePathManager
+from updates.plot_update import update_plot
+from utils.encoding_utils import sanitize_text, safe_json_dump, safe_json_load
+from utils.file_operations import safe_read_json
+from core.managers.status_manager import (
     status_transitioning_location, status_updating_character, status_updating_party,
     status_updating_plot, status_advancing_time, status_processing_levelup
 )
 from location_path_finder import LocationGraph
-from conversation_utils import handle_module_conversation_segmentation
-from enhanced_logger import debug, info, warning, error, set_script_name
+from core.ai.conversation_utils import handle_module_conversation_segmentation
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("action_handler")
@@ -227,7 +227,7 @@ def update_party_npcs(party_tracker_data, operation, npc):
 def run_combat_simulation(encounter_id, party_tracker_data, location_data):
     """Run the combat simulation"""
     # Import here to avoid circular imports
-    from combat_manager import run_combat_simulation as run_combat
+    from core.managers.combat_manager import run_combat_simulation as run_combat
     return run_combat(encounter_id, party_tracker_data, location_data)
 
 def get_module_starting_location(module_name: str) -> tuple:
@@ -467,7 +467,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
     # Import modules here to avoid circular imports
     import location_manager
     from update_world_time import update_world_time
-    from plot_update import update_plot
+    from updates.plot_update import update_plot
     from update_character_info import update_character_info
 
     # Helper function to create consistent return values
@@ -1484,7 +1484,7 @@ def find_npc_in_areas(npc_name, path_manager, location_hint=None):
     """Find an NPC in area files, returning (area_file, location_id, npc_data)"""
     import glob
     import os
-    from file_operations import safe_read_json
+    from utils.file_operations import safe_read_json
     
     # Get all area files in the module, excluding backup files
     area_pattern = f"{path_manager.module_dir}/areas/*.json"

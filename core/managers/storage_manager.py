@@ -47,11 +47,11 @@ from datetime import datetime
 from typing import Dict, List, Any, Optional, Tuple
 from pathlib import Path
 import jsonschema
-from encoding_utils import safe_json_load, safe_json_dump
-from module_path_manager import ModulePathManager
+from utils.encoding_utils import safe_json_load, safe_json_dump
+from utils.module_path_manager import ModulePathManager
 from file_operations import safe_read_json, safe_write_json
 from character_validator import AICharacterValidator
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name(__name__)

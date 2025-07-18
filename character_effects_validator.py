@@ -41,8 +41,8 @@ from typing import Dict, List, Any, Optional
 from datetime import datetime, timedelta
 from openai import OpenAI
 from config import OPENAI_API_KEY, CHARACTER_VALIDATOR_MODEL
-from file_operations import safe_read_json, safe_write_json
-from module_path_manager import ModulePathManager
+from utils.file_operations import safe_read_json, safe_write_json
+from utils.module_path_manager import ModulePathManager
 
 class AICharacterEffectsValidator:
     def __init__(self):

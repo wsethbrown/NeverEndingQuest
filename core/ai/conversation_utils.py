@@ -73,10 +73,10 @@
 
 import json
 import os
-from module_path_manager import ModulePathManager
-from encoding_utils import safe_json_load
+from utils.module_path_manager import ModulePathManager
+from utils.encoding_utils import safe_json_load
 from plot_formatting import format_plot_for_ai
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("conversation_utils")

@@ -64,8 +64,8 @@ import os
 import sys
 from collections import deque, defaultdict
 from typing import Dict, List, Tuple, Optional
-from module_path_manager import ModulePathManager
-from file_operations import safe_read_json
+from utils.module_path_manager import ModulePathManager
+from utils.file_operations import safe_read_json
 
 def write_debug(message: str):
     """Write debug message to debug.txt file"""

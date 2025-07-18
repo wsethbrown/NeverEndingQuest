@@ -66,12 +66,12 @@ import time
 import re
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, PLAYER_INFO_UPDATE_MODEL, NPC_INFO_UPDATE_MODEL
-from module_path_manager import ModulePathManager
-from file_operations import safe_write_json, safe_read_json
-from encoding_utils import safe_json_load
-from character_validator import AICharacterValidator
+from utils.module_path_manager import ModulePathManager
+from utils.file_operations import safe_write_json, safe_read_json
+from utils.encoding_utils import safe_json_load
+from core.validation.character_validator import AICharacterValidator
 from character_effects_validator import AICharacterEffectsValidator
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name(__name__)

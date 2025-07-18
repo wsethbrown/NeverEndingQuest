@@ -113,7 +113,7 @@ import re
 import random
 import subprocess
 from datetime import datetime
-from xp import main as calculate_xp
+from utils.xp import main as calculate_xp
 from openai import OpenAI
 # Import model configurations from config.py
 from config import (
@@ -124,16 +124,16 @@ from config import (
     COMBAT_DIALOGUE_SUMMARY_MODEL,
     DM_MINI_MODEL
 )
-from update_character_info import update_character_info, normalize_character_name
+from updates.update_character_info import update_character_info, normalize_character_name
 import update_encounter
 import update_party_tracker
 # Import the preroll generator
 from generate_prerolls import generate_prerolls
 # Import safe JSON functions
-from encoding_utils import safe_json_load
-from file_operations import safe_write_json
-import cumulative_summary
-from enhanced_logger import debug, info, warning, error, game_event, set_script_name
+from utils.encoding_utils import safe_json_load
+from utils.file_operations import safe_write_json
+import core.ai.cumulative_summary as cumulative_summary
+from utils.enhanced_logger import debug, info, warning, error, game_event, set_script_name
 
 # Set script name for logging
 set_script_name(__name__)

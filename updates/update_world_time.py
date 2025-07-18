@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 import json
-from encoding_utils import safe_json_load, safe_json_dump
+from utils.encoding_utils import safe_json_load, safe_json_dump
 
 def update_world_time(time_estimate_str):
     # Read the party tracker data from the JSON file with safe encoding

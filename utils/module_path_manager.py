@@ -10,7 +10,7 @@ See LICENSE file for full terms.
 
 import json
 import os
-from enhanced_logger import debug, info, warning, error, set_script_name
+from .enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name(__name__)

@@ -1,7 +1,7 @@
 import json
 from datetime import datetime, timedelta
-from encoding_utils import safe_json_load, safe_json_dump
-from enhanced_logger import debug, info, warning, error, set_script_name
+from .encoding_utils import safe_json_load, safe_json_dump
+from .enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("player_stats")

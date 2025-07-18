@@ -1,6 +1,6 @@
 import json
 import os
-from module_path_manager import ModulePathManager
+from .module_path_manager import ModulePathManager
 
 # CR to XP mapping (updated to include fractional CRs)
 cr_to_xp = {

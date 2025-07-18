@@ -59,8 +59,8 @@ import logging
 from typing import Dict, List, Any, Optional
 from openai import OpenAI
 from config import OPENAI_API_KEY, CHARACTER_VALIDATOR_MODEL
-from file_operations import safe_read_json, safe_write_json
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.file_operations import safe_read_json, safe_write_json
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name(__name__)

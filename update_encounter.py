@@ -7,8 +7,8 @@ import re
 import copy
 # Import model configuration from config.py
 from config import OPENAI_API_KEY, ENCOUNTER_UPDATE_MODEL
-from module_path_manager import ModulePathManager
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.module_path_manager import ModulePathManager
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("update_encounter")

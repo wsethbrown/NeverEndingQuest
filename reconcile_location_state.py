@@ -9,9 +9,9 @@ from openai import OpenAI
 
 # Import project-specific modules
 from config import OPENAI_API_KEY, NPC_INFO_UPDATE_MODEL # Using a smaller, faster model is fine
-from module_path_manager import ModulePathManager
-from file_operations import safe_read_json, safe_write_json
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.module_path_manager import ModulePathManager
+from utils.file_operations import safe_read_json, safe_write_json
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("reconcile_location_state")

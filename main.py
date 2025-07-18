@@ -76,7 +76,7 @@ from datetime import datetime, timedelta
 from termcolor import colored
 
 # Import encoding utilities
-from encoding_utils import (
+from utils.encoding_utils import (
     sanitize_text,
     sanitize_dict,
     safe_json_load,
@@ -86,20 +86,20 @@ from encoding_utils import (
 )
 
 # Import other necessary modules
-from combat_manager import run_combat_simulation
-from plot_update import update_plot
-from player_stats import get_player_stat
-from update_world_time import update_world_time
-from conversation_utils import update_conversation_history, update_character_data
-from update_character_info import update_character_info
-from level_up_manager import LevelUpSession # Add this line
+from core.managers.combat_manager import run_combat_simulation
+from updates.plot_update import update_plot
+from utils.player_stats import get_player_stat
+from updates.update_world_time import update_world_time
+from core.ai.conversation_utils import update_conversation_history, update_character_data
+from updates.update_character_info import update_character_info
+from core.managers.level_up_manager import LevelUpSession # Add this line
 
 # Import new manager modules
-import location_manager
+import core.managers.location_manager as location_manager
 from location_path_finder import LocationGraph
-import action_handler
-import cumulative_summary
-from status_manager import (
+import core.ai.action_handler as action_handler
+import core.ai.cumulative_summary as cumulative_summary
+from core.managers.status_manager import (
     status_manager, status_ready, status_processing_ai, status_validating,
     status_retrying, status_transitioning_location, status_generating_summary,
     status_updating_journal, status_compressing_history, status_updating_character,
@@ -107,13 +107,13 @@ from status_manager import (
 )
 
 # Import atomic file operations
-from file_operations import safe_write_json, safe_read_json
-from module_path_manager import ModulePathManager
-from campaign_manager import CampaignManager
+from utils.file_operations import safe_write_json, safe_read_json
+from utils.module_path_manager import ModulePathManager
+from core.managers.campaign_manager import CampaignManager
 
 # Import training data collection
 # from simple_training_collector import log_complete_interaction  # DISABLED
-from enhanced_logger import debug, info, warning, error, set_script_name
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name(__name__)

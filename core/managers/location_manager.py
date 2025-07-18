@@ -51,17 +51,17 @@ import unicodedata
 import re
 import traceback
 from datetime import datetime
-from module_path_manager import ModulePathManager
-import cumulative_summary
+from utils.module_path_manager import ModulePathManager
+import core.ai.cumulative_summary as cumulative_summary
 import reconcile_location_state
-from encoding_utils import (
+from utils.encoding_utils import (
     sanitize_text,
     sanitize_dict,
     safe_json_load,
     safe_json_dump,
     fix_corrupted_location_name
 )
-from enhanced_logger import debug, info, warning, error, game_event, set_script_name
+from utils.enhanced_logger import debug, info, warning, error, game_event, set_script_name
 
 # Set script name for logging
 set_script_name(__name__)
