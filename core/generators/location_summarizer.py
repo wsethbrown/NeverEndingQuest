@@ -16,7 +16,7 @@ from datetime import datetime
 from dataclasses import dataclass
 
 # Import local modules
-from token_estimator import TokenEstimator
+from utils.token_estimator import TokenEstimator
 from openai import OpenAI
 import config
 from utils.enhanced_logger import debug, info, warning, error, set_script_name

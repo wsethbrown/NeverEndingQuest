@@ -53,7 +53,7 @@ install_debug_interceptor()
 
 # Import the main game module and reset logic
 import main as dm_main
-import reset_campaign
+import utils.reset_campaign as reset_campaign
 from core.managers.status_manager import set_status_callback
 from utils.enhanced_logger import debug, info, warning, error, set_script_name
 

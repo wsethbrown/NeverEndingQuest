@@ -75,7 +75,7 @@ import json
 import os
 from utils.module_path_manager import ModulePathManager
 from utils.encoding_utils import safe_json_load
-from plot_formatting import format_plot_for_ai
+from utils.plot_formatting import format_plot_for_ai
 from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging

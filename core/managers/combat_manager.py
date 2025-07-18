@@ -125,10 +125,10 @@ from config import (
     DM_MINI_MODEL
 )
 from updates.update_character_info import update_character_info, normalize_character_name
-import update_encounter
-import update_party_tracker
+import updates.update_encounter as update_encounter
+import updates.update_party_tracker as update_party_tracker
 # Import the preroll generator
-from generate_prerolls import generate_prerolls
+from core.generators.generate_prerolls import generate_prerolls
 # Import safe JSON functions
 from utils.encoding_utils import safe_json_load
 from utils.file_operations import safe_write_json

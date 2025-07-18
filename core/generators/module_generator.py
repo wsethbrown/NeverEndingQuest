@@ -662,7 +662,7 @@ If the field expects an object, return just the object.
         
         # Import area generator
         from area_generator import AreaGenerator, AreaConfig
-        from module_context import ModuleContext
+        from utils.module_context import ModuleContext
         
         # Initialize area generator and context
         area_gen = AreaGenerator()

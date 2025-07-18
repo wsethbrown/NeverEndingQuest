@@ -22,12 +22,12 @@ from dataclasses import dataclass
 from datetime import datetime
 
 # Import all generators
-from module_generator import ModuleGenerator
-from plot_generator import PlotGenerator
-from location_generator import LocationGenerator
-from area_generator import AreaGenerator, AreaConfig
-from module_context import ModuleContext
-from enhanced_logger import debug, info, warning, error, set_script_name
+from .module_generator import ModuleGenerator
+from .plot_generator import PlotGenerator
+from .location_generator import LocationGenerator
+from .area_generator import AreaGenerator, AreaConfig
+from utils.module_context import ModuleContext
+from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging
 set_script_name("module_builder")
