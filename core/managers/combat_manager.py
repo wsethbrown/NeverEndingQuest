@@ -179,11 +179,14 @@ def get_combat_temperature(encounter_data, validation_attempt=0):
     temperature_reduction = min(validation_attempt * 0.1, 0.4)
     final_temp = max(base_temp - temperature_reduction, 0.1)  # Never go below 0.1
     
+    # Round to 2 decimal places to avoid floating-point display issues
+    final_temp = round(final_temp, 2)
+    
     # Log the temperature selection
     if validation_attempt == 0:
         print(f"[COMBAT_MANAGER] Using temperature {final_temp} for {complexity} encounter ({creature_count} creatures)")
     else:
-        print(f"[COMBAT_MANAGER] Lowering temperature from {base_temp} to {final_temp} after validation failure (attempt {validation_attempt + 1})")
+        print(f"[COMBAT_MANAGER] Lowering temperature from {base_temp:.1f} to {final_temp} after validation failure (attempt {validation_attempt + 1})")
     
     return final_temp
 
