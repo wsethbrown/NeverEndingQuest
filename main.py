@@ -1689,7 +1689,7 @@ def main_game_loop():
         )
 
         # Call run_combat_simulation directly to get the return values
-        from combat_manager import run_combat_simulation
+        from core.managers.combat_manager import run_combat_simulation
         dialogue_summary, _ = run_combat_simulation(active_encounter_id, party_tracker_data, location_data_resume)
 
         print(colored("[SYSTEM] Combat resolved. Integrating summary and continuing adventure...", "yellow"))
@@ -1846,7 +1846,7 @@ def main_game_loop():
         # Now, get the player's name and load their character file for the UI.
         # This data will now be fresh if a refresh was just triggered.
         player_name_actual = party_tracker_data["partyMembers"][0]
-        from update_character_info import normalize_character_name
+        from updates.update_character_info import normalize_character_name
         player_name_normalized = normalize_character_name(player_name_actual)
         player_data_file = path_manager.get_character_path(player_name_normalized)
         player_data_current = load_json_file(player_data_file)
