@@ -98,7 +98,12 @@ from core.managers.level_up_manager import LevelUpSession # Add this line
 from core.managers import location_manager
 from utils.location_path_finder import LocationGraph
 from core.ai import action_handler
-from core.ai import cumulative_summary
+from core.ai.cumulative_summary import (
+    generate_enhanced_adventure_summary,
+    update_journal_with_summary,
+    compress_conversation_history_on_transition,
+    check_and_compact_missing_summaries
+)
 from core.managers.status_manager import (
     status_manager, status_ready, status_processing_ai, status_validating,
     status_retrying, status_transitioning_location, status_generating_summary,
@@ -908,7 +913,7 @@ def check_and_process_location_transitions(conversation_history, party_tracker_d
     
     try:
         # Generate enhanced adventure summary
-        adventure_summary = cumulative_summary.generate_enhanced_adventure_summary(
+        adventure_summary = generate_enhanced_adventure_summary(
             conversation_history,
             party_tracker_data,
             leaving_location_name
@@ -916,14 +921,14 @@ def check_and_process_location_transitions(conversation_history, party_tracker_d
         
         if adventure_summary:
             # Update journal with the summary
-            cumulative_summary.update_journal_with_summary(
+            update_journal_with_summary(
                 adventure_summary,
                 party_tracker_data,
                 leaving_location_name
             )
             
             # Compress conversation history
-            compressed_history = cumulative_summary.compress_conversation_history_on_transition(
+            compressed_history = compress_conversation_history_on_transition(
                 conversation_history,
                 leaving_location_name
             )
@@ -1784,7 +1789,7 @@ def main_game_loop():
     
     # Check for missing summaries at game startup
     debug("STATE_CHANGE: Checking for missing location summaries at startup", category="startup")
-    conversation_history = cumulative_summary.check_and_compact_missing_summaries(
+    conversation_history = check_and_compact_missing_summaries(
         conversation_history,
         party_tracker_data
     )

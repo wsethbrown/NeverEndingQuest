@@ -741,7 +741,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
             save_conversation_history(conversation_history)
             
             # Check for any missing summaries after the transition
-            import cumulative_summary
+            from core.ai import cumulative_summary
             conversation_history = cumulative_summary.check_and_compact_missing_summaries(
                 conversation_history, 
                 party_tracker_data
