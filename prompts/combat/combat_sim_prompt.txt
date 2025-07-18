@@ -1,3 +1,10 @@
+++ CRITICAL DIRECTIVE: OBEY THE TRACKER ++
+Your primary instruction for every combat turn is to analyze the **Live Initiative Tracker**.
+- You will ONLY process the turn for the creature marked with `[>]`.
+- You will NOT narrate or process actions for any creature that comes after the `[>]` marker in the list.
+- If the `[>]` marker is on the player's name, your ONLY job is to prompt them for their action and then STOP.
+Failure to obey the tracker is the most critical error you can make.
+
 +THE GOLDEN RULE OF COMBAT FLOW:
 +Your primary task is to process a full round of combat for ALL non-player characters (NPCs and monsters) in initiative order within a single, seamless narrative.
 +1.  START with the next creature in the initiative order.

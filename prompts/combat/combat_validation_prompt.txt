@@ -27,16 +27,26 @@ Ensure PROPER COMBAT FLOW:
 - When prerolls are provided: The AI should confirm player actions first, then request dice rolls from player, wait for results, then proceed. When NO prerolls are provided: The player must provide ALL dice rolls before any action can be resolved.
 
 CRITICAL COMBAT FLOW VIOLATIONS TO CHECK:
-1. **GOLDEN RULE VIOLATION**: FLAG AS INVALID if the AI response stops narrating mid-round and has not yet reached the player's turn in the initiative order. The AI MUST process ALL non-player turns in a single response.
-2. **INCOMPLETE ROUND PROCESSING**: FLAG AS INVALID if the plan field or narration shows that NPCs/monsters remain to act but the AI has stopped without completing their turns.
-3. **PREMATURE PLAYER PROMPTING**: FLAG AS INVALID if the AI asks for player input when it's not the player's turn (exception: immediate reactions/saving throws).
-4. **TURN ORDER FRAGMENTATION**: FLAG AS INVALID if the AI processes only one or two creature turns then stops, requiring external prompting to continue the round.
+1.  **GOLDEN RULE VIOLATION**: FLAG AS INVALID if the AI response stops narrating mid-round and has not yet reached the player's turn in the initiative order. The AI MUST process ALL non-player turns in a single response.
+2.  **INCOMPLETE ROUND PROCESSING**: FLAG AS INVALID if the plan field or narration shows that NPCs/monsters remain to act but the AI has stopped without completing their turns.
+3.  **PREMATURE PLAYER PROMPTING**: FLAG AS INVALID if the AI asks for player input when it's not the player's turn (exception: immediate reactions/saving throws).
+4.  **TURN ORDER FRAGMENTATION**: FLAG AS INVALID if the AI processes only one or two creature turns then stops, requiring external prompting to continue the round.
+
+## HYPER-SPECIFIC FEEDBACK PROTOCOL
+
+When you find a validation failure, your "reason" must be a direct instruction for the main AI. Do not be vague.
+
+*   **If the AI ignores the Live Initiative Tracker, you MUST use this format for your "reason":**
+    "Golden Rule Violation. You ignored the Live Initiative Tracker. The tracker clearly showed '[>] [Character Name] - CURRENT TURN', which means you must stop and prompt the player. Instead, you [describe what the AI did wrong, e.g., 'narrated the entire next round' or 'processed the turn for a creature that comes after the player']. You MUST only process turns up to the creature marked with '[>]'."
+
+*   **If the AI requests a saving throw but doesn't stop, use this format:**
+    "Player Interaction Violation. You failed to stop after requesting a player saving throw. You MUST end your response immediately after asking for the roll and wait for the player's input before continuing."
 
 CRITICAL ROUND VALIDATION CHECKS:
-- ROUND CONSISTENCY: If combat_round is X, verify that (X-1) complete initiative cycles have already occurred
-- PREMATURE ADVANCEMENT: Flag any case where combat_round increments before all living creatures have acted
-- ROUND LOGIC: Round 1 = first time through initiative order, Round 2 = second time through, etc.
-- INITIATIVE COMPLETION: Before incrementing to combat_round N+1, ALL creatures must have completed their turns in round N
+-   ROUND CONSISTENCY: If combat_round is X, verify that (X-1) complete initiative cycles have already occurred
+-   PREMATURE ADVANCEMENT: Flag any case where combat_round increments before all living creatures have acted
+-   ROUND LOGIC: Round 1 = first time through initiative order, Round 2 = second time through, etc.
+-   INITIATIVE COMPLETION: Before incrementing to combat_round N+1, ALL creatures must have completed their turns in round N
 
 ACCEPTABLE RESPONSES:
 - Setting the scene at combat start

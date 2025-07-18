@@ -648,19 +648,7 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
                 recommendation = validation_json.get("recommendation", "")
 
                 # Log validation results with encounter context
-                # Create debug/combat directory if it doesn't exist
-                import os
-                from datetime import datetime
-                debug_combat_dir = os.path.join("debug", "combat")
-                os.makedirs(debug_combat_dir, exist_ok=True)
-                
-                # Create timestamped filename
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]  # Remove last 3 digits of microseconds
-                encounter_id = encounter_data.get("encounterId", "unknown").replace("/", "_")
-                validation_filename = f"validation_{timestamp}_{encounter_id}_attempt{attempt + 1}.json"
-                validation_file_path = os.path.join(debug_combat_dir, validation_filename)
-                
-                with open(validation_file_path, "w") as log_file:
+                with open("modules/conversation_history/combat_validation_log.json", "a") as log_file:
                     log_entry = {
                         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
                         "encounter_size": num_creatures,
@@ -2038,20 +2026,19 @@ After resolving my declared action, continue the combat flow without stopping. F
        
        # Write validation attempts to log file
        if validation_attempts:
-           # Create debug/combat directory if it doesn't exist
-           debug_combat_dir = os.path.join("debug", "combat")
-           os.makedirs(debug_combat_dir, exist_ok=True)
-           
-           # Create timestamped filename
-           from datetime import datetime
-           timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]  # Remove last 3 digits of microseconds
-           encounter_id = encounter_data.get("encounterId", "unknown").replace("/", "_")
-           validation_count = len(validation_attempts)
-           validation_filename = f"validation_session_{timestamp}_{encounter_id}_attempts{validation_count}.json"
-           validation_log_path = os.path.join(debug_combat_dir, validation_filename)
+           validation_log_path = os.path.join(os.path.dirname(conversation_history_file), "modules/conversation_history/combat_validation_log.json")
            try:
-               # Create new validation log for this session
+               # Load existing log or create new one (JSONL format)
                validation_log = []
+               if os.path.exists(validation_log_path):
+                   with open(validation_log_path, 'r') as f:
+                       for line in f:
+                           line = line.strip()
+                           if line:
+                               try:
+                                   validation_log.append(json.loads(line))
+                               except json.JSONDecodeError:
+                                   continue
                
                # Add current validation session
                validation_log.append({
