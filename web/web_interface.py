@@ -47,6 +47,9 @@ from datetime import datetime
 import io
 from contextlib import redirect_stdout, redirect_stderr
 
+# Add parent directory to path so we can import from utils, core, etc.
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 # Install debug interceptor before importing main
 from utils.redirect_debug_output import install_debug_interceptor, uninstall_debug_interceptor
 install_debug_interceptor()
