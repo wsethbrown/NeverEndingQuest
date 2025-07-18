@@ -579,7 +579,7 @@ Create atmospheric travel narration that leads into this adventure."""
                 
                 # Generate new unique area IDs
                 for old_area_id in conflicting_areas:
-                    new_area_id = self._generate_unique_area_id(old_area_id, existing_areas)
+                    new_area_id = self._generate_unique_area_id(old_area_id, existing_areas, module_name)
                     
                     # Update area file
                     if self._update_area_id_in_files(module_path, old_area_id, new_area_id):
@@ -599,7 +599,7 @@ Create atmospheric travel narration that leads into this adventure."""
             print(f"Error resolving ID conflicts: {e}")
             return 0
     
-    def _generate_unique_area_id(self, original_id: str, existing_areas: Dict[str, Any]) -> str:
+    def _generate_unique_area_id(self, original_id: str, existing_areas: Dict[str, Any], module_name: str) -> str:
         """Generate a unique area ID by appending suffix"""
         # Extract base and number if present
         base_match = re.match(r'^([A-Z]+)(\d*)$', original_id)
