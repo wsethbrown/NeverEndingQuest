@@ -23,6 +23,7 @@ NeverEndingQuest solves the fundamental challenge of AI memory constraints throu
 - [Community Module Safety](#community-module-safety)
 - [Usage Examples](#usage-examples)
 - [Troubleshooting](#troubleshooting)
+- [🎮 Playtesting Call to Action](#-playtesting-call-to-action)
 - [Contributing](#contributing)
 - [License](#license)
 - [Recent Updates](#recent-updates)
@@ -638,6 +639,46 @@ AI: "It won't be easy, but if you can prove yourself worthy through a specific q
 - Check the [GitHub Issues](https://github.com/yourusername/dungeon_master_v1/issues) for known problems
 - Create a new issue with your error message and system information
 - Include your Python version and operating system in bug reports
+
+## 🎮 Playtesting Call to Action
+
+**We need YOUR help testing different character classes!**
+
+### Current Testing Status
+- ✅ **Fighter** - Well-tested, combat mechanics working smoothly
+- ✅ **Cleric** - Extensively tested, spellcasting and healing validated
+- 🔶 **Rogue** - *Needs testing*: Sneak attack, stealth mechanics, skill checks
+- 🔶 **Wizard** - *Needs testing*: Spell slot management, ritual casting, spell preparation
+- 🔶 **Druid** - *Needs testing*: Wild shape, nature spells, concentration mechanics
+- 🔶 **Barbarian** - *Needs testing*: Rage mechanics, damage resistance
+- 🔶 **Ranger** - *Needs testing*: Favored enemy, tracking, dual wielding
+- 🔶 **Warlock** - *Needs testing*: Pact magic, invocations, short rest recovery
+- 🔶 **Monk** - *Needs testing*: Ki points, martial arts, stunning strike
+- 🔶 **Paladin** - *Needs testing*: Divine smite, lay on hands, auras
+- 🔶 **Sorcerer** - *Needs testing*: Metamagic, sorcery points, wild magic
+- 🔶 **Bard** - *Needs testing*: Bardic inspiration, jack of all trades
+
+### How You Can Help
+1. **Create a character** using one of the untested classes
+2. **Play through at least one combat encounter** to test class abilities
+3. **Report issues** with class features, spell casting, or special abilities
+4. **Share feedback** on the game flow and AI responses for your class
+
+### What We're Looking For
+- **Combat Mechanics**: Do class abilities trigger correctly?
+- **Resource Management**: Are spell slots, ki points, rage uses tracked properly?
+- **AI Understanding**: Does the DM correctly interpret and apply class features?
+- **Balance**: Does combat feel appropriately challenging for your class?
+- **Edge Cases**: Any weird interactions or bugs with specific abilities?
+
+### How to Report Feedback
+Create an issue on GitHub with:
+- Your character class and level
+- Description of what didn't work as expected
+- Steps to reproduce the issue
+- Screenshots or combat logs if available
+
+**Your playtesting helps make NeverEndingQuest better for everyone!** 🎲
 
 ## Contributing
 
