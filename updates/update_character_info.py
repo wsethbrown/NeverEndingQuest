@@ -200,7 +200,9 @@ def find_character_file_fuzzy(character_name):
             debug(f"FUZZY_MATCH: Sequence match '{character_name}' -> '{filename}' (score: {sequence_score:.2f})", category="character_updates")
     
     # Return match if score is high enough
-    if best_match and best_score >= 0.5:
+    # Note: Threshold increased from 0.5 to 0.65 to prevent false matches like "Scout Elen" -> "Scout Kira"
+    # while still allowing valid matches like "Ranger Thane" -> "corrupted_ranger_thane" (0.667)
+    if best_match and best_score >= 0.65:
         debug(f"FUZZY_MATCH: Best match for '{character_name}' is '{best_match}' (score: {best_score:.2f})", category="character_updates")
         return best_match
     else:
