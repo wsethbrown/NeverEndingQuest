@@ -182,14 +182,10 @@
             width: 100%;
         }
         
-        /* Inventory Panel Content - Special Layout */
-        #inventory-tab .panel-content {
-            flex: 1; /* This makes the container fill its parent */
-            display: flex;
-            flex-direction: column;
+        /* Inventory Tab - Simplified Layout */
+        #inventory-tab {
             padding: 10px;
-            min-height: 0; /* A necessary flexbox fix for scrolling */
-            /* The "overflow: hidden" property is removed */
+            overflow-y: hidden; /* Prevents the whole tab from scrolling */
         }
         
         /* Debug Panel Content - Auto-scroll to bottom */
@@ -1115,7 +1111,7 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
-            background-color: #00BCD4; /* Cyan color from the old button */
+            background-color: #4CAF50; /* Cyan color from the old button */
             color: white;
             border: none;
             border-radius: 4px;
@@ -1126,7 +1122,7 @@
         }
 
         .storage-view-button:hover {
-            background-color: #0097A7;
+            background-color: #45a049;
         }
         
         .equipment-section h3 {
@@ -2861,9 +2857,7 @@
                 <div class="panel-content" id="debug-output"></div>
             </div>
             <div class="tab-content" id="inventory-tab" style="display: none;">
-                <div class="panel-content" id="inventory-content">
-                    <div class="loading">Loading inventory...</div>
-                </div>
+                <div class="loading">Loading inventory...</div>
             </div>
             <div class="tab-content" id="stats-tab" style="display: flex;">
                 <div class="panel-content" id="stats-content">
@@ -3101,10 +3095,10 @@
         let originalInventoryData = null;
         function displayInventory(data, preserveOriginal = false) {
             // Save scroll position before updating (special selector for inventory)
-            const equipmentSection = document.querySelector('#inventory-content .equipment-section');
+            const equipmentSection = document.querySelector('#inventory-tab .equipment-section'); // CHANGED
             const scrollPosition = equipmentSection ? equipmentSection.scrollTop : 0;
             
-            const container = document.getElementById('inventory-content');
+            const container = document.getElementById('inventory-tab'); // CHANGED
             if (!data) {
                 container.innerHTML = '<div class="loading">No inventory data available</div>';
                 return;
@@ -3169,7 +3163,7 @@
             container.innerHTML = html;
 
             // Restore scroll position after updating (special selector for inventory)
-            const newEquipmentSection = document.querySelector('#inventory-content .equipment-section');
+            const newEquipmentSection = document.querySelector('#inventory-tab .equipment-section'); // CHANGED
             if (newEquipmentSection) {
                 newEquipmentSection.scrollTop = scrollPosition;
             }
