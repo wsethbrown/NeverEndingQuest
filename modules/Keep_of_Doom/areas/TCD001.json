@@ -362,7 +362,7 @@
       "locationId": "E02",
       "name": "The Gaol",
       "type": "prison",
-      "description": "A long corridor flanked by small, barred cells extends into shadow-filled darkness. Most cell doors hang open, their locks long since rusted or broken, while others remain ominously shut. Within some cells, strange distortions warp reality--showing occupants that aren't physically present or replaying scenes of past suffering. The stone floor is worn smooth from countless shuffling steps, and faded bloodstains mark where prisoners or guards met violent ends. A guard station with a simple desk and weapons rack stands near the entrance, while at the far end, a heavy iron door leads deeper into the dungeon complex. The constant sounds of weeping, moaning, and occasionally screaming emanate from the cells, though investigation reveals them to be empty of living occupants.",
+      "description": "A long corridor flanked by small, barred cells extends into shadow-filled darkness. Most cell doors hang open, their locks long since rusted or broken, while others remain ominously shut. Within some cells, strange distortions warp reality-showing occupants that aren't physically present or replaying scenes of past suffering. The stone floor is worn smooth from countless shuffling steps, and faded bloodstains mark where prisoners or guards met violent ends. A guard station with a simple desk and weapons rack stands near the entrance, now revealed to contain an echo crystal that plays sorrowful dialogues between Sir Garran and a shadow relic. Cell 7 still contains the spectral Prisoner Echo of Scout Elen, who cryptically warns of a \"guard with no eyes\" and the cursed \"heart\" tied to Sir Garran. The oppressive stench of decay and lingering curse weigh heavily upon the air, though the path toward the Guard Post beyond is now cleared after recent battles.",
       "coordinates": "X1Y1",
       "connectivity": [
         "E01",
@@ -373,22 +373,31 @@
       "npcs": [
         {
           "name": "Prisoner Echo",
-          "description": "Not a true NPC but a phenomenon--cell 7 contains a partially substantial echo of Scout Elen, endlessly reliving her capture and questioning. This echo can provide limited information but cannot be physically freed.",
+          "description": "Not a true NPC but a phenomenon-cell 7 contains a partially substantial echo of Scout Elen, endlessly reliving her capture and questioning. This echo provides cryptic, valuable information about the gaol's curse and past events.",
           "attitude": "Confused and frightened, repeating the same sequences"
         }
       ],
       "monsters": [
         {
-          "name": "Ghouls",
-          "number": "1d6",
-          "disposition": "hungry",
-          "strategy": "These ghouls were once prisoners who resorted to cannibalism. They hide in cells, springing out to paralyze and drag away isolated targets."
+          "name": "Ghoul",
+          "quantity": {
+            "min": 0,
+            "max": 3
+          }
         },
         {
           "name": "Gibbering Mouther",
-          "number": 1,
-          "disposition": "insane",
-          "strategy": "This horrific mass of mouths and eyes was created from prisoners subjected to the shadow relic's worst influences. It hides in the darkest cell, luring victims with whispered pleas for help."
+          "quantity": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "name": "Skeleton",
+          "quantity": {
+            "min": 0,
+            "max": 4
+          }
         }
       ],
       "lootTable": [
@@ -401,15 +410,17 @@
       "plotHooks": [
         "The Prisoner Echo of Scout Elen repeatedly mentions 'the heart' and 'his lost love' being the key to Sir Garran's salvation.",
         "The echo crystal, when activated, plays a conversation between Shadow Knight Garran and the shadow relic, revealing their conflicted relationship.",
-        "Cell 13 contains temporal distortions showing possible futures--including one where the shadow relic escapes to consume the entire region in darkness."
+        "Cell 13 contains temporal distortions showing possible futures-including one where the shadow relic escapes to consume the entire region in darkness.",
+        "The fate of Scout Elen and Kira remains uncertain, sparking potential rescue or investigation quests.",
+        "The 'guard with no eyes' and the cursed heart connected to Sir Garran hint at deeper mysteries within the gaol."
       ],
-      "dmInstructions": "This area focuses on psychological horror and information gathering. The ghouls attack from cells when players investigate suspicious sounds. The gibbering mouther emerges only if players respond to cries for help from the last cell. The Prisoner Echo provides cryptic but valuable information if engaged with respectfully (speaking to it as if it were the real Scout Elen). The echo crystal is hidden in the guard station desk (DC 14 Investigation to find) and provides crucial insight into Sir Garran's tragic situation when activated (no check required).",
+      "dmInstructions": "This area focuses on psychological horror, investigation, and intense combat. Ghouls attack from cells when players investigate suspicious sounds; the Gibbering Mouther appears if players respond to cries for help from the last cell. The spectral Prisoner Echo provides cryptic but valuable information if engaged respectfully. The echo crystal hidden in the guard station desk (DC 14 Investigation to find) reveals crucial insights when activated (no check required). Recent battles with ghouls, a Gibbering Mouther, and skeletons have left the corridor littered with corpses and the immediate threat cleared. The party's wounds and rest periods should be considered. The Guard Post door is now accessible after defeating skeletons blocking the path.",
       "doors": [
         {
           "name": "Cell Doors",
-          "description": "Iron-barred doors to individual cells, most rusted open but some still locked.",
+          "description": "Iron-barred doors to individual cells, most rusted open but some still locked. Several were shattered or forced open during combat.",
           "type": "barred",
-          "locked": true,
+          "locked": false,
           "lockDC": 12,
           "breakDC": 16,
           "keyname": "Jailer's key ring",
@@ -418,9 +429,9 @@
         },
         {
           "name": "Guard Post Door",
-          "description": "A sturdy door leading from The Gaol to the Guard Post beyond.",
+          "description": "A sturdy door leading from The Gaol to the Guard Post beyond, currently unlocked and unbarred after the party cleared the skeleton threat.",
           "type": "heavy",
-          "locked": true,
+          "locked": false,
           "lockDC": 14,
           "breakDC": 18,
           "keyname": "Jailer's key ring",
@@ -431,7 +442,7 @@
       "traps": [
         {
           "name": "Hunger Curse",
-          "description": "A magical affliction that triggers when someone enters certain cells.",
+          "description": "A magical affliction that triggers when someone enters certain cells. Some cells recently explored have had this curse triggered and resolved.",
           "detectDC": 16,
           "disableDC": 18,
           "triggerDC": 15,
@@ -445,26 +456,30 @@
         "Insight DC 15: Interpret the meaning behind the Prisoner Echo's repetitive statements."
       ],
       "accessibility": "Long corridor with narrow cell entrances; relatively flat but psychologically disorienting.",
-      "dangerLevel": "High",
+      "dangerLevel": "Medium",
       "features": [
         {
           "name": "Spectral Prisoners",
-          "description": "Visual echoes of past prisoners that flicker into existence within cells, acting out scenes from the past."
+          "description": "Visual echoes of past prisoners flicker within cells, acting out scenes from the past. The strongest is the Prisoner Echo of Scout Elen in Cell 7."
         },
         {
           "name": "Guard Station",
-          "description": "A small desk and weapons rack where guards monitored the cells, now covered in dust and decay."
+          "description": "A small desk and weapons rack where guards monitored the cells. The desk contains an echo crystal revealing a crucial conversation."
         },
         {
           "name": "Cell 7",
-          "description": "The cell containing the Prisoner Echo of Scout Elen, where temporal distortions are strongest."
+          "description": "Contains the Prisoner Echo of Scout Elen, a spectral phenomenon that provides cryptic information about the gaol's curse and events."
+        },
+        {
+          "name": "Combat Debris",
+          "description": "The corridor is littered with remains of three defeated ghouls, a Gibbering Mouther corpse, and four shattered skeletons."
         }
       ],
       "encounters": [
         {
-          "encounterId": "",
+          "encounterId": "E02-E1",
           "summary": "The combat unfolded in the claustrophobic corridor of The Gaol as Eirik Hearthwise and Ranger Thane faced off against a trio of ghouls. The first round saw the ghouls land several damaging strikes, wounding both allies but failing to paralyze. Eirik used his healing spells effectively to sustain himself through the onslaught.\n\nBy round two, Eirik delivered a decisive critical mace strike that felled the first ghoul, its corpse collapsing with dark ichor staining the stone floor. The battle's momentum shifted as Eirik continued to bolster his resilience with divine healing in round three.\n\nIn round four, Eirik struck a powerful blow against a second ghoul, reducing it significantly, while the ghoul's attempts to retaliate failed to connect. Thane pressed the attack on the third ghoul, driving it to desperation but unable to finish it immediately.\n\nThe final rounds featured a tense exchange where both Eirik and Thane dealt precise and punishing blows. Despite the last ghoul's furious attacks, neither managed to land a decisive hit. Ultimately, Eirik's crushing mace strike in round six shattered the last ghoul's skull, ending the threat.\n\nAll three ghouls were defeated, their bodies left strewn across the bloodied corridor, remnants of the harrowing battle. No party members fell, though both suffered wounds. The party earned a total of 600 experience points for the encounter, split evenly between Eirik Hearthwise and Ranger Thane, awarding each 300 XP.\n\nWith the immediate danger quelled, the companions stand ready to press onward deeper into the haunted Gaol.",
-          "impact": "To be determined",
+          "impact": "The ghoul threat is eliminated; corridor stained with ichor and blood; party wounded but intact.",
           "worldConditions": {
             "year": 1492,
             "month": "Springmonth",
@@ -473,9 +488,9 @@
           }
         },
         {
-          "encounterId": "",
+          "encounterId": "E02-E2",
           "summary": "In a tense and brutal encounter within the cramped, shadowed corridors of The Gaol, Eirik Hearthwise and the Corrupted Ranger Thane faced off against a formidable Gibbering Mouther. The battle spanned four rounds of fierce combat.\n\nThe Mouther initiated the fight with savage multiattacks, including biting and acid spittle aimed to blind, but Thane's agility allowed him to evade blindness through timely saving throws. Eirik and Thane coordinated their assaults with precision: arrows punctured the Mouther's writhing mass, and Eirik's mace strikes landed critically, each blow chipping away at the abomination's 67 hit points.\n\nDespite the Mouther's wild retaliations, its attacks frequently missed or were deflected by armor and shields. The party's steady pressure reduced the creature's health from 67 to a mere 5 by the start of round four. At this critical moment, Eirik's divine strength dealt a devastating critical hit, leaving the Mouther barely clinging to life.\n\nThe final exchange saw the Mouther launch a desperate frenzy of bites and blinding spittle, but the attacks failed to connect. Ranger Thane seized the opportunity, firing a decisive arrow that shattered the last vestiges of the Mouther's horrific form, leaving behind only a twitching, dissolving mass of flesh.\n\nBoth Eirik and Thane emerged from the encounter undamaged beyond their initial wounds, without any lingering conditions. The defeated Gibbering Mouther's corpse now lies in the dungeon corridor as a grim testament to the deadly encounter.\n\nExperience Points awarded:  \n- Total of 450 XP for defeating a CR 2 Gibbering Mouther.  \n- Split evenly between Eirik and Thane, each earning 225 XP.\n\nCombat round ended with the party victorious and poised to continue their perilous exploration of The Gaol.",
-          "impact": "To be determined",
+          "impact": "The Gibbering Mouther is slain; its corpse remains; no additional party injuries sustained.",
           "worldConditions": {
             "year": 1492,
             "month": "Springmonth",
@@ -484,9 +499,9 @@
           }
         },
         {
-          "encounterId": "",
-          "summary": "In a tense and tightly contested battle within the shadowed corridor of the gaol, Eirik Hearthwise and his ally Ranger Thane faced off against a quartet of malevolent skeletons. The undead foes emerged from the darkness, their bones rattling and eyes burning with cold blue fire, attacking with rusted swords and ancient bows.\n\nThe combat commenced with the skeletons attempting to strike Eirik, but his armor held firm against their attacks. Eirik responded swiftly, delivering a critical mace blow that shattered the first skeleton into dust. Ranger Thane’s arrow then struck true against another, though not enough to fell it immediately. The skeletons exchanged futile attacks with the heroes, setting a tense stage.\n\nIn the second round, Eirik struck decisively again, destroying a second skeleton with a powerful mace blow. Ranger Thane switched tactics from bow to sword, engaging the remaining skeletons in close combat. Despite taking a piercing wound from a skeleton’s blade, both heroes remained resolute. The last skeletons showed desperation but were worn down by the combined might of Eirik’s divine strikes and Thane’s skilled swordplay.\n\nBy the third round, Eirik’s relentless mace attacks reduced the undead foes one by one, crushing brittle bones and extinguishing their eerie blue light. Thane’s swordsmanship contained the last skeleton’s attacks until Eirik delivered the final devastating blow, ending the threat entirely.\n\nThe battlefield was left littered with four shattered skeletons’ remains—dusty piles of bones and broken armor—the gaol’s oppressive silence returning. Both Eirik and Thane emerged battered but victorious, their courage and skill overcoming the relentless undead.\n\nFor their efforts in defeating all four skeletons (each CR 0.25, worth 50 XP), Eirik and Ranger Thane were each awarded 100 experience points, totaling 200 XP for the encounter. This victory clears the immediate threat and opens a path deeper into the gaol’s haunted darkness.  \n\nCombat rounds tracked: 3  \nRemaining foes: None  \nCorpses: Four destroyed skeletons scattered on the floor  \nCurrent status: Eirik Hearthwise at 43/47 HP, Ranger Thane at 28/41 HP, both ready to continue their perilous journey.",
-          "impact": "To be determined",
+          "encounterId": "E02-E3",
+          "summary": "In a tense and tightly contested battle within the shadowed corridor of the gaol, Eirik Hearthwise and his ally Ranger Thane faced off against a quartet of malevolent skeletons. The undead foes emerged from the darkness, their bones rattling and eyes burning with cold blue fire, attacking with rusted swords and ancient bows.\n\nThe combat commenced with the skeletons attempting to strike Eirik, but his armor held firm against their attacks. Eirik responded swiftly, delivering a critical mace blow that shattered the first skeleton into dust. Ranger Thane's arrow then struck true against another, though not enough to fell it immediately. The skeletons exchanged futile attacks with the heroes, setting a tense stage.\n\nIn the second round, Eirik struck decisively again, destroying a second skeleton with a powerful mace blow. Ranger Thane switched tactics from bow to sword, engaging the remaining skeletons in close combat. Despite taking a piercing wound from a skeleton's blade, both heroes remained resolute. The last skeletons showed desperation but were worn down by the combined might of Eirik's divine strikes and Thane's skilled swordplay.\n\nBy the third round, Eirik's relentless mace attacks reduced the undead foes one by one, crushing brittle bones and extinguishing their eerie blue light. Thane's swordsmanship contained the last skeleton's attacks until Eirik delivered the final devastating blow, ending the threat entirely.\n\nThe battlefield was left littered with four shattered skeletons' remains-dusty piles of bones and broken armor-the gaol's oppressive silence returning. Both Eirik and Thane emerged battered but victorious, their courage and skill overcoming the relentless undead.\n\nFor their efforts in defeating all four skeletons (each CR 0.25, worth 50 XP), Eirik and Ranger Thane were each awarded 100 experience points, totaling 200 XP for the encounter. This victory clears the immediate threat and opens a path deeper into the gaol's haunted darkness.\n\nCombat rounds tracked: 3  \nRemaining foes: None  \nCorpses: Four destroyed skeletons scattered on the floor  \nCurrent status: Eirik Hearthwise at 43/47 HP, Ranger Thane at 28/41 HP, both ready to continue their perilous journey.",
+          "impact": "All skeletons defeated; corridor cleared; party wounded but able to proceed; Guard Post door accessible.",
           "worldConditions": {
             "year": 1492,
             "month": "Springmonth",
@@ -495,7 +510,7 @@
           }
         }
       ],
-      "adventureSummary": "The combat unfolded in the claustrophobic corridor of The Gaol as Eirik Hearthwise and Ranger Thane faced off against a trio of ghouls. The first round saw the ghouls land several damaging strikes, wounding both allies but failing to paralyze. Eirik used his healing spells effectively to sustain himself through the onslaught.\n\nBy round two, Eirik delivered a decisive critical mace strike that felled the first ghoul, its corpse collapsing with dark ichor staining the stone floor. The battle's momentum shifted as Eirik continued to bolster his resilience with divine healing in round three.\n\nIn round four, Eirik struck a powerful blow against a second ghoul, reducing it significantly, while the ghoul's attempts to retaliate failed to connect. Thane pressed the attack on the third ghoul, driving it to desperation but unable to finish it immediately.\n\nThe final rounds featured a tense exchange where both Eirik and Thane dealt precise and punishing blows. Despite the last ghoul's furious attacks, neither managed to land a decisive hit. Ultimately, Eirik's crushing mace strike in round six shattered the last ghoul's skull, ending the threat.\n\nAll three ghouls were defeated, their bodies left strewn across the bloodied corridor, remnants of the harrowing battle. No party members fell, though both suffered wounds. The party earned a total of 600 experience points for the encounter, split evenly between Eirik Hearthwise and Ranger Thane, awarding each 300 XP.\n\nWith the immediate danger quelled, the companions stand ready to press onward deeper into the haunted Gaol.\n\nIn a tense and brutal encounter within the cramped, shadowed corridors of The Gaol, Eirik Hearthwise and the Corrupted Ranger Thane faced off against a formidable Gibbering Mouther. The battle spanned four rounds of fierce combat.\n\nThe Mouther initiated the fight with savage multiattacks, including biting and acid spittle aimed to blind, but Thane's agility allowed him to evade blindness through timely saving throws. Eirik and Thane coordinated their assaults with precision: arrows punctured the Mouther's writhing mass, and Eirik's mace strikes landed critically, each blow chipping away at the abomination's 67 hit points.\n\nDespite the Mouther's wild retaliations, its attacks frequently missed or were deflected by armor and shields. The party's steady pressure reduced the creature's health from 67 to a mere 5 by the start of round four. At this critical moment, Eirik's divine strength dealt a devastating critical hit, leaving the Mouther barely clinging to life.\n\nThe final exchange saw the Mouther launch a desperate frenzy of bites and blinding spittle, but the attacks failed to connect. Ranger Thane seized the opportunity, firing a decisive arrow that shattered the last vestiges of the Mouther's horrific form, leaving behind only a twitching, dissolving mass of flesh.\n\nBoth Eirik and Thane emerged from the encounter undamaged beyond their initial wounds, without any lingering conditions. The defeated Gibbering Mouther's corpse now lies in the dungeon corridor as a grim testament to the deadly encounter.\n\nExperience Points awarded:  \n- Total of 450 XP for defeating a CR 2 Gibbering Mouther.  \n- Split evenly between Eirik and Thane, each earning 225 XP.\n\nCombat round ended with the party victorious and poised to continue their perilous exploration of The Gaol.\n\nIn a tense and tightly contested battle within the shadowed corridor of the gaol, Eirik Hearthwise and his ally Ranger Thane faced off against a quartet of malevolent skeletons. The undead foes emerged from the darkness, their bones rattling and eyes burning with cold blue fire, attacking with rusted swords and ancient bows.\n\nThe combat commenced with the skeletons attempting to strike Eirik, but his armor held firm against their attacks. Eirik responded swiftly, delivering a critical mace blow that shattered the first skeleton into dust. Ranger Thane’s arrow then struck true against another, though not enough to fell it immediately. The skeletons exchanged futile attacks with the heroes, setting a tense stage.\n\nIn the second round, Eirik struck decisively again, destroying a second skeleton with a powerful mace blow. Ranger Thane switched tactics from bow to sword, engaging the remaining skeletons in close combat. Despite taking a piercing wound from a skeleton’s blade, both heroes remained resolute. The last skeletons showed desperation but were worn down by the combined might of Eirik’s divine strikes and Thane’s skilled swordplay.\n\nBy the third round, Eirik’s relentless mace attacks reduced the undead foes one by one, crushing brittle bones and extinguishing their eerie blue light. Thane’s swordsmanship contained the last skeleton’s attacks until Eirik delivered the final devastating blow, ending the threat entirely.\n\nThe battlefield was left littered with four shattered skeletons’ remains—dusty piles of bones and broken armor—the gaol’s oppressive silence returning. Both Eirik and Thane emerged battered but victorious, their courage and skill overcoming the relentless undead.\n\nFor their efforts in defeating all four skeletons (each CR 0.25, worth 50 XP), Eirik and Ranger Thane were each awarded 100 experience points, totaling 200 XP for the encounter. This victory clears the immediate threat and opens a path deeper into the gaol’s haunted darkness.  \n\nCombat rounds tracked: 3  \nRemaining foes: None  \nCorpses: Four destroyed skeletons scattered on the floor  \nCurrent status: Eirik Hearthwise at 43/47 HP, Ranger Thane at 28/41 HP, both ready to continue their perilous journey."
+      "adventureSummary": "The party's sojourn within the oppressive confines of The Gaol unfolded amid dank stone walls, rusted iron bars, and the heavy stench of decay, shadows flickering uneasily in torchlight as the weight of a lingering curse pressed palpably upon them. Early in their search, Thane identified faint tracks and a torn piece of blue fabric-confirming that Scout Elen had passed through, though her fate remained uncertain. Pursuing further clues, Eirik discovered evidence of Kira's desperate struggle: delicate bootprints, smudges of dried blood, and her broken green-fletched arrow near a cluster of locked cells, attesting to her narrow escape or capture. Sudden whispers, eerie gurgling, and shifting shadows revealed the presence of hostile creatures, and the pair soon faced a deadly gauntlet of ghouls and a Gibbering Mouther, their desperate combat marked by critical strikes and near misses; yet both emerged battered but unbroken, earning valuable experience and hard-won respite. Seeking to unravel the gaol's haunting mysteries, the adventurers encountered the spectral Prisoner Echo of Elen herself, who cryptically spoke of a \"guard with no eyes,\" a cursed \"heart,\" and Sir Garran's tragic bond to a shadow relic feeding on grief. Their meticulous investigation uncovered an echo crystal at a guard station desk, which when activated, revealed a sorrowful dialogue between Garran and the relic, illuminating the source of the curse and the stakes ahead. After a brief rest to mend wounds, the party confronted and defeated a quartet of malevolent skeletons, their victory clearing the path toward the Guard Post-the threshold to deeper revelations. Throughout, the camaraderie between Eirik and Thane strengthened in the face of danger, their trust and resolve solidified amid the gloom. With the echoes of battle fading and the oppressive silence momentarily lifted, they chose to leave The Gaol behind, stepping onward toward the unknown trials that awaited beyond its forbidding doors. Current game time is 1492 Springmonth 6, 14:02:00."
     },
     {
       "locationId": "E03",
@@ -600,16 +615,16 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Wights",
-          "number": "1d4",
+          "name": "Zombies",
+          "number": "1d3+1",
           "disposition": "sentinel",
-          "strategy": "These undead former guards still patrol their post, attacking intruders on sight. They coordinate tactically, using crossbows from cover before engaging in melee."
+          "strategy": "These undead former guards still patrol their post, shambling toward intruders with relentless determination. They coordinate in a mindless but effective way, attempting to surround and overwhelm targets."
         },
         {
           "name": "Shadow Mastiff",
           "number": 1,
           "disposition": "loyal",
-          "strategy": "This shadow beast served as the guards' hound in life and now aids the wights, using darkness to hide and ambush from unexpected angles."
+          "strategy": "This shadow beast served as the guards' hound in life and now aids the zombies, using darkness to hide and ambush from unexpected angles."
         }
       ],
       "lootTable": [

@@ -462,16 +462,16 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Wights",
-          "number": "1d4",
+          "name": "Zombies",
+          "number": "1d3+1",
           "disposition": "sentinel",
-          "strategy": "These undead former guards still patrol their post, attacking intruders on sight. They coordinate tactically, using crossbows from cover before engaging in melee."
+          "strategy": "These undead former guards still patrol their post, shambling toward intruders with relentless determination. They coordinate in a mindless but effective way, attempting to surround and overwhelm targets."
         },
         {
           "name": "Shadow Mastiff",
           "number": 1,
           "disposition": "loyal",
-          "strategy": "This shadow beast served as the guards' hound in life and now aids the wights, using darkness to hide and ambush from unexpected angles."
+          "strategy": "This shadow beast served as the guards' hound in life and now aids the zombies, using darkness to hide and ambush from unexpected angles."
         }
       ],
       "lootTable": [
