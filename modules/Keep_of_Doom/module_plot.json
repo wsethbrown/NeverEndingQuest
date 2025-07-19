@@ -10,8 +10,8 @@
       "nextPoints": [
         "PP002"
       ],
-      "status": "in progress",
-      "plotImpact": "The party has left the dangers of the outpost behind and followed the hidden trail toward the secret entrance to the keep, advancing in their search for Elen and Kira.",
+      "status": "completed",
+      "plotImpact": "The party returns to Harrow's Hollow, victorious over the curse of Shadowfall Keep and ready to share their success and treasures with the village.",
       "sideQuests": [
         {
           "id": "SQ001",
@@ -100,7 +100,7 @@
         "PP005"
       ],
       "status": "completed",
-      "plotImpact": "The shadow relic and its manifestations have been defeated, the curse broken, and Elen freed. The party has restored hope to the keep and is now poised to return as heroes.",
+      "plotImpact": "The party has uncovered the hidden vault beneath the Relic Chamber, claiming Sir Garran's sword and a deed to the keep, along with ancient lore and precious treasure.",
       "sideQuests": []
     },
     {
@@ -109,8 +109,8 @@
       "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
       "location": "HH001",
       "nextPoints": [],
-      "status": "not started",
-      "plotImpact": "",
+      "status": "in progress",
+      "plotImpact": "Eirik has revealed the deed to Shadowfall Keep and plans to make it a permanent base. The villagers are inspired, seeing new hope for the region and offering support for the restoration of the stronghold.",
       "sideQuests": []
     }
   ],
