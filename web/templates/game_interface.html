@@ -2474,7 +2474,8 @@
             width: 80%;
             max-width: 600px;
             max-height: 80%;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         
         .large-modal-content {
@@ -2512,7 +2513,8 @@
         }
         
         .npc-inventory-body {
-            max-height: 400px;
+            flex: 1;
+            min-height: 0;
             overflow-y: auto;
         }
         
@@ -3539,7 +3541,7 @@
                         const bonus = isProficient ? abilityMod + (npc.proficiencyBonus || 3) : abilityMod;
                         return { name: save, proficient: isProficient, bonus: bonus >= 0 ? `+${bonus}` : `${bonus}` };
                     });
-                    html += `<button class="npc-detail-button" onclick="showNPCSaves('${npc.name}', ${JSON.stringify(savesData).replace(/"/g, '&quot;')})">Saving Throws</button>`;
+                    html += `<button class="npc-detail-button" onclick="showNPCSaves('${npc.name}', ${JSON.stringify(savesData).replace(/"/g, '&quot;')})">Saving Throw</button>`;
                 }
                 
                 if (npc.skills) {
