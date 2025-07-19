@@ -49,27 +49,23 @@ NeverEndingQuest solves the fundamental challenge of AI memory constraints throu
 
 ## 📄 **Licensing**
 
-NeverEndingQuest uses a **three-tier licensing structure** to balance innovation protection with community development:
+NeverEndingQuest is licensed under the **Fair Source License 1.0** with comprehensive protection for its innovative systems:
 
-### 🔒 **Core Engine (Fair Source License 1.0)**
-The innovative campaign management, conversation compression, and hub-and-spoke architecture are protected under Fair Source License.
-- ✅ **Free for personal, educational, and non-competing use**
+### 🔒 **Fair Source License (5-year term)**
+The entire codebase including AI prompts, conversation compression, and all game systems are protected.
+- ✅ **Free for personal, educational, and non-commercial use**
 - ✅ **Community contributions welcome**  
-- ✅ **Modify and customize freely**
-- ❌ **Commercial competing use prohibited** (2 year limit)
-
-### 🌐 **Community Tools (Apache 2.0)**  
-Development tools, generators, and utilities are fully open source.
-- ✅ **Use, modify, distribute freely**
-- ✅ **Commercial use allowed**
-- ✅ **Perfect for building on top of NeverEndingQuest**
+- ✅ **Modify and customize freely for your campaigns**
+- ❌ **Commercial competing use prohibited for 5 years**
+- ⏰ **Becomes Apache 2.0 (fully open source) after 5 years**
 
 ### 📚 **D&D Content (CC-BY 4.0)**
-All D&D game content from SRD 5.2.1 maintains original licensing.
-- ✅ **Use with attribution to SRD 5.2.1**
-- ✅ **Required for D&D compatibility**
+Game mechanics use SRD 5.2.1 content from Wizards of the Coast.
+- ✅ **SRD content used with proper attribution**
+- ⚠️ **This is unofficial Fan Content**
+- ℹ️ **Not affiliated with Wizards of the Coast**
 
-See [LICENSING.md](LICENSING.md) for detailed information and FAQ.
+See [LICENSING.md](LICENSING.md) for complete details, FAQ, and legal information.
 
 The system automatically:
 - Detects available adventure modules
@@ -731,7 +727,7 @@ black .
 - **Documentation**: Update README and docstrings for new features
 - **Testing**: Add tests for new functionality when possible
 - **Compatibility**: Ensure changes work across Windows, macOS, and Linux
-- **Licensing**: All contributions must be compatible with CC BY 4.0 license
+- **Licensing**: All contributions will be under Fair Source License 1.0 (transitioning to Apache 2.0 after 5 years)
 
 ### Areas Needing Help
 - **Web interface improvements** - Better UI/UX design
@@ -743,12 +739,18 @@ black .
 
 ## License
 
-This work is licensed under the Creative Commons Attribution 4.0 International License. 
-See the LICENSE file for details.
+NeverEndingQuest is licensed under the Fair Source License 1.0 with a 5-year transition to Apache 2.0.
+See the LICENSE and LICENSING.md files for complete details.
+
+### Fair Source License Summary
+- ✅ **Free for personal, educational, and non-commercial use**
+- ✅ **Modify and customize for your campaigns**
+- ❌ **Cannot create competing commercial services**
+- ⏰ **Becomes fully open source (Apache 2.0) after 5 years**
 
 ### SRD Attribution
 
-Portions of this work are derived from the System Reference Document 5.2.1 ("SRD 5.2.1") 
+Game mechanics and content are derived from the System Reference Document 5.2.1 ("SRD 5.2.1") 
 by Wizards of the Coast LLC and available at https://dnd.wizards.com/resources/systems-reference-document. 
 
 The SRD 5.2.1 is licensed under the Creative Commons Attribution 4.0 International License 
@@ -756,7 +758,7 @@ available at https://creativecommons.org/licenses/by/4.0/legalcode.
 
 This work is not affiliated with, endorsed, sponsored, or specifically approved by 
 Wizards of the Coast LLC. This is unofficial Fan Content permitted under the 
-Creative Commons Attribution 4.0 International License.
+Creative Commons Attribution 4.0 International License and the Fair Source License.
 
 ## Recent Updates
 
