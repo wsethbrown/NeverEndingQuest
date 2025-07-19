@@ -99,6 +99,8 @@ def generate_npc(npc_name, schema, npc_race=None, npc_class=None, npc_level=None
 
     system_message = f"""You are an assistant that creates NPC schema JSON files from a master NPC schema template for a 5e game. Given an NPC name and optional details, create a JSON representation of the NPC's stats and abilities according to 5e rules following the NPC schema template exactly. Ensure your new NPC JSON adheres to the provided schema template. Do not include any additional properties or nested 'type' and 'value' fields. Return only the JSON content without any markdown formatting.
 
+If the input name contains a status descriptor (like 'corrupted', 'wounded', 'elite'), ensure the `name` field in the output JSON contains only the character's base name. For example, an input of 'Corrupted Ranger Thane' should result in a `name` field of 'Ranger Thane'.
+
 Use the following rules information when creating the NPC:
 
 {system_prompt_text}
@@ -194,6 +196,11 @@ def main():
 
     generated_npc_data = generate_npc(npc_name_arg, npc_schema_data, npc_race_arg, npc_class_arg, npc_level_arg, npc_background_arg) # Renamed variable
     if generated_npc_data:
+        # Extract the clean name from the generated JSON data.
+        # This ensures the filename matches the character's actual name.
+        # It falls back to the original argument if the 'name' field is missing.
+        clean_npc_name = generated_npc_data.get("name", npc_name_arg)
+        
         # Get current module from party tracker for consistent path resolution
         try:
             from utils.encoding_utils import safe_json_load
@@ -202,15 +209,17 @@ def main():
             path_manager = ModulePathManager(current_module)
         except:
             path_manager = ModulePathManager()  # Fallback to reading from file
-        full_path = path_manager.get_character_unified_path(npc_name_arg)  # Force unified path
+        
+        # Use the 'clean_npc_name' to generate the file path
+        full_path = path_manager.get_character_unified_path(clean_npc_name)  # Force unified path
         
         # Ensure characters directory exists
         characters_dir = os.path.dirname(full_path)
         os.makedirs(characters_dir, exist_ok=True)
         if save_json(full_path, generated_npc_data):
-            info(f"SUCCESS: NPC creation ({npc_name_arg}) - PASS", category="npc_creation")
+            info(f"SUCCESS: NPC creation ({clean_npc_name}) - PASS", category="npc_creation")
         else:
-            error(f"FAILURE: NPC save ({npc_name_arg}) - FAIL", category="npc_creation")
+            error(f"FAILURE: NPC save ({clean_npc_name}) - FAIL", category="npc_creation")
             sys.exit(1)
     else:
         error(f"FAILURE: NPC creation ({npc_name_arg}) - FAIL", category="npc_creation")
