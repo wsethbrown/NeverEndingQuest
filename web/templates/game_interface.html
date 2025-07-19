@@ -2319,7 +2319,7 @@
             padding: 8px 12px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             transition: background-color 0.3s;
             width: 100%;
@@ -2475,6 +2475,13 @@
             max-width: 600px;
             max-height: 80%;
             overflow: hidden;
+        }
+        
+        .large-modal-content {
+            width: 80%;
+            max-width: 90vw;
+            height: 85%;
+            max-height: 90vh;
         }
         
         .npc-inventory-header {
@@ -3954,7 +3961,7 @@
     
     <!-- NEW STORAGE MODAL -->
     <div id="storage-modal" class="npc-inventory-modal">
-        <div class="npc-inventory-modal-content">
+        <div class="npc-inventory-modal-content large-modal-content">
             <div class="npc-inventory-header">
                 <div id="storage-modal-title" class="npc-inventory-title">Player Storage</div>
                 <span class="npc-inventory-close" onclick="closeStorageView()">&times;</span>
