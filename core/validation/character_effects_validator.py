@@ -347,11 +347,12 @@ class AICharacterEffectsValidator:
 ## EFFECT CATEGORIES
 
 ### temporaryEffects (Magical/Spell Effects Only)
-- Spell effects (Bless, Haste, etc.)
+- Spell effects with ongoing duration (Bless, Haste, etc.)
 - Potion effects  
 - Magical blessings or curses
 - Environmental magical effects
 - Any effect with a duration that expires
+- NOT instant-use cantrips like Guidance (these are applied and consumed immediately)
 
 ### injuries (Ongoing Conditions)
 - Poison (ongoing damage or penalties)
@@ -368,6 +369,8 @@ class AICharacterEffectsValidator:
 - Class features (already in classFeatures array)
 - Simple combat damage (piercing, slashing, etc. - just HP loss)
 - Equipment bonuses (calculated automatically)
+- Instant-use effects like Guidance (applied immediately, not tracked)
+- Effects that say "expired" or "already used"
 
 ## DURATION STANDARDIZATION
 

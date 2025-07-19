@@ -248,9 +248,10 @@ Character Ability Structure (PHB-Compliant):
   - Class progression abilities go in classFeatures with source (e.g., "Fighter 5th level")
   - Do not duplicate abilities across categories
 - temporaryEffects Guidelines:
-  - CORRECT: "Guidance" (spell), "Bless" (spell), "Spirit's Blessing" (magical effect)
-  - INCORRECT: "Insight from documents", "Knowledge of location", "Understanding gained"
-  - If it's not a spell, blessing, curse, or magical effect with a duration, it does NOT belong in temporaryEffects
+  - CORRECT: "Bless" (spell with ongoing duration), "Haste" (spell), "Spirit's Blessing" (magical effect)
+  - INCORRECT: "Guidance" (instant-use cantrip), "Insight from documents", "Knowledge of location", "Understanding gained"
+  - If it's not a spell, blessing, curse, or magical effect with an ongoing duration, it does NOT belong in temporaryEffects
+  - Guidance cantrip provides immediate benefit and should NOT be tracked as a temporary effect
 
 Based on the provided system prompt, my original suggestion for inventory management aligns well with the existing guidelines. However, I can enhance it slightly to better match the specific format and emphasis in the system prompt. Here's an updated version:
 
