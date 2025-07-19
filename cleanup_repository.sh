@@ -1,5 +1,5 @@
 #!/bin/bash
-# Repository cleanup script for DungeonMasterAI
+# Repository cleanup script for NeverEndingQuest
 # This removes non-game-related files and organizes the repository
 
 echo "Starting repository cleanup..."

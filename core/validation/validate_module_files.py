@@ -452,8 +452,8 @@ class ModuleValidator:
 def main():
     """Main execution function"""
     # Set paths
-    module_path = "/mnt/c/dungeon_master_v1/modules/Keep_of_Doom"
-    schema_dir = "/mnt/c/dungeon_master_v1"
+    module_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "modules", "Keep_of_Doom")
+    schema_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
     
     # Create validator and run
     validator = ModuleValidator(module_path, schema_dir)

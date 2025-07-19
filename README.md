@@ -152,8 +152,8 @@ Result: Infinite adventure potential without hitting limits
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/dungeon_master_v1.git
-   cd dungeon_master_v1
+   git clone https://github.com/MoonlightByte/NeverEndingQuest.git
+   cd NeverEndingQuest
    ```
 
 2. **Install dependencies**
@@ -636,7 +636,7 @@ AI: "It won't be easy, but if you can prove yourself worthy through a specific q
 - **Permission errors**: Run as administrator if experiencing file access issues
 
 ### Getting Help
-- Check the [GitHub Issues](https://github.com/yourusername/dungeon_master_v1/issues) for known problems
+- Check the [GitHub Issues](https://github.com/MoonlightByte/NeverEndingQuest/issues) for known problems
 - Create a new issue with your error message and system information
 - Include your Python version and operating system in bug reports
 
@@ -708,8 +708,8 @@ We welcome contributions to NeverEndingQuest! This project thrives on community 
 ### Development Setup
 ```bash
 # Fork and clone your fork
-git clone https://github.com/yourusername/dungeon_master_v1.git
-cd dungeon_master_v1
+git clone https://github.com/yourusername/NeverEndingQuest.git
+cd NeverEndingQuest
 
 # Create development environment
 python -m venv venv
