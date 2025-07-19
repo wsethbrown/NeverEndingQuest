@@ -132,6 +132,9 @@ class SaveGameManager:
                 f"{module_base}/characters/",
                 f"{module_base}/monsters/",
                 f"{module_base}/encounters/",
+                # CRITICAL: Include BU files for reset functionality
+                f"{module_base}/areas/*_BU.json",
+                f"{module_base}/*_BU.json",
             ])
         
         # Global module files
@@ -188,7 +191,8 @@ class SaveGameManager:
             "*.tmp",
             "*.bak",
             "*.backup_*",
-            "*_BU.json",  # Backup files for reset function only
+            # NOTE: *_BU.json files are now INCLUDED in saves as they are critical
+            # for the reset_campaign.py functionality
             
             # Python source and schemas
             "*.py",
@@ -527,10 +531,14 @@ class SaveGameManager:
                 if os.path.exists(directory):
                     info(f"FILE_OP: Cleaning directory before restore: {directory}", category="save_game")
                     try:
-                        # Remove all files in the directory
+                        # Remove all files in the directory EXCEPT BU files
                         for file in os.listdir(directory):
                             file_path = os.path.join(directory, file)
                             if os.path.isfile(file_path):
+                                # CRITICAL: Preserve BU files during restore
+                                if file.endswith("_BU.json"):
+                                    debug(f"FILE_OP: Preserving BU file: {file_path}", category="save_game")
+                                    continue
                                 os.remove(file_path)
                                 debug(f"FILE_OP: Removed: {file_path}", category="save_game")
                     except Exception as e:
