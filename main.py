@@ -1590,16 +1590,19 @@ def check_all_modules_plot_completion():
             plot_data = load_json_file(plot_file_path)
             
             if plot_data and "plotPoints" in plot_data:
-                total_plots = len(plot_data["plotPoints"])
+                # Only count main plot points (PP), not side quests (SQ)
+                main_plots = [p for p in plot_data["plotPoints"] if p.get("id", "").startswith("PP")]
+                total_plots = len(main_plots)
                 completed_plots = 0
                 
-                for plot_point in plot_data["plotPoints"]:
+                for plot_point in main_plots:
                     status = plot_point.get("status", "unknown")
                     plot_id = plot_point.get("id", "unknown")
                     
                     if status == "completed":
                         completed_plots += 1
                 
+                # Module is complete when all main plots (PP) are done, side quests (SQ) are optional
                 module_complete = completed_plots == total_plots and total_plots > 0
                 
                 all_modules_data["completion_summary"][module_name] = {
