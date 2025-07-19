@@ -2307,7 +2307,7 @@
         
         .npc-skills-saves-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 8px;
             margin: 10px 0;
         }
@@ -2636,6 +2636,57 @@
         
         .npc-spell-item:hover {
             background-color: rgba(255, 165, 0, 0.1);
+        }
+        
+        /* Styles for the new NPC Spell Modal */
+        #npc-spells-modal-body .spellcasting-section {
+            margin-bottom: 10px;
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 8px;
+        }
+        #npc-spells-modal-body .spellcasting-section h3 {
+            margin: 0 0 8px 0; color: #FFA500; border-bottom: 1px solid #444;
+            padding-bottom: 4px; text-transform: uppercase; font-size: 18px;
+            letter-spacing: 1px; font-family: 'Cinzel', Georgia, serif;
+        }
+        #npc-spells-modal-body .spell-stats {
+            display: flex; gap: 15px; margin-bottom: 10px; padding: 6px;
+            background-color: #1a1a1a; border-radius: 4px;
+        }
+        #npc-spells-modal-body .spell-stats span {
+            color: #FFA500; font-weight: bold; font-size: 14px;
+        }
+        #npc-spells-modal-body .spell-level-group {
+            margin-bottom: 8px; background-color: #1a1a1a;
+            border-radius: 4px; padding: 6px;
+        }
+        #npc-spells-modal-body .spell-level-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 4px; border-bottom: 1px solid #444; padding-bottom: 2px;
+        }
+        #npc-spells-modal-body .spell-level-name {
+            color: #4CAF50; font-weight: bold; font-size: 14px;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        #npc-spells-modal-body .spell-slots {
+            font-size: 12px; font-weight: bold; padding: 2px 6px;
+            border-radius: 3px; background-color: #333;
+        }
+        #npc-spells-modal-body .spell-slots.available { color: #4CAF50; background-color: rgba(76, 175, 80, 0.2); }
+        #npc-spells-modal-body .spell-slots.low { color: #FF9800; background-color: rgba(255, 152, 0, 0.2); }
+        #npc-spells-modal-body .spell-slots.exhausted { color: #f44336; background-color: rgba(244, 67, 54, 0.2); }
+        #npc-spells-modal-body .spell-list {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+        }
+        #npc-spells-modal-body .spell-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 2px 4px; background-color: #333; border-radius: 3px;
+            font-size: 13px; color: #e0e0e0;
+        }
+        #npc-spells-modal-body .no-spellcasting-message {
+            text-align: center; padding: 20px; color: #888; font-style: italic;
         }
         
         .character-tabs {
@@ -3508,6 +3559,13 @@
                     html += `<button class="npc-detail-button" onclick="showNPCDetailList('${npc.name}', 'Background', ${JSON.stringify(backgroundData).replace(/"/g, '&quot;')})">Background</button>`;
                 }
                 
+                if (npc.spellcasting && Object.keys(npc.spellcasting).length > 0) {
+                    html += `<button class="npc-detail-button" onclick="showNPCSpells('${npc.name}', ${JSON.stringify(npc.spellcasting).replace(/"/g, '&quot;')})">Spells</button>`;
+                }
+
+                // Add a blank, disabled button to fill the grid if needed.
+                html += `<button class="npc-detail-button" disabled style="background-color: #2c2c2c; cursor: default;"></button>`;
+                
                 html += '</div>';
                 
                 if (npc.status !== 'alive' || npc.condition !== 'none') {
@@ -3668,6 +3726,57 @@
         
         function closeNPCDetails() { document.getElementById('npc-details-modal').style.display = 'none'; }
         
+        function showNPCSpells(npcName, spellsData) {
+            const modal = document.getElementById('npc-spells-modal');
+            const title = document.getElementById('npc-spells-modal-title');
+            const body = document.getElementById('npc-spells-modal-body');
+
+            title.textContent = `${npcName}'s Spellcasting`;
+
+            let html = '';
+            const hasSpellcasting = spellsData && spellsData.spells && Object.values(spellsData.spells).some(s => Array.isArray(s) && s.length > 0);
+
+            if (hasSpellcasting) {
+                html += '<div class="spellcasting-section">';
+                if (spellsData.spellSaveDC || spellsData.spellAttackBonus) {
+                    html += `<div class="spell-stats">
+                                ${spellsData.spellSaveDC ? `<span>Save DC: ${spellsData.spellSaveDC}</span>` : ''}
+                                ${spellsData.spellAttackBonus ? `<span>Spell Attack: +${spellsData.spellAttackBonus}</span>` : ''}
+                             </div>`;
+                }
+
+                const spellLevels = ['cantrips', 'level1', 'level2', 'level3', 'level4', 'level5', 'level6', 'level7', 'level8', 'level9'];
+                const spellLevelNames = ['Cantrips', '1st Level', '2nd Level', '3rd Level', '4th Level', '5th Level', '6th Level', '7th Level', '8th Level', '9th Level'];
+
+                spellLevels.forEach((level, index) => {
+                    const spells = spellsData.spells[level];
+                    if (spells && spells.length > 0) {
+                        html += `<div class="spell-level-group"><div class="spell-level-header"><span class="spell-level-name">${spellLevelNames[index]}</span>`;
+                        if (index > 0 && spellsData.spellSlots && spellsData.spellSlots[`level${index}`]) {
+                            const slots = spellsData.spellSlots[`level${index}`];
+                            const slotClass = slots.current === 0 ? 'exhausted' : slots.current <= slots.max * 0.5 ? 'low' : 'available';
+                            html += `<span class="spell-slots ${slotClass}">${slots.current || 0}/${slots.max || 0} slots</span>`;
+                        }
+                        html += '</div><div class="spell-list">';
+                        spells.forEach(spellName => {
+                            html += `<div class="spell-item"><span>${spellName}</span></div>`;
+                        });
+                        html += '</div></div>';
+                    }
+                });
+                html += '</div>';
+            } else {
+                html = '<div class="no-spellcasting-message">This character does not have spellcasting abilities.</div>';
+            }
+
+            body.innerHTML = html;
+            modal.style.display = 'block';
+        }
+
+        function closeNPCSpells() {
+            document.getElementById('npc-spells-modal').style.display = 'none';
+        }
+        
         let diceRolls = { d20: [], damage: [] };
         function rollDice(sides) {
             // Use rejection sampling to avoid modulo bias
@@ -3749,6 +3858,7 @@
         window.onclick = function(event) {
             if (event.target === document.getElementById('npc-inventory-modal')) closeNPCInventory();
             if (event.target === document.getElementById('npc-details-modal')) closeNPCDetails();
+            if (event.target === document.getElementById('npc-spells-modal')) closeNPCSpells();
             if (event.target === document.getElementById('search-popup')) closeSearchPopup();
             if (event.target === document.getElementById('storage-modal')) closeStorageView();
             if (event.target === document.getElementById('reset-dialog-overlay')) closeResetDialog();
@@ -3764,6 +3874,7 @@
     
     <div id="npc-inventory-modal" class="npc-inventory-modal"><div class="npc-inventory-modal-content"><div class="npc-inventory-header"><div id="npc-inventory-title" class="npc-inventory-title"></div><span class="npc-inventory-close" onclick="closeNPCInventory()">&times;</span></div><div id="npc-inventory-body" class="npc-inventory-body"></div></div></div>
     <div id="npc-details-modal" class="npc-details-modal"><div class="npc-details-modal-content"><div class="npc-details-header"><div id="npc-details-title" class="npc-details-title"></div><span class="npc-details-close" onclick="closeNPCDetails()">&times;</span></div><div id="npc-details-body" class="npc-details-body"></div></div></div>
+    <div id="npc-spells-modal" class="npc-inventory-modal"><div class="npc-inventory-modal-content"><div class="npc-inventory-header"><div id="npc-spells-modal-title" class="npc-inventory-title">NPC Spells</div><span class="npc-inventory-close" onclick="closeNPCSpells()">&times;</span></div><div id="npc-spells-modal-body" class="npc-inventory-body"></div></div></div>
     <div id="search-popup" class="search-popup"><div class="search-popup-content"><div class="search-popup-header"><div class="search-popup-title">Search Inventory</div><span class="search-popup-close" onclick="closeSearchPopup()">&times;</span></div><input type="text" class="search-popup-input" id="search-popup-input" placeholder="Search items..." onkeyup="performSearch()"></div></div>
     <div id="save-dialog-overlay" class="save-dialog-overlay">
         <div class="save-dialog enhanced-save-dialog">
