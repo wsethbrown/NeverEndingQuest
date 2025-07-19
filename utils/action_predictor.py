@@ -52,12 +52,18 @@ RETURN TRUE if input requires any of these JSON actions:
 - updateCharacterInfo: inventory changes, stat modifications, item use
 - transitionLocation: moving to new locations
 - createEncounter: combat initiation
-- updatePlot: story progression
+- updatePlot: story progression, quest completion, plot status queries
 - levelUp: character advancement
 - exitGame: ending session
 - storageInteraction: item storage/retrieval
 - updatePartyTracker: module travel
 - updatePartyNPCs: party composition changes
+
+ALWAYS RETURN TRUE for:
+- Questions about plot status ("are all plots resolved?", "what quests remain?")
+- Requests to complete quests or plot points
+- Any mention of quest/plot completion or resolution
+- Questions about module completion status
 
 NOTE: updateTime is excluded from prediction as it's called for almost every interaction.
 
@@ -116,7 +122,10 @@ Examples:
 - "Error Note: Your previous response failed validation" → TRUE (error corrections often require re-doing actions)
 - "I ask the spirits about the darkness" → TRUE (dialogue seeking information often triggers plot updates)
 - "I call out, anyone home?" → TRUE (location-based contact often initiates NPC encounters)
-- "Aye, let's do it" → TRUE (commitment statements often advance plot when in story context)"""
+- "Aye, let's do it" → TRUE (commitment statements often advance plot when in story context)
+- "Not all the main plot points are resolved" → TRUE (plot status query needs full model)
+- "Are all quests complete?" → TRUE (quest/plot status always needs full model)
+- "What plots remain?" → TRUE (plot queries require full model for proper updatePlot handling)"""
 
 def predict_actions_required(user_input):
     """
