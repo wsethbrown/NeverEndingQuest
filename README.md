@@ -28,13 +28,6 @@ NeverEndingQuest solves the fundamental challenge of AI memory constraints throu
 - [License](#license)
 - [Recent Updates](#recent-updates)
 
-## ⚠️ Important: Directory Structure Update
-
-**For existing users**: The codebase has been reorganized for better maintainability. Key changes:
-- Module builder is now at: `python core/generators/module_builder.py`
-- Conversation history files moved to: `modules/conversation_history/`
-- All Python modules organized into `core/`, `utils/`, `updates/`, and `web/` directories
-- Your existing game data and modules remain unchanged
 
 ## Quick Start
 
@@ -74,7 +67,9 @@ The system automatically:
 - Sets up the game world with weather and atmosphere
 
 ### See It In Action
-Check out this [**Player's Journey Through The Thornwood Watch**](modules/The_Thornwood_Watch/PLAYER_GUIDE.md) - a real player's first-person account showing creative problem-solving, tactical stealth, diplomatic solutions, and how the AI DM responds to player creativity. Perfect for understanding what gameplay actually looks like!
+Check out these player guides to understand what gameplay actually looks like:
+- [**Player's Journey Through The Thornwood Watch**](modules/The_Thornwood_Watch/PLAYER_GUIDE.md) - A developer's guide showing creative problem-solving, tactical stealth, diplomatic solutions, and how the AI DM responds to player creativity
+- [**Keep of Doom Developer Guide**](modules/Keep_of_Doom/PLAYER_GUIDE.md) - Demonstrates environmental puzzles, lore-based solutions, tactical combat, and establishing your own stronghold
 
 ## How It Overcomes AI Limitations
 
