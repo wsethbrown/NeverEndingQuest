@@ -161,11 +161,14 @@ VALID - Monster HP update:
 VALID - Player HP update:
 {"action": "updateCharacterInfo", "characterName": "eirik_hearthwise", "changes": "Takes 8 necrotic damage from Ashling's touch (HP 21 -> 13)"}
 
-Respond with a JSON object like this:
+Respond with a JSON object using this exact structure:
 {
   "valid": true/false,
-  "reason": "REQUIRED: Detailed explanation of validation result. If invalid, specify exactly which rule was violated and where. If valid, explain why the combat flow meets all requirements. If a plan field was present, comment on whether the AI's planning was accurate or if there were misconceptions.",
-  "recommendation": "If invalid, provide a brief outline of how this combat should properly flow based on the current state"
+  "feedback": {
+    "positive": "If the response was partially correct, briefly state what the AI did right. For example: 'The HP tracking and damage calculations were accurate.' or 'The narrative flow was excellent.' If everything was wrong, state 'No positive points identified.'",
+    "negative": "REQUIRED: Detailed explanation of what went wrong. Specify exactly which rule was violated and where. This is the most critical part of the feedback.",
+    "recommendation": "REQUIRED if invalid: Provide a clear, step-by-step corrective action plan. Tell the AI exactly what it needs to do in its next attempt to fix the negative points while keeping the positive ones."
+  }
 }
 
 For the recommendation field (only if invalid):
