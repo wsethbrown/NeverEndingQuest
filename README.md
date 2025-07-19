@@ -66,10 +66,12 @@ The system automatically:
 - Creates your character through AI interview
 - Sets up the game world with weather and atmosphere
 
-### See It In Action
-Check out these player guides to understand what gameplay actually looks like:
-- [**Player's Journey Through The Thornwood Watch**](modules/The_Thornwood_Watch/PLAYER_GUIDE.md) - A developer's guide showing creative problem-solving, tactical stealth, diplomatic solutions, and how the AI DM responds to player creativity
-- [**Keep of Doom Developer Guide**](modules/Keep_of_Doom/PLAYER_GUIDE.md) - Demonstrates environmental puzzles, lore-based solutions, tactical combat, and establishing your own stronghold
+### Developer Playthroughs & Mechanics Guides
+Learn advanced gameplay mechanics and creative problem-solving through these detailed module walkthroughs:
+- [**The Thornwood Watch Developer Guide**](modules/The_Thornwood_Watch/PLAYER_GUIDE.md) - Master environmental spellcasting, NPC recruitment, stealth tactics, and non-violent boss solutions
+- [**Keep of Doom Developer Guide**](modules/Keep_of_Doom/PLAYER_GUIDE.md) - Learn puzzle-solving, lore-based bypasses, tactical combat prioritization, and how to establish your own stronghold
+
+These guides showcase the flexibility of the AI DM and demonstrate how observation, creativity, and strategic thinking lead to unique solutions beyond simple combat.
 
 ## How It Overcomes AI Limitations
 
