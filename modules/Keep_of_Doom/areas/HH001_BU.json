@@ -198,7 +198,7 @@
         "The village faces a lurking dark influence tied to the keep and ongoing disappearances.",
         "A worn parchment tacked to the notice board offers a reward for information about recent livestock thefts."
       ],
-      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna reveals its significance and entrusts it to the party after a successful Insight check.",
+      "dmInstructions": "Use Elder Mirna as the party's primary source of local lore and rumors about the keep. She may offer quests, provide supplies at a discount, or quietly warn against meddling with old magics. If players inquire about the bronze key, Mirna reveals its significance and entrusts it to the party after a successful Insight check. IMPORTANT: If the party returns after successfully dealing with the Keep of Doom, immediately update the 'Breach the Keep' (PP003) quest to 'completed' status using updatePlot action. When Elder Mirna offers rewards for their heroic deeds, update the 'Resolution and Rewards' (PP005) quest to 'completed' status using updatePlot action. These updates should trigger module completion checks.",
       "doors": [
         {
           "name": "Front Door",
