@@ -275,8 +275,8 @@
       ],
       "monsters": [
         {
-          "name": "Ghouls",
-          "number": "1d6",
+          "name": "Ghoul",
+          "number": "1d3+1",
           "disposition": "hungry",
           "strategy": "These ghouls were once prisoners who resorted to cannibalism. They hide in cells, springing out to paralyze and drag away isolated targets."
         },
@@ -380,7 +380,7 @@
           "strategy": "This ghost of the keep's former torturer relives his cruel work, attempting to restrain intruders and subject them to spectral torment that causes psychic damage."
         },
         {
-          "name": "Animated Torture Devices",
+          "name": "Animated Torture Device",
           "number": "1d4",
           "disposition": "hungry",
           "strategy": "These animate objects\u2014iron maidens, cages, and restraints\u2014attempt to capture and hold victims while the Phantom Torturer works."
@@ -462,7 +462,7 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Zombies",
+          "name": "Zombie",
           "number": "1d3+1",
           "disposition": "sentinel",
           "strategy": "These undead former guards still patrol their post, shambling toward intruders with relentless determination. They coordinate in a mindless but effective way, attempting to surround and overwhelm targets."
@@ -658,8 +658,8 @@
       ],
       "monsters": [
         {
-          "name": "Skeletons",
-          "number": "2d6",
+          "name": "Skeleton",
+          "number": "1d4+2",
           "disposition": "dormant then hostile",
           "strategy": "These remain inanimate among the walls until the Bone Speaker commands them to attack or until holy symbols in the chamber are desecrated."
         }
@@ -767,8 +767,8 @@
           "strategy": "This semi-sentient artifact cannot attack directly but influences Sir Garran and creates shadow manifestations to defend itself. It attempts to sow discord among the party by whispering personalized temptations."
         },
         {
-          "name": "Shadow Manifestations",
-          "number": "1d6",
+          "name": "Shadow Manifestation",
+          "number": "1d3+1",
           "disposition": "protective",
           "strategy": "These shadows take forms reflecting the party members' greatest fears or past failures, attacking both physically and psychologically."
         }

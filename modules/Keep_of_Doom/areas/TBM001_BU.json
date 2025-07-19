@@ -153,13 +153,13 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Spectral Soldiers",
-          "number": "1d6",
+          "name": "Spectral Soldier",
+          "number": "1d3+1",
           "disposition": "territorial",
           "strategy": "These ghosts of soldiers who once defended the causeway still patrol their posts, attacking anyone they perceive as enemies\u2014particularly those carrying symbols of rival lords or magical items."
         },
         {
-          "name": "Corrupted Vine Blights",
+          "name": "Corrupted Vine Blight",
           "number": "1d3+1",
           "disposition": "ambush",
           "strategy": "These plant creatures hide among the vegetation growing over ruined sections, grabbing passersby and attempting to drag them into the marsh."
@@ -230,7 +230,7 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Will-o'-Wisps",
+          "name": "Will-o'-Wisp",
           "number": "1d3+1",
           "disposition": "deceptive",
           "strategy": "These malevolent lights mimic calls for help, attempting to lead travelers into deep water or quicksand before attacking with electrical discharges."
@@ -327,8 +327,8 @@
           "strategy": "These empty suits once belonged to the tower guards and now patrol specific floors, attacking intruders who disturb certain areas or approach Morven's quarters without permission."
         },
         {
-          "name": "Shadows",
-          "number": "1d6",
+          "name": "Shadow",
+          "number": "1d3+1",
           "disposition": "parasitic",
           "strategy": "These shadows cling to the darkest corners of the tower, attacking at night or when light sources are extinguished."
         }
@@ -431,8 +431,8 @@
       ],
       "monsters": [
         {
-          "name": "Black Banner Guards",
-          "number": "2d6",
+          "name": "Black Banner Guard",
+          "number": "1d4+2",
           "disposition": "alert",
           "strategy": "These trained soldiers patrol the camp's perimeter and escort important cultists. They wear light armor enhanced with shadow-resistant materials and carry poisoned weapons."
         },
@@ -531,7 +531,7 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Stone Guardians",
+          "name": "Stone Guardian",
           "number": "1d4",
           "disposition": "judging",
           "strategy": "These animated constructs resemble rough humanoid figures formed from the same material as the standing stones. They remain inanimate until someone attempts improper rituals or damages the stones, then attack with devastating force."
@@ -598,8 +598,8 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Barrow Guardians",
-          "number": "1d6",
+          "name": "Barrow Guardian",
+          "number": "1d3+1",
           "disposition": "protective",
           "strategy": "These spectral warriors were bound to protect the barrow long before the shadow relic's creation. They attack those who bring shadow-corrupted items too close to the inner chambers."
         },

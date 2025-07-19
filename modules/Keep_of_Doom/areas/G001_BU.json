@@ -305,7 +305,7 @@
         },
         {
           "name": "Swarm of Spiders",
-          "number": 2,
+          "number": 1,
           "disposition": "neutral",
           "strategy": "These smaller spiders nest in the darkest corners and only attack if their areas are disturbed."
         }
@@ -659,7 +659,7 @@
       "npcs": [],
       "monsters": [
         {
-          "name": "Will-o'-Wisps",
+          "name": "Will-o'-Wisp",
           "number": 2,
           "disposition": "hostile",
           "strategy": "These malevolent lights try to lead travelers into deep water or quicksand before attacking with electrical discharges."
@@ -836,7 +836,7 @@
       ],
       "monsters": [
         {
-          "name": "Awakened Shrubs",
+          "name": "Awakened Shrub",
           "quantity": {
             "min": 2,
             "max": 2
