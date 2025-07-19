@@ -1899,13 +1899,13 @@ FAILURE TO USE THE CORRECT POOL IS A CRITICAL ERROR.
 
 Player: {user_input_text}
 
-After resolving my declared action, continue the combat flow by narrating and resolving all remaining turns for the current round in initiative order.
+Now, continue the combat flow by narrating and resolving all remaining monster and NPC turns for the current round in initiative order until you get to my turn or, if I'm done this turn, then narrate the rest of this round.
 
-Your response MUST stop at one of two points:
+Your response narratively MUST stop at one of two points:
 1.  When you have resolved the turn for the LAST creature in the current round's initiative order.
-2.  When the initiative order returns to my character's turn.
+2.  When the initiative order returns to my turn again.
 
-Do not narrate or process any actions from the next round in this response. The goal is to complete the current round of actions and then pause."""
+Do not narrate or process any actions from the next round in this response. The goal is to complete the current round of actions and then pause. If you do need to stop, please engage me creatively so I don't get bored."""
        
        # Clean old DM notes before adding new user input
        conversation_history = clean_old_dm_notes(conversation_history)
