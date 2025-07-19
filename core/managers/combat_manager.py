@@ -1894,7 +1894,13 @@ FAILURE TO USE THE CORRECT POOL IS A CRITICAL ERROR.
 
 Player: {user_input_text}
 
-After resolving my declared action, continue the combat flow without stopping. First, narrate and resolve all remaining turns for the current round in initiative order. If that completes the round, immediately advance the combat_round counter and continue narrating and resolving all turns in the new round, stopping only when the initiative order reaches my character's turn again. The goal is a single, seamless response that brings the game state all the way back to my next turn."""
+After resolving my declared action, continue the combat flow by narrating and resolving all remaining turns for the current round in initiative order.
+
+Your response MUST stop at one of two points:
+1.  When you have resolved the turn for the LAST creature in the current round's initiative order.
+2.  When the initiative order returns to my character's turn.
+
+Do not narrate or process any actions from the next round in this response. The goal is to complete the current round of actions and then pause."""
        
        # Clean old DM notes before adding new user input
        conversation_history = clean_old_dm_notes(conversation_history)
