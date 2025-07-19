@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2024 MoonlightByte
+# SPDX-License-Identifier: Fair-Source-1.0
+# License: See LICENSE file in the repository root
+# This software is subject to the terms of the Fair Source License.
+
 """
 Comprehensive script to fix all file path issues after code reorganization.
 This fixes paths for .txt files, schema files, and data files.

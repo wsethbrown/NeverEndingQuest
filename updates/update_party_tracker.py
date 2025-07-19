@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2024 MoonlightByte
+# SPDX-License-Identifier: Fair-Source-1.0
+# License: See LICENSE file in the repository root
+# This software is subject to the terms of the Fair Source License.
+
 import json
 from utils.file_operations import safe_write_json
 from utils.encoding_utils import sanitize_text, safe_json_dump

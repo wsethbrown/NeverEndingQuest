@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2024 MoonlightByte
+# SPDX-License-Identifier: Fair-Source-1.0
+# License: See LICENSE file in the repository root
+# This software is subject to the terms of the Fair Source License.
+
 """
 Redirect debug output from various modules to use the enhanced logger
 This intercepts print statements and logging calls to provide cleaner output
