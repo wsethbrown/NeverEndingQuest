@@ -152,7 +152,7 @@ Here's the strict list of specific actions that the model should take when the s
    - classFeatures: Class/subclass abilities only
    - racialTraits: Racial abilities only  
    - backgroundFeature: Single background feature
-   - temporaryEffects: Blessings, curses, ritual effects (with duration)
+   - temporaryEffects: ONLY magical effects (spells, blessings, curses) with duration - NEVER knowledge or insights
    - feats: Optional feats
    - NEVER use deprecated: features or specialAbilities
 "updatePlayerInfo": LEGACY - Still accepted for backward compatibility but internally uses updateCharacterInfo. For player character updates only.
