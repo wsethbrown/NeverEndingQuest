@@ -776,6 +776,18 @@ def handle_request_storage_data():
         print(f"ERROR handling storage request: {e}")
         emit('error', {'message': 'An internal error occurred while fetching storage data.'})
 
+@socketio.on('user_exit')
+def handle_user_exit():
+    """Handle intentional user exit - log and clean up"""
+    try:
+        print("INFO: User has initiated exit from the game")
+        emit('exit_acknowledged', {'message': 'Exit acknowledged'})
+        # Note: We do NOT shut down the server here
+        # Multiple users might be connected, and server shutdown is an admin function
+        # The disconnect event will handle any necessary cleanup when the socket closes
+    except Exception as e:
+        print(f"ERROR handling user exit: {e}")
+
 def run_game_loop():
     """Run the main game loop with enhanced error handling"""
     try:
