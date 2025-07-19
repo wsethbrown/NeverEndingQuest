@@ -1072,6 +1072,63 @@ def update_character_info(character_name, changes, character_role=None):
 
 {schema_info}
 
+MAGICAL ITEM RECOGNITION - AUTOMATIC EFFECTS:
+When adding equipment that appears to be magical based on its name or description (contains +1/+2/+3, grants bonuses, provides resistance, etc.), you MUST include an 'effects' array with appropriate mechanical effects. Use your knowledge of 5th Edition rules.
+
+Common magical items and their effects:
+- Ring/Cloak of Protection: +1 to AC and saving throws
+- Gauntlets of Ogre Power: Set Strength to 19
+- Amulet of Health: Set Constitution to 19
+- Boots of Speed: Double movement speed (speed x2)
+- Cloak of Elvenkind: Advantage on Dexterity (Stealth) checks
+- Bracers of Defense: +2 AC when not wearing armor
+- Belt of Giant Strength: Set Strength (Hill=21, Stone=23, Frost=23, Fire=25, Cloud=27, Storm=29)
+- Ring of Resistance: Resistance to specific damage type
+- Periapt of Wound Closure: Stabilize automatically when dying
+- Weapon +1/+2/+3: Bonus to attack and damage rolls
+- Armor +1/+2/+3: Bonus to AC
+- Shield +1/+2/+3: Additional AC bonus beyond base shield
+
+MAGICAL ITEM EQUIPMENT ENTRY FORMAT:
+{{
+  "item_name": "Ring of Protection +1",
+  "item_type": "miscellaneous",  // or appropriate type
+  "item_subtype": "ring",        // ring, amulet, cloak, boots, gloves, etc.
+  "description": "A magical ring that grants +1 bonus to AC and saving throws",
+  "quantity": 1,
+  "equipped": true,              // or false if just adding to inventory
+  "effects": [
+    {{
+      "type": "bonus",           // bonus, resistance, immunity, advantage, disadvantage, ability_score, other
+      "target": "AC",            // what it affects: AC, saves, specific save, ability check, etc.
+      "value": 1,                // numeric value if applicable
+      "description": "+1 bonus to Armor Class"
+    }},
+    {{
+      "type": "bonus",
+      "target": "saving throws",
+      "value": 1,
+      "description": "+1 bonus to all saving throws"
+    }}
+  ]
+}}
+
+EFFECT TYPE GUIDANCE:
+- "bonus": Numerical bonuses (+1 AC, +2 attack, etc.)
+- "resistance": Damage resistance (fire, cold, etc.)
+- "immunity": Damage or condition immunity
+- "advantage": Advantage on specific rolls
+- "disadvantage": Disadvantage (usually imposed on enemies)
+- "ability_score": Sets or modifies ability scores
+- "other": Any other magical effect
+
+IMPORTANT MAGICAL ITEM RULES:
+1. If an item grants mechanical benefits, it MUST have an effects array
+2. Non-magical items (regular sword, rope, torch) should NOT have effects
+3. For items that set ability scores (Gauntlets of Ogre Power), ALSO update the abilities object
+4. For AC bonuses, you may also update armorClass if appropriate
+5. Custom magical items should have effects inferred from their description
+
 CRITICAL INSTRUCTIONS:
 1. Return ONLY a JSON object with the fields that need to be updated
 2. Do not include unchanged fields
