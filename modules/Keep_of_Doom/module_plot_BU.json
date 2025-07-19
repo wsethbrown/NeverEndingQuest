@@ -71,7 +71,7 @@
     {
       "id": "PP003",
       "title": "Breach the Keep",
-      "description": "The party reaches the foreboding Keep of Doom. They must find a way inside, dealing with traps, lingering magical defenses, and spectral guardians. Entry requires cunning, bravery, or the right key—perhaps obtained from earlier encounters.",
+      "description": "The party must reach and enter the foreboding Keep of Doom. This quest completes when the party successfully enters the keep through any means.",
       "location": "SK001",
       "nextPoints": [
         "PP004"
@@ -106,7 +106,7 @@
     {
       "id": "PP005",
       "title": "Resolution and Rewards",
-      "description": "With the curse lifted, the party returns to Harrow's Hollow as heroes. Elder Mirna and the villagers celebrate their success. Rewards, both material and social, await. New opportunities and adventures may present themselves as the party's reputation spreads.",
+      "description": "Return to Harrow's Hollow after dealing with the shadow relic. This quest completes when the party returns to the village after defeating or destroying the shadow relic in the keep.",
       "location": "HH001",
       "nextPoints": [],
       "status": "not started",
