@@ -2197,8 +2197,8 @@ def main_game_loop():
                     debug("STATE_CHANGE: All available modules have completed plots - suggesting new module creation", category="module_management")
                     # Load the module creation prompt
                     import os
-                    if os.path.exists("module_creation_prompt.txt"):
-                        with open("module_creation_prompt.txt", "r", encoding="utf-8") as f:
+                    if os.path.exists("prompts/generators/module_creation_prompt.txt"):
+                        with open("prompts/generators/module_creation_prompt.txt", "r", encoding="utf-8") as f:
                             module_creation_prompt = "\n\n" + f.read()
                         debug(f"FILE_OP: Module creation prompt loaded ({len(module_creation_prompt)} characters)", category="module_management")
                     else:
