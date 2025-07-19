@@ -1,10 +1,29 @@
 # NeverEndingQuest Licensing Guide
 
-NeverEndingQuest uses a **three-tier licensing structure** to balance innovation protection with community development:
+NeverEndingQuest uses a **comprehensive Fair Source License** structure to protect its innovative AI-powered campaign management system while respecting third-party intellectual property rights.
 
-## 🔒 **Core Engine (Fair Source License 1.0)**
+## 🔒 **Core Engine and Game Systems (Fair Source License 1.0)**
 
-**Files:** `main.py`, `action_handler.py`, `campaign_manager.py`, `adv_summary.py`, `combat_manager.py`, `web_interface.py`, `level_up_manager.py`, `storage_manager.py`, `module_*.py`, `status_manager.py`, `module_path_manager.py`
+### RETROACTIVE APPLICATION
+**This license applies to all code, commits, and contributions from the repository's inception, regardless of when they were created or committed.**
+
+### Protected Components:
+
+**ALL Python files in the repository**, including but not limited to:
+- `core/` - All AI systems, managers, generators, and validation
+- `utils/` - All utility functions and support systems  
+- `updates/` - All state management and save systems
+- `web/` - Web interface and real-time communication
+- `main.py`, `run_web.py`, `gemini_tool.py`
+- All other `.py` files
+
+**ALL Prompts and AI Instructions**:
+- `prompts/` - All system prompts, validation prompts, and AI instructions
+- These represent core game design and AI behavior philosophy
+
+**ALL Configuration and Schema Files**:
+- `schemas/` - All JSON schemas defining game architecture
+- Configuration files defining game behavior
 
 **What you can do:**
 - ✅ Use for personal campaigns and gameplay
@@ -12,73 +31,93 @@ NeverEndingQuest uses a **three-tier licensing structure** to balance innovation
 - ✅ Contribute improvements and bug fixes
 - ✅ Study the code for educational purposes
 - ✅ Fork for non-commercial projects
+- ✅ Share with friends for personal use
 
 **What you cannot do:**
 - ❌ Provide commercial AI campaign management services
 - ❌ Create competing automated dungeon master platforms
 - ❌ Sell hosting services based on this software
 - ❌ Build commercial RPG automation products
+- ❌ Use the AI prompts or conversation compression in commercial products
+- ❌ Offer the module generation system as a commercial service
 
-**Important:** After 2 years, these files will become Apache 2.0 licensed (fully open source).
+**Important:** After **5 years from first publication**, these files will become Apache 2.0 licensed (fully open source).
 
-## 🌐 **Community Tools (Apache 2.0)**
+## 📚 **D&D Game Content and Intellectual Property**
 
-**Files:** `*_generator.py`, `*_builder.py`, `gemini_tool.py`, `validate_module_files.py`, all `*_schema.json` files
+### System Reference Document (SRD) 5.2.1 Content
 
-**What you can do:**
-- ✅ Use, modify, and distribute freely
-- ✅ Commercial use allowed
-- ✅ Perfect for building on top of NeverEndingQuest
-- ✅ Create derivative tools and services
-- ✅ Include in commercial products
+**Important:** This software uses game mechanics, monsters, spells, and rules from the System Reference Document 5.2.1 (SRD 5.2.1) published by Wizards of the Coast LLC under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
 
-These are fully open source development tools designed to encourage community expansion.
+**What this means:**
+- The game rules, mechanics, monsters, and spells are from the SRD 5.2.1
+- These elements are licensed under CC BY 4.0 by Wizards of the Coast
+- "Dungeons & Dragons", "D&D", and other trademarked terms are property of Wizards of the Coast LLC
+- This software is unofficial Fan Content permitted under the CC BY 4.0 license
 
-## 📚 **D&D Content (Creative Commons Attribution 4.0)**
+**Attribution Requirements:**
+All SRD-derived content in this repository includes proper attribution:
+```
+"Portions derived from SRD 5.2.1, CC BY 4.0"
+```
 
-**Files:** All SRD-derived content including monsters, spells, equipment, and game mechanics
+**Limitations:**
+- This software does NOT grant rights to use Wizards of the Coast trademarks
+- Users must not claim official endorsement by Wizards of the Coast
+- Commercial use must comply with both Fair Source License AND CC BY 4.0 requirements
+- The software uses generic fantasy settings, not official D&D campaign settings
 
-**Requirements:**
-- ✅ Must attribute System Reference Document 5.2.1
-- ✅ Licensed under CC-BY 4.0 (required by Wizards of the Coast)
-- ✅ Can be used commercially with proper attribution
+### Playing the Game
+- ✅ You can play campaigns using SRD 5.2.1 rules
+- ✅ You can create custom content following SRD guidelines
+- ❌ You cannot use official D&D campaign settings (Forgotten Realms, etc.)
+- ❌ You cannot claim this is an official D&D product
 
 ## 🤝 **Contributing**
 
-### For Core Engine (FSL components):
+### For All Components:
 - Contributions welcome! 
-- By contributing, you agree your contributions will be licensed under FSL 1.0
-- Helps protect the entire project from commercial exploitation
+- By contributing, you agree your contributions will be licensed under Fair Source License 1.0
+- After 5 years, your contributions will transition to Apache 2.0 with the rest of the codebase
+- This protects the entire project and ensures sustainable development
 
-### For Community Tools (Apache components):
-- Fully open source contributions
-- Standard Apache 2.0 licensing applies
-- Perfect for expanding the ecosystem
-
-### For D&D Content:
+### For Game Content:
 - Must maintain SRD 5.2.1 compliance
-- CC-BY 4.0 licensing required
-- Include proper attribution
+- Cannot include non-SRD monsters, spells, or copyrighted material
+- Must include proper CC BY 4.0 attribution for SRD content
+- Should use generic fantasy terms, not D&D trademarks
 
 ## ❓ **FAQ**
 
 **Q: Can I run a D&D campaign using NeverEndingQuest?**  
-A: Yes! Personal, educational, and non-commercial use is completely free.
+A: Yes! You can run campaigns using the SRD 5.2.1 rules for personal, educational, and non-commercial use.
+
+**Q: Is this an official D&D product?**  
+A: No. This is unofficial Fan Content using the SRD 5.2.1 under CC BY 4.0 license.
+
+**Q: Can I add official D&D content like Forgotten Realms?**  
+A: No. Only SRD 5.2.1 content is permitted. Use generic fantasy settings instead.
 
 **Q: Can I modify the code for my group?**  
-A: Absolutely! You can customize and modify everything.
+A: Absolutely! You can customize everything for personal use.
 
 **Q: Can I contribute improvements?**  
-A: Yes! We welcome contributions to all components.
+A: Yes! Contributions must maintain SRD compliance and will be under FSL for 5 years.
 
-**Q: Can I create commercial tools using the community components?**  
-A: Yes! Community tools are Apache 2.0 licensed for maximum flexibility.
+**Q: Can I use this commercially?**  
+A: Not for competing services. Personal/educational use is fine. After 5 years, commercial use becomes allowed.
 
-**Q: Can I fork the project?**  
-A: Yes, for non-commercial purposes. Commercial forks of core engine components are restricted.
+**Q: What about the AI prompts that reference D&D?**  
+A: The prompts use SRD 5.2.1 mechanics only and are part of the Fair Source licensed code.
 
-**Q: What happens after 2 years?**  
-A: Core engine components become Apache 2.0 licensed (fully open source).
+**Q: Does the license apply to old commits?**  
+A: Yes, the Fair Source License applies retroactively to all commits from the repository's inception.
+
+## 📜 **Legal Summary**
+
+1. **NeverEndingQuest Code**: Fair Source License 1.0 (5 years) → Apache 2.0
+2. **SRD Game Content**: CC BY 4.0 (perpetual) by Wizards of the Coast
+3. **D&D Trademarks**: Not included, remain property of Wizards of the Coast
 
 ## 📞 **Questions?**
 
@@ -86,4 +125,4 @@ For licensing questions or clarifications, please open an issue on GitHub or con
 
 ---
 
-**TL;DR:** Use NeverEndingQuest freely for campaigns and development. Community tools are fully open source. Core innovations are protected from commercial exploitation for 2 years to ensure sustainable development.
+**TL;DR:** The NeverEndingQuest codebase is protected under Fair Source License for 5 years. The D&D game rules come from SRD 5.2.1 under CC BY 4.0. This is unofficial Fan Content - not an official D&D product.
