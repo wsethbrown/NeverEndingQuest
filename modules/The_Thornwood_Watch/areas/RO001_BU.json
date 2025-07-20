@@ -119,7 +119,7 @@
         {
           "name": "Scout Kira",
           "description": "A young, eager level 2 ranger who reports directly to Elen and frequently carries messages between outposts. Her wide-eyed reports of strange lights and increasingly aggressive wildlife hint at Malarok's corrupting influence spreading from the north. She is eager to join the party's mission and prove herself as a capable ranger.",
-          "attitude": "Enthusiastic and determined, eager to join the party and help investigate the supernatural corruption affecting the wilderness. Should only volunteer to join AFTER the party has established their mission parameters and begun expedition planning - not during the initial crisis briefing phase."
+          "attitude": "Enthusiastic and determined, eager to join the party and help investigate the supernatural corruption affecting the wilderness. Should volunteer to join IMMEDIATELY after Rusk's interrogation reveals the bandit camp location and Malarok's identity, offering her scouting expertise for the expedition into the Thornwood."
         },
         {
           "name": "Messenger Tom",
@@ -143,10 +143,10 @@
         "PRIMARY CRISIS: Elen urgently recruits the party - three caravans destroyed in five days with unnatural precision",
         "IMMEDIATE ACTION NEEDED: Captured bandit leader Rusk holds key intelligence about the enemy commander and main bandit camp location",
         "SECONDARY CONCERN (after intel): The silver bell network has been sabotaged, threatening communication and early warning capability",
-        "EXPEDITION SUPPORT (after planning): Scout Kira is eager to join wilderness missions if the party needs a guide",
+        "EXPEDITION SUPPORT (after interrogation): Scout Kira immediately volunteers to join the expedition once the bandit camp location is revealed",
         "SUPPLY LOGISTICS (when preparing): Strange reports suggest supernatural corruption - supplies and preparation will be crucial"
       ],
-      "dmInstructions": "PRIORITY STAGING: Elen should focus ONLY on the main crisis initially. She prioritizes: 1) Getting intel from Rusk about bandit command structure (main plot critical path). DO NOT mention side quests until this is addressed. AFTER Rusk interrogation reveals Malarok and the bandit camp location, THEN Elen naturally shifts to defensive concerns (bell network). Present side quests SQ001 and SQ002 only as natural follow-ups to main plot progress, not as overwhelming simultaneous options. Scout Kira recruitment should emerge organically during expedition planning, not as immediate choice paralysis. Emphasize the tense atmosphere and highlight Rusk's fear when speaking of Malarok.",
+      "dmInstructions": "PRIORITY STAGING: Elen should focus ONLY on the main crisis initially. She prioritizes: 1) Getting intel from Rusk about bandit command structure (main plot critical path). DO NOT mention side quests until this is addressed. AFTER Rusk interrogation reveals Malarok and the bandit camp location, Elen should IMMEDIATELY mention that Scout Kira is eager to help and can join the party for the expedition into the Thornwood. THEN Elen naturally shifts to defensive concerns (bell network). Present side quests SQ001 and SQ002 only as natural follow-ups to main plot progress, not as overwhelming simultaneous options. Emphasize the tense atmosphere and highlight Rusk's fear when speaking of Malarok.",
       "doors": [],
       "traps": [],
       "dcChecks": [
