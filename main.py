@@ -1273,8 +1273,20 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
             for action in parsed_response.get("actions", []):
                 result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
                 actions_processed = True
-                if isinstance(result, dict) and result.get("needs_update"):
-                    needs_conversation_history_update = True
+                if isinstance(result, dict):
+                    if result.get("needs_update"):
+                        needs_conversation_history_update = True
+                    # Check if we need to generate a DM response (e.g., after module creation)
+                    if result.get("needs_dm_response"):
+                        # Save current assistant response first
+                        current_response = {"role": "assistant", "content": response}
+                        conversation_history.append(current_response)
+                        save_conversation_history(conversation_history)
+                        
+                        # Reload and generate new AI response
+                        conversation_history = load_json_file("modules/conversation_history/conversation_history.json") or []
+                        ai_response = get_ai_response(conversation_history)
+                        return process_ai_response(ai_response, party_tracker_data, location_data, conversation_history)
                 elif isinstance(result, bool) and result:
                     needs_conversation_history_update = True
             if actions_processed:

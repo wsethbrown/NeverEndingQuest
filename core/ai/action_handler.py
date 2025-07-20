@@ -1005,6 +1005,9 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 save_conversation_history(conversation_history)
                 
                 needs_conversation_history_update = True
+                
+                # Return a special flag to trigger DM response generation
+                return {"success": True, "needs_update": True, "needs_dm_response": True}
             else:
                 print(f"ERROR: Failed to create module")
                 
