@@ -32,6 +32,33 @@ import os
 import time
 
 def main():
+    # Check if config.py exists, create from template if not
+    import shutil
+    if not os.path.exists('config.py'):
+        print("[D20] Welcome to NeverEndingQuest! [D20]")
+        print("\nFirst-time setup detected...")
+        
+        try:
+            # Copy config_template.py to config.py
+            shutil.copy('config_template.py', 'config.py')
+            print("\n✓ Created config.py from template")
+            print("\n" + "="*60)
+            print("IMPORTANT: OpenAI API Key Required")
+            print("="*60)
+            print("\n1. Open config.py in a text editor")
+            print("2. Find the line: OPENAI_API_KEY = \"your_openai_api_key_here\"")
+            print("3. Replace \"your_openai_api_key_here\" with your actual OpenAI API key")
+            print("4. Save the file and run the game again")
+            print("\nGet your API key at: https://platform.openai.com/api-keys")
+            print("\n" + "="*60)
+            input("\nPress Enter to exit...")
+            return
+        except Exception as e:
+            print(f"[ERROR] Failed to create config.py: {e}")
+            print("Please manually copy config_template.py to config.py")
+            input("\nPress Enter to exit...")
+            return
+    
     print("Launching NeverEndingQuest Web Interface...")
     print("The browser should open automatically. If not, navigate to http://localhost:5000")
     
