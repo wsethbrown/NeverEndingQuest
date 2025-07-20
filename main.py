@@ -2166,6 +2166,7 @@ def main_game_loop():
 
             # Check ALL modules for plot completion before suggesting module creation
             module_creation_prompt = ""
+            should_inject_creation_prompt = False  # Initialize for later use
             try:
                 # Debug current module detection
                 current_module = party_tracker_data.get('module', '').replace(' ', '_')
@@ -2223,17 +2224,30 @@ def main_game_loop():
             
             # Sanitize location name before using in DM note
             current_location_name_note = sanitize_text(current_location_name_note)
-            dm_note = (f"Dungeon Master Note: Current date and time: {date_time_str}. "
-                f"Party stats: {party_stats_str}. "
-                f"Current location: {current_location_name_note} ({current_location_id_note}). "
-                # --- MODIFIED LINE TO INCLUDE CONNECTIVITY ---
-                f"Adjacent locations in this area: {connected_locations_display_str}{connected_areas_display_str}{available_modules_str}.\n"
-                # --- END OF MODIFIED LINE ---
-                f"Active plot points for this location:\n{plot_points_str}\n"
-                f"Active side quests for this location:\n{side_quests_str}\n"
-                f"Monsters in this location:\n{monsters_str}\n"
-                f"Traps in this location:\n{traps_str}\n"
-                "Monsters should be active threats per engagement rules. "
+            
+            # Build DM note - exclude plot/quest info when module creation is active
+            if should_inject_creation_prompt:
+                # Simplified DM note for module creation - no confusing plot/quest info
+                dm_note = (f"Dungeon Master Note: Current date and time: {date_time_str}. "
+                    f"Party stats: {party_stats_str}. "
+                    f"Current location: {current_location_name_note} ({current_location_id_note}). "
+                    f"Adjacent locations in this area: {connected_locations_display_str}{connected_areas_display_str}{available_modules_str}.\n")
+            else:
+                # Normal DM note with all plot/quest/monster info
+                dm_note = (f"Dungeon Master Note: Current date and time: {date_time_str}. "
+                    f"Party stats: {party_stats_str}. "
+                    f"Current location: {current_location_name_note} ({current_location_id_note}). "
+                    # --- MODIFIED LINE TO INCLUDE CONNECTIVITY ---
+                    f"Adjacent locations in this area: {connected_locations_display_str}{connected_areas_display_str}{available_modules_str}.\n"
+                    # --- END OF MODIFIED LINE ---
+                    f"Active plot points for this location:\n{plot_points_str}\n"
+                    f"Active side quests for this location:\n{side_quests_str}\n"
+                    f"Monsters in this location:\n{monsters_str}\n"
+                    f"Traps in this location:\n{traps_str}\n"
+                    "Monsters should be active threats per engagement rules. ")
+            
+            # Add common instructions
+            dm_note += (
                 "updateCharacterInfo for player and NPC character changes (inventory, stats, abilities), "
                 "updateTime for time passage, "
                 "updatePlot for story progression, discovers, and new information, "
