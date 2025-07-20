@@ -41,7 +41,6 @@ STARTUP_CONVERSATION_FILE = "modules/conversation_history/startup_conversation.j
 
 def initialize_game_files_from_bu():
     """Initialize game files from BU templates if they don't exist"""
-    info("Initializing game files from BU templates", category="startup")
     initialized_count = 0
     
     # Find all BU files in modules directory
@@ -57,13 +56,9 @@ def initialize_game_files_from_bu():
         if not os.path.exists(live_file):
             try:
                 shutil.copy2(bu_file, live_file)
-                debug(f"Initialized: {live_file} from {bu_file}", category="startup")
                 initialized_count += 1
             except Exception as e:
                 warning(f"Failed to initialize {live_file}: {e}", category="startup")
-    
-    if initialized_count > 0:
-        info(f"Initialized {initialized_count} game files from BU templates", category="startup")
     
     return initialized_count
 
@@ -1459,6 +1454,12 @@ def update_party_tracker(module_name, character_name):
 
 def initialize_startup_conversation():
     """Create startup conversation file"""
+    # Ensure conversation history directory exists
+    import os
+    conv_dir = os.path.dirname(STARTUP_CONVERSATION_FILE)
+    if conv_dir and not os.path.exists(conv_dir):
+        os.makedirs(conv_dir, exist_ok=True)
+    
     conversation = [
         {
             "role": "system",
