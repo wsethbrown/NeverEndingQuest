@@ -139,19 +139,19 @@ No explanations, just the JSON array of thematic location names."""
             try:
                 names = json.loads(response_text)
                 if isinstance(names, list) and len(names) == len(room_data):
-                    print(f"AI generated {len(names)} thematic location names for {area_name}")
+                    print(f"DEBUG: [Area Generator] AI generated {len(names)} thematic location names for {area_name}")
                     return names
                 else:
-                    print(f"Warning: AI returned {len(names) if isinstance(names, list) else 'invalid'} names, expected {len(room_data)}")
+                    print(f"DEBUG: [Area Generator] Warning: AI returned {len(names) if isinstance(names, list) else 'invalid'} names, expected {len(room_data)}")
                     raise ValueError("Invalid AI response format")
             except (json.JSONDecodeError, ValueError) as e:
-                print(f"Error parsing AI response: {e}")
-                print(f"AI Response: {response_text}")
+                print(f"DEBUG: [Area Generator] Error parsing AI response: {e}")
+                print(f"DEBUG: [Area Generator] AI Response: {response_text}")
                 raise
                 
         except Exception as e:
-            print(f"Error generating thematic names: {e}")
-            print("Falling back to enhanced generic names...")
+            print(f"DEBUG: [Area Generator] Error generating thematic names: {e}")
+            print("DEBUG: [Area Generator] Falling back to enhanced generic names...")
             
             # Enhanced fallback with better naming
             fallback_names = []
@@ -252,7 +252,7 @@ No explanations, just the JSON array of thematic location names."""
                 for i, room in enumerate(room_data):
                     room["name"] = thematic_names[i]
             except Exception as e:
-                print(f"Failed to generate thematic names: {e}")
+                print(f"DEBUG: [Area Generator] Failed to generate thematic names: {e}")
                 # Fallback to enhanced generic names
                 for room in room_data:
                     room["name"] = f"{room['type'].title()} {room['id']}"
@@ -440,7 +440,7 @@ Return ONLY the area description text, no additional formatting or labels."""
                 return f"{area_name} presents unique challenges and opportunities for adventurers."
                 
         except Exception as e:
-            print(f"Warning: Failed to generate area description via AI: {e}")
+            print(f"DEBUG: [Area Generator] Warning: Failed to generate area description via AI: {e}")
             # Fallback to basic description without hardcoded templates
             area_adjectives = {
                 "dungeon": ["ancient", "forgotten", "mysterious", "treacherous"],
@@ -581,8 +581,8 @@ Return ONLY the area description text, no additional formatting or labels."""
         with open(map_filename, "w") as f:
             json.dump(map_data, f, indent=2)
         
-        print(f"Area saved to {filename}")
-        print(f"Map saved to {map_filename}")
+        print(f"DEBUG: [Area Generator] Area saved to {filename}")
+        print(f"DEBUG: [Area Generator] Map saved to {map_filename}")
 
 def main():
     """Interactive area generator"""

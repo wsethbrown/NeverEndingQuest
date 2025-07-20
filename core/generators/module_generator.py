@@ -80,6 +80,7 @@ from config import OPENAI_API_KEY, DM_MAIN_MODEL
 import jsonschema
 from utils.module_path_manager import ModulePathManager
 from utils.file_operations import safe_write_json as save_json_safely
+from utils.enhanced_logger import debug, info, warning, error
 
 # Initialize OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -279,7 +280,7 @@ def validate_location_names(area_data):
         # If location exists but names differ, update map name to match location
         if matching_location and map_room["name"] != matching_location["name"]:
             map_room["name"] = matching_location["name"]
-            print(f"Updated map room {room_id} name to match location: {matching_location['name']}")
+            print(f"DEBUG: [Module Generator] Updated map room {room_id} name to match location: {matching_location['name']}")
 
 def standardize_location_ids(module_name):
     """Normalize location ID formats across all files"""
@@ -357,7 +358,7 @@ def update_location_references(file_path, id_mappings):
         # Save if modified
         if modified:
             save_json_safely(data, file_path)
-            print(f"Updated location references in {file_path}")
+            print(f"DEBUG: [Module Generator] Updated location references in {file_path}")
     
     except (json.JSONDecodeError, IOError):
         pass  # Skip invalid or inaccessible files
@@ -394,7 +395,7 @@ def ensure_module_path_manager_usage(module_name):
             if (area_pattern.search(content) or map_pattern.search(content) or 
                 plot_pattern.search(content)):
                 modified_files.append(py_file)
-                print(f"WARNING: {py_file} should use ModulePathManager for file paths.")
+                print(f"DEBUG: [Module Generator] WARNING: {py_file} should use ModulePathManager for file paths.")
         except IOError:
             pass
     
@@ -565,13 +566,13 @@ If the field expects an object, return just the object.
             # Update context with the new field
             self.set_nested_value(context, field_path, value)
             
-            print(f"Generated: {field_path}")
+            print(f"DEBUG: [Module Generator] Generated: {field_path}")
         
         # Get module name for file operations
         module_name = module_data.get("moduleName", "")
         if module_name:
             # Post-generation cleanup and validation
-            print("\nPerforming post-generation validation and cleanup...")
+            print("DEBUG: [Module Generator] Performing post-generation validation and cleanup...")
             # Standardize location IDs (DISABLED - using prefix system instead)
             # standardize_location_ids(module_name)
             
@@ -579,22 +580,22 @@ If the field expects an object, return just the object.
             try:
                 issues = validate_module_structure(module_name)
                 if issues:
-                    print("\nValidation issues found:")
+                    print("DEBUG: [Module Generator] Validation issues found:")
                     for issue in issues:
-                        print(f"- {issue}")
+                        print(f"DEBUG: [Module Generator] - {issue}")
                     
                     # Create validation report
                     module_dir = f"modules/{module_name}"
                     save_json_safely({"issues": issues}, f"{module_dir}/validation_report.json")
-                    print(f"Validation report saved to {module_dir}/validation_report.json")
+                    print(f"DEBUG: [Module Generator] Validation report saved to {module_dir}/validation_report.json")
                 else:
-                    print("Module validation passed!")
+                    print("DEBUG: [Module Generator] Module validation passed!")
             except FileNotFoundError:
-                print("Skipping validation (custom output directory)")
+                print("DEBUG: [Module Generator] Skipping validation (custom output directory)")
             except Exception as e:
-                print(f"Validation skipped due to error: {e}")
+                print(f"DEBUG: [Module Generator] Validation skipped due to error: {e}")
             else:
-                print("\nNo validation issues found.")
+                print("DEBUG: [Module Generator] No validation issues found.")
         
         return module_data
     
@@ -657,7 +658,7 @@ If the field expects an object, return just the object.
     
     def generate_all_areas(self, module_data: Dict[str, Any], module_name: str) -> Dict[str, Any]:
         """Generate all area files from world_map data"""
-        print("\nGenerating all module areas...")
+        print("DEBUG: [Module Generator] Generating all module areas...")
         
         # Create module directory if it doesn't exist
         module_dir = f"modules/{module_name.replace(' ', '_')}"
@@ -715,7 +716,7 @@ If the field expects an object, return just the object.
                 context.add_location(loc_id, loc_name, area_id)
             
             # Save area files in module directory
-            print(f"DEBUG: About to save area {area_id} with locations: {[loc.get('locationId') for loc in area_data.get('locations', [])]}")
+            print(f"DEBUG: [Module Generator] About to save area {area_id} with locations: {[loc.get('locationId') for loc in area_data.get('locations', [])]}")
             area_gen.save_area(area_data, module_name=module_name)
             
             # DEBUG: Verify what was actually saved
@@ -724,12 +725,12 @@ If the field expects an object, return just the object.
                 with open(saved_file_path, 'r') as f:
                     saved_data = json.load(f)
                     saved_locs = [loc.get('locationId') for loc in saved_data.get('locations', [])]
-                    print(f"DEBUG: Verified saved file has locations: {saved_locs}")
+                    print(f"DEBUG: [Module Generator] Verified saved file has locations: {saved_locs}")
             except Exception as e:
-                print(f"DEBUG: Could not verify saved file: {e}")
+                print(f"DEBUG: [Module Generator] Could not verify saved file: {e}")
             generated_areas.append(area_id)
             
-            print(f"Generated area: {area_name} ({area_id}) with location prefix '{location_prefix}' and {len(area_data.get('locations', []))} locations")
+            print(f"DEBUG: [Module Generator] Generated area: {area_name} ({area_id}) with location prefix '{location_prefix}' and {len(area_data.get('locations', []))} locations")
         
         # Validate no duplicate location IDs across all areas
         all_location_ids = {}
@@ -746,12 +747,12 @@ If the field expects an object, return just the object.
                         else:
                             all_location_ids[loc_id] = area_id
             except Exception as e:
-                print(f"Warning: Could not validate area {area_id}: {e}")
+                print(f"DEBUG: [Module Generator] Warning: Could not validate area {area_id}: {e}")
         
         if duplicate_ids:
-            print(f"WARNING: Duplicate location IDs found across areas: {duplicate_ids}")
+            print(f"DEBUG: [Module Generator] WARNING: Duplicate location IDs found across areas: {duplicate_ids}")
         else:
-            print(f"Validation passed: All {len(all_location_ids)} location IDs are unique across the module")
+            print(f"DEBUG: [Module Generator] Validation passed: All {len(all_location_ids)} location IDs are unique across the module")
         
         # Save context file
         context.save(f"{module_dir}/module_context.json")
@@ -822,14 +823,14 @@ If the field expects an object, return just the object.
 
     def generate_unified_plot_file(self, module_data: Dict[str, Any], areas: List[str], module_name: str):
         """Generate unified module plot file"""
-        print("\nGenerating unified module plot file...")
+        print("DEBUG: [Module Generator] Generating unified module plot file...")
         
         module_dir = f"modules/{module_name.replace(' ', '_')}"
         
         # Get plot stages to determine progression
         plot_stages = module_data.get("mainPlot", {}).get("plotStages", [])
         if not plot_stages:
-            print("Warning: No plot stages found in module data")
+            print("DEBUG: [Module Generator] Warning: No plot stages found in module data")
             return
         
         # Sort areas by recommended level
@@ -839,7 +840,7 @@ If the field expects an object, return just the object.
                 with open(f"{module_dir}/{area_id}.json", 'r') as f:
                     area_files[area_id] = json.load(f)
             except (IOError, json.JSONDecodeError):
-                print(f"Warning: Could not load area file {area_id}")
+                print(f"DEBUG: [Module Generator] Warning: Could not load area file {area_id}")
         
         sorted_areas = sorted([(area_id, area_files[area_id].get("recommendedLevel", 1)) 
                               for area_id in areas if area_id in area_files],
@@ -893,7 +894,7 @@ If the field expects an object, return just the object.
         
         # Save unified plot file
         save_json_safely(module_plot, f"{module_dir}/module_plot.json")
-        print(f"Generated unified module plot file with {len(module_plot['plotPoints'])} plot points")
+        print(f"DEBUG: [Module Generator] Generated unified module plot file with {len(module_plot['plotPoints'])} plot points")
     
     def save_module(self, module_data: Dict[str, Any], filename: str = None):
         """Save module data to file"""
@@ -937,7 +938,7 @@ If the field expects an object, return just the object.
         
         # Run module debugger for validation
         from module_debugger import ModuleDebugger
-        print("\nValidating complete module structure...")
+        print("DEBUG: [Module Generator] Validating complete module structure...")
         debugger = ModuleDebugger()
         debugger.module_path = module_dir
         debugger.load_schemas()
@@ -959,8 +960,8 @@ If the field expects an object, return just the object.
         }
         save_json_safely(validation_data, f"{module_dir}/validation_report.json")
         
-        print(f"Validation complete - {len(debugger.errors)} errors, {len(debugger.warnings)} warnings")
-        print(f"Validation report saved to {module_dir}/validation_report.json")
+        print(f"DEBUG: [Module Generator] Validation complete - {len(debugger.errors)} errors, {len(debugger.warnings)} warnings")
+        print(f"DEBUG: [Module Generator] Validation report saved to {module_dir}/validation_report.json")
 
         # Create a module summary markdown file
         with open(f"{module_dir}/MODULE_SUMMARY.md", "w") as f:

@@ -156,7 +156,7 @@
       "locationId": "A01",
       "name": "Harrow's Hollow General Store",
       "type": "shop",
-      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the central hub for goods and community gatherings in Harrow's Hollow. Sunlight filters warmly through modest windows, bathing shelves brimming with tools, dried provisions, lanterns, and trinkets from afar in a comforting glow. The air carries the scent of beeswax and dried herbs, filling the space with homely familiarity. Elder Mirna, her silver hair pulled back and eyes red-rimmed with hope, now stands behind the wooden counter with a relieved and grateful expression, engaging warmly with the party and the villagers who have gathered in celebration. The store is alive with laughter, music, and an atmosphere of renewed hope as the heroes share tales of their victory over the dark curse that once plagued the woods and the ancient keep.",
+      "description": "A sturdy timber-and-stone building at the town's heart, the general store is the central hub for goods and community gatherings in Harrow's Hollow. Sunlight filters warmly through modest windows, bathing shelves brimming with tools, dried provisions, lanterns, and trinkets from afar in a comforting glow. The air carries the scent of beeswax and dried herbs, filling the space with homely familiarity. Elder Mirna, her silver hair pulled back and eyes bright with gratitude, stands behind the wooden counter with a genuine smile, surrounded by villagers celebrating the party's victory. Laughter, music, and renewed hope fill the room as the heroes share stories of their triumph over the dark curse that once plagued the woods and the ancient keep.",
       "coordinates": "X2Y2",
       "connectivity": [
         "A02",
@@ -169,18 +169,28 @@
       "npcs": [
         {
           "name": "Elder Mirna Harrow",
-          "description": "The wise, firm, and now joyful matriarch of Harrow's Hollow. Her earlier concern has shifted to hopeful relief and gratitude towards the party for breaking the curse. She offers tangible rewards and blessings, fostering strong bonds between the party and the village.",
+          "description": "The wise and now joyful matriarch of Harrow's Hollow. She warmly thanks the party for breaking the curse, offers tangible rewards, blessings, and support for their ongoing leadership role.",
           "attitude": "Warmly grateful and supportive towards the party; encouraging community spirit among villagers."
         },
         {
           "name": "Farmer Willem",
-          "description": "A sturdy middle-aged farmer who comes to town weekly for supplies. He shares in the village's relieved joy and continues to watch for any new threats beyond the farmsteads.",
+          "description": "A sturdy middle-aged farmer who visits weekly for supplies. He shares in the village's relieved joy and remains watchful for new threats to his farm and family.",
           "attitude": "Friendly and optimistic, though still vigilant about the safety of his family and livestock."
         },
         {
           "name": "Young Apprentice Tam",
-          "description": "Mirna's eager young assistant who helps with inventory and deliveries around town. Tam is excited by the party's success and enjoys the communal festivities.",
+          "description": "Mirna's eager young assistant who helps with inventory and town deliveries. Excited by the party's success and the communal festivities.",
           "attitude": "Cheerful and enthusiastic, eager to support the heroes and the village."
+        },
+        {
+          "name": "Elen",
+          "description": "The rescued spirit of the ancient keep, now playful and lighthearted, sharing jests that uplift the group's morale.",
+          "attitude": "Playful and friendly, fostering camaraderie among the party."
+        },
+        {
+          "name": "Thane",
+          "description": "A stoic figure quietly proud of the party's achievements, offering rare smiles and supportive nods.",
+          "attitude": "Reserved but supportive and proud of the heroes."
         }
       ],
       "monsters": [],
@@ -201,9 +211,10 @@
         "The party has been recognized as heroes for breaking the dark curse affecting the woods and ancient keep.",
         "Ownership of Shadowfall Keep has been revealed, inspiring plans for restoration and defense with village support.",
         "Scout Kira has vanished pursuing rumors of further corruption beyond the village, prompting a potential new quest.",
+        "Whispers linger of a haunting spirit, the enigmatic Keeper hermit, and the persistent threat of the Black Banner Mercenaries.",
         "Ongoing village support includes discounts at the store and blessings from spiritual leaders."
       ],
-      "dmInstructions": "Elder Mirna now acts as a grateful ally, providing rewards and ongoing support to the party. Use her to deepen ties to the village and the newly acquired Shadowfall Keep. Reflect the party's heroic status in NPC interactions. Introduce future plot hooks related to Kira's disappearance and the party's leadership responsibilities. Important: Update related plot statuses to 'completed' as applicable. Maintain the festive and hopeful atmosphere within the store and village.",
+      "dmInstructions": "Elder Mirna now acts as a grateful ally, providing rewards and ongoing support to the party. Use her to deepen ties to the village and the newly acquired Shadowfall Keep. Reflect the party's heroic status in NPC interactions. Introduce future plot hooks related to Kira's disappearance, the haunting spirit, Keeper hermit, and Black Banner Mercenaries. Maintain the festive and hopeful atmosphere within the store and village.",
       "doors": [
         {
           "name": "Front Door",
@@ -238,7 +249,7 @@
       "features": [
         {
           "name": "Notice Board",
-          "description": "Now filled with celebratory notices, thanks to the party, alongside ongoing village news and new requests related to Scout Kira's disappearance."
+          "description": "Now filled with celebratory notices, thanks to the party, alongside ongoing village news and new requests related to Scout Kira's disappearance and other mysteries."
         },
         {
           "name": "Counter and Ledger",
@@ -260,9 +271,20 @@
             "day": 6,
             "time": "18:16:00"
           }
+        },
+        {
+          "encounterId": "A01-E2",
+          "summary": "Within the cozy confines of the general store, the party celebrated their victory over the curse with Elder Mirna and villagers, sharing tales and receiving heartfelt thanks and rewards.",
+          "impact": "The party's bonds with the village were strengthened, their new ownership of Shadowfall Keep was acknowledged, and lingering side quests concerning Scout Kira, a haunting spirit, the Keeper hermit, and Black Banner Mercenaries were brought to attention. The atmosphere was one of hope and renewed community spirit.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 6,
+            "time": "18:46:00"
+          }
         }
       ],
-      "adventureSummary": "Upon entering the store, the party was greeted with joy and relief by Elder Mirna and villagers, celebrated as heroes for lifting the dark curse on the woods and keep. They received rewards from a chest behind the counter, including gold, gemstones, a Potion of Greater Healing, and a Ring of Warding, along with ongoing discounts and blessings. Their ownership of Shadowfall Keep was revealed, inspiring plans for the keep's restoration. The party shared tales of their journey, strengthening bonds with the community. The mood shifted as Elen revealed Scout Kira had vanished pursuing rumors of corruption beyond the village, prompting cautious concern. Despite this, the evening was filled with a jubilant feast and communal warmth, marking a moment of respite and celebration before future adventures. The party's ties to the village deepened, and their role as guardians of Shadowfall Keep was solidified."
+      "adventureSummary": "Within the cozy, warmly lit confines of Harrow's Hollow General Store, the party experienced a moment of solemn yet heartfelt closure as Elder Mirna greeted them with a grateful smile, her ledger set aside to acknowledge their triumphs. The scent of beeswax and dried herbs mingled with the low murmur of villagers gathered nearby, their eyes reflecting relief and hope. Mirna praised Eirik and his companions for breaking the curse that had plagued the keep and rescuing Elen, whose renewed spirit stood as a testament to their success. Thane, quietly proud, offered a rare grin and supportive nod, while Elen's playful jest lightened the mood, weaving camaraderie among the group. The villagers' applause and laughter filled the room, affirming the heroes' hard-earned trust and gratitude. Despite the celebration, Mirna reminded them gently that while the primary threat was vanquished and the 'Resolution and Rewards' plot formally completed, several side quests lingered--whispers of a haunting spirit, the enigmatic Keeper hermit, and the ever-present menace of the Black Banner Mercenaries. Acknowledging these unresolved threads, the party took a moment to reflect amid the convivial atmosphere before deciding to depart, their bonds strengthened by shared victory and the promise of new challenges awaiting beyond the store's familiar walls."
     },
     {
       "locationId": "A02",
@@ -520,7 +542,7 @@
       "locationId": "A05",
       "name": "The Wyrd Lantern Inn",
       "type": "tavern",
-      "description": "A cozy, low-ceilinged inn with mismatched furniture, a roaring hearth, and walls festooned with charms against evil. The aroma of stew and fresh bread fills the air. Laughter and song are frequent, but at night, whispers of fear and superstition drift between tables.",
+      "description": "A cozy, low-ceilinged inn bustling with warmth and camaraderie. The roaring hearth casts a golden glow over the mismatched furniture, walls hung with protective charms, and a crowd filled with laughter and music. Tonight, the inn is alive with celebration as villagers and travelers cheer the party as heroes and guardians of Harrow's Hollow, their presence a beacon of hope against the darkness outside.",
       "coordinates": "X1Y2",
       "connectivity": [
         "A01",
@@ -532,8 +554,8 @@
       "npcs": [
         {
           "name": "Cira the Innkeeper",
-          "description": "A warm, quick-witted woman with a knack for remembering faces and secrets. She runs the Wyrd Lantern with a firm but friendly hand.",
-          "attitude": "Welcoming to all, but especially those with coin or gossip. Protective of her staff and regulars."
+          "description": "A warm, quick-witted woman with a knack for remembering faces and secrets. She runs the Wyrd Lantern with a firm but friendly hand, her smile tonight full of pride as she declares 'Heroes' privilege' for the party.",
+          "attitude": "Welcoming and grateful to the party, protective of her staff and regulars."
         },
         {
           "name": "Traveling Merchant Rosa",
@@ -571,9 +593,12 @@
       "plotHooks": [
         "A fearful regular claims to have seen a ghostly figure on the east road.",
         "Cira offers the party free rooms if they can calm frightened townsfolk.",
-        "A drunken patron insists the keep's curse is growing stronger and tries to start a brawl."
+        "A drunken patron insists the keep's curse is growing stronger and tries to start a brawl.",
+        "The party now holds the deed to Shadowfall Keep and is recognized as its protectors.",
+        "Unresolved quests: Breach the Keep mission, Lost Ward Circle, Black Banner Mercenaries, and the fate of Kira.",
+        "Plans to visit Elder Mirna at the general store to continue the quest."
       ],
-      "dmInstructions": "Cira is the party's best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace.",
+      "dmInstructions": "Cira is the party's best source for rumors and local color. She can direct them to Elder Mirna or Sergeant Feld for more official matters. A DC 10 Persuasion check gets her to share stories about the keep and its past. If trouble starts, Cira expects the party to help keep peace. The inn tonight is a place of celebration and respite; encourage roleplay and reflection before the next quest.",
       "doors": [
         {
           "name": "Inn Door",
@@ -612,7 +637,7 @@
         },
         {
           "name": "Hearth and Common Room",
-          "description": "A crackling fire and mismatched armchairs make this a favorite gathering spot."
+          "description": "A crackling fire and mismatched armchairs make this a favorite gathering spot. Tonight it radiates warmth and celebration as the party is honored."
         },
         {
           "name": "Guest Rooms",
@@ -623,8 +648,20 @@
           "description": "Behind a false wall in the root cellar lies an old smuggler's tunnel, originally built during the town's less lawful days. The narrow stone passage is musty but passable, with worn steps leading through darkness. Scout Elen discovered this route during her investigation and used it to secretly leave town. The tunnel emerges near the East Gate through a concealed grate."
         }
       ],
-      "encounters": [],
-      "adventureSummary": ""
+      "encounters": [
+        {
+          "encounterId": "A05-E1",
+          "summary": "The party is welcomed and honored at the Wyrd Lantern Inn with cheers, free ales, and a toast to their heroism.",
+          "impact": "The inn becomes a place of respite and encouragement, boosting party morale and recognition within the village. Major threats have been confronted, but key quests remain unresolved.",
+          "worldConditions": {
+            "year": 1492,
+            "month": "Springmonth",
+            "day": 6,
+            "time": "18:31:00"
+          }
+        }
+      ],
+      "adventureSummary": "The adventuring party entered the Wyrd Lantern Inn amid lively celebration, receiving cheers and free ale as heroes and guardians of Harrow's Hollow. They toasted their survival and the lifting of the curse, reflecting on their journey with camaraderie and renewed purpose. Despite major threats confronted, important quests remain ahead, including the fate of Kira and the Black Banner Mercenaries. The party now holds the deed to Shadowfall Keep and prepares to visit Elder Mirna to continue their mission. (Game Time: 1492 Springmonth 6, 18:31:00)"
     },
     {
       "locationId": "A06",

@@ -973,8 +973,8 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 
                 # Auto-integrate with module stitcher
                 try:
-                    from core.generators.module_stitcher import ModuleStitcher
-                    stitcher = ModuleStitcher()
+                    from core.generators.module_stitcher import get_module_stitcher
+                    stitcher = get_module_stitcher()
                     # Run stitcher in fully autonomous mode
                     integrated_modules = stitcher.scan_and_integrate_new_modules()
                     info(f"SUCCESS: Module '{module_name}' integrated into world registry", category="module_management")

@@ -576,10 +576,10 @@ Check the location schema carefully for all required fields.
                 location_stubs.append(location_stub)
         
         if not location_stubs:
-            print("Warning: No location stubs or map found in area data")
+            print("DEBUG: [Location Generator] Warning: No location stubs or map found in area data")
             return {"locations": []}
         
-        print(f"Generating {len(location_stubs)} locations for {area_data.get('areaName', 'area')}...")
+        print(f"DEBUG: [Location Generator] Generating {len(location_stubs)} locations for {area_data.get('areaName', 'area')}...")
         
         # Generate all locations in batch
         location_data = self.generate_location_batch(
@@ -619,7 +619,7 @@ Check the location schema carefully for all required fields.
                     if npc_name and area_id and location_id:
                         # Update context with actual placement
                         context.add_npc(npc_name, area_id, location_id)
-                        print(f"Updated context: {npc_name} placed in {area_id}:{location_id}")
+                        print(f"DEBUG: [Location Generator] Updated context: {npc_name} placed in {area_id}:{location_id}")
             
             # Ensure plot-critical locations have appropriate content
             location_id = location["locationId"]
@@ -651,7 +651,7 @@ Check the location schema carefully for all required fields.
                         # If names differ, update map room name to match location
                         if room["name"] != location["name"]:
                             room["name"] = location["name"]
-                            print(f"Updated map room {room['id']} name to match location: {location['name']}")
+                            print(f"DEBUG: [Location Generator] Updated map room {room['id']} name to match location: {location['name']}")
                         break
         
         return {"locations": locations}
@@ -720,13 +720,13 @@ Check the location schema carefully for all required fields.
             with open(filename, "w") as f:
                 json.dump(area_data, f, indent=2)
             
-            print(f"Updated area file with locations: {filename}")
+            print(f"DEBUG: [Location Generator] Updated area file with locations: {filename}")
         else:
             # If area file doesn't exist, just save locations
             with open(filename, "w") as f:
                 json.dump(location_data, f, indent=2)
             
-            print(f"Saved locations to: {filename}")
+            print(f"DEBUG: [Location Generator] Saved locations to: {filename}")
 
 def main():
     """Interactive location generator for testing"""

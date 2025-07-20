@@ -70,7 +70,7 @@ class ModuleBuilder:
         """Log messages if verbose mode is enabled"""
         if self.config.verbose:
             timestamp = datetime.now().strftime("%H:%M:%S")
-            print(f"[{timestamp}] {message}")
+            print(f"DEBUG: [Module Generator] [{timestamp}] {message}")
     
     def save_json(self, data: Dict[str, Any], filename: str):
         """Save JSON data to the output directory"""
@@ -1117,7 +1117,7 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         
         # Validate that both locations have locationId
         if "locationId" not in exit_loc or "locationId" not in entrance_loc:
-            print(f"Warning: Missing locationId in connection between {from_area} and {to_area}")
+            print(f"DEBUG: [Module Generator] Warning: Missing locationId in connection between {from_area} and {to_area}")
             return
         
         # Update area connectivity in from_area exit
@@ -1129,7 +1129,7 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         # Store the location name and location ID for proper connectivity
         exit_loc["areaConnectivity"].append(entrance_loc["name"])
         exit_loc["areaConnectivityId"].append(entrance_loc["locationId"])
-        print(f"DEBUG: Connected {from_area} location {exit_loc['locationId']} to {to_area} location {entrance_loc['locationId']}")
+        print(f"DEBUG: [Module Generator] Connected {from_area} location {exit_loc['locationId']} to {to_area} location {entrance_loc['locationId']}")
         
         # Update area connectivity in to_area entrance
         if "areaConnectivity" not in entrance_loc:
@@ -1282,7 +1282,7 @@ Return ONLY the JSON object, no explanation."""
         return parsed
         
     except Exception as e:
-        print(f"ERROR: Failed to parse narrative with AI: {e}")
+        print(f"DEBUG: [Module Generator] ERROR: Failed to parse narrative with AI: {e}")
         # Return sensible defaults
         return {
             "module_name": "New_Adventure",
@@ -1316,7 +1316,7 @@ def ai_driven_module_creation(params: Dict[str, Any]) -> tuple[bool, Optional[st
         # Check if we have a narrative to parse
         narrative = params.get("narrative") or params.get("concept")
         if not narrative:
-            print(f"ERROR: No narrative or concept provided")
+            print(f"DEBUG: [Module Generator] ERROR: No narrative or concept provided")
             return False, None
         
         # Parse narrative with AI to get module parameters
@@ -1391,7 +1391,7 @@ def ai_driven_module_creation(params: Dict[str, Any]) -> tuple[bool, Optional[st
         return True, module_name
         
     except Exception as e:
-        print(f"ERROR: AI-driven module creation failed: {str(e)}")
+        print(f"DEBUG: [Module Generator] ERROR: AI-driven module creation failed: {str(e)}")
         import traceback
         traceback.print_exc()
         return False, None

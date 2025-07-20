@@ -601,7 +601,7 @@ Create atmospheric travel narration that leads into this adventure."""
             return conflicts_resolved
             
         except Exception as e:
-            print(f"Error resolving ID conflicts: {e}")
+            print(f"DEBUG: [Module Stitcher] ERROR: Error resolving ID conflicts: {e}")
             return 0
     
     def _generate_unique_area_id(self, original_id: str, existing_areas: Dict[str, Any], module_name: str) -> str:
@@ -691,7 +691,7 @@ Create atmospheric travel narration that leads into this adventure."""
         Ensures all location IDs in a new module are globally unique.
         If any conflict is found, it re-prefixes ALL locations in the new module.
         """
-        self.log(f"  - Validating global uniqueness of location IDs for {module_name}...")
+        print(f"DEBUG: [Module Stitcher] Validating global uniqueness of location IDs for {module_name}...")
         
         # 1. Get all existing location IDs from the world registry
         all_existing_loc_ids = set()
@@ -897,7 +897,7 @@ Respond with JSON:
             # Use the existing validator
             from core.validation.validate_module_files import ModuleValidator
             
-            validator = ModuleValidator(module_path, ".")
+            validator = ModuleValidator(module_path, "schemas")
             validator.load_schemas()
             
             # Run validation (suppress output)

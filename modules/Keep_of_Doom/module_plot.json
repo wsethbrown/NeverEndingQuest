@@ -76,8 +76,8 @@
       "nextPoints": [
         "PP004"
       ],
-      "status": "in progress",
-      "plotImpact": "The party has unlocked the hidden trapdoor beneath the Lord's Study and descended into the Dungeon Entrance, advancing their quest to find and destroy the shadow relic.",
+      "status": "completed",
+      "plotImpact": "The party has successfully entered and conquered the Keep of Doom, fulfilling the objective of breaching the keep. This opens the path to further adventures and resolves the quest thread.",
       "sideQuests": [
         {
           "id": "SQ005",
@@ -109,8 +109,8 @@
       "description": "Return to Harrow's Hollow after dealing with the shadow relic. This quest completes when the party returns to the village after defeating or destroying the shadow relic in the keep.",
       "location": "HH001",
       "nextPoints": [],
-      "status": "in progress",
-      "plotImpact": "Eirik has revealed the deed to Shadowfall Keep and plans to make it a permanent base. The villagers are inspired, seeing new hope for the region and offering support for the restoration of the stronghold.",
+      "status": "completed",
+      "plotImpact": "The party has returned to Harrow's Hollow after breaking the curse and rescuing Elen. The village's main threat is vanquished, and the story enters a new era of hope.",
       "sideQuests": []
     }
   ],
