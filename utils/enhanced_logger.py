@@ -163,6 +163,12 @@ class GameLogger:
                 
                 return text
         
+        # Ensure log directory exists
+        import os
+        log_dir = os.path.dirname(ERROR_LOG_FILE)
+        if log_dir and not os.path.exists(log_dir):
+            os.makedirs(log_dir, exist_ok=True)
+        
         # Error file handler
         error_handler = RotatingFileHandler(
             ERROR_LOG_FILE,
