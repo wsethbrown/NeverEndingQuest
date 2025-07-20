@@ -262,6 +262,11 @@ def select_module(conversation):
     while True:
         try:
             user_input = input("\nYour choice: ").strip()
+            
+            # Skip empty inputs
+            if not user_input:
+                continue
+                
             conversation.append({"role": "user", "content": user_input})
             
             # Try to parse as number
@@ -370,6 +375,11 @@ def select_or_create_character(conversation, module):
     while True:
         try:
             user_input = input("\nYour choice: ").strip()
+            
+            # Skip empty inputs
+            if not user_input:
+                continue
+                
             conversation.append({"role": "user", "content": user_input})
             
             # Check for new character creation
@@ -860,6 +870,11 @@ def get_character_name(conversation):
     while True:
         try:
             name = input("\nCharacter name: ").strip()
+            
+            # Skip empty inputs
+            if not name:
+                continue
+                
             conversation.append({"role": "user", "content": name})
             
             if len(name) >= 2 and name.replace(" ", "").isalpha():
@@ -900,6 +915,11 @@ Ask them to choose by number (1-9) or race name. Be enthusiastic about whichever
     while True:
         try:
             choice = input("\nChoose your race: ").strip()
+            
+            # Skip empty inputs
+            if not choice:
+                continue
+                
             conversation.append({"role": "user", "content": choice})
             
             # Try number selection
@@ -961,6 +981,11 @@ Ask them to choose by number (1-10) or class name. Mention that they can't go wr
     while True:
         try:
             choice = input("\nChoose your class: ").strip()
+            
+            # Skip empty inputs
+            if not choice:
+                continue
+                
             conversation.append({"role": "user", "content": choice})
             
             # Try number selection
@@ -1019,6 +1044,11 @@ Ask them to choose by number (1-10) or background name. Emphasize that this help
     while True:
         try:
             choice = input("\nChoose your background: ").strip()
+            
+            # Skip empty inputs
+            if not choice:
+                continue
+                
             conversation.append({"role": "user", "content": choice})
             
             # Try number selection
@@ -1082,6 +1112,11 @@ We'll go through each ability and you can tell me which score (from the remainin
             try:
                 print(f"\nRemaining scores: {', '.join(map(str, remaining_scores))}")
                 score_input = input(f"Assign score to {ability}: ").strip()
+                
+                # Skip empty inputs
+                if not score_input:
+                    continue
+                    
                 conversation.append({"role": "user", "content": f"{ability}: {score_input}"})
                 
                 try:
@@ -1276,6 +1311,11 @@ Ask if they want to confirm this character and start their adventure, or if they
     while True:
         try:
             user_input = input("\nYour decision: ").strip().lower()
+            
+            # Skip empty inputs
+            if not user_input:
+                continue
+                
             conversation.append({"role": "user", "content": user_input})
             
             if any(word in user_input for word in ['yes', 'confirm', 'looks good', 'perfect', 'great', 'ready']):
