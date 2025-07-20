@@ -41,10 +41,25 @@ RESET_COLOR = "\033[0m"
 
 # Status display configuration
 current_status_line = None
+web_mode = False
+
+# Check if we're running in web mode by looking for the web output capture
+try:
+    import sys
+    if hasattr(sys.stdout, '__class__') and 'WebOutputCapture' in str(sys.stdout.__class__):
+        web_mode = True
+except:
+    pass
 
 def display_status(message):
     """Display status message above the command prompt"""
     global current_status_line
+    
+    # In web mode, status is handled by the web interface
+    if web_mode:
+        return
+        
+    # Console mode - display status line
     # Clear previous status line if exists
     if current_status_line is not None:
         print(f"\r{' ' * len(current_status_line)}\r", end='', flush=True)
@@ -55,6 +70,12 @@ def display_status(message):
 
 def status_callback(message, is_processing):
     """Callback for status manager to display status updates"""
+    # In web mode, the web interface handles status display
+    if web_mode:
+        # The status manager will already be using the web's callback
+        return
+        
+    # Console mode
     if is_processing:
         display_status(message)
     else:
@@ -64,8 +85,10 @@ def status_callback(message, is_processing):
             print(f"\r{' ' * len(current_status_line)}\r", end='', flush=True)
             current_status_line = None
 
-# Register the callback
-status_manager.set_callback(status_callback)
+# Only register our callback in console mode
+# In web mode, the web interface will have already set its own callback
+if not web_mode:
+    status_manager.set_callback(status_callback)
 
 # Initialize OpenAI client
 client = OpenAI(api_key=config.OPENAI_API_KEY)
