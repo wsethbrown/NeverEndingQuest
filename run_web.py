@@ -59,6 +59,22 @@ def main():
             input("\nPress Enter to exit...")
             return
     
+    # Initialize all required directories
+    required_dirs = [
+        "modules/conversation_history",
+        "modules/campaign_archives", 
+        "modules/campaign_summaries",
+        "modules/backups",
+        "modules/logs",
+        "save_games",
+        "characters",
+        "combat_logs"
+    ]
+    
+    for dir_path in required_dirs:
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path, exist_ok=True)
+    
     print("Launching NeverEndingQuest Web Interface...")
     print("The browser should open automatically. If not, navigate to http://localhost:5000")
     
