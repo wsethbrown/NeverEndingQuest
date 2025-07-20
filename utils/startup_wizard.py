@@ -27,9 +27,45 @@ import config
 from utils.encoding_utils import safe_json_load, safe_json_dump
 from utils.module_path_manager import ModulePathManager
 from utils.enhanced_logger import debug, info, warning, error, set_script_name
+from core.managers.status_manager import (
+    status_manager, status_processing_ai, status_validating,
+    status_loading, status_ready, status_saving
+)
 
 # Set script name for logging
 set_script_name("startup_wizard")
+
+# Color constants for status display
+GOLD = "\033[38;2;255;215;0m"  # Gold color for status messages
+RESET_COLOR = "\033[0m"
+
+# Status display configuration
+current_status_line = None
+
+def display_status(message):
+    """Display status message above the command prompt"""
+    global current_status_line
+    # Clear previous status line if exists
+    if current_status_line is not None:
+        print(f"\r{' ' * len(current_status_line)}\r", end='', flush=True)
+    # Display new status
+    status_display = f"{GOLD}[{message}]{RESET_COLOR}"
+    print(f"\r{status_display}", flush=True)
+    current_status_line = status_display
+
+def status_callback(message, is_processing):
+    """Callback for status manager to display status updates"""
+    if is_processing:
+        display_status(message)
+    else:
+        # Clear status when ready
+        global current_status_line
+        if current_status_line is not None:
+            print(f"\r{' ' * len(current_status_line)}\r", end='', flush=True)
+            current_status_line = None
+
+# Register the callback
+status_manager.set_callback(status_callback)
 
 # Initialize OpenAI client
 client = OpenAI(api_key=config.OPENAI_API_KEY)
@@ -138,10 +174,12 @@ def startup_required(party_file="party_tracker.json"):
 
 def scan_available_modules():
     """Find all available modules in modules/ directory"""
+    status_loading()
     modules = []
     
     if not os.path.exists("modules"):
         print("Error: No modules directory found!")
+        status_ready()
         return modules
     
     for item in os.listdir("modules"):
@@ -195,6 +233,7 @@ def scan_available_modules():
     # Sort modules by minimum level (lowest first)
     modules.sort(key=lambda m: m['level_range'].get('min', 99))
     
+    status_ready()
     return modules
 
 def present_module_options(conversation, modules):
@@ -1432,6 +1471,7 @@ def auto_fix_character_data(character_data):
 def save_character_to_module(character_data, module_name):
     """Save character file to module directory"""
     try:
+        status_saving()
         # Use ModulePathManager for proper path handling
         path_manager = ModulePathManager(module_name)
         from updates.update_character_info import normalize_character_name
@@ -1447,8 +1487,10 @@ def save_character_to_module(character_data, module_name):
         
         # Check if file was created successfully
         if os.path.exists(char_file):
+            status_ready()
             return True
         else:
+            status_ready()
             return False
         
     except Exception as e:
@@ -1528,6 +1570,7 @@ def initialize_startup_conversation():
 def get_ai_response(conversation):
     """Get AI response for character creation"""
     try:
+        status_processing_ai()
         response = client.chat.completions.create(
             model=config.DM_MAIN_MODEL,
             temperature=0.7,
@@ -1538,8 +1581,10 @@ def get_ai_response(conversation):
         conversation.append({"role": "assistant", "content": content})
         
         # Save conversation
+        status_saving()
         safe_json_dump(conversation, STARTUP_CONVERSATION_FILE)
         
+        status_ready()
         return content
         
     except Exception as e:
