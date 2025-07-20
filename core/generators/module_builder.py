@@ -1102,6 +1102,12 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
                         prefix + conn[1:] if conn and len(conn) > 1 else conn
                         for conn in location["connectivity"]
                     ]
+                
+                # Update area connectivity IDs (references to other areas)
+                if "areaConnectivityId" in location:
+                    # Note: These might reference locations in OTHER areas, so we can't update them here
+                    # They need to be handled in a second pass after all areas are re-prefixed
+                    pass
         
         return area_data
     

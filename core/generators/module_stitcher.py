@@ -776,8 +776,79 @@ Create atmospheric travel narration that leads into this adventure."""
                 safe_json_dump(updated_area_data, area_file_path)
                 conflicts_resolved += len(updated_area_data.get('locations', []))
 
+        # After re-prefixing, we need to update all references to the old IDs
+        self._update_all_location_references(module_name, new_module_loc_ids, conflicting_ids)
+        
         return conflicts_resolved
     
+    def _update_all_location_references(self, module_name: str, current_ids: set, old_ids: set) -> None:
+        """
+        Update all references to location IDs after re-prefixing.
+        Does a simple search/replace across all JSON files in the module.
+        """
+        try:
+            module_path = os.path.join(self.modules_dir, module_name)
+            areas_path = os.path.join(module_path, "areas")
+            
+            # Build ID mapping by analyzing the backup files to see what changed
+            id_mapping = {}
+            
+            # Look at backup files to build the mapping
+            for filename in os.listdir(areas_path):
+                if filename.endswith('.json.bak'):
+                    backup_file = os.path.join(areas_path, filename)
+                    current_file = backup_file.replace('.json.bak', '.json')
+                    
+                    if os.path.exists(current_file):
+                        backup_data = safe_json_load(backup_file)
+                        current_data = safe_json_load(current_file)
+                        
+                        if backup_data and current_data:
+                            # Get location IDs from backup
+                            backup_locs = [(loc.get('locationId'), loc.get('name')) 
+                                         for loc in backup_data.get('locations', [])]
+                            # Get location IDs from current
+                            current_locs = {loc.get('name'): loc.get('locationId') 
+                                          for loc in current_data.get('locations', [])}
+                            
+                            # Map old to new based on matching names
+                            for old_id, name in backup_locs:
+                                if name in current_locs:
+                                    new_id = current_locs[name]
+                                    if old_id != new_id and old_id and new_id:
+                                        id_mapping[old_id] = new_id
+                                        print(f"DEBUG: [Module Stitcher] Mapping {old_id} -> {new_id} (from {filename})")
+            
+            if not id_mapping:
+                return
+            
+            # Update all JSON files in the module
+            for root, dirs, files in os.walk(module_path):
+                for filename in files:
+                    if filename.endswith('.json') and not filename.endswith('.bak'):
+                        file_path = os.path.join(root, filename)
+                        
+                        # Read file content
+                        with open(file_path, 'r', encoding='utf-8') as f:
+                            content = f.read()
+                        
+                        # Replace all old IDs with new IDs
+                        original_content = content
+                        for old_id, new_id in id_mapping.items():
+                            # Use word boundaries to ensure we match exact IDs
+                            # This prevents A01 from matching within BA01
+                            import re
+                            pattern = r'\b' + re.escape(old_id) + r'\b'
+                            content = re.sub(pattern, new_id, content)
+                        
+                        # Write back if changed
+                        if content != original_content:
+                            with open(file_path, 'w', encoding='utf-8') as f:
+                                f.write(content)
+                            print(f"DEBUG: [Module Stitcher] Updated references in {os.path.relpath(file_path, module_path)}")
+            
+        except Exception as e:
+            print(f"DEBUG: [Module Stitcher] ERROR: Failed to update location references: {e}")
     
     def _validate_module_safety(self, module_name: str, module_data: Dict[str, Any]) -> bool:
         """Validate module for safety issues using AI content filtering"""
@@ -1049,30 +1120,30 @@ Respond with JSON:
     def _update_bu_files_after_conflict_resolution(self, module_name: str) -> int:
         """
         Update BU (backup) files with corrected location IDs after conflict resolution.
-        This ensures BU files match the corrected area files.
+        This ensures BU files match the corrected files for all JSON files that have BU versions.
         """
         try:
             module_path = os.path.join(self.modules_dir, module_name)
-            areas_path = os.path.join(module_path, "areas")
             updated_count = 0
             
-            if not os.path.exists(areas_path):
-                return 0
-            
-            # Find all area JSON files (excluding BU files)
-            for filename in os.listdir(areas_path):
-                if filename.endswith('.json') and not filename.endswith('_BU.json'):
-                    area_file = os.path.join(areas_path, filename)
-                    bu_file = os.path.join(areas_path, filename.replace('.json', '_BU.json'))
-                    
-                    # Copy the corrected area file to its BU version
-                    try:
-                        import shutil
-                        shutil.copy2(area_file, bu_file)
-                        updated_count += 1
-                        print(f"DEBUG: [Module Stitcher] Updated BU file: {filename.replace('.json', '_BU.json')}")
-                    except Exception as e:
-                        print(f"DEBUG: [Module Stitcher] ERROR: Failed to update BU file {bu_file}: {e}")
+            # Walk through all directories in the module
+            for root, dirs, files in os.walk(module_path):
+                for filename in files:
+                    if filename.endswith('.json') and not filename.endswith('_BU.json'):
+                        json_file = os.path.join(root, filename)
+                        bu_file = os.path.join(root, filename.replace('.json', '_BU.json'))
+                        
+                        # Check if a BU version exists
+                        if os.path.exists(bu_file):
+                            # Copy the corrected file to its BU version
+                            try:
+                                import shutil
+                                shutil.copy2(json_file, bu_file)
+                                updated_count += 1
+                                rel_path = os.path.relpath(bu_file, module_path)
+                                print(f"DEBUG: [Module Stitcher] Updated BU file: {rel_path}")
+                            except Exception as e:
+                                print(f"DEBUG: [Module Stitcher] ERROR: Failed to update BU file {bu_file}: {e}")
             
             return updated_count
             
