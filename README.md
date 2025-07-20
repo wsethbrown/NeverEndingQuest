@@ -1,5 +1,7 @@
 # NeverEndingQuest
 
+**Version 0.1.0 (Alpha)**
+
 An AI-powered Dungeon Master assistant for running 5th edition campaigns with infinite adventure potential. Built with innovative conversation compression and hub-and-spoke campaign architecture to overcome AI context limitations, enabling truly persistent worlds where every decision matters.
 
 ## Key Innovation: Overcoming AI Context Limitations

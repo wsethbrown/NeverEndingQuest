@@ -5,7 +5,71 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2025-01-18
+## [0.1.0] - 2025-01-20
+
+### Initial Alpha Release
+
+This is the first public alpha release of NeverEndingQuest, an AI-powered Dungeon Master for tabletop roleplaying using the world's most popular 5th edition system.
+
+#### Features
+- **Core Gameplay**
+  - Complete 5th edition rules implementation with automated combat
+  - Character creation wizard with class, race, and background selection
+  - Persistent character progression with XP and leveling
+  - Inventory management and equipment tracking
+  - Spell slot tracking and magical effects
+  - SRD 5.2.1 compliant content under CC BY 4.0
+
+- **AI Dungeon Master**
+  - Natural language processing for player actions
+  - Dynamic narration and scene descriptions
+  - NPC dialogue and personality management
+  - Quest and plot progression tracking
+  - Intelligent combat encounter management
+  - Validation system to ensure consistent gameplay
+
+- **Module System**
+  - Two starter modules included:
+    - The Thornwood Watch (Level 1-3): Stop a sorcerer corrupting the wilderness
+    - Keep of Doom (Level 3-5): Lift the curse from an ancient keep
+  - Hub-and-spoke architecture for infinite adventures
+  - Module transition with context preservation
+  - Dynamic area and location management
+  - AI can create new modules when adventures complete
+
+- **Innovation: Context Management**
+  - Conversation compression to overcome AI memory limits
+  - Persistent world state across sessions
+  - NPC memory and relationship tracking
+  - Adventure chronicle generation
+
+- **Web Interface**
+  - Real-time character sheet display
+  - Interactive command interface
+  - Combat tracker with initiative order
+  - Visual dice rolling
+  - Auto-scrolling adventure log
+  - Tabbed character data viewer
+
+#### Known Limitations
+- Alpha release - expect bugs and rough edges
+- Limited to two modules currently (AI can generate more)
+- Requires OpenAI API key (Claude support coming)
+- Web interface required for optimal experience
+- Some combat edge cases may need refinement
+
+#### Requirements
+- Python 3.8+
+- OpenAI API key with GPT-4 access
+- Modern web browser
+- ~100MB disk space
+
+#### Legal
+- Uses content from SRD 5.2.1 under Creative Commons Attribution 4.0
+- Fair Source License for codebase
+- No affiliation with Wizards of the Coast
+
+## [Unreleased] - 2025-01-20
 
 ### Changed
 - **Major Codebase Reorganization** for better maintainability:
