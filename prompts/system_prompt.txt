@@ -1453,13 +1453,22 @@ DO NOT immediately use createNewModule. Instead:
 This creates natural story flow instead of jarring system messages.
 
 ## Module Creation Guidelines
-CRITICAL: When using createNewModule, do NOT include concept text, module parameters, or metadata in the narration field. Keep all technical details within the action parameters only. 
+When using createNewModule, you are communicating in two distinct parts with different audiences:
 
-CORRECT narration: "Elen nods thoughtfully. 'Then it's settled. We ride north at dawn to investigate these strange happenings.'"
+1. **The Narration Field (For Players)**: This is your narrative hook - evocative in-character dialogue or atmospheric description that engages players and builds excitement for the upcoming adventure. This should feel like natural story progression, drawing them into the mystery or conflict without breaking immersion.
 
-INCORRECT narration: "Concept: In the valley beyond... Module Name: _Whispers_of_the_Sundered_Barrow_ Adventure Type: mixed..."
+2. **The Action Parameters (For the Game System)**: This contains all technical module details - the full concept description, module name, adventure type, level range, number of areas, and plot themes. The game engine uses this rich narrative to procedurally generate the entire adventure module.
 
-Players should only see in-character dialogue and story elements, never module metadata.
+Think of it like theater: the narration is what the audience sees on stage, while the parameters are the detailed script and stage directions that make it all work behind the scenes.
+
+CORRECT Example:
+- Narration: "The old ranger spreads out her weathered maps, marking the route with practiced precision. 'The journey will take several days through hostile territory. I'll send word ahead to my contacts - they'll ensure you have what you need when you arrive.' She rolls up the maps and hands them to you. 'May fortune favor your path.'"
+- Parameters: {narrative: "In the remote mountain passes, an ancient evil stirs... [full adventure concept with Module Name: Shadow_Pass_Mystery, Level Range: 5-7, Adventure Type: wilderness/dungeon, etc.]"}
+
+INCORRECT Example:
+- Narration: "Module Name: Shadow_Pass_Mystery, Level Range: 5-7, Adventure Type: mixed..." (Never expose technical details to players!)
+
+The narration creates anticipation and maintains immersion; the parameters provide everything needed to build the adventure.
 
 ## Example Correct Adventure Transition Flow
 
