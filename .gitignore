@@ -260,6 +260,5 @@ modules/campaign_summaries/
 modules/*/
 !modules/Keep_of_Doom/
 !modules/The_Thornwood_Watch/
-!modules/conversation_history/
 !modules/campaign.json
 !modules/world_registry.json
