@@ -192,6 +192,9 @@ def scan_available_modules():
                     'path': module_path
                 })
     
+    # Sort modules by minimum level (lowest first)
+    modules.sort(key=lambda m: m['level_range'].get('min', 99))
+    
     return modules
 
 def present_module_options(conversation, modules):
@@ -213,12 +216,24 @@ def present_module_options(conversation, modules):
     modules_text = "\n\n".join(module_list)
     
     # AI prompt for module selection
-    ai_prompt = f"""You are helping a new player choose their first 5th edition adventure module. Present the available modules in an engaging way and ask them to choose one.
+    ai_prompt = f"""You are the Dungeon Master for NeverEndingQuest, a text-based adventure game based on the world's most popular 5th edition roleplaying game. Welcome the player and present the available modules.
+
+Start with: "Welcome to NeverEndingQuest! This adventure game uses the SRD 5.2.1 rules (based on the world's most popular 5th edition roleplaying game) to bring you an immersive text-based fantasy experience."
+
+Then mention these key features:
+• AI-powered storytelling that adapts to your choices
+• Turn-based tactical combat with dice rolling
+• Character progression from level 1 to 20
+• Inventory management and magical items
+• Multiple adventure modules with interconnected stories
+• Save/load system to continue your adventures
 
 Available Modules:
 {modules_text}
 
-Ask the player which module they'd like to play, and explain that they can just tell you the number (1, 2, etc.) or the name of the module they prefer. Be encouraging and helpful!"""
+Note that new players should start with the lowest level module (usually 1-2) to experience the full story and character progression.
+
+Ask the player which module they'd like to play, and explain that they can just tell you the number (1, 2, etc.) or the name of the module they prefer."""
     
     conversation.append({"role": "system", "content": ai_prompt})
     
