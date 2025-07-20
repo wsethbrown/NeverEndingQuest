@@ -1249,61 +1249,136 @@ def parse_narrative_to_module_params(narrative: str) -> Dict[str, Any]:
     
     client = OpenAI(api_key=config.OPENAI_API_KEY)
     
-    parsing_prompt = """You are a module configuration parser. Given a narrative description of a 5th edition adventure module, extract the key parameters needed for module generation.
+    parsing_prompt = """You are a module configuration parser for the world's most popular 5th edition tabletop role-playing game. Extract adventure module parameters from a narrative description.
 
-The narrative may contain embedded parameters in this format:
-- **Module Name**: _Name_With_Underscores_
-- **Adventure Type**: Type description
-- **Level Range**: X-Y
-- **Number of Areas**: N
-- **Locations per Area**: X-Y
-- **Plot Themes**: Listed themes or goals
+Look for these elements in the narrative text:
+1. Module name - any title, location name, or adventure theme that could serve as the module title
+   - Examples: "Shadows of...", "The Lost...", "Curse of...", or prominent location names
+   - Convert to title case with underscores: "The_Lost_Temple", "Shadows_of_Darkwood"
+   
+2. Number of areas - count distinct locations, regions, or major zones described
+   - Look for phrases like: "three regions", "explore the castle, the forest, and the caves" (=3)
+   - Each major location mentioned is typically one area
+   - If unclear, default to 3
+   
+3. Adventure type - identify the primary environment or mix of environments:
+   - "dungeon" = underground, caves, crypts, dungeons
+   - "wilderness" = forests, mountains, outdoor exploration  
+   - "urban" = cities, towns, political intrigue
+   - "nautical" = sea-based, islands, ships
+   - "mixed" = combination of above (use this if multiple types)
+   
+4. Character level range - extract from phrases like:
+   - Direct: "for level 4-6 characters", "levels 3 to 5"
+   - Indirect: "novice adventurers" (1-3), "seasoned heroes" (5-8), "legendary champions" (15+)
+   - If vague or missing, default to 3-5
+   
+5. Plot themes - extract the main objectives, goals, or story elements:
+   - Look for action words: "stop", "rescue", "discover", "defeat", "recover"
+   - Keep it concise: "defeat the lich, save the kingdom"
+   - Focus on 2-3 main goals, not full descriptions
 
-Extract these values and return a JSON object with these fields:
-- module_name: The title with underscores (e.g., "Bell_of_the_Tidegrave")
-- num_areas: Number of distinct areas (extract from "Number of Areas")
-- locations_per_area: Average of the range given (e.g., "6-7" becomes 6 or 7)
-- level_range: {"min": X, "max": Y} from the Level Range
-- adventure_type: Extract type, lowercase ("dungeon", "wilderness", "urban", or "mixed")
-- plot_themes: Extract the core themes or goals as comma-separated values
+Return this exact JSON structure:
+{
+  "module_name": "The_Module_Name_Here",
+  "num_areas": 3,
+  "locations_per_area": 6,
+  "level_range": {"min": 3, "max": 5},
+  "adventure_type": "mixed",
+  "plot_themes": "defeat evil, rescue prisoners, discover artifact"
+}
 
-If values are ranges (like "6-7"), use the average or higher value.
-For plot themes, extract the essential goals/themes, not the full descriptions.
+CRITICAL RULES:
+- module_name MUST use underscores, not spaces
+- num_areas MUST be a number (not a string)
+- locations_per_area should be 5-7 (default 6)
+- level_range MUST have both "min" and "max" as numbers
+- adventure_type MUST be lowercase: "dungeon", "wilderness", "urban", "nautical", or "mixed"
+- plot_themes should be 3-10 words summarizing main goals
 
-Return ONLY the JSON object, no explanation."""
+Return ONLY the JSON object, no explanations or additional text."""
     
-    try:
-        response = client.chat.completions.create(
-            model=config.DM_SUMMARIZATION_MODEL,
-            temperature=0.3,
-            messages=[
-                {"role": "system", "content": parsing_prompt},
-                {"role": "user", "content": f"Parse this module narrative:\n\n{narrative}"}
-            ]
-        )
-        
-        result = response.choices[0].message.content.strip()
-        # Clean up potential code blocks
-        if "```json" in result:
-            result = result.split("```json")[1].split("```")[0].strip()
-        elif "```" in result:
-            result = result.split("```")[1].split("```")[0].strip()
+    max_retries = 3
+    current_prompt = parsing_prompt
+    
+    for attempt in range(max_retries):
+        try:
+            response = client.chat.completions.create(
+                model=config.DM_SUMMARIZATION_MODEL,
+                temperature=0.3,
+                messages=[
+                    {"role": "system", "content": current_prompt},
+                    {"role": "user", "content": f"Parse this module narrative:\n\n{narrative}"}
+                ]
+            )
             
-        parsed = json.loads(result)
-        debug(f"AI_PROCESSING: AI parsed narrative into: {json.dumps(parsed, indent=2)}", category="module_creation")
-        return parsed
-        
-    except Exception as e:
-        print(f"DEBUG: [Module Generator] ERROR: Failed to parse narrative with AI: {e}")
-        # Return sensible defaults
-        return {
-            "module_name": "New_Adventure",
-            "num_areas": 2,
-            "locations_per_area": 12,
-            "level_range": {"min": 3, "max": 5},
-            "adventure_type": "mixed",
-            "plot_themes": "adventure,mystery"
-        }
+            result = response.choices[0].message.content.strip()
+            # Clean up potential code blocks
+            if "```json" in result:
+                result = result.split("```json")[1].split("```")[0].strip()
+            elif "```" in result:
+                result = result.split("```")[1].split("```")[0].strip()
+                
+            parsed = json.loads(result)
+            
+            # Validate the required fields exist and have correct types
+            required_fields = {
+                "module_name": str,
+                "num_areas": int,
+                "locations_per_area": int,
+                "level_range": dict,
+                "adventure_type": str,
+                "plot_themes": str
+            }
+            
+            # Check all required fields
+            validation_errors = []
+            for field, expected_type in required_fields.items():
+                if field not in parsed:
+                    validation_errors.append(f"Missing required field: {field}")
+                elif not isinstance(parsed[field], expected_type):
+                    validation_errors.append(f"Field {field} should be {expected_type.__name__}, got {type(parsed[field]).__name__}")
+            
+            # Validate level_range structure
+            if "level_range" in parsed and isinstance(parsed["level_range"], dict):
+                if "min" not in parsed["level_range"] or "max" not in parsed["level_range"]:
+                    validation_errors.append("level_range must have 'min' and 'max' fields")
+                elif not isinstance(parsed["level_range"]["min"], int) or not isinstance(parsed["level_range"]["max"], int):
+                    validation_errors.append("level_range min and max must be integers")
+            
+            # Validate adventure_type is valid
+            valid_types = ["dungeon", "wilderness", "urban", "nautical", "mixed"]
+            if "adventure_type" in parsed and parsed["adventure_type"] not in valid_types:
+                validation_errors.append(f"adventure_type must be one of: {', '.join(valid_types)}")
+            
+            if validation_errors:
+                raise ValueError("; ".join(validation_errors))
+            
+            debug(f"AI_PROCESSING: AI parsed narrative into: {json.dumps(parsed, indent=2)}", category="module_creation")
+            return parsed
+            
+        except (json.JSONDecodeError, ValueError) as e:
+            if attempt < max_retries - 1:
+                print(f"DEBUG: [Module Generator] Parse attempt {attempt + 1} failed: {e}")
+                # Update prompt with error feedback for next attempt
+                current_prompt = parsing_prompt + f"\n\nPREVIOUS ERROR: {e}\nPlease ensure all fields are present with correct types."
+                continue
+            else:
+                print(f"DEBUG: [Module Generator] ERROR: Failed to parse after {max_retries} attempts: {e}")
+                
+        except Exception as e:
+            print(f"DEBUG: [Module Generator] ERROR: Unexpected error parsing narrative: {e}")
+            break
+    
+    # Return sensible defaults if all attempts fail
+    return {
+        "module_name": "New_Adventure",
+        "num_areas": 3,
+        "locations_per_area": 6,
+        "level_range": {"min": 3, "max": 5},
+        "adventure_type": "mixed",
+        "plot_themes": "adventure,mystery"
+    }
 
 def ai_driven_module_creation(params: Dict[str, Any]) -> tuple[bool, Optional[str]]:
     """AI-driven module creation that accepts a narrative and autonomously creates a module
