@@ -108,7 +108,7 @@
       "npcs": [
         {
           "name": "Ranger Elen",
-          "description": "The steadfast commander of Thornwood Outpost, Elen bears the weight of protecting the frontier trade routes. As a military professional, she demonstrates clear tactical thinking: assess threats first, then plan defenses, then secure resources. Her eyes are sharp yet weary beneath mounting losses. She will NOT overwhelm newcomers with every problem simultaneously, instead presenting challenges in order of operational priority - intelligence first, defense second, logistics third.",
+          "description": "The steadfast commander of Thornwood Outpost, Elen bears the weight of protecting the frontier trade routes. As a military professional, she demonstrates clear tactical thinking: assess threats first, then plan defenses, then secure resources. Her eyes are sharp yet weary beneath mounting losses. She will NOT overwhelm newcomers with every problem simultaneously, instead presenting challenges in order of operational priority - intelligence first, defense second, logistics third. [Elen will always refuse to join the party]",
           "attitude": "Professional but concerned, testing the party's competence while revealing the burden of command. FOLLOWS MILITARY PRIORITY SEQUENCE: focuses on intelligence gathering (Rusk interrogation) before discussing defensive measures (bell network) or supply concerns (Sila's problem). Demonstrates tactical thinking by addressing crises in logical order rather than overwhelming the party with simultaneous urgent requests."
         },
         {
