@@ -2425,6 +2425,10 @@ def main():
     """Main entry point with startup wizard integration"""
     setup_utf8_console()
     
+    # Always initialize game files from BU templates if needed
+    from utils.startup_wizard import initialize_game_files_from_bu
+    initialize_game_files_from_bu()
+    
     # Check if first-time setup is needed
     try:
         from utils.startup_wizard import startup_required, run_startup_sequence

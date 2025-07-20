@@ -39,10 +39,41 @@ STARTUP_CONVERSATION_FILE = "modules/conversation_history/startup_conversation.j
 
 # ===== MAIN ORCHESTRATION =====
 
+def initialize_game_files_from_bu():
+    """Initialize game files from BU templates if they don't exist"""
+    info("Initializing game files from BU templates", category="startup")
+    initialized_count = 0
+    
+    # Find all BU files in modules directory
+    for bu_file in Path("modules").rglob("*_BU.json"):
+        # Skip files in saved_games directories
+        if "saved_games" in str(bu_file):
+            continue
+            
+        # Determine the corresponding live file name
+        live_file = str(bu_file).replace("_BU.json", ".json")
+        
+        # Only copy if the live file doesn't exist
+        if not os.path.exists(live_file):
+            try:
+                shutil.copy2(bu_file, live_file)
+                debug(f"Initialized: {live_file} from {bu_file}", category="startup")
+                initialized_count += 1
+            except Exception as e:
+                warning(f"Failed to initialize {live_file}: {e}", category="startup")
+    
+    if initialized_count > 0:
+        info(f"Initialized {initialized_count} game files from BU templates", category="startup")
+    
+    return initialized_count
+
 def run_startup_sequence():
     """Main entry point for startup wizard"""
     print("\nDungeon Master: Welcome to your 5th Edition Adventure!")
     print("Dungeon Master: Let's set up your character and choose your adventure...\n")
+    
+    # Initialize game files from BU templates first
+    initialize_game_files_from_bu()
     
     try:
         # Initialize startup conversation
