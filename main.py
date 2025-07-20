@@ -2105,14 +2105,14 @@ def main_game_loop():
             plot_points_parts = []
             if current_plot_points:
                 plot_points_parts.append("At this location:")
-                plot_points_parts.extend([f"- {point['title']} ({point['id']}): {point['description']}" for point in current_plot_points])
+                plot_points_parts.extend([f"- {point['id']}: {point['title']} [{point.get('status', 'active')}]" for point in current_plot_points])
             
             # Add other active plots from different locations
             other_plots = [p for p in all_active_plot_points if p not in current_plot_points]
             if other_plots:
                 if plot_points_parts:  # Add separator if we have location plots
                     plot_points_parts.append("\nActive elsewhere in module:")
-                plot_points_parts.extend([f"- {point['title']} ({point['id']}, Location: {point.get('location', 'Unknown')}): {point['description']}" for point in other_plots])
+                plot_points_parts.extend([f"- {point['id']}: {point['title']} [{point.get('status', 'active')}] @{point.get('location', 'Unknown')}" for point in other_plots])
             
             plot_points_str = "\n".join(plot_points_parts) if plot_points_parts else "None active"
             
@@ -2122,7 +2122,7 @@ def main_game_loop():
                 for quest in point.get("sideQuests", []):
                     if quest["status"] != "completed":
                         location_info = f" [Location: {point.get('location', 'Unknown')}]" if point.get('location') != current_area_id else ""
-                        side_quests.append(f"- {quest['title']} ({quest['id']}, Status: {quest['status']}){location_info}: {quest['description']}")
+                        side_quests.append(f"- {quest['id']}: {quest['title']} [{quest['status']}]{location_info}")
             side_quests_str = "\n".join(side_quests) if side_quests else "None active"
 
             traps_str = "None listed"
