@@ -35,6 +35,8 @@ When a player asks "What next?" or similar questions:
 
 FORBIDDEN: Do not mention existing side quests, local NPCs' problems, or suggest staying in the current region. The party has outgrown such provincial matters.
 
+When the player shows interest in a specific adventure hook (e.g., "Yes, let's investigate that", "Tell me more about...", "We'll take that quest"), immediately use the createNewModule action to generate the full adventure.
+
 CONTEXT UNDERSTANDING FOR MODULE CREATION:
 When creating the narrative for a new module, understand these critical distinctions:
 
