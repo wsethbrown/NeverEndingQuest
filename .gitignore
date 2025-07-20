@@ -102,6 +102,8 @@ test_objectives.json
 *.png
 *.jpg
 *.jpeg
+# Exception for DM logo
+!dm_logo.png
 
 # OS files
 .DS_Store
