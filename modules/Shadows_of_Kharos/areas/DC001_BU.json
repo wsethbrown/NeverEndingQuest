@@ -1,0 +1,580 @@
+{
+  "areaId": "DC001",
+  "areaName": "Drowned Catacombs",
+  "areaType": "dungeon",
+  "areaDescription": "Stale brine seeps through fractured stone, pooling ankle-deep around toppled sarcophagi and glimmering with the reflections of phosphorescent lichen. The air thrums with the sibilant murmur of drowned voices, their whispers interrupted only by the sudden, sucking splash of something unseen slithering through the flooded gloom.",
+  "dangerLevel": "high",
+  "recommendedLevel": 6,
+  "climate": "controlled - cool and damp",
+  "terrain": "stone corridors and chambers",
+  "map": {
+    "mapId": "MAP_6",
+    "mapName": "Dungeon Map",
+    "totalRooms": 6,
+    "rooms": [
+      {
+        "id": "Z01",
+        "type": "throne room",
+        "connections": [
+          "Z02",
+          "Z04",
+          "Z06"
+        ],
+        "coordinates": "X2Y2",
+        "name": "Sunken Monarch's Court"
+      },
+      {
+        "id": "Z02",
+        "type": "hall",
+        "connections": [
+          "Z01",
+          "Z03",
+          "Z05"
+        ],
+        "coordinates": "X2Y3",
+        "name": "Echoing Tides Gallery"
+      },
+      {
+        "id": "Z03",
+        "type": "shrine",
+        "connections": [
+          "Z02",
+          "Z04"
+        ],
+        "coordinates": "X1Y3",
+        "name": "Shrine of Black Ember"
+      },
+      {
+        "id": "Z04",
+        "type": "laboratory",
+        "connections": [
+          "Z01",
+          "Z03"
+        ],
+        "coordinates": "X1Y2",
+        "name": "Drowned Alchemist's Vault"
+      },
+      {
+        "id": "Z05",
+        "type": "shrine",
+        "connections": [
+          "Z02"
+        ],
+        "coordinates": "X2Y4",
+        "name": "Chapel of Forgotten Depths"
+      },
+      {
+        "id": "Z06",
+        "type": "shrine",
+        "connections": [
+          "Z01"
+        ],
+        "coordinates": "X3Y2",
+        "name": "Sanctum of Silent Kings"
+      }
+    ],
+    "layout": [
+      [
+        "Z04",
+        "Z01",
+        "Z06"
+      ],
+      [
+        "Z03",
+        "Z02",
+        "Z  "
+      ],
+      [
+        "Z  ",
+        "Z05",
+        "Z  "
+      ]
+    ]
+  },
+  "locations": [
+    {
+      "locationId": "Z01",
+      "name": "Sunken Monarch's Court",
+      "type": "throne room",
+      "description": "A vast, waterlogged chamber with broken columns rising from swirling brine. The shattered throne of an ancient king sits on a dais beneath a domed ceiling, now encrusted with salt and bioluminescent lichen. The air is thick with the echoes of drowned royalty, and the water laps at toppled sarcophagi--some open, their occupants long gone.",
+      "coordinates": "X2Y2",
+      "connectivity": [
+        "Z02",
+        "Z04",
+        "Z06"
+      ],
+      "areaConnectivity": [
+        "Relic Chamber of Sable Gold"
+      ],
+      "areaConnectivityId": [
+        "V06"
+      ],
+      "npcs": [
+        {
+          "name": "The Drowned King",
+          "description": "Ancient undead sovereign--his regal form is crowned with barnacles and kelp, his eyes glowing blue-green from beneath a corroded crown. He speaks in a gurgling rasp, torn between regal pride and centuries of bitterness.",
+          "attitude": "Hostile, but may parley if shown ancient tokens of loyalty or if approached with reverence."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Drowned Noble Revenant",
+          "description": "Restless undead noble, haunted by their king's betrayal.",
+          "quantity": 2
+        },
+        {
+          "name": "Swarm of Bone Leeches",
+          "description": "Undead aquatic parasites that slither between the flooded stones.",
+          "quantity": 1
+        }
+      ],
+      "lootTable": [
+        "Barnacle-Crusted Scepter (rare, can cast Command 1/day)",
+        "Ancient Platinum Signet Ring (75 gp)",
+        "Crown of Whispering Currents (headband, advantage on checks to interact with spirits of the drowned)",
+        "Tarnished Silver Plate (worth 40 gp)",
+        "Potion of Water Breathing"
+      ],
+      "plotHooks": [
+        "The Drowned King seeks the return of a lost relic, the 'Tideborn Medallion,' rumored to be hidden deeper in the catacombs.",
+        "A ghostly vision hints at a secret passage beneath the throne, accessible only by offering a royal token."
+      ],
+      "dmInstructions": "This is the heart of the catacombs--use environmental hazards (e.g., rising water, collapsing masonry) to escalate the challenge. The Drowned King should be a dynamic adversary or tragic figure. Adjust combat for party size and level.",
+      "doors": [
+        {
+          "name": "Throne Chamber West Door",
+          "description": "Heavy stone doors carved with eroded royal crests and sea motifs.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 17,
+          "breakDC": 20,
+          "keyname": "Corroded Iron Key",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [
+        {
+          "name": "Simple Pressure Plate",
+          "description": "A hidden pressure plate among the stones triggers when stepped on, releasing iron spikes from the floor.",
+          "detectDC": 13,
+          "disableDC": 15,
+          "triggerDC": 12,
+          "damage": "1d6 piercing damage from hidden spikes"
+        }
+      ],
+      "dcChecks": [
+        "Perception DC 14: Notice subtle movement beneath the water (bone leeches)",
+        "History DC 16: Identify the throne's sigils as those of the lost Kharos dynasty",
+        "Investigation DC 15: Locate a loose stone hiding a cache beneath the dais"
+      ],
+      "accessibility": "Main entrances are accessible from three directions, but the chamber is partially flooded and footing is treacherous due to debris.",
+      "dangerLevel": "High",
+      "features": [
+        {
+          "name": "Dust",
+          "description": "A silt-like dust coats everything above the high tide line, disturbed only by recent movement."
+        },
+        {
+          "name": "Interesting Architecture",
+          "description": "The domed ceiling is painted with faded mosaics of stormy seas and regal processions."
+        },
+        {
+          "name": "Signs Of Age",
+          "description": "Collapsed columns, cracked flagstones, and water-eroded walls show centuries of neglect and flooding."
+        }
+      ],
+      "encounters": [
+        "The Drowned King and his revenant nobles rise if disturbed, but may parley if the party acts respectfully.",
+        "A sudden surge of water threatens to knock characters off their feet (DC 13 Strength save or be knocked prone)."
+      ],
+      "adventureSummary": "Confront the Drowned King--either in combat or negotiation--and discover the secrets beneath his throne."
+    },
+    {
+      "locationId": "Z02",
+      "name": "Echoing Tides Gallery",
+      "type": "hall",
+      "description": "A long, arched hall with water pooling along the uneven floor. Fragments of mirror-bright tile shimmer under the lichen's glow, reflecting ghostly shapes. The ceiling is hung with salt-corroded chandeliers, and the air is filled with the faint, echoing sound of distant waves and murmured royal decrees.",
+      "coordinates": "X2Y3",
+      "connectivity": [
+        "Z01",
+        "Z03",
+        "Z05"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Drowned Guards",
+          "description": "Animated corpses of royal guards, soaked and armored, who silently patrol the gallery.",
+          "quantity": 2
+        }
+      ],
+      "lootTable": [
+        "Silver ceremonial dagger (value 35 gp)",
+        "2x Pearls (value 50 gp each)",
+        "Rusted Key (opens the Throne Chamber West Door in R01)"
+      ],
+      "plotHooks": [
+        "Scraps of a waterlogged journal describe the transformation of the king and cryptic warnings about the 'Black Ember.'",
+        "A whispering spirit offers cryptic advice in exchange for a small offering (1 gp or a personal memento)."
+      ],
+      "dmInstructions": "This is the main corridor linking several chambers. Use the ghosts and echoes here for roleplay opportunities and guiding clues. The guards can be avoided with clever stealth.",
+      "doors": [
+        {
+          "name": "North Gallery Door",
+          "description": "Swollen, salt-stained oak double doors. They creak ominously when opened.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 12,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Stealth DC 13: Slip past the Drowned Guards without alerting them",
+        "Investigation DC 14: Discover a loose tile hiding a valuable pearl",
+        "Arcana DC 12: Sense lingering enchantment in the reflections"
+      ],
+      "accessibility": "Straightforward access, but water depth makes progress slow, and the floor is slick.",
+      "dangerLevel": "High",
+      "features": [
+        {
+          "name": "Chandeliers",
+          "description": "Corroded metal frames with shards of colored glass, their light long since extinguished."
+        }
+      ],
+      "encounters": [
+        "Drowned Guards silently patrol; fighting them risks alerting nearby undead.",
+        "Echoes of the past distract or frighten intruders--Wisdom save DC 12 or become frightened for 1 round."
+      ],
+      "adventureSummary": "The party traverses a haunted gallery, avoiding patrols and following echoes to key story clues."
+    },
+    {
+      "locationId": "Z03",
+      "name": "Shrine of Black Ember",
+      "type": "shrine",
+      "description": "An eerie shrine sunk in darkness, its walls scorched and runnels of oily residue dripping down from a blackened altar. A chunk of coal-black crystal pulses faintly at the heart of the room. The air is heavy with the scent of char and brine.",
+      "coordinates": "X1Y3",
+      "connectivity": [
+        "Z02",
+        "Z04"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Eliad",
+          "description": "The drowned herald--a spectral intermediary, robed in tattered finery, with eel-like eyes and a calm but unsettling presence. Eliad offers cryptic warnings and bargains to those who approach the Black Ember.",
+          "attitude": "Aloof, enigmatic, sometimes helpful but never fully trustworthy."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Black Ember Wraith",
+          "description": "A spectral guardian bound to the altar, trailing black embers in its wake.",
+          "quantity": 1
+        }
+      ],
+      "lootTable": [
+        "Black Ember Crystal (glows with eldritch power; use as spellcasting focus, grants resistance to fire for 1 hour/day)",
+        "Charred Votive Candles (10, faintly magical)",
+        "Scroll of Protection from Undead"
+      ],
+      "plotHooks": [
+        "Eliad hints at the catacomb's curse and offers guidance--for a price.",
+        "Touching the Black Ember grants a vision of the abbey lighthouse and a glimpse of Abbess Miralda's imprisonment."
+      ],
+      "dmInstructions": "Use Eliad for roleplay, foreshadowing, and as an uneasy ally. The shrine can be a place of both danger (the wraith) and revelation.",
+      "doors": [
+        {
+          "name": "Shrine Curtain",
+          "description": "A heavy, oilcloth curtain hangs in the archway, scorched at its base.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 8,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Religion DC 14: Recognize the altar's iconography as a heretical offshoot of the original abbey faith",
+        "Arcana DC 15: Sense the corrupting magic emanating from the Black Ember",
+        "Insight DC 13: Discern that Eliad is bound here against their will"
+      ],
+      "accessibility": "Accessible from the gallery or vault, though the entry is partially blocked by burnt debris.",
+      "dangerLevel": "High",
+      "features": [
+        {
+          "name": "Altar",
+          "description": "A low stone altar, cracked and blackened, its surface fused with the Black Ember crystal."
+        }
+      ],
+      "encounters": [
+        "Black Ember Wraith aggressively attacks anyone who disturbs the altar without appeasing Eliad.",
+        "Eliad attempts to strike bargains; can provide lore or falsehoods depending on party actions."
+      ],
+      "adventureSummary": "Negotiate with the spectral herald, confront the altar's guardian, and receive cryptic visions."
+    },
+    {
+      "locationId": "Z04",
+      "name": "Drowned Alchemist's Vault",
+      "type": "laboratory",
+      "description": "A cramped chamber lined with tarnished copper pipes, shattered glassware, and ruined workbenches. The air is thick with the scent of rotting chemicals and stagnant seawater. Several locked chests and half-flooded cabinets suggest treasures--and dangers--within.",
+      "coordinates": "X1Y2",
+      "connectivity": [
+        "Z01",
+        "Z03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Drowned Alchemist Zombie",
+          "description": "The waterlogged corpse of the royal alchemist, mindlessly guarding his last experiments.",
+          "quantity": 1
+        },
+        {
+          "name": "Acid Slime",
+          "description": "A semi-sentient ooze spawned from a failed experiment.",
+          "quantity": 1
+        }
+      ],
+      "lootTable": [
+        "Alchemist's Gilded Toolkit (value 60 gp, grants +1 on Alchemist's Supplies checks)",
+        "Potion of Resistance (Cold)",
+        "2x Alchemical Fire (flask)",
+        "Tideborn Medallion (quest item, unlocks secret chamber in R01)",
+        "Notes on Black Ember rituals"
+      ],
+      "plotHooks": [
+        "The notes provide cryptic instructions for breaking the lighthouse curse.",
+        "A hidden compartment in a workbench contains the Tideborn Medallion."
+      ],
+      "dmInstructions": "The vault is hazardous due to chemical spills and unstable shelves. The zombie alchemist may ignore intruders unless they tamper with his tools.",
+      "doors": [
+        {
+          "name": "Vault Iron Door",
+          "description": "A reinforced door streaked with verdigris, fitted with a complex lock.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 16,
+          "breakDC": 18,
+          "keyname": "Alchemist's Brass Key",
+          "trapped": true,
+          "trap": "A vial of corrosive acid drops on the opener (DC 13 Dex save or 2d6 acid damage)"
+        }
+      ],
+      "traps": [
+        {
+          "name": "Acid Trap",
+          "description": "A hidden vial above the door releases acid if the lock is tampered with incorrectly.",
+          "detectDC": 14,
+          "disableDC": 15,
+          "triggerDC": 14,
+          "damage": "2d6 acid damage"
+        }
+      ],
+      "dcChecks": [
+        "Investigation DC 15: Locate the secret compartment with the Tideborn Medallion",
+        "Arcana DC 13: Decipher the alchemical notes on ritual disruption",
+        "Perception DC 12: Notice the acid trap above the door"
+      ],
+      "accessibility": "One entrance is blocked by collapsed shelving (Athletics DC 12 to clear), but the other is accessible from the court.",
+      "dangerLevel": "High",
+      "features": [
+        {
+          "name": "Alchemical Equipment",
+          "description": "Ruined alembics, cracked vials, and corroded crucibles fill the benches and shelves."
+        },
+        {
+          "name": "Workbenches",
+          "description": "Several sturdy benches, one of which hides a secret compartment."
+        }
+      ],
+      "encounters": [
+        "Disturbing the workbenches rouses the alchemist zombie and triggers the acid slime's aggression.",
+        "A shelf collapses, scattering dangerous shards unless characters are careful (Dex save DC 11 to avoid 1d4 piercing)."
+      ],
+      "adventureSummary": "Recover lost alchemical wisdom and the vital Tideborn Medallion amid chemical hazards and restless dead."
+    },
+    {
+      "locationId": "Z05",
+      "name": "Chapel of Forgotten Depths",
+      "type": "shrine",
+      "description": "A flooded side chapel, ankle-deep in brackish water. Statues of forgotten saints, eroded beyond recognition, loom from alcoves. Offerings of seashells and coins lie scattered in tarnished bowls, and the air thrums with the faint lament of lost souls.",
+      "coordinates": "X2Y4",
+      "connectivity": [
+        "Z02"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Echoes of Lost Villagers",
+          "description": "Formless spirits that manifest as sorrowful wails and flickering lights.",
+          "quantity": 3
+        }
+      ],
+      "lootTable": [
+        "Silver holy symbol (value 25 gp)",
+        "Eel's-Eye Amulet (uncommon, grants advantage on saves vs. being frightened in flooded areas)",
+        "Blessed Candle (can be used to repel undead, one use)"
+      ],
+      "plotHooks": [
+        "A villager's ghost offers to lead the party to a hidden exit if they return a lost locket to the surface.",
+        "A mural partially reveals the history of the lighthouse's curse."
+      ],
+      "dmInstructions": "This is a roleplay-heavy space with potential for peaceful resolution. Spirits can be appeased with prayers or offerings.",
+      "doors": [
+        {
+          "name": "Chapel Archway",
+          "description": "A simple stone arch draped with sodden cloth, no door remains.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 5,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Religion DC 12: Recognize the forgotten saints and their connection to calming the drowned dead",
+        "Perception DC 13: Notice a hidden alcove containing the Blessed Candle",
+        "Insight DC 12: Sense the spirits can be soothed rather than fought"
+      ],
+      "accessibility": "Easy to access from the gallery, but cold water and low ceilings are uncomfortable.",
+      "dangerLevel": "High",
+      "features": [
+        {
+          "name": "Offering Bowls",
+          "description": "Tarnished bowls filled with shells, coins, and faded ribbons."
+        }
+      ],
+      "encounters": [
+        "Echoes of lost villagers attempt to possess or frighten intruders, but can be calmed with a DC 14 Persuasion or Religion check.",
+        "A statue topples if the water is disturbed (Dex save DC 12 to avoid 1d8 bludgeoning)."
+      ],
+      "adventureSummary": "Appease vengeful spirits, uncover lost history, and earn a spectral guide's favor."
+    },
+    {
+      "locationId": "Z06",
+      "name": "Sanctum of Silent Kings",
+      "type": "shrine",
+      "description": "A silent, circular chamber lined with carved alcoves containing crumbling effigies of kings. The air is thick and still, save for the occasional drip of water from above. Dozens of offering bowls rest before each effigy, overflowing with corroded trinkets and river stones.",
+      "coordinates": "X3Y2",
+      "connectivity": [
+        "Z01"
+      ],
+      "areaConnectivity": [
+        "The Black Lantern Hearth"
+      ],
+      "areaConnectivityId": [
+        "AD01"
+      ],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Silent King Effigy",
+          "description": "A stone construct animated by the collective will of the dead kings.",
+          "quantity": 1
+        }
+      ],
+      "lootTable": [
+        "Sceptre Fragment (can be reassembled with the king's scepter from R01 for a unique boon)",
+        "Jeweled Cuff (worth 80 gp)",
+        "Blessed River Stone (advantage on saves vs. necrotic damage, 1 use)"
+      ],
+      "plotHooks": [
+        "Reuniting the Sceptre Fragment and the king's scepter may earn the party a royal blessing or free a trapped spirit.",
+        "A sequence of symbols on the effigies hints at the key to the throne room's secret passage."
+      ],
+      "dmInstructions": "The construct is dormant until offerings are disturbed. The room's quiet can be used for tense, contemplative roleplay.",
+      "doors": [
+        {
+          "name": "Sanctum Grate",
+          "description": "A rusted iron grate covers the entry, half-submerged in water.",
+          "type": "regular",
+          "locked": true,
+          "lockDC": 14,
+          "breakDC": 15,
+          "keyname": "Sanctum Iron Key",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "History DC 13: Identify the effigies as former rulers of Kharos",
+        "Investigation DC 14: Spot the Sceptre Fragment wedged in an offering bowl",
+        "Religion DC 15: Sense that the bowls can be used to placate the construct"
+      ],
+      "accessibility": "Accessible from the throne room, but half-flooded and the grate must be unlocked or broken.",
+      "dangerLevel": "High",
+      "features": [
+        {
+          "name": "Religious Symbols",
+          "description": "Ancient glyphs of rulership and the sea, faded but still distinct on the walls."
+        },
+        {
+          "name": "Offering Bowls",
+          "description": "Large bowls, most filled with corroded coins, river stones, and scraps of royal regalia."
+        }
+      ],
+      "encounters": [
+        "Disturbing the offerings or failing to make a respectful gesture awakens the Silent King Effigy.",
+        "If the Sceptre Fragment is rejoined with the king's scepter, a ghostly king offers a blessing (lesser restoration, once)."
+      ],
+      "adventureSummary": "Earn royal favor or wrath; gather relics to unlock the catacombs' deeper secrets."
+    }
+  ],
+  "randomEncounters": [
+    {
+      "roll": "1-10",
+      "encounter": "dangerous predator",
+      "description": "A dangerous predator appropriate for level 6 parties"
+    },
+    {
+      "roll": "11-20",
+      "encounter": "monster pack",
+      "description": "A monster pack appropriate for level 6 parties"
+    },
+    {
+      "roll": "21-30",
+      "encounter": "monster pack",
+      "description": "A monster pack appropriate for level 6 parties"
+    },
+    {
+      "roll": "31-40",
+      "encounter": "enemy squad",
+      "description": "A enemy squad appropriate for level 6 parties"
+    },
+    {
+      "roll": "41-50",
+      "encounter": "monster pack",
+      "description": "A monster pack appropriate for level 6 parties"
+    },
+    {
+      "roll": "51-60",
+      "encounter": "monster pack",
+      "description": "A monster pack appropriate for level 6 parties"
+    }
+  ],
+  "areaFeatures": [
+    "hidden passages",
+    "forgotten shrines",
+    "ancient murals"
+  ],
+  "notes": "Consider lighting sources and trap placement. Underground areas may have limited resources."
+}

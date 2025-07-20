@@ -1,0 +1,84 @@
+{
+  "mapId": "MAP_6",
+  "mapName": "Dungeon Map",
+  "totalRooms": 6,
+  "rooms": [
+    {
+      "id": "R01",
+      "type": "hall",
+      "connections": [
+        "R02",
+        "R03"
+      ],
+      "coordinates": "X2Y2",
+      "name": "Ashen Cloister Walk"
+    },
+    {
+      "id": "R02",
+      "type": "laboratory",
+      "connections": [
+        "R01",
+        "R04",
+        "R05"
+      ],
+      "coordinates": "X2Y1",
+      "name": "Brinefire Alchemist's Den"
+    },
+    {
+      "id": "R03",
+      "type": "throne room",
+      "connections": [
+        "R01",
+        "R04"
+      ],
+      "coordinates": "X3Y2",
+      "name": "Drowned Sovereign's Court"
+    },
+    {
+      "id": "R04",
+      "type": "treasure room",
+      "connections": [
+        "R02",
+        "R03"
+      ],
+      "coordinates": "X3Y1",
+      "name": "Gloam-Tide Vault"
+    },
+    {
+      "id": "R05",
+      "type": "entrance",
+      "connections": [
+        "R02",
+        "R06"
+      ],
+      "coordinates": "X2Y0",
+      "name": "Crumbling Lantern Vestibule"
+    },
+    {
+      "id": "R06",
+      "type": "treasure room",
+      "connections": [
+        "R05"
+      ],
+      "coordinates": "X1Y0",
+      "name": "Relic Chamber of Sable Gold"
+    }
+  ],
+  "layout": [
+    [
+      "R06",
+      "R05",
+      "   "
+    ],
+    [
+      "   ",
+      "R02",
+      "R04"
+    ],
+    [
+      "   ",
+      "R01",
+      "R03"
+    ]
+  ]
+}

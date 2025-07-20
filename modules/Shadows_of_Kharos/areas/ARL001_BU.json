@@ -1,0 +1,663 @@
+{
+  "areaId": "ARL001",
+  "areaName": "Abbey Ruins & Lighthouse",
+  "areaType": "dungeon",
+  "areaDescription": "Moonlight spills through shattered stained glass, painting prismatic ghosts across salt-bitten stone as the wind whistles through the hollow tower above--a lighthouse whose beacon now flickers with eldritch, unnatural light. The air shudders with distant, bell-like chimes and the persistent tang of brine, while shadows ripple along the broken pews and moss-choked passages, hinting at secrets neither wholly forsaken nor entirely dead.",
+  "dangerLevel": "medium",
+  "recommendedLevel": 5,
+  "climate": "controlled - cool and damp",
+  "terrain": "stone corridors and chambers",
+  "map": {
+    "mapId": "MAP_6",
+    "mapName": "Dungeon Map",
+    "totalRooms": 6,
+    "rooms": [
+      {
+        "id": "V01",
+        "type": "hall",
+        "connections": [
+          "V02",
+          "V03"
+        ],
+        "coordinates": "X2Y2",
+        "name": "Ashen Cloister Walk"
+      },
+      {
+        "id": "V02",
+        "type": "laboratory",
+        "connections": [
+          "V01",
+          "V04",
+          "V05"
+        ],
+        "coordinates": "X2Y1",
+        "name": "Brinefire Alchemist's Den"
+      },
+      {
+        "id": "V03",
+        "type": "throne room",
+        "connections": [
+          "V01",
+          "V04"
+        ],
+        "coordinates": "X3Y2",
+        "name": "Drowned Sovereign's Court"
+      },
+      {
+        "id": "V04",
+        "type": "treasure room",
+        "connections": [
+          "V02",
+          "V03"
+        ],
+        "coordinates": "X3Y1",
+        "name": "Gloam-Tide Vault"
+      },
+      {
+        "id": "V05",
+        "type": "entrance",
+        "connections": [
+          "V02",
+          "V06"
+        ],
+        "coordinates": "X2Y0",
+        "name": "Crumbling Lantern Vestibule"
+      },
+      {
+        "id": "V06",
+        "type": "treasure room",
+        "connections": [
+          "V05"
+        ],
+        "coordinates": "X1Y0",
+        "name": "Relic Chamber of Sable Gold"
+      }
+    ],
+    "layout": [
+      [
+        "V06",
+        "V05",
+        "V  "
+      ],
+      [
+        "V  ",
+        "V02",
+        "V04"
+      ],
+      [
+        "V  ",
+        "V01",
+        "V03"
+      ]
+    ]
+  },
+  "locations": [
+    {
+      "locationId": "V01",
+      "name": "Ashen Cloister Walk",
+      "type": "hall",
+      "description": "Moonlight spills through shattered stained glass, painting prismatic ghosts across salt-bitten stone. The wind whistles through broken arches and the high, ribbed vaults of the cloister, where the air tastes of brine and ancient incense. Flickering shadows stretch along the cracked, mosaic floor and battered pews, while faded banners flutter between crumbling pillars. The echoes of distant chimes mingle with the hush of lapping waves far below.",
+      "coordinates": "X2Y2",
+      "connectivity": [
+        "V02",
+        "V03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [],
+      "monsters": [
+        {
+          "name": "Salt Wraiths",
+          "description": "Semi-corporeal spirits of drowned monks; they flicker in and out of vision, attacking with briny grasp and ghostly chants.",
+          "count": 2
+        }
+      ],
+      "lootTable": [
+        "Fragmented silver holy symbol (15 gp, relevant to the abbey)",
+        "A vial of preserved holy water (glows faintly)",
+        "Scrap of a torn journal page with clues to the Brinefire Alchemist's Den"
+      ],
+      "plotHooks": [
+        "A hidden alcove shows a faded mural depicting the lighthouse's original, uncorrupted flame.",
+        "The spectral wailing grows louder whenever someone mentions the Drowned King."
+      ],
+      "dmInstructions": "Use the Salt Wraiths as both threat and narrative device--they can be reasoned with via religion or persuasion checks, but will attack if disturbed. The torn journal page leads the party toward the laboratory and hints at the abbey's tragic fate.",
+      "doors": [
+        {
+          "name": "Stained Glass Door",
+          "description": "An arched door of thick, colored glass now shattered in places and rimed with salt.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 10,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "Heavy Oak Door",
+          "description": "A reinforced wooden door, warped by years of damp, leading east toward the Drowned Sovereign's Court.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 15,
+          "breakDC": 17,
+          "keyname": "Abbey Iron Key",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Religion DC 13: Identify the holy symbols and mural as relating to the goddess of tides and safe passage.",
+        "Investigation DC 15: Discover the hidden alcove and the journal scrap.",
+        "Perception DC 12: Notice the chilling wind carries ghostly whispers tied to the Salt Wraiths' presence."
+      ],
+      "accessibility": "Normal access; main thoroughfare from the entrance to deeper sections.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Chandeliers",
+          "description": "Rust-gnawed iron chandeliers hang precariously, casting warped shadows when lit."
+        },
+        {
+          "name": "Banners",
+          "description": "Tattered banners bear the faded crest of the original abbey, now stained with salt and age."
+        },
+        {
+          "name": "Faded Mural",
+          "description": "A mural above the archway shows the lighthouse's original golden flame holding back a storm."
+        }
+      ],
+      "encounters": [
+        {
+          "trigger": "Disturbing the pews or chanting aloud",
+          "effect": "Salt Wraiths manifest and attempt to drive off intruders."
+        }
+      ],
+      "adventureSummary": "The cloister is haunted but offers clues to the abbey's purpose, the lighthouse's former sanctity, and the nature of the corruption."
+    },
+    {
+      "locationId": "V02",
+      "name": "Brinefire Alchemist's Den",
+      "type": "laboratory",
+      "description": "Hidden beneath heaps of shattered glassware and tarnished brass, this chamber reeks of iodine and burnt salt. Alchemist's vessels rest on collapsed tables, with brine-crusted tomes and etched diagrams of the lighthouse's arcane flame. Dim, aquamarine light pulses from a cracked cauldron, illuminating scattered notes and a faint, acrid haze.",
+      "coordinates": "X2Y1",
+      "connectivity": [
+        "V01",
+        "V04",
+        "V05"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Mira Tidewise",
+          "description": "An old lighthouse keeper hiding vital secrets; she is exhausted, wary, and desperate for help but fiercely protective of her remaining knowledge.",
+          "attitude": "Guarded but hopeful if shown respect or proof of good intent."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Alchemical Homunculus",
+          "description": "A tiny, salt-encrusted construct made to tend the laboratory, erratic due to the corrupted brinefire.",
+          "count": 1
+        }
+      ],
+      "lootTable": [
+        "Alchemist's supplies (partially functional, worth 25 gp)",
+        "Notes on rituals to cleanse corrupt flame (requires arcana check to decipher)",
+        "Potion of Water Breathing",
+        "Brass key labeled 'Vault' (opens a door in the Gloam-Tide Vault)"
+      ],
+      "plotHooks": [
+        "Mira offers knowledge of the lighthouse's curse, revealing the need for a ritual using relics from both vaults.",
+        "Alchemical diagrams hint at experiments involving the Drowned King's relics and why the lighthouse beacon is unnatural."
+      ],
+      "dmInstructions": "Mira Tidewise is vital for lore and may barter information for protection or assistance. The Homunculus may attack if the party disturbs sensitive equipment or threatens Mira.",
+      "doors": [
+        {
+          "name": "Reinforced Metal Door",
+          "description": "A sturdy, corroded door with brassy inlays; sigils are faintly visible in the grime.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 14,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "Trapdoor to Vault",
+          "description": "A hidden trapdoor set into the floor, covered by a tattered rug; leads to the Gloam-Tide Vault.",
+          "type": "secret",
+          "locked": true,
+          "lockDC": 18,
+          "breakDC": 16,
+          "keyname": "Brass key labeled 'Vault'",
+          "trapped": true,
+          "trap": "Poisoned needle prick (1d6 poison damage, DC 13 Con save halves)"
+        }
+      ],
+      "traps": [
+        {
+          "name": "Simple Pressure Plate",
+          "description": "A hidden pressure plate under broken tiles triggers spring-loaded spikes.",
+          "detectDC": 13,
+          "disableDC": 15,
+          "triggerDC": 12,
+          "damage": "1d6 piercing damage from hidden spikes"
+        }
+      ],
+      "dcChecks": [
+        "Arcana DC 15: Decipher the notes about cleansing the lighthouse flame.",
+        "Persuasion DC 14: Convince Mira to share her knowledge or join the party.",
+        "Investigation DC 13: Find the hidden trapdoor to the Vault."
+      ],
+      "accessibility": "Normal access from the Cloister Walk; the trapdoor to the vault is concealed and trapped.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Experiment Notes",
+          "description": "Soggy, ink-blotted notes detail dangerous experiments with alchemical brinefire."
+        },
+        {
+          "name": "Alchemical Equipment",
+          "description": "Cracked cauldrons and crusted alembics, some still faintly warm."
+        },
+        {
+          "name": "Salt-etched Diagrams",
+          "description": "Diagrams of the lighthouse flame show sigils for warding and corruption."
+        }
+      ],
+      "encounters": [
+        {
+          "trigger": "Disturbing the cauldron or threatening Mira",
+          "effect": "Alchemical Homunculus attacks; laboratory hazards (minor explosions, boiling brine) may occur."
+        }
+      ],
+      "adventureSummary": "A center for the abbey's doomed magical research; contains vital clues, a wary ally (Mira), and a secret path to a treasure vault."
+    },
+    {
+      "locationId": "V03",
+      "name": "Drowned Sovereign's Court",
+      "type": "throne room",
+      "description": "Shadow-drenched and lined with barnacle-encrusted statues, this throne room feels unnaturally cold. A great, salt-scabbed throne rises at the room's far end, with water seeping through cracked tiles and pooling beneath. Ancient banners hang in tatters, and an oppressive silence pervades--broken only by the occasional groan of stone and the whisper of drowned voices.",
+      "coordinates": "X3Y2",
+      "connectivity": [
+        "V01",
+        "V04"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "The Drowned King",
+          "description": "Ancient undead sovereign, clad in rotted regal attire and crowned with kelp and coral. Commands the drowned dead and is bound to the lighthouse's curse.",
+          "attitude": "Coldly regal; may attempt parley before unleashing violence unless attacked first."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Drowned Retainers",
+          "description": "Undead courtiers fused with barnacles and seaweed, loyal to their king.",
+          "count": 2
+        }
+      ],
+      "lootTable": [
+        "The Drowned King's Signet (arcane focus for the cleansing ritual)",
+        "Corroded ceremonial trident (counts as a +1 trident if restored)",
+        "Jet-black crown (75 gp, valuable to collectors of cursed relics)"
+      ],
+      "plotHooks": [
+        "The Drowned King's presence anchors the curse; defeating or bargaining with him is key to progressing.",
+        "A spectral intermediary (Eliad) may appear during combat or negotiation, offering cryptic guidance."
+      ],
+      "dmInstructions": "The Drowned King is a major antagonist. If the party attempts negotiation, he may reveal tragic history or offer a dark pact in exchange for mercy or aid. The fight should be challenging but winnable; consider using lair actions themed around flooding or shadowy grasp.",
+      "doors": [
+        {
+          "name": "Coral-Encrusted Double Door",
+          "description": "Tall doors overgrown with barnacles and pale coral, swollen shut by centuries of damp.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 18,
+          "breakDC": 20,
+          "keyname": "Ceremonial Trident or King's Signet",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "History DC 15: Recall the legend of the Drowned King's pact with dark forces.",
+        "Religion DC 14: Sense the room's overwhelming necromantic energy.",
+        "Insight DC 12: Detect the King's hesitance before battle; he may be reasoned with."
+      ],
+      "accessibility": "Normal access from the Cloister Walk; double doors require a key item or brute force.",
+      "dangerLevel": "High",
+      "features": [
+        {
+          "name": "Signs Of Age",
+          "description": "Floors are scoured by countless years of tide and salt; statues are worn and pitted."
+        },
+        {
+          "name": "Corroded Throne",
+          "description": "The throne is fused with barnacles and kelp, the seat of the Drowned King's power."
+        },
+        {
+          "name": "Flooded Floor",
+          "description": "Saltwater pools in depressions, concealing bones and ancient coins."
+        }
+      ],
+      "encounters": [
+        {
+          "trigger": "Approaching the throne or speaking the King's name aloud",
+          "effect": "The Drowned King and his retainers rise to confront the party."
+        }
+      ],
+      "adventureSummary": "The heart of the abbey's tragedy--a tense encounter with the Drowned King, whose defeat or appeasement is crucial to breaking the lighthouse's curse."
+    },
+    {
+      "locationId": "V04",
+      "name": "Gloam-Tide Vault",
+      "type": "treasure room",
+      "description": "A sunken, vault-like chamber sealed by rusted gates and guarded by eldritch glyphs. The air is thick with the tang of corroded coin and wet stone. Faint blue light from the lighthouse above filters through a cracked ceiling, illuminating piles of tarnished relics and chests crusted with salt. Strange patterns swirl across the stone, suggesting ancient wards at work.",
+      "coordinates": "X3Y1",
+      "connectivity": [
+        "V02",
+        "V03"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Eliad",
+          "description": "The drowned herald, a spectral intermediary. He appears when the vault's main chest is approached, offering warnings or cryptic advice.",
+          "attitude": "Hauntingly neutral; desires only the completion of the cleansing ritual."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Animated Treasure Guardians",
+          "description": "Eldritch-empowered constructs made of coins, coral, and shattered relics, animated by the curse.",
+          "count": 1
+        }
+      ],
+      "lootTable": [
+        "Sable gold ingot (50 gp, used in ritual)",
+        "Amulet of Brine Protection (grants resistance to poison damage while worn)",
+        "Ceremonial chalice inlaid with obsidian (value 75 gp)",
+        "Minor potion: Elixir of Purification (removes curse or poison from one item/person, single use)"
+      ],
+      "plotHooks": [
+        "The presence of Eliad confirms the need for both the Drowned King's and abbey's relics to lift the curse.",
+        "Ancient wards can be reactivated to temporarily suppress the lighthouse's unnatural beacon."
+      ],
+      "dmInstructions": "Eliad does not attack, but may impede or help the party based on their intentions; roleplay his enigmatic advice. The Treasure Guardian will animate if the party disturbs certain relics or attempts forceful entry.",
+      "doors": [
+        {
+          "name": "Iron Vault Gate",
+          "description": "A low, arched iron gate carved with tide motifs and eldritch glyphs; heavily rusted but unbroken.",
+          "type": "heavy",
+          "locked": true,
+          "lockDC": 18,
+          "breakDC": 20,
+          "keyname": "Brass key labeled 'Vault'",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Arcana DC 14: Identify the glyphs as ancient wards against undeath.",
+        "Perception DC 13: Spot a loose tile concealing the Elixir of Purification.",
+        "Insight DC 15: Decipher Eliad's riddles about the curse and the cleansing ritual."
+      ],
+      "accessibility": "Entry from the laboratory via hidden trapdoor or from throne room via a locked and warded gate.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Signs Of Age",
+          "description": "Coins and relics are fused with barnacles and streaks of black salt."
+        },
+        {
+          "name": "Interesting Architecture",
+          "description": "Vault walls are inscribed with spiraling patterns that seem to shift in the dim light."
+        },
+        {
+          "name": "Dust",
+          "description": "A fine, silvery dust coats the floor, disturbed only by ghostly footprints."
+        }
+      ],
+      "encounters": [
+        {
+          "trigger": "Opening the main treasure chest or touching the wards",
+          "effect": "The Animated Treasure Guardian stirs to life and attacks."
+        }
+      ],
+      "adventureSummary": "The vault holds key relics, a spectral guide (Eliad), and magical wards vital to the lighthouse's fate."
+    },
+    {
+      "locationId": "V05",
+      "name": "Crumbling Lantern Vestibule",
+      "type": "entrance",
+      "description": "The battered entryway to the abbey and lighthouse complex. Moonlight reveals shattered lanterns, broken icons, and a salt-caked mosaic on the floor showing the abbey's crest. The air is thick with the scent of rot and brine, and the stone underfoot is slick and treacherous. A narrow passage leads north into deeper darkness, while a hidden opening behind a crumbling wall provides access to a forgotten relic chamber.",
+      "coordinates": "X2Y0",
+      "connectivity": [
+        "V02",
+        "V06"
+      ],
+      "areaConnectivity": [],
+      "areaConnectivityId": [],
+      "npcs": [
+        {
+          "name": "Abbess Miralda",
+          "description": "Missing spiritual leader, seen in visions or as a captive. Her weakened form flickers in and out of sight near the mosaic, bound by spectral chains.",
+          "attitude": "Pleading, confused, and desperate to warn intruders of the curse."
+        }
+      ],
+      "monsters": [
+        {
+          "name": "Cloister Echos",
+          "description": "Whispering remnants of failed exorcisms, they manifest as chilling drafts or shadows that lash out if the abbess's vision is disturbed.",
+          "count": 2
+        }
+      ],
+      "lootTable": [
+        "Abbey Iron Key (opens the heavy oak door in the Cloister Walk)",
+        "Scroll of Sanctuary (divine magic, single use)",
+        "Piece of tattered vestment, marked with esoteric runes"
+      ],
+      "plotHooks": [
+        "The vision of Abbess Miralda reveals the presence of a relic hidden in the area, needed for the ritual.",
+        "She warns of the Drowned King and hints at the need for both faith and courage to proceed."
+      ],
+      "dmInstructions": "Miralda's vision can only be interacted with via magic (detect magic, speak with dead, etc.) or strong insight; the vision can lead the party toward the hidden relic chamber. Monsters manifest as the abbess's vision flickers or if the mosaic is disturbed.",
+      "doors": [
+        {
+          "name": "Weathered Door",
+          "description": "A swollen wooden door with rusted hinges, barely hanging on its frame.",
+          "type": "regular",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 10,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        },
+        {
+          "name": "Hidden Opening",
+          "description": "A cracked section of wall, partially collapsed, obscured by fallen rubble. Leads to the Relic Chamber of Sable Gold.",
+          "type": "secret",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 12,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Perception DC 12: Find the hidden opening in the collapsed wall.",
+        "Insight DC 13: Understand the abbess's spectral warnings.",
+        "Religion DC 12: Discern the significance of the salt-caked mosaic."
+      ],
+      "accessibility": "Main entrance; hidden passage requires perception or investigation to find.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Weathered Door",
+          "description": "Entrance door hangs loosely, creaking with the wind."
+        },
+        {
+          "name": "Hidden Opening",
+          "description": "Concealed by rubble, this passage allows access to a forbidden relic chamber."
+        },
+        {
+          "name": "Narrow Passage",
+          "description": "Leads north, its walls tight and claustrophobic, slick with brine."
+        },
+        {
+          "name": "Salt-caked Mosaic",
+          "description": "A faded abbey crest, partially obscured by salt crystals and cracks."
+        }
+      ],
+      "encounters": [
+        {
+          "trigger": "Attempting to touch the abbess's vision or disturbing the mosaic",
+          "effect": "Cloister Echos lash out, seeking to drive the party away."
+        }
+      ],
+      "adventureSummary": "The haunted entryway foreshadows the abbey's tragedy, provides access to crucial relics, and sets the tone for the party's struggle against the curse."
+    },
+    {
+      "locationId": "V06",
+      "name": "Relic Chamber of Sable Gold",
+      "type": "treasure room",
+      "description": "A small, hidden chamber lined with gilded tiles now dulled by time and salt. A broken altar holds relics wreathed in shadows, with dust swirling in the faint breeze from the hidden passage. The atmosphere is tense, and it feels as if the shadows themselves are watching. Once a sanctuary for sacred treasures, the chamber now guards the last hope for the abbey's redemption.",
+      "coordinates": "X1Y0",
+      "connectivity": [
+        "V05"
+      ],
+      "areaConnectivity": [
+        "Sunken Monarch's Court"
+      ],
+      "areaConnectivityId": [
+        "Z01"
+      ],
+      "npcs": [
+        {
+          "name": "Abbess Miralda (changed by her ordeal)",
+          "description": "No longer a mere vision, Miralda is now a spectral remnant, her features warped by exposure to the curse. She pleads for the relics to be used wisely.",
+          "attitude": "Sorrowful, repentant, and desperate to see the abbey freed."
+        }
+      ],
+      "monsters": [],
+      "lootTable": [
+        "Sable gold reliquary (required for the lighthouse cleansing ritual)",
+        "Silvered icon of the Tides (acts as a holy symbol)",
+        "Ritual dagger engraved with protective runes"
+      ],
+      "plotHooks": [
+        "Miralda warns that using the relic in the ritual is the only hope for redemption.",
+        "She hints that the ritual must be performed atop the lighthouse, with relics from both vaults."
+      ],
+      "dmInstructions": "Miralda's new form offers both critical guidance and a tragic warning. She cannot leave the room but will answer questions about the abbey's past, the nature of the curse, or the required ritual. If the relics are mishandled, she may become hostile or trigger a lingering curse.",
+      "doors": [
+        {
+          "name": "Hidden Opening",
+          "description": "A crumbling stone archway behind a fallen shelf, its edges marked with runes.",
+          "type": "secret",
+          "locked": false,
+          "lockDC": 0,
+          "breakDC": 10,
+          "keyname": "",
+          "trapped": false,
+          "trap": ""
+        }
+      ],
+      "traps": [],
+      "dcChecks": [
+        "Religion DC 13: Consecrate the relics to prevent further corruption.",
+        "Persuasion DC 14: Convince Miralda's spirit to share ritual secrets.",
+        "Investigation DC 12: Locate the mechanism that seals the chamber from intrusion."
+      ],
+      "accessibility": "Only accessible via the hidden opening from the vestibule. Undiscovered without careful searching.",
+      "dangerLevel": "Medium",
+      "features": [
+        {
+          "name": "Dust",
+          "description": "Thick dust blankets the altar and floor, swirling unnaturally in any breeze."
+        },
+        {
+          "name": "Interesting Architecture",
+          "description": "Gilded tiles and old runes hint at the abbey's former glory."
+        },
+        {
+          "name": "Broken Altar",
+          "description": "Holds the vital relics for the ritual, its surface scarred by the passage of time."
+        }
+      ],
+      "encounters": [
+        {
+          "trigger": "Mishandling relics or attempting to steal them",
+          "effect": "Miralda's spirit becomes wrathful, cursing the offender with disadvantage on Wisdom checks until the curse is cleansed."
+        }
+      ],
+      "adventureSummary": "The hidden sanctuary of the abbey's last hope, where the party receives crucial relics and wisdom from the abbess's tragic spirit."
+    }
+  ],
+  "randomEncounters": [
+    {
+      "roll": "1-10",
+      "encounter": "bandit patrol",
+      "description": "A bandit patrol appropriate for level 5 parties"
+    },
+    {
+      "roll": "11-20",
+      "encounter": "bandit patrol",
+      "description": "A bandit patrol appropriate for level 5 parties"
+    },
+    {
+      "roll": "21-30",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 5 parties"
+    },
+    {
+      "roll": "31-40",
+      "encounter": "hostile creature",
+      "description": "A hostile creature appropriate for level 5 parties"
+    },
+    {
+      "roll": "41-50",
+      "encounter": "hostile creature",
+      "description": "A hostile creature appropriate for level 5 parties"
+    },
+    {
+      "roll": "51-60",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 5 parties"
+    },
+    {
+      "roll": "61-70",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 5 parties"
+    },
+    {
+      "roll": "71-80",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 5 parties"
+    },
+    {
+      "roll": "81-90",
+      "encounter": "territorial beast",
+      "description": "A territorial beast appropriate for level 5 parties"
+    }
+  ],
+  "areaFeatures": [
+    "hidden passages",
+    "ancient murals",
+    "forgotten shrines"
+  ],
+  "notes": "Consider lighting sources and trap placement. Underground areas may have limited resources."
+}

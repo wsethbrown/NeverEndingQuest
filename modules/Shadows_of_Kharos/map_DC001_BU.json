@@ -1,0 +1,84 @@
+{
+  "mapId": "MAP_6",
+  "mapName": "Dungeon Map",
+  "totalRooms": 6,
+  "rooms": [
+    {
+      "id": "R01",
+      "type": "throne room",
+      "connections": [
+        "R02",
+        "R04",
+        "R06"
+      ],
+      "coordinates": "X2Y2",
+      "name": "Sunken Monarch's Court"
+    },
+    {
+      "id": "R02",
+      "type": "hall",
+      "connections": [
+        "R01",
+        "R03",
+        "R05"
+      ],
+      "coordinates": "X2Y3",
+      "name": "Echoing Tides Gallery"
+    },
+    {
+      "id": "R03",
+      "type": "shrine",
+      "connections": [
+        "R02",
+        "R04"
+      ],
+      "coordinates": "X1Y3",
+      "name": "Shrine of Black Ember"
+    },
+    {
+      "id": "R04",
+      "type": "laboratory",
+      "connections": [
+        "R01",
+        "R03"
+      ],
+      "coordinates": "X1Y2",
+      "name": "Drowned Alchemist's Vault"
+    },
+    {
+      "id": "R05",
+      "type": "shrine",
+      "connections": [
+        "R02"
+      ],
+      "coordinates": "X2Y4",
+      "name": "Chapel of Forgotten Depths"
+    },
+    {
+      "id": "R06",
+      "type": "shrine",
+      "connections": [
+        "R01"
+      ],
+      "coordinates": "X3Y2",
+      "name": "Sanctum of Silent Kings"
+    }
+  ],
+  "layout": [
+    [
+      "R04",
+      "R01",
+      "R06"
+    ],
+    [
+      "R03",
+      "R02",
+      "   "
+    ],
+    [
+      "   ",
+      "R05",
+      "   "
+    ]
+  ]
+}

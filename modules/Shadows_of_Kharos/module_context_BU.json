@@ -1,0 +1,266 @@
+{
+  "module_name": "Shadows of Kharos",
+  "module_id": "Shadows_of_Kharos",
+  "areas": {
+    "MRV001": {
+      "name": "Marrow\u2019s Rest Village",
+      "type": "town",
+      "locations": [],
+      "npcs": [
+        "Elder Dorun, wary village leader",
+        "Captain Merek, a traumatized shipwreck survivor",
+        "Brother Lintar, a desperate cultist acolyte",
+        "Echoes of lost villagers (restless spirits)",
+        "Sister Hela, the abbey\u2019s last remaining priestess",
+        "Finn Caster, a superstitious fisherman"
+      ],
+      "plot_points": [
+        "PP001",
+        "PP002",
+        "PP003",
+        "PP004"
+      ]
+    },
+    "ARL001": {
+      "name": "Abbey Ruins & Lighthouse",
+      "type": "dungeon",
+      "locations": [],
+      "npcs": [
+        "Mira Tidewise",
+        "The Drowned King",
+        "Eliad",
+        "Abbess Miralda",
+        "Abbess Miralda (changed by her ordeal)"
+      ],
+      "plot_points": [
+        "PP001",
+        "PP002",
+        "PP003",
+        "PP004"
+      ]
+    },
+    "DC001": {
+      "name": "Drowned Catacombs",
+      "type": "dungeon",
+      "locations": [],
+      "npcs": [
+        "The Drowned King",
+        "Eliad"
+      ],
+      "plot_points": [
+        "DC_PP001",
+        "DC_PP002",
+        "DC_PP003",
+        "DC_PP004"
+      ]
+    }
+  },
+  "npcs": {
+    "elder_dorun_wary_village_leader": {
+      "name": "Elder Dorun, wary village leader",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "MRV001",
+          "location": "R01"
+        }
+      ]
+    },
+    "sister_hela_the_abbey_s_last_remaining_priestess": {
+      "name": "Sister Hela, the abbey\u2019s last remaining priestess",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "MRV001",
+          "location": "R05"
+        }
+      ]
+    },
+    "captain_merek_a_traumatized_shipwreck_survivor": {
+      "name": "Captain Merek, a traumatized shipwreck survivor",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "MRV001",
+          "location": "R01"
+        }
+      ]
+    },
+    "finn_caster_a_superstitious_fisherman": {
+      "name": "Finn Caster, a superstitious fisherman",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "MRV001",
+          "location": "R06"
+        }
+      ]
+    },
+    "abbess_miralda_missing_spiritual_leader_seen_in_visions_or_as_a_captive": {
+      "name": "Abbess Miralda, missing spiritual leader (seen in visions or as a captive)",
+      "role": "",
+      "faction": "",
+      "appears_in": []
+    },
+    "brother_lintar_a_desperate_cultist_acolyte": {
+      "name": "Brother Lintar, a desperate cultist acolyte",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "MRV001",
+          "location": "R02"
+        }
+      ]
+    },
+    "mira_tidewise_an_old_lighthouse_keeper_hiding_vital_secrets": {
+      "name": "Mira Tidewise, an old lighthouse keeper hiding vital secrets",
+      "role": "",
+      "faction": "",
+      "appears_in": []
+    },
+    "the_drowned_king_ancient_undead_sovereign": {
+      "name": "The Drowned King, ancient undead sovereign",
+      "role": "",
+      "faction": "",
+      "appears_in": []
+    },
+    "abbess_miralda_changed_by_her_ordeal": {
+      "name": "Abbess Miralda, changed by her ordeal",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "ARL001",
+          "location": "R06"
+        }
+      ]
+    },
+    "eliad_the_drowned_herald_a_spectral_intermediary": {
+      "name": "Eliad, the drowned herald (a spectral intermediary)",
+      "role": "",
+      "faction": "",
+      "appears_in": []
+    },
+    "echoes_of_lost_villagers_restless_spirits": {
+      "name": "Echoes of lost villagers (restless spirits)",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "MRV001",
+          "location": "R04"
+        }
+      ]
+    },
+    "mira_tidewise": {
+      "name": "Mira Tidewise",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "ARL001",
+          "location": "R02"
+        }
+      ]
+    },
+    "the_drowned_king": {
+      "name": "The Drowned King",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "ARL001",
+          "location": "R03"
+        },
+        {
+          "area": "DC001",
+          "location": "R01"
+        }
+      ]
+    },
+    "eliad": {
+      "name": "Eliad",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "ARL001",
+          "location": "R04"
+        },
+        {
+          "area": "DC001",
+          "location": "R03"
+        }
+      ]
+    },
+    "abbess_miralda": {
+      "name": "Abbess Miralda",
+      "role": "",
+      "faction": "",
+      "appears_in": [
+        {
+          "area": "ARL001",
+          "location": "R05"
+        }
+      ]
+    }
+  },
+  "locations": {},
+  "plot_scopes": {
+    "PP001": "ARL001",
+    "PP002": "ARL001",
+    "PP003": "ARL001",
+    "PP004": "ARL001",
+    "DC_PP001": "DC001",
+    "DC_PP002": "DC001",
+    "DC_PP003": "DC001",
+    "DC_PP004": "DC001"
+  },
+  "references": {
+    "npc:Elder Dorun, wary village leader": [
+      "module:plotStages"
+    ],
+    "npc:Sister Hela, the abbey\u2019s last remaining priestess": [
+      "module:plotStages"
+    ],
+    "npc:Captain Merek, a traumatized shipwreck survivor": [
+      "module:plotStages"
+    ],
+    "npc:Finn Caster, a superstitious fisherman": [
+      "module:plotStages"
+    ],
+    "npc:Abbess Miralda, missing spiritual leader (seen in visions or as a captive)": [
+      "module:plotStages"
+    ],
+    "npc:Brother Lintar, a desperate cultist acolyte": [
+      "module:plotStages"
+    ],
+    "npc:Mira Tidewise, an old lighthouse keeper hiding vital secrets": [
+      "module:plotStages"
+    ],
+    "npc:The Drowned King, ancient undead sovereign": [
+      "module:plotStages"
+    ],
+    "npc:Abbess Miralda, changed by her ordeal": [
+      "module:plotStages"
+    ],
+    "npc:Eliad, the drowned herald (a spectral intermediary)": [
+      "module:plotStages"
+    ],
+    "npc:Echoes of lost villagers (restless spirits)": [
+      "module:plotStages"
+    ]
+  },
+  "validation_issues": [
+    "NPC 'Abbess Miralda, missing spiritual leader (seen in visions or as a captive)' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'Mira Tidewise, an old lighthouse keeper hiding vital secrets' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'The Drowned King, ancient undead sovereign' is referenced in ['module:plotStages'] but not placed in any location",
+    "NPC 'Eliad, the drowned herald (a spectral intermediary)' is referenced in ['module:plotStages'] but not placed in any location"
+  ],
+  "generated_at": "2025-07-20T09:19:47.393548"
+}

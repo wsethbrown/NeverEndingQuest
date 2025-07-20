@@ -64,16 +64,27 @@ module_randomness_test_*.json
 *.bak
 *.backup
 *.backup_*
-*_BU.json
-# Exception: Keep of Doom BU files are core game files
-!modules/Keep_of_Doom/*_BU.json
-!modules/Keep_of_Doom/areas/*_BU.json
 *_backup_*
 backup/
 backup_*/
 old_files/
 legacy/
 modules/backups/
+
+# Game state files - ignore live files, keep BU files
+modules/**/areas/*.json
+!modules/**/areas/*_BU.json
+modules/**/party_tracker.json
+!modules/**/party_tracker_BU.json
+modules/**/module_plot.json
+!modules/**/module_plot_BU.json
+modules/**/map_*.json
+!modules/**/map_*_BU.json
+
+# Keep important metadata files
+!modules/**/validation_report.json
+!modules/**/module_context.json
+!modules/**/MODULE_SUMMARY.md
 
 # Copy files
 *copy.*
