@@ -515,6 +515,12 @@ Create atmospheric travel narration that leads into this adventure."""
             conflicts_resolved = self._resolve_id_conflicts(module_name, module_data)
             if conflicts_resolved:
                 print(f"  - Resolved {conflicts_resolved} ID conflicts")
+                
+                # Update BU files with the corrected location IDs
+                bu_updated = self._update_bu_files_after_conflict_resolution(module_name)
+                if bu_updated:
+                    print(f"  - Updated {bu_updated} BU files with corrected location IDs")
+                
                 # Re-analyze module after ID changes
                 module_data = self.analyze_module(module_name)
                 if not module_data:
@@ -749,8 +755,8 @@ Create atmospheric travel narration that leads into this adventure."""
         
         # We need the helper functions from ModuleBuilder
         # Import here to avoid circular dependency
-        from core.generators.module_builder import ModuleBuilder
-        temp_builder = ModuleBuilder(config.BuilderConfig()) # Create a temporary instance to access methods
+        from core.generators.module_builder import ModuleBuilder, BuilderConfig
+        temp_builder = ModuleBuilder(BuilderConfig(module_name=module_name)) # Create a temporary instance to access methods
         
         sorted_new_area_files = sorted(os.listdir(new_module_areas_path))
         conflicts_resolved = 0
@@ -1039,6 +1045,40 @@ Respond with JSON:
         except Exception as e:
             print(f"Error getting available modules: {e}")
             return []
+    
+    def _update_bu_files_after_conflict_resolution(self, module_name: str) -> int:
+        """
+        Update BU (backup) files with corrected location IDs after conflict resolution.
+        This ensures BU files match the corrected area files.
+        """
+        try:
+            module_path = os.path.join(self.modules_dir, module_name)
+            areas_path = os.path.join(module_path, "areas")
+            updated_count = 0
+            
+            if not os.path.exists(areas_path):
+                return 0
+            
+            # Find all area JSON files (excluding BU files)
+            for filename in os.listdir(areas_path):
+                if filename.endswith('.json') and not filename.endswith('_BU.json'):
+                    area_file = os.path.join(areas_path, filename)
+                    bu_file = os.path.join(areas_path, filename.replace('.json', '_BU.json'))
+                    
+                    # Copy the corrected area file to its BU version
+                    try:
+                        import shutil
+                        shutil.copy2(area_file, bu_file)
+                        updated_count += 1
+                        print(f"DEBUG: [Module Stitcher] Updated BU file: {filename.replace('.json', '_BU.json')}")
+                    except Exception as e:
+                        print(f"DEBUG: [Module Stitcher] ERROR: Failed to update BU file {bu_file}: {e}")
+            
+            return updated_count
+            
+        except Exception as e:
+            print(f"DEBUG: [Module Stitcher] ERROR: Failed to update BU files: {e}")
+            return 0
 
 
 # Utility functions for integration

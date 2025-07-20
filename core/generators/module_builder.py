@@ -1058,12 +1058,14 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         # Update map room IDs
         if "map" in area_data and "rooms" in area_data["map"]:
             for room in area_data["map"]["rooms"]:
-                if "id" in room and room["id"].startswith("R"):
-                    # Extract the number part and add new prefix
-                    num = room["id"][1:]
-                    new_id = prefix + num
+                if "id" in room:
+                    # Handle both R-prefixed and letter-prefixed IDs
                     old_id = room["id"]
-                    room["id"] = new_id
+                    if old_id and len(old_id) > 1:
+                        # Extract the number part and add new prefix
+                        num = old_id[1:] if old_id[1:].isdigit() else old_id[1:]
+                        new_id = prefix + num
+                        room["id"] = new_id
                     
                     # Update room name if it contains the ID
                     if "name" in room and old_id in room["name"]:
@@ -1072,7 +1074,7 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
                     # Update connections
                     if "connections" in room:
                         room["connections"] = [
-                            prefix + conn[1:] if conn.startswith("R") else conn
+                            prefix + conn[1:] if conn and len(conn) > 1 else conn
                             for conn in room["connections"]
                         ]
         
@@ -1080,20 +1082,24 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         if "map" in area_data and "layout" in area_data["map"]:
             for i, row in enumerate(area_data["map"]["layout"]):
                 for j, cell in enumerate(row):
-                    if cell.startswith("R"):
+                    if cell and len(cell) > 1 and cell != ".":
                         area_data["map"]["layout"][i][j] = prefix + cell[1:]
         
         # Update location IDs
         if "locations" in area_data:
             for location in area_data["locations"]:
-                if "locationId" in location and location["locationId"].startswith("R"):
-                    num = location["locationId"][1:]
-                    location["locationId"] = prefix + num
+                if "locationId" in location:
+                    # Handle both R-prefixed (R01) and letter-prefixed (A01) IDs
+                    loc_id = location["locationId"]
+                    if loc_id and len(loc_id) > 1:
+                        # Extract the numeric part (everything after first character)
+                        num = loc_id[1:] if loc_id[1:].isdigit() else loc_id[1:]
+                        location["locationId"] = prefix + num
                 
                 # Update connectivity
                 if "connectivity" in location:
                     location["connectivity"] = [
-                        prefix + conn[1:] if conn.startswith("R") else conn
+                        prefix + conn[1:] if conn and len(conn) > 1 else conn
                         for conn in location["connectivity"]
                     ]
         
