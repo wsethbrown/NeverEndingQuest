@@ -73,6 +73,20 @@ Learn advanced gameplay mechanics and creative problem-solving through these det
 
 These guides showcase the flexibility of the AI DM and demonstrate how observation, creativity, and strategic thinking lead to unique solutions beyond simple combat.
 
+### The Adventure Continues: Automatic Module Creation
+After completing both The Thornwood Watch and Keep of Doom, the game seamlessly continues through its innovative **AI-driven module generation system**. When players express interest in new adventures, the AI DM creates entirely new modules tailored to the party's level and interests.
+
+**Example: The Birth of Shadows of Kharos**
+Following the defeat of the cursed knight and establishment of a stronghold, our heroes found themselves in Harrow's Hollow's tavern. When talk turned to new adventures - specifically mentions of coastal mysteries and haunted lighthouses - the AI DM responded by procedurally generating an entirely new module: **Shadows of Kharos**.
+
+The AI seamlessly wove this new adventure into the existing narrative, creating a level 4-6 coastal mystery featuring:
+- The storm-wracked Isle of Kharos with its cursed lighthouse
+- Three interconnected areas: Marrow's Rest village, the Abbey Ruins & Lighthouse, and the Drowned Catacombs  
+- A compelling plot involving a missing abbess, undead mariners, and an ancient drowned king
+- Full integration with the existing world, maintaining all character relationships and consequences
+
+This demonstrates the system's ability to create infinite adventures - each module builds upon your previous accomplishments while introducing fresh challenges. The AI analyzes party composition, level, expressed interests, and past decisions to craft perfectly tailored experiences that feel like natural continuations of your epic journey.
+
 ## How It Overcomes AI Limitations
 
 ### The Context Window Challenge
@@ -236,11 +250,15 @@ This creates a living world where:
 
 ### Available Adventure Modules
 
-The system includes three progressive adventures:
+The system includes progressive adventures, both pre-built and dynamically generated:
 
-- **The Ranger's Call** (Level 1-2): Starting adventure in Greenwatch Village
+**Pre-Built Modules:**
+- **The Thornwood Watch** (Level 1-2): Starting adventure defending Rangers' Outpost
 - **Keep of Doom** (Level 3-5): Intermediate adventure in Harrow's Hollow  
-- **Silver Vein Whispers** (Level 6-8): Advanced adventure in the Sablemoor Reaches
+
+**AI-Generated Modules:**
+- **Shadows of Kharos** (Level 4-6): Coastal mystery on a haunted island (generated based on player interest)
+- Additional modules created dynamically as your adventure continues
 
 ### Creating New Adventures
 
