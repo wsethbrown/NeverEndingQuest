@@ -217,17 +217,15 @@
       "monsters": [
         {
           "name": "Whispering Ashling",
-          "quantity": {
-            "min": 2,
-            "max": 3
-          }
+          "number": "1d3+1",
+          "disposition": "hostile",
+          "strategy": "These corrupted spirits whisper dark magic, attempting to confuse and weaken their victims."
         },
         {
           "name": "Ashbound Bandit",
-          "quantity": {
-            "min": 1,
-            "max": 1
-          }
+          "number": "1",
+          "disposition": "mad",
+          "strategy": "A single bandit driven insane by ritual experiments, attacking wildly while muttering about dark visions."
         }
       ],
       "lootTable": [
@@ -375,24 +373,21 @@
       "monsters": [
         {
           "name": "Bandit Sentry",
-          "quantity": {
-            "min": 2,
-            "max": 2
-          }
+          "number": "1d3+1",
+          "disposition": "alert",
+          "strategy": "Posted at key positions, these sentries will raise an alarm if they spot intruders."
         },
         {
           "name": "Bandit Warrior",
-          "quantity": {
-            "min": 3,
-            "max": 3
-          }
+          "number": "1d3+1",
+          "disposition": "aggressive",
+          "strategy": "Well-armed bandits who fight with coordination, using tactics learned from their captain."
         },
         {
           "name": "Bandit Captain Gorvek",
-          "quantity": {
-            "min": 1,
-            "max": 1
-          }
+          "number": "1",
+          "disposition": "commanding",
+          "strategy": "A veteran fighter who directs his men in battle while wielding magical weapons provided by Malarok."
         }
       ],
       "lootTable": [
@@ -484,10 +479,9 @@
       "monsters": [
         {
           "name": "Corrupted Wolf",
-          "quantity": {
-            "min": 1,
-            "max": 2
-          }
+          "number": "1d3+1",
+          "disposition": "hostile",
+          "strategy": "These wolves have been twisted by dark magic, their eyes glowing with unnatural hunger. They attack with supernatural coordination."
         }
       ],
       "lootTable": [

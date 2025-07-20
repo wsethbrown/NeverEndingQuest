@@ -105,8 +105,18 @@
         }
       ],
       "monsters": [
-        "1 Corrupted Cave Fisher (CR 1, enhanced with necrotic damage)",
-        "2-3 Tainted Stirges (CR 1/8 each, stirges with disease transmission)"
+        {
+          "name": "Corrupted Cave Fisher",
+          "number": "1",
+          "disposition": "predatory",
+          "strategy": "A CR 1 cave fisher enhanced with necrotic damage, this corrupted creature uses its web to trap prey from above."
+        },
+        {
+          "name": "Tainted Stirge",
+          "number": "1d3+1",
+          "disposition": "bloodthirsty",
+          "strategy": "CR 1/8 stirges that carry disease from feeding on corrupted creatures, swarming victims in groups."
+        }
       ],
       "lootTable": [
         "Vial of concentrated corruption essence",
@@ -175,9 +185,24 @@
         }
       ],
       "monsters": [
-        "2-3 Twig Blights (CR 1/8 each, enhanced with necrotic thorns)",
-        "1 Awakened Shrub (CR 0, corrupted and hostile)",
-        "1-2 Corrupted Wolves (CR 1/4 each, if Sylara becomes hostile)"
+        {
+          "name": "Twig Blight",
+          "number": "1d3+1",
+          "disposition": "aggressive",
+          "strategy": "CR 1/8 plant creatures enhanced with necrotic thorns, attacking in groups and slashing with corrupted claws."
+        },
+        {
+          "name": "Awakened Shrub",
+          "number": "1",
+          "disposition": "hostile",
+          "strategy": "A CR 0 shrub corrupted by dark magic, attacking anything that disturbs the grove."
+        },
+        {
+          "name": "Corrupted Wolf",
+          "number": "1d3+1",
+          "disposition": "protective",
+          "strategy": "CR 1/4 wolves that only appear if Sylara becomes hostile, defending her with supernatural ferocity."
+        }
       ],
       "lootTable": [
         "Heartwood staff infused with corruption resistance",
@@ -251,8 +276,18 @@
         }
       ],
       "monsters": [
-        "2-3 Shadow Corrupted Wolves (CR 1/4 each, only if the Hart is threatened)",
-        "1 Corrupted Owlbear (CR 2, driven here by the corruption, hostile to all)"
+        {
+          "name": "Shadow Corrupted Wolf",
+          "number": "1d3+1",
+          "disposition": "defensive",
+          "strategy": "CR 1/2 wolves enhanced with shadow magic, only attacking if the Hart is threatened and moving with unnatural silence."
+        },
+        {
+          "name": "Corrupted Owlbear",
+          "number": "1",
+          "disposition": "berserk",
+          "strategy": "A CR 3 owlbear driven mad by corruption, attacking everything it sees with terrifying fury."
+        }
       ],
       "lootTable": [
         "Antler fragment with purification magic",
@@ -317,8 +352,18 @@
         }
       ],
       "monsters": [
-        "1 Corrupted Ranger Thane (CR 2, veteran with necrotic abilities)",
-        "1 Corrupted Wolf (CR 1/4, his former animal companion, now hostile)"
+        {
+          "name": "Corrupted Ranger Thane",
+          "number": "1",
+          "disposition": "tormented",
+          "strategy": "A CR 2 veteran ranger with necrotic abilities, fighting with corrupted tactics while occasionally warning his foes in moments of lucidity."
+        },
+        {
+          "name": "Corrupted Wolf",
+          "number": "1",
+          "disposition": "savage",
+          "strategy": "Thane's former animal companion (CR 1/4), now twisted by corruption and attacking with feral rage."
+        }
       ],
       "lootTable": [
         "Ranger's journal detailing the corruption's rapid spread",
@@ -392,9 +437,24 @@
         }
       ],
       "monsters": [
-        "1 Malarok the Corruptor (CR 3, human sorcerer with Voidstone enhancement)",
-        "2 Elite Bandit Bodyguards (CR 1 each, bandits enhanced by Malarok's magic)",
-        "1-2 Corrupted Wolves (CR 1/2 each, wolves twisted by the sorcerer's power)"
+        {
+          "name": "Malarok the Corruptor",
+          "number": "1",
+          "disposition": "megalomaniacal",
+          "strategy": "A CR 3 human sorcerer enhanced by Voidstone power, casting dark spells while monologuing about his superiority."
+        },
+        {
+          "name": "Elite Bandit Bodyguard",
+          "number": "1d3+1",
+          "disposition": "fanatical",
+          "strategy": "CR 1 bandits enhanced by Malarok's magic, fighting with unnatural coordination to protect their master."
+        },
+        {
+          "name": "Corrupted Wolf",
+          "number": "1d3+1",
+          "disposition": "vicious",
+          "strategy": "CR 1/2 wolves twisted by the sorcerer's power, their eyes glowing with void energy as they savage intruders."
+        }
       ],
       "lootTable": [
         "Fragment of the Voidstone Shard (dangerous but valuable to scholars)",

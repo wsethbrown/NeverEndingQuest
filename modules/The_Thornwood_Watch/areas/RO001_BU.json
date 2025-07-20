@@ -335,11 +335,9 @@
       "monsters": [
         {
           "name": "Twig Blight",
-          "quantity": {
-            "min": 1,
-            "max": 2
-          },
-          "conditions": "Hidden among debris using False Appearance. Only attack if vines are disturbed without being discovered first via Perception DC 13."
+          "number": "1d3+1",
+          "disposition": "ambush",
+          "strategy": "Hidden among debris using False Appearance. Only attack if vines are disturbed without being discovered first via Perception DC 13."
         }
       ],
       "lootTable": [
@@ -398,10 +396,9 @@
       "monsters": [
         {
           "name": "Wolf",
-          "quantity": {
-            "min": 2,
-            "max": 2
-          }
+          "number": "1d3+1",
+          "disposition": "hungry",
+          "strategy": "Pack hunters that circle their prey, attacking from multiple angles to bring down isolated targets."
         }
       ],
       "lootTable": [
@@ -470,11 +467,9 @@
       "monsters": [
         {
           "name": "Bandit",
-          "quantity": {
-            "min": 2,
-            "max": 2
-          },
-          "conditions": "Watching the tower for signs of repair attempts. Will attack if discovered or if the party attempts to restore the bell."
+          "number": "1d3+1",
+          "disposition": "watchful",
+          "strategy": "Watching the tower for signs of repair attempts. Will attack if discovered or if the party attempts to restore the bell."
         }
       ],
       "lootTable": [
