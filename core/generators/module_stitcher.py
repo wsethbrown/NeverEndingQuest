@@ -731,13 +731,13 @@ Create atmospheric travel narration that leads into this adventure."""
         conflicting_ids = all_existing_loc_ids.intersection(new_module_loc_ids)
         
         if not conflicting_ids:
-            self.log_success(f"    - All location IDs in {module_name} are unique.")
+            print(f"DEBUG: [Module Stitcher] All location IDs in {module_name} are unique.")
             return 0
 
-        self.log_warning(f"    - Found {len(conflicting_ids)} conflicting location IDs: {list(conflicting_ids)[:5]}...")
+        print(f"DEBUG: [Module Stitcher] WARNING: Found {len(conflicting_ids)} conflicting location IDs: {list(conflicting_ids)[:5]}...")
 
         # 4. If conflict exists, re-prefix the ENTIRE new module
-        self.log_info(f"    - Conflict found. Re-prefixing all locations in {module_name} to ensure uniqueness.")
+        print(f"DEBUG: [Module Stitcher] Conflict found. Re-prefixing all locations in {module_name} to ensure uniqueness.")
         
         # Find the highest existing letter prefix to start from
         last_prefix_char_code = 64 # Start before 'A'
@@ -765,7 +765,7 @@ Create atmospheric travel narration that leads into this adventure."""
             area_data = safe_json_load(area_file_path)
             
             if area_data:
-                self.log_info(f"      - Applying new prefix '{new_prefix}' to area {area_data.get('areaId')}")
+                print(f"DEBUG: [Module Stitcher] Applying new prefix '{new_prefix}' to area {area_data.get('areaId')}")
                 updated_area_data = temp_builder.update_area_with_prefix(area_data, new_prefix)
                 safe_json_dump(updated_area_data, area_file_path)
                 conflicts_resolved += len(updated_area_data.get('locations', []))
