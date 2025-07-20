@@ -65,6 +65,8 @@ module_randomness_test_*.json
 *.backup
 *.backup_*
 *_backup_*
+*.bak_*
+*_BU.json.bak*
 backup/
 backup_*/
 old_files/
