@@ -1421,15 +1421,21 @@ def get_ai_response(conversation_history, validation_retry_count=0):
             user_input = msg.get("content", "")
             break
     
-    # Predict if actions will be required (unless we're in a validation retry)
-    if validation_retry_count == 0:
+    # Check if module creation prompt is present in user input
+    has_module_creation_prompt = "You are a master storyteller, cartographer of myth" in user_input
+    
+    # Predict if actions will be required (unless we're in a validation retry or module creation prompt)
+    if validation_retry_count == 0 and not has_module_creation_prompt:
         prediction = predict_actions_required(user_input)
+    elif has_module_creation_prompt:
+        # Force full model when module creation prompt is present
+        prediction = {"requires_actions": True, "reason": "Module creation prompt detected - using full model"}
     else:
         # On validation retry, force full model and skip prediction
         prediction = {"requires_actions": True, "reason": "Validation retry - using full model"}
     
     # Determine which model to use based on intelligent routing and validation retry
-    if ENABLE_INTELLIGENT_ROUTING and validation_retry_count == 0:
+    if ENABLE_INTELLIGENT_ROUTING and validation_retry_count == 0 and not has_module_creation_prompt:
         # Use prediction to determine model (Phase 2 of token optimization)
         selected_model = DM_MINI_MODEL if not prediction["requires_actions"] else DM_FULL_MODEL
         
