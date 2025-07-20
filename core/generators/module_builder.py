@@ -1322,14 +1322,30 @@ def ai_driven_module_creation(params: Dict[str, Any]) -> tuple[bool, Optional[st
         # Parse narrative with AI to get module parameters
         parsed_params = parse_narrative_to_module_params(narrative)
         
-        # Allow explicit parameters to override AI parsing
-        module_name = params.get("module_name") or parsed_params.get("module_name")
-        num_areas = params.get("num_areas") or parsed_params.get("num_areas", 2)
-        locations_per_area = params.get("locations_per_area") or parsed_params.get("locations_per_area", 12)
-        level_range = params.get("level_range") or parsed_params.get("level_range", {"min": 3, "max": 5})
-        adventure_type = params.get("adventure_type") or parsed_params.get("adventure_type", "mixed")
-        plot_themes = params.get("plot_themes") or parsed_params.get("plot_themes", "")
+        # Allow explicit parameters to override AI parsing (check both camelCase and snake_case)
+        module_name = params.get("module_name") or params.get("moduleName") or parsed_params.get("module_name")
+        num_areas = params.get("num_areas") or params.get("numberOfAreas") or parsed_params.get("num_areas", 2)
+        locations_per_area = params.get("locations_per_area") or params.get("locationsPerArea") or parsed_params.get("locations_per_area", 12)
+        # Handle level range - it might come as a string like "4-6"
+        level_range_raw = params.get("level_range") or params.get("levelRange") or parsed_params.get("level_range")
+        if isinstance(level_range_raw, str) and "-" in level_range_raw:
+            # Parse "4-6" format
+            min_level, max_level = level_range_raw.split("-")
+            level_range = {"min": int(min_level.strip()), "max": int(max_level.strip())}
+        elif isinstance(level_range_raw, dict):
+            level_range = level_range_raw
+        else:
+            level_range = {"min": 3, "max": 5}
+        adventure_type = params.get("adventure_type") or params.get("adventureType") or parsed_params.get("adventure_type", "mixed")
+        plot_themes = params.get("plot_themes") or params.get("plotThemes") or parsed_params.get("plot_themes", "")
         
+        # Validate we have a module name
+        if not module_name:
+            print(f"DEBUG: [Module Generator] ERROR: No module name found in parameters")
+            print(f"DEBUG: [Module Generator] Parameters received: {params}")
+            print(f"DEBUG: [Module Generator] Parsed parameters: {parsed_params}")
+            return False, None
+            
         # Clean module name (replace spaces with underscores)
         module_name = module_name.replace(" ", "_")
         
