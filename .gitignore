@@ -229,7 +229,6 @@ clean_debug_log.py
 clear_echoes_backup.py
 debug_character_update.py
 debug_character_validator_logging.py
-debug_config.py
 debug_migration_status.md
 debug_monster_loading.py
 debug_path_issue.py
