@@ -255,3 +255,11 @@ modules/*/encounters/
 # Campaign archives and summaries - keep local, don't commit to repository
 modules/campaign_archives/
 modules/campaign_summaries/
+
+# Player-generated modules - only Keep_of_Doom and The_Thornwood_Watch are core
+modules/*/
+!modules/Keep_of_Doom/
+!modules/The_Thornwood_Watch/
+!modules/conversation_history/
+!modules/campaign.json
+!modules/world_registry.json
