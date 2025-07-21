@@ -4442,8 +4442,11 @@
             leftPage.innerHTML = '';
             rightPage.innerHTML = '';
 
-            // Separate quests into two lists: active and completed.
-            const allQuests = response.data.plotPoints;
+            // --- THIS IS THE KEY CHANGE ---
+            // Filter out any quests that the player hasn't discovered yet.
+            const allQuests = response.data.plotPoints.filter(q => q.status !== 'not started');
+
+            // Now, separate the *discovered* quests into active and completed.
             const activeQuests = allQuests.filter(q => q.status !== 'completed');
             const completedQuests = allQuests.filter(q => q.status === 'completed');
 
@@ -4459,9 +4462,11 @@
                     html += `<h3 class="quest-title">${point.title}</h3>`;
                     html += `<p class="quest-description">${point.description}</p>`;
 
-                    // If there are side quests, loop through them and add them.
+                    // If there are side quests, filter them as well before displaying.
                     if (point.sideQuests && point.sideQuests.length > 0) {
-                        point.sideQuests.forEach(sq => {
+                        const discoveredSideQuests = point.sideQuests.filter(sq => sq.status !== 'not started');
+                        
+                        discoveredSideQuests.forEach(sq => {
                             const sqClass = sq.status === 'completed' ? 'quest-item side-quest-item completed' : 'quest-item side-quest-item';
                             html += `<div class="${sqClass}">`;
                             html += `<h4 class="quest-title">${sq.title}</h4>`;
