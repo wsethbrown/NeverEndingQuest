@@ -132,6 +132,59 @@ Module Structure:
 - **World State Tracking**: Completed quests permanently change the world
 - **Cross-Module Continuity**: Items, relationships, and reputation carry forward
 
+#### 4. **Conversation Compaction Pipeline**
+```
+Full Conversation History Structure:
+┌─────────────────┐
+│ System Prompts  │ (Base rules & character setup)
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│Module Chronicle │ (AI-generated summary from Module 1)
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│Module Chronicle │ (AI-generated summary from Module 2)
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│ Compressed      │ (6 location summaries from current module)
+│ Locations       │ "You explored the haunted tower..."
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│ Recent          │ (Last 6 full conversations)
+│ Conversations   │ "DM: The door creaks open..."
+└────────┬────────┘
+         ▼
+┌─────────────────┐
+│ Current Action  │ (What's happening right now)
+└─────────────────┘
+
+Combat Isolation:
+┌─────────────────┐     ┌─────────────────┐
+│ Main Timeline   │────►│ Combat Instance │
+│                 │     │ (Isolated)      │
+│ "Roll for       │     │ ┌─────────────┐ │
+│  initiative..." │     │ │Combat Prompt│ │
+│                 │     │ └──────┬──────┘ │
+│                 │     │        ▼        │
+│                 │◄────│ ┌─────────────┐ │
+│ "Victory!"      │     │ │ Turn-by-Turn│ │
+└─────────────────┘     │ │ Resolution  │ │
+                        │ └──────┬──────┘ │
+                        │        ▼        │
+                        │ ┌─────────────┐ │
+                        │ │  Summary    │ │
+                        │ └─────────────┘ │
+                        └─────────────────┘
+```
+
+- **Compression Triggers**: After 12 location transitions or when context grows too large
+- **Combat Isolation**: Each combat runs in its own context bubble, then returns a summary
+- **Token Efficiency**: Reduces 50,000+ tokens to ~5,000 while maintaining narrative continuity
+- **Module Transitions**: Previous modules become single chronicle entries
+
 ### Real-World Example
 ```
 Session 1-5: 50,000 tokens of gameplay in Thornwood Watch
