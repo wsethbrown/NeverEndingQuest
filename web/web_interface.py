@@ -756,6 +756,47 @@ def handle_npc_inventory_request(data):
     except Exception as e:
         emit('npc_inventory_response', {'npcName': npc_name, 'data': None, 'error': str(e)})
 
+# Add this entire function to web_interface.py
+
+@socketio.on('request_plot_data')
+def handle_plot_data_request():
+    """Handle requests for the current module's plot data."""
+    try:
+        # Step 1: Find out which module is currently active by checking the party tracker.
+        party_tracker_path = 'party_tracker.json'
+        if not os.path.exists(party_tracker_path):
+            emit('plot_data_response', {'data': None, 'error': 'Party tracker not found'})
+            return
+
+        with open(party_tracker_path, 'r', encoding='utf-8') as f:
+            party_tracker = json.load(f)
+        
+        current_module = party_tracker.get("module", "").replace(" ", "_")
+        if not current_module:
+            emit('plot_data_response', {'data': None, 'error': 'Current module not set in party tracker'})
+            return
+
+        # Step 2: Use the ModulePathManager to get the correct path to the plot file for that module.
+        # This makes sure we always load the plot for the adventure the player is actually on.
+        from utils.module_path_manager import ModulePathManager
+        path_manager = ModulePathManager(current_module)
+        plot_file_path = path_manager.get_plot_path()
+
+        if not os.path.exists(plot_file_path):
+            emit('plot_data_response', {'data': None, 'error': f'Plot file not found for module: {current_module}'})
+            return
+            
+        # Step 3: Read the plot file and send its data back to the browser.
+        with open(plot_file_path, 'r', encoding='utf-8') as f:
+            plot_data = json.load(f)
+        
+        # The 'emit' function sends the data over the web socket connection to the player's browser.
+        emit('plot_data_response', {'data': plot_data})
+
+    except Exception as e:
+        # If anything goes wrong, send an error message so we can debug it.
+        emit('plot_data_response', {'data': None, 'error': str(e)})
+
 # CORRECTLY PLACED STORAGE HANDLER
 @socketio.on('request_storage_data')
 def handle_request_storage_data():

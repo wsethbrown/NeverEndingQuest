@@ -2854,6 +2854,130 @@
         .storage-item-quantity {
             color: #999;
         }
+        
+        /* --- STYLES FOR THE NEW QUEST JOURNAL --- */
+
+        /* The Modal Background (the dark overlay) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(3px); /* Adds a cool blur effect to the background */
+        }
+
+        /* The Book Container */
+        .journal-book {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            width: 90%;
+            max-width: 1200px; /* Wide layout */
+            height: 80vh;
+            max-height: 700px;
+            background-color: #3a2e24; /* Dark leather color for the book cover/spine */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0,0,0,0.4);
+            border: 2px solid #5a4e44;
+            border-radius: 5px;
+        }
+
+        /* The Pages */
+        .journal-page {
+            flex: 1; /* Each page takes up half the space */
+            background-color: #f3e9d2; /* Parchment paper color */
+            padding: 25px 35px;
+            overflow-y: auto; /* Add scrollbar if content overflows */
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.15); /* Inner shadow for depth */
+        }
+
+        /* Create a visual spine between the pages */
+        #journal-left-page {
+            border-right: 2px solid #5c4b3a;
+        }
+
+        .page-content {
+            color: #4a3a2a;
+            font-family: 'Georgia', serif;
+        }
+
+        /* The Close Button (top right corner) */
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1010;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .close-btn:hover {
+            color: #ccc;
+        }
+
+        /* Typography inside the journal */
+        .page-content h2 {
+            text-align: center;
+            border-bottom: 2px solid #c8bda8;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: normal;
+            color: #5c4b3a;
+        }
+
+        .quest-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #d8cdaa;
+        }
+
+        .quest-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #6a4f3a;
+            display: flex;
+            align-items: center;
+        }
+
+        .quest-title::before {
+            content: '○'; /* Open circle for active quests */
+            margin-right: 10px;
+            font-size: 1.1em;
+            color: #b98900;
+        }
+
+        .quest-item.completed .quest-title {
+            color: #8a7a6a;
+            text-decoration: line-through;
+        }
+
+        .quest-item.completed .quest-title::before {
+            content: '✓'; /* Checkmark for completed quests */
+            color: #5cb85c;
+        }
+
+        .quest-description {
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-top: 5px;
+            padding-left: 25px; /* Indent description under the title */
+        }
+
+        .side-quest-item {
+            margin-top: 15px;
+            padding: 10px;
+            margin-left: 25px;
+            border-left: 3px solid #d8cdaa;
+            background: rgba(0,0,0,0.03);
+        }
     </style>
 </head>
 <body>
@@ -2917,6 +3041,7 @@
                 <button class="tab-button" onclick="switchTab('spells')">Spells & Magic</button>
                 <button class="tab-button" onclick="switchTab('npcs')">NPCs</button>
                 <button class="tab-button" onclick="switchTab('debug')">Debug</button>
+                <button id="journal-btn" class="tab-button">Journal</button>
             </div>
             <div class="tab-content" id="debug-tab" style="display: none;">
                 <div class="panel-content" id="debug-output"></div>
@@ -2940,6 +3065,25 @@
                 </div>
             </div>
         </div>
+    </div>
+    
+    <!-- Add this entire block just before your <script> tag -->
+    <div id="journal-modal" class="modal">
+        <div class="journal-book">
+            <!-- Left Page -->
+            <div class="journal-page" id="journal-left-page">
+                <div class="page-content">
+                    <!-- Active quests will be populated here by JavaScript -->
+                </div>
+            </div>
+            <!-- Right Page -->
+            <div class="journal-page" id="journal-right-page">
+                <div class="page-content">
+                    <!-- Completed quests will be populated here by JavaScript -->
+                </div>
+            </div>
+        </div>
+        <span class="close-btn">×</span>
     </div>
     
     <script>
@@ -3065,6 +3209,7 @@
             document.getElementById('status-text').textContent = 'Connected';
             document.getElementById('status-indicator').classList.add('connected');
             loadCharacterStats();
+            requestPlotData(); // <--- ADD THIS
         });
         
         socket.on('disconnect', () => {
@@ -3091,7 +3236,13 @@
             loadLocationData();
         });
         
-        socket.on('game_output', (message) => { addMessage('game-output', message); });
+        socket.on('game_output', (message) => { 
+            addMessage('game-output', message); 
+            // After any game output, refresh plot data with a slight delay
+            setTimeout(() => {
+                requestPlotData();
+            }, 1500);
+        });
         socket.on('debug_output', (message) => { addMessage('debug-output', message); });
         socket.on('error', (error) => { addMessage('game-output', { type: 'error', content: error.message }); });
         
@@ -4253,6 +4404,92 @@
         }
 
         // --- NEW STORAGE FUNCTIONS ---
+        // --- START: QUEST JOURNAL LOGIC ---
+
+        // Get references to all the HTML elements we need to work with.
+        const journalModal = document.getElementById('journal-modal');
+        const journalBtn = document.getElementById('journal-btn');
+        const closeBtn = document.querySelector('.close-btn');
+        const leftPage = document.getElementById('journal-left-page').querySelector('.page-content');
+        const rightPage = document.getElementById('journal-right-page').querySelector('.page-content');
+
+        // --- Event Listeners to open and close the journal ---
+        journalBtn.onclick = function() {
+            journalModal.style.display = 'block';
+            // Every time the journal is opened, ask the server for the latest quest data.
+            socket.emit('request_plot_data');
+        }
+        closeBtn.onclick = function() {
+            journalModal.style.display = 'none';
+        }
+        window.onclick = function(event) {
+            // This allows the user to close the journal by clicking on the dark background.
+            if (event.target == journalModal) {
+                journalModal.style.display = 'none';
+            }
+        }
+
+        // --- Listen for the server's response with quest data ---
+        socket.on('plot_data_response', function(response) {
+            if (response.error || !response.data || !response.data.plotPoints) {
+                console.error('Error fetching plot data:', response.error || 'No plot data available.');
+                leftPage.innerHTML = '<h2>Journal</h2><p>Could not load quest data.</p>';
+                rightPage.innerHTML = '';
+                return;
+            }
+
+            // Clear out the old content from the pages.
+            leftPage.innerHTML = '';
+            rightPage.innerHTML = '';
+
+            // Separate quests into two lists: active and completed.
+            const allQuests = response.data.plotPoints;
+            const activeQuests = allQuests.filter(q => q.status !== 'completed');
+            const completedQuests = allQuests.filter(q => q.status === 'completed');
+
+            // --- A helper function to build the HTML for a list of quests ---
+            function renderQuestsToHTML(quests) {
+                let html = '';
+                quests.forEach(point => {
+                    // Determine the correct class based on completion status.
+                    const itemClass = point.status === 'completed' ? 'quest-item completed' : 'quest-item';
+                    
+                    // Start building the HTML for this quest entry.
+                    html += `<div class="${itemClass}">`;
+                    html += `<h3 class="quest-title">${point.title}</h3>`;
+                    html += `<p class="quest-description">${point.description}</p>`;
+
+                    // If there are side quests, loop through them and add them.
+                    if (point.sideQuests && point.sideQuests.length > 0) {
+                        point.sideQuests.forEach(sq => {
+                            const sqClass = sq.status === 'completed' ? 'quest-item side-quest-item completed' : 'quest-item side-quest-item';
+                            html += `<div class="${sqClass}">`;
+                            html += `<h4 class="quest-title">${sq.title}</h4>`;
+                            html += `<p class="quest-description">${sq.description}</p>`;
+                            html += `</div>`;
+                        });
+                    }
+                    html += `</div>`; // Close the main quest-item div
+                });
+                return html;
+            }
+
+            // --- Populate the pages ---
+            // Left Page: Active Quests
+            leftPage.innerHTML = '<h2>Current Objectives</h2>' + renderQuestsToHTML(activeQuests);
+
+            // Right Page: Completed Quests
+            rightPage.innerHTML = '<h2>A Chronicle of Deeds</h2>' + renderQuestsToHTML(completedQuests);
+        });
+
+        // --- Automatically refresh data to keep the journal up to date ---
+        // We need to make sure we ask for new quest data after the player does something.
+        function requestPlotData() {
+            socket.emit('request_plot_data');
+        }
+
+        // --- END: QUEST JOURNAL LOGIC ---
+        
         function openStorageView() {
             const body = document.getElementById('storage-modal-body');
             body.innerHTML = '<div class="loading">Fetching storage data...</div>';
