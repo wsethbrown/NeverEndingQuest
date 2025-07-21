@@ -1001,6 +1001,13 @@
             background-color: #1a1a1a;
         }
         
+        /* --- ADD THIS NEW CSS RULE --- */
+        #npcs-tab .panel-content {
+            overflow-y: auto; /* Ensure vertical scrolling is enabled */
+            height: 100%;     /* Make sure it tries to fill the parent's height */
+            padding: 10px;    /* Add some padding for better spacing */
+        }
+        
         /* MODIFIED */
         #stats-content {
             padding: 0 !important; /* Ensure no top padding */
