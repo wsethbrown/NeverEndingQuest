@@ -467,7 +467,19 @@ Produce a narrative in the style of a campaign journal or game codex entry. Do n
         for attempt in range(max_retries):
             try:
                 # Use exact prompts from claude.txt (updated version)
-                system_prompt = "You are a narrative design assistant trained to convert sequential TTRPG-style location logs into richly detailed, emotionally resonant chronicle summaries. You write with a tone that blends elevated fantasy prose, atmospheric worldbuilding, and declarative clarity. Your goal is to compress multiple location entries into a seamless narrative arc that captures exploration, discovery, character actions, intense combat, magical rituals, social tension, emotional consequences, and ambient detail."
+                system_prompt = """You are a narrative design assistant trained to convert sequential TTRPG-style location logs into richly detailed, emotionally resonant chronicle summaries. You write with a tone that blends elevated fantasy prose, atmospheric worldbuilding, and declarative clarity. Your goal is to compress multiple location entries into a seamless narrative arc that captures exploration, discovery, character actions, intense combat, magical rituals, social tension, emotional consequences, ambient detail, AND the intimate human moments that make characters real.
+
+**Your Sacred Duty**: Beyond tracking locations and events, you must capture the heartbeat of relationships—the lingering glances, whispered confessions, playful banter, desperate kisses, and tender moments that define who these characters truly are. The dungeon corridors and forest paths are merely stages where love blooms, friendships deepen, and desires ignite.
+
+**Character Intimacy is Paramount**: As you chronicle the journey through locations, you must weave in:
+- Every nickname, pet name, or term of endearment used
+- Physical chemistry and attraction between characters
+- Moments of vulnerability, comfort, and connection
+- Romantic tension, jealousy, yearning, and passion
+- Inside jokes, teasing, and playful dynamics
+- Personal quirks, habits, fears, and desires
+- How characters touch, look at, and respond to each other
+- The heat of passion and the tenderness of quiet moments"""
                 
                 # Format the actual conversation text to compress
                 conversation_text = self._format_messages_for_compression(original_messages or [])
@@ -484,6 +496,9 @@ Produce a narrative in the style of a campaign journal or game codex entry. Do n
 8. **Avoids generic phrasing** -- use specific names, textures, items, and visual language (e.g., "Norn's blade parted the specter's ribbed shadows" instead of "a character hit a ghost").
 9. **Never omits quiet moments**: include tension-building silence, fog, haunted ambiance, or signs of dread -- even when no combat occurs.
 10. **Narrate the complete journey through each location**: You MUST explicitly mention moving through or arriving at each location from the journey progression. Weave location names naturally into the narrative as the party travels through them.
+11. **Captures the intimate human story**: As characters move through locations, chronicle their relationships. Did lovers steal a kiss in the shadowed alcove? Did companions share knowing glances across the battlefield? Use their nicknames and pet names—"Trouble Magnet" not just "the cleric." Show the tender touch that healed more than wounds, the playful banter that lightened dark moments, the jealous glare when affections wandered. These moments are as vital as any treasure found.
+12. **Weaves in character details**: Include personal quirks and habits—how someone always checks their weapon thrice, needs three cups of tea to be civil, sleeps curled around their pack, or unconsciously reaches for their companion's hand in darkness. Show their fears (claustrophobia in dungeons?), desires (that longing look at soft beds), and intimate preferences.
+13. **Chronicles both heat and tenderness**: When passion ignites—the desperate embrace after near-death, hands tangling in hair, armor clattering to stone—capture it fully. When comfort is offered—the cloak shared against cold, the wordless vigil by a sickbed, the gentle cleaning of wounds—honor it. The way bodies betray emotions: nervous tics, bitten lips, tell-tale blushes. Both fire and gentleness forge unbreakable bonds.
 
 REQUIRED JOURNEY PROGRESSION (all locations must appear in your narrative):
 Starting at: {start_loc}
@@ -496,9 +511,20 @@ Here is the input:
 
 {conversation_text}
 
-CRITICAL: Your narrative must include all location names from the journey progression above. Each location should appear naturally within the story as the party progresses through them.
+**The Golden Rule: Names Are Memory, Details Are Soul**
+Before you begin, scan the entire conversation for:
+- Every nickname, pet name, or term of endearment used
+- Personal preferences (favorite drinks, foods, colors)
+- Behavioral quirks and habits
+- Fears, phobias, desires, and dreams
+- How characters physically interact with each other
+- Inside jokes and running gags
 
-Your output should read like a published game codex, narrative recap, or campaign journal entry. Never reference this prompt or the data format -- just write the immersive chronicle that shows the party's journey through every listed location."""
+Then weave ALL of these throughout your chronicle. When you write "Eirik moved forward," you have failed if somewhere he was called "Trouble Magnet." When describing a rest, you have failed if you don't mention someone's tea ritual or how they always sleep with one eye open.
+
+CRITICAL: Your narrative must include all location names from the journey progression above. Each location should appear naturally within the story as the party progresses through them. More importantly, show how each location affected the relationships—did the dark dungeon bring them closer? Did the open road allow playful teasing? Did danger spark passion?
+
+Your output should read like a published game codex, narrative recap, or campaign journal entry written by a bard who was intimate with the party's secrets. Never reference this prompt or the data format -- just write the immersive chronicle that shows both the party's journey through every listed location AND the evolution of their bonds."""
 
                 # Make API call to OpenAI - purely agentic, no artificial limits
                 response = self.client.chat.completions.create(
@@ -507,7 +533,7 @@ Your output should read like a published game codex, narrative recap, or campaig
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt}
                     ],
-                    temperature=0.7
+                    temperature=0.6
                     # No max_tokens limit - let AI decide optimal length
                 )
                 
