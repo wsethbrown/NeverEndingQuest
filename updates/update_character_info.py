@@ -1187,6 +1187,14 @@ CRITICAL INSTRUCTIONS:
     - The experience_points field must NOT be included in level up changes
     - XP is managed separately and should never be altered during level advancement
     - IMPORTANT: This restriction ONLY applies to level up operations. You MUST update experience_points when explicitly requested (e.g., "Add 50 experience points", "Award XP")
+19. TEMPORARY EFFECTS EXPIRATION - CRITICAL:
+    - When an effect expires (e.g., "loses X as Y expires", "Y effect ends"), return the COMPLETE temporaryEffects array
+    - The returned array must contain ALL effects that should remain active
+    - DO NOT include the expired effect in the returned array
+    - Example: Character has Shield of Faith and Bull's Strength. Shield of Faith expires.
+      CORRECT: {{"temporaryEffects": [{{"name": "Bull's Strength", "description": "...", "source": "...", "duration": "..."}}]}}
+      WRONG: Not returning temporaryEffects (would leave expired effect in place)
+    - This ensures expired effects are properly removed from the character sheet
 
 EQUIPMENT UPDATE EXAMPLES:
 CORRECT (updating one item): {{"equipment": [{{"item_name": "Jeweled dagger", "description": "updated description", "magical": true}}]}}

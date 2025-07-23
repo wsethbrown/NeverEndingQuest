@@ -909,6 +909,19 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                 if success:
                     info("SUCCESS: Character info updated successfully", category="character_updates")
                     needs_conversation_history_update = True
+                    
+                    # Track temporary effects in parallel
+                    try:
+                        from updates.update_character_effects import update_character_effects
+                        debug(f"EFFECTS: Tracking potential effect for {character_name}: {changes}", category="effects_tracking")
+                        effects_success = update_character_effects(character_name, changes)
+                        if effects_success:
+                            debug(f"EFFECTS: Successfully tracked effect", category="effects_tracking")
+                        else:
+                            debug(f"EFFECTS: Effect not tracked (not applicable or failed)", category="effects_tracking")
+                    except Exception as e:
+                        warning(f"EFFECTS: Failed to track effect: {str(e)}", category="effects_tracking")
+                        # Don't break the game if effects tracking fails
                 else:
                     error(f"FAILURE: Failed to update character info for {character_name}", category="character_updates")
                     print(f"ERROR: Failed to update character info for {character_name}")

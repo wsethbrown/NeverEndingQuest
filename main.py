@@ -1850,8 +1850,18 @@ def main_game_loop():
                 break  # No compression occurred, we're done
         save_conversation_history(conversation_history)
         
-        conversation_history = check_and_process_module_transitions(conversation_history, party_tracker_data)
+        # DISABLED: Module summary insertion now handled by inject_campaign_summaries with separate system messages
+        # conversation_history = check_and_process_module_transitions(conversation_history, party_tracker_data)
         save_conversation_history(conversation_history)
+        
+        # Check for expired temporary effects
+        try:
+            from updates.process_effect_expirations import process_all_effect_expirations
+            debug("EFFECTS: Checking for expired effects", category="effects_tracking")
+            process_all_effect_expirations()
+        except Exception as e:
+            debug(f"EFFECTS: Failed to process effect expirations: {str(e)}", category="effects_tracking")
+            # Don't break the game if effects processing fails
 
 
         # Set status to ready before accepting input

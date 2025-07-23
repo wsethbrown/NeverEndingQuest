@@ -96,29 +96,41 @@ def inject_campaign_summaries(new_history):
         summaries_dir = "modules/campaign_summaries"
         if os.path.exists(summaries_dir):
             summary_files = [f for f in os.listdir(summaries_dir) if '_summary_' in f and f.endswith('.json')]
-            summary_files.sort()  # Chronological order by filename
             
-            if summary_files:
-                campaign_context_parts = ["=== CAMPAIGN CONTEXT ==="]
-                
-                for summary_file in summary_files:
+            # Load all summaries with their completion dates for proper chronological sorting
+            summaries_with_dates = []
+            for summary_file in summary_files:
+                try:
+                    summary_path = os.path.join(summaries_dir, summary_file)
+                    summary_data = safe_json_load(summary_path)
+                    if summary_data and "completionDate" in summary_data:
+                        summaries_with_dates.append((summary_data["completionDate"], summary_file, summary_data))
+                except Exception as e:
+                    debug(f"WARNING: Could not load completion date from {summary_file}", exception=e, category="campaign_context")
+            
+            # Sort by completion date (chronological order)
+            summaries_with_dates.sort(key=lambda x: x[0])
+            
+            if summaries_with_dates:
+                for completion_date, summary_file, summary_data in summaries_with_dates:
                     try:
-                        summary_path = os.path.join(summaries_dir, summary_file)
-                        summary_data = safe_json_load(summary_path)
                         if summary_data and "summary" in summary_data:
                             module_name = summary_data.get("moduleName", "Unknown Module")
                             sequence = summary_data.get("sequenceNumber", 1)
-                            campaign_context_parts.append(f"\n--- {module_name} (Chronicle {sequence:03d}) ---")
-                            campaign_context_parts.append(summary_data["summary"])
+                            
+                            # Create the full content for this single chronicle
+                            chronicle_content = (
+                                f"=== CAMPAIGN CONTEXT ===\n\n"
+                                f"--- {module_name} (Chronicle {sequence:03d}) ---\n"
+                                f"{summary_data['summary']}"
+                            )
+                            
+                            # Append it as a new, separate system message
+                            new_history.append({"role": "system", "content": chronicle_content})
+                            
+                            debug(f"SUCCESS: Injected chronicle for {module_name} (completed {completion_date}) as a separate system message", category="campaign_context")
                     except Exception as e:
-                        debug(f"FAILURE: Could not load summary {summary_file}", exception=e, category="campaign_context")
-                
-                if len(campaign_context_parts) > 1:  # More than just header
-                    campaign_context = "\n".join(campaign_context_parts)
-                    new_history.append({"role": "system", "content": campaign_context})
-                    debug(f"SUCCESS: Injected {len(summary_files)} campaign summaries as system message", category="campaign_context")
-                else:
-                    debug(f"INFO: No valid campaign summaries found to inject", category="campaign_context")
+                        debug(f"FAILURE: Could not inject summary {summary_file}", exception=e, category="campaign_context")
             else:
                 debug(f"INFO: No campaign summary files found in {summaries_dir}", category="campaign_context")
     except Exception as e:
