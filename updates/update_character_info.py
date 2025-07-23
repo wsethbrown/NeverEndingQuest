@@ -1143,7 +1143,20 @@ CRITICAL INSTRUCTIONS:
 9. SPELL SLOT RULE: Cantrips (0-level spells) do NOT consume spell slots. Only deduct spell slots for leveled spells (1st-9th level).
 10. HIT DICE RULE: IGNORE all references to hit dice, Hit Dice, HD, or hit dice restoration. Do NOT add hitDice, hitDiceRestored, or maxHitDice fields. The system does not track hit dice.
 11. REST HEALING: For long rests, simply restore hitPoints to maxHitPoints and restore spell slots. For short rests, restore some hitPoints based on the description. Do not implement hit dice mechanics.
-12. CURRENCY MANAGEMENT: When updating currency, always return the FINAL values after the transaction. If a character has 38 gold and gives 1 gold away, return {{"currency": {{"gold": 37, "silver": 16, "copper": 20}}}} with ALL currency types to preserve the full currency state. NEVER return just the change amount (like -1) or partial currency objects.
+12. CURRENCY MANAGEMENT - CRITICAL RULES:
+    a) ALWAYS return the FINAL currency values after ANY transaction
+    b) NEVER return just the change amount or partial currency objects
+    c) Include ALL currency types (gold, silver, copper) even if unchanged
+    
+    TRANSACTION TYPES:
+    - SPENDING/PAYING: Subtract from current amount
+      Example: Has 367 gold, pays 100 gold -> Return {{"currency": {{"gold": 267, "silver": 61, "copper": 14}}}}
+    - RECEIVING/FINDING: Add to current amount  
+      Example: Has 267 gold, finds 50 gold -> Return {{"currency": {{"gold": 317, "silver": 61, "copper": 14}}}}
+    - TRADING/EXCHANGING: Update all affected denominations
+      Example: Trades 100 silver for 10 gold -> Calculate and return new totals
+    
+    CRITICAL: Look at the current currency values in the character data and calculate the FINAL amount after the transaction. Do NOT return the amount found/paid, return the TOTAL after adding/subtracting.
 13. STATUS-CONDITION SYNCHRONIZATION: Always maintain consistency between status, condition, and hitPoints fields:
     - When status changes to "alive" and hitPoints > 0, automatically set condition to "none" and clear condition_affected array
     - When hitPoints > 0 and status is "alive", condition cannot be "unconscious"
@@ -1424,14 +1437,12 @@ Please provide the CORRECT currency values:
 - Current gold: {current_currency.get('gold', 0)}, silver: {current_currency.get('silver', 0)}, copper: {current_currency.get('copper', 0)}
 - If adding found coins, return the sum of current + found amounts"""
                     
-                    # Currency protection: Remove suspicious currency reductions to prevent corruption
-                    warning(f"CURRENCY PROTECTION: Blocking suspicious currency reduction for {character_name}", category="character_updates")
-                    warning(f"CURRENCY PROTECTION: Reduction details: {reduction_details}", category="character_updates")
+                    # Currency validation: Allow the transaction but monitor it
+                    info(f"CURRENCY TRANSACTION: Allowing currency change for {character_name}", category="character_updates")
+                    info(f"CURRENCY TRANSACTION: Details - {', '.join(reduction_details)}", category="character_updates")
                     
-                    # Remove the currency update to preserve current values
-                    if 'currency' in updates:
-                        del updates['currency']
-                        info(f"CURRENCY PROTECTION: Preserved current currency values", category="character_updates")
+                    # The improved prompting should prevent calculation errors
+                    # We allow the transaction to proceed per the agentic approach
             
             updated_data = deep_merge_dict(character_data, updates)
             
