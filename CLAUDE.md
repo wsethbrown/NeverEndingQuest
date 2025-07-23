@@ -540,3 +540,6 @@ docs = write_documentation("module_builder.py", doc_type="docstrings")
 - Gemini tends to suggest extra features - keep prompts focused
 - Use for planning and analysis, not direct code generation
 - Temperature defaults to 0.7 for balanced responses
+
+# Debug Message Format
+Debug messages that should appear in the debug screen must use: `print(f"DEBUG: [Category] Message...")`

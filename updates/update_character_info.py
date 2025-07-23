@@ -1341,8 +1341,8 @@ Character Role: {character_role}
             
             # DEBUG: Check if XP update is in the updates
             if 'experience' in changes.lower() and 'experience_points' not in updates:
-                print(f"[DEBUG XP WARNING] XP change requested but experience_points not in updates!")
-                print(f"[DEBUG XP WARNING] AI returned: {updates}")
+                print(f"DEBUG: [XP Warning] XP change requested but experience_points not in updates!")
+                print(f"DEBUG: [XP Warning] AI returned: {updates}")
             
             # Fix common item_type mistakes before applying updates
             updates = fix_item_types(updates)
@@ -1372,11 +1372,11 @@ Character Role: {character_role}
                 
                 # If the update would reduce XP, check if this might be stale data
                 if new_xp < current_xp:
-                    print(f"[DEBUG XP PROTECTION] Preventing XP reduction: {current_xp} -> {new_xp} for {character_name}")
-                    print(f"[DEBUG XP PROTECTION] This may be stale data from post-combat processing")
+                    print(f"DEBUG: [XP Protection] Preventing XP reduction: {current_xp} -> {new_xp} for {character_name}")
+                    print(f"DEBUG: [XP Protection] This may be stale data from post-combat processing")
                     # Remove the XP update to preserve current XP
                     del updates['experience_points']
-                    print(f"[DEBUG XP PROTECTION] XP update removed, preserving current XP: {current_xp}")
+                    print(f"DEBUG: [XP Protection] XP update removed, preserving current XP: {current_xp}")
             
             # Currency reduction validation
             if 'currency' in updates:
@@ -1395,7 +1395,7 @@ Character Role: {character_role}
                         reduction_details.append(f"{coin_type}: {current_val} -> {new_val} (-{reduction_amount})")
                 
                 if needs_verification:
-                    print(f"[DEBUG CURRENCY] Currency reduction detected for {character_name}: {', '.join(reduction_details)}")
+                    print(f"DEBUG: [Currency Update] Currency reduction detected for {character_name}: {', '.join(reduction_details)}")
                     warning(f"CURRENCY REDUCTION: {character_name} - {', '.join(reduction_details)}", category="character_updates")
                     
                     # Create verification prompt
@@ -1524,7 +1524,7 @@ Please provide the CORRECT currency values:
             
             # DEBUG: Log XP before saving
             if 'experience_points' in updated_data:
-                print(f"[DEBUG XP SAVE] About to save {character_name} with XP: {updated_data.get('experience_points')}")
+                print(f"DEBUG: [XP Save] About to save {character_name} with XP: {updated_data.get('experience_points')}")
             
             if safe_write_json(character_path, updated_data):
                 # print(f"[DEBUG] Character data saved successfully!")
@@ -1536,9 +1536,9 @@ Please provide the CORRECT currency values:
                     if saved_data:
                         saved_xp = saved_data.get('experience_points', 0)
                         expected_xp = updated_data.get('experience_points', 0)
-                        print(f"[DEBUG XP VERIFY] After save - Expected XP: {expected_xp}, Actual XP in file: {saved_xp}")
+                        print(f"DEBUG: [XP Verify] After save - Expected XP: {expected_xp}, Actual XP in file: {saved_xp}")
                         if saved_xp != expected_xp:
-                            print(f"[DEBUG XP VERIFY] WARNING: XP mismatch after save!")
+                            print(f"DEBUG: [XP Verify] WARNING: XP mismatch after save!")
                 
                 # Log the changes with more detail for user feedback
                 changed_fields = list(updates.keys())
@@ -1559,7 +1559,7 @@ Please provide the CORRECT currency values:
                     # DEBUG: Check XP before validation
                     pre_validation_data = safe_read_json(character_path)
                     pre_validation_xp = pre_validation_data.get('experience_points', 0) if pre_validation_data else 0
-                    print(f"[DEBUG XP TRACKING] {character_name} XP BEFORE validation: {pre_validation_xp}")
+                    print(f"DEBUG: [XP Tracking] {character_name} XP BEFORE validation: {pre_validation_xp}")
                     
                     info(f"[Character Validator] Starting validation for {character_name}...", category="character_validation")
                     validator = AICharacterValidator()
@@ -1575,9 +1575,9 @@ Please provide the CORRECT currency values:
                     # DEBUG: Check XP after validation
                     post_validation_data = safe_read_json(character_path)
                     post_validation_xp = post_validation_data.get('experience_points', 0) if post_validation_data else 0
-                    print(f"[DEBUG XP TRACKING] {character_name} XP AFTER validation: {post_validation_xp}")
+                    print(f"DEBUG: [XP Tracking] {character_name} XP AFTER validation: {post_validation_xp}")
                     if pre_validation_xp != post_validation_xp:
-                        print(f"[DEBUG XP TRACKING] WARNING: XP changed during validation! {pre_validation_xp} -> {post_validation_xp}")
+                        print(f"DEBUG: [XP Tracking] WARNING: XP changed during validation! {pre_validation_xp} -> {post_validation_xp}")
                         
                 except Exception as e:
                     warning(f"VALIDATION: Character validation error", category="character_validation")
