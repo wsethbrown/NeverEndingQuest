@@ -51,6 +51,7 @@ import webbrowser
 from datetime import datetime
 import io
 from contextlib import redirect_stdout, redirect_stderr
+from openai import OpenAI
 
 # Add parent directory to path so we can import from utils, core, etc.
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -829,6 +830,43 @@ def handle_user_exit():
     except Exception as e:
         print(f"ERROR handling user exit: {e}")
 
+@socketio.on('generate_image')
+def handle_generate_image(data):
+    """Handle image generation requests"""
+    try:
+        prompt = data.get('prompt', '')
+        if not prompt:
+            emit('image_generation_error', {'message': 'No prompt provided'})
+            return
+        
+        import config
+        
+        # Initialize OpenAI client
+        client = OpenAI(api_key=config.OPENAI_API_KEY)
+        
+        # Generate image using DALL-E 3 with high quality settings
+        response = client.images.generate(
+            model="dall-e-3",
+            prompt=prompt,
+            size="1024x1024",
+            quality="hd",
+            n=1,
+        )
+        
+        # Get the image URL
+        image_url = response.data[0].url
+        
+        # Emit the image URL back to the client
+        emit('image_generated', {
+            'image_url': image_url,
+            'prompt': prompt
+        })
+        
+    except Exception as e:
+        error_msg = f"Image generation failed: {str(e)}"
+        print(f"ERROR: {error_msg}")
+        emit('image_generation_error', {'message': error_msg})
+
 def run_game_loop():
     """Run the main game loop with enhanced error handling"""
     try:
@@ -928,7 +966,7 @@ def send_output_to_clients():
 def open_browser():
     """Open the web browser after a short delay"""
     time.sleep(1.5)  # Wait for server to start
-    webbrowser.open('http://localhost:5000')
+    webbrowser.open('http://localhost:8000')
 
 if __name__ == '__main__':
     # Create templates directory if it doesn't exist
@@ -939,12 +977,12 @@ if __name__ == '__main__':
     browser_thread.start()
     
     print("Starting NeverEndingQuest Web Interface...")
-    print("Opening browser at http://localhost:5000")
+    print("Opening browser at http://localhost:8000")
     
     # Run the Flask app with SocketIO
     socketio.run(app, 
                 host='0.0.0.0',
-                port=5000,
+                port=8000,
                 debug=False,
                 use_reloader=False,
                 allow_unsafe_werkzeug=True)
