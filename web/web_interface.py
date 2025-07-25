@@ -840,6 +840,9 @@ def handle_generate_image(data):
             return
         
         import config
+        import requests
+        from datetime import datetime
+        from utils.file_operations import safe_read_json, safe_write_json
         
         # Initialize OpenAI client
         client = OpenAI(api_key=config.OPENAI_API_KEY)
@@ -855,6 +858,69 @@ def handle_generate_image(data):
         
         # Get the image URL
         image_url = response.data[0].url
+        
+        # Save the image locally with metadata
+        try:
+            # Get current module and game state
+            party_data = safe_read_json("party_tracker.json")
+            current_module = party_data.get("module", "unknown_module")
+            world_conditions = party_data.get("worldConditions", {})
+            
+            # Get game time
+            game_year = world_conditions.get("year", 0)
+            game_month = world_conditions.get("month", "Unknown")
+            game_day = world_conditions.get("day", 0)
+            game_time = world_conditions.get("time", "00:00:00")
+            location_id = world_conditions.get("currentLocationId", "unknown")
+            location_name = world_conditions.get("currentLocation", "Unknown Location")
+            
+            # Create images directory for the module
+            images_dir = os.path.join("modules", current_module, "images")
+            os.makedirs(images_dir, exist_ok=True)
+            
+            # Generate filename with both timestamps
+            real_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            game_timestamp = f"{game_year}_{game_month}_{game_day}_{game_time.replace(':', '')}"
+            filename = f"img_{real_timestamp}_game_{game_timestamp}_{location_id}.png"
+            filepath = os.path.join(images_dir, filename)
+            
+            # Download and save the image
+            img_response = requests.get(image_url)
+            if img_response.status_code == 200:
+                with open(filepath, 'wb') as f:
+                    f.write(img_response.content)
+                print(f"Saved image to: {filepath}")
+                
+                # Save metadata
+                metadata_file = os.path.join(images_dir, "image_metadata.json")
+                metadata = safe_read_json(metadata_file) or {"images": []}
+                
+                metadata["images"].append({
+                    "filename": filename,
+                    "prompt": prompt,
+                    "real_world_time": datetime.now().isoformat(),
+                    "game_time": {
+                        "year": game_year,
+                        "month": game_month,
+                        "day": game_day,
+                        "time": game_time
+                    },
+                    "location": {
+                        "id": location_id,
+                        "name": location_name,
+                        "area": world_conditions.get("currentArea", "Unknown Area"),
+                        "area_id": world_conditions.get("currentAreaId", "unknown")
+                    },
+                    "module": current_module,
+                    "original_url": image_url
+                })
+                
+                safe_write_json(metadata_file, metadata)
+                print(f"Updated image metadata in: {metadata_file}")
+            
+        except Exception as save_error:
+            # Don't fail the whole operation if saving fails
+            print(f"Warning: Failed to save image locally: {save_error}")
         
         # Emit the image URL back to the client
         emit('image_generated', {
@@ -966,7 +1032,12 @@ def send_output_to_clients():
 def open_browser():
     """Open the web browser after a short delay"""
     time.sleep(1.5)  # Wait for server to start
-    webbrowser.open('http://localhost:8000')
+    try:
+        import config
+        port = getattr(config, 'WEB_PORT', 8357)
+    except ImportError:
+        port = 8357
+    webbrowser.open(f'http://localhost:{port}')
 
 if __name__ == '__main__':
     # Create templates directory if it doesn't exist
@@ -977,12 +1048,17 @@ if __name__ == '__main__':
     browser_thread.start()
     
     print("Starting NeverEndingQuest Web Interface...")
-    print("Opening browser at http://localhost:8000")
+    try:
+        import config
+        port = getattr(config, 'WEB_PORT', 8357)
+    except ImportError:
+        port = 8357
+    print(f"Opening browser at http://localhost:{port}")
     
     # Run the Flask app with SocketIO
     socketio.run(app, 
                 host='0.0.0.0',
-                port=8000,
+                port=port,
                 debug=False,
                 use_reloader=False,
                 allow_unsafe_werkzeug=True)
