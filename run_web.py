@@ -76,7 +76,12 @@ def main():
             os.makedirs(dir_path, exist_ok=True)
     
     print("Launching NeverEndingQuest Web Interface...")
-    print("The browser should open automatically. If not, navigate to http://localhost:5000")
+    try:
+        import config
+        port = getattr(config, 'WEB_PORT', 8357)
+    except ImportError:
+        port = 8357  # Default port if config doesn't exist yet
+    print(f"The browser should open automatically. If not, navigate to http://localhost:{port}")
     
     # Run the web interface with restart capability
     while True:

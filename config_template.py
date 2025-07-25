@@ -82,4 +82,7 @@ DM_FULL_MODEL = "gpt-4.1-2025-04-14"                   # Used for complex action
 ENABLE_INTELLIGENT_ROUTING = True                        # Enable/disable action-based model routing
 MAX_VALIDATION_RETRIES = 1                              # Retry with full model after this many validation failures
 
+# --- Web Interface Configuration ---
+WEB_PORT = 8357                                         # Port for the web interface (changed from 5000 for security)
+
 # --- END OF FILE config_template.py ---

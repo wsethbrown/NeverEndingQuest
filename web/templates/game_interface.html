@@ -307,6 +307,60 @@
             background-color: #660000; /* Darker shade on hover */
         }
         
+        /* Image Generation Toggle Styles */
+        .image-generation-toggle {
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-label {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .toggle-label input[type="checkbox"] {
+            display: none;
+        }
+
+        .toggle-slider {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background-color: #666;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+            margin-right: 8px;
+        }
+
+        .toggle-slider::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-label input:checked + .toggle-slider {
+            background-color: #4CAF50;
+        }
+
+        .toggle-label input:checked + .toggle-slider::after {
+            transform: translateX(20px);
+        }
+
+        .toggle-text {
+            color: #ccc;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
         .save-load-buttons button:disabled {
             background-color: #555;
             cursor: not-allowed;
@@ -3054,6 +3108,13 @@
                 <button class="load-button" id="load-button" onclick="openLoadDialog()" disabled title="Load Game">Load</button>
                 <button class="reset-button" id="reset-button" onclick="openResetDialog()" disabled title="Reset Campaign">Reset</button>
             </div>
+            <div class="image-generation-toggle">
+                <label class="toggle-label">
+                    <input type="checkbox" id="image-generation-toggle" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-text">AI Images</span>
+                </label>
+            </div>
             <button class="exit-button" id="exit-button" onclick="exitGame()" title="Exit Game">× Exit</button>
         </div>
     </div>
@@ -3203,20 +3264,23 @@
                 badge.className = 'message-badge';
                 badge.textContent = 'DM';
                 
-                // Add image generation button
-                const imageButton = document.createElement('button');
-                imageButton.className = 'image-generation-button';
-                imageButton.textContent = 'Generate Image';
-                imageButton.onclick = function() {
-                    generateImageForMessage(message.content, messageDiv);
-                };
-                
                 const text = document.createElement('div');
                 text.className = 'message-text';
                 text.textContent = message.content;
                 header.appendChild(author);
                 header.appendChild(badge);
-                header.appendChild(imageButton);
+                
+                // Add image generation button (only if enabled)
+                const isImageGenEnabled = document.getElementById('image-generation-toggle').checked;
+                if (isImageGenEnabled) {
+                    const imageButton = document.createElement('button');
+                    imageButton.className = 'image-generation-button';
+                    imageButton.textContent = 'Generate Image';
+                    imageButton.onclick = function() {
+                        generateImageForMessage(message.content, messageDiv);
+                    };
+                    header.appendChild(imageButton);
+                }
                 contentDiv.appendChild(header);
                 contentDiv.appendChild(text);
                 messageDiv.appendChild(avatar);
@@ -3938,7 +4002,30 @@
             if (connected) {
                 loadCharacterStats();
             }
+            
+            // Initialize image generation toggle from localStorage
+            const imageToggle = document.getElementById('image-generation-toggle');
+            const savedImageGenState = localStorage.getItem('imageGenerationEnabled');
+            if (savedImageGenState !== null) {
+                imageToggle.checked = savedImageGenState === 'true';
+            }
+
+            // Handle toggle changes
+            imageToggle.addEventListener('change', function() {
+                localStorage.setItem('imageGenerationEnabled', this.checked);
+                // Update visibility of existing buttons
+                updateImageButtonVisibility();
+            });
         });
+        
+        // Function to update image button visibility
+        function updateImageButtonVisibility() {
+            const isEnabled = document.getElementById('image-generation-toggle').checked;
+            const imageButtons = document.querySelectorAll('.image-generation-button');
+            imageButtons.forEach(button => {
+                button.style.display = isEnabled ? 'inline-block' : 'none';
+            });
+        }
         
         function showNPCDetailList(npcName, modalTitle, itemsData) {
             const modal = document.getElementById('npc-details-modal');
