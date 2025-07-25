@@ -17,6 +17,7 @@ from utils.enhanced_logger import debug, info, warning, error
 from utils.encoding_utils import safe_json_load, safe_json_dump
 from utils.file_operations import safe_read_json, safe_write_json
 from utils.module_path_manager import ModulePathManager
+from updates.update_character_info import normalize_character_name
 from openai import OpenAI
 import config
 
@@ -28,6 +29,46 @@ set_script_name(os.path.basename(__file__))
 client = OpenAI(api_key=config.OPENAI_API_KEY)
 
 EFFECTS_TRACKER_FILE = "modules/effects_tracker.json"
+
+def get_current_game_time() -> datetime:
+    """Get current game time from party tracker as datetime."""
+    party_data = safe_read_json("party_tracker.json")
+    if not party_data or "worldConditions" not in party_data:
+        warning("Failed to get game time from party tracker", category="effects_tracking")
+        # Return a default time
+        return datetime(2000, 1, 1)
+    
+    world = party_data["worldConditions"]
+    day = world.get("day", 0)
+    time_str = world.get("time", "00:00:00")
+    
+    # Parse time
+    time_parts = time_str.split(":")
+    hour = int(time_parts[0])
+    minute = int(time_parts[1]) if len(time_parts) > 1 else 0
+    second = int(time_parts[2]) if len(time_parts) > 2 else 0
+    
+    # Calculate total days accounting for month transitions
+    # If we see day drop from 31+ to 1, we've crossed a month
+    total_days = day
+    last_day = getattr(get_current_game_time, 'last_day', 0)
+    if hasattr(get_current_game_time, 'month_count'):
+        if day < last_day and last_day >= 30:
+            # Month transition detected
+            get_current_game_time.month_count += 1
+            debug(f"EFFECTS: Month transition detected. Day {last_day} -> {day}", category="effects_tracking")
+        total_days = (get_current_game_time.month_count * 30) + day
+    else:
+        # Initialize tracking
+        get_current_game_time.month_count = 0
+    
+    get_current_game_time.last_day = day
+    
+    # Use base date and add total game days
+    base_date = datetime(2000, 1, 1)
+    game_datetime = base_date + timedelta(days=total_days, hours=hour, minutes=minute, seconds=second)
+    
+    return game_datetime
 
 def get_effects_file_path() -> str:
     """Get the path to the global effects tracker file."""
@@ -166,7 +207,8 @@ Set affects_max to true for effects like Aid that modify both current and maximu
 
 def calculate_expiration(duration_type: str, duration_value: Any) -> Optional[str]:
     """Calculate when an effect expires based on duration."""
-    now = datetime.now()
+    # Use game time instead of real time
+    now = get_current_game_time()
     
     if duration_type == "hours":
         try:
@@ -198,14 +240,21 @@ def add_effect(character_name: str, effect_info: Dict[str, Any]) -> bool:
     """Add a new effect to the tracker."""
     tracker = load_effects_tracker()
     
+    # Normalize character name to match file naming convention
+    normalized_name = normalize_character_name(character_name)
+    debug(f"EFFECTS: Normalized '{character_name}' to '{normalized_name}'", category="effects_tracking")
+    
     # Ensure character exists
-    if character_name not in tracker["characters"]:
-        tracker["characters"][character_name] = {
+    if normalized_name not in tracker["characters"]:
+        tracker["characters"][normalized_name] = {
             "modifiers": []
         }
     
     # Create effect entry
     effect_id = str(uuid.uuid4())[:8]  # Short ID for readability
+    
+    # Use game time instead of real time
+    game_time = get_current_game_time()
     
     effect_entry = {
         "id": effect_id,
@@ -213,7 +262,7 @@ def add_effect(character_name: str, effect_info: Dict[str, Any]) -> bool:
         "value": effect_info["value"],
         "source": effect_info["source"],
         "description": effect_info["description"],
-        "applied_at": datetime.now().isoformat(),
+        "applied_at": game_time.isoformat(),
         "duration_type": effect_info["duration_type"],
         "duration_value": effect_info["duration_value"]
     }
@@ -228,9 +277,9 @@ def add_effect(character_name: str, effect_info: Dict[str, Any]) -> bool:
         effect_entry["expires_at"] = expiration
     
     # Add to character's modifiers
-    tracker["characters"][character_name]["modifiers"].append(effect_entry)
+    tracker["characters"][normalized_name]["modifiers"].append(effect_entry)
     
-    info(f"EFFECTS: Added effect for {character_name}: {effect_info['source']} "
+    info(f"EFFECTS: Added effect for {normalized_name}: {effect_info['source']} "
          f"({effect_info['stat']} {effect_info['value']:+d})", category="effects_tracking")
     
     return save_effects_tracker(tracker)
@@ -238,7 +287,8 @@ def add_effect(character_name: str, effect_info: Dict[str, Any]) -> bool:
 def check_and_apply_expirations() -> List[Dict[str, Any]]:
     """Check for expired effects and generate reversal actions."""
     tracker = load_effects_tracker()
-    now = datetime.now()
+    # Use game time instead of real time
+    now = get_current_game_time()
     reversals = []
     
     for character_name, char_data in tracker["characters"].items():
@@ -274,9 +324,9 @@ def check_and_apply_expirations() -> List[Dict[str, Any]]:
                 
                 # Check if this effect affects both current and max values
                 if modifier.get("affects_max", False) and modifier["stat"] == "hitPoints":
-                    reversal_desc = f"{action_word} {abs(modifier['value'])} maximum hit points and {abs(modifier['value'])} current hit points as {modifier['source']} expires"
+                    reversal_desc = f"{action_word} {abs(modifier['value'])} maximum hit points and {abs(modifier['value'])} current hit points as {modifier['source']} expires. Remove '{modifier['source']}' from temporaryEffects."
                 else:
-                    reversal_desc = f"{action_word} {abs(modifier['value'])} {modifier['stat']} as {modifier['source']} expires"
+                    reversal_desc = f"{action_word} {abs(modifier['value'])} {modifier['stat']} as {modifier['source']} expires. Remove effect from temporaryEffects."
                 
                 reversals.append({
                     "character": character_name,
@@ -299,10 +349,13 @@ def clear_rest_effects(character_name: str, rest_type: str) -> List[Dict[str, An
     tracker = load_effects_tracker()
     reversals = []
     
-    if character_name not in tracker["characters"]:
+    # Normalize character name
+    normalized_name = normalize_character_name(character_name)
+    
+    if normalized_name not in tracker["characters"]:
         return reversals
     
-    char_data = tracker["characters"][character_name]
+    char_data = tracker["characters"][normalized_name]
     if "modifiers" not in char_data:
         return reversals
     
@@ -407,11 +460,14 @@ def get_character_modifiers(character_name: str) -> Dict[str, int]:
     """Get current active modifiers for a character."""
     tracker = load_effects_tracker()
     
-    if character_name not in tracker["characters"]:
+    # Normalize character name
+    normalized_name = normalize_character_name(character_name)
+    
+    if normalized_name not in tracker["characters"]:
         return {}
     
     modifiers = {}
-    char_data = tracker["characters"][character_name]
+    char_data = tracker["characters"][normalized_name]
     
     if "modifiers" in char_data:
         for modifier in char_data["modifiers"]:
