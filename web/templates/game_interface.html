@@ -921,6 +921,57 @@
             margin-right: 10px;
         }
         
+        /* Image Generation Button Styles */
+        .image-generation-button {
+            margin: 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 2px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+        }
+        
+        .image-generation-button:hover {
+            background-color: #45a049;
+        }
+        
+        .image-generation-button:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+        }
+        
+        .image-generation-button.loading-image {
+            background-color: #FFA500;
+        }
+        
+        /* Generated Image Styles */
+        .generated-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 2px solid #444;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .image-container {
+            margin-top: 10px;
+            text-align: left;
+        }
+        
+        .image-prompt {
+            font-size: 8px;
+            color: #888;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
         /* Scrollbar styling */
         ::-webkit-scrollbar {
             width: 10px;
@@ -3151,11 +3202,21 @@
                 const badge = document.createElement('span');
                 badge.className = 'message-badge';
                 badge.textContent = 'DM';
+                
+                // Add image generation button
+                const imageButton = document.createElement('button');
+                imageButton.className = 'image-generation-button';
+                imageButton.textContent = 'Generate Image';
+                imageButton.onclick = function() {
+                    generateImageForMessage(message.content, messageDiv);
+                };
+                
                 const text = document.createElement('div');
                 text.className = 'message-text';
                 text.textContent = message.content;
                 header.appendChild(author);
                 header.appendChild(badge);
+                header.appendChild(imageButton);
                 contentDiv.appendChild(header);
                 contentDiv.appendChild(text);
                 messageDiv.appendChild(avatar);
@@ -3210,6 +3271,28 @@
             scrollToBottom(outputId);
         }
         
+        // Image generation function
+        function generateImageForMessage(messageContent, messageDiv) {
+            // Find the button in this message and disable it
+            const button = messageDiv.querySelector('.image-generation-button');
+            if (button) {
+                button.disabled = true;
+                button.classList.add('loading-image');
+                button.textContent = 'Generating...';
+                
+                // Store the message div reference in the button for later retrieval
+                button.dataset.messageDiv = 'true';
+            }
+            
+            // Create a high-quality prompt based on the message content
+            const prompt = `Epic fantasy RPG scene: ${messageContent}. Medieval style, darker lighting, highly detailed fantasy art style, professional digital painting, atmospheric depth.`;
+            
+            // Send the image generation request
+            socket.emit('generate_image', { prompt: prompt });
+        }
+        
+
+        
         // Socket event handlers
         socket.on('connect', () => {
             connected = true;
@@ -3252,6 +3335,56 @@
         });
         socket.on('debug_output', (message) => { addMessage('debug-output', message); });
         socket.on('error', (error) => { addMessage('game-output', { type: 'error', content: error.message }); });
+        
+        // Image generation event handlers
+        socket.on('image_generated', (data) => {
+            // Find the button that was marked as loading and re-enable it
+            const loadingButton = document.querySelector('.image-generation-button.loading-image');
+            if (loadingButton) {
+                loadingButton.disabled = false;
+                loadingButton.classList.remove('loading-image');
+                loadingButton.textContent = 'Generate Image';
+                
+                // Find the message that contains this button
+                const messageDiv = loadingButton.closest('.message.narration');
+                if (messageDiv) {
+                    const contentDiv = messageDiv.querySelector('.message-content');
+                    
+                    // Check if image already exists
+                    let imageContainer = messageDiv.querySelector('.image-container');
+                    if (!imageContainer) {
+                        imageContainer = document.createElement('div');
+                        imageContainer.className = 'image-container';
+                        contentDiv.appendChild(imageContainer);
+                    }
+                    
+                    // Create and add the image
+                    const img = document.createElement('img');
+                    img.className = 'generated-image';
+                    img.src = data.image_url;
+                    img.alt = 'Generated fantasy scene';
+                    
+                    imageContainer.innerHTML = '';
+                    imageContainer.appendChild(img);
+                    
+                    // Scroll to show the new image
+                    scrollToBottom('game-output');
+                }
+            }
+        });
+        
+        socket.on('image_generation_error', (data) => {
+            // Re-enable the button that was marked as loading
+            const loadingButton = document.querySelector('.image-generation-button.loading');
+            if (loadingButton) {
+                loadingButton.disabled = false;
+                loadingButton.classList.remove('loading');
+                loadingButton.textContent = 'Generate Image';
+            }
+            
+            // Show error message
+            addMessage('game-output', { type: 'error', content: data.message });
+        });
         
         socket.on('status_update', (data) => {
             const input = document.getElementById('user-input');
