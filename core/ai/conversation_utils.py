@@ -421,10 +421,23 @@ def update_conversation_history(conversation_history, party_tracker_data, plot_d
             "content": f"Current Location:\n{compress_json_data(current_location)}\n"
         })
 
-    # Add party tracker data
+    # Add party tracker data with calendar system information
     if party_tracker_data:
+        # Load calendar system prompt
+        calendar_info = ""
+        try:
+            with open("prompts/calendar.txt", "r", encoding="utf-8") as f:
+                calendar_info = f.read()
+        except:
+            debug("WARNING: Could not load calendar.txt prompt", category="conversation_management")
+        
         party_tracker_message = "Here's the updated party tracker data:\n"
         party_tracker_message += f"Party Tracker Data: {compress_json_data(party_tracker_data)}\n"
+        
+        # Add calendar information if available
+        if calendar_info:
+            party_tracker_message += f"\n{calendar_info}\n"
+        
         new_history.append({"role": "system", "content": party_tracker_message})
 
     # Add the rest of the conversation history

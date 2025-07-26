@@ -443,6 +443,11 @@ When integrating AI functionality:
 - **Session State**: Maintained in `party_tracker.json` using `utils/file_operations.py`
 - **Location State**: Stored in individual area files within module directories
 - **Character State**: Personal character files with backup versioning through `core/managers/storage_manager.py`
+- **Quest State**: Maintained in `module_plot.json` as the single source of truth
+  - **DEPRECATED**: `activeQuests` field in `party_tracker.json` is no longer used
+  - All quest data should be read directly from `module_plot.json`
+  - The web interface already reads quest data from `module_plot.json`
+  - This eliminates data synchronization issues and redundancy
 
 ### Path Management
 The `utils/module_path_manager.py` provides centralized path management:

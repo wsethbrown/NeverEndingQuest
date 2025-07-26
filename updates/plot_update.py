@@ -30,6 +30,10 @@ def load_schema():
         return json.load(schema_file)
 
 def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
+    # DEPRECATED: activeQuests tracking has been deprecated in favor of using module_plot.json as the single source of truth
+    # The code below is commented out but preserved for reference and backward compatibility
+    # All quest data should be read directly from module_plot.json
+    
     party_tracker = safe_read_json("party_tracker.json")
     if not party_tracker:
         error("FAILURE: Could not read party_tracker.json", category="file_operations")
@@ -49,7 +53,9 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
         error(f"FAILURE: Invalid JSON in {plot_filename} in update_party_tracker", category="file_operations")
         return
 
-
+    # DEPRECATED: The following activeQuests update logic is no longer used
+    # module_plot.json is now the authoritative source for all quest data
+    """
     plot_point_to_update = next((p for p in plot_info.get("plotPoints", []) if p["id"] == plot_point_id), None)
 
     if plot_point_to_update:
@@ -79,7 +85,9 @@ def update_party_tracker(plot_point_id, new_status, plot_impact, plot_filename):
                 })
 
     party_tracker["activeQuests"] = [q for q in party_tracker.get("activeQuests", []) if q.get("status") != "completed"]
+    """
 
+    # Still save party_tracker in case other parts were modified
     if not safe_write_json("party_tracker.json", party_tracker):
         error("FAILURE: Failed to save party_tracker.json", category="file_operations")
 
@@ -171,6 +179,16 @@ Examples:
             update_party_tracker(plot_point_id_param, new_status_param, plot_impact_param, plot_filename_param)
 
             debug(f"STATE_CHANGE: Plot information updated for plot point {plot_point_id_param}", category="plot_updates")
+            
+            # Generate player-friendly quest descriptions
+            try:
+                from utils.quest_player_formatter import format_quests_for_player
+                if current_module:
+                    debug(f"QUEST_FORMAT: Updating player-friendly quests for module {current_module}", category="plot_updates")
+                    format_quests_for_player(current_module)
+            except Exception as e:
+                warning(f"QUEST_FORMAT: Failed to update player-friendly quests: {e}", category="plot_updates")
+            
             return plot_info_data
 
         except json.JSONDecodeError as e:

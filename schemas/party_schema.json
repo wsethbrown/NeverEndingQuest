@@ -136,8 +136,9 @@
         },
         "required": ["id", "title", "description", "status"]
       },
-      "description": "An array of currently active quests for the party"
+      "description": "DEPRECATED: This field is no longer used. Quest data should be read directly from module_plot.json which is the single source of truth for all quest information. This field is preserved for backward compatibility only.",
+      "deprecated": true
     }
   },
-  "required": ["module", "partyMembers", "partyNPCs", "worldConditions", "activeQuests"]
+  "required": ["module", "partyMembers", "partyNPCs", "worldConditions"]
 }

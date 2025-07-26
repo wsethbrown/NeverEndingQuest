@@ -1559,8 +1559,9 @@ def update_party_tracker(module_name, character_name):
                 "activeCombatEncounter": ""
             }
         
-        if "activeQuests" not in party_data:
-            party_data["activeQuests"] = []
+        # DEPRECATED: activeQuests is no longer used - module_plot.json is the single source of truth for quest data
+        # if "activeQuests" not in party_data:
+        #     party_data["activeQuests"] = []
         
         # Save updated party tracker
         success = safe_json_dump(party_data, "party_tracker.json")

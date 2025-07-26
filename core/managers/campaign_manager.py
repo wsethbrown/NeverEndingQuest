@@ -272,7 +272,16 @@ class CampaignManager:
             return False
     
     def sync_party_tracker_with_plot(self, module_name: str) -> bool:
-        """Sync party_tracker.json quest statuses with module_plot.json"""
+        """Sync party_tracker.json quest statuses with module_plot.json
+        
+        DEPRECATED: This method is no longer needed as module_plot.json is now the single 
+        source of truth for quest data. The method is preserved for backward compatibility
+        but returns immediately without performing any sync operations.
+        """
+        # Early return - activeQuests syncing is deprecated
+        debug(f"DEPRECATED: sync_party_tracker_with_plot called for {module_name} - no action taken", category="plot_updates")
+        return False
+        
         try:
             # Load module plot data
             path_manager = ModulePathManager(module_name)

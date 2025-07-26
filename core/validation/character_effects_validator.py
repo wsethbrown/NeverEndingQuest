@@ -101,7 +101,7 @@ class AICharacterEffectsValidator:
                 world = party_data['worldConditions']
                 return {
                     'year': world.get('year', 1492),
-                    'month': world.get('month', 'Ches'),
+                    'month': world.get('month', 'Springmonth'),
                     'day': world.get('day', 1),
                     'time': world.get('time', '00:00:00')
                 }
@@ -109,7 +109,7 @@ class AICharacterEffectsValidator:
             self.logger.error(f"Could not load game time: {str(e)}")
         
         # Default time if not found
-        return {'year': 1492, 'month': 'Ches', 'day': 1, 'time': '00:00:00'}
+        return {'year': 1492, 'month': 'Springmonth', 'day': 1, 'time': '00:00:00'}
     
     def calculate_equipment_effects(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -219,14 +219,14 @@ class AICharacterEffectsValidator:
     
     def game_time_to_datetime(self, game_time: Dict[str, Any]) -> datetime:
         """Convert game time to datetime object"""
-        # Month conversion (Forgotten Realms calendar)
+        # Month conversion (SRD-compliant fantasy calendar)
         month_map = {
-            'Hammer': 1, 'Alturiak': 2, 'Ches': 3, 'Tarsakh': 4,
-            'Mirtul': 5, 'Kythorn': 6, 'Flamerule': 7, 'Eleasis': 8,
-            'Eleint': 9, 'Marpenoth': 10, 'Uktar': 11, 'Nightal': 12
+            'Firstmonth': 1, 'Coldmonth': 2, 'Thawmonth': 3, 'Springmonth': 4,
+            'Bloommonth': 5, 'Sunmonth': 6, 'Heatmonth': 7, 'Harvestmonth': 8,
+            'Autumnmonth': 9, 'Fademonth': 10, 'Frostmonth': 11, 'Yearend': 12
         }
         
-        month_num = month_map.get(game_time['month'], 3)  # Default to Ches
+        month_num = month_map.get(game_time['month'], 4)  # Default to Springmonth
         time_parts = game_time['time'].split(':')
         
         return datetime(

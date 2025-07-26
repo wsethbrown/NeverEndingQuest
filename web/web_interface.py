@@ -781,15 +781,54 @@ def handle_plot_data_request():
         # This makes sure we always load the plot for the adventure the player is actually on.
         from utils.module_path_manager import ModulePathManager
         path_manager = ModulePathManager(current_module)
-        plot_file_path = path_manager.get_plot_path()
-
-        if not os.path.exists(plot_file_path):
-            emit('plot_data_response', {'data': None, 'error': f'Plot file not found for module: {current_module}'})
-            return
+        
+        # Step 2.5: Check for player-friendly quest file first
+        player_quests_path = os.path.join(path_manager.module_dir, f"player_quests_{current_module}.json")
+        
+        if os.path.exists(player_quests_path):
+            # Use player-friendly quest descriptions
+            with open(player_quests_path, 'r', encoding='utf-8') as f:
+                player_quests_data = json.load(f)
             
-        # Step 3: Read the plot file and send its data back to the browser.
-        with open(plot_file_path, 'r', encoding='utf-8') as f:
-            plot_data = json.load(f)
+            # Convert player quest format back to module_plot format for compatibility
+            plot_data = {
+                "plotPoints": []
+            }
+            
+            for quest_id, quest_data in player_quests_data.get("quests", {}).items():
+                plot_point = {
+                    "id": quest_data.get("id"),
+                    "title": quest_data.get("title"),
+                    "description": quest_data.get("playerDescription", quest_data.get("originalDescription", "")),
+                    "status": quest_data.get("status"),
+                    "sideQuests": []
+                }
+                
+                # Add side quests
+                for sq_id, sq_data in quest_data.get("sideQuests", {}).items():
+                    plot_point["sideQuests"].append({
+                        "id": sq_data.get("id"),
+                        "title": sq_data.get("title"),
+                        "description": sq_data.get("playerDescription", ""),
+                        "status": sq_data.get("status")
+                    })
+                
+                plot_data["plotPoints"].append(plot_point)
+            
+            debug(f"WEB_INTERFACE: Using player-friendly quests for {current_module}", category="web_interface")
+        else:
+            # Fallback to original module_plot.json
+            plot_file_path = path_manager.get_plot_path()
+
+            if not os.path.exists(plot_file_path):
+                emit('plot_data_response', {'data': None, 'error': f'Plot file not found for module: {current_module}'})
+                return
+                
+            # Step 3: Read the plot file and send its data back to the browser.
+            with open(plot_file_path, 'r', encoding='utf-8') as f:
+                plot_data = json.load(f)
+            
+            debug(f"WEB_INTERFACE: Using original plot data for {current_module} (no player quests file)", category="web_interface")
         
         # The 'emit' function sends the data over the web socket connection to the player's browser.
         emit('plot_data_response', {'data': plot_data})

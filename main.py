@@ -2483,6 +2483,10 @@ def main():
     from utils.startup_wizard import initialize_game_files_from_bu
     initialize_game_files_from_bu()
     
+    # Run calendar migration check
+    from utils.calendar_migration import run_calendar_migration
+    run_calendar_migration()
+    
     # Check if first-time setup is needed
     try:
         from utils.startup_wizard import startup_required, run_startup_sequence

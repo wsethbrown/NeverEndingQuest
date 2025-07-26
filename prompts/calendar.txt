@@ -1,0 +1,40 @@
+## Fantasy Calendar System
+
+This world uses a standardized fantasy calendar with the following structure:
+
+### Months (12 months, 28 days each)
+1. **Firstmonth** - The beginning of the year, winter's grip
+2. **Coldmonth** - The deepest winter, frozen and harsh
+3. **Thawmonth** - Winter's end, ice begins to melt
+4. **Springmonth** - True spring arrives, new growth
+5. **Bloommonth** - Flowers bloom, life returns
+6. **Sunmonth** - Early summer, warm days
+7. **Heatmonth** - High summer, the hottest time
+8. **Harvestmonth** - Late summer, crops are gathered
+9. **Autumnmonth** - Fall begins, leaves change
+10. **Fademonth** - Deep autumn, nature prepares for winter
+11. **Frostmonth** - Early winter, first snows
+12. **Yearend** - The year's conclusion, winter festivals
+
+### Calendar Structure
+- Each month has exactly 28 days
+- The year consists of 336 days (12 × 28)
+- Days are numbered 1 through 28 within each month
+- When a month ends on day 28, the next month begins on day 1
+
+### Date Format
+Standard format: "[Year] [Month] [Day]"
+Example: "1492 Springmonth 8" means the 8th day of Springmonth in the year 1492
+
+### Time Tracking
+- Days progress consecutively: 26, 27, 28, then 1, 2, 3 of the next month
+- Time is tracked in 24-hour format (00:00:00 to 23:59:59)
+- When tracking effects or durations across days, the system accounts for month transitions
+
+### Season Associations
+- Winter: Firstmonth, Coldmonth, Thawmonth
+- Spring: Springmonth, Bloommonth, Sunmonth
+- Summer: Heatmonth, Harvestmonth, Autumnmonth
+- Autumn/Fall: Fademonth, Frostmonth, Yearend
+
+This calendar system ensures compatibility with generic fantasy settings while avoiding specific real-world or proprietary calendar names.
