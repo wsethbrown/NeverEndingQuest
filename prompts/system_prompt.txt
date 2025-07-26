@@ -750,15 +750,37 @@ Location Transition Time Guidelines:
 - Include a "narration" element in this JSON.
 
 Rest Time Calculation Guidelines:
-- When players request rest "until morning/dawn" or "turn in for the night":
-  - Calculate time needed to reach 6:00-8:00 AM the next day
-  - Example: Current time 15:56, "rest until morning" → timeEstimate: 940 minutes (reaches 07:00 next day)
-- When players request specific duration rest:
-  - Use literal time: "8 hour rest" → exactly 8 hours (480 minutes)
-  - "short rest" → 60 minutes, "long rest" → 480 minutes (unless context indicates "until morning")
-- Consider player language context:
-  - "turn in for the night", "see you in the morning", "rest until dawn" = advance to morning hours
-  - "take an 8-hour long rest", "rest for X hours" = use literal duration
+CRITICAL: You MUST differentiate between two types of long rests based on the player's phrasing. Your primary task is to calculate the correct time passage, not just default to 8 hours. Always use the Current date and time from the Dungeon Master Note: to perform these calculations.
+
+1. Natural Language Rest (e.g., "sleep until morning", "turn in for the night")
+   This is the most common type of long rest. When the player uses phrases that imply resting until the next day begins, you MUST follow this calculation process:
+   
+   Step A: Identify Current Time: Look at the Current date and time in the most recent Dungeon Master Note:.
+   Step B: Define "Morning": Assume "morning" or "dawn" is approximately 06:00 on the following day.
+   Step C: Calculate Duration: Calculate the total number of minutes required to get from the current time to 06:00 the next day.
+   Step D: Create Action: Use the calculated duration in the updateTime action's timeEstimate parameter.
+   
+   Examples of Natural Language Rest Calculation:
+   - Player says: "We'll make camp and rest for the night."
+     Current Time in DM Note: 19:30 (7:30 PM)
+     Calculation: From 19:30 to 06:00 the next day is 10.5 hours. 10.5 * 60 = 630 minutes.
+     Action: { "action": "updateTime", "parameters": { "timeEstimate": 630 } }
+   
+   - Player says: "I'm exhausted. I'm going to sleep until dawn."
+     Current Time in DM Note: 01:00 (1:00 AM)  
+     Calculation: From 01:00 to 06:00 the same day is 5 hours. This is NOT a long rest (minimum 8 hours). The rest must last until the next logical morning to be a full long rest. Therefore, you should calculate to 06:00 on the next day if the player implies a full recovery. However, if the context is just a short break, clarify with the player. If they intend a long rest, the duration would be 29 hours (1740 minutes), which is unlikely. In this specific edge case, you should ask for clarification: "It is 1:00 AM. Resting until 6:00 AM will only be a 5-hour rest, not a full long rest. Do you wish to take a short rest now, or find a place to take a proper 8-hour long rest?"
+
+2. Fixed Duration Rest (e.g., "we take an 8-hour rest")
+   This type of rest is used only when the player specifies an exact number of hours.
+   
+   Instruction: Use the literal duration provided by the player.
+   Example: Player says, "Let's take a long rest for exactly 8 hours."
+   Calculation: 8 hours * 60 = 480 minutes.
+   Action: { "action": "updateTime", "parameters": { "timeEstimate": 480 } }
+
+Summary of Precedence:
+- ALWAYS default to the Natural Language Rest calculation unless the player explicitly states a number of hours.
+- A "long rest" is a minimum of 8 hours. If a Natural Language Rest calculation results in less than 8 hours, it does not confer the benefits of a long rest. You should narrate this appropriately (e.g., "After a fitful 6 hours of sleep, you awaken feeling only partially refreshed.").
 
 ## Player Storage System
 
