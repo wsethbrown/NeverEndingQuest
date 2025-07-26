@@ -136,18 +136,25 @@ def analyze_effect_with_ai(character_name: str, change_description: str) -> Opti
 Character: {character_name}{stats_info}
 Update: {change_description}
 
-Determine if this is a TEMPORARY effect that will expire. Only track effects with durations of 1 hour or longer.
-Do NOT track instant effects, permanent changes, regular damage, or effects lasting less than 1 hour.
+Determine if this is a TEMPORARY effect that will expire. Track temporary effects with durations of 1 minute or longer.
+Do NOT track instant effects, permanent changes, or effects lasting less than 1 minute (including round-based effects).
+IMPORTANT: Convert any round-based durations to minutes (10 rounds = 1 minute) if the effect should persist.
 
 Common trackable effects include:
+- Shield of Faith (+2 AC for 10 minutes)
+- Bless (+1d4 to attacks/saves for 1 minute or up to concentration)
 - Aid spell (+5 HP for 8 hours) - affects BOTH current HP and max HP
 - Mage Armor (AC bonus for 8 hours)
 - Enhance Ability (advantage for 1 hour)
 - Ability drain (STR/DEX reduction until rest)
-- Long-duration buffs/debuffs
-- Poison/disease effects lasting hours
+- Buffs/debuffs lasting minutes, hours, or days
+- Poison/disease effects with durations
 - Heroes' Feast (+2d10 max HP for 24 hours) - affects both current and max HP
-- Bear's Endurance (advantage on CON checks, may affect HP)
+
+Duration handling:
+- Track effects lasting 1 minute or longer
+- For concentration spells, use the spell's maximum duration
+- Round-based effects (less than 1 minute) should NOT be tracked
 
 IMPORTANT: Some effects modify both the current value AND the maximum value:
 - Aid spell: Increases both current HP and max HP

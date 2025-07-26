@@ -85,6 +85,10 @@ class CleanConsoleFormatter(logging.Formatter):
             
             # Special formatting for errors
             if levelname == 'ERROR':
+                # If there's an exception, include its type and message for clarity
+                if record.exc_info:
+                    exc_type, exc_value, exc_traceback = record.exc_info
+                    return f"{color}[ERROR] {msg} ({exc_type.__name__}: {exc_value}){self.RESET}"
                 return f"{color}[ERROR] {msg}{self.RESET}"
             elif levelname == 'WARNING':
                 return f"{color}[WARNING] {msg}{self.RESET}"
@@ -231,8 +235,11 @@ class GameLogger:
     def error(self, message, exception=None, category=None):
         """Log error message with optional exception"""
         formatted_message = self._format_message(message)
+        
+        # Let the logging module handle the exception formatting safely.
+        # It will automatically append the exception info and traceback to the log file.
         if exception:
-            self.logger.error(f"{formatted_message}: {str(exception)}")
+            self.logger.error(formatted_message, exc_info=exception)
         else:
             self.logger.error(formatted_message)
     

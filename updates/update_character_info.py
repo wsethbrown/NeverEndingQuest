@@ -9,6 +9,43 @@
 # 
 # ARCHITECTURE ROLE: Character State Management - AI-Driven Updates with Validation
 # 
+# DEBUG & TROUBLESHOOTING:
+# =======================
+# - All character updates are logged to: debug/character_updates_log.json
+# - Each log entry contains:
+#   - timestamp: When the update occurred
+#   - character_name: Character being updated
+#   - changes_requested: What the user/DM requested
+#   - raw_ai_response: EXACT JSON returned by AI (shows delta-only efficiency)
+#   - parsed_updates: Parsed version of the response
+#   - validation_results: Schema validation outcome
+#   - final_outcome: success/failure
+# 
+# PERFORMANCE MONITORING:
+# ======================
+# To check update efficiency:
+#   jq '.updates[-10:] | .[] | {character: .character_name, size: (.raw_ai_response | length)}' debug/character_updates_log.json
+# 
+# Common update sizes (delta-only):
+# - Currency only: ~60 characters
+# - HP only: ~40 characters  
+# - Single spell slot: ~120 characters
+# - Full spell restoration: ~1200 characters
+# 
+# SPECIAL HANDLING:
+# ================
+# - temporaryEffects: Complete array replacement (not merged)
+# - Equipment: Smart merging by item_name
+# - Ammunition: Additive updates (+20 arrows, -10 bolts)
+# - Currency: Always return final values after transactions
+# 
+# COMMON ISSUES & SOLUTIONS:
+# =========================
+# 1. "Invalid format specifier" - Check debug log for malformed AI response
+# 2. Effects not clearing - Verify temporaryEffects is in complete_replacement_arrays
+# 3. Currency not updating - Ensure all denominations (gold/silver/copper) returned
+# 4. Equipment not merging - Check item_name matches exactly
+# 
 # This module provides secure, validated character data updates using AI to
 # interpret natural language change requests while preventing data corruption
 # through intelligent merging and validation strategies.
@@ -443,13 +480,24 @@ def get_model_for_character(character_role):
 
 def normalize_status_and_condition(data, character_role):
     """Normalize status and condition fields based on character role"""
-    if character_role == 'player':
-        # Player-specific normalization
-        if 'status' in data:
-            data['status'] = data['status'].lower()
-        if 'condition' in data and data['condition'] == 'normal':
+    # This fix applies to all character types
+    
+    # Force 'status' to lowercase if it exists
+    if 'status' in data and isinstance(data.get('status'), str):
+        data['status'] = data['status'].lower()
+
+    # Force 'condition' to lowercase if it exists
+    if 'condition' in data and isinstance(data.get('condition'), str):
+        data['condition'] = data['condition'].lower()
+        
+        # Also correct common synonyms to match the schema
+        if data['condition'] == 'normal':
             data['condition'] = 'none'
-    # NPC normalization can be different if needed
+
+    # Ensure all items in 'condition_affected' are lowercase
+    if 'condition_affected' in data and isinstance(data.get('condition_affected'), list):
+        data['condition_affected'] = [str(c).lower() for c in data['condition_affected']]
+
     return data
 
 def deep_merge_dict(base_dict, update_dict):
@@ -464,12 +512,17 @@ def deep_merge_dict(base_dict, update_dict):
         'equipment': 'item_name',
         'equipment_effects': 'name',
         'feats': 'name',
-        'racialTraits': 'name',
-        'temporaryEffects': 'name'
+        'racialTraits': 'name'
     }
     
+    # Arrays that should be completely replaced, not merged
+    complete_replacement_arrays = ['temporaryEffects']
+    
     for key, value in update_dict.items():
-        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+        if key in complete_replacement_arrays:
+            # Complete replacement for these arrays
+            result[key] = copy.deepcopy(value)
+        elif key in result and isinstance(result[key], dict) and isinstance(value, dict):
             # Recursively merge nested dictionaries
             result[key] = deep_merge_dict(result[key], value)
         elif key in named_arrays and isinstance(result.get(key), list) and isinstance(value, list):
@@ -1072,6 +1125,86 @@ def update_character_info(character_name, changes, character_role=None):
     # Build the prompt
     system_message = f"""You are an assistant that updates character information in a 5th Edition roleplaying game. Given the current character information and a description of changes, you must return only the updated sections as a JSON object. Do not include unchanged fields. Your response should be a valid JSON object representing only the modified parts of the character sheet.
 
+**CRITICAL JSON OUTPUT RULES: DELTA-ONLY UPDATES**
+
+Your primary goal is to generate the smallest possible valid JSON object that reflects ONLY the requested changes. Do not rewrite or include any data that was not explicitly modified by the user's request. This is crucial for system performance.
+
+1. **Return ONLY Changed Fields:** Only include top-level keys (`hitPoints`, `equipment`, `currency`, etc.) if a value within them has changed. If the user only takes damage, your entire output should be a minimal JSON like: `{{ "hitPoints": 35 }}`.
+
+2. **For Lists (like `equipment` or `ammunition`):**
+   - **NEVER** return the entire list if only one item is changed.
+   - To **MODIFY** an existing item: Return an array containing an object with the item's identifier (`item_name` for equipment, `name` for ammunition) and ONLY the fields that changed.
+     - *Example:* `{{ "equipment": [{{ "item_name": "Shield", "quantity": 0 }}] }}`
+   - To **ADD** a new item: Return an array containing an object with the full details of ONLY the new item.
+     - *Example:* `{{ "equipment": [{{ "item_name": "Potion of Healing", "item_type": "consumable", "quantity": 1 }}] }}`
+   - To **REMOVE** an item: Set its quantity to 0
+     - *Example:* `{{ "equipment": [{{ "item_name": "Shield", "quantity": 0 }}] }}`
+
+3. **For Nested Objects (like `currency` or `spellcasting.spellSlots`):**
+   - Only return the specific key-value pairs that were modified.
+   - *Example (Spending Gold):* `{{ "currency": {{ "gold": 125 }} }}` (Do NOT include silver and copper if they are unchanged).
+   - *Example (Using a Spell Slot):* `{{ "spellcasting": {{ "spellSlots": {{ "level1": {{ "current": 3 }} }} }} }}` (Do NOT include other spell slot levels).
+
+4. **For Complex Updates Affecting Multiple Systems:**
+   - When an action affects multiple character aspects, you MUST include ALL affected fields in your minimal JSON response.
+   - Equipment removal/damage affecting AC: Always include the updated `armorClass`.
+   - Weapon changes: Always include updated `attacksAndSpellcasting` array entries for the affected weapons.
+   - Shield/armor changes: Include `armorClass` and any affected `equipment_effects`.
+   - Status changes: Always synchronize `status`, `condition`, and `condition_affected`.
+
+   - **Example - Shield is destroyed:**
+     ```json
+     {{
+       "equipment": [{{ "item_name": "Shield", "quantity": 0, "equipped": false }}],
+       "armorClass": 15,
+       "equipment_effects": [{{ "name": "Shield AC Bonus", "value": 0 }}]
+     }}
+     ```
+   - **Example - Swapping from a Mace to a Longsword:**
+     ```json
+     {{
+       "equipment": [
+         {{ "item_name": "Mace", "equipped": false }},
+         {{ "item_name": "Longsword", "equipped": true }}
+       ],
+       "attacksAndSpellcasting": [
+         {{ "name": "Longsword", "attackBonus": 4, "damageDice": "1d8", "damageBonus": 2 }}
+       ]
+     }}
+     ```
+
+5. **For Conditions and Status Effects:**
+   - When applying conditions (poisoned, frightened, paralyzed, etc.), update BOTH arrays:
+     - Add the condition name to the `condition_affected` array (e.g., ["poisoned"])
+     - Update the `condition` field with the condition name (e.g., "poisoned")
+   - For multiple conditions, `condition` should contain the most severe, while `condition_affected` lists all
+   - **Example - Applying poisoned condition:**
+     ```json
+     {{
+       "condition": "poisoned",
+       "condition_affected": ["poisoned"]
+     }}
+     ```
+
+6. **Standard Ammunition Names (ALWAYS use these exact names):**
+   - "Arrows" (plural) - for bow ammunition
+   - "Crossbow bolts" (plural) - for crossbow ammunition
+   - "Sling bullets" (plural) - for sling ammunition
+   - "Darts" (plural) - for thrown darts
+   - "Blowgun needles" (plural) - for blowgun ammunition
+   - Always use plural form for consistency
+
+**CRITICAL EDGE CASES:**
+- When equipment that affects AC (shields, armor, rings of protection) is added, removed, equipped, or unequipped, you **MUST** calculate and return the new total `armorClass`.
+- When a weapon is changed, you **MUST** update the relevant entry in the `attacksAndSpellcasting` array.
+- When a temporary effect is added or removed, you **MUST** return the **complete** `temporaryEffects` array, containing only the effects that should remain active. This is the one exception to the delta-only rule for lists.
+- Death/unconscious: Update `hitPoints`, `status`, `condition`, and `deathSaves` as needed
+- Conditions: Always update BOTH `condition` and `condition_affected` when applying conditions
+
+**Your adherence to these delta-only rules is paramount. Generate the most minimal, targeted JSON possible while ensuring ALL logically affected fields are included.**
+
+**CRITICAL: The examples above are for learning purposes only. Do NOT include example JSON in your response. Only return the specific updates needed for the requested changes.**
+
 {schema_info}
 
 MAGICAL ITEM RECOGNITION - AUTOMATIC EFFECTS:
@@ -1200,14 +1333,17 @@ CRITICAL INSTRUCTIONS:
     - The experience_points field must NOT be included in level up changes
     - XP is managed separately and should never be altered during level advancement
     - IMPORTANT: This restriction ONLY applies to level up operations. You MUST update experience_points when explicitly requested (e.g., "Add 50 experience points", "Award XP")
-19. TEMPORARY EFFECTS EXPIRATION - CRITICAL:
+19. TEMPORARY EFFECTS - CRITICAL RULES:
+    - ONLY add effects with durations of 1 MINUTE OR LONGER to temporaryEffects
+    - Do NOT add round-based effects (less than 1 minute) to temporaryEffects
+    - Convert concentration spells to their maximum duration (e.g., "Bless for concentration" = "1 minute")
     - When an effect expires (e.g., "loses X as Y expires", "Y effect ends"), return the COMPLETE temporaryEffects array
     - The returned array must contain ALL effects that should remain active
     - DO NOT include the expired effect in the returned array
-    - Example: Character has Shield of Faith and Bull's Strength. Shield of Faith expires.
-      CORRECT: {{"temporaryEffects": [{{"name": "Bull's Strength", "description": "...", "source": "...", "duration": "..."}}]}}
+    - Example: Character has Shield of Faith and Bless. Shield of Faith expires.
+      CORRECT: {{"temporaryEffects": [{{"name": "Bless", "description": "...", "source": "...", "duration": "..."}}]}}
       WRONG: Not returning temporaryEffects (would leave expired effect in place)
-    - This ensures expired effects are properly removed from the character sheet
+    - Round-based effects should be narrated but NOT tracked in temporaryEffects
 
 EQUIPMENT UPDATE EXAMPLES:
 CORRECT (updating one item): {{"equipment": [{{"item_name": "Jeweled dagger", "description": "updated description", "magical": true}}]}}
@@ -1318,21 +1454,35 @@ Character Role: {character_role}
                 safe_write_json("debug/debug_npc_update.json", debug_info)
             
             # COMPREHENSIVE DEBUG LOGGING FOR ALL CHARACTER UPDATES
-            # Log every AI response to help debug spell slot restoration issues
-            debug_character_update = {
+            # Initialize debug data that will be updated throughout the process
+            debug_data = {
                 "timestamp": datetime.now().isoformat(),
                 "character_name": character_name,
                 "character_role": character_role,
                 "attempt": attempt,
                 "changes_requested": changes,
                 "raw_ai_response": raw_response,
-                "model_used": model
+                "model_used": model,
+                "parsed_updates": None,
+                "validation_results": {},
+                "final_outcome": "pending"
             }
             
-            # Save to a debug file for every update
+            # Create debug directory if needed
             os.makedirs("debug", exist_ok=True)
-            debug_filename = f"debug/debug_character_update_{character_name.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-            safe_write_json(debug_filename, debug_character_update)
+            
+            # Use a single debug log file that gets appended to
+            debug_log_file = "debug/character_updates_log.json"
+            
+            # Load existing debug log or create new one
+            if os.path.exists(debug_log_file):
+                try:
+                    with open(debug_log_file, 'r') as f:
+                        debug_log = json.load(f)
+                except:
+                    debug_log = {"updates": []}
+            else:
+                debug_log = {"updates": []}
             
             # Also print to console for immediate visibility
             # print(f"\n[DEBUG CHARACTER UPDATE] {character_name}")
@@ -1347,6 +1497,9 @@ Character Role: {character_role}
             
             clean_response = json_match.group()
             updates = json.loads(clean_response)
+            
+            # Update debug data with parsed updates
+            debug_data["parsed_updates"] = updates
             
             # Log the parsed JSON update - Commented out to prevent debug leak to player screen
             # print(f"[DEBUG PARSED JSON] {character_name}")
@@ -1488,9 +1641,7 @@ Please provide the CORRECT currency values:
                 continue
             
             # Role-specific normalization
-            # print(f"[DEBUG] About to normalize status and condition")
             updated_data = normalize_status_and_condition(updated_data, character_role)
-            # print(f"[DEBUG] Normalization completed")
             
             # Purge invalid fields before validation
             # print(f"[DEBUG] About to purge invalid fields")
@@ -1503,6 +1654,13 @@ Please provide the CORRECT currency values:
             # print(f"[DEBUG] About to validate character data against schema")
             is_valid, error_msg = validate_character_data(updated_data, schema, character_name)
             # print(f"[DEBUG] Schema validation completed. Valid: {is_valid}, Error: {error_msg}")
+            
+            # Update debug data with validation results
+            debug_data["validation_results"] = {
+                "schema_valid": is_valid,
+                "error_message": error_msg if not is_valid else None,
+                "removed_fields": removed_fields if removed_fields else []
+            }
             
             if not is_valid:
                 error(f"VALIDATION: Validation failed: {error_msg}", category="character_validation")
@@ -1540,6 +1698,18 @@ Please provide the CORRECT currency values:
             if safe_write_json(character_path, updated_data):
                 # print(f"[DEBUG] Character data saved successfully!")
                 info(f"SUCCESS: Successfully updated {character_name} ({character_role})!", category="character_updates")
+                
+                # Update debug data with success
+                debug_data["final_outcome"] = "success"
+                debug_data["validation_results"]["ai_validator_run"] = validation_success if 'validation_success' in locals() else None
+                
+                # Add to consolidated debug log
+                debug_log["updates"].append(debug_data)
+                # Keep only last 100 entries to prevent file from growing too large
+                if len(debug_log["updates"]) > 100:
+                    debug_log["updates"] = debug_log["updates"][-100:]
+                safe_write_json(debug_log_file, debug_log)
+                debug(f"Debug log updated: {debug_log_file}", category="character_updates")
                 
                 # DEBUG: Verify XP was saved correctly
                 if 'experience_points' in updates:
@@ -1622,8 +1792,49 @@ Please provide the CORRECT currency values:
             # print(f"Raw response that failed to parse: {raw_response}")
             # print(f"Error: {str(e)}\n")
             
+            # Save the problematic response for debugging
+            debug_error_file = f"debug/json_error_{character_name.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+            os.makedirs("debug", exist_ok=True)
+            with open(debug_error_file, 'w') as f:
+                f.write(f"Character: {character_name}\n")
+                f.write(f"Changes requested: {changes}\n")
+                f.write(f"JSON Parse Error: {str(e)}\n\n")
+                f.write(f"Raw AI Response:\n{raw_response}\n\n")
+                f.write(f"Clean response attempt:\n{clean_response if 'clean_response' in locals() else 'Not extracted'}\n")
+            debug(f"JSON parse error details saved to: {debug_error_file}", category="character_updates")
+            
         except Exception as e:
             error(f"FAILURE: Error during update (attempt {attempt})", exception=e, category="character_updates")
+            
+            # Update debug data with exception details
+            if 'debug_data' in locals():
+                debug_data["final_outcome"] = "exception"
+                debug_data["exception_type"] = type(e).__name__
+                debug_data["exception_message"] = str(e)
+                # Add to consolidated debug log
+                debug_log["updates"].append(debug_data)
+                if len(debug_log["updates"]) > 100:
+                    debug_log["updates"] = debug_log["updates"][-100:]
+                safe_write_json(debug_log_file, debug_log)
+                debug(f"Debug log updated: {debug_log_file}", category="character_updates")
+            
+            # Special handling for format string errors
+            if "Invalid format specifier" in str(e) or "unsupported format string" in str(e):
+                error_file = f"debug/format_error_{character_name.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+                os.makedirs("debug", exist_ok=True)
+                with open(error_file, 'w') as f:
+                    f.write(f"Format String Error Debug\n")
+                    f.write(f"========================\n\n")
+                    f.write(f"Character: {character_name}\n")
+                    f.write(f"Changes requested: {changes}\n")
+                    f.write(f"Error: {str(e)}\n")
+                    f.write(f"Error type: {type(e).__name__}\n\n")
+                    if 'raw_response' in locals():
+                        f.write(f"Raw AI Response:\n{raw_response}\n\n")
+                    if 'updates' in locals():
+                        f.write(f"Parsed updates:\n{json.dumps(updates, indent=2)}\n\n")
+                debug(f"Format string error details saved to: {error_file}", category="character_updates")
+            
             # print(f"\n[DEBUG ERROR] Exception during character update for {character_name}")
             # print(f"Error type: {type(e).__name__}")
             # print(f"Error message: {str(e)}")
@@ -1637,6 +1848,17 @@ Please provide the CORRECT currency values:
             time.sleep(1)
         else:
             break
+    
+    # Log failure state
+    if 'debug_data' in locals():
+        debug_data["final_outcome"] = "failure"
+        debug_data["failure_reason"] = str(e) if 'e' in locals() else "Max attempts reached"
+        # Add to consolidated debug log
+        debug_log["updates"].append(debug_data)
+        if len(debug_log["updates"]) > 100:
+            debug_log["updates"] = debug_log["updates"][-100:]
+        safe_write_json(debug_log_file, debug_log)
+        debug(f"Debug log updated: {debug_log_file}", category="character_updates")
     
     error(f"FAILURE: Failed to update character {character_name} after {max_attempts} attempts", category="character_updates")
     error(f"FAILURE: Last validation error was: {error_msg if 'error_msg' in locals() else 'Unknown error'}", category="character_updates")

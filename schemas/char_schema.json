@@ -181,7 +181,7 @@
           "source": {"type": "string"},
           "effectType": {"type": "string", "enum": ["spell", "potion", "magic", "environmental", "other"]}
         },
-        "required": ["name", "description", "source"]
+        "required": ["name", "description"]
       }
     },
     "injuries": {

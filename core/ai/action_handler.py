@@ -927,7 +927,8 @@ Please use a valid location that exists in the current area ({current_area_id}) 
                     print(f"ERROR: Failed to update character info for {character_name}")
             except Exception as e:
                 error(f"FAILURE: Exception in character update", exception=e, category="character_updates")
-                print(f"ERROR: Failed to update character info: {str(e)}")
+                # Use print with separate arguments to avoid format string interpretation
+                print("ERROR: Failed to update character info:", str(e))
         else:
             print("ERROR: No character name provided and no player found in party tracker.")
 

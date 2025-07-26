@@ -847,17 +847,37 @@ def handle_generate_image(data):
         # Initialize OpenAI client
         client = OpenAI(api_key=config.OPENAI_API_KEY)
         
-        # Generate image using DALL-E 3 with high quality settings
-        response = client.images.generate(
-            model="dall-e-3",
-            prompt=prompt,
-            size="1024x1024",
-            quality="hd",
-            n=1,
-        )
-        
-        # Get the image URL
-        image_url = response.data[0].url
+        # Try to generate image
+        try:
+            # Generate image using DALL-E 3 with high quality settings
+            response = client.images.generate(
+                model="dall-e-3",
+                prompt=prompt,
+                size="1024x1024",
+                quality="hd",
+                n=1,
+            )
+            # Get the image URL
+            image_url = response.data[0].url
+        except Exception as dalle_error:
+            # Check if it's a content policy violation
+            if "content_policy_violation" in str(dalle_error) or "400" in str(dalle_error):
+                # Silently sanitize and retry
+                from utils.prompt_sanitizer import sanitize_prompt
+                sanitized_prompt = sanitize_prompt(prompt)
+                
+                # Retry with sanitized prompt
+                response = client.images.generate(
+                    model="dall-e-3",
+                    prompt=sanitized_prompt,
+                    size="1024x1024",
+                    quality="hd",
+                    n=1,
+                )
+                image_url = response.data[0].url
+            else:
+                # Re-raise if it's not a content policy issue
+                raise dalle_error
         
         # Save the image locally with metadata
         try:
