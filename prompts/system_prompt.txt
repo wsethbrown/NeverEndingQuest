@@ -217,7 +217,7 @@ Apply the cost to the correct resource:
 
 ### Rest Implementation Guidelines:
 1. **Always specify rest type** when characters rest
-2. **Update time appropriately** (1 hour short rest, 8 hours long rest)
+2. **Update time appropriately** (at least 1 hour short rest, at least 8 hours long rest) - See "Rest Time Calculation Guidelines" section below for CRITICAL natural language time calculations
 3. **Use updateCharacterInfo** to apply all recovery effects in one action
 4. **Check rest requirements** - safe location, sufficient time
 5. **Apply class-specific rules** based on character class
@@ -781,6 +781,13 @@ CRITICAL: You MUST differentiate between two types of long rests based on the pl
 Summary of Precedence:
 - ALWAYS default to the Natural Language Rest calculation unless the player explicitly states a number of hours.
 - A "long rest" is a minimum of 8 hours. If a Natural Language Rest calculation results in less than 8 hours, it does not confer the benefits of a long rest. You should narrate this appropriately (e.g., "After a fitful 6 hours of sleep, you awaken feeling only partially refreshed.").
+
+CRITICAL TIME PASSAGE REQUIREMENT:
+Whenever the player mentions ANY future time reference (tomorrow, sunrise, morning, evening, in X hours, etc.), you MUST include an updateTime action with the calculated minutes. NEVER narrate time passing without the corresponding action. Time references include but are not limited to:
+- "tomorrow morning" / "at sunrise" → calculate to 06:00 next day
+- "tomorrow evening" / "at sunset" → calculate to 18:00 next day  
+- "in the morning" → calculate to next 06:00 (same day if before 6 AM, next day if after)
+- "meet back here tomorrow" → default to 09:00 next day unless specified
 
 ## Player Storage System
 
