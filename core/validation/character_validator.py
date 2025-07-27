@@ -504,11 +504,13 @@ You must validate that each item in the character's inventory has the correct it
 - Holy symbols IF kept as keepsakes (not for spellcasting)
 - Feathers, twine, small decorative items (including "Crow's Hand Feather")
 - Art objects, statuettes, paintings
+- Goblets, chalices, ceremonial vessels (unless actively used as tools)
 - Letters, notes, deeds, contracts
 - Signet rings (non-magical)
 - Badges, medals, emblems (including "Insignia of rank")
-- Amulets and talismans (non-magical)
+- Amulets and talismans (non-magical) - ALWAYS miscellaneous unless they provide game mechanics
 - Ward charms, protective tokens (non-magical)
+- Carved or decorative talismans (keepsakes)
 - Military keepsakes, trophies, dog tags (including "Trophy from a fallen enemy", "Dog tag")
 - Trade goods, valuable cloth, fabric scraps (including "Torn but valuable cloth")
 - Simple pouches and coin containers (including "Pouch")
@@ -534,6 +536,11 @@ You must validate that each item in the character's inventory has the correct it
     - Pouch (coin container)
     - Crow's Hand Feather (token)
     - Torn but valuable cloth (trade good)
+    - Carved bone talisman (charm/talisman)
+    - Knight's Heart Amulet (keepsake amulet)
+    - Any amulet or talisman (unless it grants mechanical benefits)
+    - Enchanted goblet (art object/valuable)
+    - Any goblet, chalice, or ceremonial vessel (unless actively used as equipment)
 12. SPECIAL CASES FOR GLOVES:
     - Sturdy gloves -> "miscellaneous" (protective but no AC bonus)
     - Work gloves -> "equipment" (utility gloves for tasks)
