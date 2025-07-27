@@ -490,6 +490,11 @@ You must validate that each item in the character's inventory has the correct it
 - Component pouches, spell focuses
 - Books, tomes, journals (non-magical)
 - Climbing gear, explorer's packs
+- Regular boots without AC bonus (Sturdy Boots, Leather Boots, Work Boots)
+- Regular cloaks without AC bonus (Woolen Cloak, Travel Cloak, Winter Cloak)
+- Belts, sashes, bandoliers (weapon belts, tool belts, pouches worn on belt)
+- Regular clothing items (tunics, shirts, vests, robes without magical properties)
+- Regular hats and hoods (not helmets)
 
 #### MISCELLANEOUS -> "miscellaneous"
 - Coin pouches, money bags, pouches of coins (NOT active storage containers)
@@ -533,6 +538,19 @@ You must validate that each item in the character's inventory has the correct it
     - Sturdy gloves -> "miscellaneous" (protective but no AC bonus)
     - Work gloves -> "equipment" (utility gloves for tasks)
     - Gauntlets -> "armor" (combat protection with AC bonus)
+13. SPECIAL CASES FOR BOOTS AND CLOAKS:
+    - Regular boots (Sturdy Boots, Leather Boots, etc.) -> "equipment" (worn but no AC bonus)
+    - Regular cloaks (Woolen Cloak, Travel Cloak, etc.) -> "equipment" (worn but no AC bonus)
+    - Armored boots or magical boots with AC -> "armor"
+    - Cloaks of protection or with AC bonus -> "armor"
+14. SPECIAL CASES FOR OTHER WEARABLES:
+    - Regular belts, sashes -> "equipment" (utility items)
+    - Regular clothing (tunics, shirts, vests) -> "equipment" (worn but no AC)
+    - Regular hats, hoods -> "equipment" (worn but no AC)
+    - Helmets or hats with AC bonus -> "armor"
+    - Magical robes with protection -> "armor"
+    - Bracers without AC bonus -> "equipment"
+    - Bracers of defense or with AC bonus -> "armor"
 
 ### OUTPUT FORMAT:
 Return a JSON object with ONLY the changes needed:

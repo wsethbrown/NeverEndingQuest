@@ -79,6 +79,7 @@ import time
 from openai import OpenAI
 from datetime import datetime, timedelta
 from termcolor import colored
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Import encoding utilities
 from utils.encoding_utils import (
@@ -1326,7 +1327,65 @@ def process_ai_response(response, party_tracker_data, location_data, conversatio
         print(colored("Dungeon Master:", "blue"), colored(sanitized_narration, "blue"))
 
         actions_processed = False
-        for action in actions:
+        
+        # Debug: Log what actions we received
+        debug(f"STATE_CHANGE: Received {len(actions)} total actions", category="character_updates")
+        print(f"DEBUG: STATE_CHANGE: Received {len(actions)} total actions")
+        for i, action in enumerate(actions):
+            debug(f"  Action {i+1}: {action.get('action', 'unknown')}", category="character_updates")
+            print(f"DEBUG:   Action {i+1}: {action.get('action', 'unknown')}")
+        
+        # Separate updateCharacterInfo actions from others for concurrent processing
+        char_update_actions = [action for action in actions if action.get("action") == "updateCharacterInfo"]
+        other_actions = [action for action in actions if action.get("action") != "updateCharacterInfo"]
+        
+        debug(f"STATE_CHANGE: Separated into {len(char_update_actions)} character updates and {len(other_actions)} other actions", category="character_updates")
+        print(f"DEBUG: STATE_CHANGE: Separated into {len(char_update_actions)} character updates and {len(other_actions)} other actions")
+        
+        # Process character updates concurrently if there are multiple
+        if len(char_update_actions) > 1:
+            debug(f"STATE_CHANGE: Processing {len(char_update_actions)} character updates concurrently", category="character_updates")
+            print(f"DEBUG: STATE_CHANGE: Processing {len(char_update_actions)} character updates concurrently")
+            
+            concurrent_start = time.time()
+            with ThreadPoolExecutor(max_workers=min(4, len(char_update_actions))) as executor:
+                # Submit all character updates
+                future_to_action = {
+                    executor.submit(action_handler.process_action, action, party_tracker_data, location_data, conversation_history): action 
+                    for action in char_update_actions
+                }
+                
+                # Collect results
+                for future in as_completed(future_to_action):
+                    try:
+                        result = future.result()
+                        actions_processed = True
+                        # Handle result same as sequential processing
+                        if isinstance(result, dict) and result.get("needs_update"):
+                            needs_conversation_history_update = True
+                        elif isinstance(result, bool) and result:
+                            needs_conversation_history_update = True
+                    except Exception as e:
+                        action = future_to_action[future]
+                        char_name = action.get("parameters", {}).get("characterName", "unknown")
+                        error(f"FAILURE: Concurrent character update failed for {char_name}", exception=e, category="character_updates")
+            
+            concurrent_end = time.time()
+            debug(f"STATE_CHANGE: Completed concurrent character updates", category="character_updates")
+            print(f"DEBUG: STATE_CHANGE: Completed concurrent character updates in {concurrent_end - concurrent_start:.2f} seconds")
+        
+        elif char_update_actions:
+            # Single character update - process normally
+            for action in char_update_actions:
+                result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
+                actions_processed = True
+                if isinstance(result, dict) and result.get("needs_update"):
+                    needs_conversation_history_update = True
+                elif isinstance(result, bool) and result:
+                    needs_conversation_history_update = True
+        
+        # Process all other actions sequentially
+        for action in other_actions:
             result = action_handler.process_action(action, party_tracker_data, location_data, conversation_history)
             actions_processed = True
             
