@@ -712,7 +712,7 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
     def ai_validate_all_batched(self, character_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         OPTIMIZED: Batch all AI validations into a single request
-        Combines AC validation, inventory categorization, and currency consolidation
+        Combines AC validation, inventory categorization, currency consolidation, and class feature validation
         
         Args:
             character_data: Character JSON data
@@ -751,11 +751,12 @@ IMPORTANT: Return ONLY the items that need their item_type corrected. Do not inc
         System prompt for combined validation tasks
         """
         return """You are an expert character validator for the 5th edition of the world's most popular role playing game. 
-You must perform THREE validation tasks in a single response:
+You must perform FOUR validation tasks in a single response:
 
 1. ARMOR CLASS VALIDATION
 2. INVENTORY CATEGORIZATION
 3. CURRENCY CONSOLIDATION
+4. CLASS FEATURE VALIDATION
 
 ## TASK 1: ARMOR CLASS VALIDATION
 
@@ -782,6 +783,20 @@ Common armor types:
 ## TASK 3: CURRENCY CONSOLIDATION
 
 """ + self.get_inventory_consolidation_system_prompt() + """
+
+## TASK 4: CLASS FEATURE VALIDATION
+
+Check for duplicate or outdated class features that should have been replaced during level up.
+
+Common issues to check:
+1. Multiple versions of the same feature (e.g., "Channel Divinity (1/rest)" and "Channel Divinity (2/rest)")
+2. Features with usage counts in the name that should be consolidated
+3. Outdated feature descriptions that don't match current level
+
+Rules:
+- When a feature upgrades (like Channel Divinity uses increasing), the old version should be removed
+- Features like "Sneak Attack (1d6)" should be replaced by "Sneak Attack (2d6)", not kept as duplicates
+- Look for features with parenthetical usage counts or dice values that indicate versions
 
 ## COMBINED OUTPUT FORMAT:
 
@@ -815,10 +830,15 @@ Return a single JSON response with all corrections:
       {"name": "Arrow", "quantity": 30}
     ],
     "ammo_items_to_remove": ["Arrows x 20"]
+  },
+  "class_feature_validation": {
+    "duplicates_found": ["List of duplicate features to remove"],
+    "corrections_made": ["Channel Divinity (1/rest) should be removed - superseded by Channel Divinity (2/rest)"],
+    "features_to_remove": ["Channel Divinity (1/rest)"]
   }
 }
 
-IMPORTANT: Perform ALL THREE validations and return results for each in the combined JSON response.
+IMPORTANT: Perform ALL FOUR validations and return results for each in the combined JSON response.
 """
     
     def build_combined_validation_prompt(self, character_data: Dict[str, Any]) -> str:
@@ -845,7 +865,13 @@ CHARACTER NAME: {character_name}
 === TASK 3: CURRENCY CONSOLIDATION ===
 {consolidation_prompt}
 
-Remember to return a single JSON response with all three validation results."""
+=== TASK 4: CLASS FEATURE VALIDATION ===
+Class Features:
+{json.dumps(character_data.get('classFeatures', []), indent=2)}
+
+Check for duplicate features that should have been replaced during level up (e.g., "Channel Divinity (1/rest)" vs "Channel Divinity (2/rest)").
+
+Remember to return a single JSON response with all four validation results."""
         
         return combined_prompt
     
@@ -930,6 +956,22 @@ Remember to return a single JSON response with all three validation results."""
                             item for item in result_data['equipment']
                             if item.get('item_name') not in ammo_to_remove
                         ]
+                
+                # Process class feature validation
+                if 'class_feature_validation' in parsed_response:
+                    feat_result = parsed_response['class_feature_validation']
+                    if 'corrections_made' in feat_result:
+                        self.corrections_made.extend(feat_result['corrections_made'])
+                    
+                    # Remove duplicate features
+                    if 'features_to_remove' in feat_result and feat_result['features_to_remove']:
+                        features_to_remove = feat_result['features_to_remove']
+                        if 'classFeatures' in result_data and isinstance(result_data['classFeatures'], list):
+                            # Remove features by name
+                            result_data['classFeatures'] = [
+                                feature for feature in result_data['classFeatures']
+                                if feature.get('name') not in features_to_remove
+                            ]
                 
                 return result_data
                 
