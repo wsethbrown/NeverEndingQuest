@@ -170,7 +170,7 @@ No explanations, just the JSON array of thematic location names."""
             
             return fallback_names
     
-    def generate_layout(self, num_locations: int, area_type: str = "dungeon", area_context: Dict[str, Any] = None) -> Dict[str, Any]:
+    def generate_layout(self, num_locations: int, prefix: str, area_type: str = "dungeon", area_context: Dict[str, Any] = None) -> Dict[str, Any]:
         """Generate a map layout with connected rooms and AI-generated thematic names"""
         # Calculate grid size
         grid_size = max(5, int((num_locations * 1.5) ** 0.5))
@@ -192,7 +192,7 @@ No explanations, just the JSON array of thematic location names."""
             x, y = current_pos
             
             if 0 <= x < grid_size and 0 <= y < grid_size and grid[y][x] == "   ":
-                room_id = f"R{placed_rooms + 1:02d}"
+                room_id = f"{prefix}{placed_rooms + 1:02d}"
                 grid[y][x] = room_id
                 room_positions[room_id] = (x, y)
                 connections[room_id] = []
@@ -307,7 +307,8 @@ class AreaGenerator:
                      area_name: str,
                      area_id: str,
                      module_context: Dict[str, Any],
-                     config: AreaConfig) -> Dict[str, Any]:
+                     config: AreaConfig,
+                     prefix: str) -> Dict[str, Any]:
         """Generate a complete area file"""
         
         # Determine number of locations
@@ -333,7 +334,7 @@ class AreaGenerator:
         }
         
         # Generate map layout with AI-powered thematic naming
-        map_data = self.map_gen.generate_layout(num_locations, config.area_type, area_context)
+        map_data = self.map_gen.generate_layout(num_locations, prefix, config.area_type, area_context)
         
         # Generate locations from map rooms
         locations = []

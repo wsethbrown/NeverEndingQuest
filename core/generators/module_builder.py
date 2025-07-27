@@ -210,12 +210,16 @@ MODULE INDEPENDENCE RULES:
             # Add area to context
             self.context.add_area(area_id, region["regionName"], area_type)
             
+            # Determine the unique prefix for this area's locations
+            prefix = self.get_location_prefix(i)
+            
             # Generate area using AreaGenerator
             area_data = self.area_gen.generate_area(
                 region["regionName"],
                 area_id,
                 self.module_data,
-                config
+                config,
+                prefix=prefix
             )
             
             # Validate area consistency after generation
@@ -1066,63 +1070,6 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             second_letter = chr(65 + (area_index % 26))
             return first_letter + second_letter
     
-    def update_area_with_prefix(self, area_data: Dict[str, Any], prefix: str) -> Dict[str, Any]:
-        """Update all location IDs in area data to use the specified prefix"""
-        # Update map room IDs
-        if "map" in area_data and "rooms" in area_data["map"]:
-            for room in area_data["map"]["rooms"]:
-                if "id" in room:
-                    # Handle both R-prefixed and letter-prefixed IDs
-                    old_id = room["id"]
-                    if old_id and len(old_id) > 1:
-                        # Extract the number part and add new prefix
-                        num = old_id[1:] if old_id[1:].isdigit() else old_id[1:]
-                        new_id = prefix + num
-                        room["id"] = new_id
-                    
-                    # Update room name if it contains the ID
-                    if "name" in room and old_id in room["name"]:
-                        room["name"] = room["name"].replace(old_id, new_id)
-                    
-                    # Update connections
-                    if "connections" in room:
-                        room["connections"] = [
-                            prefix + conn[1:] if conn and len(conn) > 1 else conn
-                            for conn in room["connections"]
-                        ]
-        
-        # Update layout grid
-        if "map" in area_data and "layout" in area_data["map"]:
-            for i, row in enumerate(area_data["map"]["layout"]):
-                for j, cell in enumerate(row):
-                    if cell and len(cell) > 1 and cell != ".":
-                        area_data["map"]["layout"][i][j] = prefix + cell[1:]
-        
-        # Update location IDs
-        if "locations" in area_data:
-            for location in area_data["locations"]:
-                if "locationId" in location:
-                    # Handle both R-prefixed (R01) and letter-prefixed (A01) IDs
-                    loc_id = location["locationId"]
-                    if loc_id and len(loc_id) > 1:
-                        # Extract the numeric part (everything after first character)
-                        num = loc_id[1:] if loc_id[1:].isdigit() else loc_id[1:]
-                        location["locationId"] = prefix + num
-                
-                # Update connectivity
-                if "connectivity" in location:
-                    location["connectivity"] = [
-                        prefix + conn[1:] if conn and len(conn) > 1 else conn
-                        for conn in location["connectivity"]
-                    ]
-                
-                # Update area connectivity IDs (references to other areas)
-                if "areaConnectivityId" in location:
-                    # Note: These might reference locations in OTHER areas, so we can't update them here
-                    # They need to be handled in a second pass after all areas are re-prefixed
-                    pass
-        
-        return area_data
     
     def _create_bidirectional_connection(self, area_files: Dict[str, Any], from_area: str, to_area: str):
         """Create bidirectional connections between two areas"""
@@ -1167,33 +1114,18 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
     
     def finalize_locations_and_connections(self):
         """
-        Applies unique prefixes to all location IDs and then creates
-        connections between areas. This must be run AFTER all locations
-        have been fully generated.
+        Creates connections between areas. This must be run AFTER all locations
+        have been fully generated. Prefixing is now done during generation.
         """
-        # Step 1: Apply unique prefixes to all generated locations
+        # Create connections between areas using the now-unique IDs
         sorted_area_ids = sorted(self.areas_data.keys())
         
-        for i, area_id in enumerate(sorted_area_ids):
-            prefix = self.get_location_prefix(i)
-            self.log(f"Applying prefix '{prefix}' to area {area_id}")
-            
-            # The location data is now stored in the area data itself
-            area_data = self.areas_data[area_id]
-            
-            # Apply the prefix and update the stored data
-            self.areas_data[area_id] = self.update_area_with_prefix(area_data, prefix)
-            
-            # Immediately save the updated area file to disk
-            self.save_json(self.areas_data[area_id], f"areas/{area_id}.json")
-        
-        # Step 2: Create connections between areas using the now-unique IDs
         if len(sorted_area_ids) > 1:
             for i in range(len(sorted_area_ids) - 1):
                 from_area_id = sorted_area_ids[i]
                 to_area_id = sorted_area_ids[i+1]
                 
-                # The area_files dictionary needs to be built from the updated self.areas_data
+                # The area_files dictionary needs to be built from self.areas_data
                 area_files_for_connection = {
                     from_area_id: self.areas_data[from_area_id],
                     to_area_id: self.areas_data[to_area_id]
@@ -1201,7 +1133,7 @@ Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
                 
                 self._create_bidirectional_connection(area_files_for_connection, from_area_id, to_area_id)
                 
-                # Save the updated files again after adding connections
+                # Save the updated files after adding connections
                 self.save_json(self.areas_data[from_area_id], f"areas/{from_area_id}.json")
                 self.save_json(self.areas_data[to_area_id], f"areas/{to_area_id}.json")
 
