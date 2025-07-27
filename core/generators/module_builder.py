@@ -22,15 +22,28 @@ Orchestrates the generation of a complete 5th edition module by calling generato
 import json
 import os
 import shutil
+import sys
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
 from datetime import datetime
 
-# Import all generators
-from .module_generator import ModuleGenerator
-from .plot_generator import PlotGenerator
-from .location_generator import LocationGenerator
-from .area_generator import AreaGenerator, AreaConfig
+# Add parent directories to Python path for imports when run directly
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
+# Import all generators - handle both direct execution and module import
+try:
+    # Try relative imports first (when imported as module)
+    from .module_generator import ModuleGenerator
+    from .plot_generator import PlotGenerator
+    from .location_generator import LocationGenerator
+    from .area_generator import AreaGenerator, AreaConfig
+except ImportError:
+    # Fall back to absolute imports (when run directly)
+    from core.generators.module_generator import ModuleGenerator
+    from core.generators.plot_generator import PlotGenerator
+    from core.generators.location_generator import LocationGenerator
+    from core.generators.area_generator import AreaGenerator, AreaConfig
+
 from utils.module_context import ModuleContext
 from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
@@ -1221,7 +1234,7 @@ def main():
         module_name=module_name,
         num_areas=num_areas,
         locations_per_area=locations_per_area,
-        output_directory=f"./modules/{module_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        output_directory=f"./modules/{module_name}"
     )
     
     # Build module

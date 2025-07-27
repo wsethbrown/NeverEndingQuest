@@ -168,8 +168,7 @@ def generate_live_initiative_tracker(encounter_data, conversation_history, curre
                 {"role": "system", "content": "You are an initiative tracker. Your ONLY job is to identify who has acted and who hasn't in the specified round. Format your response EXACTLY as requested with the Live Initiative Tracker format using [X], [>], [ ], [D], [S], [P], [U], and [-] markers for different creature states. Do not provide any other information."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.1,
-            max_tokens=500
+            temperature=0.1
         )
         
         # Extract the tracker from response

@@ -193,6 +193,9 @@ convo.txt
 correct_exit.txt
 gemini.txt
 
+# Connection work backup
+connection_work_backup/
+
 # Archive and conversation logs
 startup_conversation_archive_*.json
 world_registry_backup_*.json

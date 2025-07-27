@@ -450,7 +450,7 @@ IMPORTANT: Each plot point should have its sideQuests array (can be empty). Side
                     "locationId": loc.get("locationId"),
                     "name": loc.get("name"),
                     "type": loc.get("type"),
-                    "description": loc.get("description", "")[:100] + "..."
+                    "description": loc.get("description", "")
                 }
                 for loc in location_data.get("locations", [])
             ],

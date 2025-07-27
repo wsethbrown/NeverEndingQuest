@@ -350,7 +350,7 @@ class ModuleStitcher:
                 # Extract themes from descriptions
                 description = point.get('description', '')
                 if description:
-                    extracted["themes"].append(description[:200])  # Truncate for analysis
+                    extracted["themes"].append(description)  # Full description for analysis
             
             # Level range should be calculated from actual area data, not from plot points
             # This function no longer sets levelRange - it's calculated from areas in analyze_module()
@@ -919,13 +919,13 @@ Create atmospheric travel narration that leads into this adventure."""
             # Prepare content summary for AI review
             content_summary = {
                 "plotObjective": module_data.get('plotObjective', ''),
-                "themes": module_data.get('themes', [])[:3],  # First 3 themes
+                "themes": module_data.get('themes', []),  # All themes
                 "areaDescriptions": []
             }
             
-            # Add area descriptions (truncated)
+            # Add area descriptions (full content)
             for area_id, area_data in module_data.get('areas', {}).items():
-                desc = area_data.get('areaDescription', '')[:200]  # First 200 chars
+                desc = area_data.get('areaDescription', '')
                 if desc:
                     content_summary["areaDescriptions"].append(desc)
             

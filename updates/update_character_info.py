@@ -1418,7 +1418,7 @@ Character Role: {character_role}
         recent_history = history[-10:]
         for msg in recent_history:
             if msg.get('role') in ['user', 'assistant']:
-                messages.insert(-2, {"role": msg['role'], "content": msg['content'][:1000]})
+                messages.insert(-2, {"role": msg['role'], "content": msg['content']})
     
     max_attempts = 3
     attempt = 1

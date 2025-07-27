@@ -284,7 +284,7 @@ def get_module_starting_location(module_name: str) -> tuple:
                         "areaDescription": area_data.get("areaDescription", ""),
                         "recommendedLevel": area_data.get("recommendedLevel", 1),
                         "dangerLevel": area_data.get("dangerLevel", "unknown"),
-                        "locations": area_data.get("locations", [])[:3]  # First 3 locations for analysis
+                        "locations": area_data.get("locations", [])  # All locations for analysis
                     }
             except Exception as e:
                 warning(f"FILE_OP: Could not load area {area_id}: {e}", category="file_operations")
@@ -298,7 +298,7 @@ def get_module_starting_location(module_name: str) -> tuple:
                 # Include key plot information
                 module_analysis_data["plotData"] = {
                     "mainObjective": plot_data.get("mainObjective", ""),
-                    "plotPoints": plot_data.get("plotPoints", [])[:3]  # First 3 plot points
+                    "plotPoints": plot_data.get("plotPoints", [])  # All plot points
                 }
         except Exception as e:
             warning(f"FILE_OP: Could not load plot data: {e}", category="file_operations")

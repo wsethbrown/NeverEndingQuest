@@ -411,7 +411,7 @@ Produce a narrative in the style of a campaign journal or game codex entry. Do n
         # Critical events
         if preserved_data.get('critical_events'):
             events = []
-            for event in preserved_data['critical_events'][:10]:  # Limit for prompt size
+            for event in preserved_data['critical_events']:  # All events
                 if hasattr(event, 'description'):
                     events.append(event.description)
                 else:
@@ -421,17 +421,17 @@ Produce a narrative in the style of a campaign journal or game codex entry. Do n
         # Combat encounters
         if preserved_data.get('combat_summary'):
             combat_list = list(preserved_data['combat_summary'].values())
-            formatted_sections.append(f"COMBAT: {'; '.join(combat_list[:5])}")
+            formatted_sections.append(f"COMBAT: {'; '.join(combat_list)}")  # All combat
         
         # NPC interactions
         if preserved_data.get('npc_relationships'):
             npc_list = list(preserved_data['npc_relationships'].values())
-            formatted_sections.append(f"NPC INTERACTIONS: {'; '.join(npc_list[:5])}")
+            formatted_sections.append(f"NPC INTERACTIONS: {'; '.join(npc_list)}")  # All NPCs
         
         # Discoveries
         if preserved_data.get('location_discoveries'):
             discovery_list = list(preserved_data['location_discoveries'].values())
-            formatted_sections.append(f"DISCOVERIES: {'; '.join(discovery_list[:5])}")
+            formatted_sections.append(f"DISCOVERIES: {'; '.join(discovery_list)}")  # All discoveries
         
         # Plot developments
         if preserved_data.get('plot_developments'):
@@ -599,7 +599,7 @@ Your output should read like a published game codex, narrative recap, or campaig
         # Look for NPC names and key dialogue
         dialogue_matches = re.findall(r'"([^"]+)"', content)
         if dialogue_matches:
-            return f"Dialogue with NPC: {dialogue_matches[0][:50]}..."
+            return f"Dialogue with NPC: {dialogue_matches[0]}"
         else:
             return "NPC interaction occurred"
     

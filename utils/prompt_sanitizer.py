@@ -35,8 +35,7 @@ Return ONLY the sanitized prompt, no explanations."""
             {"role": "system", "content": "You are a prompt sanitizer. Return only the cleaned prompt text."},
             {"role": "user", "content": sanitization_request}
         ],
-        temperature=0.3,
-        max_tokens=500
+        temperature=0.3
     )
     
     return response.choices[0].message.content.strip()
