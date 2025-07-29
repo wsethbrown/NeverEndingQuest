@@ -312,9 +312,8 @@ def generate_encounter(encounter_data):
         "status": player_data.get("status", "alive"),
         "conditions": player_data.get("condition_affected", []),
         "actions": {"actionType": "", "target": ""},
-        "currentHitPoints": player_data["hitPoints"],
-        "maxHitPoints": player_data["maxHitPoints"],
-        "armorClass": player_data["armorClass"]
+        "guard": player_data.get("guard", 1),
+        "vigour": player_data.get("virtues", {}).get("vigour", 10)
     }
     encounter["creatures"].append(player)
 
@@ -342,8 +341,8 @@ def generate_encounter(encounter_data):
             "status": "alive",
             "conditions": [],
             "actions": {"actionType": "", "target": ""},
-            "currentHitPoints": monster_data["hitPoints"],
-            "maxHitPoints": monster_data["hitPoints"]
+            "guard": monster_data.get("guard", 1),
+            "vigour": monster_data.get("vigour", 10)
         }
         encounter["creatures"].append(monster)
 
@@ -370,9 +369,8 @@ def generate_encounter(encounter_data):
             "status": npc_data.get("status", "alive"),
             "conditions": npc_data.get("condition_affected", []),
             "actions": {"actionType": "", "target": ""},
-            "currentHitPoints": npc_data.get("hitPoints", 10),
-            "maxHitPoints": npc_data.get("maxHitPoints", 10),
-            "armorClass": npc_data.get("armorClass", 10)
+            "guard": npc_data.get("guard", 1),
+            "vigour": npc_data.get("virtues", {}).get("vigour", 10)
         }
         # Add the NPC to the encounter's creatures array
         encounter["creatures"].append(npc)

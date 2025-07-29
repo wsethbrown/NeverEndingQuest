@@ -107,7 +107,33 @@ def save_json(file_name, data):
         print(f"{RED}Error saving to {file_name}: {str(e)}{RESET}")
         return False
 
-def generate_monster(monster_name, schema, party_level=1):
+def generate_monster(monster_name, schema=None, party_level=None, glory_level=0):
+    """
+    DEPRECATED: This D&D 5e monster builder has been deprecated.
+    For Mythic Bastionland creatures, use mythic_creature_builder.py instead.
+    
+    This function now redirects to the new Mythic Bastionland system.
+    """
+    print(f"{YELLOW}NOTICE: Redirecting to Mythic Bastionland creature builder{RESET}")
+    
+    # Import and use the new mythic creature builder
+    try:
+        from core.generators.mythic_creature_builder import generate_creature, create_fallback_creature
+        
+        # Try AI generation first
+        creature_data = generate_creature(monster_name, glory_level)
+        
+        # Fall back if needed
+        if not creature_data:
+            creature_data = create_fallback_creature(monster_name, glory_level)
+        
+        return creature_data
+        
+    except ImportError as e:
+        print(f"{RED}Error importing mythic creature builder: {e}{RESET}")
+        print(f"{YELLOW}Falling back to legacy 5e system...{RESET}")
+    
+    # Legacy D&D 5e system (fallback only)
     # Build context-aware system prompt
     system_content = """You are an assistant that creates monster schema JSON files from a master monster schema template for a 5e game. Given a monster name, create a JSON representation of the monster's stats and abilities according to 5e rules following the monster schema template exactly.
 

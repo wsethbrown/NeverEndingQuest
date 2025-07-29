@@ -50,11 +50,11 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 @dataclass
 class AreaConfig:
     """Configuration for area generation"""
-    area_type: str = "dungeon"  # dungeon, wilderness, town, mixed
+    area_type: str = "wilderness"  # wilderness, settlement, underground, mixed
     size: str = "medium"  # small, medium, large
     complexity: str = "moderate"  # simple, moderate, complex
     danger_level: str = "medium"  # low, medium, high, extreme
-    recommended_level: int = 1
+    glory_requirement: int = 0  # Glory needed to access (0 = open to all)
     num_locations: int = None  # If specified, override size-based calculation
 
 class MapLayoutGenerator:
@@ -62,9 +62,9 @@ class MapLayoutGenerator:
     
     def __init__(self):
         self.room_types = {
-            "dungeon": ["entrance", "corridor", "chamber", "hall", "vault", "shrine", "prison", "laboratory", "throne room", "treasure room"],
+            "underground": ["entrance", "corridor", "chamber", "hall", "vault", "shrine", "prison", "laboratory", "throne room", "treasure room"],
             "wilderness": ["clearing", "grove", "cave", "ravine", "hilltop", "riverside", "ruins", "campsite", "crossroads", "landmark"],
-            "town": ["square", "market", "tavern", "shop", "temple", "guild", "residence", "gate", "warehouse", "barracks"]
+            "settlement": ["square", "market", "tavern", "shop", "temple", "guild", "residence", "gate", "warehouse", "barracks"]
         }
     
     def generate_thematic_names(self, room_data: List[Dict], area_context: Dict[str, Any]) -> List[str]:
@@ -82,7 +82,7 @@ class MapLayoutGenerator:
             # Build context for AI
             module_name = area_context.get('module_name', 'Unknown Module')
             area_name = area_context.get('area_name', 'Unknown Area')
-            area_type = area_context.get('area_type', 'dungeon')
+            area_type = area_context.get('area_type', 'wilderness')
             theme = area_context.get('theme', 'fantasy adventure')
             
             # Create room list for AI prompt
@@ -92,7 +92,7 @@ class MapLayoutGenerator:
             
             rooms_text = "\\n".join(room_list)
             
-            prompt = f"""You are creating thematic location names for a D&D module called "{module_name}".
+            prompt = f"""You are creating thematic location names for a Mythic Bastionland realm called "{module_name}".
 
 AREA CONTEXT:
 - Area Name: {area_name}
@@ -126,7 +126,7 @@ No explanations, just the JSON array of thematic location names."""
             response = client.chat.completions.create(
                 model=DM_MAIN_MODEL,
                 messages=[
-                    {"role": "system", "content": "You are an expert at creating immersive D&D location names that enhance storytelling and world-building."},
+                    {"role": "system", "content": "You are an expert at creating immersive Mythic Bastionland location names that enhance storytelling and world-building."},
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.8
@@ -158,11 +158,11 @@ No explanations, just the JSON array of thematic location names."""
             for room in room_data:
                 room_type = room['type']
                 # Add atmospheric adjectives based on area type
-                if area_context.get('area_type') == 'dungeon':
+                if area_context.get('area_type') == 'underground':
                     adjectives = ['Ancient', 'Forgotten', 'Dark', 'Crumbling', 'Hidden', 'Lost', 'Shadowed']
                 elif area_context.get('area_type') == 'wilderness':
                     adjectives = ['Wild', 'Misty', 'Windswept', 'Overgrown', 'Sacred', 'Remote', 'Weathered']
-                else:  # town
+                else:  # settlement
                     adjectives = ['Bustling', 'Old', 'Grand', 'Cobbled', 'Noble', 'Merchant', 'Central']
                 
                 adj = random.choice(adjectives)
@@ -170,7 +170,7 @@ No explanations, just the JSON array of thematic location names."""
             
             return fallback_names
     
-    def generate_layout(self, num_locations: int, prefix: str, area_type: str = "dungeon", area_context: Dict[str, Any] = None) -> Dict[str, Any]:
+    def generate_layout(self, num_locations: int, prefix: str, area_type: str = "wilderness", area_context: Dict[str, Any] = None) -> Dict[str, Any]:
         """Generate a map layout with connected rooms and AI-generated thematic names"""
         # Calculate grid size
         grid_size = max(5, int((num_locations * 1.5) ** 0.5))
@@ -330,7 +330,7 @@ class AreaGenerator:
             'area_type': config.area_type,
             'theme': module_context.get('moduleDescription', 'fantasy adventure'),
             'danger_level': config.danger_level,
-            'recommended_level': config.recommended_level
+            'glory_requirement': config.glory_requirement
         }
         
         # Generate map layout with AI-powered thematic naming
@@ -389,7 +389,7 @@ class AreaGenerator:
             "areaType": config.area_type,
             "areaDescription": self.generate_area_description(area_name, config),
             "dangerLevel": config.danger_level,
-            "recommendedLevel": config.recommended_level,
+            "gloryRequirement": config.glory_requirement,
             "climate": self.determine_climate(config.area_type),
             "terrain": self.determine_terrain(config.area_type),
             "map": map_data,
@@ -403,14 +403,14 @@ class AreaGenerator:
     
     def generate_area_description(self, area_name: str, config: AreaConfig) -> str:
         """Generate a thematic area description using AI"""        
-        prompt = f"""Generate a unique, atmospheric description for a 5th edition area named "{area_name}".
+        prompt = f"""Generate a unique, atmospheric description for a Mythic Bastionland location named "{area_name}".
 
 Area Details:
 - Type: {config.area_type}
 - Size: {config.size}
 - Complexity: {config.complexity}
 - Danger Level: {config.danger_level}
-- Recommended Level: {config.recommended_level}
+- Glory Requirement: {config.glory_requirement}
 
 Requirements:
 - Write 1-2 sentences that capture the area's atmosphere and character
@@ -426,7 +426,7 @@ Return ONLY the area description text, no additional formatting or labels."""
                 model=DM_MAIN_MODEL,
                 temperature=0.8,  # Higher temperature for more creative variety
                 messages=[
-                    {"role": "system", "content": "You are an expert fantasy world builder. Create unique, atmospheric descriptions for D&D 5e areas that avoid cliches and generic phrases."},
+                    {"role": "system", "content": "You are an expert fantasy world builder. Create unique, atmospheric descriptions for Mythic Bastionland locations that avoid cliches and generic phrases."},
                     {"role": "user", "content": prompt}
                 ]
             )
@@ -444,21 +444,21 @@ Return ONLY the area description text, no additional formatting or labels."""
             print(f"DEBUG: [Area Generator] Warning: Failed to generate area description via AI: {e}")
             # Fallback to basic description without hardcoded templates
             area_adjectives = {
-                "dungeon": ["ancient", "forgotten", "mysterious", "treacherous"],
+                "underground": ["ancient", "forgotten", "mysterious", "treacherous"],
                 "wilderness": ["untamed", "wild", "dangerous", "pristine"], 
-                "town": ["bustling", "quiet", "prosperous", "troubled"],
+                "settlement": ["bustling", "quiet", "prosperous", "troubled"],
                 "mixed": ["unique", "varied", "complex", "intriguing"]
             }
             
             adjective = random.choice(area_adjectives.get(config.area_type, ["mysterious"]))
-            return f"{area_name} is a {adjective} {config.area_type} area with {config.complexity} challenges suitable for level {config.recommended_level} adventurers."
+            return f"{area_name} is a {adjective} {config.area_type} area with {config.complexity} challenges suitable for Knights with {config.glory_requirement}+ Glory."
     
     def determine_climate(self, area_type: str) -> str:
         """Determine appropriate climate for area type"""
         climates = {
-            "dungeon": "controlled - cool and damp",
+            "underground": "controlled - cool and damp",
             "wilderness": random.choice(["temperate", "tropical", "arctic", "desert"]),
-            "town": "temperate",
+            "settlement": "temperate",
             "mixed": "varied"
         }
         return climates.get(area_type, "temperate")
@@ -466,9 +466,9 @@ Return ONLY the area description text, no additional formatting or labels."""
     def determine_terrain(self, area_type: str) -> str:
         """Determine appropriate terrain for area type"""
         terrains = {
-            "dungeon": "stone corridors and chambers",
+            "underground": "stone corridors and chambers",
             "wilderness": random.choice(["forest", "mountains", "plains", "swamp", "coast"]),
-            "town": "urban streets and buildings",
+            "settlement": "urban streets and buildings",
             "mixed": "varied terrain"
         }
         return terrains.get(area_type, "varied")
@@ -493,7 +493,7 @@ Return ONLY the area description text, no additional formatting or labels."""
             encounters.append({
                 "roll": roll_range,
                 "encounter": encounter_type,
-                "description": f"A {encounter_type} appropriate for level {config.recommended_level} parties"
+                "description": f"A {encounter_type} appropriate for Knights with {config.glory_requirement}+ Glory"
             })
         
         return encounters
@@ -501,9 +501,9 @@ Return ONLY the area description text, no additional formatting or labels."""
     def generate_area_features(self, config: AreaConfig) -> List[str]:
         """Generate notable features for the area"""
         features = {
-            "dungeon": ["ancient murals", "mysterious mechanisms", "forgotten shrines", "hidden passages"],
+            "underground": ["ancient murals", "mysterious mechanisms", "forgotten shrines", "hidden passages"],
             "wilderness": ["ancient trees", "rock formations", "water sources", "animal dens"],
-            "town": ["market square", "local tavern", "guard posts", "merchant quarter"],
+            "settlement": ["market square", "local tavern", "guard posts", "merchant quarter"],
             "mixed": ["ruins", "bridges", "crossroads", "landmarks"]
         }
         
@@ -553,9 +553,9 @@ Return ONLY the area description text, no additional formatting or labels."""
     def generate_dm_notes(self, config: AreaConfig) -> str:
         """Generate helpful DM notes for running the area"""
         notes = {
-            "dungeon": "Consider lighting sources and trap placement. Underground areas may have limited resources.",
+            "underground": "Consider lighting sources and trap placement. Underground areas may have limited resources.",
             "wilderness": "Weather and terrain should affect travel times. Random encounters keep exploration tense.",
-            "town": "NPCs should have daily routines. Political factions create roleplay opportunities.",
+            "settlement": "NPCs should have daily routines. Political factions create roleplay opportunities.",
             "mixed": "Balance combat, exploration, and social encounters. Transitions between areas should feel natural."
         }
         
@@ -596,18 +596,18 @@ def main():
     area_name = input("Area name: ").strip() or "Mysterious Dungeon"
     area_id = input("Area ID (e.g., DG001): ").strip() or "DG001"
     
-    area_type = input("Area type (dungeon/wilderness/town/mixed): ").strip() or "dungeon"
+    area_type = input("Area type (underground/wilderness/settlement/mixed): ").strip() or "wilderness"
     size = input("Size (small/medium/large): ").strip() or "medium"
     complexity = input("Complexity (simple/moderate/complex): ").strip() or "moderate"
     danger_level = input("Danger level (low/medium/high/extreme): ").strip() or "medium"
-    recommended_level = int(input("Recommended character level (1-20): ").strip() or "1")
+    glory_requirement = int(input("Glory requirement (0-20): ").strip() or "0")
     
     config = AreaConfig(
         area_type=area_type,
         size=size,
         complexity=complexity,
         danger_level=danger_level,
-        recommended_level=recommended_level
+        glory_requirement=glory_requirement
     )
     
     # Mock module context
