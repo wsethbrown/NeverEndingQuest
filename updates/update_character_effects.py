@@ -116,22 +116,22 @@ def save_effects_tracker(data: Dict[str, Any]) -> bool:
 def analyze_effect_with_ai(character_name: str, change_description: str) -> Optional[Dict[str, Any]]:
     """Use AI to analyze if a change is a trackable temporary effect."""
     
-    # Try to load character stats for ability score calculations
+    # Try to load character stats for virtue calculations (Mythic Bastionland)
     character_stats = {}
     try:
         from utils.file_operations import safe_read_json
         char_file = f"characters/{character_name.lower().replace(' ', '_')}.json"
         char_data = safe_read_json(char_file)
-        if char_data and 'abilities' in char_data:
-            character_stats = char_data['abilities']
+        if char_data and 'virtues' in char_data:
+            character_stats = char_data['virtues']
     except:
         pass  # Continue without stats if unable to load
     
     stats_info = ""
     if character_stats:
-        stats_info = f"\nCharacter's current ability scores: STR {character_stats.get('strength', 10)}, DEX {character_stats.get('dexterity', 10)}, CON {character_stats.get('constitution', 10)}, INT {character_stats.get('intelligence', 10)}, WIS {character_stats.get('wisdom', 10)}, CHA {character_stats.get('charisma', 10)}"
+        stats_info = f"\nCharacter's current virtues: VIG {character_stats.get('vigour', 10)}, CLA {character_stats.get('clarity', 10)}, SPI {character_stats.get('spirit', 10)}"
     
-    prompt = f"""You are an effects tracking AI for a 5th edition fantasy RPG. Analyze this character update to determine if it's a temporary effect that should be tracked.
+    prompt = f"""You are an effects tracking AI for a Mythic Bastionland fantasy RPG. Analyze this character update to determine if it's a temporary effect that should be tracked.
 
 Character: {character_name}{stats_info}
 Update: {change_description}
@@ -145,8 +145,8 @@ Common trackable effects include:
 - Bless (+1d4 to attacks/saves for 1 minute or up to concentration)
 - Aid spell (+5 HP for 8 hours) - affects BOTH current HP and max HP
 - Mage Armor (AC bonus for 8 hours)
-- Enhance Ability (advantage for 1 hour)
-- Ability drain (STR/DEX reduction until rest)
+- Enhance Virtue (advantage for 1 hour)
+- Virtue damage (VIG/CLA/SPI reduction until rest)
 - Buffs/debuffs lasting minutes, hours, or days
 - Poison/disease effects with durations
 - Heroes' Feast (+2d10 max HP for 24 hours) - affects both current and max HP
@@ -159,11 +159,11 @@ Duration handling:
 IMPORTANT: Some effects modify both the current value AND the maximum value:
 - Aid spell: Increases both current HP and max HP
 - Temporary HP effects: Only affect current HP, not max HP
-- Ability score changes: May affect derived stats (CON affects max HP)
+- Virtue changes: May affect derived stats (VIG affects HP and damage)
 
-CRITICAL: For effects that SET an ability score to a specific value (like Potion of Giant Strength setting STR to 21):
+CRITICAL: For effects that SET a virtue to a specific value (like magical items enhancing Vigour):
 - Track these as the MODIFIER from the character's base score
-- Example: If base strength is 11 and potion sets it to 21, track value as +10
+- Example: If base vigour is 11 and item sets it to 21, track value as +10
 - The effects system will calculate and apply the correct final value
 - This allows proper reversal when the effect expires
 
@@ -171,7 +171,7 @@ Return JSON with this exact structure:
 {{
   "should_track": true/false,
   "effect": {{
-    "stat": "hitPoints|maxHitPoints|strength|dexterity|constitution|intelligence|wisdom|charisma|armorClass|other",
+    "stat": "hitPoints|maxHitPoints|vigour|clarity|spirit|guard|glory|other",
     "value": numeric_modifier (positive or negative),
     "source": "brief description of source",
     "duration_type": "hours|days|until_rest|special",
@@ -182,7 +182,7 @@ Return JSON with this exact structure:
 }}
 
 If should_track is false, still populate the effect fields with empty/default values.
-For ability drains, use negative values (e.g., -2 for strength drain).
+For virtue damage, use negative values (e.g., -2 for vigour damage).
 For HP gains from Aid, use positive values (e.g., +5).
 Set affects_max to true for effects like Aid that modify both current and maximum values.
 """
@@ -497,12 +497,12 @@ if __name__ == "__main__":
     test_cases = [
         ("Thane", "gains 5 hit points from Aid spell cast by cleric"),
         ("Elara", "takes 10 damage from orc's sword"),
-        ("Thane", "strength reduced by 2 from shadow's touch"),
+        ("Thane", "vigour reduced by 2 from shadow's touch"),
         ("Brom", "gains +2 AC from Shield of Faith spell"),
-        ("Elara", "gains advantage on strength checks from Enhance Ability"),
+        ("Elara", "gains advantage on vigour tests from Enhance Virtue"),
         ("Thane", "poisoned by spider venom for 1 hour"),
         ("Brom", "gains resistance to fire damage from potion"),
-        ("Elara", "intelligence drained by 3 from mind flayer"),
+        ("Elara", "clarity drained by 3 from psychic creature"),
         ("Thane", "gains 10 temporary hit points from False Life"),
         ("Brom", "affected by Slow spell reducing speed and AC")
     ]

@@ -49,7 +49,7 @@ def update_encounter(encounter_id, changes, max_retries=3):
     for attempt in range(max_retries):
         # Prepare the prompt for the AI
         prompt = [
-            {"role": "system", "content": """You are an assistant that updates encounter information in a 5th Edition roleplaying game. Given the current encounter information and a description of changes, you must return only the updated sections as a JSON object. Do not include unchanged fields. Your response should be a valid JSON object representing only the modified parts of the encounter data. 
+            {"role": "system", "content": """You are an assistant that updates encounter information in a Mythic Bastionland roleplaying game. Given the current encounter information and a description of changes, you must return only the updated sections as a JSON object. Do not include unchanged fields. Your response should be a valid JSON object representing only the modified parts of the encounter data. 
 
 Focus only on updating the monster information within the 'creatures' array. Do not modify player or NPC data.
 

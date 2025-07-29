@@ -370,7 +370,7 @@ def process_conversation_history(history, character_role):
         # Player-specific processing
         for message in history:
             if message["role"] == "user" and message["content"].startswith("Leveling Dungeon Master Guidance"):
-                message["content"] = "DM Guidance: Proceed with leveling up the player character given the 5th Edition role playing game rules. Only level the player one level at a time to ensure no mistakes are made. You must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updatePlayerInfo' to pass all changes to the players character sheet and include the experience goal for the next level. Do not update the player's information in segments."
+                message["content"] = "DM Guidance: Proceed with advancing the Knight character given the Mythic Bastionland rules. Knights do not level up in the traditional sense but gain Glory and may unlock new abilities. You must ask the player for important decisions and choices they would have control over. After the player has provided the needed information then use the 'updateCharacterInfo' to pass all changes to the Knight's character sheet. Do not update the player's information in segments."
     # NPC processing can be added here if needed
     return history
 
@@ -463,7 +463,7 @@ Equipment Array Example:
 
 AttacksAndSpellcasting vs Actions:
 - Use attacksAndSpellcasting for standard attack format
-- Actions array is for 5e standard format (optional)
+- Actions array is for Mythic Bastionland format (optional)
 
 Combat Damage Note:
 When NPCs deal damage in combat, do NOT update their action arrays. Only update when the NPC gains new abilities or equipment.
@@ -1123,7 +1123,7 @@ def update_character_info(character_name, changes, character_role=None):
     schema_info = format_schema_for_prompt(schema, character_role)
     
     # Build the prompt
-    system_message = f"""You are an assistant that updates character information in a 5th Edition roleplaying game. Given the current character information and a description of changes, you must return only the updated sections as a JSON object. Do not include unchanged fields. Your response should be a valid JSON object representing only the modified parts of the character sheet.
+    system_message = f"""You are an assistant that updates character information in a Mythic Bastionland roleplaying game. Given the current character information and a description of changes, you must return only the updated sections as a JSON object. Do not include unchanged fields. Your response should be a valid JSON object representing only the modified parts of the character sheet.
 
 **CRITICAL JSON OUTPUT RULES: DELTA-ONLY UPDATES**
 
@@ -1208,16 +1208,16 @@ Your primary goal is to generate the smallest possible valid JSON object that re
 {schema_info}
 
 MAGICAL ITEM RECOGNITION - AUTOMATIC EFFECTS:
-When adding equipment that appears to be magical based on its name or description (contains +1/+2/+3, grants bonuses, provides resistance, etc.), you MUST include an 'effects' array with appropriate mechanical effects. Use your knowledge of 5th Edition rules.
+When adding equipment that appears to be magical based on its name or description (grants bonuses, provides resistance, etc.), you MUST include an 'effects' array with appropriate mechanical effects. Use your knowledge of Mythic Bastionland rules.
 
 Common magical items and their effects:
 - Ring/Cloak of Protection: +1 to AC and saving throws
-- Gauntlets of Ogre Power: Set Strength to 19
-- Amulet of Health: Set Constitution to 19
-- Boots of Speed: Double movement speed (speed x2)
-- Cloak of Elvenkind: Advantage on Dexterity (Stealth) checks
-- Bracers of Defense: +2 AC when not wearing armor
-- Belt of Giant Strength: Set Strength (Hill=21, Stone=23, Frost=23, Fire=25, Cloud=27, Storm=29)
+- Gauntlets of Power: Enhance Vigour for physical tasks
+- Amulet of Health: Enhance Vigour for stamina and endurance
+- Boots of Speed: Double movement speed
+- Cloak of Stealth: Advantage on stealth attempts
+- Bracers of Defense: +2 Guard when not wearing armor
+- Belt of Giant Might: Enhance Vigour significantly
 - Ring of Resistance: Resistance to specific damage type
 - Periapt of Wound Closure: Stabilize automatically when dying
 - Weapon +1/+2/+3: Bonus to attack and damage rolls
@@ -1234,7 +1234,7 @@ MAGICAL ITEM EQUIPMENT ENTRY FORMAT:
   "equipped": true,              // or false if just adding to inventory
   "effects": [
     {{
-      "type": "bonus",           // bonus, resistance, immunity, advantage, disadvantage, ability_score, other
+      "type": "bonus",           // bonus, resistance, immunity, advantage, disadvantage, virtue_enhancement, other
       "target": "AC",            // what it affects: AC, saves, specific save, ability check, etc.
       "value": 1,                // numeric value if applicable
       "description": "+1 bonus to Armor Class"
@@ -1254,13 +1254,13 @@ EFFECT TYPE GUIDANCE:
 - "immunity": Damage or condition immunity
 - "advantage": Advantage on specific rolls
 - "disadvantage": Disadvantage (usually imposed on enemies)
-- "ability_score": Sets or modifies ability scores
+- "virtue_enhancement": Sets or modifies virtues (VIG/CLA/SPI)
 - "other": Any other magical effect
 
 IMPORTANT MAGICAL ITEM RULES:
 1. If an item grants mechanical benefits, it MUST have an effects array
 2. Non-magical items (regular sword, rope, torch) should NOT have effects
-3. For items that set ability scores (Gauntlets of Ogre Power), ALSO update the abilities object
+3. For items that enhance virtues (Gauntlets of Power), ALSO update the virtues object
 4. For AC bonuses, you may also update armorClass if appropriate
 5. Custom magical items should have effects inferred from their description
 
@@ -1353,7 +1353,7 @@ DANGEROUS EXAMPLE (DO NOT DO):
 {{"spellcasting": {{"spellSlots": {{...}}}}}} // This deletes ability, DC, bonus, and spells!
 
 SAFE EXAMPLE:
-{{"spellcasting": {{"ability": "wisdom", "spellSaveDC": 13, "spellAttackBonus": 5, "spells": {{...}}, "spellSlots": {{...}}}}}} // This preserves all data
+{{"knight_data": {{"abilities": [...], "passions": [...], "seers": [...], "glory": 50}}}} // This preserves all data
 
 CONDITION MANAGEMENT EXAMPLES:
 CORRECT (healing unconscious character): {{"hitPoints": 12, "status": "alive", "condition": "none", "condition_affected": []}}
