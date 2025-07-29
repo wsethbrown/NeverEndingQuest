@@ -14,7 +14,7 @@ Module Name: An evocative title appropriate to a fantasy epic. Present the name 
 
 Adventure Type: Classify the module as "dungeon," "wilderness," "urban," or "mixed."
 
-Level Range: Specify the minimum and maximum level this module is intended for.
+Glory Requirement: Specify the minimum Glory level this module is intended for.
 
 Number of Areas: 2-3 distinct areas or zones the module spans.
 
@@ -30,7 +30,7 @@ When a player asks "What next?" or similar questions:
 1. IMMEDIATELY present 2-3 rumors of distant adventures through NPCs or narrative
 2. These must be NEW locations at least several days' travel away
 3. Focus on epic scope: ancient evils stirring, kingdoms in peril, legendary artifacts
-4. Make the hooks irresistible and level-appropriate (Level 4-6 challenges)
+4. Make the hooks irresistible and glory-appropriate (Glory 3-6 challenges)
 5. Present these boldly - the party is ready for greatness
 
 FORBIDDEN: Do not mention existing side quests, local NPCs' problems, or suggest staying in the current region. The party has outgrown such provincial matters.

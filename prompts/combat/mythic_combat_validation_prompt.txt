@@ -10,7 +10,7 @@ IMPORTANT: Use only ASCII characters in all responses. Never use Unicode charact
 4. **MORTAL WOUNDS**: If half or more remaining Vigour lost in one hit, character is Mortally Wounded
 5. **DEATH AT 0 VIGOUR**: Character is Slain when Vigour reaches 0
 6. **GUARD RECOVERY**: Guard fully restores after combat ends
-7. **VIRTUES**: Characters have VIG/CLA/SPI instead of D&D ability scores
+7. **VIRTUES**: Characters have VIG/CLA/SPI instead of traditional ability scores
 
 ++ CRITICAL VALIDATION CHECKS ++
 
@@ -37,8 +37,8 @@ IMPORTANT: Use only ASCII characters in all responses. Never use Unicode charact
    - Characters act together, not in sequence
 
 5. **VIRTUE SYSTEM**:
-   - Characters have VIG/CLA/SPI, not D&D ability scores
-   - No spell slots, spell levels, or D&D class features
+   - Characters have VIG/CLA/SPI, not traditional ability scores
+   - No spell slots, spell levels, or traditional class features
    - Knights have Glory/Rank instead of XP/levels
 
 6. **COMBAT END CONDITIONS**:
@@ -46,12 +46,12 @@ IMPORTANT: Use only ASCII characters in all responses. Never use Unicode charact
    - Guard restores to full after combat
    - Fatigue clears after combat
 
-**FORBIDDEN D&D MECHANICS:**
+**FORBIDDEN TRADITIONAL MECHANICS:**
 - No initiative rolls or turn order
 - No AC/HP system (use Guard/Vigour instead)
 - No spell slots or spell levels
 - No experience points (use Glory instead)
-- No D&D saving throws (use VIG/CLA/SPI saves)
+- No traditional saving throws (use VIG/CLA/SPI saves)
 
 **REQUIRED COMBAT FLOW:**
 1. Players declare actions simultaneously
@@ -68,11 +68,11 @@ IMPORTANT: Use only ASCII characters in all responses. Never use Unicode charact
 
 **INVALID ELEMENTS TO FLAG:**
 - Turn-based initiative sequences
-- D&D ability scores (STR/DEX/CON/INT/WIS/CHA)
+- Traditional ability scores (STR/DEX/CON/INT/WIS/CHA)
 - HP/AC references
 - Spell slot consumption
 - Experience point awards
-- D&D class features or spells
+- Traditional class features or spells
 
 **JSON STRUCTURE VALIDATION:**
 Required fields in combat responses:
@@ -85,7 +85,7 @@ Respond with a JSON object using this exact structure:
   "valid": true/false,
   "feedback": {
     "positive": "What the AI did correctly according to Mythic Bastionland rules, or 'No positive points identified' if everything was wrong.",
-    "negative": "REQUIRED: Detailed explanation of rule violations, specifically noting any D&D mechanics used instead of Mythic Bastionland rules.",
+    "negative": "REQUIRED: Detailed explanation of rule violations, specifically noting any traditional mechanics used instead of Mythic Bastionland rules.",
     "recommendation": "REQUIRED if invalid: Clear instructions for fixing the response to use proper Mythic Bastionland mechanics."
   }
 }
@@ -93,7 +93,7 @@ Respond with a JSON object using this exact structure:
 For the recommendation field (only if invalid):
 - Specify which Mythic Bastionland rule was violated
 - Explain the correct Guard/Vigour damage calculation
-- Note if D&D mechanics need to be replaced with Mythic Bastionland equivalents
+- Note if traditional mechanics need to be replaced with Mythic Bastionland equivalents
 - Provide specific examples of proper simultaneous combat resolution
 
 Remember: Mythic Bastionland combat is fast, simultaneous, and brutal. Focus on Guard/Vigour tracking and simultaneous resolution rather than complex turn-based mechanics.

@@ -1,3 +1,11 @@
+DEPRECATED: This file contains D&D 5e leveling information. Mythic Bastionland does not use XP/levels.
+Instead, Knights gain Glory through heroic deeds and advance through Glory ranks:
+- Knight-Errant (Glory 0-2): Starting rank
+- Knight-Gallant (Glory 3-5): Proven in small deeds  
+- Knight-Tenant (Glory 6-8): Established reputation
+- Knight-Dominant (Glory 9-11): Regional influence
+- Knight-Radiant (Glory 12): Legendary status
+
 # SRD 5.2.1 Leveling Information
 # Portions of this content derived from SRD 5.2.1, licensed under CC BY 4.0
 

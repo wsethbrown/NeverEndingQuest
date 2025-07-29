@@ -1,4 +1,7 @@
 
+DEPRECATED: This prompt is for D&D 5e system. For Mythic Bastionland NPCs, use mythic_npc_builder_prompt.txt instead.
+This file contains D&D classes, spells, ability scores, and mechanics that are not used in Mythic Bastionland.
+Mythic Bastionland uses Knights, Virtues (VIG/CLA/SPI), Guard, Glory, and a barter economy instead.
 
 Race:AbilityScoreIncrease;Traits
 -Human:+1 to all ability scores;Extra language
