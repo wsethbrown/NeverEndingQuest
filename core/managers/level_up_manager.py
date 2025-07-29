@@ -35,13 +35,18 @@ See LICENSE file for full terms.
 #
 
 """
-Level Up Manager Module for NeverEndingQuest
+Level Up Manager Module for NeverEndingQuest - DEPRECATED
 
-Handles character level up process as a separate, focused conversation.
-This module is fully agentic, conducting an interactive interview with the player,
-and is designed to be driven by an external UI loop.
+NOTICE: This module is deprecated for Mythic Bastionland.
+In Mythic Bastionland, Knights do not "level up" in the traditional D&D sense.
+Instead, Knights gain Glory and may advance in Rank through narrative play.
 
-Features:
+For Mythic Bastionland Glory advancement, see:
+- utils/glory_system.py for Glory mechanics
+- Glory is gained through successful adventures and notable deeds
+- Rank advancement is narrative, not mechanical
+
+Legacy D&D 5e Features (deprecated):
 - Manages level-up conversation state without direct I/O.
 - AI-driven interview process for players.
 - Automatic, optimized choices for NPCs.
@@ -65,7 +70,12 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 # --- Class-based Level Up Manager ---
 
 class LevelUpSession:
-    """Manages the state of a single level-up session."""
+    """
+    DEPRECATED: Manages the state of a single level-up session for D&D 5e.
+    
+    For Mythic Bastionland, Knights gain Glory through adventures rather than
+    traditional leveling. See utils/glory_system.py for Glory mechanics.
+    """
 
     def __init__(self, character_name, current_level, new_level):
         self.character_name = character_name

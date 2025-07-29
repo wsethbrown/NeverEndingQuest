@@ -19,15 +19,15 @@ See LICENSE file for full terms.
 #
 # ARCHITECTURE ROLE: Game Systems Layer - Combat Management
 #
-# This module provides comprehensive turn-based combat management for the 5th edition
-# Dungeon Master system, implementing AI-driven combat encounters with full rule
-# compliance and intelligent resource tracking.
+# This module provides comprehensive turn-based combat management for the Mythic Bastionland
+# system, implementing AI-driven combat encounters with Guard/Vigour mechanics and
+# simultaneous combat with intelligent resource tracking.
 #
 # KEY RESPONSIBILITIES:
 # - Turn-based combat orchestration with initiative order management
 # - AI-powered combat decision making for NPCs and monsters
 # - Combat state validation and rule compliance verification
-# - Experience point calculation and reward distribution
+# - Glory point calculation and reward distribution
 # - Combat logging and debugging support with per-encounter directories
 # - Real-time combat status display and resource tracking
 # - Preroll dice caching system to prevent AI manipulation
@@ -59,14 +59,14 @@ Combat Logging System:
 # 
 # ARCHITECTURE ROLE: Game Systems Layer - Turn-Based Combat Management
 # 
-# This module implements 5e combat mechanics using AI-driven simulation
+# This module implements Mythic Bastionland combat mechanics using AI-driven simulation
 # with strict rule validation. It demonstrates our multi-model AI strategy
 # by using specialized models for combat-specific interactions.
 # 
 # KEY RESPONSIBILITIES:
 # - Manage turn-based combat encounters with initiative tracking
-# - Validate combat actions against 5e rules
-# - Coordinate HP tracking, status effects, and combat state
+# - Validate combat actions against Mythic Bastionland rules
+# - Coordinate Guard/Vigour tracking, status effects, and combat state
 # - Generate and manage pre-rolled dice to prevent AI confusion
 # - Cache prerolls per combat round to ensure consistency
 # - Track combat rounds through AI responses
@@ -74,13 +74,13 @@ Combat Logging System:
 # - Real-time dynamic state display for combat awareness
 # 
 # COMBAT STATE DISPLAY PHILOSOPHY:
-# - REAL-TIME AWARENESS: Shows current HP, spell slots, conditions during combat
-# - RESOURCE TRACKING: Displays available spell slots for tactical decisions
+# - REAL-TIME AWARENESS: Shows current Guard, Vigour, conditions during combat
+# - RESOURCE TRACKING: Displays Knight abilities and status for tactical decisions
 # - DYNAMIC UPDATES: Reflects changes immediately as they occur
 # - AI CLARITY: Provides authoritative current state to prevent confusion
 # 
 # COMBAT INFORMATION ARCHITECTURE:
-# - DYNAMIC STATE DISPLAY: Current HP, spell slots, active conditions
+# - DYNAMIC STATE DISPLAY: Current Guard, Vigour, active conditions
 # - STATIC REFERENCE: Character abilities remain in system messages
 # - SEPARATION PRINCIPLE: Combat state vs character capabilities
 # - TACTICAL FOCUS: Information relevant to immediate combat decisions
@@ -93,8 +93,8 @@ Combat Logging System:
 # - Specialized combat model for turn-based interactions
 # - Pre-rolled dice system prevents AI attack count confusion
 # - Combat-specific validation model for rule compliance
-# - Real-time HP and status tracking with state synchronization
-# - Dynamic spell slot tracking for spellcaster resource management
+# - Real-time Guard and status tracking with state synchronization
+# - Dynamic Virtue damage tracking for Knight resource management
 # 
 # ARCHITECTURAL INTEGRATION:
 # - Called by action_handler.py for combat-related actions
@@ -108,7 +108,7 @@ Combat Logging System:
 # - Observer Pattern: Real-time combat state updates
 # 
 # This module exemplifies our approach to complex game system management
-# while maintaining strict 5e rule compliance through AI validation.
+# while maintaining strict Mythic Bastionland rule compliance through AI validation.
 # ============================================================================
 
 import json
@@ -927,19 +927,19 @@ def summarize_dialogue(conversation_history_param, location_data, party_tracker_
     return dialogue_summary
 
 def merge_updates(original_data, updated_data):
-    fields_to_update = ['hitPoints', 'equipment', 'attacksAndSpellcasting', 'experience_points']
+    fields_to_update = ['guard', 'virtues', 'equipment', 'knight_data', 'glory']
 
     for field in fields_to_update:
         if field in updated_data:
-            if field in ['equipment', 'attacksAndSpellcasting']:
+            if field in ['equipment', 'knight_data']:
                 # For arrays, replace the entire array
                 original_data[field] = updated_data[field]
-            elif field == 'experience_points':
-                # For XP, only update if the new value is greater than the existing value
+            elif field == 'glory':
+                # For Glory, only update if the new value is greater than the existing value
                 if updated_data[field] > original_data.get(field, 0):
                     original_data[field] = updated_data[field]
             else:
-                # For simple fields like hitpoints, just update the value
+                # For simple fields like guard, just update the value
                 original_data[field] = updated_data[field]
 
     return original_data

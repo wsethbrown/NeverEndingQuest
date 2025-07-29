@@ -166,8 +166,8 @@ def status_updating_character():
     status_manager.update_status("Updating character info...", True)
 
 def status_processing_levelup():
-    """Set status for level up processing"""
-    status_manager.update_status("Processing level up...", True)
+    """Set status for glory advancement processing (legacy D&D level up deprecated)"""
+    status_manager.update_status("Processing character advancement...", True)
 
 def status_updating_party():
     """Set status for party tracker updates"""
