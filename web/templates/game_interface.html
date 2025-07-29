@@ -3612,12 +3612,12 @@
             let hpClass = '';
             if (hpPercent <= 25) hpClass = 'low'; else if (hpPercent <= 50) hpClass = 'medium';
             let html = '<div class="character-sheet">';
-            html += `<div class="character-header"><div class="character-name">${data.name}</div><div class="character-details"><div class="detail-left"><div><span class="orange">Level ${data.level}</span> ${data.race} ${data.class}</div><div><span class="orange">Profession:</span> ${data.background || 'Adventurer'} • <span class="orange">Alignment:</span> ${capitalizeWords(data.alignment) || 'Neutral'}</div></div><div class="detail-right"><div><span class="orange">XP:</span> ${data.experience_points} / ${data.exp_required_for_next_level}</div><div><span class="orange">Status:</span> ${capitalizeWords(data.status) || 'Alive'} • <span class="orange">Prof:</span> +${data.proficiencyBonus || 2}</div></div></div></div>`;
-            if (data.abilities) {
+            html += `<div class="character-header"><div class="character-name">${data.name}</div><div class="character-details"><div class="detail-left"><div><span class="orange">Glory ${data.glory || 0}</span> ${data.race || 'Human'} ${data.class || 'Knight'}</div><div><span class="orange">Calling:</span> ${data.background || 'Adventurer'} • <span class="orange">Demeanor:</span> ${capitalizeWords(data.alignment) || 'Neutral'}</div></div><div class="detail-right"><div><span class="orange">Guard:</span> ${data.guard || data.armorClass || 10}</div><div><span class="orange">Status:</span> ${capitalizeWords(data.status) || 'Alive'} • <span class="orange">Prof:</span> +${data.proficiencyBonus || 2}</div></div></div></div>`;
+            if (data.virtues) {
                 html += '<div class="abilities-row">';
-                ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'].forEach(ability => {
-                    const score = data.abilities[ability] || 10;
-                    html += `<div class="ability-score"><div class="ability-name">${ability.substr(0, 3).toUpperCase()}</div><div class="ability-value">${score}</div><div class="ability-modifier">${getModifier(score)}</div></div>`;
+                ['vigour', 'clarity', 'spirit'].forEach(virtue => {
+                    const score = data.virtues[virtue] || 10;
+                    html += `<div class="ability-score"><div class="ability-name">${virtue.substr(0, 3).toUpperCase()}</div><div class="ability-value">${score}</div><div class="ability-modifier">${getModifier(score)}</div></div>`;
                 });
                 html += '</div>';
             }
@@ -3685,10 +3685,10 @@
             html += '<div class="skills-saves-container">';
             if (data.savingThrows && data.savingThrows.length > 0) {
                 html += '<div class="stat-group"><h4>Saving Throws</h4><div class="stat-group-content">';
-                ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'].forEach(save => {
+                ['Vigour', 'Clarity', 'Spirit'].forEach(save => {
                     const isProficient = data.savingThrows.includes(save);
-                    const abilityMod = data.abilities ? Math.floor((data.abilities[save.toLowerCase()] - 10) / 2) : 0;
-                    const bonus = isProficient ? abilityMod + (data.proficiencyBonus || 2) : abilityMod;
+                    const virtueMod = data.virtues ? Math.floor((data.virtues[save.toLowerCase()] - 10) / 2) : 0;
+                    const bonus = isProficient ? virtueMod + (data.proficiencyBonus || 2) : virtueMod;
                     html += `<div class="save-item"><span class="save-name">${save} ${isProficient ? '●' : '○'}</span><span class="save-value">${bonus >= 0 ? '+' : ''}${bonus}</span></div>`;
                 });
                 html += '</div></div>';
@@ -3861,12 +3861,12 @@
                 html += `<div class="npc-character-sheet">`;
                 
                 html += `<div class="npc-header">`;
-                html += `<div class="npc-header-main"><div class="npc-name">${npc.name}</div><div class="npc-details">${npc.race} ${npc.class} • Level ${npc.level} • ${capitalizeWords(npc.alignment)}</div></div>`;
+                html += `<div class="npc-header-main"><div class="npc-name">${npc.name}</div><div class="npc-details">${npc.race || 'Human'} ${npc.class || 'Knight'} • Glory ${npc.glory || npc.level || 0} • ${capitalizeWords(npc.alignment) || 'Neutral'}</div></div>`;
                 
-                if (npc.experience_points !== undefined && npc.exp_required_for_next_level !== undefined) {
+                if (npc.glory !== undefined || npc.experience_points !== undefined) {
                     html += `<div class="npc-header-xp">
-                                <div class="xp-label">XP</div>
-                                <div class="xp-value">${npc.experience_points} / ${npc.exp_required_for_next_level}</div>
+                                <div class="xp-label">Glory</div>
+                                <div class="xp-value">${npc.glory || npc.experience_points || 0}</div>
                              </div>`;
                 }
 
@@ -3875,18 +3875,18 @@
                 }
                 html += `</div>`;
                 
-                if (npc.abilities) {
+                if (npc.virtues) {
                     html += '<div class="npc-abilities">';
                     html += `<div class="ability-score npc-combat-stat"><div class="ability-name">HP</div><div class="ability-value">${npc.hitPoints}/${npc.maxHitPoints}</div><div class="hp-bar"><div class="hp-fill ${hpClass}" style="width: ${hpPercent}%"></div></div></div>`;
-                    html += `<div class="ability-score npc-combat-stat npc-no-circle"><div class="ability-name">AC</div><div class="ability-value">${npc.armorClass}</div></div>`;
+                    html += `<div class="ability-score npc-combat-stat npc-no-circle"><div class="ability-name">Guard</div><div class="ability-value">${npc.guard || npc.armorClass}</div></div>`;
                     html += `<div class="ability-score npc-combat-stat npc-no-circle"><div class="ability-name">INIT</div><div class="ability-value">${npc.initiative >= 0 ? '+' : ''}${npc.initiative}</div></div>`;
                     
-                    const allAbilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
-                    allAbilities.forEach(ability => {
-                        if (npc.abilities[ability]) {
-                            const score = npc.abilities[ability];
+                    const allVirtues = ['vigour', 'clarity', 'spirit'];
+                    allVirtues.forEach(virtue => {
+                        if (npc.virtues[virtue]) {
+                            const score = npc.virtues[virtue];
                             const modifier = Math.floor((score - 10) / 2);
-                            html += `<div class="ability-score"><div class="ability-name">${ability.substr(0, 3).toUpperCase()}</div><div class="ability-value">${score}</div><div class="ability-modifier">${modifier >= 0 ? `+${modifier}` : modifier}</div></div>`;
+                            html += `<div class="ability-score"><div class="ability-name">${virtue.substr(0, 3).toUpperCase()}</div><div class="ability-value">${score}</div><div class="ability-modifier">${modifier >= 0 ? `+${modifier}` : modifier}</div></div>`;
                         }
                     });
                     html += '</div>';
@@ -3895,10 +3895,10 @@
                 html += '<div class="npc-skills-saves-container">';
                 
                 if (npc.savingThrows && npc.savingThrows.length > 0) {
-                    const savesData = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'].map(save => {
+                    const savesData = ['Vigour', 'Clarity', 'Spirit'].map(save => {
                         const isProficient = npc.savingThrows.includes(save);
-                        const abilityMod = npc.abilities ? Math.floor((npc.abilities[save.toLowerCase()] - 10) / 2) : 0;
-                        const bonus = isProficient ? abilityMod + (npc.proficiencyBonus || 3) : abilityMod;
+                        const virtueMod = npc.virtues ? Math.floor((npc.virtues[save.toLowerCase()] - 10) / 2) : 0;
+                        const bonus = isProficient ? virtueMod + (npc.proficiencyBonus || 3) : virtueMod;
                         return { name: save, proficient: isProficient, bonus: bonus >= 0 ? `+${bonus}` : `${bonus}` };
                     });
                     html += `<button class="npc-detail-button" onclick="showNPCSaves('${npc.name}', ${JSON.stringify(savesData).replace(/"/g, '&quot;')})">Saving Throw</button>`;
