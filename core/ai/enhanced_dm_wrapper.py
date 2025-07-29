@@ -61,10 +61,11 @@ class GameState:
             player_file = f"{normalize_character_name(self.player_name)}.json"
             with open(player_file, "r", encoding="utf-8") as f:
                 player_data = json.load(f)
-                self.current_hp = player_data["hitPoints"]
-                self.max_hp = player_data["maxHitPoints"]
-                self.xp = player_data["experience_points"]
-                self.next_level_xp = player_data["exp_required_for_next_level"]
+                virtues = player_data.get("virtues", {})
+                self.guard = player_data.get("guard", 1)
+                self.vigour = virtues.get("vigour", 10)
+                self.glory = player_data.get("glory", 0)
+                self.rank = player_data.get("rank", "Knight-Errant")
         except Exception as e:
             print(f"Warning: Could not load game state: {str(e)}")
 
@@ -125,7 +126,7 @@ def detect_combat_prompt(text):
         r'roll a d20',
         r'roll \d+d\d+',
         r'make an? \w+ (saving throw|check)',
-        r'what would you like to do\?.*\[HP:',
+        r'what would you like to do\?.*\[Guard:',
         r'your turn.*what do you do\?'
     ]
     
@@ -285,8 +286,8 @@ def save_game_state(turn_num, command, response, state):
         f.write(f"## Game State\n\n")
         f.write(f"- **Location:** {state.current_location}\n")
         f.write(f"- **Time:** {state.time}\n")
-        f.write(f"- **Player:** {state.player_name} (HP: {state.current_hp}/{state.max_hp})\n")
-        f.write(f"- **XP:** {state.xp}/{state.next_level_xp}\n")
+        f.write(f"- **Knight:** {state.player_name} (Guard: {getattr(state, 'guard', 1)})\n")
+        f.write(f"- **Glory:** {getattr(state, 'glory', 0)} | Rank: {getattr(state, 'rank', 'Knight-Errant')}\n")
         f.write(f"- **Combat:** {'Active' if state.in_combat else 'Inactive'}\n")
         if state.in_combat:
             f.write(f"- **Encounter:** {state.encounter_id}\n")
@@ -334,7 +335,7 @@ def main():
         preview = response[:200] + "..." if len(response) > 200 else response
         print(preview)
         
-        print(f"\nCurrent state: {state.player_name} at {state.current_location} [HP: {state.current_hp}/{state.max_hp}]")
+        print(f"\nCurrent state: {state.player_name} at {state.current_location} [Guard: {getattr(state, 'guard', 1)} | Glory: {getattr(state, 'glory', 0)}]")
         if state.in_combat:
             print(f"In combat: Encounter {state.encounter_id}")
     

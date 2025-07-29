@@ -1,0 +1,241 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "character_role": {
+      "type": "string",
+      "enum": ["player", "npc", "seer"]
+    },
+    "name": {
+      "type": "string"
+    },
+    "campaign_start": {
+      "type": "string",
+      "enum": ["wanderer", "courtier", "ruler"],
+      "description": "Starting type: Wanderer (d6 GD, d12+d6 Virtues), Courtier (2d6 GD, d12+6 Virtues), Ruler (d6+6 GD, d12+6 Virtues)"
+    },
+    "knight_type": {
+      "type": "string",
+      "description": "The specific type of Knight (e.g., Knight of Cups, Knight of Wands)"
+    },
+    "rank": {
+      "type": "string",
+      "enum": ["Knight-Errant", "Knight-Gallant", "Knight-Tenant", "Knight-Dominant", "Knight-Radiant"],
+      "description": "Knight rank based on Glory"
+    },
+    "glory": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 12,
+      "description": "Glory points determining Knight rank"
+    },
+    "virtues": {
+      "type": "object",
+      "properties": {
+        "vigour": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 19,
+          "description": "VIG - Strong limbs, firm hands, powerful lungs"
+        },
+        "clarity": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 19,
+          "description": "CLA - Keen instinct, lucid mind, shrewd eyes"
+        },
+        "spirit": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 19,
+          "description": "SPI - Charming tongue, iron will, fierce heart"
+        }
+      },
+      "required": ["vigour", "clarity", "spirit"]
+    },
+    "guard": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "GD - Skill at avoiding wounds, fully restored after combat"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["alive", "slain", "mortally_wounded"],
+      "description": "Overall life status"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["fatigued", "exhausted", "exposed"]
+      },
+      "description": "Current conditions affecting the character"
+    },
+    "scars": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["distress", "disfigurement", "smash", "stun", "rupture", "gouge", "concussion", "tear", "agony", "mutilation", "doom", "humiliation"]
+          },
+          "description": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string",
+            "description": "Body location if applicable"
+          },
+          "guard_increase": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Guard increase from this scar"
+          }
+        },
+        "required": ["type", "description"]
+      }
+    },
+    "feats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["Smite", "Focus", "Deny"]
+      },
+      "default": ["Smite", "Focus", "Deny"],
+      "description": "Every Knight knows these three Feats"
+    },
+    "knight_property": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Special items brought by this Knight type"
+        },
+        "ability": {
+          "type": "string",
+          "description": "Special talent unique to this Knight type"
+        },
+        "passion": {
+          "type": "string",
+          "description": "Special means to restore Spirit"
+        }
+      },
+      "required": ["items", "ability", "passion"]
+    },
+    "equipment": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "damage": {
+            "type": "string",
+            "description": "Damage dice (e.g., d6, 2d8, d10)"
+          },
+          "armour": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Armour points provided"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["weapon", "armour", "tool", "remedy", "misc"]
+          },
+          "restrictions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["hefty", "long", "slow"]
+            }
+          },
+          "equipped": {
+            "type": "boolean",
+            "default": false
+          },
+          "rarity": {
+            "type": "string",
+            "enum": ["common", "uncommon", "rare"]
+          }
+        },
+        "required": ["name", "type"]
+      }
+    },
+    "remedies": {
+      "type": "object",
+      "properties": {
+        "sustenance": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of Sustenance remedies (restores VIG)"
+        },
+        "stimulant": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of Stimulant remedies (restores CLA)"
+        },
+        "sacrament": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of Sacrament remedies (restores SPI)"
+        }
+      }
+    },
+    "squire": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "virtues": {
+          "type": "object",
+          "properties": {
+            "vigour": {"type": "integer", "minimum": 2, "maximum": 19},
+            "clarity": {"type": "integer", "minimum": 2, "maximum": 19},
+            "spirit": {"type": "integer", "minimum": 2, "maximum": 19}
+          }
+        },
+        "guard": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Squires have 1GD"
+        },
+        "equipment": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "description": "Squire for small companies (2 Knights or fewer)"
+    },
+    "age_category": {
+      "type": "string",
+      "enum": ["young", "mature", "old"],
+      "description": "Life stage affecting Virtues"
+    },
+    "personality_traits": {
+      "type": "string"
+    },
+    "ideals": {
+      "type": "string"
+    },
+    "bonds": {
+      "type": "string"
+    },
+    "flaws": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "character_role", "name", "campaign_start", "knight_type", "rank", "glory", 
+    "virtues", "guard", "status", "conditions", "scars", "feats",
+    "knight_property", "equipment", "age_category"
+  ],
+  "additionalProperties": false
+}

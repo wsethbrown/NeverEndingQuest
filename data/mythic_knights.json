@@ -1,0 +1,1295 @@
+{
+  "knights": {
+    "The True Knight": {
+      "d6": 1,
+      "d12": 1,
+      "quote": "A pact to uphold truth and fact\nOn lies the false lay brake and cracked",
+      "property": "Polished mace (d8 hefty), mail (A1), plate (A1), and helm (A1). Kite shield (d4, A1) marked with a symbol of the truth. Petulant steed (VIG 10, CLA 10, SPI 5, 5GD)",
+      "ability": "Punitive Stroke - Make a melee Attack against a known liar. Get +d10 to the Attack, ignoring armour.",
+      "passion": "Honesty - Restore SPI when you tell the truth where a lie might be more beneficial.",
+      "symbol_table": {
+        "1": {"trigger": "Lying to you about their identity", "effect": "Golden glow"},
+        "2": {"trigger": "Giving false witness to you", "effect": "Turns cold"},
+        "3": {"trigger": "Giving you malicious advice", "effect": "Gentle hum"},
+        "4": {"trigger": "Lying while bearing the shield", "effect": "Fragrant aroma"},
+        "5": {"trigger": "Omitting key information to you", "effect": "Distant birdcall"},
+        "6": {"trigger": "Lying to you about their intent", "effect": "Loud clang"}
+      },
+      "seer": "The Rotted Seer - VIG 7, CLA 5, SPI 11, 2GD. Their withered touch is only contagious if they will it. Sees the way to live on through any amount of physical decay. Wants to become even more rotten, filthy, and diseased."
+    },
+    "The Snare Knight": {
+      "d6": 1,
+      "d12": 2,
+      "quote": "Immersed within the woods adeep\nA sheriff rides from nature's keep",\n"property": "Handaxe (d6) attached to wildrope (strong rope that blends perfectly into foliage), gambeson (A1). Companion (VIG 5, CLA 10, SPI 7, 4GD, partially understands human speech). Tattered steed (VIG 8, CLA 10, SPI 5, 2GD)",
+      "ability": "Wild Eye - Observe a beast in secret. Learn a useful truth about their habitat.",
+      "passion": "Empathy - Restore SPI when you spare the life of a hostile animal.",
+      "companion_table": {
+        "1": {"history": "Exiled", "type": "Otter"},
+        "2": {"history": "Feral", "type": "Hare"},
+        "3": {"history": "Vengeful", "type": "Rat"},
+        "4": {"history": "Shamed", "type": "Weasel"},
+        "5": {"history": "Jovial", "type": "Ferret"},
+        "6": {"history": "Artistic", "type": "Squirrel"}
+      },
+      "seer": "The Swollen Seer - VIG 15, CLA 5, SPI 4, 1GD. Can only be moved by feats of engineering usually reserved for siegery. Sees within the minds of huge beings. Wants to grow ever bigger."
+    },
+    "The Tourney Knight": {
+      "d6": 1,
+      "d12": 3,
+      "quote": "A calling brought a life of combat, victories amassed\nQuesting for the fame that comes with prowess unsurpassed",\n"property": "Greatlance (2d10 hefty when mounted, slow on foot) and 2 javelins (d6). Gambeson (A1), arena plate (A1), fancy helm (A1). Horned stallion (VIG 12, CLA 10, SPI 5, 4GD, d6 trample)",
+      "ability": "Champion Vow - Use immediately before a combat where there is a prize at stake. +d6 to melee attacks for the whole combat.",
+      "passion": "Hatred - Restore SPI when you refuse a plea for forgiveness.",
+      "calling_and_helm_table": {
+        "1": {"call_to_battle": "Greed", "fancy_helm": "Lion"},
+        "2": {"call_to_battle": "Bloodlust", "fancy_helm": "Shark"},
+        "3": {"call_to_battle": "Glory", "fancy_helm": "Great crest"},
+        "4": {"call_to_battle": "Duty", "fancy_helm": "Hawk"},
+        "5": {"call_to_battle": "Pride", "fancy_helm": "Bull"},
+        "6": {"call_to_battle": "Ambition", "fancy_helm": "Demon"}
+      },
+      "seer": "The Entombed Seer - VIG 7, CLA 5, SPI 11, 2GD. Now entombed in white stone, their voice answers visitors only rarely. Always guarded by a Knight, mourned by an apprentice. Sees beyond the veil of death."
+    },
+    "The Bloody Knight": {
+      "d6": 1,
+      "d12": 4,
+      "quote": "Some were born to fight and fall, forged beneath blade's clash\nThis one birthed from blood of war, stained with corpses' ash",\n"property": "Longaxe (d10 long), mail (A1), brutal plate (A1 only when Wounded), helm (A1). Sacks of strong alcohol, to which you're largely resistant (restock each new Season). Bullish warhorse (VIG 15, CLA 5, SPI 5, 3GD, d6 trample)",
+      "ability": "Slaughter Echo - Use immediately after defeating an opponent. Your next melee Attack in this combat gains Blast.",
+      "passion": "Justice - Restore SPI when you restore the balance of justice.",
+      "rage_fuel_table": {
+        "1": {"alcohol": "Burning wine", "hatred": "The rich"},
+        "2": {"alcohol": "Strong mead", "hatred": "Knights"},
+        "3": {"alcohol": "Spiced ale", "hatred": "The poor"},
+        "4": {"alcohol": "Sour milk", "hatred": "Seers"},
+        "5": {"alcohol": "Fermented vegetable", "hatred": "The sea"},
+        "6": {"alcohol": "Blood brew", "hatred": "The sun"}
+      },
+      "seer": "The Reed Seer - VIG 8, CLA 15, SPI 10, 4GD. Knows they will lose their sight if they pass over a river. Sees the near future in the patterns of reeds chopped in a very specific way. Wants to live in the protection of a worthy master, serving a righteous cause."
+    },
+    "The Moss Knight": {
+      "d6": 1,
+      "d12": 5,
+      "quote": "No need for lessons, tree or stone\nThe wisest seek what soil has shown",\n"property": "Branch cudgel (d8 hefty), buckler (d4, A1), mail coif (A1). Tattoos (see below). Pale steed (VIG 8, CLA 12, SPI 5, 3GD)",
+      "ability": "Mosstongue - Speak with uncut stones and particularly old trees. If you push them for too much knowledge they rebuke you, shunning you for the rest of the day.",
+      "passion": "Naturality - Restore SPI when you reject an opportunity to sleep indoors, sleeping in nature instead.",
+      "tattoo_table": {
+        "1": {"design": "Faded spirals", "effect": "Points to water"},
+        "2": {"design": "Blue thorns", "effect": "Burns before an ambush"},
+        "3": {"design": "Silver stars", "effect": "A1 in saltwater"},
+        "4": {"design": "Colourful snakes", "effect": "A1 under moonlight"},
+        "5": {"design": "Red bones", "effect": "A1 in rivers or streams"},
+        "6": {"design": "Burnt rings", "effect": "Conceals a third eye"}
+      },
+      "seer": "The Loathed Seer - VIG 8, CLA 11, SPI 5, 6GD. Long, twisted face and body, like she's been pulled around a cart wheel. Sees into a person's hate with a touch, sharing and fuelling their contempt. Physically pained by admiration or love. Wants to become even more loathed."
+    },
+    "The War Knight": {
+      "d6": 1,
+      "d12": 6,
+      "quote": "Forged and broke in goreful plight\nWon some, lost some, still upright",\n"property": "Special polearm (d8, long, see below), gambeson (A1), splint (A1), helm (A1, see below). Whalebone chess set (and some skill). Stocky steed (VIG 15, CLA 8, SPI 5, 2GD)",
+      "ability": "Battle Awareness - When fighting in a combat with at least 3 combatants on each side all your Gambits count as Strong Gambits.",
+      "passion": "Duty - Restore SPI when you answer the call for martial service under a superior.",
+      "military_gear_table": {
+        "1": {"special_polearm": "+d10 vs mounted targets", "helm": "Veiled leather cowl"},
+        "2": {"special_polearm": "+d10 vs targets with a shield", "helm": "Long mail hood"},
+        "3": {"special_polearm": "+d10 vs targets in armour", "helm": "Full heavy bucket"},
+        "4": {"special_polearm": "+d10 vs targets without a shield", "helm": "Crow-beaked"},
+        "5": {"special_polearm": "+d10 vs beasts and monsters", "helm": "Caged visor"},
+        "6": {"special_polearm": "+d10 vs anybody attacking you", "helm": "Kettle cap"}
+      },
+      "seer": "The Lost Seer - VIG 10, CLA 9, SPI 7, 2GD. Constantly being rubbed with psychotropic tinctures, parts of their body seeming to dissipate from reality. Sees things that have been lost in a hazy vision of their current location. Knows they will lose their sight if they advise directly how to find something."
+    },
+    "The Willow Knight": {
+      "d6": 1,
+      "d12": 7,
+      "quote": "Titans tall, now smithreened stones\nThe youth, cast down, intact, alone",\n"property": "Old sword (d8 hefty) and half-shield (A1), gambeson (A1). Youthful energy (use once only to treat a Mortal Wound as a normal Wound). Cautious steed (VIG 10, CLA 15, SPI 5, 2GD)",
+      "ability": "Bend with the Wind - When you use a Gambit to Move you count as having Armour 4 until your next turn. This does not stack with your actual armour.",
+      "passion": "Doubt - Restore SPI when you defer to somebody more senior than you, even though you disagree.",
+      "memories_of_home_table": {
+        "1": {"place": "Riverside", "disaster": "Death"},
+        "2": {"place": "Coastal", "disaster": "War"},
+        "3": {"place": "Mountain", "disaster": "Famine"},
+        "4": {"place": "Pine forest", "disaster": "Plague"},
+        "5": {"place": "Moor", "disaster": "Fire"},
+        "6": {"place": "Castle", "disaster": "Flood"}
+      },
+      "seer": "The Carved Seer - VIG 7, CLA 5, SPI 11, 2GD. Requires constant treatment, acolytes tending to their runic flesh carvings. Sees the outcome of battles in their own healing wounds. Wants to drive the land toward a climactic war that will bring peace."
+    },
+    "The Gilded Knight": {
+      "d6": 1,
+      "d12": 8,
+      "quote": "A beacon of the brave and bold\nAll cloaked and masked in sunnen gold",\n"property": "Great mace (d10 long). Gambeson (A1), gold cloaked plate (A1), gold-masked helm (A1, opponents who know the value of gold have their first ever Attack against you Impaired). Majestic charger (VIG 12, CLA 9, SPI 12, 4GD, d6 trample)",
+      "ability": "Martyr-in-Waiting - Use as a reaction to being Mortally Wounded. Allies fighting with you regain d6GD and get +d12 against your attacker for the combat.",
+      "passion": "Pride - Restore SPI when you take personal credit for a great victory.",
+      "the_cost_table": {
+        "1": {"where_found": "Lake", "what_left_behind": "A farm"},
+        "2": {"where_found": "Waterfall", "what_left_behind": "A name"},
+        "3": {"where_found": "River", "what_left_behind": "Only graves"},
+        "4": {"where_found": "Beach", "what_left_behind": "A student"},
+        "5": {"where_found": "Cave", "what_left_behind": "A teacher"},
+        "6": {"where_found": "Mountain", "what_left_behind": "A castle"}
+      },
+      "seer": "The Enthroned Seer - VIG 11, CLA 8, SPI 16, 2GD. They are a twisted heap of flesh, bone, and spikes of precious metal. Sees glimpses of the ultimate fate of anybody taking up a Seat of Power. Demands a humiliating level of reverence from visitors. Wants to manipulate loyal contacts into positions of authority."
+    },
+    "The Saddle Knight": {
+      "d6": 1,
+      "d12": 9,
+      "quote": "A perfect steed is neither wild nor tamed\nAs one, a streak aguele through green untamed",\n"property": "Beloved steed (VIG 12, CLA 15, SPI 7, 4GD, see below). Fine saddle and tack (you can never be dismounted). 3 Rider's Axes (d6 +d6 when mounted, can be thrown), mail (A1) and rider's plate (A1 when mounted)",
+      "ability": "Song of the Steed - Speak in a voice comprehensible to horses. They need reasoning with, but are inclined to trust you.",
+      "passion": "Certainty - Restore SPI when you prove somebody wrong.",
+      "loyal_steed_table": {
+        "1": {"appearance": "Pristine", "temperament": "Completely silent"},
+        "2": {"appearance": "Plaited", "temperament": "Highly alert"},
+        "3": {"appearance": "Tall", "temperament": "Eternally valiant"},
+        "4": {"appearance": "Golden", "temperament": "Fierce (d8 trample)"},
+        "5": {"appearance": "Dark", "temperament": "Loved by other beasts"},
+        "6": {"appearance": "Stocky", "temperament": "Perfect sense of direction"}
+      },
+      "seer": "The Jewelled Seer - VIG 6, CLA 6, SPI 16, 1GD. No body is visible, just layers and layers of jewelled silk and glittering lace. Can see the history of jewelled items, and the locations of their own jewels. Wants to send their jewels out to remote places, watching from afar."
+    },
+    "The Riddle Knight": {
+      "d6": 1,
+      "d12": 10,
+      "quote": "A careful word can rise or fade\nWithin each ear a truth remade",\n"property": "Twisted bow (d6 long), light mail (A1) with embroidered cloak. Moon pendant (grants the wearer a false form under moonlight, see below, rolling each night). Shadowy horse (VIG 8, CLA 15, SPI 5, 2GD, very quiet)",
+      "ability": "Layered Words - Speak, but choose two different meanings, as different as you wish, even total opposites. Choose which meaning each listener takes from the words.",
+      "passion": "Integrity - Restore SPI when you discredit somebody unworthy of their position.",
+      "moon_form_table": {
+        "1": {"body": "Muscular (d8 grasp)", "visage": "Elderly"},
+        "2": {"body": "Shrunken (d6 bite)", "visage": "Youthful"},
+        "3": {"body": "Stretched (d6 strike)", "visage": "Hideous"},
+        "4": {"body": "Skeletal (d6 slash)", "visage": "Amorphous"},
+        "5": {"body": "Canine (d8 jaws)", "visage": "Horned"},
+        "6": {"body": "Feline (d6 claws)", "visage": "Regal"}
+      },
+      "seer": "The Jawbone Seer - VIG 15, CLA 15, SPI 3, 2GD. Hunched, pale, huge jawbone grafted onto their own, speaks like a wolf. Sees with the senses of a beast while clutching an object made from the bone or horn of their species. Wants to return the land to the beasts."
+    },
+    "The Talon Knight": {
+      "d6": 1,
+      "d12": 11,
+      "quote": "The claw is nothing without the eye\nThe eye is nothing without the wing",\n"property": "Hookhammer (d8 hefty, +d8 dropping from above), shield-gauntlet (d6, A1), helm (A1). Loyal bird (VIG 5, CLA 10, SPI 5, 4GD, d4 talons, see below). Old steed (VIG 8, CLA 8, SPI 7, 2GD)",
+      "ability": "Flockbond - See through the eyes of your bird, and learn the local knowledge of any prey it eats.",
+      "passion": "Regret - Restore SPI when you burn a part of the past.",
+      "loyal_bird_table": {
+        "1": {"breed": "Fisherhawk (can dive into water)", "special_training": "Singing"},
+        "2": {"breed": "Cave owl (nocturnal)", "special_training": "Fighting humans (+d6 vs humans)"},
+        "3": {"breed": "Grey raven (highly intelligent)", "special_training": "Silent flight"},
+        "4": {"breed": "Red eagle (d6 talons)", "special_training": "Delivery"},
+        "5": {"breed": "Rock falcon (preys on reptiles)", "special_training": "Stealing"},
+        "6": {"breed": "Bog vulture (5GD)", "special_training": "Fighting birds (+d6 vs birds)"}
+      },
+      "seer": "The Veiled Seer - VIG 7, CLA 5, SPI 11, 2GD. Hanging folds of flesh and horse-like hair hide any semblance of a face. Sees nothing, but hears all within a Hex. Speaks just once each day, giving a single word of advice to the most worthy visitor. Genuinely wants to uphold peace."
+    },
+    "The Barbed Knight": {
+      "d6": 1,
+      "d12": 12,
+      "quote": "Stone and spikes split into flowers\nCruelty is delicious power",\n"property": "Jagged spear (d8 hefty, +d8 against a target you have Wounded or Scarred), red cloaked mail (A1). Hunting bow (d6 long). Vicious charger (VIG 12, CLA 8, SPI 5, 3GD, d6 trample)",
+      "ability": "The Red Hunt - Infuse a target's blood into an arrow to give it +d12 against the target. You can also taste a small amount of the blood to get a glimpse of their location.",
+      "passion": "Apathy - Restore SPI when you reject a call for comfort.",
+      "bad_reputation_table": {
+        "1": {"begrudging_ally": "Eccentric alchemist", "hated_enemy": "Rich merchant"},
+        "2": {"begrudging_ally": "Humble chronicler", "hated_enemy": "Master blacksmith"},
+        "3": {"begrudging_ally": "Surly brewer", "hated_enemy": "Admired Knight"},
+        "4": {"begrudging_ally": "Horse breeder", "hated_enemy": "Bandit leader"},
+        "5": {"begrudging_ally": "Elderly innkeeper", "hated_enemy": "Retired general"},
+        "6": {"begrudging_ally": "Petty burglar", "hated_enemy": "Mercenary captain"}
+      },
+      "seer": "The Serpent Seer - VIG 16, CLA 14, SPI 14, 3GD. A writhing pile of serpents, speaking as one through a choir of hisses. Grants visions of dangerous beasts in the wilderness nearby. Wants more unusual serpents for their pile, or even just a snack."
+    },
+    "The Trail Knight": {
+      "d6": 2,
+      "d12": 1,
+      "quote": "More than foxes leave trails in their stead\nComings and goings laid plain as a thread",\n"property": "Crow-beak axe (d8 hefty) and beaten gambeson (A1). Sanguine lens (traces of blood appear obvious when viewed through this). Serene steed (VIG 10, CLA 13, SPI 5, 3GD)",
+      "ability": "Strands of Past - By studying the ground for a whole Phase you can ask a single yes or no question about what happened here in the past few days.",
+      "passion": "Fear - Restore SPI when refusing to go into the dark.",
+      "personal_code_table": {
+        "1": {"value": "Honour", "forged_by": "Battling a monster"},
+        "2": {"value": "Duty", "forged_by": "A raided village"},
+        "3": {"value": "Loyalty", "forged_by": "Rescuing the helpless"},
+        "4": {"value": "Justice", "forged_by": "Killing a tyrant"},
+        "5": {"value": "Respect", "forged_by": "A long journey"},
+        "6": {"value": "Truth", "forged_by": "Facing temptation"}
+      },
+      "seer": "The Welcomed Seer - VIG 8, CLA 7, SPI 16, 3GD. Fair features, soft voice, fine silk dress, black voids in place of eyes. Can only gain useful visions when extremely calm or in a rage. Desires treatment as a revered guest, and is prone to vicious changes of mood if made to feel even slightly unwelcome."
+    },
+    "The Amber Knight": {
+      "d6": 2,
+      "d12": 2,
+      "quote": "Their wait was longer than stars have glown\nTheir blade is slow but glaneth stone",\n"property": "Ancient greatblade (2d10 slow) and even more ancient mail (A1). Amber amulet (if placed in a fire, carries its warmth for a whole day). Loyal steed (VIG 10, CLA 10, SPI 5, 3GD, d6 trample)",
+      "ability": "Patient Strike - Make a melee Attack when you have not moved this turn. +d10 to the Attack. Ignore the target's Armour and immunities of any sort. If this fails to defeat the opponent, take d6 Damage yourself.",
+      "passion": "Avarice - Restore SPI when you gain significant wealth.",
+      "steady_hand_table": {
+        "1": {"pastime": "Painting", "taught_by": "Knight-Mentor"},
+        "2": {"pastime": "Miniature sculpture", "taught_by": "Father"},
+        "3": {"pastime": "Embroidery", "taught_by": "Mother"},
+        "4": {"pastime": "Pottery", "taught_by": "Brother"},
+        "5": {"pastime": "Drawing", "taught_by": "Sister"},
+        "6": {"pastime": "Flower pressing", "taught_by": "Self"}
+      },
+      "seer": "The Dreaming Seer - VIG 5, CLA 5, SPI 7, 1GD. Cannot be fully glimpsed, a silhouette of starlight. Cannot speak to those awake. Appears only in dreams of those in the Seer's home, tended by elderly servants. Longs to find a way back to the waking world, or to drag companions into theirs."
+    },
+    "The Horde Knight": {
+      "d6": 2,
+      "d12": 3,
+      "quote": "In fury's reign afore the rav'ning throng\nIn chaos born as knight where beast belong",\n"property": "Blunt sword (d8 hefty), ringed mail (A1). A taste of home (see below, restock each new Season). Beastly steed (VIG 15, CLA 7, SPI 5, 3GD, d6 trample)",
+      "ability": "Pack Tactics - Use before attacking with at least one ally. You may combine any number of dice into larger dice with a value equal to the total of the combined dice, to a maximum of d12 Damage. For example, combining a d4 and a d8 into a d12.",
+      "passion": "Prestige - Restore SPI when you take credit for the deeds of another.",
+      "taste_of_home_table": {
+        "1": {"flavour": "Sour", "substance": "Skin"},
+        "2": {"flavour": "Salty", "substance": "Beans"},
+        "3": {"flavour": "Fiery", "substance": "Insects"},
+        "4": {"flavour": "Smoked", "substance": "Roots"},
+        "5": {"flavour": "Burnt", "substance": "Cheese"},
+        "6": {"flavour": "Chewy", "substance": "Honey"}
+      },
+      "seer": "The Hanged Seer - VIG 10, CLA 12, SPI 15, 1GD. Dizzy, confused, and distressed unless hanging upside-down from their feet. Sees things from unusual perspectives, seeking insight or hidden things. Wants for nothing as long as they are suspended, which can make them difficult to bargain with."
+    },
+    "The Emerald Knight": {
+      "d6": 2,
+      "d12": 4,
+      "quote": "A verdant cloak on sable steed\nNeath nature's veil, yond sight and heed",\n"property": "Branchspear (d8 hefty, when stabbed into a tree it is immovable by anyone but you). Cloaked mail (A1 in verdant environments only), shield (d4, A1). Sable steed (VIG 10, CLA 14, SPI 5, 4GD)",
+      "ability": "Fade to Green - Use when hiding still and silent in greenery. You cannot be found by any means. While hiding you can only perform a specific type of action without revealing yourself, but also benefit from a heightened sense (see below).",
+      "passion": "Elegance - Restore SPI when you leave a place more beautiful than you found it.",
+      "hidden_action_table": {
+        "1": {"hidden_action": "Strike a wounded enemy", "heightened_sense": "Vision (detail)"},
+        "2": {"hidden_action": "Make animal calls", "heightened_sense": "Vision (distance)"},
+        "3": {"hidden_action": "Throw stones", "heightened_sense": "Hearing"},
+        "4": {"hidden_action": "Grab a non-alert enemy", "heightened_sense": "Smell"},
+        "5": {"hidden_action": "Move slowly", "heightened_sense": "Weather prediction"},
+        "6": {"hidden_action": "Whisper to allies", "heightened_sense": "Emotional insight"}
+      },
+      "seer": "The Unnamed Seer - VIG 10, CLA 10, SPI 5, 2GD. Toad-like being covered in shifting tattoos that foretell the future course of Myths. Only the Seer can read them. Clear glass eyes, but they see well. Longs to know more about their identity before they became the Unnamed Seer."
+    },
+    "The Chain Knight": {
+      "d6": 2,
+      "d12": 5,
+      "quote": "Born below the soil, below the stone, below all thought\nDown, down, further down, of blood and iron wrought",\n"property": "Pronged mace (d8 hefty). Oubliette mail (A1, wrapped in a long iron chain). Tired steed (VIG 10, CLA 12, SPI 3, 3GD)",
+      "ability": "Will of the Irons - Move a single chain that you hold as if it was a limb, using a single hand. You can lash out with both ends (d6 each), grasp opponents, and otherwise move it to your will.",
+      "passion": "Abyss - Restore SPI when sleeping underground in complete darkness.",
+      "surface_escape_table": {
+        "1": {"first": "Through darkness", "then": "Through ice"},
+        "2": {"first": "Through smoke", "then": "Through dirt"},
+        "3": {"first": "Out of a cell", "then": "Out of a mountain"},
+        "4": {"first": "Climbing chains", "then": "Out of a tomb"},
+        "5": {"first": "Up the great stair", "then": "Up from a well"},
+        "6": {"first": "Through fire", "then": "Out of a lake"}
+      },
+      "seer": "The Winged Seer - VIG 4, CLA 4, SPI 6, 1GD. Frail broken body, tattered useless wings held aloft by white-masked acolytes. Sees the potential failures of those who ask for advice. Has no faith in anybody to succeed at any task. Wants to bask in vicarious glory."
+    },
+    "The Banner Knight": {
+      "d6": 2,
+      "d12": 6,
+      "quote": "Beware of kindly riders festooning flags in show\nWhere they come in friendship their soldiers rush to go",\n"property": "Banner-pike (d10 long, see below, lose d6 SPI if the banner ever falls to the ground in battle). Spikehammer (d6) and ornate mail (A1). Fat steed (VIG 10, CLA 8, SPI 5, 3GD, d6 trample)",
+      "ability": "Rousing Presence - Use once per Attack when you are part of a group Attack, carrying a banner. You may reroll the entire pool of Attack dice once only.",
+      "passion": "Sensitivity - Restore SPI when receiving social approval.",
+      "inspiring_banner_table": {
+        "1": {"design": "Red/white diamonds", "topper": "Antlers"},
+        "2": {"design": "Blue/yellow rings", "topper": "Jaws"},
+        "3": {"design": "Green/silver spiral", "topper": "Tree"},
+        "4": {"design": "Purple/gold chevrons", "topper": "Fishtail"},
+        "5": {"design": "Black/blue bars", "topper": "Wings"},
+        "6": {"design": "Orange/black waves", "topper": "Seashell"}
+      },
+      "seer": "The Cured Seer - VIG 9, CLA 4, SPI 8, 2GD. Preserved in salt, completely desiccated and unable to move. Barely speaks, but offers manic visions to those who taste their salt. Wants to live forever and witness the end of all things."
+    },
+    "The Pigeon Knight": {
+      "d6": 2,
+      "d12": 7,
+      "quote": "The humble know no home to call their own\nHorizon is their hearth, each hill their throne",\n"property": "Bitterglaive (d10 long, +d8 vs targets within their home). Tattered mail (A1) with hooded cloak (can be used to vanish into a significantly large crowd). Grey steed (VIG 7, CLA 8, SPI 5, 2GD, unmatched over long distance)",
+      "ability": "Wayfinder Sense - Sense the direction in which a named destination lies, but not the best route to travel there. You cannot use this to find your lost home or the City.",
+      "passion": "Inquisition - Restore SPI when you wrangle the truth out of an uncooperative person.",
+      "lost_home_memories_table": {
+        "1": {"hue": "Emerald", "shape": "Towers"},
+        "2": {"hue": "Marble", "shape": "Walls"},
+        "3": {"hue": "Silver", "shape": "Flowers"},
+        "4": {"hue": "Golden", "shape": "Ships"},
+        "5": {"hue": "Ruby", "shape": "Water"},
+        "6": {"hue": "Violet", "shape": "Clouds"}
+      },
+      "seer": "The Frozen Seer - VIG 10, CLA 13, SPI 16, 2GD. Draped in a white feather cloak, face concealed by a fractal warping of space. Can reveal possible futures through their collection of delicate mirrors, each of which must be destroyed afterwards. Wants the Knights to succeed, but only after a painful struggle."
+    },
+    "The Shield Knight": {
+      "d6": 2,
+      "d12": 8,
+      "quote": "In wood, hide, or iron, as armour meek or grand\nNo greater shield for the weak than the oath-sworn Knight's own hand",\n"property": "Dull sword (2d6 hefty), tattered gambeson (A1) and cracked shield (d4, A1). Soothing salve (you prepare enough for one use each day, restores VIG, see below). Untested steed (VIG 12, CLA 8, SPI 4, 2GD)",
+      "ability": "Death Ward - Use when a nearby ally would take a Mortal Wound or be killed outright. You take a Mortal Wound instead.",
+      "passion": "Mortality - Restore SPI when you see an ally suffer a Mortal Wound.",
+      "soothing_salve_table": {
+        "1": {"aroma": "Rosemary", "side_effect": "Hallucination"},
+        "2": {"aroma": "Mould", "side_effect": "Lethargy"},
+        "3": {"aroma": "Pepper", "side_effect": "Stimulation"},
+        "4": {"aroma": "Copper", "side_effect": "Sorrow"},
+        "5": {"aroma": "Garlic", "side_effect": "Giddiness"},
+        "6": {"aroma": "Meat", "side_effect": "Absent-mindedness"}
+      },
+      "seer": "The Watched Seer - VIG 10, CLA 10, SPI 5, 4GD. Impossibly tall and long-limbed, blindfolded with golden silk, adorned in runic scripture. Can gift others with a glimpse of their sight, revealing raw and painful truths. Believes all the other Seers are watching. Wants them all blinded or dead."
+    },
+    "The Whip Knight": {
+      "d6": 2,
+      "d12": 9,
+      "quote": "Some draw screams from flesh and bone\nOthers seek to make soul moan",\n"property": "Spiny mace (d8 hefty) and whip (d6). Strange herbs (different effect each time, see below. Enough for one dose each day. Effects wear off after an hour, but Virtue Loss remains). Pampered steed (VIG 10, CLA 8, SPI 5, 2GD)",
+      "ability": "Pain Strike - Make a melee Attack on your own. Damage is applied to GD as normal, but to SPI in place of VIG. If the target loses half or more of their SPI from this Attack they lie broken before you.",
+      "passion": "Reverence - Restore SPI when offering respectful homage to the dead.",
+      "strange_herbs_table": {
+        "1": {"positive_effect": "Heightened hearing", "side_effect": "Mild nausea"},
+        "2": {"positive_effect": "Breathe fire once (d8 blast)", "side_effect": "Unable to speak"},
+        "3": {"positive_effect": "Speak remotely with any one person", "side_effect": "Hazy vision"},
+        "4": {"positive_effect": "No pain (A1)", "side_effect": "Lose d6 VIG"},
+        "5": {"positive_effect": "Restore one Virtue", "side_effect": "Lose d6 CLA"},
+        "6": {"positive_effect": "Restore all Virtues", "side_effect": "Lose d6 SPI"}
+      },
+      "seer": "The Prey Seer - VIG 5, CLA 12, SPI 12, 4GD. A hunched, flea-infested little wretch. Sees every hunger of every other being in the Realm. Longs to be eaten by something huge."
+    },
+    "The Seal Knight": {
+      "d6": 2,
+      "d12": 10,
+      "quote": "A Knight's sworn oath outlasts the stone wall\nYet Seers say in time even words must fall",\n"property": "Stout halberd (d10 long), gambeson (A1), siege plate (A1, when the wearer braces against a door it cannot be breached). 3 runic scrolls (see below, can only be read by Seers, who value them greatly). Dusty steed (VIG 10, CLA 8, SPI 5, 4GD)",
+      "ability": "Seal of Binding - Mark a weapon, shield, or piece of armour belonging to a non-Knight with your seal. They can use Smite or Deny as if they were a Knight, but then the seal is removed.",
+      "passion": "Modesty - Restore SPI when refusing a reward.",
+      "runic_scrolls_table": {
+        "1": {"subject": "The Seer reading", "prophecy": "Death"},
+        "2": {"subject": "The Seal Knight", "prophecy": "Torment"},
+        "3": {"subject": "Another Knight", "prophecy": "Rebirth"},
+        "4": {"subject": "Another Seer", "prophecy": "Treachery"},
+        "5": {"subject": "A Myth", "prophecy": "Growth"},
+        "6": {"subject": "The whole Realm", "prophecy": "Glory"}
+      },
+      "seer": "The Drunken Seer - VIG 14, CLA 6, SPI 10, 1GD. Eyes can't focus on her enough to get a sense of what she looks like. Just being in her presence creates an intensely intoxicated feeling. Sleeping in this state gives vision-laden dreams. Wants peace and quiet in the morning, good company in the afternoon, nobody can decipher what she wants at night."
+    },
+    "The Horn Knight": {
+      "d6": 2,
+      "d12": 11,
+      "quote": "A horn cried, hearts asank, blood pulsed anew\nIn its wail our fates all sealed a feast beneath death's view",\n"property": "Antler-halberd (d8 long, +d10 vs horned or antlered opponents) and bow (d6 long). Wild Horn (see below). Rusty warhorse (VIG 13, CLA 6, SPI 5, 2GD, d6 trample)",
+      "ability": "Carnage Fanfare - Blow a Wild Horn in battle. For the rest of this battle any VIG lost through Damage is doubled. This affects all in the battle, whether they hear the horn or not.",
+      "passion": "Bluntness - Restore SPI when you move the conversation in a way that somebody is avoiding.",
+      "wild_horn_table": {
+        "1": {"shape": "Sharp", "sound": "Dissonant"},
+        "2": {"shape": "Helix", "sound": "Solemn"},
+        "3": {"shape": "Sickle", "sound": "Ghostly"},
+        "4": {"shape": "Intertwined", "sound": "Beastly"},
+        "5": {"shape": "Coiling", "sound": "Droning"},
+        "6": {"shape": "Swollen", "sound": "Gravelly"}
+      },
+      "seer": "The Feasting Seer - VIG 10, CLA 3, SPI 3, 1GD, A3 (huge soft body). Vast, soft, immobile creature, constantly fussed over by white-cloaked acolytes. Silent, does nothing but gorge on food, but her acolytes interpret meaning from whether she accepts or rejects offerings. Her guidance is generally helpful, especially to those who are kind to her."
+    },
+    "The Dove Knight": {
+      "d6": 2,
+      "d12": 12,
+      "quote": "In serenous moon the best of us can rest in docile light\nThe quietest bird in impure times must soar in grisly flight",\n"property": "Stout blade (2d6 hefty), gambeson (A1), and winged scale (A1, can't fly, but see below). Bright weeds (create a cool glow when crushed to a powder, restock each new Season). Mountain steed (VIG 14, CLA 5, SPI 5, 2GD, sure-footed on rocky ground)",
+      "ability": "Strike of Serenity - Make a melee Attack against a wounded target. Get +d8 to the Attack. If this defeats the target then all allies restore SPI.",
+      "passion": "Vengeance - Restore SPI when achieving a worthy revenge.",
+      "winged_armour_table": {
+        "1": {"ability": "Always land safely", "limitation": "Only protects under daylight"},
+        "2": {"ability": "Jump twice as high", "limitation": "Sink like a stone"},
+        "3": {"ability": "Red glow when angry", "limitation": "Appear as real wings"},
+        "4": {"ability": "Sprint silently", "limitation": "Slow running speed"},
+        "5": {"ability": "Animals won't attack you unprovoked", "limitation": "Horses other than your own are afraid of you"},
+        "6": {"ability": "Knights who strike the first blow against you lose d6 SPI", "limitation": "Lose d6 SPI if you ever strike the first blow to a Knight"}
+      },
+      "seer": "The Sunlit Seer - VIG 3, CLA 13, SPI 15, 2GD. Fragile, burnt body shuddering in a bed, tended by a lone herbalist. When she is the nearest Seer she can appear as a white face in the sun. Wants to see her beloved Knights triumph in battle above all else."
+    },
+    "The Story Knight": {
+      "d6": 3,
+      "d12": 1,
+      "quote": "At last, I'm here!\nThe one you were waiting for, the one behind the words",\n"property": "Crook-blade (d10 long), mail (A1), bronze-studded brigandine (A1). Book of stories (something for everyone, see below for a random tale). Sinister steed (VIG 10, CLA 14, SPI 5, 3GD)",
+      "ability": "Weaver of Fate - Just before night falls, tell a story related to a nearby place, noting two details past, present, or future. The Referee secretly chooses one of them to become truth. This can only be performed once per location.",
+      "passion": "Showmanship - Restore SPI when you deliberately draw unwanted attention.",
+      "tome_of_tales_table": {
+        "1": {"style": "Quest", "twist": "Ghosts!"},
+        "2": {"style": "Romance", "twist": "Long-lost twins!"},
+        "3": {"style": "Revenge", "twist": "Memory loss!"},
+        "4": {"style": "Farce", "twist": "Reincarnation!"},
+        "5": {"style": "Nonsense", "twist": "Talking animals!"},
+        "6": {"style": "Tragedy", "twist": "Everybody dies!"}
+      },
+      "seer": "The Silvered Seer - VIG 9, CLA 19, SPI 13, 2GD. Shuffles slowly with help from adoring acolytes, body weighed down by blue candles and silver filigree. Claims not to be a Seer at all, a lie. They know more than any other, but gives only the barest hints of advice. Wants to escape and live a normal life."
+    },
+    "The Turtle Knight": {
+      "d6": 3,
+      "d12": 2,
+      "quote": "I stand inclad in shelldy stead\nNawone of you will see me dead!",\n"property": "Beakhammer (d6), battered tower shield (d4, A1). Drinking horn (makes even disgusting liquids taste good, see below). Squat steed (VIG 14, CLA 5, SPI 6, 2GD)",
+      "ability": "Unbreakable Shell - Use at the start of your turn. You cannot move, but double the Armour score of your shield and gain +d6 when attacking with a shield.",
+      "passion": "Wellrestedness - Restore SPI when you sleep for two consecutive Phases.",
+      "drinking_horn_table": {
+        "1": {"appearance": "Tiny", "imparted_flavour": "Floral honey"},
+        "2": {"appearance": "Runic carvings", "imparted_flavour": "Smoky salt"},
+        "3": {"appearance": "Ruby encrusted", "imparted_flavour": "Toasty almond"},
+        "4": {"appearance": "Volcanic rock", "imparted_flavour": "Ice water"},
+        "5": {"appearance": "Painted battle scene", "imparted_flavour": "Warm berries"},
+        "6": {"appearance": "Huge", "imparted_flavour": "Meat dripping"}
+      },
+      "seer": "The Broken Seer - VIG 2, CLA 7, SPI 13, 1GD. A pile of loose limbs around a husk of a torso. Just able to pull themselves into a standing form with some difficulty. Doesn't share much guidance now, but sends a body part on the quest to help. Wants more broken body parts to add to their heap."
+    },
+    "The Key Knight": {
+      "d6": 3,
+      "d12": 3,
+      "quote": "Sure as sky and sea\nFor every lock a key",\n"property": "Horned axe (d8 hefty), kite shield (A1 d4). Ring of keys (for any lock there's a 1-in-3 chance you can find a key that fits) and bag of ill-gotten gains (see below). Jittery steed (VIG 12, CLA 10, SPI 3, 3GD)",
+      "ability": "Retroactive Forethought - Once per day, produce a common item from your backpack that you could have reasonably acquired at a recent point.",
+      "passion": "Distraction - Restore SPI when you abandon a set plan.",
+      "ill_gotten_gains_table": {
+        "1": {"valuables": "Polished gems", "keepsakes": "A scrap of a poem"},
+        "2": {"valuables": "Silver coins", "keepsakes": "A lock of hair"},
+        "3": {"valuables": "Box of salt", "keepsakes": "A wooden ring"},
+        "4": {"valuables": "Tiny, perfect diamond", "keepsakes": "Some baby teeth"},
+        "5": {"valuables": "Golden hairpin", "keepsakes": "A vial of blood"},
+        "6": {"valuables": "String of pearls", "keepsakes": "Wooden figurine"}
+      },
+      "seer": "The Unspoken Seer - VIG 5, CLA 18, SPI 18, 6GD. Locals claim there's no Seer here and dodge further questions. Worthy Knights find guidance left as cryptic symbols in the wilderness near to their Sanctum and near to any Myth. Wants to remain unspoken, unobserved, and eventually cease to exist at all."
+    },
+    "The Moat Knight": {
+      "d6": 3,
+      "d12": 4,
+      "quote": "There they stood, awashed in soddled loam\nA grottling dance, the dusky sky agloam",\n"property": "Spiked flail (d10, long) and barbed mail (A1, anyone trying to grab or hold you takes d6 Damage). Moat shovel (any hole dug with this immediately begins to fill with water, stopping when full). Difficult steed (VIG 12, CLA 6, SPI 6, 2GD, see below)",
+      "ability": "Wading Stance - Gain 1 Armour and +d6 to all attacks when fighting in at least waist-high water.",
+      "passion": "Filth - Restore SPI when you become utterly filthy.",
+      "difficult_steed_table": {
+        "1": {"will_not": "Jump", "but": "Eats anything"},
+        "2": {"will_not": "Stop suddenly", "but": "Is beautiful"},
+        "3": {"will_not": "Carry anybody but their Knight", "but": "Always hears an ambush coming"},
+        "4": {"will_not": "Follow instructions unless being ridden", "but": "Always knows which way is north"},
+        "5": {"will_not": "Pull a cart", "but": "Hums tunefully"},
+        "6": {"will_not": "Travel in darkness", "but": "Is very tough (A1)"}
+      },
+      "seer": "The Brazen Seer - VIG 10, CLA 3, SPI 10, 1GD. A2 (bronze plates). A burning soul, welded into a hollow bronze statue of himself, mounted above a blazing fire pit. Sees any moments of great pain, in the past or the probable future. Wants others to suffer pain, as he has."
+    },
+    "The Boulder Knight": {
+      "d6": 3,
+      "d12": 5,
+      "quote": "A fated charge in mail and stalward plate\nAbaited foes await that thundring gait",\n"property": "Siege hammer (d10 long), mail (A1), and fancy plate (A1, see below). Hand-written book 'Of Time-Tested Guidance in the Construction and Destruction of Fortresses, Ramparts, and Castles'. Well-fed steed (VIG 14, CLA 8, SPI 6, 3GD)",
+      "ability": "Unstoppable Dash - When you are in motion you cannot be stopped, but sustain d12 Damage if breaking through a solid wall or object. You cannot sustain this motion for long distances.",
+      "passion": "Strength - Restore SPI when you complete a physical task that somebody else was struggling with.",
+      "fancy_armour_table": {
+        "1": {"design": "Bronze plates", "quirk": "Floats in water"},
+        "2": {"design": "Flanged iron", "quirk": "Quick to don or remove"},
+        "3": {"design": "Sharp scales", "quirk": "Silent when moving"},
+        "4": {"design": "Bright brigandine", "quirk": "Intimidating helm (A1)"},
+        "5": {"design": "Heavy rings", "quirk": "Spiked gauntlets (d6)"},
+        "6": {"design": "Sleek brass", "quirk": "Ignore fall Damage"}
+      },
+      "seer": "The Weeping Seer - VIG 7, CLA 7, SPI 6, 2GD. A humble young man sobbing in a darkened corner. Constantly haunted with images of ways in which things could go wrong, always leading to his own horrible death. Wants to take every precaution, but it's never enough."
+    },
+    "The Tankard Knight": {
+      "d6": 3,
+      "d12": 6,
+      "quote": "Abrash and bold, renowned and rued\nTheir presence cheered in feast or feud",\n"property": "Eagle axe (d8 hefty), roundshield (d4, A1), mail shirt (A1). Scar from a friend betrayed (see below). Aggressive charger (VIG 14, CLA 5, SPI 6, 2GD, d8 trample)",
+      "ability": "Humble Glamourie - After eating and drinking with somebody for a few hours they consider you trustworthy enough to speak openly about anything you ask about. The next day they come to their senses and realise if they revealed too much.",
+      "passion": "Revelry - Restore SPI when socially overindulging.",
+      "scar_story_table": {
+        "1": {"who_scarred_you": "Ruler of a nearby Holding", "your_betrayal": "Disloyalty"},
+        "2": {"who_scarred_you": "Ruler of the Seat of Power", "your_betrayal": "Petty theft"},
+        "3": {"who_scarred_you": "Wandering Knight", "your_betrayal": "A violent argument"},
+        "4": {"who_scarred_you": "A whole village", "your_betrayal": "A broken promise"},
+        "5": {"who_scarred_you": "A ship's captain", "your_betrayal": "Slander"},
+        "6": {"who_scarred_you": "A member of your Company", "your_betrayal": "Neglect in a time of great need"}
+      },
+      "seer": "The Red Seer - VIG 8, CLA 15, SPI 15, 10GD. Their shape lost within billowing crimson robes, flashing wet fabric forms fleeting shapes and faces, a voice on the breeze. Favours those who are open in their desires and fears. Hates dishonesty. Feels only one fleeting emotion at a time, but feels it with great intensity."
+    },
+    "The Owl Knight": {
+      "d6": 3,
+      "d12": 7,
+      "quote": "A noble one, a lord indeed, who feasts on fruits of fact\nFrom nog to nosh the nut of knowing fills with pleasing fat",\n"property": "Blade-staff (2d8 long) and ringmail (A1). Sack of books (1-in-2 chance you have a small snippet of information on any particular topic at hand, otherwise you find a miscellaneous tome, as below). Peaceful steed (VIG 10, CLA 10, SPI 6, 4GD)",
+      "ability": "Arboreal Archive - Spend a Phase running hands over a tree to access its memory, seeing anything that happened under its shade or over its roots.",
+      "passion": "Alertness - Restore SPI when you spot an ambush, trap, or surprise attack.",
+      "miscellaneous_tomes_table": {
+        "1": {"title": "The Light of... ...the Sea Beasts"},
+        "2": {"title": "Those who long for... ...Bread"},
+        "3": {"title": "Death &... ...the City"},
+        "4": {"title": "Merits of... ...other Meditations"},
+        "5": {"title": "Of Domain and... ...Coin"},
+        "6": {"title": "In the Garden of... ...Doom"}
+      },
+      "seer": "The Screaming Seer - VIG 13, CLA 4, SPI 3, 1GD. RAAAAAARGH! YAAAAAAAAAARRRGH!!! Utterly useless most of the time, but occasionally scribbles prophetic notes when left alone for a while."
+    },
+    "The Hooded Knight": {
+      "d6": 3,
+      "d12": 8,
+      "quote": "As deeds abound in history's script\nMore slip from time's forgetful grip",\n"property": "Glaive (d10 long), 3 throwing axes (d6). Cloak and hood (see below, while fully cloaked and hooded, people will see you in the moment, but have no memory of you once you pass from sight). Modest steed (VIG 10, CLA 9, SPI 5, 4GD)",
+      "ability": "Unnoticed Deed - Once per day you can retroactively declare an action that you took earlier that day, such as giving instructions to an ally, or gathering a specific piece of information. This cannot be used to acquire new items.",
+      "passion": "Anonymity - Restore SPI when somebody believes in a false identity you are portraying.",
+      "hood_and_cloak_table": {
+        "1": {"hood": "Veiled", "cloak": "Velvet"},
+        "2": {"hood": "Shadowy", "cloak": "Torn"},
+        "3": {"hood": "Silken", "cloak": "Weathered"},
+        "4": {"hood": "Tattered", "cloak": "Layered"},
+        "5": {"hood": "Fur-trimmed", "cloak": "Embroidered"},
+        "6": {"hood": "Threadbare", "cloak": "Faded pattern"}
+      },
+      "seer": "The Endless Seer - VIG 13, CLA 16, SPI 13, 3GD. With each blink they appear as an entirely different person, sometimes several, their voice a congregation. They see through everybody's eyes all at once, hearing all their thoughts. Wants to offer guidance but is overwhelmed by so much vision."
+    },
+    "The Lance Knight": {
+      "d6": 3,
+      "d12": 9,
+      "quote": "Steed agasp, spear agroan, strike agore\nSharp afrail, sight ablind, then no more",\n"property": "Lance (d10 long or hefty if mounted), spiked mace (d8 hefty), kite shield (d4, A1). Mystic sight (you can see something you shouldn't be able to, see below). Weary charger (VIG 14, CLA 6, SPI 4, 3GD, d6 trample)",
+      "ability": "Shattering Charge - Once per day, make a solo mounted charging Attack with a lance. The Attack gains +d12, Blast, and Gambits caused by the Attack count as strong. The lance is shattered.",
+      "passion": "Adventure - Restore SPI when you enter a Myth Hex.",
+      "mystic_sight_table": {
+        "1": {"what_can_you_see": "Fears", "but_you_cannot_see": "Colour"},
+        "2": {"what_can_you_see": "Desires", "but_you_cannot_see": "Writing"},
+        "3": {"what_can_you_see": "Hidden things", "but_you_cannot_see": "Birds"},
+        "4": {"what_can_you_see": "Regrets", "but_you_cannot_see": "Water"},
+        "5": {"what_can_you_see": "Loyalties", "but_you_cannot_see": "Stars and sun"},
+        "6": {"what_can_you_see": "Injuries and disease", "but_you_cannot_see": "Silver and gold"}
+      },
+      "seer": "The Shackled Seer - VIG 10, CLA 16, SPI 13, 3GD. Has a strange number of limbs (d12), seemingly changing with each glimpse, all shackled to the wall. Has especially clear visions of things that wish to be elsewhere. Pleads for freedom, but just wants to be shackled somewhere new."
+    },
+    "The Questing Knight": {
+      "d6": 3,
+      "d12": 10,
+      "quote": "Dream of vassal, fear of knight\nTo die at rest, in moonly light",\n"property": "Ancient sword (see below), kite shield (d4, A1), 3 javelins (d6). Cold stone (can absorb a single ailment from the wielder before vanishing in a burning light, restock each new Season). Reckless charger (VIG 14, CLA 6, SPI 6, 1GD, d8 trample)",
+      "ability": "Pledge Quest - Swear a quest to somebody who cares. Until you complete the quest you cannot regain lost GD, but get +d12 on all attacks against those who stand in your way. Lose d12 SPI if you abandon the quest.",
+      "passion": "Impetuosity - Restore SPI when you are first to fight.",
+      "ancient_sword_table": {
+        "1": {"appearance": "Massive (d10 long)", "who_gave_it_to_you": "The tide"},
+        "2": {"appearance": "Curved (d8)", "who_gave_it_to_you": "A tomb"},
+        "3": {"appearance": "Jagged (2d6 hefty)", "who_gave_it_to_you": "A tree"},
+        "4": {"appearance": "Hooked (2d8 long)", "who_gave_it_to_you": "An eagle"},
+        "5": {"appearance": "Shining (2d6)", "who_gave_it_to_you": "A hermit"},
+        "6": {"appearance": "Cruel (2d8 hefty)", "who_gave_it_to_you": "A mountain"}
+      },
+      "seer": "The Buried Seer - VIG 4, CLA 3, SPI 14, 1GD. Trapped far beneath our feet, but speaks to those who stand at her gravestone, adorned with black flowers. Sees all below the ground, and hears all on the surface. Blind to water and sky. Wants to hurry along the inevitable death of everyone and everything."
+    },
+    "The Ring Knight": {
+      "d6": 3,
+      "d12": 11,
+      "quote": "With ring a'lone, head dreams of home\nWith rings o'two, heart longs to roam",\n"property": "Long mace (d10 long), violet mail (A1). Pair of rings (see below, can only be put on or removed at sunrise). Aloof steed (VIG 11, CLA 8, SPI 7, 3GD, leaves no trail)",
+      "ability": "Unbreakable Circle - Draw a circle in the ground, with yourself in the centre. Until you leave the circle, no other living being can enter or leave it.",
+      "passion": "Respectfulness - Restore SPI when returning something to its rightful owner after it was lost or taken.",
+      "properties_of_the_rings_table": {
+        "1": {"design": "Snakes", "effect": "Wearers share vision"},
+        "2": {"design": "Skulls", "effect": "Wearers share hearing"},
+        "3": {"design": "Thorns", "effect": "Wearers share GD (use total)"},
+        "4": {"design": "Rubies", "effect": "Wearers share VIG (use higher)"},
+        "5": {"design": "Gold", "effect": "Wearers share CLA (use higher)"},
+        "6": {"design": "Birds", "effect": "Wearers share SPI (use higher)"}
+      },
+      "seer": "The Spectral Seer - VIG 4, CLA 16, SPI 14, 5GD. Immaterial shadow of a life long extinguished, restricted to dwell near an urn containing their remains. Sees all events that include death: past, present, and future. Wants to return to a physical form."
+    },
+    "The Forge Knight": {
+      "d6": 3,
+      "d12": 12,
+      "quote": "Gravid beats on ferrous slab, thick air a crimson sheen\nEach mallenstroke leaves scars aworn, apparent and unseen",\n"property": "Bolt-guisarme (d10 long in melee or d10 slow ranged), gambeson (A1), scale (A1). Scars from the forge (see below) and pots of forge dust (spreads irritating gas in the area when broken, Impairing attacks from within. You can make more anywhere with a forge). Helmed steed (VIG 14, CLA 4, SPI 5, 4GD, d6 trample, A1)",
+      "ability": "Tempering Strike - When you cause a Wound with a melee weapon, that weapon receives +d8 until the end of combat. This effect can stack.",
+      "passion": "Burning - Restore SPI when you are wounded by fire.",
+      "scars_from_the_forge_table": {
+        "1": {"visible": "Burnt hands", "non_visible": "Fiery nightmares"},
+        "2": {"visible": "Scorched hair", "non_visible": "Noise sensitivity"},
+        "3": {"visible": "Faded eyes", "non_visible": "Distrust of sky"},
+        "4": {"visible": "Missing teeth", "non_visible": "High pain threshold"},
+        "5": {"visible": "Blistered face", "non_visible": "Light sensitivity"},
+        "6": {"visible": "Branded arm", "non_visible": "Fear of water"}
+      },
+      "seer": "The Worst Seer - VIG 10, CLA 14, SPI 3, 5GD. Long face, hanging jaw, fat body draped in finery, tended on a high throne. Sees the worst in everybody, and awful things that could happen. Always knows what to say to make somebody feel bad. Secretly has noble intentions to protect the common people of the Realm."
+    },
+    "The Rune Knight": {
+      "d6": 4,
+      "d12": 1,
+      "quote": "Under gleam of lumenlight, in skin or stone ascratch\nStrands of faten path unveiled, a starry scrawl to match",\n"property": "Pillar of inscribed stone (2d10 slow), gambeson (A1), iron chestplate (A1). Sealed crystal flask (see below, you know the effect. If smashed, find a new flask at the start of the next Season). Muscular charger (VIG 13, CLA 8, SPI 5, 3GD, d8 trample)",
+      "ability": "Destinous Sigil - At sunset, etch a cosmic rune somewhere secret on your person. Choose a number. When a die rolls that number you may adjust it to any other value on that die. This can be performed a number of times equal to the chosen number. A different number is chosen next sunset.",
+      "passion": "Foresight - Restore SPI when your prediction is proven to be correct.",
+      "crystal_flask_table": {
+        "1": {"if_shaken": "Warmth of a hearth", "if_smashed": "Sudden thunderstorm"},
+        "2": {"if_shaken": "Veil of darkness", "if_smashed": "Next season arrives"},
+        "3": {"if_shaken": "Gentle light", "if_smashed": "Night arrives"},
+        "4": {"if_shaken": "Repels birds", "if_smashed": "Deafening scream"},
+        "5": {"if_shaken": "Soothes canines", "if_smashed": "Plague of locusts"},
+        "6": {"if_shaken": "Eases pain", "if_smashed": "Freezes nearby water"}
+      },
+      "seer": "The Drowned Seer - VIG 3, CLA 3, SPI 5, 2GD. Said to be at the bottom of a small but impossibly deep pond. Soggy acolytes gather at the shore to speak her intent. Sees from every river and body of fresh water, but utterly blind to the sea. Wants to protect Knights. Occasionally floats useful items to the surface."
+    },
+    "The Gallows Knight": {
+      "d6": 4,
+      "d12": 2,
+      "quote": "In dregs of dawn the damnlings sway\nFor famine's brood a gifted prey",\n"property": "Neck-catcher (d10 long, Wounded targets are snared securely around the neck, provided they have one), salvaged armour (see below). Titan beads (3 polished stones. When thrown they transform into a huge boulder mid-air, striking for d10 blast, restock each new Season). Flea-bitten steed (VIG 9, CLA 7, SPI 4, 3GD)",
+      "ability": "Carrion's Call - Speak with scavenger creatures, and summon them to you. They're only helpful if you're providing them with food.",
+      "passion": "Misery - Restore SPI when you meet somebody new and complain to them about something.",
+      "salvaged_armour_table": {
+        "1": {"type": "Copper mail (A1)", "detail": "Embedded arrowheads"},
+        "2": {"type": "Cracked chestplate and bracers (A1)", "detail": "Two sets hastily patched together"},
+        "3": {"type": "Red brigandine (A1)", "detail": "Partially burnt"},
+        "4": {"type": "Padded cloth (A1)", "detail": "Claw marks"},
+        "5": {"type": "Hardened leather (A1)", "detail": "Faded heraldry"},
+        "6": {"type": "Dented plate (A1)", "detail": "Dried blood"}
+      },
+      "seer": "The Torn Seer - VIG 9, CLA 5, SPI 8, 3GD and VIG 6, CLA 6, SPI 6, 2GD. Appears as if a tall, broad man was torn in half from head to groin, halves now clinging together, but acting as two. Always presents two possibilities, two opinions, two predictions. Never argues with the other half, but always contradicts at least slightly."
+    },
+    "The Tome Knight": {
+      "d6": 4,
+      "d12": 3,
+      "quote": "A loom of wisdom spun at dawn, where words and wonders meet\nEach page a step towards the truth, where knowledge is complete",\n"property": "Great tome (2 Bulk), quill and ink, gambeson (A1), iron chestplate (A1). Reading spectacles. Scholarly robes. Faithful mule (VIG 10, CLA 5, SPI 8, 2GD, stubborn but loyal)",
+      "ability": "Living Library - Your tome contains all knowledge you've encountered. Once per day, ask the GM any question about something you've seen, heard, or read. They must answer truthfully, though cryptically.",
+      "passion": "Learning - Restore SPI when you discover significant new knowledge or solve a complex puzzle.",
+      "tome_contents_table": {
+        "1": "Maps of forgotten places",
+        "2": "Genealogies of noble houses",
+        "3": "Alchemical formulae",
+        "4": "Prophecies and omens",
+        "5": "Bestiary of mythical creatures",
+        "6": "Historical chronicles"
+      },
+      "seer": "The Scribal Seer - VIG 4, CLA 12, SPI 8, 2GD. Can read any language or script. Their eyes glow when in the presence of ancient or magical texts. Knows the location of every library, archive, and repository of knowledge within 200 miles."
+    },
+    "The Meteor Knight": {
+      "d6": 4,
+      "d12": 4,
+      "quote": "From heaven's height comes blazing light, a star that will not bend\nThrough fire's trial and metal's might, all earthly bonds shall end",
+      "property": "Star-iron blade (d8+1, ignites on impact), gambeson (A1), iron chestplate (A1). Celestial compass. Meteor fragment (warm to touch). Swift destrier (VIG 14, CLA 10, SPI 4, 3GD, d8 trample)",
+      "ability": "Stellar Descent - Once per combat, you may leap impossibly high and crash down on a target, dealing d10 damage in a small area. This ignites flammable materials.",
+      "passion": "Destiny - Restore SPI when you follow a sign from the heavens or fulfill a cosmic portent.",
+      "celestial_events_table": {
+        "1": "Shooting star points the way",
+        "2": "Aurora reveals hidden truths",
+        "3": "Comet brings change",
+        "4": "Eclipse grants power",
+        "5": "Conjunction unlocks secrets",
+        "6": "Solar flare burns away illusions"
+      },
+      "seer": "The Stargazer Seer - VIG 6, CLA 6, SPI 12, 2GD. Can predict weather and celestial events with perfect accuracy. Their touch can ignite objects as if they were touched by starfire. Always knows the exact time and date."
+    },
+    "The Gazer Knight": {
+      "d6": 4,
+      "d12": 5,
+      "quote": "The blood sees through time aflow\nTo certain souls, a glimpse they show",\n"property": "Toothed blade (d8 hefty, +d8 against Seers), tapestry cloak (see below) over mail (A1). Flickerlamp (a warm lantern that casts its shadows toward the nearest Seer). Blueish steed (VIG 12, CLA 10, SPI 5, 3GD)",
+      "ability": "Glimpse of Fate - Once per day you can undo a single action performed by you or your Company, declaring it was in fact a minor vision you received. Play as if it never happened.",
+      "passion": "Respect - Restore SPI when you yield to a Seer.",
+      "tapestry_story_table": {
+        "1": {"event": "Birth of...", "subject": "A random Seer"},
+        "2": {"event": "Great deeds of...", "subject": "A random Knight"},
+        "3": {"event": "Ambitions of...", "subject": "Yourself"},
+        "4": {"event": "Shameful death of...", "subject": "One of the Company"},
+        "5": {"event": "Glorious death of...", "subject": "The Realm ruler"},
+        "6": {"event": "Peaceful death of...", "subject": "An unknown figure"}
+      },
+      "seer": "The Stone Seer - 6GD, A3, treat as a Structure. A 10ft statue dragged from the earth, motionless and silent. Never moves or responds, but those who speak with him get a general feel of approval or objection. Knows all of the past but nothing of the future or present. Wants to preserve the Realm."
+    },
+    "The Mule Knight": {
+      "d6": 4,
+      "d12": 6,
+      "quote": "A humble beast, no roar or flight\nBeneath the grey a show of might",\n"property": "Weighted longstaff (d10 long), polished chainmail (A1). 3 explosives (d8 blast, see below, restock each new Season). Tall steed (VIG 14, CLA 7, SPI 6, 2GD)",
+      "ability": "Lowly Shroud - At any time you may choose to have somebody observing you be utterly convinced that you are just a humble, unarmed peasant, and your steed a mule.",
+      "passion": "Kindness - Restore SPI when you stop an act of cruelty.",
+      "explosives_table": {
+        "1": {"form": "Ashen pinecone", "trigger": "Water"},
+        "2": {"form": "Vial of red dust", "trigger": "Fire"},
+        "3": {"form": "Bottle of white oil", "trigger": "A command word"},
+        "4": {"form": "Hellfire chestnut", "trigger": "Touch of skin"},
+        "5": {"form": "Preserved drake gizzard", "trigger": "Light"},
+        "6": {"form": "Firebird egg", "trigger": "Touching ground"}
+      },
+      "seer": "The Green Seer - VIG 10, CLA 14, SPI 13, 6GD. A pulsing emerald heart in a cloud of bright spores and grasping tendrils. Hears every envious thought in the Realm. Wants everybody to get the thing that they are envious for."
+    },
+    "The Halo Knight": {
+      "d6": 4,
+      "d12": 7,
+      "quote": "A trail of hope across the land\nIn sorrow's face, bright reprimand",\n"property": "Crescent axe (d8 hefty), ringmail (A1), kite shield (d4, A1). Mistvial (when broken, thick mist rolls in over the whole Hex for the rest of the Phase. See below for repair requirements). Wild steed (VIG 15, CLA 5, SPI 7, 3GD, will not be ridden by any but you)",
+      "ability": "Luminous Eruption - Use once per Phase. A light source you are holding briefly illuminates the entire Hex and causes d12 Damage to nearby beings who live in darkness.",
+      "passion": "Valour - Restore SPI when you engage in combat against the odds.",
+      "repairing_mistvial_table": {
+        "1": {"material": "Blood", "requirement": "Midnight ritual"},
+        "2": {"material": "Sand", "requirement": "A Seer's blessing"},
+        "3": {"material": "Smoke", "requirement": "You must be Wounded"},
+        "4": {"material": "Milk", "requirement": "Coin sacrifice"},
+        "5": {"material": "Salt", "requirement": "Light of sunrise"},
+        "6": {"material": "Silk", "requirement": "Bird nest"}
+      },
+      "seer": "The Painted Seer - VIG 4, CLA 17, SPI 14, 1GD. Skin like canvas, stretched too tight, dyed every colour. Very limited movement. Conjures painted visions onto the walls. Wants to find and train an apprentice."
+    },
+    "The Iron Knight": {
+      "d6": 4,
+      "d12": 8,
+      "quote": "As sword abend, as plate afold,\nAs shield asplint, a tale atold.",\n"property": "Cleavingblade (2d8 long, see below), mail (A1), plate pauldrons (A1). Inscribed scabbard (shows a different scene each morning, hinting at the nearest Myth). Dark steed (VIG 11, CLA 7, SPI 6, 3GD)",
+      "ability": "Heightened Sharpness - When you perform a Strong Gambit with a bladed weapon you may choose one of the following as the effect, the target receiving a Save as normal: Take a limb, or Take a head if their GD is 0.",
+      "passion": "Diligence - Restore SPI when refusing a shortcut.",
+      "origin_cleavingblade_table": {
+        "1": {"out_of": "Vibrant forest", "at_time_of": "Contentment"},
+        "2": {"out_of": "High waterfall", "at_time_of": "Desperation"},
+        "3": {"out_of": "Roaring sea", "at_time_of": "Victory"},
+        "4": {"out_of": "Broken boulder", "at_time_of": "Anger"},
+        "5": {"out_of": "Narrow cave", "at_time_of": "Sorrow"},
+        "6": {"out_of": "Dead tree", "at_time_of": "Transition"}
+      },
+      "seer": "The Celebrated Seer - VIG 12, CLA 6, SPI 15, 2GD. Clad in a coat of shining metal masks, each an expression of joy. Only sees moments of intense positive emotion, more intensity granting clearer visions and pleasure. Wants praise and elaborate celebrations, not really caring what for."
+    },
+    "The Mirror Knight": {
+      "d6": 4,
+      "d12": 9,
+      "quote": "In eyes ojust, the given got\nBlow for blow, from one shared lot",\n"property": "Hook-axe (d8 hefty), 3 throwing axes (d6), and round shield (d4, A1). Hushingbell (those who hear the bell hear nothing else). Faded steed (VIG 9, CLA 8, SPI 5, 3GD, you have memories together, see below)",
+      "ability": "Reflection of Blood - When you are Wounded, the attacker suffers the same amount of VIG loss as you. When you are Scarred the attacker gets the same Scar.",
+      "passion": "Egality - Restore SPI when you give somebody else their fair share.",
+      "memories_with_steed_table": {
+        "1": {"knight": "Found a lost treasure", "steed": "Fought bravely"},
+        "2": {"knight": "Avenged family", "steed": "Galloped all night"},
+        "3": {"knight": "Won a tournament", "steed": "Spotted an ambush"},
+        "4": {"knight": "Escaped capture", "steed": "Returned from death"},
+        "5": {"knight": "Broke a siege", "steed": "Lost an eye"},
+        "6": {"knight": "Rescued a loved-one", "steed": "Shrugged off arrows"}
+      },
+      "seer": "The Giant Seer - VIG 19, CLA 4, SPI 6, 5GD, A3 (huge body), huge fists (2d10). A great, bounding figure, a clumsy menace to the nearby settlements. Has little control over her sight, only seeing unreliable flashes of the present, nothing of the future or past. Wants to be told that she's a good Seer."
+    },
+    "The Dusk Knight": {
+      "d6": 4,
+      "d12": 10,
+      "quote": "Each touch of iron takes a price, in breath or blood or bone\nA nasty cut takes something worse, the warmth of distant home",\n"property": "Longhammer (d10 long), 3 javelins (d6). Pouch of wolfnuts (repellent to canines), poem on tattered parchment (see below). Auburn steed (VIG 12, CLA 8, SPI 6, 2GD)",
+      "ability": "Sunder Memory - When you Wound a target you can rob them of a single specific memory. If it is a Mortal Wound then you can remove all memory of a specific place, thing, person, or event.",
+      "passion": "Temperance - Restore SPI when you refuse a luxury.",
+      "tattered_poem_table": {
+        "1": {"start": "Twin Knights are lost in the woods", "end": "They're eaten by a pack of wolves"},
+        "2": {"start": "The Lion and the Lizard are bitter rivals", "end": "They all die of a disgusting plague"},
+        "3": {"start": "A mother hates her six ugly sons", "end": "It turns into a call to find the City"},
+        "4": {"start": "A hermit lambasts the stars for his sad life", "end": "It devolves into psychedelic nonsense"},
+        "5": {"start": "A clever chicken outwits a farmer", "end": "It ends on a literal cliffhanger"},
+        "6": {"start": "A poet wastes her life fleeing from death", "end": "They all lived happily ever after"}
+      },
+      "seer": "The Fungal Seer - VIG 11, CLA 3, SPI 15, 2GD. Tortoise-like and luminous, his body bristling with fungal colonies. His mushrooms transport the eaters on a shared vision quest lasting until sunrise and offering abstract guidance. Dying in the vision results in actual death. Wants to bring everybody into one shared heavenly vision."
+    },
+    "The Coin Knight": {
+      "d6": 4,
+      "d12": 11,
+      "quote": "In arg or aur, decisions spun\nA prize, a life, lost or won",\n"property": "Morningstar (d8 hefty), roundshield (d4, A1), gambeson (A1), stone-studded brigandine (A1). Jaunty flute (can only play a certain type of music, see below). Arctic steed (VIG 14, CLA 8, SPI 7, 3GD, long coat turns white in winter)",
+      "ability": "Thrown to Chance - Use instead of attacking normally. Flip a coin. Heads the target is killed, tails you are killed. This is final.",
+      "passion": "Generosity - Restore SPI when you give generously to somebody in need.",
+      "sound_of_flute_table": {
+        "1": {"loved_by": "Children", "hated_by": "Everybody else"},
+        "2": {"loved_by": "Cats", "hated_by": "Proper musicians"},
+        "3": {"loved_by": "Nobles", "hated_by": "Rodents"},
+        "4": {"loved_by": "Knights", "hated_by": "Your Company"},
+        "5": {"loved_by": "Birds of prey", "hated_by": "Seers"},
+        "6": {"loved_by": "Sea creatures", "hated_by": "Songbirds"}
+      },
+      "seer": "The Map Seer - VIG 14, CLA 10, SPI 6, 2GD. A body like craggy mountains, flowing with rivers of black blood. His will can alter the geography of the Realm, but it takes great effort. Wants to send Knights to their death."
+    },
+    "The Mock Knight": {
+      "d6": 4,
+      "d12": 12,
+      "quote": "Sycamore, leather, felt and strings\nIn heartless chest a soul still sings",\n"property": "War flail (d10 long). Unnatural body (see below), concealed beneath plate suit (A1), hood, and clothes. Well-groomed steed (VIG 12, CLA 8, SPI 6, 2GD, a real horse)",
+      "ability": "Impression of Life - You do not truly need air, food, water, sleep, warmth, or love, but you are compelled to play along when you are deprived of them.",
+      "passion": "Imitation - Restore SPI when you pass for human while under scrutiny.",
+      "unnatural_body_table": {
+        "1": {"bones_of": "Ivory", "skin_of": "Leather"},
+        "2": {"bones_of": "Bronze", "skin_of": "Felt"},
+        "3": {"bones_of": "Sapling branches", "skin_of": "Silk"},
+        "4": {"bones_of": "String", "skin_of": "Wool"},
+        "5": {"bones_of": "Wooden rods", "skin_of": "Parchment"},
+        "6": {"bones_of": "Iron chain", "skin_of": "Clay"}
+      },
+      "seer": "The Chance Seer - VIG 10, CLA 10, SPI 6, 3GD. Cloaked in constantly rotating scales, each showing a new colour. Only sees the uncertain futures, blind to that which is locked in certainty. Has no agenda of their own, having given themselves fully to the forces of fate."
+    },
+    "The Mask Knight": {
+      "d6": 5,
+      "d12": 1,
+      "quote": "Now you call for truth from me?\nI'll offer not which cannot be",\n"property": "Splittingaxe (d10 long), mail (A1) with masked helm (A1, see below). Star ink (writing only shows under starlight at night) and parchment. Silver steed (VIG 12, CLA 8, SPI 5, 4GD)",
+      "ability": "Thousand Faces - You can assume the face of anybody you have touched, but your body and voice are unchanged.",
+      "passion": "Vigilance - Restore SPI when you prevent a betrayal.",
+      "masked_armour_table": {
+        "1": {"appearance": "Youthful", "design": "Horned"},
+        "2": {"appearance": "Beautiful", "design": "Two-faced"},
+        "3": {"appearance": "Misshapen", "design": "Blindfolded"},
+        "4": {"appearance": "Abstract", "design": "Scarred"},
+        "5": {"appearance": "Skull", "design": "Roaring"},
+        "6": {"appearance": "Elder", "design": "Crowned"}
+      },
+      "seer": "The Abacus Seer - VIG 9, CLA 19, SPI 3, 3GD. Hunched on the floor, counting on fingers and toes in numbers you don't recognise. Takes a long time to make a prediction, but when they do it is sure to come true. Even fate must bend to their calculation. Wants to live long enough to complete all of their calculations."
+    },
+    "The Bone Knight": {
+      "d6": 5,
+      "d12": 2,
+      "quote": "Ribble rabble, ronky donk, they bounce a duckle dine\nClatter clink, clanky tank, a rib, a skull, a spine",\n"property": "Needledagger (d6, +d6 against armoured targets) and jagged buckler (d4, A1). Box of bones (see below). Marsh steed (VIG 12, CLA 8, SPI 5, 3GD, moves effortlessly on bog and marsh)",
+      "ability": "Bone Magnate - When you make a genuine trade, a bone for a bone, learn something about the individual that the acquired bone came from, or something that they knew in life.",
+      "passion": "Acumen - Restore SPI when you come out better from a bargain.",
+      "box_of_bones_table": {
+        "1": {"the_box": "Silver coffer", "the_bones": "Sorted by age"},
+        "2": {"the_box": "Ivory cage", "the_bones": "Sorted by size"},
+        "3": {"the_box": "Bronze cylinder", "the_bones": "Sorted by habitat"},
+        "4": {"the_box": "Velvet pouch", "the_bones": "Sorted by beauty"},
+        "5": {"the_box": "Painted wooden case", "the_bones": "Sorted by virtue"},
+        "6": {"the_box": "Gilded clam shell", "the_bones": "Unsorted chaos"}
+      },
+      "seer": "The Twilight Seer - VIG 10, CLA 10, SPI 14, 2GD. Elderly, shadowy, and incoherent by day, youthful, radiant, and cogent at night. Only sees the moments between significant events, the times of travel and rest. Wants stability in the Realm, ensuring the peaceful transition of night and day."
+    },
+    "The Salt Knight": {
+      "d6": 5,
+      "d12": 3,
+      "quote": "Saline stink adwells in every depth\nMatters not how still the mirrow's breadth",\n"property": "Spined mace (d8 hefty), javelin (d6), coraline mail (A1). Everflask (contains an endless supply of fresh water, see below). Scaled steed (VIG 12, CLA 8, SPI 5, 3GD)",
+      "ability": "Inspire Ire - Activate at the end of your turn. Until your next turn, any enemies that Attack targets other than you lose d10 SPI after the Attack is resolved.",
+      "passion": "Mettle - Restore SPI when accepting a non-combat challenge with the odds set against you.",
+      "everflask_table": {
+        "1": {"design": "Leather pouch", "thirst": "A story"},
+        "2": {"design": "Brass horn", "thirst": "A blade"},
+        "3": {"design": "Twisted silver", "thirst": "A small creature"},
+        "4": {"design": "Mottled stone", "thirst": "Delicious fruit"},
+        "5": {"design": "White wood", "thirst": "Honey"},
+        "6": {"design": "Frosted glass", "thirst": "Music"}
+      },
+      "seer": "The Bright Seer - VIG 12, CLA 14, SPI 14, 3GD. A booming, intrusively optimistic man cloaked in orange and gold. Has complete control over fire, able to twist it into visions brought to life. Wants to see the world burn, but in a planned and controlled manner."
+    },
+    "The Violet Knight": {
+      "d6": 5,
+      "d12": 4,
+      "quote": "A lightless glow, from neath a dream\nIlluminates the fabric's seam",\n"property": "Grand mace (d10 long), mail (A1), reflective scale (A1). Flattering handmirror (shows the viewer's ideal vision of themselves). Nameless steed (VIG 12, CLA 8, SPI 4, 1GD, see below)",
+      "ability": "Light Beyond Light - You can cause any metal object you hold to emit a bright light that only you can see. Bees, butterflies, hummingbirds, and hedgehogs can also see the light.",
+      "passion": "Positivity - Restore SPI when you raise somebody's mood.",
+      "steed_without_name_table": {
+        "1": {"why": "Seer's orders", "strange_trait": "Cannot utter a sound"},
+        "2": {"why": "It frightens you", "strange_trait": "Cannot ride through water"},
+        "3": {"why": "The word is forgotten", "strange_trait": "Seems more comfortable at night"},
+        "4": {"why": "You can't speak it", "strange_trait": "Arrows cannot harm it"},
+        "5": {"why": "It dies when named", "strange_trait": "Can ride on sea water"},
+        "6": {"why": "Its name has power", "strange_trait": "Other steeds show fealty to it"}
+      },
+      "seer": "The Gut Seer - VIG 10, CLA 2, SPI 2, 1GD. A pulsing, fleshy mass, entrails sprawled out across the stained floor. When spoken to the stains and intestines spiral and sprawl to form guiding shapes. Just wants to do their duty."
+    },
+    "The Cosmic Knight": {
+      "d6": 5,
+      "d12": 5,
+      "quote": "Countless lights dotted in night's veil\nTo them, each one a glad or shameful tale",\n"property": "Strange crossbow (see below). Echostone (can record and repeat one spoken phrase). Boneless steed (VIG 10, CLA 8, SPI 5, 3GD, can squeeze through any gap as large as its head)",
+      "ability": "Celestial Retreat - While you can see the sky you may focus for a minute to vanish to a distant sanctuary, just beyond reality. You leave a small glowing stone behind. You can rematerialise at the stone at any time.",
+      "passion": "Constellations - Restore SPI when you tell a new person about the stars as you point to them.",
+      "strange_crossbow_table": {
+        "1": {"form": "Handheld (d6)", "twist": "Cannot shoot in dark"},
+        "2": {"form": "Lightwood (d8 hefty)", "twist": "Only you can shoot it"},
+        "3": {"form": "Repeating (d8 long)", "twist": "Extremely loud clunk"},
+        "4": {"form": "Double (2d6 long)", "twist": "No bolts required"},
+        "5": {"form": "Bronze (2d8 slow)", "twist": "Very painful wounds"},
+        "6": {"form": "Ironwood (d10 slow)", "twist": "Can also be used in melee combat"}
+      },
+      "seer": "The Rose Seer - VIG 5, CLA 8, SPI 6, 1GD. Frail body, lilting head of pink flesh-petals. Every need lovingly tended to by an elderly woman. Whispers her guidance as obscure, ugly poetry, applauded by her caretaker. Wants everybody to suffer just enough to enjoy the little pleasure they have."
+    },
+    "The Temple Knight": {
+      "d6": 5,
+      "d12": 6,
+      "quote": "No blood or cry\nNot here, not today",\n"property": "Spear (d8 hefty), white cloak, broadshield (d4, A1). Mummified snake (Reptiles will not attack anyone holding it. The snake speaks to your mind directly, see below). Moorland steed (VIG 11, CLA 9, SPI 6, 3GD, faint smell of heather)",
+      "ability": "Site of Respite - You may declare a building that you occupy as peaceful ground. No being within the building can bring themselves to attack another until you leave.",
+      "passion": "Quietude - Restore SPI when bringing peaceful order to a chaotic place.",
+      "snake_speaks_table": {
+        "1": {"voice": "Pitiful", "agenda": "Your death"},
+        "2": {"voice": "Mocking", "agenda": "Order"},
+        "3": {"voice": "Sinister", "agenda": "Bloodshed"},
+        "4": {"voice": "Benevolent", "agenda": "Peace"},
+        "5": {"voice": "Ancient", "agenda": "Chaos"},
+        "6": {"voice": "Loving", "agenda": "Your ambitions"}
+      },
+      "seer": "The Tapestry Seer - VIG 9, CLA 17, SPI 4, 1GD. A silken silhouette locked in a moment of total insight, only able to murmur. Sees everything at once and all connections between them. Wants to make everything as simple as possible without disturbing fate."
+    },
+    "The Fox Knight": {
+      "d6": 5,
+      "d12": 7,
+      "quote": "A whimsied whirl, a crafty guise\nThe truth revealed as sour surprise",\n"property": "Jagged blade (d8 hefty), buckler (d4, A1), foxhelm (A1), hidden blade (d6, see below). Sealing wax (can render any container watertight and airtight, restock each new Season). Tunnel steed (VIG 10, CLA 10, SPI 5, 2GD, can see perfectly in the dark)",
+      "ability": "Cunning Ploy - Once per day, declare your current self to be an illusion, dispersing into smoke. The real you is watching from a safe place nearby.",
+      "passion": "Wits - Restore SPI when you avoid being tricked or outwitted.",
+      "hidden_blade_table": {
+        "1": {"design": "Twisted ebony handle", "ability": "Hidden within your shadow"},
+        "2": {"design": "Feather motif", "ability": "Can be thrown any distance"},
+        "3": {"design": "Tapered slicer", "ability": "+2d10 vs somebody who trusts you"},
+        "4": {"design": "Fang-like dagger", "ability": "Appears as a twig"},
+        "5": {"design": "Long wavy blade", "ability": "Splits into two blades"},
+        "6": {"design": "Etched bone", "ability": "Harmless to you"}
+      },
+      "seer": "The Needle Seer - VIG 8, CLA 14, SPI 6, 4GD. Tall and slender, festooned with blades. Pulls open small tears in reality, showing what could have been but is now impossible. Wants to make other people feel bad, but grudgingly does their duty to the Realm."
+    },
+    "The Gull Knight": {
+      "d6": 5,
+      "d12": 8,
+      "quote": "Tattered wing, loath'ed cry, born of ugly bill\nAnd yet what heights, what lofty sights, this skwarmew captures still",\n"property": "Hooked blade (d8 hefty), patchwork mail (A1, see below), patterned cloak. Blinding bracelet (anybody wearing the bracelet is blind until they take it off). Tempestuous steed (VIG 12, CLA 8, SPI 7, 4GD, dances joyfully in rain)",
+      "ability": "Guiding Gust - Ascend to the top of a vertical surface you are touching, lifted on a burst of wind.",
+      "passion": "Joy - Restore SPI when you deliver good news.",
+      "patchwork_armour_table": {
+        "1": {"some_taken_from": "Fallen soldiers", "mixed_with": "Flexible leather"},
+        "2": {"some_taken_from": "Ancient tomb", "mixed_with": "Sleek bronze"},
+        "3": {"some_taken_from": "Shipwreck", "mixed_with": "Polished steel"},
+        "4": {"some_taken_from": "A fighting pit", "mixed_with": "Brass studs"},
+        "5": {"some_taken_from": "A defeated Knight", "mixed_with": "Padded coat"},
+        "6": {"some_taken_from": "Thankful militia", "mixed_with": "Thick furs"}
+      },
+      "seer": "The Floating Seer - VIG 12, CLA 12, SPI 14, 2GD. A bloated bladder of a being, humming as she bobs about in the air buoyantly, yelping as she hits the ceiling. Sees through the eyes of all flying beings. Wants to float free toward the stars. Hates being confined. Being grounded causes agony."
+    },
+    "The Magpie Knight": {
+      "d6": 5,
+      "d12": 9,
+      "quote": "Keen eyes see what cold heart seeks\nThis bird never bare of beak",\n"property": "Heavy cudgel (d8 hefty), 3 javelins (d6). Twofold pouch (items you place in the pouch can only be retrieved by you) containing a memento (see below). Ironclad steed (VIG 13, CLA 5, SPI 5, 2GD, A1, d6 trample)",
+      "ability": "Scourer's Sense - If you are searching for something specific you always know for sure whether it is in your immediate surroundings or not.",
+      "passion": "Heraldry - Restore SPI when you announce the owner of a banner, crest, or coat of arms, which you can always recognise.",
+      "treasured_memento_table": {
+        "1": {"item": "A dried flower", "reminds_you_of": "A great victory"},
+        "2": {"item": "A sword hilt", "reminds_you_of": "A shameful defeat"},
+        "3": {"item": "A pearl", "reminds_you_of": "A happy place"},
+        "4": {"item": "A scrap of a banner", "reminds_you_of": "A sorrowful place"},
+        "5": {"item": "An old coin", "reminds_you_of": "Somebody you loved"},
+        "6": {"item": "A dog's collar", "reminds_you_of": "Somebody you hated"}
+      },
+      "seer": "The Lens Seer - VIG 10, CLA 14, SPI 6, 2GD. A squat body, her head a refractive orb of liquid glass. Knows the true fate of anything that she examines closely and thoroughly. Wants interesting things brought to her for examination."
+    },
+    "The Reliquary Knight": {
+      "d6": 5,
+      "d12": 10,
+      "quote": "Noble rest, earned in life, final breath\nEchos ring, they live on, spurning death",\n"property": "War sickle (d8 hefty), gambeson (A1), carved plate (A1). Sack of history tomes, treasured reliquary (see below). Bearded steed (VIG 12, CLA 8, SPI 6, 3GD)",
+      "ability": "Spirit Call - Once per day, release the invisible spirit from your reliquary. It will follow a single, specific command. It acts with the general capacities of a normal human but can be invisible and immaterial as needed.",
+      "passion": "Tradition - Restore SPI when you ensure a tradition is thoroughly honoured.",
+      "treasured_relic_table": {
+        "1": {"bodypart": "Hand", "being": "Forgotten Seer"},
+        "2": {"bodypart": "Skull", "being": "Glorious Knight"},
+        "3": {"bodypart": "Heart", "being": "Deposed monarch"},
+        "4": {"bodypart": "Ribs", "being": "Pitied monster"},
+        "5": {"bodypart": "Eye", "being": "Hateful bird"},
+        "6": {"bodypart": "Unknown organ", "being": "Ancient reptile"}
+      },
+      "seer": "The Predator Seer - VIG 16, CLA 17, SPI 12, 9GD. An animalistic woman with a powerful body and sleek mane. There is no better guide to hunting, no matter the quarry. Wants to sharpen Knights into the perfect predators of the world, even if they must suffer along the way."
+    },
+    "The Vulture Knight": {
+      "d6": 5,
+      "d12": 11,
+      "quote": "Gutly ribbons, blood's sweet dance\nThe future calls in gory trance",\n"property": "Black axe (d10 long, +d10 vs wounded targets), sinister mail (A1, see below). Spidernip nuts (acts as a pleasing stimulant for insects and arachnids when ground to a powder, restock each new Season). Bright-eyed steed (VIG 12, CLA 9, SPI 5, 2GD)",
+      "ability": "Carrion Casting - Spread the innards of the recently dead across the ground. Ask a single question, they point you in a direction that would help.",
+      "passion": "Thrift - Restore SPI when you make good use of something you found discarded.",
+      "sinister_armour_table": {
+        "1": {"material": "Burned mail", "detail": "Bat wing motif"},
+        "2": {"material": "Blackened bronze", "detail": "Blood red embroidery"},
+        "3": {"material": "Bloody gambeson", "detail": "Shadow is darker"},
+        "4": {"material": "Jagged iron strips", "detail": "Tattered cloak"},
+        "5": {"material": "Spiked leather", "detail": "Embedded bones"},
+        "6": {"material": "Barbed scales", "detail": "Tiny skulls everywhere"}
+      },
+      "seer": "The Hymn Seer - VIG 7, CLA 10, SPI 13, 5GD. Little more than a skeleton draped in white robes, moving suddenly and stopping completely still. Guides visitors in dreary, discordant song, loose guidance hidden in the words. Wants to bring Myths to a rapid end so that the whole world can be drawn to a sorrowful close."
+    },
+    "The Free Knight": {
+      "d6": 5,
+      "d12": 12,
+      "quote": "No soul, no mind, should live acaged or chained\nYet freedom won is never quietly gained",\n"property": "Hooked flail (d8 hefty), hexshield (d4, A1, see below). Tempest chest (when empty, it can draw a storm within, restoring calm weather. If opened when full the storm is released). Grassy steed (VIG 11, CLA 8, SPI 5, 2GD, blends into long grass when sitting)",
+      "ability": "Bond Breaker - Strike a chain or lock with a metal weapon. Both shatter loudly.",
+      "passion": "Liberty - Restore SPI when you release somebody from an unwanted bond.",
+      "hexshield_table": {
+        "1": {"ineffective_vs": "Axes", "special": "Can be thrown (d6)"},
+        "2": {"ineffective_vs": "Arrows", "special": "Allows you to fall safely from any height"},
+        "3": {"ineffective_vs": "Birds", "special": "Pattern pains Seers"},
+        "4": {"ineffective_vs": "Spears and polearms", "special": "Always floats"},
+        "5": {"ineffective_vs": "Swords", "special": "Blocks all sound"},
+        "6": {"ineffective_vs": "Blunt arms", "special": "Bladed (d6 in melee)"}
+      },
+      "random_elements": {
+        "person": "Muddy astrologer",
+        "name": "Clemens", 
+        "characteristic": "Red tattoos",
+        "object": "Beggar shroud",
+        "beast": "Singing bull",
+        "state": "Dashing",
+        "theme": "Frost"
+      },
+      "seer": "The Roaming Seer - VIG 10, CLA 14, SPI 6, 4GD. A tall cloaked figure, leaving a trail of sand in his footsteps. Will not offer any guidance to visitors, but offers to accompany any Knights he deems worthy. He is demanding, slow, and cryptic, but offers clear guidance when it matters most. Wants to see everything for himself."
+    },
+    "The Silk Knight": {
+      "d6": 6,
+      "d12": 1,
+      "quote": "Judge not a knight on might and favour\nWhere silk endures, a heart can waver",\n"property": "Delicate halberd (d10 long), woven coat armour (A1, no protection against fire). Intricate brass puzzle (compelling but impossible). Young steed (VIG 9, CLA 8, SPI 6, 1GD, see below)",
+      "ability": "Adamant Gossamer - You can draw thin strands of silky string of any length from your mouth. They are utterly unbreakable, but burn to ash in an instant.",
+      "passion": "Mercy - Restore SPI when you accept a surrender or plea for forgiveness.",
+      "young_steed_table": {
+        "distracted_by": {
+          "1": "Smaller animals",
+          "2": "Moss", 
+          "3": "Water",
+          "4": "Salt",
+          "5": "Fruit",
+          "6": "Shiny things"
+        },
+        "scared_by": {
+          "1": "Other steeds",
+          "2": "Fire",
+          "3": "Darkness", 
+          "4": "Children",
+          "5": "Music",
+          "6": "Being alone"
+        }
+      },
+      "random_elements": {
+        "person": "Scabby merchant",
+        "name": "Floria",
+        "characteristic": "Destructive klutz", 
+        "object": "Petty candle",
+        "beast": "Ghost carp",
+        "state": "Enfeebled",
+        "theme": "Armour"
+      },
+      "seer": "The Crimson Seer - VIG 11, CLA 14, SPI 16, 4GD. Elegantly dressed woman, her heart visible, pulsing through her chest. Gets glimpses of beings' desires and fates by tasting their blood. Wants to make the world interesting and dramatic, anything but boring."
+    },
+    "The Tiger Knight": {
+      "d6": 6,
+      "d12": 2,
+      "quote": "You see in beasts an anarchy unfold\nIn truth, a structure strict as crowns of old",\n"property": "Fang blades (d6, or d8 each when wielded as a pair), knotted coat (A1). 3 phoenix feathers (erupts in flame when they touch the ground, d8 blast, restock each new Season). Tattooed steed (VIG 12, CLA 9, SPI 5, 5GD, see below)",
+      "ability": "Bestial Renown - Each time you defeat an animal in a contest befitting its strengths, all animals of that type will react favourably to you.",
+      "passion": "Closure - Restore SPI when you get an answer that you've been seeking for some time.",
+      "tattooed_steed_table": {
+        "1": {"design": "Abstract shapes", "why": "For service in battle"},
+        "2": {"design": "Ancient runes", "why": "It happened before you bought them"},
+        "3": {"design": "Letters you do not understand", "why": "They were born that way"},
+        "4": {"design": "Skulls and bones", "why": "It happened overnight"},
+        "5": {"design": "Thunderbolts", "why": "They appeared slowly"},
+        "6": {"design": "Thorns and flowers", "why": "A Seer demanded it"}
+      },
+      "random_elements": {
+        "person": "Animal worshipper",
+        "name": "Hygo",
+        "characteristic": "Attempts mystique",
+        "object": "Web net",
+        "beast": "Listening asp",
+        "state": "Eating",
+        "theme": "Grass"
+      },
+      "seer": "The Dying Seer - VIG 3, CLA 12, SPI 3, 1GD. A ghostly projection bound to a rotting corpse, trapped in the moment of death. Knows the precise details of every death still to come, but is forbidden from sharing them. Can still gently advise. Wants every other being to die so that he can finally rest."
+    },
+    "The Leaf Knight": {
+      "d6": 6,
+      "d12": 3,
+      "quote": "No greater gift than bough and bush\nAll feast in verdy bountilush",\n"property": "Hooked club (d8 hefty), verdant leather (A1 while within foliage), useful stick (see below). Murmur box (creates the illusion of indistinct conversation when open). Patchy steed (VIG 12, CLA 5, SPI 5, 3GD)",
+      "ability": "Nature's Vault - You can wield branches as javelins (d6) or greatspears (d10 long) and eat leaves as a satisfying meal.",
+      "passion": "Gourmet - Restore SPI when you eat a new type of fruit or vegetable.",
+      "useful_stick_table": {
+        "1": {"use": "Instantly cools any liquid it touches", "but": "It's long and inconvenient to carry"},
+        "2": {"use": "Insects hate the smell", "but": "Dogs always want it"},
+        "3": {"use": "It transforms into 20ft of rope when shaken", "but": "It looks just like every other stick"},
+        "4": {"use": "Terrifies snakes, eels, and worms", "but": "It's very delicate"},
+        "5": {"use": "One end is extremely sticky", "but": "It's extremely flammable"},
+        "6": {"use": "Seers believe it is a blessing upon you", "but": "It only works in bright sunlight"}
+      },
+      "random_elements": {
+        "person": "Athletic warden",
+        "name": "Andona",
+        "characteristic": "Huge backpack",
+        "object": "Scaled daisy",
+        "beast": "Massive badger",
+        "state": "Thinking",
+        "theme": "Sunrise"
+      },
+      "seer": "The Born Seer - VIG 6, CLA 6, SPI 8, 1GD. An infant, large eyes, boundless energy, destined to be the most powerful Seer. Sees the future in childlike simplicity and gives clumsy guidance, refusing to elaborate or explain themselves. Wants to go somewhere new."
+    },
+    "The Glass Knight": {
+      "d6": 6,
+      "d12": 4,
+      "quote": "Revealer of all secrets, in stark, judgemental light\nIn cold and sharpened heart lies no deceitful spite",\n"property": "Two-pronged pike (d10 long), painted mail (A1, see below). Witching needle (a six-inch spike, can be stuck into any material, and cannot be removed by anybody but you or a Seer). Chestnut steed (VIG 11, CLA 8, SPI 6, 3GD, hated by spiders and hates them back)",
+      "ability": "Touch of Glass - You can see through any surface that you place your hand upon.",
+      "passion": "Curiosity - Restore SPI when looking somewhere you really shouldn't.",
+      "painted_armour_table": {
+        "1": {"main_hue": "Indigo", "decoration": "Faces"},
+        "2": {"main_hue": "Crimson", "decoration": "Vines"},
+        "3": {"main_hue": "Forest green", "decoration": "Stars"},
+        "4": {"main_hue": "Teal", "decoration": "Wolves"},
+        "5": {"main_hue": "Gold", "decoration": "Fire"},
+        "6": {"main_hue": "Rose", "decoration": "The City"}
+      },
+      "random_elements": {
+        "person": "Smart inquisitor",
+        "name": "Kirus",
+        "characteristic": "Beautifully statuesque",
+        "object": "City rune",
+        "beast": "Clever tortoise",
+        "state": "Travelling",
+        "theme": "Hair"
+      },
+      "seer": "The Blossom Seer - VIG 9, CLA 18, SPI 16, 2GD. Woman with an uncertain number of limbs draped in white silk. Petals of pale skin occasionally fall to the ground. Sees the present in intense detail. Knows she is only here for a matter of days, and wants to do as much good as possible in that time. Returns next year."
+    },
+    "The Hive Knight": {
+      "d6": 6,
+      "d12": 5,
+      "quote": "A bed of gluous, parchly cloth, a coat of stickly sleen\nEmerged in morning good as new, chirurgery unseen",\n"property": "Rootbow (d6 long), countless daggers (d6). Tidal resin (when burned, all nearby water becomes still and solid for a while, restock each new Season). Hooded steed (VIG 11, CLA 10, SPI 5, 3GD)",
+      "ability": "Chrysalent Rebirth - At night you may immerse yourself in a cocoon through means you do not fully understand. After a full day you emerge, your VIG restored, and any physical harm cured. This cannot cure death unless the process requires it.",
+      "passion": "Community - Restore SPI when you leave a community better off than when you arrived.",
+      "forming_cocoon_table": {
+        "you_must_be": {
+          "1": "Fed beyond full",
+          "2": "Thoroughly cleaned", 
+          "3": "Sung to sleep",
+          "4": "Set alight",
+          "5": "Buried in soil",
+          "6": "Beheaded"
+        },
+        "you_require": {
+          "1": "Complete darkness",
+          "2": "Submersion in water",
+          "3": "Milk and honey",
+          "4": "Choking smoke", 
+          "5": "A blanket of leaves",
+          "6": "Burning embers"
+        }
+      },
+      "random_elements": {
+        "person": "Deceitful healer",
+        "name": "Kapo",
+        "characteristic": "Loves gossip",
+        "object": "History pack",
+        "beast": "Wood centipede",
+        "state": "Bellowing",
+        "theme": "Stories"
+      },
+      "seer": "The Skin Seer - VIG 14, CLA 7, SPI 7, 4GD. Patchwork creation of various Seers who were murdered or executed. Tall, powerful shape, but twisted visage. Sees every thought of betrayal, even the tiniest consideration. Wants to punish those who do not respect the Seers."
+    },
+    "The Ghoul Knight": {
+      "d6": 6,
+      "d12": 6,
+      "quote": "Arise! Arise!\nBut, for what? For whom?",\n"property": "Bearded axe (d10 long), dusty mail (A1). Cleaner salt (renders even the most rotten food safe and delicious, restock each new Season), animal miniature (see below). Faithful steed (VIG 12, CLA 8, SPI 5, 3GD, will never abandon you)",
+      "ability": "Rebuked by Death - Use when you are dead. Return to life. Your body is as you left it, as are your Guard and Virtue scores.",
+      "passion": "Acceptance - Restore SPI when warmly welcomed into somebody's home.",
+      "wooden_animal_table": {
+        "1": {"animal": "Turtle", "type": "Gift from a friend"},
+        "2": {"animal": "Elephant", "type": "You stole it"},
+        "3": {"animal": "Lion cub", "type": "Made yourself"},
+        "4": {"animal": "Seahorse", "type": "From a parent"},
+        "5": {"animal": "Unicorn", "type": "Found in a ruin"},
+        "6": {"animal": "Pigeon", "type": "Found in a river"}
+      },
+      "random_elements": {
+        "person": "Hostile scholar",
+        "name": "Verner",
+        "characteristic": "Star obsessed",
+        "object": "Memory cloak",
+        "beast": "Blind boar",
+        "state": "Protecting",
+        "theme": "Repair"
+      },
+      "seer": "The Paired Seer - VIG 9, CLA 9, SPI 9, 2GD. An unremarkable peasant woman, busying herself with chores and errands. Her twin exists in the future of the City, and they share a mind and memory. Wants to be reunited with her twin."
+    },
+    "The Weaver Knight": {
+      "d6": 6,
+      "d12": 7,
+      "quote": "This and that, might just be that and this\nAs now is morrow, perfectly amiss",\n"property": "Two-headed axe (d8 hefty), bronze buckler (d4, A1), thrown weapon (d6, see below). Hushcloth (items fully wrapped in this cloth create no noise). Orchard steed (VIG 12, CLA 9, SPI 5, 1GD, can sniff out fruit)",
+      "ability": "Warp & Weft - Swap the positions of an object you are holding and another object you can see. They must be of a similar size and shape, such as two swords.",
+      "passion": "Detachment - Restore SPI when you discard something that you want.",
+      "unusual_thrown_weapon_table": {
+        "1": {"design": "Club", "ability": "+d6 in a duel"},
+        "2": {"design": "Disc", "ability": "+d6 vs steeds"},
+        "3": {"design": "Spike", "ability": "+d6 vs fleeing targets"},
+        "4": {"design": "Bola", "ability": "+d6 vs mounted targets"},
+        "5": {"design": "Fork", "ability": "+d6 vs flying targets"},
+        "6": {"design": "Ball", "ability": "+d6 vs targets without a shield"}
+      },
+      "random_elements": {
+        "person": "Thrifty herald",
+        "name": "Pryer",
+        "characteristic": "Animal lover",
+        "object": "Seer arrow",
+        "beast": "Watcher python",
+        "state": "Coveting",
+        "theme": "Hearing"
+      },
+      "seer": "The Armoured Seer - VIG 15, CLA 7, SPI 9, 5GD, A3 (metal body). A great blocky mass of chains and iron plates, just about humanoid in shape. They were interred in their armour after a mortal wound, now seeing through the eyes of every piece of armour and every weapon in the Realm. Wants to restore their body to its previous health."
+    },
+    "The Thunder Knight": {
+      "d6": 6,
+      "d12": 8,
+      "quote": "Thunder!\nShould be felt, not heard, else call it a whimper!",\n"property": "Forked spear (d8 hefty), oakshield (d4, A1). Caged bug (VIG 2, CLA 6, SPI 3, 5GD, see below). Overfed steed (VIG 12, CLA 6, SPI 5, 2GD, d6 trample)",
+      "ability": "Voice of the Skies - While outdoors, you can shout loud enough to be heard clearly throughout the whole Hex and all adjacent Hexes.",
+      "passion": "Discord - Restore SPI when you disrupt a place of order.",
+      "caged_bug_table": {
+        "1": {"ability": "Jolting bite (d6)", "manner": "Completely wild"},
+        "2": {"ability": "Can slowly eat through metal", "manner": "Well-trained"},
+        "3": {"ability": "Melodious chirp", "manner": "Particularly stupid"},
+        "4": {"ability": "Can fetch items up to the weight of a coin", "manner": "Eager to please"},
+        "5": {"ability": "Always goes toward food", "manner": "Hates you"},
+        "6": {"ability": "Agonising but harmless bite", "manner": "A bright and noble creature"}
+      },
+      "random_elements": {
+        "person": "Friendly mercenary",
+        "name": "Aluna",
+        "characteristic": "Piglike face",
+        "object": "Wolf knife",
+        "beast": "Talking hyena",
+        "state": "Tasting",
+        "theme": "Thirst"
+      },
+      "seer": "The Dice Seer - 3GD, A3. Treat as a Structure. A great crystalline form, twitching and rotating of its own force, its voice a grinding chant. Sees glimmers of every possible future all at once. Encourages the action with the most risk and the greatest potential reward."
+    },
+    "The Dust Knight": {
+      "d6": 6,
+      "d12": 9,
+      "quote": "Lust and loathing, ire and desire\nIn truth as one, a frosted fire",\n"property": "Old hammer (d8), inscribed shield (d4, A1). Beckoning net (fish wilfully swim into this fishing net), preserved fish (see below, restock each new Season). Spotted steed (VIG 12, CLA 9, SPI 5, 3GD, hated by other horses)",
+      "ability": "Aqueous Repulsion - You can forcefully repel liquids with an outstretched hand, enough to hold a river at bay for a while.",
+      "passion": "Entitlement - Restore SPI when you get something that you were denied.",
+      "preserved_fish_table": {
+        "1": {"flavour": "Salty", "side_effect": "Numbs taste and smell"},
+        "2": {"flavour": "Picante", "side_effect": "Very filling"},
+        "3": {"flavour": "Sour", "side_effect": "Addictive"},
+        "4": {"flavour": "Challenging", "side_effect": "VIG Save or vomit"},
+        "5": {"flavour": "Soapy", "side_effect": "CLA Save or go blind for a moment"},
+        "6": {"flavour": "Smoky", "side_effect": "SPI Save or weep with intense sorrow"}
+      },
+      "random_elements": {
+        "person": "Armoured miner",
+        "name": "Branc",
+        "characteristic": "Hypochondriac",
+        "object": "Ivory mask",
+        "beast": "Moss ostrich",
+        "state": "Rescuing",
+        "theme": "Craft"
+      },
+      "seer": "The Purged Seer - Does not exist. A dark, cold void where once a Seer was. Stepping into the void shows futures that cannot exist based on the present state of the Realm. The void has no agenda, but mostly shows visions helpful to Knights."
+    },
+    "The Fanged Knight": {
+      "d6": 6,
+      "d12": 10,
+      "quote": "You see now why I cannot wear a smile\nNow bare your skin and share your heart awhile",\n"property": "Forked blade (d8 hefty), chain mail (A1), shell plates (A1). Ancient scroll (has references to places in this Realm, but outdated, see below). Noble steed (VIG 12, CLA 5, SPI 7, 4GD)",
+      "ability": "Sink Teeth - You can bite (d6) someone, choosing one of the following effects before the bite, occurring only if you Wound them: Regain VIG equal to the VIG that they lose; Lower them into normal sleep; Show them one of your memories",
+      "passion": "Melancholy - Restore SPI when you dampen the mood.",
+      "ancient_scroll_references_table": {
+        "1": {"place": "A tower", "ancestor_to": "The ruler"},
+        "2": {"place": "A body of water", "ancestor_to": "A Knight"},
+        "3": {"place": "A peak", "ancestor_to": "A Seer"},
+        "4": {"place": "A village", "ancestor_to": "All people"},
+        "5": {"place": "A river", "ancestor_to": "You"},
+        "6": {"place": "A cave", "ancestor_to": "A Company member"}
+      },
+      "random_elements": {
+        "person": "Frail herbalist",
+        "name": "Samzun",
+        "characteristic": "Fast talker",
+        "object": "Firebreath flask",
+        "beast": "Sword rhinoceros",
+        "state": "Lounging",
+        "theme": "Skin"
+      },
+      "seer": "The Damned Seer - VIG 7, CLA 15, SPI 4, 1GD. A screaming, burning figure tied to a post. Forces seem to try to drag him in every direction, but he holds firm. Knows everything, but hesitant to give advice unless he knows the recipient can be trusted to follow his instructions. Wants to redeem himself by ensuring the future occurs as the stars demand."
+    },
+    "The Pearl Knight": {
+      "d6": 6,
+      "d12": 11,
+      "quote": "Why lurk shellbound in the depths, awashed in solitude?\nAll best secrets walk above, all dark and low and lewd",\n"property": "Seablade (2d8 long, see below), glossy mail (A1), demi-plate (A1). Salincense (smoke from this candle causes plants to wither and die in seconds). Rose steed (VIG 12, CLA 9, SPI 5, 3GD)",
+      "ability": "Gift from the Deep - Produce one pearl each morning, unless you haven't given or traded your previous pearl. You can see through the eyes of anybody that is carrying one of your pearls.",
+      "passion": "Gossip - Restore SPI when you share or receive gossip.",
+      "seablade_table": {
+        "1": {"how_do_you_know": "Aquatic nightmares", "punishment": "Sea creatures get +d6 against you"},
+        "2": {"how_do_you_know": "A fish told you", "punishment": "You cannot swim in saltwater"},
+        "3": {"how_do_you_know": "It's cold to the touch", "punishment": "River water tastes salty to you"},
+        "4": {"how_do_you_know": "Sudden fear of water", "punishment": "Sailors distrust you"},
+        "5": {"how_do_you_know": "Storms call to you", "punishment": "Salt tastes foul to you"},
+        "6": {"how_do_you_know": "The waves rebuke you", "punishment": "Fish is poison to you"}
+      },
+      "random_elements": {
+        "person": "Loyal sculptor",
+        "name": "Tahnet",
+        "characteristic": "Graceful hands",
+        "object": "Oceanic whetstone",
+        "beast": "Herbalist dog",
+        "state": "Cooking",
+        "theme": "Harvest"
+      },
+      "seer": "The Pain Seer - VIG 7, CLA 13, SPI 5, 1GD. Awkwardly hunched woman, her very image appearing shattered like glass. Absorbs sorrow and aches, like nectar to a bird. Exchanges them for guidance doomed to cause only more sorrow. Wants to feed enough to finally be satisfied, then she can begin offering truly useful guidance."
+    },
+    "The Rat Knight": {
+      "d6": 6,
+      "d12": 12,
+      "quote": "In squeakling hole I squashed and curled\nAmidst my kin, a kinder world",\n"property": "Pole sickle (d10 long), 3 darts (d6), modified gambeson (A1, see below). Listening horn (when placed against a wall, hear everything from the other side in perfect clarity). Matted steed (VIG 12, CLA 8, SPI 5, 3GD)",
+      "ability": "Verminform - Take the form of a rat to squeeze into any space that a rat could fit into. You return to your normal form as soon as you are in a space that allows it. You can also speak with rats, who are generally helpful.",
+      "passion": "Trust - Restore SPI when giving the benefit of the doubt in a way that leaves you vulnerable.",
+      "modified_armour_table": {
+        "1": {"type": "Leather", "modified_for": "Fast donning/removal"},
+        "2": {"type": "Velvet", "modified_for": "Fire immunity"},
+        "3": {"type": "Fur", "modified_for": "Ease of swimming"},
+        "4": {"type": "Scales", "modified_for": "Total fall protection"},
+        "5": {"type": "Hair", "modified_for": "Concealing robes"},
+        "6": {"type": "Straw", "modified_for": "Repellent to rats"}
+      },
+      "random_elements": {
+        "person": "Antisocial haberdasher",
+        "name": "Abran",
+        "characteristic": "Prosthetic legs",
+        "object": "Fear egg",
+        "beast": "Lesser mule",
+        "state": "Basking",
+        "theme": "Carving"
+      },
+      "seer": "The Rising Seer - VIG 14, CLA 17, SPI 17, 4GD. Embers of starlight in the form of a man, streaks of light soaring upward. Touch grants glimpses of foresight for the rest of the day. Wants to find somebody virtuous enough to take their place, after which they can ascend fully to the stars."
+    }
+  }
+}

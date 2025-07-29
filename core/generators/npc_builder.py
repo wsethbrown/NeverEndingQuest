@@ -93,11 +93,11 @@ def save_json(file_name, data):
         return False
 
 def generate_npc(npc_name, schema, npc_race=None, npc_class=None, npc_level=None, npc_background=None):
-    system_prompt_text = load_prompt("prompts/generators/npc_builder_prompt.txt") # Renamed variable
+    system_prompt_text = load_prompt("prompts/generators/mythic_npc_builder_prompt.txt") # Renamed variable
     if not system_prompt_text:
         return None
 
-    system_message = f"""You are an assistant that creates NPC schema JSON files from a master NPC schema template for a 5e game. Given an NPC name and optional details, create a JSON representation of the NPC's stats and abilities according to 5e rules following the NPC schema template exactly. Ensure your new NPC JSON adheres to the provided schema template. Do not include any additional properties or nested 'type' and 'value' fields. Return only the JSON content without any markdown formatting.
+    system_message = f"""You are an assistant that creates NPC schema JSON files from a master NPC schema template for Mythic Bastionland. Given an NPC name and optional details, create a JSON representation of the NPC's stats and abilities according to Mythic Bastionland rules following the NPC schema template exactly. Ensure your new NPC JSON adheres to the provided schema template. Do not include any additional properties or nested 'type' and 'value' fields. Return only the JSON content without any markdown formatting.
 
 If the input name contains a status descriptor (like 'corrupted', 'wounded', 'elite'), ensure the `name` field in the output JSON contains only the character's base name. For example, an input of 'Corrupted Ranger Thane' should result in a `name` field of 'Ranger Thane'.
 
@@ -105,14 +105,14 @@ Use the following rules information when creating the NPC:
 
 {system_prompt_text}
 
-Adhere strictly to 5e rules and the provided schema."""
+Adhere strictly to Mythic Bastionland rules and the provided schema."""
 
-    # Create smarter level guidance
-    level_guidance = npc_level if npc_level else "1-3 (appropriate for early adventuring parties)"
+    # Create smarter Glory/Rank guidance for Mythic Bastionland
+    glory_guidance = npc_level if npc_level else "0-2 Glory (Knight-Errant to Knight-Gallant)"
     
     prompt_messages = [ # Renamed variable
         {"role": "system", "content": system_message},
-        {"role": "user", "content": f"Create an NPC named '{npc_name}' using 5e rules. Race: {npc_race or 'Any appropriate race'}, Class: {npc_class or 'Any appropriate class'}, Level: {level_guidance}, Background: {npc_background or 'Any appropriate background'}. Schema: {json.dumps(schema)}"}
+        {"role": "user", "content": f"Create an NPC named '{npc_name}' using Mythic Bastionland rules. Knight Type: {npc_class or 'Any appropriate Knight archetype'}, Glory/Rank: {glory_guidance}, Background: {npc_background or 'Any appropriate background'}. Schema: {json.dumps(schema)}"}
     ]
 
     try:
@@ -190,7 +190,7 @@ def main():
 
     debug(f"INPUT_PROCESSING: Received arguments - Name: {npc_name_arg}, Race: {npc_race_arg}, Class: {npc_class_arg}, Level: {npc_level_arg}, Background: {npc_background_arg}", category="npc_creation")
 
-    npc_schema_data = load_schema("schemas/char_schema.json") # Use unified character schema
+    npc_schema_data = load_schema("schemas/char_schema_mythic.json") # Use Mythic Bastionland character schema
     if not npc_schema_data:
         sys.exit(1)
 

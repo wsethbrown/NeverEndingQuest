@@ -92,6 +92,7 @@ ACTION_SAVE_GAME = "saveGame"
 ACTION_RESTORE_GAME = "restoreGame"
 ACTION_LIST_SAVES = "listSaves"
 ACTION_DELETE_SAVE = "deleteSave"
+ACTION_WARFARE_COMBAT = "warfareCombat"
 
 # Module conversation segmentation has been moved to conversation_utils.py
 # to work with the regular conversation update cycle
@@ -587,7 +588,7 @@ def process_action(action, party_tracker_data, location_data, conversation_histo
                     # Add clear historical marker to prevent Combat Commitment Point confusion
                     modified_combat_summary = {
                         "role": "user",
-                        "content": "[COMBAT CONCLUDED - HISTORICAL RECORD]\n" + combat_summary["content"] + "\n[END OF COMBAT RECORD - Please continue the narrative after this combat]\n\nIMPORTANT: All XP, treasure, currency, items, and other rewards mentioned above have already been distributed by the combat system. Do NOT award them again."
+                        "content": "[COMBAT CONCLUDED - HISTORICAL RECORD]\n" + combat_summary["content"] + "\n[END OF COMBAT RECORD - Please continue the narrative after this combat]\n\nIMPORTANT: All Glory, treasure, trade goods, items, and other rewards mentioned above have already been distributed by the combat system. Do NOT award them again."
                     }
                     conversation_history.append(modified_combat_summary)
                     # Import save_conversation_history from main
@@ -1396,6 +1397,97 @@ Please use a valid location that exists in the current area ({current_area_id}) 
             import traceback
             traceback.print_exc()
 
+    elif action_type == ACTION_WARFARE_COMBAT:
+        debug("STATE_CHANGE: Processing warfare combat action", category="warfare")
+        try:
+            from utils.warfare_system import WarfareManager, Warband, WarbandType
+            
+            # Extract parameters
+            scenario_type = parameters.get("scenarioType", "battle")  # battle, siege, naval
+            involved_warbands = parameters.get("warbands", [])
+            structures = parameters.get("structures", [])
+            knight_leadership = parameters.get("knightLeadership", {})
+            
+            # Create warfare manager
+            warfare_manager = WarfareManager()
+            
+            # Add warbands to the battle
+            for warband_info in involved_warbands:
+                warband_type = warband_info.get("type", "militia")
+                warband_name = warband_info.get("name", f"{warband_type.title()} Unit")
+                allegiance = warband_info.get("allegiance", "neutral")
+                
+                try:
+                    warband_type_enum = WarbandType(warband_type.lower())
+                    warband = warfare_manager.add_warband(warband_type_enum, warband_name, allegiance)
+                    
+                    # Apply any custom stats or conditions
+                    if "damage" in warband_info:
+                        warband.take_damage(warband_info["damage"])
+                    if "spirit_loss" in warband_info:
+                        warband.current_spirit -= warband_info["spirit_loss"]
+                        warband.check_morale()
+                        
+                except ValueError:
+                    warning(f"Unknown warband type: {warband_type}, defaulting to militia", category="warfare")
+                    warband = warfare_manager.add_warband(WarbandType.MILITIA, warband_name, allegiance)
+            
+            # Add structures if this is a siege
+            for structure_info in structures:
+                from utils.warfare_system import Structure, StructureType
+                try:
+                    structure_type = structure_info.get("type", "gate")
+                    structure_name = structure_info.get("name", f"{structure_type.title()}")
+                    structure_type_enum = StructureType(structure_type.lower())
+                    
+                    structure = warfare_manager.add_structure(structure_type_enum, structure_name)
+                    
+                    # Apply damage if structure is already damaged
+                    if "damage" in structure_info:
+                        structure.take_damage(structure_info["damage"])
+                        
+                except ValueError:
+                    warning(f"Unknown structure type: {structure_type}", category="warfare")
+            
+            # Handle Knight leadership if applicable
+            leadership_results = {}
+            for knight_name, leadership_info in knight_leadership.items():
+                warband_led = leadership_info.get("warband")
+                leading_from_front = leadership_info.get("leadingFromFront", False)
+                
+                leadership_results[knight_name] = {
+                    "warband": warband_led,
+                    "leading_from_front": leading_from_front,
+                    "command_bonus": "Knights provide tactical advantages and morale bonuses"
+                }
+            
+            # Generate battle report
+            battle_report = warfare_manager.generate_battle_report()
+            battle_ended, result = warfare_manager.check_battle_end()
+            
+            # Prepare response
+            response = {
+                "success": True,
+                "scenario_type": scenario_type,
+                "battle_report": battle_report,
+                "battle_ended": battle_ended,
+                "result": result,
+                "knight_leadership": leadership_results,
+                "glory_potential": "Knights leading successful warfare operations may gain 1-5 Glory"
+            }
+            
+            print(f"DEBUG: [Action Handler] Warfare combat processed: {scenario_type}")
+            return response
+            
+        except Exception as e:
+            error_message = f"Error processing warfare combat: {str(e)}"
+            error(error_message, category="warfare")
+            return {
+                "success": False,
+                "error": error_message,
+                "fallback": "Use individual combat rules if warfare system fails"
+            }
+    
     else:
         print(f"WARNING: Unknown action type: {action_type}")
     

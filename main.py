@@ -1726,7 +1726,7 @@ def main_game_loop():
 
     # Check if first-time setup is needed
     try:
-        from utils.startup_wizard import startup_required, run_startup_sequence
+        from utils.mythic_startup_wizard import startup_required, run_startup_sequence
         
         if startup_required():
             print("[D20] Welcome to your 5th Edition Adventure! [D20]")
@@ -1814,7 +1814,7 @@ def main_game_loop():
 
     validation_prompt_text = load_validation_prompt() 
 
-    with open("prompts/system_prompt.txt", "r", encoding="utf-8") as file:
+    with open("prompts/mythic_system_prompt.txt", "r", encoding="utf-8") as file:
         main_system_prompt_text = file.read() 
 
     conversation_history = load_json_file(json_file) or []
@@ -2039,29 +2039,14 @@ def main_game_loop():
                 else:
                     member_data_for_note = load_json_file(path_manager.get_character_path(stats_item['name']))
                 if member_data_for_note:
-                    abilities = member_data_for_note.get("abilities", {})
-                    ability_str = f"STR:{abilities.get('strength', 'N/A')} DEX:{abilities.get('dexterity', 'N/A')} CON:{abilities.get('constitution', 'N/A')} INT:{abilities.get('intelligence', 'N/A')} WIS:{abilities.get('wisdom', 'N/A')} CHA:{abilities.get('charisma', 'N/A')}"
-                    next_level_xp_note = member_data_for_note.get("exp_required_for_next_level", "N/A")
+                    virtues = member_data_for_note.get("virtues", {})
+                    virtue_str = f"VIG:{virtues.get('vigour', 'N/A')} CLA:{virtues.get('clarity', 'N/A')} SPI:{virtues.get('spirit', 'N/A')}"
+                    glory = member_data_for_note.get("glory", 0)
+                    rank = member_data_for_note.get("rank", "Knight-Errant")
+                    guard = member_data_for_note.get("guard", "N/A")
                     display_name = stats_item.get('display_name', stats_item['name'].capitalize())
                     
-                    # Extract spell slot information if character has spellcasting
-                    spell_slots_str = ""
-                    spellcasting = member_data_for_note.get("spellcasting", {})
-                    if spellcasting and "spellSlots" in spellcasting:
-                        spell_slots = spellcasting["spellSlots"]
-                        slot_parts = []
-                        for level in range(1, 10):  # Spell levels 1-9
-                            level_key = f"level{level}"
-                            if level_key in spell_slots:
-                                slot_data = spell_slots[level_key]
-                                current = slot_data.get("current", 0)
-                                maximum = slot_data.get("max", 0)
-                                if maximum > 0:  # Only show levels with available slots
-                                    slot_parts.append(f"L{level}:{current}/{maximum}")
-                        if slot_parts:
-                            spell_slots_str = f", Spell Slots: {' '.join(slot_parts)}"
-                    
-                    party_stats_formatted.append(f"{display_name}: Level {stats_item['level']}, XP {stats_item['xp']}/{next_level_xp_note}, HP {stats_item['hp']}/{stats_item['max_hp']}, {ability_str}{spell_slots_str}")
+                    party_stats_formatted.append(f"{display_name}: {rank}, Glory {glory}, Guard {guard}, {virtue_str}")
 
             party_stats_str = "; ".join(party_stats_formatted)
             current_location_name_note = world_conditions["currentLocation"]
@@ -2539,7 +2524,7 @@ def main():
             os.makedirs(dir_path, exist_ok=True)
     
     # Always initialize game files from BU templates if needed
-    from utils.startup_wizard import initialize_game_files_from_bu
+    from utils.mythic_startup_wizard import initialize_game_files_from_bu
     initialize_game_files_from_bu()
     
     # Run calendar migration check
@@ -2548,7 +2533,7 @@ def main():
     
     # Check if first-time setup is needed
     try:
-        from utils.startup_wizard import startup_required, run_startup_sequence
+        from utils.mythic_startup_wizard import startup_required, run_startup_sequence
         
         if startup_required():
             print("[D20] Welcome to your 5th Edition Adventure! [D20]")

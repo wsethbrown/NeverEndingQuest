@@ -28,21 +28,21 @@
 # - Real-time context size monitoring and optimization
 # 
 # INFORMATION ARCHITECTURE DESIGN:
-# - SYSTEM MESSAGES: Static character reference data (stats, abilities, spells)
-# - DM NOTES: Dynamic, frequently-changing data (HP, spell slots, status)
+# - SYSTEM MESSAGES: Static character reference data (Virtues, Knight type, abilities)
+# - DM NOTES: Dynamic, frequently-changing data (Guard, Glory, status)
 # - SEPARATION PRINCIPLE: Prevents AI confusion from conflicting data versions
 # - SINGLE SOURCE OF TRUTH: DM Note is authoritative for current character state
 # 
 # DATA SEPARATION STRATEGY:
 # System Messages (Static Reference):
-#   - Ability scores, skills, proficiencies
-#   - Class features, racial traits, equipment lists
-#   - Spellcasting ability/DC/bonus, known spells
-#   - Personality traits, background information
+#   - Knight Virtues (VIG, CLA, SPI base values)
+#   - Knight type, Property, Ability, Passion
+#   - Equipment, trade goods
+#   - Knighted by (Seer information)
 # 
 # DM Notes (Dynamic Current State):
-#   - Current/max hit points
-#   - Current/max spell slots
+#   - Current Guard and Virtue damage
+#   - Current Glory and Rank
 #   - Active conditions and temporary effects
 #   - Real-time combat status
 # 
@@ -271,7 +271,7 @@ def load_json_data(file_path):
 
 def update_conversation_history(conversation_history, party_tracker_data, plot_data, module_data):
     # Read the actual system prompt to get the proper identifier
-    with open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "prompts", "system_prompt.txt"), "r", encoding="utf-8") as file:
+    with open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "prompts", "mythic_system_prompt.txt"), "r", encoding="utf-8") as file:
         main_system_prompt_text = file.read().strip()
     
     # Use the first part of the actual system prompt as identifier
@@ -509,38 +509,22 @@ def update_character_data(conversation_history, party_tracker_data):
                     
                     
                     # Format character data
+                    # Format Mythic Bastionland character data
+                    virtues = member_data.get('virtues', {})
+                    knight_data = member_data.get('knight_data', {})
+                    
                     formatted_data = f"""
-CHAR: {member_data['name']}
-TYPE: {member_data['character_type'].capitalize()} | LVL: {member_data['level']} | RACE: {member_data['race']} | CLASS: {member_data['class']} | ALIGN: {member_data['alignment'][:2].upper()} | BG: {member_data['background']}
-AC: {member_data['armorClass']} | SPD: {member_data['speed']}
-STATUS: {member_data['status']} | CONDITION: {member_data['condition']} | AFFECTED: {', '.join(member_data['condition_affected'])}
-STATS: STR {member_data['abilities']['strength']}, DEX {member_data['abilities']['dexterity']}, CON {member_data['abilities']['constitution']}, INT {member_data['abilities']['intelligence']}, WIS {member_data['abilities']['wisdom']}, CHA {member_data['abilities']['charisma']}
-SAVES: {', '.join(member_data['savingThrows'])}
-SKILLS: {', '.join(f"{skill} +{bonus}" for skill, bonus in member_data['skills'].items())}
-PROF BONUS: +{member_data['proficiencyBonus']}
-SENSES: {', '.join(f"{sense} {value}" for sense, value in member_data['senses'].items())}
-LANGUAGES: {', '.join(member_data['languages'])}
-PROF: {', '.join([f"{cat}: {', '.join(items)}" for cat, items in member_data['proficiencies'].items()])}
-VULN: {', '.join(member_data['damageVulnerabilities'])}
-RES: {', '.join(member_data['damageResistances'])}
-IMM: {', '.join(member_data['damageImmunities'])}
-COND IMM: {', '.join(member_data['conditionImmunities'])}
-CLASS FEAT: {', '.join([f"{feature['name']}" for feature in member_data['classFeatures']])}
-RACIAL: {', '.join([f"{trait['name']}" for trait in member_data['racialTraits']])}
-BG FEAT: {bg_feature_name}
-FEATS: {', '.join([f"{feat['name']}" for feat in member_data.get('feats', [])])}
-TEMP FX: {', '.join([f"{effect['name']}" for effect in member_data.get('temporaryEffects', [])])}
-EQUIP: {equipment_str}
-AMMO: {', '.join([f"{ammo['name']} x{ammo['quantity']}" for ammo in member_data['ammunition']])}
-ATK: {', '.join([f"{atk['name']} ({atk['type']}, {atk['damageDice']} {atk['damageType']})" for atk in member_data['attacksAndSpellcasting']])}
-SPELLCASTING: {member_data.get('spellcasting', {}).get('ability', 'N/A')} | DC: {member_data.get('spellcasting', {}).get('spellSaveDC', 'N/A')} | ATK: +{member_data.get('spellcasting', {}).get('spellAttackBonus', 'N/A')}
-SPELLS: {', '.join([f"{level}: {', '.join(spells)}" for level, spells in member_data.get('spellcasting', {}).get('spells', {}).items() if spells])}
-CURRENCY: {member_data['currency']['gold']}G, {member_data['currency']['silver']}S, {member_data['currency']['copper']}C
-XP: {member_data['experience_points']}/{member_data.get('exp_required_for_next_level', 'N/A')}
-TRAITS: {member_data['personality_traits']}
-IDEALS: {member_data['ideals']}
-BONDS: {member_data['bonds']}
-FLAWS: {member_data['flaws']}
+KNIGHT: {member_data['name']}
+TYPE: {knight_data.get('type', 'Unknown Knight')} | GLORY: {member_data.get('glory', 0)} | RANK: {member_data.get('rank', 'Knight-Errant')}
+VIRTUES: VIG {virtues.get('vigour', 10)} | CLA {virtues.get('clarity', 10)} | SPI {virtues.get('spirit', 10)}
+GUARD: {member_data.get('guard', 1)} | STATUS: {member_data.get('status', 'Active')} | CONDITION: {member_data.get('condition', 'Normal')}
+PROPERTY: {knight_data.get('property', 'None listed')}
+ABILITY: {knight_data.get('ability', 'None listed')}
+PASSION: {knight_data.get('passion', 'None listed')}
+KNIGHTED BY: {knight_data.get('seer', {}).get('name', 'Unknown Seer')}
+EQUIPMENT: {equipment_str}
+TRADE GOODS: {', '.join(member_data.get('trade_goods', ['None']))}
+NOTES: {member_data.get('notes', 'None')}
 """
                     character_message = f"Here's the updated character data for {name}:\n{formatted_data}\n"
                     character_data.append({"role": "system", "content": character_message})
@@ -580,38 +564,22 @@ FLAWS: {member_data['flaws']}
 
 
                     # Format NPC data (using same schema as players)
+                    # Format Mythic Bastionland NPC data
+                    virtues = npc_data.get('virtues', {})
+                    knight_data = npc_data.get('knight_data', {})
+                    
                     formatted_data = f"""
-NPC: {npc_data['name']}
-ROLE: {npc['role']} | TYPE: {npc_data['character_type'].capitalize()} | LVL: {npc_data['level']} | RACE: {npc_data['race']} | CLASS: {npc_data['class']} | ALIGN: {npc_data['alignment'][:2].upper()} | BG: {npc_data['background']}
-AC: {npc_data['armorClass']} | SPD: {npc_data['speed']}
-STATUS: {npc_data['status']} | CONDITION: {npc_data['condition']} | AFFECTED: {', '.join(npc_data['condition_affected'])}
-STATS: STR {npc_data['abilities']['strength']}, DEX {npc_data['abilities']['dexterity']}, CON {npc_data['abilities']['constitution']}, INT {npc_data['abilities']['intelligence']}, WIS {npc_data['abilities']['wisdom']}, CHA {npc_data['abilities']['charisma']}
-SAVES: {', '.join(npc_data['savingThrows'])}
-SKILLS: {', '.join(f"{skill} +{bonus}" for skill, bonus in npc_data['skills'].items())}
-PROF BONUS: +{npc_data['proficiencyBonus']}
-SENSES: {', '.join(f"{sense} {value}" for sense, value in npc_data['senses'].items())}
-LANGUAGES: {', '.join(npc_data['languages'])}
-PROF: {', '.join([f"{cat}: {', '.join(items)}" for cat, items in npc_data['proficiencies'].items()])}
-VULN: {', '.join(npc_data['damageVulnerabilities'])}
-RES: {', '.join(npc_data['damageResistances'])}
-IMM: {', '.join(npc_data['damageImmunities'])}
-COND IMM: {', '.join(npc_data['conditionImmunities'])}
-CLASS FEAT: {', '.join([f"{feature['name']}" for feature in npc_data['classFeatures']])}
-RACIAL: {', '.join([f"{trait['name']}" for trait in npc_data['racialTraits']])}
-BG FEAT: {bg_feature_name}
-FEATS: {', '.join([f"{feat['name']}" for feat in npc_data.get('feats', [])])}
-TEMP FX: {', '.join([f"{effect['name']}" for effect in npc_data.get('temporaryEffects', [])])}
-EQUIP: {equipment_str}
-AMMO: {', '.join([f"{ammo['name']} x{ammo['quantity']}" for ammo in npc_data['ammunition']])}
-ATK: {', '.join([f"{atk['name']} ({atk['type']}, {atk['damageDice']} {atk['damageType']})" for atk in npc_data['attacksAndSpellcasting']])}
-SPELLCASTING: {npc_data.get('spellcasting', {}).get('ability', 'N/A')} | DC: {npc_data.get('spellcasting', {}).get('spellSaveDC', 'N/A')} | ATK: +{npc_data.get('spellcasting', {}).get('spellAttackBonus', 'N/A')}
-SPELLS: {', '.join([f"{level}: {', '.join(spells)}" for level, spells in npc_data.get('spellcasting', {}).get('spells', {}).items() if spells])}
-CURRENCY: {npc_data['currency']['gold']}G, {npc_data['currency']['silver']}S, {npc_data['currency']['copper']}C
-XP: {npc_data['experience_points']}/{npc_data.get('exp_required_for_next_level', 'N/A')}
-TRAITS: {npc_data['personality_traits']}
-IDEALS: {npc_data['ideals']}
-BONDS: {npc_data['bonds']}
-FLAWS: {npc_data['flaws']}
+KNIGHT NPC: {npc_data['name']}
+ROLE: {npc['role']} | TYPE: {knight_data.get('type', 'Unknown Knight')} | GLORY: {npc_data.get('glory', 0)} | RANK: {npc_data.get('rank', 'Knight-Errant')}
+VIRTUES: VIG {virtues.get('vigour', 10)} | CLA {virtues.get('clarity', 10)} | SPI {virtues.get('spirit', 10)}
+GUARD: {npc_data.get('guard', 1)} | STATUS: {npc_data.get('status', 'Active')} | CONDITION: {npc_data.get('condition', 'Normal')}
+PROPERTY: {knight_data.get('property', 'None listed')}
+ABILITY: {knight_data.get('ability', 'None listed')}
+PASSION: {knight_data.get('passion', 'None listed')}
+KNIGHTED BY: {knight_data.get('seer', {}).get('name', 'Unknown Seer')}
+EQUIPMENT: {equipment_str}
+TRADE GOODS: {', '.join(npc_data.get('trade_goods', ['None']))}
+NOTES: {npc_data.get('notes', 'None')}
 """
                     npc_message = f"Here's the NPC data for {npc_data['name']}:\n{formatted_data}\n"
                     character_data.append({"role": "system", "content": npc_message})

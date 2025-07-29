@@ -611,7 +611,7 @@ def validate_combat_response(response, encounter_data, user_input, conversation_
         debug("VALIDATION_CONTEXT: Unable to parse response JSON for context", category="combat_validation")
     
     # Load validation prompt from file
-    validation_prompt = read_prompt_from_file('combat/combat_validation_prompt.txt')
+    validation_prompt = read_prompt_from_file('combat/mythic_combat_validation_prompt.txt')
     
     # Start with validation prompt
     validation_conversation = [
@@ -1381,7 +1381,7 @@ def run_combat_simulation(encounter_id, party_tracker_data, location_info):
    else:
        is_resuming = False
        conversation_history = [
-           {"role": "system", "content": read_prompt_from_file('combat/combat_sim_prompt.txt')},
+           {"role": "system", "content": read_prompt_from_file('combat/mythic_combat_prompt.txt')},
            {"role": "system", "content": f"Current Combat Encounter: {encounter_id}"},
            {"role": "system", "content": ""}, # Player data placeholder
            {"role": "system", "content": ""}, # Monster templates placeholder

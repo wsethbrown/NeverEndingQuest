@@ -682,7 +682,30 @@ If the field expects an object, return just the object.
         # Extract world map data
         world_map = module_data.get("worldMap", [])
         
-        # Generate each area
+        # Generate the main Realm (12x12 hex map)
+        realm_name = module_name
+        coastal_type = self._determine_coastal_type(module_data)
+        
+        info(f"Generating Realm: {realm_name} (coastal: {coastal_type})", category="module_generation")
+        realm_data = realm_gen.generate_realm(realm_name, coastal_type)
+        
+        # Save the main realm data
+        save_json_safely(realm_data, f"{module_dir}/realm_map.json")
+        info(f"Generated Realm with {len(realm_data['holdings'])} Holdings and {len(realm_data['myths'])} Myths", category="module_generation")
+        
+        # Generate detailed Sites for significant locations
+        generated_sites = self._generate_detailed_sites(realm_data, module_dir, context)
+        
+        # Generate Holdings data with potential for conflict
+        generated_holdings = self._generate_holdings_data(realm_data, module_dir, context)
+        
+        # Generate Warfare scenarios for potential conflicts
+        warfare_scenarios = self._generate_warfare_scenarios(realm_data, module_dir, context)
+        
+        # Generate Knights and creatures for the realm
+        self._populate_realm_with_characters(realm_data, module_dir, context)
+        
+        # Legacy world_map processing (will be phased out)
         for index, region in enumerate(world_map):
             area_id = region.get("mapId")
             area_name = region.get("regionName")
@@ -757,11 +780,336 @@ If the field expects an object, return just the object.
         # Save context file
         context.save(f"{module_dir}/module_context.json")
         
-        # Return list of generated areas
-        return generated_areas
+        # Create realm summary with all generated components
+        realm_summary = {
+            "realm_data": realm_data,
+            "generated_sites": generated_sites,
+            "holdings": generated_holdings,
+            "warfare_scenarios": warfare_scenarios,
+            "generation_timestamp": datetime.now().isoformat()
+        }
+        
+        save_json_safely(realm_summary, f"{module_dir}/realm_summary.json")
+        info(f"Generated complete Mythic Bastionland Realm with {len(generated_sites)} detailed Sites", category="module_generation")
+        
+        # Return realm data and generated components
+        return {
+            "realm_data": realm_data,
+            "sites": generated_sites,
+            "holdings": generated_holdings,
+            "warfare": warfare_scenarios
+        }
+    
+    def _determine_coastal_type(self, module_data: Dict[str, Any]) -> Optional[bool]:
+        """Determine if realm should be coastal, landlocked, or island based on module data"""
+        description = module_data.get("moduleDescription", "").lower()
+        
+        if any(word in description for word in ["island", "archipelago", "atoll"]):
+            return "island"
+        elif any(word in description for word in ["coastal", "shore", "harbor", "port", "sea", "ocean"]):
+            return True
+        elif any(word in description for word in ["inland", "landlocked", "mountain", "desert", "forest"]):
+            return False
+        else:
+            return None  # Random
+    
+    def _generate_detailed_sites(self, realm_data: Dict[str, Any], module_dir: str, context) -> List[Dict]:
+        """Generate detailed Sites using the 7-point hex method for significant locations"""
+        info("Generating detailed Sites for significant realm locations", category="module_generation")
+        
+        generated_sites = []
+        site_gen = SiteGenerator()
+        
+        # Generate Sites for each Holding
+        for holding in realm_data.get("holdings", []):
+            holding_name = f"{holding['type'].replace('_', ' ').title()} at ({holding['x']}, {holding['y']})"
+            site_theme = self._get_site_theme_for_holding(holding['type'])
+            
+            site_data = site_gen.generate_site(holding_name, site_theme)
+            site_filename = f"site_{holding['x']}_{holding['y']}_{holding['type']}.json"
+            
+            save_json_safely(site_data, f"{module_dir}/sites/{site_filename}")
+            generated_sites.append({
+                "name": holding_name,
+                "filename": site_filename,
+                "hex_coords": (holding['x'], holding['y']),
+                "type": "holding",
+                "theme": site_theme
+            })
+            
+            debug(f"Generated Site for {holding['type']}: {holding_name}", category="module_generation")
+        
+        # Generate Sites for some Myths (50% chance each)
+        for myth_data in realm_data.get("myths", []):
+            if random.random() < 0.5:  # 50% chance
+                myth_name = myth_data['name']
+                site_name = f"Site of {myth_name}"
+                
+                site_data = site_gen.generate_site(site_name, "generic")
+                site_filename = f"myth_site_{myth_data['x']}_{myth_data['y']}.json"
+                
+                save_json_safely(site_data, f"{module_dir}/sites/{site_filename}")
+                generated_sites.append({
+                    "name": site_name,
+                    "filename": site_filename,
+                    "hex_coords": (myth_data['x'], myth_data['y']),
+                    "type": "myth",
+                    "myth": myth_name
+                })
+                
+                debug(f"Generated Site for Myth: {myth_name}", category="module_generation")
+        
+        info(f"Generated {len(generated_sites)} detailed Sites", category="module_generation")
+        return generated_sites
+    
+    def _get_site_theme_for_holding(self, holding_type: str) -> str:
+        """Get appropriate site theme based on holding type"""
+        theme_map = {
+            "castle": "fortress",
+            "fortress": "fortress", 
+            "tower": "fortress",
+            "seat_of_power": "fortress",
+            "town": "generic"
+        }
+        return theme_map.get(holding_type, "generic")
+    
+    def _generate_holdings_data(self, realm_data: Dict[str, Any], module_dir: str, context) -> List[Dict]:
+        """Generate detailed data for each Holding including potential conflicts"""
+        info("Generating Holdings data with conflict potential", category="module_generation")
+        
+        generated_holdings = []
+        
+        for holding in realm_data.get("holdings", []):
+            holding_data = {
+                "name": f"{holding['type'].replace('_', ' ').title()}",
+                "type": holding['type'],
+                "hex_coords": (holding['x'], holding['y']),
+                "population": self._get_holding_population(holding['type']),
+                "governance": self._get_holding_governance(holding['type']),
+                "notable_knights": self._generate_holding_knights(holding['type']),
+                "trade_goods": self._generate_trade_goods(),
+                "conflicts": self._generate_holding_conflicts(holding['type']),
+                "defenses": self._generate_holding_defenses(holding['type'])
+            }
+            
+            filename = f"holding_{holding['x']}_{holding['y']}.json"
+            save_json_safely(holding_data, f"{module_dir}/holdings/{filename}")
+            
+            generated_holdings.append(holding_data)
+            debug(f"Generated Holding data: {holding_data['name']}", category="module_generation")
+        
+        return generated_holdings
+    
+    def _generate_warfare_scenarios(self, realm_data: Dict[str, Any], module_dir: str, context) -> List[Dict]:
+        """Generate potential Warfare scenarios for the realm"""
+        info("Generating Warfare scenarios for realm conflicts", category="module_generation")
+        
+        scenarios = []
+        
+        # Generate a siege scenario for the Seat of Power
+        seat_of_power = next((h for h in realm_data.get("holdings", []) if h['type'] == 'seat_of_power'), None)
+        if seat_of_power:
+            siege_scenario = create_siege_scenario("castle")
+            siege_data = {
+                "name": f"Siege of {seat_of_power['type'].replace('_', ' ').title()}",
+                "type": "siege",
+                "location": (seat_of_power['x'], seat_of_power['y']),
+                "description": f"A major siege targeting the realm's Seat of Power",
+                "warfare_data": siege_scenario.generate_battle_report(),
+                "trigger_conditions": ["Realm under serious threat", "Major antagonist revealed"],
+                "glory_reward": random.randint(3, 5)
+            }
+            
+            save_json_safely(siege_data, f"{module_dir}/warfare/siege_scenario.json")
+            scenarios.append(siege_data)
+        
+        # Generate field battle scenarios
+        for i in range(random.randint(1, 3)):
+            battle_scenario = WarfareManager()
+            # Add some opposing forces
+            battle_scenario.add_warband("knights", "Defender Knights", "defender")
+            battle_scenario.add_warband("mercenaries", "Attacking Force", "attacker")
+            
+            battle_data = {
+                "name": f"Battle of the Borderlands {i+1}",
+                "type": "field_battle",
+                "description": f"A field battle between opposing forces in the realm",
+                "warfare_data": battle_scenario.generate_battle_report(),
+                "trigger_conditions": ["Faction conflict escalates", "Territory dispute"],
+                "glory_reward": random.randint(1, 3)
+            }
+            
+            save_json_safely(battle_data, f"{module_dir}/warfare/battle_scenario_{i+1}.json")
+            scenarios.append(battle_data)
+        
+        info(f"Generated {len(scenarios)} Warfare scenarios", category="module_generation")
+        return scenarios
+    
+    def _populate_realm_with_characters(self, realm_data: Dict[str, Any], module_dir: str, context):
+        """Generate Knights and creatures to populate the realm"""
+        info("Populating realm with Knights and creatures", category="module_generation")
+        
+        # Generate Knights for Holdings
+        for holding in realm_data.get("holdings", []):
+            num_knights = self._get_knights_per_holding(holding['type'])
+            
+            for i in range(num_knights):
+                knight_data = self._generate_random_knight()
+                knight_data["location"] = f"Holding at ({holding['x']}, {holding['y']})"
+                knight_data["holding_type"] = holding['type']
+                
+                filename = f"knight_{holding['x']}_{holding['y']}_{i+1}.json"
+                save_json_safely(knight_data, f"{module_dir}/knights/{filename}")
+        
+        # Generate creatures for Myths
+        for myth_data in realm_data.get("myths", []):
+            creature_data = self._generate_mythic_creature(myth_data['name'])
+            creature_data["myth"] = myth_data['name']
+            creature_data["location"] = f"Myth site at ({myth_data['x']}, {myth_data['y']})"
+            
+            filename = f"creature_{myth_data['x']}_{myth_data['y']}.json"
+            save_json_safely(creature_data, f"{module_dir}/creatures/{filename}")
+        
+        info("Completed realm character population", category="module_generation")
+    
+    def _get_holding_population(self, holding_type: str) -> str:
+        """Get population description for holding type"""
+        populations = {
+            "castle": "50-200 residents including guards and servants",
+            "town": "500-2000 inhabitants engaged in trade and crafts", 
+            "fortress": "100-300 military personnel and support staff",
+            "tower": "10-50 residents, mostly guards and a castellan",
+            "seat_of_power": "200-500 nobles, guards, and court officials"
+        }
+        return populations.get(holding_type, "Unknown population")
+    
+    def _get_holding_governance(self, holding_type: str) -> Dict:
+        """Get governance structure for holding type"""
+        if holding_type == "seat_of_power":
+            return {"ruler": "Lord/Lady of the Realm", "structure": "Feudal court with advisors"}
+        elif holding_type == "town":
+            return {"ruler": "Mayor or Guild Council", "structure": "Elected or merchant-led"}
+        else:
+            return {"ruler": "Local Knight or Castellan", "structure": "Military hierarchy"}
+    
+    def _generate_holding_knights(self, holding_type: str) -> List[str]:
+        """Generate notable knights for a holding"""
+        num_knights = self._get_knights_per_holding(holding_type)
+        return [f"Knight {i+1}" for i in range(min(3, num_knights))]  # Just names for now
+    
+    def _get_knights_per_holding(self, holding_type: str) -> int:
+        """Get number of knights per holding type"""
+        knight_counts = {
+            "seat_of_power": random.randint(5, 8),
+            "castle": random.randint(3, 5),
+            "fortress": random.randint(2, 4),
+            "tower": random.randint(1, 2),
+            "town": random.randint(1, 3)
+        }
+        return knight_counts.get(holding_type, 1)
+    
+    def _generate_trade_goods(self) -> List[str]:
+        """Generate trade goods for barter system"""
+        common_goods = ["grain", "wool", "iron tools", "pottery", "leather goods"]
+        uncommon_goods = ["spices", "fine cloth", "worked metal", "preserved foods"]
+        rare_goods = ["precious metals", "gemstones", "rare spices", "magical components"]
+        
+        goods = random.sample(common_goods, random.randint(2, 3))
+        if random.random() < 0.7:
+            goods.extend(random.sample(uncommon_goods, random.randint(1, 2)))
+        if random.random() < 0.3:
+            goods.extend(random.sample(rare_goods, 1))
+        
+        return goods
+    
+    def _generate_holding_conflicts(self, holding_type: str) -> List[str]:
+        """Generate potential conflicts for a holding"""
+        conflicts = [
+            "Trade route disputes",
+            "Succession questions", 
+            "Resource scarcity",
+            "Bandit problems",
+            "Neighboring realm tensions"
+        ]
+        return random.sample(conflicts, random.randint(1, 3))
+    
+    def _generate_holding_defenses(self, holding_type: str) -> Dict:
+        """Generate defensive capabilities for a holding"""
+        if holding_type in ["castle", "fortress", "seat_of_power"]:
+            return {
+                "walls": "Stone fortifications",
+                "garrison": f"{random.randint(20, 100)} professional soldiers",
+                "siege_equipment": "Basic defensive engines"
+            }
+        elif holding_type == "tower":
+            return {
+                "walls": "Tower walls and palisade",
+                "garrison": f"{random.randint(10, 30)} guards",
+                "siege_equipment": "None"
+            }
+        else:
+            return {
+                "walls": "Wooden palisade or none",
+                "garrison": f"{random.randint(5, 20)} militia",
+                "siege_equipment": "None"
+            }
+    
+    def _generate_random_knight(self) -> Dict:
+        """Generate a random Knight using the mythic system"""
+        try:
+            # Use mythic_generators to get a random knight
+            knight_types = list(mythic_generators.knights.keys())
+            if knight_types:
+                knight_type = random.choice(knight_types)
+                knight_data = mythic_generators.knights[knight_type].copy()
+                knight_data["generated_name"] = f"Sir/Dame {self._generate_knight_name()}"
+                return knight_data
+        except:
+            pass
+        
+        # Fallback if mythic_generators not available
+        return {
+            "generated_name": f"Sir/Dame {self._generate_knight_name()}",
+            "type": "Generic Knight",
+            "vigour": random.randint(8, 15),
+            "clarity": random.randint(8, 15), 
+            "spirit": random.randint(8, 15),
+            "guard": random.randint(2, 5),
+            "glory": random.randint(0, 3)
+        }
+    
+    def _generate_knight_name(self) -> str:
+        """Generate a random knight name"""
+        first_names = ["Aldric", "Brianna", "Cedric", "Diana", "Edmund", "Fiona", "Gareth", "Helena"]
+        last_names = ["Ironhold", "Stormwind", "Goldleaf", "Shadowmere", "Brightblade", "Thornfield"]
+        return f"{random.choice(first_names)} {random.choice(last_names)}"
+    
+    def _generate_mythic_creature(self, myth_name: str) -> Dict:
+        """Generate a creature associated with a specific myth"""
+        try:
+            # Try to get cast members from the myth
+            myth_data = mythic_generators.myths.get(myth_name, {})
+            cast_members = myth_data.get("cast", [])
+            if cast_members:
+                return {
+                    "name": random.choice(cast_members),
+                    "type": "Mythic Entity",
+                    "description": f"A being associated with the Myth of {myth_name}",
+                    "threat_level": "Varies by omen progression"
+                }
+        except:
+            pass
+        
+        # Fallback creature
+        return {
+            "name": f"Guardian of {myth_name}",
+            "type": "Mythic Entity", 
+            "description": f"A mysterious entity tied to {myth_name}",
+            "threat_level": "Unknown"
+        }
     
     def _determine_area_type(self, description: str) -> str:
-        """Determine area type from description text"""
+        """Determine area type from description text (legacy method)"""
         description = description.lower()
         
         if any(word in description for word in ["dungeon", "cave", "crypt", "tomb", "underground"]):
@@ -821,7 +1169,7 @@ If the field expects an object, return just the object.
     
         
 
-    def generate_unified_plot_file(self, module_data: Dict[str, Any], areas: List[str], module_name: str):
+    def generate_unified_plot_file(self, module_data: Dict[str, Any], realm_components: Dict, module_name: str):
         """Generate unified module plot file"""
         print("DEBUG: [Module Generator] Generating unified module plot file...")
         
@@ -833,19 +1181,31 @@ If the field expects an object, return just the object.
             print("DEBUG: [Module Generator] Warning: No plot stages found in module data")
             return
         
-        # Sort areas by recommended level
-        area_files = {}
-        for area_id in areas:
-            try:
-                with open(f"{module_dir}/{area_id}.json", 'r') as f:
-                    area_files[area_id] = json.load(f)
-            except (IOError, json.JSONDecodeError):
-                print(f"DEBUG: [Module Generator] Warning: Could not load area file {area_id}")
+        # Get holdings and sites from realm data for plot progression
+        realm_data = realm_components.get("realm_data", {})
+        holdings = realm_data.get("holdings", [])
+        sites = realm_components.get("sites", [])
         
-        sorted_areas = sorted([(area_id, area_files[area_id].get("recommendedLevel", 1)) 
-                              for area_id in areas if area_id in area_files],
-                             key=lambda x: x[1])
-        sorted_area_ids = [a[0] for a in sorted_areas]
+        # Sort holdings by importance (Seat of Power first, then others)
+        sorted_holdings = sorted(holdings, key=lambda h: 0 if h['type'] == 'seat_of_power' else 1)
+        
+        # Create location references combining holdings and sites
+        plot_locations = []
+        for holding in sorted_holdings:
+            plot_locations.append({
+                "id": f"holding_{holding['x']}_{holding['y']}",
+                "name": f"{holding['type'].replace('_', ' ').title()}",
+                "type": "holding",
+                "coords": (holding['x'], holding['y'])
+            })
+        
+        for site in sites:
+            plot_locations.append({
+                "id": f"site_{site['hex_coords'][0]}_{site['hex_coords'][1]}",
+                "name": site['name'],
+                "type": "site", 
+                "coords": site['hex_coords']
+            })
         
         # Create unified plot structure
         module_plot = {
@@ -857,16 +1217,19 @@ If the field expects an object, return just the object.
         # Generate plot points
         side_quest_counter = 1
         for i, stage in enumerate(plot_stages):
-            # Assign to appropriate area based on progression
-            target_area_index = min(i, len(sorted_area_ids) - 1)
-            area_id = sorted_area_ids[target_area_index]
+            # Assign to appropriate location based on progression
+            target_location_index = min(i, len(plot_locations) - 1) if plot_locations else 0
+            location = plot_locations[target_location_index] if plot_locations else {"id": "unknown", "name": "Unknown Location"}
             
             # Create plot point
             plot_point = {
                 "id": f"PP{i+1:03d}",
                 "title": stage.get("stageName", f"Plot Point {i+1}"),
                 "description": stage.get("stageDescription", ""),
-                "location": area_id,  # Use area ID, not specific room
+                "location": location["id"],
+                "location_name": location["name"],
+                "location_type": location.get("type", "unknown"),
+                "hex_coords": location.get("coords", (0, 0)),
                 "nextPoints": [f"PP{i+2:03d}"] if i < len(plot_stages) - 1 else [],
                 "status": "not started",
                 "plotImpact": "",
@@ -881,11 +1244,12 @@ If the field expects an object, return just the object.
             for j in range(min(2, max(1, len(key_npcs)))):
                 side_quest = {
                     "id": f"SQ{side_quest_counter:03d}",
-                    "title": f"Side Quest: {key_npcs[j] if j < len(key_npcs) else 'Additional Investigation'}",
+                    "title": f"Side Quest: {key_npcs[j] if j < len(key_npcs) else 'Local Concerns'}",
                     "description": f"A quest involving {key_npcs[j] if j < len(key_npcs) else 'local concerns'} that may provide useful information or resources.",
-                    "involvedLocations": [area_id],
+                    "involvedLocations": [location["id"]],
                     "status": "not started",
-                    "plotImpact": "Completing this quest provides advantages in the main plot."
+                    "plotImpact": "Completing this quest provides Glory and advantages in the main plot.",
+                    "glory_reward": random.randint(1, 2)
                 }
                 plot_point["sideQuests"].append(side_quest)
                 side_quest_counter += 1
@@ -908,11 +1272,11 @@ If the field expects an object, return just the object.
         # Note: *_module.json files are not used in current architecture
         # Module data is now stored in individual component files and world registry
         
-        # Generate all areas
-        areas = self.generate_all_areas(module_data, module_name)
+        # Generate Mythic Bastionland Realm
+        realm_components = self.generate_mythic_realm(module_data, module_name)
         
-        # Generate unified plot file
-        self.generate_unified_plot_file(module_data, areas, module_name)
+        # Generate unified plot file based on realm structure
+        self.generate_unified_plot_file(module_data, realm_components, module_name)
         
         # Create party tracker file
         # party_tracker = {
@@ -967,15 +1331,37 @@ If the field expects an object, return just the object.
         with open(f"{module_dir}/MODULE_SUMMARY.md", "w") as f:
             f.write(f"# {module_name}\n\n")
             f.write(f"{module_data.get('moduleDescription', '')}\n\n")
-            f.write("## Areas\n\n")
-            for area_id in areas:
-                f.write(f"- {area_id}\n")
+            
+            # Realm information
+            realm_data = realm_components.get("realm_data", {})
+            f.write("## Realm Information\n\n")
+            f.write(f"- **Size**: {realm_data.get('size', 12)}x{realm_data.get('size', 12)} hex map\n")
+            f.write(f"- **Type**: {'Coastal' if realm_data.get('coastal') else 'Landlocked'}\n")
+            f.write(f"- **Holdings**: {len(realm_data.get('holdings', []))}\n")
+            f.write(f"- **Myths**: {len(realm_data.get('myths', []))}\n")
+            f.write(f"- **Landmarks**: {len(realm_data.get('landmarks', []))}\n\n")
+            
+            # Holdings
+            f.write("## Holdings\n\n")
+            for holding in realm_data.get("holdings", []):
+                f.write(f"- **{holding['type'].replace('_', ' ').title()}** at hex ({holding['x']}, {holding['y']})\n")
+            
+            # Sites
+            f.write("\n## Detailed Sites\n\n")
+            for site in realm_components.get("sites", []):
+                f.write(f"- **{site['name']}** ({site['type']})\n")
+            
+            # Warfare scenarios
+            f.write("\n## Warfare Scenarios\n\n")
+            for scenario in realm_components.get("warfare", []):
+                f.write(f"- **{scenario['name']}** ({scenario['type']})\n")
+            
             f.write("\n## Main Objective\n\n")
             f.write(f"{module_data.get('mainPlot', {}).get('mainObjective', '')}\n\n")
             f.write("## Antagonist\n\n")
             f.write(f"{module_data.get('mainPlot', {}).get('antagonist', '')}\n\n")
         
-        return areas
+        return realm_components
 
 def main():
     generator = ModuleGenerator()

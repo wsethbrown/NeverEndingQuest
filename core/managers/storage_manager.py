@@ -55,7 +55,7 @@ import jsonschema
 from utils.encoding_utils import safe_json_load, safe_json_dump
 from utils.module_path_manager import ModulePathManager
 from utils.file_operations import safe_read_json, safe_write_json
-from core.validation.character_validator import AICharacterValidator
+from core.validation.mythic_character_validator import MythicCharacterValidator as AICharacterValidator
 from utils.enhanced_logger import debug, info, warning, error, set_script_name
 
 # Set script name for logging

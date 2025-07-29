@@ -1,0 +1,220 @@
+# MYTHIC BASTIONLAND NPC BUILDER REFERENCE
+
+## KNIGHT ARCHETYPES
+When creating Knight NPCs, select from the 72 official Knight types:
+
+### ONE (d6: 1)
+The True Knight, The Snare Knight, The Tourney Knight, The Bloody Knight, The Moss Knight, The War Knight, The Willow Knight, The Gilded Knight, The Saddle Knight, The Riddle Knight, The Talon Knight, The Barbed Knight
+
+### TWO (d6: 2)  
+The Trail Knight, The Amber Knight, The Horde Knight, The Emerald Knight, The Chain Knight, The Banner Knight, The Pigeon Knight, The Shield Knight, The Whip Knight, The Seal Knight, The Horn Knight, The Dove Knight
+
+### THREE (d6: 3)
+The Story Knight, The Turtle Knight, The Key Knight, The Moat Knight, The Boulder Knight, The Tankard Knight, The Owl Knight, The Hooded Knight, The Lance Knight, The Questing Knight, The Ring Knight, The Forge Knight
+
+### FOUR (d6: 4)
+The Rune Knight, The Gallows Knight, The Tome Knight, The Meteor Knight, The Gazer Knight, The Mule Knight, The Halo Knight, The Iron Knight, The Mirror Knight, The Dusk Knight, The Coin Knight, The Mock Knight
+
+### FIVE (d6: 5)
+The Mask Knight, The Bone Knight, The Salt Knight, The Violet Knight, The Cosmic Knight, The Temple Knight, The Fox Knight, The Gull Knight, The Magpie Knight, The Reliquary Knight, The Vulture Knight, The Free Knight
+
+### SIX (d6: 6)
+The Silk Knight, The Tiger Knight, The Leaf Knight, The Glass Knight, The Hive Knight, The Ghoul Knight, The Weaver Knight, The Thunder Knight, The Dust Knight, The Fanged Knight, The Pearl Knight, The Rat Knight
+
+## VIRTUE RANGES
+All characters have three Virtues ranging from 2-19:
+- **VIGOUR (VIG)**: Strong limbs, firm hands, powerful lungs
+- **CLARITY (CLA)**: Keen instinct, lucid mind, shrewd eyes
+- **SPIRIT (SPI)**: Charming tongue, iron will, fierce heart
+
+### Typical NPC Virtue Distributions:
+- **Common Folk**: 8-12 in most Virtues
+- **Skilled NPCs**: 10-14 in relevant Virtues  
+- **Notable NPCs**: 12-16 in key Virtues
+- **Exceptional NPCs**: 14-18 in primary Virtues
+- **Legendary NPCs**: 16-19 in defining Virtues
+
+## GUARD VALUES
+Guard (GD) represents skill at avoiding wounds:
+- **Civilians**: 1-3 GD
+- **Guards/Soldiers**: 3-5 GD  
+- **Veterans**: 5-7 GD
+- **Knights**: 6-12 GD
+- **Legendary Figures**: 10+ GD
+
+## EQUIPMENT TYPES
+All equipment falls into these categories:
+- **weapon**: Combat items with damage values (d6, d8, 2d6, etc.)
+- **armour**: Protective gear with armour values (A1-A4)
+- **tool**: Utility items (rope, torches, instruments, crafting tools)
+- **remedy**: Healing items that restore Virtues:
+  - **Sustenance**: Restores Vigour (VIG) - food, medical supplies (or full day of warm hospitality)
+  - **Stimulant**: Restores Clarity (CLA) - alertness aids, focus enhancers (or receiving guidance from a Seer)
+  - **Sacrament**: Restores Spirit (SPI) - ceremonial items, morale boosters (or indulging a Passion)
+- **misc**: Trade goods, valuables, trinkets
+
+### Equipment Restrictions:
+- **hefty**: Requires two hands or significant strength
+- **long**: Extended reach, may be unwieldy in close quarters
+- **slow**: Takes time to use effectively
+
+### Trade Good Rarity:
+- **common**: Widely available (bread, basic tools, simple clothes)
+- **uncommon**: Requires a specialist (fine weapons, good horses, silk)
+- **rare**: Truly treasured (masterwork items, precious gems, relics)
+
+## STATUS CONDITIONS  
+- **alive**: Normal, active status
+- **slain**: Dead, out of action
+- **mortally_wounded**: Dying, requires immediate aid
+
+## CONDITIONS
+- **fatigued**: Disadvantage on saves until rest
+- **exhausted**: Cannot take strenuous actions
+- **exposed**: Vulnerable to next attack
+
+## SCARS
+When Guard reaches 0, characters gain scars:
+- **distress**: Emotional trauma
+- **disfigurement**: Visible injury
+- **smash**: Broken bones
+- **stun**: Head injury
+- **rupture**: Internal damage
+- **gouge**: Deep cuts
+- **concussion**: Brain trauma
+- **tear**: Muscle damage
+- **agony**: Chronic pain
+- **mutilation**: Severe disfigurement
+- **doom**: Near-death experience
+- **humiliation**: Social shame
+
+## GLORY AND RANKS
+Glory determines a Knight's rank:
+- **Knight-Errant**: Glory 0-2 (Starting rank)
+- **Knight-Gallant**: Glory 3-5 (Proven in small deeds)
+- **Knight-Tenant**: Glory 6-8 (Established reputation)
+- **Knight-Dominant**: Glory 9-11 (Regional influence)
+- **Knight-Radiant**: Glory 12 (Legendary status)
+
+## THE THREE FEATS
+All Knights know these three Feats:
+1. **SMITE**: Use before melee attack roll. Gain +d12 or Blast. VIG Save or Fatigued.
+2. **FOCUS**: Use after attack roll. Free Gambit without using a die. CLA Save or Fatigued.
+3. **DENY**: Use after attack against you/ally. Discard one attack die. SPI Save or Fatigued.
+
+## TRADE SYSTEM (NO COINS)
+Mythic Bastionland uses NO currency. All trade is barter-based:
+
+### Common Trade Goods:
+- Food (bread, meat, vegetables)
+- Basic tools (hammers, nails, rope)
+- Simple clothing (wool, linen)
+- Raw materials (wood, stone, metal)
+
+### Uncommon Trade Goods:
+- Fine weapons and armor
+- Skilled craftswork
+- Good horses and livestock
+- Spices and preserved foods
+- Books and maps
+
+### Rare Trade Goods:
+- Masterwork equipment
+- Precious gems and metals
+- Ancient relics
+- Exotic materials
+- Legendary items
+
+## AGE CATEGORIES
+- **young**: One Virtue +1 (enthusiasm of youth)
+- **mature**: No modifiers (prime of life)
+- **old**: One Virtue -1, another +1 (wisdom vs. frailty)
+
+## SAMPLE NPC GENERATION
+
+When generating an NPC, use this structure:
+
+```json
+{
+  "character_role": "npc",
+  "name": "[Character Name]",
+  "knight_type": "[Knight Type if applicable]",
+  "rank": "[Knight rank based on glory]",
+  "glory": "[0-12 for Knights, 0 for non-Knights]",
+  "virtues": {
+    "vigour": "[2-19]",
+    "clarity": "[2-19]", 
+    "spirit": "[2-19]"
+  },
+  "guard": "[1-15]",
+  "status": "alive",
+  "conditions": [],
+  "scars": [],
+  "feats": ["Smite", "Focus", "Deny"],
+  "equipment": [
+    {
+      "name": "[Item name]",
+      "type": "[weapon/armour/tool/remedy/misc]",
+      "damage": "[die notation if weapon]",
+      "armour": "[number if armour]",
+      "rarity": "[common/uncommon/rare]",
+      "equipped": true/false
+    }
+  ],
+  "age_category": "[young/mature/old]",
+  "personality_traits": "[Brief description]",
+  "ideals": "[What drives them]",
+  "bonds": "[Connections]",
+  "flaws": "[Weaknesses]",
+  "background": "[Brief background story]",
+  "role": "[Function in the world]"
+}
+```
+
+## LOCATION GENERATORS
+Each Myth provides location tables for environmental details:
+
+### Location Types:
+- **dwelling**: Places where people live and work
+- **sanctum**: Sacred or special places
+- **monument**: Notable landmarks and structures
+- **hazard**: Dangerous environmental features
+- **curse**: Supernatural afflictions or cursed areas
+- **ruin**: Abandoned or destroyed locations
+
+Use these when creating locations related to specific Myths or as general inspiration.
+
+## KNIGHT GENERATORS
+Each Knight archetype includes:
+
+### Knight-Specific Tables:
+- Various thematic random tables (symbols, companions, ancient scrolls, etc.)
+- **Seer**: Each Knight is associated with a specific Seer character
+- Equipment and ability tables unique to that Knight type
+
+### Example Knight Tables:
+- Symbol tables (for Knights with symbolic items)
+- Companion tables (for Knights with animal companions)  
+- Ancient knowledge tables (for scholarly Knights)
+- Equipment condition tables (for Knights with special gear)
+
+## SEER INTEGRATION
+Every Knight archetype has an associated Seer. Seers are:
+- Powerful mystical figures with unique abilities
+- Connected to specific Knight types thematically
+- Have their own motivations and goals
+- Can serve as allies, patrons, or quest-givers
+- Possess special sight into past, present, or future
+
+When creating Knight NPCs, consider their relationship to their associated Seer.
+
+## CONTENT GENERATION NOTES
+When creating NPCs or locations:
+
+1. **For Knight NPCs**: Reference the specific Knight's tables and Seer
+2. **For Locations**: Use Myth location tables for thematic consistency
+3. **For Plot Hooks**: Leverage Seer motivations and Knight passions
+4. **For Equipment**: Use Knight property lists as inspiration
+5. **For Environmental Details**: Draw from Myth hazard/curse/ruin tables
+
+Remember: No coins, spells, or D&D mechanics. Focus on Mythic Bastionland's three-Virtue system, Guard, Glory, barter economy, and the rich thematic content from Knights and Myths.
