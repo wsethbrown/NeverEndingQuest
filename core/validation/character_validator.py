@@ -32,11 +32,23 @@ See LICENSE-APACHE file for full terms.
 #
 
 """
-AI-Powered Character Validator
+AI-Powered Character Validator - DEPRECATED FOR MYTHIC BASTIONLAND
 
-An intelligent validation system that uses AI to ensure character data integrity
-based on the 5th edition of the world's most popular role playing game rules.
+NOTICE: This module is deprecated for Mythic Bastionland.
+For Mythic Bastionland character validation, use mythic_character_validator.py instead.
 
+This legacy D&D 5e validator includes:
+- Armor Class calculations (replaced by Guard system)
+- Currency consolidation (replaced by trade goods barter system)
+- D&D-specific equipment and stats validation
+
+For Mythic Bastionland validation:
+- Knight Virtues (VIG/CLA/SPI) validation  
+- Guard system validation
+- Trade goods validation (no currency)
+- Knight-specific abilities validation
+
+Legacy D&D 5e Features (deprecated):
 Uses GPT-4.1 to intelligently validate and auto-correct:
 - Armor Class calculations
 - Inventory item categorization (prevents arrows as "miscellaneous", etc.)

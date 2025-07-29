@@ -24,17 +24,25 @@
 #
 
 """
-AI-Powered Character Effects Validator
+AI-Powered Character Effects Validator - UPDATED FOR MYTHIC BASTIONLAND
 
 An intelligent validation system that uses AI to manage character effects,
-including temporary effects, injuries, equipment bonuses, and class feature usage.
+including temporary effects, injuries, equipment bonuses, and Knight abilities.
 
 Uses GPT-4 to intelligently:
 - Categorize mixed effects into proper arrays
 - Calculate equipment effects from equipped items
 - Standardize duration formats to timestamps
-- Track class feature usage
+- Track Knight ability usage and Virtue damage
 - Expire effects based on game time
+- Manage Guard damage and recovery
+- Track trade goods and barter system effects
+
+Updated for Mythic Bastionland:
+- Replaces "class features" with "Knight abilities"
+- Uses Guard system instead of AC
+- Tracks Virtue damage (VIG/CLA/SPI) instead of ability scores
+- Manages Glory-based effects and rank-related bonuses
 
 The AI reasons through the categorization rather than following hardcoded logic,
 making it flexible and adaptable to any character structure or edge case.
@@ -88,7 +96,7 @@ class AICharacterEffectsValidator:
         # Step 3: Expire outdated temporary effects
         corrected_data = self.expire_temporary_effects(corrected_data, game_time)
         
-        # Step 4: Initialize class feature usage if needed
+        # Step 4: Initialize Knight ability usage if needed
         corrected_data = self.initialize_class_feature_usage(corrected_data)
         
         return corrected_data
@@ -139,7 +147,7 @@ class AICharacterEffectsValidator:
                         }
                         equipment_effects.append(equipment_effect)
         
-        # Add class feature effects that are always active
+        # Add Knight ability effects that are always active
         if 'classFeatures' in character_data:
             for feature in character_data['classFeatures']:
                 # Check for passive bonuses like Fighting Style: Defense
@@ -147,9 +155,9 @@ class AICharacterEffectsValidator:
                     equipment_effects.append({
                         'name': 'Fighting Style: Defense',
                         'type': 'bonus',
-                        'target': 'AC',
+                        'target': 'Guard',
                         'value': 1,
-                        'description': '+1 to AC when wearing armor',
+                        'description': '+1 to Guard when wearing armor',
                         'source': 'Class Feature'
                     })
         
@@ -160,11 +168,11 @@ class AICharacterEffectsValidator:
                     item.get('item_type') == 'armor' and 
                     item.get('armor_category') == 'shield'):
                     equipment_effects.append({
-                        'name': 'Shield AC Bonus',
+                        'name': 'Shield Guard Bonus',
                         'type': 'bonus',
-                        'target': 'AC',
+                        'target': 'Guard',
                         'value': item.get('ac_bonus', 2),
-                        'description': f"Shield provides +{item.get('ac_bonus', 2)} AC",
+                        'description': f"Shield provides +{item.get('ac_bonus', 2)} Guard",
                         'source': item['item_name']
                     })
         

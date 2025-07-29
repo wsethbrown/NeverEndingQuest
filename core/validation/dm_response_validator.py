@@ -27,7 +27,7 @@ class DMResponseValidator:
             "updateEncounter",
             "updatePlot",
             "updateTime",
-            "levelUp",
+            "advanceGlory",
             "updatePartyNPCs",
             "updatePartyTracker",
             "createNewModule",
@@ -168,7 +168,7 @@ class DMResponseValidator:
             "transitionLocation": ["newLocation"],
             "updatePlot": ["plotPointId", "newStatus"],
             "updateTime": ["timeEstimate"],
-            "levelUp": ["entityName", "newLevel"],
+            "advanceGlory": ["entityName", "gloryGained"],
             "updatePartyNPCs": ["operation", "npc"],
             "establishHub": ["hubName"],
             "storageInteraction": ["description"],
@@ -336,24 +336,27 @@ class DMResponseValidator:
                     try:
                         changes = json.loads(changes_str)
                         
-                        # Check HP updates
-                        if "hitPoints" in changes:
-                            hp = changes["hitPoints"]
-                            if not isinstance(hp, (int, float)) or hp < 0:
-                                errors.append(f"Action {i}: Hit points must be non-negative number")
+                        # Check Guard updates
+                        if "guard" in changes:
+                            guard = changes["guard"]
+                            if not isinstance(guard, (int, float)) or guard < 0:
+                                errors.append(f"Action {i}: Guard must be non-negative number")
                         
-                        # Check level updates
-                        if "level" in changes:
-                            level = changes["level"]
-                            if not isinstance(level, int) or level < 1 or level > 20:
-                                errors.append(f"Action {i}: Level must be between 1 and 20")
+                        # Check Glory updates
+                        if "glory" in changes:
+                            glory = changes["glory"]
+                            if not isinstance(glory, int) or glory < 0:
+                                errors.append(f"Action {i}: Glory must be non-negative integer")
                         
-                        # Check ability scores
-                        for ability in ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]:
-                            if ability in changes:
-                                score = changes[ability]
-                                if not isinstance(score, int) or score < 1 or score > 30:
-                                    errors.append(f"Action {i}: {ability} must be between 1 and 30")
+                        # Check Virtue scores
+                        if "virtues" in changes:
+                            virtues = changes["virtues"]
+                            if isinstance(virtues, dict):
+                                for virtue in ["vigour", "clarity", "spirit"]:
+                                    if virtue in virtues:
+                                        score = virtues[virtue]
+                                        if not isinstance(score, int) or score < 1 or score > 30:
+                                            errors.append(f"Action {i}: {virtue} must be between 1 and 30")
                     
                     except json.JSONDecodeError:
                         pass  # Already handled in parameter validation

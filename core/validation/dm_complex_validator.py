@@ -21,7 +21,7 @@ class ComplexDMValidator:
             'updateCharacterInfo': 2,  # Should have at least 2 (giving items, learning spell)
             'updateTime': 1,
             'updatePlot': 1,
-            'levelUp': 1
+            'advanceGlory': 1
         }
         
     def validate_response(self, response: Dict) -> Tuple[bool, List[str], List[str]]:
@@ -64,7 +64,7 @@ class ComplexDMValidator:
             ('tome', 'Narration should mention magical tome'),
             ('shield', 'Narration should mention Shield spell'),
             ('curse', 'Narration should mention village curse'),
-            ('level', 'Narration should mention leveling up or growth')
+            ('glory', 'Narration should mention glory advancement or growth')
         ]
         
         narration_lower = narration.lower()
@@ -153,11 +153,11 @@ class ComplexDMValidator:
             if 'village' not in desc:
                 self.warnings.append("Plot update should mention village")
                 
-        elif action_type == 'levelUp':
+        elif action_type == 'advanceGlory':
             if 'characterName' not in params:
-                self.errors.append("levelUp missing 'characterName'")
-            elif params['characterName'].lower() != 'norn':
-                self.warnings.append("Level up should be for Norn")
+                self.errors.append("advanceGlory missing 'characterName'")
+            if 'gloryGained' not in params:
+                self.errors.append("advanceGlory missing 'gloryGained'")
     
     def _check_unicode(self, obj: Any, path: str = ""):
         """Recursively check for Unicode characters"""
