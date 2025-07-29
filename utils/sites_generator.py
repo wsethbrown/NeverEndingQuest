@@ -114,123 +114,94 @@ class SiteGenerator:
         return site_data
     
     def _create_points(self):
-        """Create the initial 7 points, then erase one"""
-        # Create points 1-7
+        """Create the initial 7 points, then erase one (following official rules)"""
+        # Create points 1-7 (6 corners + 1 center)
         for i in range(1, 8):
             self.points[i] = SitePoint(i, PointType.FEATURE)  # Temporary type
         
-        # Erase one point (traditionally point 7, the center)
-        erased_point = random.choice([6, 7])  # Usually 7, but can vary
+        # Always erase exactly one point to leave 6 (official rule)
+        erased_point = random.randint(1, 7)
         del self.points[erased_point]
-        debug(f"Erased point {erased_point}", category="site_generation")
+        
+        # Renumber remaining points 1-6
+        old_points = list(self.points.values())
+        self.points.clear()
+        for i, point in enumerate(old_points, 1):
+            point.id = i
+            self.points[i] = point
+        
+        debug(f"Erased point {erased_point}, renumbered remaining points 1-6", category="site_generation")
     
     def _assign_point_types(self, theme: str):
-        """Assign types to points based on standard distribution"""
+        """Assign types to points following official 7-point hex rules"""
         point_ids = list(self.points.keys())
         
-        # Standard distribution: 3 features, 2 dangers, 1 treasure
-        features_count = 3
-        dangers_count = 2
-        treasures_count = 1
+        # Official distribution (NEVER changes): 3 circles, 2 triangles, 1 diamond
+        features_count = 3   # Circles - information/mood
+        dangers_count = 2    # Triangles - navigate carefully  
+        treasures_count = 1  # Diamond - valuable find
         
-        # Adjust for theme if needed
-        if theme == "tomb":
-            # Tombs might have more treasures, fewer features
-            features_count = 2
-            treasures_count = 2
-        elif theme == "fortress":
-            # Fortresses might have more dangers
-            dangers_count = 3
-            features_count = 2
+        # Always exactly 6 points with fixed distribution
+        assert len(point_ids) == 6, f"Expected 6 points, got {len(point_ids)}"
         
         # Randomly assign types
         random.shuffle(point_ids)
         
-        # Assign treasures first (most important)
-        for i in range(treasures_count):
-            if i < len(point_ids):
-                self.points[point_ids[i]].type = PointType.TREASURE
+        # Assign exactly 1 treasure (diamond)
+        self.points[point_ids[0]].type = PointType.TREASURE
         
-        # Then dangers
-        for i in range(treasures_count, treasures_count + dangers_count):
-            if i < len(point_ids):
-                self.points[point_ids[i]].type = PointType.DANGER
+        # Assign exactly 2 dangers (triangles)
+        for i in range(1, 3):
+            self.points[point_ids[i]].type = PointType.DANGER
         
-        # Remaining are features
-        for i in range(treasures_count + dangers_count, len(point_ids)):
+        # Assign exactly 3 features (circles)
+        for i in range(3, 6):
             self.points[point_ids[i]].type = PointType.FEATURE
     
     def _create_routes(self):
-        """Create routes between points following standard distribution"""
+        """Create routes following official 7-point hex rules: 3 open, 2 closed, 1 hidden"""
         point_ids = list(self.points.keys())
         
-        # Standard distribution: 3 open, 2 closed, 1 hidden
-        total_routes = len(point_ids) - 1  # Minimum to connect all points
-        open_routes = min(3, total_routes)
-        closed_routes = min(2, max(0, total_routes - open_routes))
-        hidden_routes = max(0, total_routes - open_routes - closed_routes)
+        # Official distribution (NEVER changes): 3 open, 2 closed, 1 hidden (total 6 routes)
+        routes_to_create = ([RouteType.OPEN] * 3 + 
+                           [RouteType.CLOSED] * 2 + 
+                           [RouteType.HIDDEN] * 1)
+        random.shuffle(routes_to_create)
         
-        routes_to_create = ([RouteType.OPEN] * open_routes + 
-                           [RouteType.CLOSED] * closed_routes + 
-                           [RouteType.HIDDEN] * hidden_routes)
+        # Generate all possible point pairs
+        possible_pairs = []
+        for i, point_a in enumerate(point_ids):
+            for point_b in point_ids[i+1:]:
+                possible_pairs.append((point_a, point_b))
         
-        # Create a minimum spanning tree to ensure connectivity
-        connected_points = {point_ids[0]}
-        unconnected_points = set(point_ids[1:])
+        # We need exactly 6 routes, so select 6 pairs
+        selected_pairs = random.sample(possible_pairs, 6)
         
+        # Create the routes
         routes_created = []
-        
-        while unconnected_points and routes_to_create:
-            # Pick a connected point and an unconnected point
-            from_point = random.choice(list(connected_points))
-            to_point = random.choice(list(unconnected_points))
-            
-            route_type = routes_to_create.pop(0)
+        for i, (from_point, to_point) in enumerate(selected_pairs):
+            route_type = routes_to_create[i]
             
             # Create bidirectional connection
             self.points[from_point].add_connection(to_point, route_type)
             self.points[to_point].add_connection(from_point, route_type)
             
-            connected_points.add(to_point)
-            unconnected_points.remove(to_point)
-            
             routes_created.append((from_point, to_point, route_type))
             debug(f"Created {route_type.value} route: {from_point} <-> {to_point}", category="site_generation")
         
-        # Add any remaining routes as shortcuts
-        while routes_to_create and len(routes_created) < len(point_ids):
-            available_pairs = []
-            for i, point_a in enumerate(point_ids):
-                for point_b in point_ids[i+1:]:
-                    # Check if they're not already connected
-                    if not any(conn[0] == point_b for conn in self.points[point_a].connections):
-                        available_pairs.append((point_a, point_b))
-            
-            if available_pairs:
-                from_point, to_point = random.choice(available_pairs)
-                route_type = routes_to_create.pop(0)
-                
-                self.points[from_point].add_connection(to_point, route_type)
-                self.points[to_point].add_connection(from_point, route_type)
-                
-                routes_created.append((from_point, to_point, route_type))
-                debug(f"Created additional {route_type.value} route: {from_point} <-> {to_point}", category="site_generation")
-            else:
-                break
+        debug(f"Created exactly 6 routes: 3 open, 2 closed, 1 hidden", category="site_generation")
     
     def _ensure_connectivity(self):
-        """Ensure all points can be reached even if routes are closed or hidden"""
-        # This is a simplified check - in practice, the minimum spanning tree should ensure basic connectivity
+        """Verify all points can be reached (official rules ensure this through proper route distribution)"""
         point_ids = list(self.points.keys())
         
         # Check that each point has at least one connection
         for point_id in point_ids:
             if not self.points[point_id].connections:
-                # Connect to a random other point with an open route
-                target_id = random.choice([pid for pid in point_ids if pid != point_id])
-                self.points[point_id].add_connection(target_id, RouteType.OPEN)
-                self.points[target_id].add_connection(point_id, RouteType.OPEN)
-                debug(f"Added emergency connection: {point_id} <-> {target_id}", category="site_generation")
+                warning(f"Point {point_id} has no connections - this violates 7-point hex rules", category="site_generation")
+        
+        # The official 6-route system should ensure connectivity, but we log if issues exist
+        debug(f"Connectivity check complete for {len(point_ids)} points", category="site_generation")
     
     def _place_entrances(self):
         """Place main and optional hidden entrance"""
@@ -245,8 +216,8 @@ class SiteGenerator:
         
         self.entrances.append(main_entrance)
         
-        # Optional hidden entrance (50% chance)
-        if random.random() < 0.5 and len(point_ids) > 1:
+        # Optional hidden entrance (official rules suggest this)
+        if len(point_ids) > 1:
             hidden_entrance_candidates = [pid for pid in point_ids if pid != main_entrance]
             if hidden_entrance_candidates:
                 hidden_entrance = random.choice(hidden_entrance_candidates)

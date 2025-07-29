@@ -81,6 +81,7 @@ import jsonschema
 from utils.module_path_manager import ModulePathManager
 from utils.file_operations import safe_write_json as save_json_safely
 from utils.enhanced_logger import debug, info, warning, error
+from utils.sites_generator import SiteGenerator
 
 # Initialize OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)

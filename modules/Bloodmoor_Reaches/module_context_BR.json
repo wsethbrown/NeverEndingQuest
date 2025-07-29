@@ -1,0 +1,78 @@
+{
+  "moduleName": "Bloodmoor Reaches",
+  "moduleType": "Mythic Bastionland Realm",
+  "systemType": "mythic_bastionland",
+  "backgroundContext": {
+    "setting": "The Bloodmoor Reaches - a windswept realm of dark moors and ancient secrets",
+    "atmosphere": "Gothic fantasy with supernatural horror and political intrigue",
+    "themes": ["The price of power", "Ancient sins", "Sacrifice and redemption", "Justice vs. mercy"],
+    "timeframe": "Medieval fantasy with clockwork and mystical elements"
+  },
+  "politicalSituation": {
+    "ruler": "Lord Commander Aldric Voss, The Iron Shepherd",
+    "government": "Military hierarchy with autonomous Holdings",
+    "conflicts": [
+      "Growing supernatural threats across the realm",
+      "Political tensions between Holdings",
+      "Resource scarcity due to supernatural blight",
+      "Ancient powers awakening from long slumber"
+    ],
+    "alliances": ["Iron Hawks elite guard", "Merchant networks", "Some earth spirits"],
+    "enemies": ["Crimson Wyrm", "Supernatural entities", "Political rebels", "Corrupted powers"]
+  },
+  "supernaturalContext": {
+    "activeMagic": "Ancient dragon magic, earth spirits, divine corruption, mechanical prophecy",
+    "mythSites": [
+      "Crimson Wyrm's resting place - blood magic and draconic dreams",
+      "Weeping Stones - giant tears and healing sorrow", 
+      "Midnight Court - spectral justice and ghostly trials",
+      "Singing Bog - musical enchantment and temporal distortion",
+      "Bone Garden - necromantic flowers and ancient battlefield",
+      "Sunken Crown - drowned royalty and kingship visions"
+    ],
+    "threats": ["Wyrm awakening", "Reality convergence points", "Divine corruption", "Ancient bindings failing"]
+  },
+  "keyNPCs": [
+    {
+      "name": "Lord Commander Aldric Voss",
+      "role": "Realm ruler",
+      "importance": "Central authority figure with mechanical arm from Wyrm battle",
+      "location": "TK001",
+      "motivations": ["Protect the realm", "Atone for past failures", "Maintain order"]
+    },
+    {
+      "name": "Dame Elena Greywatch", 
+      "role": "Supernatural sentinel",
+      "importance": "Cursed to eternal vigilance, sees threats others cannot",
+      "location": "GW001",
+      "motivations": ["Watch for convergence points", "Prevent supernatural incursions"]
+    },
+    {
+      "name": "Mayor Aldwin Toft",
+      "role": "Information broker",
+      "importance": "Controls trade networks and intelligence gathering",
+      "location": "MH001",
+      "motivations": ["Accumulate wealth and influence", "Maintain profitable trade"]
+    },
+    {
+      "name": "Sir Lysander the Golden",
+      "role": "Mysterious champion",
+      "importance": "Radiant knight with unknown past, guards ancient secrets",
+      "location": "SB001",
+      "motivations": ["Hold back the darkness", "Conceal dangerous truths"]
+    }
+  ],
+  "gameplayFocus": [
+    "Political intrigue and faction navigation",
+    "Supernatural investigation and mystery solving",
+    "Moral choices with far-reaching consequences",
+    "Combat with both human and supernatural foes",
+    "Exploration of ancient sites and forgotten powers"
+  ],
+  "expectedGloryProgression": {
+    "starting": 0,
+    "early_game": "1-2 (after gaining trust of Holdings)",
+    "mid_game": "3-4 (confronting supernatural threats)",
+    "late_game": "5+ (making realm-defining choices)"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "plotTitle": "Echoes of the Bloodmoor",
+  "mainObjective": "Investigate the growing supernatural threats across the Bloodmoor Reaches and decide the fate of ancient powers that refuse to stay buried.",
+  "plotPoints": [
+    {
+      "id": "PP001",
+      "title": "Summons to Thornspire",
+      "description": "Lord Commander Voss calls for experienced Knights to investigate supernatural incidents threatening the realm. The party must gain his trust and understand the scope of the crisis.",
+      "location": "TK001",
+      "nextPoints": ["PP002"],
+      "status": "not started",
+      "plotImpact": "Establishes the main threat and introduces key NPCs",
+      "sideQuests": [
+        {
+          "id": "SQ001",
+          "title": "The Iron Hawks' Trust",
+          "description": "Prove worthiness to Captain Blackthorne and the elite guard through a test mission.",
+          "involvedLocations": ["TK001"],
+          "status": "not started",
+          "plotImpact": "Gains military support and intelligence network"
+        }
+      ]
+    },
+    {
+      "id": "PP002", 
+      "title": "The Vigilant's Warning",
+      "description": "Dame Elena at Greywatch Tower shares her supernatural perceptions about Convergence Points and growing threats. Her warnings prove more accurate than expected.",
+      "location": "GW001",
+      "nextPoints": ["PP003"],
+      "status": "not started",
+      "plotImpact": "Reveals the supernatural nature of the crisis",
+      "sideQuests": []
+    },
+    {
+      "id": "PP003",
+      "title": "Merchants and Mysteries",
+      "description": "Millhaven's prosperity hides secrets about the mystical mills and earth spirits. Mayor Toft's information network reveals patterns in the supernatural incidents.",
+      "location": "MH001",
+      "nextPoints": ["PP004"],
+      "status": "not started",
+      "plotImpact": "Discovers the connection between myths and current events",
+      "sideQuests": []
+    },
+    {
+      "id": "PP004",
+      "title": "The Radiant Deception", 
+      "description": "The Sunward Bastion's light conceals darkness. Sir Lysander's mysterious past and the ancient sun temple beneath reveal a complex supernatural conspiracy.",
+      "location": "SB001",
+      "nextPoints": ["PP005"],
+      "status": "not started",
+      "plotImpact": "Unveils the true scope of ancient powers involved",
+      "sideQuests": []
+    },
+    {
+      "id": "PP005",
+      "title": "The Wyrm's Awakening",
+      "description": "The Crimson Wyrm stirs in its blood-soaked prison. The party must decide whether to strengthen the bindings, attempt to destroy the beast, or find another solution.",
+      "location": "CW001",
+      "nextPoints": ["PP006"],
+      "status": "not started",
+      "plotImpact": "Climactic confrontation with primal power",
+      "sideQuests": []
+    },
+    {
+      "id": "PP006",
+      "title": "The Crown's Choice",
+      "description": "Return to the realm to face the consequences of choices made. The Sunken Crown may call for a new ruler, but claiming it requires terrible sacrifice.",
+      "location": "TK001",
+      "nextPoints": [],
+      "status": "not started",
+      "plotImpact": "Resolution determines the realm's future",
+      "sideQuests": []
+    }
+  ]
+}

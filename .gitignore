@@ -263,9 +263,10 @@ modules/*/encounters/
 modules/campaign_archives/
 modules/campaign_summaries/
 
-# Player-generated modules - only Keep_of_Doom and The_Thornwood_Watch are core
+# Player-generated modules - only Keep_of_Doom, The_Thornwood_Watch, and Bloodmoor_Reaches are core
 modules/*/
 !modules/Keep_of_Doom/
 !modules/The_Thornwood_Watch/
+!modules/Bloodmoor_Reaches/
 !modules/campaign.json
 !modules/world_registry.json

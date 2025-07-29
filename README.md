@@ -49,16 +49,10 @@ NeverEndingQuest is licensed under the **Fair Source License 1.0** with comprehe
 ### 🔒 **Fair Source License (5-year term)**
 The entire codebase including AI prompts, conversation compression, and all game systems are protected.
 - ✅ **Free for personal, educational, and non-commercial use**
-- ✅ **Community contributions welcome**  
+- ✅ **Community contributions welcome**
 - ✅ **Modify and customize freely for your campaigns**
 - ❌ **Commercial competing use prohibited for 5 years**
 - ⏰ **Becomes Apache 2.0 (fully open source) after 5 years**
-
-### 📚 **D&D Content (CC-BY 4.0)**
-Game mechanics use SRD 5.2.1 content from Wizards of the Coast.
-- ✅ **SRD content used with proper attribution**
-- ⚠️ **This is unofficial Fan Content**
-- ℹ️ **Not affiliated with Wizards of the Coast**
 
 See [LICENSING.md](LICENSING.md) for complete details, FAQ, and legal information.
 
@@ -83,7 +77,7 @@ Following the defeat of the cursed knight and establishment of a stronghold, our
 
 The AI seamlessly wove this new adventure into the existing narrative, creating a level 4-6 coastal mystery featuring:
 - The storm-wracked Isle of Kharos with its cursed lighthouse
-- Three interconnected areas: Marrow's Rest village, the Abbey Ruins & Lighthouse, and the Drowned Catacombs  
+- Three interconnected areas: Marrow's Rest village, the Abbey Ruins & Lighthouse, and the Drowned Catacombs
 - A compelling plot involving a missing abbess, undead mariners, and an ancient drowned king
 - Full integration with the existing world, maintaining all character relationships and consequences
 
@@ -233,7 +227,7 @@ Result: Infinite adventure potential without hitting limits
    ```bash
    # Terminal interface
    python main.py
-   
+
    # Web interface (recommended)
    python run_web.py
    ```
@@ -255,7 +249,7 @@ Run `python main.py` - you should see the AI startup wizard begin character crea
 - **[Combat System](#combat-system)**: Turn-based combat with AI tactical decisions
 - **[Module System](#module-system)**: Self-contained adventures with seamless transitions
 
-### Advanced Features  
+### Advanced Features
 - **[NPC Party Recruitment](#npc-party-recruitment-system)**: Ask any NPC to join your party with realistic AI evaluation
 - **[Player Housing & Storage](#player-housing--hub-system)**: Establish bases and store items across the world
 - **[Module Generation](#module-generation--management)**: AI creates new adventures based on your choices
@@ -309,7 +303,7 @@ The system includes progressive adventures, both pre-built and dynamically gener
 
 **Pre-Built Modules:**
 - **The Thornwood Watch** (Level 1-2): Starting adventure defending Rangers' Outpost
-- **Keep of Doom** (Level 3-5): Intermediate adventure in Harrow's Hollow  
+- **Keep of Doom** (Level 3-5): Intermediate adventure in Harrow's Hollow
 
 **AI-Generated Modules:**
 - **Shadows of Kharos** (Level 4-6): Coastal mystery on a haunted island (generated based on player interest)
@@ -820,14 +814,14 @@ See the LICENSE and LICENSING.md files for complete details.
 
 ### SRD Attribution
 
-Game mechanics and content are derived from the System Reference Document 5.2.1 ("SRD 5.2.1") 
-by Wizards of the Coast LLC and available at https://dnd.wizards.com/resources/systems-reference-document. 
+Game mechanics and content are derived from the System Reference Document 5.2.1 ("SRD 5.2.1")
+by Wizards of the Coast LLC and available at https://dnd.wizards.com/resources/systems-reference-document.
 
-The SRD 5.2.1 is licensed under the Creative Commons Attribution 4.0 International License 
+The SRD 5.2.1 is licensed under the Creative Commons Attribution 4.0 International License
 available at https://creativecommons.org/licenses/by/4.0/legalcode.
 
-This work is not affiliated with, endorsed, sponsored, or specifically approved by 
-Wizards of the Coast LLC. This is unofficial Fan Content permitted under the 
+This work is not affiliated with, endorsed, sponsored, or specifically approved by
+Wizards of the Coast LLC. This is unofficial Fan Content permitted under the
 Creative Commons Attribution 4.0 International License and the Fair Source License.
 
 ## Recent Updates
